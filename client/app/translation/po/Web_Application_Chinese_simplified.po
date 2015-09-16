@@ -89,7 +89,6 @@ msgstr "更改"
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
-#: client/app/modal/topics/topic_join/topic.join.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-close"
@@ -129,7 +128,6 @@ msgstr "提交"
 msgid "@btn-invite"
 msgstr "邀请"
 
-#: client/app/modal/topics/topic_join/topic.join.html
 #: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr "加入"
@@ -437,10 +435,6 @@ msgstr "基本资料"
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
 msgstr "其它资料"
-
-#: client/app/modal/topics/topic_join/topic.join.html
-msgid "@common-joined"
-msgstr "成员"
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
@@ -1099,6 +1093,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 与 "
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "选择所有成员"
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "测试推播通知"
@@ -1631,10 +1629,6 @@ msgstr "星期三"
 
 #~ msgid "@input-rename"
 #~ msgstr "输入修改的名字"
-
-#~ msgid "@mention-all-confirm"
-#~ msgstr ""
-#~ "你确定要提及在 {{topicName}} 里的 {{topicParticipantsCount}} 位成员吗？"
 
 #~ msgid "@common-search"
 #~ msgstr "搜索"

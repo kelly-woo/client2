@@ -956,6 +956,9 @@ msgstr "@all（トピック内）"
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
+"「@all」機能で現在{{topicName}}に参加している"
+"{{topicParticipantsCount}}名のメンバーにスマートフォンやウェブ通知が届"
+"きます。"
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -1136,6 +1139,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結"
 "果が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あ"
 "ります"
+
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "全員選択"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
@@ -1692,11 +1699,6 @@ msgstr "水曜日"
 
 #~ msgid "@input-rename"
 #~ msgstr "名前を入力"
-
-#~ msgid "@mention-all-confirm"
-#~ msgstr ""
-#~ "「@all」機能で現在{{topicName}}に参加している{{topicParticipantsCount}}"
-#~ "名のメンバーにスマートフォンやウェブ通知が届きます。"
 
 #~ msgid "@common-search"
 #~ msgstr "検索"

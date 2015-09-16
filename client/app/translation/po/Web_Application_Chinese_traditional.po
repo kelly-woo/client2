@@ -1099,6 +1099,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 "
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "選擇所有成員"
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "測試推播通知"
@@ -1630,10 +1634,6 @@ msgstr "三"
 
 #~ msgid "@input-rename"
 #~ msgstr "輸入修改的名字"
-
-#~ msgid "@mention-all-confirm"
-#~ msgstr ""
-#~ "你確定要提及在 {{topicName}} 裡的 {{topicParticipantsCount}} 位成員嗎？"
 
 #~ msgid "@common-search"
 #~ msgstr "搜尋"

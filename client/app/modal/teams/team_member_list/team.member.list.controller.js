@@ -9,7 +9,8 @@
     .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper, memberService, modalHelper) {
+  function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper,
+                              memberService, modalHelper, jndPubSub) {
     var DISABLED_MEMBER_STATUS = 'disabled';
 
     _init();
@@ -25,6 +26,9 @@
         }
       };
 
+      $scope.getMatches = getMatches;
+
+      $scope.onTabDeselect = onTabDeselect;
       $scope.onMemberClick = onMemberClick;
       $scope.onMemberListClick = onMemberListClick;
       $scope.cancel = cancel;
@@ -40,6 +44,40 @@
      */
     function _onSetStarDone() {
       generateMemberList();
+      _updateMemberList();
+    }
+
+    /**
+     * list에서 filter된 list를 전달한다.
+     * @param {array} list
+     * @param {string} value
+     * @returns {*}
+     */
+    function getMatches(list, value) {
+      var matches;
+
+      value = value.toLowerCase();
+
+      matches = _.chain(list)
+        .filter(function (item) {
+          return item.name.toLowerCase().indexOf(value) > -1;
+        })
+        .sortBy(function (item) {
+          return [!item.isStarred, item.name];
+        })
+        .value();
+
+      if ($scope.enabledMemberList === list) {
+        $scope.enableMembersLength = matches.length;
+      } else {
+        $scope.disableMembersLength = matches.length;
+      }
+
+      return matches;
+    }
+
+    function onTabDeselect(type) {
+      jndPubSub.pub('setActiveIndex:' + type, 0);
     }
 
     /**
@@ -91,6 +129,14 @@
       $scope.enabledMemberList = enabledMemberList;
       $scope.disabledMemberList = disabledMemberList;
       $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+    }
+
+    /**
+     * update member list
+     * @private
+     */
+    function _updateMemberList() {
+      jndPubSub.pub('updateList:enabledMember');
     }
 
     /**
