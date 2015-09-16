@@ -2,7 +2,7 @@
   top: 16px;
   left: 50%;
   right: auto;
-  -webkit-transform: -webkit-translateX(-50%) !important;
+  -webkit-transform: translateX(-50%) !important;
   transform: translateX(-50%) !important;
 
   width: auto;
