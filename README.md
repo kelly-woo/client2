@@ -1,4 +1,4 @@
-# JANDI V1.1.2
+# JANDI V1.1.3
 ## Release note
 - **web_landing**
   - 없음
