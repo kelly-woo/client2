@@ -342,31 +342,60 @@ last element of list
     width: inherit;
     text-align: center;
     min-height: 5px;
+    z-index: 1000;
+	height: 52px;
+    overflow: hidden;
 }
 .lpanel-list-help-unread.ng-enter, .lpanel-list-help-unread.ng-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+  -webkit-transition:opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s;
+  transition:opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s;
 }
 
 .lpanel-list-help-unread.ng-enter,
 .lpanel-list-help-unread.ng-leave.ng-leave-active {
   opacity:0;
 }
+.lpanel-list-help-unread.below.ng-enter .btn-danger,
+.lpanel-list-help-unread.below.ng-leave.ng-leave-active .btn-danger {
+  margin-top:48px;
+}
 
 .lpanel-list-help-unread.ng-leave,
 .lpanel-list-help-unread.ng-enter.ng-enter-active {
   opacity:1;
 }
+.lpanel-list-help-unread.below.ng-leave .btn-danger,
+.lpanel-list-help-unread.below.ng-enter.ng-enter-active .btn-danger{
+  margin-top:0px;
+ }
 
 .lpanel-list-help-unread .btn-danger {
-  font-size: 13px;
-  border-radius: 20px;
+    background-color: rgba(255,255,255,1);
+    color: #d9534f !important;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(51, 51, 51, 0.25);
+    margin-top: 0px;
+    -webkit-transition: margin-top 220ms cubic-bezier(0.675, 0.290, 0.000, 0.930);
+    -moz-transition: margin-top 220ms cubic-bezier(0.675, 0.290, 0.000, 0.930);
+    transition: margin-top 220ms cubic-bezier(0.675, 0.290, 0.000, 0.930);}
 }
+
 .lpanel-list-help-unread.above {
     top: 95px;
+    background: -webkit-linear-gradient(top, rgba(249,249,249,1.00) 15%, rgba(249,249,249,0.00));
+    background: -moz-linear-gradient(bottom, rgba(249,249,249,1.00) 15%, rgba(249,249,249,0.00));
+    background: linear-gradient(to bottom, rgba(249,249,249,1.00) 15%, rgba(249,249,249,0.00));
 }
+
 .lpanel-list-help-unread.below {
-    bottom: 9px;
+    bottom: 0px;
+    background: -webkit-linear-gradient(top, rgba(249,249,249,0.00) 15%, rgba(249,249,249,1.00));
+    background: -moz-linear-gradient(bottom, rgba(249,249,249,0.00) 15%, rgba(249,249,249,1.00));
+    background: linear-gradient(to bottom, rgba(249,249,249,0.00) 15%, rgba(249,249,249,1.00));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00F9F9F9', endColorstr='#FFF9F9F9', GradientType=0)";
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00F9F9F9', endColorstr='#FFF9F9F9', GradientType=0);
 }
 
 .dummy_initial_wrap{
