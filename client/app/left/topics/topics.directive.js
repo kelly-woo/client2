@@ -19,17 +19,29 @@
     function link(scope, el, attrs) {
       var _isLocked = false;
       var _hasToUpdate = false;
+
       scope.createTopicFolder = createTopicFolder;
       scope.folderData = TopicFolderModel.getFolderData();
-      scope.$on('topic-update-lock', _onLock);
-      scope.$on('topic-folder:update', function(e, folderData) {
+
+      _init();
+
+      function _init() {
+        _attachEvents();
+        jndPubSub.updateBadgePosition();
+      }
+
+      function _attachEvents() {
+        scope.$on('topic-update-lock', _onLock);
+        scope.$on('topic-folder:update', _onFolderUpdate);
+      }
+
+      function _onFolderUpdate(angularEvent, folderData) {
         if (!_isLocked) {
           _updateFolderData(folderData);
         } else {
           _hasToUpdate = true;
         }
-      });
-
+      }
       function _onLock(angularEvent, isLocked) {
         _isLocked = isLocked;
         if (!_isLocked && _hasToUpdate) {

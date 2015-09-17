@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
 
-  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub,
+                       TopicUpdateLock) {
     return {
       restrict: 'E',
       templateUrl: 'app/left/topics/folder/topic.folder.html',
@@ -274,6 +275,7 @@
           callback();
           el.find('ul').css('height', '');
           jndPubSub.updateBadgePosition();
+          TopicUpdateLock.unlock();
         };
 
         _safeApply(function() {
@@ -284,6 +286,7 @@
         });
 
         if (hasEntity) {
+          TopicUpdateLock.lock();
           if (!scope.isOpening) {
             el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {

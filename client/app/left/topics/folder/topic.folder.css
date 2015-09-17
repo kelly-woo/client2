@@ -145,9 +145,9 @@
   white-space: nowrap;
 }
 .topic-folder-title-text input {
-  margin:0;
   padding: 0;
   width: 120px;
+  height: 20px;
   line-height:20px;
   outline: 0;
   border: 1px solid #8CC0E6;
