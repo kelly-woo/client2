@@ -284,13 +284,13 @@
        * @param {object} files
        * @returns {*}
        */
-      setFiles: function(files) {
+      setFiles: function(files, options) {
         var that = this;
 
         if (that.fileObject) {
           that.fileObject.setFiles(files);
         } else {
-          that.setFileObject(Object.create(fileObjectService).init(files));
+          that.setFileObject(Object.create(fileObjectService).init(files, options));
         }
 
         return that.fileObject.promise;

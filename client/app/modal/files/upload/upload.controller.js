@@ -83,6 +83,8 @@
         onUpload: function(file, fileInfo) {
           // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
           fileInfo.share = $scope.currentEntity.id;
+
+          fileInfo.comment = $scope.comment;
       
           // scope comment 초기화
           $scope.comment = '';

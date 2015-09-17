@@ -885,7 +885,7 @@ app.controller('leftPanelController1', function(
   $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
 
   // Callback function from file finder(navigation) for uploading a file.
-  $scope.onFileSelect = function($files) {
+  $scope.onFileSelect = function($files, options) {
     var currentEntity = currentSessionHelper.getCurrentEntity();
     var fileUploader;
 
@@ -907,7 +907,7 @@ app.controller('leftPanelController1', function(
     fileUploader.currentEntity = currentEntity;
 
     fileUploader
-      .setFiles($files)
+      .setFiles($files, options)
       .then(function() {
         if (fileUploader.fileLength() > 0) {
           $rootScope.fileUploader = fileUploader;
