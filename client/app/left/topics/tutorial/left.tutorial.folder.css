@@ -56,11 +56,13 @@
 .dropdown-title:lang(en) {
   word-break: keep-all;
 }
+.dropdown-contents:lang(en) {
+  word-break: keep-all;
+}
 .dropdown-contents {
   line-height: 21px;
   padding-left: 4px;
   padding-right: 4px;
-  word-break: keep-all;
 }
 .tutorial-popup button.close {
   outline: 0;
