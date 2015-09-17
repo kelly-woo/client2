@@ -77,8 +77,7 @@
       if (curMemberId == -1) {
         //console.log('no memberid')
         // Could not find member id that is associated with current team.
-        var main_team = $scope.configuration.main_address + 'team';
-        publicService.redirectTo(main_team);
+        publicService.redirectToMain();
         return;
       }
 
@@ -159,8 +158,7 @@
             //console.log('no memberid')
             // Could not find member id that is associated with current team.
             // Direct user to landing page!
-            var main_team = $scope.configuration.main_address + 'team';
-            publicService.redirectTo(main_team);
+            publicService.redirectToMain();
 
             storageAPIservice.removeSession();
             storageAPIservice.removeLocal();
