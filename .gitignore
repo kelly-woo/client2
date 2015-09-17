@@ -10,6 +10,6 @@ tmp
 .DS_Store
 .idea
 atlassian-ide-plugin.xml
-client/app/config.js
+client/components/config/common/config.js
 config/environments/local.team.json
 *.mo
