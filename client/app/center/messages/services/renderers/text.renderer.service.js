@@ -75,6 +75,14 @@
       var hasLinkPreview = MessageCollection.hasLinkPreview(index);
       var linkPreview = hasLinkPreview ? _templateLinkPreview({msg: msg}) : '';
       var template = isChild ? _templateChild : _template;
+
+      if (hasLinkPreview) {
+        msg.message.linkPreview.extThumbnail = {
+          hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
+        };
+        console.log(msg.message.linkPreview);
+      }
+
       return template({
         html: {
           linkPreview: linkPreview

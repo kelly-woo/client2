@@ -826,6 +826,9 @@ by ysyun 2015.2.25
   outline: 1px solid #e1e1e1;
   background-color: #000;
 }
+.attachment-content-wrapper .loading.social-image {
+  background-color: transparent;
+}
 
 .attachment-content-wrapper .social-image>a {
   display: block;

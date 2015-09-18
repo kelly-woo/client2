@@ -27,6 +27,8 @@
     that.updateLeftChatList = updateLeftChatList;
 
     that.attachMessagePreview = attachMessagePreview;
+    that.attachMessagePreviewThumbnail = attachMessagePreviewThumbnail;
+
     that.onChangeShared = onChangeShared;
 
     that.showLoading = showLoading;
@@ -110,6 +112,10 @@
      */
     function attachMessagePreview(param) {
       $rootScope.$broadcast('attachMessagePreview', param);
+    }
+
+    function attachMessagePreviewThumbnail(param) {
+      $rootScope.$broadcast('attachMessagePreviewThumbnail', param);
     }
 
     /**

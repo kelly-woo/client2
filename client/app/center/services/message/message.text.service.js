@@ -13,7 +13,6 @@
   function MessageText(centerService) {
     this.isChild = isChild;
 
-
     /**
      * 메세지가 child text 인지 여부를 반환한다.
      * @param {number} index 확인할 대상 메세지 인덱스

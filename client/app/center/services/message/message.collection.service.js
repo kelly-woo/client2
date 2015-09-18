@@ -25,7 +25,6 @@
       id: {}
     };
 
-
     this.list = [];
     this.reset = reset;
     this.at = at;
