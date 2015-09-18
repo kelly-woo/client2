@@ -6,7 +6,7 @@
     .controller('authController', authController);
 
   /* @ngInject */
-  function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
+  function authController($scope, $rootScope, $state, authAPIservice, analyticsService, language,
                           storageAPIservice, accountService, memberService, publicService,
                           HybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
@@ -60,7 +60,18 @@
           });
       }
     })();
-
+    $scope.goToSignIn = goToSignIn;
+    function goToSignIn() {
+      var languageMap = {
+        'en': 'en',
+        'ko': 'kr',
+        'zh-cn': 'zh-cn',
+        'zh-tw': 'zh-tw',
+        'ja': 'jp'
+      };
+      var lang = language.getCurrentLanguage().serverLang || 'en';
+      location.href = $scope.configuration.landing_address + languageMap[lang] + '/register';
+    }
     function getCurrentMember(memberId) {
       var account = accountService.getAccount();
 

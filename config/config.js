@@ -22,6 +22,7 @@
       base_url            : '@@base_url',
       assets_url          : '@@assets_url',
       base_protocol       : '@@base_protocol',
+      landing_address     : '@@landing_address',
       main_address        : '@@main_address',
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',

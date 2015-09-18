@@ -22,6 +22,7 @@
       base_url            : '.jandi.io:8888',
       assets_url          : 'http://local.jandi.io:9000/',
       base_protocol       : 'http://',
+      landing_address     : 'http://www.jandi.io:8888/landing/#/',
       main_address        : 'http://www.jandi.io:8888/main/#/',
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
       play_store_address  : 'https://play.google.com/store/apps/details?id=com.tosslab.jandi.app',

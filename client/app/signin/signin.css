@@ -14,6 +14,9 @@
 .jandi-navbar .navbar-toggle {
     border: 0;
 }
+.jnd-navbar-header {
+  width: 100%;
+}
 .jandi-navbar .navbar-toggle:hover,
 .jandi-navbar .navbar-toggle:focus {
     background-color: transparent;
