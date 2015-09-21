@@ -10,7 +10,8 @@
 
   /* @ngInject */
   function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
-                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog) {
+                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog,
+                       publicService) {
     _init();
 
     // First function to be called.
@@ -27,10 +28,19 @@
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);
 
+      $scope.isDisabledMember = isDisabledMember;
       $scope.hasStar = message.hasStar || false;
       $scope.isStarred = message.isStarred || false;
 
       $scope.onMessageCardClick = onMessageCardClick;
+    }
+
+    /**
+     * disabled member 여부
+     * @returns {*|boolean|*}
+     */
+    function isDisabledMember() {
+      return publicService.isDisabledMember($scope.writer);
     }
 
     /**
