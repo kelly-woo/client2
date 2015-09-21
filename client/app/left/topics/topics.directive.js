@@ -1,3 +1,6 @@
+/**
+ * @fileoverview 토픽 디렉티브
+ */
 (function() {
   'use strict';
 
@@ -23,16 +26,30 @@
 
       _init();
 
+      /**
+       * 생성자
+       * @private
+       */
       function _init() {
         _attachEvents();
         jndPubSub.updateBadgePosition();
       }
 
+      /**
+       * 이벤트 핸들러 바인딩
+       * @private
+       */
       function _attachEvents() {
         scope.$on('topic-update-lock', _onLock);
         scope.$on('topic-folder:update', _onFolderUpdate);
       }
 
+      /**
+       * 폴더 업데이트 이벤트 발생시 핸들러
+       * @param {object} angularEvent
+       * @param {object} folderData
+       * @private
+       */
       function _onFolderUpdate(angularEvent, folderData) {
         if (!_isLocked) {
           _updateFolderData(folderData);
@@ -40,6 +57,13 @@
           _hasToUpdate = true;
         }
       }
+
+      /**
+       * lock 변경 이벤트 발생시 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {boolean} isLocked
+       * @private
+       */
       function _onLock(angularEvent, isLocked) {
         _isLocked = isLocked;
         if (!_isLocked && _hasToUpdate) {
@@ -47,6 +71,11 @@
         }
       }
 
+      /**
+       * 폴더 데이터를 업데이트 한다.
+       * @param {object} folderData
+       * @private
+       */
       function _updateFolderData(folderData) {
         _hasToUpdate = false;
         JndUtil.safeApply(scope, function() {
