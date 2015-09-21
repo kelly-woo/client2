@@ -22,9 +22,10 @@
     this.modify = modify;
 
     this.merge = merge;
+
     /**
-     * folder 정보를 받아온다.
-     * @param [teamId]
+     * folder 정보를 조회한다.
+     * @param {string} [teamId] teamId. 생략시 memberService 로부터 조회한다.
      * @returns {*}
      */
     function getFolders(teamId) {
@@ -36,8 +37,8 @@
     }
 
     /**
-     *
-     * @param {string} [teamId]
+     * entities 와 폴더의 연결 정보를 조회한다.
+     * @param {string} [teamId] teamId. 생략시 memberService 로부터 조회한다.
      */
     function getEntities(teamId) {
       teamId = teamId || memberService.getTeamId();
@@ -63,6 +64,13 @@
       });
     }
 
+    /**
+     * entity 두개 이상 인자로 넘겨 폴더를 생성한다.
+     * @param {number} teamId - 팀 id
+     * @param {string} name - 폴더명
+     * @param {array} entities - 폴더로 합칠 2개 이상의 entity id
+     * @returns {*}
+     */
     function merge(teamId, name, entities) {
       return $http({
         method: 'POST',

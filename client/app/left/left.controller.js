@@ -7,7 +7,7 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock) {
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil) {
 
   /**
    * @namespace
@@ -23,7 +23,6 @@ app.controller('leftPanelController1', function(
 
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
-  var _updateLock = false;
   var _getLeftListDeferredObject;
 
   //unread 갱신시 $timeout 에 사용될 타이머
@@ -733,7 +732,7 @@ app.controller('leftPanelController1', function(
   }
 
   function enterEntity(entity) {
-    _safeApply(function() {
+    JndUtil.safeApply($scope, function() {
       $timeout.cancel(_entityEnterTimer);
       NotificationManager.set(entity, 0);
       HybridAppHelper.onAlarmCntChanged(entity.id, 0);
@@ -743,19 +742,6 @@ app.controller('leftPanelController1', function(
       jndPubSub.pub('onBeforeEntityChange', entity);
     });
     _entityEnterTimer = $timeout(_.bind(_doEnter, this, entity), 10);
-  }
-
-  /**
-   * 안전하게 apply callback 을 수행한다.
-   * @param {function} fn
-   * @private
-   */
-  function _safeApply(fn) {
-    if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-      $scope.$apply(fn);
-    } else {
-      fn();
-    }
   }
 
   function _doEnter(entity) {

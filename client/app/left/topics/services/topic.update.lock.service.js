@@ -16,6 +16,9 @@
     this.lock = lock;
     this.unlock = unlock;
 
+    /**
+     * lock 을 설정한다.
+     */
     function lock() {
       if (!_isLock) {
         _isLock = true;
@@ -23,6 +26,9 @@
       }
     }
 
+    /**
+     * lock 을 해제한다.
+     */
     function unlock() {
       if (_isLock) {
         _isLock = false;
@@ -30,6 +36,10 @@
       }
     }
 
+    /**
+     * 현재 lock 상태를 반환한다.
+     * @returns {boolean}
+     */
     function isLocked() {
       return _isLock;
     }
