@@ -194,38 +194,49 @@
      * 현재 entity(topic)를 떠난다.
      */
     function leaveCurrentEntity() {
-      var isLeaveChannel;
-      isLeaveChannel = _entityType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
-
-      if (isLeaveChannel) {
-        entityHeader.leaveEntity(_entityType, _entityId)
-          .success(function(response) {
-            // analytics
-            var entity_type = analyticsService.getEntityType(_entityType);
-
-            try {
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
-                'RESPONSE_SUCCESS': true,
-                'TOPIC_ID': parseInt(_entityId, 10)
-              });
-            } catch (e) {
-            }
-            analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
-            TopicMessageCache.remove(_entityId);
-            publicService.goToDefaultTopic();
-          })
-          .error(function(error) {
-            try {
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
-                'RESPONSE_SUCCESS': true,
-                'ERROR_CODE': error.code
-              });
-            } catch (e) {
-            }
-            alert(error.msg);
-          })
+      if (_entityType === 'privategroups') {
+        Dialog.confirm({
+          body: $filter('translate')('@ch-menu-leave-private-confirm'),
+          onClose: function(result) {
+            result === 'okay' && _leaveCurrentEntity();
+          }
+        });
+      } else {
+        _leaveCurrentEntity();
       }
+    }
 
+    /**
+     * 현재 entity(topic)을 떠나는 api를 호출한다.
+     * @private
+     */
+    function _leaveCurrentEntity() {
+      entityHeader.leaveEntity(_entityType, _entityId)
+        .success(function(response) {
+          // analytics
+          var entity_type = analyticsService.getEntityType(_entityType);
+
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': parseInt(_entityId, 10)
+            });
+          } catch (e) {
+          }
+          analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+          TopicMessageCache.remove(_entityId);
+          publicService.goToDefaultTopic();
+        })
+        .error(function(error) {
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
+              'RESPONSE_SUCCESS': true,
+              'ERROR_CODE': error.code
+            });
+          } catch (e) {
+          }
+          alert(error.msg);
+        })
     }
 
     /**
