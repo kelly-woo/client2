@@ -151,11 +151,11 @@ app.controller('leftPanelController1', function(
       var targetScrollTop = scrollTop + (top - currentBottom);
 
       if (isLast) {
+        targetScrollTop += space;
         $scope.unread.below = [];
       } else {
-        targetScrollTop += jqTarget.outerHeight() + space;
+        targetScrollTop += (jqTarget.outerHeight() + space);
       }
-
       _isBadgeMoveLocked = true;
       jqContainer.animate({
         scrollTop: targetScrollTop
@@ -181,7 +181,6 @@ app.controller('leftPanelController1', function(
       var top = _getPosUnreadAbove();
       //위 여백
       var space = 7;
-
       var targetScrollTop = scrollTop - (currentTop - top);
 
       if ($scope.unread.above.length > 1) {
