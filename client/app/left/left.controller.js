@@ -20,7 +20,7 @@ app.controller('leftPanelController1', function(
     hasBroadcast: false,
     broadcastTo: ''
   };
-
+  var that = this;
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
   var _getLeftListDeferredObject;
@@ -126,6 +126,7 @@ app.controller('leftPanelController1', function(
    */
   function _onStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     $scope.entityId = toParams.entityId;
+    TopicFolderModel.setCurrentEntity($scope.entityId);
   }
 
   /**
@@ -731,7 +732,6 @@ app.controller('leftPanelController1', function(
 
   function enterEntity(entity) {
     JndUtil.safeApply($scope, function() {
-      $timeout.cancel(_entityEnterTimer);
       NotificationManager.set(entity, 0);
       HybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
@@ -739,17 +739,19 @@ app.controller('leftPanelController1', function(
       $scope.entityId = entity.id;
       jndPubSub.pub('onBeforeEntityChange', entity);
     });
-    _entityEnterTimer = $timeout(_.bind(_doEnter, this, entity), 10);
+    $timeout.cancel(_entityEnterTimer);
+    _entityEnterTimer = $timeout(_.bind(_doEnter, that, entity), 10);
   }
 
   function _doEnter(entity) {
     var entityType = entity.type;
     var entityId = entity.id;
     var currentEntity = currentSessionHelper.getCurrentEntity();
-    if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+    //fixme: 더블 클릭 시 오류를 유발하기 때문에 주석처리 함. 주석처리로 인해 다른 문제가 발생한다면 해당 로직 검토해야함.
+    //if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
+    //  publicService.goToDefaultTopic();
+    //  return;
+    //}
     if (currentEntity.id === entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
