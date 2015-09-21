@@ -264,10 +264,9 @@
         var hasEntity = !!scope.folder.entityList.length;
         var callback = function() {
           _safeApply(function() {
+            scope.alarmCnt = _getTotalAlarmCnt();
             scope.isOpened = scope.isOpening;
             scope.isShowBadge = !scope.isOpened;
-
-            scope.alarmCnt = _getTotalAlarmCnt();
             TopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
           });
         };
