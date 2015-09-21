@@ -1,7 +1,10 @@
-# JANDI - Client
-
+# JANDI V1.1.2
 ## Release note
-- *Center*
-  - JND-3447 메세지에 {{텍스트}} 와 같이 입력시 Angular parse 오류 수정
-  - 파일 삭제 시 파일 코멘트 메세지 에는 삭제결과 반영 안되던 현상 수정 
-  
+- **web_landing**
+  - 없음
+- **web_client**
+  - file upload modal에서 comment 입력 되도록 수정
+  - center chat에 이미지 붙여넣기시 file upload 가능 하도록 수정
+- **web_admin**
+  - 없음
+

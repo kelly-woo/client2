@@ -7,8 +7,9 @@
   angular
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
-
-  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub, JndUtil) {
+  
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub, JndUtil,
+                       TopicUpdateLock) {
     return {
       restrict: 'E',
       templateUrl: 'app/left/topics/folder/topic.folder.html',
@@ -263,10 +264,9 @@
         var hasEntity = !!scope.folder.entityList.length;
         var callback = function() {
           JndUtil.safeApply(scope, function() {
+            scope.alarmCnt = _getTotalAlarmCnt();
             scope.isOpened = scope.isOpening;
             scope.isShowBadge = !scope.isOpened;
-
-            scope.alarmCnt = _getTotalAlarmCnt();
             TopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
           });
         };
@@ -274,6 +274,7 @@
           callback();
           el.find('ul').css('height', '');
           jndPubSub.updateBadgePosition();
+          TopicUpdateLock.unlock();
         };
 
         JndUtil.safeApply(scope, function() {
@@ -284,6 +285,7 @@
         });
 
         if (hasEntity) {
+          TopicUpdateLock.lock();
           if (!scope.isOpening) {
             el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {

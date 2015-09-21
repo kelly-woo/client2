@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
-  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
   NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil) {
 
@@ -150,11 +150,11 @@ app.controller('leftPanelController1', function(
       var targetScrollTop = scrollTop + (top - currentBottom);
 
       if (isLast) {
+        targetScrollTop += space;
         $scope.unread.below = [];
       } else {
-        targetScrollTop += jqTarget.outerHeight() + space;
+        targetScrollTop += (jqTarget.outerHeight() + space);
       }
-
       _isBadgeMoveLocked = true;
       jqContainer.animate({
         scrollTop: targetScrollTop
@@ -180,7 +180,6 @@ app.controller('leftPanelController1', function(
       var top = _getPosUnreadAbove();
       //위 여백
       var space = 7;
-
       var targetScrollTop = scrollTop - (currentTop - top);
 
       if ($scope.unread.above.length > 1) {
@@ -696,20 +695,19 @@ app.controller('leftPanelController1', function(
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
   });
 
-  $scope.openModal = function(selector) {
+  $scope.openModal = function(selector, options) {
     if (selector == 'join') {
       modalHelper.openTopicJoinModal($scope);
     } else if (selector == 'channel') {
       modalHelper.openTopicCreateModal($scope);
     } else if (selector == 'file') {
-      modalHelper.openFileUploadModal($scope);
+      modalHelper.openFileUploadModal($scope, options);
     } else if (selector == 'topic') {
       modalHelper.openTopicCreateModal($scope);
     }
   };
 
   $rootScope.$on('onUserClick', function(event, user) {
-    console.log('root onUserClick');
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
@@ -868,16 +866,52 @@ app.controller('leftPanelController1', function(
   $scope.$on('onFileSelect', function(event, files){
     $scope.onFileSelect(files);
   });
+
+  $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
+
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files, options) {
-    var fileObject = Object.create(fileObjectService).init($files, options);
-    fileObject.promise.then(function() {
-      if (fileObject.size() > 0) {
-        $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-        $scope.fileObject = fileObject;
-        $scope.openModal('file');
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+    var fileUploader;
+
+    if ($rootScope.fileUploader) {
+      fileUploader = $rootScope.fileUploader;
+
+      if (fileUploader.currentEntity.id !== currentEntity.id) {
+        // 다른 topic에서 upload를 시도함
+        $rootScope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+        fileAPIservice.clearCurUpload();
+        delete $rootScope.fileUploader;
+
+        fileUploader = undefined;
       }
-    });
+    }
+
+    fileUploader = fileUploader || FilesUpload.createInstance();
+    fileUploader.currentEntity = currentEntity;
+
+    fileUploader
+      .setFiles($files, options)
+      .then(function() {
+        if (fileUploader.fileLength() > 0) {
+          $rootScope.fileUploader = fileUploader;
+          $scope.openModal('file', {
+            fileUploader: fileUploader,
+            onEnd: function () {
+              // hide progress bar
+              $timeout(function () {
+                $('.file-upload-progress-container').css('opacity', 0);
+                // opacity 0된 후 clear upload info
+                $timeout(function () {
+                  fileAPIservice.clearCurUpload();
+                  delete $rootScope.fileUploader;
+                }, 500);
+              }, 2000);
+            }
+          });
+        }
+      });
   };
 
   $scope.onFileUploadAbortClick = function() {
@@ -891,6 +925,7 @@ app.controller('leftPanelController1', function(
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
         fileAPIservice.clearCurUpload();
+        delete $rootScope.fileUploader;
       }
     )
   };
@@ -1002,5 +1037,29 @@ app.controller('leftPanelController1', function(
       }
     }
   }
-});
 
+  /**
+   * 모든 file upload를 취소한다.
+   * @private
+   */
+  function _fileUploadAllClear() {
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+
+    if ($rootScope.fileUploader) {
+      if ($rootScope.fileUploader.currentEntity.id === currentEntity.id) {
+        $rootScope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+
+        // hide progress bar
+        $timeout(function () {
+          $('.file-upload-progress-container').css('opacity', 0);
+          // opacity 0된 후 clear upload info
+          $timeout(function () {
+            fileAPIservice.clearCurUpload();
+            delete $rootScope.fileUploader;
+          }, 500);
+        }, 2000);
+      }
+    }
+  }
+});
