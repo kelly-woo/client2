@@ -799,7 +799,6 @@ app.controller('leftPanelController1', function(
             });
           } catch (e) {
           }
-
         });
     }
     else {
@@ -826,7 +825,6 @@ app.controller('leftPanelController1', function(
 
           }
         });
-
     }
   };
 
@@ -887,6 +885,8 @@ app.controller('leftPanelController1', function(
   $scope.onFileSelect = function($files, options) {
     var currentEntity = currentSessionHelper.getCurrentEntity();
     var fileUploader;
+    var jqMessageInput;
+    var messageInputValue;
 
     if ($rootScope.fileUploader) {
       fileUploader = $rootScope.fileUploader;
@@ -904,6 +904,19 @@ app.controller('leftPanelController1', function(
 
     fileUploader = fileUploader || FilesUpload.createInstance();
     fileUploader.currentEntity = currentEntity;
+
+    if (options == null) {
+      jqMessageInput = $('#message-input');
+      messageInputValue = jqMessageInput.val();
+      jqMessageInput.val('').trigger('change');
+
+      options = {
+        createFileObject: function(file) {
+          file.comment = messageInputValue;
+          return file;
+        }
+      };
+    }
 
     fileUploader
       .setFiles($files, options)

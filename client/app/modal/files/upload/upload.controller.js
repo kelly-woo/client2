@@ -7,9 +7,8 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, modalHelper, currentSessionHelper,
-                               fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper,
-                               TopicFolderModel, fileUplodOptions) {
+  function FileUploadModalCtrl($rootScope, $scope, $timeout, modalHelper, currentSessionHelper, analyticsService,
+                               fileAPIservice, ImagesHelper, AnalyticsHelper, TopicFolderModel, fileUplodOptions) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var jqProgressBar;
     var fileUploader;
@@ -186,6 +185,8 @@
         // upload confirm end
         onConfirmEnd: function() {
           modalHelper.closeModal();
+
+          delete $rootScope.fileUploader;
         },
         // upload sequence end
         onEnd: fileUplodOptions.onEnd
