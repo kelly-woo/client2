@@ -46,7 +46,7 @@
 
     var prevLoadedItems = [];
 
-    var _jqLoading = Loading.getSimpleTemplate();
+    var _jqLoading = Loading.getElement();
 
     that.init = init;
     that.close = close;

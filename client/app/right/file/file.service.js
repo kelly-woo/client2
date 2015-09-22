@@ -24,9 +24,7 @@
         data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
-        if (data.hasPreview) {
-          data.imageUrl = $filter('getFileUrl')(fileData.content.extraInfo.smallThumbnailUrl);
-        } else {
+        if (!data.hasPreview) {
           data.icon = $filter('fileIcon')(fileData.content);
         }
 
@@ -53,9 +51,7 @@
         data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
 
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
-        if (data.hasPreview) {
-          data.imageUrl = $filter('getFileUrl')(fileData.message.content.extraInfo.smallThumbnailUrl);
-        } else {
+        if (!data.hasPreview) {
           data.icon = $filter('fileIcon')(fileData.message.content);
         }
 

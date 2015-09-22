@@ -9,8 +9,8 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, memberService, centerService, RendererUtil,
-                        fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
+  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService,
+                        memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
 
     this.render = render;
@@ -47,37 +47,9 @@
         _onClickFileDownload(msg);
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
-      } else if (jqTarget.closest('._fileSmallThumb').length) {
-        _onClickSmallThumb(msg, jqTarget);
       } else if (jqTarget.closest('._fileExpand').length) {
         _onClickExpand(msg, jqTarget);
-      } else if (jqTarget.closest('._fileLargeThumb').length) {
-        _onClickLargeThumb(msg, jqTarget);
       }
-    }
-
-    /**
-     * 작은 thumbnail click 이벤트 핸들러
-     * @param {object} msg
-     * @param {object} jqTarget
-     * @private
-     */
-    function _onClickSmallThumb(msg, jqTarget) {
-      jqTarget.closest('._fileSmallThumb').hide();
-      jqTarget.closest('.preview-container').removeClass('pull-left');
-      $('#' + msg.id).find('._fileLargeThumb').show();
-    }
-
-    /**
-     * 큰 thumbnail click 이벤트 핸들러
-     * @param {object} msg
-     * @param {object} jqTarget
-     * @private
-     */
-    function _onClickLargeThumb(msg, jqTarget) {
-      jqTarget.closest('._fileLargeThumb').hide();
-      jqTarget.closest('.preview-container').addClass('pull-left');
-      $('#' + msg.id).find('._fileSmallThumb').show();
     }
 
     /**
@@ -141,6 +113,7 @@
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
       var isArchived = (msg.message.status === 'archived');
+      var hasPreview = $filter('hasPreview')(content);
 
       return _template({
         css: {
@@ -153,11 +126,10 @@
         },
         file: {
           icon: $filter('fileIcon')(content),
-          imageUrl: {
-            small: _getSmallThumbnailUrl(msg),
-            large: _getLargeThumbnailUrl(msg)
-          },
-          hasPreview: $filter('hasPreview')(content),
+          loading: Loading.getTemplate(),
+          mustPreview: $filter('mustPreview')(content),
+          hasPreview: hasPreview,
+          imageUrl: _getMediumThumbnailUrl(content, hasPreview),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
@@ -203,18 +175,11 @@
      * @returns {*}
      * @private
      */
-    function _getSmallThumbnailUrl(msg) {
-      var content = _getFeedbackContent(msg);
-      var hasPreview = $filter('hasPreview')(content);
+    function _getMediumThumbnailUrl(content, hasPreview) {
+      //var content = _getFeedbackContent(msg);
+      //var hasPreview = $filter('hasPreview')(content);
 
-      return hasPreview ? $filter('getFileUrl')(content.extraInfo.smallThumbnailUrl) : '';
-    }
-
-    function _getLargeThumbnailUrl(msg) {
-      var content = _getFeedbackContent(msg);
-      var hasPreview = $filter('hasPreview')(content);
-
-      return hasPreview ? $filter('getFileUrl')(content.extraInfo.largeThumbnailUrl) : '';
+      return hasPreview ? $filter('getFileUrl')(content.extraInfo.mediumThumbnailUrl) : '';
     }
 
     /**
