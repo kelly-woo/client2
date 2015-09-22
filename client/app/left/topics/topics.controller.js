@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 토픽 리스트 컨트롤러
+ * @author Young Park <young.park@tosslab.com>
+ */
 (function() {
   'use strict';
 
