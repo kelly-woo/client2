@@ -12,7 +12,7 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog) {
+                            Dialog, JndUtil) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
@@ -153,7 +153,7 @@
      */
     function kickOut(userId) {
       Dialog.confirm({
-        body: '진짜 킥아웃?',
+        body: $filter('translate')('@confirm-kickout'),
         onClose: function(result) {
           if (result === 'okay') {
             entityHeader.kickOut(_entityId ,userId)
@@ -169,9 +169,7 @@
      * @private
      */
     function _onKickOutFailed(response) {
-      Dialog.alert({
-        body: 'error :' + response.code + '\n' + response.msg
-      });
+      JndUtil.alertUnknownError(response);
     }
 
     /**
