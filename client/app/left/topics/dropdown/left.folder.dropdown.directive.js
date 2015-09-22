@@ -1,3 +1,6 @@
+/**
+ * @fileoverview 토픽 폴더 우측 버튼 드랍다운 디렉티브
+ */
 (function() {
   'use strict';
 
@@ -56,6 +59,11 @@
         el.off('click', _onClick);
       }
 
+      /**
+       * click 이벤트 핸들러
+       * @param {event} clickEvent
+       * @private
+       */
       function _onClick(clickEvent) {
         clickEvent.stopPropagation();
         jndPubSub.pub('show:left-folder-dropdown', {
