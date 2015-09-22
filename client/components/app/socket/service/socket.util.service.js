@@ -13,6 +13,7 @@
 
 
     this.isCurrentEntity = isCurrentEntity;
+    this.isChatType = isChatType;
     this.getActionOwner = getActionOwner;
     this.getRoom = getRoom;
 
@@ -42,7 +43,7 @@
       var roomId = room.id;
       var currentEntity = currentSessionHelper.getCurrentEntity();
 
-      if (room.type === _chatEntity) {
+      if (isChatType(room)) {
         // dm일 경우
         if (room.extWriterId) {
           // 방에 작성자 정보가 있을 경우
@@ -53,6 +54,20 @@
       } else {
         return roomId === currentEntity.id;
       }
+    }
+
+    /**
+     * 'chat' type인지 아닌지 확인한다.
+     * @param {object} room - room object inside of socket event parameter
+     * @returns {*}
+     */
+    function isChatType(room) {
+      if (room.room) {
+        // parameter가 방이 아니라 소켓이벤트였을 경우
+        return isChatType(room.room);
+      }
+
+      return room.type === _chatEntity;
     }
 
     /**
@@ -95,7 +110,7 @@
      * @private
      */
     function getRoom(room) {
-      if (room.type === _chatEntity) {
+      if (isChatType(room)) {
         return entityAPIservice.getEntityByEntityId(room.id);
       }
       return entityAPIservice.getEntityById(room.type, room.id);
