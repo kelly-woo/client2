@@ -73,9 +73,7 @@
       var prefix = $location.host().split('.')[0];
 
       if (configuration.name == 'local') {
-        if (prefix == 'local') {
-          prefix = 'tosslab';
-        }
+        prefix = configuration.team_name;
       }
 
       _.forEach(memberships, function(membership, index) {
