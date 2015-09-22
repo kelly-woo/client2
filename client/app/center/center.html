@@ -90,12 +90,17 @@
       <!--&lt;!&ndash;  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. &ndash;&gt;-->
       <!--<center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>-->
     <!--</div>-->
-
+    <div class="msgs__loading initial opac-zero"
+         ng-show="!isInitialLoadingCompleted && msgLoadStatus.loading && msgLoadStatus.isShowWheel"
+        ng-class="{'opac-in-fast' : msgLoadStatus.isShowWheel}">
+      <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
+    </div>
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <!-- 로딩 영역 -->
       <div ng-show="hasOldMessageToLoad" class="msgs__loading load-more-top">
         <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
       </div>
+
       <center-messages-directive center-event-delegater></center-messages-directive>
       <!-- unsent Message -->
       <div ng-if="sendingMessages.length"
