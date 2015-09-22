@@ -57,7 +57,7 @@
             permission: PUBLIC_FILE,
         
             // file upload시 공유 대화방 수정 가능함.
-            roomId: $scope.currentEntity.entityId || $scope.currentEntity.id,
+            share: $scope.currentEntity.entityId || $scope.currentEntity.id,
             // file upload시 comment 수정 가능함.
             comment: $scope.comment
           };
@@ -82,7 +82,7 @@
         // 하나의 file upload 시작
         onUpload: function(file, fileInfo) {
           // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
-          fileInfo.roomId = $scope.currentEntity.entityId || $scope.currentEntity.id;
+          fileInfo.share = $scope.currentEntity.entityId || $scope.currentEntity.id;
           fileInfo.comment = $scope.comment;
 
           _setMentions(fileInfo);
@@ -286,13 +286,13 @@
       var mentionMap;
       var mention;
 
-      if (room = EntityMapManager.get('joined', fileInfo.roomId)) {
+      if (room = EntityMapManager.get('joined', fileInfo.share)) {
         members = entityAPIservice.getMemberList(room);
 
         if (members && members.length > 0) {
           mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
           mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-          if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
+          if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
             fileInfo.mentions = mention.mentions;
           }
         }
