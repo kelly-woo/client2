@@ -425,13 +425,9 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
     + this.escapeExpression(this.lambda(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1), depth0))
     + "</span>\n      </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
+    var stack1;
 
-  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n\n  <div class=\"attachment-content\">\n    "
-    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\n    "
-    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\n"
+  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n\n  <div class=\"attachment-content\">\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.hasSuccess : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")

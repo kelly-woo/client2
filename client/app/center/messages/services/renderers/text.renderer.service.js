@@ -72,20 +72,11 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var isChild = MessageCollection.isChildText(index);
-      var hasLinkPreview = MessageCollection.hasLinkPreview(index);
-      var linkPreview = hasLinkPreview ? _templateLinkPreview({msg: msg}) : '';
       var template = isChild ? _templateChild : _template;
-
-      if (hasLinkPreview) {
-        msg.message.linkPreview.extThumbnail = {
-          hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
-        };
-        console.log(msg.message.linkPreview);
-      }
 
       return template({
         html: {
-          linkPreview: linkPreview
+          linkPreview: _getLinkPreview(msg, index)
         },
         css: {
           star: RendererUtil.getStarCssClass(msg),
@@ -98,5 +89,26 @@
         msg: msg
       });
     }
+
+    /**
+     * msg에 보여줄 link preview가 있으면 보여주고 없으면 안보여주는 template을 리턴한다.
+     * @param {object} msg - message object
+     * @param {number} index - index to look up
+     * @returns {string}
+     * @private
+     */
+    function _getLinkPreview(msg, index) {
+      var returnValue = '';
+
+      if (MessageCollection.hasLinkPreview(index)) {
+        msg.message.linkPreview.extThumbnail = {
+          hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
+        };
+        returnValue = _templateLinkPreview({msg: msg});
+      }
+
+      return returnValue;
+    }
+
   }
 })();
