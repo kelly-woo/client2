@@ -11,6 +11,8 @@
                           HybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
+    $scope.goToSignIn = goToSignIn;
+
     jndWebSocket.disconnect();
 
 
@@ -60,7 +62,10 @@
           });
       }
     })();
-    $scope.goToSignIn = goToSignIn;
+
+    /**
+     * language 설정에 맞추어 sign in 페이지로 이동한다.
+     */
     function goToSignIn() {
       var languageMap = {
         'en': 'en',
@@ -72,6 +77,7 @@
       var lang = language.getCurrentLanguage().serverLang || 'en';
       location.href = $scope.configuration.landing_address + languageMap[lang] + '/register';
     }
+
     function getCurrentMember(memberId) {
       var account = accountService.getAccount();
 
