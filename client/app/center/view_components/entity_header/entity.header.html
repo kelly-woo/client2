@@ -131,7 +131,8 @@
             <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
               <span class="overflow-ellipsis">{{userId | getName}}</span>
           </a>
-          <span class="kick-item-icon pull-right">
+          <span ng-if="hasAuth && userId !== myId" class="kick-item-icon pull-right"
+              ng-click="kickOut(userId);">
           	<i class="icon-sign-out"></i>
           </span>
         </li>

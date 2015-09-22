@@ -35,7 +35,7 @@
     $scope.onCurrentChatLeave = leaveCurrentChat;
 
     $scope.onFileListClick = onFileListClick;
-
+    $scope.kickOut = kickOut;
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
 
@@ -148,12 +148,41 @@
     }
 
     /**
+     * 사용자를 kickout 한다.
+     * @param {number} userId
+     */
+    function kickOut(userId) {
+      Dialog.confirm({
+        body: '진짜 킥아웃?',
+        onClose: function(result) {
+          if (result === 'okay') {
+            entityHeader.kickOut(_entityId ,userId)
+              .error(_onKickOutFailed);
+          }
+        }
+      });
+    }
+
+    /**
+     * 강퇴 실패시 이벤트 핸들러
+     * @param {object} response
+     * @private
+     */
+    function _onKickOutFailed(response) {
+      Dialog.alert({
+        body: 'error :' + response.code + '\n' + response.msg
+      });
+    }
+
+    /**
      * Check ownership of current entity whether I'm an owner of current entity or not.
      * Set updated value to $scope.isOwner variable.
      */
     function _checkOwnership() {
+      $scope.myId = memberService.getMemberId();
       $scope.isOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
       $scope.isAdmin = memberService.isAdmin();
+      $scope.hasAuth = $scope.isOwner || $scope.isAdmin;
     }
 
     /**
