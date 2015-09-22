@@ -170,14 +170,14 @@
         //  // 2명이상의 member 전체에게 mention 하는 all을 제공함
 
         mentionList = _.sortBy(mentionList, 'extSearchName');
-        if (_.isNumber(entityId)) {
+        if (entityId != null) {
           mentionList.unshift({
             // mention item 출력용 text
             name: that.MENTION_ALL_ITEM_TEXT,
             // mention target에 출력용 text
             extViewName : '[@' + that.MENTION_ALL + ']',
             // mention search text
-            extSearchName: 'topic',
+            extSearchName: 'all',
             u_photoThumbnailUrl: {
               smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
             },
