@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
-                    fileAPIservice, modalHelper, FileData, memberService, Dialog) {
+                    fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
 
     _init();
 
@@ -39,9 +39,20 @@
       $scope.isFileOwner = $filter('isFileWriter')(file);
       $scope.isAdmin = memberService.isAdmin();
 
+      $scope.loadingBar = Loading.getTemplate();
       if (file.contentFileUrl) {
         _setFileDownLoad(file.isIntegrateFile, file.contentTitle, file.contentFileUrl);
       }
+
+      $scope.$on('createdThumbnailImage', function($event, socketData) {
+        var message = socketData.data.message;
+        if ($scope.file.id === message.id) {
+          $scope.$apply(function() {
+            $scope.file.hasPreview = true;
+            $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
+          });
+        }
+      });
     }
 
     /**
