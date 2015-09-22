@@ -7,8 +7,9 @@
   angular
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
-
-  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
+  
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub, JndUtil,
+                       TopicUpdateLock) {
     return {
       restrict: 'E',
       templateUrl: 'app/left/topics/folder/topic.folder.html',
@@ -106,7 +107,7 @@
        * @private
        */
       function _onBadgeCountChange(angularEvent, data) {
-        _safeApply(function() {
+        JndUtil.safeApply(scope, function() {
           scope.alarmCnt = _getTotalAlarmCnt();
           scope.isShowBadge = !scope.isOpened;
         });
@@ -152,7 +153,7 @@
         if (_draggingTopicScope && _isFolderInsertable()) {
           el.addClass('hover');
         }
-        _safeApply(function() {
+        JndUtil.safeApply(scope, function() {
           scope.isShowBadge = false;
         });
       }
@@ -177,7 +178,7 @@
         if (_draggingTopicScope) {
           el.removeClass('hover');
         }
-        _safeApply(function() {
+        JndUtil.safeApply(scope, function() {
           scope.isShowBadge = true;
         });
       }
@@ -262,11 +263,10 @@
       function collapse() {
         var hasEntity = !!scope.folder.entityList.length;
         var callback = function() {
-          _safeApply(function() {
+          JndUtil.safeApply(scope, function() {
+            scope.alarmCnt = _getTotalAlarmCnt();
             scope.isOpened = scope.isOpening;
             scope.isShowBadge = !scope.isOpened;
-
-            scope.alarmCnt = _getTotalAlarmCnt();
             TopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
           });
         };
@@ -274,9 +274,10 @@
           callback();
           el.find('ul').css('height', '');
           jndPubSub.updateBadgePosition();
+          TopicUpdateLock.unlock();
         };
 
-        _safeApply(function() {
+        JndUtil.safeApply(scope, function() {
           if (scope.isOpening) {
             scope.isShowBadge = false;
           }
@@ -284,6 +285,7 @@
         });
 
         if (hasEntity) {
+          TopicUpdateLock.lock();
           if (!scope.isOpening) {
             el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {
@@ -291,19 +293,6 @@
           }
         } else {
           callback();
-        }
-      }
-
-      /**
-       * 안전하게 apply callback 을 수행한다.
-       * @param {function} fn
-       * @private
-       */
-      function _safeApply(fn) {
-        if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
-          scope.$apply(fn);
-        } else {
-          fn();
         }
       }
     }

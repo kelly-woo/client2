@@ -8,7 +8,8 @@
   angular
     .module('config.common', [])
     .constant('configuration', {
-      version             : '1.1.0',
+      version             : '1.1.4-alpha.0',
+      team_name           : 'tosslab',
       name                : 'local',
       api_address         : 'http://i1.jandi.io:8888/',
       socket_address      : 'http://ws.jandi.io:8888/',

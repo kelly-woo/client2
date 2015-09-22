@@ -637,6 +637,9 @@ module.exports = function (grunt) {
               json: grunt.file.readJSON('./config/environments/local.json')
             },
             {
+              json: grunt.file.readJSON('./config/environments/local.team.json')
+            },
+            {
               json: {
                 version: '<%=pkg.version%>'
               }

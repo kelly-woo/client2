@@ -86,7 +86,6 @@
 
     /**
      * 생성 API 실패시 핸들러
-     * TODO: 로직 완성 해야함
      * @param {object} response - response 데이터
      * @private
      */
@@ -95,7 +94,6 @@
         Dialog.alert({
           body: $filter('translate')('@folder-name-taken')
         });
-        //alert($filter('translate')('@folder-name-taken'));
       } else {
         //todo: general error
         _alertCommonError(response);
@@ -119,6 +117,11 @@
       });
     }
 
+    /**
+     * 일반적인 오류 발생 시 Dialog Alert 을 노출한다.
+     * @param {object} response
+     * @private
+     */
     function _alertCommonError(response) {
       Dialog.alert({
         body: 'error :' + response.code + '\n' + response.msg
@@ -167,15 +170,10 @@
     function modify(folderId, updateItems) {
       var seq = updateItems.seq;
       var name = updateItems.name;
-      var targetFolder;
+      var targetFolder = _raw.folderMap[folderId];
       var teamId = memberService.getTeamId();
-      _.forEach(_raw.folderList, function(folder) {
-        if (folder.id === folderId) {
-          targetFolder = folder;
-          return false;
-        }
-      });
 
+      //이름 변경건이 있을 경우.
       if (name) {
         if (targetFolder.name === name) {
           delete updateItems.name;
@@ -184,16 +182,18 @@
         }
       }
 
+      //sequence 변경건이 있을 경우.
       if (seq) {
         seq = parseInt(seq, 10) - 0.5;
-
         targetFolder.seq = targetFolder.seq < seq ? seq + 1 : seq;
         _raw.folderList = _.sortBy(_raw.folderList, 'seq');
         _.forEach(_raw.folderList, function(folder, index) {
           folder.seq = index + 1;
         });
       }
+
       update();
+
       if (!_.isEmpty(updateItems)) {
         TopicFolderAPI.modify(teamId, folderId, updateItems)
           .error(_onModifyError);
@@ -232,7 +232,7 @@
         if (entity.folderId === folderId) {
           tempEntity = EntityMapManager.get('total', entity.roomId);
           if (tempEntity) {
-            tempEntity.extIsCurrent = (tempEntity.id === currentEntity.id);
+            tempEntity.extIsCurrent = (+tempEntity.id === +currentEntity.id);
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
             entityList.push(tempEntity);
@@ -280,6 +280,10 @@
       return _folderData;
     }
 
+    /**
+     * folder 관련 정보를 모두 조회한다.
+     * @returns {Promise}
+     */
     function load() {
       return $q.all([
         TopicFolderAPI.getFolders().then(function(result) {
@@ -293,24 +297,41 @@
       ]);
     }
 
+    /**
+     * folder 의 id 로 mapping 된 정보를 반환한다.
+     * @returns {_raw.folderMap|{}}
+     */
     function getFolderMap() {
       return _raw.folderMap;
     }
+
+    /**
+     * entity 의 id 로 mapping 된 정보를 반환한다.
+     * @returns {_raw.entityMap|{}}
+     */
     function getEntityMap() {
       return _raw.entityMap;
     }
-    
+
+    /**
+     * folder 관련 정보를 조회하고 view 에 반영한다.
+     * @returns {*}
+     */
     function reload() {
       return load().then(function() {
         update();
       });
     }
 
+    /**
+     * currentEntity 값을 설정한다.
+     * @param {number} entityId
+     */
     function setCurrentEntity(entityId) {
       _.forEach(_folderList, function(folder) {
         var isCurrent = false;
         _.forEach(folder.entityList, function(entity) {
-          entity.extIsCurrent = (entity.id === entityId);
+          entity.extIsCurrent = (+entity.id === +entityId);
           if (entity.extIsCurrent) {
             isCurrent = true;
           }
@@ -319,17 +340,12 @@
       });
     }
 
+    /**
+     * raw 데이터를 기반으로 view 에 반영하기 위한 데이터를 가공한다.
+     */
     function update() {
       var currentEntity = currentSessionHelper.getCurrentEntity();
-
       _folderList = _.sortBy(_raw.folderList, 'seq');
-
-      //fixme: 서버에서 seq 1 부터 주는 작업 완료될 경우 아래 map 과업 제거해야함.
-      _folderList = _.map(_folderList, function(folder, index) {
-        folder.seq = index + 1;
-        return folder;
-      });
-
 
       _.forEach(_folderList, function(folder) {
         folder.entityList = _getEntityList(folder.id);
@@ -344,7 +360,6 @@
         entityList: _getEntityList(-1)
       });
 
-
       jndPubSub.pub('topic-folder:update', _folderData);
       //update digest 가 끝난 이후 badge position 을 업데이트 해야하기 때문에 timeout 을 준다.
       $timeout(function() {
@@ -352,6 +367,11 @@
       });
     }
 
+    /**
+     * 폴더에 entity 를 추가한다.
+     * @param {number} folderId
+     * @param {number} entityId
+     */
     function push(folderId, entityId) {
       var teamId = memberService.getTeamId();
       var isPop = (folderId === -1);
@@ -375,6 +395,12 @@
           error(_onPushError);
       }
     }
+
+    /**
+     * push 메서드 실패시 이벤트 핸들러
+     * @param {object} response
+     * @private
+     */
     function _onPushError(response) {
       if (response) {
         if (response.code === 40016) {
@@ -386,24 +412,6 @@
         }
       }
       reload();
-    }
-
-
-    function _find(folderId) {
-      var result = {
-        index: -1,
-        folder: null
-      };
-      _.forEach(_folderData.folderList, function(folder, index) {
-        if (folder.id === folderId) {
-          result = {
-            index: index,
-            folder: folder
-          };
-          return false;
-        }
-      });
-      return result;
     }
   }
 })();
