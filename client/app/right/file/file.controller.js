@@ -44,15 +44,11 @@
         _setFileDownLoad(file.isIntegrateFile, file.contentTitle, file.contentFileUrl);
       }
 
-      $scope.$on('createdThumbnailImage', function($event, socketData) {
-        var message = socketData.data.message;
-        if ($scope.file.id === message.id) {
-          $scope.$apply(function() {
-            $scope.file.hasPreview = true;
-            $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
-          });
-        }
-      });
+      if ($scope.file.mustPreview && !$scope.file.hasPreview) {
+        // thumbnail를 가져야 하고 thumbnail를 가지지 않은 file card일 경우 thumbnail 생성 event attach
+
+        $scope.$on('createdThumbnailImage', _createdThumbnailImage);
+      }
     }
 
     /**
@@ -171,6 +167,22 @@
 
       $scope.downloadUrl = value.downloadUrl;
       $scope.originalUrl = value.originalUrl;
+    }
+
+    /**
+     * created thumbnail event handler
+     * @param {object} $event
+     * @param {object} socketData
+     * @private
+     */
+    function _createdThumbnailImage($event, socketData) {
+      var message = socketData.data.message;
+      if ($scope.file.id === message.id) {
+        $scope.$apply(function() {
+          $scope.file.hasPreview = true;
+          $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
+        });
+      }
     }
   }
 })();
