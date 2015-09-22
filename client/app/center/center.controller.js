@@ -9,7 +9,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
-                                                 Announcement, TopicMessageCache, NotificationManager) {
+                                                 Announcement, TopicMessageCache, NotificationManager, Dialog) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -444,6 +444,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         linkId: MessageCollection.getLastLinkId()
       });
       loadMore();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -456,6 +459,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         linkId: MessageCollection.getFirstLinkId()
       });
       loadMore();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -566,8 +572,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
-          //console.log('::getMessageSuccess');
-
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -1125,7 +1129,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         } catch (e) {
         }
 
-
+        Dialog.success({
+          title: $filter('translate')('@success-file-unshare').replace('{{filename}}', message.content.title)
+        });
       })
       .error(function(err) {
         try {
@@ -1196,7 +1202,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function onShareClick(file) {
-    fileAPIservice.openFileShareModal($scope, file);
+    modalHelper.openFileShareModal($scope, file);
   }
 
   function _hasBrowserFocus() {
@@ -1235,7 +1241,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.hasNoMessage = _hasNoMessage();
 
     // Current topic has messages going on. NO NEED TO DISPLAY ANY TYPE OF HELP MESSAGES.
-    if (!$scope.hasNoMessage) { return; }
+    // FIXME: this is not how we return. - jihoon
+    if (!$scope.hasNoMessage) {
+      return;
+    }
+
+    // current topic is 1:1 dm and disactivated member.
+    // FIXME: this is not how we return. - jihoon
+    if (centerService.isChat() && !memberService.isActiveMember(currentSessionHelper.getCurrentEntity())) {
+      return;
+    }
+
 
     var emptyMessageStateHelper = 'NO_CONVERSATION_IN_TOPIC';
 

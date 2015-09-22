@@ -9,8 +9,8 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice,
-                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, currentSessionHelper) {
+  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, currentSessionHelper,
+                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, Dialog) {
     var collapseTimer;
     // okay - okay to go!
     // loading - currently loading.
@@ -125,24 +125,26 @@
     }
 
     function onMessageLeaveClick(entityId) {
-      if (!confirm($filter('translate')('@common-conversation-leave-confirm'))) {
-        return;
-      }
-
-      messageList.leaveCurrentMessage(entityId)
-        .success(function(response) {
-          //if (entityId == $scope.currentEntity.id) {
-          if (entityId == currentSessionHelper.getCurrentEntity().id) {
-            publicService.goToDefaultTopic();
-          }
-        })
-        .error(function(err) {
-          // TODO: WHAT SHOULD I DO WHEN FAILED?
-        })
-        .finally(function() {
-          getMessageList();
-        });
-
+      Dialog.confirm({
+        body: $filter('translate')('@common-conversation-leave-confirm'),
+        onClose: function(result) {
+           if (result === 'okay') {
+             messageList.leaveCurrentMessage(entityId)
+               .success(function(response) {
+                 //if (entityId == $scope.currentEntity.id) {
+                 if (entityId == currentSessionHelper.getCurrentEntity().id) {
+                   publicService.goToDefaultTopic();
+                 }
+               })
+               .error(function(err) {
+                 // TODO: WHAT SHOULD I DO WHEN FAILED?
+               })
+               .finally(function() {
+                 getMessageList();
+               });
+           }
+        }
+      });
     }
 
     function onDMInputFocus() {

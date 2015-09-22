@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -22,10 +22,6 @@ msgstr "我们预计几个小时内就可以恢复运作。感谢您的耐心等
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-belong"
 msgstr "您尚未加入任何议题"
-
-#: client/app/modal/topics/topic_join/topic.join.html
-msgid "@alert-empty-ch-can-join"
-msgstr "没有可加入的议题"
 
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
@@ -40,6 +36,7 @@ msgid "@alert-no-messages-found"
 msgstr "找不到符合条件的内容"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "找不到符合条件的内容"
@@ -64,7 +61,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "稍后再询问"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "浏览其他议题"
 
@@ -128,7 +125,6 @@ msgstr "提交"
 msgid "@btn-invite"
 msgstr "邀请"
 
-#: client/app/modal/topics/topic_join/topic.join.html
 #: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr "加入"
@@ -144,7 +140,6 @@ msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -208,12 +203,6 @@ msgstr "我们最近更新了排版和增加了一些极好的功能以提高您
 msgid "@channel"
 msgstr "议题"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "省略使用教学"
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr "现行成员"
@@ -271,11 +260,13 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已删除文件"
+
+#: client/app/modal/members/member_profile/member.profile.view.html
+msgid "@common-deleted-member-profile-msg"
+msgstr "此成员已离开团队。欲知更多细节，请联络团队管理员。"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -292,10 +283,6 @@ msgstr "直接传信"
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "此成员权限已被暂时关闭"
 
-#: client/app/modal/members/member_profile/member.profile.view.html
-msgid "@common-disabled-member-profile-msg"
-msgstr "此成员权限已被暂时关闭。 欲知更多细节，请联络团队管理员。"
-
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "邀请到"
@@ -308,7 +295,6 @@ msgstr "确认"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -316,6 +302,7 @@ msgid "@common-download"
 msgstr "下载"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "这个议题名称已经被使用。请选择另外一个。"
 
@@ -439,10 +426,6 @@ msgstr "基本资料"
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
 msgstr "其它资料"
-
-#: client/app/modal/topics/topic_join/topic.join.html
-msgid "@common-joined"
-msgstr "成员"
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
@@ -585,7 +568,7 @@ msgstr "使用条款"
 msgid "@common-title"
 msgstr "议题"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "议题"
@@ -608,7 +591,13 @@ msgstr "上传文件"
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
-#: client/app/left/left.html
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "省略使用教学"
+
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "建立新议题"
 
@@ -681,7 +670,6 @@ msgid "@error-404-title"
 msgstr "错误"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -727,6 +715,50 @@ msgstr "Dropbox"
 msgid "@file-upload-google-drive"
 msgstr "Google云端硬盘"
 
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "键入文件夹名称"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "议题已存于文件夹里"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "这名称已被使用"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "新的文件夹"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "删除"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "重新命名"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-content"
+msgstr ""
+"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题列"
+"表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-never-show"
+msgstr "不再显示"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-title"
+msgstr "使用文件夹打理你的议题列表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@friday"
+msgstr "星期五"
+
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "您有新信息"
@@ -764,10 +796,6 @@ msgstr "您已经超越字数限制"
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
-msgstr "输入修改的名字"
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
@@ -817,10 +845,6 @@ msgid "@integration-title-google-drive"
 msgstr "从Google云端硬盘上传"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成员邀请的链接已复制到剪贴簿"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
 
@@ -861,6 +885,10 @@ msgstr "＋更多"
 msgid "@invitation-some-fail"
 msgstr "部分邀请信无法寄出"
 
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成员邀请的链接已复制到剪贴簿"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "下次自动登录"
@@ -887,9 +915,8 @@ msgid "@mention-all"
 msgstr "@all (议题成员)"
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
-msgstr ""
-"你确定要提及在 {{topicName}} 里的 {{topicParticipantsCount}} 位成员吗？"
+msgid "@mention-all-toast"
+msgstr "你即将完成提及{{topicParticipantsCount}}位属于{{topicName}}里的成员"
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -901,6 +928,10 @@ msgstr "还没有人提及你"
 #: client/app/right/file/file.html
 msgid "@message-delete"
 msgstr "删除"
+
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "信息已删除"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
@@ -962,17 +993,19 @@ msgstr "您可以设定向其他成员揭示的个人资料"
 msgid "@modal-upload-title-msg1"
 msgstr "按标题搜索"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@monday"
+msgstr "星期一"
+
 #: client/app/left/messages/messages.html
 msgid "@more-dm-list"
 msgstr "选择一位成员传信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公开议题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人议题"
 
@@ -982,22 +1015,18 @@ msgid "@msg-help-multiline"
 msgstr "Shift+Enter键进行换行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "已邀请"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "  "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已经加入"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已经离开"
 
@@ -1043,6 +1072,10 @@ msgstr "电子邮件已经成功寄出"
 msgid "@privateGroup"
 msgstr "私人议题"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@saturday"
+msgstr "星期六"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1056,6 +1089,10 @@ msgid "@search-result-summary"
 msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 与 "
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "选择所有成员"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
@@ -1119,15 +1156,41 @@ msgstr "取消标示"
 msgid "@star-un"
 msgstr "取消标示"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"已被删除"
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"已被分享"
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"已被取消分享"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@suffix-day"
+msgstr "日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@suffix-month"
+msgstr "月"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@suffix-year"
+msgstr "年"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sunday"
+msgstr "星期日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的信息"
 "为公告"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 删除公告"
 
@@ -1146,6 +1209,10 @@ msgstr "团队成员"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-switch"
 msgstr "更换团队"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@thursday"
+msgstr "星期四"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1166,6 +1233,10 @@ msgstr "描述 (选项)"
 msgid "@topic-joined-member"
 msgstr "议题参与成员"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tuesday"
+msgstr "星期二"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
 msgstr "关闭议题推播通知"
@@ -1177,6 +1248,98 @@ msgstr "开启电脑版的推拨通知"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr "开启议题推播通知"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "点击跳动的标记来查看一下吧！"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定"
+"文件后，将点击右边的「ᵒᵒᵒ」即可。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾"
+"经分享在哪个议题下”的项目进行搜索。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可"
+"收纳搜索栏。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "文件夹和搜索栏"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出信息及上传文件"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮"
+"和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "跳过教学示范"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
+"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接传"
+"讯，同时仍然保留讯息历史直到对话重新启动。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的"
+"私人议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建"
+"议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自"
+"己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "继续 »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
+"的提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "欢迎使用JANDI!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
@@ -1373,100 +1536,7 @@ msgstr "想继续上次未完成的使用教学吗？"
 msgid "@tutorial_welcome_title"
 msgstr "欢迎 {{username}}"
 
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "点击跳动的标记来查看一下吧！"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "知道了！"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定"
-"文件后，将点击右边的「ᵒᵒᵒ」即可。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾"
-"经分享在哪个议题下”的项目进行搜索。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可"
-"收纳搜索栏。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "文件夹和搜索栏"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "送出信息及上传文件"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮"
-"和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "跳过教学示范"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
-"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接传"
-"讯，同时仍然保留讯息历史直到对话重新启动。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的"
-"私人议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建"
-"议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自"
-"己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "继续 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
-"的提示。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "欢迎使用JANDI!"
-
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
 
@@ -1487,6 +1557,10 @@ msgstr "取消标记此成员"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr "通知"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr " 分享文件"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
@@ -1535,12 +1609,29 @@ msgid "@web-notification-body-topic-pre"
 msgstr "在"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "新上传的文件已被分享"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"
 msgstr "设置成功"
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新信息"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@wednesday"
+msgstr "星期三"
+
+#~ msgid "@alert-empty-ch-can-join"
+#~ msgstr "没有可加入的议题"
+
+#~ msgid "@common-disabled-member-profile-msg"
+#~ msgstr "此成员权限已被暂时关闭。 欲知更多细节，请联络团队管理员。"
+
+#~ msgid "@input-rename"
+#~ msgstr "输入修改的名字"
 
 #~ msgid "@common-search"
 #~ msgstr "搜索"

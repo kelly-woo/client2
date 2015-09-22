@@ -7,8 +7,9 @@
         <span translate>@common-entity-location</span>
       </div>
 
-      <select ng-model="messageLocation"
-              ng-options="channel as channel|getName group by channel.typeCategory for channel in chatRoomOptions"
+      <select class="_chatRoomOptions"
+              ng-model="messageLocation"
+              ng-options="channel as channel|getName group by channel.extGroupName for channel in chatRoomOptions"
               ng-change="updateMessageLocationFilter();">
         <option value="">{{ allRooms }}</option>
       </select>
@@ -21,6 +22,7 @@
       </div>
 
       <select ng-model="messageWriter"
+              ng-click="onClick();"
               ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"
               ng-change="updateMessageWriterFilter();">
         <option value="">{{ allMembers }}</option>

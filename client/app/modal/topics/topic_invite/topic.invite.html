@@ -1,13 +1,13 @@
 <page-tracker page="topic/invite" title="Invite Members To Topic"></page-tracker>
 <!-- Modal: Invite to Channel/Group -->
 <div class="modal-header">
-  <button type="button" class="close" ng-click="cancel(); clear();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" ng-click="cancel(); clear();"><i class="icon-delete"></i></button>
   <h3 class="modal-header__title">
     <span translate>@modal-invite-members</span>
   </h3>
 </div>
 <div class="modal-container invite-channel non-selectable">
-  <div class="invite-channel-full" ng-if="!inviteChannel">
+  <div class="invite-channel-full" ng-if="!isInviteChannel">
     <div class="modal-body form-invite-body cursor_pointer"  ng-click="onInviteTeamClick();">
       <div class="image help-invite-members"></div>
       <div class="invite-members-desc">
@@ -21,20 +21,20 @@
     </div>
   </div>
 
-  <div class="invite-channel-extra" ng-if="inviteChannel">
+  <div class="invite-channel-extra" ng-if="isInviteChannel">
     <div class="modal-body form-invite-body">
       <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
       <div class="form-invite-body__selected">
         <span class="cursor_pointer"
               ng-repeat="user in inviteUsers"
-              ng-click="onRemove(user);">
+              ng-click="onMemberClick(user, false);">
           <span class="form-invite-body__selected-user btn-ok">
             {{ user | getName }} <span class="fa fa-times"></span>
           </span>
         </span>
       </div>
 
-      <div class="input-group custom-typeahead form-invite-body__list">
+      <div class="input-group invite-member-filter-container">
         <span class="input-group-addon"><i class="icon-search"></i></span>
         <input class="form-control green-input-box"
                id="invite-member-filter"
@@ -42,16 +42,25 @@
                type="text"
                placeholder="{{'@input-search-user-name' | translate}}" />
       </div>
-
-      <member-list ng-show="selectingMembers.length !== 0"
-                   selector="#invite-member-filter"
-                   list="selectingMembers"
-                   model="selectedUser"
-                   repeat="member in selectingMembers = (availableMemberList | filter : { selected : false } | userByName: selectedUser | orderBy: ['!isStarred', 'name'])"
-                   on-select="onMemberClick">
-      </member-list>
+      <div class="member-list-container">
+        <list-on-modal type="avaliableMember"
+                       list="availableMemberList"
+                       item-type="member"
+                       item-class="member-item"
+                       model="selectedUser"
+                       filter="#invite-member-filter"
+                       on-select="onMemberClick"
+                       get-matches="getMatches"
+                       activeted="true"
+                       viewport-max-height="500"
+                       item-height="44"
+                       buffer-length="10"></list-on-modal>
+      </div>
       <div class="no-result-container" ng-show="selectingMembers.length === 0">
         <span translate>@alert-no-result</span>
+      </div>
+      <div class="select-all-container checkbox">
+        <label><input type="checkbox" id="select-all-members" ng-click="onSelectAll()"/><span translate>@select-all-members</span></label>
       </div>
     </div>
 

@@ -299,7 +299,7 @@ module.exports = function (grunt) {
           ],
           css: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images'],
-            [/(assets\/fonts\/.*?\.(?:eot|woff|svg))/gm, 'Update the JS to reference our revved fonts']
+            [/(assets\/fonts\/.*?\.(?:eot|woff|ttf|svg))/gm, 'Update the JS to reference our revved fonts']
           ]
         }
       }
@@ -340,7 +340,13 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+    uglify: {
+      options: {
+        compress: {
+          drop_console: true
+        }
+      }
+    },
     // Package all the html partials into a single javascript payload
     ngtemplates: {
       options: {
@@ -629,6 +635,9 @@ module.exports = function (grunt) {
           patterns: [
             {
               json: grunt.file.readJSON('./config/environments/local.json')
+            },
+            {
+              json: grunt.file.readJSON('./config/environments/local.team.json')
             },
             {
               json: {

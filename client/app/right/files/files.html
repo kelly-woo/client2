@@ -5,8 +5,9 @@
     <div class="advanced-search-option__title">
       <span translate>@common-shared-in</span>
     </div>
-    <select ng-model="sharedEntitySearchQuery"
-            ng-options="channel.id as channel.name group by channel.typeCategory for channel in selectOptions">
+    <select class="_chatRoomOptions"
+            ng-model="sharedEntitySearchQuery"
+            ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">
       <option value="">{{ allRooms }}</option>
     </select>
   </div>  <!--  END OF CHAT ROOM  -->

@@ -8,10 +8,11 @@
 
   angular
     .module('jandi.framework', [
-      'jandi.pcApp',
+      'jandi.hybridApp',
       'jandi.preloader',
       'jandi.popup',
-      'jandi.browser'
+      'jandi.browser',
+      'jandi.dialog'
     ])
     .run(run)
     .config(config);

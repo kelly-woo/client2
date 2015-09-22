@@ -9,6 +9,7 @@
     .module('config.common', [])
     .constant('configuration', {
       version             : '@@version',
+      team_name           : '@@team_name',
       name                : '@@name',
       api_address         : '@@api_address',
       socket_address      : '@@socket_address',

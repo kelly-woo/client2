@@ -1,7 +1,7 @@
 <!-- Modal: TEAM MEMBER LIST  -->
 <div class="modal-header">
   <!--  CLOSE BUTTON  -->
-  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-delete"></i></button>
 
   <!--  TITLE -->
   <h3 class="modal-header__title">
@@ -22,45 +22,58 @@
         <input class="form-control green-input-box"
                id="team-member-filter"
                type="text"
-               placeholder="{{ '@input-search-user-name' | translate }}"
-               jnd-input-model="memberNameQuery">
+               jnd-input-model="memberNameQuery"
+               placeholder="{{ '@input-search-user-name' | translate }}">
       </div>
     </div>  <!-- END OF SEARCH BOX  -->
 
     <div class="modal_team_member_list" ng-click="onMemberListClick();">
-      <tabset class="member-list-tab">
-        <tab class="enabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.enabledMemberList.active">
+      <tabset class="list-tabs">
+        <tab class="enabled-member-list-container tab-title overflow-ellipsis"
+             active="memberListSetting.enabledMemberList.active"
+             deselect="onTabDeselect('enabledMember')">
           <page-tracker ng-if="memberListSetting.enabledMemberList.active" page="currentmembers" title="Member List (Current Members)"></page-tracker>
           <tab-heading>
             <div translate>@common-active-member</div>
           </tab-heading>
-
-          <member-list ng-show="filteredEnableMembers.length !== 0"
-                       activeted="!memberListSetting.enabledMemberList.active"
-                       selector="#team-member-filter"
-                       list="filteredEnableMembers"
-                       repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
-                       on-select="onMemberClick">
-          </member-list>
-          <div class="no-result-container" ng-show="filteredEnableMembers.length === 0">
+          <list-on-modal type="enabledMember"
+                         list="enabledMemberList"
+                         item-type="member"
+                         item-class="member-item"
+                         model="memberNameQuery"
+                         filter="#team-member-filter"
+                         on-select="onMemberClick"
+                         get-matches="getMatches"
+                         activeted="memberListSetting.enabledMemberList.active"
+                         viewport-max-height="500"
+                         item-height="44"
+                         buffer-length="10"></list-on-modal>
+          <div class="no-result-container" ng-show="enableMembersLength === 0">
             <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
-        <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
+        <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis"
+             active="memberListSetting.disabledMemberList.active"
+             deselect="onTabDeselect('disabledMember')"
+             ng-if="hasDisabledMember">
           <page-tracker ng-if="memberListSetting.disabledMemberList.active" page="disabledmembers" title="Member List (Disabled Members)"></page-tracker>
           <tab-heading>
             <span translate>@common-inactive-member</span>
           </tab-heading>
-
-          <member-list ng-show="filteredDisableMembers.length !== 0"
-                       activeted="!memberListSetting.disabledMemberList.active"
-                       selector="#team-member-filter"
-                       list="filteredDisableMembers"
-                       repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
-                       on-select="onMemberClick">
-          </member-list>
-          <div class="no-result-container" ng-show="filteredDisableMembers.length === 0">
+          <list-on-modal type="disabledMember"
+                         list="disabledMemberList"
+                         item-type="member"
+                         item-class="member-item"
+                         model="memberNameQuery"
+                         filter="#team-member-filter"
+                         on-select="onMemberClick"
+                         get-matches="getMatches"
+                         activeted="memberListSetting.disabledMemberList.active"
+                         viewport-max-height="500"
+                         item-height="44"
+                         buffer-length="10"></list-on-modal>
+          <div class="no-result-container" ng-show="disableMembersLength === 0">
             <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF DISABLED MEMBER LIST  -->

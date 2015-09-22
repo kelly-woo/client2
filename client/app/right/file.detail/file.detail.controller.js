@@ -5,12 +5,13 @@ var app = angular.module('jandiApp');
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router) {
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog) {
   var _sticker;
   var _stickerType;
   var fileId;
   var _commentIdToScroll;
   var timerGetFileDetail;
+  var _unsharedForMe;
 
   //file detail에서 integraiton preview로 들어갈 image map
   var noPreviewAvailableImage;
@@ -171,15 +172,18 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           // 저장된 file detail을 그대로 사용함
 
           _onSuccessFileDetail(fileDetail);
+          deferred.resolve();
         } else {
           fileAPIservice.getFileDetail(fileId)
             .success(_onSuccessFileDetail)
-            .error(_onErrorFileDetail);
+            .error(_onErrorFileDetail)
+            .finally(function() {
+              deferred.resolve();
+            });
         }
 
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
-        deferred.resolve();
       }, timerGetFileDetail == null ? 0 : 800);
     } else {
       deferred.reject();
@@ -339,7 +343,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param file
    */
   function onClickShare(file) {
-    fileAPIservice.openFileShareModal($scope, file);
+    modalHelper.openFileShareModal($scope, file);
   }
 
   /**
@@ -388,6 +392,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           });
         } catch (e) {
         }
+
+        _unsharedForMe = true;
       })
       .error(function(err) {
         alert(err.msg);
@@ -413,8 +419,21 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _fileUnshared($event, data) {
+    var promise;
+
     if (data.file.id == fileId) {
-      getFileDetail();
+      promise = getFileDetail();
+
+      promise.finally(function() {
+        if (_unsharedForMe) {
+
+          // unshared된 다음 바로 list가 갱신되지 않기때문에 unshared되고 file detail이 새로 생성된 다음 dialog.success를 호출함
+          Dialog.success({
+            title: $filter('translate')('@success-file-unshare').replace('{{filename}}', $scope.file_detail.content.title)
+          });
+        }
+        _unsharedForMe = false;
+      });
     }
   }
 
@@ -451,39 +470,45 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param fileId
    */
   function onFileDeleteClick(fileInfo) {
-    if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
-      return;
-    }
+    Dialog.confirm({
+      body: $filter('translate')('@file-delete-confirm-msg'),
+      onClose: function(result) {
+        var fileId;
 
-    var fileId = fileInfo;
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+        if (result === 'okay') {
+          fileId = fileInfo;
 
-    fileAPIservice.deleteFile(fileId)
-      .success(function(response) {
-        getFileDetail();
-        try {
-          //analytics
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-            'RESPONSE_SUCCESS': true,
-            'FILE_ID': fileId
-          });
-        } catch (e) {
+          fileAPIservice.deleteFile(fileId)
+            .success(function(response) {
+              getFileDetail();
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                  'RESPONSE_SUCCESS': true,
+                  'FILE_ID': fileId
+                });
+              } catch (e) {
+              }
+
+              Dialog.success({
+                title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
+              });
+              $rootScope.$broadcast('onFileDeleted', fileId);
+            })
+            .error(function(err) {
+              console.log(err);
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                  'RESPONSE_SUCCESS': false,
+                  'ERROR_CODE': err.code
+                });
+              } catch (e) {
+              }
+            });
         }
-
-        $rootScope.$broadcast('onFileDeleted', fileId);
-      })
-      .error(function(err) {
-        console.log(err);
-        try {
-          //analytics
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-            'RESPONSE_SUCCESS': false,
-            'ERROR_CODE': err.code
-          });
-        } catch (e) {
-        }
-      });
+      }
+    });
   }
 
   /**
@@ -687,8 +712,16 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _onSuccessDelete() {
+    var promise;
+
     $scope.glued = true;
-    getFileDetail();
+
+    promise = getFileDetail();
+    promise.finally(function() {
+      Dialog.success({
+        title: $filter('translate')('@message-deleted')
+      });
+    })
   }
 
   /**

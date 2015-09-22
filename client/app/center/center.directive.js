@@ -98,7 +98,7 @@
 
       dndContent
         .appendTo(element[0])
-        .on('dragleave', function(event) {
+        .on('dragleave', function() {
           element.removeClass('dnd-over');
         })
         .on('drop', function() {
@@ -141,7 +141,7 @@
     //}
   }
 
-  function whenScrolled() {
+  function whenScrolled(jndPubSub) {
     return {
       restrict: 'A',
       link: link
@@ -150,38 +150,49 @@
     function link(scope, elm, attr) {
       var threshold = 700;
       var raw = elm[0];
-
+      var _lastScrollTop = null;
       var position = 0;
-
       var messageContainer = angular.element(document.getElementById('msgs-container'));
 
       elm.on('scroll', function(event) {
         var scrollTop;
         var scrollDiff;
-
+        var direction = 'old';
         scrollTop = raw.scrollTop;
         scrollDiff =  raw.scrollHeight - (scrollTop + messageContainer.outerHeight());
-        if (scrollDiff === 0) {
-          // Bottom reached!
-          scope.clearNewMessageAlerts();
-        } else if (scrollDiff < 2000) {
-          scope.loadNewMessages();
-          return;
-        } else if (scrollDiff < threshold) {
-          scope.hasScrollToBottom = false;
-        } else if (scrollDiff > threshold) {
-          // Scrolled upward over 200.
-          scope.hasScrollToBottom = true;
+
+        if (_lastScrollTop === null) {
+          _lastScrollTop = scrollTop;
+        } else if (scrollTop > _lastScrollTop) {
+          direction = 'new';
+        } else {
+          direction = 'old';
         }
-        //console.log(scope.hasScrollToBottom);
-        // If scrolling down, Don't worry about loading more of content.
-        //if (scrollTop > position) return;
 
-        //position = scrollTop;
-        //console.log('raw.scrollTop', raw.scrollTop);
+        if (scrollDiff === 0) {
+          scope.clearNewMessageAlerts();
+        } else if (scope.hasMoreNewMessageToLoad()) {
+          scope.hasScrollToBottom = true;
+        } else {
+          if (scrollDiff < threshold) {
+            scope.hasScrollToBottom = false;
+          } else {
+            scope.hasScrollToBottom = true;
+          }
+        }
 
-        if (scrollTop <= 2000 && scope.isInitialLoadingCompleted) {
-          scope.loadOldMessages();
+        if (scope.isInitialLoadingCompleted) {
+          if (direction === 'new' && scrollDiff < 2000) {
+            if (scope.loadNewMessages()) {
+              jndPubSub.pub('hide:center-file-dropdown');
+              jndPubSub.pub('hide:center-item-dropdown');
+            }
+          } else if (direction === 'old' && scrollTop < 2000) {
+            if (scope.loadOldMessages()) {
+              jndPubSub.pub('hide:center-file-dropdown');
+              jndPubSub.pub('hide:center-item-dropdown');
+            }
+          }
         }
       });
     }

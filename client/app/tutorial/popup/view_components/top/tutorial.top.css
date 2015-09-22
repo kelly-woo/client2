@@ -1,19 +1,19 @@
 .tutorial_top {
   position: absolute;
   width: 100%;
-  line-height: 43px;
+  line-height: 45px;
   font-size: 14px;
   color: #FFFFFF;
 }
 
 .tutorial_top_team {
   position: absolute;
-  left: 27px;
+  left: 36px;
 }
 
 .tutorial_top_invite {
   position: absolute;
-  left: 107px;
+  left: 113px;
 }
 
 .tutorial_top_search {

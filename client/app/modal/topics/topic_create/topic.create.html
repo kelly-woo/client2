@@ -1,7 +1,7 @@
 <page-tracker page="topic/create" title="Create Topic"></page-tracker>
 <!-- Modal: Create Topic -->
 <div class="modal-header">
-  <button type="button" class="close" ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" ng-click="cancel();"><i class="icon-delete"></i></button>
   <h3 class="modal-header__title">
     <span>{{ ::'@common-create-ch' | translate }}</span>
   </h3>
@@ -20,6 +20,7 @@
                  name="entityName"
                  jnd-input-model="topicName"
                  jnd-is-trim="on"
+                 focus-me="true"
                  placeholder="{{ ::'@input-create-ch' | translate }}"/>
           <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate}}

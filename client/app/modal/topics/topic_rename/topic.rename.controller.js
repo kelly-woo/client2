@@ -7,8 +7,9 @@
 
   /* @ngInject */
   function TopicRenameCtrl($scope, entityheaderAPIservice, $filter, analyticsService,
-                           AnalyticsHelper, modalHelper, currentSessionHelper, jndPubSub) {
-    var duplicate_name_error = 4000;
+                           AnalyticsHelper, modalHelper, currentSessionHelper, jndPubSub,
+                           Dialog) {
+    var duplicate_name_error = 40008;
 
     var _currentEntity = currentSessionHelper.getCurrentEntity();
 
@@ -103,7 +104,9 @@
     function _onCreateError(err) {
       if (err.code === duplicate_name_error) {
         // Duplicate name error.
-        alert($filter('translate')('@common-duplicate-name-err'));
+        Dialog.error({
+          title: $filter('translate')('@common-duplicate-name-err')
+        });
       }
     }
 

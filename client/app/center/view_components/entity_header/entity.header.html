@@ -2,13 +2,13 @@
      ng-class="{'center-panel-disabled-member': isDisabledEntity}">
   <!--    STAR ICON -->
   <span class="prefix star" ng-click="onStarClick();">
-    <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
+    <i class="icon-star-off" ng-class="{'icon-star-on starred-on' : currentEntity.isStarred}"></i>
   </span>
 
   <!--    PREFIX ICON -->
   <span class="prefix" ng-click="onPrefixIconClicked();">
-    <i ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
-    <i ng-if="currentEntity.type === 'privategroups'" class="icon-private-group"></i>
+    <i ng-if="currentEntity.type === 'channels'" class="icon-topic"></i>
+    <i ng-if="currentEntity.type === 'privategroups'" class="icon-lock"></i>
     <i ng-if="currentEntity.type === 'users'" class="icon-user"></i>
   </span>
 
@@ -22,7 +22,7 @@
 
   <!--  DESCRIPTION -->
   <span class="panel-title-topic-description cursor_pointer" ng-if="!isUserType">
-     <i class="fa fa-info-circle" topic-description></i>
+     <i class="icon-info-fill" topic-description></i>
   </span>
 
   <!-- MORE OPTIONS -->
@@ -38,36 +38,36 @@
       <!--    INVITE  -->
       <li role="presentation" ng-if="!isDefaultTopic">
         <a role="menuitem" tabindex="-1" ng-click="openInviteModal();">
-          <i class="icon-invite-fill"></i><span translate>@ch-menu-invite</span>
+          <i class="icon-user-plus"></i><span translate>@ch-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
       <li role="presentation" ng-click="onStarClick();">
         <a role="menuitem" tabindex="-1">
-          <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@ch-menu-un-star</span>
-          <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@ch-menu-star</span>
+          <i ng-if="currentEntity.isStarred" class="icon-star-on"></i><span ng-if="currentEntity.isStarred" translate>@ch-menu-un-star</span>
+          <i ng-if="!currentEntity.isStarred" class="icon-star-off"></i><span ng-if="!currentEntity.isStarred" translate>@ch-menu-star</span>
         </a>
       </li>
 
       <!--    RENAME  -->
       <li role="presentation" ng-if="isOwner || isAdmin" ng-click="openRenameModal(this);">
         <a role="menuitem" tabindex="-1">
-          <i class="icon-edit-fill"></i><span translate>@edit-topic-information</span>
+          <i class="icon-pencil"></i><span translate>@edit-topic-information</span>
         </a>
       </li>
 
       <!--    LEAVE   -->
       <li role="presentation" ng-click="onLeaveClicked();" ng-if="!isDefaultTopic;">
         <a role="menuitem" tabindex="-1">
-          <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
+          <i class="icon-sign-out"></i><span translate>@ch-menu-leave</span>
         </a>
       </li>
 
       <!--    DELETE  -->
       <li role="presentation" ng-if="(isOwner || isAdmin) && !isDefaultTopic" ng-click="onDeleteClicked();">
         <a role="menuitem" tabindex="-1">
-          <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
+          <i class="icon-trash"></i><span translate>@ch-menu-delete</span>
         </a>
         <span ng-if="false" translate>@ch-menu-delete-confirm</span>
       </li>
@@ -78,15 +78,15 @@
       <!--    INVITE  -->
       <li role="presentation" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
-          <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
+          <i class="icon-user-plus"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
       <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1">
-          <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
-          <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
+          <i ng-if="currentEntity.isStarred" class="icon-star-on"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
+          <i ng-if="!currentEntity.isStarred" class="icon-star-off"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
         </a>
       </li>
 
@@ -107,7 +107,7 @@
       <!--    LEAVE CHAT -->
       <li role="presentation">
         <a role="menuitem" tabindex="-1" ng-click="onCurrentChatLeave();">
-          <i class="icon-cancel"></i><span translate>@common-conversation-leave</span>
+          <i class="icon-sign-out"></i><span translate>@common-conversation-leave</span>
         </a>
       </li>
     </ul>
@@ -120,9 +120,9 @@
     <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown
           tooltip="{{::'@topic-joined-member' | translate}}" tooltip-placement="bottom">
       <div class="dropdown-toggle panel-title-member__more" dropdown-toggle>
-        <i class="icon icon-user"></i>
+        <i class="icon-user"></i>
         <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
-        <i class="icon icon-down"></i>
+        <i class="icon-angle-down"></i>
       </div>
 
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
@@ -138,7 +138,7 @@
     <span class="panel-title-right-menu__separator"></span>
 
     <!--  INVITE OPTION -->
-    <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
+    <span class="panel-title-invite panel-title-right-menu__item icon-user-plus pull-right cursor_pointer"
           tooltip="{{::'@ch-menu-invite' | translate}}"
           tooltip-placement="bottom"
           tooltip-class="panel-title-invite-tooltip"
@@ -152,7 +152,7 @@
     <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
       tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
       tooltip-class="panel-title-bell-tooltip">
-      <i class="fa" ng-class="{'fa-bell-o': isTopicNotificationOn, 'fa-bell-slash-o': !isTopicNotificationOn}"></i>
+      <i class="" ng-class="{'icon-bell': isTopicNotificationOn, 'icon-bell-slash': !isTopicNotificationOn}"></i>
     </div>
   </span>
 

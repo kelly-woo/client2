@@ -17,7 +17,6 @@
 
     var removeItems = [];
     var timerRemoveItems;
-    var timerUpdateComment;
 
     _init();
 
@@ -208,9 +207,11 @@
      */
     function _updateComment(type, data) {
       var fileId;
+      var commentCount;
 
       if (data.file) {
         fileId =  data.file.id;
+        commentCount = data.file.commentCount;
 
         if (type === 'delete') {
           // 삭제된 comment가 tabs의 item으로 존재한다면 해당 item 삭제
@@ -218,26 +219,8 @@
           _removeStarItem('files', data.comment.id);
         }
 
-        $timeout.cancel(timerUpdateComment);
-        timerUpdateComment = $timeout((function(fileId) {
-          return function() {
-            fileAPIservice
-              .getFileDetail(fileId)
-              .success(function (data) {
-                var count = 0;
-                if (data && data.messageDetails) {
-                  _.forEach(data.messageDetails, function(value) {
-                    if (value.contentType === 'comment' && value.status === 'created') {
-                      count++;
-                    }
-                  });
-
-                  _updateCommentCount('all', fileId, count);
-                  _updateCommentCount('files', fileId, count);
-                }
-              });
-          };
-        }(fileId)), 500);
+        _updateCommentCount('all', fileId, commentCount);
+        _updateCommentCount('files', fileId, commentCount);
       }
     }
 
@@ -406,6 +389,10 @@
       if (index > -1) {
         list.splice(index, 1);
         delete map[messageId];
+      }
+
+      if (!list.length) {
+        _setEmptyTab(activeTabName, true);
       }
     }
 

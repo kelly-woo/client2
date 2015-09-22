@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, accountService, pcAppHelper,
+  function headerCtrl($scope, $rootScope, $state, accountService, HybridAppHelper,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
@@ -163,7 +163,7 @@
      * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
      */
     function toTeam() {
-      publicService.redirectTo(configuration.main_address + 'team');
+      publicService.redirectToMain();
     }
 
     $scope.updateTeamBadge = updateTeamBadge;
@@ -205,7 +205,7 @@
      */
     function onShowTutorialClick() {
       //@fixme: remove old tutorial logic
-      if (pcAppHelper.isPcApp()) {
+      if (HybridAppHelper.isPcApp()) {
         jndPubSub.pub('initTutorialStatus');
       } else {
         jndPubSub.pub('tutorial:open');

@@ -19,7 +19,7 @@
         {{#if isSticker}}
           <img class="sticker size_5" src="{{msg.message.content.url}}"/>
         {{else}}
-          <span class="keep msg-text-body _compile">{{{ msg.message.content.body }}}</span>
+          <span class="keep msg-text-body _compile" jnd-ignore-braces>{{{ msg.message.content.body }}}</span>
         {{/if}}
         <!--  TIME  -->
         <span class="msg-item-header__created">{{ msg.extTime }}</span>
@@ -39,7 +39,7 @@
          <!--Star -->
         {{#if hasStar}}
           <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
-            <i class="icon-star-fill"></i>
+            <i class="icon-star-on"></i>
           </span>
         {{/if}}
       </div>

@@ -1,7 +1,7 @@
 <page-tracker page="files/upload" title="Upload File"></page-tracker>
 <!-- Modal: File Upload -->
 <div class="modal-header">
-  <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-delete"></i></button>
   <h3 class="modal-header__title">
     <span translate>@common-upload-file</span>
   </h3>
@@ -12,17 +12,13 @@
     <div class="form-horizontal">
 
 
-      <div id="file_preview_container" data-ng-class="{'image-background': !supportHtml5}">
+      <div id="file_preview_container">
 
-        <div class="image_wrapper upload-image-preview" ng-if="supportHtml5 && file.isImage">
+        <div class="image_wrapper upload-image-preview" ng-if="file.isImage">
         </div>
 
         <div class="non-image-file-preview fileicon fileicon-{{file | fileIcon}}" ng-if="!file.isImage"></div>
       </div>
-
-      <!--    ALERT MESSAGE WHEN USING IE9    -->
-      <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-file-preview</div>
-      <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-please-do-not-use</div>
 
       <!-- FILE TITLE -->
       <div class="form-group">
@@ -30,7 +26,7 @@
           <span translate>@common-title</span>
         </label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" name="file_upload_title" data-ng-model="title" required ng-disabled="true"/>
+          <input class="form-control" id="file_upload_title" type="text" name="file_upload_title" required ng-disabled="true"/>
           <div class="modal-body__help" ng-if="false">
             <span translate>@modal-upload-title-msg1</span>
           </div>
@@ -45,7 +41,7 @@
         <div class="col-sm-9">
           <select class="form-control"
                   data-ng-model="currentEntity"
-                  data-ng-options="channel|orderBy: 'name'|getName group by channel.typeCategory for channel in selectOptions">
+                  data-ng-options="channel|orderBy: 'name'|getName group by channel.extGroupName for channel in selectOptions">
           </select>
         </div>
       </div>

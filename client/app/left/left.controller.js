@@ -5,8 +5,9 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
-  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q, NotificationManager) {
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil) {
 
   /**
    * @namespace
@@ -19,15 +20,17 @@ app.controller('leftPanelController1', function(
     hasBroadcast: false,
     broadcastTo: ''
   };
-
+  var that = this;
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
-
   var _getLeftListDeferredObject;
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+  var _entityEnterTimer;
+
+  var _hasToUpdate = false;
 
   $scope.entityId = $state.params.entityId;
 
@@ -63,7 +66,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel) return;
+  if (!leftPanel || !topicFolder) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
@@ -123,6 +126,7 @@ app.controller('leftPanelController1', function(
    */
   function _onStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     $scope.entityId = toParams.entityId;
+    TopicFolderModel.setCurrentEntity($scope.entityId);
   }
 
   /**
@@ -147,11 +151,11 @@ app.controller('leftPanelController1', function(
       var targetScrollTop = scrollTop + (top - currentBottom);
 
       if (isLast) {
+        targetScrollTop += space;
         $scope.unread.below = [];
       } else {
-        targetScrollTop += jqTarget.outerHeight() + space;
+        targetScrollTop += (jqTarget.outerHeight() + space);
       }
-
       _isBadgeMoveLocked = true;
       jqContainer.animate({
         scrollTop: targetScrollTop
@@ -177,7 +181,6 @@ app.controller('leftPanelController1', function(
       var top = _getPosUnreadAbove();
       //위 여백
       var space = 7;
-
       var targetScrollTop = scrollTop - (currentTop - top);
 
       if ($scope.unread.above.length > 1) {
@@ -364,6 +367,8 @@ app.controller('leftPanelController1', function(
     $scope.onTutorialPulseClick($event);
   });
 
+  $scope.$on('topic-update-lock', _onUpdateLock);
+  $scope.$on('updateLeftBadgeCount', onUpdateLeftBadgeCount);
   /**
    * Tutorial 상태를 초기화 한다.
    */
@@ -385,6 +390,8 @@ app.controller('leftPanelController1', function(
    * TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
    */
   function initLeftList () {
+    var entityId = $state.params.entityId;
+    var entityType = $state.params.entityType || 'total';
     // 1. 현재 팀의 멤버가 아니거나
     // 2. 로그인을 해야 하는 상황이 아닌 경우에는
     // 로그아웃 시키고 sign in page 로 돌아간다.
@@ -516,13 +523,17 @@ app.controller('leftPanelController1', function(
       $rootScope.$broadcast('onSetStarDone');
     }
 
-    if ($state.params.entityId)
-      entityAPIservice.setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
+    if (!entityId) {
+      entityId = currentSessionHelper.getDefaultTopicId();
+    }
+
+    entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
+    TopicFolderModel.update();
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
@@ -607,6 +618,24 @@ app.controller('leftPanelController1', function(
   }
 
   /**
+   * left badge count 를 업데이트 한다.
+   * fixme: 중복 코드 전부 리펙토링 필요함.
+   */
+  function onUpdateLeftBadgeCount() {
+    if (!_.isUndefined(_getLeftListDeferredObject)) {
+      _getLeftListDeferredObject.resolve();
+    }
+    _getLeftListDeferredObject = $q.defer();
+    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+      .success(function(response) {
+        //  When there is unread messages on left Panel.
+        if (response.alarmInfoCount != 0) {
+          leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+        }
+      });
+  }
+
+  /**
    * left panel 에 담겨 있는 모든 정보를 불러온다.
    */
   function getLeftLists() {
@@ -615,15 +644,19 @@ app.controller('leftPanelController1', function(
     }
 
     _getLeftListDeferredObject = $q.defer();
-    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
-      .success(function(data) {
-        response = data;
-        //console.log('-- getLeft good')
-        initLeftList();
-      })
-      .error(function(err) {
-        console.log(err);
-      });
+    TopicFolderModel.load().then(function() {
+      leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+        .success(function (data) {
+          if (!TopicUpdateLock.isLocked()) {
+            response = data;
+            //console.log('-- getLeft good')
+            initLeftList();
+          }
+        })
+        .error(function (err) {
+          console.log(err);
+        });
+    });
   }
 
   // User pressed an enter key from invite modal view in private group.
@@ -633,10 +666,22 @@ app.controller('leftPanelController1', function(
   };
 
   // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
-  $scope.updateLeftPanelCaller = function() {
-    getLeftLists();
-  };
+  $scope.updateLeftPanelCaller = updateLeftPanelCaller;
 
+  function updateLeftPanelCaller() {
+    if (!TopicUpdateLock.isLocked()) {
+      getLeftLists();
+      _hasToUpdate = false;
+    } else {
+      _hasToUpdate = true;
+    }
+  }
+
+  function _onUpdateLock(angularEvent, isLock) {
+    if (!isLock && _hasToUpdate) {
+      updateLeftPanelCaller();
+    }
+  }
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
   /**
@@ -651,20 +696,19 @@ app.controller('leftPanelController1', function(
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
   });
 
-  $scope.openModal = function(selector) {
+  $scope.openModal = function(selector, options) {
     if (selector == 'join') {
       modalHelper.openTopicJoinModal($scope);
     } else if (selector == 'channel') {
       modalHelper.openTopicCreateModal($scope);
     } else if (selector == 'file') {
-      modalHelper.openFileUploadModal($scope);
+      modalHelper.openFileUploadModal($scope, options);
     } else if (selector == 'topic') {
       modalHelper.openTopicCreateModal($scope);
     }
   };
 
   $rootScope.$on('onUserClick', function(event, user) {
-    console.log('root onUserClick');
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
@@ -687,26 +731,27 @@ app.controller('leftPanelController1', function(
   }
 
   function enterEntity(entity) {
-    if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
-
+    JndUtil.safeApply($scope, function() {
       NotificationManager.set(entity, 0);
-      pcAppHelper.onAlarmCntChanged(entity.id, 0);
+      HybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
-      jndPubSub.pub('changeEntityHeaderTitle', entity);
-      _doEnter(entity);
-    }
+      jndPubSub.pub('onBeforeEntityChange', entity);
+    });
+    $timeout.cancel(_entityEnterTimer);
+    _entityEnterTimer = $timeout(_.bind(_doEnter, that, entity), 10);
   }
 
   function _doEnter(entity) {
     var entityType = entity.type;
     var entityId = entity.id;
     var currentEntity = currentSessionHelper.getCurrentEntity();
-    if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+    //fixme: 더블 클릭 시 오류를 유발하기 때문에 주석처리 함. 주석처리로 인해 다른 문제가 발생한다면 해당 로직 검토해야함.
+    //if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
+    //  publicService.goToDefaultTopic();
+    //  return;
+    //}
     if (currentEntity.id === entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
@@ -823,14 +868,52 @@ app.controller('leftPanelController1', function(
   $scope.$on('onFileSelect', function(event, files){
     $scope.onFileSelect(files);
   });
+
+  $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
+
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files, options) {
-    var fileObject = Object.create(fileObjectService).init($files, options);
-    if (fileObject.size() > 0) {
-      $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-      $scope.fileObject = fileObject;
-      $scope.openModal('file');
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+    var fileUploader;
+
+    if ($rootScope.fileUploader) {
+      fileUploader = $rootScope.fileUploader;
+
+      if (fileUploader.currentEntity.id !== currentEntity.id) {
+        // 다른 topic에서 upload를 시도함
+        $rootScope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+        fileAPIservice.clearCurUpload();
+        delete $rootScope.fileUploader;
+
+        fileUploader = undefined;
+      }
     }
+
+    fileUploader = fileUploader || FilesUpload.createInstance();
+    fileUploader.currentEntity = currentEntity;
+
+    fileUploader
+      .setFiles($files, options)
+      .then(function() {
+        if (fileUploader.fileLength() > 0) {
+          $rootScope.fileUploader = fileUploader;
+          $scope.openModal('file', {
+            fileUploader: fileUploader,
+            onEnd: function () {
+              // hide progress bar
+              $timeout(function () {
+                $('.file-upload-progress-container').css('opacity', 0);
+                // opacity 0된 후 clear upload info
+                $timeout(function () {
+                  fileAPIservice.clearCurUpload();
+                  delete $rootScope.fileUploader;
+                }, 500);
+              }, 2000);
+            }
+          });
+        }
+      });
   };
 
   $scope.onFileUploadAbortClick = function() {
@@ -844,6 +927,7 @@ app.controller('leftPanelController1', function(
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
         fileAPIservice.clearCurUpload();
+        delete $rootScope.fileUploader;
       }
     )
   };
@@ -857,7 +941,7 @@ app.controller('leftPanelController1', function(
     if(!accountService.hasSeenTutorial()) {
       //@fixme: remove old tutorial logic
       //$scope.initTutorialStatus();
-      if (pcAppHelper.isPcApp()) {
+      if (HybridAppHelper.isPcApp()) {
         jndPubSub.pub('initTutorialStatus');
       }
     }
@@ -955,5 +1039,29 @@ app.controller('leftPanelController1', function(
       }
     }
   }
-});
 
+  /**
+   * 모든 file upload를 취소한다.
+   * @private
+   */
+  function _fileUploadAllClear() {
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+
+    if ($rootScope.fileUploader) {
+      if ($rootScope.fileUploader.currentEntity.id === currentEntity.id) {
+        $rootScope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+
+        // hide progress bar
+        $timeout(function () {
+          $('.file-upload-progress-container').css('opacity', 0);
+          // opacity 0된 후 clear upload info
+          $timeout(function () {
+            fileAPIservice.clearCurUpload();
+            delete $rootScope.fileUploader;
+          }, 500);
+        }, 2000);
+      }
+    }
+  }
+});

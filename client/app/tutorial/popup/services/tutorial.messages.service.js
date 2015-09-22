@@ -9,7 +9,7 @@
     .service('TutorialMessages', TutorialMessages);
 
   /* @ngInject */
-  function TutorialMessages($filter, TutorialEntity, TutorialAccount) {
+  function TutorialMessages($filter, TutorialEntity, TutorialAccount, DateFormatter) {
     var _list = [];
     var _name;
     var _profileUrl;
@@ -159,7 +159,7 @@
      */
     function _getDate(time) {
       time = time || (new Date()).getTime();
-      return $filter('ordinalDate')(time, "EEEE, MMMM doo, yyyy");
+      return DateFormatter.getFormattedDate(time);
     }
   }
 })();

@@ -47,19 +47,7 @@
         return $q.reject(rejection);
       } else if (rejection.status === 403) {
         console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
-
-        var disabledMemberAccessingTeamCode = 40301;
-
-        var situationCode = rejection.data.code;
-
-        if (situationCode == disabledMemberAccessingTeamCode) {
-          // Current member has been disabled from current team!!
-          var authAPIservice = $injector.get('authAPIservice');
-          if (angular.isUndefined(authAPIservice)) return;
-          authAPIservice.onCurrentMemberDisabled();
-        } else {
-          return $q.reject(rejection);
-        }
+        return $q.reject(rejection);
       } else if (rejection.status == 502) {
         console.log('I am sorry, it is a 502 error. Keep calm and close your console.');
       } else if (rejection.status == 503) {

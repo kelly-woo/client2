@@ -11,7 +11,7 @@
     .directive('activeNotifier', activeNotifier);
 
   /* @ngInject */
-  function activeNotifier($timeout, $http, configuration) {
+  function activeNotifier($timeout, $http, configuration, storageAPIservice) {
     return {
       restrict: 'A',
       link: link
@@ -131,18 +131,20 @@
        * @private
        */
       function _notify(isActive) {
-        if (!_isSignedIn) {
-          isActive = false;
-        }
-
-        $http({
-          method: 'PUT',
-          url: configuration.api_address + 'inner-api/platform/active',
-          data: {
-            platform: PLATFORM,
-            active: isActive
+        if (storageAPIservice.getAccessToken()) {
+          if (!_isSignedIn) {
+            isActive = false;
           }
-        }).success(_onSuccessNotify);
+
+          $http({
+            method: 'PUT',
+            url: configuration.api_address + 'inner-api/platform/active',
+            data: {
+              platform: PLATFORM,
+              active: isActive
+            }
+          }).success(_onSuccessNotify);
+        }
       }
 
       /**

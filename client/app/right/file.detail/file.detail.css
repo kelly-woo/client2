@@ -330,7 +330,7 @@
 }
 .comment-input {
   width:100%;
-  background:white;
+  background:transparent;
   font-size:.95rem;
   line-height:1.2rem;
   border: 0;
@@ -348,6 +348,7 @@
   padding:9px 30px 9px 8px;
   overflow-y:auto !important;
   resize:vertical !important;
+  margin-top:3px;
 }
 .comment-input:focus { -webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; }
 .comment-input.offline { background-color:#fdf1c1; }
@@ -388,7 +389,7 @@
   position: relative;
   margin-bottom: 8px;
   border: 1px solid #D2D2D2;
-  padding-right: 23px;
+  padding-right: 34px;
   -webkit-border-top-right-radius:.2rem;
   -webkit-border-bottom-right-radius:.2rem;
   -webkit-border-bottom-left-radius:0;
@@ -399,8 +400,8 @@
   -moz-border-radius-topleft:0;
   border-top-right-radius:.2rem;
   border-bottom-right-radius:.2rem;
-  border-bottom-left-radius:0;
-  border-top-left-radius:0;
+  border-bottom-left-radius:.2rem;
+  border-top-left-radius:.2rem;
 }
 
 .file-detail-disabled-member .file-detail-header__thumbnail,
@@ -429,7 +430,7 @@
                  STAR
 
 ********************************************/
-.rpanel-body-content.file-detail .comment-star .icon-star-fill,
-.rpanel-body-content.file-detail .action-star .icon-star-fill {
+.rpanel-body-content.file-detail .comment-star .icon-star-on,
+.rpanel-body-content.file-detail .action-star .icon-star-on {
   color: #f9bb00;
 }

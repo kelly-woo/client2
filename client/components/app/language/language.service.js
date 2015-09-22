@@ -10,11 +10,12 @@
     .service('language', language);
 
   /* @ngInject */
-  function language(accountService, configuration, gettextCatalog, storageAPIservice, pcAppHelper) {
+  function language(accountService, configuration, gettextCatalog, storageAPIservice, HybridAppHelper) {
     this.init = init;
     this.setConfig = setConfig;
     this.setDebugMode = setDebugMode;
     this.getLanguageList = getLanguageList;
+    this.getCurrentLanguage = getCurrentLanguage;
 
     /**
      * @namespace
@@ -118,7 +119,7 @@
       gettextCatalog.setCurrentLanguage(preferences.language);
       storageAPIservice.setLastLang(preferences.language);
 
-      pcAppHelper.onLanguageChanged(preferences.serverLang);
+      HybridAppHelper.onLanguageChanged(preferences.serverLang);
     }
 
     /**
@@ -135,6 +136,10 @@
      */
     function getLanguageList() {
       return listLangs;
+    }
+
+    function getCurrentLanguage() {
+      return preferences;
     }
   }
 })();

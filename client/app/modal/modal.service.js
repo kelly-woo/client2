@@ -11,7 +11,8 @@
     .service('modalHelper', modalWindowHelper);
 
   /* @ngInject */
-  function modalWindowHelper($modal, teamAPIservice, accountService, NetInterceptor) {
+  function modalWindowHelper($rootScope, $modal, $filter, teamAPIservice, fileAPIservice, accountService,
+                             NetInterceptor, Dialog) {
 
     var that = this;
 
@@ -54,13 +55,18 @@
      * file 을 upload 하는 모달창을 연다.
      * @param $scope
      */
-    function openFileUploadModal($scope) {
+    function openFileUploadModal($scope, options) {
       var modalOption = {
         scope: $scope,
         templateUrl: 'app/modal/files/upload/upload.html',
         controller: 'FileUploadModalCtrl',
         size: 'lg',
-        backdrop: 'static'
+        backdrop: 'static',
+        resolve: {
+          fileUplodOptions: function() {
+            return options;
+          }
+        }
       };
       modal = _modalOpener(modalOption);
     }
@@ -70,14 +76,29 @@
      * @param $scope
      */
     function openFileShareModal($scope, fileToShare) {
-      var modalOption = {
-        scope: $scope.$new(),
-        templateUrl: 'app/modal/files/share/share.html',
-        controller: 'FileShareModalCtrl',
-        size: 'lg',
-        resolve: {
-          fileToShare: function () {
-            return fileToShare;
+      var modalOption;
+      var selectOptions;
+
+      selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
+      selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
+
+      if (!selectOptions.length) {
+        Dialog.warning({
+          title: $filter('translate')('@common-all-shared')
+        });
+      } else {
+        modalOption = {
+          scope: $scope.$new(),
+          templateUrl: 'app/modal/files/share/share.html',
+          controller: 'FileShareModalCtrl',
+          size: 'lg',
+          resolve: {
+            fileToShare: function () {
+              return fileToShare;
+            },
+            selectOptions: function (){
+              return selectOptions;
+            }
           }
         }
       };

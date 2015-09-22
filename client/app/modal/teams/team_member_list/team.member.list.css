@@ -1,13 +1,6 @@
-.modal-body .modal_team_member_list .member-list {
-  margin-top: 0;
-}
-
 .modal_team_member_list_body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-}
-.modal_team_member_list {
-  margin-top: 20px;
 }
 
 .modal_team_member_profile_pic_thumbnail,
@@ -18,48 +11,4 @@
   width: 25px;
   border-radius: 25px;
   vertical-align: middle;
-}
-
-.member-list-tab li {
-  width: 50%;
-  text-align: center;
-  cursor: pointer;
-}
-
-.member-list-tab li a:last-child {
-  margin-right: 0;
-}
-
-.member-list-tab li.active {
-  /*width: 70%;*/
-}
-.member-list-tab a {
-  color: #999999;
-}
-.member-list-tab a:hover {
-  color: #366480;
-  background-color: #E6ECF2 !important;
-}
-.member-list-tab .active a  {
-  background-color: white !important;
-}
-
-.member-list-tab .nav-tabs {
-  border: 0;
-}
-
-.member-list-tab .member-list {
-  max-height: 55vh;
-  overflow-y: auto;
-}
-
-.member-list-tab .nav-tabs > li > a:hover {
-  border-bottom-color: rgba(0,0,0,0);
-}
-
-.member-list-tab .nav-tabs > li.active > a,
-.member-list-tab .nav-tabs > li.active > a:hover,
-.member-list-tab .nav-tabs > li.active > a:focus {
-  border-color: rgba(0,0,0,0);
-  color: #333333;
 }

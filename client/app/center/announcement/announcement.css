@@ -31,12 +31,12 @@
 
   border-radius: 48px;
 
-  opacity: 0.7;
-
-  background-color: white;
+  opacity: 0.9;
+  
+  background-color: rgba(255,255,255,0.7);
 
   color: #154a67;
-  font-size: 16px;
+  font-size: 20px;
 
   -webkit-box-shadow: 0 0 5px rgba(54, 100,128, 0.4);
   -moz-box-shadow: 0 0 5px rgba(54, 100, 128, 0.4);
@@ -72,12 +72,12 @@
 }
 .announcement-arrow-container {
   position: absolute;
-  right: 14px;
-  top: 16px;
+  right: 20px;
+  top: 20px;
 }
 .announcement-minimize__arrow {
   color: #154a67;
-  font-size: 28px;
+  font-size: 18px;
 }
 
 .announcement-inner {
@@ -104,6 +104,9 @@
   font-size: 12px;
   color: #154a67;
   padding-bottom: 2px;
+}
+.announcement-header .icon-clock{
+  padding-left: 4px;
 }
 
 .minimized .announcement-body {
@@ -147,8 +150,8 @@
   margin-left: 30px;
 }
 .maximized-announcement__icon {
-  font-size: 16px;
-  vertical-align: text-bottom;
+  font-size: 14px;
+  vertical-align: text-top;
 }
 
 .maximized-announcement-icon__text {
