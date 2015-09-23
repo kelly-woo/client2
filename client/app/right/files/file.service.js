@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout,
                                        memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
@@ -10,6 +10,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     'dropbox': true
   };
   var fileDetail;
+  var _timerClearCurUpload;
 
   this.upload = upload;
   this.abort = abort;
@@ -32,7 +33,11 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   this.broadcastFileShare = broadcastFileShare;
   this.isFileTooLarge = isFileTooLarge;
+
   this.clearCurUpload = clearCurUpload;
+  this.cancelClearCurUpload = cancelClearCurUpload;
+  this.clearUploader = clearUploader;
+
   this.deleteFile = deleteFile;
   this.generateFileTypeFilter = generateFileTypeFilter;
   this.isIntegrateFile = isIntegrateFile;
@@ -80,8 +85,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       url: url,
       data: fileInfo,
       file: file,
-      fileFormDataName: 'userFile',
-      version: 3
+      fileFormDataName: 'userFile'
     });
   }
 
@@ -346,7 +350,25 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   }
 
   function clearCurUpload() {
-    $rootScope.curUpload = {};
+    // hide progress bar
+    _timerClearCurUpload = $timeout(function () {
+      $('.file-upload-progress-container').css('opacity', 0);
+      // opacity 0된 후 clear upload info
+      $timeout(function () {
+        $rootScope.curUpload = {};
+      }, 500);
+    }, 2000);
+  }
+
+  function cancelClearCurUpload() {
+    $timeout.cancel(_timerClearCurUpload);
+  }
+
+  /**
+   * clear uploader
+   */
+  function clearUploader() {
+    delete $rootScope.fileUploader;
   }
 
   function deleteFile(fileId) {

@@ -730,8 +730,8 @@ module.exports = function (grunt) {
         updateConfigs: [],
         commit: false,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json'],
-        createTag: true, //tobe true
+        commitFiles: ['package.json', 'CHANGELOG.md', 'README.md'],
+        createTag: false, //tobe true
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
         push: false,
@@ -927,34 +927,21 @@ module.exports = function (grunt) {
     grunt.config.set('pkg', grunt.file.readJSON('package.json'));
   });
 
-  grunt.registerTask('version-new', function(target) {
+  grunt.registerTask('version-release', function(target) {
     switch (target) {
       case 'major':
-        target = 'premajor';
+        target = 'major';
         break;
       case 'minor':
-        target = 'preminor';
+        target = 'minor';
         break;
       default:
-        target = 'prepatch';
+        target = 'patch';
         break;
     }
-    var bumpTask = 'bump:' + target;
-    grunt.config.set('bump.options.createTag', false);
-    grunt.config.set('bump.options.push', false);
-    grunt.task.run([bumpTask, 'package-update', 'local']);
-  });
-
-  grunt.registerTask('version-fix', function(target) {
-    grunt.config.set('bump.options.createTag', false);
-    grunt.config.set('bump.options.push', false);
-    grunt.task.run(['bump:prerelease', 'package-update', 'local']);
-  });
-
-  grunt.registerTask('version-release', function(target) {
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
     grunt.config.set('bump.options.createTag', true);
-    grunt.task.run(['bump', 'package-update', 'changelog']);
+    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'changelog', 'bump::commit-only']);
   });
 };

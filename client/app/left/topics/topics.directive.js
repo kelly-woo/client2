@@ -1,5 +1,6 @@
 /**
- * @fileoverview 토픽 디렉티브
+ * @fileoverview 토픽 리스트 디렉티브
+ * @author Young Park <young.park@tosslab.com>
  */
 (function() {
   'use strict';

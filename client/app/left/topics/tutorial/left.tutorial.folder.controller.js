@@ -1,5 +1,5 @@
 /**
- * @fileoverview 폴터 튜토리얼
+ * @fileoverview 폴터 튜토리얼 컨트롤러
  */
 (function() {
   'use strict';
@@ -28,7 +28,10 @@
       }
     }
 
-
+    /**
+     * 자연스러운 효과를 위해 토픽 폴더가
+     * @private
+     */
     function _setIsShown() {
       $timeout(function() {
         $scope.isShown = !AccountHasSeenService.get('GUIDE_TOPIC_FOLDER');

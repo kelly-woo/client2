@@ -12,6 +12,23 @@
     this.leaveEntity = leaveEntity;
     this.deleteEntity = deleteEntity;
     this.toggleTopicNotification = toggleTopicNotification;
+    this.kickOut = kickOut;
+
+    /**
+     * 멤버를 토픽에서 강퇴한다.
+     * @param {number} topicId - (기존 entityId)
+     * @param {number} memberId
+     * @returns {*}
+     */
+    function kickOut(topicId, memberId) {
+      return $http({
+        method: 'PUT',
+        url: config.server_address + 'teams/' + teamId + '/topics/' + topicId + '/kickout',
+        data: {
+          memberId: memberId
+        }
+      });
+    }
 
     function leaveEntity(entityType, entityId) {
       return $http({

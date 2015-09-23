@@ -1,5 +1,5 @@
 /**
- * @fileoverview left panel 에서 토픽 하나만 controll한다.
+ * @fileoverview left panel 에서 토픽 하나만 control 한다.
  */
 (function() {
   'use strict';

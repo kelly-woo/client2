@@ -12,6 +12,7 @@
   "base_url"               : ".jandi.com",
   "assets_url"             : "https://www.jandi.com/app/",
   "base_protocol"          : "https://",
+  "landing_address"        : "https://www.jandi.com/landing/#/",
   "main_address"           : "https://www.jandi.com/main/#/",
   "app_store_address"      : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
   "play_store_address"     : "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app",

@@ -124,11 +124,38 @@
   right: 10px !important;
 }
 .header-title-member__dropdown > li > a {
-  /*padding: 0 !important;*/
+  padding: 0 2.5rem 0 2.5rem !important;
   height: 38px !important;
   line-height: 38px !important;
   max-width: 200px;
 }
+
+.header-title-member__dropdown > li:hover > a {
+  background-color: #e8f3f9 !important;
+}
+
+.kick-item-icon {
+  position:absolute;
+  right:0.3rem;
+  top:5px;
+  width:28px;
+  height: 28px;
+  background-color: transparent;
+  color:#BECAD6;
+  font-size:16px;
+  padding:5px 0 0 6px;
+  border-radius: 14px;
+}
+
+.header-title-member__dropdown > li:hover > .kick-item-icon {
+  color: #366480;
+}
+
+.header-title-member__dropdown > li:hover > .kick-item-icon:hover {
+  background-color: #366480;
+  color:#FFF;
+}
+
 .header-title-member__dropdown__thumb {
   border-radius: 100%;
   position: absolute;
