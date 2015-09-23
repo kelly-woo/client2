@@ -353,7 +353,8 @@ msgstr "파일 리스트"
 #: client/app/modal/files/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
-"파일이 성공적으로 공유되었습니다. 파일이 공유된 대화로 이동하시겠습니까?"
+"파일이 성공적으로 공유되었습니다.<br/> 파일이 공유된 대화로 이동하시겠습니"
+"까?"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"

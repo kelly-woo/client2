@@ -125,6 +125,7 @@
 
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
         Dialog.confirm({
+          allowHtml: true,
           body: $filter('translate')('@common-file-share-jump-channel-confirm-msg'),
           onClose: function(result) {
             if (result === 'okay') {

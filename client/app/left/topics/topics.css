@@ -10,13 +10,23 @@
 }
 .tooltip.right-center-topic-title.in {
   opacity: 1;
+  margin-top:14px;
+  margin-left:10px;
+}
+.tooltip.right-center-topic-title {
+  -webkit-transition:opacity 0s !important;
+  -moz-transition:opacity 0s !important;
+  transition:opacity 0s !important;
 }
 .right-center-topic-title .tooltip-inner {
   font-size: 13px;
   color: #333333;
-  background-color: #f4f4f4;
+  background-color: #FFF;
   padding: 5px;
-  box-shadow: 0px 0px 4px #cbcbcb;
+  padding-left: 12px;
+  padding-right: 12px;
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.05);
+  border:1px solid rgba(0,0,0,0.18);
   max-width: none;
 }
 

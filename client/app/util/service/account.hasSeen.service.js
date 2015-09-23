@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 해당 계정으로 다수 컴포넌트의 "다시 보지 않기" 설정을 조회하고 기록하는 서비스
+ * @author Young Park <young.park@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -21,8 +25,8 @@
     var server_address = configuration.server_address;
 
     /**
-     *
-     * @param key
+     * key 에 해당하는 정보를 가져온다.
+     * @param {string} key - KEY_MAP 에 정의된 키 스트링 : 'GUIDE_TOPIC_FOLDER'
      * @returns {boolean}
      */
     function get(key) {
@@ -40,6 +44,11 @@
       }
     }
 
+    /**
+     * key 에 정보를 기록한다.
+     * @param {string} key - KEY_MAP 에 정의된 키 스트링 : 'GUIDE_TOPIC_FOLDER'
+     * @param {boolean} isHasSeen - 설정값
+     */
     function set(key, isHasSeen) {
       var index = _getIndex(key);
       var account = accountService.getAccount();
@@ -63,9 +72,14 @@
       }
     }
 
+    /**
+     * key 값에 해당하는 index 를 반환한다.
+     * @param {string} key - KEY_MAP 에 정의된 키 스트링 : 'GUIDE_TOPIC_FOLDER'
+     * @returns {number}
+     * @private
+     */
     function _getIndex(key) {
       return KEY_MAP[key];
     }
   }
 })();
-
