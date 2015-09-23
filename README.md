@@ -1,4 +1,4 @@
-# JANDI V1.1.2
+# JANDI
 ## Release note
 - **web_landing**
   - 없음
@@ -11,5 +11,3 @@
   - 토픽 멤버 강퇴 기능 추가
 - **web_admin**
   - 없음
-
-g
