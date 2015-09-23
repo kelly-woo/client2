@@ -5,7 +5,7 @@
     </div>
     <div class="message-meta">
       <div class="message-title">
-        <span class="message-writer" ng-class="{'message-writer-highlight': (message.isSimple && message.contentType === 'text')}">{{::writerName}}</span>
+        <span class="message-writer" ng-class="::{'message-writer-highlight': (message.isSimple && message.contentType === 'text'), 'right-panel-disabled-member': isDisabledMember()}">{{::writerName}}</span>
         <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
