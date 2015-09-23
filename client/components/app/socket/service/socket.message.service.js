@@ -155,21 +155,13 @@
     function _onFileShared(data) {
       var room = data.room;
 
-      if (_shouldSendNotification(data)) {
+      if (jndWebSocketCommon.isChatType(room)) {
+        // 1:1 dm일 경우에는 _onDm이 handle하게 놔둔다.
+        _onDm(data);
+      } else if (_shouldSendNotification(data)) {
         if (memberService.isTopicNotificationOn(room.id)) {
           FileShareDesktopNotification.addNotification(data);
         }
-      }
-
-
-      if (jndWebSocketCommon.isChatType(room)) {
-        // 1:1 dm으로 file_share가 왔을 경우
-        if (jndWebSocketCommon.isCurrentEntity(room))  {
-          // 현재 보고 있는 방일 경우
-          jndPubSub.updateCenterPanel();
-        }
-
-        jndPubSub.pub('updateChatList');
       }
     }
 
@@ -232,7 +224,13 @@
       }
 
       jndPubSub.pub('updateChatList');
-      _sendBrowserNotification(data);
+
+      if (data.messageType === 'file_share') {
+        // file_share일 경우에으는 맞는 노티피케이션을 보내주기.
+        FileShareDesktopNotification.addNotification(data);
+      } else {
+        _sendBrowserNotification(data);
+      }
     }
 
     /**
