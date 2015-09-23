@@ -290,6 +290,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onDestroy() {
     _isDestroyed = true;
+    $timeout.cancel($scope.msgLoadStatus.timer);
     modalHelper.closeModal('cancel');
     _cancelHttpRequest();
     _detachEvents();
