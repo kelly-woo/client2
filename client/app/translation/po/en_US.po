@@ -615,6 +615,10 @@ msgstr "Upload File"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@confirm-kickout"
+msgstr "Are you sure you want to remove this member from the topic?"
+
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "Create a new topic"

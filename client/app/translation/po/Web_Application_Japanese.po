@@ -612,6 +612,10 @@ msgstr "アップロード"
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@confirm-kickout"
+msgstr "本当にこのメンバーをトピックから退室させますか？"
+
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "新規トピック作成"

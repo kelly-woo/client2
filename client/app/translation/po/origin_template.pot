@@ -590,6 +590,10 @@ msgstr ""
 msgid "@common-visit-homepage"
 msgstr ""
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@confirm-kickout"
+msgstr ""
+
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr ""

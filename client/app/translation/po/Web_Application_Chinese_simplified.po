@@ -510,7 +510,7 @@ msgstr "注册"
 
 #: client/app/right/right.html
 msgid "@common-removed-origin"
-msgstr ""
+msgstr "物件已被删除"
 
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-rename"
@@ -600,6 +600,10 @@ msgstr "上传文件"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "造访首页"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@confirm-kickout"
+msgstr "你确定将此成员剔除议题？"
 
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"

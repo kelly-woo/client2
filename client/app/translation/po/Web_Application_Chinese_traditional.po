@@ -601,6 +601,10 @@ msgstr "上傳檔案"
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@confirm-kickout"
+msgstr "你確定將此成員剔除議題？"
+
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "建立新議題"
