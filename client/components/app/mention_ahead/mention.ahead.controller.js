@@ -13,7 +13,6 @@
                             currentSessionHelper, configuration, MentionExtractor, Dialog) {
     var that = this;
 
-    var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
     var timerUpdateMentionAhead;
 
@@ -91,47 +90,10 @@
     function _setMentionList() {
       var currentEntity = currentSessionHelper.getCurrentEntity();
       var members = entityAPIservice.getMemberList(currentEntity);
-      var currentMemberId = memberService.getMemberId();
-      var mentionList = [];
-      var member;
-      var i;
-      var len;
+      var mentionList;
 
       if (members) {
-        // 현재 topic의 members
-
-        for (i = 0, len = members.length; i < len; i++) {
-          member = _getCurrentTopicMember(members[i]);
-          if (member && currentMemberId !== member.id && member.status === 'enabled') {
-            // mention 입력시 text 입력 화면에 보여지게 될 text
-            member.exViewName = '[@' + member.name + ']';
-
-            // member 검색시 사용될 text
-            member.exSearchName = member.name;
-            mentionList.push(member);
-          }
-        }
-
-        //if (mentionList && mentionList.length > 0) {
-        //  // mention 전달이 가능한 member가 2명 이상이라면
-        //  // 2명이상의 member 전체에게 mention 하는 all을 제공함
-
-        mentionList = _.sortBy(mentionList, 'exSearchName');
-
-        mentionList.unshift({
-          // mention item 출력용 text
-          name: MENTION_ALL_ITEM_TEXT,
-          // mention target에 출력용 text
-          exViewName : '[@' + MentionExtractor.MENTION_ALL + ']',
-          // mention search text
-          exSearchName: 'topic',
-          u_photoThumbnailUrl: {
-            smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
-          },
-          id: entityId,
-          type: 'room'
-        });
-        //}
+        mentionList = MentionExtractor.getMentionList(members, entityId);
 
         setMentions(mentionList);
       }
@@ -142,53 +104,16 @@
      * @param mentionList
      */
     function setMentions(mentionList) {
-      var mentionMap = {};
+      $scope.mentionList = mentionList;
 
       // 중복 user name에 대한 처리
-      _removeDuplicateMentionItem(mentionList, mentionMap);
-
-      $scope.mentionList = mentionList;
-      $scope._mentionMap = mentionMap;
+      $scope._mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
 
       if (!$scope.hasOn && mentionList.length > 0) {
         // mention ahead에 출력할 item이 존재하고 event listener가 연결되지 않았다면 연결함
         $scope.hasOn = true;
         $scope.on();
       }
-    }
-
-    /**
-     * mention list에 user name이 중복되는 member가 존재한다면 mention list에서는 존재하지만
-     * mention은 전달하지 않도록 mention map에서 삭제함.
-     * @param mentionList
-     * @param mentionMap
-     * @private
-     */
-    function _removeDuplicateMentionItem(mentionList, mentionMap) {
-      var duplicateNameMentions = [];
-      var mentionItem;
-      var i;
-      var len;
-
-      for (i = 0, len = mentionList.length; i < len; ++i) {
-        mentionItem = mentionList[i];
-        if (duplicateNameMentions.indexOf(mentionItem.exViewName) < 0) {
-          mentionMap[mentionItem.exViewName] = mentionItem;
-          duplicateNameMentions.push(mentionItem.exViewName);
-        } else {
-          delete mentionMap[mentionItem.exViewName];
-        }
-      }
-    }
-
-    /**
-     * 현재 topic의 member object를 전달함.
-     * @param {number} memberId
-     * @returns {*}
-     * @private
-     */
-    function _getCurrentTopicMember(memberId) {
-      return entityAPIservice.getEntityFromListById($originScope.totalEntities, memberId);
     }
 
     /**
@@ -299,7 +224,7 @@
       var currentEntity;
       var msg;
 
-      if ($item.name === MENTION_ALL_ITEM_TEXT) {
+      if ($item.name === MentionExtractor.MENTION_ALL_ITEM_TEXT) {
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
@@ -327,7 +252,7 @@
      */
     function _onSelect($item, confirm) {
       var mention = $scope.mention;
-      var mentionTarget = $item.exViewName;
+      var mentionTarget = $item.extViewName;
       var extraText = ' ';
       var text;
       var selection;

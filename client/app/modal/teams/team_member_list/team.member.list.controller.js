@@ -78,6 +78,7 @@
 
     function onTabDeselect(type) {
       jndPubSub.pub('setActiveIndex:' + type, 0);
+      jndPubSub.pub('updateList:' + type);
     }
 
     /**

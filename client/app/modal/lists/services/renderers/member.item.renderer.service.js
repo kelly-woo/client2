@@ -17,7 +17,7 @@
     _init();
 
     function _init() {
-      _template = Handlebars.templates['member.item'];
+      _template = Handlebars.templates['modal.member.list.item'];
     }
 
     /**
@@ -30,7 +30,8 @@
         profileImage: $filter('getSmallThumbnail')(data),
         userName: $filter('getName')(data),
         starClass: data.isStarred ? 'icon-star-on' : '',
-        isShowStar: !publicService.isDisabledMember(data) && data.id !== memberService.getMemberId()
+        isShowStar: !publicService.isDisabledMember(data) && data.id !== memberService.getMemberId(),
+        itemHeight: 44
       });
     }
   }

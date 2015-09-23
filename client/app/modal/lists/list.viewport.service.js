@@ -68,7 +68,7 @@
 
       // viewportMaxHeight가 입력되지 않았다면 viewportHeight를 maxHeight로 사용한다.
       // viewportMaxHeight가 입력되지 않으면 고정된 viewportHeight를 제공한다.
-      that.options.viewportMaxHeight == null && (that.options.viewportMaxHeight = that.options.viewportHeight);
+      !_.isNumber(that.options.viewportMaxHeight) && (that.options.viewportMaxHeight = that.options.viewportHeight);
 
       return that;
     }

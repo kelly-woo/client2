@@ -54,7 +54,7 @@
      * @returns {*}
      */
     function success(title, body, options) {
-      return toastr.success(title, body, options);
+      return toastr.success(body, title, options);
     }
 
     /**
@@ -65,7 +65,7 @@
      * @returns {*}
      */
     function info(title, body, options) {
-      return toastr.info(title, body, options);
+      return toastr.info(body, title, options);
     }
 
     /**
@@ -76,7 +76,7 @@
      * @returns {*}
      */
     function warning(title, body, options) {
-      return toastr.warning(title, body, options);
+      return toastr.warning(body, title, options);
     }
 
     /**
@@ -87,7 +87,7 @@
      * @returns {*}
      */
     function error(title, body, options) {
-      return toastr.error(title, body, options);
+      return toastr.error(body, title, options);
     }
 
     /**
