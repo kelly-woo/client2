@@ -186,6 +186,11 @@
         },
         // upload confirm end
         onConfirmEnd: function() {
+          if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
+            fileAPIservice.clearUploader();
+            fileAPIservice.clearCurUpload();
+          }
+
           modalHelper.closeModal();
 
           delete $rootScope.fileUploader;

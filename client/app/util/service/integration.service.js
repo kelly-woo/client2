@@ -135,11 +135,7 @@
        * center.html에 표현되는 progress bar close
        */
       _closeProgressBar: function() {
-        $timeout(function() {
-          $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
-            fileAPIservice.clearCurUpload();
-          });
-        }, 2000);
+        fileAPIservice.clearCurUpload();
       },
       /**
        * upload uri에 전달하는 data object create
