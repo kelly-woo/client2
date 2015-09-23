@@ -72,7 +72,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       files.blob.name = fileInfo.title;
       file = files.blob;
     } else {
-      file = files
+      file = files;
     }
 
     return $upload.upload({
