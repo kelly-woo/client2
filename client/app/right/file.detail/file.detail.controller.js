@@ -300,13 +300,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   /**
    * 이미지 클릭시 이벤트 핸들러
    */
-  function onImageClick() {
+  function onImageClick($event) {
     var file_detail = $scope.file_detail;
 
     if ($filter('isIntegrationContent')(file_detail.content)) {
       window.open(file_detail.content.fileUrl, '_blank');
     } else {
-      if ($scope.hasZoomIn) {
+      if (!$($event.target).hasClass('no-image-preview') && $scope.hasZoomIn) {
         modalHelper.openImageCarouselModal({
           // image file api data
           messageId: fileId,
@@ -752,7 +752,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   function onFileDetailImageLoad() {
-    $scope.isLoadingImage = false;
+    $scope.$apply(function() {
+      $scope.isLoadingImage = false;
+    });
   }
 
   /**

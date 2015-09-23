@@ -218,6 +218,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
+    $scope.$on('onScrollToBottom', _onScrollToBottom);
+
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
     });
@@ -1464,6 +1466,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (centerService.hasBottomReached()) {
       _scrollToBottomWithAnimate();
     }
+  }
+
+  /**
+   * on scroll bottom
+   * @private
+   */
+  function _onScrollToBottom() {
+    _scrollToBottom(true);
   }
 
   function _resetUnreadCounters() {

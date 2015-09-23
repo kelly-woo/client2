@@ -7,9 +7,9 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, modalHelper, currentSessionHelper, analyticsService,
+  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, $filter, modalHelper, currentSessionHelper,
                                fileAPIservice, ImagesHelper, AnalyticsHelper, TopicFolderModel, fileUplodOptions,
-                               EntityMapManager, entityAPIservice, MentionExtractor) {
+                               EntityMapManager, entityAPIservice, MentionExtractor, analyticsService) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var jqProgressBar;
     var fileUploader;

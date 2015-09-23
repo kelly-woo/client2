@@ -48,35 +48,70 @@
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
       } else if (jqTarget.closest('._fileExpand').length) {
-        _onClickExpand(msg, jqTarget);
+        _onClickFileExpand(msg, jqTarget);
+      } else if (jqTarget.closest('._fileToggle').length) {
+        _onClickFileToggle(msg, jqTarget);
       }
     }
 
     /**
-     * 큰 thumbnail 의 확대 버튼 클릭 핸들러
+     * file show/hide event handler
      * @param {object} msg
      * @param {object} jqTarget
      * @private
      */
-    function _onClickExpand(msg, jqTarget) {
-      var message = msg.message;
-      var content = _getFeedbackContent(msg);
-      var currentEntity = currentSessionHelper.getCurrentEntity();
-      modalHelper.openImageCarouselModal({
-        // server api
-        getImage: fileAPIservice.getImageListOnRoom,
+    function _onClickFileToggle(msg, jqTarget) {
+      var jqMsg = $('#' + msg.id);
+      var jqThumb = jqMsg.find('._fileMediumThumb');
+      var jqToogle = jqMsg.find('._fileToggle');
+      var isHide = jqThumb.css('display') === 'none';
+      var isScrollBottom = centerService.isScrollBottom();
 
-        // image file api data
-        messageId: message.id,
-        entityId: currentEntity.entityId || currentEntity.id,
-        // image carousel view data
-        userName: message.writer.name,
-        uploadDate: msg.time,
-        fileTitle: content.title,
-        fileUrl: content.fileUrl,
-        // single file
-        isSingle: msg.status === 'unshared'
-      });
+      if (isHide) {
+        jqThumb.show();
+        jqToogle.addClass('icon-angle-down').removeClass('icon-angle-right');
+      } else {
+        jqThumb.hide();
+        jqToogle.addClass('icon-angle-right').removeClass('icon-angle-down');
+      }
+
+      if (isScrollBottom) {
+        // image 접기/펼치기 전 scroll이 bottom에 있었다면 scroll bottom 고정
+        jndPubSub.pub('onScrollToBottom');
+      }
+    }
+
+    /**
+     * thumbnail image를 original image로 보기 위한 클릭 핸들러
+     * @param {object} msg
+     * @param {object} jqTarget
+     * @private
+     */
+    function _onClickFileExpand(msg, jqTarget) {
+      var message = msg.message;
+      var content;
+      var currentEntity;
+
+      if (!jqTarget.hasClass('no-image-preview')) {
+        content = _getFeedbackContent(msg);
+        currentEntity = currentSessionHelper.getCurrentEntity();
+
+        modalHelper.openImageCarouselModal({
+          // server api
+          getImage: fileAPIservice.getImageListOnRoom,
+
+          // image file api data
+          messageId: message.id,
+          entityId: currentEntity.entityId || currentEntity.id,
+          // image carousel view data
+          userName: message.writer.name,
+          uploadDate: msg.time,
+          fileTitle: content.title,
+          fileUrl: content.fileUrl,
+          // single file
+          isSingle: msg.status === 'unshared'
+        });
+      }
     }
 
     /**

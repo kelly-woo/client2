@@ -208,12 +208,21 @@
   /**
    * preview를 가져야 하는지 여부
    */
-  app.filter('mustPreview', function() {
+  app.filter('mustPreview', function($filter) {
     var rImage = /image/i;
+    return function(content) {
+      return !!content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+    };
+  });
+
+  /**
+   * preview 생성 가능한 size인지 여부
+   */
+  app.filter('validPreviewSize', function() {
     var MAX_IMAGE_SIZE = 10000000; // 10MB
     return function(content) {
-      return !!content && content.size < MAX_IMAGE_SIZE && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
-    };
+      return content && content.size < MAX_IMAGE_SIZE
+    }
   });
 
   /**

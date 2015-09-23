@@ -38,11 +38,13 @@
         <div>
           {{#if file.mustPreview }}
           <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
-          <div class="image_wrapper msg-file-body__img__background jnd-text-center cursor_pointer medium-thumbnail loading _compile _fileExpand ">
+          <div class="jnd-text-center _compile _fileMediumThumb">
             {{#if file.hasPreview}}
-              <div class="medium-thumbnail" image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true"></div>
+              <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer opac-zero _fileExpand" image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true"></div>
             {{else}}
-              {{{file.loading}}}
+              <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer">
+                {{{file.loading}}}
+              </div>
             {{/if}}
           </div>
           {{else}}
@@ -66,18 +68,19 @@
           </div>
           {{else}}
           <!--  NOT ARCHIVED FILE -->
-          <div>
-            <!--    TITLE   -->
-            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
-              {{ file.title }}
-            </a>
-            {{#if file.size}}
-            <span class="bullet">•</span>
-            <!--    SIZE AND FILE TYPE  -->
-            <span class="msg-file-meta-info">{{ file.size }}</span>
-            {{/if}}
-            <span class="msg-file-meta-info">{{ file.type }}</span>
-          </div>
+          <!--    TITLE   -->
+          <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
+            {{ file.title }}
+          </a>
+          {{#if file.size}}
+          <span class="bullet">•</span>
+          <!--    SIZE AND FILE TYPE  -->
+          <span class="msg-file-meta-info">{{ file.size }}</span>
+          {{/if}}
+          <span class="msg-file-meta-info">{{ file.type }}</span>
+          {{#if file.hasPreview}}
+            <i class="preview-icon icon-angle-down _fileToggle"></i>
+          {{/if}}
         </div>
         <div class="msg-file-meta-down _compile">
           {{#unless file.isIntegrateFile}}

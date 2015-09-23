@@ -153,3 +153,8 @@
   left: 50%;
   margin: -12px 0 0 -12px;
 }
+
+.file-card .no-image-preview-square {
+  width: 65px;
+  height: 65px;
+}

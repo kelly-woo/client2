@@ -83,6 +83,7 @@
         } else {
           _onImageLoadError();
           _show(jqImageContainer, displayProperty);
+          _callCallback();
         }
       }
 
@@ -249,7 +250,7 @@
        */
       function _callCallback() {
         if (!!callbackFunction) {
-          scope.$apply(callbackFunction);
+          scope.$eval(callbackFunction);
         }
       }
 
