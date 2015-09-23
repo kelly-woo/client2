@@ -315,7 +315,6 @@
 
     function setTokenCookie (tokenData) {
       _session.accessToken = tokenData.access_token;
-      console.log('###setTokenCookie', _session.accessToken);
       localStorageService.cookie.set(accessToken_key, tokenData.access_token);
       localStorageService.cookie.set(refreshToken_key, tokenData.refresh_token);
       localStorageService.cookie.set(tokenType_key, tokenData.token_type);
