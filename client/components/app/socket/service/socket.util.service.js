@@ -47,7 +47,7 @@
         // dm일 경우
         if (room.extWriterId) {
           // 방에 작성자 정보가 있을 경우
-          return room.extWriterId === currentEntity.id;
+          return room.extWriterId === currentEntity.id || isActionFromMe(room.extWriterId);
         } else {
           return roomId === currentEntity.entityId;
         }
