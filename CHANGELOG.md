@@ -1,3 +1,15 @@
+<a name"1.1.6"></a>
+### 1.1.6 (2015-09-23)
+
+
+#### Bug Fixes
+
+* **grunt:** fix version release script ([00a915e6](https://github.com/tosslab/web_client.git/commit/00a915e6))
+* **readme:**
+  * 내용 추가 ([da6c1994](https://github.com/tosslab/web_client.git/commit/da6c1994))
+  * 내용 추가 ([44479759](https://github.com/tosslab/web_client.git/commit/44479759))
+
+
 <a name"1.1.5"></a>
 ### 1.1.5 (2015-09-23)
 
