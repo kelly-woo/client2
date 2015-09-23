@@ -1,3 +1,12 @@
+<a name"1.1.7"></a>
+### 1.1.7 (2015-09-23)
+
+
+#### Bug Fixes
+
+* **dm.file.share:** Do not send browser notification when I share a file on dm.   - #JND-3540 #resol ([5d936550](https://github.com/tosslab/web_client.git/commit/5d936550))
+
+
 <a name"1.1.6"></a>
 ### 1.1.6 (2015-09-23)
 
