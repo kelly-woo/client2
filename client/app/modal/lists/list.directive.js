@@ -39,7 +39,7 @@
       var onSelect = scope.$eval(attrs.onSelect);
 
       // viewport의 최대 height
-      var maxHeight = parseInt(attrs.viewportMaxHeight, 10);
+      var maxHeight = parseInt(attrs.viewportMaxHeight || $(window).height() / 2, 10);
 
       // item의 height
       var itemHeight = _.isString(attrs.itemHeight) ? scope.$eval(attrs.itemHeight) : parseInt(attrs.itemHeight, 10);
@@ -111,17 +111,13 @@
        */
       function _on() {
         if (type != null) {
-          scope
-            .$on('updateList:' + type, _onUpdateList);
-          scope
-            .$on('setActiveIndex:' + type, _onSetActiveIndex);
+          scope.$on('setActiveIndex:' + type, _onSetActiveIndex);
+          scope.$on('updateList:' + type, _onUpdateList);
         }
 
-        scope
-          .$watch(model, _onFilterValueChanged);
+        scope.$watch(model, _onFilterValueChanged);
 
-        jqFilter
-          .on('keydown', _onKeydown);
+        jqFilter.on('keydown', _onKeydown);
 
         jqViewport
           .on('scroll', _onScroll)
@@ -175,9 +171,8 @@
         if (newValue !== oldValue) {
           // model value changed
 
-          _updateList(newValue);
-
           setActiveIndex(0);
+          _updateList(newValue);
         }
       }
 
@@ -262,7 +257,10 @@
         var target = event.currentTarget;
 
         activeIndex = $(target).data('viewport-index');
-        _focusItem(activeIndex);
+
+        // scrolling에 영향을 주므로 주석 처리
+        // _focusItem(activeIndex);
+
         _setActiveClass()
       }
 

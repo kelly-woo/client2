@@ -6,11 +6,13 @@
     .controller('authController', authController);
 
   /* @ngInject */
-  function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
+  function authController($scope, $rootScope, $state, authAPIservice, analyticsService, language,
                           storageAPIservice, accountService, memberService, publicService,
                           HybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
+    $scope.goToSignIn = goToSignIn;
+
     jndWebSocket.disconnect();
 
 
@@ -61,6 +63,21 @@
       }
     })();
 
+    /**
+     * language 설정에 맞추어 sign in 페이지로 이동한다.
+     */
+    function goToSignIn() {
+      var languageMap = {
+        'en': 'en',
+        'ko': 'kr',
+        'zh-cn': 'zh-cn',
+        'zh-tw': 'zh-tw',
+        'ja': 'jp'
+      };
+      var lang = language.getCurrentLanguage().serverLang || 'en';
+      location.href = $scope.configuration.landing_address + languageMap[lang] + '/register';
+    }
+
     function getCurrentMember(memberId) {
       var account = accountService.getAccount();
 
@@ -77,8 +94,7 @@
       if (curMemberId == -1) {
         //console.log('no memberid')
         // Could not find member id that is associated with current team.
-        var main_team = $scope.configuration.main_address + 'team';
-        publicService.redirectTo(main_team);
+        publicService.redirectToMain();
         return;
       }
 
@@ -159,8 +175,7 @@
             //console.log('no memberid')
             // Could not find member id that is associated with current team.
             // Direct user to landing page!
-            var main_team = $scope.configuration.main_address + 'team';
-            publicService.redirectTo(main_team);
+            publicService.redirectToMain();
 
             storageAPIservice.removeSession();
             storageAPIservice.removeLocal();

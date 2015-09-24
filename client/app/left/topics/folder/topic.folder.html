@@ -34,6 +34,7 @@
             }">{{folder.name}}</span>
         <input style="display:none"
                type="text"
+               ng-mousedown="$event.stopPropagation()"
                ng-click="$event.stopPropagation()"
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
       </span>

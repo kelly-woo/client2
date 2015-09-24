@@ -9,6 +9,7 @@
     .module('config.common', [])
     .constant('configuration', {
       version             : '@@version',
+      team_name           : '@@team_name',
       name                : '@@name',
       api_address         : '@@api_address',
       socket_address      : '@@socket_address',
@@ -21,6 +22,7 @@
       base_url            : '@@base_url',
       assets_url          : '@@assets_url',
       base_protocol       : '@@base_protocol',
+      landing_address     : '@@landing_address',
       main_address        : '@@main_address',
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',

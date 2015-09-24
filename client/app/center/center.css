@@ -77,7 +77,8 @@ article {
 }
 .msgs__loading.initial {
   height: 100%;
-  background-size: 100px 100px;
+  /*background-size: 100px 100px;*/
+  background:#FFFFFF;
 }
 .msgs__loading.load-more-top {
   position: absolute;

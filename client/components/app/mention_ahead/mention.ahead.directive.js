@@ -21,7 +21,7 @@
 
         mentionahead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
-          'jandi-typeahead="mention as mention.name for mention in mentionList | userByName: $viewValue" ' +
+          'jandi-typeahead="mention.name for mention in mentionList | filter: { extSearchName: $viewValue }"' +
           'jandi-typeahead-placement="top-left" ' +
           'jandi-typeahead-on-select="onSelect($item)" ' +
           'jandi-typeahead-on-matches="onMatches($matches)" ' +

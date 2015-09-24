@@ -7,7 +7,7 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock) {
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil) {
 
   /**
    * @namespace
@@ -20,10 +20,9 @@ app.controller('leftPanelController1', function(
     hasBroadcast: false,
     broadcastTo: ''
   };
-
+  var that = this;
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
-  var _updateLock = false;
   var _getLeftListDeferredObject;
 
   //unread 갱신시 $timeout 에 사용될 타이머
@@ -127,6 +126,7 @@ app.controller('leftPanelController1', function(
    */
   function _onStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     $scope.entityId = toParams.entityId;
+    TopicFolderModel.setCurrentEntity($scope.entityId);
   }
 
   /**
@@ -151,11 +151,11 @@ app.controller('leftPanelController1', function(
       var targetScrollTop = scrollTop + (top - currentBottom);
 
       if (isLast) {
+        targetScrollTop += space;
         $scope.unread.below = [];
       } else {
-        targetScrollTop += jqTarget.outerHeight() + space;
+        targetScrollTop += (jqTarget.outerHeight() + space);
       }
-
       _isBadgeMoveLocked = true;
       jqContainer.animate({
         scrollTop: targetScrollTop
@@ -181,7 +181,6 @@ app.controller('leftPanelController1', function(
       var top = _getPosUnreadAbove();
       //위 여백
       var space = 7;
-
       var targetScrollTop = scrollTop - (currentTop - top);
 
       if ($scope.unread.above.length > 1) {
@@ -732,8 +731,7 @@ app.controller('leftPanelController1', function(
   }
 
   function enterEntity(entity) {
-    _safeApply(function() {
-      $timeout.cancel(_entityEnterTimer);
+    JndUtil.safeApply($scope, function() {
       NotificationManager.set(entity, 0);
       HybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
@@ -741,30 +739,19 @@ app.controller('leftPanelController1', function(
       $scope.entityId = entity.id;
       jndPubSub.pub('onBeforeEntityChange', entity);
     });
-    _entityEnterTimer = $timeout(_.bind(_doEnter, this, entity), 10);
-  }
-
-  /**
-   * 안전하게 apply callback 을 수행한다.
-   * @param {function} fn
-   * @private
-   */
-  function _safeApply(fn) {
-    if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-      $scope.$apply(fn);
-    } else {
-      fn();
-    }
+    $timeout.cancel(_entityEnterTimer);
+    _entityEnterTimer = $timeout(_.bind(_doEnter, that, entity), 10);
   }
 
   function _doEnter(entity) {
     var entityType = entity.type;
     var entityId = entity.id;
     var currentEntity = currentSessionHelper.getCurrentEntity();
-    if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+    //fixme: 더블 클릭 시 오류를 유발하기 때문에 주석처리 함. 주석처리로 인해 다른 문제가 발생한다면 해당 로직 검토해야함.
+    //if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
+    //  publicService.goToDefaultTopic();
+    //  return;
+    //}
     if (currentEntity.id === entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
@@ -800,7 +787,6 @@ app.controller('leftPanelController1', function(
             });
           } catch (e) {
           }
-
         });
     }
     else {
@@ -827,7 +813,6 @@ app.controller('leftPanelController1', function(
 
           }
         });
-
     }
   };
 
@@ -888,6 +873,8 @@ app.controller('leftPanelController1', function(
   $scope.onFileSelect = function($files, options) {
     var currentEntity = currentSessionHelper.getCurrentEntity();
     var fileUploader;
+    var jqMessageInput;
+    var messageInputValue;
 
     if ($rootScope.fileUploader) {
       fileUploader = $rootScope.fileUploader;
@@ -896,15 +883,31 @@ app.controller('leftPanelController1', function(
         // 다른 topic에서 upload를 시도함
         $rootScope.fileUploader.clear();
         $scope.onFileUploadAbortClick();
-        fileAPIservice.clearCurUpload();
-        delete $rootScope.fileUploader;
+
+        fileAPIservice.clearUploader();
+        $rootScope.curUpload = {};
 
         fileUploader = undefined;
       }
     }
 
+    fileAPIservice.cancelClearCurUpload();
+
     fileUploader = fileUploader || FilesUpload.createInstance();
     fileUploader.currentEntity = currentEntity;
+
+    if (options == null) {
+      jqMessageInput = $('#message-input');
+      messageInputValue = jqMessageInput.val();
+      jqMessageInput.val('').trigger('change');
+
+      options = {
+        createFileObject: function(file) {
+          file.comment = messageInputValue;
+          return file;
+        }
+      };
+    }
 
     fileUploader
       .setFiles($files, options)
@@ -914,15 +917,8 @@ app.controller('leftPanelController1', function(
           $scope.openModal('file', {
             fileUploader: fileUploader,
             onEnd: function () {
-              // hide progress bar
-              $timeout(function () {
-                $('.file-upload-progress-container').css('opacity', 0);
-                // opacity 0된 후 clear upload info
-                $timeout(function () {
-                  fileAPIservice.clearCurUpload();
-                  delete $rootScope.fileUploader;
-                }, 500);
-              }, 2000);
+              fileAPIservice.clearUploader();
+              fileAPIservice.clearCurUpload();
             }
           });
         }
@@ -939,8 +935,7 @@ app.controller('leftPanelController1', function(
   $scope.onFileIconCloseClick = function() {
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
-        fileAPIservice.clearCurUpload();
-        delete $rootScope.fileUploader;
+        $rootScope.curUpload = {};
       }
     )
   };
@@ -1065,15 +1060,8 @@ app.controller('leftPanelController1', function(
         $rootScope.fileUploader.clear();
         $scope.onFileUploadAbortClick();
 
-        // hide progress bar
-        $timeout(function () {
-          $('.file-upload-progress-container').css('opacity', 0);
-          // opacity 0된 후 clear upload info
-          $timeout(function () {
-            fileAPIservice.clearCurUpload();
-            delete $rootScope.fileUploader;
-          }, 500);
-        }, 2000);
+        fileAPIservice.clearUploader();
+        fileAPIservice.clearCurUpload();
       }
     }
   }

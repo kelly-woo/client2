@@ -810,8 +810,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
                 if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                  member.exViewName = '[@' + member.name + ']';
-                  member.exSearchName = member.name;
+                  member.extViewName = '[@' + member.name + ']';
+                  member.extSearchName = member.name;
                   mentionList.push(member);
                 }
               }

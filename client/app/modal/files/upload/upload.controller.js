@@ -7,9 +7,9 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, modalHelper, currentSessionHelper,
-                               fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper,
-                               TopicFolderModel, fileUplodOptions) {
+  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, modalHelper, currentSessionHelper, analyticsService,
+                               fileAPIservice, ImagesHelper, AnalyticsHelper, TopicFolderModel, fileUplodOptions,
+                               EntityMapManager, entityAPIservice, MentionExtractor) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var jqProgressBar;
     var fileUploader;
@@ -83,8 +83,9 @@
         onUpload: function(file, fileInfo) {
           // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
           fileInfo.share = $scope.currentEntity.id;
-
           fileInfo.comment = $scope.comment;
+
+          _setMentions(fileInfo);
       
           // scope comment 초기화
           $scope.comment = '';
@@ -185,7 +186,14 @@
         },
         // upload confirm end
         onConfirmEnd: function() {
+          if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
+            fileAPIservice.clearUploader();
+            fileAPIservice.clearCurUpload();
+          }
+
           modalHelper.closeModal();
+
+          delete $rootScope.fileUploader;
         },
         // upload sequence end
         onEnd: fileUplodOptions.onEnd
@@ -272,6 +280,26 @@
           jqProgressBar.addClass('init-progress-bar');
         } else {
           jqProgressBar.css('width', 0).addClass('init-progress-bar');
+        }
+      }
+    }
+
+    function _setMentions(fileInfo) {
+      var room;
+      var members;
+      var mentionList;
+      var mentionMap;
+      var mention;
+
+      if (room = EntityMapManager.get('joined', fileInfo.share)) {
+        members = entityAPIservice.getMemberList(room);
+
+        if (members && members.length > 0) {
+          mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
+          mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
+          if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
+            fileInfo.mentions = mention.mentions;
+          }
         }
       }
     }
