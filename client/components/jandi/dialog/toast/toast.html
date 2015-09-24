@@ -1,9 +1,9 @@
 <div class="{{::toastClass}} {{::toastType}}" ng-click="tapToast()">
-  <i class="fa"
-     ng-class="::{'fa-check-circle-o': toastType === 'c-toast-success',
-                'fa-info-circle': toastType === 'c-toast-info',
-                'fa-question-circle': toastType === 'c-toast-warning',
-                'fa-exclamation-circle': toastType === 'c-toast-error'}"></i>
+  <i class="status icon"
+     ng-class="::{'icon-check-circle': toastType === 'c-toast-success',
+                'icon-info-fill': toastType === 'c-toast-info',
+                'icon-help-fill': toastType === 'c-toast-warning',
+                'icon-warning-fill': toastType === 'c-toast-error'}"></i>
   <div class="toast-text" ng-switch on="allowHtml">
     <div ng-switch-default ng-if="::(title)" class="{{::titleClass}}">{{::title}}</div>
     <div ng-switch-default ng-if="::(message)" class="{{::messageClass}}">{{::message}}</div>
