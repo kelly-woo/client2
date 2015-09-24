@@ -197,7 +197,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.size : stack1), depth0))
     + "</span>\n";
 },"16":function(depth0,helpers,partials,data) {
-    return "            <i class=\"preview-icon icon-angle-down _fileToggle\"></i>\n";
+    return "            <i class=\"preview-icon icon-angle-down _fileToggle\" style=\"display: none;\"></i>\n";
 },"18":function(depth0,helpers,partials,data) {
     var stack1;
 
