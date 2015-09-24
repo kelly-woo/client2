@@ -7,6 +7,7 @@
 
   /* @ngInject */
   function invitationService(analyticsService, jndKeyCode) {
+    var that = this;
     var rEmail = new RegExp(
       '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'+
       '\\@' +
@@ -16,7 +17,30 @@
       '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
       ')+'
     );
+    var regxEmailSplit = /[ ,]/;
     var EMPTY_VALUE = 'undefined';
+
+    that.getValidEmails = getValidEmails;
+
+    /**
+     * email formatì— ë§ëŠ” emailì„ ì„ ë³„í•˜ì—¬ ì „ë‹¬í•¨.
+     * @param {array} emails
+     * @returns {Array}
+     */
+    function getValidEmails(emails) {
+      var result = [];
+      var i;
+      var len;
+
+      emails = emails.split(regxEmailSplit);
+      for (i = 0, len = emails.length; i < len; i++) {
+        if (rEmail.test(emails[i])) {
+          result.push(emails[i]);
+        }
+      }
+
+      return result;
+    }
 
     var Invitation = {
       init: function(ele, options) {
@@ -87,7 +111,7 @@
                   fn = options.onSuccess;
                   icon = options.templateCheck;
                 } else if (value.code != 40004) {
-                  // clientÀÇ email ½Äº°½ÄÀÌ¶û serverÀÇ email ½Äº°½ÄÀÌ »óÀÌÇÏ¿© code·Î ±¸ºĞ
+                  // clientì˜ email ì‹ë³„ì‹ì´ë‘ serverì˜ email ì‹ë³„ì‹ì´ ìƒì´í•˜ì—¬ codeë¡œ êµ¬ë¶„
 
                   fn = options.onDuplicate;
                   icon = options.templateTime;
