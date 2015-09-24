@@ -1,3 +1,14 @@
+<a name"1.1.9"></a>
+### 1.1.9 (2015-09-24)
+
+
+#### Bug Fixes
+
+* **center:**
+  * Left 패널에서 A 토픽 더블클릭 시 default topic 으로 이동되는 현상 수정 ([5fb273f2](https://github.com/tosslab/web_client.git/commit/5fb273f2))
+  * default 토픽에서는 kickout 메뉴 노출되지 않도록 수정 ([bb3e2b49](https://github.com/tosslab/web_client.git/commit/bb3e2b49))
+
+
 <a name"1.1.10"></a>
 ### 1.1.10 (2015-09-24)
 
