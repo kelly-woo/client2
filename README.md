@@ -5,5 +5,6 @@
 - **web_client**
   - Left 패널에서 A 토픽 더블클릭 시 default topic 으로 이동되는 현상 수정
   - default 토픽에서는 kickout 메뉴 노출되지 않도록 수정
+  - Center 로딩 휠 그라데이션 현상 수정
 - **web_admin**
   - 없음
