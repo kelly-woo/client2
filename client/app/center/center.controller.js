@@ -564,7 +564,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $timeout.cancel($scope.msgLoadStatus.timer);
     $scope.msgLoadStatus.timer = $timeout(function() {
       $scope.msgLoadStatus.isShowWheel = true;
-    }, 500);
+    }, 800);
   }
 
   /**
