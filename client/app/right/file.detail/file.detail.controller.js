@@ -287,7 +287,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function setImageUrl(content) {
     // file detail에서 preview image 설정
-    if ($filter('hasPreview')(content)) {
+    if ($scope.fileIcon === 'img') {
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
       $scope.previewCursor = 'zoom-in';
@@ -610,6 +610,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       // isStarred
       $scope.isStarred = $scope.file_detail.isStarred;
 
+      // file icon
+      $scope.fileIcon = $filter('fileIcon')($scope.file_detail.content);
       if ($scope.file_detail.content) {
         // preview image url 생성
         setImageUrl($scope.file_detail.content);

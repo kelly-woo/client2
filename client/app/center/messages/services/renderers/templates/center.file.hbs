@@ -48,10 +48,17 @@
             {{/if}}
           </div>
           {{else}}
-          <!--    FILE TYPE THUMBNAIL -->
-          <div class="msg-file-body__thumbnail msg-file-body-float pull-left">
-            <div class="fileicon fileicon-{{ file.icon }}" ></div>
-          </div>
+            {{#if file.isImageIcon}}
+              <!--    FILE TYPE THUMBNAIL -->
+              <div class="msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer _fileExpand">
+                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              </div>
+            {{else}}
+              <!--    FILE TYPE THUMBNAIL -->
+              <div class="msg-file-body__thumbnail msg-file-body-float pull-left">
+                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              </div>
+            {{/if}}
           {{/if}}
         </div>
         {{/if}}

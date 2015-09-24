@@ -149,6 +149,7 @@
       var content = msg.message.content;
       var isArchived = (msg.message.status === 'archived');
       var hasPreview = $filter('hasPreview')(content);
+      var icon = $filter('fileIcon')(content);
 
       return _template({
         css: {
@@ -160,7 +161,8 @@
           download: _getFileDownloadAttrs(msg)
         },
         file: {
-          icon: $filter('fileIcon')(content),
+          icon: icon,
+          isImageIcon: icon === 'img',
           loading: Loading.getTemplate(),
           mustPreview: $filter('mustPreview')(content),
           hasPreview: hasPreview,
