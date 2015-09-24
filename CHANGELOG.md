@@ -1,3 +1,13 @@
+<a name"1.1.8"></a>
+### 1.1.8 (2015-09-24)
+
+
+#### Bug Fixes
+
+* **profile:** profile modal을 통해 mail전달 되도록 수정 ([7bd88aeb](https://github.com/tosslab/web_client.git/commit/7bd88aeb))
+* **right:** 토픽 변경시 파일검색 키워드를 초기화 하도록 수정 ([2d498490](https://github.com/tosslab/web_client.git/commit/2d498490))
+
+
 <a name"1.1.7"></a>
 ### 1.1.7 (2015-09-23)
 
