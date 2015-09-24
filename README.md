@@ -3,7 +3,7 @@
 - **web_landing**
   - 없음
 - **web_client**
-  - 파일 검색 후 토픽 이동시 검색 상태와 결과가 일치하지 않는 버그 수정
-  - 프로필에서 메일 보내기 기능이 동작하지 않는 버그 수정
+  - Left 패널에서 A 토픽 더블클릭 시 default topic 으로 이동되는 현상 수정
+  - default 토픽에서는 kickout 메뉴 노출되지 않도록 수정
 - **web_admin**
   - 없음
