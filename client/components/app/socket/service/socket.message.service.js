@@ -226,8 +226,11 @@
       jndPubSub.pub('updateChatList');
 
       if (data.messageType === 'file_share') {
-        // file_share일 경우에으는 맞는 노티피케이션을 보내주기.
-        FileShareDesktopNotification.addNotification(data);
+        // file_share일 경우
+        if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
+          // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.
+          FileShareDesktopNotification.addNotification(data);
+        }
       } else {
         _sendBrowserNotification(data);
       }

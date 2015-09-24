@@ -1,3 +1,46 @@
+<a name"1.1.9"></a>
+### 1.1.9 (2015-09-24)
+
+
+#### Bug Fixes
+
+* **center:**
+  * Loading 휠의 배경에 그라데이션 현상 수정. 휠 노출 시간 500ms--> 800ms 변경 ([ac8a92e8](https://github.com/tosslab/web_client.git/commit/ac8a92e8))
+  * Left 패널에서 A 토픽 더블클릭 시 default topic 으로 이동되는 현상 수정 ([5fb273f2](https://github.com/tosslab/web_client.git/commit/5fb273f2))
+  * default 토픽에서는 kickout 메뉴 노출되지 않도록 수정 ([bb3e2b49](https://github.com/tosslab/web_client.git/commit/bb3e2b49))
+
+
+<a name"1.1.8"></a>
+### 1.1.8 (2015-09-24)
+
+
+#### Bug Fixes
+
+* **profile:** profile modal을 통해 mail전달 되도록 수정 ([7bd88aeb](https://github.com/tosslab/web_client.git/commit/7bd88aeb))
+* **right:** 토픽 변경시 파일검색 키워드를 초기화 하도록 수정 ([2d498490](https://github.com/tosslab/web_client.git/commit/2d498490))
+
+
+<a name"1.1.7"></a>
+### 1.1.7 (2015-09-23)
+
+
+#### Bug Fixes
+
+* **dm.file.share:** Do not send browser notification when I share a file on dm.   - #JND-3540 #resol ([5d936550](https://github.com/tosslab/web_client.git/commit/5d936550))
+
+
+<a name"1.1.6"></a>
+### 1.1.6 (2015-09-23)
+
+
+#### Bug Fixes
+
+* **grunt:** fix version release script ([00a915e6](https://github.com/tosslab/web_client.git/commit/00a915e6))
+* **readme:**
+  * 내용 추가 ([da6c1994](https://github.com/tosslab/web_client.git/commit/da6c1994))
+  * 내용 추가 ([44479759](https://github.com/tosslab/web_client.git/commit/44479759))
+
+
 <a name"1.1.5"></a>
 ### 1.1.5 (2015-09-23)
 

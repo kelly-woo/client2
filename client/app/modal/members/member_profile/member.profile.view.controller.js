@@ -91,6 +91,15 @@
     }
 
     /**
+     * 현재 보고 있는 사용자가 disabled 된 사용자인지 아닌지 확인한다.
+     * @returns {boolean} true, disabled 됐다면
+     * @private
+     */
+    function _isCurrentUserDisabled() {
+      return $scope.curUser.status === 'disabled';
+    }
+
+    /**
      * 현재 보고 있는 사용자가 나 자신인지 아닌지 확인한다.
      * @returns {boolean} true, 내 자신이면
      * @private
@@ -105,11 +114,9 @@
      * @private
      */
     function _sendEmail(emailAddr) {
-      if (_isCurrentUserDisabled()) {
-        return;
+      if (!_isCurrentUserDisabled()) {
+        window.location.href = "mailto:" + emailAddr;
       }
-
-      window.location.href = "mailto:" + emailAddr;
     }
 
     /**
