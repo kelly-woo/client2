@@ -58,6 +58,11 @@
     function _onFileCreated(data) {
     }
 
+    /**
+     * image file에 대한 thumbnail 생성완료 socket event
+     * @param {object} data
+     * @private
+     */
     function _onFileImage(data) {
       jndPubSub.pub('createdThumbnailImage', data);
     }
