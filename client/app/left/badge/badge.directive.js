@@ -27,9 +27,31 @@
     function link(scope, el, attrs, ctrl) {
       var key = scope.group + '_' + scope.key;
       var jqParent = el.parent();
-      scope.$on('$destroy', _onDestroy);
-      scope.$watch('content', _onContentChange);
-      scope.$on('updateBadgePosition', _onUpdateBadgePosition);
+
+      _init();
+
+      /**
+       * 생성자
+       * @private
+       */
+      function _init() {
+        scope.$watch('content', _onContentChange);
+        scope.$on('$destroy', _onDestroy);
+        scope.$on('updateBadgePosition', _onUpdateBadgePosition);
+        _setCount();
+      }
+
+      /**
+       * 노출할 count 값을 갱신한다.
+       * @private
+       */
+      function _setCount() {
+        if (scope.content > 999) {
+          scope.count = '999+';
+        } else {
+          scope.count = scope.content;
+        }
+      }
 
       /**
        * 뱃지 내용 변경 시 핸들러
@@ -46,6 +68,7 @@
         }
 
         jndPubSub.updateBadgePosition();
+        _setCount();
       }
 
       /**
