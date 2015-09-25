@@ -43,7 +43,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isFromSearch = false;
 
   var isLogEnabled = true;
-  
   var deferredObject = {
     getMessage: null,
     postMessage: null,
@@ -70,6 +69,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isUpdateListLock = false;
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
+  $scope.msgLoadStatus = {
+    loading: false,
+    isShowWheel: false,
+    timer: null
+  };
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
@@ -180,6 +184,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.isPolling = false;
     // configuration for message loading
+    _hideCenterLoading();
     $scope.msgLoadStatus = {
       loading: false,
       isShowWheel: false,
@@ -268,8 +273,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _refreshCurrentTopic(isSkipBookmark) {
-    _reset();
-    loadMore(isSkipBookmark);
+    if (!$scope.msgLoadStatus.loading) {
+      _reset();
+      loadMore(isSkipBookmark);
+    }
   }
 
   /**
@@ -557,7 +564,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $timeout.cancel($scope.msgLoadStatus.timer);
     $scope.msgLoadStatus.timer = $timeout(function() {
       $scope.msgLoadStatus.isShowWheel = true;
-    }, 500);
+    }, 800);
   }
 
   /**

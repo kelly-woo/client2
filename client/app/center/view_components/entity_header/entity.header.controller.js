@@ -181,6 +181,7 @@
       $scope.isOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
       $scope.isAdmin = memberService.isAdmin();
       $scope.hasAuth = $scope.isOwner || $scope.isAdmin;
+      $scope.hasKickoutAuth = !currentSessionHelper.isDefaultTopic(_currentEntity) && $scope.hasAuth;
     }
 
     /**

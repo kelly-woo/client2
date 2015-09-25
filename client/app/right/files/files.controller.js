@@ -244,6 +244,9 @@
         localCurrentEntity = currentEntity;
         _setSharedInEntity(localCurrentEntity);
         _initSharedByFilter(localCurrentEntity);
+
+        // search keyword reset
+        _resetSearchStatusKeyword();
       }
 
       if (localCreatedTopicId) {
