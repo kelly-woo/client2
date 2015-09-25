@@ -820,7 +820,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
 
         $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy(function (item) {
-          return [!item.isStarred, item.name.toLowerCase()];
+          return item.name.toLowerCase();
         }).value());
       }
     });

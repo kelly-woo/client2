@@ -170,7 +170,7 @@
         //  // 2명이상의 member 전체에게 mention 하는 all을 제공함
 
         mentionList = _.sortBy(mentionList, function (item) {
-          return [!item.isStarred, item.name.toLowerCase()];
+          return item.name.toLowerCase();
         });
 
         if (entityId != null) {

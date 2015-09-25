@@ -52,7 +52,7 @@
       matches = _.chain(list).filter(function (item) {
         return item.name.toLowerCase().indexOf(value) > -1;
       }).sortBy(function (item) {
-        return [!item.isStarred, item.name.toLowerCase()];
+        return item.name.toLowerCase();
       }).value();
 
       if ($scope.unJoinedChannelList === list) {
