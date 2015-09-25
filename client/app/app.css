@@ -27,8 +27,46 @@
   font-style: normal;
 }
 
-:lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
-:lang(ko) { font-family:    "Helvetica Neue", Helvetica, "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
+/**
+*Noto Sans Korean by Hestia http://theeluwin.github.io/NotoSansKR-Hestia 
+*/
+
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Noto Sans Light'), local('NotoSans-Light'),
+    url(/assets/fonts/NotoSansKR-Light-Hestia.eot),
+    url(/assets/fonts/NotoSansKR-Light-Hestia.eot?#iefix) format('embedded-opentype'),
+    url(/assets/fonts/NotoSansKR-Light-Hestia.woff) format('woff'),
+    url(/assets/fonts/NotoSansKR-Light-Hestia.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+    url(/assets/fonts/NotoSansKR-Regular-Hestia.eot),
+    url(/assets/fonts/NotoSansKR-Regular-Hestia.eot?#iefix) format('embedded-opentype'),
+    url(/assets/fonts/NotoSansKR-Regular-Hestia.woff) format('woff'),
+    url(/assets/fonts/NotoSansKR-Regular-Hestia.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+    url(/assets/fonts/NotoSansKR-Bold-Hestia.eot),
+    url(/assets/fonts/NotoSansKR-Bold-Hestia.eot?#iefix) format('embedded-opentype'),
+    url(/assets/fonts/NotoSansKR-Bold-Hestia.woff) format('woff'),
+    url(/assets/fonts/NotoSansKR-Bold-Hestia.otf) format('opentype');
+}
+
+
+:lang(ja) { font-family:    'Noto Sans Korean', "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
+:lang(ko) { font-family:    "Helvetica Neue", Helvetica, 'Noto Sans Korean', "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
 :lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
 
 /**
