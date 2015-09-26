@@ -24,16 +24,17 @@
 
   <div class="invite-enalbed" ng-hide="inviteDisabled">
     <div class="modal-body">
-      <div id="invites" class="invites">
+      <div invite-emails></div>
 
-      </div>
-
-      <div class="add-invite invite-btn cursor_pointer btn-ok btn" ng-click="add();">
-        <span translate>@invitation-more-email</span>
-      </div>
-      <button class="send-invite invite-btn cursor_pointer btn-ok btn disabled" ng-click="send($event);">
-        <span translate>@btn-send</span>
+      <!--<div class="add-invite invite-btn cursor_pointer btn-ok btn" ng-click="add();">-->
+        <!--<span translate>@invitation-more-email</span>-->
+      <!--</div>-->
+      <button class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send($event);">
+        <span translate>초대하기</span>
       </button>
+      <!--<button class="send-invite invite-btn cursor_pointer btn-ok btn disabled" ng-click="send($event);">-->
+        <!--<span translate>@btn-send</span>-->
+      <!--</button>-->
     </div>
 
     <div class="modal-footer">
@@ -42,8 +43,8 @@
           <span translate>@invitation-link-desc</span>
         </div>
         <div class="invite-link-copy">
-          <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}" readonly="true" ng-disabled="{{disableSeedUri}}"><!--
-           --><div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{disableSeedUri}}">
+          <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}" readonly="true" ng-disabled="{{disableSeedUri}}">
+          <div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{disableSeedUri}}">
             <span translate>@common-copy</span>
           </div>
         </div>

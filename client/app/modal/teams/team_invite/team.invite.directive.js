@@ -14,15 +14,15 @@
     function link(scope, element) {
       scope.isCopySuccess = false;
 
-      var emailPlaceholder = $filter('translate')('@common-email');
+      //var emailPlaceholder = $filter('translate')('@common-email');
       var done = $filter('translate')('@common-done');
-      var invalidEmail = $filter('translate')('@invitation-invaild-email');
-      var someFail = $filter('translate')('@invitation-some-fail');
-      var alreadyMember = $filter('translate')('@invitation-already-member');
+      //var invalidEmail = $filter('translate')('@invitation-invaild-email');
+      //var someFail = $filter('translate')('@invitation-some-fail');
+      //var alreadyMember = $filter('translate')('@invitation-already-member');
+      //
+      //var hasDuplicate;
 
-      var hasDuplicate;
-
-      var invitation;
+      //var invitation;
       var clipButton;
 
       if (!scope.inviteDisabled) {
@@ -46,99 +46,6 @@
             }
           });
         }
-
-        invitation = scope.invitation = Object.create(invitationService).init(
-          element.find('#invites'),
-          {
-            inviteFn: teamAPIservice.inviteToTeam,
-            templateItem: '<div class="form-horizontal invite-body-form-control" style="position: relative;">' +
-              '<input type="email" class="form-control invite" name="email" placeholder="' + emailPlaceholder + '" />' +
-            '</div>',
-            onInvalidFormat: function(ele) {
-              var item = ele.parent();
-
-              item.children('div').remove();
-              item.append('<div class="modal-noti-block_msg alert-jandi alert-danger"><span>' + invalidEmail + '</span><div>');
-
-              if (ele.parents('#invites').find('.alert-danger').length > 0) {
-                invitation.ele.parent().children('.send-invite').addClass('disabled');
-              }
-            },
-            onValidFormat: function (ele) {
-              ele.parent().children('div').remove();
-
-              if (invitation.length === invitation.getEmptyInputBox().length) {           // 모든 input에 아무값 입력되지 않은 상태
-                invitation.ele.parent().children('.send-invite').addClass('disabled');
-              } else if (ele.parents('#invites').find('.alert-danger').length === 0) {
-                invitation.ele.parent().children('.send-invite').removeClass('disabled'); // 특정 input에 경고 메시지 나온 상태
-              }
-            },
-            onBeforeSend: function(event) {
-              if (scope.isLoading || event.delegateTarget.className.indexOf('disabled') > -1) return false;
-
-              scope.toggleLoading();
-            },
-            onAfterSend: function(ele, successCnt, totalCnt) {
-              var body = ele.parent();
-              var footer = body.parent().children('.modal-footer');
-              var jqDoneInvite;
-              var msg;
-              var emptys;
-              var i, len;
-
-              body.children('.invite-btn').remove();
-              footer.addClass('invite-done');
-
-              // 부분 실패
-              if (successCnt !== totalCnt) {
-                if (totalCnt === 1 && hasDuplicate) {
-                  // 한명분을 팀멤버로 초대하려고 할때 실패한 경우 message
-                  msg = alreadyMember.replace('{{invitedTeamName}}', scope.currentTeamName);
-                } else {
-                  msg = someFail;
-                }
-              }
-
-              if (msg) {
-                body.append(
-                  '<div class="modal-noti-block_msg alert-jandi alert-danger"><span>' + msg + '</span><div>'
-                );
-              }
-
-              footer.html(
-                '<div class="done-content">' +
-                  (!!successCnt ? '<img src="' + scope.doneImage + '">' : '') +   // 하나도 성공하지 못함
-                  '<button class="done-invite invite-btn cursor_pointer btn-ok btn">' +
-                    '<span translate>' + done +'</span>' +
-                  '</button>' +
-                '</div>'
-              );
-
-              jqDoneInvite = footer.find('.done-invite');
-              jqDoneInvite.on('click', function() {
-                scope.cancel();
-              });
-
-              $timeout(function() {
-                jqDoneInvite.focus();
-              });
-
-              if (emptys = invitation.getEmptyInputBox()) {
-                for (i = 0, len = emptys.length; i < len; ++i) {
-                  $(emptys[i]).parent().remove();
-                }
-              }
-
-              scope.toggleLoading();
-            },
-            onDuplicate: function(ele) {
-              hasDuplicate = true;
-            },
-            onSuccess: function(ele) {
-              // console.log('success ::: ', ele);
-            }
-          }
-        );
       }
     }
   }
