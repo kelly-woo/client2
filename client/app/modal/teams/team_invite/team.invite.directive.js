@@ -51,8 +51,10 @@
        * click event handler
        * @private
        */
-      function _onClick() {
-        $('#email-input').focus();
+      function _onClick(event) {
+        if ($(event.target).parents('.modal-body').length > 0) {
+          $('#email-input').focus();
+        }
       }
 
       /**
