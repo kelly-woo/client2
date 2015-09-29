@@ -25,6 +25,7 @@
       'CHAR_F': 70,
       'CHAR_R': 82,
       'CHAR_V': 86,
+      'CHAR_COMMA': 188,
       'LEFT_WINDOW_KEY': 91,
       'F5': 116,
       'BACKSPACE': 8,

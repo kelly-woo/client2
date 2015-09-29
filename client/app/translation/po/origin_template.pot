@@ -126,7 +126,6 @@ msgstr ""
 msgid "@btn-next"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
 msgstr ""
@@ -831,10 +830,6 @@ msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-already-member"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -851,7 +846,7 @@ msgstr ""
 msgid "@invitation-disabled-amdin-prefix"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 msgid "@invitation-invaild-email"
 msgstr ""
 
@@ -860,13 +855,8 @@ msgstr ""
 msgid "@invitation-link-desc"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-more-email"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -1173,6 +1163,26 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+msgid "@team-invite-description"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
 msgstr ""
 
 #: client/app/header/header.html

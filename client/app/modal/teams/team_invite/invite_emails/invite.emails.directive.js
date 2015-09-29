@@ -1,3 +1,6 @@
+/**
+ * @fileoverview email을 사용한 팀 초대 directive
+ */
 (function() {
   'use strict';
 
@@ -5,7 +8,7 @@
     .module('jandiApp')
     .directive('inviteEmails', inviteEmails);
 
-  function inviteEmails() {
+  function inviteEmails($parse, $timeout, jndKeyCode) {
     return {
       replace: true,
       restrict: 'A',
@@ -13,37 +16,174 @@
       templateUrl: 'app/modal/teams/team_invite/invite_emails/invite.emails.html'
     };
 
-    function link(scope, element) {
+    function link(scope, el, attrs) {
+      // invite list change callback
+      var onChangeInviteList = $parse(attrs.onChangeInviteList);
+
+      // invite list model name
+      var inviteEmailsModel = attrs.inviteEmailsModel;
+
+      // invite interface 활성화 flag
+      var active = attrs.active;
+
       var jqEmailInput = $('#email-input');
-      var jqInviteEmailList = $('.invite-email-list');
+      var regxEmail = new RegExp(
+        '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'+
+        '\\@' +
+        '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}' +
+        '(' +
+        '\\.' +
+        '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
+        ')+'
+      );
+      var regxEmailSplit = /[ ,]/;
 
-      _on();
+      _init();
 
+      /**
+       * init
+       * @private
+       */
+      function _init() {
+        scope.removeEmail = removeEmail;
+
+        _on();
+      }
+
+      /**
+       * on listeners
+       * @private
+       */
       function _on() {
+        scope.$watch(active, _onActive);
+
         jqEmailInput
           .on('paste', _onPaste)
-          .on('keypress', _onKeyPress);
+          .on('keyup', _onKeyUp)
+          .on('blur', _onBlur);
       }
 
+      /**
+       * invite interface 활성화 event handler
+       * @param {boolean} value
+       * @private
+       */
+      function _onActive(value) {
+        if (!value) {
+          scope.emails = scope[inviteEmailsModel] = [];
+          scope.invalidEmails = [];
+
+          _setInputEmails(scope.invalidEmails);
+          onChangeInviteList(scope, {
+            $list: scope.emails
+          });
+
+          $timeout(function() {
+            jqEmailInput.focus();
+          }, 50);
+        }
+      }
+
+      /**
+       * paste event handler
+       * @param {object} event
+       * @private
+       */
       function _onPaste(event) {
-        var data = event.originalEvent.clipboardData.getData('Text');
-        var value = _getValue(event, data);
+        var text = event.originalEvent.clipboardData.getData('Text');
+        var value = jqEmailInput.val();
+        var element = jqEmailInput[0];
 
-        console.log('on paste ::: ', value, event.target.value);
+        event.preventDefault();
+
+        value = value.substring(0, element.selectionStart) + text + value.substring(element.selectionEnd, value.length);
+
+        _insertEmail(value);
+      }
+  
+      /**
+       * keyup event handler
+       * @param {object} event
+       * @private
+       */
+      function _onKeyUp(event) {
+        var which = event.which;
+        var value;
+
+        if (jndKeyCode.match('ENTER', which) || jndKeyCode.match('SPACE', which) || jndKeyCode.match('CHAR_COMMA', which)) {
+          value = jqEmailInput.val();
+          _insertEmail(value);
+        }
+      }
+  
+      /**
+       * blur event handler
+       * @private
+       */
+      function _onBlur() {
+        var value = jqEmailInput.val();
+
+        _insertEmail(value);
+      }
+  
+      /**
+       * email 입력함.
+       * @param {string} value
+       * @private
+       */
+      function _insertEmail(value) {
+        var emails = scope.emails;
+        var length = emails.length;
+        var list = value.split(regxEmailSplit);
+        var invalidEmails = scope.invalidEmails = [];
+
+        _.forEach(list, function(item) {
+          if (item !== '') {
+            if (!regxEmail.test(item)) {
+              invalidEmails.push(item);
+            } else if (emails.indexOf(item) < 0) {
+              emails.push(item);
+            }
+          }
+        });
+
+        if (length !== emails.length) {
+          onChangeInviteList(scope, {
+            $list: scope.emails
+          });
+        }
+
+        _setInputEmails(invalidEmails);
+        scope.$digest();
       }
 
-      function _onKeyPress(event) {
-        var char = String.fromCharCode(event.which);
-        var value = _getValue(event, char);
+      /**
+       * email 삭제함.
+       * @param {string} email
+       */
+      function removeEmail(email) {
+        var index = scope.emails.indexOf(email);
 
-        console.log('on change ::: ', event, value);
+        if (index > -1) {
+          scope.emails.splice(index, 1);
+          onChangeInviteList(scope, {
+            $list: scope.emails
+          });
+        }
+        $timeout(function() {
+          jqEmailInput.focus();
+        }, 50);
       }
 
-      function _getValue(event, input) {
-        var element = event.target;
-        var value = element.value;
-
-        return value.substring(0, element.selectionStart) + input + value.substring(element.selectionEnd, value.length);
+      /**
+       * email input element에 value 설정함.
+       * @param invalidEmails
+       * @private
+       */
+      function _setInputEmails(invalidEmails) {
+        var value = invalidEmails.join(' ');
+        //value += (value !== '' && value.charAt(value.length - 1) !== ' ' ? ' ' : '');
+        jqEmailInput.val(value);
       }
     }
   }

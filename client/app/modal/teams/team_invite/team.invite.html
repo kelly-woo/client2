@@ -8,33 +8,33 @@
     </h3>
   </div>
 
-  <div class="invite-disalbed" ng-show="inviteDisabled">
+  <div class="invite-disalbed" ng-show="::inviteDisabled">
     <div class="modal-body">
-      <img src="{{disabledImage}}">
+      <img src="{{::disabledImage}}">
       <div class="disabled-desc">
-        <span ng-if="isAdmin">
+        <span ng-if="::isAdmin">
           <span translate>@invitation-disabled-amdin-prefix</span>
           <br>
           <a ng-click="toAdmin();"><span translate>@invitation-disabled-amdin-postfix</span></a>
         </span>
-        <span ng-if="!isAdmin" translate>@invitation-disabled</span>
+        <span ng-if="::!isAdmin" translate>@invitation-disabled</span>
       </div>
     </div>
   </div>
 
-  <div class="invite-enalbed" ng-hide="inviteDisabled">
+  <div class="invite-enalbed" ng-hide="::inviteDisabled">
     <div class="modal-body">
-      <div invite-emails></div>
-
-      <!--<div class="add-invite invite-btn cursor_pointer btn-ok btn" ng-click="add();">-->
-        <!--<span translate>@invitation-more-email</span>-->
-      <!--</div>-->
-      <button class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send($event);">
-        <span translate>초대하기</span>
-      </button>
-      <!--<button class="send-invite invite-btn cursor_pointer btn-ok btn disabled" ng-click="send($event);">-->
-        <!--<span translate>@btn-send</span>-->
-      <!--</button>-->
+      <div class="invite-work" ng-show="!isInviteDone">
+        <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" active="isInviteDone"></div>
+        <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send();"></button>
+      </div>
+      <div class="invite-done" ng-show="isInviteDone">
+        <img src="{{::doneImage}}">
+        <span>{{inviteResultDesc}}</span>
+        <span class="invite-more">
+          <span class="cursor_pointer" ng-click="inviteMore()" translate>@team-invite-more</span>
+        </span>
+      </div>
     </div>
 
     <div class="modal-footer">
@@ -43,12 +43,12 @@
           <span translate>@invitation-link-desc</span>
         </div>
         <div class="invite-link-copy">
-          <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}" readonly="true" ng-disabled="{{disableSeedUri}}">
-          <div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{disableSeedUri}}">
+          <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{::seedUri}}" readonly="true" ng-disabled="{{::disableSeedUri}}">
+          <div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{::disableSeedUri}}">
             <span translate>@common-copy</span>
           </div>
         </div>
-        <div class="invite-link-message" ng-if="isCopySuccess"><span translate>@invitation_success_copy_link</span></div>
+        <div class="invite-link-message" ng-show="isCopySuccess"><span translate>@invitation_success_copy_link</span></div>
         <div class="invite-contact-desc"><span translate>@invitation-contact-desc</span></div>
       </div>
     </div>
@@ -60,7 +60,7 @@
 <div ng-if="false">
   <span translate>@common-email</span>
   <span translate>@common-done</span>
-  <span translate>@invitation-invaild-email</span>
-  <span translate>@invitation-some-fail</span>
-  <span translate>@invitation-already-member</span>
+  <span translate>@team-invite-invalid-email</span>
+  <span translate>@team-invite-send</span>
+  <span translate>@team-invite-done</span>
 </div>

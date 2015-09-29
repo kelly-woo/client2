@@ -6,8 +6,8 @@
         <div class="description-container">
           <div class="description-arrow-up"></div>
           <div class="description-content-container">
-            <div class="help-description__description ">
-              <span translate>@공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다. </span>
+            <div class="help-description__description">
+              <span translate>@team-invite-description</span>
             </div>
           </div>
         </div>
@@ -15,6 +15,14 @@
     </span>
   </div>
 
-  <div class="invite-email-list">
-  </div>
+  <alert class="invalid-email-alert" ng-show="invalidEmails.length > 0" type="danger">
+    {{ '@invitation-invaild-email' | translate}}
+  </alert>
+
+  <ul class="invite-email-list">
+    <li class="invite-email-item btn-ok" ng-repeat="email in emails">
+      {{email}}
+      <span class="fa fa-times cursor_pointer" ng-click="removeEmail(email)"></span>
+    </li>
+  </ul>
 </div>
