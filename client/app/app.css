@@ -64,10 +64,16 @@
   url(/assets/fonts/NotoSansKR-Bold-Hestia.otf) format('opentype');
 }
 
+/**
+*Roboto Fonts
+*/
 
-:lang(ja) { font-family:    'Noto Sans Korean', "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
-:lang(ko) { font-family:    "Helvetica Neue", Helvetica, 'Noto Sans Korean', "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
-:lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
+:lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", 'Noto Sans Korean', arial, helvetica, sans-serif, fontAwesome; }
+:lang(ko) { font-family:    'Roboto', 'Noto Sans Korean', "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
+:lang(en) { font-family:    'Roboto', 'Noto Sans Korean', Arial, sans-serif, serif, fontAwesome; }
 
 /**
 * App-wide Styles
