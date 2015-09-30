@@ -1488,11 +1488,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * on scroll bottom
+   * scroll to bottom
+   * @param {object} $event
+   * @param {number} [duration] - scroll bottom 까지 지연시간(ms)
    * @private
    */
-  function _centerScrollToBottom() {
-    _scrollToBottom(true);
+  function _centerScrollToBottom($event, duration) {
+    if (_.isNumber(duration)) {
+      _scrollToBottomWithAnimate(duration);
+    } else {
+      _scrollToBottom(true);
+    }
   }
 
   function _resetUnreadCounters() {

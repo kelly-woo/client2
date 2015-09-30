@@ -5,7 +5,8 @@ var app = angular.module('jandiApp');
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog) {
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
+                                           centerService) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -83,6 +84,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         if (RouterHelper.hasCommentToScroll()) {
           _commentIdToScroll = RouterHelper.getCommentIdToScroll();
           RouterHelper.resetCommentIdToScroll();
+        }
+
+        if (centerService.isScrollBottom()) {
+          jndPubSub.pub('center:scrollToBottom', 200);
         }
       }
     }
