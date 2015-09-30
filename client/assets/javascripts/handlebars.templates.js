@@ -121,7 +121,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n  </div>\n\n  <div class=\"msg-item-body\">\n    <!--    COMMENT\n            최초 댓글\n            DISPLAY COMMENT BODY WHEN IT IS TITLE\n            IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->\n    <div class=\"msg-comment msg-comment-with-thumbnail "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.archived : stack1), depth0))
-    + "\">\n      <!--    LEFT PART OF BODY CONTENT\n              IMAGE/FILE THUMBNAIL    -->\n      <div class=\"msg-file-body-float pull-left\">\n"
+    + " cursor_pointer _fileGo\">\n      <!--    LEFT PART OF BODY CONTENT\n              IMAGE/FILE THUMBNAIL    -->\n      <div class=\"msg-file-body-float pull-left\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "        <!--    COMMENT ICON    -->\n        <i class=\"icon-comment\"></i>\n      </div>\n\n\n      <!--    RIGHT PART OF BODY CONTENT  -->\n      <div class=\"msg-file-meta\">\n        <div class=\"msg-comment-header\">\n          Commented on\n\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.program(10, data, 0),"data":data})) != null ? stack1 : "")
