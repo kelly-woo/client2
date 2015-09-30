@@ -130,6 +130,7 @@ body {
   height: 100%;
   width: 100%;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   line-height: 1rem;
   background: white;
