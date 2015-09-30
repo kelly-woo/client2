@@ -1,7 +1,21 @@
 .under-construction__img {
   display: block;
-  margin: 100px auto 42px;
+  margin: 42px auto 42px;
+  padding:36px;
+  padding-left:142px;
+  padding-right:142px;
+  background-color:rgba(241,245,249,0.0);
 }
+
+.under-construction-container:hover {
+  cursor:pointer;
+}
+
+.under-construction-container:hover span {
+  text-decoration: underline;
+}
+
+
 
 .under-construction__maintenance,
 .under-construction__busy {

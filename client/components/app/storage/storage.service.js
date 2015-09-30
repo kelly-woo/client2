@@ -7,7 +7,9 @@
 
   /* @ngInject */
   function storageAPIservice($window, localStorageService) {
-
+    var _session = {
+      accessToken: null
+    };
     var accessToken_key     = 'access_token';
     var refreshToken_key    = 'refresh_token';
     var tokenType_key       = 'token_type';
@@ -96,7 +98,7 @@
 
       setTokenCookie: setTokenCookie,
 
-      setAccessTokenCookie: setAccessTokenCookie,
+      isAccessTokenDirty: isAccessTokenDirty,
       getAccessTokenCookie: getAccessTokenCookie,
 
       getRefreshTokenCookie: getRefreshTokenCookie,
@@ -121,6 +123,15 @@
     };
 
     return service;
+
+    /**
+     * 현재 세션의 access_token 과 쿠키의 access_token 값을 비교하여 쿠키 변경 여부를 확인한다.
+     * @returns {boolean}
+     */
+    function isAccessTokenDirty() {
+      return _session.accessToken && getAccessToken() &&
+        (_session.accessToken !== getAccessToken());
+    }
 
     /**
      *
@@ -303,13 +314,12 @@
      */
 
     function setTokenCookie (tokenData) {
+      _session.accessToken = tokenData.access_token;
       localStorageService.cookie.set(accessToken_key, tokenData.access_token);
       localStorageService.cookie.set(refreshToken_key, tokenData.refresh_token);
       localStorageService.cookie.set(tokenType_key, tokenData.token_type);
     }
-    function setAccessTokenCookie(access_token) {
-      localStorageService.cookie.set(accessToken_key, access_token);
-    }
+
     function getAccessTokenCookie() {
       if (isValidValue(localStorageService.cookie.get(accessToken_key)))
         return localStorageService.cookie.get(accessToken_key);
@@ -332,6 +342,8 @@
     }
 
     function removeCookie() {
+      _session.accessToken = null;
+      console.log('###removeCookie', _session.accessToken);
       localStorageService.cookie.remove(accessToken_key);
       localStorageService.cookie.remove(refreshToken_key);
       localStorageService.cookie.remove(tokenType_key);

@@ -43,7 +43,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isFromSearch = false;
 
   var isLogEnabled = true;
-
   var deferredObject = {
     getMessage: null,
     postMessage: null,
@@ -70,6 +69,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isUpdateListLock = false;
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
+  $scope.msgLoadStatus = {
+    loading: false,
+    isShowWheel: false,
+    timer: null
+  };
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
@@ -180,8 +184,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.isPolling = false;
     // configuration for message loading
+    _hideCenterLoading();
     $scope.msgLoadStatus = {
-      loading: false
+      loading: false,
+      isShowWheel: false,
+      timer: null
     };
     $scope.message.content = TextBuffer.get();
 
@@ -268,8 +275,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _refreshCurrentTopic(isSkipBookmark) {
-    _reset();
-    loadMore(isSkipBookmark);
+    if (!$scope.msgLoadStatus.loading) {
+      _reset();
+      loadMore(isSkipBookmark);
+    }
   }
 
   /**
@@ -290,6 +299,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onDestroy() {
     _isDestroyed = true;
+    $timeout.cancel($scope.msgLoadStatus.timer);
     modalHelper.closeModal('cancel');
     _cancelHttpRequest();
     _detachEvents();
@@ -547,23 +557,37 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _updateUnreadBookmarkFlag();
   }
 
+  /**
+   * center loading wheel 을 노출한다.
+   * @private
+   */
+  function _showCenterLoading() {
+    $scope.msgLoadStatus.loading = true;
+    $timeout.cancel($scope.msgLoadStatus.timer);
+    $scope.msgLoadStatus.timer = $timeout(function() {
+      $scope.msgLoadStatus.isShowWheel = true;
+    }, 800);
+  }
+
+  /**
+   * center loading wheel 을 제거한다.
+   * @private
+   */
+  function _hideCenterLoading() {
+    $scope.msgLoadStatus.loading = false;
+    $scope.msgLoadStatus.isShowWheel = false;
+    $timeout.cancel($scope.msgLoadStatus.timer);
+  }
+
   function loadMore(isSkipBookmark) {
     //console.log('::loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessageId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
 
-      // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
-      // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
-      // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
-      //if (!MessageQuery.hasSearchLinkId() && _hasMoreOldMessageToLoad() && $scope.isInitialLoadingCompleted) {
-      //  $('.msgs__loading').addClass('load-more-top');
-      //} else {
-      //  $('.msgs__loading').removeClass('load-more-top');
-      //}
-
       // TODO: come up with function and name.
-      $scope.msgLoadStatus.loading = true;
+      _showCenterLoading();
+
       $scope.isPolling = false;
 
       if (!$scope.isInitialLoadingCompleted) {
@@ -574,6 +598,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
+          _hideCenterLoading();
+          $timeout.cancel($scope.msgLoadStatus.timer);
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -597,7 +623,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _getCurrentRoomInfo();
 
           // 추후 로딩을 위한 status 설정
-          $scope.msgLoadStatus.loading = false;
+
 
           // auto focus to textarea - CURRENTLY NOT USED.
           _setChatInputFocus();
@@ -931,7 +957,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function onHttpResponseError(response) {
     //console.log('::response', response)
     if (!_isDestroyed) {
-      $scope.msgLoadStatus.loading = false;
+      _hideCenterLoading();
       //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
       if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
         //log('okay channel archived');

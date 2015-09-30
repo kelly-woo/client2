@@ -153,8 +153,13 @@
      * @private
      */
     function _onFileShared(data) {
-      if (_shouldSendNotification(data)) {
-        if (memberService.isTopicNotificationOn(data.room.id)) {
+      var room = data.room;
+
+      if (jndWebSocketCommon.isChatType(room)) {
+        // 1:1 dm일 경우에는 _onDm이 handle하게 놔둔다.
+        _onDm(data);
+      } else if (_shouldSendNotification(data)) {
+        if (memberService.isTopicNotificationOn(room.id)) {
           FileShareDesktopNotification.addNotification(data);
         }
       }
@@ -219,7 +224,16 @@
       }
 
       jndPubSub.pub('updateChatList');
-      _sendBrowserNotification(data);
+
+      if (data.messageType === 'file_share') {
+        // file_share일 경우
+        if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
+          // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.
+          FileShareDesktopNotification.addNotification(data);
+        }
+      } else {
+        _sendBrowserNotification(data);
+      }
     }
 
     /**
@@ -346,13 +360,13 @@
 
     /**
      * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
-     * @param {object} writer - 노티를 보낸 사람
-     * @param {boolean} isCurrentEntity - 현재 엔티티인지 아닌지 알려주는 flag
+     * @param {object} data - socket event parameter
      * @returns {boolean}
      * @private
      */
     function _shouldSendNotification(data) {
       var returnVal = true;
+
       if (jndWebSocketCommon.isActionFromMe(data.writer)) {
         // 내가 보낸 노티일 경우
         returnVal = false;
@@ -364,7 +378,5 @@
       }
       return returnVal;
     }
-
-
   }
 })();

@@ -10,31 +10,60 @@
 
   /* @ngInject */
   function AuthInterceptor($q, $injector, configuration, storageAPIservice) {
-
     this.request = request;
     this.requestError = requestError;
     this.responseError = responseError;
 
+    /**
+     * request interceptor
+     * @param {object} config
+     * @returns {*}
+     */
     function request(config) {
-      config.headers = config.headers || {};
-
-      var apiVersion = _setApiVersion(config);
-      // API version
-      config.headers.Accept = "application/vnd.tosslab.jandi-v" + apiVersion + "+json";
-
-      config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
-
-      return config;
+      if (storageAPIservice.isAccessTokenDirty()) {
+        _redirectToAdmin();
+      } else {
+        config.headers = config.headers || {};
+        // API version
+        config.headers.Accept = "application/vnd.tosslab.jandi-v" + _getApiVersion(config) + "+json";
+        config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
+        return config;
+      }
     }
 
-    function _setApiVersion(config) {
+    /**
+     * admin 페이지로 redirect 한다.
+     * @private
+     */
+    function _redirectToAdmin() {
+      window.location.href = configuration.main_address + 'team';
+    }
+
+    /**
+     * 현재 api 버전을 반환한다.
+     * @param {object} config
+     * @returns {*}
+     * @private
+     */
+    function _getApiVersion(config) {
       return config.version || configuration.api_version;
     }
 
+    /**
+     * request error interceptor
+     * @param {object} rejection
+     */
     function requestError(rejection) {
-      console.log(rejection)
+      console.log(rejection);
     }
+
+    /**
+     * responseError interceptor
+     * @param {object} rejection
+     * @returns {Promise}
+     */
     function responseError(rejection) {
+      var authAPIservice = $injector.get('authAPIservice');
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED
         // what should i do?
@@ -51,17 +80,18 @@
       } else if (rejection.status == 502) {
         console.log('I am sorry, it is a 502 error. Keep calm and close your console.');
       } else if (rejection.status == 503) {
-        var authAPIservice = $injector.get('authAPIservice');
         authAPIservice.handleConstructionErr();
         return $q.reject(rejection);
       } else if (rejection.status === 401) {
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
         console.log('I am so sorry. It is 401 error.');
-        var authAPIservice = $injector.get('authAPIservice');
-
-        if (angular.isUndefined(authAPIservice)) return;
-        authAPIservice.requestAccessTokenWithRefreshToken();
+        //sholdn't be here
+        if (angular.isUndefined(authAPIservice)) {
+          _redirectToAdmin();
+        } else {
+          authAPIservice.requestAccessTokenWithRefreshToken();
+        }
         return $q.reject(rejection);
       } else {
         return $q.reject(rejection);

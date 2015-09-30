@@ -51,7 +51,9 @@
 
       matches = _.chain(list).filter(function (item) {
         return item.name.toLowerCase().indexOf(value) > -1;
-      }).sortBy('name').value();
+      }).sortBy(function (item) {
+        return item.name.toLowerCase();
+      }).value();
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;
@@ -99,6 +101,7 @@
      */
     function onTabDeselect(type) {
       jndPubSub.pub('setActiveIndex:' + type, 0);
+      jndPubSub.pub('updateList:' + type);
     }
 
     /**

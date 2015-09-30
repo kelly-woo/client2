@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout) {
+  function mentionahead($compile, $timeout, $position) {
 
     return {
       restrict: 'A',
@@ -21,8 +21,8 @@
 
         mentionahead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
-          'jandi-typeahead="mention as mention.name for mention in mentionList | userByName: $viewValue" ' +
-          'jandi-typeahead-placement="top-left" ' +
+          'jandi-typeahead="mention.name for mention in mentionList | filter: { extSearchName: $viewValue }"' +
+          'jandi-typeahead-prevent-default-placement="true" ' +
           'jandi-typeahead-on-select="onSelect($item)" ' +
           'jandi-typeahead-on-matches="onMatches($matches)" ' +
           'jandi-typeahead-template-name="jandi-mentionahead-popup" ' +
@@ -47,7 +47,7 @@
               jqEle: el,
               attrs: attrs,
               on: function() {
-                var LIVE_SEARCH_DELAY = 50;
+                var LIVE_SEARCH_DELAY = 0;
                 var timerLiveSearch;
 
                 // text change event handling
@@ -60,11 +60,18 @@
                 }
 
                 // 실시간 mention 입력 확인
-                function liveSearchHandler() {
+                function liveSearchHandler(event) {
                   $timeout.cancel(timerLiveSearch);
                   timerLiveSearch = $timeout(function() {
-                    mentionCtrl.setMentionOnLive();
+                    var jqPopup = jqMentionahead.next();
+                    var css;
+
+                    mentionCtrl.setMentionOnLive(event);
                     mentionCtrl.showMentionahead();
+
+                    // mention ahead position
+                    css = $position.positionElements(jqMentionahead, jqPopup, 'top-left', false);
+                    jqPopup.css(css);
                   }, LIVE_SEARCH_DELAY);
                 }
 
@@ -72,7 +79,7 @@
                   .on('input', changeHandler)
                   .on('click', function (event) {
                     event.stopPropagation();
-                    liveSearchHandler();
+                    liveSearchHandler(event);
                   })
                   .on('blur', mentionCtrl.clearMention)
                   .on('keyup', liveSearchHandler);

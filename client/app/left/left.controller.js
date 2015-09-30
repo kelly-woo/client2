@@ -787,7 +787,6 @@ app.controller('leftPanelController1', function(
             });
           } catch (e) {
           }
-
         });
     }
     else {
@@ -814,7 +813,6 @@ app.controller('leftPanelController1', function(
 
           }
         });
-
     }
   };
 
@@ -875,6 +873,8 @@ app.controller('leftPanelController1', function(
   $scope.onFileSelect = function($files, options) {
     var currentEntity = currentSessionHelper.getCurrentEntity();
     var fileUploader;
+    var jqMessageInput;
+    var messageInputValue;
 
     if ($rootScope.fileUploader) {
       fileUploader = $rootScope.fileUploader;
@@ -883,15 +883,31 @@ app.controller('leftPanelController1', function(
         // 다른 topic에서 upload를 시도함
         $rootScope.fileUploader.clear();
         $scope.onFileUploadAbortClick();
-        fileAPIservice.clearCurUpload();
-        delete $rootScope.fileUploader;
+
+        fileAPIservice.clearUploader();
+        $rootScope.curUpload = {};
 
         fileUploader = undefined;
       }
     }
 
+    fileAPIservice.cancelClearCurUpload();
+
     fileUploader = fileUploader || FilesUpload.createInstance();
     fileUploader.currentEntity = currentEntity;
+
+    if (options == null) {
+      jqMessageInput = $('#message-input');
+      messageInputValue = jqMessageInput.val();
+      jqMessageInput.val('').trigger('change');
+
+      options = {
+        createFileObject: function(file) {
+          file.comment = messageInputValue;
+          return file;
+        }
+      };
+    }
 
     fileUploader
       .setFiles($files, options)
@@ -901,15 +917,8 @@ app.controller('leftPanelController1', function(
           $scope.openModal('file', {
             fileUploader: fileUploader,
             onEnd: function () {
-              // hide progress bar
-              $timeout(function () {
-                $('.file-upload-progress-container').css('opacity', 0);
-                // opacity 0된 후 clear upload info
-                $timeout(function () {
-                  fileAPIservice.clearCurUpload();
-                  delete $rootScope.fileUploader;
-                }, 500);
-              }, 2000);
+              fileAPIservice.clearUploader();
+              fileAPIservice.clearCurUpload();
             }
           });
         }
@@ -926,8 +935,7 @@ app.controller('leftPanelController1', function(
   $scope.onFileIconCloseClick = function() {
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
-        fileAPIservice.clearCurUpload();
-        delete $rootScope.fileUploader;
+        $rootScope.curUpload = {};
       }
     )
   };
@@ -1052,15 +1060,8 @@ app.controller('leftPanelController1', function(
         $rootScope.fileUploader.clear();
         $scope.onFileUploadAbortClick();
 
-        // hide progress bar
-        $timeout(function () {
-          $('.file-upload-progress-container').css('opacity', 0);
-          // opacity 0된 후 clear upload info
-          $timeout(function () {
-            fileAPIservice.clearCurUpload();
-            delete $rootScope.fileUploader;
-          }, 500);
-        }, 2000);
+        fileAPIservice.clearUploader();
+        fileAPIservice.clearCurUpload();
       }
     }
   }

@@ -53,6 +53,9 @@
           },
           // content load 된 후 event handler
           onContentLoad: function(type, data) {
+            var comment = messageInput.val();
+            messageInput.val('').trigger('change');
+
             if (type === 'text') {
               messageInput.val(data).trigger('change');
             } else if (type === 'image') {
@@ -60,9 +63,6 @@
                 createFileObject: function _createFileObject(data) {
                   var blob = fileAPIservice.dataURItoBlob(data);
                   // message-input에 입력된 text를 file comment로 설정함
-                  var comment = messageInput.val();
-
-                  messageInput.val('').trigger('change');
 
                   return {
                     name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',

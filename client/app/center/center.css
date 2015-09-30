@@ -77,7 +77,8 @@ article {
 }
 .msgs__loading.initial {
   height: 100%;
-  background-size: 100px 100px;
+  /*background-size: 100px 100px;*/
+  background:#FFFFFF;
 }
 .msgs__loading.load-more-top {
   position: absolute;
@@ -663,12 +664,17 @@ by ysyun 2015.2.25
 .jandi-file-upload-progress-bar .progress-bar {
   background-color: rgba(0, 170, 232, 1);
 }
-.jandi-file-upload-progress-bar .progress-bar.init-progress-bar {
+.jandi-file-upload-progress-bar .progress-bar {
   -webkit-transition: none;
   -moz-transition: none;
   -ms-transition: none;
   -o-transition: none;
   transition: none;
+}
+.jandi-file-upload-progress-bar .progress-bar.animation-progress-bar {
+  -webkit-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
 }
 
 .isAborted .jandi-file-upload-progress-bar {

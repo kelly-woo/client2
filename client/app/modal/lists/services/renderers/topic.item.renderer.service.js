@@ -17,7 +17,7 @@
     _init();
 
     function _init() {
-      _template = Handlebars.templates['topic.item'];
+      _template = Handlebars.templates['modal.topic.list.item'];
     }
 
     /**
@@ -32,7 +32,8 @@
         topicDescription: data.description,
         creatorName: $filter('getName')(data.ch_creatorId),
         memberCount: data.ch_members.length,
-        commonJoinedMessage: $filter('translate')('@common-joined')
+        commonJoinedMessage: $filter('translate')('@common-joined'),
+        itemHeight: !!data.description ? 130 : 77
       });
     }
   }

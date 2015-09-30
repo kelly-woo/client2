@@ -27,6 +27,7 @@
       templates: {
         toast: 'components/jandi/dialog/toast/toast.html'
       },
+      closeHtml: '<i class="icon-delete"></i>',
       timeOut: '5000'
     });
   }

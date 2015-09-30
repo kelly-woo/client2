@@ -63,7 +63,7 @@
           return item.name.toLowerCase().indexOf(value) > -1;
         })
         .sortBy(function (item) {
-          return [!item.isStarred, item.name];
+          return [!item.isStarred, item.name.toLowerCase()];
         })
         .value();
 
@@ -78,6 +78,7 @@
 
     function onTabDeselect(type) {
       jndPubSub.pub('setActiveIndex:' + type, 0);
+      jndPubSub.pub('updateList:' + type);
     }
 
     /**
