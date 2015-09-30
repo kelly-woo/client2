@@ -26,6 +26,7 @@
     this.isChat  = isChat;
 
     this.hasBottomReached = hasBottomReached;
+    this.isScrollBottom = isScrollBottom;
     this.isBrowserHidden = isBrowserHidden;
 
     this.setBrowserFocus = setBrowserFocus;
@@ -85,6 +86,15 @@
       element = angular.element(element);
 
       return scrollHeight - (element.outerHeight() + element.scrollTop()) < SCROLL_BOTTOM_THRESHOLD;
+    }
+
+    /**
+     * is scroll bottom
+     * @returns {boolean}
+     */
+    function isScrollBottom() {
+      var jqContainer = $('#msgs-container');
+      return jqContainer.height() + jqContainer.scrollTop() >= jqContainer[0].scrollHeight;
     }
 
     /**

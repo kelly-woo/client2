@@ -224,6 +224,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
+    $scope.$on('center:scrollToBottom', _centerScrollToBottom);
+
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
     });
@@ -1489,6 +1491,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //if (_hasLastMessage() && centerService.hasBottomReached()) {
     if (centerService.hasBottomReached()) {
       _scrollToBottomWithAnimate();
+    }
+  }
+
+  /**
+   * scroll to bottom
+   * @param {object} $event
+   * @param {number} [duration] - scroll bottom 까지 지연시간(ms)
+   * @private
+   */
+  function _centerScrollToBottom($event, duration) {
+    if (_.isNumber(duration)) {
+      _scrollToBottomWithAnimate(duration);
+    } else {
+      _scrollToBottom(true);
     }
   }
 

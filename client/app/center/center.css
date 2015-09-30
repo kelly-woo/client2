@@ -314,14 +314,21 @@ by ysyun 2015.2.25
   height: 63px;
   width: 63px;
 }
-.preview-container .msg-file-body__img__background {
-  max-width: 700px;
-}
 .msg-file-body__thumbnail {
   height: 65px;
   width: 65px;
   background-color: #f2f2f2;
   padding: 15px;
+}
+
+.medium-thumbnail {
+  width: 362px;
+  height: 272px;
+}
+
+.large-thumbnail {
+  min-height: 50px;
+  max-width: 700px;
 }
 
 .large-thumbnail-parent {
@@ -331,10 +338,7 @@ by ysyun 2015.2.25
   position: relative;
   overflow: hidden;
 }
-.large-thumbnail {
-  min-height: 50px;
-  max-width: 700px;
-}
+
 .preview-container:hover .large-thumbnail-full-screen {
   display: block;
   -webkit-animation: opacIn-from-0 1s; /* Chrome, Safari, Opera */

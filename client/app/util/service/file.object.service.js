@@ -90,8 +90,11 @@
           if (options.validateFileSize && fileAPIservice.isFileTooLarge(file)) {
             alerts.push(options.msgIsLarge + '\r\n' + (file.name || file.title));
           } else {
-            // image file 여부
-            file.isImage = (options.supportFileReader && rImage.test(file.type));
+            if ($filter('validPreviewSize')(file)) {
+              // image file 이고 preview image를 출력 해야함
+
+              file.isImage = (options.supportFileReader && rImage.test(file.type));
+            }
 
             files.push(file);
           }

@@ -59,6 +59,7 @@
 
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+        scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
       }
 
       /**
@@ -528,6 +529,25 @@
         MessageCollection.forEach(function(msg, index) {
           if (messageId === (msg.message && msg.message.id)) {
             _refresh(msg.id, index);
+          }
+        });
+      }
+
+      /**
+       * thumbnail 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} socketData
+       * @private
+       */
+      function _onCreatedThumbnailImage(angularEvent, socketData) {
+        var messageId = socketData.data.message.id;
+        MessageCollection.forEach(function(msg, index) {
+          if (messageId === (msg.message && msg.message.id) && !msg.message.content.extHasPreview) {
+            // back-end에서 link
+            msg.message.content.extHasPreview = true;
+            msg.message.content.extraInfo = socketData.data.message.content.extraInfo;
+            _refresh(msg.id, index);
+            return false;
           }
         });
       }

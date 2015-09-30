@@ -23,11 +23,14 @@
 
         data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
 
+        data.mustPreview = $filter('mustPreview')(fileData.content);
+        if (!data.mustPreview) {
+          data.icon = $filter('fileIcon')(fileData.content);
+        }
+
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
           data.imageUrl = $filter('getFileUrl')(fileData.content.extraInfo.smallThumbnailUrl);
-        } else {
-          data.icon = $filter('fileIcon')(fileData.content);
         }
 
         data.writerId = fileData.writerId;
@@ -52,11 +55,14 @@
 
         data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
 
+        data.mustPreview = $filter('mustPreview')(fileData.message.content);
+        if (!data.mustPreview) {
+          data.icon = $filter('fileIcon')(fileData.message.content);
+        }
+
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
         if (data.hasPreview) {
           data.imageUrl = $filter('getFileUrl')(fileData.message.content.extraInfo.smallThumbnailUrl);
-        } else {
-          data.icon = $filter('fileIcon')(fileData.message.content);
         }
 
         data.writerId = fileData.message.writerId;

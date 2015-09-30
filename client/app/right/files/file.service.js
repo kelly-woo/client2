@@ -85,7 +85,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       url: url,
       data: fileInfo,
       file: file,
-      fileFormDataName: 'userFile'
+      fileFormDataName: 'userFile',
+      version: 3
     });
   }
 
