@@ -157,6 +157,27 @@
   });
 
   /**
+   * width, height를 maxWidth, maxHeight에 맞추어 조정한 값을 전달함.
+   */
+  app.filter('reiszeRectangle', function() {
+    return function(maxWidth, maxHeight, width, height) {
+      var ratio = [];
+
+      if (maxWidth < width || maxHeight < height) {
+        // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
+        ratio = Math.min(rmaxWidth / width, maxHeight / height);
+      } else {
+        ratio = 1;
+      }
+
+      return {
+        width: width * ratio,
+        height: height * ratio
+      };
+    };
+  });
+
+  /**
    * file title을 filtering
    * integration file의 경우 확장자를 표시하지 않음
    */
@@ -175,13 +196,33 @@
   });
 
   /**
-   * preview image를 지원하는지 여부
+   * preview를 가지고 있는지 여부
    */
   app.filter('hasPreview', function() {
     var rImage = /image/i;
     return function(content) {
-      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl] ;
     };
+  });
+
+  /**
+   * preview를 가져야 하는지 여부
+   */
+  app.filter('mustPreview', function($filter) {
+    var rImage = /image/i;
+    return function(content) {
+      return !!content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+    };
+  });
+
+  /**
+   * preview 생성 가능한 size인지 여부
+   */
+  app.filter('validPreviewSize', function() {
+    var MAX_IMAGE_SIZE = 10000000; // 10MB
+    return function(content) {
+      return content && content.size < MAX_IMAGE_SIZE
+    }
   });
 
   /**

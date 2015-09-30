@@ -451,11 +451,8 @@ input[type="button"] {
 }
 .no-image-preview {
   background-image: url('../assets/images/no_image_available.png');
-  background-size: 370px 172px;
-  width: 370px;
-  height: 172px;
-  display: inline-block;
 }
+
 .icon_image {
   position: absolute;
   cursor: pointer;

@@ -92,15 +92,15 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" style="cursor: {{::previewCursor}};" ng-click="onImageClick();" file-detail-preview
+        <div class="image_wrapper" style="cursor: {{::previewCursor}};" ng-click="onImageClick($event);" file-detail-preview
              image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
-          <div class="loading_bar" ng-if="isLoadingImage || true">
-            <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-          </div>
+        </div>
+        <div class="loading_bar" ng-if="!!isLoadingImage">
+          <span class="three-quarters-loader jnd-three-quarters-loader"></span>
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
-          <div class="fileicon fileicon-{{file_detail.content | fileIcon}}"></div>
+          <div class="fileicon fileicon-{{::fileIcon}}"></div>
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">

@@ -140,8 +140,9 @@
 .file-detail-body .image_wrapper img {
   border: 1px solid #F5F5F5;
 }
-.file-detail-body .image_wrapper .loading_bar {
+.file-detail-body .loading_bar {
   margin-top: 0;
+  margin-bottom: 15px;
 }
 .file-item-body-title-author {
   max-width: 76px;
@@ -433,4 +434,11 @@
 .rpanel-body-content.file-detail .comment-star .icon-star-on,
 .rpanel-body-content.file-detail .action-star .icon-star-on {
   color: #f9bb00;
+}
+
+.file-detail-body .no-image-preview {
+  width: 370px;
+  height: 172px;
+  background-size: 370px 172px;
+  cursor: default !important;
 }

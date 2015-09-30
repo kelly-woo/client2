@@ -259,6 +259,8 @@
         _teamId = socketEvent.team.id;
       } else if (socketEvent.data && socketEvent.data.teamId && socketEvent.data.teamId) {
         _teamId = socketEvent.data.teamId;
+      } else if (socketEvent.data && socketEvent.data.message && socketEvent.data.message.teamId) {
+        _teamId = socketEvent.data.message.teamId;
       }
 
       return _teamId;

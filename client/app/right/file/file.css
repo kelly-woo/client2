@@ -140,3 +140,21 @@
   border: 1px solid #e1e1e1;
   background-color: #f1f4f8;
 }
+
+ /* LOADING BAR */
+.file-card .loading-bar-container {
+  position: relative;
+  width: 63px;
+  height: 63px;
+}
+.file-card .loading_bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -12px 0 0 -12px;
+}
+
+.file-card .no-image-preview-square {
+  width: 65px;
+  height: 65px;
+}

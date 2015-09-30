@@ -9,8 +9,8 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, memberService, centerService, RendererUtil,
-                        fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
+  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService,
+                        memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
 
     this.render = render;
@@ -47,64 +47,71 @@
         _onClickFileDownload(msg);
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
-      } else if (jqTarget.closest('._fileSmallThumb').length) {
-        _onClickSmallThumb(msg, jqTarget);
       } else if (jqTarget.closest('._fileExpand').length) {
-        _onClickExpand(msg, jqTarget);
-      } else if (jqTarget.closest('._fileLargeThumb').length) {
-        _onClickLargeThumb(msg, jqTarget);
+        _onClickFileExpand(msg, jqTarget);
+      } else if (jqTarget.closest('._fileToggle').length) {
+        _onClickFileToggle(msg, jqTarget);
       }
     }
 
     /**
-     * 작은 thumbnail click 이벤트 핸들러
+     * file show/hide event handler
      * @param {object} msg
      * @param {object} jqTarget
      * @private
      */
-    function _onClickSmallThumb(msg, jqTarget) {
-      jqTarget.closest('._fileSmallThumb').hide();
-      jqTarget.closest('.preview-container').removeClass('pull-left');
-      $('#' + msg.id).find('._fileLargeThumb').show();
+    function _onClickFileToggle(msg, jqTarget) {
+      var jqMsg = $('#' + msg.id);
+      var jqThumb = jqMsg.find('._fileMediumThumb');
+      var jqToogle = jqMsg.find('._fileToggle');
+      var isHide = jqThumb.css('display') === 'none';
+      var isScrollBottom = centerService.isScrollBottom();
+
+      if (isHide) {
+        jqThumb.show();
+        jqToogle.addClass('icon-angle-down').removeClass('icon-angle-right');
+      } else {
+        jqThumb.hide();
+        jqToogle.addClass('icon-angle-right').removeClass('icon-angle-down');
+      }
+
+      if (isScrollBottom) {
+        // image 접기/펼치기 전 scroll이 bottom에 있었다면 scroll bottom 고정
+        jndPubSub.pub('center:scrollToBottom');
+      }
     }
 
     /**
-     * 큰 thumbnail click 이벤트 핸들러
+     * thumbnail image를 original image로 보기 위한 클릭 핸들러
      * @param {object} msg
      * @param {object} jqTarget
      * @private
      */
-    function _onClickLargeThumb(msg, jqTarget) {
-      jqTarget.closest('._fileLargeThumb').hide();
-      jqTarget.closest('.preview-container').addClass('pull-left');
-      $('#' + msg.id).find('._fileSmallThumb').show();
-    }
-
-    /**
-     * 큰 thumbnail 의 확대 버튼 클릭 핸들러
-     * @param {object} msg
-     * @param {object} jqTarget
-     * @private
-     */
-    function _onClickExpand(msg, jqTarget) {
+    function _onClickFileExpand(msg, jqTarget) {
       var message = msg.message;
-      var content = _getFeedbackContent(msg);
-      var currentEntity = currentSessionHelper.getCurrentEntity();
-      modalHelper.openImageCarouselModal({
-        // server api
-        getImage: fileAPIservice.getImageListOnRoom,
+      var content;
+      var currentEntity;
 
-        // image file api data
-        messageId: message.id,
-        entityId: currentEntity.entityId || currentEntity.id,
-        // image carousel view data
-        userName: message.writer.name,
-        uploadDate: msg.time,
-        fileTitle: content.title,
-        fileUrl: content.fileUrl,
-        // single file
-        isSingle: msg.status === 'unshared'
-      });
+      if (!jqTarget.hasClass('no-image-preview')) {
+        content = _getFeedbackContent(msg);
+        currentEntity = currentSessionHelper.getCurrentEntity();
+
+        modalHelper.openImageCarouselModal({
+          // server api
+          getImage: fileAPIservice.getImageListOnRoom,
+
+          // image file api data
+          messageId: message.id,
+          entityId: currentEntity.entityId || currentEntity.id,
+          // image carousel view data
+          userName: message.writer.name,
+          uploadDate: msg.time,
+          fileTitle: content.title,
+          fileUrl: content.fileUrl,
+          // single file
+          isSingle: msg.status === 'unshared'
+        });
+      }
     }
 
     /**
@@ -141,6 +148,8 @@
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
       var isArchived = (msg.message.status === 'archived');
+      var hasPreview = $filter('hasPreview')(content);
+      var icon = $filter('fileIcon')(content);
 
       return _template({
         css: {
@@ -152,12 +161,12 @@
           download: _getFileDownloadAttrs(msg)
         },
         file: {
-          icon: $filter('fileIcon')(content),
-          imageUrl: {
-            small: _getSmallThumbnailUrl(msg),
-            large: _getLargeThumbnailUrl(msg)
-          },
-          hasPreview: $filter('hasPreview')(content),
+          icon: icon,
+          isImageIcon: icon === 'img',
+          loading: Loading.getTemplate(),
+          mustPreview: $filter('mustPreview')(content),
+          hasPreview: hasPreview,
+          imageUrl: _getMediumThumbnailUrl(content, hasPreview),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
@@ -203,18 +212,11 @@
      * @returns {*}
      * @private
      */
-    function _getSmallThumbnailUrl(msg) {
-      var content = _getFeedbackContent(msg);
-      var hasPreview = $filter('hasPreview')(content);
+    function _getMediumThumbnailUrl(content, hasPreview) {
+      //var content = _getFeedbackContent(msg);
+      //var hasPreview = $filter('hasPreview')(content);
 
-      return hasPreview ? $filter('getFileUrl')(content.extraInfo.smallThumbnailUrl) : '';
-    }
-
-    function _getLargeThumbnailUrl(msg) {
-      var content = _getFeedbackContent(msg);
-      var hasPreview = $filter('hasPreview')(content);
-
-      return hasPreview ? $filter('getFileUrl')(content.extraInfo.largeThumbnailUrl) : '';
+      return hasPreview ? $filter('getFileUrl')(content.extraInfo.mediumThumbnailUrl) : '';
     }
 
     /**

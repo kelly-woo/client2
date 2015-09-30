@@ -9,8 +9,8 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($scope, $state, $parse, $filter, $window, $timeout, entityAPIservice, memberService,
-                            currentSessionHelper, configuration, MentionExtractor, Dialog) {
+  function MentionaheadCtrl($scope, $state, $parse, $filter, $timeout, entityAPIservice,
+                            currentSessionHelper, MentionExtractor, Dialog) {
     var that = this;
 
     var entityId = $state.params.entityId;
@@ -142,12 +142,13 @@
 
     /**
      * element의 cursor 기준으로 mention을 설정함.
+     * @param {object} event
      */
-    function setMentionOnLive() {
+    function setMentionOnLive(event) {
       var value = getValue();
       var selectionBegin = _getSelection().begin;
 
-      $scope.mention = MentionExtractor.getMentionOnCursor(value, selectionBegin);
+      $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
     }
 
     /**

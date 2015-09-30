@@ -9,6 +9,13 @@
   text-decoration: none !important;
 }
 
+.msg-file-meta-up .preview-icon {
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 18px;
+  color: #575757;
+}
+
 .msg-file-meta-down {
    padding-top: 5px;
 }
@@ -35,4 +42,11 @@
 
 .file-uploaded-extra {
   margin-right: 20px;
+}
+
+.preview-container .no-image-preview {
+  background-repeat: no-repeat;
+  background-size: 360px 150px;
+  background-position-y: 60px;
+  cursor: default;
 }

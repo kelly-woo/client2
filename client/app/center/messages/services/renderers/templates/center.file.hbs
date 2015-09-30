@@ -25,10 +25,10 @@
     <div class="msg-file">
 
       <!--  FILE PREVIEW IMAGE  -->
-      <div class="msg-file-body-float pull-left preview-container">
+      <div class="preview-container">
         {{#if isArchived}}
         <!--  ARCHIVED FILE -->
-        <div>
+        <div class="msg-file-body-float pull-left">
           <!--    FILE TYPE THUMBNAIL -->
           <div class="msg-file-body__thumbnail">
             <img class="fileicon" src="assets/images/fileicon_archived.png"/>
@@ -36,39 +36,29 @@
         </div>
         {{else}}
         <div>
-          {{#if file.hasPreview}}
-          <!--    IMAGE THUMBNAIL -->
-          <div>
-            <!-- thumbnail parent -->
-            <div class="image_wrapper msg-file-body__img__background jnd-text-center">
-              <!-- large thumbnail add-->
-              <div class="_fileSmallThumb">
-                <div class="opac-zero msg-file-body__img cursor_pointer _compile"
-                    image-loader="{{file.imageUrl.small}}"
-                     image-max-height="65"
-                     image-max-width="65"
-                     image-is-square="true"
-                     jnd-thumbnail-scale-up
-                     jnd-ignore-braces>
-                </div>
+          {{#if file.mustPreview }}
+          <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
+          <div class="jnd-text-center _compile _fileMediumThumb">
+            {{#if file.hasPreview}}
+              <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer opac-zero _fileExpand" image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true"></div>
+            {{else}}
+              <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer">
+                {{{file.loading}}}
               </div>
-              <div class="_fileLargeThumb" style="display:none">
-                <div class="cursor_pointer opac-zero large-thumbnail _compile"
-                  image-loader="{{file.imageUrl.large}}"
-                  image-max-width="700"
-                  jnd-ignore-braces>
-                </div>
-                <div class="large-thumbnail-full-screen _fileExpand">
-                  <i class="icon-minimize"></i>
-                </div>
-              </div>
-            </div>
+            {{/if}}
           </div>
           {{else}}
-          <!--    FILE TYPE THUMBNAIL -->
-          <div class="msg-file-body__thumbnail">
-            <div class="fileicon fileicon-{{ file.icon }}" ></div>
-          </div>
+            {{#if file.isImageIcon}}
+              <!--    FILE TYPE THUMBNAIL -->
+              <div class="msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer _fileExpand">
+                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              </div>
+            {{else}}
+              <!--    FILE TYPE THUMBNAIL -->
+              <div class="msg-file-body__thumbnail msg-file-body-float pull-left">
+                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              </div>
+            {{/if}}
           {{/if}}
         </div>
         {{/if}}
@@ -85,18 +75,19 @@
           </div>
           {{else}}
           <!--  NOT ARCHIVED FILE -->
-          <div>
-            <!--    TITLE   -->
-            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
-              {{ file.title }}
-            </a>
-            {{#if file.size}}
-            <span class="bullet">•</span>
-            <!--    SIZE AND FILE TYPE  -->
-            <span class="msg-file-meta-info">{{ file.size }}</span>
-            {{/if}}
-            <span class="msg-file-meta-info">{{ file.type }}</span>
-          </div>
+          <!--    TITLE   -->
+          <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
+            {{ file.title }}
+          </a>
+          {{#if file.size}}
+          <span class="bullet">•</span>
+          <!--    SIZE AND FILE TYPE  -->
+          <span class="msg-file-meta-info">{{ file.size }}</span>
+          {{/if}}
+          <span class="msg-file-meta-info">{{ file.type }}</span>
+          {{#if file.hasPreview}}
+            <i class="preview-icon icon-angle-down _fileToggle" style="display: none;"></i>
+          {{/if}}
         </div>
         <div class="msg-file-meta-down _compile">
           {{#unless file.isIntegrateFile}}
