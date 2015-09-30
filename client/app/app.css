@@ -104,13 +104,6 @@
   src: local('Roboto Bold'), local('Roboto-Bold'), url(https://fonts.gstatic.com/l/font?kit=rhYZ0A32KusJ1bGYWIuxAtoLqSWmDCRj17QBVup6CqJMKDW7wr8-mFUtZxX0An9Hxjwkr35EAwjGz2xBtHyf46VYFdkcnG3BQC4BAwdRBqtuAtmJ8SPLz6DEExiJ-m1d&skey=c06e7213f788649e) format('woff2');
 }
 
-
-/* prefix for FireFox */
-@-moz-document {
-	font-weight: normal;
-}
-
-
 :lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", 'Noto Sans Korean', arial, helvetica, sans-serif, fontAwesome; }
 :lang(ko) { font-family:    'Roboto', 'Noto Sans Korean', "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
 :lang(en) { font-family:    'Roboto', 'Noto Sans Korean', Arial, sans-serif, serif, fontAwesome; }
@@ -130,7 +123,7 @@ body {
   height: 100%;
   width: 100%;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; /* fix heavy font issue for Firefox */
   font-size: 14px;
   line-height: 1rem;
   background: white;
