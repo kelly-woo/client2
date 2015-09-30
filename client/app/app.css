@@ -58,10 +58,10 @@
     font-style: normal;
     font-weight: 500;
     src: local('Noto Sans Medium'), local('NotoSans-Medium'),
-    url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Medium-Hestia.eot),
-    url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Medium-Hestia.eot?#iefix) format('embedded-opentype'),
-    url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/woff/NotoSansKR-Medium-Hestia.woff) format('woff'),
-    url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/otf/NotoSansKR-Medium-Hestia.otf) format('opentype');
+    url(/assets/fonts/NotoSansKR-Medium-Hestia.eot),
+    url(/assets/fonts/NotoSansKR-Medium-Hestia.eot?#iefix) format('embedded-opentype'),
+    url(/assets/fonts/NotoSansKR-Medium-Hestia.woff) format('woff'),
+    url(/assets/fonts/NotoSansKR-Medium-Hestia.otf) format('opentype');
 }
 
 @font-face {
@@ -103,6 +103,13 @@
   font-weight: 700;
   src: local('Roboto Bold'), local('Roboto-Bold'), url(https://fonts.gstatic.com/l/font?kit=rhYZ0A32KusJ1bGYWIuxAtoLqSWmDCRj17QBVup6CqJMKDW7wr8-mFUtZxX0An9Hxjwkr35EAwjGz2xBtHyf46VYFdkcnG3BQC4BAwdRBqtuAtmJ8SPLz6DEExiJ-m1d&skey=c06e7213f788649e) format('woff2');
 }
+
+
+/* prefix for FireFox */
+@-moz-document {
+	font-weight: normal;
+}
+
 
 :lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", 'Noto Sans Korean', arial, helvetica, sans-serif, fontAwesome; }
 :lang(ko) { font-family:    'Roboto', 'Noto Sans Korean', "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
