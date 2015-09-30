@@ -1,3 +1,8 @@
+.medium-thumbnail > div[image-loader] {
+  width: 360px;
+  height: 270px;
+}
+
 .file-action {
   line-height: 16px !important;
   font-size: 16px;
