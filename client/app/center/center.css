@@ -378,7 +378,7 @@ by ysyun 2015.2.25
   font-size: 12px;
   line-height: 1.3rem;
   padding-left: 75px;
-  min-height: 65px !important;
+  min-height: 50px !important;
 }
 
 /*
@@ -391,6 +391,7 @@ by ysyun 2015.2.25
   padding-left: 0;
   min-height: 0;
   width: 100%;
+  margin-top: 10px;
 }
 .msg-file-meta-up {
   margin-bottom: 3px;
@@ -800,7 +801,7 @@ by ysyun 2015.2.25
 ********************************************/
 .attachment-content-wrapper {
   position: relative;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-bottom: 8px;
 }
 .attachment-content-wrapper .attachment-content-bar {
