@@ -9,11 +9,12 @@
     .service('MentionExtractor', MentionExtractor);
 
   /* @ngInject */
-  function MentionExtractor($filter, memberService, EntityMapManager, configuration) {
+  function MentionExtractor($filter, memberService, EntityMapManager, configuration, jndKeyCode) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
+    var regxKr = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
     that.MENTION_ALL = 'all';
     that.MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
@@ -25,16 +26,29 @@
 
     /**
      * cursor 기준으로 mention data를 찾아 전달함.
+     * @param {object} event
      * @param {string} fullText
      * @param {number} begin - cursor 시작점
      * @returns {*}
      */
-    function getMentionOnCursor(fullText, begin) {
+    function getMentionOnCursor(event, fullText, begin) {
       var preStr;
       var match;
       var mention;
+      var nextChar;
 
       if (fullText != null) {
+
+        // keyup 이벤트로 값 입력시 cursor의 다음 문자가 한글이라면 cursor 값을 1증가 시킴.
+        // 한글은 '@박현' 입력시 '박'자와 '현'자 사이에 cursor가 위치하므로 올바른 mention list를
+        // 출력하지 못하기 때문에 따로 처리함.
+        if (event.type === 'keyup' &&
+            !(jndKeyCode.match('LEFT_ARROW', event.which) || jndKeyCode.match('UP_ARROW', event.which) ||  jndKeyCode.match('RIGHT_ARROW', event.which) ||  jndKeyCode.match('DOWN_ARROW', event.which))) {
+          nextChar = fullText.substring(begin, begin + 1);
+          if (regxKr.test(nextChar)) {
+            begin += 1;
+          }
+        }
 
         // cursor 기준 앞에 입력된 text를 check
         preStr = fullText.substring(0, begin);
