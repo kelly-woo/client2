@@ -77,7 +77,7 @@
 
       if (isScrollBottom) {
         // image 접기/펼치기 전 scroll이 bottom에 있었다면 scroll bottom 고정
-        jndPubSub.pub('centerScrollToBottom');
+        jndPubSub.pub('center:scrollToBottom');
       }
     }
 

@@ -220,7 +220,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
-    $scope.$on('centerScrollToBottom', _centerScrollToBottom);
+    $scope.$on('center:scrollToBottom', _centerScrollToBottom);
 
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
