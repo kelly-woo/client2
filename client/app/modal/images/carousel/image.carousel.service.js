@@ -46,7 +46,7 @@
 
     var prevLoadedItems = [];
 
-    var _jqLoading = Loading.getSimpleTemplate();
+    var _jqLoading = Loading.getElement();
 
     that.init = init;
     that.close = close;
@@ -548,6 +548,12 @@
               }
               _loadImage(blob, jqImageItem, imageOptions);
             });
+          } else {
+            // image item에 출력된 loading screen 제거
+            jqImageItem.removeClass('loading');
+            _jqLoading.remove();
+
+            setNoImagePreview(jqImageItem);
           }
         };
 
@@ -571,13 +577,9 @@
         // image item에 출력된 loading screen 제거
         jqImageItem.removeClass('loading');
         _jqLoading.remove();
-        if (img.type === 'error') {
-          // img가 존재하지 않기 때문에 error image 출력
-          jqImg = $('<img src="assets/images/no_image_available.png" style="opacity: 0;" width="400" height="153"/>');
-          _setPosition(jqImageItem, jqImg[0]);
 
-          jqImageItem.addClass('no-image-carousel').prepend(jqImg[0]);
-          jqImg.css('opacity', 1);
+        if (img.type === 'error') {
+          setNoImagePreview(jqImageItem);
         } else {
           // img position 설정하고 출력
           _setPosition(jqImageItem, img);
@@ -586,6 +588,19 @@
           $(img).css('opacity', 1);
         }
       }, options);
+    }
+
+    /**
+     * no image preview 설정한다.
+     * @param jqImageItem
+     */
+    function setNoImagePreview(jqImageItem) {
+      // img가 존재하지 않기 때문에 error image 출력
+      var jqImg = $('<img src="assets/images/no_image_available.png" style="opacity: 0;" width="400" height="153"/>');
+      _setPosition(jqImageItem, jqImg[0]);
+
+      jqImageItem.addClass('no-image-carousel').prepend(jqImg[0]);
+      jqImg.css('opacity', 1);
     }
 
     /**

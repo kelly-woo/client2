@@ -5,7 +5,8 @@ var app = angular.module('jandiApp');
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog) {
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
+                                           centerService) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -83,6 +84,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         if (RouterHelper.hasCommentToScroll()) {
           _commentIdToScroll = RouterHelper.getCommentIdToScroll();
           RouterHelper.resetCommentIdToScroll();
+        }
+
+        if (centerService.isScrollBottom()) {
+          jndPubSub.pub('center:scrollToBottom', 200);
         }
       }
     }
@@ -287,7 +292,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function setImageUrl(content) {
     // file detail에서 preview image 설정
-    if ($filter('hasPreview')(content)) {
+    if ($scope.fileIcon === 'img') {
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
       $scope.previewCursor = 'zoom-in';
@@ -300,13 +305,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   /**
    * 이미지 클릭시 이벤트 핸들러
    */
-  function onImageClick() {
+  function onImageClick($event) {
     var file_detail = $scope.file_detail;
 
     if ($filter('isIntegrationContent')(file_detail.content)) {
       window.open(file_detail.content.fileUrl, '_blank');
     } else {
-      if ($scope.hasZoomIn) {
+      if (!$($event.target).hasClass('no-image-preview') && $scope.hasZoomIn) {
         modalHelper.openImageCarouselModal({
           // image file api data
           messageId: fileId,
@@ -610,6 +615,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       // isStarred
       $scope.isStarred = $scope.file_detail.isStarred;
 
+      // file icon
+      $scope.fileIcon = $filter('fileIcon')($scope.file_detail.content);
       if ($scope.file_detail.content) {
         // preview image url 생성
         setImageUrl($scope.file_detail.content);
@@ -752,7 +759,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   function onFileDetailImageLoad() {
-    $scope.isLoadingImage = false;
+    $scope.$apply(function() {
+      $scope.isLoadingImage = false;
+    });
   }
 
   /**

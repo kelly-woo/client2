@@ -21,6 +21,8 @@
       var callbackFunction = attrs.onImageLoad;
       var isFullScreen = !!attrs.isImageFullScreen;
 
+      var isCenter = !!attrs.imageIsCenter;
+
       // 같은 이미지를 두 번 로드하기 않기위함.
       var hasImageLoaded = !!attrs.hasImageLoaded;
 
@@ -81,6 +83,7 @@
         } else {
           _onImageLoadError();
           _show(jqImageContainer, displayProperty);
+          _callCallback();
         }
       }
 
@@ -136,27 +139,35 @@
        * @private
        */
       function _resizeImage(img) {
-        var imageContainerWidth = jqImageContainer.width();
-        var imageHeight = parseInt(img.getAttribute('height'), 10);
-        var imageWidth = parseInt(img.getAttribute('width'), 10);
+        var imageContainerWidth;
+        var imageHeight;
+        var imageWidth;
 
-        if (!!attrs.imageFitToWidth) {
-          // width 에 맞게 이미지를 넓히기위해선 jqImageContainer의 width가 지정되어있어야 한다.
-          if (!!imageContainerWidth && imageWidth >= imageContainerWidth) {
-            _fitImageToWidth(img);
-          }
-        } else if (imageHeight > imageWidth) {
-          // 이미지가 새로로 더 길 경우
-          // 아무것도 하지 않는다.
-
+        if (isCenter) {
+          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
         } else {
-          // 이미지가 가로로 길 경우
-          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
-        }
+          imageContainerWidth = jqImageContainer.width();
+          imageHeight = parseInt(img.getAttribute('height'), 10);
+          imageWidth = parseInt(img.getAttribute('width'), 10);
 
-        if (isFullScreen) {
-          // 이미지가 full screen size 일 경우
-          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+          if (!!attrs.imageFitToWidth) {
+            // width 에 맞게 이미지를 넓히기위해선 jqImageContainer의 width가 지정되어있어야 한다.
+            if (!!imageContainerWidth && imageWidth >= imageContainerWidth) {
+              _fitImageToWidth(img);
+            }
+          } else if (imageHeight > imageWidth) {
+            // 이미지가 새로로 더 길 경우
+            // 아무것도 하지 않는다.
+
+          } else {
+            // 이미지가 가로로 길 경우
+            ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+          }
+
+          if (isFullScreen) {
+            // 이미지가 full screen size 일 경우
+            ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+          }
         }
 
         if (!!attrs.imageMaxHeight) {
@@ -239,7 +250,7 @@
        */
       function _callCallback() {
         if (!!callbackFunction) {
-          scope.$apply(callbackFunction);
+          scope.$eval(callbackFunction);
         }
       }
 

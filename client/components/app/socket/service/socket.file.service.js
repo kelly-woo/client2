@@ -11,6 +11,7 @@
   /* @ngInject */
   function jndWebSocketFile(jndPubSub) {
     var FILE_CREATED = 'file_created';
+    var FILE_IMAGE = 'file_image';
     var FILE_SHARED = 'file_shared';
     var FILE_UNSHARED = 'file_unshared';
     var FILE_DELETED = 'file_deleted';
@@ -21,6 +22,10 @@
       {
         name: FILE_CREATED,
         handler: _onFileCreated
+      },
+      {
+        name: FILE_IMAGE,
+        handler: _onFileImage
       },
       {
         name: FILE_SHARED,
@@ -53,6 +58,14 @@
     function _onFileCreated(data) {
     }
 
+    /**
+     * image file에 대한 thumbnail 생성완료 socket event
+     * @param {object} data
+     * @private
+     */
+    function _onFileImage(data) {
+      jndPubSub.pub('createdThumbnailImage', data);
+    }
 
     function _onFileShared(data) {
       jndPubSub.pub('fileShared', data);
