@@ -14,6 +14,7 @@
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
+    var regxKr = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
     that.MENTION_ALL = 'all';
     that.MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
@@ -44,7 +45,7 @@
         if (event.type === 'keyup' &&
             !(jndKeyCode.match('LEFT_ARROW', event.which) || jndKeyCode.match('UP_ARROW', event.which) ||  jndKeyCode.match('RIGHT_ARROW', event.which) ||  jndKeyCode.match('DOWN_ARROW', event.which))) {
           nextChar = fullText.substring(begin, begin + 1);
-          if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(nextChar)) {
+          if (regxKr.test(nextChar)) {
             begin += 1;
           }
         }
