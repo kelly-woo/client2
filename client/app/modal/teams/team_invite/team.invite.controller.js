@@ -9,7 +9,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration,
+  function TeamInviteCtrl($scope, $modalInstance, $filter, $timeout, teamInfo, configuration,
                           memberService, publicService, currentSessionHelper, jndPubSub,
                           teamAPIservice, analyticsService) {
     var currentTeamAdmin;
@@ -39,6 +39,7 @@
 
       $scope.send = send;
       $scope.inviteMore = inviteMore;
+      $scope.onInviteEmailsInit = onInviteEmailsInit;
 
       $scope.cancel = cancel;
 
@@ -68,7 +69,6 @@
 
         // email 전송한 총 수를 표현한다.
         $scope.inviteResultDesc = ($filter('translate')('@team-invite-done') || '').replace('{{inviteeNumber}}', successCount);
-
         $scope.isInviteDone = true;
 
         // analytics
@@ -112,6 +112,19 @@
     function toAdmin() {
       var teamName = $filter('getName')($scope.team);
       publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
+    }
+
+    /**
+     * invite emails directive 초기화 event handler
+     */
+    function onInviteEmailsInit() {
+      $timeout(function() {
+        if ($scope.isSupportClip) {
+          $('#email-input').focus();
+        } else {
+          $('#invite-link').focus();
+        }
+      }, 50);
     }
   }
 })();

@@ -17,7 +17,7 @@
     function link(scope, el) {
       var done = $filter('translate')('@common-done');
 
-      var jqInviteButton = el.find('#team-invite-btn');
+      var jqInviteLink = el.find('#invite-link');
 
       _init();
 
@@ -27,6 +27,9 @@
        */
       function _init() {
         _on();
+
+        // clipboard 제공하지 않음
+        scope.isSupportClip = clipboard.support;
 
         if (!scope.inviteDisabled) {
           // 팀초대가 활성화 되어 있음
@@ -44,17 +47,21 @@
        * @private
        */
       function _on() {
-        el.on('click', _onClick);
+        el.on('click', '.modal-body', _onClick);
+
+        if (!scope.isSupportClip) {
+          jqInviteLink
+            .on('focus', _onFocus)
+            .on('blur', _onBlur);
+        }
       }
 
       /**
        * click event handler
        * @private
        */
-      function _onClick(event) {
-        if ($(event.target).parents('.modal-body').length > 0) {
-          $('#email-input').focus();
-        }
+      function _onClick() {
+        $('#email-input').focus();
       }
 
       /**
@@ -62,7 +69,9 @@
        * @param {array} $list
        */
       function setInviteBtnText($list) {
+        var jqInviteButton = el.find('#team-invite-btn');
         var length =  $list.length;
+
         if (length > 0) {
           jqInviteButton.removeAttr('disabled').removeClass('disabled');
         } else {
@@ -93,10 +102,32 @@
           clipboard.createInstance(jqClipButton, {
             getText: function() {
               scope.isCopySuccess = true;
-              return el.find('#invite-link').val();
+              return jqInviteLink.val();
             }
           });
         }
+      }
+
+      /**
+       * invite link blur event handler
+       * @private
+       */
+      function _onFocus() {
+        var element = this;
+        scope.$apply(function() {
+          scope.isLinkTextFocus = true;
+          element.select();
+        });
+      }
+
+      /**
+       * invite link blur event handler
+       * @private
+       */
+      function _onBlur() {
+        scope.$apply(function() {
+          scope.isLinkTextFocus = false;
+        });
       }
     }
   }

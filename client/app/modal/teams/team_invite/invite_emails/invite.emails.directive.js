@@ -26,6 +26,9 @@
       // invite interface 활성화 flag
       var active = attrs.active;
 
+      // init callback
+      var onInit = attrs.onInit;
+
       var jqEmailInput = $('#email-input');
       var regxEmail = new RegExp(
         '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'+
@@ -45,9 +48,13 @@
        * @private
        */
       function _init() {
+        scope.emails = scope[inviteEmailsModel] = [];
+        scope.invalidEmails = [];
         scope.removeEmail = removeEmail;
 
         _on();
+
+        scope.$eval(onInit);
       }
 
       /**
@@ -65,11 +72,12 @@
 
       /**
        * invite interface 활성화 event handler
-       * @param {boolean} value
+       * @param {boolean} newValue
+       * @param {boolean} oldvalue
        * @private
        */
-      function _onActive(value) {
-        if (!value) {
+      function _onActive(newValue, oldValue) {
+        if (newValue !== oldValue && !newValue) {
           scope.emails = scope[inviteEmailsModel] = [];
           scope.invalidEmails = [];
 

@@ -106,7 +106,9 @@
     return {
       createInstance: function(ele, options) {
         return Object.create(Clipboard).init(ele, options);
-      }
+      },
+      // clipboard 지원여부
+      support: (hasWinClipData || hasFlash) ? true : false
     };
   }
 }());

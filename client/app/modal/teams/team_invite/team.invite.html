@@ -25,7 +25,7 @@
   <div class="invite-enalbed" ng-hide="::inviteDisabled">
     <div class="modal-body">
       <div class="invite-work" ng-show="!isInviteDone">
-        <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" active="isInviteDone"></div>
+        <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" on-init="onInviteEmailsInit()" active="isInviteDone" ></div>
         <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send();"></button>
       </div>
       <div class="invite-done" ng-show="isInviteDone">
@@ -44,11 +44,12 @@
         </div>
         <div class="invite-link-copy">
           <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{::seedUri}}" readonly="true" ng-disabled="{{::disableSeedUri}}">
-          <div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{::disableSeedUri}}">
+          <div id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-show="::isSupportClip" ng-disabled="{{::disableSeedUri}}">
             <span translate>@common-copy</span>
           </div>
         </div>
-        <div class="invite-link-message" ng-show="isCopySuccess"><span translate>@invitation_success_copy_link</span></div>
+        <div class="invite-link-message" ng-show="(isSupportClip && isCopySuccess)"><span translate>@invitation_success_copy_link</span></div>
+        <div class="invite-link-message" ng-show="(!isSupportClip && isLinkTextFocus)"><span translate>@team-invite-link-copy-desc</span></div>
         <div class="invite-contact-desc"><span translate>@invitation-contact-desc</span></div>
       </div>
     </div>

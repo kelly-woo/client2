@@ -1200,6 +1200,10 @@ msgid "@team-invite-invalid-email"
 msgstr "電子郵箱格式不正確"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr "點擊 Ctrl-C (Mac 請點擊 Cmd-C) 複製邀請連結並分享給工作夥伴"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
 msgstr "送出更多邀請"
 
