@@ -136,8 +136,9 @@
     var fileIconImageMap = {
       'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
       'pdf': ['application/pdf'],
-      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska'],
-      'audio': ['audio/mp3', 'audio/mpeg'],
+      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
+      'video/mpeg'],
+      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv' ],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
       'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
