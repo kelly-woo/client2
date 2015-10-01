@@ -82,8 +82,10 @@
        */
       function onNotificationClick() {
         var fn;
+
         if (_.isFunction(that.options.callback)) {
           fn = that.options.callback;
+
           if (!_.isUndefined(that.options.data)) {
             fn(that.options.data);
           } else {
