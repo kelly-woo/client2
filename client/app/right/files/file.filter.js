@@ -239,8 +239,17 @@
       googleDocs: '../assets/images/preview_google_docs.png',
       dropbox: '../assets/images/preview_dropbox.png'
     };
+
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
+
     return function(content) {
+      if (content.filterType && content.filterType === 'document') {
+        // filterType 이 워드/한글 일 경우
+        if (content.type === 'application/x-hwp') {
+          // 한글 파일일 경우
+          return '../assets/images/preview_hwp.png';
+        }
+      }
       return filterTypePreviewMap[content.filterType] || filterTypePreviewMap[content.serverUrl] || noPreviewAvailableImage;
     };
   });
