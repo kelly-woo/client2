@@ -157,7 +157,7 @@
   line-height: 19px;
 }
 
-.file-item-meta__listview:before, .member-item:before {
+.member-item:before, .join-modal-channel_container:before {
 	content:'';
 	position: absolute;
 	left:0;
