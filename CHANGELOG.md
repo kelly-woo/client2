@@ -1,3 +1,12 @@
+<a name"1.2.2"></a>
+### 1.2.2 (2015-10-01)
+
+
+#### Bug Fixes
+
+* **modal:** 파일 업로드 취소시(esc key를 사용) file uploader object 살아 있는 버그 수정 ([43692a25](https://github.com/tosslab/web_client.git/commit/43692a25))
+
+
 <a name"1.2.1"></a>
 ### 1.2.1 (2015-10-01)
 
