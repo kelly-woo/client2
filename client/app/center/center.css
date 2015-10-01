@@ -322,8 +322,8 @@ by ysyun 2015.2.25
 }
 
 .medium-thumbnail {
-  width: 360px;
-  height: 270px;
+  width: 362px;
+  height: 272px;
 }
 
 .large-thumbnail {
@@ -378,7 +378,7 @@ by ysyun 2015.2.25
   font-size: 12px;
   line-height: 1.3rem;
   padding-left: 75px;
-  min-height: 65px !important;
+  min-height: 50px !important;
 }
 
 /*
@@ -800,7 +800,7 @@ by ysyun 2015.2.25
 ********************************************/
 .attachment-content-wrapper {
   position: relative;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-bottom: 8px;
 }
 .attachment-content-wrapper .attachment-content-bar {
@@ -835,6 +835,9 @@ by ysyun 2015.2.25
   cursor: pointer;
   outline: 1px solid #e1e1e1;
   background-color: #000;
+}
+.attachment-content-wrapper .loading.social-image {
+  background-color: transparent;
 }
 
 .attachment-content-wrapper .social-image>a {

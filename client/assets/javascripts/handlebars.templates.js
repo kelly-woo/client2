@@ -153,9 +153,9 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "              <div class=\"medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer opac-zero _fileExpand\" image-loader=\""
+  return "              <div class=\"medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand\">\n                <div class=\"opac-zero\" image-loader=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\" image-max-width=\"360\" image-max-height=\"270\" image-is-center=\"true\"></div>\n";
+    + "\" image-max-width=\"360\" image-max-height=\"270\" image-is-center=\"true\"></div>\n              </div>\n";
 },"7":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -408,18 +408,20 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    return "      <div class=\"social-image loading\">\n        <div class=\"loading_bar\">\n          <span class=\"three-quarters-loader jnd-three-quarters-loader\"></span>\n        </div>\n      </div>\n";
+},"3":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "    <div class=\"social-image\">\n      <a href=\""
+  return "      <div class=\"social-image\">\n        <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n        <img src=\""
+    + "\" target=\"_blank\">\n          <img src=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"/>\n      </a>\n    </div>\n";
-},"3":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-body has-image\">\n";
+    + "\"/>\n        </a>\n      </div>\n";
 },"5":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-body\">\n";
+    return "    <div class=\"social-body has-image\">\n";
 },"7":function(depth0,helpers,partials,data) {
+    return "    <div class=\"social-body\">\n";
+},"9":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return "      <div class=\"social-title neighbor\">\n        <a href=\""
@@ -427,20 +429,20 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
     + "\" target=\"_blank\">\n          <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.title : stack1), depth0))
     + "</span>\n        </a>\n      </div>\n";
-},"9":function(depth0,helpers,partials,data) {
+},"11":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(10, data, 0),"inverse":this.program(12, data, 0),"data":data})) != null ? stack1 : "")
-    + "          <a href=\""
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(12, data, 0),"inverse":this.program(14, data, 0),"data":data})) != null ? stack1 : "")
+    + "      <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n            <span>"
+    + "\" target=\"_blank\">\n        <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1), depth0))
-    + "</span>\n          </a>\n        </div>\n";
-},"10":function(depth0,helpers,partials,data) {
-    return "        <div class=\"social-desc neighbor has-domain\">\n";
+    + "</span>\n      </a>\n    </div> <!-- end of social-desc  -->\n";
 },"12":function(depth0,helpers,partials,data) {
-    return "        <div class=\"social-desc neighbor\">\n";
+    return "      <div class=\"social-desc neighbor has-domain\">\n";
 },"14":function(depth0,helpers,partials,data) {
+    return "      <div class=\"social-desc neighbor\">\n";
+},"16":function(depth0,helpers,partials,data) {
     var stack1;
 
   return "      <div class=\"social-domain\">\n        <span>"
@@ -449,13 +451,19 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n  <div class=\"attachment-content\">\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(5, data, 0),"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.title : stack1),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(14, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n  </div>\n</div>\n";
+  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n\n  <div class=\"attachment-content\">\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.hasSuccess : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.hasSuccess : stack1),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.program(7, data, 0),"data":data})) != null ? stack1 : "")
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.title : stack1),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(16, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "  </div> <!-- end of social-body -->\n  </div>  <!-- end of attachment-content  -->\n  </div>  <!--  end of attachment-content-wrapper -->\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

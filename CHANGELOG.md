@@ -1,3 +1,44 @@
+<a name"1.2.0"></a>
+## 1.2.0 (2015-09-30)
+
+
+#### Bug Fixes
+
+* **center:**
+  * thumbnail 생성되지 못한 image에 대한 image가 모든 브라우저에서 제대로 보이도록 수정 ([45b62c0c](https://github.com/tosslab/web_client.git/commit/45b62c0c))
+  * thumbnail image 출력시 background color는 opacity에 영향 받지 않도록 수정 ([75fd1c0b](https://github.com/tosslab/web_client.git/commit/75fd1c0b))
+  * fix mention ahead.   - mention ahead가 출력되어 질때 blink 현상 수정   - 한글 입력시 현재 입력중인 tex ([d8569b50](https://github.com/tosslab/web_client.git/commit/d8569b50))
+  * fix mention ahead.   - mention ahead가 출력되어 질때 blink 현상 수정   - 한글 입력시 현재 입력중인 tex ([a1f881df](https://github.com/tosslab/web_client.git/commit/a1f881df))
+  * scrollToBottom 호출시 animation option 추가 & 파일 상세 텝 오픈시 scroll이 bottom에 있다면 유지하도록 수 ([3e085704](https://github.com/tosslab/web_client.git/commit/3e085704))
+  * file upload중 topic 이동시 progress bar가 초기화 되는 버그 수정 ([804cb543](https://github.com/tosslab/web_client.git/commit/804cb543))
+  * 원본 이미지 로딩시 무한 로딩바 돌지 않도록 수정 ([4585190a](https://github.com/tosslab/web_client.git/commit/4585190a))
+  * 원본 이미지 로딩시 무한 로딩바 돌지 않도록 수정 ([75a59960](https://github.com/tosslab/web_client.git/commit/75a59960))
+  * 원본 이미지 로딩시 무한 로딩바 돌지 않도록 수정 ([a124b03a](https://github.com/tosslab/web_client.git/commit/a124b03a))
+  * thumbnail 생성되지 않는 이미지도 원본보기 제공하도록 수정 ([4d5b7c63](https://github.com/tosslab/web_client.git/commit/4d5b7c63))
+  * 업로드 api 버전 변경 ([74bf3632](https://github.com/tosslab/web_client.git/commit/74bf3632))
+  * 접기/펼치기 버튼 제거 ([7fa9b9cd](https://github.com/tosslab/web_client.git/commit/7fa9b9cd))
+  * center의 thumbnail image 표현 ui/ux변경함   - small thumbnail -> large thumbnail toggl ([ce6d1cd6](https://github.com/tosslab/web_client.git/commit/ce6d1cd6))
+  * center thumbnail bak ([7f3b4889](https://github.com/tosslab/web_client.git/commit/7f3b4889))
+  * center thumbnail bak ([07b4ae53](https://github.com/tosslab/web_client.git/commit/07b4ae53))
+  * bak ([fed00b20](https://github.com/tosslab/web_client.git/commit/fed00b20))
+* **dialog:** Dialog style 수정 branch ([8ec88bff](https://github.com/tosslab/web_client.git/commit/8ec88bff))
+* **left:**
+  * 뱃지 카운트 999 이상일 때 999+ 로 노출하도록 수정 ([d5c20b5d](https://github.com/tosslab/web_client.git/commit/d5c20b5d))
+  * 뱃지 카운트 999 이상일 때 999+ 로 노출하도록 수정 ([6f9b7aa8](https://github.com/tosslab/web_client.git/commit/6f9b7aa8))
+* **modal:**
+  * member 선택 후 더이상 member가 존재하지 않을때는 모든 member를 출력하도록 수정 ([369a2ecb](https://github.com/tosslab/web_client.git/commit/369a2ecb))
+  * LowerCase로 정렬하도록 수정 ([d3dc254a](https://github.com/tosslab/web_client.git/commit/d3dc254a))
+  * LowerCase로 정렬하도록 수정 ([62fff938](https://github.com/tosslab/web_client.git/commit/62fff938))
+
+
+#### Features
+
+* **center:**
+  * Center panel 에서 파일에 코멘트가 달린 경우 파일 썸네일 영역에 링크 기능 부여   - JND-3404 #resolve ([7af7783e](https://github.com/tosslab/web_client.git/commit/7af7783e))
+  * enter key 입력시 center input 에 포커스 가도록 수정   - JND-3229 #resolve ([f0fa67cb](https://github.com/tosslab/web_client.git/commit/f0fa67cb))
+* **link.preview:** Add loading wheel when waiting for link preview thumbnail. ([ab1077d1](https://github.com/tosslab/web_client.git/commit/ab1077d1))
+
+
 <a name"1.1.9"></a>
 ### 1.1.9 (2015-09-24)
 

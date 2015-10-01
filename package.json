@@ -1,6 +1,6 @@
 {
   "name": "jandiApp",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "main": "server/app.js",
   "dependencies": {
     "express": "~4.0.0",

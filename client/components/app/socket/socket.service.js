@@ -179,6 +179,12 @@
       var currentTeamId = currentSessionHelper.getCurrentTeam().id;
       var teamId = jndWebSocketCommon.getTeamId(socketEvent);
 
+      if (socketEvent.event === 'link_preview_image') {
+        // 현재는 link_preview_image socket event에 teamId 정보가 없음.
+        // 테스트용으로 우선 true를 리턴하게 함.
+        return true;
+      }
+
       return teamId > -1 && currentTeamId === teamId;
     }
 

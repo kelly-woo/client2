@@ -10,6 +10,10 @@
 
   /* @ngInject */
   function RendererUtil(publicService, currentSessionHelper, memberService) {
+    var _regxPreviewThumbnail = /linkpreview-thumb/;
+    var _thumbnailTracker = [];
+
+
     this.hasMore = hasMore;
     this.hasStar = hasStar;
     this.isSticker = isSticker;
@@ -17,6 +21,11 @@
     this.isMyMessage = isMyMessage;
     this.getStarCssClass = getStarCssClass;
     this.getDisabledMemberCssClass = getDisabledMemberCssClass;
+
+    this.hasThumbnailCreated = hasThumbnailCreated;
+    this.addToThumbnailTracker = addToThumbnailTracker;
+    this.cancelThumbnailTracker = cancelThumbnailTracker;
+
     _init();
 
     /**
@@ -84,5 +93,25 @@
     function getDisabledMemberCssClass(msg) {
       return isDisabledMember(msg) ? ' center-panel-disabled-member' : '';
     }
+
+    /**
+     * linkPreview 에 thumbnail이 생성되었는지 안되었는지 확인한다.
+     * @param {object} linkPreview - link preview object to check
+     * @returns {boolean}
+     * @private
+     */
+    function hasThumbnailCreated(linkPreview) {
+      return _regxPreviewThumbnail.test(linkPreview.imageUrl);
+    }
+
+    function addToThumbnailTracker(messageId, timeout) {
+      _thumbnailTracker[messageId] = timeout;
+    }
+
+    function cancelThumbnailTracker(messageId) {
+      _thumbnailTracker[messageId] && _thumbnailTracker[messageId].cancel();
+      delete _thumbnailTracker[messageId];
+    }
+
   }
 })();
