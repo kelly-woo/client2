@@ -84,6 +84,7 @@
           _onTopicMessageDelete(data);
           break;
         case 'topic_invite':
+          _onNewMessage(data);
           _onTopicInvited(data);
           break;
         case 'new_message':
@@ -193,12 +194,10 @@
     function _onTopicInvited(socketEvent) {
       if (jndWebSocketCommon.hasMyId(socketEvent.inviter)) {
         if (_shouldSendNotification(socketEvent)) {
-          console.log('send invitation!!now!!');
           TopicInvitedNotification.addNotification(socketEvent);
         }
       }
 
-      _onNewMessage(socketEvent);
     }
 
     /**

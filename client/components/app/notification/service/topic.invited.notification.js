@@ -35,29 +35,20 @@
 
     }
 
+    /**
+     * 노티피케이션 내용을 작성해서 리턴한다.
+     * @param {object} socketEvent - socket event parameter
+     * @returns {string}
+     * @private
+     */
     function _getBody(socketEvent) {
-      var currentLanguage = accountService.getAccountLanguage();
       var body = '';
       var writerName = $filter('getName')(socketEvent.writer);
-      var myName = $filter('getName')(memberService.getMember());
       var room =  entityAPIservice.getEntityById('total', socketEvent.room.id);
-      var roomName;
 
-      if (!_.isUndefined(room)) {
-        roomName = DesktopNotificationUtil.getRoomFormat(room.name);
-      }
+      body =  writerName + $filter('translate')('@web-notification-body-topic-invited-post');
 
-      switch (currentLanguage) {
-        case 'ko':
-          body = writerName + $filter('translate')('@web-notification-body-topic-invited-mid') +
-          myName + $filter('translate')('@web-notification-body-topic-invited-post');
-          break;
-        default:
-          body =  writerName + $filter('translate')('@web-notification-body-topic-invited-post');
-          break;
-      }
-
-      return roomName + ' ' + body;
+      return _.isUndefined(room) ? '' : DesktopNotificationUtil.getRoomFormat(room.name) + ' ' + body;
     }
 
     /**
@@ -72,6 +63,7 @@
       $state.go('archives', {entityType: roomType, entityId: roomId});
 
     }
+
     /**
      * Notification object 생성
      * @param {object} options - object options

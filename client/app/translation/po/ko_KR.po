@@ -1660,7 +1660,7 @@ msgstr "님이 "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited-post"
-msgstr "님을 새로운 토픽에 초대했습니다."
+msgstr "님이 새로운 토픽에 초대했습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
