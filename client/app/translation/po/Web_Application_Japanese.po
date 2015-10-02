@@ -1240,8 +1240,8 @@ msgstr "招待メール{{inviteeNumber}}通が正常に送信されました。"
 msgid "@team-invite-done-with-fail"
 msgstr ""
 "招待メール{{inviteeNumber}}通が正常に送信されましたが、"
-"{{failedInviteeNumber}}通は送信されませんでした。すでにチームに参加してい"
-"るメンバーであることを確認してください。"
+"{{failedInviteeNumber}}通は送信に失敗しました。すでにチームに参加している"
+"メンバーなのか確認してください。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-invalid-email"
