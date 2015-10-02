@@ -39,7 +39,7 @@
         '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
         ')+'
       );
-      var regxEmailSplit = /[ ,]/;
+      var regxEmailSplit = /[\s,]/;
 
       _init();
 
