@@ -9,6 +9,18 @@
     .directive('jndIgnoreBraces', jndIgnoreBraces);
 
     function jndIgnoreBraces() {
+      var regxEscape = /({{)|(}})/g;
+      var escapeMap = {
+        '{{': '\\{\\{',
+        '}}': '\\}\\}'
+      };
+
+      var regxUnescape = /(\\{\\{)|(\\}\\})/g;
+      var unescapeMap = {
+        '\\{\\{': '{{',
+        '\\}\\}': '}}'
+      };
+
       return {
         restrict: 'A',
         compile: compile
@@ -36,14 +48,14 @@
       }
       function _escape(str) {
         str = str || '';
-        return str.replace(/({{)(.*)(}})/g, function(str, brace1, content, brace2) {
-          return '\\{\\{' + content + '\\}\\}';
+        return str.replace(regxEscape, function (match) {
+          return escapeMap[match];
         });
       }
       function _unescape(str) {
         str = str || '';
-        return str.replace(/(\\{\\{)(.*)(\\}\\})/g, function(str, brace1, content, brace2) {
-          return '{{' + content + '}}';
+        return str.replace(regxUnescape, function(match) {
+          return unescapeMap[match];
         });
       }
     }

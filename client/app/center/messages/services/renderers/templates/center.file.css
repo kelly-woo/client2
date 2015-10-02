@@ -1,5 +1,6 @@
 .msg-file .msg-file-meta {
   margin-top: 10px;
+  min-height: 50px !important;
 }
 
 .medium-thumbnail > div[image-loader] {
