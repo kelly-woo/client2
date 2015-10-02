@@ -845,7 +845,6 @@ msgstr "从Google云端硬盘上传"
 msgid "@invitation_success_copy_link"
 msgstr "成员邀请的链接已复制到剪贴簿"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -1194,6 +1193,12 @@ msgstr "使用逗号或空格键于邮箱地址之间可同时寄出多封电邮
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
 msgstr "{{inviteeNumber}}封邀请电邮已成功寄出"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"{{inviteeNumber}}封邀请电邮成功寄出，但{{failedInviteeNumber}}封邀请电邮传"
+"送失败。请再次确认收件人是否已加入团队。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-invalid-email"
