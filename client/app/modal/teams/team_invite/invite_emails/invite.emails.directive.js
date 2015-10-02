@@ -28,16 +28,15 @@
 
       // init callback
       var onInit = attrs.onInit;
-
       var jqEmailInput = $('#email-input');
       var regxEmail = new RegExp(
-        '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'+
+        '^[a-z\\d\\!\\#\$%\\&\\*\\+\\-\\/\\=\\?\\^\\_\\`{\\|}\\~]{1,256}'+
         '\\@' +
         '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}' +
         '(' +
         '\\.' +
         '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
-        ')+'
+        ')+$'
       );
       var regxEmailSplit = /[\s,]/;
 

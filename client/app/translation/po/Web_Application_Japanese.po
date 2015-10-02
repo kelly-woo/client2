@@ -869,7 +869,6 @@ msgstr ""
 "あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送り"
 "ましょう"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -1236,6 +1235,13 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
 msgstr "招待メール{{inviteeNumber}}通が正常に送信されました。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"招待メール{{inviteeNumber}}通が正常に送信されましたが、"
+"{{failedInviteeNumber}}通は送信されませんでした。すでにチームに参加してい"
+"るメンバーであることを確認してください。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-invalid-email"

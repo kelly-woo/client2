@@ -47,12 +47,12 @@
        * @private
        */
       function _on() {
-        el.on('click', '.modal-body', _onClick);
+        el.on('click', '.modal-body', _onModalBodyClick);
 
         if (!scope.isSupportClip) {
           jqInviteLink
-            .on('focus', _onFocus)
-            .on('blur', _onBlur);
+            .on('click', _onInviteLinkClick)
+            .on('blur', _onInviteLinkBlur);
         }
       }
 
@@ -60,7 +60,7 @@
        * click event handler
        * @private
        */
-      function _onClick() {
+      function _onModalBodyClick() {
         $('#email-input').focus();
       }
 
@@ -73,11 +73,16 @@
         var length =  $list.length;
 
         if (length > 0) {
-          jqInviteButton.removeAttr('disabled').removeClass('disabled');
+          jqInviteButton
+            .removeAttr('disabled')
+            .removeClass('disabled')
+            .text($filter('translate')('@team-invite-send').replace('{{inviteeNumber}}', length));
         } else {
-          jqInviteButton.attr('disabled', true).addClass('disabled');
+          jqInviteButton
+            .attr('disabled', true)
+            .addClass('disabled')
+            .text($filter('translate')('@btn-invite'));
         }
-        jqInviteButton.text($filter('translate')('@team-invite-send').replace('{{inviteeNumber}}', length));
       }
 
       /**
@@ -109,10 +114,10 @@
       }
 
       /**
-       * invite link blur event handler
+       * invite link click event handler
        * @private
        */
-      function _onFocus() {
+      function _onInviteLinkClick() {
         var element = this;
         scope.$apply(function() {
           scope.isLinkTextFocus = true;
@@ -124,7 +129,7 @@
        * invite link blur event handler
        * @private
        */
-      function _onBlur() {
+      function _onInviteLinkBlur() {
         scope.$apply(function() {
           scope.isLinkTextFocus = false;
         });

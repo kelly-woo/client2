@@ -869,7 +869,6 @@ msgstr ""
 "The team invitation link has been copied to your clipboard. Use it to invite "
 "others to your team."
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -1224,11 +1223,18 @@ msgstr "Invite Other Team Members"
 
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 msgid "@team-invite-description"
-msgstr "You can add multiple email addresses separated by commas and spaces."
+msgstr "You can add multiple email addresses separated by commas or spaces."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
 msgstr "Done! {{inviteeNumber}} email(s) sent successfully."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"{{inviteeNumber}} email(s) sent successfully, but {{failedInviteeNumber}} "
+"email(s) have been failed to send. Please check they are already your team "
+"members."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-invalid-email"

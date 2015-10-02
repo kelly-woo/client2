@@ -864,7 +864,6 @@ msgstr ""
 "초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
 "내세요!"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -1229,6 +1228,13 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
 msgstr "초대 메일 {{inviteeNumber}}통이 성공적으로 발송되었습니다!"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"초대 메일 {{inviteeNumber}}통이 성공적으로 발송되었으나, "
+"{{failedInviteeNumber}}통은 발송하지 못했습니다.\n"
+"이미 초대된 멤버들이 있는지 확인해주세요."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-invalid-email"

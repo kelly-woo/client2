@@ -48,35 +48,58 @@
 
       // invite 완료 flag
       $scope.isInviteDone = false;
+
+      $scope.isLoading = false;
     }
 
     /**
      * 팀 초대 메일 보내기
      */
     function send() {
-      var emails = $scope.emails;
+      var emails;
 
-      teamAPIservice.inviteToTeam(emails).success(function (response) {
-        var successCount = 0;
+      if (!$scope.isLoading) {
+        $scope.isLoading = true;
 
-        _.forEach(response, function(value) {
-          if (value.success) {
-            // eamil 전송 성공
+        console.log('send invite email ::: ');
+        emails = $scope.emails;
 
-            successCount++;
-          }
-        });
+        teamAPIservice.inviteToTeam(emails)
+          .success(function (response) {
+            var successCount = 0;
+            var failCount = 0;
 
-        // email 전송한 총 수를 표현한다.
-        $scope.inviteResultDesc = ($filter('translate')('@team-invite-done') || '').replace('{{inviteeNumber}}', successCount);
-        $scope.isInviteDone = true;
+            _.forEach(response, function(value) {
+              if (value.success) {
+                // eamil 전송 성공
 
-        // analytics
-        if (successCount > 0) {
-          analyticsService.mixpanelTrack( "User Invite", { "count": successCount } );
-          analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": successCount } );
-        }
-      });
+                successCount++;
+              } else {
+                failCount++;
+              }
+            });
+
+            // email 전송한 총 수를 표현한다.
+            if (failCount === 0) {
+              // 모두 email 전송 성공함
+              $scope.inviteResultDesc = $filter('translate')('@team-invite-done').replace('{{inviteeNumber}}', successCount);
+            } else {
+              $scope.inviteResultDesc = $filter('translate')('@team-invite-done-with-fail')
+                .replace('{{inviteeNumber}}', successCount)
+                .replace('{{failedInviteeNumber}}', failCount);
+            }
+            $scope.isInviteDone = true;
+
+            // analytics
+            if (successCount > 0) {
+              analyticsService.mixpanelTrack( "User Invite", { "count": successCount } );
+              analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": successCount } );
+            }
+          })
+          .finally(function () {
+            $scope.isLoading = false;
+          });
+      }
     }
 
     /**
@@ -119,9 +142,9 @@
      */
     function onInviteEmailsInit() {
       $timeout(function() {
-        if ($scope.isSupportClip) {
-          $('#email-input').focus();
-        } else {
+        if (!$scope.isSupportClip) {
+
+          // clipboard 제공하지 않는다면 invite link에 focus 줌
           $('#invite-link').focus();
         }
       }, 50);
