@@ -1,3 +1,12 @@
+<a name"1.2.3"></a>
+### 1.2.3 (2015-10-02)
+
+
+#### Bug Fixes
+
+* **center:** fix message braces ([0ca210ea](https://github.com/tosslab/web_client.git/commit/0ca210ea))
+
+
 <a name"1.2.2"></a>
 ### 1.2.2 (2015-10-01)
 
