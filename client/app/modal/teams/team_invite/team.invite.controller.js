@@ -7,7 +7,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper, jndPubSub) {
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper, jndPubSub, clipboard) {
     var currentTeamAdmin;
 
     $scope.disabledImage = configuration.assets_url + 'assets/images/invite-disabled.png';
@@ -25,6 +25,8 @@
     currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
     $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
     $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
+
+    $scope.isSupportClip = clipboard.support;
 
     $scope.add = function() {
       $scope.invitation.add();

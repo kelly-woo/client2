@@ -47,6 +47,12 @@
           });
         }
 
+        element
+          .find('#invite-link')
+          .on('click', function() {
+            this.select();
+          });
+
         invitation = scope.invitation = Object.create(invitationService).init(
           element.find('#invites'),
           {

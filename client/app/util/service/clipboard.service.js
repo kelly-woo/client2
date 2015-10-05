@@ -106,7 +106,8 @@
     return {
       createInstance: function(ele, options) {
         return Object.create(Clipboard).init(ele, options);
-      }
+      },
+      support: (hasWinClipData || hasFlash) ? true : false
     };
   }
 }());
