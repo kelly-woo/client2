@@ -721,7 +721,7 @@ input[type="button"] {
   display: inline-block;
 }
 #file-upload-menu li:hover .icon-google-drive {
-  background-image: url('../assets/images/icon_google_drive_white.png');
+  /*background-image: url('../assets/images/icon_google_drive_white.png');*/
   width: 16px;
   height: 16px;
   display: inline-block;
@@ -733,7 +733,7 @@ input[type="button"] {
   display: inline-block;
 }
 #file-upload-menu li:hover .icon-dropbox {
-  background-image: url('../assets/images/icon_dropbox_white.png');
+  /*background-image: url('../assets/images/icon_dropbox_white.png');*/
   width: 16px;
   height: 16px;
   display: inline-block;
