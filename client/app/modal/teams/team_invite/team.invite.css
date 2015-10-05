@@ -22,8 +22,8 @@
   text-align: center;
 }
 
-.invite-enalbed .modal-body .form-control {
-  height: 34px;
+.invite-enalbed .form-control {
+  height: 34px !important;
 }
 
 .invite-enalbed .modal-body .alert-jandi {
@@ -36,8 +36,7 @@
 }
 
 .invite-btn {
-  margin-top: -2px;
-  height: 33px;
+  height: inherit !important;
   width: 180px;
   padding:10px 12px 10px 12px;
   border-radius: 2px;
@@ -121,6 +120,7 @@
   margin-bottom: 18px;
 }
 .modal-footer .invite-link-copy .invite-public-link {
+  vertical-align: middle;
   width: 60%;
   margin-right: 5px;
   cursor: text;
