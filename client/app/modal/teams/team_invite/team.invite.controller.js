@@ -39,7 +39,6 @@
 
       $scope.send = send;
       $scope.inviteMore = inviteMore;
-      $scope.onInviteEmailsInit = onInviteEmailsInit;
 
       $scope.cancel = cancel;
 
@@ -135,19 +134,6 @@
     function toAdmin() {
       var teamName = $filter('getName')($scope.team);
       publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
-    }
-
-    /**
-     * invite emails directive 초기화 event handler
-     */
-    function onInviteEmailsInit() {
-      $timeout(function() {
-        if (!$scope.isSupportClip) {
-
-          // clipboard 제공하지 않는다면 invite link에 focus 줌
-          $('#invite-link').focus();
-        }
-      }, 50);
     }
   }
 })();

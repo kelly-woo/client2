@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('invitationModal', invitationModal);
 
-  function invitationModal($filter, clipboard) {
+  function invitationModal($filter, $timeout, clipboard) {
     return {
       restrict: 'A',
       link: link
@@ -26,10 +26,10 @@
        * @private
        */
       function _init() {
-        _on();
-
         // clipboard 제공하지 않음
         scope.isSupportClip = clipboard.support;
+
+        _on();
 
         if (!scope.inviteDisabled) {
           // 팀초대가 활성화 되어 있음
@@ -53,6 +53,11 @@
           jqInviteLink
             .on('click', _onInviteLinkClick)
             .on('blur', _onInviteLinkBlur);
+
+          $timeout(function() {
+            // clipboard 제공하지 않는다면 invite link에 focus 줌
+            jqInviteLink.trigger('click');
+          });
         }
       }
 

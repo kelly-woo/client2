@@ -18,8 +18,12 @@
 */
 /* body */
 .invite-enalbed .modal-body {
-  padding: 20px 20px 14px 20px;
+  padding: 20px 20px 24px;
   text-align: center;
+}
+
+.invite-enalbed .modal-body .form-control {
+  height: 34px;
 }
 
 .invite-enalbed .modal-body .alert-jandi {
@@ -138,12 +142,13 @@
 }
 
 .modal-footer .invite-link-message {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 22px;
   color: #154a67;
   background-color: #f2fbff;
   padding: 9px 25px;
   border-radius: 3px;
   border: 1px solid #d7e0e8;
-  margin-bottom: 18px;
+  margin: 24px auto 12px;
+  max-width: 450px;
 }

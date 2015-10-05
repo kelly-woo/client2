@@ -26,8 +26,6 @@
       // invite interface 활성화 flag
       var active = attrs.active;
 
-      // init callback
-      var onInit = attrs.onInit;
       var jqEmailInput = $('#email-input');
       var regxEmail = new RegExp(
         '^[a-z\\d\\!\\#\$%\\&\\*\\+\\-\\/\\=\\?\\^\\_\\`{\\|}\\~]{1,256}'+
@@ -52,8 +50,6 @@
         scope.removeEmail = removeEmail;
 
         _on();
-
-        scope.$eval(onInit);
       }
 
       /**
