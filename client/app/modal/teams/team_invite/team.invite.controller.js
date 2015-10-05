@@ -60,7 +60,6 @@
       if (!$scope.isLoading) {
         $scope.isLoading = true;
 
-        console.log('send invite email ::: ');
         emails = $scope.emails;
 
         teamAPIservice.inviteToTeam(emails)
