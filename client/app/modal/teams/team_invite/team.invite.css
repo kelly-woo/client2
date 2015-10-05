@@ -38,8 +38,10 @@
 .invite-btn {
   height: 33px;
   width: 180px;
-  padding: 6px 12px 6px 10px;
+  padding:10px 12px 10px 12px;
+  height: inherit !important;
   border-radius: 2px;
+  line-height: 14px;
 }
 .invite-btn:active {
   background-image: none;
@@ -60,9 +62,7 @@
   color: #fff;
 }
 .clip-invite {
-  padding-top: 6px;
   width: inherit;
-  height: 33px;
 }
 .clip-invite.active {
   background-image: none;
@@ -133,7 +133,7 @@
   color: #575757;
 }
 .modal-footer .invite-link-copy .btn-ok {
-  vertical-align: baseline;
+  vertical-align: middle;
   color: white;
 }
 .modal-footer .invite-link-copy .btn-ok:active,
