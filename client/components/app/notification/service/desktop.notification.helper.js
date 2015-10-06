@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil) {
-    var NOTIFICATION_EXPIRE_TIME = 5000;
+    var NOTIFICATION_EXPIRE_TIME = 10000;
 
     /**
      * WebAPI Notification class
