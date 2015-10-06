@@ -49,7 +49,7 @@
 
       body =  writerName + $filter('translate')('@web-notification-body-topic-invited-post');
       if (!_.isUndefined(room)) {
-        body = DesktopNotificationUtil.getRoomFormat(room.name) + body;
+        body = DesktopNotificationUtil.getRoomFormat(room.name) + ' ' + body;
       }
       return body;
     }
