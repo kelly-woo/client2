@@ -521,7 +521,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
             [
-              '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
+              '{.tmp,<%= yeoman.client %>}/assets/**/*.js',
               '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
               '{.tmp,<%= yeoman.client %>}/app/util/*.js',
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
@@ -565,7 +565,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+            '<%= yeoman.client %>/{app,assets,components}/**/*.css'
           ]
         }
       }
