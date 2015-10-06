@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TopicInvitedNotification(DesktopNotification, $filter, entityAPIservice, DesktopNotificationUtil,
-                                    memberService, accountService, desktopNotificationHelper, $state) {
+                                    memberService, EntityMapManager, accountService, desktopNotificationHelper, $state) {
     this.addNotification = addNotification;
 
     /**
@@ -37,6 +37,7 @@
 
     /**
      * 노티피케이션 내용을 작성해서 리턴한다.
+     * 초대된 토픽의 이름이 항상 있다는 것은 보장을 못한다. topic_joined event에서 left를 업데이트하기 때문이다.
      * @param {object} socketEvent - socket event parameter
      * @returns {string}
      * @private
@@ -47,8 +48,10 @@
       var room =  entityAPIservice.getEntityById('total', socketEvent.room.id);
 
       body =  writerName + $filter('translate')('@web-notification-body-topic-invited-post');
-
-      return _.isUndefined(room) ? '' : DesktopNotificationUtil.getRoomFormat(room.name) + ' ' + body;
+      if (!_.isUndefined(room)) {
+        body = DesktopNotificationUtil.getRoomFormat(room.name) + body;
+      }
+      return body;
     }
 
     /**

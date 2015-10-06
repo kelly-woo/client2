@@ -84,7 +84,6 @@
           _onTopicMessageDelete(data);
           break;
         case 'topic_invite':
-          _onNewMessage(data);
           _onTopicInvited(data);
           break;
         case 'new_message':
@@ -197,7 +196,6 @@
           TopicInvitedNotification.addNotification(socketEvent);
         }
       }
-
     }
 
     /**

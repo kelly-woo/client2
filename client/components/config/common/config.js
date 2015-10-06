@@ -9,7 +9,7 @@
     .module('config.common', [])
     .constant('configuration', {
       version             : '1.2.0',
-      team_name           : 's31289231',
+      team_name           : 'qwerasdfr',
       name                : 'local',
       api_address         : 'http://i1.jandi.io:8888/',
       socket_address      : 'http://ws.jandi.io:8888/',
