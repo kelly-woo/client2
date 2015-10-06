@@ -165,14 +165,21 @@
        * @param {string} email
        */
       function removeEmail(email) {
-        var index = scope.emails.indexOf(email);
+        var index;
 
-        if (index > -1) {
-          scope.emails.splice(index, 1);
-          onChangeInviteList(scope, {
-            $list: scope.emails
-          });
+        if (email == null) {
+          scope.emails.splice(0);
+        } else {
+          index = scope.emails.indexOf(email);
+          if (index > -1) {
+            scope.emails.splice(index, 1);
+          }
         }
+
+        onChangeInviteList(scope, {
+          $list: scope.emails
+        });
+
         $timeout(function() {
           jqEmailInput.focus();
         }, 50);

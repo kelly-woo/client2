@@ -9,7 +9,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, $timeout, teamInfo, configuration,
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, Dialog,
                           memberService, publicService, currentSessionHelper, jndPubSub,
                           teamAPIservice, analyticsService) {
     var currentTeamAdmin;
@@ -77,16 +77,11 @@
               }
             });
 
-            // email 전송한 총 수를 표현한다.
-            if (failCount === 0) {
-              // 모두 email 전송 성공함
-              $scope.inviteResultDesc = $filter('translate')('@team-invite-done').replace('{{inviteeNumber}}', successCount);
+            if (successCount === 0) {
+              _failSendMail();
             } else {
-              $scope.inviteResultDesc = $filter('translate')('@team-invite-done-with-fail')
-                .replace('{{inviteeNumber}}', successCount)
-                .replace('{{failedInviteeNumber}}', failCount);
+              _successSendMail(successCount, failCount);
             }
-            $scope.isInviteDone = true;
 
             // analytics
             if (successCount > 0) {
@@ -133,6 +128,38 @@
     function toAdmin() {
       var teamName = $filter('getName')($scope.team);
       publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
+    }
+
+    /**
+     * success send mail
+     * @param {number} successCount - email 전송 성공 count
+     * @param {number} failCount    - email 전송 실패 count
+     * @private
+     */
+    function _successSendMail(successCount, failCount) {
+      // email 전송한 총 수를 표현한다.
+      if (failCount === 0) {
+        // 모두 email 전송 성공함
+        $scope.inviteResultDesc = $filter('translate')('@team-invite-done').replace('{{inviteeNumber}}', successCount);
+      } else {
+        $scope.inviteResultDesc = $filter('translate')('@team-invite-done-with-fail')
+          .replace('{{inviteeNumber}}', successCount)
+          .replace('{{failedInviteeNumber}}', failCount);
+      }
+      $scope.isInviteDone = true;
+    }
+
+    /**
+     * email 하나도 보내지 못함
+     * @private
+     */
+    function _failSendMail() {
+      var currentTeam = currentSessionHelper.getCurrentTeam();
+
+      Dialog.error({
+        title: $filter('translate')('@invitation-already-member').replace('{{invitedTeamName}}', currentTeam.name)
+      });
+      $scope.removeEmail();
     }
   }
 })();

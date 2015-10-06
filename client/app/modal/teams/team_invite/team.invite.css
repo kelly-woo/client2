@@ -35,9 +35,14 @@
   border-top: 1px solid #d1d1d1;
 }
 
+.invite-btn.send-invite {
+  width:inherit;
+  min-width: 180px;
+}
+
 .invite-btn {
-  height: inherit !important;
   width: 180px;
+  height: inherit !important;
   padding:10px 12px 10px 12px;
   border-radius: 2px;
   line-height: 14px;
