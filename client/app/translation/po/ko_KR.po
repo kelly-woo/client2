@@ -1655,11 +1655,11 @@ msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-mid"
-msgstr "님이 "
+msgid "@web-notification-body-private-topic-invited"
+msgstr "님이 새로운 비공개 토픽에 초대했습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-post"
+msgid "@web-notification-body-topic-invited"
 msgstr "님이 새로운 토픽에 초대했습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
@@ -1690,6 +1690,12 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@web-notification-body-topic-invited-mid"
+#~ msgstr "님이 "
+
+#~ msgid "@web-notification-body-topic-invited-post"
+#~ msgstr "님이 새로운 토픽에 초대했습니다."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

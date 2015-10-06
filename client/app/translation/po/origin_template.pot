@@ -1548,11 +1548,11 @@ msgid "@web-notification-body-other-team-pre"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-mid"
+msgid "@web-notification-body-private-topic-invited"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-post"
+msgid "@web-notification-body-topic-invited"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html

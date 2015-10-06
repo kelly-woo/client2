@@ -1655,11 +1655,11 @@ msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-mid"
-msgstr ""
+msgid "@web-notification-body-private-topic-invited"
+msgstr "さんが非公開トピックに招待しました。"
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-post"
+msgid "@web-notification-body-topic-invited"
 msgstr "さんがトピックに招待しました。"
 
 #: client/app/modal/settings/notification/setting.notification.html
@@ -1690,6 +1690,9 @@ msgstr "JANDI 新着メッセージ通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "水曜日"
+
+#~ msgid "@web-notification-body-topic-invited-post"
+#~ msgstr "さんがトピックに招待しました。"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

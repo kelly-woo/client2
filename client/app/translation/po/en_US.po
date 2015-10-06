@@ -1661,11 +1661,11 @@ msgid "@web-notification-body-other-team-pre"
 msgstr "You received a new message in "
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-mid"
-msgstr ""
+msgid "@web-notification-body-private-topic-invited"
+msgstr " invited you to a private topic."
 
 #: client/app/modal/settings/notification/setting.notification.html
-msgid "@web-notification-body-topic-invited-post"
+msgid "@web-notification-body-topic-invited"
 msgstr " invited you to this topic."
 
 #: client/app/modal/settings/notification/setting.notification.html
@@ -1695,6 +1695,9 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#~ msgid "@web-notification-body-topic-invited-post"
+#~ msgstr " invited you to this topic."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

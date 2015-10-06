@@ -45,11 +45,16 @@
     function _getBody(socketEvent) {
       var body = '';
       var writerName = $filter('getName')(socketEvent.writer);
-      var room =  entityAPIservice.getEntityById('total', socketEvent.room.id);
+      var room = entityAPIservice.getEntityById('total', socketEvent.room.id);
 
-      body =  writerName + $filter('translate')('@web-notification-body-topic-invited-post');
-      if (!_.isUndefined(room)) {
-        body = DesktopNotificationUtil.getRoomFormat(room.name) + ' ' + body;
+      if (socketEvent.room.type === 'channel') {
+        if (!_.isUndefined(room)) {
+          body = DesktopNotificationUtil.getRoomFormat(room.name) + ' ' + writerName + $filter('translate')('@web-notification-body-topic-invited');
+        } else {
+          body = writerName + $filter('translate')('@web-notification-body-topic-invited');
+        }
+      } else {
+        body = writerName + $filter('translate')('@web-notification-body-private-topic-invited');
       }
       return body;
     }
