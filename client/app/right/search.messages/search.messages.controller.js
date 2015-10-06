@@ -10,12 +10,16 @@
 
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $filter, $state, Router, fileAPIservice,
-                                messageAPIservice, AnalyticsHelper, TopicFolderModel, JndUtil) {
+                                messageAPIservice, AnalyticsHelper, TopicFolderModel, jndPubSub,
+                                currentSessionHelper) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
     var _isActivated = false;
+
+    // left에서 entity change 발생 flag
+    var _isEntityChangeAtLeft;
 
     _init();
 
@@ -32,8 +36,6 @@
         length: ''
       };
 
-      $scope.messageLocation = '';
-
       // Methods
       $scope.searchMessages = searchMessages;
       $scope.updateMessageLocationFilter = updateMessageLocationFilter;
@@ -47,31 +49,34 @@
       _initChatRoomOption();
       _initChatWriterOption();
       _setLanguageVariable();
+      _setMessageLocation(currentSessionHelper.getCurrentEntity());
 
-      searchMessages();
+      updateMessageLocationFilter();
+
+      _on();
+    }
+
+    function _on() {
+      $scope.$on('onInitLeftListDone', _onInitLeftListDone);
+      $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
+      $scope.$on('onRightPanel', _onRightPanel);
+      $scope.$on('changedLanguage', _changedLanguage);
+      $scope.$on('topic-folder:update', _initChatRoomOption);
+      $scope.$on('onBeforeEntityChange', _onBeforeEntityChange);
+      $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
     }
 
     /**
      * 레프트 채널이 업데이트 된 후, 'shared in' list 가 바뀌어야 할때
      */
-    $scope.$on('onInitLeftListDone', function() {
+    function _onInitLeftListDone() {
       _initChatRoomOption();
-    });
-
-    /**
-     * File List clicked on member profile modal view.
-     */
-    $scope.$on('resetRPanelSearchStatusKeyword', function() {
-      _initMessageSearchQuery();
-      _resetChatWriter();
-      _resetChatRoom();
-      _resetMessageSearchResult();
-    });
+    }
 
     /**
      * When value of search input box(at the top of right panel) changed.
      */
-    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
+    function _onrPanelFileTitleQueryChanged(event, keyword) {
       if (_isActivated) {
         _setSearchQueryQ(keyword);
 
@@ -82,37 +87,57 @@
           searchMessages();
         }
       }
-    });
+    }
 
     /**
      * open right panel event handler
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    function _onRightPanel($event, data) {
       if (data.type === 'messages') {
         _isActivated = true;
 
-        if ($scope.messageList.length < 1) {
-          // mention list가 존재하지 않음
-          $scope.searchQuery.q = '';
+        if (data.toUrl !== data.fromUrl) {
           _refreshSearchQuery();
-          searchMessages();
+          _resetSearchStatusKeyword();
         }
       } else {
         _isActivated = false;
       }
-    });
+    }
 
     /**
      * language 변경 event handling
      */
-    $scope.$on('changedLanguage', function() {
+    function _changedLanguage() {
       _setLanguageVariable();
+    }
 
-      // messageLocation 초기화 하여 shared entity list를 갱신함.
-      $scope.messageLocation = null;
-    });
 
-    $scope.$on('topic-folder:update', _initChatRoomOption);
+    /**
+     * left에서 토픽이 클릭되어 entity가 변경되는것을 알려준다.
+     */
+    function _onBeforeEntityChange() {
+      if (_isActivated) {
+        _isEntityChangeAtLeft = true;
+      }
+    }
+
+    /**
+     * Watching joinEntities in parent scope so that currentEntity can be automatically updated.
+     * advanced search option 중 'Shared in'/ 을 변경하는 부분.
+     */
+    function _onCurrentEntityChanged(event, currentEntity) {
+      if (_isActivated) {
+        _setMessageLocation(currentEntity);
+
+        if (_isEntityChangeAtLeft) {
+          // search keyword reset
+          _resetSearchStatusKeyword();
+          updateMessageLocationFilter();
+        }
+        _isEntityChangeAtLeft = false;
+      }
+    }
 
     /**
      * When entity location filter is changed.
@@ -304,7 +329,7 @@
       }
 
       if (newMessageLocation) {
-        $scope.messageLocation = newMessageLocation;
+        _setMessageLocation(newMessageLocation);
       } else {
         _resetChatRoom();
       }
@@ -339,7 +364,7 @@
      * @private
      */
     function _resetChatRoom() {
-      $scope.messageLocation = '';
+      _setMessageLocation(null);
       updateMessageLocationFilter();
     }
 
@@ -365,15 +390,6 @@
      */
     function _resetMessageSearchResult() {
       $scope.messageList = [];
-    }
-
-    /**
-     * 메세지 검색창이 활성화됐는지 리턴한다.
-     * @returns {$scope.isMessageTabActive}
-     * @private
-     */
-    function _isMessageTabActive() {
-      return _isActivated;
     }
 
     /**
@@ -416,6 +432,24 @@
     function _setLanguageVariable() {
       $scope.allRooms = $filter('translate')('@option-all-rooms');
       $scope.allMembers = $filter('translate')('@option-all-members');
+    }
+
+    /**
+     * message 작성된 entity 설정
+     * @param {object} entity
+     * @private
+     */
+    function _setMessageLocation(entity) {
+      $scope.messageLocation = entity;
+    }
+
+    /**
+     * search status의 search하는 keyword 초기화
+     * @private
+     */
+    function _resetSearchStatusKeyword() {
+      $scope.searchQuery.q = $scope.searchStatus.keyword = '';
+      jndPubSub.pub('resetRPanelSearchStatusKeyword');
     }
   }
 })();

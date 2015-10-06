@@ -25,9 +25,11 @@
           var target = this;
 
           $timeout.cancel(timerSearch);
-
           timerSearch = $timeout(function() {
-            scope.onFileTitleQueryEnter(target.value);
+            var value = target.value;
+            if (value === '' || value.length > 1) {
+              scope.onFileTitleQueryEnter(value);
+            }
           }, 500);
         });
 
