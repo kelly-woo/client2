@@ -12,4 +12,5 @@ tmp
 atlassian-ide-plugin.xml
 client/components/config/common/config.js
 config/environments/local.team.json
+markup/index.html
 *.mo
