@@ -27,7 +27,7 @@
 }
 
 
-@-webkit-keyframes default-loader {
+@-webkit-keyframes default-ie-loader {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -45,7 +45,7 @@
     transform: rotate(360deg);
   }
 }
-@keyframes default-loader {
+@keyframes default-ie-loader {
   0% {
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
@@ -72,10 +72,10 @@
   }
 }
 /* :not(:required) hides this rule from IE9 and below */
-.default-loader:not(:required) {
-  -moz-animation: default-loader 1250ms infinite linear;
-  -webkit-animation: default-loader 1250ms infinite linear;
-  animation: default-loader 1250ms infinite linear;
+.default-ie-loader:not(:required) {
+  -moz-animation: default-ie-loader 1250ms infinite linear;
+  -webkit-animation: default-ie-loader 1250ms infinite linear;
+  animation: default-ie-loader 1250ms infinite linear;
   border: 4px solid #00abe6;
   border-right-color: transparent;
   border-radius: 100px;

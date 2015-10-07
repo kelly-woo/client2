@@ -42,7 +42,7 @@
       } else {
         // Auto sign-in using cookie.
         jndPubSub.pub('showDefaultBackground');
-
+        return;
         accountService.getAccountInfo()
           .success(function(response) {
             //console.log('got account info')
