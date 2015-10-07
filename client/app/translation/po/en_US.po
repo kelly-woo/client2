@@ -1114,6 +1114,10 @@ msgstr ""
 "Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
 "span>..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "Please enter more than one character to search."
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"

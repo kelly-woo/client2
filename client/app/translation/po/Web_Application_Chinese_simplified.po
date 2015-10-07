@@ -1081,6 +1081,10 @@ msgid "@search-in-progress"
 msgstr ""
 "搜索 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "请输入1个以上的字符"
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"

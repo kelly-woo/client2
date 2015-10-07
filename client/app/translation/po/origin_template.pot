@@ -1063,6 +1063,10 @@ msgstr ""
 msgid "@search-in-progress"
 msgstr ""
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr ""
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
