@@ -595,6 +595,30 @@ module.exports = function (grunt) {
 
     // replace
     replace: {
+      markup: {
+        options: {
+          patterns: [
+            {
+              match: /<script.*<\/script>\s*\n/g,
+              replacement: function() {
+                return '';
+              }
+            },
+            {
+              match: /<link rel="stylesheet" href="/g,
+              replacement: function() {
+                return '<link rel="stylesheet" href="../client/';
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: '<%= yeoman.client %>/index.html',
+          dest: './markup/'
+        }]
+      },
       assets_css: {
         options: {
           patterns: [
@@ -943,5 +967,18 @@ module.exports = function (grunt) {
     grunt.config.set('bump.options.push', true);
     grunt.config.set('bump.options.createTag', true);
     grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'changelog', 'bump::commit-only']);
+  });
+
+  grunt.registerTask('build-markup', function(target) {
+    grunt.task.run([
+      'clean:server',
+      'env:all',
+      'concurrent:server',
+      'injector',
+      'handlebars',
+      'wiredep',
+      'autoprefixer',
+      'replace:markup'
+    ]);
   });
 };
