@@ -9,11 +9,7 @@
     .module('config.common', [])
     .constant('configuration', {
       version             : '1.2.0',
-<<<<<<< HEAD
       team_name           : 'tosslab',
-=======
-      team_name           : 'qwerasdfr',
->>>>>>> feature/topic_invitation_notification
       name                : 'local',
       api_address         : 'http://i1.jandi.io:8888/',
       socket_address      : 'http://ws.jandi.io:8888/',
