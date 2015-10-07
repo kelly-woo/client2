@@ -17,21 +17,13 @@
     _init();
 
     function _init() {
-      var interfas = [
-        'trigger',
-        'onSignedOut',
-        'onSignedIn',
-        'onAlarmCntChanged',
-        'onLanguageChanged'
-      ];
-
-      if (isPcApp()) {
-        _appHelper = PcAppHelper;
-      } else if (isMacApp()) {
+      //if (isPcApp()) {
+      //  _appHelper = PcAppHelper;
+      //} else if (isMacApp()) {
         _appHelper = MacAppHelper;
-      }
+      //}
 
-      _implement(_appHelper, interfas);
+      _implement(_appHelper, PcAppHelper, MacAppHelper);
 
       delegator.isPcApp = isPcApp;
       delegator.isMacApp = isMacApp;
@@ -41,12 +33,23 @@
     /**
      * delegator의 method implements
      * @param {object} appHelper - PcAppHelper 또는 MacAppHelper
-     * @param {array} interfas
      * @private
      */
-    function _implement(appHelper, interfas) {
+    function _implement(appHelper) {
+      var interfas = [];
+      var from;
+      var e;
       var i;
       var len;
+
+      for (i = 1, len = arguments.length; i < len; i++) {
+        from = arguments[i];
+        for (e in from) {
+          if (from.hasOwnProperty(e)) {
+            interfas.push(e);
+          }
+        }
+      }
 
       appHelper = appHelper || {};
       for(i = 0, len = interfas.length; i < len; i++) {

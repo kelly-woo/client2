@@ -9,22 +9,47 @@
     .service('MacAppHelper', MacAppHelper);
   
   /* @ngInject */
-  function MacAppHelper() {
+  function MacAppHelper(OtherTeamBadgeManager, NotificationManager) {
     var that = this;
 
     that.trigger = trigger;
     that.isMacApp = isMacApp;
 
+    that.updateBadge = updateBadge;
+
+
     /**
      * app event trigger
      * @param {string} type
-     * @param {string|object} data
+     * @param {boolean|string|object} data
      */
     function trigger(type, data) {
       if (isMacApp()) {
         window.jandimac.trigger(type, data);
       }
     }
+
+    function updateBadge() {
+      if (NotificationManager.hasNotificationAfterFocus()) {
+        console.log('has unfocused message :::', true);
+      } else {
+        console.log('has unfocused message :::', false);
+      }
+
+      console.log('total badge count ::: ', _getTotalBadgeCount());
+    }
+
+    function _getTotalBadgeCount() {
+      return OtherTeamBadgeManager.getTotalBadgeCount() + NotificationManager.getTotalNotificationCount();
+    }
+
+    //function _updateUnfocusedMessage() {
+    //  trigger('hasUnfocusedMessage', value);
+    //}
+    //
+    //function _updateBadgeCount() {
+    //  trigger('updateBadgeCount', value);
+    //}
 
     /**
      * Return true if 'jandimac' exists as a variable.
