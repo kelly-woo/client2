@@ -45,7 +45,7 @@
   height: 30px;
   line-height: 30px;
   text-align: left;
-  background-color: #F9F9F9;
+  background-color: white;
   position: relative;
   font-size: 13px;
 
@@ -64,13 +64,13 @@
   right: 0px;
 }
 .lpanel-list__header:hover {
-  background-color: white;
+  /*background-color: #f1f1f1;*/
 }
 .lpanel-list__header.collapsed {
-  background-color: white;
+  background-color: rgba(252,252,252,1);
 }
 .lpanel-list__header.collapsed:hover {
-  background-color: #f9f9f9;
+  background-color: white;
 }
 .lpanel-list-left{
   position: absolute;
@@ -83,16 +83,24 @@
   position: absolute;
   top: 8px;
   left: 9px;
-  color: #999;
-  font-size: 12px;
+  color: #333;
+  font-size: 14px;
+}
+.lpanel-list__header.collapsed .lpanel-collapse-arrow {
+  color: #777;
 }
 
 .lpanel-list__title {
   font-size: 12px;
+  font-weight: 600;
   color: #333;
   margin: 0;
+  margin-left: 5px;
   line-height: inherit;
   height: inherit;
+}
+.lpanel-list__header.collapsed .lpanel-list__title {
+  color: #ABABAB;
 }
 
 .lpanel-list-option {
@@ -114,7 +122,7 @@
 }
 .lpanel-list-option:hover {
   color: #333;
-  background-color: #EFEFEF;
+  background-color: #F1F1F1;
 }
 .lpanel-list__header:hover .lpanel-list-option {
   /*-webkit-animation: slide-from-right 400ms;*/
