@@ -11,7 +11,6 @@
       scope: true,
       link: link,
       replace: true,
-
       templateUrl : 'app/right/rpanel_search/rpanel.search.html',
       controller: 'rPanelSearchCtrl'
     };
@@ -21,28 +20,40 @@
 
       element
         .find('#right-panel-search-box')
-        .on('keyup', function(event) {
-          var target = this;
-          var which = event.which;
+        .on('keyup', _onKeyDown)
+        .on('$destroy', _onDestroy);
 
-          if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
-            Dialog.warning({
-              title: $filter('translate')('@search-minimum-query-length')
-            });
+        /**
+       * key down event handler
+       * @param {object} event
+       * @private
+       */
+      function _onKeyDown(event) {
+        var target = this;
+        var which = event.which;
+
+        if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
+          Dialog.warning({
+            title: $filter('translate')('@search-minimum-query-length')
+          });
+        }
+
+        $timeout.cancel(timerSearch);
+        timerSearch = $timeout(function() {
+          var value = target.value;
+          if (value === '' || value.length > 1) {
+            scope.onFileTitleQueryEnter(value);
           }
+        }, 500);
+      }
 
-          $timeout.cancel(timerSearch);
-          timerSearch = $timeout(function() {
-            var value = target.value;
-            if (value === '' || value.length > 1) {
-              scope.onFileTitleQueryEnter(value);
-            }
-          }, 500);
-        });
-
-      element.on('$destroy', function() {
-          $timeout.cancel(timerSearch);
-        });
+      /**
+       * element destroy event handler
+       * @private
+       */
+      function _onDestroy() {
+        $timeout.cancel(timerSearch);
+      }
     }
   }
 })();
