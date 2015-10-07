@@ -742,11 +742,18 @@ module.exports = function (grunt) {
 
     conventionalChangelog: {
       options: {
+        changelogOpts: {
+          // conventional-changelog options go here
+          preset: 'angular'
+        },
         context: {
           // Task-specific options go here.
           repository: 'https://github.com/tosslab/web_client.git',
           version: '<%=pkg.version%>'
         }
+      },
+      release: {
+        src: 'CHANGELOG.md'
       }
     },
 
