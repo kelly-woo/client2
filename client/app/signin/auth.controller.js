@@ -17,6 +17,7 @@
 
 
     (function(){
+      jndPubSub.pub('hideDefaultBackground');
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
@@ -40,6 +41,8 @@
         publicService.hideTransitionLoading();
       } else {
         // Auto sign-in using cookie.
+        jndPubSub.pub('showDefaultBackground');
+
         accountService.getAccountInfo()
           .success(function(response) {
             //console.log('got account info')
@@ -57,7 +60,7 @@
             storageAPIservice.removeLocal();
             storageAPIservice.removeSession();
             storageAPIservice.removeCookie();
-
+            jndPubSub.pub('hideDefaultBackground');
             jndPubSub.hideLoading();
           });
       }
