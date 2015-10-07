@@ -1,29 +1,49 @@
 <div class="tutorial_modal invite">
-  <img src="../../../../assets/images/tutorial/modal/modal_invite.png"/>
+  <!--<img src="../../../../assets/images/tutorial/modal/modal_invite.png"/>-->
   <div class="tutorial_disable_block"></div>
-  <div class="tutorial_modal_header">
+  <div class="tutorial_modal_header tutorial_modal_invite_header">
     <span translate>@team-invite</span>
   </div>
   <div class="tutorial_modal_invite_wrap">
     <div class="invite-enalbed">
       <div class="modal-body">
-        <div id="invites" class="invites">
-          <div class="form-horizontal invite-body-form-control" style="position: relative;">
-            <input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">
+        <div class="invite-work">
+          <div class="invite-email">
+            <div class="invite-email-input">
+              <input class="form-control" type="text" id="email-input" placeholder="mark@mail.com ted@mail.com jane@mail.com ...">
+              <span class="help-description cursor_pointer ng-scope">
+                <i class="fa fa-info-circle">
+                  <div class="description-container">
+                    <div class="description-arrow-up"></div>
+                    <div class="description-content-container">
+                      <div class="help-description__description">
+                        <span translate>@team-invite-description</span>
+                      </div>
+                    </div>
+                  </div>
+                </i>
+              </span>
+            </div>
           </div>
-          <div class="form-horizontal invite-body-form-control" style="position: relative;">
-            <input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">
-          </div>
-          <div class="form-horizontal invite-body-form-control" style="position: relative;">
-            <input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">
-          </div>
+          <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn"><span translate>@btn-invite</span></button>
         </div>
-        <div class="add-invite invite-btn cursor_pointer btn-ok btn">
-          <span translate>@invitation-more-email</span>
-        </div>
-        <button class="send-invite invite-btn cursor_pointer btn-ok btn disabled">
-          <span translate>@btn-send</span>
-        </button>
+        <!--<div id="invites" class="invites">-->
+          <!--<div class="form-horizontal invite-body-form-control" style="position: relative;">-->
+            <!--<input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">-->
+          <!--</div>-->
+          <!--<div class="form-horizontal invite-body-form-control" style="position: relative;">-->
+            <!--<input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">-->
+          <!--</div>-->
+          <!--<div class="form-horizontal invite-body-form-control" style="position: relative;">-->
+            <!--<input type="email" class="form-control invite" name="email" placeholder="{{ '@common-email' | translate }}">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="add-invite invite-btn cursor_pointer btn-ok btn">-->
+          <!--<span translate>@invitation-more-email</span>-->
+        <!--</div>-->
+        <!--<button class="send-invite invite-btn cursor_pointer btn-ok btn disabled">-->
+          <!--<span translate>@btn-send</span>-->
+        <!--</button>-->
       </div>
       <div class="modal-footer">
         <div class="progress-content">
