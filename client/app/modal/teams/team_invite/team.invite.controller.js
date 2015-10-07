@@ -9,9 +9,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, Dialog,
-                          memberService, publicService, currentSessionHelper, jndPubSub,
-                          teamAPIservice, analyticsService) {
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper, jndPubSub) {
     var currentTeamAdmin;
 
     _init();
@@ -29,8 +27,10 @@
       $scope.inviteDisabled = teamInfo.invitationStatus === 'disabled';   // invite status
       $scope.disableSeedUri = $scope.seedUri === '';
 
-      // current team name
-      $scope.currentTeamName = currentSessionHelper.getCurrentTeam().name;
+    // team의 admin
+    currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
+    $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
+    $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
 
       // team의 admin
       currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
