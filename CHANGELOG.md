@@ -1,3 +1,12 @@
+<a name"1.2.5"></a>
+### 1.2.5 (2015-10-07)
+
+
+#### Bug Fixes
+
+* **config:** 웹소켓 장애 긴급 대응으로 인해 웹소켓 주소 변경   - https://ws.jandi.com --> https://ws0.jandi.com/ ([548edd1a](https://github.com/tosslab/web_client.git/commit/548edd1a))
+
+
 <a name"1.2.4"></a>
 ### 1.2.4 (2015-10-05)
 
