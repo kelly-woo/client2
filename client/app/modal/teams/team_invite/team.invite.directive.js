@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('invitationModal', invitationModal);
 
-  function invitationModal($filter, $timeout, clipboard) {
+  function invitationModal($filter, clipboard) {
     return {
       restrict: 'A',
       link: link
@@ -54,7 +54,7 @@
             .on('click', _onInviteLinkClick)
             .on('blur', _onInviteLinkBlur);
 
-          $timeout(function() {
+          setTimeout(function() {
             // clipboard 제공하지 않는다면 invite link에 focus 줌
             jqInviteLink.trigger('click');
           });

@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('inviteEmails', inviteEmails);
 
-  function inviteEmails($parse, $timeout, jndKeyCode) {
+  function inviteEmails($parse, jndKeyCode) {
     return {
       replace: true,
       restrict: 'A',
@@ -27,15 +27,7 @@
       var active = attrs.active;
 
       var jqEmailInput = $('#email-input');
-      var regxEmail = new RegExp(
-        '^[a-zA-Z\\d\\!\\#\$%\\&\\*\\+\\-\\/\\=\\?\\^\\_\\`{\\|}\\~.]{1,256}'+
-        '\\@' +
-        '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}' +
-        '(' +
-        '\\.' +
-        '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
-        ')+$'
-      );
+      var regxEmail = /^([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       var regxEmailSplit = /[\s,]/;
 
       _init();
@@ -81,7 +73,7 @@
             $list: scope.emails
           });
 
-          $timeout(function() {
+          setTimeout(function() {
             jqEmailInput.focus();
           }, 50);
         }
@@ -180,7 +172,7 @@
           $list: scope.emails
         });
 
-        $timeout(function() {
+        setTimeout(function() {
           jqEmailInput.focus();
         }, 50);
       }
