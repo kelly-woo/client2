@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('rPanelSearch', rPanelSearch);
 
-  function rPanelSearch($timeout) {
+  function rPanelSearch($timeout, $filter, jndKeyCode, Dialog) {
     return {
       restrict: 'EA',
       scope: true,
@@ -21,8 +21,15 @@
 
       element
         .find('#right-panel-search-box')
-        .on('keyup', function() {
+        .on('keyup', function(event) {
           var target = this;
+          var which = event.which;
+
+          if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
+            Dialog.warning({
+              title: $filter('translate')('@search-minimum-query-length')
+            });
+          }
 
           $timeout.cancel(timerSearch);
           timerSearch = $timeout(function() {

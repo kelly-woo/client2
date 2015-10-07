@@ -272,6 +272,8 @@
 
       if(_isLastPage(cursor) && $scope.messageList.length > 0) {
         $scope.isEndOfList = true;
+      } else {
+        $scope.isEndOfList = false;
       }
     }
 
@@ -390,6 +392,7 @@
      */
     function _resetMessageSearchResult() {
       $scope.messageList = [];
+      $scope.isEndOfList = false;
     }
 
     /**

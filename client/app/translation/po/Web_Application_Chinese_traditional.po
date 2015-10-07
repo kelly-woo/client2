@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -1080,6 +1080,10 @@ msgstr "六"
 msgid "@search-in-progress"
 msgstr ""
 "搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
+
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "請輸入1個以上的字元"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
