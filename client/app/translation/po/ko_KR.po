@@ -1355,8 +1355,8 @@ msgstr "성공!"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_help_remember"
 msgstr ""
-"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니"
-"다."
+"그리고 더 궁금한 점이 있으시거나 도움이 필요하시면 언제라도 이 곳을 클릭하시"
+"면 됩니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
@@ -1450,8 +1450,8 @@ msgstr "{{topicName}} 토픽이 성공적으로 생성되었어요."
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_definition"
 msgstr ""
-"토픽이랑 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
-"는 단톡방이라고 할 수 있어요. "
+"토픽이란 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
+"는 단톡방이라고 할 수 있어요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_join"
