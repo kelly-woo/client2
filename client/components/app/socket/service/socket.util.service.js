@@ -21,6 +21,7 @@
 
     this.updateFileDetailPanel = updateFileDetailPanel;
     this.isActionFromMe = isActionFromMe;
+    this.hasMyId = hasMyId;
 
     this.getLastLinkId = getLastLinkId;
 
@@ -164,7 +165,25 @@
       return writerId === memberService.getMemberId();
     }
 
+    /**
+     * parameter로 들어온 어레이에 나의 아이디가 있는지 없는지 확인한다.
+     * @param {array} array - array to look for my id
+     * @returns {boolean}
+     */
+    function hasMyId(array) {
+      var foundMyself = false;
+      _.forEach(array, function(memberId) {
+        if (isActionFromMe(memberId)) {
+          foundMyself = true;
+          return false;
+        }
+      });
+
+      return foundMyself;
+    }
+
     function hasLastLinkId(socketEvent) {
+
     }
 
     /**
