@@ -1,3 +1,21 @@
+<a name"1.2.5"></a>
+### 1.2.5 (2015-10-07)
+
+
+#### Bug Fixes
+
+* **config:** 웹소켓 장애 긴급 대응으로 인해 웹소켓 주소 변경   - https://ws.jandi.com --> https://ws0.jandi.com/ ([548edd1a](https://github.com/tosslab/web_client.git/commit/548edd1a))
+
+
+<a name"1.2.4"></a>
+### 1.2.4 (2015-10-05)
+
+
+#### Bug Fixes
+
+* **modal:** 팀 초대 링크 복사를 제공할 수 없는 Browser에 한하여 복사 버튼 보이지 않도록 수정 ([e36db3d7](https://github.com/tosslab/web_client.git/commit/e36db3d7))
+
+
 <a name"1.2.3"></a>
 ### 1.2.3 (2015-10-02)
 
