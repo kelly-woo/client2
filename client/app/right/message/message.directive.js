@@ -25,10 +25,14 @@
     };
 
     function link(scope, el) {
-      if (scope.messageQuery) {
-        $timeout(function() {
-          el.find('.message-card-body').children().highlight(scope.messageQuery);
-        },50);
+      _init();
+
+      function _init() {
+        if (scope.messageQuery) {
+          $timeout(function() {
+            el.find('.message-card-body').children().highlight(scope.messageQuery);
+          },50);
+        }
       }
     }
   }

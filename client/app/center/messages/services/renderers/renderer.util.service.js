@@ -109,7 +109,10 @@
     }
 
     function cancelThumbnailTracker(messageId) {
-      _thumbnailTracker[messageId] && _thumbnailTracker[messageId].cancel();
+      if (_thumbnailTracker[messageId]) {
+        clearTimeout(_thumbnailTracker[messageId]);
+      }
+
       delete _thumbnailTracker[messageId];
     }
 

@@ -101,9 +101,13 @@
       var returnValue = '';
 
       if (MessageCollection.hasLinkPreview(index)) {
-        msg.message.linkPreview.extThumbnail = {
-          hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
-        };
+        if (msg.message.linkPreview.extThumbnail) {
+         msg.message.linkPreview.extThumbnail.hasSuccess = RendererUtil.hasThumbnailCreated(msg.message.linkPreview);
+        } else {
+          msg.message.linkPreview.extThumbnail = {
+            hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
+          };
+        }
         returnValue = _templateLinkPreview({msg: msg});
       }
 

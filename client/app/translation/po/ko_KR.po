@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -207,12 +207,6 @@ msgstr "잔디의 사용방법이 크게 달라졌습니다!"
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽 "
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "튜토리얼 모두 건너뛰기"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -610,6 +604,12 @@ msgstr "파일 업로드"
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "튜토리얼 모두 건너뛰기"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "정말 이 멤버를 내보내시겠습니까?"
@@ -860,12 +860,6 @@ msgid "@integration-title-google-drive"
 msgstr "구글 드라이브에서 파일 업로드하기"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
-"내세요!"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "이 이메일 주소는 이미 {{invitedTeamName}}의 멤버입니다."
 
@@ -907,6 +901,12 @@ msgstr "+ 이메일 주소 추가"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
 msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
+"내세요!"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1111,6 +1111,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 "
 "중..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "검색어는 2글자 이상 입력해주세요."
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -1281,220 +1285,6 @@ msgstr "바탕화면 알림 사용하기"
 msgid "@turn-on-topic-alarm"
 msgstr "현재 토픽 알림 켜기"
 
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_awesome"
-msgstr "성공!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_congratulations"
-msgstr "축하합니다!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_congratulations_content"
-msgstr ""
-"튜토리얼을 모두 마치셨습니다. 이제 {{teamName}} 팀에서 다른 멤버들과 함께 잔"
-"디를 통해 협업하세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_click_list"
-msgstr "\"+\" 버튼을 눌러 대화 상대를 선택할 수 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_post"
-msgstr "안녕하세요 라고 입력을 해보세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_sticker_let"
-msgstr "스티커도 보내실 수가 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_sticker_success"
-msgstr "전송 성공! 업무 중에도 늘 유머를 잃지마세요!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_success"
-msgstr "메시지가 성공적으로 전송되었습니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_talk"
-msgstr "팀 멤버를 선택해봅시다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_try"
-msgstr "1:1 메시지를 한 번 보내보세요. "
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment"
-msgstr ""
-"이 파일 상세 화면에서는, 파일에 달린 댓글을 확인하시거나 새로운 댓글을 작성"
-"하실 수 있어요. \"오타 수정이 필요합니다\"라고 댓글을 입력해보세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment_click"
-msgstr "이 파일을 한 번 클릭해주세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment_title"
-msgstr "이제 팀에 저장된 파일들을 한 번 살펴보도록 해요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_download_desc"
-msgstr ""
-"또한 이 아이콘을 클릭하시면 파일을 다운로드 하시거나 다른 토픽으로 공유할 "
-"수 있습니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_get_started"
-msgstr "잔디의 간단한 사용법 알아보기"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_great"
-msgstr "성공!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_help_remember"
-msgstr ""
-"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니"
-"다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_click_title"
-msgstr ""
-"방금 이 점심 메뉴 토픽에 참여하셨어요. 토픽 메뉴를 클릭하시면 토픽 관련 메뉴"
-"를 보실 수가 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_lets"
-msgstr "토픽을 한 번 나가보도록 해요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_success"
-msgstr "토픽을 나가기에 성공했어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_success_desc"
-msgstr "이렇게 공개 토픽은 언제라도 참여와 나가기가 가능합니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_profile_desc"
-msgstr ""
-"다른 멤버를 위해 가장 최근의 정보를 입력해주세요. 특히 승진이나 인사이동 후"
-"에 정보 수정 또한 잊지마세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_profile_setup"
-msgstr "프로필도 한 번 변경해봐요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_click"
-msgstr "팀 메뉴를 클릭해주세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_click_invite"
-msgstr "[초대하기] 메뉴를 클릭하시고 동료 또는 팀 멤버를 초대하실 수 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_definition"
-msgstr ""
-"잔디에서 말하는 \"팀\"이란 회사 또는 부서와 같이 함께 일하는 조직을 의미해"
-"요. 팀 안에서 대화를 나누거나 파일을 공유할 수가 있죠."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_desc"
-msgstr ""
-"팀 메뉴에서는 모든 팀 멤버를 확인하시거나 다른 팀으로 전환하실 수도 있으며 "
-"팀 설정이 가능한 잔디 메인으로 이동하실 수도 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_explain_invitation"
-msgstr ""
-"멤버의 이메일 주소로 초대장을 보내거나 팀 초대용 URL 링크를 공유할 수가 있어"
-"요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_team_intro"
-msgstr ""
-"잔디를 사용하시고 완전히 새로워진 팀 커뮤니케이션을 경험해 보세요. 이 테스"
-"트 팀에서는 잔디의 간단한 사용법을 알아보실 수 있습니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_title"
-msgstr "{{username}}님, 잔디 테스트 팀에 오신 것을 환영합니다!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_there_we_go"
-msgstr "축하합니다!"
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_join"
-msgstr "[참여하기] 버튼을 누르시면 토픽에 참가할 수가 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_list"
-msgstr "이 버튼을 클릭하시면 팀 내의 모든 토픽들을 확인할 수가 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_plus"
-msgstr "\"+\" 버튼을 누르시면 새 토픽을 생성할 수가 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_create_own"
-msgstr "현재 {{username}}님이 일하시는 부서의 이름으로 토픽을 만들어보세요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_created"
-msgstr "{{topicName}} 토픽이 성공적으로 생성되었어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_definition"
-msgstr ""
-"토픽이랑 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
-"는 단톡방이라고 할 수 있어요. "
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_join"
-msgstr "이미 생성되어 있는 기존 토픽에 참여해봐요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_let_create"
-msgstr "자, 그럼 이제 토픽을 한 번 생성해봐요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_preview"
-msgstr "업로드한 파일은 다른 메시지와 함께 대화창에 바로 표시됩니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_sources"
-msgstr ""
-"파일을 내 컴퓨터에서 바로 올리거나, Google 드라이브 또는 드롭박스의 파일을 "
-"등록할 수도 있어요."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_title"
-msgstr "이 업로드 버튼을 통해 파일을 대화창에 올릴 수가 있어요."
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_content"
-msgstr "다시 시작하시겠습니까?"
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_continue"
-msgstr "마지막으로 완료한 부분부터 시작하기"
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_new_start"
-msgstr "처음부터 다시 시작하기"
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_title"
-msgstr "아직 완료하지 않은 튜토리얼이 남았습니다."
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_welcome_title"
-msgstr "{{username}}님, 환영합니다!"
-
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
 msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
@@ -1595,6 +1385,220 @@ msgstr ""
 msgid "@tutorial-welcome-title"
 msgstr "Welcome to JANDI!"
 
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_awesome"
+msgstr "성공!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations"
+msgstr "축하합니다!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations_content"
+msgstr ""
+"튜토리얼을 모두 마치셨습니다. 이제 {{teamName}} 팀에서 다른 멤버들과 함께 잔"
+"디를 통해 협업하세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_click_list"
+msgstr "\"+\" 버튼을 눌러 대화 상대를 선택할 수 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_post"
+msgstr "안녕하세요 라고 입력을 해보세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_let"
+msgstr "스티커도 보내실 수가 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_success"
+msgstr "전송 성공! 업무 중에도 늘 유머를 잃지마세요!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_success"
+msgstr "메시지가 성공적으로 전송되었습니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_talk"
+msgstr "팀 멤버를 선택해봅시다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_try"
+msgstr "1:1 메시지를 한 번 보내보세요. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment"
+msgstr ""
+"이 파일 상세 화면에서는, 파일에 달린 댓글을 확인하시거나 새로운 댓글을 작성"
+"하실 수 있어요. \"오타 수정이 필요합니다\"라고 댓글을 입력해보세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_click"
+msgstr "이 파일을 한 번 클릭해주세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_title"
+msgstr "이제 팀에 저장된 파일들을 한 번 살펴보도록 해요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_download_desc"
+msgstr ""
+"또한 이 아이콘을 클릭하시면 파일을 다운로드 하시거나 다른 토픽으로 공유할 "
+"수 있습니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_get_started"
+msgstr "잔디의 간단한 사용법 알아보기"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_great"
+msgstr "성공!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr ""
+"그리고 더 궁금한 점이 있으시거나 도움이 필요하시면 언제라도 이 곳을 클릭하시"
+"면 됩니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_click_title"
+msgstr ""
+"방금 이 점심 메뉴 토픽에 참여하셨어요. 토픽 메뉴를 클릭하시면 토픽 관련 메뉴"
+"를 보실 수가 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_lets"
+msgstr "토픽을 한 번 나가보도록 해요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success"
+msgstr "토픽을 나가기에 성공했어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success_desc"
+msgstr "이렇게 공개 토픽은 언제라도 참여와 나가기가 가능합니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_desc"
+msgstr ""
+"다른 멤버를 위해 가장 최근의 정보를 입력해주세요. 특히 승진이나 인사이동 후"
+"에 정보 수정 또한 잊지마세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_setup"
+msgstr "프로필도 한 번 변경해봐요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click"
+msgstr "팀 메뉴를 클릭해주세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click_invite"
+msgstr "[초대하기] 메뉴를 클릭하시고 동료 또는 팀 멤버를 초대하실 수 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_definition"
+msgstr ""
+"잔디에서 말하는 \"팀\"이란 회사 또는 부서와 같이 함께 일하는 조직을 의미해"
+"요. 팀 안에서 대화를 나누거나 파일을 공유할 수가 있죠."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_desc"
+msgstr ""
+"팀 메뉴에서는 모든 팀 멤버를 확인하시거나 다른 팀으로 전환하실 수도 있으며 "
+"팀 설정이 가능한 잔디 메인으로 이동하실 수도 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_explain_invitation"
+msgstr ""
+"멤버의 이메일 주소로 초대장을 보내거나 팀 초대용 URL 링크를 공유할 수가 있어"
+"요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_team_intro"
+msgstr ""
+"잔디를 사용하시고 완전히 새로워진 팀 커뮤니케이션을 경험해 보세요. 이 테스"
+"트 팀에서는 잔디의 간단한 사용법을 알아보실 수 있습니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_title"
+msgstr "{{username}}님, 잔디 테스트 팀에 오신 것을 환영합니다!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_there_we_go"
+msgstr "축하합니다!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_join"
+msgstr "[참여하기] 버튼을 누르시면 토픽에 참가할 수가 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_list"
+msgstr "이 버튼을 클릭하시면 팀 내의 모든 토픽들을 확인할 수가 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_plus"
+msgstr "\"+\" 버튼을 누르시면 새 토픽을 생성할 수가 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_create_own"
+msgstr "현재 {{username}}님이 일하시는 부서의 이름으로 토픽을 만들어보세요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_created"
+msgstr "{{topicName}} 토픽이 성공적으로 생성되었어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_definition"
+msgstr ""
+"토픽이란 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
+"는 단톡방이라고 할 수 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_join"
+msgstr "이미 생성되어 있는 기존 토픽에 참여해봐요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_let_create"
+msgstr "자, 그럼 이제 토픽을 한 번 생성해봐요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_preview"
+msgstr "업로드한 파일은 다른 메시지와 함께 대화창에 바로 표시됩니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_sources"
+msgstr ""
+"파일을 내 컴퓨터에서 바로 올리거나, Google 드라이브 또는 드롭박스의 파일을 "
+"등록할 수도 있어요."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_title"
+msgstr "이 업로드 버튼을 통해 파일을 대화창에 올릴 수가 있어요."
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr "다시 시작하시겠습니까?"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "마지막으로 완료한 부분부터 시작하기"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr "처음부터 다시 시작하기"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr "아직 완료하지 않은 튜토리얼이 남았습니다."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_welcome_title"
+msgstr "{{username}}님, 환영합니다!"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
 msgstr "여기까지 읽었습니다."
@@ -1655,6 +1659,14 @@ msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-private-topic-invited"
+msgstr "님이 새로운 비공개 토픽에 초대했습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-invited"
+msgstr "님이 새로운 토픽에 초대했습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
 msgstr "에 "
 
@@ -1682,6 +1694,12 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@web-notification-body-topic-invited-mid"
+#~ msgstr "님이 "
+
+#~ msgid "@web-notification-body-topic-invited-post"
+#~ msgstr "님이 새로운 토픽에 초대했습니다."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""
