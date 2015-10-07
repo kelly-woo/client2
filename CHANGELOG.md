@@ -1,3 +1,30 @@
+<a name"1.2.3"></a>
+### 1.2.3 (2015-10-02)
+
+
+#### Bug Fixes
+
+* **center:** fix message braces ([0ca210ea](https://github.com/tosslab/web_client.git/commit/0ca210ea))
+
+
+<a name"1.2.2"></a>
+### 1.2.2 (2015-10-01)
+
+
+#### Bug Fixes
+
+* **modal:** 파일 업로드 취소시(esc key를 사용) file uploader object 살아 있는 버그 수정 ([43692a25](https://github.com/tosslab/web_client.git/commit/43692a25))
+
+
+<a name"1.2.1"></a>
+### 1.2.1 (2015-10-01)
+
+
+#### Bug Fixes
+
+* **center:** 파일에 코멘트 입력시 layout 어그러지는 버그 수정 ([9367e3ef](https://github.com/tosslab/web_client.git/commit/9367e3ef))
+
+
 <a name"1.2.0"></a>
 ## 1.2.0 (2015-09-30)
 

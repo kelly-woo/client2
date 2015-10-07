@@ -123,6 +123,7 @@ msgstr "送信"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "招待"
@@ -134,11 +135,6 @@ msgstr "参加"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "次へ"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "送信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -210,6 +206,12 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "トピック一覧"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "チュートリアルをスキップ"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -606,12 +608,6 @@ msgstr "アップロード"
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "チュートリアルをスキップ"
-
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "本当にこのメンバーをトピックから退室させますか？"
@@ -865,10 +861,15 @@ msgid "@integration-title-google-drive"
 msgstr "Googleドライブからファイルをアップロード"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送り"
+"ましょう"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "このメールはすでに{{invitedTeamName}}のメンバーです"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -890,28 +891,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "管理者によって招待が取り消されました。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "正しいメールアドレスの形式を入力してください"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "またはリンクを送信"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "+ さらに追加"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "いくつかの招待が送信されませんでした"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送り"
-"ましょう"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1241,6 +1223,43 @@ msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
 
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr ""
+"空白またはカンマで区切られた複数のメールアドレスを一度に追加することができ"
+"ます。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "招待メール{{inviteeNumber}}通が正常に送信されました。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"招待メール{{inviteeNumber}}通が正常に送信されましたが、"
+"{{failedInviteeNumber}}通は送信に失敗しました。すでにチームに参加している"
+"メンバーなのか確認してください。"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "正しいメールアドレスの形式を入力してください"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr ""
+"Ctrl-C (Macの場合Cmd-C)を押したら、招待リンクがコピーされます。招待したい"
+"メンバにこのリンクを送ってみてください"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "もっと招待する"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "{{inviteeNumber}}名に招待メールを送信する"
+
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-members"
@@ -1290,105 +1309,6 @@ msgstr "デスクトップ通知をオンにする"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr "通知をオンにする"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "クリックして今すぐ見てみましょう!"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "チュートリアルを終了する"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）"
-"からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲"
-"の変更、コメントの追加などができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種"
-"類で絞り込むことができます。「メッセージ」タブをクリックすることでメッセー"
-"ジを検索することができます。検索結果をクリックすると、その会話の部分にジャ"
-"ンプすることができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネル"
-"を閉じることができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "ファイルドロワーと検索パネル"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "メッセージとファイルを送信中"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
-"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップ"
-"してください。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "チュートリアルをスキップする"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できませ"
-"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話"
-"を再開すると再び表示されます。過去の会話履歴も表示されます。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピック"
-"です。新しいプライベートトピックを作成するには「＋追加」をクリックしてくだ"
-"さい。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-"トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話"
-"の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で"
-"作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "続きを見る »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニ"
-"ケーションできることを願っています。ここでJANDIをより良く理解するために重"
-"要な３点をご紹介します。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "JANDIへようこそ!!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
@@ -1598,6 +1518,105 @@ msgstr "まだジャンディーのチュートリアルをやり通していま
 msgid "@tutorial_welcome_title"
 msgstr "ようこそ{{username}}さん！"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "クリックして今すぐ見てみましょう!"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "チュートリアルを終了する"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）"
+"からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲"
+"の変更、コメントの追加などができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種"
+"類で絞り込むことができます。「メッセージ」タブをクリックすることでメッセー"
+"ジを検索することができます。検索結果をクリックすると、その会話の部分にジャ"
+"ンプすることができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネル"
+"を閉じることができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "ファイルドロワーと検索パネル"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "メッセージとファイルを送信中"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
+"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップ"
+"してください。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "チュートリアルをスキップする"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できませ"
+"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話"
+"を再開すると再び表示されます。過去の会話履歴も表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピック"
+"です。新しいプライベートトピックを作成するには「＋追加」をクリックしてくだ"
+"さい。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話"
+"の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で"
+"作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "続きを見る »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニ"
+"ケーションできることを願っています。ここでJANDIをより良く理解するために重"
+"要な３点をご紹介します。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "JANDIへようこそ!!"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
 msgstr "ここから未読メッセージ"
@@ -1660,11 +1679,11 @@ msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr "さんが非公開トピックに招待しました。"
+msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr "さんがトピックに招待しました。"
+msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
@@ -1695,8 +1714,17 @@ msgstr "JANDI 新着メッセージ通知"
 msgid "@wednesday"
 msgstr "水曜日"
 
-#~ msgid "@web-notification-body-topic-invited-post"
-#~ msgstr "さんがトピックに招待しました。"
+#~ msgid "@btn-send"
+#~ msgstr "送信"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "正しいメールアドレスの形式を入力してください"
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "+ さらに追加"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "いくつかの招待が送信されませんでした"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""
