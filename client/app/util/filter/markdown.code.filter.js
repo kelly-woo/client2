@@ -11,7 +11,7 @@
   function markdown($filter) {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]+[^\*_~\s])\1/g
+      bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]*[^\*_~\s])\1/g
     };
 
     return function(text) {
