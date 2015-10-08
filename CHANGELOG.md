@@ -1,3 +1,12 @@
+<a name"1.3.2"></a>
+### 1.3.2 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **app:** 웹폰트 롤벡 ([ea990708](https://github.com/tosslab/web_client.git/commit/ea990708))
+
+
 <a name"1.3.1"></a>
 ### 1.3.1 (2015-10-08)
 
