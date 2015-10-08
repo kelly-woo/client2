@@ -1,3 +1,12 @@
+<a name"1.3.3"></a>
+### 1.3.3 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **right:** 파일 리스트 출력시 검색 키워드는 전체 파일 리스트가 갱신 될때만 초기화 하도록 수정 ([541fcc02](https://github.com/tosslab/web_client.git/commit/541fcc02))
+
+
 <a name"1.3.2"></a>
 ### 1.3.2 (2015-10-08)
 
