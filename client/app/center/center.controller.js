@@ -405,7 +405,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onWindowFocus() {
     centerService.setBrowserFocus();
-    if (centerService.hasBottomReached()) {
+    if (centerService.isScrollBottom()) {
       _clearBadgeCount($scope.currentEntity);
     }
     NotificationManager.resetNotificationCountOnFocus();
@@ -1484,7 +1484,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (centerService.hasBottomReached()) {
         //log('window with focus')
         if (_hasBrowserFocus()) {
-          console.log('####2');
           _scrollToBottom(true);
           return;
         }
