@@ -1658,22 +1658,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onAttachMessagePreview(event, data) {
+    var messageId;
+    var linkPreview;
+    var timeoutCaller;
+
     messageAPIservice
       .getMessage(memberService.getTeamId(), data.message.id)
       .success(function(response) {
-        var messageId = response.id;
-        var linkPreview = response.linkPreview;
+        messageId = response.id;
+        linkPreview = response.linkPreview;
 
         // thumbnail을 기다린다는 flag를 설정한다.
         linkPreview.extThumbnail = {
           isWaiting: true
         };
 
-        RendererUtil.addToThumbnailTracker(messageId,  $timeout(function() {
+        timeoutCaller = setTimeout(function() {
           // 4초 후에도 thumbnail이 생성이 안되었을 경우, loading wheel을 제거한다.
           _updateMessageLinkPreviewStatus(messageId);
-        }, 4000));
+        }, 4000);
 
+        RendererUtil.addToThumbnailTracker(messageId, timeoutCaller);
 
         _updateMessageLinkPreview(messageId, linkPreview);
       })
@@ -1730,13 +1735,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _updateMessageLinkPreviewStatus(messageId) {
-    console.log('hi')
     var message = MessageCollection.getByMessageId(messageId, true);
 
     if (message) {
       message.message.linkPreview.extThumbnail.isWaiting = false;
       jndPubSub.pub('toggleLinkPreview', messageId);
     }
+
+    // timeout still needs to be deleted.
+    RendererUtil.cancelThumbnailTracker(messageId);
   }
 
   /**

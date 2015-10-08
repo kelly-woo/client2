@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -123,6 +123,7 @@ msgstr "확인"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "초대하기"
@@ -134,11 +135,6 @@ msgstr "참여하기"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "다음"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "보내기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -869,7 +865,6 @@ msgstr ""
 msgid "@invitation-already-member"
 msgstr "이 이메일 주소는 이미 {{invitedTeamName}}의 멤버입니다."
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -891,22 +886,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "멤버 초대 기능이 관리자에 의해 비활성화 되었습니다."
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "올바른 이메일 주소를 사용해주세요."
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "또는 이 링크를 공유하여 멤버들을 초대하세요."
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "+ 이메일 주소 추가"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1111,6 +1093,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 "
 "중..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "검색어는 2글자 이상 입력해주세요."
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -1230,6 +1216,42 @@ msgstr "{{msg.message.content.actionOwner}}님이 공지사항을 삭제했습�
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "멤버 초대"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr ""
+"공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "초대 메일 {{inviteeNumber}}통이 성공적으로 발송되었습니다!"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"초대 메일 {{inviteeNumber}}통이 성공적으로 발송되었으나, "
+"{{failedInviteeNumber}}통은 발송하지 못했습니다.\n"
+"이미 초대된 멤버들이 있는지 확인해주세요."
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "올바른 이메일 주소를 사용해주세요."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr ""
+"Ctrl-C (맥의 경우 Cmd-C) 를 누르시면 초대 링크가 복사됩니다. 초대를 원하시"
+"는 멤버에게 이 링크를 보내세요!"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "더 초대하기"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "{{inviteeNumber}}명에게 초대 메일 보내기"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1355,8 +1377,8 @@ msgstr "성공!"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_help_remember"
 msgstr ""
-"그리고 더 궁금한 점이 있으시거나 도움이 필요하시면 언제라도 이 곳을 클릭하시"
-"면 됩니다."
+"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니"
+"다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
@@ -1450,8 +1472,8 @@ msgstr "{{topicName}} 토픽이 성공적으로 생성되었어요."
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_definition"
 msgstr ""
-"토픽이란 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
-"는 단톡방이라고 할 수 있어요."
+"토픽이랑 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
+"는 단톡방이라고 할 수 있어요. "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_join"
@@ -1655,6 +1677,14 @@ msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-private-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
 msgstr "에 "
 
@@ -1682,6 +1712,18 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@btn-send"
+#~ msgstr "보내기"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "올바른 이메일 주소를 사용해주세요."
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "+ 이메일 주소 추가"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

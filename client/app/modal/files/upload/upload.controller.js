@@ -7,7 +7,7 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, $filter, modalHelper, currentSessionHelper,
+  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, $modalInstance, modalHelper, currentSessionHelper,
                                fileAPIservice, ImagesHelper, AnalyticsHelper, TopicFolderModel, fileUplodOptions,
                                EntityMapManager, entityAPIservice, MentionExtractor, analyticsService) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
@@ -185,18 +185,26 @@
         },
         // upload confirm end
         onConfirmEnd: function() {
-          if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
-            fileAPIservice.clearUploader();
-            fileAPIservice.clearCurUpload();
-          }
-
           modalHelper.closeModal();
-
-          delete $rootScope.fileUploader;
         },
         // upload sequence end
         onEnd: fileUplodOptions.onEnd
       }); 
+    }
+
+    $modalInstance.result.then(_clearFileUploader, _clearFileUploader);
+
+    /**
+     * clear fileuploader
+     * @private
+     */
+    function _clearFileUploader() {
+      if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
+        fileAPIservice.clearUploader();
+        fileAPIservice.clearCurUpload();
+      }
+
+      delete $rootScope.fileUploader;
     }
 
     /**

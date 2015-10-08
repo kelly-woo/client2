@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -121,6 +121,7 @@ msgstr "提交"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "邀請"
@@ -132,11 +133,6 @@ msgstr "加入"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "下一步"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -850,7 +846,6 @@ msgstr "成員邀請的連結已複製到剪貼簿"
 msgid "@invitation-already-member"
 msgstr "此電子郵箱已為 {{invitedTeamName}} 的成員"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -870,22 +865,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "邀請連結已關閉。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "電子郵箱格式不正確"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "或者直接轉發此連結"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "＋更多"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "部分邀請信無法寄出"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1081,6 +1063,10 @@ msgid "@search-in-progress"
 msgstr ""
 "搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "使用關鍵字搜尋請輸入1個以上的字元"
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -1196,6 +1182,38 @@ msgstr "{{msg.message.content.actionOwner}} 刪除公告"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "邀請其他團隊成員"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr "使用逗號或空白鍵於郵箱地址之間可同時寄出多封電郵"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "{{inviteeNumber}}封邀請電郵已成功寄出"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"{{inviteeNumber}}封邀請電郵成功寄出，但{{failedInviteeNumber}}封邀請電郵傳"
+"送失敗。請再次確認收件人是否已加入團隊。"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "電子郵箱格式不正確"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr "點擊 Ctrl-C (Mac 請點擊 Cmd-C) 複製邀請連結並分享給工作夥伴"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "送出更多邀請"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "寄送{{inviteeNumber}}封邀請電郵"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1594,6 +1612,14 @@ msgid "@web-notification-body-other-team-pre"
 msgstr "在"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-private-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
 msgstr "裏有從"
 
@@ -1620,6 +1646,18 @@ msgstr "JANDI 新訊息"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "三"
+
+#~ msgid "@btn-send"
+#~ msgstr "送出"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "電子郵箱格式不正確"
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "＋更多"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "部分邀請信無法寄出"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

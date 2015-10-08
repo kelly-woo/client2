@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -123,6 +123,7 @@ msgstr "Submit"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "Invite"
@@ -134,11 +135,6 @@ msgstr "Join"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "Next"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "Send"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -874,7 +870,6 @@ msgstr ""
 msgid "@invitation-already-member"
 msgstr "This email is already a member of {{invitedTeamName}}."
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -896,22 +891,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "Invitations have been disabled."
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "Proper email address formats required"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "Or just send them this link"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "+ More"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "Some invitations could not be sent."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1114,6 +1096,10 @@ msgstr ""
 "Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
 "span>..."
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "Please enter more than one character to search."
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -1231,6 +1217,41 @@ msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr "You can add multiple email addresses separated by commas or spaces."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "Done! {{inviteeNumber}} email(s) sent successfully."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"{{inviteeNumber}} email(s) sent successfully, but {{failedInviteeNumber}} "
+"email(s) have been failed to send. Please check they are already your team "
+"members."
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "Proper email address formats required"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr ""
+"Press Ctrl-C (Cmd-C for Mac) to copy the invitation link and share the link "
+"with your team members!"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "Invite more"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "Send {{inviteeNumber}} invitations"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1661,6 +1682,14 @@ msgid "@web-notification-body-other-team-pre"
 msgstr "You received a new message in "
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-private-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-invited"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
 msgstr " from "
 
@@ -1687,6 +1716,18 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#~ msgid "@btn-send"
+#~ msgstr "Send"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "Proper email address formats required"
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "+ More"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "Some invitations could not be sent."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

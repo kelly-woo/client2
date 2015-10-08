@@ -1,3 +1,7 @@
 .msg-text-sending {
   color: #999999;
 }
+
+.msg-text-sending a {
+  color: #88B7DE;
+}
