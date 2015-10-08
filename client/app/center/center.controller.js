@@ -400,12 +400,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * 스크롤이 노출되었는지 여부를 반환한다
+   * @returns {boolean}
+   * @private
+   */
+  function _hasScroll() {
+    return $('#msgs-holder').height() > $('#msgs-container').height();
+  }
+
+  /**
    * 윈도우 focus 시 이벤트 핸들러
    * @private
    */
   function _onWindowFocus() {
     centerService.setBrowserFocus();
-    if (centerService.isScrollBottom()) {
+    if (!_hasScroll() || centerService.isScrollBottom()) {
       _clearBadgeCount($scope.currentEntity);
     }
     NotificationManager.resetNotificationCountOnFocus();
@@ -1492,9 +1501,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
        rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
        _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
        */
-      var hasScroll = $('#msgs-holder').height() > $('#msgs-container').height();
-      if (hasScroll) {
+      if (_hasScroll()) {
         _gotNewMessage();
+      } else {
+        entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
       }
     }
   }
