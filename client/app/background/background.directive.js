@@ -16,14 +16,13 @@
   function background(Browser) {
     return {
       restrict: 'E',
-      scope: {},
       link: link,
       templateUrl: 'app/background/background.html'
     };
 
     function link(scope, el, attrs) {
       scope.isIE = Browser.msie;
-      el.hide();
+      //el.hide();
       scope.$on('showDefaultBackground', _show);
       scope.$on('hideDefaultBackground', _hide);
 
