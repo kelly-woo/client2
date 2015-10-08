@@ -17,11 +17,11 @@
     _init();
 
     function _init() {
-      //if (isPcApp()) {
-      //  _appHelper = PcAppHelper;
-      //} else if (isMacApp()) {
+      if (isPcApp()) {
+        _appHelper = PcAppHelper;
+      } else if (isMacApp()) {
         _appHelper = MacAppHelper;
-      //}
+      }
 
       _implement(_appHelper, PcAppHelper, MacAppHelper);
 

@@ -174,6 +174,9 @@
     function updateTeamBadge() {
       $scope.otherTeamBadgeCount = OtherTeamBadgeManager.getTotalBadgeCount();
       $scope.hasBadgeOnOtherTeam = $scope.otherTeamBadgeCount > 0;
+
+      // other team badge 갱신시 hybrid app badge도 갱신함
+      HybridAppHelper.updateBadge();
     }
 
     /**

@@ -17,39 +17,42 @@
 
     that.updateBadge = updateBadge;
 
-
     /**
      * app event trigger
      * @param {string} type
-     * @param {boolean|string|object} data
+     * @param {string|function|object} data
      */
     function trigger(type, data) {
       if (isMacApp()) {
-        window.jandimac.trigger(type, data);
+        window.jandimac.trigger(type, _.isFunction(data) ? data() : data);
       }
     }
 
+    /**
+     * update badge
+     */
     function updateBadge() {
-      if (NotificationManager.hasNotificationAfterFocus()) {
-        console.log('has unfocused message :::', true);
-      } else {
-        console.log('has unfocused message :::', false);
-      }
+      trigger('updateBadge', function () {
+        var hasFocused = !NotificationManager.hasNotificationAfterFocus();
+        var totalBadgeCount = _getTotalBadgeCount();
 
-      console.log('total badge count ::: ', _getTotalBadgeCount());
+        return {
+          // badge 갱신시 focus 여부
+          hasFocused: hasFocused,
+          // 현재팀과 다른 팀의 총 badge 합
+          totalBadgeCount: totalBadgeCount
+        };
+      });
     }
 
+    /**
+     * 현재팀과 다른 팀의 총 badge 합을 전달함.
+     * @returns {*}
+     * @private
+     */
     function _getTotalBadgeCount() {
       return OtherTeamBadgeManager.getTotalBadgeCount() + NotificationManager.getTotalNotificationCount();
     }
-
-    //function _updateUnfocusedMessage() {
-    //  trigger('hasUnfocusedMessage', value);
-    //}
-    //
-    //function _updateBadgeCount() {
-    //  trigger('updateBadgeCount', value);
-    //}
 
     /**
      * Return true if 'jandimac' exists as a variable.

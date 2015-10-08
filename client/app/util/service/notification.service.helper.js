@@ -77,7 +77,7 @@
      * @private
      */
     function _increment(map, entity) {
-      map[entity.id] = map[entity.id] ? map[entity.id]++ : 1;
+      map[entity.id] = map[entity.id] ? ++map[entity.id] : 1;
     }
 
     /**
@@ -99,7 +99,7 @@
       var totalCount = 0 ;
 
       _.each(map, function(notification) {
-        totalCount += notification;
+        totalCount += (notification || 0);
       });
 
       return totalCount;
