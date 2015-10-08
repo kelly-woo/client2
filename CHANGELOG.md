@@ -1,3 +1,12 @@
+<a name"1.3.1"></a>
+### 1.3.1 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **center:** 초대 시스템 메세지 처리 누락 수정 ([6d5c625f](https://github.com/tosslab/web_client.git/commit/6d5c625f))
+
+
 <a name"1.3.0"></a>
 ## 1.3.0 (2015-10-07)
 
