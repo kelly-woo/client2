@@ -132,7 +132,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.hasOldMessageToLoad = true;
   _init();
 
-  var _testCounter = 0;
   /**
    * 생성자 함수
    * @private
@@ -144,6 +143,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeListeners();
     _reset();
     _initializeView();
+    _initializeFocusStatus();
+  }
+
+  /**
+   * 브라우저의 focus 상태를 초기화한다
+   * @private
+   */
+  function _initializeFocusStatus() {
+    if (document.hasFocus()) {
+      centerService.setBrowserFocus();
+    } else {
+      centerService.resetBrowserFocus();
+    }
   }
 
   /**
@@ -621,7 +633,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateUnreadBookmarkFlag(isSkipBookmark);
 
           //  marker 설정
-          updateMessageMarker();
+          if (!$scope.isInitialLoadingCompleted || _hasBrowserFocus()) {
+            updateMessageMarker();
+          }
           _getCurrentRoomInfo();
 
           // 추후 로딩을 위한 status 설정
@@ -926,7 +940,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           //console.log('::_onUpdateListSuccess', lastMessageId);
           jndPubSub.pub('onMessageDeleted');
           //  marker 설정
-          updateMessageMarker();
+          if (_hasBrowserFocus()) {
+            updateMessageMarker();
+          }
           _checkEntityMessageStatus();
         }
       }
@@ -989,7 +1005,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //  Updating message marker for current entity.
   function updateMessageMarker() {
-    //console.log('::updateMessageMarker', lastMessageId);
+    console.log('::updateMessageMarker', lastMessageId);
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
         memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
@@ -1257,6 +1273,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!entity || !entity.alarmCnt) return;
 
     entityAPIservice.updateBadgeValue(entity, '');
+    updateMessageMarker();
   }
 
 
