@@ -129,7 +129,7 @@
 
           setTimeout(function() {
             img.setAttribute('class', 'opac-in');
-          }, 50);
+          });
         }
 
         _show(jqImageContainer, displayProperty);
