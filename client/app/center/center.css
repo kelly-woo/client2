@@ -109,7 +109,7 @@ article {
   font-size: 12px;
   color: #192d3e;
   display: table;
-  padding: 5px 6px;
+  padding: 5px 12px;
   margin: 10px 0 10px 66px;
 }
 .msgs-group__divider-label {
@@ -157,7 +157,7 @@ article {
   left: 23px;
 }
 .msg-item-header {
-  padding: 1px 0 6px;
+  padding: 1px 0 10px;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.3rem;
@@ -231,7 +231,7 @@ article {
 
 .msg-item-body p {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
   color: #333333;
 }
@@ -256,8 +256,8 @@ article {
 }
 .msg-text-body {
   margin: 0;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 20px;
   color: #333333;
 }
 
@@ -378,7 +378,7 @@ by ysyun 2015.2.25
   font-size: 12px;
   line-height: 1.3rem;
   padding-left: 75px;
-  min-height: 50px !important;
+  min-height: 65px !important;
 }
 
 /*

@@ -5,13 +5,12 @@
     .module('jandiApp')
     .directive('rPanelSearch', rPanelSearch);
 
-  function rPanelSearch($timeout) {
+  function rPanelSearch($timeout, $filter, jndKeyCode, Dialog) {
     return {
       restrict: 'EA',
       scope: true,
       link: link,
       replace: true,
-
       templateUrl : 'app/right/rpanel_search/rpanel.search.html',
       controller: 'rPanelSearchCtrl'
     };
@@ -21,19 +20,40 @@
 
       element
         .find('#right-panel-search-box')
-        .on('keyup', function() {
-          var target = this;
+        .on('keyup', _onKeyDown)
+        .on('$destroy', _onDestroy);
 
-          $timeout.cancel(timerSearch);
+        /**
+       * key down event handler
+       * @param {object} event
+       * @private
+       */
+      function _onKeyDown(event) {
+        var target = this;
+        var which = event.which;
 
-          timerSearch = $timeout(function() {
-            scope.onFileTitleQueryEnter(target.value);
-          }, 500);
-        });
+        if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
+          Dialog.warning({
+            title: $filter('translate')('@search-minimum-query-length')
+          });
+        }
 
-      element.on('$destroy', function() {
-          $timeout.cancel(timerSearch);
-        });
+        $timeout.cancel(timerSearch);
+        timerSearch = $timeout(function() {
+          var value = target.value;
+          if (value === '' || value.length > 1) {
+            scope.onFileTitleQueryEnter(value);
+          }
+        }, 500);
+      }
+
+      /**
+       * element destroy event handler
+       * @private
+       */
+      function _onDestroy() {
+        $timeout.cancel(timerSearch);
+      }
     }
   }
 })();
