@@ -115,7 +115,7 @@
           _onImageLoadError();
         } else {
           _onImageLoadSuccess();
-          img.setAttribute('class', 'image-loader-image');
+          img.setAttribute('class', 'image-loader-image opac-zero');
 
           _resizeImage(img);
 
@@ -126,6 +126,10 @@
           jqImageContainer.empty();
 
           jqImageContainer.append(img);
+
+          setTimeout(function() {
+            img.setAttribute('class', 'opac-in');
+          }, 50);
         }
 
         _show(jqImageContainer, displayProperty);
