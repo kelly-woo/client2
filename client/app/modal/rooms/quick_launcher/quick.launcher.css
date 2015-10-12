@@ -1,3 +1,24 @@
-.modal-body .quick-launcher-list {
+.quick-launcher-modal .modal-dialog {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+}
+
+.quick-launcher-modal .modal-body {
+  padding: 0;
+}
+
+.quick-launcher-modal .quick-launcher-search-box .input-group-addon{
+  font-size: 20px;
+}
+
+.quick-launcher-modal .quick-launcher-search-box .form-control{
+  height: 50px;
+  font-size: 15px;
+}
+
+.quick-launcher-modal .quick-launcher-list {
   overflow-y: auto;
 }

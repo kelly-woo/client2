@@ -37,7 +37,7 @@
     }
 
     function getRooms() {
-      return [].concat(_getHadBadgeRooms(), _getResentWorkRooms());
+      return _.uniq([].concat(_getHadBadgeRooms(), _getResentWorkRooms()), 'id');
     }
 
     function _getHadBadgeRooms() {

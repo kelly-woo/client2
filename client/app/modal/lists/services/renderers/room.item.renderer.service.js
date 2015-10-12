@@ -27,12 +27,31 @@
      */
     function render(data) {
       return _template({
-        imageUrl: data.imageUrl,
+        html: {
+          roomTypeImage: _getRoomTypeImage(data)
+        },
         content: data.name,
         hasCount: _.isNumber(data.count) && data.count > 0,
         count: data.count,
-        itemHeight: 40
+        itemHeight: 50
       });
+    }
+
+    function _getRoomTypeImage(data) {
+      var roomTypeImage;
+      switch(data.type) {
+        case 'users':
+          roomTypeImage = '<img src="' + data.profileImage + '" />'
+          break;
+        case 'channels':
+          roomTypeImage = '<i class="icon-topic"></i>';
+          break;
+        case 'privategroups':
+          roomTypeImage = '<i class="icon-lock"></i>';
+          break;
+      }
+
+      return roomTypeImage
     }
   }
 })();

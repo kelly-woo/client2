@@ -1,6 +1,6 @@
 <div class="modal-body" quick-launcher-modal>
-  <div class="quick-launcher-search-box">
-    <span class="quick-launcher-addon"><i class="icon-search"></i></span>
+  <div class="quick-launcher-search-box input-group">
+    <span class="input-group-addon"><i class="icon-search"></i></span>
     <input class="form-control"
            id="quick-launcher-filter"
            type="text"
@@ -16,12 +16,13 @@
                    on-select="onRoomClick"
                    get-matches="getMatches"
                    activeted="true"
-                   item-height="44"
-                   viewport-height="400"
+                   item-height="50"
+                   viewport-height="200"
                    buffer-length="10"></list-on-modal>
   </div>
   <div class="quick-launcher-buttons">
-
+    <button>browse other topics</button>
+    <button>create a new topic</button>
   </div>
 </div>  <!-- END OF MODAL BODY  -->
 <div ng-if="false">

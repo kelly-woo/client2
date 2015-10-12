@@ -1,7 +1,9 @@
 <div class="room-item" style="height: {{itemHeight}}px;">
-  <img class="room-image" src="{{imageUrl}}"/>
-  <span class="room-name inline-overflow-ellipsis">{{{content}}}</span>
+  <div class="room-type-content">
+    {{{html.roomTypeImage}}}
+  </div>
+  <span class="room-name inline-overflow-ellipsis pull-left">{{{content}}}</span>
   {{#if hasCount}}
-    <span class="badge-count">{{count}}</span>
+    <span class="badge red_badge pull-right">{{count}}</span>
   {{/if}}
 </div>

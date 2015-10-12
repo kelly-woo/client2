@@ -405,7 +405,7 @@
       var modalOption = {
         templateUrl: 'app/modal/rooms/quick_launcher/quick.launcher.html',
         controller: 'QuickLauncherCtrl',
-        windowClass: 'quick_launcher'
+        windowClass: 'quick-launcher-modal'
       };
       modal = _modalOpener(modalOption);
     }

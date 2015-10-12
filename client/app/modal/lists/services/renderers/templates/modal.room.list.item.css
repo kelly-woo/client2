@@ -1,0 +1,25 @@
+/*<div class="room-item" style="height: {{itemHeight}}px;">*/
+/*<img class="room-image" src="{{imageUrl}}"/>*/
+/*<span class="room-name inline-overflow-ellipsis">{{{content}}}</span>*/
+                                                                /*{{#if hasCount}}*/
+/*<span class="badge-count">{{count}}</span>*/
+                                     /*{{/if}}*/
+/*</div>*/
+
+.quick-launcher-modal .room-item {
+  width: 100%;
+}
+
+.quick-launcher-modal .room-item .room-image {
+
+}
+
+.quick-launcher-modal .room-item .room-name {
+  width: 100%;
+}
+
+.quick-launcher-modal .room-item .badge {
+  margin-top: 5px;
+  color: white !important;
+  max-width: 22%;
+}
