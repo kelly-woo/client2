@@ -20,6 +20,9 @@
 
     var currentEntityId;
 
+    var HISTORY_LENGTH = 3;
+    var historyQueue = [];
+
 
     this.preventChatWithMyself  = preventChatWithMyself;
     this.isIE9  = isIE9;
@@ -42,6 +45,10 @@
     this.isElapsed = isElapsed;
 
     this.getLastReadMessageMarker = getLastReadMessageMarker;
+
+    this.getHistory = getHistory;
+    this.setHistory = setHistory
+
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
      * If user is trying to reach himself, re-direct user back to default topic.
@@ -189,6 +196,29 @@
      */
     function getLastReadMessageMarker(entityId) {
       return memberService.getLastReadMessageMarker(entityId);
+    }
+
+    /**
+     * center에 출력된 토픽의 entity type과 entity id를 기록한다.
+     * @param {string} entityType
+     * @param {number} entityId
+     */
+    function setHistory(entityType, entityId) {
+      if (entityType === 'channels' || entityType === 'privategroups') {
+        historyQueue.length >= HISTORY_LENGTH && historyQueue.shift();
+        historyQueue.push({
+          entityType: entityType,
+          entityId: entityId
+        });
+      }
+    }
+
+    /**
+     * center에 출력된 토픽의 entity type과 entity id의 기록을 전달한다.
+     * @returns {Array}
+     */
+    function getHistory() {
+      return historyQueue;
     }
   }
 })();

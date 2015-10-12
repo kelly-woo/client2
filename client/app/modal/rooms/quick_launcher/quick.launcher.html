@@ -1,0 +1,29 @@
+<div class="modal-body" quick-launcher-modal>
+  <div class="quick-launcher-search-box">
+    <span class="quick-launcher-addon"><i class="icon-search"></i></span>
+    <input class="form-control"
+           id="quick-launcher-filter"
+           type="text"
+           jnd-input-model="roomNameQuery"
+           placeholder="{{ '@input-search-user-name' | translate }}">
+  </div>
+  <div class="quick-launcher-list cursor_pointer">
+    <list-on-modal list="roomList"
+                   item-type="room"
+                   item-class="room-item"
+                   model="roomNameQuery"
+                   filter="#quick-launcher-filter"
+                   on-select="onRoomClick"
+                   get-matches="getMatches"
+                   activeted="true"
+                   item-height="44"
+                   viewport-height="400"
+                   buffer-length="10"></list-on-modal>
+  </div>
+  <div class="quick-launcher-buttons">
+
+  </div>
+</div>  <!-- END OF MODAL BODY  -->
+<div ng-if="false">
+  <span translate></span>
+</div>

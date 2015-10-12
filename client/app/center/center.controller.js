@@ -144,6 +144,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeListeners();
     _reset();
     _initializeView();
+
+    centerService.setHistory(entityType, entityId);
   }
 
   /**

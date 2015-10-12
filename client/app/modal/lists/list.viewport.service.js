@@ -171,7 +171,10 @@
       }
       that.jqList.empty().css('height', options.listHeight);
 
-      options.viewportHeight = options.listHeight > options.viewportMaxHeight ? options.viewportMaxHeight : options.listHeight;
+      if (!options.viewportHeight > 0) {
+        options.viewportHeight = options.listHeight > options.viewportMaxHeight ? options.viewportMaxHeight : options.listHeight;
+      }
+
       that.jqViewport.css('height', options.viewportHeight);
 
       // list 갱신시 이전에 생성된 dom element는 삭제한다.

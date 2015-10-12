@@ -49,6 +49,8 @@
     that.openAgreementModal = openAgreementModal;
     that.openPrivacyModal = openPrivacyModal;
 
+    that.openQuickLauncherModal = openQuickLauncherModal;
+
     that.closeModal = closeModal;
 
     /**
@@ -393,6 +395,18 @@
         size: 'lg'
       };
 
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * quick launcher 모달창을 연다.
+     */
+    function openQuickLauncherModal() {
+      var modalOption = {
+        templateUrl: 'app/modal/rooms/quick_launcher/quick.launcher.html',
+        controller: 'QuickLauncherCtrl',
+        windowClass: 'quick_launcher'
+      };
       modal = _modalOpener(modalOption);
     }
 

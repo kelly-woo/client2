@@ -38,6 +38,9 @@
       // item select callback
       var onSelect = scope.$eval(attrs.onSelect);
 
+      // viewport의 height
+      var height = parseInt(attrs.viewportHeight, 10);
+
       // viewport의 최대 height
       var maxHeight = parseInt(attrs.viewportMaxHeight || $(window).height() / 2, 10);
 
@@ -57,6 +60,7 @@
       var jqList = $('<div class="list"></div>').appendTo(jqViewport);
       
       var viewport = Viewport.create(jqViewport, jqList, {
+        viewportHeight: height,
         viewportMaxHeight: maxHeight,
         itemHeight: itemHeight,
         bufferLength: bufferLength,

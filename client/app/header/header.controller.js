@@ -276,5 +276,9 @@
     function _getIsOpenRightPanel() {
       return /files|messages|stars|mentions/.test($state.current.url);
     }
+
+    $scope.openQuickLauncher = function() {
+      modalHelper.openQuickLauncherModal();
+    };
   }
 })();
