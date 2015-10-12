@@ -232,7 +232,7 @@
         if (entity.folderId === folderId) {
           tempEntity = EntityMapManager.get('total', entity.roomId);
           if (tempEntity) {
-            tempEntity.extIsCurrent = (+tempEntity.id === +currentEntity.id);
+            tempEntity.extIsCurrent = (+tempEntity.id === +(currentEntity && currentEntity.id));
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
             entityList.push(tempEntity);
