@@ -1,3 +1,12 @@
+<a name"1.3.4"></a>
+### 1.3.4 (2015-10-12)
+
+
+#### Bug Fixes
+
+* **center:** {{{ 문자 }}} 일 경우 흰 화면 노출되는 현상 수정 ([a75c7a15](https://github.com/tosslab/web_client.git/commit/a75c7a15))
+
+
 <a name"1.3.3"></a>
 ### 1.3.3 (2015-10-08)
 
