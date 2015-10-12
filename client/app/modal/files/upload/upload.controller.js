@@ -91,8 +91,8 @@
       
           // progress bar 초기화
           $rootScope.curUpload = {};
-          $rootScope.curUpload.lFileIndex = !!fileUploader.lastProgressIndex;
-          $rootScope.curUpload.cFileIndex = !!fileUploader.currentProgressIndex;
+          $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
+          $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
           $rootScope.curUpload.title = file.name;
           $rootScope.curUpload.progress = 0;
           $rootScope.curUpload.status = 'initiate';
@@ -103,14 +103,16 @@
       
           // set transition
           _setProgressBarStyle('progress');
-      
-          // progress bar의 상태 변경
-          $rootScope.curUpload = {};
-          $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
-          $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
-          $rootScope.curUpload.title = file.name;
-          $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-          $rootScope.curUpload.status = 'uploading';
+
+          if (!$rootScope.curUpload.isAborted) {
+            // progress bar의 상태 변경
+            $rootScope.curUpload = {};
+            $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
+            $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
+            $rootScope.curUpload.title = file.name;
+            $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+            $rootScope.curUpload.status = 'uploading';
+          }
         },
         // 하나의 file upload 완료
         onSuccess: function(response, index, length) {
@@ -178,14 +180,20 @@
           }
       
           _setProgressBarStyle('error', index, length);
-      
-          $rootScope.curUpload.status = 'error';
+
+          $rootScope.curUpload.status = $rootScope.curUpload.isAborted ? 'abort' : 'error';
           $rootScope.curUpload.hasError = true;
           $rootScope.curUpload.progress = 0;
         },
         // upload confirm end
-        onConfirmEnd: function() {
+        onConfirmEnd: function(index, length) {
           modalHelper.closeModal();
+
+          if (index === length && $rootScope.curUpload.status === 'done') {
+            // 마지막 file upload confirm이 진행 되었고, 더이상 upload를 진행하지 않음
+
+            fileUplodOptions.onEnd();
+          }
         },
         // upload sequence end
         onEnd: fileUplodOptions.onEnd
@@ -203,8 +211,6 @@
         fileAPIservice.clearUploader();
         fileAPIservice.clearCurUpload();
       }
-
-      delete $rootScope.fileUploader;
     }
 
     /**
