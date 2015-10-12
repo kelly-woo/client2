@@ -87,7 +87,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
 
         if (centerService.isScrollBottom()) {
-          jndPubSub.pub('center:scrollToBottom', 200);
+          jndPubSub.pub('center:scrollToBottom');
         }
       }
     }
