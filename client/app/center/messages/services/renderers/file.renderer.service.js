@@ -188,7 +188,7 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
-      console.log(msg);
+      
       var isArchived = (msg.message.status === 'archived');
       var hasPreview = $filter('hasPreview')(content);
       var icon = $filter('fileIcon')(content);
