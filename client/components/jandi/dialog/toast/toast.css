@@ -32,7 +32,7 @@
   flex: auto;
 }
 
-#toast-container .toast > i {
+#toast-container .toast > i.status {
   position: absolute;
   top: 14px;
   left: 16px;
@@ -72,13 +72,16 @@
   font-weight: 600;
 }
 #toast-container .toast-message {
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 600;
 }
 #toast-container .c-toast-warning {
   color: #000;
 }
 
 #toast-container .toast-close-button {
-  top: 2px;
-  left: 12px;
+  position: absolute;
+  top: 20px;
+  right: 13px;
+  font-size: 12px;
 }

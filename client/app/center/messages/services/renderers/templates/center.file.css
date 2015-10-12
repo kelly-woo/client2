@@ -1,3 +1,17 @@
+.msg-file .msg-file-meta {
+  margin-top: 10px;
+  min-height: 50px !important;
+}
+
+.medium-thumbnail > div[image-loader] {
+  width: 360px;
+  height: 270px;
+}
+
+.medium-thumbnail.medium-thumbnail-wrapper {
+  margin-top: 10px;
+}
+
 .file-action {
   line-height: 16px !important;
   font-size: 16px;
@@ -7,6 +21,13 @@
 .file-action:hover {
   color: #154a67;
   text-decoration: none !important;
+}
+
+.msg-file-meta-up .preview-icon {
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 18px;
+  color: #575757;
 }
 
 .msg-file-meta-down {
@@ -35,4 +56,11 @@
 
 .file-uploaded-extra {
   margin-right: 20px;
+}
+
+.preview-container .no-image-preview {
+  background-repeat: no-repeat;
+  background-size: 360px 150px;
+  background-position: 0 60px;
+  cursor: default;
 }

@@ -9,13 +9,18 @@
     .service('jndWebSocketLinkPreview', jndWebSocketLinkPreview);
 
   /* @ngInject */
-  function jndWebSocketLinkPreview(config, jndPubSub) {
+  function jndWebSocketLinkPreview(config, jndPubSub, $timeout) {
     // link_preview_created
     var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
+    var MESSAGE_PREVIEW_IMAGE = 'link_preview_image';
     var events = [
       {
         name: MESSAGE_PREVIEW,
         handler: _onLinkPreview
+      },
+      {
+        name: MESSAGE_PREVIEW_IMAGE,
+        handler: _onLinkPreviewImage
       }
     ];
 
@@ -26,6 +31,10 @@
 
     function _onLinkPreview(data) {
       jndPubSub.attachMessagePreview(data);
+    }
+
+    function _onLinkPreviewImage(data) {
+      jndPubSub.attachMessagePreviewThumbnail(data);
     }
   }
 })();

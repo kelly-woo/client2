@@ -111,7 +111,7 @@
           return item.name.toLowerCase().indexOf(value) > -1 && item.selected === false;
         })
         .sortBy(function (item) {
-          return [!item.isStarred, item.name];
+          return [!item.isStarred, item.name.toLowerCase()];
         })
         .value();
     }
@@ -135,7 +135,7 @@
       fn(member);
 
       _setAllMembersStatus();
-      _focusInput();
+      _setFilterStatus();
       _updateMemberList();
     }
 
@@ -255,7 +255,7 @@
       });
 
       _setAllMembersStatus($scope.hasAllMembers);
-      _focusInput();
+      _setFilterStatus();
       _updateMemberList();
     }
   
@@ -268,11 +268,20 @@
     }
 
     /**
-     * input filter에 focus
+     * filter의 상태를 설정함.
      */
-    function _focusInput() {
+    function _setFilterStatus() {
+      var jqMemberFilter = $('#invite-member-filter');
+
+      if ($scope.selectingMembers.length === 1) {
+        // 걸러진 모든 member가 선택됨
+
+        // filter의 값을 공백으로 초기화 하여 걸러지지 않은 모든 member를 출력하도록 한다.
+        jqMemberFilter.val('');
+      }
+
       $timeout(function() {
-        $('#invite-member-filter').focus();
+        jqMemberFilter.focus();
       });
     }
 

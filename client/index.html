@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="app/app.css">
   <!-- injector:css -->
   <link rel="stylesheet" href="app/app.css">
+  <link rel="stylesheet" href="app/background/background.css">
   <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
   <link rel="stylesheet" href="app/center/announcement/announcement.css">
   <link rel="stylesheet" href="app/center/center.css">
@@ -64,6 +65,7 @@
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
   <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
+  <link rel="stylesheet" href="app/modal/teams/team_invite/invite_emails/invite.emails.css">
   <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
   <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
   <link rel="stylesheet" href="app/modal/terms/terms.css">
@@ -117,12 +119,12 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body active-notifier window-title-manager>
+<body active-notifier window-title-manager jnd-main-key-handler>
 <!--[if lte IE 9]>
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
-
 <div class="content-wrapper opac-in-fast">
+  <background></background>
   <div class="body-wrapper full-screen">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
@@ -152,7 +154,9 @@
     <jnd-tooltip></jnd-tooltip>
     <tutorial-welcome></tutorial-welcome>
   </div>
-  <div ng-if="!isReady" class="full-screen z-index-top"></div>
+  <div ng-if="!isReady" class="full-screen z-index-top">
+
+  </div>
 </div>
 
 <!--<div class="is-ready-loading" ng-show="!isReady">-->
@@ -246,6 +250,7 @@
 <script src="app/util/directive/animate.text.directive.js"></script>
 <script src="app/util/directive/jnd.elastic.directive.js"></script>
 <script src="app/util/directive/jnd.ignore.braces.js"></script>
+<script src="app/util/directive/jnd.main.key.handler.directive.js"></script>
 <script src="app/util/directive/jnd.tooltip.directive.js"></script>
 <script src="app/util/directive/jnd.tooltip.trigger.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
@@ -289,6 +294,7 @@
 <script src="app/util/service/unread.badge.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
+<script src="app/background/background.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.controller.js"></script>
 <script src="app/banner/desktop.notification.banner.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.service.js"></script>
@@ -384,9 +390,9 @@
 <script src="app/modal/password/password.reset.request.controller.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
 <script src="app/modal/teams/team_change/team.change.controller.js"></script>
+<script src="app/modal/teams/team_invite/invite_emails/invite.emails.directive.js"></script>
 <script src="app/modal/teams/team_invite/team.invite.controller.js"></script>
 <script src="app/modal/teams/team_invite/team.invite.directive.js"></script>
-<script src="app/modal/teams/team_invite/team.invite.service.js"></script>
 <script src="app/modal/teams/team_member_list/team.member.list.controller.js"></script>
 <script src="app/modal/topics/topic_create/topic.create.controller.js"></script>
 <script src="app/modal/topics/topic_invite/topic.invite.controller.js"></script>
@@ -513,6 +519,7 @@
 <script src="components/app/notification/service/file.share.notification.js"></script>
 <script src="components/app/notification/service/notification.util.service.js"></script>
 <script src="components/app/notification/service/other.team.notification.js"></script>
+<script src="components/app/notification/service/topic.invited.notification.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/router/router.helper.js"></script>
 <script src="components/app/router/router.service.js"></script>

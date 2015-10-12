@@ -1,11 +1,13 @@
 <div class="file-card">
   <div class="file-card-header">
-    <div class="file-image">
-      <div class="image_wrapper pull-left msg-file-body__img__background" ng-if="::file.hasPreview">
-        <div class="opac-zero cursor-pointer msg-file-body__img" image-loader="{{::file.imageUrl}}" image-max-height="63" image-max-width="63" image-is-square="true"
-             ui-sref="files({userName: writerName, itemId: file.id})"></div>
+    <div class="file-image cursor-pointer msg-file-body__img msg-file-body__img__background pull-left">
+      <div ng-if="file.mustPreview" class="image_wrapper">
+        <div ng-if="file.hasPreview" class="opac-zero" image-loader="{{::file.imageUrl}}" image-max-height="63" image-max-width="63" image-is-square="true"
+             ui-sref="files({userName: writerName, itemId: file.id})">
+        </div>
+        <div ng-if="!file.hasPreview" class="loading-bar-container" ng-bind-html="loadingBar"></div>
       </div>
-      <div class="icon-wrapper pull-left" ng-if="::!file.hasPreview">
+      <div ng-if="!file.mustPreview" class="icon-wrapper">
         <div class="fileicon fileicon-{{::file.icon}}"></div>
       </div>
     </div>

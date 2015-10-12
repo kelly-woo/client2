@@ -6,7 +6,7 @@
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice,
+  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice, TopicInvitedNotification,
                                memberService, currentSessionHelper, DesktopNotification, FileShareDesktopNotification) {
 
     var MESSAGE = 'message';
@@ -82,6 +82,10 @@
           break;
         case 'message_delete':
           _onTopicMessageDelete(data);
+          break;
+        case 'topic_invite':
+          _onTopicInvited(data);
+          _onNewMessage(data);
           break;
         case 'new_message':
         default:
@@ -180,6 +184,19 @@
       }
 
       _updateRight(data);
+    }
+
+    /**
+     * 누군가가 누군가를 토픽에 초대했을 경우 발생된다.
+     * @param {object} socketEvent - socket event parameter
+     * @private
+     */
+    function _onTopicInvited(socketEvent) {
+      if (jndWebSocketCommon.hasMyId(socketEvent.inviter)) {
+        if (_shouldSendNotification(socketEvent)) {
+          TopicInvitedNotification.addNotification(socketEvent);
+        }
+      }
     }
 
     /**
@@ -378,5 +395,6 @@
       }
       return returnVal;
     }
+
   }
 })();

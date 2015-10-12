@@ -8,9 +8,9 @@
 
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, accountService, HybridAppHelper,
-                      memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
+                      memberService, publicService, centerService, language,
+                      modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
+                      AnalyticsHelper, Router, OtherTeamBadgeManager) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -233,21 +233,15 @@
 
         $state.go('messages.detail.' + type);
       }
-    };
+    }
 
     /**
      * right panel의 scoll을 bottom으로 이동함.
      * @private
      */
     function _autoScroll() {
-      var viewport = $('.msgs');
-      var content = $('.msgs-holder');
-
-      // scroll to bottom
-      if (viewport.scrollTop() + viewport.height() >= content.height()) {
-        setTimeout(function() {
-          viewport.animate({scrollTop: content.height()}, 200);
-        });
+      if (centerService.isScrollBottom()) {
+        jndPubSub.pub('center:scrollToBottom');
       }
     }
 

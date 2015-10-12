@@ -63,7 +63,7 @@
           return item.name.toLowerCase().indexOf(value) > -1;
         })
         .sortBy(function (item) {
-          return [!item.isStarred, item.name];
+          return [!item.isStarred, item.name.toLowerCase()];
         })
         .value();
 
