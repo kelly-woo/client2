@@ -241,7 +241,7 @@
      */
     function _autoScroll() {
       if (centerService.isScrollBottom()) {
-        jndPubSub.pub('center:scrollToBottom', 500);
+        jndPubSub.pub('center:scrollToBottom');
       }
     }
 
