@@ -14,15 +14,33 @@
   </div>
 
   <div class="team-list-container" ng-show="isListReady">
-    <div class="email-box cursor_pointer" ng-repeat="team in teamList">
+    <div ng-if="!emptyTeamList" class="email-box cursor_pointer" ng-repeat="team in teamList">
       <a ng-href="{{::configuration.base_protocol}}{{::team.t_domain}}{{::configuration.base_url}}">
         <span class="team-name inline-overflow-ellipsis">{{ ::team.name }}</span>
         <span class="badge red_badge pull-right" ng-if="::(team.unread > 0)">{{::team.unread}}</span>
       </a>
     </div>
+
+
+    <div ng-if="emptyTeamList" class="jnd-text-center">
+      <div class="empty-team-list-title">
+        <span translate>@only-one-team</span>
+      </div>
+
+      <div class="empty-team-list-body">
+        <span translate>@team-create-info-help-msg</span>
+      </div>
+
+    </div>
   </div>
 </div>
 
 <div class="modal-footer">
-  <span class="btn btn-white" ng-click="onModalClose();" translate>@btn-cancel</span>
+  <span ng-if="!emptyTeamList" class="btn btn-white" ng-click="onModalClose();" translate>@btn-cancel</span>
+
+  <div ng-if="emptyTeamList"class="empty-team-list-button jnd-text-center">
+    <div class="help-messages__button btn btn-ok" ng-click="redirectToMain();">
+      <span translate>@common-create-team</span>
+    </div>
+  </div>
 </div>
