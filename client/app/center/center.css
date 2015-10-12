@@ -278,7 +278,7 @@ article {
 	opacity: 0.3 !important;
 }
 .msg-file.unshared a:hover {
-	cursor: not-allowed !important;
+	/*cursor: not-allowed !important;*/
 }
 .msg-file.unshared .msg-file-meta-down {
 	display: none;

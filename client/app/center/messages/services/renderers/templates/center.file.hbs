@@ -22,7 +22,7 @@
 
   <div class="msg-item-body">
     <!-- FILE -->
-    <div class="msg-file">
+    <div class="msg-file {{css.unshared}}">
 
       <!--  FILE PREVIEW IMAGE  -->
       <div class="preview-container">
@@ -36,35 +36,40 @@
         </div>
         {{else}}
         <div>
-          {{#if file.mustPreview }}
-          <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
-          <div class="jnd-text-center _compile _fileMediumThumb">
-            {{#if file.hasPreview}}
-              <div class="medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand">
-                <div class="opac-zero" image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true"></div>
+            {{#if file.hasPermission}}
+              {{#if file.mustPreview }}
+              <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
+              <div class="jnd-text-center _compile _fileMediumThumb">
+                {{#if file.hasPreview}}
+                  <div class="medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand">
+                    <div class="opac-zero" image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true"></div>
+                  </div>
+                {{else}}
+                  <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer">
+                    {{{file.loading}}}
+                  </div>
+                {{/if}}
               </div>
             {{else}}
-              <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer">
-                {{{file.loading}}}
-              </div>
+              {{#if file.isImageIcon}}
+                <!--    FILE TYPE THUMBNAIL -->
+                <div class="msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer _fileExpand">
+                  <div class="fileicon fileicon-{{ file.icon }}" ></div>
+                </div>
+              {{else}}
+                <!--    FILE TYPE THUMBNAIL -->
+                <div class="msg-file-body__thumbnail msg-file-body-float pull-left">
+                  <div class="fileicon fileicon-{{ file.icon }}" ></div>
+                </div>
+              {{/if}}
             {{/if}}
-          </div>
           {{else}}
-            {{#if file.isImageIcon}}
-              <!--    FILE TYPE THUMBNAIL -->
-              <div class="msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer _fileExpand">
-                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              <div class="msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer">
+                <div class="fileicon fileicon-unshared" ></div>
               </div>
-            {{else}}
-              <!--    FILE TYPE THUMBNAIL -->
-              <div class="msg-file-body__thumbnail msg-file-body-float pull-left">
-                <div class="fileicon fileicon-{{ file.icon }}" ></div>
-              </div>
-            {{/if}}
           {{/if}}
-        </div>
-        {{/if}}
       </div>
+      {{/if}}
 
       <!--  FILE INFO -->
       <div class="msg-file-meta">
@@ -129,7 +134,6 @@
       </div>
       {{/unless}}
     </div>
-
+    </div>
   </div>
 </div>
-

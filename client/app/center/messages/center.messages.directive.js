@@ -60,6 +60,19 @@
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
         scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
+        scope.$on('fileShared', _onFileShareStatusChange);
+        scope.$on('fileUnshared', _onFileShareStatusChange);
+      }
+
+      /**
+       * file 공유 상태 변경시 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} data
+       *    @param {object} data.file
+       * @private
+       */
+      function _onFileShareStatusChange(angularEvent, data) {
+        _onFileUpdated(angularEvent, data.file);
       }
 
       /**
@@ -71,7 +84,7 @@
       function _onFileUpdated(angularEvent, file) {
         var fileId = file.id;
         fileAPIservice.getFileDetail(fileId)
-          .success(function() {
+          .success(function(response) {
             var shareEntities;
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
