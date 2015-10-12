@@ -51,16 +51,17 @@
      */
     function _getContent(message) {
       var content = message.contentBody;
-
-      if (message.mentions && message.mentions.length > 0) {
-        // mentions가 존재한다면 mentions parse하여 content 설정
-        content = $filter('mention')(content, message.mentions, false);
-        content = $filter('parseAnchor')(content);
-        content = $filter('mentionHtmlDecode')(content);
-      } else {
-        content = $filter('parseAnchor')(content);
+      if (content) {
+        if (message.mentions && message.mentions.length > 0) {
+          // mentions가 존재한다면 mentions parse하여 content 설정
+          content = $filter('mention')(content, message.mentions, false);
+          content = $filter('parseAnchor')(content);
+          content = $filter('mentionHtmlDecode')(content);
+        } else {
+          content = $filter('parseAnchor')(content);
+        }
+        content = $filter('markdown')(content);
       }
-      content = $filter('markdown')(content);
       return content;
     }
 
