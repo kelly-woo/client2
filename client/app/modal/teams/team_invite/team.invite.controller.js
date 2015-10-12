@@ -9,7 +9,9 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper, jndPubSub) {
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration,
+                          memberService, publicService, currentSessionHelper, jndPubSub,
+                          teamAPIservice, Dialog, analyticsService) {
     var currentTeamAdmin;
 
     _init();

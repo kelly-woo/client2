@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     nggettext_compile: 'grunt-angular-gettext',
     replace: 'grunt-replace',
     wiredep: 'grunt-wiredep',
-    changelog: 'grunt-conventional-changelog',
+    conventionalChangelog: 'grunt-conventional-changelog',
     bump: 'grunt-bump'
   });
 
@@ -740,11 +740,20 @@ module.exports = function (grunt) {
       }
     },
 
-    changelog: {
+    conventionalChangelog: {
       options: {
-        // Task-specific options go here.
-        repository: 'https://github.com/tosslab/web_client.git',
-        version: '<%=pkg.version%>'
+        changelogOpts: {
+          // conventional-changelog options go here
+          preset: 'angular'
+        },
+        context: {
+          // Task-specific options go here.
+          repository: 'https://github.com/tosslab/web_client.git',
+          version: '<%=pkg.version%>'
+        }
+      },
+      release: {
+        src: 'CHANGELOG.md'
       }
     },
 
@@ -966,7 +975,7 @@ module.exports = function (grunt) {
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
     grunt.config.set('bump.options.createTag', true);
-    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'changelog', 'bump::commit-only']);
+    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
   });
 
   grunt.registerTask('build-markup', function(target) {
