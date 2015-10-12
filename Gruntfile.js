@@ -806,7 +806,6 @@ module.exports = function (grunt) {
       ]);
     } else {
       var serveTasks = [
-        'initLocalTeam',
         'replace:local',
         'clean:server',
         'env:all',
