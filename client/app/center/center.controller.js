@@ -1014,7 +1014,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //  Updating message marker for current entity.
   function updateMessageMarker() {
-    console.log('::updateMessageMarker', lastMessageId);
+    //console.log('::updateMessageMarker', lastMessageId);
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
         memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
