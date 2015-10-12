@@ -9,7 +9,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
-                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil) {
+                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
+                                                 HybridAppHelper) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -397,6 +398,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _clearBadgeCount($scope.currentEntity);
     }
     NotificationManager.resetNotificationCountOnFocus();
+
+    // update hybrid app badge
+    HybridAppHelper.updateBadge();
   }
 
   /**
