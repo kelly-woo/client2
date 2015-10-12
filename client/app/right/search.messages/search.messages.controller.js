@@ -127,9 +127,9 @@
      * advanced search option 중 'Shared in'/ 을 변경하는 부분.
      */
     function _onCurrentEntityChanged(event, currentEntity) {
-      if (_isActivated) {
-        _setMessageLocation(currentEntity);
+      _setMessageLocation(currentEntity);
 
+      if (_isActivated) {
         if (_isEntityChangeAtLeft) {
           // search keyword reset
           _resetSearchStatusKeyword();
@@ -444,6 +444,7 @@
      */
     function _setMessageLocation(entity) {
       $scope.messageLocation = entity;
+      $scope.searchQuery.entityId = !!entity ? entity.id : '';
     }
 
     /**
