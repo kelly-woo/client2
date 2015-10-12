@@ -16,6 +16,12 @@
 .modal-body-type-container {
   line-height: 22px;
 }
+.modal-body-type-container.alert-danger {
+  margin-top:5px;
+  padding:8px 14px;
+  border: 1px solid #ebccd1 !important;
+  border-radius: 3px;
+}
 .entity-type-title {
   padding-right: 0;
 }

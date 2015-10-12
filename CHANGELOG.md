@@ -1,3 +1,88 @@
+<a name"1.3.0"></a>
+## 1.3.0 (2015-10-07)
+
+
+#### Bug Fixes
+
+* **desktop.banner:** Change class name from 'icon-cancel' to 'icon-delete'   - #JND-3639 #resolve ([f65c1221](https://github.com/tosslab/web_client.git/commit/f65c1221))
+* **font:** fix url ([367c5582](https://github.com/tosslab/web_client.git/commit/367c5582))
+* **invited.notification:** Fix korean L10N. ([5c1c77a9](https://github.com/tosslab/web_client.git/commit/5c1c77a9))
+* **l10n:** Display different message for public/private topic invitation. ([97a8888e](https://github.com/tosslab/web_client.git/commit/97a8888e))
+* **link.preview.thumbnail:** Fix minor issue with loading wheel. ([6d5d8a3d](https://github.com/tosslab/web_client.git/commit/6d5d8a3d))
+* **modal:**
+  * 팀 초대 모달의 email 구분 정규식 수정 ([9eda3f61](https://github.com/tosslab/web_client.git/commit/9eda3f61))
+  * 팀 초대 모달의 email 구분 정규식 수정 ([ec70763c](https://github.com/tosslab/web_client.git/commit/ec70763c))
+  * 팀 초대 email 전송에 모두 실패 하였을때 다음 순서로 넘어가지 않고 error toast 출력하도록 수정 ([ef8a33b8](https://github.com/tosslab/web_client.git/commit/ef8a33b8))
+  * 팀 초대 모달의 style 수정 ([9e2d7bc4](https://github.com/tosslab/web_client.git/commit/9e2d7bc4))
+  * 팀 초대 모달의 style 수정 ([611f41e5](https://github.com/tosslab/web_client.git/commit/611f41e5))
+  * remove console.log ([260baed3](https://github.com/tosslab/web_client.git/commit/260baed3))
+  * 팀 초대 모달의 style 수정 ([b8346091](https://github.com/tosslab/web_client.git/commit/b8346091))
+  * fix team invite L10N ([418ffa87](https://github.com/tosslab/web_client.git/commit/418ffa87))
+  * fix team invite L10N ([41b23eec](https://github.com/tosslab/web_client.git/commit/41b23eec))
+  * fix team invite L10N ([eaa20b99](https://github.com/tosslab/web_client.git/commit/eaa20b99))
+  * team invite modal bak ([930ccb5b](https://github.com/tosslab/web_client.git/commit/930ccb5b))
+  * team invite modal   - email split 정규식에 스페이스, 탭, 폼피드, 줄 바꿈 문자등을 포함한 하나의 공백 문자를 포함 ([4145442f](https://github.com/tosslab/web_client.git/commit/4145442f))
+  * team invite modal   - 클릭보드에 복사 제공하지 않는 browser에서는 text copy 편하게 하도록 UI/UX수정 ([95bad26f](https://github.com/tosslab/web_client.git/commit/95bad26f))
+  * team invite bak ([e7b8ee70](https://github.com/tosslab/web_client.git/commit/e7b8ee70))
+  * team invite bak ([c5abc026](https://github.com/tosslab/web_client.git/commit/c5abc026))
+  * team invite bak ([bf5fe796](https://github.com/tosslab/web_client.git/commit/bf5fe796))
+  * team invitation bak ([df2be48a](https://github.com/tosslab/web_client.git/commit/df2be48a))
+* **notification:** Extend duration of desktop notification.   - #JND-3637 #resolve ([edd37ac6](https://github.com/tosslab/web_client.git/commit/edd37ac6))
+* **right:**
+  * 한글자 검색 불가능하도록 수정 & message tab 검색 정책 변경사항 반영  - 검색의 마지막을 표시하는 image가 검색어 삭제 후에도  ([33c4afcb](https://github.com/tosslab/web_client.git/commit/33c4afcb))
+  * 한글자 검색 불가능하도록 수정 & message tab 검색 정책 변경사항 반영 ([ef945c86](https://github.com/tosslab/web_client.git/commit/ef945c86))
+* **topic.invitation.notification:** Finish first draft. ([1899761e](https://github.com/tosslab/web_client.git/commit/1899761e))
+* **topic.invited.notification:**
+  * Fix notification sentence. ([bb5cd0c2](https://github.com/tosslab/web_client.git/commit/bb5cd0c2))
+  * Show notification message when there is no room name. ([8d97c5d2](https://github.com/tosslab/web_client.git/commit/8d97c5d2))
+* **tutorial:** 초대 모달 스타일 변경 대응 ([dabd2706](https://github.com/tosslab/web_client.git/commit/dabd2706))
+
+
+<a name"1.2.5"></a>
+### 1.2.5 (2015-10-07)
+
+
+#### Bug Fixes
+
+* **config:** 웹소켓 장애 긴급 대응으로 인해 웹소켓 주소 변경   - https://ws.jandi.com --> https://ws0.jandi.com/ ([548edd1a](https://github.com/tosslab/web_client.git/commit/548edd1a))
+
+
+<a name"1.2.4"></a>
+### 1.2.4 (2015-10-05)
+
+
+#### Bug Fixes
+
+* **modal:** 팀 초대 링크 복사를 제공할 수 없는 Browser에 한하여 복사 버튼 보이지 않도록 수정 ([e36db3d7](https://github.com/tosslab/web_client.git/commit/e36db3d7))
+
+
+<a name"1.2.3"></a>
+### 1.2.3 (2015-10-02)
+
+
+#### Bug Fixes
+
+* **center:** fix message braces ([0ca210ea](https://github.com/tosslab/web_client.git/commit/0ca210ea))
+
+
+<a name"1.2.2"></a>
+### 1.2.2 (2015-10-01)
+
+
+#### Bug Fixes
+
+* **modal:** 파일 업로드 취소시(esc key를 사용) file uploader object 살아 있는 버그 수정 ([43692a25](https://github.com/tosslab/web_client.git/commit/43692a25))
+
+
+<a name"1.2.1"></a>
+### 1.2.1 (2015-10-01)
+
+
+#### Bug Fixes
+
+* **center:** 파일에 코멘트 입력시 layout 어그러지는 버그 수정 ([9367e3ef](https://github.com/tosslab/web_client.git/commit/9367e3ef))
+
+
 <a name"1.2.0"></a>
 ## 1.2.0 (2015-09-30)
 

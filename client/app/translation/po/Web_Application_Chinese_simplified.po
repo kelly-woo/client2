@@ -121,6 +121,7 @@ msgstr "提交"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "邀请"
@@ -132,11 +133,6 @@ msgstr "加入"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "下一步"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -202,6 +198,12 @@ msgstr "我们最近更新了排版和增加了一些极好的功能以提高您
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "议题"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "省略使用教学"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -595,12 +597,6 @@ msgstr "上传文件"
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "省略使用教学"
-
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "你确定将此成员剔除议题？"
@@ -752,8 +748,8 @@ msgstr "重新命名"
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
-"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题"
-"列表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
+"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题列"
+"表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
 
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-never-show"
@@ -827,8 +823,8 @@ msgstr "串联你的Google帐户"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用"
-"筛选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
+"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用筛"
+"选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -843,15 +839,18 @@ msgid "@integration-title-google-drive"
 msgstr "从Google云端硬盘上传"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成员邀请的链接已复制到剪贴簿"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
-"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab."
-"com\">support@tosslab.com</a>"
+"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab.com"
+"\">support@tosslab.com</a>"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
@@ -866,26 +865,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "邀请链接已关闭。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "电子邮箱格式不正确"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "或者直接转发此链接"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "＋更多"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "部分邀请信无法寄出"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成员邀请的链接已复制到剪贴簿"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1083,7 +1065,7 @@ msgstr ""
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
-msgstr "请输入1个以上的字符"
+msgstr "使用关键词搜索请输入1个以上的字符"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
@@ -1201,6 +1183,38 @@ msgstr "{{msg.message.content.actionOwner}} 删除公告"
 msgid "@team-invite"
 msgstr "邀请其他团队成员"
 
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr "使用逗号或空格键于邮箱地址之间可同时寄出多封电邮"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "{{inviteeNumber}}封邀请电邮已成功寄出"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"{{inviteeNumber}}封邀请电邮成功寄出，但{{failedInviteeNumber}}封邀请电邮传"
+"送失败。请再次确认收件人是否已加入团队。"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "电子邮箱格式不正确"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr "点击 Ctrl-C (Mac 请点击 Cmd-C) 复制邀请链接并分享给工作伙伴"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "送出更多邀请"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "寄送{{inviteeNumber}}封邀请电邮"
+
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-members"
@@ -1250,98 +1264,6 @@ msgstr "开启电脑版的推拨通知"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr "开启议题推播通知"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "点击跳动的标记来查看一下吧！"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "知道了！"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定"
-"文件后，将点击右边的「ᵒᵒᵒ」即可。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、"
-"曾经分享在哪个议题下”的项目进行搜索。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可"
-"收纳搜索栏。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "文件夹和搜索栏"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "送出信息及上传文件"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按"
-"钮和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "跳过教学示范"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
-"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接"
-"传讯，同时仍然保留讯息历史直到对话重新启动。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新"
-"的私人议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的"
-"建议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立"
-"您自己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "继续 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重"
-"要的提示。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "欢迎使用JANDI!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
@@ -1538,6 +1460,98 @@ msgstr "想继续上次未完成的使用教学吗？"
 msgid "@tutorial_welcome_title"
 msgstr "欢迎 {{username}}"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "点击跳动的标记来查看一下吧！"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定"
+"文件后，将点击右边的「ᵒᵒᵒ」即可。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾"
+"经分享在哪个议题下”的项目进行搜索。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可"
+"收纳搜索栏。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "文件夹和搜索栏"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出信息及上传文件"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮"
+"和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "跳过教学示范"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
+"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接传"
+"讯，同时仍然保留讯息历史直到对话重新启动。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的"
+"私人议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建"
+"议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自"
+"己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "继续 »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
+"的提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "欢迎使用JANDI!"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
@@ -1600,11 +1614,11 @@ msgstr "在"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr " 邀请你加入私人议题"
+msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr "邀请你加入此议题"
+msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
@@ -1634,8 +1648,17 @@ msgstr "JANDI 新信息"
 msgid "@wednesday"
 msgstr "星期三"
 
-#~ msgid "@web-notification-body-topic-invited-post"
-#~ msgstr "邀请你加入此议题"
+#~ msgid "@btn-send"
+#~ msgstr "送出"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "电子邮箱格式不正确"
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "＋更多"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "部分邀请信无法寄出"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""
@@ -1793,8 +1816,8 @@ msgstr "星期三"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- "
-#~ "已设定为公开或私人的议题在建立之后不能被转换成另一个"
+#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- 已"
+#~ "设定为公开或私人的议题在建立之后不能被转换成另一个"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人议题仅向其成员显示，且仅其成员可以阅读或搜索其内容。"
@@ -1856,8 +1879,7 @@ msgstr "星期三"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组"
-#~ "成。"
+#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组成。"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改团队名称"
@@ -1903,8 +1925,8 @@ msgstr "星期三"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要"
-#~ "离开吗？"
+#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
+#~ "开吗？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "没有上传档案"
