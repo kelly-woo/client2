@@ -662,9 +662,6 @@ module.exports = function (grunt) {
               json: grunt.file.readJSON('./config/environments/local.json')
             },
             {
-              json: grunt.file.readJSON('./config/environments/local.team.json')
-            },
-            {
               json: {
                 version: '<%=pkg.version%>'
               }
@@ -809,6 +806,8 @@ module.exports = function (grunt) {
       ]);
     } else {
       var serveTasks = [
+        'initLocalTeam',
+        'replace:local',
         'clean:server',
         'env:all',
         'concurrent:server',
@@ -821,14 +820,20 @@ module.exports = function (grunt) {
         'open',
         'watch'
       ];
-      switch (target) {
-        case 'ie9':
-          serveTasks.unshift('replace:local_ie9');
-          break;
-        default:
-          serveTasks.unshift('replace:local');
-          break;
+
+      var filePath = './config/environments/local.team.json';
+      var defaultTeamName = 'tosslab';
+      var patterns = grunt.config.get('replace.local.options.patterns');
+
+      if (!grunt.file.exists(filePath)) {
+        grunt.file.write(filePath, "{\n\t\"team_name\": \"" + defaultTeamName + "\"\n}\n");
       }
+
+      patterns.push({
+        json: grunt.file.readJSON('./config/environments/local.team.json')
+      });
+      grunt.config.set('replace.local.options.patterns', patterns);
+
       grunt.task.run(serveTasks);
     }
   });
@@ -960,6 +965,9 @@ module.exports = function (grunt) {
     grunt.config.set('pkg', grunt.file.readJSON('package.json'));
   });
 
+  /**
+   * 버전 릴리즈
+   */
   grunt.registerTask('version-release', function(target) {
     switch (target) {
       case 'major':
@@ -978,6 +986,9 @@ module.exports = function (grunt) {
     grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
   });
 
+  /**
+   * 마크업 환경 제공
+   */
   grunt.registerTask('build-markup', function(target) {
     grunt.task.run([
       'clean:server',
