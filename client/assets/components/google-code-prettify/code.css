@@ -1,0 +1,27 @@
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint {
+  position:relative;
+  padding: 12px;
+  padding-top:32px;
+  border: 1px solid #D5D5D5;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  background-color:#F8F8FA;
+}
+pre.prettyprint:before {
+  content:'< / >';
+  font-size: 12px;
+  letter-spacing: -1px;
+  font-weight: bold;
+  color:#9B9B9B;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:22px;
+  padding-top:2px;
+  padding-left: 9px;
+  background-color:#E1E1E1;
+  border-bottom:1px solid #D3D3D3;
+}
