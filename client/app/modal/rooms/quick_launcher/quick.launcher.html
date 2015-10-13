@@ -9,7 +9,8 @@
            placeholder="{{ '@input-search-user-name' | translate }}">
   </div>
   <div class="quick-launcher-list">
-    <list-on-modal list="roomList"
+    <list-on-modal type="roomList"
+                   list="roomList"
                    item-type="room"
                    item-class="room-item"
                    model="roomNameQuery"
@@ -17,17 +18,17 @@
                    on-select="onRoomSelect"
                    get-matches="getMatches"
                    activeted="true"
-                   item-height="50"
-                   viewport-height="200"
+                   item-height="44"
+                   viewport-height="176"
                    buffer-length="10"></list-on-modal>
     <div class="empty-matches" ng-show="isEmptyMatches">
       <span class="empty-matches-msg keep" ng-bind-html="emptyMatchesMsg"></span>
-      <button class="empty-matches-button btn btn-cancel cursor_pointer" ng-click="createTopic(roomNameQuery)" ng-bind-html="emptyMatchesButtonText"></button>
+      <button class="empty-matches-button btn btn-cancel cursor_pointer" ng-click="openCreateTopicModal(roomNameQuery)" ng-bind-html="emptyMatchesButtonText"></button>
     </div>
   </div>
   <div class="quick-launcher-buttons cursor_pointer">
-    <button class="browse-topic-button" ng-click="browseTopic()"><i class="icon-reorder"></i>browse other topics</button>
-    <button class="create-topic-button" ng-click="createTopic()"><i class="icon-plus"></i>create a new topic</button>
+    <button class="browse-topic-button" ng-click="openBrowseTopicModal()"><i class="icon-reorder"></i>browse other topics</button>
+    <button class="create-topic-button" ng-click="openCreateTopicModal()"><i class="icon-plus"></i>create a new topic</button>
   </div>
 </div>  <!-- END OF MODAL BODY  -->
 <div ng-if="false">

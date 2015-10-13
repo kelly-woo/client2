@@ -135,7 +135,12 @@
       var modalOption = {
         templateUrl: 'app/modal/topics/topic_create/topic.create.html',
         controller: 'TopicCreateCtrl',
-        size: 'lg'
+        size: 'lg',
+        resolve: {
+          topicName: function () {
+            return (options && options.topicName) || '';
+          }
+        }
       };
       _.extend(modalOption, options);
       modal = _modalOpener(modalOption);
@@ -407,7 +412,7 @@
         controller: 'QuickLauncherCtrl',
         windowClass: 'quick-launcher-modal'
       };
-      modal = _modalOpener(modalOption);
+      return modal = _modalOpener(modalOption);
     }
 
     /**

@@ -38,6 +38,9 @@
     var stateParams;
     var currentRightPanel;
 
+    var isOpenQuickLauncher;
+    var quickLauncherModal;
+
     _init();
 
     function _init() {
@@ -60,6 +63,7 @@
       $scope.onShowTutorialClick = onShowTutorialClick;
       $scope.onTutorialPulseClick = onTutorialPulseClick;
       $scope.openRightPanel = openRightPanel;
+      $scope.openQuickLauncher = openQuickLauncher;
 
       $scope.toolbar = {
         files: false,
@@ -105,6 +109,8 @@
       });
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
+
+      $scope.$on('toggleQuickLauncher', _toggleQuickLauncher);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -277,8 +283,31 @@
       return /files|messages|stars|mentions/.test($state.current.url);
     }
 
-    $scope.openQuickLauncher = function() {
-      modalHelper.openQuickLauncherModal();
-    };
+    /**
+     * open quick launcher
+     */
+    function openQuickLauncher() {
+      quickLauncherModal = modalHelper.openQuickLauncherModal();
+
+      quickLauncherModal.opened.then(function() {
+        isOpenQuickLauncher = true;
+      });
+
+      quickLauncherModal.result.finally(function() {
+        isOpenQuickLauncher = false;
+      });
+    }
+
+    /**
+     * toggle quick launcher
+     * @private
+     */
+    function _toggleQuickLauncher() {
+      if (isOpenQuickLauncher) {
+        quickLauncherModal && quickLauncherModal.close();
+      } else {
+        openQuickLauncher();
+      }
+    }
   }
 })();

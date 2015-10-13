@@ -35,7 +35,8 @@
 
 .header-navbar-menu,
 .header-navbar-file,
-.header-navbar-settings {
+.header-navbar-settings,
+.header-navbar-quick-launcher {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -141,21 +142,6 @@
   background-color: #173e54;
 }
 
-/*.header-navbar__dropdown .icon_signout {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-}
-.header-navbar__dropdown .icon_invite {
-  position: absolute;
-  top: 9px;
-  left: 17px;
-}
-.header-navbar__dropdown .icon_team {
-  position: absolute;
-  top: 11px;
-  left: 17px;
-}*/
 .header-navbar__dropdown .icon-users {
   font-size: 19px;
 }
@@ -168,6 +154,13 @@
   right: 10px;
   top: 8px;
 }
+
+.header-navbar-quick-launcher .quick-launcher {
+  padding: 4px 25px;
+  border: 1px solid #fff;
+  border-radius: 14px;
+}
+
 .header-toolbar > ul {
   height: 40px;
   list-style: none;
@@ -194,9 +187,6 @@
   border-radius: 20px;
 
 }
-/*.header-toolbar li:last-child .info-tool {
-  font-size: 18px;
-}*/
 .header-toolbar .info-tool.active {
   border-color: #0D3952;
   background-color: #062F46;

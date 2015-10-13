@@ -42,6 +42,8 @@
         var jqTarget = $(keyEvent.target);
         if (jndKeyCode.match('ENTER', keyEvent.keyCode) && !_isInput(jqTarget) && !_isModalShown()) {
           jndPubSub.pub('setChatInputFocus');
+        } else if (_isQuickLauncherShortcut(keyEvent)) {
+          jndPubSub.pub('toggleQuickLauncher');
         }
       }
 
@@ -62,6 +64,16 @@
        */
       function _isInput(jqTarget) {
         return jqTarget.is('input') || jqTarget.is('textarea') || jqTarget.is('button');
+      }
+
+      /**
+       * quick launcher shortcut인지 여부를 반환한다.
+       * @param {boolean} keyEvent
+       * @returns {*|boolean}
+       * @private
+       */
+      function _isQuickLauncherShortcut(keyEvent) {
+        return jndKeyCode.match('CHAR_Q', keyEvent.keyCode) && keyEvent.ctrlKey;
       }
     }
   }

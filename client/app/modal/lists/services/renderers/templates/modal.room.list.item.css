@@ -17,13 +17,27 @@
 .quick-launcher-modal .room-item i.room-type-image {
   display: inline-block;
   vertical-align: middle;
-  line-height: 35px;
+  line-height: 32px;
+  color: #b2b2b2;
 }
 
 .quick-launcher-modal .room-item .room-name {
-  line-height: 35px;
+  line-height: 32px;
   margin-left: 17px;
-  width: 250px;
+  max-width: 220px;
+}
+
+.quick-launcher-modal .unjoined-channel-name {
+  color: #aaa;
+}
+
+.quick-launcher-modal .unjoined-channel-label {
+  margin-left: 5px;
+  line-height: 32px;
+  padding: 2px 4px;
+  background-color: #e1e1e1;
+  color: #b2b2b2;
+  border-radius: 4px;
 }
 
 .quick-launcher-modal .room-item .badge {

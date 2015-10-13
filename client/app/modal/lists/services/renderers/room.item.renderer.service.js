@@ -11,6 +11,7 @@
   /* @ngInject */
   function RoomItemRenderer($filter) {
     var _template;
+    var jqTemp = $('<div></div>');
 
     this.render = render;
 
@@ -28,12 +29,17 @@
     function render(data) {
       return _template({
         html: {
-          roomTypeImage: _getRoomTypeImage(data)
+          roomTypeImage: _getRoomTypeImage(data),
+          content: _getContent(data),
+          unjoinedChannel: '참여하지 않은 토픽'
         },
-        content: data.name,
+        css: {
+          unjoinedChannel: data.isUnjoinedChannel ? 'unjoined-channel-name' : ''
+        },
+        isUnjoinedChannel: data.isUnjoinedChannel,
         hasCount: _.isNumber(data.count) && data.count > 0,
         count: data.count,
-        itemHeight: 50
+        itemHeight: 44
       });
     }
 
@@ -51,7 +57,19 @@
           break;
       }
 
-      return roomTypeImage
+      return roomTypeImage;
+    }
+
+    function _getContent(data) {
+      var content;
+
+      if (data.query != null) {
+        content = jqTemp.text(data.name).highlight(data.query).html();
+      } else {
+        content = data.name;
+      }
+
+      return content;
     }
   }
 })();

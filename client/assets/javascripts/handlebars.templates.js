@@ -521,22 +521,31 @@ this["Handlebars"]["templates"]["modal.member.list.item"] = Handlebars.template(
 },"useData":true});
 
 this["Handlebars"]["templates"]["modal.room.list.item"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <span class=\"unjoined-channel-label\">"
+    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.unjoinedChannel : stack1), depth0))
+    + "</span>\r\n";
+},"3":function(depth0,helpers,partials,data) {
     var helper;
 
   return "    <span class=\"badge red_badge pull-right\">"
     + this.escapeExpression(((helper = (helper = helpers.count || (depth0 != null ? depth0.count : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"count","hash":{},"data":data}) : helper)))
     + "</span>\r\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var stack1, helper, alias1=helpers.helperMissing, alias2="function";
+    var stack1, helper, alias1=this.escapeExpression, alias2=this.lambda;
 
   return "<div class=\"room-item cursor_pointer\" style=\"height: "
-    + this.escapeExpression(((helper = (helper = helpers.itemHeight || (depth0 != null ? depth0.itemHeight : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"itemHeight","hash":{},"data":data}) : helper)))
+    + alias1(((helper = (helper = helpers.itemHeight || (depth0 != null ? depth0.itemHeight : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"itemHeight","hash":{},"data":data}) : helper)))
     + "px;\">\r\n  "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.roomTypeImage : stack1), depth0)) != null ? stack1 : "")
-    + "\r\n  <span class=\"room-name inline-overflow-ellipsis pull-left\">"
-    + ((stack1 = ((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"content","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = alias2(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.roomTypeImage : stack1), depth0)) != null ? stack1 : "")
+    + "\r\n  <span class=\"room-name inline-overflow-ellipsis pull-left "
+    + alias1(alias2(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.unjoinedChannel : stack1), depth0))
+    + "\">"
+    + ((stack1 = alias2(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.content : stack1), depth0)) != null ? stack1 : "")
     + "</span>\r\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasCount : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isUnjoinedChannel : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasCount : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "</div>\r\n";
 },"useData":true});
 

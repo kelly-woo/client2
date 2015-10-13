@@ -20,8 +20,8 @@
     function _init() {
       $scope.list = [];
 
-      $scope.createTopic = createTopic;
-      $scope.browseTopic = browseTopic;
+      $scope.openCreateTopicModal = openCreateTopicModal;
+      $scope.openBrowseTopicModal = openBrowseTopicModal;
 
       $scope.getMatches = getMatches;
       $scope.getRooms = getRooms;
@@ -30,17 +30,20 @@
       $scope.onRoomSelect = onRoomSelect;
     }
 
-    function createTopic(query) {
+    /**
+     * open create topic modal
+     * @param {string} query - 토픽 생성 모달 오픈시 설정될 토픽명
+     */
+    function openCreateTopicModal(query) {
       modalHelper.openTopicCreateModal({
-        resolve: {
-          topicName: function () {
-            return query || '';
-          }
-        }
+        topicName: query
       });
     }
 
-    function browseTopic() {
+    /**
+     * open browse topic modal
+     */
+    function openBrowseTopicModal() {
       modalHelper.openTopicJoinModal();
     }
 
@@ -62,6 +65,10 @@
       return matches;
     }
 
+    /**
+     * room select event handler
+     * @param {object} room
+     */
     function onRoomSelect(room) {
       if (room.type === 'channels') {
         if (EntityMapManager.contains('joined', room.id)) {
@@ -86,15 +93,28 @@
       }
     }
 
+    /**
+     * join room
+     * @param room
+     * @private
+     */
     function _joinRoom(room) {
       $state.go('archives', {entityType: room.type, entityId: room.id});
     }
 
-
+    /**
+     * filter 되지 않은 room list를 전달한다.
+     * @returns {*|Array}
+     */
     function getRooms() {
       return _.uniq([].concat(_getHadBadgeRooms(), _getResentWorkRooms()), 'id');
     }
 
+    /**
+     * badge를 가진 room list를 전달한다.
+     * @returns {Array|{criteria, index, value}}
+     * @private
+     */
     function _getHadBadgeRooms() {
       var rooms = [];
       var room;
@@ -120,6 +140,11 @@
       return _.sortBy(rooms, 'name');
     }
 
+    /**
+     *
+     * @returns {Array}
+     * @private
+     */
     function _getResentWorkRooms() {
       var rooms = [];
       var centerHistory = centerService.getHistory();
@@ -156,7 +181,9 @@
             id: member.id,
             name: member.name,
             status: member.status,
-            profileImage: memberService.getSmallThumbnailUrl(member)
+            profileImage: memberService.getSmallThumbnailUrl(member),
+            query: value,
+            count: member.alarmCnt
           });
         }
       });
@@ -174,7 +201,9 @@
           rooms.push({
             type: channel.type,
             id: channel.id,
-            name: channel.name
+            name: channel.name,
+            query: value,
+            count: channel.alarmCnt
           });
         }
       });
@@ -184,7 +213,9 @@
           rooms.push({
             type: privategroup.type,
             id: privategroup.id,
-            name: privategroup.name
+            name: privategroup.name,
+            query: value,
+            count: privategroup.alarmCnt
           });
         }
       });
@@ -200,7 +231,9 @@
           channels.push({
             type: channel.type,
             id: channel.id,
-            name: channel.name
+            name: channel.name,
+            query: value,
+            isUnjoinedChannel: true
           });
         }
       });
