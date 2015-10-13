@@ -21,17 +21,26 @@
 }
 
 .empty-team-list-title {
-
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #333;
+  padding: 20px 30px 0px 30px;
 }
 
 .empty-team-list-body {
-
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #575757;
+  padding: 20px 30px 0px 30px;
 }
 
 .empty-team-list-button {
 
 }
 
-.empty-team-list-button .help-message__button {
-
+.empty-team-list-button .help-messages__button {
+  margin-top: 0px !important;
+  margin-bottom: 30px;
 }
