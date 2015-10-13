@@ -10,20 +10,51 @@
   top: 15px;
   left : 20px;
   font-size: 13px;
+  z-index: 3;
 }
 .rpanel-search input.search-input {
-  width: 380px;
+  position:absolute;
+  width: 278px;
   height: 26px;
   font-size: 13px;
   padding: 2px 12px 2px 25px;
-
   border: 1px solid #e1e1e1;
   border-radius: 22px;
-
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
   background-color: #fff;
 }
 .rpanel-search input:focus {
   border-color: #8EAFC3;
+}
+.rpanel-search-select-all-container {
+  position:absolute;
+  right:11px;
+  height: 26px;
+  width: 100px;
+  padding:3px;
+  padding-left: 10px;
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+  border: 1px solid #e1e1e1;
+  border-left-width: 0px;
+  background-color:#fff;
+}
+.rpanel-search-select-all-container:hover, .rpanel-search-select-all-container.active {
+  background-color:#f9f9f9;
+  cursor: pointer;
+}
+.rpanel-search-select-all-container input {
+  margin:0 !important;
+  vertical-align: middle;
+  width:12px;
+  height: 12px;
+}
+.rpanel-search-select-all-container span {
+  line-height: 16px;
+  font-size: 13px;
+  color:#333;
+  margin-left: 1px;
 }
 .rpanel-header-toolbar {
   position: relative;
