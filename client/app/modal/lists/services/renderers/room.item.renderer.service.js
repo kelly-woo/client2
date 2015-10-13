@@ -43,6 +43,12 @@
       });
     }
 
+    /**
+     * room type을 표현하는 image를 전달한다.
+     * @param {object} data
+     * @returns {*}
+     * @private
+     */
     function _getRoomTypeImage(data) {
       var roomTypeImage;
       switch(data.type) {
@@ -60,10 +66,18 @@
       return roomTypeImage;
     }
 
+    /**
+     * room content를 전달한다.
+     * @param {object} data
+     * @returns {*}
+     * @private
+     */
     function _getContent(data) {
       var content;
 
       if (data.query != null) {
+
+        // data.name 중 query 문자열과 일치하는 문자열이 존재한다면 highlight 처리함
         content = jqTemp.text(data.name).highlight(data.query).html();
       } else {
         content = data.name;

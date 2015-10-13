@@ -41,7 +41,7 @@
       }
 
       /**
-       * badge position update
+       * badge position update event handler
        * @private
        */
       function _onUpdateBadgePosition() {
@@ -49,6 +49,11 @@
         jndPubSub.pub('updateList:roomList');
       }
 
+      /**
+       * room name query change event handler
+       * @param {string} value - filter 문자열
+       * @private
+       */
       function _onChangeRoomNameQuery(value) {
         if (scope.isEmptyMatches) {
           value = jqFilter.val();

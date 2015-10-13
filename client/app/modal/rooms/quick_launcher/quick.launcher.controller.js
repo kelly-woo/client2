@@ -141,7 +141,7 @@
     }
 
     /**
-     *
+     * 최근 방문한 topic list를 전달한다.
      * @returns {Array}
      * @private
      */
@@ -165,11 +165,22 @@
       return rooms;
     }
 
+    /**
+     * filter 된 room list를 전달한다.
+     * @param {string} value - filter 문자열
+     * @returns {Array.<T>}
+     */
     function getFilteredRooms(value) {
       value = value || '';
       return [].concat(_getEnabledMembers(value), _getJoinedRooms(value), _getUnJoinedChannels(value));
     }
 
+    /**
+     * enabled member list를 전달한다.
+     * @param value -  filter 문자열
+     * @returns {Array|{criteria, index, value}}
+     * @private
+     */
     function _getEnabledMembers(value) {
       var members = [];
 
@@ -193,9 +204,16 @@
       });
     }
 
+    /**
+     * 참여중인 room list를 전달한다.
+     * @param {string} value - filter 문자열
+     * @returns {Array|{criteria, index, value}}
+     * @private
+     */
     function _getJoinedRooms(value) {
       var rooms = [];
 
+      // 참여 channel list filtering
       _.forEach($rootScope.joinedChannelList, function(channel) {
         if (channel.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           rooms.push({
@@ -208,6 +226,7 @@
         }
       });
 
+      // 참여 privategroup list filtering
       _.forEach($rootScope.privateGroupList, function(privategroup) {
         if (privategroup.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           rooms.push({
@@ -223,6 +242,12 @@
       return _.sortBy(rooms, 'name');
     }
 
+    /**
+     * 참여하지 않은 channel list를 전달한다.
+     * @param {string} value - filter 문자열
+     * @returns {Array|{criteria, index, value}}
+     * @private
+     */
     function _getUnJoinedChannels(value) {
       var channels = [];
 
