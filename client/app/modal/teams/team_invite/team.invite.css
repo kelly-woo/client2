@@ -38,6 +38,7 @@
 .invite-btn.send-invite {
   width:inherit;
   min-width: 180px;
+  height: 35px !important;
 }
 
 .invite-btn {

@@ -435,7 +435,8 @@ input[type="button"] {
   background-color: #f3f3f3;
 }
 .btn[disabled] {
-  background-color: #D4D4D4;
+  background-color: #ccc;
+  color: white;
   opacity: 1;
 }
 
