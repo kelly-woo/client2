@@ -14,7 +14,7 @@
 }
 .rpanel-search input.search-input {
   position:absolute;
-  width: 278px;
+  width: 280px;
   height: 26px;
   font-size: 13px;
   padding: 2px 12px 2px 25px;
@@ -31,9 +31,10 @@
   position:absolute;
   right:11px;
   height: 26px;
-  width: 100px;
+  width: 102px;
   padding:3px;
-  padding-left: 10px;
+  padding-left: 0px;
+  text-align: center;
   border-top-right-radius: 22px;
   border-bottom-right-radius: 22px;
   border: 1px solid #e1e1e1;
@@ -46,9 +47,9 @@
 }
 .rpanel-search-select-all-container input {
   margin:0 !important;
-  vertical-align: middle;
   width:12px;
   height: 12px;
+  -moz-transform:translateY(-2px);
 }
 .rpanel-search-select-all-container span {
   line-height: 16px;
