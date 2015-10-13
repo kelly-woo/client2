@@ -27,6 +27,7 @@
       $scope.createDate = $filter('getyyyyMMddformat')(message.createdAt);
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);
+      $scope.plainContent = _getPlainContent(message);
 
       $scope.isDisabledMember = isDisabledMember;
       $scope.hasStar = message.hasStar || false;
@@ -41,6 +42,23 @@
      */
     function isDisabledMember() {
       return publicService.isDisabledMember($scope.writer);
+    }
+
+    /**
+     * 메세지 검색시 markdown 적용되지 않은 내용 노출을 위한 함수 한다
+     * @param {object} message
+     * @returns {*}
+     * @private
+     */
+    function _getPlainContent(message) {
+      var content = message.contentBody;
+      if (content) {
+        if (message.mentions && message.mentions.length > 0) {
+          // mentions가 존재한다면 mentions parse하여 content 설정
+          content = $filter('mention')(content, message.mentions, false);
+        }
+      }
+      return content;
     }
 
     /**
