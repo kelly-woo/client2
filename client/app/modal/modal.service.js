@@ -131,13 +131,13 @@
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
      */
-    function openTopicCreateModal($scope) {
+    function openTopicCreateModal(options) {
       var modalOption = {
-        scope: $scope,
         templateUrl: 'app/modal/topics/topic_create/topic.create.html',
         controller: 'TopicCreateCtrl',
         size: 'lg'
       };
+      _.extend(modalOption, options);
       modal = _modalOpener(modalOption);
     }
 

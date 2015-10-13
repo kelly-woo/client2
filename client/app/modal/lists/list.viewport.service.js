@@ -70,6 +70,9 @@
       // viewportMaxHeight가 입력되지 않으면 고정된 viewportHeight를 제공한다.
       !_.isNumber(that.options.viewportMaxHeight) && (that.options.viewportMaxHeight = that.options.viewportHeight);
 
+      // 가변높이 viewport 인지 여부
+      that._isDynamicHeight = (_.isNumber(that.options.viewportHeight) && that.options.viewportHeight > 0) ? false : true;
+
       return that;
     }
 
@@ -171,7 +174,7 @@
       }
       that.jqList.empty().css('height', options.listHeight);
 
-      if (!options.viewportHeight > 0) {
+      if (that._isDynamicHeight) {
         options.viewportHeight = options.listHeight > options.viewportMaxHeight ? options.viewportMaxHeight : options.listHeight;
       }
 

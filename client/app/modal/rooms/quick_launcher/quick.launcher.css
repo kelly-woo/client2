@@ -8,6 +8,8 @@
 
 .quick-launcher-modal .modal-body {
   padding: 0;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
@@ -22,3 +24,52 @@
 .quick-launcher-modal .quick-launcher-list {
   overflow-y: auto;
 }
+
+.quick-launcher-modal .empty-matches {
+  text-align: center;
+  font-size: 15px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%)
+}
+
+.quick-launcher-modal .empty-matches .empty-matches-msg {
+  display: inline-block;
+  max-width: 320px;
+}
+
+.quick-launcher-modal .empty-matches .empty-matches-button {
+  margin-top: 20px;
+}
+
+/* QUICK LAUNCHER BUTTONS */
+.quick-launcher-modal .quick-launcher-buttons {
+  height: 50px;
+  border-top: 1px solid #aaa;
+}
+
+.quick-launcher-buttons button {
+  display: inline-block;
+  width: 50%;
+  line-height: 50px;
+  float: left;
+  text-align: center;
+  background-color: #fff;
+  border: 0;
+}
+
+.quick-launcher-buttons button i {
+  margin-right: 7px;
+}
+
+.quick-launcher-buttons .browse-topic-button {
+  border-right: 1px solid #aaa;
+  color: #aaa;
+}
+
+.quick-launcher-buttons .create-topic-button {
+  color: #00abe6;
+}
+
+
+

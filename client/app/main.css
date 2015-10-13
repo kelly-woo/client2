@@ -395,6 +395,9 @@ input[type="button"] {
   outline: 0;
   color: white;
 }
+.btn.btn-cancel:active:focus {
+  color: #9e9ea6;
+}
 .btn-cancel {
   background-color: white;
   border-radius: 5px;

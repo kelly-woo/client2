@@ -529,11 +529,11 @@ this["Handlebars"]["templates"]["modal.room.list.item"] = Handlebars.template({"
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function";
 
-  return "<div class=\"room-item\" style=\"height: "
+  return "<div class=\"room-item cursor_pointer\" style=\"height: "
     + this.escapeExpression(((helper = (helper = helpers.itemHeight || (depth0 != null ? depth0.itemHeight : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"itemHeight","hash":{},"data":data}) : helper)))
-    + "px;\">\r\n  <div class=\"room-type-content\">\r\n    "
+    + "px;\">\r\n  "
     + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.roomTypeImage : stack1), depth0)) != null ? stack1 : "")
-    + "\r\n  </div>\r\n  <span class=\"room-name inline-overflow-ellipsis pull-left\">"
+    + "\r\n  <span class=\"room-name inline-overflow-ellipsis pull-left\">"
     + ((stack1 = ((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"content","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</span>\r\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasCount : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")

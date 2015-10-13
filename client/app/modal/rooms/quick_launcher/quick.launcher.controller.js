@@ -9,8 +9,8 @@
     .controller('QuickLauncherCtrl', QuickLauncherCtrl);
 
   /* @ngInject */
-  function QuickLauncherCtrl($rootScope, $scope, UnreadBadge, EntityMapManager, centerService, memberService,
-                              currentSessionHelper) {
+  function QuickLauncherCtrl($rootScope, $scope, $state, UnreadBadge, EntityMapManager, centerService, memberService,
+                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper) {
     _init();
 
     /**
@@ -20,9 +20,28 @@
     function _init() {
       $scope.list = [];
 
+      $scope.createTopic = createTopic;
+      $scope.browseTopic = browseTopic;
+
       $scope.getMatches = getMatches;
       $scope.getRooms = getRooms;
       $scope.getFilteredRooms = getFilteredRooms;
+
+      $scope.onRoomSelect = onRoomSelect;
+    }
+
+    function createTopic(query) {
+      modalHelper.openTopicCreateModal({
+        resolve: {
+          topicName: function () {
+            return query || '';
+          }
+        }
+      });
+    }
+
+    function browseTopic() {
+      modalHelper.openTopicJoinModal();
     }
 
     /**
@@ -32,9 +51,45 @@
      * @returns {*}
      */
     function getMatches(list, value) {
-      console.log('get matches ::: ', list);
-      return value === '' ? getRooms() : getFilteredRooms(value);;
+      var matches = value === '' ? getRooms() : getFilteredRooms(value);
+
+      if (value !== '' && matches.length === 0) {
+        $scope.isEmptyMatches = true;
+      } else {
+        $scope.isEmptyMatches = false;
+      }
+      //console.log('get matches ::: ', list);
+      return matches;
     }
+
+    function onRoomSelect(room) {
+      if (room.type === 'channels') {
+        if (EntityMapManager.contains('joined', room.id)) {
+          // join한 topic
+
+          _joinRoom(room);
+        } else {
+          if (!$scope.isLoading) {
+            jndPubSub.showLoading();
+
+            entityheaderAPIservice.joinChannel(room.id)
+              .success(function () {
+                _joinRoom(room);
+              })
+              .finally(function() {
+                jndPubSub.hideLoading();
+              });
+          }
+        }
+      } else {
+        _joinRoom(room);
+      }
+    }
+
+    function _joinRoom(room) {
+      $state.go('archives', {entityType: room.type, entityId: room.id});
+    }
+
 
     function getRooms() {
       return _.uniq([].concat(_getHadBadgeRooms(), _getResentWorkRooms()), 'id');

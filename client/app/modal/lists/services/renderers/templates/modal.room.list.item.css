@@ -1,25 +1,33 @@
-/*<div class="room-item" style="height: {{itemHeight}}px;">*/
-/*<img class="room-image" src="{{imageUrl}}"/>*/
-/*<span class="room-name inline-overflow-ellipsis">{{{content}}}</span>*/
-                                                                /*{{#if hasCount}}*/
-/*<span class="badge-count">{{count}}</span>*/
-                                     /*{{/if}}*/
-/*</div>*/
-
 .quick-launcher-modal .room-item {
   width: 100%;
+  padding: 6px 20px 0 20px;
 }
 
-.quick-launcher-modal .room-item .room-image {
+.quick-launcher-modal .room-item .room-type-image {
+  display: block;
+  width: 25px;
+  float: left;
+  text-align: center;
+}
 
+.quick-launcher-modal .room-item img.room-type-image {
+  margin-top: 5px;
+  border-radius: 25px;
+}
+.quick-launcher-modal .room-item i.room-type-image {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 35px;
 }
 
 .quick-launcher-modal .room-item .room-name {
-  width: 100%;
+  line-height: 35px;
+  margin-left: 17px;
+  width: 250px;
 }
 
 .quick-launcher-modal .room-item .badge {
   margin-top: 5px;
-  color: white !important;
+  color: #fff;
   max-width: 22%;
 }

@@ -41,13 +41,13 @@
       var roomTypeImage;
       switch(data.type) {
         case 'users':
-          roomTypeImage = '<img src="' + data.profileImage + '" />'
+          roomTypeImage = '<img class="room-type-image" src="' + data.profileImage + '" />';
           break;
         case 'channels':
-          roomTypeImage = '<i class="icon-topic"></i>';
+          roomTypeImage = '<i class="icon-topic room-type-image"></i>';
           break;
         case 'privategroups':
-          roomTypeImage = '<i class="icon-lock"></i>';
+          roomTypeImage = '<i class="icon-lock room-type-image"></i>';
           break;
       }
 
