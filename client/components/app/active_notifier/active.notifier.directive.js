@@ -18,14 +18,12 @@
     };
 
     function link(scope, el, attrs) {
-      var _isSignedIn = true;
-      var PLATFORM = 'web';
-
       // 주기적으로 체크하는 간격 in ms
       var _ACTIVE_THRESHOLD = 60000;
 
       // 마지막으로 active 되었던 시간
       var _lastActiveTime;
+      var _isSignedIn = true;
 
       // $(window)에서 들어야할 이벤트들. *event handler는 모두 같다.
       // TODO: 'keyup'을 걸어야하나 말아야 하나 고민됩니다.
@@ -46,8 +44,8 @@
         var jandi = window.JANDI= window.JANDI || {};
         jandi.version = configuration.version;
 
-        _detachEventListener();
         _lastActiveTime = _.now();
+        _detachEventListener();
         _attachEventListener();
         _checkStatus();
         scope.$on('$destroy', _onDestroy);
@@ -81,10 +79,15 @@
         $(window).on('beforeunload', _onBeforeUnload);
       }
 
+      /**
+       * 소멸자
+       * @private
+       */
       function _onDestroy() {
         _notify(false);
         _detachEventListener();
       }
+
       /**
        * beforeunload 시 active 상태를 해제한다.
        * @private
@@ -131,19 +134,21 @@
        * @private
        */
       function _notify(isActive) {
-        if (storageAPIservice.getAccessToken()) {
+        var accessToken = storageAPIservice.getAccessToken();
+        if (accessToken) {
           if (!_isSignedIn) {
             isActive = false;
           }
-
-          $http({
-            method: 'PUT',
+          $.ajax({
+            method: 'GET',
             url: configuration.api_address + 'inner-api/platform/active',
+            dataType: 'jsonp',
             data: {
-              platform: PLATFORM,
+              access_token: accessToken,
               active: isActive
-            }
-          }).success(_onSuccessNotify);
+            },
+            success: _onSuccessNotify
+          });
         }
       }
 
