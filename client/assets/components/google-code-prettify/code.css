@@ -3,8 +3,8 @@
 pre.prettyprint {
   position:relative;
   min-height: 45px;
-  padding: 12px;
-  border: 1px solid #D5D5D5;
+  padding: 14px !important;
+  border: 1px solid #D5D5D5 !important;
   border-radius: 3px;
   margin-bottom: 4px;
   background-color:#F8F8FA;
@@ -26,5 +26,5 @@ pre.prettyprint:before {
   border-bottom:1px solid #D3D3D3;
 }
 div.prettyprint-header-spacer {
-  height:20px;
+  height:22px;
 }
