@@ -1,6 +1,7 @@
 .advanced-search-option-container {
   padding: 5px 0 12px 11px;
   background-color: #F9F9F9;
+  border-bottom:1px solid #E1E1E1;
 }
 .advanced-search-option__category {
   width: 120px;
@@ -40,7 +41,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 136px;
+  top: 138px;
   overflow-y: auto;
   overflow-x: hidden;
 }
