@@ -8,41 +8,61 @@
     .module('jandiApp')
     .filter('markdown', markdown);
 
-  function markdown($filter) {
+  function markdown() {
     var _regx = {
       isCode: /^`{3,}/,
       bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]*[^\*_~\s])\1/g
     };
 
-    return function(text) {
-      return convert(text);
+    return function(text, allowList) {
+      return convert(text, allowList);
     };
 
     /**
      * 마크다운 형식을 변환한다
      * @param {string} text
+     * @param {Array} [allowList] - 허용할 마크다운 파싱 범위. 생략할 경우 모두 파싱. (bolditalic, code)
      * @returns {string}
      */
-    function convert(text) {
+    function convert(text, allowList) {
       text = text || '';
+      var allowMap = {
+        bolditalic: true,
+        code: true
+      };
       var textArr = text.split('\n');
       var length = textArr.length;
       var token;
       var resultArr = [];
       var i = 0;
 
+      if (_.isArray(allowList)) {
+        _.each(allowMap, function(isAllowed, parserName) {
+          allowMap[parserName] = (allowList.indexOf(parserName) !== -1);
+        });
+      }
+
       for (; i < length; i++) {
         token = textArr[i];
         if (_regx.isCode.test(token)) {
           i++;
-          resultArr.push('<jnd-code-prettify>');
+
+          resultArr.push(allowMap.code ? '<jnd-code-prettify>' : token);
           while (i < length && !_regx.isCode.test(textArr[i])) {
             resultArr.push(textArr[i]);
             i++;
           }
-          resultArr.push('</jnd-code-prettify>');
+          if (allowMap.code) {
+            resultArr.push('</jnd-code-prettify>');
+          } else if (i < length) {
+            resultArr.push(textArr[i]);
+          }
         } else {
-          resultArr.push(_parseBoldItalic(token));
+          if (allowMap.bolditalic) {
+            resultArr.push(_parseBoldItalic(token));
+          } else {
+            resultArr.push(token);
+          }
         }
       }
 
