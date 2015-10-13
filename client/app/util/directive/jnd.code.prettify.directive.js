@@ -16,7 +16,7 @@
     };
 
     function link(scope, el, attr)  {
-      el.html('<pre class="prettyprint">' + prettyPrintOne(el.html()) + '</pre>').children().css('minHeight', '25px');
+      el.html('<pre class="prettyprint"><div class="prettyprint-header""></div>' + prettyPrintOne(el.html()) + '</pre>').children().css('minHeight', '25px');
     }
   }
 })();
