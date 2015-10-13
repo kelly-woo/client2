@@ -24,11 +24,11 @@
 
 .dialog-modal .btn-container .btn {
   margin-top: 0;
-  height: 30px;
+  /*height: 30px;*/
   padding: 4px 10px;
-  min-width: 80px;
+  min-width: 60px;
 }
 
 .dialog-modal .btn-cancel {
-  margin-right: 10px;
+  margin-right: 3px;
 }
