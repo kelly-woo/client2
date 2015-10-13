@@ -127,15 +127,16 @@
      * advanced search option 중 'Shared in'/ 을 변경하는 부분.
      */
     function _onCurrentEntityChanged(event, currentEntity) {
-      _setMessageLocation(currentEntity);
+      if (_isEntityChangeAtLeft) {
+        _setMessageLocation(currentEntity);
 
-      if (_isActivated) {
-        if (_isEntityChangeAtLeft) {
+        if (_isActivated) {
           // search keyword reset
           _resetSearchStatusKeyword();
           updateMessageLocationFilter();
+
+          _isEntityChangeAtLeft = false;
         }
-        _isEntityChangeAtLeft = false;
       }
     }
 
@@ -144,7 +145,7 @@
      */
     function updateMessageLocationFilter() {
       _refreshSearchQuery();
-      $scope.searchQuery.entityId = !!$scope.messageLocation ? $scope.messageLocation.id : '';
+      $scope.searchQuery.entityId = $scope.messageLocation ? $scope.messageLocation.id : '';
       searchMessages();
     }
 
@@ -444,7 +445,7 @@
      */
     function _setMessageLocation(entity) {
       $scope.messageLocation = entity;
-      $scope.searchQuery.entityId = !!entity ? entity.id : '';
+      $scope.searchQuery.entityId = entity ? entity.id : '';
     }
 
     /**
