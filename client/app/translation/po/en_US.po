@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -602,6 +602,10 @@ msgstr "Private"
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-public"
 msgstr "Public"
+
+#: client/app/main.html
+msgid "@common-unknown-error"
+msgstr "Sorry! We encountered an unexpected error. Please try again."
 
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"

@@ -578,6 +578,10 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
+#: client/app/main.html
+msgid "@common-unknown-error"
+msgstr ""
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
