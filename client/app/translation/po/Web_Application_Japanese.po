@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -600,6 +600,10 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unknown-error"
+msgstr "予期しないエラーが発生しました。後でもう一度やり直してください。"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -1092,7 +1096,8 @@ msgstr "プライベートグループ "
 msgid "@saturday"
 msgstr "土曜日"
 
-#: client/app/right/files/files.html client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html
+#: client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
@@ -1134,11 +1139,11 @@ msgstr ""
 msgid "@setting-notification-show-content-msg"
 msgstr "メッセージの内容をデスクトップ通知で表示する"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
 msgstr "デスクトップ通知をオフにする"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
@@ -1639,19 +1644,19 @@ msgstr "お気に入りから削除する"
 msgid "@web-notification"
 msgstr "通知"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-file-share"
 msgstr "さんがファイルを共有しました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr "さんが"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr "にコメントしました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr " "
@@ -1660,49 +1665,49 @@ msgstr " "
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "本当に削除しますか？元には戻せません"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-post"
 msgstr "さんからダイレクトメッセージが届きました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
 msgstr "に新規メッセージが届きました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
 msgstr "さんが非公開トピックに招待しました。"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-invited"
 msgstr "さんがトピックに招待しました。"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-mid"
 msgstr "さんが"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-post"
 msgstr "に投稿しました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
 msgstr "新しいファイルが共有されました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-sample-body-text"
 msgstr " 成功しました！"
 
