@@ -455,9 +455,15 @@
       function _getCompiledEl(htmlStr) {
         var jqDummy = $('<div></div>');
         jqDummy.html(htmlStr);
+
         _.forEach(jqDummy.find('._compile'), function(targetEl) {
-          $compile(targetEl)(_listScope);
+          try {
+            $compile(targetEl)(_listScope);
+          } catch (e) {
+            console.error(e);
+          }
         });
+
         return jqDummy.contents();
       }
 

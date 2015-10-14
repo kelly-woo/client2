@@ -578,7 +578,7 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/main.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-unknown-error"
 msgstr ""
 
@@ -1078,11 +1078,11 @@ msgstr ""
 msgid "@setting-notification-show-content-msg"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr ""
 
@@ -1531,19 +1531,19 @@ msgstr ""
 msgid "@web-notification"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-file-share"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr ""
 
@@ -1551,47 +1551,47 @@ msgstr ""
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-invited"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-mid"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-sample-body-text"
 msgstr ""
 

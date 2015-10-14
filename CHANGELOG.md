@@ -1,3 +1,30 @@
+<a name"1.3.3"></a>
+### 1.3.3 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **right:** 파일 리스트 출력시 검색 키워드는 전체 파일 리스트가 갱신 될때만 초기화 하도록 수정 ([541fcc02](https://github.com/tosslab/web_client.git/commit/541fcc02))
+
+
+<a name"1.3.2"></a>
+### 1.3.2 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **app:** 웹폰트 롤벡 ([ea990708](https://github.com/tosslab/web_client.git/commit/ea990708))
+
+
+<a name"1.3.1"></a>
+### 1.3.1 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **center:** 초대 시스템 메세지 처리 누락 수정 ([6d5c625f](https://github.com/tosslab/web_client.git/commit/6d5c625f))
+
+
 <a name"1.3.0"></a>
 ## 1.3.0 (2015-10-07)
 

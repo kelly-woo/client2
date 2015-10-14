@@ -603,7 +603,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
-#: client/app/main.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-unknown-error"
 msgstr "Sorry! We encountered an unexpected error. Please try again."
 
@@ -1133,11 +1133,11 @@ msgstr ""
 msgid "@setting-notification-show-content-msg"
 msgstr "Show message content in desktop notifications"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
 msgstr "Turn off Desktop Notifications"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "Turn on Desktop Notifications"
 
@@ -1647,19 +1647,19 @@ msgstr "Unstar user"
 msgid "@web-notification"
 msgstr "Notifications"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-file-share"
 msgstr " shared a file"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr " added a comment to "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr "."
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr "from "
@@ -1668,48 +1668,48 @@ msgstr "from "
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "Are you sure you want to delete this message? It cannot be undone."
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-post"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
 msgstr "from "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-other-team-post"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-pre"
 msgstr "You received a new message in "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr " invited you to a private topic."
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr " invited you to this topic."
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-mid"
 msgstr " from "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-post"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-pre"
 msgstr "in "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
 msgstr "A new file has been shared."
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-sample-body-text"
 msgstr "It's working!"
 

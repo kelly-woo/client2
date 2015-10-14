@@ -172,7 +172,8 @@
           </div>
           <div class="comment-item-body">
             <img class="sticker size_5" ng-if="::comment.isSticker" src="{{ comment.content.url }}"/>
-            <p ng-if="::!comment.isSticker" class="keep" ng-bind-html="(comment.content.body) || ''"></p>
+            <p ng-if="::!comment.isSticker" class="keep" compile="comment.content.body">
+            </p>
           </div>
         </div>
 
