@@ -77,7 +77,8 @@
      * @private
      */
     function _textParser(string) {
-      var anchorMarker = '§§§anchorMarker§§§';
+      var marker = '§§§anchorMarker§§§';
+      var regxMarker = /§§§anchorMarker§§§/g;
       var anchorList = [];
       var parsedText;
       var index = 0;
@@ -88,10 +89,10 @@
        */
       string = string.replace(_regx.anchor, function(matchText) {
         anchorList.push(matchText);
-        return anchorMarker;
+        return marker;
       });
       parsedText = _parseBoldItalic(string);
-      parsedText = parsedText.replace(anchorMarker, function(matchText) {
+      parsedText = parsedText.replace(regxMarker, function(matchText) {
         return anchorList[index++];
       });
       return parsedText;
