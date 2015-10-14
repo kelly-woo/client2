@@ -360,13 +360,8 @@
 .comment-btn {
   position: absolute;
   right: 0;
-  /* width: 140px; */
-  /* height: 35px; */
-  /* border-radius: 3px; */
   background: #00abe6;
   color: #ffffff;
-  /* font-size: 14px; */
-  /* font-weight: 700; */
   bottom: 0;
   letter-spacing: 0.01em;
 }
