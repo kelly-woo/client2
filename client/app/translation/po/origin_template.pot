@@ -758,6 +758,14 @@ msgstr ""
 msgid "@has-new-message-alert-msg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@header-nav-jump"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@header-nav-language"
+msgstr ""
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
@@ -1036,6 +1044,30 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@privateGroup"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-browse-topics"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-create-topic"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-create-topic-with-query"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-no-matches"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-placeholder"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-unjoin-topic"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
