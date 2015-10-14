@@ -186,7 +186,7 @@
      * @returns {boolean|*}
      */
     function isBrowserHidden() {
-      return !_hasBrowserFocus || document.hidden;
+      return document.hidden || !document.hasFocus() || !_hasBrowserFocus;
     }
   }
 })();

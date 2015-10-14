@@ -68,7 +68,7 @@
 }
 
 .message-card .message-card-body {
-  font-size: 15px;
+  font-size: 16px;
 }
 .message-card .message-card-body.message-simple {
   margin-left: 36px;
@@ -102,6 +102,9 @@
 }
 .sub-message-card .message-card {
   margin-bottom: 2px;
+}
+.sub-message-card .prettyprint {
+  opacity: 0.6;
 }
 .star-list .message-card-body {
   padding-top: 8px;

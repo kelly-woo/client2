@@ -85,6 +85,7 @@
           break;
         case 'topic_invite':
           _onTopicInvited(data);
+          _onNewMessage(data);
           break;
         case 'new_message':
         default:

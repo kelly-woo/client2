@@ -73,9 +73,9 @@
       ioSocket = io.connect(config.socket_server, {
         'forceNew': true,
         'reconnection': true,
-        'reconnectionDelay': 1000,
-        'reconnectionDelayMax': 1000,
-        'timeout': 100
+        'reconnectionDelay': 3000,
+        'reconnectionDelayMax': 3000,
+        'timeout': 1000
       });
       socket = socketFactory({
         prefix: '_jnd_socket:',
