@@ -22,7 +22,7 @@
 
     function link(scope, el, attrs) {
       scope.isIE = Browser.msie;
-      //el.hide();
+
       scope.$on('showDefaultBackground', _show);
       scope.$on('hideDefaultBackground', _hide);
 
