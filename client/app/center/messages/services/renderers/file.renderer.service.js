@@ -152,6 +152,9 @@
       var icon = $filter('fileIcon')(content);
 
       return _template({
+        html: {
+          loading: Loading.getTemplate()
+        },
         css: {
           wrapper: isArchived ? ' archived-file': '',
           star: RendererUtil.getStarCssClass(msg),
@@ -163,7 +166,6 @@
         file: {
           icon: icon,
           isImageIcon: icon === 'img',
-          loading: Loading.getTemplate(),
           mustPreview: $filter('mustPreview')(content),
           hasPreview: hasPreview,
           imageUrl: _getMediumThumbnailUrl(content, hasPreview),
