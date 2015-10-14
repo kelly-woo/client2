@@ -88,14 +88,8 @@
       
           // scope comment 초기화
           $scope.comment = '';
-      
-          // progress bar 초기화
-          $rootScope.curUpload = {};
-          $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
-          $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
-          $rootScope.curUpload.title = file.name;
-          $rootScope.curUpload.progress = 0;
-          $rootScope.curUpload.status = 'initiate';
+
+          _setCurrentProgressBar(file);
         },
         // 하나의 file upload 중
         onProgress: function(evt, file) {
@@ -105,13 +99,10 @@
           _setProgressBarStyle('progress');
 
           if (!$rootScope.curUpload.isAborted) {
-            // progress bar의 상태 변경
-            $rootScope.curUpload = {};
-            $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
-            $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
-            $rootScope.curUpload.title = file.name;
-            $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-            $rootScope.curUpload.status = 'uploading';
+            _setCurrentProgressBar(file, {
+              progress: parseInt(100.0 * evt.loaded / evt.total),
+              status: 'uploading'
+            });
           }
         },
         // 하나의 file upload 완료
@@ -189,9 +180,7 @@
         onConfirmEnd: function(index, length) {
           modalHelper.closeModal();
 
-          if (index === length && $rootScope.curUpload.status === 'done') {
-            // 마지막 file upload confirm이 진행 되었고, 더이상 upload를 진행하지 않음
-
+          if (_isUploadEnd(index, length)) {
             fileUplodOptions.onEnd();
           }
         },
@@ -245,6 +234,35 @@
         _onNewDataUrl(newValue);
       }
     });
+
+    /**
+     * 현재 progress bar를 설정한다.
+     * @param {object} file
+     * @param {object} options
+     * @private
+     */
+    function _setCurrentProgressBar(file, options) {
+      var curUpload = {
+        lFileIndex: fileUploader.lastProgressIndex,
+        cFileIndex: fileUploader.currentProgressIndex,
+        title: file.name,
+        progress: 0,
+        status: 'initiate'
+      };
+
+      $rootScope.curUpload = _.extend(curUpload, options);
+    }
+
+    /**
+     * 마지막 file upload confirm이 진행 되었고, 더이상 upload를 진행하지 않는지 여부를 전달한다.
+     * @param {number} index
+     * @param {number} length
+     * @returns {boolean}
+     * @private
+     */
+    function _isUploadEnd(index, length) {
+      return index === length && $rootScope.curUpload.status === 'done';
+    }
 
     /**
      * dataUrl 가 바뀔 때마다 image-loader를 사용해서 dataUrl 의 이미지를 보여준다.
