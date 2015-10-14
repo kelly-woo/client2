@@ -188,7 +188,7 @@ article {
   font-size: 14px;
   font-weight: 400;
   display: inline-block;
-  max-width: 100%;
+  width: 100%;
   line-height: 1.6rem;
 }
 .continue-comment-body p {
