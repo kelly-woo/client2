@@ -30,7 +30,7 @@
       function _init() {
 
         if (attrs.messageData === 'prev' || attrs.messageData === 'next') {
-          scope.content = scope.plainContent;
+          scope.content = scope.inlineContent;
         }
 
         if (scope.messageQuery) {
