@@ -87,7 +87,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
 
         if (centerService.isScrollBottom()) {
-          jndPubSub.pub('center:scrollToBottom', 200);
+          jndPubSub.pub('center:scrollToBottom');
         }
       }
     }
@@ -579,8 +579,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     } else {
       body = $filter('parseAnchor')(body);
     }
-
-    return $sce.trustAsHtml(body);
+    body = $filter('markdown')(body);
+    return body;
   }
 
   /**

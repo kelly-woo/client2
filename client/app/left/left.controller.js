@@ -383,6 +383,7 @@ app.controller('leftPanelController1', function(
   };
 
   // left panel controller 에 들어오면 항상 호출되어야 한다.
+  jndPubSub.pub('hideDefaultBackground');
   initLeftList();
 
   /**

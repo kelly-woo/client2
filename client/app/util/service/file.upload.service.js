@@ -202,7 +202,7 @@
             // confirm cancel시 마지막 confirm 인지 여부
             if (that.fileLength() === that._fileUploadQueueIndex) {
               // that._initUploadQueue();
-              that.options.onConfirmEnd();
+              that.options.onConfirmEnd(index, that.fileLength());
             }
           }
 
@@ -212,7 +212,7 @@
             that._convertFileObjects(file);
           } else {
             // 더이상 다음 file이 존재하지 않음
-            that.options.onConfirmEnd();
+            that.options.onConfirmEnd(index, that.fileLength());
           }
         }
       },

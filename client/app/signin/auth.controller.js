@@ -57,7 +57,6 @@
             storageAPIservice.removeLocal();
             storageAPIservice.removeSession();
             storageAPIservice.removeCookie();
-
             jndPubSub.hideLoading();
           });
       }
