@@ -8,13 +8,15 @@
     .module('jandiApp')
     .directive('quickLauncherModal', quickLauncherModal);
 
-  function quickLauncherModal(jndPubSub) {
+  function quickLauncherModal($filter, jndPubSub) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, el) {
+      var noMatchesMsg = $filter('translate')('@quick-launcher-no-matches');
+      var noMatchesButtonMsg = $filter('translate')('@quick-launcher-create-topic-with-query');
       var jqFilter = el.find('#quick-launcher-filter');
 
       _init();
@@ -58,9 +60,9 @@
         if (scope.isEmptyMatches) {
           value = jqFilter.val();
 
-          scope.emptyMatchesMsg = '<strong>' + value + '</strong>에 대한 검색 결과가 없습니다.';
+          scope.noMatchesMsg = noMatchesMsg.replace('{{query}}', '<strong>' + value + '</strong>');
           value.length > 10 && (value = value.substring(0, 10) + '...');
-          scope.emptyMatchesButtonText = '<i class="icon-plus"></i><strong>' + value + '</strong>라는 이름의 새로운 토픽을 생성하기';
+          scope.noMatchesButtonMsg = '<i class="icon-plus"></i>' + noMatchesButtonMsg.replace('{{query}}', '<strong>' + value + '</strong>');
         }
       }
     }

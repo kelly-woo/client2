@@ -61,7 +61,7 @@
       } else {
         $scope.isEmptyMatches = false;
       }
-      //console.log('get matches ::: ', list);
+
       return matches;
     }
 

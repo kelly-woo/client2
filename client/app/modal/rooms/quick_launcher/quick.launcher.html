@@ -6,7 +6,7 @@
            type="text"
            maxlength="60"
            jnd-input-model="roomNameQuery"
-           placeholder="{{ '@input-search-user-name' | translate }}">
+           placeholder="{{ '@quick-launcher-placeholder' | translate }}">
   </div>
   <div class="quick-launcher-list">
     <list-on-modal type="roomList"
@@ -22,13 +22,13 @@
                    viewport-height="176"
                    buffer-length="8"></list-on-modal>
     <div class="empty-matches" ng-show="isEmptyMatches">
-      <span class="empty-matches-msg keep" ng-bind-html="emptyMatchesMsg"></span>
-      <button class="empty-matches-button btn btn-cancel cursor_pointer" ng-click="openCreateTopicModal(roomNameQuery)" ng-bind-html="emptyMatchesButtonText"></button>
+      <span class="empty-matches-msg keep" ng-bind-html="noMatchesMsg"></span>
+      <button class="empty-matches-button btn btn-cancel cursor_pointer" ng-click="openCreateTopicModal(roomNameQuery)" ng-bind-html="noMatchesButtonMsg"></button>
     </div>
   </div>
   <div class="quick-launcher-buttons cursor_pointer">
-    <button class="browse-topic-button" ng-click="openBrowseTopicModal()"><i class="icon-reorder"></i>browse other topics</button>
-    <button class="create-topic-button" ng-click="openCreateTopicModal()"><i class="icon-plus"></i>create a new topic</button>
+    <button class="browse-topic-button" ng-click="openBrowseTopicModal()"><i class="icon-reorder"></i><span translate>@quick-launcher-browse-topics</span></button>
+    <button class="create-topic-button" ng-click="openCreateTopicModal()"><i class="icon-plus"></i><span translate>@quick-launcher-create-topic</span></button>
   </div>
 </div>  <!-- END OF MODAL BODY  -->
 <div ng-if="false">

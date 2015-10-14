@@ -27,14 +27,14 @@
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
   font-size: 22px;
   color: #333;
-  background-color: #c1c1c1;
+  background-color: #e0e0e0;
 }
 
 .quick-launcher-modal .quick-launcher-search-box .form-control{
   height: 52px;
   font-size: 18px;
   color: #999;
-  background-color: #c1c1c1;
+  background-color: #e0e0e0;
 }
 
 .quick-launcher-modal .quick-launcher-list {
@@ -82,7 +82,7 @@
   text-align: center;
   border: 0;
   font-weight: 600;
-  background-color: #c1c1c1;
+  background-color: #e0e0e0;
 }
 
 .quick-launcher-buttons button i {

@@ -11,6 +11,7 @@
   /* @ngInject */
   function RoomItemRenderer($filter) {
     var _template;
+    var unjoinedChannelMsg = $filter('translate')('@quick-launcher-unjoin-topic');
 
     this.render = render;
 
@@ -30,7 +31,7 @@
         html: {
           roomTypeImage: _getRoomTypeImage(data),
           content: _getContent(data),
-          unjoinedChannel: '참여하지 않은 토픽'
+          unjoinedChannel: unjoinedChannelMsg
         },
         css: {
           unjoinedChannel: data.isUnjoinedChannel ? 'unjoined-channel-name' : ''
