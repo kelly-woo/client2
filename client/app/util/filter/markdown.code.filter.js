@@ -11,7 +11,8 @@
   function markdown() {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]*[^\*_~\s])\1/g
+      bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]*[^\*_~\s])\1/g,
+      anchor: /<a.*?<\/a>/g
     };
 
     return function(text, allowList) {
@@ -59,7 +60,7 @@
           }
         } else {
           if (allowMap.bolditalic) {
-            resultArr.push(_parseBoldItalic(token));
+            resultArr.push(_textParser(token));
           } else {
             resultArr.push(token);
           }
@@ -67,6 +68,33 @@
       }
 
       return resultArr.join('\n');
+    }
+
+    /**
+     * text markdown 을 파싱한다
+     * @param {string} string
+     * @returns {string|*}
+     * @private
+     */
+    function _textParser(string) {
+      var anchorMarker = '§§§anchorMarker§§§';
+      var anchorList = [];
+      var parsedText;
+      var index = 0;
+
+      /*
+        anchor 에 _ 가 들어갔을 경우 bold italic parser 가 정상동작 하지 않기 때문에, marker 로 표시한 뒤
+        다시 replace 하는 로직을 추가한다.
+       */
+      string = string.replace(_regx.anchor, function(matchText) {
+        anchorList.push(matchText);
+        return anchorMarker;
+      });
+      parsedText = _parseBoldItalic(string);
+      parsedText = parsedText.replace(anchorMarker, function(matchText) {
+        return anchorList[index++];
+      });
+      return parsedText;
     }
 
     /**
