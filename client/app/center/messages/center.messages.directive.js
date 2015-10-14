@@ -114,6 +114,8 @@
       function _attachDomEvents() {
         _attachDelegateDomHandlers();
         el.on('click', _onClick);
+        el.on('mouseover', _onMouseOver);
+        el.on('mouseout', _onMouseOut);
       }
 
       /**
@@ -331,6 +333,32 @@
           } else {
             jqTarget.addClass('off msg-item__action');
           }
+        }
+      }
+
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOverEvent
+       * @private
+       */
+      function _onMouseOver(mouseOverEvent) {
+        var jqTarget = $(mouseOverEvent.target);
+        if (jqTarget.closest('.msg-item-icon').length) {
+          jqTarget.closest('.msg-item').addClass('text-highlight-background');
+        }
+      }
+
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOutEvent
+       * @private
+       */
+      function _onMouseOut(mouseOutEvent) {
+        var jqTarget = $(mouseOutEvent.target);
+        if (jqTarget.closest('.msg-item-icon').length) {
+          jqTarget.closest('.msg-item').removeClass('text-highlight-background');
         }
       }
 

@@ -17,7 +17,6 @@
   line-height: inherit;
   vertical-align: top;
 }
-
 .header-navbar>.divider {
   width: 1px;
   height: 17px;
@@ -25,16 +24,8 @@
   float: left;
   margin-top: 12px;
 }
-.language-navbar-menu ul {
-  min-width: 150px;
-}
-
-.language-navbar-menu .grey_dropdown > li > a {
-  padding: 0 1.4rem 0 2.0rem;
-}
-
 .header-navbar-menu,
-.header-navbar-file,
+.header-navbar-invite,
 .header-navbar-settings,
 .header-navbar-quick-launcher {
   position: relative;
@@ -43,8 +34,14 @@
   float: left;
   font-size: 14px;
 }
+.header-navbar .divider,
+.header-navbar-menu,
+.header-navbar-invite,
+.header-navbar-settings,
+.header-navbar-quick-launcher {
+  margin-right: 10px;
+}
 .header-navbar-menu.open,
-.header-navbar-file.open,
 .header-navbar-settings.open {
   background: #173e54;
   color: #fff;
@@ -76,9 +73,6 @@
 .header-navbar__topmenu {
   display: block;
   padding: 0 4px 0 8px;
-}
-.language-navbar-menu {
-  margin-left: 15px;
 }
 #invite .icon-user-plus {
   font-size: 17px;

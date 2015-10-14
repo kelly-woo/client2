@@ -8,13 +8,15 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler(jndKeyCode, jndPubSub) {
+  function jndMainKeyHandler($window, jndKeyCode, jndPubSub, currentSessionHelper) {
     return {
       restrict: 'A',
       link: link
     };
 
-    function link(scope, el, attrs) {
+    function link(scope) {
+      var jqBody = $('body');
+
       _init();
 
       /**
@@ -22,15 +24,69 @@
        * @private
        */
       function _init() {
-        _attachDomEvents();
+        _on();
       }
 
       /**
-       * 이벤트 바인딩 한다.
+       * on events
        * @private
        */
-      function _attachDomEvents() {
-        el.on('keyup', _onKeyUp);
+      function _on() {
+        scope.$on('$destroy', _onDestroy);
+        scope.$on('document:visibilityChange', _onVisibilitychange);
+
+        _attachKeyEvents();
+      }
+
+      /**
+       * scope destory event handler
+       * @private
+       */
+      function _onDestroy() {
+        _detachKeyEvents();
+      }
+
+      /**
+       * visibility change event handler
+       * @private
+       */
+      function _onVisibilitychange() {
+        if (!currentSessionHelper.isBrowserHidden()) {
+          jqBody.focus();
+        }
+      }
+
+      /**
+       * attach key event listeners
+       * @private
+       */
+      function _attachKeyEvents() {
+        jqBody
+          .on('keydown', _onKeyDown)
+          .on('keyup', _onKeyUp);
+      }
+
+      /**
+       * detach key event listeners
+       * @private
+       */
+      function _detachKeyEvents() {
+        jqBody
+          .off('keydown', _onKeyDown)
+          .off('keyup', _onKeyUp);
+      }
+
+      /**
+       * keydown 이벤트 핸들러
+       * @private
+       */
+      function _onKeyDown(keyEvent) {
+        if (_isQuickLauncherShortcut(keyEvent)) {
+
+          // browser에서 사용하는 shortcut을 override 한다.
+          keyEvent.preventDefault();
+          jndPubSub.pub('toggleQuickLauncher');
+        }
       }
 
       /**
@@ -42,8 +98,6 @@
         var jqTarget = $(keyEvent.target);
         if (jndKeyCode.match('ENTER', keyEvent.keyCode) && !_isInput(jqTarget) && !_isModalShown()) {
           jndPubSub.pub('setChatInputFocus');
-        } else if (_isQuickLauncherShortcut(keyEvent)) {
-          jndPubSub.pub('toggleQuickLauncher');
         }
       }
 
@@ -73,7 +127,9 @@
        * @private
        */
       function _isQuickLauncherShortcut(keyEvent) {
-        return jndKeyCode.match('CHAR_Q', keyEvent.keyCode) && keyEvent.ctrlKey;
+        var keycode = keyEvent.keyCode;
+        //keyEvent.ctrlKey && (jndKeyCode.match('CHAR_Q', keycode));
+        return keyEvent.ctrlKey && (jndKeyCode.match('CHAR_J', keycode));
       }
     }
   }

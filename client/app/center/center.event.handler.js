@@ -1,0 +1,94 @@
+/**
+ * @fileoverview center event handler directive
+ */
+(function() {
+  'use strict';
+
+  angular
+    .module('jandiApp')
+    .directive('centerEventHandler', centerEventHandler);
+
+  function centerEventHandler(jndPubSub) {
+    return {
+      restrict: 'A',
+      link: link
+    };
+
+    function link(scope, el) {
+      var jqWindow = $(window);
+      var jqDocument = $(document);
+      var jqBody = $('body');
+
+      _init();
+
+      /**
+       * init
+       * @private
+       */
+      function _init() {
+        _on();
+      }
+
+      /**
+       * on listeners
+       * @private
+       */
+      function _on() {
+        scope.$on('$destroy', _destroy);
+
+        jqWindow
+          .on('focus', _onWindowFocus)
+          .on('blur', _onWindowBlur);
+
+        jqDocument.on('visibilitychange', _onVisibilityChange);
+        jqBody.on('dragstart', _onDragStart);
+      }
+
+      /**
+       * scope destroy event handler
+       * @private
+       */
+      function _destroy() {
+        jqWindow
+          .off('focus', _onWindowFocus)
+          .off('blur', _onWindowBlur);
+
+        jqDocument.off('visibilitychange', _onVisibilityChange);
+        jqBody.off('dragstart', _onDragStart);
+      }
+
+      /**
+       * window focus event handler
+       * @private
+       */
+      function _onWindowFocus(event) {
+        jndPubSub.pub('window:focus', event);
+      }
+
+      /**
+       * window blur event handler
+       * @private
+       */
+      function _onWindowBlur(event) {
+        jndPubSub.pub('window:blur', event);
+      }
+
+      /**
+       * visibility change event handler
+       * ref: https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+       * @private
+       */
+      function _onVisibilityChange(event) {
+        jndPubSub.pub('document:visibilityChange', event);
+      }
+
+      /**
+       * drag start event handler
+       * @private
+       */
+      function _onDragStart(event) {
+        jndPubSub.pub('body:dragStart', event);
+      }
+    }
+  }
+})();

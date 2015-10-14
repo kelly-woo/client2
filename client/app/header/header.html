@@ -53,29 +53,11 @@
     <div class="divider"></div>
 
     <!-- INVITE -->
-    <div class="header-navbar-menu invite-navbar-menu" id="invite">
+    <div class="header-navbar-invite" id="invite">
       <span class="header-navbar__topmenu" data-ng-click="openModal('invite');">
         <i class="icon-user-plus header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@btn-invite</span>
       </span>
-    </div>  <!--  END OF MENU -->
-
-    <!-- LANGUAGE -->
-    <div class="header-navbar-menu language-navbar-menu" dropdown id="language">
-      <span class="header-navbar__topmenu" dropdown-toggle>
-        <i class="icon-global header-navbar__menu-icon"></i>
-        <i class="icon-angle-down"></i>
-      </span>
-
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
-        <li class=""  role="presentation" ng-repeat="language in languageList" ng-click="onLanguageClick(language.value);">
-          <a role="menuitem" tabindex="-1">
-            <img class="flag flag-{{language.value}}" src="assets/images/blank.gif" alt="" ng-class="{}">
-            <span> {{ language.text }}</span>
-          </a>
-        </li>
-
-      </ul>
     </div>  <!--  END OF MENU -->
 
     <!-- Help -->
@@ -98,6 +80,23 @@
             <i class="icon-help-fill"></i>
             <span translate>@common-show-tutorial</span>
           </a>
+        </li>
+
+        <li role="presentation">
+          <div class="menu-item" role="menuitem" tabindex="-1">
+            <i class="icon-global"></i>
+            <span translate>언어</span>
+            <i class="icon-arrow-right sub-menu-arrow"></i>
+
+            <ul class="dropdown-menu grey_dropdown sub-menu language-sub-menu">
+              <li class=""  role="presentation" ng-repeat="language in languageList" ng-click="onLanguageClick(language.value);">
+                <a role="menuitem" tabindex="-1">
+                  <img class="flag flag-{{language.value}}" src="assets/images/blank.gif" alt="" ng-class="{}">
+                  <span> {{ language.text }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
 
         <li class="divider"></li>

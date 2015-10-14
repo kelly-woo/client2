@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, accountService, HybridAppHelper,
+  function headerCtrl($scope, $rootScope, $state, $timeout, accountService, HybridAppHelper,
                       memberService, publicService, centerService, language,
                       modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
                       AnalyticsHelper, Router, OtherTeamBadgeManager) {
@@ -40,6 +40,7 @@
 
     var isOpenQuickLauncher;
     var quickLauncherModal;
+    var timerOpenQuickLauncher;
 
     _init();
 
@@ -304,9 +305,12 @@
      */
     function _toggleQuickLauncher() {
       if (isOpenQuickLauncher) {
-        quickLauncherModal && quickLauncherModal.close();
+        modalHelper.closeModal();
       } else {
-        openQuickLauncher();
+        timerOpenQuickLauncher = $timeout.cancel(timerOpenQuickLauncher);
+        $timeout(function() {
+          openQuickLauncher();
+        }, 50);
       }
     }
   }

@@ -67,6 +67,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _stickerType = 'chat';
   var _sticker = null;
   var _isUpdateListLock = false;
+  var _isViewContentLoaded = false;
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $scope.msgLoadStatus = {
@@ -238,6 +239,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
     });
+
+    $scope.$on('window:focus', _onWindowFocus);
+    $scope.$on('window:blur', _onWindowBlur);
+    $scope.$on('body:dragStart', _onDragStart);
   }
 
   /**
@@ -290,11 +295,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onViewContentLoaded() {
+    _isViewContentLoaded = true;
     _jqContainer = $('.msgs');
     $timeout(function() {
       $('#message-input').val(TextBuffer.get()).trigger('change');
     });
-    _attachEvents();
   }
 
   /**
@@ -306,7 +311,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $timeout.cancel($scope.msgLoadStatus.timer);
     modalHelper.closeModal('cancel');
     _cancelHttpRequest();
-    _detachEvents();
 
     // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
     //_updateCache();
@@ -358,26 +362,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * dom 이벤트를 바인딩한다.
-   * @private
-   */
-  function _attachEvents() {
-    $(window).on('focus', _onWindowFocus);
-    $(window).on('blur', _onWindowBlur);
-    $('body').on('dragstart', _onDragStart);
-  }
-
-  /**
-   * dom 이벤트 바인딩을 해제 한다.
-   * @private
-   */
-  function _detachEvents() {
-    $(window).off('focus', _onWindowFocus);
-    $(window).off('blur', _onWindowBlur);
-    $('body').on('dragstart', _onDragStart);
-  }
-
-  /**
    * 현재 작동하고 있는 getMessages call을 resolve한다.
    * @private
    */
@@ -394,11 +378,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onWindowFocus() {
-    centerService.setBrowserFocus();
-    if (centerService.hasBottomReached()) {
-      _clearBadgeCount($scope.currentEntity);
+    if (_isViewContentLoaded) {
+      centerService.setBrowserFocus();
+      if (centerService.hasBottomReached()) {
+        _clearBadgeCount($scope.currentEntity);
+      }
+      NotificationManager.resetNotificationCountOnFocus();
     }
-    NotificationManager.resetNotificationCountOnFocus();
   }
 
   /**
@@ -406,7 +392,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onWindowBlur() {
-    centerService.resetBrowserFocus();
+    if (_isViewContentLoaded) {
+      centerService.resetBrowserFocus();
+    }
   }
 
   /**
@@ -414,10 +402,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * drag&drop 이벤트 에서도 file upload sequence 시작되기 때문에
    * window의 drag start event cancel
    */
-  function _onDragStart(dragEvent) {
-    dragEvent.preventDefault();
-    dragEvent.stopPropagation();
-    return false;
+  function _onDragStart($event, dragEvent) {
+    if (_isViewContentLoaded) {
+      dragEvent.preventDefault();
+      dragEvent.stopPropagation();
+      return false;
+    }
   }
 
   function _searchJumpToMessageId() {

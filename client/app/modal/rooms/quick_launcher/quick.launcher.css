@@ -1,6 +1,15 @@
+.quick-launcher-modal .modal-dialog {
+  -webkit-transform: inherit !important;
+  -ms-transform: inherit !important;
+  -o-transform: inherit !important;
+  transform: inherit !important;
+}
+
 .quick-launcher-modal .modal-content {
   opacity: .9;
   background-color: transparent;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .quick-launcher-modal .modal-dialog {
@@ -13,8 +22,6 @@
 
 .quick-launcher-modal .modal-body {
   padding: 0;
-  border-radius: 5px;
-  overflow: hidden;
 }
 
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
@@ -31,7 +38,7 @@
 }
 
 .quick-launcher-modal .quick-launcher-list {
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   overflow-y: auto;
   background-color: #fff;
 }

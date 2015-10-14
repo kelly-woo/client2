@@ -11,7 +11,6 @@
   /* @ngInject */
   function RoomItemRenderer($filter) {
     var _template;
-    var jqTemp = $('<div></div>');
 
     this.render = render;
 
@@ -73,17 +72,7 @@
      * @private
      */
     function _getContent(data) {
-      var content;
-
-      if (data.query != null) {
-
-        // data.name 중 query 문자열과 일치하는 문자열이 존재한다면 highlight 처리함
-        content = jqTemp.text(data.name).highlight(data.query).html();
-      } else {
-        content = data.name;
-      }
-
-      return content;
+      return data.name;
     }
   }
 })();

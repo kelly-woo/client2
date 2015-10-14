@@ -16,7 +16,7 @@
 
     var that = this;
 
-    // singleton modal instance.
+    // singleton modal instance
     var modal;
 
     var inviteModalLock;
@@ -70,7 +70,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -104,7 +104,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
       _safeApply($scope);
     }
 
@@ -125,7 +125,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
     /**
      * topic 을 create 할 수 있는 모달창을 연다.
@@ -143,7 +143,7 @@
         }
       };
       _.extend(modalOption, options);
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -163,7 +163,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -177,7 +177,7 @@
         controller: 'TopicInviteFromDmCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -191,7 +191,7 @@
         controller: 'TopicJoinCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -205,7 +205,7 @@
         controller: 'TopicRenameCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -219,7 +219,7 @@
         controller: 'TeamChangeController',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -231,7 +231,7 @@
         controller: 'TeamMemberListCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -253,7 +253,7 @@
                 }
               }
             };
-            modal = _modalOpener(modalOption);
+            _modalOpener(modalOption);
           })
           .finally(function() {
             inviteModalLock = false;
@@ -275,7 +275,7 @@
 
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -294,7 +294,7 @@
         }
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
       _safeApply($scope);
     }
 
@@ -328,7 +328,7 @@
         }
       };
 
-      modal = _modalOpener(modalOptions);
+      _modalOpener(modalOptions);
     }
 
     function openFullScreenImageModal($scope, fileUrl) {
@@ -344,7 +344,7 @@
         }
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     function openNotificationSettingModal($scope) {
@@ -355,7 +355,7 @@
         backdrop: 'static'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -370,7 +370,7 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -385,7 +385,7 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -400,7 +400,7 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -412,7 +412,7 @@
         controller: 'QuickLauncherCtrl',
         windowClass: 'quick-launcher-modal'
       };
-      return modal = _modalOpener(modalOption);
+      return _modalOpener(modalOption);
     }
 
     /**
@@ -422,12 +422,10 @@
      * @private
      */
     function _modalOpener(modalOption) {
-      if (!!modal) {
-        closeModal();
-      }
+      closeModal();
 
       if (NetInterceptor.isConnected()) {
-        return $modal.open(modalOption);
+        return modal = $modal.open(modalOption);
       }
     }
 
@@ -435,7 +433,7 @@
      * 모달을 별 이유없이 닫는다.
      */
     function closeModal() {
-      if (!!modal) modal.dismiss('close');
+      return modal && modal.dismiss('close');
     }
   }
 })();

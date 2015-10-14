@@ -781,12 +781,36 @@ input[type="button"] {
 {
   outline: 0;
 }
+.dropdown-menu .menu-item .sub-menu-arrow {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+}
+.dropdown-menu .menu-item .sub-menu {
+  display: none;
+}
+.dropdown-menu .menu-item:hover .sub-menu {
+  display: block;
+}
+.dropdown-menu .language-sub-menu {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  margin-left: 198px !important;
+}
 
 .right-align {
   left: auto;
   right: 10px;
 }
-
+.grey_dropdown > li > .menu-item {
+  display: block;
+  clear: both;
+  font-weight: normal;
+  color: #333;
+  white-space: nowrap;
+}
+.grey_dropdown > li > .menu-item,
 .grey_dropdown > li > a,
 .green_dropdown > li > a {
   line-height: 33px;
@@ -794,6 +818,7 @@ input[type="button"] {
   cursor: pointer;
   padding: 0 .65rem 0 2.5rem;
 }
+
 .grey_dropdown > li > a:empty,
 .green_dropdown > li > a:empty {
   display: none;
@@ -815,6 +840,7 @@ input[type="button"] {
 .green_dropdown > li:first-child > a > i {
   /*top: 11px;*/
 }
+.grey_dropdown > li > .menu-item > i:first-child,
 .grey_dropdown > li > a > i,
 .green_dropdown > li > a > i {
   position: absolute;
@@ -825,6 +851,7 @@ input[type="button"] {
   font-size: 16px;
   line-height: 20px;
 }
+.grey_dropdown > li > .menu-item:hover,
 .grey_dropdown > li > a:hover {
   background-color: #e8f3f9;
   color: #262626;
@@ -867,7 +894,6 @@ input[type="button"] {
   background-color: #2d956e;
   color: #fff;
 }
-
 
 .black_dropdown {
   background-color: #333 !important;
