@@ -1683,11 +1683,11 @@ msgstr "You received a new message in "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr " invited you to a private topic."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr " invited you to this topic."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"

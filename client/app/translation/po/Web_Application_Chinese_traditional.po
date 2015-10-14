@@ -823,8 +823,8 @@ msgstr "連結你的Google帳戶"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選"
-"功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩"
+"選功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -1276,8 +1276,8 @@ msgstr "恭喜 {{username}}！"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
 msgstr ""
-"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合作"
-"無間！"
+"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合"
+"作無間！"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
@@ -1480,8 +1480,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾"
-"經分享在哪個議題下”的項目進行搜尋。"
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、"
+"曾經分享在哪個議題下”的項目進行搜尋。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1502,8 +1502,8 @@ msgstr "送出訊息及上傳檔案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕"
-"和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按"
+"鈕和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1517,14 +1517,14 @@ msgstr "TIPS"
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 "直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳"
-"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
-"訊，同時仍然保留訊息歷史直到對話重新啟動。"
+"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接"
+"傳訊，同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的"
-"私人議題。"
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新"
+"的私人議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1533,9 +1533,9 @@ msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的"
-"建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您"
-"自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐"
+"的建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建"
+"立您自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1613,11 +1613,11 @@ msgstr "在"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr "邀請你加入私人議題"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr "邀請你加入此議題"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
@@ -1818,8 +1818,8 @@ msgstr "三"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已"
-#~ "設定爲公開或私人的議題在建立之後不能被轉換成另一個"
+#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- "
+#~ "已設定爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人議題僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
@@ -1881,7 +1881,8 @@ msgstr "三"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組成。"
+#~ "網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組"
+#~ "成。"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改團隊名稱"
@@ -1927,8 +1928,8 @@ msgstr "三"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離"
-#~ "開嗎？"
+#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要"
+#~ "離開嗎？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "沒有上傳檔案"

@@ -1679,11 +1679,11 @@ msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr "さんが非公開トピックに招待しました。"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr "さんがトピックに招待しました。"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"

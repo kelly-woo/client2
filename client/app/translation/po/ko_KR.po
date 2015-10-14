@@ -1678,11 +1678,11 @@ msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr "님이 새로운 비공개 토픽에 초대했습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr "님이 새로운 토픽에 초대했습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
