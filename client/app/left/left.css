@@ -178,7 +178,9 @@ last element of list
   background: #F1F1F1;
 }
 /*  text in element */
-.lpanel-list ul li a {
+.lpanel-list ul li a,
+.custom-select-box__menulist a,
+.custom-select-box__search-result a {
   border: 1px solid transparent;
   color: #666;
   line-height: inherit;
