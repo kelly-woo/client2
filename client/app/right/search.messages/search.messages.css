@@ -35,6 +35,7 @@
 .rpanel-alert-msg-container__img {
   display: block;
   margin: auto;
+  margin-bottom:16px;
 }
 .rpanel-alert-msg-container__text {
   margin-top: 16px;

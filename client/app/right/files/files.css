@@ -1,7 +1,6 @@
 .advanced-search-option-container {
   padding: 2px 0 12px 11px;
   background-color: #F9F9F9;
-  border-bottom:1px solid #E1E1E1;
   height: 58px;
   overflow: hidden;
   
@@ -122,14 +121,16 @@
 }
 
 .rpanel-body-content {
+  border-top:1px solid #E1E1E1;
   padding: 0;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 138px;
+  top: 137px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #FFF;
 }
 
 .rpanel-body-content__result-msg {
@@ -141,5 +142,5 @@
 }
 
 .rpanel-body-content .file-list {
-  margin-top: -20px;
+  margin-top: 0px;
 }
