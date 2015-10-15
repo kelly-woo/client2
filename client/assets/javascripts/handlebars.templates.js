@@ -155,16 +155,18 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPreview : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.program(8, data, 0),"data":data})) != null ? stack1 : "")
     + "              </div>\n";
 },"6":function(depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=this.lambda;
 
-  return "                  <div class=\"medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand\">\n                    <div class=\"opac-zero\" image-loader=\""
-    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\" image-max-width=\"360\" image-max-height=\"270\" image-is-center=\"true\"></div>\n                  </div>\n";
+  return "                  <div class=\"medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand\">\n                    <div image-loader=\""
+    + this.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
+    + "\" image-max-width=\"360\" image-max-height=\"270\" image-is-center=\"true\">\n                      "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.loading : stack1), depth0)) != null ? stack1 : "")
+    + "\n                    </div>\n                  </div>\n";
 },"8":function(depth0,helpers,partials,data) {
     var stack1;
 
   return "                  <div class=\"medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer\">\n                    "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.loading : stack1), depth0)) != null ? stack1 : "")
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.loading : stack1), depth0)) != null ? stack1 : "")
     + "\n                  </div>\n";
 },"10":function(depth0,helpers,partials,data) {
     var stack1;
