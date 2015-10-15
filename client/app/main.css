@@ -795,8 +795,7 @@ input[type="button"] {
 .dropdown-menu .language-sub-menu {
   position: absolute;
   top: -5px;
-  left: -4px;
-  margin-left: 198px !important;
+  margin-left: 194px !important;
 }
 
 .right-align {

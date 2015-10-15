@@ -58,11 +58,12 @@
        */
       function _onChangeRoomNameQuery(value) {
         if (scope.isEmptyMatches) {
+          el.find('.quick-launcher-list').height(176);
           value = jqFilter.val();
 
           scope.noMatchesMsg = noMatchesMsg.replace('{{query}}', '<strong>' + value + '</strong>');
           value.length > 10 && (value = value.substring(0, 10) + '...');
-          scope.noMatchesButtonMsg = '<i class="icon-plus"></i>' + noMatchesButtonMsg.replace('{{query}}', '<strong>' + value + '</strong>');
+          scope.noMatchesButtonMsg = '<i class="icon-plus"></i><span>' + noMatchesButtonMsg.replace('{{query}}', '<strong>' + value + '</strong>') + '</span>';
         }
       }
     }

@@ -82,19 +82,18 @@
 .quick-launcher-modal .empty-matches .empty-matches-button:hover,
 .quick-launcher-modal .empty-matches .empty-matches-button:active,
 .quick-launcher-modal .empty-matches .empty-matches-button:focus {
-  text-decoration: underline;
   color: #00abe6;
-  box-shadow: none !important;
+  box-shadow: none;
+}
+
+.quick-launcher-modal .empty-matches .empty-matches-button:hover span,
+.quick-launcher-modal .empty-matches .empty-matches-button:active span,
+.quick-launcher-modal .empty-matches .empty-matches-button:focus span {
+  text-decoration: underline;
 }
 
 .quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus {
   margin-right: 4px;
-  text-decoration: none !important;
-}
-.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:hover,
-.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:active,
-.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:focus, {
-  text-decoration: none !important;
 }
 
 /* QUICK LAUNCHER BUTTONS */
@@ -130,5 +129,5 @@
 
 .quick-launcher-buttons .create-topic-button:hover,
 .quick-launcher-buttons .browse-topic-button:hover {
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
 }
