@@ -27,22 +27,26 @@
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
   font-size: 22px;
   color: #333;
-  background-color: rgba(243,243,243,0.95);
+  background-color: rgba(255,255,255,0.95);
   padding-left: 19px;
   padding-right: 6px;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .quick-launcher-modal .quick-launcher-search-box .form-control{
   height: 52px;
   font-size: 18px;
   color: #333;
-  background-color: rgba(243,243,243,0.95);
+  background-color: rgba(255,255,255,0.95);
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .quick-launcher-modal .quick-launcher-list {
   /*overflow-x: hidden;*/
   overflow-y: auto;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.95);
 }
 
 .quick-launcher-modal .empty-matches {
@@ -108,7 +112,7 @@
   text-align: center;
   border: 0;
   font-weight: 600;
-  background-color: rgba(243,243,243,0.95);
+  background-color: rgba(255,255,255,0.95);
 }
 
 .quick-launcher-buttons button i {
@@ -126,4 +130,5 @@
 
 .quick-launcher-buttons .create-topic-button:hover,
 .quick-launcher-buttons .browse-topic-button:hover {
-  background-color: rgba(255,255,255,0.95);
+  background-color: #F1F1F1;
+}
