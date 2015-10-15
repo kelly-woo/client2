@@ -129,7 +129,7 @@
       function _isQuickLauncherShortcut(keyEvent) {
         var keycode = keyEvent.keyCode;
         //keyEvent.ctrlKey && (jndKeyCode.match('CHAR_Q', keycode));
-        return keyEvent.ctrlKey && (jndKeyCode.match('CHAR_J', keycode));
+        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keycode));
       }
     }
   }
