@@ -23,7 +23,11 @@
       var fileObject
 
       _init();
-      
+
+      /**
+       * init
+       * @private
+       */
       function _init() {
         scope.upload = upload;
         scope.cancel = cancel;
@@ -31,6 +35,10 @@
         _setFilUploader();
       }
 
+      /**
+       * file upload를 수행하는 object를 설정한다.
+       * @private
+       */
       function _setFilUploader() {
         fileObject = fileUploadOptions.fileUploader.fileObject;
         if (fileUploadOptions.fileUploader.isUploadingStatus()) {
@@ -89,7 +97,7 @@
             onUpload: function(file, fileInfo) {
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
               fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
-              fileInfo.comment = scope.comment;
+              fileInfo.comment = el.find('#file_upload_comment').val();
 
               _setMentions(fileInfo);
 
@@ -198,7 +206,7 @@
       }
   
       /**
-       * image파일 upload시 upload modal에 보여지는 미리보기 용 dataUrl 생성
+       * image파일 upload시 upload modal에 보여지는 미리보기 용 dataUrl 생성한다.
        */
       function _createImgEle(scope, file) {
         var fileReader;
@@ -253,7 +261,7 @@
       }
   
       /**
-       * progress bar의 style을 설정함
+       * progress bar의 style을 설정한다.
        * @param {string} type - 설정 type
        * @param {number} index - 현재 upload되는 file의 index
        * @param {number} length - upload 되는 file의 length
@@ -277,6 +285,11 @@
         }
       }
 
+      /**
+       * 업로드 하는 파일에 대한 mention정보를 설정한다.
+       * @param {object} fileInfo
+       * @private
+       */
       function _setMentions(fileInfo) {
         var room;
         var members;
@@ -291,16 +304,23 @@
             mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
             mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
             if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
+              fileInfo.comment = mention.msg;
               fileInfo.mentions = mention.mentions;
             }
           }
         }
       }
 
+      /**
+       * file upload
+       */
       function upload() {
         fileUploader.upload(true);
       }
 
+      /**
+       * file upload cancel
+       */
       function cancel() {
         fileUploader.upload(false);
       }

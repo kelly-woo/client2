@@ -11,6 +11,10 @@
                                fileUploadOptions, ImagesHelper, memberService, entityAPIservice, EntityMapManager) {
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.selectedEntity = currentSessionHelper.getCurrentEntity();
       $scope.isLoading = false;
@@ -18,23 +22,37 @@
       $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
 
       $scope.fileUploadOptions = fileUploadOptions;
-      $scope.setMemberList = setMemberList;
+      $scope.setMemberListForMention = setMemberListForMention;
       $modalInstance.result.then(_clearFileUploader, _clearFileUploader);
 
       _on();
     }
 
+    /**
+     * on listeners
+     * @private
+     */
     function _on() {
       $scope.$watch('dataUrl', _onDataUrlChange);
     }
 
+    /**
+     * data url change handler
+     * @param newValue
+     * @private
+     */
     function _onDataUrlChange(newValue) {
       if (!!newValue) {
         _onNewDataUrl(newValue);
       }
     }
 
-    function setMemberList($mentionScope, $mentionCtrl) {
+    /**
+     * mention 입력을 위한 member list를 설정한다.
+     * @param {object} $mentionScope
+     * @param {object} $mentionCtrl
+     */
+    function setMemberListForMention($mentionScope, $mentionCtrl) {
       var currentMemberId = memberService.getMemberId();
 
       $scope.$watch('selectedEntity', function(entity) {
