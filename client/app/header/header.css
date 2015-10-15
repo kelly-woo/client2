@@ -150,14 +150,16 @@
 }
 
 .header-navbar-quick-launcher .quick-launcher {
-  padding: 4px 24px 4px 24px;
+  padding: 5px 14px 5px 14px;
   border-radius: 14px;
   background-color: white;
   color: #154a67;
-  font-weight: 500;
+  font-weight: 700;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
 }
 .header-navbar-quick-launcher .quick-launcher:hover {
   background-color: #d7e0e8;
+  text-shadow: 0 1px 0 #fff;
 }
 
 .header-toolbar > ul {
