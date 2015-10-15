@@ -124,16 +124,18 @@
 
       for (e in unreadBadgeMap) {
         if (unreadBadgeMap.hasOwnProperty(e)) {
-          entity = JSON.parse(unreadBadgeMap[e].entity);
+          if (unreadBadgeMap[e].entity) {
+            entity = JSON.parse(unreadBadgeMap[e].entity);
 
-          room = {
-            type: entity.type,
-            id: entity.id,
-            name: entity.name,
-            count: entity.alarmCnt
-          };
-          entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
-          rooms.push(room);
+            room = {
+              type: entity.type,
+              id: entity.id,
+              name: entity.name,
+              count: entity.alarmCnt
+            };
+            entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+            rooms.push(room);
+          }
         }
       }
 
