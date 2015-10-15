@@ -8,7 +8,7 @@
     .module('jandiApp')
     .service('JndUtil', JndUtil);
 
-  function JndUtil(Dialog) {
+  function JndUtil(Dialog, $filter) {
     this.safeApply = safeApply;
     this.alertUnknownError = alertUnknownError;
 
@@ -31,15 +31,26 @@
 
     /**
      * 알수 없는 오류에 대한 alert 을 노출한다.
-     * @param response
+     * @param {object} response
      */
     function alertUnknownError(response) {
+      var msg = $filter('translate')('@common-unknown-error');
+      var body;
+
       response = _.extend({
         code: -1,
-        msg: 'unknown error'
+        msg: 'Unknown error'
       }, response);
+
+      body = [
+        msg + '<br />',
+        'code: ' + response.code,
+        response.msg
+      ];
+
       Dialog.alert({
-        body: 'error :' + response.code + '\n' + response.msg
+        allowHtml: true,
+        body: body.join('<br />')
       });
     }
   }
