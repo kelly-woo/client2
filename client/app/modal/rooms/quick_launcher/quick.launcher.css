@@ -6,7 +6,7 @@
 }
 
 .quick-launcher-modal .modal-content {
-  opacity: .9;
+  opacity: .93;
   background-color: transparent;
   border-radius: 5px;
   overflow: hidden;
@@ -27,14 +27,16 @@
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
   font-size: 22px;
   color: #333;
-  background-color: #e0e0e0;
+  background-color: rgba(243,243,243,0.95);
+  padding-left: 19px;
+  padding-right: 6px;
 }
 
 .quick-launcher-modal .quick-launcher-search-box .form-control{
   height: 52px;
   font-size: 18px;
-  color: #999;
-  background-color: #e0e0e0;
+  color: #333;
+  background-color: rgba(243,243,243,0.95);
 }
 
 .quick-launcher-modal .quick-launcher-list {
@@ -45,7 +47,6 @@
 
 .quick-launcher-modal .empty-matches {
   text-align: center;
-  font-size: 15px;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%)
@@ -55,16 +56,41 @@
   display: inline-block;
   max-width: 320px;
   min-width: 250px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+.quick-launcher-modal .empty-matches .empty-matches-msg strong{
+  color: #333;
+  font-weight: 400;
 }
 
 .quick-launcher-modal .empty-matches .empty-matches-button {
   margin-top: 20px;
   border: 0;
-  /*color: #00abe6;*/
+  color: #00abe6;
+  font-weight: 700;
+}
+.quick-launcher-modal .empty-matches .empty-matches-button strong {
+  font-weight: 400;
+  color: #00abe6;
+}
+.quick-launcher-modal .empty-matches .empty-matches-button:hover,
+.quick-launcher-modal .empty-matches .empty-matches-button:active,
+.quick-launcher-modal .empty-matches .empty-matches-button:focus {
+  text-decoration: underline;
+  color: #00abe6;
+  box-shadow: none !important;
 }
 
 .quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus {
   margin-right: 4px;
+  text-decoration: none !important;
+}
+.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:hover,
+.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:active,
+.quick-launcher-modal .empty-matches .empty-matches-button i.icon-plus:focus, {
+  text-decoration: none !important;
 }
 
 /* QUICK LAUNCHER BUTTONS */
@@ -82,7 +108,7 @@
   text-align: center;
   border: 0;
   font-weight: 600;
-  background-color: #e0e0e0;
+  background-color: rgba(243,243,243,0.95);
 }
 
 .quick-launcher-buttons button i {
@@ -100,5 +126,4 @@
 
 .quick-launcher-buttons .create-topic-button:hover,
 .quick-launcher-buttons .browse-topic-button:hover {
-  color: #e8f3f9;
-}
+  background-color: rgba(255,255,255,0.95);
