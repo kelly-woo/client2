@@ -42,6 +42,7 @@
       var safeBody = msg;
       if (safeBody != undefined && safeBody !== "") {
         safeBody = $filter('parseAnchor')(safeBody);
+        safeBody = $filter('markdown')(safeBody, ['bolditalic']);
       }
       return $sce.trustAsHtml(safeBody);
     }

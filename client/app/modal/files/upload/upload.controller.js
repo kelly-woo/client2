@@ -7,7 +7,7 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, $filter, modalHelper, currentSessionHelper,
+  function FileUploadModalCtrl($rootScope, $scope, $timeout, $state, $modalInstance, modalHelper, currentSessionHelper,
                                fileAPIservice, ImagesHelper, AnalyticsHelper, TopicFolderModel, fileUplodOptions,
                                EntityMapManager, entityAPIservice, MentionExtractor, analyticsService) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
@@ -88,14 +88,8 @@
       
           // scope comment 초기화
           $scope.comment = '';
-      
-          // progress bar 초기화
-          $rootScope.curUpload = {};
-          $rootScope.curUpload.lFileIndex = !!fileUploader.lastProgressIndex;
-          $rootScope.curUpload.cFileIndex = !!fileUploader.currentProgressIndex;
-          $rootScope.curUpload.title = file.name;
-          $rootScope.curUpload.progress = 0;
-          $rootScope.curUpload.status = 'initiate';
+
+          _setCurrentProgressBar(file);
         },
         // 하나의 file upload 중
         onProgress: function(evt, file) {
@@ -103,14 +97,13 @@
       
           // set transition
           _setProgressBarStyle('progress');
-      
-          // progress bar의 상태 변경
-          $rootScope.curUpload = {};
-          $rootScope.curUpload.lFileIndex = fileUploader.lastProgressIndex;
-          $rootScope.curUpload.cFileIndex = fileUploader.currentProgressIndex;
-          $rootScope.curUpload.title = file.name;
-          $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-          $rootScope.curUpload.status = 'uploading';
+
+          if (!$rootScope.curUpload.isAborted) {
+            _setCurrentProgressBar(file, {
+              progress: parseInt(100.0 * evt.loaded / evt.total),
+              status: 'uploading'
+            });
+          }
         },
         // 하나의 file upload 완료
         onSuccess: function(response, index, length) {
@@ -178,25 +171,35 @@
           }
       
           _setProgressBarStyle('error', index, length);
-      
-          $rootScope.curUpload.status = 'error';
+
+          $rootScope.curUpload.status = $rootScope.curUpload.isAborted ? 'abort' : 'error';
           $rootScope.curUpload.hasError = true;
           $rootScope.curUpload.progress = 0;
         },
         // upload confirm end
-        onConfirmEnd: function() {
-          if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
-            fileAPIservice.clearUploader();
-            fileAPIservice.clearCurUpload();
-          }
-
+        onConfirmEnd: function(index, length) {
           modalHelper.closeModal();
 
-          delete $rootScope.fileUploader;
+          if (_isUploadEnd(index, length)) {
+            fileUplodOptions.onEnd();
+          }
         },
         // upload sequence end
         onEnd: fileUplodOptions.onEnd
       }); 
+    }
+
+    $modalInstance.result.then(_clearFileUploader, _clearFileUploader);
+
+    /**
+     * clear fileuploader
+     * @private
+     */
+    function _clearFileUploader() {
+      if (!fileUplodOptions.fileUploader.isUploadingStatus()) {
+        fileAPIservice.clearUploader();
+        fileAPIservice.clearCurUpload();
+      }
     }
 
     /**
@@ -231,6 +234,35 @@
         _onNewDataUrl(newValue);
       }
     });
+
+    /**
+     * 현재 progress bar를 설정한다.
+     * @param {object} file
+     * @param {object} options
+     * @private
+     */
+    function _setCurrentProgressBar(file, options) {
+      var curUpload = {
+        lFileIndex: fileUploader.lastProgressIndex,
+        cFileIndex: fileUploader.currentProgressIndex,
+        title: file.name,
+        progress: 0,
+        status: 'initiate'
+      };
+
+      $rootScope.curUpload = _.extend(curUpload, options);
+    }
+
+    /**
+     * 마지막 file upload confirm이 진행 되었고, 더이상 upload를 진행하지 않는지 여부를 전달한다.
+     * @param {number} index
+     * @param {number} length
+     * @returns {boolean}
+     * @private
+     */
+    function _isUploadEnd(index, length) {
+      return index === length && $rootScope.curUpload.status === 'done';
+    }
 
     /**
      * dataUrl 가 바뀔 때마다 image-loader를 사용해서 dataUrl 의 이미지를 보여준다.

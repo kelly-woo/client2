@@ -27,6 +27,7 @@
       $scope.createDate = $filter('getyyyyMMddformat')(message.createdAt);
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);
+      $scope.inlineContent = _getContent(message, ['bolditalic']);
 
       $scope.isDisabledMember = isDisabledMember;
       $scope.hasStar = message.hasStar || false;
@@ -46,17 +47,23 @@
     /**
      * message content 전달
      * @param {object} message
+     * @param {Array} allowList - 파싱 할 markdown 종류 배열
      * @returns {*}
      * @private
      */
-    function _getContent(message) {
+    function _getContent(message, allowList) {
       var content = message.contentBody;
-
-      if (message.mentions && message.mentions.length > 0) {
-        // mentions가 존재한다면 mentions parse하여 content 설정
-        content = $filter('mention')(content, message.mentions, false);
+      if (content) {
+        if (message.mentions && message.mentions.length > 0) {
+          // mentions가 존재한다면 mentions parse하여 content 설정
+          content = $filter('mention')(content, message.mentions, false);
+          content = $filter('parseAnchor')(content);
+          content = $filter('mentionHtmlDecode')(content);
+        } else {
+          content = $filter('parseAnchor')(content);
+        }
+        content = $filter('markdown')(content, allowList);
       }
-
       return content;
     }
 

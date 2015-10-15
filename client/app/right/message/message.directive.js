@@ -24,11 +24,20 @@
       controller: 'MessageCtrl'
     };
 
-    function link(scope, el) {
-      if (scope.messageQuery) {
-        $timeout(function() {
-          el.find('.message-card-body').children().highlight(scope.messageQuery);
-        },50);
+    function link(scope, el, attrs) {
+      _init();
+
+      function _init() {
+
+        if (attrs.messageData === 'prev' || attrs.messageData === 'next') {
+          scope.content = scope.inlineContent;
+        }
+
+        if (scope.messageQuery) {
+          $timeout(function() {
+            el.find('.message-card-body').highlight(scope.messageQuery);
+          },50);
+        }
       }
     }
   }

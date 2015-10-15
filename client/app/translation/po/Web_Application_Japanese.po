@@ -123,6 +123,7 @@ msgstr "送信"
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "招待"
@@ -134,11 +135,6 @@ msgstr "参加"
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr "次へ"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@btn-send"
-msgstr "送信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
@@ -604,6 +600,10 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unknown-error"
+msgstr "予期しないエラーが発生しました。後でもう一度やり直してください。"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -874,7 +874,6 @@ msgstr ""
 msgid "@invitation-already-member"
 msgstr "このメールはすでに{{invitedTeamName}}のメンバーです"
 
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
@@ -896,22 +895,9 @@ msgid "@invitation-disabled-amdin-prefix"
 msgstr "管理者によって招待が取り消されました。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-invaild-email"
-msgstr "正しいメールアドレスの形式を入力してください"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "またはリンクを送信"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-msgid "@invitation-more-email"
-msgstr "+ さらに追加"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation-some-fail"
-msgstr "いくつかの招待が送信されませんでした"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1119,6 +1105,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索し"
 "ています"
 
+#: client/app/right/rpanel_search/rpanel.search.html
+msgid "@search-minimum-query-length"
+msgstr "1文字以上入力してください。"
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -1149,11 +1139,11 @@ msgstr ""
 msgid "@setting-notification-show-content-msg"
 msgstr "メッセージの内容をデスクトップ通知で表示する"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
 msgstr "デスクトップ通知をオフにする"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
@@ -1237,6 +1227,43 @@ msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+msgid "@team-invite-description"
+msgstr ""
+"空白またはカンマで区切られた複数のメールアドレスを一度に追加することができ"
+"ます。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done"
+msgstr "招待メール{{inviteeNumber}}通が正常に送信されました。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-done-with-fail"
+msgstr ""
+"招待メール{{inviteeNumber}}通が正常に送信されましたが、"
+"{{failedInviteeNumber}}通は送信に失敗しました。すでにチームに参加している"
+"メンバーなのか確認してください。"
+
+#: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-invalid-email"
+msgstr "正しいメールアドレスの形式を入力してください"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-link-copy-desc"
+msgstr ""
+"Ctrl-C (Macの場合Cmd-C)を押したら、招待リンクがコピーされます。招待したい"
+"メンバにこのリンクを送ってみてください"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-more"
+msgstr "もっと招待する"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@team-invite-send"
+msgstr "{{inviteeNumber}}名に招待メールを送信する"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1617,19 +1644,19 @@ msgstr "お気に入りから削除する"
 msgid "@web-notification"
 msgstr "通知"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-file-share"
 msgstr "さんがファイルを共有しました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr "さんが"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr "にコメントしました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr " "
@@ -1638,41 +1665,49 @@ msgstr " "
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "本当に削除しますか？元には戻せません"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-post"
 msgstr "さんからダイレクトメッセージが届きました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
 msgstr "に新規メッセージが届きました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-other-team-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@web-notification-body-private-topic-invited"
+msgstr "さんが非公開トピックに招待しました。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@web-notification-body-topic-invited"
+msgstr "さんがトピックに招待しました。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-mid"
 msgstr "さんが"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-post"
 msgstr "に投稿しました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
 msgstr " "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
 msgstr "新しいファイルが共有されました"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-sample-body-text"
 msgstr " 成功しました！"
 
@@ -1683,6 +1718,18 @@ msgstr "JANDI 新着メッセージ通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "水曜日"
+
+#~ msgid "@btn-send"
+#~ msgstr "送信"
+
+#~ msgid "@invitation-invaild-email"
+#~ msgstr "正しいメールアドレスの形式を入力してください"
+
+#~ msgid "@invitation-more-email"
+#~ msgstr "+ さらに追加"
+
+#~ msgid "@invitation-some-fail"
+#~ msgstr "いくつかの招待が送信されませんでした"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

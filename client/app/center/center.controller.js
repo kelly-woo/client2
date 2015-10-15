@@ -132,7 +132,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.hasOldMessageToLoad = true;
   _init();
 
-  var _testCounter = 0;
   /**
    * 생성자 함수
    * @private
@@ -144,6 +143,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeListeners();
     _reset();
     _initializeView();
+    _initializeFocusStatus();
+  }
+
+  /**
+   * 브라우저의 focus 상태를 초기화한다
+   * @private
+   */
+  function _initializeFocusStatus() {
+    if (document.hasFocus()) {
+      centerService.setBrowserFocus();
+    } else {
+      centerService.resetBrowserFocus();
+    }
   }
 
   /**
@@ -388,12 +400,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * 스크롤이 노출되었는지 여부를 반환한다
+   * @returns {boolean}
+   * @private
+   */
+  function _hasScroll() {
+    return $('#msgs-holder').height() > $('#msgs-container').height();
+  }
+
+  /**
    * 윈도우 focus 시 이벤트 핸들러
    * @private
    */
   function _onWindowFocus() {
     centerService.setBrowserFocus();
-    if (centerService.hasBottomReached()) {
+    if (!_hasScroll() || centerService.isScrollBottom()) {
       _clearBadgeCount($scope.currentEntity);
     }
     NotificationManager.resetNotificationCountOnFocus();
@@ -621,7 +642,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateUnreadBookmarkFlag(isSkipBookmark);
 
           //  marker 설정
-          updateMessageMarker();
+          if (!$scope.isInitialLoadingCompleted || _hasBrowserFocus()) {
+            updateMessageMarker();
+          }
           _getCurrentRoomInfo();
 
           // 추후 로딩을 위한 status 설정
@@ -926,7 +949,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           //console.log('::_onUpdateListSuccess', lastMessageId);
           jndPubSub.pub('onMessageDeleted');
           //  marker 설정
-          updateMessageMarker();
+          if (_hasBrowserFocus()) {
+            updateMessageMarker();
+          }
           _checkEntityMessageStatus();
         }
       }
@@ -1257,6 +1282,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!entity || !entity.alarmCnt) return;
 
     entityAPIservice.updateBadgeValue(entity, '');
+    updateMessageMarker();
   }
 
 
@@ -1467,7 +1493,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (centerService.hasBottomReached()) {
         //log('window with focus')
         if (_hasBrowserFocus()) {
-          console.log('####2');
           _scrollToBottom(true);
           return;
         }
@@ -1476,9 +1501,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
        rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
        _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
        */
-      var hasScroll = $('#msgs-holder').height() > $('#msgs-container').height();
-      if (hasScroll) {
+      if (_hasScroll()) {
         _gotNewMessage();
+      } else {
+        entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
       }
     }
   }
@@ -1658,22 +1684,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onAttachMessagePreview(event, data) {
+    var messageId;
+    var linkPreview;
+    var timeoutCaller;
+
     messageAPIservice
       .getMessage(memberService.getTeamId(), data.message.id)
       .success(function(response) {
-        var messageId = response.id;
-        var linkPreview = response.linkPreview;
+        messageId = response.id;
+        linkPreview = response.linkPreview;
 
         // thumbnail을 기다린다는 flag를 설정한다.
         linkPreview.extThumbnail = {
           isWaiting: true
         };
 
-        RendererUtil.addToThumbnailTracker(messageId,  $timeout(function() {
+        timeoutCaller = setTimeout(function() {
           // 4초 후에도 thumbnail이 생성이 안되었을 경우, loading wheel을 제거한다.
           _updateMessageLinkPreviewStatus(messageId);
-        }, 4000));
+        }, 4000);
 
+        RendererUtil.addToThumbnailTracker(messageId, timeoutCaller);
 
         _updateMessageLinkPreview(messageId, linkPreview);
       })
@@ -1730,13 +1761,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _updateMessageLinkPreviewStatus(messageId) {
-    console.log('hi')
     var message = MessageCollection.getByMessageId(messageId, true);
 
     if (message) {
       message.message.linkPreview.extThumbnail.isWaiting = false;
       jndPubSub.pub('toggleLinkPreview', messageId);
     }
+
+    // timeout still needs to be deleted.
+    RendererUtil.cancelThumbnailTracker(messageId);
   }
 
   /**
