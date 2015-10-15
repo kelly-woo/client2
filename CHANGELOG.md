@@ -9,16 +9,6 @@
 
 
 
-<a name="1.4.1"></a>
-## [1.4.1](https://github.com/tosslab/web_client/compare/v1.4.0...v1.4.1) (2015-10-14)
-
-
-### Bug Fixes
-
-* **markdown:** web link 텍스트에 _ 가 포함될 경우 정상적으로 링크가 형성되지 않는 현상 수정 ([22ee468](https://github.com/tosslab/web_client/commit/22ee468))
-
-
-
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/tosslab/web_client/compare/v1.3.4...v1.4.0) (2015-10-14)
 
