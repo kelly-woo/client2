@@ -19,7 +19,7 @@
   <!--    'uploading'     -->
   <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
   <!--    'aborted'       -->
-  <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
+  <span translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
   <!--    'done'      -->
   <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
   <!--    'error'     -->

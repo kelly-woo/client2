@@ -357,13 +357,13 @@ input[type="button"] {
   cursor: pointer;
 }
 .btn {
-  padding: 4px 10px;
-  border-radius: 5px;
+  padding: 6px 12px;
+  border-radius: 3px;
   border: 0;
   color: #fff;
-  height: 30px;
-  font-size: 14px;
-
+  height: 35px;
+  font-size: 15px;
+  font-weight: 700;
 }
 #btn-upload-primary {
   position: absolute;
@@ -384,7 +384,7 @@ input[type="button"] {
   color: #9e9ea6 !important;
   font-weight: 700;
   text-shadow: none;
-  padding: 2px 6px !important;
+  padding: 2px 7px !important;
 }
 .btn-outline.active {
   background: #9e9ea6 !important;
@@ -397,15 +397,16 @@ input[type="button"] {
 }
 .btn-cancel {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid #e1e1e1;
-  color: #666666;
-  font-size: 14px;
+  color: #999;
+  font-size: 15px;
 }
 .btn-cancel:focus,
 .btn-cancel:hover,
 .btn-cancel:active {
-  color: #00abe6;
+  color: #666;
+  background-color: #f3f3f3;
 }
 .btn-ok {
   background-color: #00abe6;
@@ -415,21 +416,28 @@ input[type="button"] {
 .btn-ok:hover,
 .btn-ok:active {
   color: white;
-  background-color: #154a67;
+  background-color: #0081AD;
 }
 .btn-white {
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid #e1e1e1;
-  color: #666666;
-  font-size: 14px;
+  color: #999999;
+  font-size: 15px;
   margin-top: 6px;
+  font-weight: 700;
 }
 .btn-white:hover,
 .btn-white > a,
 .btn-white > a:hover {
   text-decoration: none;
-  color: #00abe6;
+  color: #666;
+  background-color: #f3f3f3;
+}
+.btn[disabled] {
+  background-color: #ccc;
+  color: white;
+  opacity: 1;
 }
 
 .btn-top-right {
@@ -740,12 +748,12 @@ input[type="button"] {
 }
 .help-enter-a-message {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;
-  width: 93px;
-  height: 88px;
+  width: 130px;
+  height: 130px;
 }
 .help-invite-members {
   background: url('../assets/images/center/help-invite-members.png') no-repeat;
-  width: 113px;
+  width: 130px;
   height: 130px;
 }
 .help-send-invitations {
@@ -753,7 +761,7 @@ input[type="button"] {
 }
 .help-upload-a-file {
   background: url('../assets/images/center/help-upload-a-file.png') no-repeat;
-  width: 75px;
+  width: 100px;
   height: 80px;
 }
 

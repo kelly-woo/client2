@@ -78,11 +78,6 @@
         if (data.toUrl !== data.fromUrl) {
           tab.active = true;
           $scope.activeTabName = tab.name;
-
-          if (data.fromTitle !== 'FILE DETAIL') {
-            // reset input element
-            jndPubSub.pub('resetRPanelSearchStatusKeyword');
-          }
         }
       }
     });
