@@ -284,7 +284,7 @@
         var mentionMap;
         var mention;
 
-        if (room = EntityMapManager.get('joined', fileInfo.roomId)) {
+        if (room = EntityMapManager.get('total', fileInfo.roomId)) {
           members = entityAPIservice.getMemberList(room);
 
           if (members && members.length > 0) {

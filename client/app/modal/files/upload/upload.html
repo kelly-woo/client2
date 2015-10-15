@@ -48,13 +48,13 @@
             <span translate>@common-comment</span>
           </label>
           <div class="col-sm-9">
-            <div class="">
+            <div class="upload-comment-textarea">
               <textarea class="form-control"
                         id="file_upload_comment"
                         name="file_upload_comment"
                         rows="3"
-                        data-ng-model="comment"
-                        data-ng-maxlength="256"
+                        ng-model="comment"
+                        ng-maxlength="256"
                         maxlength="256"
                         mentionahead
                         mentionahead-data="setMemberList($mentionScope, $mentionCtrl)"
