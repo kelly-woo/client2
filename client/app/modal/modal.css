@@ -812,7 +812,7 @@
   color: #fff;
 }
 .send-invite.disabled {
-  color: #999;
+  color: white;
   background-color: #ccc;
   cursor: not-allowed;
 }
