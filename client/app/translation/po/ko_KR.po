@@ -783,7 +783,7 @@ msgstr "새로운 메시지가 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-jump"
-msgstr "Jump"
+msgstr "Start"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-language"
