@@ -45,16 +45,24 @@
       }
 
       /**
-       * scope destroy event handler
+       * off listeners
        * @private
        */
-      function _destroy() {
+      function _off() {
         jqWindow
           .off('focus', _onWindowFocus)
           .off('blur', _onWindowBlur);
 
         jqDocument.off('visibilitychange', _onVisibilityChange);
         jqBody.off('dragstart', _onDragStart);
+      }
+
+      /**
+       * scope destroy event handler
+       * @private
+       */
+      function _destroy() {
+        _off();
       }
 
       /**
