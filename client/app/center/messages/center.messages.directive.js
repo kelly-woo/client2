@@ -113,9 +113,10 @@
        */
       function _attachDomEvents() {
         _attachDelegateDomHandlers();
-        el.on('click', _onClick);
-        el.on('mouseover', _onMouseOver);
-        el.on('mouseout', _onMouseOut);
+        el
+          .on('click', _onClick)
+          .on('mouseover', _onMouseOver)
+          .on('mouseout', _onMouseOut);
       }
 
       /**

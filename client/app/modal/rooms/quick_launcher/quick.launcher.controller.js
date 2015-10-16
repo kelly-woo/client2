@@ -154,7 +154,7 @@
       var i;
       var len;
 
-      for (i = 0, len = centerHistory.length; i < len; i++) {
+      for (i = centerHistory.length - 1; i > -1; i--) {
         if (entity = EntityMapManager.get('total', centerHistory[i].entityId)) {
           rooms.push({
             type: entity.type,

@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($window, jndKeyCode, jndPubSub, currentSessionHelper) {
+  function jndMainKeyHandler(jndKeyCode, jndPubSub, currentSessionHelper) {
     return {
       restrict: 'A',
       link: link
@@ -28,14 +28,26 @@
       }
 
       /**
-       * on events
+       * on listeners
        * @private
        */
       function _on() {
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', _onVisibilitychange);
 
-        _attachKeyEvents();
+        jqBody
+          .on('keydown', _onKeyDown)
+          .on('keyup', _onKeyUp);
+      }
+
+      /**
+       * off listeners
+       * @private
+       */
+      function _off() {
+        jqBody
+          .off('keydown', _onKeyDown)
+          .off('keyup', _onKeyUp);
       }
 
       /**
@@ -43,7 +55,7 @@
        * @private
        */
       function _onDestroy() {
-        _detachKeyEvents();
+        _off();
       }
 
       /**
@@ -54,26 +66,6 @@
         if (!currentSessionHelper.isBrowserHidden()) {
           jqBody.focus();
         }
-      }
-
-      /**
-       * attach key event listeners
-       * @private
-       */
-      function _attachKeyEvents() {
-        jqBody
-          .on('keydown', _onKeyDown)
-          .on('keyup', _onKeyUp);
-      }
-
-      /**
-       * detach key event listeners
-       * @private
-       */
-      function _detachKeyEvents() {
-        jqBody
-          .off('keydown', _onKeyDown)
-          .off('keyup', _onKeyUp);
       }
 
       /**
