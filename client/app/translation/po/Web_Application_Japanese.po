@@ -789,7 +789,7 @@ msgstr "新着メッセージがあります"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-jump"
-msgstr "Start"
+msgstr "Jump"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-language"
