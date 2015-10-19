@@ -67,7 +67,8 @@
       var signInInfo = {
         memberId    : -1,
         teamId      : -1,
-        teamName    : ''
+        teamName    : '',
+        status      : ''
       };
 
       var prefix = $location.host().split('.')[0];
@@ -79,8 +80,9 @@
       _.forEach(memberships, function(membership, index) {
         if (membership.t_domain == prefix) {
           signInInfo.memberId = membership.memberId;
-          signInInfo.teamId   = membership.teamId;
-          signInInfo.teamName   = membership.name;
+          signInInfo.teamId = membership.teamId;
+          signInInfo.teamName = membership.name;
+          signInInfo.status = membership.status;
         }
       });
 
