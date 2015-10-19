@@ -37,6 +37,7 @@
     this.set = set;
 
     this.get = get;
+    this.getMap = getMap;
     this.contains = contains;
     this.reset = reset;
     this.create = create;
@@ -72,6 +73,15 @@
     function get(mapType, key) {
       key = parseInt(key, 10);
       return !!maps[mapType] && maps[mapType][key];
+    }
+
+    /**
+     * mapType 에 해당하는 entityMap 를 반환한다
+     * @param mapType
+     * @returns {*}
+     */
+    function getMap(mapType) {
+      return maps[mapType];
     }
 
     /**

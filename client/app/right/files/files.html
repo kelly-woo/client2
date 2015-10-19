@@ -5,11 +5,12 @@
     <div class="advanced-search-option__title">
       <span translate>@common-shared-in</span>
     </div>
-    <select class="_chatRoomOptions"
-            ng-model="sharedEntitySearchQuery"
-            ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">
-      <option value="">{{ allRooms }}</option>
-    </select>
+    <jnd-selectbox-topic></jnd-selectbox-topic>
+    <!--<select class="_chatRoomOptions"-->
+            <!--ng-model="sharedEntitySearchQuery"-->
+            <!--ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">-->
+      <!--<option value="">{{ allRooms }}</option>-->
+    <!--</select>-->
   </div>  <!--  END OF CHAT ROOM  -->
   <!--   FILE WRITER  -->
   <div class="advanced-search-option__category advanced-member-option">
