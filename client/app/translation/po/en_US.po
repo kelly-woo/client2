@@ -1072,6 +1072,10 @@ msgstr "Never miss a message!"
 msgid "@no-match-members"
 msgstr "No match found."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-more-invite-members"
+msgstr "There are no more members to invite"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(There is no topic description)"

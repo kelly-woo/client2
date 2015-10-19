@@ -1022,6 +1022,10 @@ msgstr ""
 msgid "@no-match-members"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-more-invite-members"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr ""
