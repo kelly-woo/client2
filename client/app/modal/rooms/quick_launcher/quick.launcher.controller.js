@@ -145,7 +145,9 @@
         }
       }
 
-      return _.sortBy(rooms, 'name');
+      return _.sortBy(rooms, function (room) {
+        return room.name.toLowerCase();
+      });
     }
 
     /**
@@ -247,7 +249,9 @@
         }
       });
 
-      return _.sortBy(rooms, 'name');
+      return _.sortBy(rooms, function (room) {
+        return room.name.toLowerCase();
+      });
     }
 
     /**
@@ -271,7 +275,9 @@
         }
       });
 
-      return _.sortBy(channels, 'name');
+      return _.sortBy(channels, function (channel) {
+        return channel.name.toLowerCase();
+      });
     }
   }
 })();
