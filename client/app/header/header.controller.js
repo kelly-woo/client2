@@ -319,6 +319,10 @@
       }
     }
 
+    /**
+     * quick launcher button의 tooltip을 os에 맞게 전달한다.
+     * @returns {*}
+     */
     function getQuickLauncherButtonTooltip() {
       return $filter('translate')(Browser.platform.isMac ? '@quick-launcher-tooltip-for-mac' : '@quick-launcher-tooltip-for-win');
     }
