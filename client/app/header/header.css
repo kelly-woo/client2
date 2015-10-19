@@ -244,6 +244,7 @@
   background-position: -64px -154px;
 }
 
+.header-navbar-quick-launcher .tooltip-inner,
 .header-toolbar .tooltip-inner {
   white-space: pre;
   max-width: none;
