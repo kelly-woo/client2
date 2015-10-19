@@ -1040,6 +1040,10 @@ msgstr "不漏接任何訊息"
 msgid "@no-match-members"
 msgstr "找不到符合條件的內容"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-more-invite-members"
+msgstr "已全數邀請完畢"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(無議題內容)"

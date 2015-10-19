@@ -1076,6 +1076,10 @@ msgstr "メッセージを見落とさない！"
 msgid "@no-match-members"
 msgstr "結果なし"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-more-invite-members"
+msgstr "招待するメンバーがもういません"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "（トピック説明なし）"
