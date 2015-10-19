@@ -1036,6 +1036,10 @@ msgstr "不再询问"
 msgid "@never-miss-a-message"
 msgstr "不漏接任何信息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-match-members"
+msgstr "找不到符合条件的内容"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(无议题内容)"
@@ -1074,7 +1078,7 @@ msgstr "建立新议题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-create-topic-with-query"
-msgstr "建立新议题 '[query]'"
+msgstr "建立新议题 '{{query}}'"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-no-matches"
@@ -1083,6 +1087,14 @@ msgstr "没有符合 {{query}} 的结果"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-placeholder"
 msgstr "搜索议题或1:1传信"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-mac"
+msgstr "搜索议题或1:1传信 (Cmd - J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-win"
+msgstr "搜索议题或1:1传信 (Ctrl - J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"

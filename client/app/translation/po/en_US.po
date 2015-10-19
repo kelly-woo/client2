@@ -1068,6 +1068,10 @@ msgstr "Never ask me again"
 msgid "@never-miss-a-message"
 msgstr "Never miss a message!"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-match-members"
+msgstr "No match found."
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(There is no topic description)"
@@ -1115,6 +1119,14 @@ msgstr "'{{query}}' has no matches."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-placeholder"
 msgstr "Search for topics or DMs"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-mac"
+msgstr "Search for topics or DMs (Cmd - J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-win"
+msgstr "Search for topics or DMs (Ctrl - J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
