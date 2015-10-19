@@ -1065,6 +1065,10 @@ msgstr "다시 물어보지 않기"
 msgid "@never-miss-a-message"
 msgstr "메시지 푸쉬 알림을 받으세요!"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-match-members"
+msgstr "찾으시는 멤버가 없습니다."
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(토픽 설명이 없습니다)"
@@ -1112,6 +1116,14 @@ msgstr "'{{query}}'의 검색 결과가 없습니다."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-placeholder"
 msgstr "토픽 또는 1:1메시지로 바로 이동하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-mac"
+msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Cmd - J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-win"
+msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Ctrl - J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
