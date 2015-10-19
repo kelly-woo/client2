@@ -70,6 +70,7 @@
 }
 
 .quick-launcher-modal .empty-matches .empty-matches-button {
+  width: 100%;
   margin-top: 20px;
   border: 0;
   color: #00abe6;
@@ -84,6 +85,7 @@
 .quick-launcher-modal .empty-matches .empty-matches-button:focus {
   color: #00abe6;
   box-shadow: none;
+  background-color: transparent;
 }
 
 .quick-launcher-modal .empty-matches .empty-matches-button:hover span,

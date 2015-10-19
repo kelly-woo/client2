@@ -7,10 +7,9 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $timeout, accountService, HybridAppHelper,
-                      memberService, publicService, centerService, language,
-                      modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
-                      AnalyticsHelper, Router, OtherTeamBadgeManager) {
+  function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
+                      publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -64,7 +63,9 @@
       $scope.onShowTutorialClick = onShowTutorialClick;
       $scope.onTutorialPulseClick = onTutorialPulseClick;
       $scope.openRightPanel = openRightPanel;
+
       $scope.openQuickLauncher = openQuickLauncher;
+      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip()
 
       $scope.toolbar = {
         files: false,
@@ -316,6 +317,10 @@
           openQuickLauncher();
         }, 50);
       }
+    }
+
+    function getQuickLauncherButtonTooltip() {
+      return $filter('translate')(Browser.platform.isMac ? '@quick-launcher-tooltip-for-mac' : '@quick-launcher-tooltip-for-win');
     }
   }
 })();

@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function QuickLauncherCtrl($rootScope, $scope, $state, UnreadBadge, EntityMapManager, centerService, memberService,
-                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper) {
+                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, accountService) {
     _init();
 
     /**
@@ -19,7 +19,7 @@
      */
     function _init() {
       $scope.list = [];
-
+      
       $scope.openCreateTopicModal = openCreateTopicModal;
       $scope.openBrowseTopicModal = openBrowseTopicModal;
 
@@ -70,26 +70,32 @@
      * @param {object} room
      */
     function onRoomSelect(room) {
-      if (room.type === 'channels') {
-        if (EntityMapManager.contains('joined', room.id)) {
-          // join한 topic
+      if (currentSessionHelper.getCurrentEntityId() === room.id) {
+        // 현재 room과 같은 room인 경우
 
-          _joinRoom(room);
-        } else {
-          if (!$scope.isLoading) {
-            jndPubSub.showLoading();
-
-            entityheaderAPIservice.joinChannel(room.id)
-              .success(function () {
-                _joinRoom(room);
-              })
-              .finally(function() {
-                jndPubSub.hideLoading();
-              });
-          }
-        }
+        modalHelper.closeModal();
       } else {
-        _joinRoom(room);
+        if (room.type === 'channels') {
+          if (EntityMapManager.contains('joined', room.id)) {
+            // join한 topic
+
+            _joinRoom(room);
+          } else {
+            if (!$scope.isLoading) {
+              jndPubSub.showLoading();
+
+              entityheaderAPIservice.joinChannel(room.id)
+                .success(function () {
+                  _joinRoom(room);
+                })
+                .finally(function() {
+                  jndPubSub.hideLoading();
+                });
+            }
+          }
+        } else {
+          _joinRoom(room);
+        }
       }
     }
 

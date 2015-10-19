@@ -118,7 +118,9 @@
     </div>
 
     <div class="header-navbar-quick-launcher">
-      <span class="quick-launcher" ng-click="openQuickLauncher()" translate>@header-nav-jump</span>
+      <span class="quick-launcher" ng-click="openQuickLauncher()"
+            tooltip="{{::quickLauncherButtonTooltip}}" tooltip-placement="bottom"
+            translate>@header-nav-jump</span>
     </div>
   </div>
 
