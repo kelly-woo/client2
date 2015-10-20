@@ -9,7 +9,7 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService,
+  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService, EntityMapManager,
                         memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
 
@@ -176,10 +176,21 @@
      */
     function _isUnshared(msg) {
       var message = msg.message;
-      var currentEntityId = currentSessionHelper.getCurrentEntityId();
+      var currentEntityId = _getCurrentEntityId();
+      console.log(message.shareEntities, currentEntityId);
       return message.shareEntities.indexOf(currentEntityId) === -1;
     }
 
+    /**
+     * getCurrentEntityId 가 DM 일 경우 member id 를 반환하기 때문에,
+     * 아래 함수를 만들어서 해결하였다
+     * @private
+     */
+    function _getCurrentEntityId() {
+      var currentEntityId = currentSessionHelper.getCurrentEntityId();
+      var entity = EntityMapManager.get('total', currentEntityId);
+      return entity && entity.entityId;
+    }
     /**
      * index 에 해당하는 메세지를 랜더링한다.
      * @param {number} index

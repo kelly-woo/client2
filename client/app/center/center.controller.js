@@ -140,11 +140,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _init() {
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
-
     _initializeListeners();
-    _reset();
-    _initializeView();
-    _initializeFocusStatus();
+
+    if (publicService.isInitDone()) {
+      _reset();
+      _initializeView();
+      _initializeFocusStatus();
+    }
+  }
+
+  /**
+   *
+   * @private
+   */
+  function _onInitDone() {
+    _init();
   }
 
   /**
@@ -249,6 +259,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
     });
+    $scope.$on('dataInitDone', _onInitDone);
   }
 
   /**
