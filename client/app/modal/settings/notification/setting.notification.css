@@ -14,6 +14,9 @@
   background-color: #f2fbff;
   height: 40px;
   line-height: 40px;
+  padding: 0px 12px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .notification-switch.to-on {

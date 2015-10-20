@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            TopicFolderStorage, currentSessionHelper, Dialog) {
+                            TopicFolderStorage, currentSessionHelper, Dialog, JndUtil) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -96,7 +96,7 @@
         });
       } else {
         //todo: general error
-        _alertCommonError(response);
+        JndUtil.alertUnknownError(response);
       }
       reload();
     }
@@ -114,17 +114,6 @@
             jndPubSub.pub('topic-folder:rename', response.folderId);
           });
         }
-      });
-    }
-
-    /**
-     * 일반적인 오류 발생 시 Dialog Alert 을 노출한다.
-     * @param {object} response
-     * @private
-     */
-    function _alertCommonError(response) {
-      Dialog.alert({
-        body: 'error :' + response.code + '\n' + response.msg
       });
     }
 
@@ -213,7 +202,7 @@
         });
         //alert($filter('translate')('@folder-name-taken'));
       } else {
-        _alertCommonError(response);
+        JndUtil.alertUnknownError(response);
       }
       reload();
     }
@@ -232,7 +221,7 @@
         if (entity.folderId === folderId) {
           tempEntity = EntityMapManager.get('total', entity.roomId);
           if (tempEntity) {
-            tempEntity.extIsCurrent = (+tempEntity.id === +currentEntity.id);
+            tempEntity.extIsCurrent = (+tempEntity.id === +(currentEntity && currentEntity.id));
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
             entityList.push(tempEntity);
@@ -408,7 +397,7 @@
             body: $filter('translate')('@folder-item-already-exists')
           });
         } else {
-          _alertCommonError(response);
+          JndUtil.alertUnknownError(response);
         }
       }
       reload();

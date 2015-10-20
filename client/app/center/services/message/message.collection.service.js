@@ -652,6 +652,7 @@
         body = $filter('mention')(body, msg.message.mentions);
         body = $filter('parseAnchor')(body);
         body = $filter('mentionHtmlDecode')(body);
+        body = $filter('markdown')(body);
       }
       msg.message.content.body = body;
     }

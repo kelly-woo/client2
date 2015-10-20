@@ -10,7 +10,7 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
                          entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
     var service = {
@@ -190,6 +190,7 @@
 
     function hideTransitionLoading() {
       $rootScope.isReady = true;
+      jndPubSub.pub('hideDefaultBackground');
     }
 
     function showTransitionLoading() {

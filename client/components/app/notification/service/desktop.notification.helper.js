@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil) {
-    var NOTIFICATION_EXPIRE_TIME = 5000;
+    var NOTIFICATION_EXPIRE_TIME = 10000;
 
     /**
      * WebAPI Notification class
@@ -82,8 +82,10 @@
        */
       function onNotificationClick() {
         var fn;
+
         if (_.isFunction(that.options.callback)) {
           fn = that.options.callback;
+
           if (!_.isUndefined(that.options.data)) {
             fn(that.options.data);
           } else {

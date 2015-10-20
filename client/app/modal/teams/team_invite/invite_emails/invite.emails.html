@@ -1,0 +1,28 @@
+<div class="invite-email">
+  <div class="invite-email-input">
+    <input class="form-control" type="text" id="email-input" placeholder="mark@mail.com ted@mail.com jane@mail.com ...">
+    <span class="help-description cursor_pointer ng-scope">
+      <i class="fa fa-info-circle">
+        <div class="description-container">
+          <div class="description-arrow-up"></div>
+          <div class="description-content-container">
+            <div class="help-description__description">
+              <span translate>@team-invite-description</span>
+            </div>
+          </div>
+        </div>
+      </i>
+    </span>
+  </div>
+
+  <alert class="invalid-email-alert" ng-show="invalidEmails.length > 0" type="danger">
+    {{ '@team-invite-invalid-email' | translate}}
+  </alert>
+
+  <ul class="invite-email-list">
+    <li class="invite-email-item btn-ok" ng-repeat="email in emails">
+      {{email}}
+      <span class="fa fa-times cursor_pointer" ng-click="removeEmail(email)"></span>
+    </li>
+  </ul>
+</div>

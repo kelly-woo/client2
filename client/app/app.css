@@ -27,9 +27,104 @@
   font-style: normal;
 }
 
-:lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
-:lang(ko) { font-family:    "Helvetica Neue", Helvetica, "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
-:lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
+/**
+*Noto Sans Korean by Hestia http://theeluwin.github.io/NotoSansKR-Hestia 
+*/
+
+@font-face {
+  font-family: 'Noto Sans Korean';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Noto Sans Light'), local('NotoSans-Light'),
+  url('../assets/fonts/NotoSansKR-Light-Hestia.eot'),
+  url('../assets/fonts/NotoSansKR-Light-Hestia.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/NotoSansKR-Light-Hestia.woff') format('woff'),
+  url('../assets/fonts/NotoSansKR-Light-Hestia.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Korean';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+  url('../assets/fonts/NotoSansKR-Regular-Hestia.eot'),
+  url('../assets/fonts/NotoSansKR-Regular-Hestia.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/NotoSansKR-Regular-Hestia.woff') format('woff'),
+  url('../assets/fonts/NotoSansKR-Regular-Hestia.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+    url('../assets/fonts/NotoSansKR-Medium-Hestia.eot'),
+    url('../assets/fonts/NotoSansKR-Medium-Hestia.eot?#iefix') format('embedded-opentype'),
+    url('../assets/fonts/NotoSansKR-Medium-Hestia.woff') format('woff'),
+    url('../assets/fonts/NotoSansKR-Medium-Hestia.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Korean';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+  url('../assets/fonts/NotoSansKR-Bold-Hestia.eot'),
+  url('../assets/fonts/NotoSansKR-Bold-Hestia.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/NotoSansKR-Bold-Hestia.woff') format('woff'),
+  url('../assets/fonts/NotoSansKR-Bold-Hestia.otf') format('opentype');
+}
+
+/**
+*Roboto Fonts
+*/
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'),
+  url('../assets/fonts/Roboto-Light-webfont.eot'),
+  url('../assets/fonts/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Roboto-Light-webfont.woff') format('woff'),
+  url('../assets/fonts/Roboto-Light-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url('../assets/fonts/Roboto-Regular-webfont.eot'),
+  url('../assets/fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Roboto-Regular-webfont.woff') format('woff'),
+  url('../assets/fonts/Roboto-Regular-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+  url('../assets/fonts/Roboto-Medium-webfont.eot'),
+  url('../assets/fonts/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Roboto-Medium-webfont.woff') format('woff'),
+  url('../assets/fonts/Roboto-Medium-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+  url('../assets/fonts/Roboto-Bold-webfont.eot'),
+  url('../assets/fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Roboto-Bold-webfont.woff') format('woff'),
+  url('../assets/fonts/Roboto-Bold-webfont.ttf') format('truetype');
+}
+
+:lang(ja) { font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", helvetica, arial, sans-serif, fontAwesome; }
+:lang(ko) { font-family: "Helvetica Neue", Helvetica, 'Apple SD Gothic Neo', 'Malgun Gothic',  sans-serif, fontAwesome; }
+:lang(en) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, fontAwesome; }
+:lang(zh-cn) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, fontAwesome; }
+:lang(zh-tw) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, fontAwesome; }
 
 /**
 * App-wide Styles
@@ -46,6 +141,7 @@ body {
   height: 100%;
   width: 100%;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; /* fix heavy font issue for Firefox */
   font-size: 14px;
   line-height: 1rem;
   background: white;

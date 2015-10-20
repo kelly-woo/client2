@@ -157,7 +157,7 @@
   line-height: 19px;
 }
 
-.file-item-meta__listview:before, .member-item:before {
+.member-item:before, .join-modal-channel_container:before {
 	content:'';
 	position: absolute;
 	left:0;
@@ -305,7 +305,7 @@
   text-align: center;
   margin: 3px;
   font-size: 14px;
-  padding: 4px 8px 3px;
+  padding: 4px 8px;
   border-radius: 2px;
 }
 .form-invite-body__selected-user .fa {
@@ -812,7 +812,7 @@
   color: #fff;
 }
 .send-invite.disabled {
-  color: #999;
+  color: white;
   background-color: #ccc;
   cursor: not-allowed;
 }

@@ -39,7 +39,7 @@
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
       </span>
       <span class="topic-folder-title-count">({{folder.entityList.length}})</span>
-      <span ng-if="!isOpening && isShowBadge && alarmCnt" class="topic-folder-badge">
+      <span ng-show="!isOpening && isShowBadge && alarmCnt" class="topic-folder-badge">
         <badge group="folder" key="{{folder.id}}" content="{{alarmCnt}}"></badge>
       </span>
       <span class="topic-folder-more"
