@@ -199,6 +199,12 @@ msgstr "我們最近更新了排版和增加了一些極好的功能以提高您
 msgid "@channel"
 msgstr "議題"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "跳過使用教學"
+
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr "現行成員"
@@ -251,7 +257,7 @@ msgstr "複製"
 msgid "@common-create-ch"
 msgstr "建立新議題"
 
-#: client/app/modal/teams/team_change/team.change.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-create-team"
 msgstr "建立新的團隊"
 
@@ -599,12 +605,6 @@ msgstr "上傳檔案"
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "跳過使用教學"
-
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "你確定將此成員剔除議題？"
@@ -769,7 +769,7 @@ msgstr "使用資料夾打理你的議題列表"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@friday"
-msgstr "周五"
+msgstr "五"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -839,8 +839,8 @@ msgstr "連結你的Google帳戶"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩"
-"選功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選"
+"功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -853,6 +853,10 @@ msgstr "從Dropbox上傳"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "從Google雲端硬碟上傳"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成員邀請的連結已複製到剪貼簿"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
@@ -880,10 +884,6 @@ msgstr "邀請連結已關閉。"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "或者直接轉發此連結"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成員邀請的連結已複製到剪貼簿"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -991,7 +991,7 @@ msgstr "按標題搜尋"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@monday"
-msgstr "周一"
+msgstr "一"
 
 #: client/app/left/messages/messages.html
 msgid "@more-dm-list"
@@ -1056,7 +1056,7 @@ msgstr "(無議題內容)"
 msgid "@noti-banner-turn-on"
 msgstr "開啟電腦版推播通知"
 
-#: client/app/modal/teams/team_change/team.change.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@only-one-team"
 msgstr "無法更換至其他團隊，目前你只有一組團隊"
 
@@ -1114,7 +1114,7 @@ msgstr "尚未加入議題"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
-msgstr "周六"
+msgstr "六"
 
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
@@ -1226,7 +1226,7 @@ msgstr "年"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sunday"
-msgstr "周日"
+msgstr "日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-created"
@@ -1238,7 +1238,7 @@ msgstr ""
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 刪除公告"
 
-#: client/app/modal/teams/team_change/team.change.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@team-create-info-help-msg"
 msgstr ""
 "有了JANDI，您可以任意建立許多團隊及任意邀請許多成員加入，完全免費。不如自己"
@@ -1294,7 +1294,7 @@ msgstr "更換團隊"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@thursday"
-msgstr "周四"
+msgstr "四"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -1317,7 +1317,7 @@ msgstr "議題參與成員"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"
-msgstr "周二"
+msgstr "二"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
@@ -1331,98 +1331,6 @@ msgstr "開啟電腦版的推撥通知"
 msgid "@turn-on-topic-alarm"
 msgstr "開啟議題推播通知"
 
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "點擊跳動的標記來查看一下吧！"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "知道了！"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔"
-"案後，將點擊右邊的「ᵒᵒᵒ」即可。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾"
-"經分享在哪個議題下”的項目進行搜尋。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可"
-"收納搜尋欄。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "檔案庫和搜尋欄"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "送出訊息及上傳檔案"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕"
-"和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "跳過教學示範"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳"
-"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
-"訊，同時仍然保留訊息歷史直到對話重新啟動。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的"
-"私人議題。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不同？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的"
-"建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您"
-"自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "繼續 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要"
-"的提示。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "歡迎使用JANDI!"
-
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr "太好了！"
@@ -1434,8 +1342,8 @@ msgstr "恭喜 {{username}}！"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
 msgstr ""
-"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合"
-"作無間！"
+"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合作"
+"無間！"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
@@ -1638,8 +1546,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、"
-"曾經分享在哪個議題下”的項目進行搜尋。"
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾"
+"經分享在哪個議題下”的項目進行搜尋。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1660,8 +1568,8 @@ msgstr "送出訊息及上傳檔案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按"
-"鈕和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕"
+"和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1675,14 +1583,14 @@ msgstr "TIPS"
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 "直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳"
-"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接"
-"傳訊，同時仍然保留訊息歷史直到對話重新啟動。"
+"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
+"訊，同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新"
-"的私人議題。"
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的"
+"私人議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1691,9 +1599,9 @@ msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐"
-"的建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建"
-"立您自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的"
+"建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您"
+"自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1803,7 +1711,7 @@ msgstr "JANDI 新訊息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
-msgstr "周三"
+msgstr "三"
 
 #~ msgid "@btn-send"
 #~ msgstr "送出"
@@ -1976,8 +1884,8 @@ msgstr "周三"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- "
-#~ "已設定爲公開或私人的議題在建立之後不能被轉換成另一個"
+#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已"
+#~ "設定爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人議題僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
@@ -2039,8 +1947,7 @@ msgstr "周三"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組"
-#~ "成。"
+#~ "網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組成。"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改團隊名稱"
@@ -2086,8 +1993,8 @@ msgstr "周三"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要"
-#~ "離開嗎？"
+#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離"
+#~ "開嗎？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "沒有上傳檔案"
