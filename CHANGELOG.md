@@ -1,3 +1,13 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/tosslab/web_client/compare/v1.4.1...v1.4.2) (2015-10-15)
+
+
+### Bug Fixes
+
+* **filter.markdown:** markdown parser 버그 수정 ([1caee68](https://github.com/tosslab/web_client/commit/1caee68))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/tosslab/web_client/compare/v1.4.0...v1.4.1) (2015-10-14)
 
