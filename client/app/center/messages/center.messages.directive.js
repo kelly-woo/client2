@@ -75,7 +75,7 @@
       function _onFileShareStatusChange(angularEvent, data) {
         //console.log('### _onFileShareStatusChange', data);
         var entityIndex;
-        var currentEntityId = currentSessionHelper.getCurrentEntityId();
+        var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
         var eventType = data.event;
         var fileId = data.file.id;
 
