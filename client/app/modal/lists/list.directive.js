@@ -191,20 +191,18 @@
         var which = event.which;
 
         if (scope.$eval(attrs.activeted)) {
-          if (!(event.ctrlKey || event.metaKey)) {
-            if (jndKeyCode.match('UP_ARROW', which)) {
-              event.preventDefault();
+          if (jndKeyCode.match('UP_ARROW', which)) {
+            event.preventDefault();
 
-              activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
-              _focusItem(activeIndex);
-              ListRenderer.render(itemType, matches, viewport);
-            } else if (jndKeyCode.match('DOWN_ARROW', which)) {
-              event.preventDefault();
+            activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
+            _focusItem(activeIndex);
+            ListRenderer.render(itemType, matches, viewport);
+          } else if (jndKeyCode.match('DOWN_ARROW', which)) {
+            event.preventDefault();
 
-              activeIndex = ((activeIndex + 1) % matches.length);
-              _focusItem(activeIndex);
-              ListRenderer.render(itemType, matches, viewport);
-            }
+            activeIndex = ((activeIndex + 1) % matches.length);
+            _focusItem(activeIndex);
+            ListRenderer.render(itemType, matches, viewport);
           } else if (jndKeyCode.match('ENTER', which)) {
             event.preventDefault();
 
