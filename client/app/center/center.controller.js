@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil) {
+                                                 JndUtil, HybridAppHelper) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -430,6 +430,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _clearBadgeCount($scope.currentEntity);
     }
     NotificationManager.resetNotificationCountOnFocus();
+
+    // update hybrid app badge
+    HybridAppHelper.updateBadge();
   }
 
   /**

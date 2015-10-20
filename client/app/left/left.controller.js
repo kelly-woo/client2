@@ -259,6 +259,9 @@ app.controller('leftPanelController1', function(
     $timeout.cancel(unreadTimer);
     unreadTimer = $timeout(function() {
       _updateUnreadPosition();
+
+      // 현재 team badge 갱신시 hybrid app badge도 갱신함
+      HybridAppHelper.updateBadge();
     }, 100);
   }
 
