@@ -1279,10 +1279,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _clearBadgeCount(entity) {
-    if (!entity || !entity.alarmCnt) return;
-
-    entityAPIservice.updateBadgeValue(entity, '');
-    updateMessageMarker();
+    if (entity) {
+      entityAPIservice.updateBadgeValue(entity, '');
+      updateMessageMarker();
+    }
   }
 
 
@@ -1457,7 +1457,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _gotNewMessage() {
     log('_gotNewMessage');
     _showNewMessageAlertBanner();
-    entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+
+    /*
+     users 의 경우 messages.controller.js 의 _generateMessageList 에서
+     badge count 를 업데이트 해주기 때문에 user 가 아닐 경우만 badge count increase 함함
+    */
+
+    if (currentSessionHelper.getCurrentEntityType() !== 'users') {
+      entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+    }
   }
 
 
