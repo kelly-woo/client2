@@ -207,12 +207,6 @@ msgstr ""
 msgid "@channel"
 msgstr "トピック一覧"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "チュートリアルをスキップ"
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr "有効なメンバー"
@@ -264,6 +258,10 @@ msgstr "コピー"
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-create-ch"
 msgstr "新規トピックを作成する"
+
+#: client/app/modal/teams/team_change/team.change.html
+msgid "@common-create-team"
+msgstr "チームを作成"
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
@@ -612,6 +610,12 @@ msgstr "アップロード"
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "チュートリアルをスキップ"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "本当にこのメンバーをトピックから退室させますか？"
@@ -865,12 +869,6 @@ msgid "@integration-title-google-drive"
 msgstr "Googleドライブからファイルをアップロード"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送り"
-"ましょう"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "このメールはすでに{{invitedTeamName}}のメンバーです"
 
@@ -898,6 +896,12 @@ msgstr "管理者によって招待が取り消されました。"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "またはリンクを送信"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送り"
+"ましょう"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1072,6 +1076,10 @@ msgstr "（トピック説明なし）"
 msgid "@noti-banner-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
+#: client/app/modal/teams/team_change/team.change.html
+msgid "@only-one-team"
+msgstr "参加しているチームが一つだけです。"
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "選択"
@@ -1223,6 +1231,13 @@ msgstr ""
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました"
 
+#: client/app/modal/teams/team_change/team.change.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"JANDIではひとつのチームに必要なメンバーを招待してグループコミュニケーショ"
+"ンを行います。また、一つのアカウントで複数のチームを作成することができま"
+"す。"
+
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
@@ -1314,6 +1329,105 @@ msgstr "デスクトップ通知をオンにする"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr "通知をオンにする"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "クリックして今すぐ見てみましょう!"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "チュートリアルを終了する"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）"
+"からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲"
+"の変更、コメントの追加などができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種"
+"類で絞り込むことができます。「メッセージ」タブをクリックすることでメッセー"
+"ジを検索することができます。検索結果をクリックすると、その会話の部分にジャ"
+"ンプすることができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネル"
+"を閉じることができます"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "ファイルドロワーと検索パネル"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "メッセージとファイルを送信中"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
+"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップ"
+"してください。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "チュートリアルをスキップする"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できませ"
+"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話"
+"を再開すると再び表示されます。過去の会話履歴も表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピック"
+"です。新しいプライベートトピックを作成するには「＋追加」をクリックしてくだ"
+"さい。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話"
+"の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で"
+"作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "続きを見る »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニ"
+"ケーションできることを願っています。ここでJANDIをより良く理解するために重"
+"要な３点をご紹介します。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "JANDIへようこそ!!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
@@ -1522,105 +1636,6 @@ msgstr "まだジャンディーのチュートリアルをやり通していま
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "ようこそ{{username}}さん！"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "クリックして今すぐ見てみましょう!"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "チュートリアルを終了する"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）"
-"からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲"
-"の変更、コメントの追加などができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種"
-"類で絞り込むことができます。「メッセージ」タブをクリックすることでメッセー"
-"ジを検索することができます。検索結果をクリックすると、その会話の部分にジャ"
-"ンプすることができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネル"
-"を閉じることができます"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "ファイルドロワーと検索パネル"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "メッセージとファイルを送信中"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
-"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップ"
-"してください。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "チュートリアルをスキップする"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できませ"
-"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話"
-"を再開すると再び表示されます。過去の会話履歴も表示されます。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピック"
-"です。新しいプライベートトピックを作成するには「＋追加」をクリックしてくだ"
-"さい。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-"トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話"
-"の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で"
-"作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "続きを見る »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニ"
-"ケーションできることを願っています。ここでJANDIをより良く理解するために重"
-"要な３点をご紹介します。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "JANDIへようこそ!!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
