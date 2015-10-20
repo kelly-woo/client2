@@ -41,6 +41,7 @@
       }
 
       imageWrapper = jqEle.closest('.image_wrapper');
+
       if (scope.ImageUrl) {
         imageWrapper.show();
       } else {
