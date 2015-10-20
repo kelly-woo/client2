@@ -177,7 +177,6 @@
     function _isUnshared(msg) {
       var message = msg.message;
       var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
-
       return message.shareEntities.indexOf(currentEntityId) === -1;
     }
 
