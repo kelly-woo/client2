@@ -13,6 +13,7 @@
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
                          entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
+    var _isInit = false;
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -30,8 +31,9 @@
       hideTransitionLoading: hideTransitionLoading,
       showTransitionLoading: showTransitionLoading,
       reloadCurrentPage: reloadCurrentPage,
-      openNewTab: openNewTab
-
+      openNewTab: openNewTab,
+      setInitDone: setInitDone,
+      isInitDone: isInitDone
     };
 
     return service;
@@ -195,6 +197,24 @@
 
     function showTransitionLoading() {
       $rootScope.isReady = false;
+    }
+
+    /**
+     * data initialize 가 완료 되었음을 설정한다
+     */
+    function setInitDone() {
+      if (!_isInit) {
+        _isInit = true;
+        jndPubSub.pub('dataInitDone');
+      }
+    }
+
+    /**
+     * initialize 가 완료 되었는지 여부를 반환한다
+     * @returns {boolean}
+     */
+    function isInitDone() {
+      return _isInit;
     }
 
     /**

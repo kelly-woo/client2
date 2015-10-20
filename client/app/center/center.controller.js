@@ -9,7 +9,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
-                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil) {
+                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
+                                                 JndUtil) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -71,9 +72,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $scope.msgLoadStatus = {
     loading: false,
-    isShowWheel: false,
     timer: null
   };
+  $scope.isShowLoadingWheel = false;
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
@@ -139,11 +140,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _init() {
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
-
     _initializeListeners();
-    _reset();
-    _initializeView();
-    _initializeFocusStatus();
+
+    if (publicService.isInitDone()) {
+      _reset();
+      _initializeView();
+      _initializeFocusStatus();
+    }
+  }
+
+  /**
+   *
+   * @private
+   */
+  function _onInitDone() {
+    _init();
   }
 
   /**
@@ -199,9 +210,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _hideCenterLoading();
     $scope.msgLoadStatus = {
       loading: false,
-      isShowWheel: false,
       timer: null
     };
+    $scope.isShowLoadingWheel = false;
     $scope.message.content = TextBuffer.get();
 
     $scope.isInitialLoadingCompleted = false;
@@ -248,6 +259,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
     });
+    $scope.$on('dataInitDone', _onInitDone);
   }
 
   /**
@@ -588,7 +600,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.msgLoadStatus.loading = true;
     $timeout.cancel($scope.msgLoadStatus.timer);
     $scope.msgLoadStatus.timer = $timeout(function() {
-      $scope.msgLoadStatus.isShowWheel = true;
+      $scope.isShowLoadingWheel = !!(!$scope.isInitialLoadingCompleted && $scope.msgLoadStatus);
     }, 800);
   }
 
@@ -597,9 +609,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideCenterLoading() {
-    $scope.msgLoadStatus.loading = false;
-    $scope.msgLoadStatus.isShowWheel = false;
-    $timeout.cancel($scope.msgLoadStatus.timer);
+    JndUtil.safeApply($scope, function() {
+      $scope.msgLoadStatus.loading = false;
+      $scope.isShowLoadingWheel = false;
+      $timeout.cancel($scope.msgLoadStatus.timer);
+    });
   }
 
   function loadMore(isSkipBookmark) {
@@ -622,7 +636,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
           _hideCenterLoading();
-          $timeout.cancel($scope.msgLoadStatus.timer);
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -652,7 +665,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           // auto focus to textarea - CURRENTLY NOT USED.
           _setChatInputFocus();
-          $scope.isInitialLoadingCompleted = true;
 
           _checkEntityMessageStatus();
           if (_.isEmpty(messagesList)) {
@@ -660,7 +672,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _showContents();
             onRepeatDone();
           }
-
         })
         .error(onHttpResponseError);
 
@@ -1602,15 +1613,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
-    //console.log('::onRepeatDone');
+    $scope.isInitialLoadingCompleted = true;
+    _hideCenterLoading();
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
-    //$timeout(function() {
     jndPubSub.pub('centerLoading:hide');
-    if (!$rootScope.isReady) {
-      publicService.hideTransitionLoading();
-    }
-    //},0);
+    publicService.hideTransitionLoading();
   }
 
   /**
