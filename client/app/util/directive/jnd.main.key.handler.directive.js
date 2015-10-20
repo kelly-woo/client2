@@ -8,13 +8,15 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler(jndKeyCode, jndPubSub) {
+  function jndMainKeyHandler(jndKeyCode, jndPubSub, currentSessionHelper) {
     return {
       restrict: 'A',
       link: link
     };
 
-    function link(scope, el, attrs) {
+    function link(scope) {
+      var jqBody = $('body');
+
       _init();
 
       /**
@@ -22,15 +24,61 @@
        * @private
        */
       function _init() {
-        _attachDomEvents();
+        _on();
       }
 
       /**
-       * 이벤트 바인딩 한다.
+       * on listeners
        * @private
        */
-      function _attachDomEvents() {
-        el.on('keyup', _onKeyUp);
+      function _on() {
+        scope.$on('$destroy', _onDestroy);
+        scope.$on('document:visibilityChange', _onVisibilitychange);
+
+        jqBody
+          .on('keydown', _onKeyDown)
+          .on('keyup', _onKeyUp);
+      }
+
+      /**
+       * off listeners
+       * @private
+       */
+      function _off() {
+        jqBody
+          .off('keydown', _onKeyDown)
+          .off('keyup', _onKeyUp);
+      }
+
+      /**
+       * scope destory event handler
+       * @private
+       */
+      function _onDestroy() {
+        _off();
+      }
+
+      /**
+       * visibility change event handler
+       * @private
+       */
+      function _onVisibilitychange() {
+        if (!currentSessionHelper.isBrowserHidden()) {
+          jqBody.focus();
+        }
+      }
+
+      /**
+       * keydown 이벤트 핸들러
+       * @private
+       */
+      function _onKeyDown(keyEvent) {
+        if (_isQuickLauncherShortcut(keyEvent)) {
+
+          // browser에서 사용하는 shortcut을 override 한다.
+          keyEvent.preventDefault();
+          jndPubSub.pub('toggleQuickLauncher');
+        }
       }
 
       /**
@@ -62,6 +110,18 @@
        */
       function _isInput(jqTarget) {
         return jqTarget.is('input') || jqTarget.is('textarea') || jqTarget.is('button');
+      }
+
+      /**
+       * quick launcher shortcut인지 여부를 반환한다.
+       * @param {boolean} keyEvent
+       * @returns {*|boolean}
+       * @private
+       */
+      function _isQuickLauncherShortcut(keyEvent) {
+        var keycode = keyEvent.keyCode;
+        //keyEvent.ctrlKey && (jndKeyCode.match('CHAR_Q', keycode));
+        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keycode));
       }
     }
   }

@@ -1,0 +1,33 @@
+<div class="modal-body" quick-launcher-modal>
+  <div class="quick-launcher-search-box input-group">
+    <span class="input-group-addon"><i class="icon-search"></i></span>
+    <input class="form-control"
+           id="quick-launcher-filter"
+           type="text"
+           maxlength="60"
+           jnd-input-model="roomNameQuery"
+           placeholder="{{ '@quick-launcher-placeholder' | translate }}">
+  </div>
+  <div class="quick-launcher-list">
+    <list-on-modal type="roomList"
+                   list="roomList"
+                   item-type="room"
+                   item-class="room-item"
+                   model="roomNameQuery"
+                   filter="#quick-launcher-filter"
+                   on-select="onRoomSelect"
+                   get-matches="getMatches"
+                   activeted="true"
+                   item-height="44"
+                   viewport-max-height="244"
+                   buffer-length="10"></list-on-modal>
+    <div class="empty-matches" ng-show="isEmptyMatches">
+      <span class="empty-matches-msg keep" ng-bind-html="noMatchesMsg"></span>
+      <button class="empty-matches-button btn btn-cancel cursor_pointer" ng-click="openCreateTopicModal(roomNameQuery)" ng-bind-html="noMatchesButtonMsg"></button>
+    </div>
+  </div>
+  <div class="quick-launcher-buttons cursor_pointer">
+    <button class="browse-topic-button" ng-click="openBrowseTopicModal()"><i class="icon-reorder"></i><span translate>@quick-launcher-browse-topics</span></button>
+    <button class="create-topic-button" ng-click="openCreateTopicModal()"><i class="icon-plus"></i><span translate>@quick-launcher-create-topic</span></button>
+  </div>
+</div>  <!-- END OF MODAL BODY  -->

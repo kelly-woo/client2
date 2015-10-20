@@ -7,10 +7,9 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, accountService, HybridAppHelper,
-                      memberService, publicService, centerService, language,
-                      modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
-                      AnalyticsHelper, Router, OtherTeamBadgeManager) {
+  function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
+                      publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -38,6 +37,10 @@
     var stateParams;
     var currentRightPanel;
 
+    var isOpenQuickLauncher;
+    var quickLauncherModal;
+    var timerOpenQuickLauncher;
+
     _init();
 
     function _init() {
@@ -60,6 +63,9 @@
       $scope.onShowTutorialClick = onShowTutorialClick;
       $scope.onTutorialPulseClick = onTutorialPulseClick;
       $scope.openRightPanel = openRightPanel;
+
+      $scope.openQuickLauncher = openQuickLauncher;
+      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip()
 
       $scope.toolbar = {
         files: false,
@@ -109,6 +115,8 @@
       });
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
+
+      $scope.$on('toggleQuickLauncher', _toggleQuickLauncher);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -282,6 +290,44 @@
      */
     function _getIsOpenRightPanel() {
       return /files|messages|stars|mentions/.test($state.current.url);
+    }
+
+    /**
+     * open quick launcher
+     */
+    function openQuickLauncher() {
+      quickLauncherModal = modalHelper.openQuickLauncherModal();
+
+      quickLauncherModal.opened.then(function() {
+        isOpenQuickLauncher = true;
+      });
+
+      quickLauncherModal.result.finally(function() {
+        isOpenQuickLauncher = false;
+      });
+    }
+
+    /**
+     * toggle quick launcher
+     * @private
+     */
+    function _toggleQuickLauncher() {
+      if (isOpenQuickLauncher) {
+        modalHelper.closeModal();
+      } else {
+        timerOpenQuickLauncher = $timeout.cancel(timerOpenQuickLauncher);
+        $timeout(function() {
+          openQuickLauncher();
+        }, 50);
+      }
+    }
+
+    /**
+     * quick launcher button의 tooltip을 os에 맞게 전달한다.
+     * @returns {*}
+     */
+    function getQuickLauncherButtonTooltip() {
+      return $filter('translate')(Browser.platform.isMac ? '@quick-launcher-tooltip-for-mac' : '@quick-launcher-tooltip-for-win');
     }
   }
 })();

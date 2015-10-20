@@ -935,3 +935,7 @@
 .modal-body .member-item.active {
   background-color: #f2fbff;
 }
+
+.modal-body .room-item {
+  position: absolute;
+}
