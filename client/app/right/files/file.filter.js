@@ -152,9 +152,6 @@
 
     return function(content) {
       var integration;
-      console.log(content)
-      console.log(content.type)
-      console.log(fileIconImageMap[content.type])
       return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
   });
