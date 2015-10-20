@@ -265,6 +265,10 @@ msgstr "コピー"
 msgid "@common-create-ch"
 msgstr "新規トピックを作成する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr "チームを作成"
+
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
@@ -1088,6 +1092,10 @@ msgstr "（トピック説明なし）"
 msgid "@noti-banner-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr "参加しているチームが一つだけです。 "
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "選択"
@@ -1269,6 +1277,13 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"JANDIではひとつのチームに必要なメンバーを招待してグループコミュニケーショ"
+"ンを行います。また、一つのアカウントで複数のチームを作成することができま"
+"す。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html

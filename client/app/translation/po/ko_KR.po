@@ -262,6 +262,10 @@ msgstr "복사"
 msgid "@common-create-ch"
 msgstr "새 토픽 생성"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr "팀 생성하기"
+
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "고객 센터"
@@ -1081,6 +1085,10 @@ msgstr "(토픽 설명이 없습니다)"
 msgid "@noti-banner-turn-on"
 msgstr "바탕화면 알림 사용하기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr "아직 팀이 하나뿐입니다."
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "선택"
@@ -1263,6 +1271,12 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}}님이 공지사항을 삭제했습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"잔디 팀을 개설하시고 잔디가 어떻게 업무 방식을 바꿀 수 있는지 확인하세요. 개"
+"설 후 꼭 팀 멤버를 초대하셔서 실제로 사용해보는 것 또한 잊지마세요."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html

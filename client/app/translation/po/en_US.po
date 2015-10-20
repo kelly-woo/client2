@@ -268,6 +268,10 @@ msgstr "Copy"
 msgid "@common-create-ch"
 msgstr "Create Topic"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr "Create a Team"
+
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
@@ -1084,6 +1088,10 @@ msgstr "(There is no topic description)"
 msgid "@noti-banner-turn-on"
 msgstr "Turn on Desktop Notifications"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr "You only have one team."
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "Choose"
@@ -1264,6 +1272,13 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"With JANDI, you can create as many teams and invite as many members as you "
+"want for free. See for yourself how JANDI can improve the way you "
+"communicate in the workplace."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
