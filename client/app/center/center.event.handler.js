@@ -38,7 +38,8 @@
 
         jqWindow
           .on('focus', _onWindowFocus)
-          .on('blur', _onWindowBlur);
+          .on('blur', _onWindowBlur)
+          .on('unload', _onWindowUnload);
 
         jqDocument.on('visibilitychange', _onVisibilityChange);
         jqBody.on('dragstart', _onDragStart);
@@ -51,7 +52,8 @@
       function _off() {
         jqWindow
           .off('focus', _onWindowFocus)
-          .off('blur', _onWindowBlur);
+          .off('blur', _onWindowBlur)
+          .off('unload', _onWindowUnload);
 
         jqDocument.off('visibilitychange', _onVisibilityChange);
         jqBody.off('dragstart', _onDragStart);
@@ -79,6 +81,15 @@
        */
       function _onWindowBlur(event) {
         jndPubSub.pub('window:blur', event);
+      }
+
+      /**
+       * window unload event handler
+       * @param {object} event
+       * @private
+       */
+      function _onWindowUnload(event) {
+        jndPubSub.pub('window:unload', event);
       }
 
       /**
