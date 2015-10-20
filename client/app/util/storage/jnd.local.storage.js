@@ -12,36 +12,37 @@
   /* @ngInject */
   function LocalStorage(memberService) {
     var that = this;
-    var DELIMITER = '.';
     var localStorage = window.localStorage;
+    var DELIMITER = '.';
 
     _init();
 
     /**
-     * 생성자
+     * init
      * @private
      */
     function _init() {
       that.get = get;
       that.set = set;
       that.remove = remove;
+
+      that.setMiddleKey = setMiddleKey;
     }
 
     function get(id, property) {
-      return localStorage.getItem(_getKeyName(id, property));
+      return localStorage.getItem(_getKeyName.call(this, id, property));
     }
 
     function set(id, property, value) {
-      if (property != null && value == null) {
-        value = property;
-        property = null;
-      }
-
-      localStorage.setItem(_getKeyName(id, property), value);
+      localStorage.setItem(_getKeyName.call(this, id, property), value);
     }
 
     function remove(id, property) {
-      localStorage.removeItem(_getKeyName(id, property));
+      localStorage.removeItem(_getKeyName.call(this, id, property));
+    }
+
+    function setMiddleKey(value) {
+      this.middleKey = value;
     }
 
     /**
@@ -54,8 +55,7 @@
     function _getKeyName(id, property) {
       var keyList = [
         memberService.getMemberId(),
-        'topic',
-        'folder',
+        this.middleKey || '',
         id || '',
         property || ''
       ];

@@ -24,6 +24,8 @@
       that.getOpenStatus = getOpenStatus;
       that.setOpenStatus = setOpenStatus;
       that.removeOpenStatus = removeOpenStatus;
+
+      that.setMiddleKey('topic.folder');
     }
 
     /**
@@ -32,7 +34,7 @@
      * @returns {boolean}
      */
     function getOpenStatus(folderId) {
-      return LocalStorage.get.call(that, folderId, 'openStatus') !== 'close';
+      return that.get(folderId, 'openStatus') !== 'close';
     }
 
     /**
@@ -41,7 +43,7 @@
      * @param {boolean} isOpened
      */
     function setOpenStatus(folderId, isOpened) {
-      LocalStorage.set.call(that, folderId, 'openStatus', isOpened ? 'open' : 'close');
+      that.set(folderId, 'openStatus', isOpened ? 'open' : 'close');
     }
 
     /**
@@ -49,7 +51,7 @@
      * @param {number} folderId
      */
     function removeOpenStatus(folderId) {
-      LocalStorage.remove.call(that, folderId, 'openStatus');
+      that.remove(folderId, 'openStatus');
     }
   }
 })();

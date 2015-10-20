@@ -21,8 +21,10 @@
     function _init() {
       _.extend(MessageStorage.prototype, LocalStorage);
 
-      that.getInputMessage = getInputMessage;
-      that.setInputMessage = setInputMessage;
+      that.getMessageInput = getMessageInput;
+      that.setMessageInput = setMessageInput;
+
+      that.setMiddleKey('entity.message');
     }
 
     /**
@@ -30,8 +32,8 @@
      * @param {number} entityId
      * @returns {boolean}
      */
-    function getInputMessage(entityId) {
-      return LocalStorage.get.call(that, entityId, 'inputMessage');
+    function getMessageInput(entityId) {
+      return that.get(entityId, 'messageInput');
     }
 
     /**
@@ -39,8 +41,8 @@
      * @param {number} folderId
      * @param {boolean} isOpened
      */
-    function setInputMessage(entityId, message) {
-      LocalStorage.set.call(that, entityId, 'inputMessage', message);
+    function setMessageInput(entityId, message) {
+      that.set(entityId, 'messageInput', message);
     }
   }
 })();

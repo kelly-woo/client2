@@ -30,7 +30,7 @@
        * @returns {string}
        */
       function get(entityId) {
-        return MessageStorage.getInputMessage(entityId);
+        return MessageStorage.getMessageInput(entityId);
       }
 
       /**
@@ -39,7 +39,7 @@
        * @param {string} text 저장할 텍스트
        */
       function set(entityId, text) {
-        MessageStorage.setInputMessage(entityId, text);
+        MessageStorage.setMessageInput(entityId, text);
       }
     }
 })();
