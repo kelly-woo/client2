@@ -55,6 +55,9 @@
         overflow: 'auto',
         background: '#666666'
       });
+      $('.body-wrapper').css({
+        overflow: 'auto'
+      });
       TutorialAccount.promise.then(_onSuccessGetAccount);
     }
 

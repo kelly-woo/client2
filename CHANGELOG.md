@@ -1,3 +1,96 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/tosslab/web_client/compare/v1.4.0...v1.4.1) (2015-10-14)
+
+
+### Bug Fixes
+
+* **markdown:** web link 텍스트에 _ 가 포함될 경우 정상적으로 링크가 형성되지 않는 현상 수정 ([607065b](https://github.com/tosslab/web_client/commit/607065b))
+* **markdown:** web link 텍스트에 _ 가 포함될 경우 정상적으로 링크가 형성되지 않는 현상 수정 ([22ee468](https://github.com/tosslab/web_client/commit/22ee468))
+
+
+
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/tosslab/web_client/compare/v1.3.4...v1.4.0) (2015-10-14)
+
+
+### Bug Fixes
+
+* **active-notifier:** 브라우저 unload 시 inactive 상태를 서버로 전송하도록 수정 ([6dab78f](https://github.com/tosslab/web_client/commit/6dab78f))
+* **center:** center에 이미지 로딩시 로딩 휠 출력하도록 수정 ([16f7af6](https://github.com/tosslab/web_client/commit/16f7af6))
+* **center:** center에 이미지 로딩시 로딩 휠 출력하도록 수정 ([0adacac](https://github.com/tosslab/web_client/commit/0adacac))
+* **center:** center에 이미지 로딩시 로딩 휠 출력하도록 수정 ([dd5d510](https://github.com/tosslab/web_client/commit/dd5d510))
+* **center:** focus 되어있지 않을 때의 메세지 읽음 표시 오류 수정 ([e5939df](https://github.com/tosslab/web_client/commit/e5939df))
+* **center:** folder badge count 접었다 폈을 때 살짝 노출되었다 사라지는 현상 해결 ([a8b342e](https://github.com/tosslab/web_client/commit/a8b342e))
+* **center:** markdown code 스타일 오류 수정 ([8978026](https://github.com/tosslab/web_client/commit/8978026))
+* **center:** markdown code 스타일 오류 수정 ([200a251](https://github.com/tosslab/web_client/commit/200a251))
+* **center:** markdown 중 코드의 변경된 디자인에서 ui 어긋나는 부분 수정 ([46f9433](https://github.com/tosslab/web_client/commit/46f9433))
+* **center:** 공지사항에 markdown  적용 ([46313e8](https://github.com/tosslab/web_client/commit/46313e8))
+* **center:** 브라우저 포커스 잃었을 때 받은 메세지를 읽지 않고 다른 토픽에 이동 시 읽지 않았음에도 불구하고 read로 표시되는 현상 수정 ([de819b9](https://github.com/tosslab/web_client/commit/de819b9))
+* **center:** 브라우저 포커스 잃었을 때 받은 메세지를 읽지 않고 다른 토픽에 이동 시 읽지 않았음에도 불구하고 read로 표시되는 현상 수정 ([110be9c](https://github.com/tosslab/web_client/commit/110be9c))
+* **common:** 알 수 없는 결과에 대한 에러 메시지 적용 ([44cdbfd](https://github.com/tosslab/web_client/commit/44cdbfd))
+* **config:** asset path 의  모든 js 와 css 를 include 하도록 수정 ([97b73b3](https://github.com/tosslab/web_client/commit/97b73b3))
+* **config:** 팀 정보 tosslab 으로 수정 ([8ab4ca6](https://github.com/tosslab/web_client/commit/8ab4ca6))
+* **markdown:** 마크다운에서 한글 한 글자만 적용 시 적용되지 않는 현상 수정 ([7599489](https://github.com/tosslab/web_client/commit/7599489))
+* **modal:** 업로드 진행바 버그 수정 ([964b18f](https://github.com/tosslab/web_client/commit/964b18f))
+* **modal:** 업로드 진행바 버그 수정 ([a0d0a83](https://github.com/tosslab/web_client/commit/a0d0a83))
+* **modal:** 팀 초대 모달의 링크복사 가이드가 pc app에서 사라지지 않는 버그 수정 ([65ee33b](https://github.com/tosslab/web_client/commit/65ee33b))
+* **right:** 검색 시 이전, 다음 메세지의 경우 markdown 적용되지 않도록 수정 ([43806a9](https://github.com/tosslab/web_client/commit/43806a9))
+* **right:** 메세지 검색결과 중 이전 혹은 다음 메세지가 file 일 경우 parser error 오류 수정 ([0b39a7a](https://github.com/tosslab/web_client/commit/0b39a7a))
+* **right:** 메세지 텝 버그 수정 ([a0680d6](https://github.com/tosslab/web_client/commit/a0680d6))
+* **right:** 메세지 텝 버그 수정 ([d7263bb](https://github.com/tosslab/web_client/commit/d7263bb))
+* **right:** 메세지 텝 버그 수정 ([dd2d6dd](https://github.com/tosslab/web_client/commit/dd2d6dd))
+* **right:** 메세지 텝 버그 수정 ([2c46dfa](https://github.com/tosslab/web_client/commit/2c46dfa))
+* **right:** 메시지 검색 결과의 이전/다음 메시지의 경우 code markdown은 파싱하지 않도록 (공지사항과 같은 정책) 수정 ([0949377](https://github.com/tosslab/web_client/commit/0949377))
+* **right:** 스타 멘션탭에 html 코드 포함 시 출력되지 않는 현상 수정 ([388b1fa](https://github.com/tosslab/web_client/commit/388b1fa))
+* **right:** 우측패널 markdown 적용 ([96a6592](https://github.com/tosslab/web_client/commit/96a6592))
+* **scroll:** r panel 노출 여부에 따른 center 너비 변화 시 스크롤 보정 로직에 scroll animation 효과 제거 ([e1ee73b](https://github.com/tosslab/web_client/commit/e1ee73b))
+* **socket:** socket 연결 재시도 딜레이 조정 ([76aae1f](https://github.com/tosslab/web_client/commit/76aae1f))
+* **tutorial:** 튜토리얼 스크롤 노출되지 않는 현상 해결 ([beafaa4](https://github.com/tosslab/web_client/commit/beafaa4))
+
+### Features
+
+* **center:** 초기 진입시 흰 화면 대신 로딩 화면 추가 ([34fe151](https://github.com/tosslab/web_client/commit/34fe151))
+* **filter:** markdown 필터 추가 ([e4506c0](https://github.com/tosslab/web_client/commit/e4506c0))
+* **loading:** 초기 진입 시 loading 화면 추가 ([8749af5](https://github.com/tosslab/web_client/commit/8749af5))
+
+
+
+<a name"1.3.4"></a>
+### 1.3.4 (2015-10-12)
+
+
+#### Bug Fixes
+
+* **center:** {{{ 문자 }}} 일 경우 흰 화면 노출되는 현상 수정 ([a75c7a15](https://github.com/tosslab/web_client.git/commit/a75c7a15))
+
+
+<a name"1.3.3"></a>
+### 1.3.3 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **right:** 파일 리스트 출력시 검색 키워드는 전체 파일 리스트가 갱신 될때만 초기화 하도록 수정 ([541fcc02](https://github.com/tosslab/web_client.git/commit/541fcc02))
+
+
+<a name"1.3.2"></a>
+### 1.3.2 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **app:** 웹폰트 롤벡 ([ea990708](https://github.com/tosslab/web_client.git/commit/ea990708))
+
+
+<a name"1.3.1"></a>
+### 1.3.1 (2015-10-08)
+
+
+#### Bug Fixes
+
+* **center:** 초대 시스템 메세지 처리 누락 수정 ([6d5c625f](https://github.com/tosslab/web_client.git/commit/6d5c625f))
+
+
 <a name"1.3.0"></a>
 ## 1.3.0 (2015-10-07)
 

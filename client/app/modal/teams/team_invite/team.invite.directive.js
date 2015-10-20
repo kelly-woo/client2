@@ -126,6 +126,7 @@
         var element = this;
         scope.$apply(function() {
           scope.isLinkTextFocus = true;
+          element.focus();
           element.select();
         });
       }

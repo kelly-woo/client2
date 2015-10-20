@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -587,6 +587,10 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公开"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unknown-error"
+msgstr "抱歉！ 发生错误！请重试一次"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上传文件"
@@ -1102,11 +1106,11 @@ msgstr "建议开启推播通知，随时掌握对话、信息"
 msgid "@setting-notification-show-content-msg"
 msgstr "在推播通知上显示信息内容"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
 msgstr "关闭电脑版推播通知"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "开启电脑版的推拨通知"
 
@@ -1588,19 +1592,19 @@ msgstr "取消标记此成员"
 msgid "@web-notification"
 msgstr "通知"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-file-share"
 msgstr " 分享文件"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr " 在 "
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr " 文件添加新评论"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr "有从"
@@ -1609,48 +1613,48 @@ msgstr "有从"
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "您确定要删除此信息吗？删除的信息将无法复原。"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-post"
 msgstr "来的新讯息"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
 msgstr "有从"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
 msgstr " 有新信息"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
 msgid "@web-notification-body-other-team-pre"
 msgstr "在"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
-msgstr ""
+msgstr "邀请你加入私人议题"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-invited"
-msgstr ""
+msgstr "邀请你加入此议题"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-mid"
 msgstr "里有从"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-post"
 msgstr "来的新讯息"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-topic-pre"
 msgstr "在"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
 msgstr "新上传的文件已被分享"
 
-#: client/app/modal/settings/notification/setting.notification.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-sample-body-text"
 msgstr "设置成功"
 

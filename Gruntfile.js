@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     nggettext_compile: 'grunt-angular-gettext',
     replace: 'grunt-replace',
     wiredep: 'grunt-wiredep',
-    changelog: 'grunt-conventional-changelog',
+    conventionalChangelog: 'grunt-conventional-changelog',
     bump: 'grunt-bump'
   });
 
@@ -96,11 +96,11 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+          '{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.html',
+          '{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.js',
           //'!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
-          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
+          '!{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= yeoman.client %>/{app,components}/**/*.hbs'
         ],
@@ -521,7 +521,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
             [
-              '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
+              '{.tmp,<%= yeoman.client %>}/assets/**/*.js',
               '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
               '{.tmp,<%= yeoman.client %>}/app/util/*.js',
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
@@ -565,7 +565,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+            '<%= yeoman.client %>/{app,assets,components}/**/*.css'
           ]
         }
       }
@@ -662,9 +662,6 @@ module.exports = function (grunt) {
               json: grunt.file.readJSON('./config/environments/local.json')
             },
             {
-              json: grunt.file.readJSON('./config/environments/local.team.json')
-            },
-            {
               json: {
                 version: '<%=pkg.version%>'
               }
@@ -740,11 +737,15 @@ module.exports = function (grunt) {
       }
     },
 
-    changelog: {
+    conventionalChangelog: {
       options: {
-        // Task-specific options go here.
-        repository: 'https://github.com/tosslab/web_client.git',
-        version: '<%=pkg.version%>'
+        changelogOpts: {
+          // conventional-changelog options go here
+          preset: 'angular'
+        }
+      },
+      release: {
+        src: 'CHANGELOG.md'
       }
     },
 
@@ -800,6 +801,7 @@ module.exports = function (grunt) {
       ]);
     } else {
       var serveTasks = [
+        'replace:local',
         'clean:server',
         'env:all',
         'concurrent:server',
@@ -812,14 +814,20 @@ module.exports = function (grunt) {
         'open',
         'watch'
       ];
-      switch (target) {
-        case 'ie9':
-          serveTasks.unshift('replace:local_ie9');
-          break;
-        default:
-          serveTasks.unshift('replace:local');
-          break;
+
+      var filePath = './config/environments/local.team.json';
+      var defaultTeamName = 'tosslab';
+      var patterns = grunt.config.get('replace.local.options.patterns');
+
+      if (!grunt.file.exists(filePath)) {
+        grunt.file.write(filePath, "{\n\t\"team_name\": \"" + defaultTeamName + "\"\n}\n");
       }
+
+      patterns.push({
+        json: grunt.file.readJSON('./config/environments/local.team.json')
+      });
+      grunt.config.set('replace.local.options.patterns', patterns);
+
       grunt.task.run(serveTasks);
     }
   });
@@ -951,6 +959,9 @@ module.exports = function (grunt) {
     grunt.config.set('pkg', grunt.file.readJSON('package.json'));
   });
 
+  /**
+   * 버전 릴리즈
+   */
   grunt.registerTask('version-release', function(target) {
     switch (target) {
       case 'major':
@@ -966,9 +977,12 @@ module.exports = function (grunt) {
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
     grunt.config.set('bump.options.createTag', true);
-    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'changelog', 'bump::commit-only']);
+    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
   });
 
+  /**
+   * 마크업 환경 제공
+   */
   grunt.registerTask('build-markup', function(target) {
     grunt.task.run([
       'clean:server',
