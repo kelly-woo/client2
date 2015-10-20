@@ -173,9 +173,6 @@
           // Get information about team and member id.
           var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
-          console.log(signInInfo)
-          console.log(response.account.memberships)
-
           if (_isInActiveMember(signInInfo)) {
             //console.log('no memberid')
             // Could not find member id that is associated with current team.
