@@ -1,31 +1,3 @@
-<a name="1.5.0"></a>
-# [1.5.0](https://github.com/tosslab/web_client/compare/v1.4.2...v1.5.0) (2015-10-20)
-
-
-### Bug Fixes
-
-* **auth.controller:** Remove console. ([1ec08da](https://github.com/tosslab/web_client/commit/1ec08da))
-* **center:**  loading 휠 사라지지 않는 현상 해결 ([a62ee43](https://github.com/tosslab/web_client/commit/a62ee43))
-* **center:**  private 파일 공유 해제 시 view 에 정상적으로 반영되지 않는 오류 수정 ([662a53c](https://github.com/tosslab/web_client/commit/662a53c)), closes [#3207](https://github.com/tosslab/web_client/issues/3207)
-* **center:** DM, Unfocused 상태에서 메시지 수신시 badge count에 메시지 개수 +1 되어 표시됨 ([60f6c44](https://github.com/tosslab/web_client/commit/60f6c44))
-* **center:** DM에 공유된 파일명이 공유해제된 파일명으로 표시되는 현상 수정 ([553be82](https://github.com/tosslab/web_client/commit/553be82))
-* **center:** DM에 공유된 파일명이 공유해제된 파일명으로 표시되는 현상 수정 ([64362fa](https://github.com/tosslab/web_client/commit/64362fa))
-* **date:** Add day field to TC and SC ([250d7c4](https://github.com/tosslab/web_client/commit/250d7c4))
-* **day:** Add day for TC and SC. ([b73d84c](https://github.com/tosslab/web_client/commit/b73d84c))
-* **sign.in:** Redirect to main if disabled member ([988f4e9](https://github.com/tosslab/web_client/commit/988f4e9))
-
-### Features
-
-* **app:** mac application용 badge update api 추가 ([342966f](https://github.com/tosslab/web_client/commit/342966f))
-* **app:** mac application용 badge update api 추가 ([066be6a](https://github.com/tosslab/web_client/commit/066be6a))
-* **app:** mac app용 badge update trigger 추가 ([dd0803d](https://github.com/tosslab/web_client/commit/dd0803d))
-* **center:** file shared/unshared 상태에 따라 실시간으로 view에 반영 ([aa92647](https://github.com/tosslab/web_client/commit/aa92647))
-* **center:** file unshare 시 view 변경 - css 수정사항 반영 ([cb9fcdf](https://github.com/tosslab/web_client/commit/cb9fcdf))
-* **modal:** quick launcher ([81eb25c](https://github.com/tosslab/web_client/commit/81eb25c))
-* **modal:** 파일 업로드 모달의 코멘트에 mention 입력가능 ([8ac2f2b](https://github.com/tosslab/web_client/commit/8ac2f2b))
-
-
-
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/tosslab/web_client/compare/v1.4.1...v1.4.2) (2015-10-15)
 
