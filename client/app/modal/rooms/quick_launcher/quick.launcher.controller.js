@@ -113,7 +113,18 @@
      * @returns {*|Array}
      */
     function getRooms() {
-      return _.uniq([].concat(_getHadBadgeRooms(), _getResentWorkRooms()), 'id');
+      var hasBadgeRooms = _getHadBadgeRooms();
+      var resentWorkRooms = _getResentWorkRooms();
+      var hasBadgeRoomsBeginIndex = 0;
+      var resentWorkRoomBeginIndex = 0;
+      var rooms = _.uniq([].concat(hasBadgeRooms, resentWorkRooms), function (room) {
+        room.count == null ? resentWorkRoomBeginIndex++ : hasBadgeRoomsBeginIndex++;
+        return room.id;
+      });
+
+      _setJumpListIndexs(hasBadgeRoomsBeginIndex, resentWorkRoomBeginIndex);
+
+      return rooms;
     }
 
     /**
@@ -160,15 +171,17 @@
       var centerHistory = centerService.getHistory();
       var entity;
       var i;
-      var len;
+      var room;
 
       for (i = centerHistory.length - 1; i > -1; i--) {
         if (entity = EntityMapManager.get('total', centerHistory[i].entityId)) {
-          rooms.push({
+          room = {
             type: entity.type,
             id: entity.id,
             name: entity.name
-          });
+          };
+          entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+          rooms.push(room);
         }
       }
 
@@ -181,8 +194,14 @@
      * @returns {Array.<T>}
      */
     function getFilteredRooms(value) {
-      value = value || '';
-      return [].concat(_getEnabledMembers(value), _getJoinedRooms(value), _getUnJoinedChannels(value));
+      var filterText = value || '';
+      var enableMembers = _getEnabledMembers(filterText);
+      var joinedRooms = _getJoinedRooms(filterText);
+      var unjoinedChannels = _getUnJoinedChannels(filterText);
+
+      _setJumpListIndexs(enableMembers.length, joinedRooms.length, unjoinedChannels.length);
+
+      return [].concat( enableMembers, joinedRooms, unjoinedChannels);
     }
 
     /**
@@ -277,6 +296,21 @@
 
       return _.sortBy(channels, function (channel) {
         return channel.name.toLowerCase();
+      });
+    }
+
+    /**
+     * item 분류마다 첫 item index를 설정하여 item 분류별 jump가 가능하도록 jump list index를 설정한다.
+     * @private
+     */
+    function _setJumpListIndexs() {
+      var jumpListIndexs = $scope.jumpListIndexs = [];
+      var args = arguments;
+
+      _.forEach(args, function(value, index) {
+        if (value > 0) {
+          jumpListIndexs.push((jumpListIndexs[index - 1] || 0) + (args[index - 1] || 0));
+        }
       });
     }
   }
