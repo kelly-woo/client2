@@ -11,7 +11,7 @@
   function markdown() {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /(?:([\*_~]{1,3}))([^\*_~\n]*[^\*_~\s])\1/g,
+      bolditalic: /(>|^|\s)([\*_~]{1,3})([^\2].*?)\2(<\/|$|\s)/g,
       anchor: /<a.*?<\/a>/g
     };
 
@@ -60,7 +60,7 @@
           }
         } else {
           if (allowMap.bolditalic) {
-            resultArr.push(_textParser(token));
+            resultArr.push(_parseText(token));
           } else {
             resultArr.push(token);
           }
@@ -76,7 +76,7 @@
      * @returns {string|*}
      * @private
      */
-    function _textParser(string) {
+    function _parseText(string) {
       var marker = '§§§anchorMarker§§§';
       var regxMarker = /§§§anchorMarker§§§/g;
       var anchorList = [];
@@ -107,34 +107,42 @@
      * @returns {string}
      * @private
      * @see https://github.com/SimonWaldherr/micromarkdown.js
+     * @history
+     *   - 2015.10.15
+     *    현재 파싱 로직 거의 대부분을 변경 하였음.
      */
     function _parseBoldItalic(str) {
       var repstr;
       var stra;
-
+      var count;
       /* bold and italic */
       for (var i = 0; i < 3; i++) {
-        while ((stra = _regx.bolditalic.exec(str)) !== null) {
-          repstr = [];
-          if (stra[1] === '~~') {
-            str = str.replace(stra[0], '<del>' + stra[2] + '</del>');
+        count = 0;
+        while ((stra = (new RegExp(_regx.bolditalic)).exec(str)) !== null) {
+          if (count === 0 && (stra[0] === '>' || stra[4] === '</')) {
+            break;
           } else {
-            switch (stra[1].length) {
-              case 1:
-                repstr = ['<i>', '</i>'];
-                break;
-              case 2:
-                repstr = ['<b>', '</b>'];
-                break;
-              case 3:
-                repstr = ['<i><b>', '</b></i>'];
-                break;
+            repstr = [];
+            if (stra[2] === '~~') {
+              str = str.replace(stra[0], stra[1] + '<del>' + stra[3] + '</del>' + stra[4]);
+            } else {
+              switch (stra[2].length) {
+                case 1:
+                  repstr = ['<i>', '</i>'];
+                  break;
+                case 2:
+                  repstr = ['<b>', '</b>'];
+                  break;
+                case 3:
+                  repstr = ['<i><b>', '</b></i>'];
+                  break;
+              }
+              str = str.replace(stra[0], stra[1] + repstr[0] + stra[3] + repstr[1] + stra[4]);
             }
-            str = str.replace(stra[0], repstr[0] + stra[2] + repstr[1]);
+            count++;
           }
         }
       }
-
       return str;
     }
   }
