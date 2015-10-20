@@ -1,0 +1,49 @@
+.quick-launcher-modal .room-item {
+  width: 100%;
+  padding: 6px 20px 0 18px;
+}
+
+.quick-launcher-modal .room-item .room-type-image {
+  display: block;
+  width: 25px;
+  float: left;
+  text-align: center;
+}
+
+.quick-launcher-modal .room-item img.room-type-image {
+  margin-top: 5px;
+  border-radius: 25px;
+}
+.quick-launcher-modal .room-item i.room-type-image {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 32px;
+  color: #575757;
+}
+
+.quick-launcher-modal .room-item .room-name {
+  line-height: 32px;
+  margin-left: 10px;
+  max-width: 220px;
+}
+
+.quick-launcher-modal .unjoined-channel-name {
+  color: #888;
+}
+
+.quick-launcher-modal .unjoined-channel-label {
+  margin-left: 6px;
+  line-height: 32px;
+  padding: 2px 5px;
+  background-color: #eee;
+  color: #a7a7a7;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.quick-launcher-modal .room-item .badge {
+  margin-top: 5px;
+  color: #fff;
+  max-width: 22%;
+}

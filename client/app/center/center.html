@@ -1,20 +1,21 @@
-<page-tracker ng-if="entityType === 'channels'" page="topic/public" title="Public Topic"></page-tracker>
-<page-tracker ng-if="entityType === 'privategroups'" page="topic/private" title="Private Topic"></page-tracker>
-<page-tracker ng-if="entityType === 'users'" page="directmessage" title="Direct Messages"></page-tracker>
-<!-- <input type="button" ng-click="gdClick($event)" value="google drive integration" />
-  <input type="button" ng-click="dbClick($event)" value="drop box integration" /> -->
-<div ng-if="false">
-  <span translate>@message-deleted</span>
-  <span translate>@web-notification-title</span>
-  <span translate>@web-notification-body-messages-confirm-delete</span>
-  <span translate>@success-file-share</span>
-  <span translate>@success-file-unshare</span>
-  <span translate>@success-file-delete</span>
-</div>
+<div jnd-main-key-handler center-event-handler>
+  <page-tracker ng-if="entityType === 'channels'" page="topic/public" title="Public Topic"></page-tracker>
+  <page-tracker ng-if="entityType === 'privategroups'" page="topic/private" title="Private Topic"></page-tracker>
+  <page-tracker ng-if="entityType === 'users'" page="directmessage" title="Direct Messages"></page-tracker>
+  <!-- <input type="button" ng-click="gdClick($event)" value="google drive integration" />
+    <input type="button" ng-click="dbClick($event)" value="drop box integration" /> -->
+  <div ng-if="false">
+    <span translate>@message-deleted</span>
+    <span translate>@web-notification-title</span>
+    <span translate>@web-notification-body-messages-confirm-delete</span>
+    <span translate>@success-file-share</span>
+    <span translate>@success-file-unshare</span>
+    <span translate>@success-file-delete</span>
+  </div>
 
 
-<div class="file-upload-progress-container" ng-if="curUpload.status != null"
-     ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
+  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
+       ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
                 'file-upload-done': curUpload.status == 'done'}">
   <!--    'uploading'     -->
   <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
@@ -26,107 +27,108 @@
   <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
 
 
-  <!--    file title  -->
-  <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
-  <!--    progress in percentile  -->
-  <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
-  <!--    progress file index  -->
-  <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
-  <!--    'cancel'    -->
-  <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
-  <!--    'x' icon    -->
-  <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-delete"></i></span>
+    <!--    file title  -->
+    <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
+    <!--    progress in percentile  -->
+    <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+    <!--    progress file index  -->
+    <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
+    <!--    'cancel'    -->
+    <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
+    <!--    'x' icon    -->
+    <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-delete"></i></span>
 
-  <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
-</div>
+    <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
+  </div>
 
-<announcement></announcement>
+  <announcement></announcement>
 
-<!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
+  <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
+  <div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
 
-  <!-- 컨테이너 -->
-  <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
-    <!-- 로딩 영역 -->
-    <!--<div class="msgs__loading"-->
-         <!--ng-show="msgLoadStatus.loading || !hasLastMessageRendered"-->
-         <!--ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">-->
+    <!-- 컨테이너 -->
+    <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
+      <!-- 로딩 영역 -->
+      <!--<div class="msgs__loading"-->
+      <!--ng-show="msgLoadStatus.loading || !hasLastMessageRendered"-->
+      <!--ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">-->
       <!--<span class="three-quarters-loader jnd-three-quarters-loader center"></span>-->
-    <!--</div>-->
+      <!--</div>-->
 
-     <!--메세지 wrapper-->
-    <!--<div class="msgs-holder opac-zero" id="msgs-holder" center-event-delegater>-->
+      <!--메세지 wrapper-->
+      <!--<div class="msgs-holder opac-zero" id="msgs-holder" center-event-delegater>-->
       <!--<div class="msgs-group"-->
-           <!--ng-repeat="msg in messages track by msg.id"-->
-           <!--msg-repeat-done="onRepeatDone()"-->
-           <!--ng-switch="msg.message.contentType"-->
-           <!--date-divider>-->
-        <!--&lt;!&ndash;날짜 구분선&ndash;&gt;-->
-        <!--<system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>-->
-        <!--<text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"-->
-              <!--ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>-->
-        <!--<text ng-switch-when="sticker" msg="msg" id="{{::msg.id}}" class="msg-item text"-->
-              <!--ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>-->
-        <!--<file-uploaded ng-switch-when="file" id="{::{msg.id}}" class="msg-item"></file-uploaded>-->
-        <!--<title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"-->
-                       <!--ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>-->
-        <!--<title-comment ng-switch-when="comment_sticker" id="{{::msg.id}}" class="msg-item"-->
-                       <!--ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>-->
-        <!--<unread-bookmark class="msg-item hidden" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>-->
+      <!--ng-repeat="msg in messages track by msg.id"-->
+      <!--msg-repeat-done="onRepeatDone()"-->
+      <!--ng-switch="msg.message.contentType"-->
+      <!--date-divider>-->
+      <!--&lt;!&ndash;날짜 구분선&ndash;&gt;-->
+      <!--<system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>-->
+      <!--<text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"-->
+      <!--ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>-->
+      <!--<text ng-switch-when="sticker" msg="msg" id="{{::msg.id}}" class="msg-item text"-->
+      <!--ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>-->
+      <!--<file-uploaded ng-switch-when="file" id="{::{msg.id}}" class="msg-item"></file-uploaded>-->
+      <!--<title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"-->
+      <!--ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>-->
+      <!--<title-comment ng-switch-when="comment_sticker" id="{{::msg.id}}" class="msg-item"-->
+      <!--ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>-->
+      <!--<unread-bookmark class="msg-item hidden" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>-->
       <!--</div>-->
 
       <!--&lt;!&ndash; unsent Message &ndash;&gt;-->
       <!--<div ng-if="sendingMessages.length"-->
-           <!--class="msgs-group"-->
-           <!--ng-repeat="msg in sendingMessages"-->
-           <!--repeat-done="onSendingRepeatDone()"-->
-           <!--ng-switch="msg.message.contentType">-->
-          <!--<text-sending ng-switch-when="text" class="msg-item text text-child"-->
-                        <!--msg="msg" entity-id="entityId" entityType="entityType"></text-sending>-->
+      <!--class="msgs-group"-->
+      <!--ng-repeat="msg in sendingMessages"-->
+      <!--repeat-done="onSendingRepeatDone()"-->
+      <!--ng-switch="msg.message.contentType">-->
+      <!--<text-sending ng-switch-when="text" class="msg-item text text-child"-->
+      <!--msg="msg" entity-id="entityId" entityType="entityType"></text-sending>-->
 
-          <!--<text-sending ng-switch-when="sticker" class="msg-item text text-child"-->
-                        <!--msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>-->
+      <!--<text-sending ng-switch-when="sticker" class="msg-item text text-child"-->
+      <!--msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>-->
       <!--</div>-->
       <!--&lt;!&ndash;  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. &ndash;&gt;-->
       <!--<center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>-->
-    <!--</div>-->
-    <div class="msgs__loading initial opac-zero"
-         ng-show="!isInitialLoadingCompleted && msgLoadStatus.loading && msgLoadStatus.isShowWheel"
-        ng-class="{'opac-in-fast' : msgLoadStatus.isShowWheel}">
-      <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
-    </div>
-    <div class="msgs-holder opac-zero" id="msgs-holder">
-      <!-- 로딩 영역 -->
-      <div ng-show="hasOldMessageToLoad" class="msgs__loading load-more-top">
+      <!--</div>-->
+      <div class="msgs__loading initial opac-zero"
+           ng-show="!isInitialLoadingCompleted && msgLoadStatus.loading && msgLoadStatus.isShowWheel"
+           ng-class="{'opac-in-fast' : msgLoadStatus.isShowWheel}">
         <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
       </div>
+      <div class="msgs-holder opac-zero" id="msgs-holder">
+        <!-- 로딩 영역 -->
+        <div ng-show="hasOldMessageToLoad" class="msgs__loading load-more-top">
+          <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
+        </div>
 
-      <center-messages-directive center-event-delegater></center-messages-directive>
-      <!-- unsent Message -->
-      <div ng-if="sendingMessages.length"
-           class="msgs-group"
-           ng-repeat="msg in sendingMessages"
-           repeat-done="onSendingRepeatDone()"
-           ng-switch="msg.message.contentType">
-        <text-sending ng-switch-when="text" class="msg-item text"
-                      index="$index"
-                      msg="msg" entity-id="entityId" entityType="entityType"></text-sending>
+        <center-messages-directive></center-messages-directive>
+        <!-- unsent Message -->
+        <div ng-if="sendingMessages.length"
+             class="msgs-group"
+             ng-repeat="msg in sendingMessages"
+             repeat-done="onSendingRepeatDone()"
+             ng-switch="msg.message.contentType">
+          <text-sending ng-switch-when="text" class="msg-item text"
+                        index="$index"
+                        msg="msg" entity-id="entityId" entityType="entityType"></text-sending>
 
-        <text-sending ng-switch-when="sticker" class="msg-item text"
-                      index="$index"
-                      msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>
+          <text-sending ng-switch-when="sticker" class="msg-item text"
+                        index="$index"
+                        msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>
+        </div>
       </div>
+      <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
+      <center-item-dropdown-layer></center-item-dropdown-layer>
+      <center-file-dropdown-layer></center-file-dropdown-layer>
+    </article>
+
+    <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
+         tooltip="{{::'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
+      <i class="icon-arrow-down scroll-to-bottom-icon"></i>
     </div>
-    <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
-    <center-item-dropdown-layer></center-item-dropdown-layer>
-    <center-file-dropdown-layer></center-file-dropdown-layer>
-  </article>
 
-  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
-       tooltip="{{::'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
-    <i class="icon-arrow-down scroll-to-bottom-icon"></i>
+    <!-- chat input box -->
+    <center-chat-input-box></center-chat-input-box>
   </div>
-
-  <!-- chat input box -->
-  <center-chat-input-box></center-chat-input-box>
 </div>

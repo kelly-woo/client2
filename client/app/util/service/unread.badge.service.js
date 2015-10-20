@@ -15,6 +15,7 @@
 
     this.add = add;
     this.remove = remove;
+    this.get = get;
     this.getUnreadPos = getUnreadPos;
     this.update = update;
 
@@ -53,6 +54,14 @@
         map[key] = null;
         delete map[key];
       }
+    }
+
+    /**
+     * unread badge 정보를 전달한다.
+     * @returns {{}}
+     */
+    function get() {
+      return map;
     }
 
     /**
