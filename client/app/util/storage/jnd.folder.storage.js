@@ -9,7 +9,7 @@
     .service('TopicFolderStorage', TopicFolderStorage);
 
   /* @ngInject */
-  function TopicFolderStorage(AbstractStorageee) {
+  function TopicFolderStorage(LocalStorage) {
     var that = this;
 
     _init();
@@ -19,13 +19,11 @@
      * @private
      */
     function _init() {
-      _.extend(TopicFolderStorage.prototype, AbstractStorageee);
+      _.extend(TopicFolderStorage.prototype, LocalStorage);
 
       that.getOpenStatus = getOpenStatus;
       that.setOpenStatus = setOpenStatus;
       that.removeOpenStatus = removeOpenStatus;
-
-      that.setTeamId(null);
     }
 
     /**
@@ -34,7 +32,7 @@
      * @returns {boolean}
      */
     function getOpenStatus(folderId) {
-      return AbstractStorageee.get.call(that, folderId, 'openStatus') !== 'close';
+      return LocalStorage.get.call(that, folderId, 'openStatus') !== 'close';
     }
 
     /**
@@ -43,7 +41,7 @@
      * @param {boolean} isOpened
      */
     function setOpenStatus(folderId, isOpened) {
-      AbstractStorageee.set.call(that, folderId, 'openStatus', isOpened ? 'open' : 'close');
+      LocalStorage.set.call(that, folderId, 'openStatus', isOpened ? 'open' : 'close');
     }
 
     /**
@@ -51,7 +49,7 @@
      * @param {number} folderId
      */
     function removeOpenStatus(folderId) {
-      AbstractStorageee.remove.call(that, folderId, 'openStatus');
+      LocalStorage.remove.call(that, folderId, 'openStatus');
     }
   }
 })();

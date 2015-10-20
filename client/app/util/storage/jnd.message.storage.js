@@ -9,7 +9,7 @@
     .service('MessageStorage', MessageStorage);
 
   /* @ngInject */
-  function MessageStorage(AbstractStorageee) {
+  function MessageStorage(LocalStorage) {
     var that = this;
 
     _init();
@@ -19,7 +19,7 @@
      * @private
      */
     function _init() {
-      _.extend(MessageStorage.prototype, AbstractStorageee);
+      _.extend(MessageStorage.prototype, LocalStorage);
 
       that.getInputMessage = getInputMessage;
       that.setInputMessage = setInputMessage;
@@ -31,7 +31,7 @@
      * @returns {boolean}
      */
     function getInputMessage(entityId) {
-      return AbstractStorageee.get.call(that, entityId, 'inputMessage');
+      return LocalStorage.get.call(that, entityId, 'inputMessage');
     }
 
     /**
@@ -40,7 +40,7 @@
      * @param {boolean} isOpened
      */
     function setInputMessage(entityId, message) {
-      AbstractStorageee.set.call(that, entityId, 'inputMessage', message);
+      LocalStorage.set.call(that, entityId, 'inputMessage', message);
     }
   }
 })();

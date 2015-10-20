@@ -7,15 +7,13 @@
 
   angular
     .module('jandiApp')
-    .service('AbstractStorageee', AbstractStorageee);
+    .service('LocalStorage', LocalStorage);
 
   /* @ngInject */
-  function AbstractStorageee(memberService, currentSessionHelper) {
+  function LocalStorage(memberService) {
     var that = this;
     var DELIMITER = '.';
     var localStorage = window.localStorage;
-
-    var teamId;
 
     _init();
 
@@ -27,11 +25,6 @@
       that.get = get;
       that.set = set;
       that.remove = remove;
-
-      that.getTeamId = getTeamId;
-      that.setTeamId = setTeamId;
-
-      that.setTeamId(currentSessionHelper.getCurrentTeam().id);
     }
 
     function get(id, property) {
@@ -51,14 +44,6 @@
       localStorage.removeItem(_getKeyName(id, property));
     }
 
-    function setTeamId(value) {
-      teamId = value;
-    }
-
-    function getTeamId() {
-      return teamId;
-    }
-
     /**
      * 실제 local storage 에 저장될 key name
      * @param {number} id
@@ -74,9 +59,6 @@
         id || '',
         property || ''
       ];
-      var teamId = that.getTeamId();
-
-      teamId != null && keyList.unshift(teamId);
 
       return keyList.join(DELIMITER);
     }

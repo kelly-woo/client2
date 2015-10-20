@@ -1252,7 +1252,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (text.length > TEXTAREA_MAX_LENGTH) {
       text = text.substring(0, TEXTAREA_MAX_LENGTH);
       $('#message-input').val(text);
-      TextBuffer.set(text);
     }
   }
 
