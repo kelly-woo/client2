@@ -24,6 +24,54 @@
     <!-- FILE -->
     <div class="msg-file">
 
+      <!--  FILE INFO -->
+      {{#unless isArchived}}
+        <div class="msg-file-meta">
+          <div class="msg-file-meta-up">
+            <!--  NOT ARCHIVED FILE -->
+            <!--    TITLE   -->
+            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
+              {{ file.title }}
+            </a>
+            {{#if file.size}}
+              <span class="bullet">•</span>
+              <!--    SIZE AND FILE TYPE  -->
+              <span class="msg-file-meta-info">{{ file.size }}</span>
+            {{/if}}
+            <span class="msg-file-meta-info">{{ file.type }}</span>
+            {{#if file.hasPreview}}
+              <i class="preview-icon icon-angle-down non-selectable _fileToggle"></i>
+            {{/if}}
+          </div>
+          <div class="msg-file-meta-down non-selectable _compile">
+            {{#unless file.isIntegrateFile}}
+            <!--  DOWNLOAD  -->
+            <span class="file-uploaded-download">
+              <a class="_fileDownload" {{{ attrs.download }}}>
+                <i class="icon-download-fill cursor_pointer file-action"
+                   jnd-tooltip-trigger="{{translate '@common-download'}}"
+                   data-direction="top"></i>
+              </a>
+            </span>
+            <span class="separator"></span>
+            {{/unless}}
+            <!--  SHARE -->
+            <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
+               jnd-tooltip-trigger="{{translate '@btn-share'}}"
+               data-direction="top"></i>
+
+            <span class="separator"></span>
+
+            <!--  MORE  -->
+            <span class="file-uploaded-more _fileMore">
+              <i class="icon-cog-fill cursor_pointer file-action"
+                 jnd-tooltip-trigger="{{translate '@file-action-more'}}"
+                 data-direction="top"></i>
+            </span>
+          </div>
+        </div>
+      {{/unless}}
+
       <!--  FILE PREVIEW IMAGE  -->
       <div class="preview-container">
         {{#if isArchived}}
@@ -68,60 +116,14 @@
         {{/if}}
       </div>
 
-      <!--  FILE INFO -->
-      <div class="msg-file-meta">
-        <div class="msg-file-meta-up">
-          {{#if isArchived}}
-          <div class="archived-file-title">
-            <a class="msg-file-meta__title file__name cursor_pointer _fileGo">
-              <span>{{translate '@common-deleted-file-title'}}</span>
-            </a>
-          </div>
-          {{else}}
-          <!--  NOT ARCHIVED FILE -->
-          <!--    TITLE   -->
-          <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
-            {{ file.title }}
-          </a>
-          {{#if file.size}}
-          <span class="bullet">•</span>
-          <!--    SIZE AND FILE TYPE  -->
-          <span class="msg-file-meta-info">{{ file.size }}</span>
-          {{/if}}
-          <span class="msg-file-meta-info">{{ file.type }}</span>
-          {{#if file.hasPreview}}
-            <i class="preview-icon icon-angle-down _fileToggle" style="display: none;"></i>
-          {{/if}}
-        </div>
-        <div class="msg-file-meta-down _compile">
-          {{#unless file.isIntegrateFile}}
-          <!--  DOWNLOAD  -->
-          <span class="file-uploaded-download">
-            <a class="_fileDownload" {{{ attrs.download }}}>
-              <i class="icon-download-fill cursor_pointer file-action"
-                 jnd-tooltip-trigger="{{translate '@common-download'}}"
-                 data-direction="top"></i>
-            </a>
-          </span>
-          <span class="separator"></span>
-          {{/unless}}
-          <!--  SHARE -->
-          <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
-             jnd-tooltip-trigger="{{translate '@btn-share'}}"
-             data-direction="top"></i>
-
-          <span class="separator"></span>
-
-          <!--  MORE  -->
-          <span class="file-uploaded-more _fileMore">
-            <i class="icon-cog-fill cursor_pointer file-action"
-               jnd-tooltip-trigger="{{translate '@file-action-more'}}"
-               data-direction="top"></i>
-          </span>
-
-        </div>
-        {{/if}}
+      {{#if isArchived}}
+      <div class="archived-file-title">
+        <a class="msg-file-meta__title file__name cursor_pointer _fileGo">
+          <span>{{translate '@common-deleted-file-title'}}</span>
+        </a>
       </div>
+      {{/if}}
+
       {{#unless isArchived}}
       <!-- Star -->
       <div class="msg-extra file-uploaded-extra">
