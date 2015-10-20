@@ -1,13 +1,18 @@
 <div>
-  <div class="custom-select-box-btn">
+  <div class="custom-select-box-btn"
+      ng-click="onClick($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
     <span translate=""><span>모든 대화방</span></span>
   </div>
-  <div class="custom-select-box shared-menu dropdown-menu active" style="">
+  <div ng-if="isShown"
+       class="custom-select-box shared-menu dropdown-menu active" style=""
+      jnd-custom-focus>
 
     <div class="custom-select-box__search-container">
       <span class="add-on-left"><i class="icon-search"></i></span>
-      <input type="text" ng-keyup="onKeyUp();" class="form-control rpanel-custombox-search__input search-input" placeholder="검색어를 입력하세요">
+      <input type="text"
+             ng-keyup="onKeyUp($event);"
+             class="form-control rpanel-custombox-search__input search-input" placeholder="검색어를 입력하세요">
     </div>
     <!--검색-->
     <div ng-if="searchList.length" class="custom-select-box__search-result">
@@ -18,15 +23,15 @@
 
         <ul class="menulist-item-result">
 
-          <li class="topic-title menu-item" ng-repeat="searchItem in searchList">
+          <li class="topic-title menu-item _selectable" ng-repeat="searchItem in searchList">
             <a>
               <span translate=""><span ng-bind-html="searchItem.name"></span></span>
             </a>
           </li>
         </ul>
       </div>
-
     </div>
+
     <!--일반 리스트-->
     <div ng-if="!searchList.length" class="custom-select-box__menulist">
 
@@ -53,7 +58,7 @@
               </a>
             </li>
 
-            <li class="topic-title menu-item"
+            <li class="topic-title menu-item _selectable"
                 ng-repeat="entity in folder.entityList | orderBy: ['isStarred', '-name']: true">
               <a>
                 <span translate=""><span>{{entity.name}}</span></span>
@@ -71,7 +76,7 @@
 
           <ul class="menulist-item-dm">
 
-            <li class="topic-title menu-item" ng-repeat="member in memberData.enabledList">
+            <li class="topic-title menu-item _selectable" ng-repeat="member in memberData.enabledList">
               <a>
                 <span translate=""><span>{{member.name}}</span></span>
               </a>
@@ -87,7 +92,7 @@
 
           <ul class="menulist-item-block">
 
-            <li class="topic-title menu-item" ng-repeat="member in memberData.disabledList">
+            <li class="topic-title menu-item _selectable" ng-repeat="member in memberData.disabledList">
               <a>
                 <span translate=""><span>{{member.name}}</span></span>
               </a>

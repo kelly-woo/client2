@@ -65,9 +65,15 @@
 .menulist-item-members .menu-item:hover,
 .menulist-item-filetype .menu-item:hover,
 .menulist-item-result .menu-item:hover {
+  /*background-color: #e8f3f9;*/
+  /*cursor: pointer;*/
+}
+
+.custom-select-box__menulist .active {
   background-color: #e8f3f9;
   cursor: pointer;
 }
+
 .custom-select-box__menulist .select-all i {
   position: absolute;
   top:5px;
