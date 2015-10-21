@@ -99,7 +99,7 @@
     function remove(key) {
       delete topicCacheMap[key];
 
-      // 해당 key의 message input에 cache된 text도 삭제한다.
+      // 해당 key의 message input에 cache된 text를 삭제한다.
       MessageStorage.removeMessageInput(key);
     }
 

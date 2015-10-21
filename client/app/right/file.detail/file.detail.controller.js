@@ -142,7 +142,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   function _onDestroy() {
-    MessageStorage.setCommentInput();
+    var fileDetail = $scope.file_detail;
+
+    if (fileDetail) {
+      MessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
+    }
   }
 
   /**
@@ -297,17 +301,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함
    */
   function setImageUrl(content) {
-    console.log($scope.fileIcon);
-    console.log(content)
-    console.log(content.icon !== 'etc')
-
     if ($scope.fileIcon === 'img' && content.icon !== 'etc') {
-      console.log('img and not etc');
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
       $scope.previewCursor = 'zoom-in';
     } else {
-      console.log('getFilterTypePreview')
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
       $scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
     }
@@ -509,6 +507,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
               Dialog.success({
                 title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
               });
+
+              // storage에서 comment input text 삭제
+              MessageStorage.removeCommentInput(fileId);
+
               $rootScope.$broadcast('onFileDeleted', fileId);
             })
             .error(function(err) {
@@ -643,6 +645,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isAdmin = memberService.isAdmin();
 
       _setFileDownLoad($scope.file_detail);
+
+      $('#file-detail-comment-input').val(MessageStorage.getCommentInput($scope.file_detail.id));
     }
 
     if (!$scope.initialLoaded) {

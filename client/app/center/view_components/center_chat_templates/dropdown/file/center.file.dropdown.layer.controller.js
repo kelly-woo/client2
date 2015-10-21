@@ -10,7 +10,7 @@
     .controller('CenterFileDropdownLayerCtrl', CenterFileDropdownLayerCtrl);
 
   /* @ngInject */
-  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper,
+  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper, MessageStorage,
                                        Dialog) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId;
@@ -60,6 +60,10 @@
                 Dialog.success({
                   title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.msg.message.content.title)
                 });
+
+                // storage에서 comment input text 삭제
+                MessageStorage.removeCommentInput(fileId);
+
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {

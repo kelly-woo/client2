@@ -9,8 +9,8 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
-                    fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, MessageStorage,
+                     fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
 
     _init();
 
@@ -118,6 +118,10 @@
                 Dialog.success({
                   title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.contentTitle)
                 });
+
+                // storage에서 comment input text 삭제
+                MessageStorage.removeCommentInput(fileId);
+
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {

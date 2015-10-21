@@ -47,9 +47,7 @@
      * @param {string} message
      */
     function setMessageInput(entityId, message) {
-      if (message != '' && message != null) {
-        that.set(entityId, 'messageInput', message);
-      }
+      (message != null && message != '') ? that.set(entityId, 'messageInput', message) : that.remove(entityId, 'messageInput');
     }
 
     /**
@@ -74,9 +72,7 @@
      * @param {string} message
      */
     function setCommentInput(entityId, message) {
-      if (message != '' && message != null) {
-        that.set(entityId, 'commentInput', message);
-      }
+      (message != null && message != '') ? that.set(entityId, 'commentInput', message) : that.remove(entityId, 'commentInput');
     }
 
     /**

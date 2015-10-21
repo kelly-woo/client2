@@ -1,6 +1,5 @@
 /**
  * @fileoverview storage service for only be read client side
- * storage / localstorage 명칭 중복으로 service error발생함
  */
 (function() {
   'use strict';
@@ -12,7 +11,7 @@
   /* @ngInject */
   function LocalStorage(memberService) {
     var that = this;
-    var localStorage = window.localStorage;
+    var webStorage = window.localStorage;
     var DELIMITER = '.';
 
     _init();
@@ -25,23 +24,62 @@
       that.get = get;
       that.set = set;
       that.remove = remove;
+      that.removeAll = removeAll;
 
       that.setMiddleKey = setMiddleKey;
       that.getKeyName = getKeyName;
     }
 
+    /**
+     * storage에 저장된 data를 전달한다.
+     * @param {number|string} id
+     * @param {string} property
+     */
     function get(id, property) {
-      return localStorage.getItem(this.getKeyName(id, property));
+      return webStorage.getItem(this.getKeyName(id, property));
     }
 
+    /**
+     * storage에 data를 설정한다.
+     * @param {number|string} id
+     * @param {string} property
+     * @param value
+     */
     function set(id, property, value) {
-      localStorage.setItem(this.getKeyName(id, property), value);
+      try {
+        webStorage.setItem(this.getKeyName(id, property), value);
+      } catch(e) {}
     }
 
+    /**
+     * storage에 특정 item을 삭제한다.
+     * @param {number|string} id
+     * @param {string} property
+     */
     function remove(id, property) {
-      localStorage.removeItem(this.getKeyName(id, property));
+      webStorage.removeItem(this.getKeyName(id, property));
     }
 
+    /**
+     * storage에 특정 property에 해당하는 모든 item을 삭제한다.
+     * @param {string} property
+     */
+    function removeAll(property) {
+      var regxKey = new RegExp(this.middleKey + '\\' + DELIMITER + '([\\w]+)\\' + DELIMITER + property + '$');
+      var e;
+      var match;
+
+      for (e in webStorage) {
+        if (match = regxKey.exec(e)) {
+          this.remove(match[1], property);
+        }
+      }
+    }
+
+    /**
+     * 중간 key를 설정한다.
+     * @param {string} value
+     */
     function setMiddleKey(value) {
       this.middleKey = value;
     }
