@@ -134,8 +134,9 @@
     function getCurrentEntityType() {
       return currentEntity.type;
     }
-    function getCurrentEntityId() {
-      return currentEntity.id;
+
+    function getCurrentEntityId(isEntityId) {
+      return isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
     }
 
     function setSocketConnection() {

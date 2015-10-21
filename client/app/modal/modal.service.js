@@ -16,7 +16,7 @@
 
     var that = this;
 
-    // singleton modal instance.
+    // singleton modal instance
     var modal;
 
     var inviteModalLock;
@@ -49,6 +49,8 @@
     that.openAgreementModal = openAgreementModal;
     that.openPrivacyModal = openPrivacyModal;
 
+    that.openQuickLauncherModal = openQuickLauncherModal;
+
     that.closeModal = closeModal;
 
     /**
@@ -63,12 +65,12 @@
         size: 'lg',
         backdrop: 'static',
         resolve: {
-          fileUplodOptions: function() {
+          fileUploadOptions: function() {
             return options;
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -102,7 +104,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
       _safeApply($scope);
     }
 
@@ -123,20 +125,25 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
     /**
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
      */
-    function openTopicCreateModal($scope) {
+    function openTopicCreateModal(options) {
       var modalOption = {
-        scope: $scope,
         templateUrl: 'app/modal/topics/topic_create/topic.create.html',
         controller: 'TopicCreateCtrl',
-        size: 'lg'
+        size: 'lg',
+        resolve: {
+          topicName: function () {
+            return (options && options.topicName) || '';
+          }
+        }
       };
-      modal = _modalOpener(modalOption);
+      _.extend(modalOption, options);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -156,7 +163,7 @@
           }
         }
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -170,7 +177,7 @@
         controller: 'TopicInviteFromDmCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -184,7 +191,7 @@
         controller: 'TopicJoinCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -198,7 +205,7 @@
         controller: 'TopicRenameCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -212,7 +219,7 @@
         controller: 'TeamChangeController',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -224,7 +231,7 @@
         controller: 'TeamMemberListCtrl',
         size: 'lg'
       };
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -246,7 +253,7 @@
                 }
               }
             };
-            modal = _modalOpener(modalOption);
+            _modalOpener(modalOption);
           })
           .finally(function() {
             inviteModalLock = false;
@@ -268,7 +275,7 @@
 
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -287,7 +294,7 @@
         }
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
       _safeApply($scope);
     }
 
@@ -321,7 +328,7 @@
         }
       };
 
-      modal = _modalOpener(modalOptions);
+      _modalOpener(modalOptions);
     }
 
     function openFullScreenImageModal($scope, fileUrl) {
@@ -337,7 +344,7 @@
         }
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     function openNotificationSettingModal($scope) {
@@ -348,7 +355,7 @@
         backdrop: 'static'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -363,7 +370,7 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -378,7 +385,7 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
     }
 
     /**
@@ -393,7 +400,19 @@
         size: 'lg'
       };
 
-      modal = _modalOpener(modalOption);
+      _modalOpener(modalOption);
+    }
+
+    /**
+     * quick launcher 모달창을 연다.
+     */
+    function openQuickLauncherModal() {
+      var modalOption = {
+        templateUrl: 'app/modal/rooms/quick_launcher/quick.launcher.html',
+        controller: 'QuickLauncherCtrl',
+        windowClass: 'quick-launcher-modal'
+      };
+      return _modalOpener(modalOption);
     }
 
     /**
@@ -403,12 +422,10 @@
      * @private
      */
     function _modalOpener(modalOption) {
-      if (!!modal) {
-        closeModal();
-      }
+      closeModal();
 
       if (NetInterceptor.isConnected()) {
-        return $modal.open(modalOption);
+        return modal = $modal.open(modalOption);
       }
     }
 
@@ -416,7 +433,7 @@
      * 모달을 별 이유없이 닫는다.
      */
     function closeModal() {
-      if (!!modal) modal.dismiss('close');
+      return modal && modal.dismiss('close');
     }
   }
 })();

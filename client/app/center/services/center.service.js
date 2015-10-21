@@ -13,12 +13,15 @@
     .service('centerService', centerService);
 
   /* @ngInject */
-  function centerService(memberService, publicService, currentSessionHelper) {
+  function centerService(memberService, publicService, currentSessionHelper, EntityMapManager) {
     var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
 
     var currentEntityId;
+
+    var HISTORY_LENGTH = 3;
+    var historyQueue = [];
 
 
     this.preventChatWithMyself  = preventChatWithMyself;
@@ -42,6 +45,10 @@
     this.isElapsed = isElapsed;
 
     this.getLastReadMessageMarker = getLastReadMessageMarker;
+
+    this.getHistory = getHistory;
+    this.setHistory = setHistory
+
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
      * If user is trying to reach himself, re-direct user back to default topic.
@@ -189,6 +196,30 @@
      */
     function getLastReadMessageMarker(entityId) {
       return memberService.getLastReadMessageMarker(entityId);
+    }
+
+    /**
+     * center에 출력된 토픽의 entity type과 entity id를 기록한다.
+     * @param {string} entityType
+     * @param {number} entityId
+     */
+    function setHistory(entityType, entityId) {
+      if (entityType === 'channels' || entityType === 'privategroups' ||
+        (entityType === 'users' && !memberService.isDeactivatedMember(EntityMapManager.get('total', entityId)))) {
+        historyQueue.length >= HISTORY_LENGTH && historyQueue.shift();
+        historyQueue.push({
+          entityType: entityType,
+          entityId: entityId
+        });
+      }
+    }
+
+    /**
+     * center에 출력된 토픽의 entity type과 entity id의 기록을 전달한다.
+     * @returns {Array}
+     */
+    function getHistory() {
+      return historyQueue;
     }
   }
 })();

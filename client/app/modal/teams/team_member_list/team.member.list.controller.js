@@ -116,7 +116,7 @@
       var enabledMemberList = [];
       var disabledMemberList = [];
 
-      _.forEach($scope.memberList, function(member) {
+      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
         if (memberService.isDeactivatedMember(member)) {
           disabledMemberList.push(member);
         } else {

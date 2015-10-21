@@ -9,7 +9,7 @@
     .service('ItemRenderFactory', ItemRenderFactory);
 
   /* @ngInject */
-  function ItemRenderFactory(MemberItemRenderer, TopicItemRenderer) {
+  function ItemRenderFactory(MemberItemRenderer, TopicItemRenderer, RoomItemRenderer) {
     var that = this;
 
     _init();
@@ -36,6 +36,9 @@
         //text 와 sticker 는 동일한 renderer 를 사용
         case 'topic':
           renderer = TopicItemRenderer;
+          break;
+        case 'room':
+          renderer = RoomItemRenderer;
           break;
       }
       return renderer;

@@ -9,8 +9,9 @@
     .module('jandiApp')
     .controller('TeamChangeController', TeamChangeController);
 
-  function TeamChangeController($scope, $timeout, modalHelper, accountService, currentSessionHelper) {
+  function TeamChangeController($scope, $timeout, modalHelper, accountService, currentSessionHelper, publicService) {
 
+    $scope.redirectToMain = publicService.redirectToMain;
     _init();
 
     /**
@@ -21,6 +22,7 @@
       // 우선적으로 보여줄 팀
       $scope.teamList;
 
+      $scope.emptyTeamList = false;
       $scope.showLoadingBar = false;
       $scope.isListReady = false;
 
@@ -84,6 +86,10 @@
       $scope.teamList = _.reject(memberships, function(membership) {
         return membership.teamId === $scope.currentTeamId;
       });
+
+      if ($scope.teamList.length < 1) {
+        $scope.emptyTeamList = true;
+      }
     }
 
     /**

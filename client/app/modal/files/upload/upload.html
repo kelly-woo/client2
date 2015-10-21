@@ -1,71 +1,73 @@
 <page-tracker page="files/upload" title="Upload File"></page-tracker>
 <!-- Modal: File Upload -->
-<div class="modal-header">
-  <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-delete"></i></button>
-  <h3 class="modal-header__title">
-    <span translate>@common-upload-file</span>
-  </h3>
-</div>
+<div class="upload-modal-content" file-upload-modal>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel();"><i class="icon-delete"></i></button>
+    <h3 class="modal-header__title">
+      <span translate>@common-upload-file</span>
+    </h3>
+  </div>
 
-<form name="file_upload_form" data-ng-submit="eventHandler('upload');">
-  <div class="modal-body">
-    <div class="form-horizontal">
-
-
-      <div id="file_preview_container">
-
-        <div class="image_wrapper upload-image-preview" ng-if="file.isImage">
+  <form name="file_upload_form" ng-submit="upload();">
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div id="file_preview_container">
+          <div class="image_wrapper upload-image-preview" ng-if="file.isImage">
+          </div>
+          <div class="non-image-file-preview fileicon fileicon-{{file | fileIcon}}" ng-if="!file.isImage"></div>
         </div>
 
-        <div class="non-image-file-preview fileicon fileicon-{{file | fileIcon}}" ng-if="!file.isImage"></div>
-      </div>
+        <!-- FILE TITLE -->
+        <div class="form-group">
+          <label class="control-label col-sm-3">
+            <span translate>@common-title</span>
+          </label>
+          <div class="col-sm-9">
+            <input class="form-control" id="file_upload_title" type="text" name="file_upload_title" required ng-disabled="true"/>
+            <div class="modal-body__help" ng-if="false">
+              <span translate>@modal-upload-title-msg1</span>
+            </div>
+          </div>
+        </div>
 
-      <!-- FILE TITLE -->
-      <div class="form-group">
-        <label class="control-label col-sm-3">
-          <span translate>@common-title</span>
-        </label>
-        <div class="col-sm-9">
-          <input class="form-control" id="file_upload_title" type="text" name="file_upload_title" required ng-disabled="true"/>
-          <div class="modal-body__help" ng-if="false">
-            <span translate>@modal-upload-title-msg1</span>
+        <!-- FILE SHARE OPTION -->
+        <div class="form-group">
+          <label class="control-label col-sm-3">
+            <span translate>@common-share-in</span>
+          </label>
+          <div class="col-sm-9">
+            <select class="form-control"
+                    data-ng-model="selectedEntity"
+                    data-ng-options="channel|orderBy: 'name'|getName group by channel.extGroupName for channel in selectOptions">
+            </select>
+          </div>
+        </div>
+        <!-- FILE COMMENT -->
+        <div class="form-group">
+          <label class="control-label col-sm-3">
+            <span translate>@common-comment</span>
+          </label>
+          <div class="col-sm-9">
+            <div class="upload-comment-textarea">
+              <textarea class="form-control"
+                        id="file_upload_comment"
+                        name="file_upload_comment"
+                        rows="3"
+                        ng-model="comment"
+                        ng-maxlength="256"
+                        maxlength="256"
+                        mentionahead
+                        mentionahead-data="setMemberListForMention($mentionScope, $mentionCtrl)"
+                        style="resize:none;">
+              </textarea>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- FILE SHARE OPTION -->
-      <div class="form-group">
-        <label class="control-label col-sm-3">
-          <span translate>@common-share-in</span>
-        </label>
-        <div class="col-sm-9">
-          <select class="form-control"
-                  data-ng-model="currentEntity"
-                  data-ng-options="channel|orderBy: 'name'|getName group by channel.extGroupName for channel in selectOptions">
-          </select>
-        </div>
-      </div>
-      <!-- FILE COMMENT -->
-      <div class="form-group">
-        <label class="control-label col-sm-3">
-          <span translate>@common-comment</span>
-        </label>
-        <div class="col-sm-9">
-                    <textarea class="form-control"
-                              id="file_upload_comment"
-                              name="file_upload_comment"
-                              rows="3"
-                              data-ng-model="comment"
-                              data-ng-maxlength="256"
-                              maxlength="256"
-                              style="resize:none;">
-                    </textarea>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
-    <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
-  </div>
-</form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>@btn-cancel</span></button>
+      <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
+    </div>
+  </form>
+</div>

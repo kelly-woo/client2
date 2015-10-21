@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -256,6 +256,10 @@ msgstr "複製"
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-create-ch"
 msgstr "建立新議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr "建立新的團隊"
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
@@ -771,6 +775,14 @@ msgstr "五"
 msgid "@has-new-message-alert-msg"
 msgstr "您有新訊息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@header-nav-jump"
+msgstr "快搜"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@header-nav-language"
+msgstr "語言設定"
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
@@ -1028,6 +1040,14 @@ msgstr "不再詢問"
 msgid "@never-miss-a-message"
 msgstr "不漏接任何訊息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-match-members"
+msgstr "找不到符合條件的內容"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@no-more-invite-members"
+msgstr "已全數邀請完畢"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr "(無議題內容)"
@@ -1035,6 +1055,10 @@ msgstr "(無議題內容)"
 #: client/app/banner/desktop.notification.banner.html
 msgid "@noti-banner-turn-on"
 msgstr "開啟電腦版推播通知"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr "無法更換至其他團隊，目前你只有一組團隊"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
@@ -1055,6 +1079,38 @@ msgstr "電子郵件已經成功寄出"
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-browse-topics"
+msgstr "瀏覽其他議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-create-topic"
+msgstr "建立新議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-create-topic-with-query"
+msgstr "建立新議題 '{{query}}'"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-no-matches"
+msgstr "沒有符合 {{query}} 的結果"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-placeholder"
+msgstr "搜尋議題或1:1傳訊"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-mac"
+msgstr "搜尋議題或1:1傳訊 (Cmd - J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-tooltip-for-win"
+msgstr "搜尋議題或1:1傳訊 (Ctrl - J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@quick-launcher-unjoin-topic"
+msgstr "尚未加入議題"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
@@ -1181,6 +1237,12 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 刪除公告"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"有了JANDI，您可以任意建立許多團隊及任意邀請許多成員加入，完全免費。不如自己"
+"親自來看看JANDI可以如何改善您在工作場合裏的溝通方式。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html

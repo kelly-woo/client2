@@ -81,52 +81,55 @@
       var account = accountService.getAccount();
 
       var curMemberId;
+      var signInInfo;
 
       if (memberId) {
+        signInInfo.memberId = memberId;
         curMemberId = memberId;
-      }
-      else {
-        var signInInfo = accountService.getCurrentMemberId(account.memberships);
+      } else {
+        signInInfo = accountService.getCurrentMemberId(account.memberships);
         curMemberId = signInInfo.memberId;
       }
 
-      if (curMemberId == -1) {
+      if (_isInActiveMember(signInInfo)) {
         //console.log('no memberid')
         // Could not find member id that is associated with current team.
         publicService.redirectToMain();
-        return;
+      } else {
+        storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
+        storageAPIservice.setShouldAutoSignIn(true);
+        // Get information about team and member id.
+
+        //console.log('getting member from server')
+        // Now get member information for current team.
+        memberService.getMemberInfo(curMemberId)
+          .success(function(response) {
+            //console.log('getMemberInfo good')
+            //console.log(response)
+            // Set local member.
+            memberService.setMember(response);
+
+            setStatics();
+
+            _goToMessageHome();
+
+            pcAppOnSignedIn();
+
+          })
+          .error(function(err) {
+            //console.log('getMemberInfo bad')
+            //console.log('err')
+            $scope.signInFailed = true;
+            publicService.signOut();
+          })
+          .finally(function() {
+
+          });
+
       }
-
-      storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
-      storageAPIservice.setShouldAutoSignIn(true);
-      // Get information about team and member id.
-
-      //console.log('getting member from server')
-      // Now get member information for current team.
-      memberService.getMemberInfo(curMemberId)
-        .success(function(response) {
-          //console.log('getMemberInfo good')
-          //console.log(response)
-          // Set local member.
-          memberService.setMember(response);
-
-          setStatics();
-
-          _goToMessageHome();
-
-          pcAppOnSignedIn();
-
-        })
-        .error(function(err) {
-          //console.log('getMemberInfo bad')
-          //console.log('err')
-          $scope.signInFailed = true;
-          publicService.signOut();
-        })
-        .finally(function() {
-
-        });
     }
+
+
     $scope.user = {
       username: storageAPIservice.getLastEmail(),
       rememberMe : true
@@ -170,7 +173,7 @@
           // Get information about team and member id.
           var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
-          if (signInInfo.memberId == -1) {
+          if (_isInActiveMember(signInInfo)) {
             //console.log('no memberid')
             // Could not find member id that is associated with current team.
             // Direct user to landing page!
@@ -276,5 +279,11 @@
       $state.go('messages.home');
     }
 
+    function _isInActiveMember(signInInfo) {
+      if (signInInfo.memberId === -1 || (signInInfo.status && signInInfo.status === 'disabled'))  {
+        return true;
+      }
+      return false;
+    }
   }
 })();
