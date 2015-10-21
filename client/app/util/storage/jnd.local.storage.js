@@ -27,18 +27,19 @@
       that.remove = remove;
 
       that.setMiddleKey = setMiddleKey;
+      that.getKeyName = getKeyName;
     }
 
     function get(id, property) {
-      return localStorage.getItem(_getKeyName.call(this, id, property));
+      return localStorage.getItem(this.getKeyName(id, property));
     }
 
     function set(id, property, value) {
-      localStorage.setItem(_getKeyName.call(this, id, property), value);
+      localStorage.setItem(this.getKeyName(id, property), value);
     }
 
     function remove(id, property) {
-      localStorage.removeItem(_getKeyName.call(this, id, property));
+      localStorage.removeItem(this.getKeyName(id, property));
     }
 
     function setMiddleKey(value) {
@@ -52,7 +53,7 @@
      * @returns {string} '3302123.topic.folder.23.openStatus'
      * @private
      */
-    function _getKeyName(id, property) {
+    function getKeyName(id, property) {
       var keyList = [
         memberService.getMemberId(),
         this.middleKey || '',

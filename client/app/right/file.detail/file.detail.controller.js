@@ -6,7 +6,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
                                            jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
-                                           centerService) {
+                                           centerService, MessageStorage) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -98,6 +98,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _initListeners() {
+    $scope.$on('$destroy', _onDestroy);
+
     $scope.$on('updateRightFileDetailPanel', _init);
     $scope.$on('rightFileDetailOnFileDeleted', _onFileChanged);
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
@@ -137,6 +139,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
       }
     });
+  }
+
+  function _onDestroy() {
+    MessageStorage.setCommentInput();
   }
 
   /**

@@ -252,6 +252,7 @@
           } catch (e) {
           }
           analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+
           TopicMessageCache.remove(_entityId);
           publicService.goToDefaultTopic();
         })

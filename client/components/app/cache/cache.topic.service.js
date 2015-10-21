@@ -9,7 +9,7 @@
     .service('TopicMessageCache', TopicMessageCache);
 
   /* @ngInject */
-  function TopicMessageCache() {
+  function TopicMessageCache(MessageStorage) {
     var MAX_CACHE_ITEM_NUMBER = 15;
 
     var topicCacheMap;
@@ -98,6 +98,9 @@
      */
     function remove(key) {
       delete topicCacheMap[key];
+
+      // 해당 key의 message input에 cache된 text도 삭제한다.
+      MessageStorage.removeMessageInput(key);
     }
 
     /**

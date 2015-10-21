@@ -23,6 +23,11 @@
 
       that.getMessageInput = getMessageInput;
       that.setMessageInput = setMessageInput;
+      that.removeMessageInput = removeMessageInput;
+
+      that.getCommentInput = getCommentInput;
+      that.setCommentInput = setCommentInput;
+      that.removeCommentInput = removeCommentInput;
 
       that.setMiddleKey('entity.message');
     }
@@ -37,12 +42,49 @@
     }
 
     /**
-     * folderId 의 openStatus 를 설정한다.
-     * @param {number} folderId
-     * @param {boolean} isOpened
+     * entityId에 해당하는 message를 설정한다.
+     * @param {number} entityId
+     * @param {string} message
      */
     function setMessageInput(entityId, message) {
-      that.set(entityId, 'messageInput', message);
+      if (message != '' && message != null) {
+        that.set(entityId, 'messageInput', message);
+      }
+    }
+
+    /**
+     * entityId에 해당하는 key/value를 삭제한다.
+     * @param {number} entityId
+     */
+    function removeMessageInput(entityId) {
+      that.remove(entityId, 'messageInput');
+    }
+
+    /**
+     * entityId에 해당하는 comment를 설정한다.
+     * @param {number} entityId
+     */
+    function getCommentInput(entityId) {
+      return that.get(entityId, 'commentInput');
+    }
+
+    /**
+     * entityId에 해당하는 comment를 설정한다.
+     * @param {number} entityId
+     * @param {string} message
+     */
+    function setCommentInput(entityId, message) {
+      if (message != '' && message != null) {
+        that.set(entityId, 'commentInput', message);
+      }
+    }
+
+    /**
+     * entityId에 해당하는 key/value를 삭제한다.
+     * @param {number} entityId
+     */
+    function removeCommentInput(entityId) {
+      that.remove(entityId, 'commentInput');
     }
   }
 })();
