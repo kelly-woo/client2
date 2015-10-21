@@ -279,8 +279,9 @@ article {
 .msg-file.unshared a:hover {
 	/*cursor: not-allowed !important;*/
 }
-.msg-file.unshared .msg-file-meta-down {
-	display: none;
+
+.msg-file.unshared .msg-file-meta-up {
+	line-height: 63px;
 }
 .msg-file.unshared .msg-file-meta__title {
 	text-decoration: line-through;
