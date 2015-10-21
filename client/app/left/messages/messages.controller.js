@@ -95,7 +95,7 @@
 
       _.each(messages, function(message) {
 
-        var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.companionId);
+        var entity = EntityMapManager.get('total', message.companionId);
 
         if (!angular.isUndefined(entity)) {
           if (message.unread > 0) {

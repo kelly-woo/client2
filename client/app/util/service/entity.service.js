@@ -12,6 +12,7 @@
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
+      getJoinedEntity: getJoinedEntity,
       setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
@@ -73,19 +74,7 @@
      * @private
      */
     function _getSelectEntity(list, id, name) {
-      var entity = {};
-      _.each(list, function(item) {
-        if (item[name] === id) {
-          entity = item;
-          return false;
-        }
-      });
-
-      return entity;
-      // list로 부터 entity 전달하지 않고 total에서 entity를 전달하므로 list를 전달하는 의미가 없음
-      // function name과 parameter를 보고 list에 중 id를 확인하여 해당하는 entity를 전달할거라고 기대하지만
-      // total entity에서 특정 id에 대한 entity를 전달하므로 잘못된 data를 전달하게 된다. 예를 들어, badge count계산
-      //return EntityMapManager.get('total', id);
+      return EntityMapManager.get('total', id);
     }
 
     /**
@@ -119,6 +108,15 @@
       }
 
       return entity;
+    }
+
+    /**
+     * 참여중인 entity를 entityId로 전달한다.
+     * @param {number|string} entityId
+     * @returns {*|Object}
+     */
+    function getJoinedEntity(entityId) {
+      return EntityMapManager.get('joined', entityId) || EntityMapManager.get('private', entityId) || EntityMapManager.get('memberEntityId', entityId);
     }
 
     /**
@@ -171,7 +169,7 @@
      * @param {number} entityId - star처리 할 토픽(혹은 dm)의 아이디
      */
     function setStarred (entityId) {
-      var entity = getEntityFromListById('total', entityId);
+      var entity = EntityMapManager.get('total', entityId);
       if (!_.isUndefined(entity)) {
         entity.isStarred = true;
       }
@@ -193,7 +191,7 @@
 
       if (entity.type == 'channels') {
         //  I'm not involved with entity.  I don't care about this entity.
-        if (angular.isUndefined(this.getEntityFromListById($rootScope.joinedChannelList, entity.id))) {
+        if (angular.isUndefined(EntityMapManager.get('total', entity.id))) {
           return;
         }
 
@@ -213,7 +211,7 @@
 
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
     function setBadgeValue (list, entity, alarmCount) {
-      var curEntity = this.getEntityFromListById(list, entity.id);
+      var curEntity = EntityMapManager.get('total', entity.id);
       if (angular.isUndefined(curEntity)) return;
 
       //console.log(alarmCount)

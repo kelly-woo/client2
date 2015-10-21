@@ -10,9 +10,9 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub,
-                         currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, EntityMapManager,
+                         currentSessionHelper, $state, analyticsService, tutorialService, language, entityAPIservice,
+                         HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
     var service = {
       getInviteOptions: getInviteOptions,
@@ -148,9 +148,9 @@
       }
 
       if (_isNumber(member)) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
+        member = EntityMapManager.get('total', member);
       } else if (!member.status) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
+        member = EntityMapManager.get('total', member.id);
       }
 
       return memberService.isDeactivatedMember(member);

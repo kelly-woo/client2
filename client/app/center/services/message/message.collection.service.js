@@ -9,9 +9,8 @@
     .service('MessageCollection', MessageCollection);
 
   /* @ngInject */
-  function MessageCollection($filter, $rootScope, $timeout, $sce, entityAPIservice, fileAPIservice, markerService,
-                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment,
-                             MessageText, DateFormatter) {
+  function MessageCollection($filter, entityAPIservice, markerService, jndPubSub, memberService, currentSessionHelper,
+                             centerService, MessageComment, MessageText, DateFormatter, EntityMapManager) {
     var that = this;
     var _systemMessageCount = 0;
     var _hasBookmark = false;
@@ -566,7 +565,7 @@
       newMsg.message = {};
       newMsg.message.contentType = 'systemEvent';
       newMsg.message.content = {};
-      newMsg.message.writer = entityAPIservice.getEntityFromListById($rootScope.memberList, msg.fromEntity);
+      newMsg.message.writer = EntityMapManager.get('total', msg.fromEntity);
 
       switch(msg.info.eventType) {
         case 'announcement_created':
@@ -579,7 +578,7 @@
           action = $filter('translate')('@msg-invited');
           newMsg.message.invites = [];
           _.each(msg.info.inviteUsers, function(element, index, list) {
-            entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
+            entity = EntityMapManager.get('total', element);
             if (!_.isUndefined(entity)) {
               newMsg.message.invites.push(entity);
             }

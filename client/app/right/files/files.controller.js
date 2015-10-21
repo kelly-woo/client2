@@ -9,7 +9,7 @@
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
-                             fileAPIservice, analyticsService, publicService, entityAPIservice,
+                             fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
                              TopicFolderModel) {
     var initialLoadDone = false;
@@ -91,7 +91,7 @@
 
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
-      var entity = entityAPIservice.getEntityFromListById($scope.memberList, userId);
+      var entity = EntityMapManager.get('total', userId);
 
       _initSharedByFilter(entity);
 

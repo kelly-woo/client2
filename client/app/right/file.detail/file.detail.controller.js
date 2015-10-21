@@ -455,7 +455,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (entityType === 'users') {
       $state.go('archives', {entityType: entityType, entityId: entityId});
     } else {
-      var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+      var targetEntity = EntityMapManager.get('total', entityId);
 
       if (entityAPIservice.isJoinedTopic(targetEntity)) {
         // joined topic.
@@ -817,12 +817,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       if (value) {
         sharedEntities = value.shareEntities;
         for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
-          entity = entityAPIservice.getEntityFromListById($scope.totalEntities, sharedEntities[i]);
+          entity = EntityMapManager.get('total', sharedEntities[i]);
           if (entity && /channels|privategroups/.test(entity.type)) {
             members = entityAPIservice.getMemberList(entity);
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
-                member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
+                member = EntityMapManager.get('total', members[i]);
                 if (member && currentMemberId !== member.id && member.status === 'enabled') {
                   member.extViewName = '[@' + member.name + ']';
                   member.extSearchName = member.name;
