@@ -136,9 +136,6 @@
     var fileIconImageMap = {
       'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop'],
       'pdf': ['application/pdf'],
-      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
-      'video/mpeg'],
-      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv' ],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
       'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
@@ -148,11 +145,31 @@
       'spreadsheet': 'application/vnd.google-apps.spreadsheet',
       'presentation': 'application/vnd.google-apps.presentation'
     };
+
+    // just in case, 혹시나 몰라서 코멘트로
+    //'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
+    //  'video/mpeg', 'video/x-ms-wma'],
+    //  'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
+
+    var regxVideo = /video\//i;
+    var regxAudio = /audio\//i;
+
     fileIconImageMap = createMap(fileIconImageMap);
 
     return function(content) {
+      var fileIcon;
       var integration;
-      return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
+      var contentType = content.type;
+
+      if (regxAudio.exec(contentType)) {
+        // audio type
+        fileIcon = 'audio';
+      } else if (regxVideo.exec(contentType)) {
+        fileIcon = 'video';
+      } else {
+        fileIcon = fileIconImageMap[contentType] || 'etc';
+      }
+      return content ? fileIcon + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
   });
 
