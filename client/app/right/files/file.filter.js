@@ -134,7 +134,7 @@
    */
   app.filter('fileIcon', function() {
     var fileIconImageMap = {
-      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
+      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop'],
       'pdf': ['application/pdf'],
       'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
       'video/mpeg'],
