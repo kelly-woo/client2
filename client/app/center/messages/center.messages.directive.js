@@ -78,14 +78,22 @@
         var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
         var eventType = data.event;
         var fileId = data.file.id;
-
+        var message;
         _.forEach(MessageCollection.list, function(msg, index) {
           if (msg.message.id === fileId) {
-            entityIndex = msg.message.shareEntities.indexOf(currentEntityId);
+            message = msg.message
+          } else if ((msg.feedback && msg.feedback.id) === fileId) {
+            message = msg.feedback;
+          } else {
+            message = null;
+          }
+
+          if (message) {
+            entityIndex = message.shareEntities.indexOf(currentEntityId);
             if (eventType === 'file_unshared' && entityIndex !== -1) {
-              msg.message.shareEntities.splice(entityIndex, 1);
+              message.shareEntities.splice(entityIndex, 1);
             } else if (eventType === 'file_shared' && entityIndex === -1) {
-              msg.message.shareEntities.push(currentEntityId);
+              message.shareEntities.push(currentEntityId);
             }
             _refresh(msg.id, index);
           }
