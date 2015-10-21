@@ -12,6 +12,10 @@
 * **center:** DM에 공유된 파일명이 공유해제된 파일명으로 표시되는 현상 수정 ([64362fa](https://github.com/tosslab/web_client/commit/64362fa))
 * **date:** Add day field to TC and SC ([250d7c4](https://github.com/tosslab/web_client/commit/250d7c4))
 * **day:** Add day for TC and SC. ([b73d84c](https://github.com/tosslab/web_client/commit/b73d84c))
+* **file.filter:** Remove console.log ([32752f5](https://github.com/tosslab/web_client/commit/32752f5))
+* **fileIcon:** Add more mime type cases. ([f0f9118](https://github.com/tosslab/web_client/commit/f0f9118))
+* **filterTypePreview:** Add other and hwp filter type preview image. ([5350391](https://github.com/tosslab/web_client/commit/5350391))
+* **getFilterTypePreview:** Add 'if' logic for hwp files. ([b44a9be](https://github.com/tosslab/web_client/commit/b44a9be))
 * **sign.in:** Redirect to main if disabled member ([988f4e9](https://github.com/tosslab/web_client/commit/988f4e9))
 
 ### Features
