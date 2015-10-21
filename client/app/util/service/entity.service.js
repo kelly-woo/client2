@@ -73,7 +73,19 @@
      * @private
      */
     function _getSelectEntity(list, id, name) {
-      return EntityMapManager.get('total', id);
+      var entity = {};
+      _.each(list, function(item) {
+        if (item[name] === id) {
+          entity = item;
+          return false;
+        }
+      });
+
+      return entity;
+      // list로 부터 entity 전달하지 않고 total에서 entity를 전달하므로 list를 전달하는 의미가 없음
+      // function name과 parameter를 보고 list에 중 id를 확인하여 해당하는 entity를 전달할거라고 기대하지만
+      // total entity에서 특정 id에 대한 entity를 전달하므로 잘못된 data를 전달하게 된다. 예를 들어, badge count계산
+      //return EntityMapManager.get('total', id);
     }
 
     /**

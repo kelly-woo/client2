@@ -606,18 +606,16 @@ app.controller('leftPanelController1', function(
    * @param alarmsn {array}
    */
   function leftPanelAlarmHandler(alarmInfoCnt, alarms) {
-    _.each(alarms, function(value, key, list) {
-      // TODO: 서버님께서 0을 주시는 이유가 궁금합니다.
-      if (value.alarmCount == 0 )
-        return;
+    _.each(alarms, function (alarm) {
+      var entity;
 
-      var tempEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, value.entityId);
-
-      //  tempEntity is archived
-      if (angular.isUndefined(tempEntity)) {
-        return;
+      // TODO: 서버님께서 alarmCount가 0인 entity에 대해서 data를 생성해서 주시는 이유가 궁금합니다.
+      if (alarm.alarmCount != 0) {
+        entity = entityAPIservice.getEntityFromListById($scope.joinedEntities, alarm.entityId);
+        if (entity != null && !$.isEmptyObject(entity)) {
+          entityAPIservice.updateBadgeValue(entity, alarm.alarmCount);
+        }
       }
-      entityAPIservice.updateBadgeValue(tempEntity, value.alarmCount);
     });
   }
 
