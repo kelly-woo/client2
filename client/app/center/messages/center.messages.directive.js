@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
-                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog) {
+                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper) {
     return {
       restrict: 'E',
       replace: true,
@@ -60,10 +60,40 @@
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
         scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
+        scope.$on('fileShared', _onFileShareStatusChange);
+        scope.$on('fileUnshared', _onFileShareStatusChange);
       }
 
       /**
-       * file 의 공유 상황이 update 되었을 때 이벤트 핸들러
+       * file 공유 상태 변경시 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} data
+       *    @param {object} data.file
+       *    @param {string} data.event
+       * @private
+       */
+      function _onFileShareStatusChange(angularEvent, data) {
+        //console.log('### _onFileShareStatusChange', data);
+        var entityIndex;
+        var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
+        var eventType = data.event;
+        var fileId = data.file.id;
+
+        _.forEach(MessageCollection.list, function(msg, index) {
+          if (msg.message.id === fileId) {
+            entityIndex = msg.message.shareEntities.indexOf(currentEntityId);
+            if (eventType === 'file_unshared' && entityIndex !== -1) {
+              msg.message.shareEntities.splice(entityIndex, 1);
+            } else if (eventType === 'file_shared' && entityIndex === -1) {
+              msg.message.shareEntities.push(currentEntityId);
+            }
+            _refresh(msg.id, index);
+          }
+        });
+      }
+
+      /**
+       * file update 되었을 때 이벤트 핸들러
        * @param {object} angularEvent
        * @param {object} file
        * @private
@@ -71,7 +101,7 @@
       function _onFileUpdated(angularEvent, file) {
         var fileId = file.id;
         fileAPIservice.getFileDetail(fileId)
-          .success(function() {
+          .success(function(response) {
             var shareEntities;
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {

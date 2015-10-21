@@ -9,7 +9,7 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService,
+  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService, EntityMapManager,
                         memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
 
@@ -140,6 +140,47 @@
     }
 
     /**
+     * file 접근 권한이 존재하는지 여부를 반환 (MK의 server 로직을 그대로 가져 옴.)
+     * @param {object} msg
+     * @returns {boolean}
+     * @private
+     */
+    function _hasPermission(msg) {
+      var message = msg.message;
+      var member = memberService.getMember();
+      var commonEntities = _.intersection(_.map(member.u_messageMarkers, 'entityId'), message.shareEntities);
+
+      // 파일이 전체 공개인 경우
+      if (message.permission % 10 > 0) {
+        return true;
+      }
+
+      // 파일 작성자가 본인인 경우
+      if (_isFileOwner(msg)) {
+        return true;
+      }
+
+      // 파일이 접근 가능한 entity에 공유된 경우
+      if (commonEntities.length > 0) {
+        return true;
+      }
+
+      return false;
+    }
+
+    /**
+     * unshared 된 file 인지 여부를 반환한다
+     * @param {object} msg
+     * @returns {boolean}
+     * @private
+     */
+    function _isUnshared(msg) {
+      var message = msg.message;
+      var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
+      return message.shareEntities.indexOf(currentEntityId) === -1;
+    }
+
+    /**
      * index 에 해당하는 메세지를 랜더링한다.
      * @param {number} index
      * @returns {*}
@@ -147,6 +188,7 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
+      
       var isArchived = (msg.message.status === 'archived');
       var hasPreview = $filter('hasPreview')(content);
       var icon = $filter('fileIcon')(content);
@@ -156,6 +198,7 @@
           loading: Loading.getTemplate()
         },
         css: {
+          unshared: _isUnshared(msg) ? 'unshared' : '',
           wrapper: isArchived ? ' archived-file': '',
           star: RendererUtil.getStarCssClass(msg),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
@@ -164,6 +207,7 @@
           download: _getFileDownloadAttrs(msg)
         },
         file: {
+          hasPermission: _hasPermission(msg),
           icon: icon,
           isImageIcon: icon === 'img',
           mustPreview: $filter('mustPreview')(content),

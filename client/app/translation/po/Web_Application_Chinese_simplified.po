@@ -257,6 +257,10 @@ msgstr "复制"
 msgid "@common-create-ch"
 msgstr "建立新议题"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr "建立新的团队"
+
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "客服"
@@ -773,7 +777,7 @@ msgstr "您有新信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-jump"
-msgstr "Jump"
+msgstr "快找"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@header-nav-language"
@@ -1052,6 +1056,10 @@ msgstr "(无议题内容)"
 msgid "@noti-banner-turn-on"
 msgstr "开启电脑版推播通知"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr "无法更换至其他团队，目前你只有一组团队"
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "选择"
@@ -1229,6 +1237,12 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 删除公告"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
+msgstr ""
+"有了JANDI，您可以任意建立许多团队及任意邀请许多成员加入，完全免费。不如自己"
+"亲自来看看JANDI可以如何改善您在工作场合里的沟通方式。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html

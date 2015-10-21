@@ -4,6 +4,10 @@
 }
 
 /* comment mention ahead */
+.upload-comment-textarea {
+  position: relative;
+}
+.upload-comment-textarea .mentionahead,
 .comment-textarea-wrap .mentionahead {
   max-height: 130px
 }

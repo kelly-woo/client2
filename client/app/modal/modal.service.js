@@ -65,7 +65,7 @@
         size: 'lg',
         backdrop: 'static',
         resolve: {
-          fileUplodOptions: function() {
+          fileUploadOptions: function() {
             return options;
           }
         }

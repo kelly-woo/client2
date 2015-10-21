@@ -10,6 +10,8 @@
 
   /* @ngInject */
   function AuthInterceptor($q, $injector, configuration, storageAPIservice) {
+    var DISABLED_MEMBER_ERROR_CODE = 40301;
+
     this.request = request;
     this.requestError = requestError;
     this.responseError = responseError;
@@ -75,8 +77,14 @@
         //console.debug(rejection.headers);
         return $q.reject(rejection);
       } else if (rejection.status === 403) {
-        console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
-        return $q.reject(rejection);
+        if (rejection.data.code === DISABLED_MEMBER_ERROR_CODE) {
+        } else {
+          console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
+          return $q.reject(rejection);
+        }
+
+        return $q.reject();
+
       } else if (rejection.status == 502) {
         console.log('I am sorry, it is a 502 error. Keep calm and close your console.');
       } else if (rejection.status == 503) {

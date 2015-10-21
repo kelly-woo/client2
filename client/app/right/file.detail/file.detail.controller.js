@@ -291,12 +291,17 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함
    */
   function setImageUrl(content) {
-    // file detail에서 preview image 설정
-    if ($scope.fileIcon === 'img') {
+    console.log($scope.fileIcon);
+    console.log(content)
+    console.log(content.icon !== 'etc')
+
+    if ($scope.fileIcon === 'img' && content.icon !== 'etc') {
+      console.log('img and not etc');
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
       $scope.previewCursor = 'zoom-in';
     } else {
+      console.log('getFilterTypePreview')
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
       $scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
     }

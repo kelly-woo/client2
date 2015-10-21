@@ -244,6 +244,10 @@ msgstr ""
 msgid "@common-create-ch"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-create-team"
+msgstr ""
+
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr ""
@@ -1034,6 +1038,10 @@ msgstr ""
 msgid "@noti-banner-turn-on"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@only-one-team"
+msgstr ""
+
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr ""
@@ -1206,6 +1214,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@team-create-info-help-msg"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html

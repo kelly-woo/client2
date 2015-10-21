@@ -9,7 +9,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
-                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil) {
+                                                 Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
+                                                 JndUtil, HybridAppHelper) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -72,9 +73,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $scope.msgLoadStatus = {
     loading: false,
-    isShowWheel: false,
     timer: null
   };
+  $scope.isShowLoadingWheel = false;
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
@@ -142,12 +143,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $rootScope.isIE9 = centerService.isIE9();
 
     _initializeListeners();
-    _reset();
-    _initializeView();
-    
-    _initializeFocusStatus();
-    
-    centerService.setHistory(entityType, entityId);
+  
+    if (publicService.isInitDone()) {
+      _reset();
+      _initializeView();
+      _initializeFocusStatus();
+      centerService.setHistory(entityType, entityId);
+    }
+  }
+
+  /**
+   *
+   * @private
+   */
+  function _onInitDone() {
+    _init();
   }
 
   /**
@@ -203,9 +213,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _hideCenterLoading();
     $scope.msgLoadStatus = {
       loading: false,
-      isShowWheel: false,
       timer: null
     };
+    $scope.isShowLoadingWheel = false;
     $scope.message.content = TextBuffer.get(entityId);
 
     $scope.isInitialLoadingCompleted = false;
@@ -258,6 +268,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('window:unload', _onWindowUnload);
 
     $scope.$on('body:dragStart', _onDragStart);
+    $scope.$on('dataInitDone', _onInitDone);
   }
 
   /**
@@ -409,9 +420,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         _clearBadgeCount($scope.currentEntity);
       }
       NotificationManager.resetNotificationCountOnFocus();
-    }  
+      // update hybrid app badge
+      HybridAppHelper.updateBadge();
+    }
   }
-  
 
   /**
    * 윈도우 blur 시 이벤트 핸들러
@@ -591,7 +603,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.msgLoadStatus.loading = true;
     $timeout.cancel($scope.msgLoadStatus.timer);
     $scope.msgLoadStatus.timer = $timeout(function() {
-      $scope.msgLoadStatus.isShowWheel = true;
+      $scope.isShowLoadingWheel = !!(!$scope.isInitialLoadingCompleted && $scope.msgLoadStatus);
     }, 800);
   }
 
@@ -600,9 +612,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideCenterLoading() {
-    $scope.msgLoadStatus.loading = false;
-    $scope.msgLoadStatus.isShowWheel = false;
-    $timeout.cancel($scope.msgLoadStatus.timer);
+    JndUtil.safeApply($scope, function() {
+      $scope.msgLoadStatus.loading = false;
+      $scope.isShowLoadingWheel = false;
+      $timeout.cancel($scope.msgLoadStatus.timer);
+    });
   }
 
   function loadMore(isSkipBookmark) {
@@ -625,7 +639,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
           _hideCenterLoading();
-          $timeout.cancel($scope.msgLoadStatus.timer);
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -655,7 +668,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           // auto focus to textarea - CURRENTLY NOT USED.
           _setChatInputFocus();
-          $scope.isInitialLoadingCompleted = true;
 
           _checkEntityMessageStatus();
           if (_.isEmpty(messagesList)) {
@@ -663,7 +675,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _showContents();
             onRepeatDone();
           }
-
         })
         .error(onHttpResponseError);
 
@@ -1279,10 +1290,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _clearBadgeCount(entity) {
-    if (!entity || !entity.alarmCnt) return;
-
-    entityAPIservice.updateBadgeValue(entity, '');
-    updateMessageMarker();
+    if (entity) {
+      entityAPIservice.updateBadgeValue(entity, '');
+      updateMessageMarker();
+    }
   }
 
 
@@ -1457,7 +1468,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _gotNewMessage() {
     log('_gotNewMessage');
     _showNewMessageAlertBanner();
-    entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+
+    /*
+     users 의 경우 messages.controller.js 의 _generateMessageList 에서
+     badge count 를 업데이트 해주기 때문에 user 가 아닐 경우만 badge count increase 함함
+    */
+
+    if (currentSessionHelper.getCurrentEntityType() !== 'users') {
+      entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+    }
   }
 
 
@@ -1594,15 +1613,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
-    //console.log('::onRepeatDone');
+    $scope.isInitialLoadingCompleted = true;
+    _hideCenterLoading();
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
-    //$timeout(function() {
     jndPubSub.pub('centerLoading:hide');
-    if (!$rootScope.isReady) {
-      publicService.hideTransitionLoading();
-    }
-    //},0);
+    publicService.hideTransitionLoading();
   }
 
   /**

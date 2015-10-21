@@ -661,6 +661,9 @@ input[type="button"] {
 .fileicon-presentation-google-drive {
   background-position: -104px -124px;
 }
+.fileicon-unshared {
+  background-position: 0 -155px;
+}
 
 .icon-more-member {
   background: url('../assets/images/icon_more_member.png') no-repeat;
