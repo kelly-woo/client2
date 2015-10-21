@@ -1,3 +1,15 @@
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/tosslab/web_client/compare/v1.5.0...v1.5.1) (2015-10-21)
+
+
+### Bug Fixes
+
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([5ff656c](https://github.com/tosslab/web_client/commit/5ff656c))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([44a0e5a](https://github.com/tosslab/web_client/commit/44a0e5a))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([e708bc4](https://github.com/tosslab/web_client/commit/e708bc4))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/tosslab/web_client/compare/v1.4.2...v1.5.0) (2015-10-20)
 
