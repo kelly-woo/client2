@@ -100,7 +100,8 @@
   left: 64px;
   right: 10px;
   min-height:35px;
-  z-index: 20;
+  z-index: 1000;
+  background-color: #ffffff;
 }
 #message-form{
   margin: 0;
