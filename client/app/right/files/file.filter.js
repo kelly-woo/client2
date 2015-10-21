@@ -260,7 +260,7 @@
     };
 
     // 이미지 타입의 프리뷰가 보여져야하지만 etc로 분류되서 no_preview_available이 보여지는 extention의 모음.
-    var noPreviewButImageType = {psd:true};
+    var noPreviewButImageType = {psd: true, ai: true};
 
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 
