@@ -10,7 +10,6 @@
                             currentSessionHelper, HybridAppHelper, NotificationManager) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
-      getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
       getJoinedEntity: getJoinedEntity,
       setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
@@ -48,33 +47,6 @@
       if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
 
       return getEntityByEntityId(entityId);
-    }
-
-
-    /**
-     * Takes an 'id' of entity as a 'value'
-     * Used to compare with topics.
-     *
-     * @param list
-     * @param value
-     * @returns {*}
-     */
-    function getEntityFromListById(list, id) {
-      id = parseInt(id);
-      if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
-      return _getSelectEntity(list, id, 'id');
-    }
-
-    /**
-     *
-     * @param list
-     * @param id
-     * @param name
-     * @returns {*}
-     * @private
-     */
-    function _getSelectEntity(list, id, name) {
-      return EntityMapManager.get('total', id);
     }
 
     /**
