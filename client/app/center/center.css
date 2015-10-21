@@ -270,6 +270,25 @@ article {
   font-weight: 700;
 }
 
+/* issue : JND-3207
+ * fix : add unshared file meta class
+ */
+.msg-file.unshared .msg-file-meta {
+	opacity: 0.3 !important;
+}
+.msg-file.unshared a:hover {
+	/*cursor: not-allowed !important;*/
+}
+.msg-file.unshared .msg-file-meta-down {
+	display: none;
+}
+.msg-file.unshared .msg-file-meta__title {
+	text-decoration: line-through;
+}
+.msg-file.unshared .fileicon {
+	background-position: 0 -155px;
+}
+
 /*
 issue : JND-974
 fix : add margin-bottom: 10px;

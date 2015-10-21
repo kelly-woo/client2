@@ -136,8 +136,9 @@
     var fileIconImageMap = {
       'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
       'pdf': ['application/pdf'],
-      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska'],
-      'audio': ['audio/mp3', 'audio/mpeg'],
+      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
+      'video/mpeg'],
+      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv' ],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
       'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
@@ -151,7 +152,6 @@
 
     return function(content) {
       var integration;
-
       return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
   });
@@ -228,7 +228,7 @@
   /**
    * filter type의 preview
    */
-  app.filter('getFilterTypePreview', function() {
+  app.filter('getFilterTypePreview', function($filter) {
     var filterTypePreviewMap = {
       pdf: '../assets/images/preview_pdf.png',
       video:'../assets/images/preview_video.png',
@@ -237,10 +237,33 @@
       spreadsheet: '../assets/images/preview_spreadsheet.png',
       presentation: '../assets/images/preview_presentation.png',
       googleDocs: '../assets/images/preview_google_docs.png',
-      dropbox: '../assets/images/preview_dropbox.png'
+      dropbox: '../assets/images/preview_dropbox.png',
+      etc: '../assets/images/preview_other.png'
     };
+
+    // 이미지 타입의 프리뷰가 보여져야하지만 etc로 분류되서 no_preview_available이 보여지는 extention의 모음.
+    var noPreviewButImageType = {psd:true};
+
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
+
     return function(content) {
+      if (content.filterType && content.filterType === 'document') {
+        // filterType 이 워드/한글 일 경우
+        if (content.type === 'application/x-hwp') {
+          // 한글 파일일 경우
+          return '../assets/images/preview_hwp.png';
+        }
+      }
+      if (content.filterType === 'etc') {
+        if (noPreviewButImageType[content.ext]) {
+          // TODO: filterType이 'etc'이지만 이미지용 filterTypePreview가 보여줘야 된다면 여기서 설정하면 됨
+          return noPreviewAvailableImage;
+        } else if (content.ext === 'txt') {
+          return filterTypePreviewMap['document'];
+        }
+
+      }
+
       return filterTypePreviewMap[content.filterType] || filterTypePreviewMap[content.serverUrl] || noPreviewAvailableImage;
     };
   });

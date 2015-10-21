@@ -17,7 +17,6 @@
   line-height: inherit;
   vertical-align: top;
 }
-
 .header-navbar>.divider {
   width: 1px;
   height: 17px;
@@ -25,25 +24,24 @@
   float: left;
   margin-top: 12px;
 }
-.language-navbar-menu ul {
-  min-width: 150px;
-}
-
-.language-navbar-menu .grey_dropdown > li > a {
-  padding: 0 1.4rem 0 2.0rem;
-}
-
 .header-navbar-menu,
-.header-navbar-file,
-.header-navbar-settings {
+.header-navbar-invite,
+.header-navbar-settings,
+.header-navbar-quick-launcher {
   position: relative;
   display: inline-block;
   vertical-align: top;
   float: left;
   font-size: 14px;
 }
+.header-navbar .divider,
+.header-navbar-menu,
+.header-navbar-invite,
+.header-navbar-settings,
+.header-navbar-quick-launcher {
+  margin-right: 10px;
+}
 .header-navbar-menu.open,
-.header-navbar-file.open,
 .header-navbar-settings.open {
   background: #173e54;
   color: #fff;
@@ -75,9 +73,6 @@
 .header-navbar__topmenu {
   display: block;
   padding: 0 4px 0 8px;
-}
-.language-navbar-menu {
-  margin-left: 15px;
 }
 #invite .icon-user-plus {
   font-size: 17px;
@@ -141,21 +136,6 @@
   background-color: #173e54;
 }
 
-/*.header-navbar__dropdown .icon_signout {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-}
-.header-navbar__dropdown .icon_invite {
-  position: absolute;
-  top: 9px;
-  left: 17px;
-}
-.header-navbar__dropdown .icon_team {
-  position: absolute;
-  top: 11px;
-  left: 17px;
-}*/
 .header-navbar__dropdown .icon-users {
   font-size: 19px;
 }
@@ -168,6 +148,20 @@
   right: 10px;
   top: 8px;
 }
+
+.header-navbar-quick-launcher .quick-launcher {
+  padding: 5px 14px 5px 14px;
+  border-radius: 14px;
+  background-color: white;
+  color: #154a67;
+  font-weight: 700;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
+}
+.header-navbar-quick-launcher .quick-launcher:hover {
+  background-color: #d7e0e8;
+  text-shadow: 0 1px 0 #fff;
+}
+
 .header-toolbar > ul {
   height: 40px;
   list-style: none;
@@ -194,9 +188,6 @@
   border-radius: 20px;
 
 }
-/*.header-toolbar li:last-child .info-tool {
-  font-size: 18px;
-}*/
 .header-toolbar .info-tool.active {
   border-color: #0D3952;
   background-color: #062F46;
@@ -253,6 +244,7 @@
   background-position: -64px -154px;
 }
 
+.header-navbar-quick-launcher .tooltip-inner,
 .header-toolbar .tooltip-inner {
   white-space: pre;
   max-width: none;

@@ -62,7 +62,9 @@
   <link rel="stylesheet" href="app/modal/files/share/share.css">
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
   <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
+  <link rel="stylesheet" href="app/modal/lists/services/renderers/templates/modal.room.list.item.css">
   <link rel="stylesheet" href="app/modal/modal.css">
+  <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
   <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
   <link rel="stylesheet" href="app/modal/teams/team_invite/invite_emails/invite.emails.css">
@@ -121,7 +123,7 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body active-notifier window-title-manager jnd-main-key-handler>
+<body active-notifier window-title-manager>
 <!--[if lte IE 9]>
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
@@ -309,6 +311,7 @@
 <script src="app/center/announcement/announcement.service.js"></script>
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.directive.js"></script>
+<script src="app/center/center.event.handler.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
 <script src="app/center/messages/center.messages.directive.js"></script>
@@ -379,6 +382,7 @@
 <script src="app/modal/files/integration/integration.controller.js"></script>
 <script src="app/modal/files/share/share.controller.js"></script>
 <script src="app/modal/files/upload/upload.controller.js"></script>
+<script src="app/modal/files/upload/upload.directive.js"></script>
 <script src="app/modal/images/carousel/image.carousel.controller.js"></script>
 <script src="app/modal/images/carousel/image.carousel.service.js"></script>
 <script src="app/modal/images/full_image/full.screen.image.controller.js"></script>
@@ -387,12 +391,15 @@
 <script src="app/modal/lists/services/item.renderer.factory.service.js"></script>
 <script src="app/modal/lists/services/list.renderer.service.js"></script>
 <script src="app/modal/lists/services/renderers/member.item.renderer.service.js"></script>
+<script src="app/modal/lists/services/renderers/room.item.renderer.service.js"></script>
 <script src="app/modal/lists/services/renderers/topic.item.renderer.service.js"></script>
 <script src="app/modal/members/current_member_profile/current.member.profile.controller.js"></script>
 <script src="app/modal/members/current_member_profile/current.member.profile.service.js"></script>
 <script src="app/modal/members/member_profile/member.profile.view.controller.js"></script>
 <script src="app/modal/modal.service.js"></script>
 <script src="app/modal/password/password.reset.request.controller.js"></script>
+<script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
+<script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
 <script src="app/modal/teams/team_change/team.change.controller.js"></script>
 <script src="app/modal/teams/team_invite/invite_emails/invite.emails.directive.js"></script>

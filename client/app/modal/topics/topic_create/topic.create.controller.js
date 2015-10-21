@@ -11,12 +11,12 @@
 
   /* @ngInject */
   function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter,
-                           AnalyticsHelper, modalHelper, jndPubSub, Dialog) {
+                           AnalyticsHelper, modalHelper, jndPubSub, Dialog, topicName) {
 
     _init();
 
     function _init() {
-      $scope.topicName = '';
+      $scope.topicName = topicName || '';
       $scope.topicDescription = '';
       $scope.entityType = 'public';
 

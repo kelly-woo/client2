@@ -72,6 +72,7 @@
         .success(function(response) {
           $scope.messageList = _generateMessageList(response);
           $scope.messageListLoadingStatus = 'okay';
+          publicService.setInitDone();
         })
         .error(function(err) {
           $scope.messageListLoadingStatus = 'failed';
