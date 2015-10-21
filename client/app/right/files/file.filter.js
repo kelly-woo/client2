@@ -133,8 +133,9 @@
    * class name을 만듬
    */
   app.filter('fileIcon', function() {
+    // 'application/postscript'는 .ai 파일을 위함.
     var fileIconImageMap = {
-      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop'],
+      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop', 'application/postscript'],
       'pdf': ['application/pdf'],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
