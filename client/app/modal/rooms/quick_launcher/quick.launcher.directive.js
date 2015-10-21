@@ -60,7 +60,7 @@
        */
       function _onChangeRoomNameQuery(value) {
         if (scope.isEmptyMatches) {
-          el.find('.quick-launcher-list').height(176);
+          el.find('.quick-launcher-list').height(244);
           value = jqFilter.val();
 
           scope.noMatchesMsg = noMatchesMsg.replace('{{query}}', '<strong>' + value + '</strong>');
