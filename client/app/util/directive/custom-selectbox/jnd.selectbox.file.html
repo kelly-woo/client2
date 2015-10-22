@@ -1,0 +1,60 @@
+<div class="_selectbox">
+  <div class="custom-select-box-btn"
+      ng-click="toggleShow($event);">
+    <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+    <span translate=""><span>{{selectedName || '모든 파일'}}</span></span>
+  </div>
+  <div ng-if="isShown"
+       class="custom-select-box member-menu dropdown-menu active" style=""
+      jnd-custom-focus="onChange"
+      jnd-data-selected="selectedValue">
+
+    <div class="custom-select-box__search-container">
+      <span class="add-on-left"><i class="icon-search"></i></span>
+      <input type="text"
+             ng-keyup="onKeyUp($event);"
+             class="form-control custombox-search__input search-input" placeholder="검색어를 입력하세요">
+    </div>
+    <!--검색-->
+    <div ng-if="searchList.length" class="custom-select-box__search-result _container">
+
+      <!-- saearc-result -->
+      <div class="custom-select-box__search-result-items">
+        <span translate class="ng-scope menulist-item-header"><span>{{searchList.length}} 개의 검색결과</span></span>
+
+        <ul class="menulist-item-filetype">
+          <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
+            <div class="fileicon {{cssIconMap[item.value]}}"></div>
+            <a>
+              <span translate="" class="ng-scope"><span class="ng-scope">{{ item.viewValue }}</span></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--일반 리스트-->
+    <div ng-if="!searchList.length" class="custom-select-box__menulist _container">
+
+      <a class="select-all _selectable">
+        <i class="icon-file-fill"></i>
+        <span translate="" class="ng-scope"><span class="ng-scope">모든 파일</span></span>
+      </a>
+
+      <div class="custom-select-box__menulist-category">
+        <!-- filetype -->
+        <div class="custom-select-box__menulist-items">
+          <span translate class="ng-scope menulist-item-header"><span class="ng-scope">타입</span></span>
+          <ul class="menulist-item-filetype">
+            <li ng-if="$index > 0" class="topic-title menu-item _selectable" ng-repeat="item in list">
+              <div class="fileicon {{cssIconMap[item.value]}}"></div>
+              <a>
+                <span translate="" class="ng-scope"><span class="ng-scope">{{ item.viewValue }}</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

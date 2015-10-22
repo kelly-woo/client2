@@ -57,6 +57,7 @@
       function _onMouseDownDocument(clickEvent) {
         if (!$(clickEvent.target).closest('._selectbox').is(el)) {
           JndUtil.safeApply(scope, function() {
+            el.find('.custom-select-box').hide();
             scope.isShown = false;
           });
         }
