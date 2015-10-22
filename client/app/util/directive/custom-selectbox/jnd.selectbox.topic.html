@@ -35,11 +35,12 @@
 
     <!--일반 리스트-->
     <div ng-if="!searchList.length" class="custom-select-box__menulist _container">
-
-      <a class="select-all _selectable">
-        <i class="icon-topic-fill"></i>
-        <span translate=""><span>모든 대화방</span></span>
-      </a>
+      <div ng-if="hasAll">
+        <a class="select-all _selectable">
+          <i class="icon-topic-fill"></i>
+          <span translate=""><span>모든 대화방</span></span>
+        </a>
+      </div>
 
       <div class="custom-select-box__menulist-category">
 
@@ -87,7 +88,8 @@
         </div>
 
         <!-- blocked -->
-        <div class="custom-select-box__menulist-items toggle-menulist"
+        <div ng-if="hasDisabled"
+             class="custom-select-box__menulist-items toggle-menulist"
              ng-class="{
                'collapsed': !isShowDisabled
              }">

@@ -14,6 +14,7 @@
       link: link,
       replace: true,
       scope: {
+        callback: '=jndSelectboxMember',
         selectedValue: '=jndDataModel',
         list: '=jndDataList'
       },
@@ -94,6 +95,10 @@
           scope.selectedValue = null;
         }
         scope.isShown = false;
+
+        if (_.isFunction(scope.callback)) {
+          scope.callback();
+        }
       }
 
       function toggleDisabled() {

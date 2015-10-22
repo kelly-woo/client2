@@ -14,13 +14,18 @@
       link: link,
       replace: true,
       scope: {
-        selectedValue: '=jndDataModel'
+        selectedValue: '=jndDataModel',
+        callback: '=jndSelectboxTopic',
+        list: '=jndDataList',
+        hasAll: '@jndHasAll',
+        hasDisabled: '@jndHasDisabled'
       },
       templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.topic.html'
     };
 
     function link(scope, el, attrs) {
       var _lastKeyword = '';
+      var _filterMap;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
@@ -33,6 +38,7 @@
        */
       function _init() {
         scope.isShown = false;
+        _initializeFilter();
         _initializeData();
         _attachEvents();
         _attachDomEvents();
@@ -71,11 +77,46 @@
       }
 
       function _initializeData() {
-        scope.folderData = TopicFolderModel.getFolderData();
+        scope.folderData = _getFolderData();
         scope.memberData = _getMemberData();
         scope.searchList = [];
         scope.isShowDisabled = _isDisabledMemberSelected();
         scope.selectedName = _getSelectedName();
+      }
+
+      function _initializeFilter() {
+        var list = scope.list;
+        if (list) {
+          _filterMap = {};
+          _.forEach(list, function(entity) {
+            _filterMap[entity.id] = true;
+          });
+        }
+      }
+      function _getFolderData() {
+        var folderData = TopicFolderModel.getFolderData();
+        var entityList;
+        var folderList = [];
+        if (_filterMap) {
+          _.forEach(folderData.folderList, function(folder) {
+            entityList = [];
+            _.forEach(folder.entityList, function(entity) {
+              if (_filterMap[entity.id]) {
+                entityList.push(entity);
+              }
+            });
+            if (entityList.length) {
+              folderList.push({
+                name: folder.name,
+                entityList: entityList
+              });
+            }
+          });
+          folderData = {
+            folderList: folderList
+          };
+        }
+        return folderData;
       }
 
       function onChange(targetScope) {
@@ -86,7 +127,11 @@
           scope.selectedName = '';
           scope.selectedValue = null;
         }
+
         scope.isShown = false;
+        if (_.isFunction(scope.callback)) {
+          scope.callback();
+        }
       }
 
       function toggleDisabled() {
@@ -109,11 +154,12 @@
         var enabledList = [];
         var disabledList = [];
         _.each(memberMap, function(member) {
-
-          if (publicService.isDisabledMember(member)) {
-            disabledList.push(member);
-          } else {
-            enabledList.push(member)
+          if (!_filterMap || (_filterMap && _filterMap[member.id])) {
+            if (publicService.isDisabledMember(member)) {
+              disabledList.push(member);
+            } else {
+              enabledList.push(member)
+            }
           }
         });
         return {
@@ -159,11 +205,17 @@
       }
 
       function _getAllEntities() {
-        return _.extend(
+        var allEntities = _.extend(
           EntityMapManager.getMap('joined'),
           EntityMapManager.getMap('private'),
           EntityMapManager.getMap('member')
         );
+        if (_filterMap) {
+          allEntities = _.filter(allEntities, function(entity) {
+            return _filterMap[entity.id];
+          });
+        }
+        return allEntities;
       }
       function _isSameKeyword(keyword) {
         return _lastKeyword === keyword;

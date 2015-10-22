@@ -6,13 +6,13 @@
       <div class="advanced-search-option__title">
         <span translate>@common-entity-location</span>
       </div>
-
-      <select class="_chatRoomOptions"
-              ng-model="messageLocation"
-              ng-options="channel as channel|getName group by channel.extGroupName for channel in chatRoomOptions"
-              ng-change="updateMessageLocationFilter();">
-        <option value="">{{ allRooms }}</option>
-      </select>
+      <jnd-selectbox-topic jnd-data-model="messageLocationId" jnd-has-all="yes" jnd-has-disabled="yes"></jnd-selectbox-topic>
+      <!--<select class="_chatRoomOptions"-->
+              <!--ng-model="messageLocation"-->
+              <!--ng-options="channel as channel|getName group by channel.extGroupName for channel in chatRoomOptions"-->
+              <!--ng-change="updateMessageLocationFilter();">-->
+        <!--<option value="">{{ allRooms }}</option>-->
+      <!--</select>-->
     </div>  <!--  END OF 장소 -->
 
     <!--   작성자  -->
@@ -20,13 +20,13 @@
       <div class="advanced-search-option__title">
         <span translate>@common-message-writer</span>
       </div>
-
-      <select ng-model="messageWriter"
-              ng-click="onClick();"
-              ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"
-              ng-change="updateMessageWriterFilter();">
-        <option value="">{{ allMembers }}</option>
-      </select>
+      <jnd-selectbox-member jnd-data-model="messageWriterId" jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
+      <!--<select ng-model="messageWriter"-->
+              <!--ng-click="onClick();"-->
+              <!--ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"-->
+              <!--ng-change="updateMessageWriterFilter();">-->
+        <!--<option value="">{{ allMembers }}</option>-->
+      <!--</select>-->
     </div>  <!-- END OF FILE 작성자 -->
   </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
