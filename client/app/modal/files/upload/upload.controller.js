@@ -17,6 +17,7 @@
      */
     function _init() {
       $scope.selectedEntity = currentSessionHelper.getCurrentEntity();
+      $scope.selectedEntityId = $scope.selectedEntity.id;
       $scope.isLoading = false;
 
       $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
@@ -55,9 +56,10 @@
     function setMemberListForMention($mentionScope, $mentionCtrl) {
       var currentMemberId = memberService.getMemberId();
 
-      $scope.$watch('selectedEntity', function(entity) {
+      $scope.$watch('selectedEntityId', function(entityId) {
         var mentionList = [];
         var members;
+        var entity = $scope.selectedEntity = EntityMapManager.get('total', entityId);
 
         if (entity && /channels|privategroups/.test(entity.type)) {
           members = entityAPIservice.getMemberList(entity);

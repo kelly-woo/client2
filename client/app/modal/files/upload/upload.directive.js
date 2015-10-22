@@ -72,7 +72,7 @@
                 permission: PUBLIC_FILE,
 
                 // file upload시 공유 대화방 수정 가능함.
-                roomId: scope.selectedEntity.entityId || scope.selectedEntity.id,
+                roomId: scope.selectedEntityId || scope.selectedEntityId,
                 // file upload시 comment 수정 가능함.
                 comment: scope.comment
               };
@@ -84,6 +84,7 @@
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
+              scope.selectedEntityId = scope.selectedEntity.id;
 
               $('#file_upload_comment').focus();
 
