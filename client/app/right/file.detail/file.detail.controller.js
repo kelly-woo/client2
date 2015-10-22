@@ -100,8 +100,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function _initListeners() {
     $scope.$on('$destroy', _onDestroy);
 
+    $scope.$on('window:unload', _onWindowUnload);
+
     $scope.$on('updateRightFileDetailPanel', _init);
-    $scope.$on('rightFileDetailOnFileDeleted', _onFileChanged);
+    $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
     $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
@@ -141,12 +143,20 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     });
   }
 
+  /**
+   * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
+   * @private
+   */
   function _onDestroy() {
-    var fileDetail = $scope.file_detail;
+    _saveCommentInput();
+  }
 
-    if (fileDetail) {
-      MessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
-    }
+  /**
+   * window unload event handler
+   * @private
+   */
+  function _onWindowUnload() {
+    _saveCommentInput();
   }
 
   /**
@@ -508,9 +518,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
                 title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
               });
 
-              // storage에서 comment input text 삭제
-              MessageStorage.removeCommentInput(fileId);
-
               $rootScope.$broadcast('onFileDeleted', fileId);
             })
             .error(function(err) {
@@ -539,6 +546,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       member = EntityMapManager.get('member', member);
     }
     return publicService.isDisabledMember(member);
+  }
+
+  function _onRightFileDetailOnFileDeleted(event, param) {
+    var deletedFileId = param.file.id;
+    MessageStorage.removeCommentInput(deletedFileId);
+
+    _onFileChanged(event, param);
   }
 
   /**
@@ -874,5 +888,17 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function _setShared() {
     $scope.file_detail.extShared = fileAPIservice.updateShared($scope.file_detail);
     $scope.hasTopic = !!$scope.file_detail.extShared.length;
+  }
+
+  /**
+   * comment input 저장
+   * @private
+   */
+  function _saveCommentInput() {
+    var fileDetail = $scope.file_detail;
+
+    if (fileDetail) {
+      MessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
+    }
   }
 });

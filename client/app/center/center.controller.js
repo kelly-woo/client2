@@ -269,6 +269,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('body:dragStart', _onDragStart);
     $scope.$on('dataInitDone', _onInitDone);
+
+    $scope.$on('topicDeleted', _onTopicDeleted);
   }
 
   /**
@@ -435,6 +437,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
+  /**
+   * window unload event handler
+   * @private
+   */
   function _onWindowUnload() {
     if (_isViewContentLoaded) {
       TextBuffer.set(entityId, $('#message-input').val());
@@ -1842,5 +1848,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _hideNewMessageAlertBanner() {
     $('#has-new-msg-banner').removeClass('show');
+  }
+
+  /**
+   * topic deleted event handler
+   * @param event
+   * @param data
+   * @private
+   */
+  function _onTopicDeleted(event, data) {
+    if (data && data.topic) {
+      TextBuffer.remove(data.topic.id);
+    }
   }
 });

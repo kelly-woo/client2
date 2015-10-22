@@ -61,9 +61,6 @@
                   title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.msg.message.content.title)
                 });
 
-                // storage에서 comment input text 삭제
-                MessageStorage.removeCommentInput(fileId);
-
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {

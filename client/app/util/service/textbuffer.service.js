@@ -22,6 +22,7 @@
       function _init() {
         that.get = get;
         that.set = set;
+        that.remove = remove;
       }
 
       /**
@@ -40,6 +41,14 @@
        */
       function set(entityId, text) {
         MessageStorage.setMessageInput(entityId, text);
+      }
+
+      /**
+       * 버퍼에 text 를 삭제한다.
+       * @param {string|number} entityId
+       */
+      function remove(entityId) {
+        MessageStorage.removeMessageInput(entityId);
       }
     }
 })();
