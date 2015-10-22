@@ -1,6 +1,6 @@
-<div>
+<div class="_selectbox">
   <div class="custom-select-box-btn"
-      ng-click="onClick($event);">
+      ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
     <span translate=""><span>{{selectedName || '모든 대화방'}}</span></span>
   </div>
@@ -24,9 +24,9 @@
 
         <ul class="menulist-item-result">
 
-          <li class="topic-title menu-item _selectable" ng-repeat="searchItem in searchList">
+          <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
             <a>
-              <span translate=""><span ng-bind-html="searchItem.name"></span></span>
+              <span translate=""><span ng-bind-html="item.extSearchName"></span></span>
             </a>
           </li>
         </ul>

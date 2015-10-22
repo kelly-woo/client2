@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxMember', jndSelectboxMember);
 
-  function jndSelectboxMember(EntityMapManager, TopicFolderModel, publicService, jndKeyCode, jndPubSub) {
+  function jndSelectboxMember(EntityMapManager, TopicFolderModel, publicService, jndKeyCode, jndPubSub, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -21,10 +21,9 @@
     };
 
     function link(scope, el, attrs) {
-      var _jqInput = el.find('input');
       var _lastKeyword = '';
       scope.onKeyUp = onKeyUp;
-      scope.onClick = onClick;
+      scope.toggleShow = toggleShow;
       scope.onChange = onChange;
       scope.toggleDisabled = toggleDisabled;
       _init();
@@ -35,10 +34,54 @@
        */
       function _init() {
         scope.isShown = false;
-        scope.isShowDisabled = false;
-        scope.selectedName = '';
+        _initializeData();
+        _attachEvents();
+        _attachDomEvents();
+      }
+
+      function _onDestroy() {
+        _detachDomEvents();
+      }
+
+      function _attachEvents() {
+        scope.$on('$destroy', _onDestroy);
+      }
+
+      function _attachDomEvents() {
+        $(document).on('mousedown', _onMouseDownDocument);
+      }
+
+      function _detachDomEvents() {
+        $(document).off('mousedown', _onMouseDownDocument);
+      }
+
+      function _onMouseDownDocument(clickEvent) {
+        if (!$(clickEvent.target).closest('._selectbox').is(el)) {
+          JndUtil.safeApply(scope, function() {
+            scope.isShown = false;
+          });
+        }
+      }
+
+      function _getSelectedName() {
+        var selectedEntity;
+        selectedEntity = _.find(_getMembers(), function(member) {
+          return member.id === scope.selectedId;
+        });
+        return selectedEntity ? selectedEntity.name : '';
+      }
+
+      function _initializeData() {
         scope.memberData = _getMemberData();
         scope.searchList = [];
+        scope.isShowDisabled = _isDisabledMemberSelected();
+        scope.selectedName = _getSelectedName();
+      }
+
+      function _isDisabledMemberSelected() {
+        return !!_.find(scope.memberData.disabledList, function(member) {
+          return member.id === scope.selectedId;
+        });
       }
 
       function onChange(targetScope) {
@@ -81,8 +124,9 @@
       function _getMembers() {
         return scope.list  || EntityMapManager.getMap('member');
       }
-      function onClick() {
+      function toggleShow() {
         scope.isShown = !scope.isShown;
+        _initializeData();
       }
       /**
        * keyup 이벤트 핸들러
@@ -108,10 +152,8 @@
             _.each(_getMembers(), function (entity) {
               start = entity.name.toLowerCase().search(keyword);
               if (start !== -1) {
-                result.push({
-                  entity: entity,
-                  name: _highlight(entity.name, start, keyword.length)
-                });
+                entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                result.push(entity);
               }
             });
           }
