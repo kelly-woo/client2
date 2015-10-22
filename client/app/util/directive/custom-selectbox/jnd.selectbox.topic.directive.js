@@ -14,7 +14,7 @@
       link: link,
       replace: true,
       scope: {
-        selectedId: '=jndDataModel'
+        selectedValue: '=jndDataModel'
       },
       templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.topic.html'
     };
@@ -64,7 +64,7 @@
 
       function _getSelectedName() {
         var selectedEntity = _.find(_getAllEntities(), function(entity) {
-          return entity.id === scope.selectedId;
+          return entity.id === scope.selectedValue;
         });
         return selectedEntity ? selectedEntity.name : '';
       }
@@ -80,10 +80,10 @@
       function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.name;
-          scope.selectedId = targetScope.item.id;
+          scope.selectedValue = targetScope.item.id;
         } else {
           scope.selectedName = '';
-          scope.selectedId = null;
+          scope.selectedValue = null;
         }
         scope.isShown = false;
       }
@@ -94,7 +94,7 @@
 
       function _isDisabledMemberSelected() {
         return !!_.find(scope.memberData.disabledList, function(member) {
-          return member.id === scope.selectedId;
+          return member.id === scope.selectedValue;
         });
       }
 

@@ -13,7 +13,7 @@
       restrict: 'A',
       link: link,
       scope: {
-        'selectedId': '=jndDataSelected',
+        'selectedValue': '=jndDataSelected',
         'onChange': '=jndCustomFocus'
       }
     };
@@ -32,8 +32,8 @@
        _jqInput = el.find('input:first');
 
        $timeout(function() {
-         if (scope.selectedId) {
-           _focusById(scope.selectedId);
+         if (scope.selectedValue) {
+           _focusById(scope.selectedValue);
          } else {
            _focus();
          }
