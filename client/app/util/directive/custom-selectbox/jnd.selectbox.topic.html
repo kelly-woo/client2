@@ -2,20 +2,21 @@
   <div class="custom-select-box-btn"
       ng-click="onClick($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-    <span translate=""><span>모든 대화방</span></span>
+    <span translate=""><span>{{selectedName || '모든 대화방'}}</span></span>
   </div>
   <div ng-if="isShown"
        class="custom-select-box shared-menu dropdown-menu active" style=""
-      jnd-custom-focus>
+      jnd-custom-focus="onChange"
+      jnd-data-selected="selectedId">
 
     <div class="custom-select-box__search-container">
       <span class="add-on-left"><i class="icon-search"></i></span>
       <input type="text"
              ng-keyup="onKeyUp($event);"
-             class="form-control rpanel-custombox-search__input search-input" placeholder="검색어를 입력하세요">
+             class="form-control custombox-search__input search-input" placeholder="검색어를 입력하세요">
     </div>
     <!--검색-->
-    <div ng-if="searchList.length" class="custom-select-box__search-result">
+    <div ng-if="searchList.length" class="custom-select-box__search-result _container">
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
@@ -33,9 +34,9 @@
     </div>
 
     <!--일반 리스트-->
-    <div ng-if="!searchList.length" class="custom-select-box__menulist">
+    <div ng-if="!searchList.length" class="custom-select-box__menulist _container">
 
-      <a class="select-all">
+      <a class="select-all _selectable">
         <i class="icon-topic-fill"></i>
         <span translate=""><span>모든 대화방</span></span>
       </a>
@@ -59,9 +60,9 @@
             </li>
 
             <li class="topic-title menu-item _selectable"
-                ng-repeat="entity in folder.entityList | orderBy: ['isStarred', '-name']: true">
+                ng-repeat="item in folder.entityList | orderBy: ['isStarred', '-name']: true">
               <a>
-                <span translate=""><span>{{entity.name}}</span></span>
+                <span translate=""><span>{{item.name}}</span></span>
               </a>
             </li>
           </ul>
@@ -76,9 +77,9 @@
 
           <ul class="menulist-item-dm">
 
-            <li class="topic-title menu-item _selectable" ng-repeat="member in memberData.enabledList">
+            <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.enabledList">
               <a>
-                <span translate=""><span>{{member.name}}</span></span>
+                <span translate=""><span>{{item.name}}</span></span>
               </a>
             </li>
           </ul>
@@ -86,15 +87,19 @@
         </div>
 
         <!-- blocked -->
-        <div class="custom-select-box__menulist-items toggle-menulist collapsed">
+        <div class="custom-select-box__menulist-items toggle-menulist"
+             ng-class="{
+               'collapsed': !isShowDisabled
+             }"
+             ng-click="toggleDisabled();">
           <i class="fa custom-selectbox-arrow icon-angle-down"></i>
           <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
 
-          <ul class="menulist-item-block">
+          <ul ng-if="isShowDisabled" class="menulist-item-block">
 
-            <li class="topic-title menu-item _selectable" ng-repeat="member in memberData.disabledList">
+            <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.disabledList">
               <a>
-                <span translate=""><span>{{member.name}}</span></span>
+                <span translate=""><span>{{item.name}}</span></span>
               </a>
             </li>
           </ul>

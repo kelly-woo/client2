@@ -13,16 +13,19 @@
       restrict: 'AE',
       link: link,
       replace: true,
-      scope: {},
-      templateUrl: 'app/util/directive/jnd.selectbox.topic.html'
+      scope: {
+        selectedId: '=jndDataModel'
+      },
+      templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.topic.html'
     };
 
     function link(scope, el, attrs) {
       var _jqInput = el.find('input');
       var _lastKeyword = '';
       scope.onKeyUp = onKeyUp;
-      //scope.onKeyDown = onKeyDown;
       scope.onClick = onClick;
+      scope.onChange = onChange;
+      scope.toggleDisabled = toggleDisabled;
       _init();
 
       /**
@@ -31,13 +34,29 @@
        */
       function _init() {
         scope.isShown = false;
+        scope.isShowDisabled = false;
+        scope.selectedName = '';
         scope.folderData = TopicFolderModel.getFolderData();
         scope.memberData = _getMemberData();
         scope.searchList = [];
-        _jqInput.focus();
       }
 
-      /**`
+      function onChange(targetScope) {
+        if (targetScope.item) {
+          scope.selectedName = targetScope.item.name;
+          scope.selectedId = targetScope.item.id;
+        } else {
+          scope.selectedName = '';
+          scope.selectedId = null;
+        }
+        scope.isShown = false;
+      }
+
+      function toggleDisabled() {
+        scope.isShowDisabled = !scope.isShowDisabled;
+      }
+
+      /**
        * member data 를 반환한다
        * @returns {{enabledList: Array, disabledList: Array}}
        * @private
@@ -62,6 +81,7 @@
 
       function onClick() {
         scope.isShown = !scope.isShown;
+
       }
       /**
        * keyup 이벤트 핸들러
@@ -69,25 +89,6 @@
       function onKeyUp(keyEvent) {
         _search($(keyEvent.target).val());
       }
-
-      /**
-       * keydown 이벤트 핸들러
-       * @param {Event} keyEvent
-       */
-      //function onKeyDown(keyEvent) {
-      //  var keyCode = keyEvent.keyCode;
-      //
-      //  if (jndKeyCode.match('ESC', keyCode)) {
-      //  } else if (jndKeyCode.match('ENTER', keyCode)) {
-      //  } else if (jndKeyCode.match('DOWN_ARROW', keyCode)) {
-      //
-      //    keyEvent.preventDefault();
-      //    jndPubSub.pub('custom-focus:focus-next');
-      //  } else if (jndKeyCode.match('UP_ARROW', keyCode)) {
-      //    keyEvent.preventDefault();
-      //    jndPubSub.pub('custom-focus:focus-prev');
-      //  }
-      //}
 
       /**
        * 메시지를 검색한다
@@ -127,7 +128,7 @@
       }
 
       function _isSameKeyword(keyword) {
-        return _lastKeyword !== keyword;
+        return _lastKeyword === keyword;
       }
       /**
        * 검색한 message 를 highlight 처리한다
