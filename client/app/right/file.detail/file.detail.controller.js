@@ -822,7 +822,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             members = entityAPIservice.getMemberList(entity);
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
-                member = EntityMapManager.get('total', members[i]);
+                member = EntityMapManager.get('total', members[j]);
                 if (member && currentMemberId !== member.id && member.status === 'enabled') {
                   member.extViewName = '[@' + member.name + ']';
                   member.extSearchName = member.name;
