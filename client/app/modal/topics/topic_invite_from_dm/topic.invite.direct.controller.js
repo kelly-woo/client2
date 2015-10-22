@@ -6,19 +6,21 @@
     .controller('TopicInviteFromDmCtrl', TopicInviteFromDmCtrl);
 
   /* @ngInject */
-  function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope, TopicFolderModel) {
+  function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope, TopicFolderModel,
+                                 EntityMapManager) {
     // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
-
+    $scope.inviteChannelId = '';
     $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id));
 
-    $scope.onInviteClick = function(inviteTo) {
+    $scope.onInviteClick = function(entityId) {
       var invitedId = [];
+      var entity = EntityMapManager.get('total', entityId);
       invitedId.push($scope.currentEntity.id);
 
       jndPubSub.showLoading();
 
-      entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, invitedId)
+      entityheaderAPIservice.inviteUsers(entity.type, entity.id, invitedId)
         .success(function(response) {
           jndPubSub.updateLeftPanel();
           modalHelper.closeModal();
