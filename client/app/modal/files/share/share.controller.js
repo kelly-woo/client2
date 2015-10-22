@@ -9,13 +9,13 @@
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
                               jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
-                              currentSessionHelper, Dialog, TopicFolderModel) {
+                              currentSessionHelper, Dialog, TopicFolderModel, EntityMapManager) {
     var _entityId;
     var _entityType;
     var _targetId;
 
     $scope.selected = {
-      data: null
+      id: null
     };
 
     $scope.cancel = modalHelper.closeModal;
@@ -65,7 +65,7 @@
         currentIndex = 0;
       }
 
-      $scope.selected.data = $scope.selectOptions[currentIndex];
+      $scope.selected.id = $scope.selectOptions[currentIndex].id;
     }
 
     /**
@@ -73,7 +73,7 @@
      * @param {object} shareChannel - share 할 entity
      */
     function onFileShareClick() {
-      var shareChannel = $scope.selected.data;
+      var shareChannel = EntityMapManager.get('total', $scope.selected.id);
       _targetId = shareChannel.id;
       _entityType = shareChannel.type;
       _entityId = (_entityType.indexOf('user') !== -1) ? shareChannel.entityId : _targetId;
