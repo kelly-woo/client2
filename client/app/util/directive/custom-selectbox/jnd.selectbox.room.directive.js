@@ -6,21 +6,22 @@
 
   angular
     .module('jandiApp')
-    .directive('jndSelectboxTopic', jndSelectboxTopic);
+    .directive('jndSelectboxRoom', jndSelectboxRoom);
 
-  function jndSelectboxTopic(EntityMapManager, TopicFolderModel, publicService, JndUtil) {
+  function jndSelectboxRoom(EntityMapManager, TopicFolderModel, publicService, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
       replace: true,
       scope: {
         selectedValue: '=jndDataModel',
-        callback: '=jndSelectboxTopic',
+        callback: '=jndSelectboxRoom',
         list: '=jndDataList',
         hasAll: '@jndHasAll',
-        hasDisabled: '@jndHasDisabled'
+        hasDisabled: '@jndHasDisabled',
+        onlyTopics: '@jndOnlyTopics'
       },
-      templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.topic.html'
+      templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.room.html'
     };
 
     function link(scope, el, attrs) {

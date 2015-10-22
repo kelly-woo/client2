@@ -53,7 +53,7 @@
                   <!--ng-model="selected.data"-->
                   <!--ng-options="channel as channel|getName group by channel.extGroupName for channel in selectOptions">-->
           <!--</select>-->
-          <jnd-selectbox-topic jnd-data-model="selected.id" jnd-data-list="selectOptions"></jnd-selectbox-topic>
+          <jnd-selectbox-room jnd-data-model="selected.id" jnd-data-list="selectOptions"></jnd-selectbox-room>
           <span ng-if="!selectOptions.length"
                 class="modal-share-span"
                 translate>@common-all-shared</span>

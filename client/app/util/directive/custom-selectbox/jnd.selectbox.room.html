@@ -71,7 +71,7 @@
 
 
         <!-- direct message -->
-        <div class="custom-select-box__menulist-items">
+        <div ng-if="!onlyTopics" class="custom-select-box__menulist-items">
           <span translate class="ng-scope menulist-item-header">
             <span>1:1 메시지</span>
           </span>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- blocked -->
-        <div ng-if="hasDisabled"
+        <div ng-if="!onlyTopics && hasDisabled"
              class="custom-select-box__menulist-items toggle-menulist"
              ng-class="{
                'collapsed': !isShowDisabled
