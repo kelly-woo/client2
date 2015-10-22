@@ -1,3 +1,13 @@
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/tosslab/web_client/compare/v1.5.2...v1.5.3) (2015-10-22)
+
+
+### Bug Fixes
+
+* **right:** 텝 이동시 검색어 초기화 하도록 수정 ([d4a479e](https://github.com/tosslab/web_client/commit/d4a479e))
+
+
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/tosslab/web_client/compare/v1.5.1...v1.5.2) (2015-10-22)
 
