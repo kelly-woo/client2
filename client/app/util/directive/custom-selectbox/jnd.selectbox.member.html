@@ -24,9 +24,9 @@
 
         <ul class="menulist-item-result">
 
-          <li class="topic-title menu-item _selectable" ng-repeat="searchItem in searchList">
+          <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
             <a>
-              <span translate=""><span ng-bind-html="searchItem.name"></span></span>
+              <span translate=""><span ng-bind-html="item.name"></span></span>
             </a>
           </li>
         </ul>
@@ -34,7 +34,7 @@
     </div>
 
     <!--일반 리스트-->
-    <div ng-if="!searchList.length" class="custom-select-box__menulist-category _container">
+    <div ng-if="!searchList.length" class="custom-select-box__menulist _container">
 
       <a class="select-all _selectable">
         <i class="icon-users"></i>
@@ -47,11 +47,10 @@
         <div class="custom-select-box__menulist-items">
           <span translate class="ng-scope menulist-item-header"><span>현재 멤버</span></span>
           <ul class="menulist-item-members">
-
-            <li class="topic-title menu-item">
-              <img class="header-title-member__dropdown__thumb" src="imgur-spinner.gif">
+            <li class="topic-title menu-item _selectable"  ng-repeat="item in memberData.enabledList">
+              <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
               <a>
-                <span translate="" class="ng-scope"><span class="ng-scope">저는지금배가고픕니다샐로드만먹었네요</span></span>
+                <span translate="" class="ng-scope"><span class="ng-scope">{{item.name}}</span></span>
               </a>
             </li>
           </ul>
@@ -61,10 +60,11 @@
         <div class="custom-select-box__menulist-items toggle-menulist"
              ng-class="{
                'collapsed': !isShowDisabled
-             }"
-             ng-click="toggleDisabled();">
-          <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-          <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
+             }">
+          <div ng-click="toggleDisabled();">
+            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+            <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
+          </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">
 

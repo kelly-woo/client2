@@ -17,10 +17,11 @@
     <div class="advanced-search-option__title">
       <span translate>@common-member</span>
     </div>
-    <select ng-model="fileRequest.writerId"
-            ng-options="user.id as user | getName for user in selectOptionsUsers">
-      <option value="">{{ allMembers }}</option>
-    </select>
+    <jnd-selectbox-member jnd-data-model="fileRequest.writerId" jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
+    <!--<select ng-model="fileRequest.writerId"-->
+            <!--ng-options="user.id as user | getName for user in selectOptionsUsers">-->
+      <!--<option value="">{{ allMembers }}</option>-->
+    <!--</select>-->
   </div>  <!-- END OF FILE WRTIER -->
   <!--    FILE TYPE  -->
   <div class="advanced-search-option__category advanced-file-option">

@@ -90,10 +90,11 @@
         <div class="custom-select-box__menulist-items toggle-menulist"
              ng-class="{
                'collapsed': !isShowDisabled
-             }"
-             ng-click="toggleDisabled();">
-          <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-          <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
+             }">
+          <div ng-click="toggleDisabled();">
+            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+            <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
+          </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">
 
