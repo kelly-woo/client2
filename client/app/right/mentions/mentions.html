@@ -1,7 +1,12 @@
 <div class="rpanel-body mention-list" infinite-scroll-bottom="loadMore();">
   <div class="search-result-container" ng-if="isLoading || isMentionEmpty">
     <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
-    <div class="search-result-summary-ing" ng-if="isMentionEmpty"><span translate>@mention-empty</span></div>
+    <div class="search-result-summary-ing rpanel-list" ng-if="isMentionEmpty">
+      <img class="rpanel-list-empty__img" src="assets/images/mention-empty.png"/>
+      <div class="help-messages__message">
+        <span translate>@mention-empty</span>
+      </div>
+    </div>
   </div>
   <div class="infinite-scroll-bottom-list">
     <message message-data="record" message-type="messageType" ng-repeat="record in records"></message>
