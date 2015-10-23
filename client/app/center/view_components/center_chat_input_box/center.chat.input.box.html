@@ -1,9 +1,5 @@
 <div class="footer">
-  <div class="has-new-msg-banner-container cursor_pointer" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
-    <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
-    <i class="icon-delete pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
-  </div>
-
+  <!-- has-new-msg-banner-container moved under input-container-top-contents -->
   <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
        data-ng-click="onTutorialPulseClick($event);"
        data-ng-if="!tutorialStatus.chatTutorial">
@@ -21,26 +17,41 @@
   </div>
 
   <div id="messages-input-container">
-
-      <sticker-layer name="chat"></sticker-layer>
-
-      <div class="message-input-wrap">
-        <form id="message-form">
-          <textarea id="message-input"
-                    class=""
-                    ng-class="{ 'post-loading': isPosting,
+	<!-- input-container-mask is white-colored gradient mask layer that over msgs area -->
+    <div class="input-container-mask"></div>
+    <!-- input-container-top-contents contains has-new-msg-banner-container & scroll-to-bottom-container -->
+    <div class="input-container-top-contents">
+      <div class="has-new-msg-banner-container cursor_pointer" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
+        <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
+        <i class="icon-delete pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
+  	  </div>
+	  <div class="scroll-to-bottom-container cursor_pointer"
+		   ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" 
+		   ng-click="onScrollToBottomIconClicked();"
+		   tooltip="{{::'@go-to-latest-message-msg' | translate}}" 
+		   tooltip-placement="top">
+	    <i class="icon-arrow-down scroll-to-bottom-icon"></i>
+	  </div>
+    </div>
+	
+	<sticker-layer name="chat"></sticker-layer>
+    <div class="message-input-wrap">
+      <form id="message-form">
+        <textarea id="message-input"
+                  class=""
+                  ng-class="{ 'post-loading': isPosting,
                                 'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
-                    message-submit="postMessage()"
-                    data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
-                    maxlength=""
-                    placeholder="{{::'@placeholder-input-message' | translate }}"
-                    ng-keyup="onKeyUp($event);"
-                    jnd-elastic
-                    mentionahead></textarea>
+                  message-submit="postMessage()"
+                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
+                  maxlength=""
+                  placeholder="{{::'@placeholder-input-message' | translate }}"
+                  ng-keyup="onKeyUp($event);"
+                  jnd-elastic
+                  mentionahead></textarea>
       </form>
-      </div>
-
-      <sticker-panel name="chat"></sticker-panel>
+    </div>
+      
+    <sticker-panel name="chat"></sticker-panel>
 
   </div>
 </div>

@@ -10,7 +10,7 @@
   right: 10px;
   bottom: 8px;
   width:16px;
-  z-index: 2;
+  z-index: 1000;
 }
 .sticker_panel_wrap.shift{
   right: 20px;
@@ -124,15 +124,15 @@
   height: 20px;
 }
 
-
-
+sticker-layer {
+  position: relative;
+}
 .sticker_layer {
   z-index:2;
   height: 150px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
-  position:absolute;
-  bottom: 100%;
+  position:relative;
   border: solid #d7e0e8;
   border-width: 2px 2px 0 2px;
   border-top-left-radius: 5px;
@@ -144,8 +144,9 @@
 
 }
 .sticker_layer_remove {
-  margin-top: 8px;
-  margin-right: 8px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 img.sticker {
