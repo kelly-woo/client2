@@ -4,7 +4,7 @@
   height: 44px;
   background-color: #F9F9F9;
 }
-
+.modal-dialog .add-on-left,
 .rpanel-search .add-on-left,
 .tab-content .add-on-left {
   position: absolute;
@@ -13,6 +13,7 @@
   font-size: 13px;
   z-index: 3;
 }
+.modal-dialog input.search-input,
 .rpanel-search input.search-input,
 .tab-content input.search-input {
   position:absolute;
@@ -26,9 +27,10 @@
   border-bottom-right-radius: 0px;
   background-color: #fff;
 }
+.modal-dialog .custom-select-box input:focus,
 .rpanel-search input:focus,
 .tab-content input:focus {
-  border-color: #8EAFC3;
+  border-color: #8EAFC3 !important;
 }
 
 .rpanel-search-select-all-container {

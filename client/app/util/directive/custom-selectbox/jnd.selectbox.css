@@ -1,7 +1,7 @@
 .custombox-search__input.search-input {
   border-radius: 22px !important;
   box-shadow: none !important;
-  width: 232px !important;
+  width: 355px !important;
   padding-left: 28px !important;
 }
 
@@ -36,13 +36,13 @@
 .menulist-item-members .menu-item:hover,
 .menulist-item-filetype .menu-item:hover,
 .menulist-item-result .menu-item:hover {
-  /*background-color: #e8f3f9;*/
-  /*cursor: pointer;*/
+  background-color: #e8f3f9;
+  cursor: pointer;
 }
 
 .custom-select-box__search-result-items .active,
 .custom-select-box__menulist .active {
-  background-color: #e8f3f9;
+  background-color: #F1F4F8;
   cursor: pointer;
 }
 
