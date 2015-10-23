@@ -14,7 +14,9 @@
       link: link,
       scope: {
         'selectedValue': '=jndDataSelected',
-        'onChange': '=jndCustomFocus'
+        'onChange': '=jndCustomFocus',
+        'key': '@jndDataKey',
+        'close': '=jndCallbackClose'
       }
     };
    function link(scope, el, attrs) {
@@ -27,11 +29,12 @@
       * @private
       */
      function _init() {
+       scope.key = scope.key || 'value';
        _attachEvents();
        _attachDomEvents();
        _jqInput = el.find('input:first');
 
-       $timeout(_initiialSelect);
+       $timeout(_initialSelect);
      }
 
      /**
@@ -96,21 +99,30 @@
      /**
       * select 한다
       * @param {object} [jqTarget] - select 할 jquery 엘리먼트
-      * @parma {boolean} [isInitial=false] - 처음 select 인지 여부
+      * @param {boolean} [isInitial=false] - 처음 select 인지 여부
       * @private
       */
      function _select(jqTarget, isInitial) {
        jqTarget = jqTarget || _jqCurrent;
        if (_.isFunction(scope.onChange)) {
          JndUtil.safeApply(scope, function() {
-           scope.onChange(angular.element(jqTarget).scope(), isInitial);
+           scope.onChange(angular.element(jqTarget).scope());
+           if (!isInitial) {
+             _close();
+           }
          });
        }
      }
 
-     function _initiialSelect() {
+     function _close() {
+       if (_.isFunction(scope.close)) {
+         scope.close();
+       }
+     }
+
+     function _initialSelect() {
        if (scope.selectedValue) {
-         _focusById(scope.selectedValue);
+         _focusByValue(scope.selectedValue);
        } else {
          _focus();
        }
@@ -124,19 +136,27 @@
      function _onKeyDown(keyEvent) {
        var keyCode = keyEvent.keyCode;
        if (jndKeyCode.match('ESC', keyCode)) {
+         JndUtil.safeApply(scope, _close);
+         _preventEventBubbling(keyEvent);
        } else if (jndKeyCode.match('ENTER', keyCode)) {
          _select();
+         _preventEventBubbling(keyEvent);
        } else if (jndKeyCode.match('DOWN_ARROW', keyCode)) {
-         keyEvent.preventDefault();
          _focusNext();
+         _preventEventBubbling(keyEvent);
        } else if (jndKeyCode.match('UP_ARROW', keyCode)) {
-         keyEvent.preventDefault();
          _focusPrev();
+         _preventEventBubbling(keyEvent);
        } else if (jndKeyCode.match('PAGE_UP', keyCode)) {
          //_focusNextPage();
        } else if (jndKeyCode.match('PAGE_DOWN', keyCode)) {
          //_focusPrevPage();
        }
+     }
+
+     function _preventEventBubbling(domEvent) {
+       domEvent.preventDefault();
+       domEvent.stopPropagation();
      }
 
      /**
@@ -187,7 +207,7 @@
        _jqInput.focus();
      }
 
-     function _focusById(id) {
+     function _focusByValue(value) {
        var jqList = el.find('._selectable');
        var jqEl;
        var jqTarget = jqList.eq(0);
@@ -195,7 +215,7 @@
 
        _.forEach(jqList, function (el, index) {
          jqEl = angular.element(el);
-         if (jqEl.scope().item && jqEl.scope().item.id == id) {
+         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
            jqTarget = jqEl;
            return false;
          }

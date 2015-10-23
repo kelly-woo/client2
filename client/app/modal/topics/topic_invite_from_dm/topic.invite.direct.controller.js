@@ -10,9 +10,9 @@
                                  EntityMapManager) {
     // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
-    $scope.inviteChannelId = '';
-    $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id));
 
+    $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id));
+    $scope.inviteChannelId = $scope.inviteOptions[0].id;
     $scope.onInviteClick = function(entityId) {
       var invitedId = [];
       var entity = EntityMapManager.get('total', entityId);

@@ -62,18 +62,17 @@
   -moz-transition: background-color ease-in-out .12s;
   transition: background-color ease-in-out .12s;
 }
-.custom-select-box-btn:hover,
-.advanced-search-option__category .custom-select-box-btn:hover {
-  /*background-color:#FCFCFC;
-  border-color:#CACACA;*/
-  background-color:#FFFFFF;
-  border-color:#8EAFC3 !important;
-  cursor: pointer;
-}
+/*.custom-select-box-btn:hover,*/
+/*.advanced-search-option__category .custom-select-box-btn:hover {*/
+  /*/!*background-color:#FCFCFC;*/
+  /*border-color:#CACACA;*!/*/
+  /*background-color:#FFFFFF;*/
+  /*border-color:#8EAFC3 !important;*/
+  /*cursor: pointer;*/
+/*}*/
 .custom-select-box-btn.active,
-.custom-select-box-btn.active:hover,
-.advanced-search-option__category .custom-select-box-btn.active,
-.advanced-search-option__category .custom-select-box-btn.active:hover {
+.custom-select-box-btn:hover {
+  cursor: pointer;
   background-color:#FFFFFF;
   border-color:#8EAFC3 !important;
 }
@@ -90,8 +89,7 @@
 .custom-select-box-btn > .icon-angle-up {
   top: 4px;
 }
-.custom-select-box-btn span,
-.advanced-search-option__category .custom-select-box-btn span {
+.custom-select-box-btn span {
   line-height: 22px;
   margin-left: 4px;
 }

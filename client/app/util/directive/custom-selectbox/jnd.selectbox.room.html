@@ -1,13 +1,18 @@
 <div class="_selectbox">
   <div class="custom-select-box-btn"
+       ng-class="{
+        'active': isShown
+       }"
       ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
     <span translate=""><span>{{selectedName || ''}}</span></span>
   </div>
   <div ng-if="isShown"
        class="custom-select-box shared-menu dropdown-menu active" style=""
-      jnd-custom-focus="onChange"
-      jnd-data-selected="selectedValue">
+       jnd-custom-focus="onChange"
+       jnd-callback-close="close"
+       jnd-data-key="id"
+       jnd-data-selected="selectedValue">
 
     <div class="custom-select-box__search-container">
       <span class="add-on-left"><i class="icon-search"></i></span>

@@ -33,7 +33,7 @@
       };
 
       var _lastKeyword = '';
-
+      scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
@@ -50,6 +50,11 @@
         _initializeData();
         _attachEvents();
         _attachDomEvents();
+      }
+
+      function close() {
+        el.find('.custom-select-box').hide();
+        scope.isShown = false;
       }
 
       function _onDestroy() {
@@ -72,17 +77,18 @@
         if (!$(clickEvent.target).closest('._selectbox').is(el)) {
           JndUtil.safeApply(scope, function() {
             el.find('.custom-select-box').hide();
-            scope.isShown = false;
+            close();
           });
         }
       }
 
       function _getSelectedName() {
         var selectedItem;
+
         selectedItem = _.find(scope.list, function(item) {
           return item.value === scope.selectedValue;
         });
-        return selectedItem ? selectedItem.name : '';
+        return selectedItem ? selectedItem.viewValue : '';
       }
 
       function _initializeData() {
@@ -90,7 +96,7 @@
         scope.selectedName = _getSelectedName();
       }
 
-      function onChange(targetScope, isInitialSelect) {
+      function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.viewValue;
           scope.selectedValue = targetScope.item.value;
@@ -98,9 +104,6 @@
           scope.selectedName = '';
           //모든 파일의 value
           scope.selectedValue = scope.list[0].value;
-        }
-        if (!isInitialSelect) {
-          scope.isShown = false;
         }
       }
 

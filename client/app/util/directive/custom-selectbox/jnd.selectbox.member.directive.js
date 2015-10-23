@@ -23,6 +23,7 @@
 
     function link(scope, el, attrs) {
       var _lastKeyword = '';
+      scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
@@ -39,7 +40,10 @@
         _attachEvents();
         _attachDomEvents();
       }
-
+      function close() {
+        el.find('.custom-select-box').hide();
+        scope.isShown = false;
+      }
       function _onDestroy() {
         _detachDomEvents();
       }
@@ -60,7 +64,7 @@
         if (!$(clickEvent.target).closest('._selectbox').is(el)) {
           JndUtil.safeApply(scope, function() {
             el.find('.custom-select-box').hide();
-            scope.isShown = false;
+            close();
           });
         }
       }
@@ -86,16 +90,13 @@
         });
       }
 
-      function onChange(targetScope, isInitialSelect) {
+      function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.name;
           scope.selectedValue = targetScope.item.id;
         } else {
           scope.selectedName = '';
           scope.selectedValue = 'all';
-        }
-        if (!isInitialSelect) {
-          scope.isShown = false;
         }
 
         if (_.isFunction(scope.callback)) {

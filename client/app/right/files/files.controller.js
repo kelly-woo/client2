@@ -118,9 +118,8 @@
     });
 
     //  fileRequest.fileType - 파일 타입
-    $scope.$watch('fileTypeFilter', function(newValue, oldValue) {
+    $scope.$watch('fileRequest.fileType', function(newValue, oldValue) {
       if (newValue != oldValue) {
-        $scope.fileRequest.fileType = newValue.value;
         _refreshFileList();
       }
     }, true);
@@ -377,8 +376,7 @@
      */
     function _initFileTypeFilter() {
       $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
-      $scope.fileTypeFilter = $scope.fileTypeList[0];
-      $scope.fileRequest.fileType = $scope.fileTypeFilter.value
+      $scope.fileRequest.fileType = $scope.fileTypeList[0].value;
     }
 
     /**
@@ -421,7 +419,7 @@
           return false;
         }
       });
-      $scope.fileTypeFilter = fileType
+      $scope.fileRequest.fileType = fileType.value
     }
 
     /**
@@ -458,7 +456,7 @@
      */
     function getFileList() {
       _updateSearchStatusKeyword();
-
+      console.log('###', $scope.fileRequest);
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
 

@@ -27,6 +27,7 @@
     function link(scope, el, attrs) {
       var _lastKeyword = '';
       var _filterMap;
+      scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
@@ -45,38 +46,73 @@
         _attachDomEvents();
       }
 
+      function close() {
+        el.find('.custom-select-box').hide();
+        scope.isShown = false;
+      }
+
+      /**
+       * 소멸자
+       * @private
+       */
       function _onDestroy() {
         _detachDomEvents();
       }
 
+      /**
+       * 이벤트 바인딩 한다
+       * @private
+       */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
       }
 
+      /**
+       * DOM 이벤트 바인딩
+       * @private
+       */
       function _attachDomEvents() {
         $(document).on('mousedown', _onMouseDownDocument);
       }
 
+      /**
+       * DOM 이벤트 바인딩 해제
+       * @private
+       */
       function _detachDomEvents() {
         $(document).off('mousedown', _onMouseDownDocument);
       }
 
+      /**
+       * Document 의 mouse-down 이벤트 핸들러
+       * @param {Event} clickEvent
+       * @private
+       */
       function _onMouseDownDocument(clickEvent) {
         if (!$(clickEvent.target).closest('._selectbox').is(el)) {
           JndUtil.safeApply(scope, function() {
-            el.find('.custom-select-box').hide();
-            scope.isShown = false;
+            close();
           });
         }
       }
 
+      /**
+       * 현재 선택된 item 의 name 값을 반환한다
+       * @returns {*}
+       * @private
+       */
       function _getSelectedName() {
+        console.log('###_getSelectedName', scope.selectedValue);
         var selectedEntity = _.find(_getAllEntities(), function(entity) {
           return entity.id === scope.selectedValue;
         });
         return selectedEntity ? selectedEntity.name : '';
       }
 
+      /**
+       * Data 를 초기화 한다
+       * @private
+       */
       function _initializeData() {
         scope.folderData = _getFolderData();
         scope.memberData = _getMemberData();
@@ -85,6 +121,10 @@
         scope.selectedName = _getSelectedName();
       }
 
+      /**
+       * filter 를 초기화한다
+       * @private
+       */
       function _initializeFilter() {
         var list = scope.list;
         if (list) {
@@ -120,18 +160,15 @@
         return folderData;
       }
 
-      function onChange(targetScope, isInitialSelect) {
+      function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.name;
           scope.selectedValue = targetScope.item.id;
         } else {
-          scope.selectedName = '';
+          scope.selectedName = '널';
           scope.selectedValue = null;
         }
 
-        if (!isInitialSelect) {
-          scope.isShown = false;
-        }
         if (_.isFunction(scope.callback)) {
           scope.callback();
         }
