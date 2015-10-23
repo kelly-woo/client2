@@ -216,11 +216,15 @@
 
 /* search result */
 .search-result-container {
-  margin: 10px 0 20px 40px;
   color: #999999;
+  border-bottom:1px solid #E1E1E1;
+  margin-top:-1px;
 }
-.search-result-container .search-result-summary-ing {
-  margin-top: 10px;
+.search-result-container .search-result-summary-ing,
+.search-result-container .search-result-summary {
+  margin: 11px 0 10px 40px;
+  padding-top:0px;
+  padding-bottom:1px;
 }
 
 .show {
