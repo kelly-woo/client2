@@ -90,7 +90,7 @@
         scope.selectedName = _getSelectedName();
       }
 
-      function onChange(targetScope) {
+      function onChange(targetScope, isInitialSelect) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.viewValue;
           scope.selectedValue = targetScope.item.value;
@@ -99,7 +99,9 @@
           //모든 파일의 value
           scope.selectedValue = scope.list[0].value;
         }
-        scope.isShown = false;
+        if (!isInitialSelect) {
+          scope.isShown = false;
+        }
       }
 
       function toggleShow() {

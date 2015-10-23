@@ -108,9 +108,9 @@
 
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
-      if ($scope.fileRequest.writerId === null) {
-        $scope.fileRequest.writerId = 'all';
-      }
+      //if ($scope.fileRequest.writerId === null) {
+      //  $scope.fileRequest.writerId = 'all';
+      //}
 
       if (newValue != oldValue) {
         _refreshFileList();

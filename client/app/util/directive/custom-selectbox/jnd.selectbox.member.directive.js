@@ -86,15 +86,17 @@
         });
       }
 
-      function onChange(targetScope) {
+      function onChange(targetScope, isInitialSelect) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.name;
           scope.selectedValue = targetScope.item.id;
         } else {
           scope.selectedName = '';
-          scope.selectedValue = null;
+          scope.selectedValue = 'all';
         }
-        scope.isShown = false;
+        if (!isInitialSelect) {
+          scope.isShown = false;
+        }
 
         if (_.isFunction(scope.callback)) {
           scope.callback();

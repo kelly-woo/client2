@@ -31,13 +31,7 @@
        _attachDomEvents();
        _jqInput = el.find('input:first');
 
-       $timeout(function() {
-         if (scope.selectedValue) {
-           _focusById(scope.selectedValue);
-         } else {
-           _focus();
-         }
-       });
+       $timeout(_initiialSelect);
      }
 
      /**
@@ -102,17 +96,26 @@
      /**
       * select 한다
       * @param {object} [jqTarget] - select 할 jquery 엘리먼트
+      * @parma {boolean} [isInitial=false] - 처음 select 인지 여부
       * @private
       */
-     function _select(jqTarget) {
+     function _select(jqTarget, isInitial) {
        jqTarget = jqTarget || _jqCurrent;
        if (_.isFunction(scope.onChange)) {
          JndUtil.safeApply(scope, function() {
-           scope.onChange(angular.element(jqTarget).scope());
+           scope.onChange(angular.element(jqTarget).scope(), isInitial);
          });
        }
      }
 
+     function _initiialSelect() {
+       if (scope.selectedValue) {
+         _focusById(scope.selectedValue);
+       } else {
+         _focus();
+       }
+       _select(_jqCurrent, true);
+     }
      /**
       * keydown 이벤트 핸들러
       * @param {object} keyEvent
