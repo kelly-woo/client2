@@ -1681,7 +1681,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
-    _jqContainer.css('margin-bottom', jqInput.height() - 28);
+    _jqContainer.css('padding-bottom', jqInput.height() - 28);
   }
 
   /**
