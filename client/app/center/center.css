@@ -35,7 +35,7 @@ article {
   min-width: 400px;
 }
 .cpanel .panel-title-container {
-  z-index: 20;
+  z-index: 28;
 }
 .rpanel-show {
   margin-right: 400px;
@@ -804,6 +804,15 @@ by ysyun 2015.2.25
   border: 1px solid rgba(208, 236, 237, 0.9);
   border-radius: 10px;
   padding: 6px 6px 6px 7px;
+}
+.scroll-to-bottom-container ~ div {
+  margin-top:0px !important;
+  margin-left: -4px !important;
+}
+.scroll-to-bottom-container ~ div > .tooltip-inner {
+  word-break:keep-all !important;
+  white-space:nowrap !important;
+  text-align: right !important;
 }
 .scroll-to-bottom-container:active {
   
