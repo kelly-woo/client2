@@ -196,12 +196,26 @@
   });
 
   /**
+   * preview를 전달한다.
+   */
+  app.filter('getPreview', function($filter) {
+    var sizeMap = {
+      small: 'smallThumbnailUrl',
+      medium: 'mediumThumbnailUrl',
+      large: 'largeThumbnailUrl'
+    };
+    return function(content, size) {
+      return $filter('getFileUrl')(content ? content.extraInfo ? content.extraInfo[sizeMap[size] || sizeMap.medium] : content.fileUrl : '');
+    };
+  });
+
+  /**
    * preview를 가지고 있는지 여부
    */
   app.filter('hasPreview', function() {
     var rImage = /image/i;
     return function(content) {
-      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl] ;
+      return !!(content && (content.extIsNewImage ? content.extraInfo : (content.extraInfo || content.fileUrl)) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
     };
   });
 
@@ -211,7 +225,7 @@
   app.filter('mustPreview', function($filter) {
     var rImage = /image/i;
     return function(content) {
-      return !!content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
     };
   });
 

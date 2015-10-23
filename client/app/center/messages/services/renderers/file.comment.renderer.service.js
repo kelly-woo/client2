@@ -50,7 +50,7 @@
         file: {
           icon: $filter('fileIcon')(content),
           title: $filter('fileTitle')(content),
-          imageUrl: _getImageUrl(msg),
+          imageUrl: $filter('getPreview')(content, 'small'),
           hasPreview: $filter('hasPreview')(content)
         },
         hasStar: RendererUtil.hasStar(msg),
@@ -62,18 +62,6 @@
         },
         msg: msg
       });
-    }
-
-    /**
-     * image url 을 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _getImageUrl(msg) {
-      var content = msg.feedback.content;
-      var url = content && content.extraInfo && content.extraInfo.smallThumbnailUrl;
-      return $filter('getFileUrl')(url);
     }
   }
 })();

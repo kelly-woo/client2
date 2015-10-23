@@ -69,7 +69,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 
   return "          <!--    IMAGE THUMBNAIL -->\n          <div class=\"image_wrapper msg-file-body__img__background\">\n            <div class=\"opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile\"\n                 image-loader=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"\n                 image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n            </div>\n          </div>\n";
+    + "\"\n                 image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n            </div>\n            <div class=\"small-thumbnail-overlay\"></div>\n          </div>\n";
 },"6":function(depth0,helpers,partials,data) {
     var stack1;
 
