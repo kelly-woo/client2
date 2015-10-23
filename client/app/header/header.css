@@ -2,7 +2,7 @@
 .hpanel {
   /*border-bottom: 1px solid #154a67;*/
   position: relative;
-  z-index: 32;
+  z-index: 1024;
 }
 .header {
   height: 41px;
