@@ -67,13 +67,13 @@ msgstr "Ask me later"
 msgid "@browse-more-topics"
 msgstr "Browse other topics"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -306,9 +306,9 @@ msgstr "This member has been temporarily disabled"
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "Done"
 
@@ -320,8 +320,8 @@ msgstr "Done"
 msgid "@common-download"
 msgstr "Download"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
 
@@ -448,6 +448,10 @@ msgstr "Basic Information"
 msgid "@common-info-optional"
 msgstr "Additional Information"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr "You cannot access this item anymore."
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "You are no longer in the topic where this item was shared."
@@ -472,9 +476,9 @@ msgstr "Message search"
 msgid "@common-message-writer"
 msgstr "Sent by"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -527,7 +531,7 @@ msgstr "Sign Up"
 msgid "@common-removed-origin"
 msgstr "The starred item was deleted."
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "Rename"
 
@@ -822,9 +826,9 @@ msgstr "You've exceeded the maximum character limit (20)"
 msgid "@input-max-length-60-error"
 msgstr "You've exceeded the maximum character limit (60)"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
 
@@ -1340,19 +1344,23 @@ msgstr ""
 msgid "@to-account-home"
 msgstr "Go to Account Home"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr "Description"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "Description (optional)"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "Participants"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
+msgstr "Edit Topic Info"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"

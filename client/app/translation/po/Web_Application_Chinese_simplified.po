@@ -65,13 +65,13 @@ msgstr "稍后再询问"
 msgid "@browse-more-topics"
 msgstr "浏览其他议题"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -293,9 +293,9 @@ msgstr "此成员权限已被暂时关闭"
 msgid "@common-dm-invite-to"
 msgstr "邀请到"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "确认"
 
@@ -307,8 +307,8 @@ msgstr "确认"
 msgid "@common-download"
 msgstr "下载"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "这个议题名称已经被使用。请选择另外一个。"
 
@@ -433,6 +433,10 @@ msgstr "基本资料"
 msgid "@common-info-optional"
 msgstr "其它资料"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr "无法存取该文件/信息"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "你已不在此标记的议题内"
@@ -457,9 +461,9 @@ msgstr "信息搜索"
 msgid "@common-message-writer"
 msgstr "发送者是"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -512,7 +516,7 @@ msgstr "注册"
 msgid "@common-removed-origin"
 msgstr "物件已被删除"
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "重新命名"
 
@@ -801,9 +805,9 @@ msgstr "您已经超越字数限制"
 msgid "@input-max-length-60-error"
 msgstr "您已经超越字数限制"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
 
@@ -1301,19 +1305,23 @@ msgstr "星期四"
 msgid "@to-account-home"
 msgstr "回到账号首页"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr "议题内容"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "描述 (选项)"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "议题参与成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
+msgstr "编辑议题信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"
