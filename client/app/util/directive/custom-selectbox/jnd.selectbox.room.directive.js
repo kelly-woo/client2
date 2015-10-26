@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxRoom', jndSelectboxRoom);
 
-  function jndSelectboxRoom(EntityMapManager, TopicFolderModel, publicService, JndUtil) {
+  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -102,11 +102,10 @@
        * @private
        */
       function _getSelectedName() {
-        console.log('###_getSelectedName', scope.selectedValue);
         var selectedEntity = _.find(_getAllEntities(), function(entity) {
           return entity.id === scope.selectedValue;
         });
-        return selectedEntity ? selectedEntity.name : '';
+        return selectedEntity ? selectedEntity.name : $filter('translate')('@option-all-rooms');
       }
 
       /**
@@ -165,7 +164,7 @@
           scope.selectedName = targetScope.item.name;
           scope.selectedValue = targetScope.item.id;
         } else {
-          scope.selectedName = '널';
+          scope.selectedName = $filter('translate')('@option-all-rooms');
           scope.selectedValue = null;
         }
 

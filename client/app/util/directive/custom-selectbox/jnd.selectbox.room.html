@@ -5,7 +5,7 @@
        }"
       ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-    <span translate=""><span>{{selectedName || ''}}</span></span>
+    <span>{{selectedName}}</span>
   </div>
   <div ng-if="isShown"
        class="custom-select-box shared-menu dropdown-menu active" style=""
@@ -25,13 +25,13 @@
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
-        <span translate class="menulist-item-header"><span>{{searchList.length}} 개의 검색결과</span></span>
+        <span translate class="menulist-item-header"><span>{{searchList.length}} 개의 검색결과(L10N)</span></span>
 
         <ul class="menulist-item-result">
 
           <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
             <a>
-              <span translate=""><span ng-bind-html="item.extSearchName"></span></span>
+              <span ng-bind-html="item.extSearchName"></span>
             </a>
           </li>
         </ul>
@@ -43,7 +43,7 @@
       <div ng-if="hasAll">
         <a class="select-all _selectable">
           <i class="icon-topic-fill"></i>
-          <span translate=""><span>모든 대화방</span></span>
+          <span translate>@option-all-rooms</span>
         </a>
       </div>
 
@@ -51,7 +51,7 @@
 
         <!-- topic -->
         <div class="custom-select-box__menulist-items">
-          <span translate class="menulist-item-header"><span>토픽</span></span>
+          <span class="menulist-item-header"><span translate>@common-topics</span></span>
 
           <ul class="menulist-item-topics"
               ng-repeat="folder in folderData.folderList"
@@ -61,14 +61,14 @@
             <li ng-if="folder.id !== -1" class="folder-title">
               <a>
                 <i class="fa fa-folder-open-o"></i>
-                <span translate=""><span>{{folder.name}}</span></span>
+                <span>{{folder.name}}</span>
               </a>
             </li>
 
             <li class="topic-title menu-item _selectable"
                 ng-repeat="item in folder.entityList | orderBy: ['isStarred', '-name']: true">
               <a>
-                <span translate=""><span>{{item.name}}</span></span>
+                <span>{{item.name}}</span>
               </a>
             </li>
           </ul>
@@ -78,14 +78,14 @@
         <!-- direct message -->
         <div ng-if="!onlyTopics" class="custom-select-box__menulist-items">
           <span translate class="menulist-item-header">
-            <span>1:1 메시지</span>
+            @user
           </span>
 
           <ul class="menulist-item-dm">
 
             <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.enabledList">
               <a>
-                <span translate=""><span>{{item.name}}</span></span>
+                <span>{{item.name}}</span>
               </a>
             </li>
           </ul>
@@ -100,14 +100,14 @@
              }">
           <div ng-click="toggleDisabled();">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span translate class="menulist-item-header"><span>차단된 멤버</span></span>
+            <span class="menulist-item-header"><span translate>@disabled-member</span></span>
           </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">
 
             <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.disabledList">
               <a>
-                <span translate=""><span>{{item.name}}</span></span>
+                <span>{{item.name}}</span>
               </a>
             </li>
           </ul>

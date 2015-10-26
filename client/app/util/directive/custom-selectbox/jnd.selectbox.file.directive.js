@@ -88,7 +88,7 @@
         selectedItem = _.find(scope.list, function(item) {
           return item.value === scope.selectedValue;
         });
-        return selectedItem ? selectedItem.viewValue : '';
+        return selectedItem ? selectedItem.viewValue : scope.list[0].viewValue;
       }
 
       function _initializeData() {
@@ -101,7 +101,7 @@
           scope.selectedName = targetScope.item.viewValue;
           scope.selectedValue = targetScope.item.value;
         } else {
-          scope.selectedName = '';
+          scope.selectedName = scope.list[0].viewValue;
           //모든 파일의 value
           scope.selectedValue = scope.list[0].value;
         }

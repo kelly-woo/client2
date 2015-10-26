@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxMember', jndSelectboxMember);
 
-  function jndSelectboxMember(EntityMapManager, TopicFolderModel, publicService, jndKeyCode, jndPubSub, JndUtil) {
+  function jndSelectboxMember($filter, EntityMapManager, TopicFolderModel, publicService, jndKeyCode, jndPubSub, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -74,7 +74,7 @@
         selectedEntity = _.find(_getMembers(), function(member) {
           return member.id === scope.selectedValue;
         });
-        return selectedEntity ? selectedEntity.name : '';
+        return selectedEntity ? selectedEntity.name : $filter('translate')('@option-all-members');
       }
 
       function _initializeData() {
@@ -95,7 +95,7 @@
           scope.selectedName = targetScope.item.name;
           scope.selectedValue = targetScope.item.id;
         } else {
-          scope.selectedName = '';
+          scope.selectedName = $filter('translate')('@option-all-members');
           scope.selectedValue = 'all';
         }
 

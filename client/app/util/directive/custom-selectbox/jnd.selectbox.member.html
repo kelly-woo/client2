@@ -5,7 +5,7 @@
        }"
        ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-    <span translate=""><span>{{selectedName || '모든 멤버'}}</span></span>
+    <span>{{selectedName}}</span>
   </div>
   <div ng-if="isShown"
        class="custom-select-box member-menu dropdown-menu active" style=""
@@ -25,7 +25,7 @@
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
-        <span translate class="ng-scope menulist-item-header"><span>{{searchList.length}} 개의 검색결과</span></span>
+        <span translate class="ng-scope menulist-item-header"><span>{{searchList.length}} 개의 검색결과 (L10N)</span></span>
 
         <ul class="menulist-item-members">
 
@@ -44,19 +44,19 @@
 
       <a class="select-all _selectable">
         <i class="icon-users"></i>
-        <span translate="" class="ng-scope"><span class="ng-scope">모든 멤버</span></span>
+        <span translate>@option-all-members</span>
       </a>
 
       <div class="custom-select-box__menulist-category">
 
         <!-- members -->
         <div class="custom-select-box__menulist-items">
-          <span translate class="ng-scope menulist-item-header"><span>현재 멤버</span></span>
+          <span translate class="menulist-item-header">@option-current-members</span>
           <ul class="menulist-item-members">
             <li class="topic-title menu-item _selectable"  ng-repeat="item in memberData.enabledList">
               <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
               <a>
-                <span translate="" class="ng-scope"><span class="ng-scope">{{item.name}}</span></span>
+                <span>{{item.name}}</span>
               </a>
             </li>
           </ul>
@@ -69,14 +69,14 @@
              }">
           <div ng-click="toggleDisabled();">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span translate class="ng-scope menulist-item-header"><span>차단된 멤버</span></span>
+            <span translate class="menulist-item-header"><span>@option-disabled-members</span>
           </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">
 
             <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.disabledList">
               <a>
-                <span translate=""><span>{{item.name}}</span></span>
+                <span>{{item.name}}</span>
               </a>
             </li>
           </ul>
