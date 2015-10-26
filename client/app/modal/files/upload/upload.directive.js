@@ -9,7 +9,7 @@
     .directive('fileUploadModal', fileUploadModal);
 
   function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, EntityMapManager,
-                            entityAPIservice, MentionExtractor, analyticsService) {
+                           entityAPIservice, MentionExtractor, analyticsService) {
     return {
       restrict: 'A',
       link: link
@@ -72,7 +72,9 @@
                 permission: PUBLIC_FILE,
 
                 // file upload시 공유 대화방 수정 가능함.
-                roomId: scope.selectedEntityId || scope.selectedEntityId,
+                //roomId: scope.selectedEntity.entityId || scope.selectedEntity.id,
+                share: scope.selectedEntityId,
+
                 // file upload시 comment 수정 가능함.
                 comment: scope.comment
               };
@@ -97,8 +99,11 @@
             // 하나의 file upload 시작
             onUpload: function(file, fileInfo) {
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
-              fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
+              //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
+              fileInfo.share = scope.scope.selectedEntityId;
+
               fileInfo.comment = el.find('#file_upload_comment').val();
+
 
               _setMentions(fileInfo);
 
@@ -205,13 +210,13 @@
           });
         }
       }
-  
+
       /**
        * image파일 upload시 upload modal에 보여지는 미리보기 용 dataUrl 생성한다.
        */
       function _createImgEle(scope, file) {
         var fileReader;
-    
+
         if (file.dataUrl) {
           scope.dataUrl = '';
           $timeout(function() {
@@ -221,7 +226,7 @@
           });
         } else {
           fileReader = new window.FileReader();
-      
+
           scope.dataUrl = '';
           fileReader.onload = function(e) {
             scope.$apply(function(scope) {
@@ -231,7 +236,7 @@
           fileReader.readAsDataURL(file);
         }
       }
-  
+
       /**
        * 현재 progress bar를 설정한다.
        * @param {object} file
@@ -246,10 +251,10 @@
           progress: 0,
           status: 'initiate'
         };
-    
+
         $rootScope.curUpload = _.extend(curUpload, options);
       }
-  
+
       /**
        * 마지막 file upload confirm이 진행 되었고, 더이상 upload를 진행하지 않는지 여부를 전달한다.
        * @param {number} index
@@ -260,7 +265,7 @@
       function _isUploadEnd(index, length) {
         return index === length && $rootScope.curUpload && $rootScope.curUpload.status === 'done';
       }
-  
+
       /**
        * progress bar의 style을 설정한다.
        * @param {string} type - 설정 type
@@ -269,7 +274,7 @@
        */
       function _setProgressBarStyle(type, index, length) {
         var jqProgressBar = $('.progress-striped').children();
-    
+
         // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
         // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
         // 일때 transition 적용을 잠시 해제함.
@@ -280,7 +285,7 @@
             jqProgressBar.css('width', 0).removeClass('animation-progress-bar');
           }
         } else if (type === 'progress') {
-      
+
           // progress bar animation 효과 설정
           jqProgressBar.addClass('animation-progress-bar');
         }
@@ -298,13 +303,15 @@
         var mentionMap;
         var mention;
 
-        if (room = EntityMapManager.get('total', fileInfo.roomId)) {
+        //if (room = EntityMapManager.get('total', fileInfo.roomId)) {
+        if (room = EntityMapManager.get('total', fileInfo.share)) {
           members = entityAPIservice.getMemberList(room);
 
           if (members && members.length > 0) {
             mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
             mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-            if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
+            //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
+            if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
               fileInfo.comment = mention.msg;
               fileInfo.mentions = mention.mentions;
             }

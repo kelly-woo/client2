@@ -1,3 +1,35 @@
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/tosslab/web_client/compare/v1.5.2...v1.5.3) (2015-10-22)
+
+
+### Bug Fixes
+
+* **right:** 텝 이동시 검색어 초기화 하도록 수정 ([d4a479e](https://github.com/tosslab/web_client/commit/d4a479e))
+
+
+
+<a name="1.5.2"></a>
+## [1.5.2](https://github.com/tosslab/web_client/compare/v1.5.1...v1.5.2) (2015-10-22)
+
+
+### Bug Fixes
+
+* **right:** comment에서 mention목록을 올바르게 가져오지 못하는 버그 수정 ([dc12ffc](https://github.com/tosslab/web_client/commit/dc12ffc))
+
+
+
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/tosslab/web_client/compare/v1.5.0...v1.5.1) (2015-10-21)
+
+
+### Bug Fixes
+
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([5ff656c](https://github.com/tosslab/web_client/commit/5ff656c))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([44a0e5a](https://github.com/tosslab/web_client/commit/44a0e5a))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([e708bc4](https://github.com/tosslab/web_client/commit/e708bc4))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/tosslab/web_client/compare/v1.4.2...v1.5.0) (2015-10-20)
 

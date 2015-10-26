@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function EntityMapManager() {
-    // 모든 엔티티(토픽/멤버)를 가지고 있는 맵, (id-entity) pair
+    // 엔티티(토픽/멤버)를 가지고 있는 맵. 단, memberEntityId는 제외함, (id-entity) pair
     var _totalEntityMap = {};
 
     // join한 public topic (id-entity) pair

@@ -12,7 +12,7 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog, JndUtil) {
+                            Dialog, JndUtil, EntityMapManager) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
@@ -105,7 +105,7 @@
       if (members && members.length) {
         for (i = 0; i < members.length; i++) {
           member = members[i];
-          entity = entityAPIservice.getEntityFromListById(totalEntities, member);
+          entity = EntityMapManager.get('total', member);
           if (!entity || !entity.name) {
             members.splice(i, 1);
             i -= 1;
