@@ -635,6 +635,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       $scope.isFileOwner = $filter('isFileWriter')($scope.file_detail);
       $scope.isAdmin = memberService.isAdmin();
+      $scope.isExternalShared = $scope.file_detail.content.externalShared;
 
       _setFileDownLoad($scope.file_detail);
     }
