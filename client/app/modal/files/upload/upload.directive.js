@@ -20,7 +20,7 @@
 
       var fileUploadOptions = scope.fileUploadOptions;
       var fileUploader;
-      var fileObject
+      var fileObject;
 
       _init();
 
@@ -100,7 +100,7 @@
             onUpload: function(file, fileInfo) {
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
               //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
-              fileInfo.share = scope.scope.selectedEntityId;
+              fileInfo.share = scope.selectedEntityId;
 
               fileInfo.comment = el.find('#file_upload_comment').val();
 
