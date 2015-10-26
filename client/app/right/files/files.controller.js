@@ -468,14 +468,12 @@
     }
 
     function _getFileRequest() {
-      var isSelectAll = $('#right-panel-search-select-all').prop('checked');
-
       var defaultRequest = {
         keyword: $scope.fileRequest.keyword,
         fileType: 'all',
         writerId: 'all'
       };
-      return $scope.isSelectAll ? defaultRequest : $scope.fileRequest;
+      return $scope.isSelectAll ? _.extend({}, $scope.fileRequest, defaultRequest): $scope.fileRequest;
     }
 
     /**

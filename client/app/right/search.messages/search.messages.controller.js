@@ -179,7 +179,6 @@
     }
 
     function _getSearchQuery() {
-      var isSelectAll = $('#right-panel-search-select-all').prop('checked');
       var defaultQuery = {
         q: $scope.searchQuery.q,
         page: $scope.searchQuery.page,
@@ -187,7 +186,7 @@
         writerId: '',
         entityId: ''
       };
-      return $scope.isSelectAll ? defaultQuery : $scope.searchQuery;
+      return $scope.isSelectAll ? _.extend({}, $scope.searchQuery, defaultQuery) : $scope.searchQuery;
     }
 
     /**
@@ -201,7 +200,6 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
-      console.log('###searchMessages', _getSearchQuery())
       messageAPIservice.searchMessages(_getSearchQuery())
         .success(function(response) {
           if (_isActivated) {
