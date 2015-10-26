@@ -192,13 +192,16 @@
       var isArchived = (msg.message.status === 'archived');
       var hasPreview = $filter('hasPreview')(content);
       var icon = $filter('fileIcon')(content);
+      var hasPermission = _hasPermission(msg);
+      var isUnshared = _isUnshared(msg);
 
       return _template({
         html: {
           loading: Loading.getTemplate()
         },
         css: {
-          unshared: _isUnshared(msg) ? 'unshared' : '',
+          unshared: isUnshared ? 'unshared' : '',
+          privateUnshared: (!hasPermission && isUnshared) ? 'private-unshared' : '',
           wrapper: isArchived ? ' archived-file': '',
           star: RendererUtil.getStarCssClass(msg),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
@@ -207,7 +210,7 @@
           download: _getFileDownloadAttrs(msg)
         },
         file: {
-          hasPermission: _hasPermission(msg),
+          hasPermission: hasPermission,
           icon: icon,
           isImageIcon: icon === 'img',
           mustPreview: $filter('mustPreview')(content),

@@ -268,6 +268,8 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.unreadCount : stack1), depth0))
     + "</span>\n      </span>\n  </div>\n\n  <div class=\"msg-item-body\">\n    <!-- FILE -->\n    <div class=\"msg-file "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.unshared : stack1), depth0))
+    + " "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.privateUnshared : stack1), depth0))
     + "\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "    </div>\n  </div>\n</div>\n";
