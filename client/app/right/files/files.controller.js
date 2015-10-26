@@ -33,6 +33,7 @@
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
       $scope.isEndOfList = false;
+      $scope.isSelectAll = false;
 
       $scope.fileType = 'file';
       $scope.fileList = [];
@@ -88,6 +89,8 @@
         _refreshFileList();
       }
     }
+
+    $scope.$on('rPanelToggleSelectAll', _onToggleSelectAll);
 
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
@@ -241,6 +244,19 @@
     $scope.$on('changedLanguage', function() {
       _setLanguageVariable();
     });
+
+    /**
+     *
+     * @param angularEvent
+     * @param isSelectAll
+     * @private
+     */
+    function _onToggleSelectAll(angularEvent, isSelectAll) {
+      $scope.isSelectAll = isSelectAll;
+      if (_isActivated) {
+        _refreshFileList();
+      }
+    }
 
     /**
      * has file id
@@ -451,13 +467,23 @@
       getFileList();
     }
 
+    function _getFileRequest() {
+      var isSelectAll = $('#right-panel-search-select-all').prop('checked');
+
+      var defaultRequest = {
+        keyword: $scope.fileRequest.keyword,
+        fileType: 'all',
+        writerId: 'all'
+      };
+      return $scope.isSelectAll ? defaultRequest : $scope.fileRequest;
+    }
+
     /**
      * file list 전달
      */
     function getFileList() {
       _updateSearchStatusKeyword();
-      console.log('###', $scope.fileRequest);
-      fileAPIservice.getFileList($scope.fileRequest)
+      fileAPIservice.getFileList(_getFileRequest())
         .success(function(response) {
 
           var fileList = [];

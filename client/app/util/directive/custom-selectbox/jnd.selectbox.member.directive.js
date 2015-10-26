@@ -16,7 +16,8 @@
       scope: {
         callback: '=jndSelectboxMember',
         selectedValue: '=jndDataModel',
-        list: '=jndDataList'
+        list: '=jndDataList',
+        isDisabled: '=jndDataIsDisabled'
       },
       templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.member.html'
     };
@@ -134,8 +135,10 @@
         return scope.list  || EntityMapManager.getMap('member');
       }
       function toggleShow() {
-        scope.isShown = !scope.isShown;
-        _initializeData();
+        if (!scope.isDisabled) {
+          scope.isShown = !scope.isShown;
+          _initializeData();
+        }
       }
       /**
        * keyup 이벤트 핸들러

@@ -1,7 +1,8 @@
 <div class="_selectbox">
   <div class="custom-select-box-btn"
        ng-class="{
-        'active': isShown
+        'active': isShown,
+        'disabled': isDisabled
        }"
       ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>

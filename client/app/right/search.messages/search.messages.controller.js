@@ -27,6 +27,7 @@
     function _init() {
       $scope.isSearching = false;
       $scope.isEndOfList = false;
+      $scope.isSelectAll = false;
       $scope.apiError = false;
       $scope.messageLocationId = '';
       $scope.messageWriterId = '';
@@ -60,6 +61,7 @@
     function _on() {
       $scope.$on('onInitLeftListDone', _onInitLeftListDone);
       $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
+      $scope.$on('rPanelToggleSelectAll', _onToggleSelectAll);
       $scope.$on('onRightPanel', _onRightPanel);
       $scope.$on('changedLanguage', _changedLanguage);
       $scope.$on('topic-folder:update', _initChatRoomOption);
@@ -67,6 +69,21 @@
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
       $scope.$watch('messageLocationId', updateMessageLocationFilter);
       $scope.$watch('messageWriterId', updateMessageWriterFilter);
+    }
+
+    /**
+     * select all 버튼 토글 시
+     * @param angularEvent
+     * @param isSelectAll
+     * @private
+     */
+    function _onToggleSelectAll(angularEvent, isSelectAll) {
+      $scope.isSelectAll = isSelectAll;
+
+      if (_isActivated) {
+        _refreshSearchQuery();
+        searchMessages();
+      }
     }
 
     /**
@@ -161,6 +178,18 @@
       searchMessages();
     }
 
+    function _getSearchQuery() {
+      var isSelectAll = $('#right-panel-search-select-all').prop('checked');
+      var defaultQuery = {
+        q: $scope.searchQuery.q,
+        page: $scope.searchQuery.page,
+        perPage: $scope.searchQuery.perPage,
+        writerId: '',
+        entityId: ''
+      };
+      return $scope.isSelectAll ? defaultQuery : $scope.searchQuery;
+    }
+
     /**
      * 메세지를 찾는다.
      */
@@ -172,8 +201,8 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
-
-      messageAPIservice.searchMessages($scope.searchQuery)
+      console.log('###searchMessages', _getSearchQuery())
+      messageAPIservice.searchMessages(_getSearchQuery())
         .success(function(response) {
           if (_isActivated) {
             //console.log(response)

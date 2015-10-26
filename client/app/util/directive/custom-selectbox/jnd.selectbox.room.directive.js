@@ -17,6 +17,7 @@
         selectedValue: '=jndDataModel',
         callback: '=jndSelectboxRoom',
         list: '=jndDataList',
+        isDisabled: '=jndDataIsDisabled',
         hasAll: '@jndHasAll',
         hasDisabled: '@jndHasDisabled',
         onlyTopics: '@jndOnlyTopics'
@@ -208,8 +209,10 @@
       }
 
       function toggleShow() {
-        scope.isShown = !scope.isShown;
-        _initializeData();
+        if (!scope.isDisabled) {
+          scope.isShown = !scope.isShown;
+          _initializeData();
+        }
       }
       /**
        * keyup 이벤트 핸들러

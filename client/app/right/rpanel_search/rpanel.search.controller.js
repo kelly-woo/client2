@@ -11,10 +11,13 @@
 
   /* @ngInject */
   function rPanelSearchCtrl($scope, $filter, jndPubSub) {
+    $scope.toggleSelectAll = toggleSelectAll;
+
     _init();
 
     // First function to be called.
     function _init() {
+      $scope.isSelectAll = false;
       $scope.isConnected = true;
       _setLanguageVariable();
       _addEventListener();
@@ -44,6 +47,15 @@
     $scope.onFileTitleQueryEnter = function(value) {
       jndPubSub.pub('onrPanelFileTitleQueryChanged', value);
     };
+
+    $scope.toggleSelectAll = toggleSelectAll;
+
+    function toggleSelectAll(clickEvent) {
+      if (!$(clickEvent.target).is('input')) {
+        $scope.isSelectAll = !$scope.isSelectAll;
+      }
+      jndPubSub.pub('rPanelToggleSelectAll', $scope.isSelectAll);
+    }
 
     /**
      * 현재 가지고 있는 keyword 를 reset 한다.

@@ -6,7 +6,10 @@
       <div class="advanced-search-option__title">
         <span translate>@common-entity-location</span>
       </div>
-      <jnd-selectbox-room jnd-data-model="messageLocationId" jnd-has-all="yes" jnd-has-disabled="yes"></jnd-selectbox-room>
+      <jnd-selectbox-room jnd-data-model="messageLocationId"
+                          jnd-has-all="yes"
+                          jnd-has-disabled="yes"
+                          jnd-data-is-disabled="isSelectAll"></jnd-selectbox-room>
       <!--<select class="_chatRoomOptions"-->
               <!--ng-model="messageLocation"-->
               <!--ng-options="channel as channel|getName group by channel.extGroupName for channel in chatRoomOptions"-->
@@ -20,7 +23,9 @@
       <div class="advanced-search-option__title">
         <span translate>@common-message-writer</span>
       </div>
-      <jnd-selectbox-member jnd-data-model="messageWriterId" jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
+      <jnd-selectbox-member jnd-data-model="messageWriterId"
+                            jnd-data-list="selectOptionsUsers"
+                            jnd-data-is-disabled="isSelectAll"></jnd-selectbox-member>
       <!--<select ng-model="messageWriter"-->
               <!--ng-click="onClick();"-->
               <!--ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"-->

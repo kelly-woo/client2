@@ -15,7 +15,8 @@
       replace: true,
       scope: {
         selectedValue: '=jndDataModel',
-        list: '=jndDataList'
+        list: '=jndDataList',
+        isDisabled: '=jndDataIsDisabled'
       },
       templateUrl: 'app/util/directive/custom-selectbox/jnd.selectbox.file.html'
     };
@@ -108,8 +109,10 @@
       }
 
       function toggleShow() {
-        scope.isShown = !scope.isShown;
-        _initializeData();
+        if (!scope.isDisabled) {
+          scope.isShown = !scope.isShown;
+          _initializeData();
+        }
       }
       /**
        * keyup 이벤트 핸들러
