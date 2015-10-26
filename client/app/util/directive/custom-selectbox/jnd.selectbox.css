@@ -25,7 +25,7 @@
   margin-top:4px;
   margin-bottom:4px;
   padding-left: 36px;
-  border-width: 0px;
+  border-width: 0;
 }
 
 
@@ -42,10 +42,14 @@
 
 .custom-select-box__search-result-items .active,
 .custom-select-box__menulist .active {
-  background-color: #e8f3f9;
+  background-color: #e8f3f9 !important;
   cursor: pointer;
-  /*background-color: #F1F4F8;*/
-  /*cursor: pointer;*/
+}
+
+.custom-select-box__search-result-items .selected,
+.custom-select-box__menulist .selected {
+  background-color: #F1F4F8;
+  cursor: pointer;
 }
 
 .custom-select-box__menulist .select-all i {

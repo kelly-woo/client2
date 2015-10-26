@@ -109,6 +109,8 @@
            scope.onChange(angular.element(jqTarget).scope());
            if (!isInitial) {
              _close();
+           } else {
+             jqTarget.addClass('selected');
            }
          });
        }
