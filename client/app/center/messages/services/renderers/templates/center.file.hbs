@@ -70,11 +70,13 @@
             <!--  NOT ARCHIVED FILE -->
             <!--    TITLE   -->
             <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">{{ file.title }}</a>
-            {{#if file.size}}
             <span class="bullet">•</span>
-            <!--    SIZE AND FILE TYPE  -->
-            <span class="msg-file-meta-info">{{ file.size }}</span>
-            {{/if}}
+            {{#unless file.isIntegrateFile}}
+              {{#if file.size}}
+                <!--    SIZE AND FILE TYPE  -->
+                <span class="msg-file-meta-info">{{ file.size }}</span>
+              {{/if}}
+            {{/unless}}
             <span class="msg-file-meta-info">{{ file.type }}</span>
             {{#if file.hasPreview}}
             <i class="preview-icon icon-angle-down non-selectable _fileToggle"></i>
@@ -138,11 +140,13 @@
             <!--  NOT ARCHIVED FILE -->
             <!--    TITLE   -->
             <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">{{ file.title }}</a>
-            {{#if file.size}}
-              <span class="bullet">•</span>
+            <span class="bullet">•</span>
+            {{#unless file.isIntegrateFile}}
+              {{#if file.size}}
               <!--    SIZE AND FILE TYPE  -->
               <span class="msg-file-meta-info">{{ file.size }}</span>
-            {{/if}}
+              {{/if}}
+            {{/unless}}
             <span class="msg-file-meta-info">{{ file.type }}</span>
           </div>
         </div>
