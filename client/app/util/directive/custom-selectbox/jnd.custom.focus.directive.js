@@ -38,7 +38,7 @@
      }
 
      /**
-      * event handler 를 attch 한다
+      * event handler 를 attach 한다
       * @private
       */
      function _attachEvents() {
@@ -116,12 +116,19 @@
        }
      }
 
+     /**
+      * selectbox 를 닫는다
+      */
      function _close() {
        if (_.isFunction(scope.close)) {
          scope.close();
        }
      }
 
+     /**
+      * 초기 select 될 item을 설정한다
+      * @private
+      */
      function _initialSelect() {
        if (scope.selectedValue) {
          _focusByValue(scope.selectedValue);
@@ -130,6 +137,7 @@
        }
        _select(_jqCurrent, true);
      }
+
      /**
       * keydown 이벤트 핸들러
       * @param {object} keyEvent
@@ -156,6 +164,11 @@
        }
      }
 
+     /**
+      * event bubbling 을 방지한다
+      * @param {object} domEvent
+      * @private
+      */
      function _preventEventBubbling(domEvent) {
        domEvent.preventDefault();
        domEvent.stopPropagation();
@@ -170,10 +183,20 @@
      function _onFocus(angularEvent, jqTarget) {
        _focus(jqTarget);
      }
+
+     /**
+      * 현재 focus 된 element 가 존재하는지 여부를 반환한다
+      * @returns {boolean}
+      * @private
+      */
      function _hasFocus() {
        return !!(_jqCurrent && _jqCurrent.length);
      }
 
+     /**
+      * 다음 item 에 focus 한다
+      * @private
+      */
      function _focusNext() {
        var jqList = el.find('._selectable');
        var jqEl;
@@ -192,68 +215,10 @@
        _focus(jqTarget);
      }
 
-     function _blur() {
-       el.find('._selectable').removeClass('active');
-     }
-
-     function _focus(jqTarget) {
-       _blur();
-       if (jqTarget && jqTarget.length) {
-         _jqCurrent = jqTarget;
-       } else if (!_jqCurrent || !_jqCurrent.length || _jqCurrent.is(':hidden')) {
-         _jqCurrent = el.find('._selectable:first');
-       }
-
-       _jqCurrent.addClass('active');
-       _adjustScroll();
-       _jqInput.focus();
-     }
-
-     function _focusByValue(value) {
-       var jqList = el.find('._selectable');
-       var jqEl;
-       var jqTarget = jqList.eq(0);
-       var jqNext;
-
-       _.forEach(jqList, function (el, index) {
-         jqEl = angular.element(el);
-         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
-           jqTarget = jqEl;
-           return false;
-         }
-       });
-
-       _focus(jqTarget);
-     }
-
-     function _adjustScroll() {
-       var jqContainer = _jqCurrent.closest('._container');
-       var scrollTop = jqContainer.scrollTop();
-       if (jqContainer.length) {
-         jqContainer.scrollTop(scrollTop + _getDifference());
-       }
-     }
-
-     function _getDifference() {
-       var jqContainer = _jqCurrent.closest('._container');
-       var offset = jqContainer.offset();
-       var scrollTop = jqContainer.scrollTop();
-       var height = jqContainer.outerHeight();
-
-       var currentOffset = _jqCurrent.offset();
-       var currentHeight = _jqCurrent.outerHeight();
-
-       var difference = 0;
-
-       if (offset.top > currentOffset.top) {
-         difference = currentOffset.top - offset.top;
-       } else if (offset.top + height < currentOffset.top + currentHeight) {
-         difference = (currentOffset.top + currentHeight) - (offset.top + height);
-       }
-       return difference;
-     }
-
-
+     /**
+      * 이전 element 에 focus 처리한다
+      * @private
+      */
      function _focusPrev() {
        var jqList = el.find('._selectable');
        var jqEl;
@@ -272,6 +237,88 @@
          jqTarget = jqList.eq(0);
        }
        _focus(jqTarget);
+     }
+
+     /**
+      * blur 처리한다
+      * @private
+      */
+     function _blur() {
+       el.find('._selectable').removeClass('active');
+     }
+
+     /**
+      * 대상 target 에 focus 처리한다
+      * @param {object} jqTarget
+      * @private
+      */
+     function _focus(jqTarget) {
+       _blur();
+       if (jqTarget && jqTarget.length) {
+         _jqCurrent = jqTarget;
+       } else if (!_jqCurrent || !_jqCurrent.length || _jqCurrent.is(':hidden')) {
+         _jqCurrent = el.find('._selectable:first');
+       }
+
+       _jqCurrent.addClass('active');
+       _adjustScroll();
+       _jqInput.focus();
+     }
+
+     /**
+      * 인자로 받은 value 에 해당하는 엘리먼트에 focus 처리한다
+      * @param {string|number} value
+      * @private
+      */
+     function _focusByValue(value) {
+       var jqList = el.find('._selectable');
+       var jqEl;
+       var jqTarget = jqList.eq(0);
+
+       _.forEach(jqList, function (el, index) {
+         jqEl = angular.element(el);
+         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
+           jqTarget = jqEl;
+           return false;
+         }
+       });
+
+       _focus(jqTarget);
+     }
+
+     /**
+      * scroll 위치를 조정한다
+      * @private
+      */
+     function _adjustScroll() {
+       var jqContainer = _jqCurrent.closest('._container');
+       var scrollTop = jqContainer.scrollTop();
+       if (jqContainer.length) {
+         jqContainer.scrollTop(scrollTop + _getDifference());
+       }
+     }
+
+     /**
+      * scroll 위치를 조정하기 위한 오차값을 반환한다
+      * @returns {number}
+      * @private
+      */
+     function _getDifference() {
+       var jqContainer = _jqCurrent.closest('._container');
+       var offset = jqContainer.offset();
+       var height = jqContainer.outerHeight();
+
+       var currentOffset = _jqCurrent.offset();
+       var currentHeight = _jqCurrent.outerHeight();
+
+       var difference = 0;
+
+       if (offset.top > currentOffset.top) {
+         difference = currentOffset.top - offset.top;
+       } else if (offset.top + height < currentOffset.top + currentHeight) {
+         difference = (currentOffset.top + currentHeight) - (offset.top + height);
+       }
+       return difference;
      }
    }
 

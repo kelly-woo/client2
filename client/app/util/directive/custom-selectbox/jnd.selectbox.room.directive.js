@@ -1,5 +1,5 @@
 /**
- * @fileoverview compile 시 { } syntax 를 무시하는 디렉티브
+ * @fileoverview room 커스텀 셀렉트박스 디렉티브
  */
 (function() {
   'use strict';
@@ -47,6 +47,9 @@
         _attachDomEvents();
       }
 
+      /**
+       * selectbox 를 닫는다
+       */
       function close() {
         el.find('.custom-select-box').hide();
         scope.isShown = false;
@@ -134,6 +137,12 @@
           });
         }
       }
+
+      /**
+       * filter 를 적용한 folder hierarchy 데이터 형태로 가공한다.
+       * @returns {*|{}}
+       * @private
+       */
       function _getFolderData() {
         var folderData = TopicFolderModel.getFolderData();
         var entityList;
@@ -160,6 +169,10 @@
         return folderData;
       }
 
+      /**
+       * change 이벤트 핸들러
+       * @param targetScope
+       */
       function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.name;
@@ -174,10 +187,19 @@
         }
       }
 
+      /**
+       * 차단 사용자 노출 여부를 toggle 한다
+       */
       function toggleDisabled() {
         scope.isShowDisabled = !scope.isShowDisabled;
       }
 
+      /**
+       * (차단 사용자 리스트를 노출할지 여부 확인을 위해)
+       * 차단 사용자가 선택되었는지 여부를 반환한다.
+       * @returns {boolean}
+       * @private
+       */
       function _isDisabledMemberSelected() {
         return !!_.find(scope.memberData.disabledList, function(member) {
           return member.id === scope.selectedValue;
@@ -208,6 +230,9 @@
         };
       }
 
+      /**
+       * select 레이어의 노출 여부를 toggle 한다
+       */
       function toggleShow() {
         if (!scope.isDisabled) {
           scope.isShown = !scope.isShown;
@@ -246,6 +271,11 @@
         }
       }
 
+      /**
+       * filter 에 걸린 모든 entity 들을 반환한다
+       * @returns {*}
+       * @private
+       */
       function _getAllEntities() {
         var allEntities = _.extend(
           EntityMapManager.getMap('joined'),
@@ -259,9 +289,17 @@
         }
         return allEntities;
       }
+
+      /**
+       * 동일 keyword 인지 여부를 반환한다
+       * @param {string} keyword
+       * @returns {boolean}
+       * @private
+       */
       function _isSameKeyword(keyword) {
         return _lastKeyword === keyword;
       }
+
       /**
        * 검색한 message 를 highlight 처리한다
        * @param {string} string - 검색 대상 string

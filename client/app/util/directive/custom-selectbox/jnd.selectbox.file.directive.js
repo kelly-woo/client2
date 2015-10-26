@@ -1,5 +1,5 @@
 /**
- * @fileoverview compile 시 { } syntax 를 무시하는 디렉티브
+ * @fileoverview file 커스텀 셀렉트박스 디렉티브
  */
 (function() {
   'use strict';
@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxFile', jndSelectboxFile);
 
-  function jndSelectboxFile(EntityMapManager, TopicFolderModel, publicService, jndKeyCode, jndPubSub, JndUtil) {
+  function jndSelectboxFile(JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -34,6 +34,7 @@
       };
 
       var _lastKeyword = '';
+
       scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
@@ -53,27 +54,51 @@
         _attachDomEvents();
       }
 
+      /**
+       * selectbox 를 닫는다
+       */
       function close() {
         el.find('.custom-select-box').hide();
         scope.isShown = false;
       }
 
+      /**
+       * 소멸자
+       * @private
+       */
       function _onDestroy() {
         _detachDomEvents();
       }
 
+      /**
+       * 이벤트 바인딩 한다
+       * @private
+       */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
       }
 
+      /**
+       * DOM 이벤트 바인딩
+       * @private
+       */
       function _attachDomEvents() {
         $(document).on('mousedown', _onMouseDownDocument);
       }
 
+      /**
+       * DOM 이벤트 바인딩 해제
+       * @private
+       */
       function _detachDomEvents() {
         $(document).off('mousedown', _onMouseDownDocument);
       }
 
+      /**
+       * Document 의 mouse-down 이벤트 핸들러
+       * @param {Event} clickEvent
+       * @private
+       */
       function _onMouseDownDocument(clickEvent) {
         if (!$(clickEvent.target).closest('._selectbox').is(el)) {
           JndUtil.safeApply(scope, function() {
@@ -83,6 +108,11 @@
         }
       }
 
+      /**
+       * 현재 선택된 item 의 name 값을 반환한다
+       * @returns {*}
+       * @private
+       */
       function _getSelectedName() {
         var selectedItem;
 
@@ -92,11 +122,19 @@
         return selectedItem ? selectedItem.viewValue : scope.list[0].viewValue;
       }
 
+      /**
+       * Data 를 초기화 한다
+       * @private
+       */
       function _initializeData() {
         scope.searchList = [];
         scope.selectedName = _getSelectedName();
       }
 
+      /**
+       * change 이벤트 핸들러
+       * @param targetScope
+       */
       function onChange(targetScope) {
         if (targetScope.item) {
           scope.selectedName = targetScope.item.viewValue;
@@ -108,6 +146,9 @@
         }
       }
 
+      /**
+       * select 레이어의 노출 여부를 toggle 한다
+       */
       function toggleShow() {
         if (!scope.isDisabled) {
           scope.isShown = !scope.isShown;
@@ -147,9 +188,16 @@
         }
       }
 
+      /**
+       * 동일 keyword 인지 여부를 반환한다
+       * @param {string} keyword
+       * @returns {boolean}
+       * @private
+       */
       function _isSameKeyword(keyword) {
         return _lastKeyword === keyword;
       }
+
       /**
        * 검색한 message 를 highlight 처리한다
        * @param {string} string - 검색 대상 string
