@@ -136,6 +136,9 @@
     // 'application/postscript'는 .ai 파일을 위함.
     var fileIconImageMap = {
       'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop', 'application/postscript'],
+      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-t msvideo',
+        'video/mpeg', 'video/x-ms-wma'],
+      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
       'pdf': ['application/pdf'],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
