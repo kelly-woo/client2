@@ -33,12 +33,12 @@
   border-color:#BDC0C2;
 }
 .custom-select-box-btn.active {
-  background-color:#DBDEDF;
+  background-color:#E7E7E8;
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
 }
 .custom-select-box-btn.active span,
 .custom-select-box-btn.active i {
-  color: #5C666E;
+  color: #424C53;
 }
 .custom-select-box-btn.disabled {
   background-color: #CCC;
