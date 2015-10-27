@@ -4,8 +4,8 @@
   position: relative;
 }
 .header {
-  height: 41px;
-  line-height: 41px;
+  height: 42px;
+  line-height: 42px;
   background-color: #154a67;
   min-width: 220px;
   color: white;
@@ -24,6 +24,12 @@
   float: left;
   margin-top: 12px;
 }
+.header-navbar-invite {
+  margin-left: 6px;
+}
+.header-navbar-quick-launcher {
+  margin-left: 2px;
+}
 .header-navbar-menu,
 .header-navbar-invite,
 .header-navbar-settings,
@@ -37,7 +43,7 @@
 .header-navbar-invite,
 .header-navbar-settings,
 .header-navbar-quick-launcher {
-  margin-right: 10px;
+  margin-right: 6px;
 }
 .header-navbar-menu.open,
 .header-navbar-settings.open {
@@ -58,10 +64,13 @@
 .header-navbar-menu.open .dot {
   border: 2px solid #173e54;
 }
-	
+.header-navbar-quick-launcher {
+  position: absolute !important;
+  left:238px;
+}	
 
 #team-menu .header-navbar__topmenu {
-  padding: 0 10px 0 14px;
+  padding: 0 12px 0 12px;
   z-index: 100;
 }
 #invite .header-navbar__topmenu {
@@ -70,7 +79,8 @@
 }
 .header-navbar__topmenu {
   display: block;
-  padding: 0 4px 0 8px;
+  padding: 0 10px 0 12px;
+  line-height: 41px;
 }
 #invite .icon-user-plus {
   font-size: 17px;
@@ -148,8 +158,11 @@
 }
 
 .header-navbar-quick-launcher .quick-launcher {
-  padding: 5px 14px 5px 14px;
+  padding: 7px 13px 7px 13px;
+  margin-top:7px;
   border-radius: 14px;
+  display: block;
+  line-height: 14px;
   background-color: white;
   color: #154a67;
   font-weight: 700;
@@ -223,6 +236,17 @@
 @media (max-width: 825px) {
   .header-navbar .header-navbar__title {
     display: none;
+  }
+  .header-navbar {
+	width: 240px;
+  }
+  .header-navbar-quick-launcher {
+	position: relative !important;
+	float:right;
+	left:auto;
+  }
+  .header-navbar-menu .header-navbar__topmenu {
+	padding:0 14px 0 14px !important;
   }
 }
 
