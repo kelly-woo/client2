@@ -2,9 +2,8 @@
   <span class="add-on-left">
     <i class="icon-search"></i>
   </span>
-  <div class="rpanel-search-select-all-container" ng-click="toggleSelectAll($event);">
-    <input type="checkbox" ng-model="isSelectAll">
-    <span translate>@select-all</span>
+  <div class="rpanel-search-select-all-container" ng-click="toggleSelectAll($event);" tooltip="초기화" tooltip-placement="top">
+	<i class="icon-refresh"></i>
   </div>
   <input type="text"
          id="right-panel-search-box"
