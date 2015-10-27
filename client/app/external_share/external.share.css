@@ -3,3 +3,33 @@
   height: 34px!important;
   background-color: #eee;
 }
+
+.dialog-modal .external-unshare-title,
+.dialog-modal .external-share-title {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+.dialog-modal .external-share-title {
+  text-align: left;
+}
+
+.dialog-modal .external-share-title > span {
+  display: inline-block;
+  padding: 7px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  font-size: 20px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.dialog-modal .external-share-body {
+  text-align: left;
+}
+
+.dialog-modal .external-share-body > span {
+  display: inline-block;
+  margin-top: 12px;
+}

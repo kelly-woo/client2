@@ -8,18 +8,19 @@
     .module('jandiApp')
     .directive('externalShareView', externalShareView);
 
-  function externalShareView($sce, $filter, memberService, ExternalShareAPIService, Dialog) {
+  function externalShareView($sce, $filter, memberService, ExternalShareService, Dialog) {
     return {
       restrict: 'A',
       scope: {
+        externalUrl: '=?',
+        externalCode: '=?',
+        externalShared: '=?',
         isExternalShared: '=externalShareView',
       },
       link: link
     };
     
     function link(scope, el, attrs) {
-      var externalShareDomain = '';
-
       // team id
       var teamId = attrs.teamId || memberService.getTeamId();
 
@@ -49,13 +50,19 @@
 
       /**
        * click 이벤트 리스너
-       * @param {Event} clickEvent
+       * @param {Event} event
        * @private
        */
       function _onClick(event) {
         //event.stopPropagation();
 
-        scope.isExternalShared ? _openExternalUnshareDialog() : _setExternalShare();
+        if (scope.isExternalShared) {
+          ExternalShareService.openUnshareDialog(function() {
+            _setExternalUnshare();
+          });
+        } else {
+          _setExternalShare();
+        }
       }
       
       /**
@@ -103,58 +110,20 @@
        * @private
        */
       function _setExternalShare() {
-        ExternalShareAPIService.share(fileId, teamId)
+        ExternalShareService.share(fileId, teamId)
           .success(function(data) {
             var content;
 
             if (content = data.content) {
-              _openExternalShareDialog(content);
+              scope.externalUrl = content.externalUrl;
+              scope.externalCode = content.externalCode;
+              scope.externalShared = content.externalShared;
+
               scope.isExternalShared = !scope.isExternalShared;
+
+              ExternalShareService.openShareDialog(content, true);
             }
           });
-      }
-
-      /**
-       * external share dialog를 연다.
-       * @param {object} ontent
-       * @private
-       */
-      function _openExternalShareDialog(content) {
-        var externalShareUri = externalShareDomain + content.externalCode;
-        var confirmTitle = content.name + '의 공유용 링크';
-        var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
-                          '<br><span>Ctrl+C를 눌러 링크를 복사하세요!</span>';
-
-        Dialog.success({
-          title: '공유 링크가 성공적으로 생성되었습니다.'
-        });
-
-        Dialog.confirm({
-          allowHtml: true,
-          title: confirmTitle,
-          body: $sce.trustAsHtml(confirmBody),
-          confirmButtonText: '새 창에서 링크 열기',
-          cancelButtonText: '닫기',
-          onClose: function(type) {
-            type === 'okay' && window.open(externalShareUri, '_blank');
-          }
-        });
-      }
-
-      /**
-       * external unshare dialog를 연다.
-       * @private
-       */
-      function _openExternalUnshareDialog() {
-        Dialog.confirm({
-          title: '이 파일의 외부 공유용 링크를 삭제합니다.',
-          body: '링크 삭제 시 이전 링크로는 더 이상 파일에 접근할 수 없게 됩니다.',
-          confirmButtonText: '삭제하기',
-          cancelButtonText: '닫기',
-          onClose: function(type) {
-            type === 'okay' && _setExternalUnshare();
-          }
-        });
       }
 
       /**
@@ -162,9 +131,17 @@
        * @private
        */
       function _setExternalUnshare() {
-        ExternalShareAPIService.unshare(fileId, teamId)
-          .success(function() {
-            scope.isExternalShared = !scope.isExternalShared;
+        ExternalShareService.unshare(fileId, teamId)
+          .success(function(data) {
+            var content;
+
+            if (content = data.content) {
+              scope.externalUrl = content.externalUrl;
+              scope.externalCode = content.externalCode;
+              scope.externalShared = content.externalShared;
+
+              scope.isExternalShared = !scope.isExternalShared;
+            }
           });
       }
     }

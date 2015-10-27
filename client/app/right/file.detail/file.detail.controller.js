@@ -59,7 +59,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
         $scope.deleteComment = deleteComment;
         $scope.postComment = postComment;
-        $scope.onImageClick = onImageClick;
         $scope.onClickDownload = onClickDownload;
         $scope.onClickShare = onClickShare;
         $scope.onClickUnshare = onClickUnshare;
@@ -70,7 +69,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         $scope.onUserClick = onUserClick;
         $scope.onCommentFocusClick = onCommentFocusClick;
         $scope.onKeyUp = onKeyUp;
-        $scope.onFileDetailImageLoad = onFileDetailImageLoad;
         $scope.onStarClick = onStarClick;
         $scope.starComment = starComment;
         $scope.getCreateTime = getCreateTime;
@@ -285,51 +283,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onCommentFocusClick() {
     _focusInput();
-  }
-
-  /**
-   * file detail에서 preview 공간에 들어갈 image의 url을 설정함
-   */
-  function setImageUrl(content) {
-    console.log($scope.fileIcon);
-    console.log(content)
-    console.log(content.icon !== 'etc')
-
-    if ($scope.fileIcon === 'img' && content.icon !== 'etc') {
-      console.log('img and not etc');
-      $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
-      $scope.hasZoomIn = true;
-      $scope.previewCursor = 'zoom-in';
-    } else {
-      console.log('getFilterTypePreview')
-      $scope.ImageUrl = $filter('getFilterTypePreview')(content);
-      $scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
-    }
-  }
-
-  /**
-   * 이미지 클릭시 이벤트 핸들러
-   */
-  function onImageClick($event) {
-    var file_detail = $scope.file_detail;
-
-    if ($filter('isIntegrationContent')(file_detail.content)) {
-      window.open(file_detail.content.fileUrl, '_blank');
-    } else {
-      if (!$($event.target).hasClass('no-image-preview') && $scope.hasZoomIn) {
-        modalHelper.openImageCarouselModal({
-          // image file api data
-          messageId: fileId,
-          // image carousel view data
-          userName: file_detail.writer.name,
-          uploadDate: file_detail.createTime,
-          fileTitle: file_detail.content.title,
-          fileUrl: file_detail.content.fileUrl,
-          // single
-          isSingle: true
-        });
-      }
-    }
   }
 
   /**
@@ -622,10 +575,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       // file icon
       $scope.fileIcon = $filter('fileIcon')($scope.file_detail.content);
-      if ($scope.file_detail.content) {
-        // preview image url 생성
-        setImageUrl($scope.file_detail.content);
-      }
 
       // writer
       $scope.file_detail.extWriter = EntityMapManager.get('member', $scope.file_detail.writerId);
@@ -762,12 +711,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function backToFileList() {
     $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
-  }
-
-  function onFileDetailImageLoad() {
-    $scope.$apply(function() {
-      $scope.isLoadingImage = false;
-    });
   }
 
   /**

@@ -84,8 +84,11 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a class="external-share-file" external-share-view="isExternalShared" file-id="{{::file_detail.id}}">
-                  <i ng-class="isExternalShared ? 'fa fa-external-link-square' : 'fa fa-external-link'"></i>
+                <a class="external-share-file" external-share-view="isExternalShared" file-id="{{::file_detail.id}}"
+                   external-code="file_detail.content.externalCode"
+                   external-url="file_detail.content.externalUrl"
+                   external-shared="file_detail.content.externalShared">
+                  <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
                   <span><span ng-if="isExternalShared" translate>외부 공유용 링크 삭제</span><span ng-if="!isExternalShared" translate>외부 공유용 링크 생성</span></span>
                 </a>
               </li>
@@ -101,12 +104,7 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" style="cursor: {{::previewCursor}};" ng-click="onImageClick($event);" file-detail-preview
-             image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
-        </div>
-        <div class="loading_bar" ng-if="!!isLoadingImage">
-          <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-        </div>
+        <file-detail-preview file-detail="file_detail" file-icon="fileIcon" is-external-shared="isExternalShared"></file-detail-preview>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
           <div class="fileicon fileicon-{{::fileIcon}}"></div>
