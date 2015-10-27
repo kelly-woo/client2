@@ -13,10 +13,10 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  -webkit-transition: background-color ease-in-out .12s, box-shadow .12s;
-  -o-transition: background-color ease-in-out .12sv;
-  -moz-transition: background-color ease-in-out .12s, box-shadow .12s;
-  transition: background-color ease-in-out .12s, box-shadow .12s;
+  -webkit-transition: background-color 150ms, box-shadow 150ms;
+  -o-transition: background-color 150ms, box-shadow 150ms;
+  -moz-transition: background-color 150ms, box-shadow 150ms;
+  transition: background-color 150ms, box-shadow 150ms;
 }
 /*.custom-select-box-btn:hover,*/
 /*.advanced-search-option__category .custom-select-box-btn:hover {*/
