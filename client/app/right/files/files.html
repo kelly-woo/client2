@@ -7,8 +7,7 @@
     </div>
     <jnd-selectbox-room jnd-data-model="sharedEntitySearchQuery"
                         jnd-has-all="yes"
-                        jnd-has-disabled="yes"
-                        jnd-data-is-disabled="isSelectAll"></jnd-selectbox-room>
+                        jnd-has-disabled="yes"></jnd-selectbox-room>
     <!--<select class="_chatRoomOptions"-->
             <!--ng-model="sharedEntitySearchQuery"-->
             <!--ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">-->
@@ -21,8 +20,7 @@
       <span translate>@common-member</span>
     </div>
     <jnd-selectbox-member jnd-data-model="fileRequest.writerId"
-                          jnd-data-list="selectOptionsUsers"
-                          jnd-data-is-disabled="isSelectAll"></jnd-selectbox-member>
+                          jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
     <!--<select ng-model="fileRequest.writerId"-->
             <!--ng-options="user.id as user | getName for user in selectOptionsUsers">-->
       <!--<option value="">{{ allMembers }}</option>-->
@@ -34,8 +32,7 @@
       <span translate>@common-file-type</span>
     </div>
     <jnd-selectbox-file jnd-data-model="fileRequest.fileType"
-                        jnd-data-list="fileTypeList"
-                        jnd-data-is-disabled="isSelectAll"></jnd-selectbox-file>
+                        jnd-data-list="fileTypeList"></jnd-selectbox-file>
     <!--<select ng-model="fileTypeFilter"-->
             <!--ng-options="type.viewValue| upperFirstCharacter for type in fileTypeList"></select>-->
   </div>  <!-- END OF FILE TYPE -->

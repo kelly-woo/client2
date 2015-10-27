@@ -27,7 +27,6 @@
     function _init() {
       $scope.isSearching = false;
       $scope.isEndOfList = false;
-      $scope.isSelectAll = false;
       $scope.apiError = false;
       $scope.messageLocationId = '';
       $scope.messageWriterId = '';
@@ -61,7 +60,6 @@
     function _on() {
       $scope.$on('onInitLeftListDone', _onInitLeftListDone);
       $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
-      $scope.$on('rPanelToggleSelectAll', _onToggleSelectAll);
       $scope.$on('onRightPanel', _onRightPanel);
       $scope.$on('changedLanguage', _changedLanguage);
       $scope.$on('topic-folder:update', _initChatRoomOption);
@@ -69,19 +67,18 @@
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
       $scope.$watch('messageLocationId', updateMessageLocationFilter);
       $scope.$watch('messageWriterId', updateMessageWriterFilter);
+      $scope.$on('rPanelResetQuery', _onResetQuery);
     }
 
     /**
-     * select all 버튼 토글 시
-     * @param angularEvent
-     * @param isSelectAll
+     * query 리셋
      * @private
      */
-    function _onToggleSelectAll(angularEvent, isSelectAll) {
-      $scope.isSelectAll = isSelectAll;
-
+    function _onResetQuery() {
       if (_isActivated) {
         _refreshSearchQuery();
+        $scope.searchQuery.entityId = $scope.messageLocationId  = '';
+        $scope.searchQuery.writerId = $scope.messageWriterId = '';
         searchMessages();
       }
     }
@@ -178,17 +175,6 @@
       searchMessages();
     }
 
-    function _getSearchQuery() {
-      var defaultQuery = {
-        q: $scope.searchQuery.q,
-        page: $scope.searchQuery.page,
-        perPage: $scope.searchQuery.perPage,
-        writerId: '',
-        entityId: ''
-      };
-      return $scope.isSelectAll ? _.extend({}, $scope.searchQuery, defaultQuery) : $scope.searchQuery;
-    }
-
     /**
      * 메세지를 찾는다.
      */
@@ -200,7 +186,7 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
-      messageAPIservice.searchMessages(_getSearchQuery())
+      messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {
           if (_isActivated) {
             //console.log(response)

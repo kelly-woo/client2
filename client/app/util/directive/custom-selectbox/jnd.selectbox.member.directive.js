@@ -64,6 +64,15 @@
        */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
+        scope.$watch('selectedValue', _setSelectedName);
+      }
+
+      /**
+       * select 된 name 으로 노출한다
+       * @private
+       */
+      function _setSelectedName() {
+        scope.selectedName = _getSelectedName();
       }
 
       /**

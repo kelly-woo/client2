@@ -33,7 +33,6 @@
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
       $scope.isEndOfList = false;
-      $scope.isSelectAll = false;
 
       $scope.fileType = 'file';
       $scope.fileList = [];
@@ -90,7 +89,7 @@
       }
     }
 
-    $scope.$on('rPanelToggleSelectAll', _onToggleSelectAll);
+    $scope.$on('rPanelResetQuery', _onResetQuery);
 
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
@@ -246,15 +245,14 @@
     });
 
     /**
-     *
-     * @param angularEvent
-     * @param isSelectAll
+     * query 를 reset 한다
      * @private
      */
-    function _onToggleSelectAll(angularEvent, isSelectAll) {
-      $scope.isSelectAll = isSelectAll;
+    function _onResetQuery() {
       if (_isActivated) {
-        _refreshFileList();
+        $scope.sharedEntitySearchQuery = null;
+        _setDefaultSharedByFilter();
+        _initFileTypeFilter();
       }
     }
 
@@ -467,21 +465,12 @@
       getFileList();
     }
 
-    function _getFileRequest() {
-      var defaultRequest = {
-        keyword: $scope.fileRequest.keyword,
-        fileType: 'all',
-        writerId: 'all'
-      };
-      return $scope.isSelectAll ? _.extend({}, $scope.fileRequest, defaultRequest): $scope.fileRequest;
-    }
-
     /**
      * file list 전달
      */
     function getFileList() {
       _updateSearchStatusKeyword();
-      fileAPIservice.getFileList(_getFileRequest())
+      fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
 
           var fileList = [];
