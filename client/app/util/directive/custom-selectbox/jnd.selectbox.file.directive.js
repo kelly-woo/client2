@@ -76,6 +76,7 @@
        */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
+        scope.$watch('selectedValue', _setSelectedName);
       }
 
       /**
@@ -84,6 +85,14 @@
        */
       function _attachDomEvents() {
         $(document).on('mousedown', _onMouseDownDocument);
+      }
+
+      /**
+       * select 된 name 으로 노출한다
+       * @private
+       */
+      function _setSelectedName() {
+        scope.selectedName = _getSelectedName();
       }
 
       /**
