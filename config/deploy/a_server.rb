@@ -21,7 +21,7 @@ set :linked_dirs, %w{logs node_modules pids}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '172.31.42.209', user: 'jandi', roles: 'client'
+server '172.31.42.209', user: 'jandi', roles: 'server'
 
 # Custom SSH Options
 # ==================
