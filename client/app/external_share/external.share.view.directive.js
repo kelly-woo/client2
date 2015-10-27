@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('externalShareView', externalShareView);
 
-  function externalShareView($sce, memberService, ExternalShareAPIService, Dialog) {
+  function externalShareView($sce, $filter, memberService, ExternalShareAPIService, Dialog) {
     return {
       restrict: 'A',
       scope: {
@@ -55,46 +55,7 @@
       function _onClick(event) {
         //event.stopPropagation();
 
-        if (scope.isExternalShared) {
-          Dialog.confirm({
-            title: '이 파일의 외부 공유용 링크를 삭제합니다.',
-            body: '링크 삭제 시 이전 링크로는 더 이상 파일에 접근할 수 없게 됩니다.',
-            confirmButtonText: '삭제하기',
-            cancelButtonText: '닫기',
-            onClose: function(type) {
-              if (type === 'okay') {
-                ExternalShareAPIService.unShare(fileId, teamId)
-                  .success(function() {
-                    scope.isExternalShared = !scope.isExternalShared;
-                  });
-              }
-            }
-          });
-        } else {
-
-
-          ExternalShareAPIService.share(fileId, teamId)
-            .success(function(data) {
-              var externalShareUri = externalShareDomain + data.content.externalCode;
-
-              Dialog.confirm({
-                allowHtml: true,
-                title: '링크가 성공적으로 생성되었습니다.',
-                body: $sce.trustAsHtml('<div><input class="form-control external-share-uri" value="' + externalShareUri + '" /></div>'),
-                confirmButtonText: '새 창에서 링크 열기',
-                cancelButtonText: '취소',
-                onClose: function(type) {
-                  if (type === 'okay') {
-                    window.open(externalShareUri, '_blank');
-                  } else {
-                    ExternalShareAPIService.unShare(fileId, teamId);
-                  }
-                }
-              });
-
-              scope.isExternalShared = !scope.isExternalShared;
-            });
-        }
+        scope.isExternalShared ? _openExternalUnshareDialog() : _setExternalShare();
       }
       
       /**
@@ -135,6 +96,76 @@
        */
       function _isMyId(param) {
         return (parseInt(fileId, 10) === parseInt(param.messageId, 10) && parseInt(teamId, 10) === parseInt(param.teamId, 10));
+      }
+
+      /**
+       * external share 설정한다.
+       * @private
+       */
+      function _setExternalShare() {
+        ExternalShareAPIService.share(fileId, teamId)
+          .success(function(data) {
+            var content;
+
+            if (content = data.content) {
+              _openExternalShareDialog(content);
+              scope.isExternalShared = !scope.isExternalShared;
+            }
+          });
+      }
+
+      /**
+       * external share dialog를 연다.
+       * @param {object} ontent
+       * @private
+       */
+      function _openExternalShareDialog(content) {
+        var externalShareUri = externalShareDomain + content.externalCode;
+        var confirmTitle = content.name + '의 공유용 링크';
+        var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
+                          '<br><span>Ctrl+C를 눌러 링크를 복사하세요!</span>';
+
+        Dialog.success({
+          title: '공유 링크가 성공적으로 생성되었습니다.'
+        });
+
+        Dialog.confirm({
+          allowHtml: true,
+          title: confirmTitle,
+          body: $sce.trustAsHtml(confirmBody),
+          confirmButtonText: '새 창에서 링크 열기',
+          cancelButtonText: '닫기',
+          onClose: function(type) {
+            type === 'okay' && window.open(externalShareUri, '_blank');
+          }
+        });
+      }
+
+      /**
+       * external unshare dialog를 연다.
+       * @private
+       */
+      function _openExternalUnshareDialog() {
+        Dialog.confirm({
+          title: '이 파일의 외부 공유용 링크를 삭제합니다.',
+          body: '링크 삭제 시 이전 링크로는 더 이상 파일에 접근할 수 없게 됩니다.',
+          confirmButtonText: '삭제하기',
+          cancelButtonText: '닫기',
+          onClose: function(type) {
+            type === 'okay' && _setExternalUnshare();
+          }
+        });
+      }
+
+      /**
+       * external unshare 설정한다.
+       * @private
+       */
+      function _setExternalUnshare() {
+        ExternalShareAPIService.unshare(fileId, teamId)
+          .success(function() {
+            scope.isExternalShared = !scope.isExternalShared;
+          });
       }
     }
   }

@@ -22,7 +22,7 @@
      */
     function _init() {
       that.share = share;
-      that.unShare = unShare;
+      that.unshare = unshare;
     }
 
     /**
@@ -45,7 +45,7 @@
      * @param {number|string} [teamId=현재팀]
      * @returns {*}
      */
-    function unShare(fileId, teamId) {
+    function unshare(fileId, teamId) {
       teamId = teamId || _teamId;
       return $http({
         method: 'DELETE',
