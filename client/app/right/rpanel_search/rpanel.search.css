@@ -30,7 +30,7 @@
 .modal-dialog .custom-select-box input:focus,
 .rpanel-search input:focus,
 .tab-content input:focus {
-  border-color: #8EAFC3 !important;
+  border-color: #8EAFC3;
 }
 
 .rpanel-search-select-all-container {
