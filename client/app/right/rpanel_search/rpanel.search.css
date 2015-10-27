@@ -46,12 +46,12 @@
   border-bottom-right-radius: 22px;
   border: 1px solid #e1e1e1;
   box-sizing: border-box;
-  background-color:#fff;
+  background-color:#F5F6F7;
 
-  -webkit-transition: background-color ease-in-out .15s;
-  -o-transition: background-color ease-in-out .15s;
-  -moz-transition: background-color ease-in-out .15s;
-  transition: background-color ease-in-out .15s;
+  -webkit-transition: all 200ms;
+  -o-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
 }
 .rpanel-search-select-all-container:hover {
   background-color:#EFEFEF;
