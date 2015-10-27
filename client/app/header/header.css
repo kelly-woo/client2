@@ -64,10 +64,6 @@
 .header-navbar-menu.open .dot {
   border: 2px solid #173e54;
 }
-.header-navbar-quick-launcher {
-  position: absolute !important;
-  left:238px;
-}	
 
 #team-menu .header-navbar__topmenu {
   padding: 0 12px 0 12px;
@@ -81,6 +77,10 @@
   display: block;
   padding: 0 10px 0 12px;
   line-height: 41px;
+}
+.header-navbar-quick-launcher {
+  position: absolute;
+  left:238px;
 }
 #invite .icon-user-plus {
   font-size: 17px;
@@ -241,12 +241,12 @@
 	width: 240px;
   }
   .header-navbar-quick-launcher {
-	position: relative !important;
+	position: relative;
 	float:right;
 	left:auto;
   }
-  .header-navbar-menu .header-navbar__topmenu {
-	padding:0 14px 0 14px !important;
+  #team-menu.header-navbar-menu .header-navbar__topmenu {
+	padding:0 14px 0 14px;
   }
 }
 
