@@ -241,6 +241,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         fileAPIservice.postComment(fileId, msg, _sticker, mentions)
           .success(function() {
             $scope.glued = true;
+            MessageStorage.removeCommentInput(fileId);
+
             $timeout(function() {
               jqCommentInput.val('').focus()[0].removeAttribute('style');
             });
