@@ -65,13 +65,13 @@ msgstr "稍後再詢問"
 msgid "@browse-more-topics"
 msgstr "瀏覽其他議題"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -293,9 +293,9 @@ msgstr "此成員權限已被暫時關閉"
 msgid "@common-dm-invite-to"
 msgstr "邀請到"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "確認"
 
@@ -307,8 +307,8 @@ msgstr "確認"
 msgid "@common-download"
 msgstr "下載"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "這個議題名稱已經被使用。請選擇另外一個。"
 
@@ -433,6 +433,10 @@ msgstr "基本資料"
 msgid "@common-info-optional"
 msgstr "其它資料"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr "無法存取該檔案/訊息"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "此信息/文件已被标示"
@@ -457,9 +461,9 @@ msgstr "訊息搜尋"
 msgid "@common-message-writer"
 msgstr "發送者是"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -476,6 +480,10 @@ msgstr "目前為無網路狀態JANDI會於連上網路後，"
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "新訊息"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "在新視窗中開啟"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -512,7 +520,7 @@ msgstr "註冊"
 msgid "@common-removed-origin"
 msgstr "物件已被刪除"
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "重新命名"
 
@@ -682,6 +690,38 @@ msgid "@error-404-title"
 msgstr "錯誤"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "建立共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr "該檔案之存取權限將開放給所有擁有共享連結的成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "共享連結已成功建立"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}的共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "移除共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr "若移除共享連結，存取至該檔案的權限將被撤銷。你確定要移除共享連結？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "共享連結已被刪除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "移除共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -801,9 +841,9 @@ msgstr " "
 msgid "@input-max-length-60-error"
 msgstr " "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "您已經超越字數限制"
 
@@ -1301,19 +1341,23 @@ msgstr "四"
 msgid "@to-account-home"
 msgstr "回到帳號首頁"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr "議題內容"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "說明 (選項)"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "議題參與成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
+msgstr "編輯議題資訊"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"
