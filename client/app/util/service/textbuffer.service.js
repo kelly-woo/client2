@@ -14,7 +14,7 @@
      * 각 방의 input 기록을 저장하는 서비스
      * @returns {{set: set, get: get, clear: clear}}
      */
-    function TextBuffer(MessageStorage) {;
+    function TextBuffer(JndMessageStorage) {;
       var that = this;
 
       _init();
@@ -31,7 +31,7 @@
        * @returns {string}
        */
       function get(entityId) {
-        return MessageStorage.getMessageInput(entityId);
+        return JndMessageStorage.getMessageInput(entityId);
       }
 
       /**
@@ -40,7 +40,7 @@
        * @param {string} text 저장할 텍스트
        */
       function set(entityId, text) {
-        MessageStorage.setMessageInput(entityId, text);
+        JndMessageStorage.setMessageInput(entityId, text);
       }
 
       /**
@@ -48,7 +48,7 @@
        * @param {string|number} entityId
        */
       function remove(entityId) {
-        MessageStorage.removeMessageInput(entityId);
+        JndMessageStorage.removeMessageInput(entityId);
       }
     }
 })();

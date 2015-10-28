@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('LocalStorage', LocalStorage);
+    .service('JndLocalStorage', JndLocalStorage);
 
   /* @ngInject */
-  function LocalStorage(memberService) {
+  function JndLocalStorage(memberService) {
     var that = this;
     var webStorage = window.localStorage;
     var DELIMITER = '.';

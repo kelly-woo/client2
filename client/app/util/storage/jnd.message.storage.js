@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('MessageStorage', MessageStorage);
+    .service('JndMessageStorage', JndMessageStorage);
 
   /* @ngInject */
-  function MessageStorage(LocalStorage) {
+  function JndMessageStorage(JndLocalStorage) {
     var that = this;
 
     _init();
@@ -19,7 +19,7 @@
      * @private
      */
     function _init() {
-      _.extend(MessageStorage.prototype, LocalStorage);
+      _.extend(JndMessageStorage.prototype, JndLocalStorage);
 
       that.getMessageInput = getMessageInput;
       that.setMessageInput = setMessageInput;

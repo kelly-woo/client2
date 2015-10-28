@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('TopicFolderStorage', TopicFolderStorage);
+    .service('JndTopicFolderStorage', JndTopicFolderStorage);
 
   /* @ngInject */
-  function TopicFolderStorage(LocalStorage) {
+  function JndTopicFolderStorage(JndLocalStorage) {
     var that = this;
 
     _init();
@@ -19,7 +19,7 @@
      * @private
      */
     function _init() {
-      _.extend(TopicFolderStorage.prototype, LocalStorage);
+      _.extend(JndTopicFolderStorage.prototype, JndLocalStorage);
 
       that.getOpenStatus = getOpenStatus;
       that.setOpenStatus = setOpenStatus;

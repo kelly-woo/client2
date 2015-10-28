@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, MessageStorage,
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
                      fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
 
     _init();

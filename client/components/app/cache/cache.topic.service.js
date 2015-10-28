@@ -9,7 +9,7 @@
     .service('TopicMessageCache', TopicMessageCache);
 
   /* @ngInject */
-  function TopicMessageCache(MessageStorage) {
+  function TopicMessageCache() {
     var MAX_CACHE_ITEM_NUMBER = 15;
 
     var topicCacheMap;

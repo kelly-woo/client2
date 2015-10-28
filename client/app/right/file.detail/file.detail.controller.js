@@ -6,7 +6,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
                                            jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
-                                           centerService, MessageStorage) {
+                                           centerService, JndMessageStorage) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -241,7 +241,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         fileAPIservice.postComment(fileId, msg, _sticker, mentions)
           .success(function() {
             $scope.glued = true;
-            MessageStorage.removeCommentInput(fileId);
+            JndMessageStorage.removeCommentInput(fileId);
 
             $timeout(function() {
               jqCommentInput.val('').focus()[0].removeAttribute('style');
@@ -552,7 +552,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
   function _onRightFileDetailOnFileDeleted(event, param) {
     var deletedFileId = param.file.id;
-    MessageStorage.removeCommentInput(deletedFileId);
+    JndMessageStorage.removeCommentInput(deletedFileId);
 
     _onFileChanged(event, param);
   }
@@ -662,7 +662,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       _setFileDownLoad($scope.file_detail);
 
-      $('#file-detail-comment-input').val(MessageStorage.getCommentInput($scope.file_detail.id));
+      $('#file-detail-comment-input').val(JndMessageStorage.getCommentInput($scope.file_detail.id));
     }
 
     if (!$scope.initialLoaded) {
@@ -900,7 +900,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var fileDetail = $scope.file_detail;
 
     if (fileDetail) {
-      MessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
+      JndMessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
     }
   }
 });

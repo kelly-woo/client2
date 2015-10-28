@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
   
-  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub, JndUtil,
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, JndTopicFolderStorage, jndPubSub, JndUtil,
                        TopicUpdateLock) {
     return {
       restrict: 'E',
@@ -37,7 +37,7 @@
         
         scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
         scope.alarmCnt = _getTotalAlarmCnt();
-        scope.isOpening = scope.isOpened = TopicFolderStorage.getOpenStatus(scope.folder.id);
+        scope.isOpening = scope.isOpened = JndTopicFolderStorage.getOpenStatus(scope.folder.id);
         scope.isShowBadge = !scope.isOpening;
 
         _attachEvents();
@@ -267,7 +267,7 @@
             scope.alarmCnt = _getTotalAlarmCnt();
             scope.isOpened = scope.isOpening;
             scope.isShowBadge = !scope.isOpened;
-            TopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
+            JndTopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
           });
         };
         var animationCallback = function() {
