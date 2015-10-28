@@ -15,20 +15,15 @@
 .sticker_panel_wrap.shift{
   right: 20px;
 }
-.sticker_panel_btn {
+.sticker_panel_wrap .sticker_panel_btn {
   opacity: 0.3;
   font-size: 18px;
   color: black;
-}
-.sticker_panel_btn:active,
-.sticker_panel_btn:hover {
-  color: #00abe6;
-  opacity: 0.9;
   text-decoration: none;
 }
-.sticker_panel_btn.on {
+.sticker_panel_wrap .sticker_panel_btn.on {
   color: #00abe6;
-  opacity: 1;
+  opacity: 0.9;
 }
 .sticker_panel_contents ul li{overflow:hidden;}
 .sticker_panel_contents {

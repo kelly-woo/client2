@@ -23,6 +23,8 @@
     ];
     var _cache = {};
 
+    var MAX_COLUMN = 4;
+
     $scope.onClickGroup = onClickGroup;
     $scope.onClickItem = onClickItem;
     $scope.onToggled = onToggled;
@@ -43,11 +45,22 @@
     }
 
     /**
+     * on listeners
+     * @private
+     */
+    function _on() {
+      $scope.$watch('list', _onChangeList);
+    }
+
+    /**
      * show hide 토글 핸들러
      * @param {boolean} isOpen 현재 show 되었는지 여부
      */
     function onToggled(isOpen) {
-      $scope.status.isOpen = isOpen;
+      $scope.$apply(function() {
+        $scope.status.isOpen = isOpen;
+      });
+
       if (isOpen) {
         _select();
       }
@@ -63,6 +76,10 @@
       _select(group);
     }
 
+    function _onChageList(newList) {
+      _createNavigationMap(newList);
+    }
+
     /**
      * 해당 스티커 그룹을 선택한다.
      * @param {object} group 선택할 그룹
@@ -73,7 +90,6 @@
       _deselectAll();
       group.isSelected = true;
       $scope.isRecent = !!group.isRecent;
-      $scope.list = [];
 
       if (group.isRecent) {
         _getRecent();
@@ -120,7 +136,6 @@
             $scope.list = [];
           });
       }
-
     }
 
     /**
@@ -140,6 +155,22 @@
         .error(function() {
           $scope.list = [];
         });
+    }
+
+    function _createNavigationMap(list) {
+      var navigationMap = $scope.navigationMap = [];
+      var tempRow;
+
+      _.each(list, function (item, index) {
+        if (!(index / MAX_COLUMN)) {
+          tempRow && navigationMap.push(tempRow);
+          tempRow = [];
+        }
+
+        tempRow.push(item);
+      });
+
+      console.log('nav map ::: ', navigationMap);
     }
   }
 })();
