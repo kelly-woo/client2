@@ -58,13 +58,13 @@ msgstr ""
 msgid "@browse-more-topics"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr ""
 
@@ -280,9 +280,9 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr ""
 
@@ -294,8 +294,8 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 
@@ -421,6 +421,10 @@ msgstr ""
 msgid "@common-info-optional"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
@@ -445,9 +449,9 @@ msgstr ""
 msgid "@common-message-writer"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -463,6 +467,10 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@common-new-message"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -501,7 +509,7 @@ msgstr ""
 msgid "@common-removed-origin"
 msgstr ""
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr ""
 
@@ -671,6 +679,38 @@ msgid "@error-404-title"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -787,9 +827,9 @@ msgstr ""
 msgid "@input-max-length-60-error"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr ""
 
@@ -1275,18 +1315,22 @@ msgstr ""
 msgid "@to-account-home"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
