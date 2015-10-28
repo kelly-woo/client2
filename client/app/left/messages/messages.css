@@ -8,8 +8,9 @@
 .empty-message-list-container:hover .empty-message-list__new-message {
   text-decoration: underline;
 }
-.empty-message-list__icon {
-  font-size: 28px;
+.empty-message-list__img {
+  width: 35px;
+  height: 35px;
   display: block;
   margin: 10px auto;
   opacity: 0.6;

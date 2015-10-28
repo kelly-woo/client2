@@ -220,7 +220,12 @@
   color: #999999;
 }
 .search-result-container .search-result-summary-ing {
-  margin-top: 10px;
+  margin-top: 70px;
+  margin-left: -40px;
+  text-align: center;
+}
+.search-result-container .rpanel-list-empty__img {
+  margin-bottom: 15px;
 }
 
 .show {

@@ -6,7 +6,12 @@
         <div class="infinite-scroll-bottom-list">
           <div class="search-result-container" ng-if="tabs.all.isLoading || tabs.all.empty">
             <div class="search-result-summary-ing" ng-if="tabs.all.isLoading"><span translate>@search-in-progress</span></div>
-            <div class="search-result-summary-ing" ng-if="tabs.all.empty"><span translate>@star-all-empty</span></div>
+            <div class="search-result-summary-ing rpanel-list-empty" ng-if="tabs.all.empty">
+              <img class="rpanel-list-empty__img" src="assets/images/star-message-empty.png"/>
+              <div class="help-messages__message">
+                <span translate>@star-all-empty</span>
+              </div>
+            </div>
           </div>
           <div ng-repeat="item in tabs.all.list track by item.message.id">
             <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
@@ -30,7 +35,12 @@
         <div class="infinite-scroll-bottom-list">
           <div class="search-result-container" ng-if="tabs.files.isLoading || tabs.files.empty">
             <div class="search-result-summary-ing" ng-if="tabs.files.isLoading"><span translate>@search-in-progress</span></div>
-            <div class="search-result-summary-ing" ng-if="tabs.files.empty"><span translate>@star-files-empty</span></div>
+            <div class="search-result-summary-ing" ng-if="tabs.files.empty">
+              <img class="star-empty__img" src="assets/images/star-file-empty.png"/>
+              <div class="help-messages__message">
+                <span translate>@star-files-empty</span>
+              </div>
+            </div>
           </div>
           <div ng-repeat="file in tabs.files.list track by file.message.id">
             <file file-data="file" file-type="fileType"></file>
