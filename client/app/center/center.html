@@ -73,17 +73,12 @@
                         index="$index"
                         msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>
         </div>
+        <div id="center-input-margin"></div>
       </div>
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
       <center-item-dropdown-layer></center-item-dropdown-layer>
       <center-file-dropdown-layer></center-file-dropdown-layer>
     </article>
-  
-    <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
-         tooltip="{{::'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
-      <i class="icon-arrow-down scroll-to-bottom-icon"></i>
-    </div>
-  
     <!-- chat input box -->
     <center-chat-input-box></center-chat-input-box>
   </div>
