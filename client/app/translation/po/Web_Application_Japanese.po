@@ -67,13 +67,13 @@ msgstr "あとで確認する"
 msgid "@browse-more-topics"
 msgstr "未参加のトピック一覧"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -303,9 +303,9 @@ msgstr "このメンバーは現在無効化されています"
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "確認"
 
@@ -317,8 +317,8 @@ msgstr "確認"
 msgid "@common-download"
 msgstr "ダウンロード"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "このトピック名は既に使用されています"
 
@@ -443,6 +443,10 @@ msgstr "基本情報"
 msgid "@common-info-optional"
 msgstr "追加情報"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr "原本ファイルへのアクセス権がありません。"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "すでに参加していないトピックなので原本が表示できません"
@@ -467,9 +471,9 @@ msgstr "メッセージ検索"
 msgid "@common-message-writer"
 msgstr "送信者"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -486,6 +490,10 @@ msgstr "現在ネットワークに接続されていません。"
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "新メッセージ"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "新しいウィンドウで開く"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -522,7 +530,7 @@ msgstr "新規登録"
 msgid "@common-removed-origin"
 msgstr "原本が削除されました"
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "リネーム"
 
@@ -696,6 +704,40 @@ msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "共有用リンクを作成する"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr "リンクを共有された相手誰でもこのファイルのアクセス権限があります。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "共有用リンク正常に作成されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}の共有用リンク"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "共有用リンクを削除する"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+"削除すると、リンクはこれから使用できず、新しいリンクを作成する場合は既存と"
+"は違う新しいリンクが作成されます。本当に削除しますか？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "共有用リンクが削除されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "このファイルの共有用リンクを削除します。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -818,9 +860,9 @@ msgstr " "
 msgid "@input-max-length-60-error"
 msgstr " "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "入力可能な文字数を超えています"
 
@@ -1347,19 +1389,23 @@ msgstr "木曜日"
 msgid "@to-account-home"
 msgstr "ホームに戻る"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr "説明"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "トピックの説明（選択）"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "メンバー一覧"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
+msgstr "トピック情報を変更"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"

@@ -67,13 +67,13 @@ msgstr "나중에 하기"
 msgid "@browse-more-topics"
 msgstr "참여하지 않은 토픽 목록 보기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr "취소"
 
@@ -298,9 +298,9 @@ msgstr "차단된 멤버입니다"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "완료"
 
@@ -312,8 +312,8 @@ msgstr "완료"
 msgid "@common-download"
 msgstr "다운로드"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 "업무의 혼란을 줄이기 위해 중복된 이름의 토픽은 허용하지 않고 있습니다. 다른 "
@@ -442,6 +442,10 @@ msgstr "기본 정보"
 msgid "@common-info-optional"
 msgstr "추가 정보"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invalid-access"
+msgstr "원본에 대한 접근 권한이 없습니다."
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "이미 나갔거나 삭제된 토픽이므로 원본을 확인할 수 없습니다."
@@ -466,9 +470,9 @@ msgstr "메시지 검색"
 msgid "@common-message-writer"
 msgstr "작성자"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -485,6 +489,10 @@ msgstr "현재 네트워크에 접속되지 않은 것으로 보입니다."
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "새 메시지"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "새 창에서 링크 열기"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -521,7 +529,7 @@ msgstr "가입하기"
 msgid "@common-removed-origin"
 msgstr "원본이 삭제되었습니다."
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "이름 변경"
 
@@ -691,6 +699,41 @@ msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "외부 공유용 링크 생성"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr ""
+"링크를 공유 받은 사람은 누구나 이 파일을 열람하거나 다운로드 할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "외부 공유용 링크가 성공적으로 생성되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}의 공유용 링크"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "외부 공유용 링크 삭제"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+"삭제 시 기존에 공유된 링크는 더 이상 사용할 수 없으며, 다시 링크를 생성할 경"
+"우에는 기존과는 다른 새로운 링크가 생성됩니다. 삭제하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "외부 공유용 링크가 삭제되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "이 파일의 외부 공유용 링크를 삭제합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -812,9 +855,9 @@ msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
 msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
@@ -1339,19 +1382,23 @@ msgstr "목요일"
 msgid "@to-account-home"
 msgstr "잔디 메인으로"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr "토픽 설명"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "토픽에 대해 설명해주세요. (옵션)"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "참여 멤버"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-rename-title"
+msgstr "토픽 정보 변경하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"
