@@ -57,8 +57,8 @@
         //event.stopPropagation();
 
         if (scope.isExternalShared) {
-          ExternalShareService.openUnshareDialog(function() {
-            _setExternalUnshare();
+          ExternalShareService.openUnshareDialog(function(type) {
+            type === 'okay' && _setExternalUnshare();
           });
         } else {
           _setExternalShare();
