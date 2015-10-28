@@ -62,31 +62,43 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     var stack1;
 
   return "        <div>\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPreview : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPermission : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.program(9, data, 0),"data":data})) != null ? stack1 : "")
     + "        </div>\n";
 },"4":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "          <!--    IMAGE THUMBNAIL -->\n          <div class=\"image_wrapper msg-file-body__img__background\">\n            <div class=\"opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile\"\n                 image-loader=\""
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPreview : stack1),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.program(7, data, 0),"data":data})) != null ? stack1 : "");
+},"5":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "            <!--    IMAGE THUMBNAIL -->\n            <div class=\"image_wrapper msg-file-body__img__background\">\n              <div class=\"opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile\"\n                   image-loader=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"\n                 image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n            </div>\n          </div>\n";
-},"6":function(depth0,helpers,partials,data) {
+    + "\"\n                   image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n              </div>\n            </div>\n";
+},"7":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "          <!--    FILE THUMBNAIL  -->\n          <div class=\"msg-file-body__thumbnail\">\n            <div class=\"fileicon fileicon-"
+  return "            <!--    FILE THUMBNAIL  -->\n            <div class=\"msg-file-body__thumbnail\">\n              <div class=\"fileicon fileicon-"
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\" ></div>\n          </div>\n";
-},"8":function(depth0,helpers,partials,data) {
-    return "          <div>\n            <a class=\"archived-msg-file-meta__title cursor_pointer _fileGo\">\n              <span>"
-    + this.escapeExpression((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
-    + "</span>\n            </a>\n          </div>\n";
-},"10":function(depth0,helpers,partials,data) {
-    var stack1;
+    + "\" ></div>\n            </div>\n";
+},"9":function(depth0,helpers,partials,data) {
+    return "          <div class=\"msg-file-body__thumbnail\">\n            <div class=\"fileicon unshared\" ></div>\n          </div>\n";
+},"11":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.escapeExpression;
 
-  return "          <!--    FILE TITLE/NAME  -->\n          <div>\n            <a class=\"msg-file-meta__title file__name break-word cursor_pointer _fileGo\">\n              "
-    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
+  return "          <div>\n            <a class=\"archived-msg-file-meta__title cursor_pointer _fileGo "
+    + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.unshared : stack1), depth0))
+    + "\">\n              <span>"
+    + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
+    + "</span>\n            </a>\n          </div>\n";
+},"13":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
+
+  return "          <!--    FILE TITLE/NAME  -->\n          <div>\n            <a class=\"msg-file-meta__title file__name break-word cursor_pointer _fileGo "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.unshared : stack1), depth0))
+    + "\">\n              "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "\n            </a>\n          </div>\n";
-},"12":function(depth0,helpers,partials,data) {
+},"15":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return "          <div>\n            <img class=\"sticker size_5\" src=\""
@@ -96,7 +108,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + "\n                </span>\n\n            <span class=\"badge unread-badge\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.unreadCount : stack1), depth0))
     + "</span>\n          </div>\n";
-},"14":function(depth0,helpers,partials,data) {
+},"17":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return "          <span>\n            <span class=\"keep _compile\" jnd-ignore-braces>"
@@ -106,7 +118,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + "\n            </span>\n\n            <span class=\"badge unread-badge\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.unreadCount : stack1), depth0))
     + "</span>\n          </span>\n";
-},"16":function(depth0,helpers,partials,data) {
+},"19":function(depth0,helpers,partials,data) {
     var stack1;
 
   return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star "
@@ -124,15 +136,15 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + " cursor_pointer _fileGo\">\n      <!--    LEFT PART OF BODY CONTENT\n              IMAGE/FILE THUMBNAIL    -->\n      <div class=\"msg-file-body-float pull-left\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "        <!--    COMMENT ICON    -->\n        <i class=\"icon-comment\"></i>\n      </div>\n\n\n      <!--    RIGHT PART OF BODY CONTENT  -->\n      <div class=\"msg-file-meta\">\n        <div class=\"msg-comment-header\">\n          Commented on\n\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.program(10, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.program(13, data, 0),"data":data})) != null ? stack1 : "")
     + "        </div>\n      </div>\n\n      <!--    COMMENT MESSAGE -->\n      <div class=\"msg-comment-body\">\n\n        <p>\n          <!--    WRITER  -->\n          <span class=\"msg-item-header__name cursor_pointer "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
     + " _user\">\n            <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->\n            <span> "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + " </span>\n          </span>\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(12, data, 0),"inverse":this.program(14, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.program(17, data, 0),"data":data})) != null ? stack1 : "")
     + "        </p>\n        <!-- Star -->\n        <div class=\"msg-extra msg-extra-comment-title\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(16, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(19, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 

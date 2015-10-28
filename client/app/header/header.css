@@ -2,6 +2,7 @@
 .hpanel {
   /*border-bottom: 1px solid #154a67;*/
   position: relative;
+  z-index: 1024;
 }
 .header {
   height: 41px;
@@ -34,8 +35,6 @@
   float: left;
   font-size: 14px;
 }
-.header-navbar .divider,
-.header-navbar-menu,
 .header-navbar-invite,
 .header-navbar-settings,
 .header-navbar-quick-launcher {

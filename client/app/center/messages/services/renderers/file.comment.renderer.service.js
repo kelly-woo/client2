@@ -9,7 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($filter, MessageCollection, RendererUtil) {
+  function FileCommentRenderer($filter, MessageCollection, RendererUtil, publicService) {
     var _templateTitle = '';
     var _template = '';
 
@@ -42,12 +42,14 @@
 
       return template({
         css: {
+          unshared: publicService.isFileUnshared(msg, true) ? 'unshared' : '',
           star: RendererUtil.getStarCssClass(msg),
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
           archived: isArchived ? 'archived-file-with-comment' : '',
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         file: {
+          hasPermission: publicService.hasFilePermission(msg, true),
           icon: $filter('fileIcon')(content),
           title: $filter('fileTitle')(content),
           imageUrl: _getImageUrl(msg),

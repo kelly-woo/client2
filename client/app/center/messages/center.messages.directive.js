@@ -73,23 +73,34 @@
        * @private
        */
       function _onFileShareStatusChange(angularEvent, data) {
-        //console.log('### _onFileShareStatusChange', data);
         var entityIndex;
         var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
         var eventType = data.event;
         var fileId = data.file.id;
+        var message;
+        _onFileUpdated(angularEvent, data.file)
+          .error(function() {
+            _.forEach(MessageCollection.list, function(msg, index) {
+              if (msg.message.id === fileId) {
+                message = msg.message
+              } else if ((msg.feedback && msg.feedback.id) === fileId) {
+                message = msg.feedback;
+              } else {
+                message = null;
+              }
 
-        _.forEach(MessageCollection.list, function(msg, index) {
-          if (msg.message.id === fileId) {
-            entityIndex = msg.message.shareEntities.indexOf(currentEntityId);
-            if (eventType === 'file_unshared' && entityIndex !== -1) {
-              msg.message.shareEntities.splice(entityIndex, 1);
-            } else if (eventType === 'file_shared' && entityIndex === -1) {
-              msg.message.shareEntities.push(currentEntityId);
-            }
-            _refresh(msg.id, index);
-          }
-        });
+              if (message) {
+                entityIndex = message.shareEntities.indexOf(currentEntityId);
+                if (eventType === 'file_unshared' && entityIndex !== -1) {
+                  message.shareEntities.splice(entityIndex, 1);
+                } else if (eventType === 'file_shared' && entityIndex === -1) {
+                  message.shareEntities.push(currentEntityId);
+                }
+                _refresh(msg.id, index);
+              }
+            });
+          });
+
       }
 
       /**
@@ -100,7 +111,7 @@
        */
       function _onFileUpdated(angularEvent, file) {
         var fileId = file.id;
-        fileAPIservice.getFileDetail(fileId)
+        return fileAPIservice.getFileDetail(fileId)
           .success(function(response) {
             var shareEntities;
             _.forEach(response.messageDetails, function(item) {

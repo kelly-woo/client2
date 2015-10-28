@@ -19,20 +19,26 @@
         </div>
         {{else}}
         <div>
-          {{#if file.hasPreview}}
-          <!--    IMAGE THUMBNAIL -->
-          <div class="image_wrapper msg-file-body__img__background">
-            <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
-                 image-loader="{{file.imageUrl}}"
-                 image-max-height="63" image-max-width="63" image-is-square="true">
+        {{#if file.hasPermission}}
+            {{#if file.hasPreview}}
+            <!--    IMAGE THUMBNAIL -->
+            <div class="image_wrapper msg-file-body__img__background">
+              <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
+                   image-loader="{{file.imageUrl}}"
+                   image-max-height="63" image-max-width="63" image-is-square="true">
+              </div>
             </div>
-          </div>
-          {{else}}
-          <!--    FILE THUMBNAIL  -->
+            {{else}}
+            <!--    FILE THUMBNAIL  -->
+            <div class="msg-file-body__thumbnail">
+              <div class="fileicon fileicon-{{ file.icon }}" ></div>
+            </div>
+            {{/if}}
+        {{else}}
           <div class="msg-file-body__thumbnail">
-            <div class="fileicon fileicon-{{ file.icon }}" ></div>
+            <div class="fileicon unshared" ></div>
           </div>
-          {{/if}}
+        {{/if}}
         </div>
         {{/if}}
         <!--    COMMENT ICON    -->
@@ -47,14 +53,14 @@
 
           {{#if isArchived}}
           <div>
-            <a class="archived-msg-file-meta__title cursor_pointer _fileGo">
+            <a class="archived-msg-file-meta__title cursor_pointer _fileGo {{css.unshared}}">
               <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
           </div>
           {{else}}
           <!--    FILE TITLE/NAME  -->
           <div>
-            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
+            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo {{css.unshared}}">
               {{ file.title }}
             </a>
           </div>
