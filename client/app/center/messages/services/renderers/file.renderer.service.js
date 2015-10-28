@@ -154,6 +154,7 @@
   
       var isUnshared = publicService.isFileUnshared(msg);
       var hasPermission = publicService.hasFilePermission(msg);
+      var isMustPreview = $filter('mustPreview')(content);
 
       return _template({
         html: {
@@ -161,7 +162,7 @@
         },
         css: {
           unshared: isUnshared ? 'unshared' : '',
-          privateUnshared: (isUnshared && !hasPermission) ? 'private-unshared' : '',
+          imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
           wrapper: isArchived ? ' archived-file': '',
           star: RendererUtil.getStarCssClass(msg),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
@@ -170,10 +171,11 @@
           download: _getFileDownloadAttrs(msg)
         },
         file: {
+          unshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
           isImageIcon: icon === 'img',
-          mustPreview: $filter('mustPreview')(content),
+          mustPreview: isMustPreview,
           hasPreview: hasPreview,
           imageUrl: _getMediumThumbnailUrl(content, hasPreview),
           title: $filter('fileTitle')(content),
