@@ -496,6 +496,10 @@ msgstr "It seems you are not connected to the Internet."
 msgid "@common-new-message"
 msgstr "New Message"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "Open in a new window"
+
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "Password"
@@ -700,6 +704,40 @@ msgstr "The page you were looking for could not be found"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr "Oops!"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "Create public link"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr "This file will be accessible to anyone with the public link."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "Public link has been created successfully."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "Public link to {{fileName}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "Remove public link"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+"Access to the previously shared file will be revoked. Are you sure you want "
+"to remove the public link to this file?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "Public link has been deleted."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "Remove public link"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html

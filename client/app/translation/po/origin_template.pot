@@ -469,6 +469,10 @@ msgstr ""
 msgid "@common-new-message"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr ""
@@ -672,6 +676,38 @@ msgstr ""
 
 #: client/app/error/404.html
 msgid "@error-404-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html

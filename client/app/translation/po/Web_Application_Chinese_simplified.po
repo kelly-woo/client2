@@ -481,6 +481,10 @@ msgstr "目前为无网络状态JANDI会于连上网络后，"
 msgid "@common-new-message"
 msgstr "新信息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "在新视窗中开启"
+
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密码"
@@ -686,6 +690,38 @@ msgid "@error-404-title"
 msgstr "错误"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "建立共享链接"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr "该文件之访问权限将开放给所有拥有共享链接的成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "共享链接已成功建立"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}的共享链接"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "移除共享链接"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr "若移除共享链接，访问至该文件的权限将被撤销。 你确定要移除共享链接？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "共享链接已被删除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "移除共享链接"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -694,7 +730,7 @@ msgstr "更多"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-action-unshare"
-msgstr ""
+msgstr "取消分享"
 
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"

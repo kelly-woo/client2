@@ -481,6 +481,10 @@ msgstr "目前為無網路狀態JANDI會於連上網路後，"
 msgid "@common-new-message"
 msgstr "新訊息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "在新視窗中開啟"
+
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密碼"
@@ -684,6 +688,38 @@ msgstr "查無此頁"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr "錯誤"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "建立共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr "該檔案之存取權限將開放給所有擁有共享連結的成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "共享連結已成功建立"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}的共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "移除共享連結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr "若移除共享連結，存取至該檔案的權限將被撤銷。你確定要移除共享連結？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "共享連結已被刪除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "移除共享連結"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html

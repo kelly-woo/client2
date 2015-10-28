@@ -490,6 +490,10 @@ msgstr "현재 네트워크에 접속되지 않은 것으로 보입니다."
 msgid "@common-new-message"
 msgstr "새 메시지"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-open-new-window"
+msgstr "새 창에서 링크 열기"
+
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "비밀번호"
@@ -693,6 +697,41 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create"
+msgstr "외부 공유용 링크 생성"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-desc"
+msgstr ""
+"링크를 공유 받은 사람은 누구나 이 파일을 열람하거나 다운로드 할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-msg"
+msgstr "외부 공유용 링크가 성공적으로 생성되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-create-title"
+msgstr "{{fileName}}의 공유용 링크"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove"
+msgstr "외부 공유용 링크 삭제"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-desc"
+msgstr ""
+"삭제 시 기존에 공유된 링크는 더 이상 사용할 수 없으며, 다시 링크를 생성할 경"
+"우에는 기존과는 다른 새로운 링크가 생성됩니다. 삭제하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-msg"
+msgstr "외부 공유용 링크가 삭제되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-remove-title"
+msgstr "이 파일의 외부 공유용 링크를 삭제합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
