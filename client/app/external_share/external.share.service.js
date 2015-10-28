@@ -12,9 +12,9 @@
   function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog) {
     var that = this;
     var _server_address = configuration.server_address;
-    var _teamId = memberService.getTeamId();
+    var _externalShareDomain = configuration.external_share_address;
 
-    var externalShareDomain = '';
+    var _teamId = memberService.getTeamId();
 
     _init();
 
@@ -66,7 +66,7 @@
      */
     function openShareDialog(content, isCreateLink) {
       var translate = $filter('translate');
-      var externalShareUri = externalShareDomain + content.externalCode;
+      var externalShareUri = _externalShareDomain + content.externalCode;
       var confirmTitle = '<span><i class="icon-link"></i></span>' + translate('@external-share-create-title').replace('{{fileName}}', content.name);
       var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
         '<span>' + translate('@external-share-create-desc') + '</span>';

@@ -24,6 +24,7 @@
       base_protocol       : '@@base_protocol',
       landing_address     : '@@landing_address',
       main_address        : '@@main_address',
+      external_share_address: '@@external_share_address',
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',
       last_update_message : '@@last_update_message',
