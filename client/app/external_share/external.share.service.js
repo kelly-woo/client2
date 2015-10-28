@@ -9,7 +9,7 @@
     .service('ExternalShareService', ExternalShareService);
 
   /* @ngInject */
-  function ExternalShareService($http, $sce, memberService, configuration, Dialog) {
+  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog) {
     var that = this;
     var _server_address = configuration.server_address;
     var _teamId = memberService.getTeamId();
@@ -65,14 +65,15 @@
      * @private
      */
     function openShareDialog(content, isCreateLink) {
+      var translate = $filter('translate');
       var externalShareUri = externalShareDomain + content.externalCode;
-      var confirmTitle = '<span><i class="icon-link"></i></span>' + content.name + '의 공유용 링크';
+      var confirmTitle = '<span><i class="icon-link"></i></span>' + translate('@external-share-create-title').replace('{{fileName}}', content.name);
       var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
-        '<span>Ctrl+C를 눌러 링크를 복사하세요!</span>';
+        '<span>' + translate('@external-share-create-desc') + '</span>';
 
       if (isCreateLink) {
         Dialog.success({
-          title: '공유 링크가 성공적으로 생성되었습니다.'
+          title: translate('@external-share-create-msg')
         });
       }
 
@@ -82,8 +83,8 @@
         titleClass: 'external-share-title',
         body: $sce.trustAsHtml(confirmBody),
         bodyClass: 'normal-body external-share-body',
-        confirmButtonText: '새 창에서 링크 열기',
-        cancelButtonText: '닫기',
+        confirmButtonText: translate('@common-open-new-window'),
+        cancelButtonText: translate('@btn-close'),
         onDialogLoad: function(el) {
           el.find('.external-share-uri').focus().select();
         },
@@ -98,12 +99,14 @@
      * @param {function} onClose
      */
     function openUnshareDialog(onClose) {
+      var translate = $filter('translate');
+
       Dialog.confirm({
-        title: '이 파일의 외부 공유용 링크를 삭제합니다.',
+        title: translate('@external-share-remove-title'), //'이 파일의 외부 공유용 링크를 삭제합니다.',
         titleClass: 'external-unshare-title',
-        body: '링크 삭제 시 이전 링크로는 더 이상 파일에 접근할 수 없게 됩니다.',
-        confirmButtonText: '삭제하기',
-        cancelButtonText: '닫기',
+        body: translate('@external-share-remove-desc'),
+        confirmButtonText: translate('@btn-delete'),
+        cancelButtonText: translate('@btn-close'),
         onClose: onClose
       });
     }

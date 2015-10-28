@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('externalShareView', externalShareView);
 
-  function externalShareView($sce, $filter, memberService, ExternalShareService, Dialog) {
+  function externalShareView($filter, memberService, ExternalShareService, Dialog) {
     return {
       restrict: 'A',
       scope: {
@@ -136,6 +136,10 @@
             var content;
 
             if (content = data.content) {
+              Dialog.success({
+                title: $filter('translate')('@external-share-remove-msg')
+              });
+
               scope.externalUrl = content.externalUrl;
               scope.externalCode = content.externalCode;
               scope.externalShared = content.externalShared;
