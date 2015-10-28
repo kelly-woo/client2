@@ -14,32 +14,33 @@
               IMAGE/FILE THUMBNAIL    -->
       <div class="msg-file-body-float pull-left">
         {{#if isArchived }}
-        <div class="msg-file-body__thumbnail">
-          <img class="fileicon" src="assets/images/fileicon_archived.png"/>
-        </div>
-        {{else}}
-        <div>
-        {{#if file.hasPermission}}
-            {{#if file.hasPreview}}
-            <!--    IMAGE THUMBNAIL -->
-            <div class="image_wrapper msg-file-body__img__background">
-              <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
-                   image-loader="{{file.imageUrl}}"
-                   image-max-height="63" image-max-width="63" image-is-square="true">
-              </div>
-            </div>
-            {{else}}
-            <!--    FILE THUMBNAIL  -->
-            <div class="msg-file-body__thumbnail">
-              <div class="fileicon fileicon-{{ file.icon }}" ></div>
-            </div>
-            {{/if}}
-        {{else}}
           <div class="msg-file-body__thumbnail">
-            <div class="fileicon unshared" ></div>
+            <img class="fileicon" src="assets/images/fileicon_archived.png"/>
           </div>
-        {{/if}}
-        </div>
+        {{else}}
+          <div>
+          {{#if file.hasPermission}}
+            {{#if file.hasPreview}}
+              <!--    IMAGE THUMBNAIL -->
+              <div class="image_wrapper msg-file-body__img__background">
+                <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
+                     image-loader="{{file.imageUrl}}"
+                     image-max-height="63" image-max-width="63" image-is-square="true">
+                </div>
+                <div class="small-thumbnail-overlay"></div>
+              </div>           
+            {{else}}
+              <!--    FILE THUMBNAIL  -->
+              <div class="msg-file-body__thumbnail">
+                <div class="fileicon fileicon-{{ file.icon }}" ></div>
+              </div>
+            {{/if}}
+          {{else}}
+            <div class="msg-file-body__thumbnail">
+              <div class="fileicon unshared" ></div>
+            </div>
+          {{/if}}
+          </div>
         {{/if}}
         <!--    COMMENT ICON    -->
         <i class="icon-comment"></i>

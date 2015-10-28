@@ -302,17 +302,7 @@ by ysyun 2015.2.25
   margin-right: 10px;
   position: relative;
 }
-/* opac layer over image thumbnail  */
-.msg-comment .msg-file-body-float::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: black;
-  opacity: 0.4;
-}
+
 .msg-file-body-float .icon-comment {
   position: absolute;
   bottom: 9px;

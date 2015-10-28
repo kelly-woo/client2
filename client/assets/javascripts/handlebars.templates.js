@@ -57,13 +57,13 @@ this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    return "        <div class=\"msg-file-body__thumbnail\">\n          <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\"/>\n        </div>\n";
+    return "          <div class=\"msg-file-body__thumbnail\">\n            <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\"/>\n          </div>\n";
 },"3":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "        <div>\n"
+  return "          <div>\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPermission : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.program(9, data, 0),"data":data})) != null ? stack1 : "")
-    + "        </div>\n";
+    + "          </div>\n";
 },"4":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -71,17 +71,17 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "            <!--    IMAGE THUMBNAIL -->\n            <div class=\"image_wrapper msg-file-body__img__background\">\n              <div class=\"opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile\"\n                   image-loader=\""
+  return "              <!--    IMAGE THUMBNAIL -->\n              <div class=\"image_wrapper msg-file-body__img__background\">\n                <div class=\"opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile\"\n                     image-loader=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"\n                   image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n              </div>\n            </div>\n";
+    + "\"\n                     image-max-height=\"63\" image-max-width=\"63\" image-is-square=\"true\">\n                </div>\n                <div class=\"small-thumbnail-overlay\"></div>\n              </div>           \n";
 },"7":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "            <!--    FILE THUMBNAIL  -->\n            <div class=\"msg-file-body__thumbnail\">\n              <div class=\"fileicon fileicon-"
+  return "              <!--    FILE THUMBNAIL  -->\n              <div class=\"msg-file-body__thumbnail\">\n                <div class=\"fileicon fileicon-"
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\" ></div>\n            </div>\n";
+    + "\" ></div>\n              </div>\n";
 },"9":function(depth0,helpers,partials,data) {
-    return "          <div class=\"msg-file-body__thumbnail\">\n            <div class=\"fileicon unshared\" ></div>\n          </div>\n";
+    return "            <div class=\"msg-file-body__thumbnail\">\n              <div class=\"fileicon unshared\" ></div>\n            </div>\n";
 },"11":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.escapeExpression;
 

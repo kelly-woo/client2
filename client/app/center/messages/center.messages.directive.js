@@ -621,6 +621,7 @@
           if (messageId === (msg.message && msg.message.id) && !msg.message.content.extHasPreview) {
             // back-end에서 link
             msg.message.content.extHasPreview = true;
+            msg.message.content.extIsNewImage = false;
             msg.message.content.extraInfo = socketData.data.message.content.extraInfo;
             _refresh(msg.id, index);
             return false;

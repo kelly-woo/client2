@@ -149,7 +149,6 @@
       var content = msg.message.content;
       
       var isArchived = (msg.message.status === 'archived');
-      var hasPreview = $filter('hasPreview')(content);
       var icon = $filter('fileIcon')(content);
   
       var isUnshared = publicService.isFileUnshared(msg);
@@ -176,8 +175,8 @@
           icon: icon,
           isImageIcon: icon === 'img',
           mustPreview: isMustPreview,
-          hasPreview: hasPreview,
-          imageUrl: _getMediumThumbnailUrl(content, hasPreview),
+          hasPreview: $filter('hasPreview')(content),
+          imageUrl: $filter('getPreview')(content, 'medium'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
@@ -215,19 +214,6 @@
      */
     function _getFeedbackContent(msg) {
       return centerService.isCommentType(msg.message.contentType) ? msg.feedback.content : msg.message.content;
-    }
-
-    /**
-     * image url 을 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _getMediumThumbnailUrl(content, hasPreview) {
-      //var content = _getFeedbackContent(msg);
-      //var hasPreview = $filter('hasPreview')(content);
-
-      return hasPreview ? $filter('getFileUrl')(content.extraInfo.mediumThumbnailUrl) : '';
     }
 
     /**
