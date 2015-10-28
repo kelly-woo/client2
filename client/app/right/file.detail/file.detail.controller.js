@@ -6,7 +6,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
                                            jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
-                                           centerService) {
+                                           centerService, JndMessageStorage) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -98,8 +98,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _initListeners() {
+    $scope.$on('$destroy', _onDestroy);
+
+    $scope.$on('window:unload', _onWindowUnload);
+
     $scope.$on('updateRightFileDetailPanel', _init);
-    $scope.$on('rightFileDetailOnFileDeleted', _onFileChanged);
+    $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
     $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
@@ -137,6 +141,22 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
       }
     });
+  }
+
+  /**
+   * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
+   * @private
+   */
+  function _onDestroy() {
+    _saveCommentInput();
+  }
+
+  /**
+   * window unload event handler
+   * @private
+   */
+  function _onWindowUnload() {
+    _saveCommentInput();
   }
 
   /**
@@ -221,6 +241,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         fileAPIservice.postComment(fileId, msg, _sticker, mentions)
           .success(function() {
             $scope.glued = true;
+            JndMessageStorage.removeCommentInput(fileId);
+
             $timeout(function() {
               jqCommentInput.val('').focus()[0].removeAttribute('style');
             });
@@ -291,17 +313,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함
    */
   function setImageUrl(content) {
-    console.log($scope.fileIcon);
-    console.log(content)
-    console.log(content.icon !== 'etc')
-
     if ($scope.fileIcon === 'img' && content.icon !== 'etc') {
-      console.log('img and not etc');
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
       $scope.previewCursor = 'zoom-in';
     } else {
-      console.log('getFilterTypePreview')
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
       $scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
     }
@@ -503,6 +519,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
               Dialog.success({
                 title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
               });
+
               $rootScope.$broadcast('onFileDeleted', fileId);
             })
             .error(function(err) {
@@ -531,6 +548,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       member = EntityMapManager.get('member', member);
     }
     return publicService.isDisabledMember(member);
+  }
+
+  function _onRightFileDetailOnFileDeleted(event, param) {
+    var deletedFileId = param.file.id;
+    JndMessageStorage.removeCommentInput(deletedFileId);
+
+    _onFileChanged(event, param);
   }
 
   /**
@@ -637,6 +661,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isAdmin = memberService.isAdmin();
 
       _setFileDownLoad($scope.file_detail);
+
+      $('#file-detail-comment-input').val(JndMessageStorage.getCommentInput($scope.file_detail.id));
     }
 
     if (!$scope.initialLoaded) {
@@ -864,5 +890,17 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function _setShared() {
     $scope.file_detail.extShared = fileAPIservice.updateShared($scope.file_detail);
     $scope.hasTopic = !!$scope.file_detail.extShared.length;
+  }
+
+  /**
+   * comment input 저장
+   * @private
+   */
+  function _saveCommentInput() {
+    var fileDetail = $scope.file_detail;
+
+    if (fileDetail) {
+      JndMessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
+    }
   }
 });

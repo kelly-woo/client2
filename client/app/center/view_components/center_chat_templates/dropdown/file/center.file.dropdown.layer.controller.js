@@ -10,8 +10,7 @@
     .controller('CenterFileDropdownLayerCtrl', CenterFileDropdownLayerCtrl);
 
   /* @ngInject */
-  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper,
-                                       Dialog) {
+  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper, Dialog) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId;
     // 현재 토픽의 타입
@@ -60,6 +59,7 @@
                 Dialog.success({
                   title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.msg.message.content.title)
                 });
+
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {
