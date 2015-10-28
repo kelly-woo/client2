@@ -78,7 +78,7 @@
           })
           .error(function() {
             Dialog.error({
-              title: $filter('translate')('@common-leaved-topic')
+              title: $filter('translate')('@common-invalid-access')
             });
           });
       }
