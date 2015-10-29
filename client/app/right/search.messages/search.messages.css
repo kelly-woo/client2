@@ -3,12 +3,14 @@
 }
 
 .rpanel-message-search .search-status-container {
-  padding-left: 17px;
   color: #999999;
   font-size: 14px;
-  margin-top: 11px;
-  padding-bottom: 13px;
+}
+.rpanel-message-search .search-status-container .search-result-summary,
+.rpanel-message-search .search-status-container .search-result-summary-ing {
+  padding: 13px 17px;
   border-bottom: 1px solid #e1e1e1;
+  display: block;
 }
 
 .searchQueryKeyword {
