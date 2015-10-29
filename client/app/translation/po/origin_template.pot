@@ -1158,6 +1158,18 @@ msgstr ""
 msgid "@select-all-members"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-current-members"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-disabled-members"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-query-matches"
+msgstr ""
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr ""
