@@ -10,8 +10,8 @@
                             currentSessionHelper, HybridAppHelper, NotificationManager) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
-      getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
+      getJoinedEntity: getJoinedEntity,
       setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
@@ -49,33 +49,6 @@
       return getEntityByEntityId(entityId);
     }
 
-
-    /**
-     * Takes an 'id' of entity as a 'value'
-     * Used to compare with topics.
-     *
-     * @param list
-     * @param value
-     * @returns {*}
-     */
-    function getEntityFromListById(list, id) {
-      id = parseInt(id);
-      if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
-      return _getSelectEntity(list, id, 'id');
-    }
-
-    /**
-     *
-     * @param list
-     * @param id
-     * @param name
-     * @returns {*}
-     * @private
-     */
-    function _getSelectEntity(list, id, name) {
-      return EntityMapManager.get('total', id);
-    }
-
     /**
      * If entityType is 'channel', look for entityId only in 'joinedChannelList'.
      * So non-joined topic will be found.
@@ -107,6 +80,15 @@
       }
 
       return entity;
+    }
+
+    /**
+     * 참여중인 entity를 entityId로 전달한다.
+     * @param {number|string} entityId
+     * @returns {*|Object}
+     */
+    function getJoinedEntity(entityId) {
+      return EntityMapManager.get('joined', entityId) || EntityMapManager.get('private', entityId) || EntityMapManager.get('memberEntityId', entityId);
     }
 
     /**
@@ -159,7 +141,7 @@
      * @param {number} entityId - star처리 할 토픽(혹은 dm)의 아이디
      */
     function setStarred (entityId) {
-      var entity = getEntityFromListById('total', entityId);
+      var entity = EntityMapManager.get('total', entityId);
       if (!_.isUndefined(entity)) {
         entity.isStarred = true;
       }
@@ -181,7 +163,7 @@
 
       if (entity.type == 'channels') {
         //  I'm not involved with entity.  I don't care about this entity.
-        if (angular.isUndefined(this.getEntityFromListById($rootScope.joinedChannelList, entity.id))) {
+        if (angular.isUndefined(EntityMapManager.get('total', entity.id))) {
           return;
         }
 
@@ -201,7 +183,7 @@
 
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
     function setBadgeValue (list, entity, alarmCount) {
-      var curEntity = this.getEntityFromListById(list, entity.id);
+      var curEntity = EntityMapManager.get('total', entity.id);
       if (angular.isUndefined(curEntity)) return;
 
       //console.log(alarmCount)

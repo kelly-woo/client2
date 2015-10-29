@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $state, $filter, jndPubSub, Router) {
+  function rPanelCtrl($scope, $state, $filter, $timeout, jndPubSub, Router) {
     _init();
 
     /**
@@ -78,6 +78,11 @@
         if (data.toUrl !== data.fromUrl) {
           tab.active = true;
           $scope.activeTabName = tab.name;
+
+          $timeout(function() {
+            jndPubSub.pub('resetRPanelSearchStatusKeyword');
+            jndPubSub.pub('rPanelSearchFocus');
+          });
         }
       }
     });

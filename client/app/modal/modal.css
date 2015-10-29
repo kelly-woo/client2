@@ -732,14 +732,6 @@
   padding-bottom: 2px;
 }
 
-.cropArea {
-  overflow: hidden;
-  width:100%;
-  height:450px;
-  margin: 20px 0;
-}
-
-
 /*
     FILE UPLOAD
 */

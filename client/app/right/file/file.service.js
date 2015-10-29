@@ -30,7 +30,7 @@
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
-          data.imageUrl = $filter('getFileUrl')(fileData.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getPreview')(fileData.content, 'small');
         }
 
         data.writerId = fileData.writerId;
@@ -62,7 +62,7 @@
 
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
         if (data.hasPreview) {
-          data.imageUrl = $filter('getFileUrl')(fileData.message.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getPreview')(fileData.message.content, 'small');
         }
 
         data.writerId = fileData.message.writerId;

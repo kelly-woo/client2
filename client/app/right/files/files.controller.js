@@ -9,9 +9,9 @@
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
-                             fileAPIservice, analyticsService, publicService, entityAPIservice,
+                             fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel) {
+                             TopicFolderModel, jndPubSub) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -91,7 +91,7 @@
 
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
-      var entity = entityAPIservice.getEntityFromListById($scope.memberList, userId);
+      var entity = EntityMapManager.get('total', userId);
 
       _initSharedByFilter(entity);
 
@@ -198,7 +198,7 @@
 
         // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나 최초 load가 수행되지 않았다면 file list 갱신함
         if ((data.toUrl !== data.fromUrl) && (data.fromTitle !== 'FILE DETAIL' || !initialLoadDone)) {
-          $scope.fileRequest.keyword = '';
+          _resetSearchStatusKeyword();
           _refreshFileList();
         }
       } else {
@@ -546,9 +546,8 @@
      * @private
      */
     function _resetSearchStatusKeyword() {
-      $scope.fileRequest.keyword = '';
-      $scope.searchStatus.keyword = $scope.fileRequest.keyword;
-      $rootScope.$broadcast('resetRPanelSearchStatusKeyword');
+      $scope.searchStatus.keyword = $scope.fileRequest.keyword = '';
+      jndPubSub.pub('resetRPanelSearchStatusKeyword');
     }
 
     /**

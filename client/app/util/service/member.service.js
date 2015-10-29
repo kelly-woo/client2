@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper) {
+                         jndPubSub, currentSessionHelper, EntityMapManager) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -298,7 +298,7 @@
      */
     function getSmallThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+        member = EntityMapManager.get('total', member);
       }
       return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
     }
@@ -310,7 +310,7 @@
      */
     function getMediumThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+        member = EntityMapManager.get('total', member);
       }
       return member.u_photoThumbnailUrl.mediumThumbnailUrl || getPhotoUrl(member);
     }
@@ -322,7 +322,7 @@
      */
     function getLargeThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+        member = EntityMapManager.get('total', member);
       }
       return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
     }
@@ -342,7 +342,7 @@
      * @returns {string} name - 아이디를 가진 유져의 이름
      */
     function getNameById(entityId) {
-      return this.getName(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
+      return this.getName(EntityMapManager.get('total', entityId));
     }
 
     /**
