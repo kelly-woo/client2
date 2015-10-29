@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            TopicFolderStorage, currentSessionHelper, Dialog, JndUtil) {
+                            JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -147,7 +147,7 @@
           return false;
         }
       });
-      TopicFolderStorage.removeOpenStatus(folderId);
+      JndTopicFolderStorage.removeOpenStatus(folderId);
       update();
     }
 

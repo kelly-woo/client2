@@ -25,20 +25,24 @@
 }
 
 .rpanel-message-search  .no-search-input-container .icon-search {
-  font-size: 64px;
+  width: 65px;
 }
 .rpanel-alert-msg-container {
   text-align: center;
   margin-top: 70px;
-  color: #999;
+  margin-bottom: 15px;
+  padding: 0 30px 0 30px;
 }
 .rpanel-alert-msg-container__img {
   display: block;
   margin: auto;
-  margin-bottom:16px;
+  margin-bottom: 15px;
 }
 .rpanel-alert-msg-container__text {
   margin-top: 16px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #575757;
 }
 .rpanel-alert-msg-container .searchQuery {
   color: #333;

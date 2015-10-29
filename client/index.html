@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.title.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.unread.bookmark.css">
@@ -63,6 +64,7 @@
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
   <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
   <link rel="stylesheet" href="app/modal/lists/services/renderers/templates/modal.room.list.item.css">
+  <link rel="stylesheet" href="app/modal/members/current_member_profile/current.member.profile.css">
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
@@ -244,7 +246,6 @@
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/notification/desktop.notification.js"></script>
 <script src="components/app/socket/socket.js"></script>
-<!--<script src="components/app/session/session.js"><script> &ndash;&gt;-->
 <script src="components/app/app.framework.js"></script>
 <script src="app/app.js"></script>
 <!-- injector:js -->
@@ -306,6 +307,9 @@
 <script src="app/util/service/unread.badge.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
+<script src="app/util/storage/jnd.folder.storage.js"></script>
+<script src="app/util/storage/jnd.local.storage.js"></script>
+<script src="app/util/storage/jnd.message.storage.js"></script>
 <script src="app/background/background.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.controller.js"></script>
 <script src="app/banner/desktop.notification.banner.directive.js"></script>
@@ -371,7 +375,6 @@
 <script src="app/left/topics/folder/topic.folder.draggable.directive.js"></script>
 <script src="app/left/topics/services/topic.folder.api.service.js"></script>
 <script src="app/left/topics/services/topic.folder.model.service.js"></script>
-<script src="app/left/topics/services/topic.folder.storage.service.js"></script>
 <script src="app/left/topics/services/topic.update.lock.service.js"></script>
 <script src="app/left/topics/topic/topic.controller.js"></script>
 <script src="app/left/topics/topic/topic.directive.js"></script>
