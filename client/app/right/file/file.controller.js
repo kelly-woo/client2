@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
-                    fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
+                     fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
 
     _init();
 
@@ -81,7 +81,7 @@
           })
           .error(function() {
             Dialog.error({
-              title: $filter('translate')('@common-leaved-topic')
+              title: $filter('translate')('@common-invalid-access')
             });
           });
       }
@@ -121,6 +121,7 @@
                 Dialog.success({
                   title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.contentTitle)
                 });
+
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {

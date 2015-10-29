@@ -1,3 +1,67 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/tosslab/web_client/compare/v1.5.3...v1.6.0) (2015-10-28)
+
+
+### Bug Fixes
+
+* **app:** 서버에서 예상하지 못한 장애가 발생하여 섬네일을 생성하지 못했을 경우 원본이미지를 불러오도록 수정 ([8c98cbd](https://github.com/tosslab/web_client/commit/8c98cbd))
+* **center:** file 공유상태 변경 시 코멘트는 실시간으로 적용되지 않는 현상 해결 ([b128031](https://github.com/tosslab/web_client/commit/b128031))
+* **center:** 연동 파일의 경우 파일 사이즈 출력하지 않도록 수정 ([33f5872](https://github.com/tosslab/web_client/commit/33f5872))
+* **center:** 파일 공유 해제 시 타 토픽에서 공유 해제했음에도 현재 토픽에 공유 해제로 표시되는 현상 해결 ([885234a](https://github.com/tosslab/web_client/commit/885234a))
+* **day:** Fix day in TC. ([5cbf51b](https://github.com/tosslab/web_client/commit/5cbf51b))
+* **file.filter:** Fix minor issue with 'fileIcon' filter. ([a52135a](https://github.com/tosslab/web_client/commit/a52135a))
+* **file.preview:** Add 'No preview Available' image for files with ai ext. ([84fab39](https://github.com/tosslab/web_client/commit/84fab39))
+* **fileIcon:** Add 'image/bmp' to img icon. ([366ba81](https://github.com/tosslab/web_client/commit/366ba81))
+* **fileIcon:** Add regular expression for audio and video file. ([a0874bc](https://github.com/tosslab/web_client/commit/a0874bc))
+* **fileIcon:** Fix minor issue with file icon ([6a0ae26](https://github.com/tosslab/web_client/commit/6a0ae26))
+* **modal:** 자신의 프로필 이미지 설정하는 영역의 크기를 640x640x으로 수정 ([bfaced9](https://github.com/tosslab/web_client/commit/bfaced9))
+* **right:** 부정확한 message 또는 file에 대한 접근 메시지 수정 ([df0ae4e](https://github.com/tosslab/web_client/commit/df0ae4e))
+* **right:** 삭제된 파일의 comment일 경우 즐겨찾기 아이콘 스타일 버그 수정 ([571a5a2](https://github.com/tosslab/web_client/commit/571a5a2))
+* **sticker:** sticker 선택 panel에서 출력되는 리소스 요청을 65px에서 130px 변경. ([2f5ac02](https://github.com/tosslab/web_client/commit/2f5ac02))
+
+### Features
+
+* **center:** 이미지 접기 기능 추가 ([4854ae7](https://github.com/tosslab/web_client/commit/4854ae7))
+* **center:** 이미지 접기 기능 추가 ([f7513a8](https://github.com/tosslab/web_client/commit/f7513a8))
+* **center:** 이미지 접기 기능 추가 ([136c3a6](https://github.com/tosslab/web_client/commit/136c3a6))
+* **inputstorage:** 메시지 입력창과 코멘트 입력창에 입력중이던 text 유지 ([9a642f6](https://github.com/tosslab/web_client/commit/9a642f6))
+* **inputstorage:** 메시지 입력창과 코멘트 입력창에 입력중이던 text 유지 ([9066347](https://github.com/tosslab/web_client/commit/9066347))
+* **inputstorage:** 메시지 입력창과 코멘트 입력창에 입력중이던 text 유지 ([3c54ddb](https://github.com/tosslab/web_client/commit/3c54ddb))
+
+
+
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/tosslab/web_client/compare/v1.5.2...v1.5.3) (2015-10-22)
+
+
+### Bug Fixes
+
+* **right:** 텝 이동시 검색어 초기화 하도록 수정 ([d4a479e](https://github.com/tosslab/web_client/commit/d4a479e))
+
+
+
+<a name="1.5.2"></a>
+## [1.5.2](https://github.com/tosslab/web_client/compare/v1.5.1...v1.5.2) (2015-10-22)
+
+
+### Bug Fixes
+
+* **right:** comment에서 mention목록을 올바르게 가져오지 못하는 버그 수정 ([dc12ffc](https://github.com/tosslab/web_client/commit/dc12ffc))
+
+
+
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/tosslab/web_client/compare/v1.5.0...v1.5.1) (2015-10-21)
+
+
+### Bug Fixes
+
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([5ff656c](https://github.com/tosslab/web_client/commit/5ff656c))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([44a0e5a](https://github.com/tosslab/web_client/commit/44a0e5a))
+* **mac:** 이전에 참여하였던 entity의 badge count까지 계산하는 버그 수정 ([e708bc4](https://github.com/tosslab/web_client/commit/e708bc4))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/tosslab/web_client/compare/v1.4.2...v1.5.0) (2015-10-20)
 

@@ -7,7 +7,7 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil) {
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil, EntityMapManager) {
 
   /**
    * @namespace
@@ -606,18 +606,14 @@ app.controller('leftPanelController1', function(
    * @param alarmsn {array}
    */
   function leftPanelAlarmHandler(alarmInfoCnt, alarms) {
-    _.each(alarms, function(value, key, list) {
-      // TODO: 서버님께서 0을 주시는 이유가 궁금합니다.
-      if (value.alarmCount == 0 )
-        return;
+    _.each(alarms, function (alarm) {
+      var entity;
+      var entityId = alarm.entityId;
 
-      var tempEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, value.entityId);
-
-      //  tempEntity is archived
-      if (angular.isUndefined(tempEntity)) {
-        return;
+      // TODO: 서버님께서 alarmCount가 0인 entity에 대해서 data를 생성해서 주시는 이유가 궁금합니다.
+      if (alarm.alarmCount != 0 && (entity = entityAPIservice.getJoinedEntity(entityId))) {
+        entityAPIservice.updateBadgeValue(entity, alarm.alarmCount);
       }
-      entityAPIservice.updateBadgeValue(tempEntity, value.alarmCount);
     });
   }
 
@@ -719,10 +715,10 @@ app.controller('leftPanelController1', function(
   //  center and header are calling.
   $scope.onUserClick = function(user) {
     if (angular.isNumber(user)) {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user);
+      user = EntityMapManager.get('total', user);
     }
     else {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id);
+      user = EntityMapManager.get('total', user.id);
     }
     modalHelper.openMemberProfileModal($scope, user);
   };

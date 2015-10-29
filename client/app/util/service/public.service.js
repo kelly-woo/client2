@@ -10,9 +10,9 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub,
-                         currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, EntityMapManager,
+                         currentSessionHelper, $state, analyticsService, tutorialService, language, entityAPIservice,
+                         HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
     var service = {
       getInviteOptions: getInviteOptions,
@@ -33,7 +33,9 @@
       reloadCurrentPage: reloadCurrentPage,
       openNewTab: openNewTab,
       setInitDone: setInitDone,
-      isInitDone: isInitDone
+      isInitDone: isInitDone,
+      hasFilePermission: hasFilePermission,
+      isFileUnshared: isFileUnshared
     };
 
     return service;
@@ -148,9 +150,9 @@
       }
 
       if (_isNumber(member)) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
+        member = EntityMapManager.get('total', member);
       } else if (!member.status) {
-        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
+        member = EntityMapManager.get('total', member.id);
       }
 
       return memberService.isDeactivatedMember(member);
@@ -215,6 +217,49 @@
      */
     function isInitDone() {
       return _isInit;
+    }
+
+    /**
+     * file 접근 권한이 존재하는지 여부를 반환 (MK의 server 로직을 그대로 가져 옴.)
+     * @param {object} msg
+     * @param {boolean} [isComment=false] - comment 의 경우 true 로 질의한다
+     * @returns {boolean}
+     * @private
+     */
+    function hasFilePermission(msg, isComment) {
+      var message = isComment? msg.feedback : msg.message;
+      var member = memberService.getMember();
+      var commonEntities = _.intersection(_.map(member.u_messageMarkers, 'entityId'), message.shareEntities);
+
+      // 파일이 전체 공개인 경우
+      if (message.permission % 10 > 0) {
+        return true;
+      }
+
+      // 파일 작성자가 본인인 경우
+      if (message.writerId === memberService.getMemberId()) {
+        return true;
+      }
+
+      // 파일이 접근 가능한 entity에 공유된 경우
+      if (commonEntities.length > 0) {
+        return true;
+      }
+
+      return false;
+    }
+
+    /**
+     * unshared 된 file 인지 여부를 반환한다
+     * @param {object} msg
+     * @param {boolean} [isComment=false] - comment 의 경우 true 로 질의한다
+     * @returns {boolean}
+     * @private
+     */
+    function isFileUnshared(msg, isComment) {
+      var message = isComment? msg.feedback : msg.message;
+      var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
+      return message.shareEntities.indexOf(currentEntityId) === -1;
     }
 
     /**

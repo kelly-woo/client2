@@ -77,21 +77,29 @@
         var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
         var eventType = data.event;
         var fileId = data.file.id;
-        _onFileUpdated(angularEvent, data.file).error(
-          function() {
+        var message;
+        _onFileUpdated(angularEvent, data.file)
+          .error(function() {
             _.forEach(MessageCollection.list, function(msg, index) {
               if (msg.message.id === fileId) {
-                entityIndex = msg.message.shareEntities.indexOf(currentEntityId);
+                message = msg.message
+              } else if ((msg.feedback && msg.feedback.id) === fileId) {
+                message = msg.feedback;
+              } else {
+                message = null;
+              }
+
+              if (message) {
+                entityIndex = message.shareEntities.indexOf(currentEntityId);
                 if (eventType === 'file_unshared' && entityIndex !== -1) {
-                  msg.message.shareEntities.splice(entityIndex, 1);
+                  message.shareEntities.splice(entityIndex, 1);
                 } else if (eventType === 'file_shared' && entityIndex === -1) {
-                  msg.message.shareEntities.push(currentEntityId);
+                  message.shareEntities.push(currentEntityId);
                 }
                 _refresh(msg.id, index);
               }
             });
-          }
-        );
+          });
 
       }
 
@@ -613,6 +621,7 @@
           if (messageId === (msg.message && msg.message.id) && !msg.message.content.extHasPreview) {
             // back-end에서 link
             msg.message.content.extHasPreview = true;
+            msg.message.content.extIsNewImage = false;
             msg.message.content.extraInfo = socketData.data.message.content.extraInfo;
             _refresh(msg.id, index);
             return false;

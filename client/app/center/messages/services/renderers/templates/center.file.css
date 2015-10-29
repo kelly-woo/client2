@@ -1,6 +1,6 @@
 .msg-file .msg-file-meta {
-  margin-top: 10px;
-  min-height: 50px !important;
+  margin-top: 5px;
+  min-height: 0 !important;
 }
 
 .medium-thumbnail > div[image-loader] {
@@ -28,10 +28,11 @@
   cursor: pointer;
   font-size: 18px;
   color: #575757;
+  margin-left: -2px;
 }
 
 .msg-file-meta-down {
-   padding-top: 5px;
+   padding-top: 3px;
 }
 .msg-file-meta-down .separator {
    width: 1px;

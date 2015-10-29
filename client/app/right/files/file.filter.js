@@ -133,12 +133,13 @@
    * class name을 만듬
    */
   app.filter('fileIcon', function() {
+    // 'application/postscript'는 .ai 파일을 위함.
     var fileIconImageMap = {
-      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
+      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop', 'application/postscript'],
+      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-t msvideo',
+        'video/mpeg', 'video/x-ms-wma'],
+      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
       'pdf': ['application/pdf'],
-      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
-      'video/mpeg'],
-      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv' ],
       'zip': ['application/zip'],
       'hwp': ['application/x-hwp'],
       'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
@@ -148,11 +149,31 @@
       'spreadsheet': 'application/vnd.google-apps.spreadsheet',
       'presentation': 'application/vnd.google-apps.presentation'
     };
+
+    // just in case, 혹시나 몰라서 코멘트로
+    //'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
+    //  'video/mpeg', 'video/x-ms-wma'],
+    //  'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
+
+    var regxVideo = /video\//i;
+    var regxAudio = /audio\//i;
+
     fileIconImageMap = createMap(fileIconImageMap);
 
     return function(content) {
+      var fileIcon;
       var integration;
-      return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
+      var contentType = content.type;
+
+      if (regxAudio.exec(contentType)) {
+        // audio type
+        fileIcon = 'audio';
+      } else if (regxVideo.exec(contentType)) {
+        fileIcon = 'video';
+      } else {
+        fileIcon = fileIconImageMap[contentType] || 'etc';
+      }
+      return content ? fileIcon + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
   });
 
@@ -196,12 +217,26 @@
   });
 
   /**
+   * preview를 전달한다.
+   */
+  app.filter('getPreview', function($filter) {
+    var sizeMap = {
+      small: 'smallThumbnailUrl',
+      medium: 'mediumThumbnailUrl',
+      large: 'largeThumbnailUrl'
+    };
+    return function(content, size) {
+      return $filter('getFileUrl')(content ? content.extraInfo ? content.extraInfo[sizeMap[size] || sizeMap.medium] : content.fileUrl : '');
+    };
+  });
+
+  /**
    * preview를 가지고 있는지 여부
    */
   app.filter('hasPreview', function() {
     var rImage = /image/i;
     return function(content) {
-      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl] ;
+      return !!(content && (content.extIsNewImage ? content.extraInfo : (content.extraInfo || content.fileUrl)) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
     };
   });
 
@@ -211,7 +246,7 @@
   app.filter('mustPreview', function($filter) {
     var rImage = /image/i;
     return function(content) {
-      return !!content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
     };
   });
 
@@ -242,7 +277,7 @@
     };
 
     // 이미지 타입의 프리뷰가 보여져야하지만 etc로 분류되서 no_preview_available이 보여지는 extention의 모음.
-    var noPreviewButImageType = {psd:true};
+    var noPreviewButImageType = {psd: true, ai: true};
 
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 

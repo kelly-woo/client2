@@ -216,7 +216,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       timer: null
     };
     $scope.isShowLoadingWheel = false;
-    $scope.message.content = TextBuffer.get();
+    $scope.message.content = TextBuffer.get(entityId);
 
     $scope.isInitialLoadingCompleted = false;
     $scope.currentEntity = currentSessionHelper.getCurrentEntity();
@@ -265,8 +265,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('window:focus', _onWindowFocus);
     $scope.$on('window:blur', _onWindowBlur);
+    $scope.$on('window:unload', _onWindowUnload);
+
     $scope.$on('body:dragStart', _onDragStart);
     $scope.$on('dataInitDone', _onInitDone);
+
+    $scope.$on('topicDeleted', _onTopicDeleted);
   }
 
   /**
@@ -322,7 +326,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _isViewContentLoaded = true;
     _jqContainer = $('.msgs');
     $timeout(function() {
-      $('#message-input').val(TextBuffer.get()).trigger('change');
+      $('#message-input').val(TextBuffer.get(entityId)).trigger('change');
     });
   }
 
@@ -336,6 +340,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     modalHelper.closeModal('cancel');
     _cancelHttpRequest();
 
+    TextBuffer.set(entityId, $('#message-input').val());
     // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
     //_updateCache();
   }
@@ -429,6 +434,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onWindowBlur() {
     if (_isViewContentLoaded) {
       centerService.resetBrowserFocus();
+    }
+  }
+
+  /**
+   * window unload event handler
+   * @private
+   */
+  function _onWindowUnload() {
+    if (_isViewContentLoaded) {
+      TextBuffer.set(entityId, $('#message-input').val());
     }
   }
 
@@ -1229,8 +1244,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (jndKeyCode.match('ESC', keyCode)) {
       _hideSticker();
-    } else {
-      TextBuffer.set($(keyUpEvent.target).val());
     }
   }
 
@@ -1257,7 +1270,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (text.length > TEXTAREA_MAX_LENGTH) {
       text = text.substring(0, TEXTAREA_MAX_LENGTH);
       $('#message-input').val(text);
-      TextBuffer.set(text);
     }
   }
 
@@ -1836,5 +1848,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _hideNewMessageAlertBanner() {
     $('#has-new-msg-banner').removeClass('show');
+  }
+
+  /**
+   * topic deleted event handler
+   * @param event
+   * @param data
+   * @private
+   */
+  function _onTopicDeleted(event, data) {
+    if (data && data.topic) {
+      TextBuffer.remove(data.topic.id);
+    }
   }
 });

@@ -319,7 +319,9 @@
 .rpanel-show .icon-lock {
   font-size: 14px;
 }
-
+.cpanel .prefix > i {
+  font-size: 16px;
+}
 @media (max-width: 1374px) {
   .rpanel-show .panel-title-info {
     max-width: 60%;
