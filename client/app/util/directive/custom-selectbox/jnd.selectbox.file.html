@@ -25,13 +25,13 @@
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
-        <span class="ng-scope menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
+        <span class="menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
 
         <ul class="menulist-item-filetype">
           <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
             <div class="fileicon {{cssIconMap[item.value]}}"></div>
             <a>
-              <span>{{ item.viewValue }}</span>
+              <span ng-bind-html="item.extSearchName"></span>
             </a>
           </li>
         </ul>
