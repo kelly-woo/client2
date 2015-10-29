@@ -15,7 +15,7 @@
         externalUrl: '=?',
         externalCode: '=?',
         externalShared: '=?',
-        isExternalShared: '=externalShareView',
+        isExternalShared: '=externalShareView'
       },
       link: link
     };
@@ -24,8 +24,6 @@
       // team id
       var teamId = attrs.teamId || memberService.getTeamId();
 
-      // file id
-      var fileId = attrs.fileId;
       
       _init();
       
@@ -102,6 +100,7 @@
        * @private
        */
       function _isMyId(param) {
+        var fileId = scope.$eval(attrs.fileId);
         return (parseInt(fileId, 10) === parseInt(param.messageId, 10) && parseInt(teamId, 10) === parseInt(param.teamId, 10));
       }
 
@@ -110,6 +109,8 @@
        * @private
        */
       function _setExternalShare() {
+        var fileId = scope.$eval(attrs.fileId);
+
         ExternalShareService.share(fileId, teamId)
           .success(function(data) {
             var content;
@@ -131,6 +132,8 @@
        * @private
        */
       function _setExternalUnshare() {
+        var fileId = scope.$eval(attrs.fileId);
+
         ExternalShareService.unshare(fileId, teamId)
           .success(function(data) {
             var content;
