@@ -26,7 +26,7 @@
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
-        <span translate class="ng-scope menulist-item-header"><span>{{searchList.length}} 개의 검색결과 (L10N)</span></span>
+        <span class="ng-scope menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
 
         <ul class="menulist-item-members">
 
@@ -52,7 +52,7 @@
 
         <!-- members -->
         <div class="custom-select-box__menulist-items">
-          <span translate class="menulist-item-header">@option-current-members</span>
+          <span translate class="menulist-item-header">@@selectbox-current-members</span>
           <ul class="menulist-item-members">
             <li class="topic-title menu-item _selectable"  ng-repeat="item in memberData.enabledList">
               <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
@@ -70,7 +70,7 @@
              }">
           <div ng-click="toggleDisabled();">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span translate class="menulist-item-header"><span>@option-disabled-members</span>
+            <span translate class="menulist-item-header"><span>@selectbox-disabled-members</span>
           </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">

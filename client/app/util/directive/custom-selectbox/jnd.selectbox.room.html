@@ -26,7 +26,7 @@
 
       <!-- saearc-result -->
       <div class="custom-select-box__search-result-items">
-        <span translate class="menulist-item-header"><span>{{searchList.length}} 개의 검색결과(L10N)</span></span>
+        <span translate class="menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
 
         <ul class="menulist-item-result">
 
@@ -101,7 +101,7 @@
              }">
           <div ng-click="toggleDisabled();">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="menulist-item-header"><span translate>@disabled-member</span></span>
+            <span class="menulist-item-header"><span translate>@selectbox-disabled-members</span></span>
           </div>
 
           <ul ng-if="isShowDisabled" class="menulist-item-block">
