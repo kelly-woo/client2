@@ -216,6 +216,8 @@
         } else {
           jqImageContainer.addClass('no-image-preview');
 
+          jqImageContainer.children('.loading_bar').length > 0 && jqImageContainer.empty();
+
           if (isFullScreen) {
             ImagesHelper.setVerticalCenter(jqImageContainer, jqImageContainer.parent(), isFullScreen);
           }
