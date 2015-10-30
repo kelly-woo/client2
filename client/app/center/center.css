@@ -263,6 +263,7 @@ article {
 
 
 .msg-file {
+  min-height: 65px;
   margin-bottom: 5px;
 }
 .msg-file-header {
@@ -482,7 +483,7 @@ by ysyun 2015.2.25
   right: 0;
   bottom: 0;
   height: 54px;
-  box-shadow: 0px -10px 15px #FFFFFF; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
+  box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
 .footer #primary_file_button {
   border: none;
