@@ -1,7 +1,10 @@
 .dialog-modal .external-share-uri {
   cursor: text;
   height: 34px!important;
-  background-color: #eee;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 3px;
+  border: 1px solid #d1d1d1;
 }
 
 .dialog-modal .external-unshare-title,
@@ -17,12 +20,14 @@
 
 .dialog-modal .external-share-title > span {
   display: inline-block;
-  padding: 7px;
-  border: 1px solid #d1d1d1;
-  border-radius: 6px;
-  font-size: 20px;
-  margin-right: 6px;
+  padding: 3px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 18px;
+  margin-right: 8px;
   vertical-align: middle;
+  color: #1C6C88;
+  background-color: rgba(255,255,255,0.8);
 }
 
 .dialog-modal .external-share-body {
