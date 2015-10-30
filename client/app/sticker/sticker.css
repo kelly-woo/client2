@@ -5,6 +5,9 @@
   padding-bottom:0px !important;
   /*width: 330px !important;*/
 }
+.sticker_panel:focus {
+  outline: 0;
+}
 .sticker_panel_wrap {
   position: absolute;
   right: 10px;
@@ -63,12 +66,9 @@
   line-height: 21px;
   border: 2px solid #FFFFFF;
 }
-/*.sticker_panel_li:hover {
-  border: 2px solid #d7e0e8;
-  border-radius: 5px;
-}*/
-.sticker_panel_li:active {
-  opacity: 0.4;
+.sticker_panel_li.active {
+  background-color: #d7e0e8;
+  border-radius: 11px;
 }
 .sticker_panel_tab {
   height: 35px;

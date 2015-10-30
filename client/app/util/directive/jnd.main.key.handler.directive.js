@@ -78,6 +78,9 @@
           // browser에서 사용하는 shortcut을 override 한다.
           keyEvent.preventDefault();
           jndPubSub.pub('toggleQuickLauncher');
+        } else if (_isCenterStickerShortcut(keyEvent)) {
+          keyEvent.preventDefault();
+          jndPubSub.pub('center:toggleSticker');
         }
       }
 
@@ -119,9 +122,18 @@
        * @private
        */
       function _isQuickLauncherShortcut(keyEvent) {
-        var keycode = keyEvent.keyCode;
+        var keyCode = keyEvent.keyCode;
         //keyEvent.ctrlKey && (jndKeyCode.match('CHAR_Q', keycode));
-        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keycode));
+        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keyCode));
+      }
+
+      /**
+       * center sticker shortcut 인지 여부를 반환한다.
+       * @param {object} keyEvent
+       */
+      function _isCenterStickerShortcut(keyEvent) {
+        var keyCode = keyEvent.keyCode;
+        return (keyEvent.ctrlKey || keyEvent.metaKey) && (keyEvent.shiftKey) && jndKeyCode.match('CHAR_K', keyCode);
       }
     }
   }
