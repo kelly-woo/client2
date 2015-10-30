@@ -140,6 +140,8 @@
      */
     function _onTopicLeave(data) {
       _updateCenterPanelFromOthers(data);
+
+      jndPubSub.pub('topicLeave', data);
     }
 
     /**
@@ -197,6 +199,8 @@
           TopicInvitedNotification.addNotification(socketEvent);
         }
       }
+
+      jndPubSub.pub('topicInvite', socketEvent);
     }
 
     /**
