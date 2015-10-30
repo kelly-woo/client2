@@ -1,3 +1,19 @@
+<a name="1.6.2"></a>
+## [1.6.2](https://github.com/tosslab/web_client/compare/v1.6.1...v1.6.2) (2015-10-29)
+
+
+### Bug Fixes
+
+* **center:** preview 존재하지 않을때 loading bar 제거하도록 수정 ([35d23a7](https://github.com/tosslab/web_client/commit/35d23a7))
+
+
+
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/tosslab/web_client/compare/v1.6.0...v1.6.1) (2015-10-29)
+
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/tosslab/web_client/compare/v1.5.3...v1.6.0) (2015-10-28)
 
