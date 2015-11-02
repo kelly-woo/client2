@@ -15,19 +15,19 @@
       {
         isRecent: true,
         isSelected: false,
-        activePosition: [0, 0]
+        activeIndex: 0
       },
       {
         isRecent: false,
         isSelected: true,
-        activePosition: [0, 0],
+        activeIndex: 0,
         id: 100
       }
     ];
     var _cache = {};
 
     var MAX_COLUMN = parseInt($attrs.maxColumns, 10);
-    var _activeGroup;
+    var _activeGroupIndex;
 
     _init();
 
@@ -95,23 +95,35 @@
      * @param {object} group 선택할 그룹
      * @private
      */
-    function _select(group) {
-      _activeGroup = group = group || $scope.groups[1];
-      _deselect(group);
+    function _select(group, active) {
+      var deferred = $q.defer();
+
+      group = group || $scope.groups[1];
 
       group.isSelected = true;
       $scope.isRecent = group.isRecent;
 
-      _createStickers(group);
+      _createStickers(group, deferred);
+
+      deferred.promise.then(function (list) {
+        $scope.list = list;
+
+        _updateSelect(group);
+        if (list.length > 0) {
+          active ?  _setNextItem(list.length - 1) :  _setNextItem(0);
+        }
+
+        $scope.onCreateSticker();
+      });
     }
 
     /**
-     * 선택되지 않은 group을 deselect 한다.
+     * update select
      * @private
      */
-    function _deselect(selectGroup) {
-      _.forEach($scope.groups, function(group) {
-        group !== selectGroup && (group.isSelected = false);
+    function _updateSelect(selectGroup) {
+      _.forEach($scope.groups, function(group, index) {
+        group !== selectGroup ? (group.isSelected = false) : (_activeGroupIndex = index);
       });
     }
 
@@ -127,27 +139,12 @@
      *
      * @private
      */
-    function _createStickers(group) {
-      var deferred = $q.defer();
-
+    function _createStickers(group, deferred) {
       if (group.isRecent) {
         _getRecent(deferred);
       } else {
         _getList(group.id, deferred);
       }
-
-      deferred.promise.then(function (list) {
-        $scope.list = list;
-
-        _createNavigationMap(list);
-
-        if (list.length > 0) {
-          list[0].active = true;
-          //group.activePosition = [0, 0];
-        }
-
-        $scope.onCreateSticker();
-      });
     }
 
     /**
@@ -191,45 +188,59 @@
         });
     }
 
-    function _createNavigationMap(list) {
-      var navigationMap = $scope.navigationMap = [];
-      var tempRow = [];
-
-      _.each(list, function (item) {
-        tempRow.push(item);
-
-        if (tempRow.length === MAX_COLUMN) {
-          navigationMap.push(tempRow);
-          tempRow = [];
-        }
-      });
-      tempRow.length > 0 && navigationMap.push(tempRow);
-    }
-
     function navActiveSticker(x, y) {
-      var navigationMap = $scope.navigationMap;
+      var activeGroup = _groups[_activeGroupIndex];
+      var list = $scope.list;
 
-      var acx = _activeGroup.activePosition[0];
-      var acy = _activeGroup.activePosition[1];
+      var acx = activeGroup.activeIndex % MAX_COLUMN;
+      var acy = Math.floor(activeGroup.activeIndex / MAX_COLUMN);
 
       var cpx = acx + x;
       var cpy = acy + y;
 
-      if (navigationMap[cpy] == null) {
-
-      } else if (navigationMap[cpy][cpx] == null) {
-
+      if (_isNextGroup(cpx, cpy, x, y)) {
+        _setActiveItem(false);
+        _setNextGroup((x > 0 || y > 0) ? 1 : -1);
       } else {
         $scope.$apply(function() {
-          navigationMap[acy][acx].active = false;
-          navigationMap[cpy][cpx].active = true;
-
-          $scope.autoScroll((cpy * MAX_COLUMN) + cpx);
-
-          _activeGroup.activePosition[0] = cpx;
-          _activeGroup.activePosition[1] = cpy;
+          _setActiveItem(false);
+          _setNextItem(list[cpy * MAX_COLUMN + cpx] == null && y > 0 ? list.length - 1 : cpy * MAX_COLUMN + cpx);
         });
       }
+
+    }
+
+    function _isNextGroup(cpx, cpy, x, y) {
+      var list = $scope.list;
+      return ((list[cpy * MAX_COLUMN] == null && (y > 0 || y < 0)) || (list[cpy * MAX_COLUMN + cpx] == null && (x > 0 || x < 0))) && _groups.length > 1;
+    }
+
+    function _setNextGroup(index) {
+      _select(_getNextGroup(index), index < 0);
+    }
+
+    function _setNextItem(index) {
+      _setActiveItem(index, true);
+      _groups[_activeGroupIndex].activeIndex = index;
+      setTimeout(function() {
+        $scope.autoScroll(index);
+      });
+    }
+
+    function _setActiveItem(index, value) {
+      var list = $scope.list;
+
+      if (_.isBoolean(index)) {
+        _.each(list, function(item) {
+          item.active = index;
+        });
+      } else {
+        list[index] && (list[index].active = value);
+      }
+    }
+
+    function _getNextGroup(next) {
+      return _groups[_activeGroupIndex + next] == null ? next > 0 ? _groups[0] : _groups[_groups.length - 1] : _groups[_activeGroupIndex + next];
     }
   }
 })();

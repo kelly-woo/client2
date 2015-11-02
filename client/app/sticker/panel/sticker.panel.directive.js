@@ -80,16 +80,18 @@
         var scrollTop;
         var compare;
 
-        scrollTop = jqStickerPanelContents.scrollTop();
+        if (jqItem[0]) {
+          scrollTop = jqStickerPanelContents.scrollTop();
 
-        itemPosition = $position.offset(jqItem);
-        contPosition = $position.offset(jqStickerPanelContents);
+          itemPosition = $position.offset(jqItem);
+          contPosition = $position.offset(jqStickerPanelContents);
 
-        compare = itemPosition.top - contPosition.top;
-        if (compare < 0) {
-          jqStickerPanelContents.scrollTop(scrollTop + compare);
-        } else if ( compare + itemPosition.height > contPosition.height ) {
-          jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+          compare = itemPosition.top - contPosition.top;
+          if (compare < 0) {
+            jqStickerPanelContents.scrollTop(scrollTop + compare);
+          } else if (compare + itemPosition.height > contPosition.height) {
+            jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+          }
         }
       }
     }
