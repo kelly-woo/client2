@@ -70,12 +70,12 @@
   transform:scaleX(-1) rotate(360deg);
 
   
-  -webkit-transition:transform 450ms;
-  -webkit-transition:-webkit-transform 450ms;
-  -o-transition:transform 450ms;
-  -ms-transition:transform 450ms;
-  -moz-transition:transform 450ms;
-  transition:transform 450ms;
+  -webkit-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
+  -webkit-transition:-webkit-transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
+  -o-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
+  -ms-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
+  -moz-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
+  transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
 }
 
 .rpanel-search-select-all-container:active {
