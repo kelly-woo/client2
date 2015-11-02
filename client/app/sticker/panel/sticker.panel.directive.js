@@ -16,6 +16,7 @@
 
     return {
       restrict: 'E',
+      replace: true,
       scope: false,
       controller: 'StickerPanelCtrl',
       link: link,
@@ -23,7 +24,7 @@
     };
 
     function link(scope, el, attrs) {
-      var jqStickerPanel = el.find('.sticker_panel');
+      var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
 
       _init();
@@ -33,7 +34,7 @@
        * @private
        */
       function _init() {
-        jqStickerPanel.focus();
+        jqStickerPanelBtn.focus();
 
         scope.onCreateSticker = onCreateSticker;
         scope.autoScroll = autoScroll;
@@ -43,7 +44,7 @@
       }
 
       function _on() {
-        jqStickerPanel.on('keydown', _onKeyDown);
+        jqStickerPanelBtn.on('keydown', _onKeyDown);
       }
 
       function _onKeyDown(event) {
@@ -70,7 +71,11 @@
       }
 
       function onCreateSticker() {
-        jqStickerPanel.focus();
+        //setTimeout(function() {
+        //  jqStickerPanelBtn.focus();
+        //});
+
+        jqStickerPanelBtn.focus();
       }
 
       function autoScroll(index) {

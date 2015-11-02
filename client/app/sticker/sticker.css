@@ -1,10 +1,19 @@
+.open .sticker_panel {
+  opacity: 1;
+  visibility: visible;
+}
 
 .sticker_panel {
   bottom: 30px !important;
   padding-top:0px !important;
   padding-bottom:0px !important;
-  /*width: 330px !important;*/
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity .12s ease, visibility .12s ease;
+  transition: opacity .12s ease, visibility .12s ease;
 }
+
 .sticker_panel:focus {
   outline: 0;
 }

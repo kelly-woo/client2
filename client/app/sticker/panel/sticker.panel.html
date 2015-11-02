@@ -2,10 +2,13 @@
   <!-- 스티커 패널 오픈 버튼-->
   <a class="dropdown dropdown-toggle sticker_panel_btn cursor_pointer"
           ng-class="{'on': status.isOpen}"
-          dropdown-toggle>
-  <i class="icon-sticker"></i> </a>
+          dropdown-toggle
+          tabindex="-1">
+    <i class="icon-sticker"></i>
+    <div></div>
+  </a>
   <!-- 스티커 패널 -->
-  <div class="sticker_panel dropdown-menu dropdown-menu-right" dropdown-menu tabindex="0">
+  <div class="sticker_panel dropdown-menu dropdown-menu-right" dropdown-menu>
     <!-- 스티커 리스트-->
     <div class="sticker_panel_contents"
         ng-class="{ 'empty': !list.length }">
