@@ -222,11 +222,21 @@
 }
 .search-result-container .search-result-summary-ing,
 .search-result-container .search-result-summary {
-  margin: 11px 0 10px 40px;
+  margin: 13px 0 13px 40px;
   padding-top:0px;
   padding-bottom:1px;
 }
-
+.search-result-container .search-result-summary {
+  margin-left: 16px;
+}
+.search-result-container .search-result-summary-ing .three-quarters-loader,
+.rpanel-message-search .search-status-container .search-result-summary-ing .three-quarters-loader {
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 16px;
+  height: 16px;
+}
 .search-result-container .rpanel-list-empty__img {
   margin-bottom: 15px;
 }

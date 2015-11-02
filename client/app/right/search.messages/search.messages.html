@@ -36,7 +36,10 @@
   <div class="rpanel-body-content" infinite-scroll-bottom="searchMessages();">
     <div ng-if="!isSearchQueryEmpty">
       <div class="search-status-container">
-        <span class="search-result-summary-ing" ng-if="isSearching"><span translate>@search-in-progress</span></span>
+        <span class="search-result-summary-ing" ng-if="isSearching">
+          <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+          <span translate>@search-in-progress</span>
+        </span>
 
         <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
           <span translate>@search-result-summary</span>
