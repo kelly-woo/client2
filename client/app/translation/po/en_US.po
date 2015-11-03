@@ -452,6 +452,10 @@ msgstr "Additional Information"
 msgid "@common-invalid-access"
 msgstr "You cannot access this item anymore."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "You have been removed from {{TopicName}} by {{Member}}"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "You are no longer in the topic where this item was shared."
