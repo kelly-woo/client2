@@ -437,6 +437,10 @@ msgstr "其它資料"
 msgid "@common-invalid-access"
 msgstr "無法存取該檔案/訊息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "此信息/文件已被标示"
@@ -946,6 +950,26 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**粗體**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***斜體&粗體***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(隔行輸入)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*斜體*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~刪除線~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (議題成員)"
@@ -1156,6 +1180,10 @@ msgstr "尚未加入議題"
 msgid "@saturday"
 msgstr "周六"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "重新整理搜尋條件"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1177,6 +1205,18 @@ msgstr ""
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "選擇所有成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-current-members"
+msgstr "成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-disabled-members"
+msgstr "關閉成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-query-matches"
+msgstr "符合結果"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"

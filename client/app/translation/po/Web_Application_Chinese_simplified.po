@@ -437,6 +437,10 @@ msgstr "其它资料"
 msgid "@common-invalid-access"
 msgstr "无法存取该文件/信息"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "你已不在此标记的议题内"
@@ -946,6 +950,26 @@ msgstr "电子邮件或密码无效"
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**粗体**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***斜体&粗体***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(隔行輸入)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*斜体*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~删除线~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (议题成员)"
@@ -1156,6 +1180,10 @@ msgstr "尚未加入议题"
 msgid "@saturday"
 msgstr "星期六"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "重新整理搜索条件"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1177,6 +1205,18 @@ msgstr ""
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "选择所有成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-current-members"
+msgstr "成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-disabled-members"
+msgstr "关闭成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-query-matches"
+msgstr "符合结果"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"

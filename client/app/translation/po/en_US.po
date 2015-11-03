@@ -452,6 +452,10 @@ msgstr "Additional Information"
 msgid "@common-invalid-access"
 msgstr "You cannot access this item anymore."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "You have been removed from {{TopicName}} by {{Member}}"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "You are no longer in the topic where this item was shared."
@@ -974,6 +978,26 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**bold**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***bold&italics***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(next line) code"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*italics*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~strikethrough~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (topic members)"
@@ -1190,6 +1214,10 @@ msgstr "TOPIC NOT JOINED"
 msgid "@saturday"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "Refresh search options"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1212,6 +1240,18 @@ msgstr ""
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "Select all members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-current-members"
+msgstr "Members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-disabled-members"
+msgstr "Disabled Members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-query-matches"
+msgstr " matches."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
