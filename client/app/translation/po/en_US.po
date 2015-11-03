@@ -1194,6 +1194,10 @@ msgstr "TOPIC NOT JOINED"
 msgid "@saturday"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "Refresh search options"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
