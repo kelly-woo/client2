@@ -446,6 +446,10 @@ msgstr "추가 정보"
 msgid "@common-invalid-access"
 msgstr "원본에 대한 접근 권한이 없습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "{{Member}}님이 당신을 {{TopicName}}에서 제외했습니다."
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "이미 나갔거나 삭제된 토픽이므로 원본을 확인할 수 없습니다."
@@ -1187,6 +1191,10 @@ msgstr "참여하지 않은 토픽"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
 msgstr "토요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "검색조건 초기화"
 
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
