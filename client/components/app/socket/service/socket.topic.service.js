@@ -10,7 +10,8 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, memberService, jndWebSocketCommon) {
+  function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
+                       EntityMapManager) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -68,11 +69,24 @@
      * @private
      */
     function _onTopicLeft(data) {
+      var topicEntity = EntityMapManager.get('total', data.topic.id);
+      var creatorEntity = EntityMapManager.get('total', topicEntity.ch_creatorId);
+      var memberName = creatorEntity.name;
+      var topicName = topicEntity.name;
+      var msgTmpl = $filter('translate')('@common-kicked-out');
+      var msg = msgTmpl.replace('{{Member}}', memberName).replace('{{TopicName}}', topicName);
+
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
-      } else {
-        _updateLeftPanel(data);
       }
+
+      Dialog.warning({
+        body:  msg,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+
+      _updateLeftPanel(data);
     }
 
     /**
