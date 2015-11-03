@@ -425,6 +425,10 @@ msgstr ""
 msgid "@common-invalid-access"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
