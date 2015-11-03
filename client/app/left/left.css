@@ -255,9 +255,9 @@ last element of list
 .lpanel-list ul li:hover a span.left-panel_badge,
 .lpanel-list ul li.active a span.left-panel_badge {
   margin-top: 5px;
-  margin-right: 3px;
   color: white;
-  max-width: 26px;
+  max-width: 22%;
+  min-width: 26px;
 }
 
 .left-panel__name {
