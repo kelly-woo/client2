@@ -67,7 +67,8 @@
     function openShareDialog(content, isCreateLink) {
       var translate = $filter('translate');
       var externalShareUri = _externalShareDomain + content.externalCode;
-      var confirmTitle = '<span><i class="icon-link"></i></span>' + translate('@external-share-create-title').replace('{{fileName}}', content.name);
+      var confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
+        '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
       var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
         '<span>' + translate('@external-share-create-desc') + '</span>';
 
@@ -80,7 +81,7 @@
       Dialog.confirm({
         allowHtml: true,
         title: confirmTitle,
-        titleClass: 'external-share-title',
+        titleClass: 'external-share-title break',
         body: $sce.trustAsHtml(confirmBody),
         bodyClass: 'normal-body external-share-body',
         confirmButtonText: translate('@common-open-new-window'),
