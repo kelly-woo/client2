@@ -28,6 +28,10 @@
   right: 20px;
 }
 .sticker_panel_wrap .sticker_panel_btn {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: block;
   opacity: 0.3;
   font-size: 18px;
   color: black;
@@ -37,6 +41,43 @@
   color: #00abe6;
   opacity: 0.9;
 }
+
+.sticker_panel_wrap .sticker_panel_btn > .mouse {
+  position: absolute;
+  top: 11px;
+  left: 5px;
+  right: 5px;
+  height: 2px;
+  background-color: #fff;
+  display: inline-block;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-bottom-right-radius: 12px 8px;
+  border-bottom-left-radius: 12px 8px;
+  -webkit-transition: height .12s linear;
+  transition: height .12s linear;
+}
+.sticker_panel_wrap .sticker_panel_btn.on > .mouse {
+  height: 4px;
+  border-color: #00abe6;
+  border-bottom: 1px solid #00abe6;
+}
+
+.sticker_panel_wrap .sticker_panel_btn > .lip {
+  position: absolute;
+  top: 11px;
+  left: 4px;
+  width: 10px;
+  height: 4px;
+  background-color: #fff;
+  display: inline-block;
+  border-top: 1px solid rgba(0, 0, 0, .6);
+}
+.sticker_panel_wrap .sticker_panel_btn.on > .lip {
+  border-color: #00abe6;
+}
+
 .sticker_panel_contents ul li{overflow:hidden;}
 .sticker_panel_contents {
   /*width: 328px !important;
@@ -121,7 +162,6 @@
 .sticker_panel_tab_item.recent.on {
   opacity: 1;
 }
-
 
 .sticker_panel_tab_item img {
   width: 20px;

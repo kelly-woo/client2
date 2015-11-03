@@ -39,16 +39,30 @@
         scope.onCreateSticker = onCreateSticker;
         scope.autoScroll = autoScroll;
 
+        scope.onToggled = onToggled;
+
          _setStickerPanelSize();
         _on();
       }
 
+      /**
+       * on listeners
+       * @private
+       */
       function _on() {
         jqStickerPanelBtn.on('keydown', _onKeyDown);
       }
 
+      /**
+       * keydown event handler
+       * @param {object} event
+       * @private
+       */
       function _onKeyDown(event) {
         var keyCode = event.keyCode;
+
+        event.preventDefault();
+        //event.stopPropagation();
 
         if (jndKeyCode.match('UP_ARROW', keyCode)) {
           scope.navActiveSticker(0, -1);
@@ -58,9 +72,43 @@
           scope.navActiveSticker(0, 1);
         } else if (jndKeyCode.match('LEFT_ARROW', keyCode)) {
           scope.navActiveSticker(-1, 0);
+        } else if (jndKeyCode.match('ENTER', keyCode)) {
+
+          // select sticker
+          scope.selectSticker();
+        } else if (jndKeyCode.match('ESC', keyCode)) {
+
+          // close sticker
+          scope.$apply(function() {
+            scope.status.isOpen = false;
+          });
         }
       }
 
+      /**
+       * show hide 토글 핸들러
+       * @param {boolean} isOpen 현재 show 되었는지 여부
+       */
+      function onToggled(isOpen) {
+        if (isOpen) {
+          scope.select();
+          jqStickerPanelBtn.attr('tabIndex', -1)
+        } else {
+          jqStickerPanelBtn.removeAttr('tabIndex');
+        }
+      }
+
+      /**
+       * create sticker event handler
+       */
+      function onCreateSticker() {
+        jqStickerPanelBtn.focus();
+      }
+
+      /**
+       * set sticker panel size
+       * @private
+       */
       function _setStickerPanelSize() {
         var width = attrs.width || DEFAULT_WIDTH;
         var height = attrs.height || DEFAULT_HEIGHT;
@@ -70,14 +118,10 @@
         el.find('.sticker_panel_contents').width(width).height(height);
       }
 
-      function onCreateSticker() {
-        //setTimeout(function() {
-        //  jqStickerPanelBtn.focus();
-        //});
-
-        jqStickerPanelBtn.focus();
-      }
-
+      /**
+       * 특정 item이 list에서 보이도록 scroll 설정
+       * @param {number} index
+       */
       function autoScroll(index) {
         var jqItem = el.find('.sticker_panel_ul').children().eq(index);
         var itemPosition;
