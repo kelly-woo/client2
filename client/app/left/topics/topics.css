@@ -72,3 +72,12 @@
   font-size: 18px;
 }
 
+.topic-header-badge {
+  position: relative;
+  right:0px;
+  display: none;
+}
+.topic-header-badge .left-panel_badge {
+  margin-top:4px;
+  margin-right: 4px;
+}
