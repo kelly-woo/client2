@@ -454,7 +454,7 @@ msgstr "You cannot access this item anymore."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
-msgstr "You have been removed from {{TopicName}} by {{Member}}"
+msgstr "You have been removed from {{TopicName}}."
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
