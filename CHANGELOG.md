@@ -1,3 +1,30 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/tosslab/web_client/compare/v1.6.3...v1.7.0) (2015-11-04)
+
+
+### Bug Fixes
+
+* **center:** file message의 최소 높이 설정 & message input란의 box-shadow가 scroll에 영향 미치지 않도록 수정 ([db607c8](https://github.com/tosslab/web_client/commit/db607c8))
+* **center:** 스타/ 멘션/ 검색 더블 클릭시 기본 토픽으로 이동하는 현상 해결 ([6bf3651](https://github.com/tosslab/web_client/commit/6bf3651))
+* **center:** 코멘트 뷰에서 코멘트 전체가 클릭 가능함 ([b80889d](https://github.com/tosslab/web_client/commit/b80889d))
+* **custom.selectbox:** disabled member 가 존재하지 않을 경우 메뉴 자체를  노출하지 않도록 추가 ([f89817d](https://github.com/tosslab/web_client/commit/f89817d))
+* **custom.selectbox:** select all 버튼 적용 ([ee18111](https://github.com/tosslab/web_client/commit/ee18111))
+* **custom.selectbox:** select all 시 쿼리 누락되는 부분 수정 ([a40f600](https://github.com/tosslab/web_client/commit/a40f600))
+* **custom.selectbox:** selectbox  초기 선택 값 없을 시 가장 첫번째 item 을 default 선택하도록 수정 ([28a6b41](https://github.com/tosslab/web_client/commit/28a6b41))
+* **custom.selectbox:** selectbox 버그 수정 ([490992c](https://github.com/tosslab/web_client/commit/490992c))
+* **custom.selectbox:** 검색조건 초기화 버튼 추가 ([c921684](https://github.com/tosslab/web_client/commit/c921684))
+* **custom.selectbox:** 검색조건 초기화 버튼 추가 ([04b7191](https://github.com/tosslab/web_client/commit/04b7191))
+* **custom.selectbox:** 검색조건 초기화 툴팁 위치 변경 ([d8f98bd](https://github.com/tosslab/web_client/commit/d8f98bd))
+* **kickout:** 강퇴 당했을 때 왼쪽패널 갱신되지 않는 오류 수정 ([4516efa](https://github.com/tosslab/web_client/commit/4516efa))
+* **kickout:** 강퇴 모달 주석처리 ([fd9d638](https://github.com/tosslab/web_client/commit/fd9d638))
+* **modal:** 토픽 초대 모달에 잘못된 ESM 출력 버그 수정 ([5690612](https://github.com/tosslab/web_client/commit/5690612))
+* **right:** topic에 참여중인 member 갱신시 comment에 출력되는 mention list도 갱신되도록 수정 ([9ff898f](https://github.com/tosslab/web_client/commit/9ff898f))
+* **right:** 파일 디테일에서 파일텝으로 뒤로 가기시 검색어 리셋되는 버그 수정 ([81ef664](https://github.com/tosslab/web_client/commit/81ef664))
+* **tutorial:** jump 버튼 추가 ([4df59a4](https://github.com/tosslab/web_client/commit/4df59a4))
+* **tutorial:** 초대 모달 수정 ([67a7f9e](https://github.com/tosslab/web_client/commit/67a7f9e))
+
+
+
 <a name="1.6.3"></a>
 ## [1.6.3](https://github.com/tosslab/web_client/compare/v1.6.2...v1.6.3) (2015-10-30)
 
