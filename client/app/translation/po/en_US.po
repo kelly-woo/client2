@@ -368,7 +368,7 @@ msgstr "File type"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
-msgstr "all"
+msgstr "All"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -977,6 +977,26 @@ msgstr "Invalid email or password"
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**bold**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***bold&italics***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(next line) code"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*italics*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~strikethrough~~"
 
 #: client/app/right/right.html
 msgid "@mention-all"
