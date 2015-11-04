@@ -69,7 +69,7 @@
         </div>
 
         <!-- blocked -->
-        <div class="custom-select-box__menulist-items toggle-menulist"
+        <div ng-if="memberData.disabledList.length" class="custom-select-box__menulist-items toggle-menulist"
              ng-class="{
                'collapsed': !isShowDisabled
              }">
@@ -82,7 +82,7 @@
 
             <li class="topic-title menu-item _selectable" ng-repeat="item in memberData.disabledList">
               <a>
-                <span>{{item.name}}</span>
+                <span><del>{{item.name}}</del></span>
               </a>
             </li>
           </ul>
