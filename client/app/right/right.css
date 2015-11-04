@@ -237,8 +237,21 @@
   width: 16px;
   height: 16px;
 }
-.search-result-container .rpanel-list-empty__img {
-  margin-bottom: 15px;
+.search-result-container .rpanel-list-empty__img,
+.search-result-container .star-empty__img {
+  margin-bottom: 20px;
+}
+
+.rpanel-body.star-list .search-result-container,
+.rpanel-body.memtion-list .search-result-container {
+  border-bottom-width: 0px;
+}
+
+.rpanel-body.star-list .search-result-container .search-result-summary-ing,
+.rpanel-body.memtion-list .search-result-container .search-result-summary-ing {
+  margin-top: 70px;
+  margin-left: 0px;
+  text-align: center;
 }
 
 .show {
