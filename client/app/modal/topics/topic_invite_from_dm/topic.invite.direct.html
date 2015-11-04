@@ -6,7 +6,7 @@
     </h3>
 </div>
 
-<form name="user_to_channel_invite_form" data-ng-submit="onInviteClick(inviteChannel);">
+<form name="user_to_channel_invite_form" data-ng-submit="onInviteClick(inviteChannelId);">
     <div class="modal-body">
         <h4 class="modal-body__description">
             <span translate>@modal-dm-invite-msg1</span>
@@ -17,18 +17,21 @@
                     <span translate>@common-dm-invite-to</span>
                 </label>
                 <div class="col-sm-9">
-                    <select class="form-control"
-                            data-ng-model="inviteChannel"
-                            data-ng-options="channel as channel|getName group by channel.channel.typeCategory for channel in inviteOptions">
-                        <option value="">{{ '@option-choose' | translate }}</option>
-                    </select>
+                  <jnd-selectbox-room jnd-data-model="inviteChannelId"
+                                       jnd-data-list="inviteOptions"
+                                       jnd-only-topics="yes"></jnd-selectbox-room>
+                    <!--<select class="form-control"-->
+                            <!--data-ng-model="inviteChannel"-->
+                            <!--data-ng-options="channel as channel|getName group by channel.channel.typeCategory for channel in inviteOptions">-->
+                        <!--<option value="">{{ '@option-choose' | translate }}</option>-->
+                    <!--</select>-->
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
-        <input class="btn btn-ok" type="submit" ng-disabled="!inviteChannel" id="private_invite" value="{{ '@btn-invite' | translate }}"/>
+        <input class="btn btn-ok" type="submit" ng-disabled="!inviteChannelId" id="private_invite" value="{{ '@btn-invite' | translate }}"/>
     </div>
 </form>
 

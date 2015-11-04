@@ -110,6 +110,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $scope.$on('fileShared', _fileShared);
     $scope.$on('fileUnshared', _fileUnshared);
 
+    $scope.$on('topicInvite', _onTopicInvite);
+    $scope.$on('topicLeave', _onTopicLeave);
+
     $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
       _sticker = item;
       _focusInput();
@@ -419,6 +422,69 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         }
         _unsharedForMe = false;
       });
+    }
+  }
+
+  /**
+   * topic invite event handler
+   * @param {object} event
+   * @param {object} data
+   * @private
+   */
+  function _onTopicInvite(event, data) {
+    _addMentionMember(data);
+
+    $scope.$apply(function() {
+      getFileDetail();
+    });
+  }
+
+  /**
+   * topic leave event handler
+   * @param {object} event
+   * @param {object} data
+   * @private
+   */
+  function _onTopicLeave(event, data) {
+    _removeMentionMember(data);
+
+    $scope.$apply(function() {
+      getFileDetail();
+    });
+  }
+
+  /**
+   * add mention member
+   * @param {object} data
+   * @private
+   */
+  function _addMentionMember(data) {
+    var room = EntityMapManager.get('total', data.room.id);
+    var members = data.inviter;
+    var joinMembers;
+
+    if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
+      _.each(members, function(member) {
+        joinMembers.indexOf(member) < 0 && joinMembers.push(member);
+      });
+    }
+  }
+
+  /**
+   * remove mention member
+   * @param {object} data
+   * @private
+   */
+  function _removeMentionMember(data) {
+    var room = EntityMapManager.get('total', data.room.id);
+    var member = data.writer;
+    var joinMembers;
+    var index;
+
+    if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
+      if (index = joinMembers.indexOf(member)) {
+        index > -1 && joinMembers.splice(index, 1);
+      }
     }
   }
 

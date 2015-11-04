@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -368,7 +368,7 @@ msgstr "File type"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
-msgstr "all"
+msgstr "All"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -451,6 +451,10 @@ msgstr "Additional Information"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-invalid-access"
 msgstr "You cannot access this item anymore."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "You have been removed from {{TopicName}}."
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
@@ -974,6 +978,26 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**bold**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***bold&italics***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(next line) code"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*italics*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~strikethrough~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (topic members)"
@@ -1190,6 +1214,10 @@ msgstr "TOPIC NOT JOINED"
 msgid "@saturday"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "Clear search filters"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1212,6 +1240,18 @@ msgstr ""
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "Select all members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-current-members"
+msgstr "Members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-disabled-members"
+msgstr "Disabled Members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@selectbox-query-matches"
+msgstr " matches."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"

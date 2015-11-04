@@ -1,5 +1,6 @@
 /**
  * @fileoverview dialog service
+ * @see https://github.com/Foxandxss/angular-toastr
  */
 (function() {
   'use strict';
