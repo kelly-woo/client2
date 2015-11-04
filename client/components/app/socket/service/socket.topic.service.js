@@ -69,20 +69,11 @@
      * @private
      */
     function _onTopicLeft(data) {
-      var topicEntity = EntityMapManager.get('total', data.topic.id);
-      var topicName = topicEntity.name;
-      var msgTmpl = $filter('translate')('@common-kicked-out');
-      var msg = msgTmpl.replace('{{TopicName}}', topicName);
-
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       }
 
-      Dialog.warning({
-        body:  msg,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
+      jndPubSub.pub('kickedOut', data);
 
       _updateLeftPanel(data);
     }
