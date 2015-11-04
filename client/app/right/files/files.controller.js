@@ -89,6 +89,8 @@
       }
     }
 
+    $scope.$on('rPanelResetQuery', _onResetQuery);
+
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
       var entity = EntityMapManager.get('total', userId);
@@ -108,9 +110,9 @@
 
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
-      if ($scope.fileRequest.writerId === null) {
-        $scope.fileRequest.writerId = 'all';
-      }
+      //if ($scope.fileRequest.writerId === null) {
+      //  $scope.fileRequest.writerId = 'all';
+      //}
 
       if (newValue != oldValue) {
         _refreshFileList();
@@ -118,9 +120,8 @@
     });
 
     //  fileRequest.fileType - 파일 타입
-    $scope.$watch('fileTypeFilter', function(newValue, oldValue) {
+    $scope.$watch('fileRequest.fileType', function(newValue, oldValue) {
       if (newValue != oldValue) {
-        $scope.fileRequest.fileType = newValue.value;
         _refreshFileList();
       }
     }, true);
@@ -244,6 +245,18 @@
     });
 
     /**
+     * query 를 reset 한다
+     * @private
+     */
+    function _onResetQuery() {
+      if (_isActivated) {
+        $scope.sharedEntitySearchQuery = null;
+        _setDefaultSharedByFilter();
+        _initFileTypeFilter();
+      }
+    }
+
+    /**
      * has file id
      * @param {number} fileId
      * @returns {*}
@@ -321,9 +334,9 @@
      */
     function _generateShareOptions() {
       $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
-      if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-        $('._chatRoomOptions').change();
-      }
+      //if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+      //  $('._chatRoomOptions').change();
+      //}
     }
 
     /**
@@ -377,8 +390,7 @@
      */
     function _initFileTypeFilter() {
       $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
-      $scope.fileTypeFilter = $scope.fileTypeList[0];
-      $scope.fileRequest.fileType = $scope.fileTypeFilter.value
+      $scope.fileRequest.fileType = $scope.fileTypeList[0].value;
     }
 
     /**
@@ -421,7 +433,7 @@
           return false;
         }
       });
-      $scope.fileTypeFilter = fileType
+      $scope.fileRequest.fileType = fileType.value
     }
 
     /**
@@ -458,7 +470,6 @@
      */
     function getFileList() {
       _updateSearchStatusKeyword();
-
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
 
