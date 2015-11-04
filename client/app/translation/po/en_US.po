@@ -368,7 +368,7 @@ msgstr "File type"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
-msgstr "all"
+msgstr "All"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -454,7 +454,7 @@ msgstr "You cannot access this item anymore."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
-msgstr "You have been removed from {{TopicName}} by {{Member}}"
+msgstr "You have been removed from {{TopicName}}."
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
@@ -978,6 +978,26 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**bold**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***bold&italics***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(next line) code"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*italics*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~strikethrough~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (topic members)"
@@ -1193,6 +1213,10 @@ msgstr "TOPIC NOT JOINED"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
 msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "Clear search filters"
 
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
