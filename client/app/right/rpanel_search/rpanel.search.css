@@ -121,3 +121,12 @@
   border-bottom: 1px solid #ebebeb;
   background-color: white;
 }
+
+.rpanel-search-btn-tooltip {
+}
+
+.rpanel-search-btn-tooltip .tooltip-inner {
+  position:absolute;
+  top: -27px;
+  right: -20px;
+}
