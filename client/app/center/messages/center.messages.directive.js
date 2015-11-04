@@ -10,7 +10,8 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
-                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper) {
+                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
+                                   EntityMapManager) {
     return {
       restrict: 'E',
       replace: true,
@@ -78,6 +79,7 @@
         var eventType = data.event;
         var fileId = data.file.id;
         var message;
+
         _onFileUpdated(angularEvent, data.file)
           .error(function() {
             _.forEach(MessageCollection.list, function(msg, index) {
@@ -116,7 +118,7 @@
             var shareEntities;
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
-                shareEntities = item.shareEntities;
+                shareEntities = _toEntityIdList(item.shareEntities);
               }
             });
             _.forEach(MessageCollection.list, function(msg, index) {
@@ -126,6 +128,22 @@
               }
             });
           });
+      }
+
+      /**
+       * entityIdList 로 변경하여 반영한다
+       * @param {Array} memberIdList
+       * @returns {Array}
+       * @private
+       */
+      function _toEntityIdList(memberIdList) {
+        var entityIdList = [];
+        var entity;
+        _.forEach(memberIdList, function(memberId) {
+          entity = EntityMapManager.get('total', memberId);
+          entityIdList.push(entity.entityId || entity.id);
+        });
+        return entityIdList;
       }
 
       /**

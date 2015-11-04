@@ -20,7 +20,7 @@
 
       var fileUploadOptions = scope.fileUploadOptions;
       var fileUploader;
-      var fileObject
+      var fileObject;
 
       _init();
 
@@ -73,7 +73,7 @@
 
                 // file upload시 공유 대화방 수정 가능함.
                 //roomId: scope.selectedEntity.entityId || scope.selectedEntity.id,
-                share: scope.selectedEntity.id,
+                share: scope.selectedEntityId,
 
                 // file upload시 comment 수정 가능함.
                 comment: scope.comment
@@ -86,6 +86,7 @@
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
+              scope.selectedEntityId = scope.selectedEntity.id;
 
               $('#file_upload_comment').focus();
 
@@ -99,7 +100,7 @@
             onUpload: function(file, fileInfo) {
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
               //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
-              fileInfo.share = scope.selectedEntity.id;
+              fileInfo.share = scope.selectedEntityId;
 
               fileInfo.comment = el.find('#file_upload_comment').val();
 

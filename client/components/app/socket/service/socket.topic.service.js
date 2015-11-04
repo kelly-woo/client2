@@ -10,7 +10,8 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, memberService, jndWebSocketCommon) {
+  function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
+                       EntityMapManager) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -70,9 +71,11 @@
     function _onTopicLeft(data) {
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
-      } else {
-        _updateLeftPanel(data);
       }
+
+      jndPubSub.pub('kickedOut', data);
+
+      _updateLeftPanel(data);
     }
 
     /**
