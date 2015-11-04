@@ -37,6 +37,7 @@
        */
       function _init() {
         scope.isShown = false;
+        scope.searchKeyword = '';
         _initializeData();
         _attachEvents();
         _attachDomEvents();

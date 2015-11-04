@@ -48,6 +48,7 @@
        */
       function _init() {
         scope.isShown = false;
+        scope.searchKeyword = '';
         scope.cssIconMap = CSS_ICON_MAP;
         _initializeData();
         _attachEvents();

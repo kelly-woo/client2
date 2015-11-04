@@ -18,14 +18,20 @@
     <div class="custom-select-box__search-container">
       <span class="add-on-left"><i class="icon-search"></i></span>
       <input type="text"
+             ng-model="searchKeyword"
              ng-keyup="onKeyUp($event);"
              class="form-control custombox-search__input search-input" placeholder="{{::'@input-to-search' | translate }}">
     </div>
     <!--검색-->
-    <div ng-if="searchList.length" class="custom-select-box__search-result _container">
+    <div ng-if="searchKeyword" class="custom-select-box__search-result _container">
+      <!-- no-search-result container-->
+      <div ng-if="!searchList.length" class="no-result-container">
+        <!-- translate:  -->
+        <span translate>@alert-no-result</span>
+      </div>
 
       <!-- saearc-result -->
-      <div class="custom-select-box__search-result-items">
+      <div ng-if="searchList.length" class="custom-select-box__search-result-items">
         <span class="menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
 
         <ul class="menulist-item-result">
@@ -40,7 +46,7 @@
     </div>
 
     <!--일반 리스트-->
-    <div ng-if="!searchList.length" class="custom-select-box__menulist _container">
+    <div ng-if="!searchKeyword" class="custom-select-box__menulist _container">
       <div ng-if="hasAll">
         <a class="select-all _selectable">
           <i class="icon-topic-fill"></i>
