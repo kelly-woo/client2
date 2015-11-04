@@ -33,11 +33,11 @@
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);
 
-      Dialog.warning({
-        body:  msg,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
+      //Dialog.warning({
+      //  body:  msg,
+      //  extendedTimeOut: 0,
+      //  timeOut: 0
+      //});
     }
   }
 })();
