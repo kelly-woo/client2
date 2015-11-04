@@ -142,22 +142,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
 
-    _initializeListeners();
-  
+    //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
+      _initializeListeners();
       _reset();
       _initializeView();
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
+    } else {
+      $scope.$on('dataInitDone', _init);
     }
-  }
-
-  /**
-   *
-   * @private
-   */
-  function _onInitDone() {
-    _init();
   }
 
   /**
@@ -268,8 +262,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('window:unload', _onWindowUnload);
 
     $scope.$on('body:dragStart', _onDragStart);
-    $scope.$on('dataInitDone', _onInitDone);
-
     $scope.$on('topicDeleted', _onTopicDeleted);
   }
 
@@ -1026,7 +1018,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         return;
       }
 
-      if (NetInterceptor.isConnected()) {
+      if (response !== null && NetInterceptor.isConnected()) {
         publicService.goToDefaultTopic();
       }
     }

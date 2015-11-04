@@ -18,12 +18,15 @@
     function link(scope, element) {
       var timerSearch;
 
-      element
-        .find('#right-panel-search-box')
+      $('#right-panel-search-box')
         .on('keyup', _onKeyDown)
         .on('$destroy', _onDestroy);
 
-        /**
+
+      $('#right-panel-search-select-all')
+        .on('change',_doSearch);
+
+      /**
        * key down event handler
        * @param {object} event
        * @private
@@ -39,12 +42,18 @@
         }
 
         $timeout.cancel(timerSearch);
-        timerSearch = $timeout(function() {
-          var value = target.value;
-          if (value === '' || value.length > 1) {
-            scope.onFileTitleQueryEnter(value);
-          }
-        }, 500);
+        timerSearch = $timeout(_doSearch, 500);
+      }
+
+      /**
+       * 검색 이벤트를 trigger 한다
+       * @private
+       */
+      function _doSearch() {
+        var value = $('#right-panel-search-box').val();
+        if (value === '' || value.length > 1) {
+          scope.onFileTitleQueryEnter(value);
+        }
       }
 
       /**
