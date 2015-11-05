@@ -425,6 +425,10 @@ msgstr ""
 msgid "@common-invalid-access"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
@@ -928,6 +932,26 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr ""
@@ -1136,6 +1160,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
 msgstr ""
 
 #: client/app/right/files/files.html

@@ -28,7 +28,8 @@
       $scope.isSearching = false;
       $scope.isEndOfList = false;
       $scope.apiError = false;
-
+      $scope.messageLocationId = '';
+      $scope.messageWriterId = '';
       $scope.messageList;
 
       $scope.searchStatus = {
@@ -64,6 +65,22 @@
       $scope.$on('topic-folder:update', _initChatRoomOption);
       $scope.$on('onBeforeEntityChange', _onBeforeEntityChange);
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
+      $scope.$watch('messageLocationId', updateMessageLocationFilter);
+      $scope.$watch('messageWriterId', updateMessageWriterFilter);
+      $scope.$on('rPanelResetQuery', _onResetQuery);
+    }
+
+    /**
+     * query 리셋
+     * @private
+     */
+    function _onResetQuery() {
+      if (_isActivated) {
+        _refreshSearchQuery();
+        $scope.searchQuery.entityId = $scope.messageLocationId  = '';
+        $scope.searchQuery.writerId = $scope.messageWriterId = '';
+        searchMessages();
+      }
     }
 
     /**
@@ -145,7 +162,7 @@
      */
     function updateMessageLocationFilter() {
       _refreshSearchQuery();
-      $scope.searchQuery.entityId = $scope.messageLocation ? $scope.messageLocation.id : '';
+      $scope.searchQuery.entityId = $scope.messageLocationId || '';
       searchMessages();
     }
 
@@ -154,7 +171,7 @@
      */
     function updateMessageWriterFilter() {
       _refreshSearchQuery();
-      $scope.searchQuery.writerId = $scope.messageWriter || '';
+      $scope.searchQuery.writerId = $scope.messageWriterId || '';
       searchMessages();
     }
 
@@ -169,7 +186,6 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
-
       messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {
           if (_isActivated) {
@@ -327,9 +343,9 @@
       var newOptions = fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList);
       var newMessageLocation = _getMessageLocation(newOptions);
       $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
-      if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-        $('._chatRoomOptions').change();
-      }
+      //if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+      //  $('._chatRoomOptions').change();
+      //}
 
       if (newMessageLocation) {
         _setMessageLocation(newMessageLocation);
@@ -348,14 +364,14 @@
      * @private
      */
     function _getMessageLocation(newOptions) {
-      var messageLocation = $scope.messageLocation;
+      var messageLocationId = $scope.messageLocationId;
 
       var length = newOptions.length;
       var i;
 
-      if (messageLocation) {
+      if (messageLocationId) {
         for (i = 0; i < length; i++) {
-          if (messageLocation.id === newOptions[i].id) {
+          if (messageLocationId === newOptions[i].id) {
             return newOptions[i];
           }
         }
@@ -384,7 +400,7 @@
      * @private
      */
     function _resetChatWriter() {
-      $scope.messageWriter = '';
+      $scope.messageWriterId = '';
     }
 
     /**
@@ -444,7 +460,7 @@
      * @private
      */
     function _setMessageLocation(entity) {
-      $scope.messageLocation = entity;
+      $scope.messageLocationId = entity ? entity.id : '';
       $scope.searchQuery.entityId = entity ? entity.id : '';
     }
 

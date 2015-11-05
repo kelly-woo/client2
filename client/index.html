@@ -115,6 +115,7 @@
   <link rel="stylesheet" href="app/util/css/jandi-common.css">
   <link rel="stylesheet" href="app/util/css/jandi-icon.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
+  <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="assets/components/google-code-prettify/code.css">
   <link rel="stylesheet" href="assets/components/google-code-prettify/prettify.css">
@@ -125,7 +126,9 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body active-notifier window-title-manager>
+<body active-notifier
+      window-title-manager
+      jnd-wrapper>
 <!--[if lte IE 9]>
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
@@ -254,6 +257,10 @@
 <script src="assets/javascripts/handlebars.templates.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
 <script src="app/util/directive/animate.text.directive.js"></script>
+<script src="app/util/directive/custom-selectbox/jnd.custom.focus.directive.js"></script>
+<script src="app/util/directive/custom-selectbox/jnd.selectbox.file.directive.js"></script>
+<script src="app/util/directive/custom-selectbox/jnd.selectbox.member.directive.js"></script>
+<script src="app/util/directive/custom-selectbox/jnd.selectbox.room.directive.js"></script>
 <script src="app/util/directive/jnd.code.prettify.directive.js"></script>
 <script src="app/util/directive/jnd.elastic.directive.js"></script>
 <script src="app/util/directive/jnd.ignore.braces.js"></script>
@@ -502,6 +509,8 @@
 <script src="app/tutorial/tutorial.service.js"></script>
 <script src="app/tutorial/welcome/tutorial.welcome.controller.js"></script>
 <script src="app/tutorial/welcome/tutorial.welcome.directive.js"></script>
+<script src="app/wrapper/jnd.wrapper.controller.js"></script>
+<script src="app/wrapper/jnd.wrapper.directive.js"></script>
 <script src="components/app/active_notifier/active.notifier.directive.js"></script>
 <script src="components/app/analytics/analyticsv1.service.js"></script>
 <script src="components/app/analytics/directives/buttonTrakcer.directive.js"></script>

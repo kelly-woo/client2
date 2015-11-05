@@ -447,6 +447,10 @@ msgstr "追加情報"
 msgid "@common-invalid-access"
 msgstr "原本ファイルへのアクセス権がありません。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "{{TopicName}}の管理者からトピックから退出させられました。"
+
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "すでに参加していないトピックなので原本が表示できません"
@@ -976,6 +980,26 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**ボールド体**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***ボールド&イタリック体***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(改行)コードブロック"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*イタリック体*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~ストライクスルー~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all（トピック内）"
@@ -1193,6 +1217,10 @@ msgstr "未参加のトピック"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
 msgstr "土曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "検索条件を更新"
 
 #: client/app/right/files/files.html
 #: client/app/right/mentions/mentions.html

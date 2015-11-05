@@ -229,7 +229,7 @@
     function hasFilePermission(msg, isComment) {
       var message = isComment? msg.feedback : msg.message;
       var member = memberService.getMember();
-      var commonEntities = _.intersection(_.map(member.u_messageMarkers, 'entityId'), message.shareEntities);
+      var hasCommonEntities = _.intersection(_.map(member.u_messageMarkers, 'entityId'), message.shareEntities).length;
 
       // 파일이 전체 공개인 경우
       if (message.permission % 10 > 0) {
@@ -242,7 +242,7 @@
       }
 
       // 파일이 접근 가능한 entity에 공유된 경우
-      if (commonEntities.length > 0) {
+      if (hasCommonEntities) {
         return true;
       }
 
@@ -259,7 +259,8 @@
     function isFileUnshared(msg, isComment) {
       var message = isComment? msg.feedback : msg.message;
       var currentEntityId = currentSessionHelper.getCurrentEntityId(true);
-      return message.shareEntities.indexOf(currentEntityId) === -1;
+      var currentId = currentSessionHelper.getCurrentEntityId();
+      return message.shareEntities.indexOf(currentEntityId) === -1 && message.shareEntities.indexOf(currentId) === -1;
     }
 
     /**
