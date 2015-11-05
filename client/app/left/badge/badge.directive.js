@@ -112,7 +112,6 @@
        */
       function _getTop() {
         var scrollTop = $('#lpanel-list-container').scrollTop();
-        console.log('### _getTop', jqParent.offset().top);
         return scrollTop + jqParent.offset().top;
       }
     }

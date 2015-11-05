@@ -86,10 +86,16 @@
       });
       unread.above = unread.above.sort(_sortNum);
       unread.below = unread.below.sort(_sortNum);
-      console.log('### getUnreadPos', top, bottom, unread);
       return unread;
     }
 
+    /**
+     * sorting 함수
+     * @param {number} a
+     * @param {number} b
+     * @returns {number}
+     * @private
+     */
     function _sortNum(a, b) {
       return a - b;
     }
