@@ -229,7 +229,8 @@
   right: 20px;
   top: 35px;
   font-size: 11px;
-  color: #aaa;
+  color: #154a67;
+  opacity: 0.6 !important;
 }
 .markdown-guide-content > span {
   margin-left: 10px;
