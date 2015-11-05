@@ -26,7 +26,7 @@
 
     function link(scope, el, attrs, ctrl) {
       var key = scope.group + '_' + scope.key;
-      var jqParent = el.parent();
+      var jqParent = scope.group === 'header' ? el.parent().parent() : el.parent();
 
       _init();
 
@@ -112,6 +112,7 @@
        */
       function _getTop() {
         var scrollTop = $('#lpanel-list-container').scrollTop();
+        console.log('### _getTop', jqParent.offset().top);
         return scrollTop + jqParent.offset().top;
       }
     }
