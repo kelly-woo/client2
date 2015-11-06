@@ -104,14 +104,16 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     });
   }
 
-  function getFileDetail(fileId) {
-    return $http({
+  function getFileDetail(fileId, options) {
+    options = _.extend({
       method  : 'GET',
       url     : $rootScope.server_address + 'messages/' + fileId,
       params  : {
         teamId: memberService.getTeamId()
       }
-    });
+    }, options);
+
+    return $http(options);
   }
 
   /**

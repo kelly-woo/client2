@@ -13,8 +13,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        fileDetail: '=',
-        fileIcon: '=',
+        file: '=',
         isExternalShared: '='
       },
       link: link,
@@ -22,10 +21,10 @@
     };
 
     function link(scope, el, attrs) {
-      var fileDetail = scope.fileDetail;
+      var fileDetail = scope.file;
       var content = fileDetail.content;
 
-      var fileIcon = scope.fileIcon;
+      var fileIcon = $filter('fileIcon')(fileDetail.content);;
 
       _init();
 

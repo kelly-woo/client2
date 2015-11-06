@@ -1,0 +1,27 @@
+<div class="comment-input-box" ng-show="hasInitialLoaded && file">
+  <div class="comment-item__thumbnail">
+    <img class="user-profile user-thumb-sm cursor_pointer"
+         ng-src="{{profileImage}}"
+         ng-click="onUserClick(member);"/>
+  </div>
+  <form id="comment-form" ng-submit="postComment()">
+    <sticker-layer name="file" height="145"></sticker-layer>
+    <div class="comment-textarea-wrap">
+      <textarea id="file-detail-comment-input"
+                class="comment-input"
+                message-submit="postComment()"
+                autocorrect="off"
+                autocomplete="off"
+                spellcheck="true"
+                jnd-elastic
+                ng-keyup="onKeyUp($event)"
+                mentionahead
+                mentionahead-data="watchFileDetail($mentionScope, $mentionCtrl)"></textarea>
+      <sticker-panel name="file" width="265" height="245"></sticker-panel>
+    </div>
+    <span class="comment-input__tip pull-left">
+      <span translate>@msg-help-multiline</span>
+    </span>
+    <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
+  </form>
+</div>

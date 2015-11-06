@@ -105,7 +105,7 @@
         }
       };
       _modalOpener(modalOption);
-      _safeApply($scope);
+      //_safeApply($scope);
     }
 
     /**
