@@ -37,8 +37,15 @@
     }
 
     function _on() {
+      $scope.$on('$destroy', function() {
+       console.log('file detail destroy ::: ');
+      });
+
       $scope.$on('right:updateFile', _onUpdateFile);
       $scope.$on('right:updateComments', _onUpdateComments);
+
+      $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
+      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     }
 
     function _onUpdateFile(event, fn) {
@@ -60,21 +67,25 @@
     }
 
     function _requestFileDetail(updateType, fn) {
-      var deferred = $q.defer();
+      var deferred;
 
-      abortFileDetailDeferred ? abortFileDetailDeferred.resolve() : (abortFileDetailDeferred = $q.defer());
-      fileAPIservice.getFileDetail(fileId, {timeout: abortFileDetailDeferred})
-        .success(function(response) {
-          _onSuccessFileDetail(response, updateType);
+      if (_isFileDetailActive()) {
+        deferred = $q.defer();
 
-          fn && fn();
-        })
-        .error(_onErrorFileDetail)
-        .finally(function() {
-          abortFileDetailDeferred = null;
+        abortFileDetailDeferred ? abortFileDetailDeferred.resolve() : (abortFileDetailDeferred = $q.defer());
+        fileAPIservice.getFileDetail(fileId, {timeout: abortFileDetailDeferred})
+          .success(function(response) {
+            _onSuccessFileDetail(response, updateType);
 
-          deferred.resolve();
-        });
+            fn && fn();
+          })
+          .error(_onErrorFileDetail)
+          .finally(function() {
+            abortFileDetailDeferred = null;
+
+            deferred.resolve();
+          });
+      }
     }
 
     function _onSuccessFileDetail(response, updateType) {
@@ -265,6 +276,45 @@
 
         comment.extCreateTimeView = createTime;
       });
+    }
+
+    /**
+     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+     * @param {object} event
+     * @param {{event: object, member: object}} data
+     * @private
+     */
+    function _onUpdateMemberProfile(event, data) {
+      var file = $scope.file;
+      var comments = $scope.comments;
+      var id = data.member.id;
+
+      if (file && file.writerId === id) {
+        _setExtraData(file, id);
+      }
+
+      _.forEach(comments, function(comment) {
+        if (comment.writerId === id) {
+          _setExtraData(comment, id);
+        }
+      });
+    }
+
+    function _onRightFileDetailOnFileDeleted(event, param) {
+      var deletedFileId = param.file.id;
+
+      if (fileId == deletedFileId) {
+        _getFileDetail();
+      }
+    }
+
+    /**
+     * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
+     * @returns {boolean} true - file deatil tab 을 보고 있을 경우
+     * @private
+     */
+    function _isFileDetailActive() {
+      return fileId && $state.params.itemId != null && $state.params.itemId !== '';
     }
   }
 })();

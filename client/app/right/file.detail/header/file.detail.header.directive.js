@@ -43,6 +43,9 @@
         scope.onStarClick = onStarClick;
         scope.onFileDeleteClick = onFileDeleteClick;
 
+        scope.getExternalShare = getExternalShare;
+        scope.setExternalShare = setExternalShare;
+
         _setFileDownLoad();
       }
 
@@ -165,6 +168,22 @@
        */
       function backToFileList() {
         $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
+      }
+
+      /**
+       * external share 전달한다.
+       * @returns {string}
+       */
+      function getExternalShare() {
+        return scope.isExternalShared;
+      }
+
+      /**
+       * external share 설정한다.
+       * @param {boolean} isExternalShared
+       */
+      function setExternalShare(isExternalShared) {
+        scope.isExternalShared = isExternalShared;
       }
     }
   }

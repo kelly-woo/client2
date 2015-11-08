@@ -45,6 +45,9 @@
         scope.$on('fileShared', _onFileShared);
         scope.$on('fileUnshared', _onFileUnshared);
 
+
+        scope.$on('onChangeShared', _onChangeShared);
+
         scope.$watch('file', _onChangeFile);
       }
 
@@ -154,6 +157,7 @@
       function _setShared() {
         var file = scope.file;
 
+        console.log('ext shared ::: ', fileAPIservice.updateShared(file));
         file.extShared = fileAPIservice.updateShared(file);
         scope.hasTopic = !!file.extShared.length;
       }
@@ -200,6 +204,25 @@
           }
 
           unsharedForMe = false;
+        }
+      }
+
+      /**
+       * 공유 된 topic 변경 event handler
+       * @param event
+       * @param data
+       * @private
+       */
+      function _onChangeShared(event, data) {
+        var shareEntities = scope.file.shareEntities;
+
+        if (data && shareEntities.length === 1 &&
+          ((data.event === "topic_deleted" && shareEntities[0] === data.topic.id) || (data.type === 'delete' && shareEntities[0] === data.id))) {
+          // archived file 이고 event type이 'topic_deleted' 또는 shared 'delete' 일때
+          // 마지막으로 공유된 토픽이 삭제되는 것이라면 공유 토픽을 가지지 않은 것으로 표기함
+          scope.hasTopic = false;
+        } else {
+          jndPubSub.pub('right:updateFile');
         }
       }
     }

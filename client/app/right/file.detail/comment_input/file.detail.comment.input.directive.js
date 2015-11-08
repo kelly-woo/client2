@@ -9,8 +9,8 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, EntityMapManager, entityAPIservice, memberService, jndKeyCode, jndPubSub,
-                                  JndMessageStorage, fileAPIservice) {
+  function fileDetailCommentInput($rootScope, $filter, EntityMapManager, entityAPIservice, memberService, jndKeyCode,
+                                  jndPubSub, JndMessageStorage, fileAPIservice) {
     return {
       restrict: 'E',
       replace: true,
@@ -24,8 +24,6 @@
     };
 
     function link(scope) {
-      var file = scope.file;
-
       var jqCommentInput = $('#file-detail-comment-input');
 
       var sticker;
@@ -38,12 +36,11 @@
        * @private
        */
       function _init() {
-        scope.profileImage = $filter('getSmallThumbnail')(memberService.getMember());
-
         scope.postComment = postComment;
         scope.onKeyUp = onKeyUp;
         scope.watchFileDetail = watchFileDetail;
 
+        _setProfileImage(memberService.getMember());
         _setCommentFocus();
 
         _on();
@@ -62,13 +59,16 @@
 
         scope.$on('topicInvite', _onTopicInvite);
         scope.$on('topicLeave', _onTopicLeave);
+
+        scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
+        scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       }
 
       /**
        * comment 를 posting 한다.
        */
       function postComment() {
-        var fileId = file.id;
+        var fileId = scope.file.id;
         var msg = jqCommentInput.val().trim();
         var content;
         var mentions;
@@ -86,8 +86,6 @@
           fileAPIservice.postComment(fileId, msg, sticker, mentions)
             .success(function() {
               JndMessageStorage.removeCommentInput(fileId);
-
-              //jndPubSub.pub('right:updateComments');
 
               setTimeout(function() {
                 jqCommentInput.val('').focus()[0].removeAttribute('style');
@@ -199,7 +197,7 @@
        * @private
        */
       function _saveCommentInput() {
-        file && JndMessageStorage.setCommentInput(file.id, jqCommentInput.val());
+        scope.file && JndMessageStorage.setCommentInput(scope.file.id, jqCommentInput.val());
       }
 
       /**
@@ -266,6 +264,39 @@
           $rootScope.setFileDetailCommentFocus = false;
 
           _focusInput();
+        }
+      }
+
+      /**
+       * 현재 사용자의 profile image를 설정한다.
+       * @param {object} member
+       * @private
+       */
+      function _setProfileImage(member) {
+        scope.profileImage = $filter('getSmallThumbnail')(member);
+      }
+
+      /**
+       * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+       * @param {object} event
+       * @param {{event: object, member: object}} data
+       * @private
+       */
+      function _onUpdateMemberProfile(event, data) {
+        var currentMember = memberService.getMember();
+        var member = data.member;
+        var id = member.id;
+
+        if (currentMember.id === id) {
+          _setProfileImage(member);
+        }
+      }
+
+      function _onRightFileDetailOnFileDeleted(event, param) {
+        var deletedFileId = param.file.id;
+
+        if (scope.file.id == deletedFileId) {
+          JndMessageStorage.removeCommentInput(deletedFileId);
         }
       }
     }

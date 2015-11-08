@@ -24,9 +24,6 @@
     };
 
     function link(scope) {
-      var file = scope.file;
-      var isAdmin = scope.isAdmin;
-
       _init();
 
       /**
@@ -56,7 +53,7 @@
        * @returns {boolean|string}
        */
       function hasOwnComment(comment) {
-        return file.id === comment.writerId || isAdmin;
+        return scope.file.writerId === comment.writerId || scope.isAdmin;
       }
 
       /**
@@ -85,7 +82,7 @@
               _onErrorDelete(err, 'fileAPIservice.deleteSticker');
             });
         } else {
-          fileAPIservice.deleteComment(file.id, commentId)
+          fileAPIservice.deleteComment(scope.file.id, commentId)
             .success(_onSuccessDelete)
             .error(function(err) {
               _onErrorDelete(err, 'fileAPIservice.deleteComment');

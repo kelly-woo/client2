@@ -64,7 +64,10 @@
             </a>
           </li>
           <li class="cursor_pointer">
-            <a class="external-share-file" file-id="{{::file.id}}" external-share-view="isExternalShared"
+            <a class="external-share-file" file-id="{{::file.id}}"
+               external-share-view
+               external-share-get="getExternalShare()"
+               external-share-set="setExternalShare($value)"
                external-code="file.content.externalCode"
                external-url="file.content.externalUrl"
                external-shared="file.content.externalShared">
@@ -98,16 +101,13 @@
     <div class="file-detail-header-box">
       <div class="file-detail-header__thumbnail">
         <img class="user-profile user-thumb-sm cursor_pointer"
-             ng-src="{{ file_detail.extProfileImg }}"
-             ng-click="onUserClick(file_detail.extWriter);"/>
+             ng-src="{{file.extProfileImg}}"
+             ng-click="onUserClick(file.extWriter);"/>
       </div>
 
-      <div class="file-detail-header__writer">{{ file_detail.extWriterName }}</div>
+      <div class="file-detail-header__writer">{{file.extWriterName}}</div>
 
       <div class="file-detail-header__title archived-file__title">
-        <a href="{{::originalUrl}}" target="_blank" ng-if="!isArchivedFile">
-          {{ file_detail.content | fileTitle }}
-        </a>
         <div translate>@common-deleted-file-title</div>
       </div>
     </div>

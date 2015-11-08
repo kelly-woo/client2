@@ -69,7 +69,10 @@
             </a>
           </li>
           <li class="cursor_pointer">
-            <a class="external-share-file" file-id="{{::file.id}}" external-share-view="isExternalShared">
+            <a class="external-share-file" file-id="{{::file.id}}"
+               external-share-view
+               external-share-get="getExternalShare()"
+               external-share-set="setExternalShare($value)">
               <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
               <span><span ng-if="isExternalShared" translate>@external-share-remove</span><span ng-if="!isExternalShared" translate>@external-share-create</span></span>
             </a>
