@@ -37,10 +37,6 @@
     }
 
     function _on() {
-      $scope.$on('$destroy', function() {
-       console.log('file detail destroy ::: ');
-      });
-
       $scope.$on('right:updateFile', _onUpdateFile);
       $scope.$on('right:updateComments', _onUpdateComments);
 

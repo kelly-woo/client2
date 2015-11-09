@@ -25,6 +25,8 @@
       var _paddingVertical;
       var _paddingHorizontal;
 
+      var _name = attrs.jndElastic;
+
       _init();
 
       /**
@@ -134,7 +136,7 @@
         if (_height !== height) {
           el.height(height + _paddingVertical);
           _height = height;
-          jndPubSub.pub('elastic:resize');
+          jndPubSub.pub('elasticResize:' + _name);
         }
       }
 

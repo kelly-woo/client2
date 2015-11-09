@@ -45,7 +45,6 @@
         scope.$on('fileShared', _onFileShared);
         scope.$on('fileUnshared', _onFileUnshared);
 
-
         scope.$on('onChangeShared', _onChangeShared);
 
         scope.$watch('file', _onChangeFile);
@@ -157,7 +156,6 @@
       function _setShared() {
         var file = scope.file;
 
-        console.log('ext shared ::: ', fileAPIservice.updateShared(file));
         file.extShared = fileAPIservice.updateShared(file);
         scope.hasTopic = !!file.extShared.length;
       }
@@ -192,7 +190,6 @@
 
       function _onChangeFile(newFile, oldFile) {
         if (newFile && oldFile !== newFile) {
-
           // 공유된 room 갱신
           _setShared();
 
@@ -222,7 +219,10 @@
           // 마지막으로 공유된 토픽이 삭제되는 것이라면 공유 토픽을 가지지 않은 것으로 표기함
           scope.hasTopic = false;
         } else {
-          jndPubSub.pub('right:updateFile');
+          // topic이 삭제되어 leftside menu가 update되어야 사용자에게 update된 file detail을 보여줄 수 있다.
+          setTimeout(function() {
+            jndPubSub.pub('right:updateFile');
+          }, 800);
         }
       }
     }

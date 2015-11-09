@@ -29,6 +29,8 @@
       var sticker;
       var stickerType = 'file';
 
+      var timerScrollBottom;
+
       _init();
 
       /**
@@ -62,6 +64,8 @@
 
         scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+
+        scope.$on('elasticResize:comment', _onElasticResize)
       }
 
       /**
@@ -297,6 +301,17 @@
 
         if (scope.file.id == deletedFileId) {
           JndMessageStorage.removeCommentInput(deletedFileId);
+        }
+      }
+
+      function _onElasticResize() {
+        var jqFileDetail = $('.file-detail');
+
+        clearTimeout(timerScrollBottom);
+        if (jqFileDetail[0] && jqFileDetail.height() + jqFileDetail.scrollTop() >= jqFileDetail[0].scrollHeight) {
+          timerScrollBottom = setTimeout(function() {
+            jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
+          }, 100);
         }
       }
     }
