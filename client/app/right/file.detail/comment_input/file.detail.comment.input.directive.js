@@ -10,13 +10,14 @@
 
   /* @ngInject */
   function fileDetailCommentInput($rootScope, $filter, EntityMapManager, entityAPIservice, memberService, jndKeyCode,
-                                  jndPubSub, JndMessageStorage, fileAPIservice) {
+                                  jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
         file: '=',
         hasInitialLoaded: '=',
+        postComment: '&',
         onUserClick: '='
       },
       templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
@@ -26,8 +27,8 @@
     function link(scope) {
       var jqCommentInput = $('#file-detail-comment-input');
 
-      var sticker;
       var stickerType = 'file';
+      var sticker;
 
       var timerScrollBottom;
 
@@ -38,7 +39,7 @@
        * @private
        */
       function _init() {
-        scope.postComment = postComment;
+        scope.createComment = createComment;
         scope.onKeyUp = onKeyUp;
         scope.watchFileDetail = watchFileDetail;
 
@@ -71,34 +72,20 @@
       /**
        * comment 를 posting 한다.
        */
-      function postComment() {
-        var fileId = scope.file.id;
-        var msg = jqCommentInput.val().trim();
-        var content;
-        var mentions;
+      function createComment() {
+        var comment = jqCommentInput.val().trim();
 
-        if (msg || sticker) {
+        if (comment || sticker) {
           _hideSticker();
 
-          if (scope.getMentions) {
-            if (content = scope.getMentions()) {
-              msg = content.msg;
-              mentions = content.mentions;
-            }
-          }
+          _clearWithFocus();
 
-          fileAPIservice.postComment(fileId, msg, sticker, mentions)
-            .success(function() {
-              JndMessageStorage.removeCommentInput(fileId);
-
-              setTimeout(function() {
-                jqCommentInput.val('').focus()[0].removeAttribute('style');
-              });
-            });
-        } else if (msg === '') {
-          setTimeout(function() {
-            jqCommentInput.val('').focus()[0].removeAttribute('style');
+          scope.postComment({
+            $comment: comment,
+            $sticker: sticker
           });
+        } else if (comment === '') {
+          _clearWithFocus();
         }
       }
 
@@ -313,6 +300,12 @@
             jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
           }, 100);
         }
+      }
+
+      function _clearWithFocus() {
+        setTimeout(function() {
+          jqCommentInput.val('').focus()[0].removeAttribute('style');
+        });
       }
     }
   }

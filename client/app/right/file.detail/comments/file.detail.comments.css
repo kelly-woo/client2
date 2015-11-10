@@ -15,6 +15,11 @@
   margin: 0 0 8px;
 }
 
+.error-comment-item .comment-item-body,
+.sending-comment-item .comment-item-body {
+  color: #c1c1c1;
+}
+
 .comment-item__thumbnail {
   position: absolute;
   left: 0;
@@ -64,6 +69,7 @@
 .comment-item-body {
   position: relative;
   line-height: 14px;
+  padding-right: 32px;
 }
 
 .comment-item__profile {
@@ -76,7 +82,7 @@
   margin: 0 0 0 -50px;
 }
 
-.comment-item-body p {
+.comment-item-body .comment {
   margin: 0;
   line-height: 20px;
 }

@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
-                           EntityMapManager, jndPubSub, memberService, publicService) {
+                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage) {
     var fileId;
     var abortFileDetailDeferred;
 
@@ -26,9 +26,10 @@
 
         if (fileId = $state.params.itemId) {
           $scope.hasInitialLoaded = false;
+          $scope.errorComments = [];
 
           $scope.onUserClick = onUserClick;
-
+          $scope.postComment = postComment;
           _getFileDetail();
 
           _on();
@@ -154,7 +155,6 @@
       comments = _.sortBy(comments, 'createTime');
 
       _setCreateTime(comments);
-
       $scope.comments = comments;
     }
 
@@ -311,6 +311,96 @@
      */
     function _isFileDetailActive() {
       return fileId && $state.params.itemId != null && $state.params.itemId !== '';
+    }
+
+    function _addSendingComment(data) {
+      var comments = $scope.comments;
+      var sendingComment;
+      var sendingSticker;
+      var sticker;
+      var comment;
+
+      if (sticker = data.sticker) {
+        sendingSticker = _getSendingComment('comment_sticker', sticker);
+        _pushComment(sendingSticker, comments);
+      }
+
+      if (comment = data.comment) {
+        sendingComment = _getSendingComment('comment', comment);
+        _pushComment(sendingComment, comments);
+
+        sendingComment.content.body += '';
+      }
+
+      // comments에 추가함
+      _setComments(comments);
+
+      return {
+        sticker: sendingSticker,
+        comment: sendingComment
+      };
+    }
+
+    function _getSendingComment(type, value) {
+      var currentMember = memberService.getMember();
+      var sendingComment = {
+        writerId: currentMember.id,
+        contentType: type,
+        createTime: new Date(),
+        isSendingComment: true
+      };
+
+      if (type === 'comment') {
+        sendingComment.content = {body: value};
+      } else if (type === 'comment_sticker') {
+        sendingComment.content = {url: value.url};
+        sendingComment.originSticker = value;
+      }
+
+      return sendingComment;
+    }
+
+    /**
+     * comment 를 posting 한다.
+     */
+    function postComment(comment, sticker) {
+      var deferred = $q.defer();
+      var fileId = $scope.file.id;
+      var content;
+      var mentions;
+
+      var result;
+
+      if (comment || sticker) {
+        if ($scope.getMentions) {
+          if (content = $scope.getMentions()) {
+            comment = content.comment;
+            mentions = content.mentions;
+          }
+        }
+
+        result = _addSendingComment({comment: comment, sticker: sticker});
+        fileAPIservice.postComment(fileId, comment, sticker, mentions)
+          .error(function() {
+            result.comment && _setErrorComments(result.comment);
+            result.sticker && _setErrorComments(result.sticker);
+          })
+          .finally(function() {
+            JndMessageStorage.removeCommentInput(fileId);
+            deferred.resolve();
+          });
+      }
+
+      return deferred.promise;
+    }
+
+    function _setErrorComments(comment) {
+      var index = $scope.comments.indexOf(comment);
+
+      if (index > -1) {
+        $scope.comments.splice(index, 1);
+      }
+      $scope.errorComments.push(comment);
     }
   }
 })();

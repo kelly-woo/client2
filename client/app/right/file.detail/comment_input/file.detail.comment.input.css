@@ -12,7 +12,7 @@
   position: relative;
   margin-bottom: 8px;
   border: 1px solid #D2D2D2;
-  padding-right: 34px;
+  padding-right: 30px;
   -webkit-border-top-right-radius:.2rem;
   -webkit-border-bottom-right-radius:.2rem;
   -webkit-border-bottom-left-radius:0;
@@ -49,7 +49,7 @@
   box-shadow:none;
   outline:0;
   min-height:80px;
-  padding:9px 30px 9px 8px;
+  padding:9px 0 9px 8px;
   overflow-y: hidden !important;
   resize: none !important;
   margin-top:0px;

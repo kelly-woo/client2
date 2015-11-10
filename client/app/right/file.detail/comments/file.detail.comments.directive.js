@@ -9,21 +9,25 @@
     .directive('fileDetailComments', fileDetailComments);
 
   /* @ngInject */
-  function fileDetailComments($state, $filter, fileAPIservice, Dialog, jndPubSub) {
+  function fileDetailComments($filter, fileAPIservice, Dialog, jndPubSub) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
         file: '=',
         comments: '=',
+        errorComments: '=',
         isAdmin: '=',
+        postComment: '&',
         onUserClick: '='
       },
       templateUrl : 'app/right/file.detail/comments/file.detail.comments.html',
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el) {
+      var jqSendingComments = el.find('.sending-comment-item');
+
       _init();
 
       /**
@@ -34,6 +38,9 @@
         scope.hasOwnComment = hasOwnComment;
         scope.starComment = starComment;
         scope.deleteComment = deleteComment;
+
+        scope.retry = retry;
+        scope.deleteSendingComment = deleteSendingComment;
 
         _on();
       }
@@ -66,6 +73,19 @@
         });
       }
 
+      function retry(index, comment) {
+        deleteSendingComment(index);
+
+        scope.postComment({
+          $comment: comment.content.body,
+          $sticker: comment.originSticker
+        })
+      }
+
+      function deleteSendingComment(index) {
+        scope.errorComments.splice(index, 1);
+      }
+
       /**
        * comment 를 삭제한다.
        * @param {number} commentId 코멘트 ID
@@ -78,15 +98,9 @@
         if (isSticker) {
           fileAPIservice.deleteSticker(commentId)
             .success(_onSuccessDelete)
-            .error(function(err) {
-              _onErrorDelete(err, 'fileAPIservice.deleteSticker');
-            });
         } else {
           fileAPIservice.deleteComment(scope.file.id, commentId)
             .success(_onSuccessDelete)
-            .error(function(err) {
-              _onErrorDelete(err, 'fileAPIservice.deleteComment');
-            });
         }
       }
 
@@ -102,15 +116,16 @@
         });
       }
 
-      /**
-       * 삭제 실패시 이벤트 핸들러
-       * @param {object} err
-       * @param {string} referrer
-       * @private
-       */
-      function _onErrorDelete(err, referrer) {
-        $state.go('error', {code: err.code, msg: err.msg, referrer: referrer});
-      }
+      // 실패시 page 전체를 refresh 하므로 주석처리
+      ///**
+      // * 삭제 실패시 이벤트 핸들러
+      // * @param {object} err
+      // * @param {string} referrer
+      // * @private
+      // */
+      //function _onErrorDelete(err, referrer) {
+      //  $state.go('error', {code: err.code, msg: err.msg, referrer: referrer});
+      //}
 
       function _onCreateComment(event, data) {
         if (_isCurrent(data)) {

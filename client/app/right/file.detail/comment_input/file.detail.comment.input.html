@@ -4,12 +4,12 @@
          ng-src="{{profileImage}}"
          ng-click="onUserClick(member);"/>
   </div>
-  <form id="comment-form" ng-submit="postComment()">
+  <form id="comment-form" ng-submit="createComment()">
     <sticker-layer name="file" height="145"></sticker-layer>
     <div class="comment-textarea-wrap">
       <textarea id="file-detail-comment-input"
                 class="comment-input"
-                message-submit="postComment()"
+                message-submit="createComment()"
                 autocorrect="off"
                 autocomplete="off"
                 spellcheck="true"

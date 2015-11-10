@@ -23,14 +23,17 @@
       </div>
       <file-detail-comments file="file"
                             comments="comments"
+                            error-comments="errorComments"
                             is-archived-file="isArchivedFile"
                             is-invalid-request="isInvalidRequest"
                             is-admin="isAdmin"
+                            post-comment="postComment($comment, $sticker)"
                             on-user-click="onUserClick"></file-detail-comments>
     </div>
     <file-detail-comment-input ng-if="!isArchivedFile && !isInvalidRequest"
                                file="file"
                                has-initial-loaded="hasInitialLoaded"
+                               post-comment="postComment($comment, $sticker)"
                                on-user-click="onUserClick"></file-detail-comment-input>
   </div>
 </div>
