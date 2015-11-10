@@ -20,7 +20,7 @@
       var jqImageContainer = element;
       var callbackFunction = attrs.onImageLoad;
       var isFullScreen = !!attrs.isImageFullScreen;
-
+      var imgClass = attrs.imageClass || '';
       var isCenter = !!attrs.imageIsCenter;
 
       // 같은 이미지를 두 번 로드하기 않기위함.
@@ -111,11 +111,12 @@
        * @param {HTMLElement} img - 이미지가 들어가 있는 엘레멘트
        */
       function _onImageLoad(img) {
+        var jqImg = $(img);
         if (img.type === 'error') {
           _onImageLoadError();
         } else {
           _onImageLoadSuccess();
-          img.setAttribute('class', 'image-loader-image opac-zero');
+          jqImg.addClass(imgClass).addClass('image-loader-image opac-zero');
 
           _resizeImage(img);
 
@@ -128,7 +129,7 @@
           jqImageContainer.append(img);
 
           setTimeout(function() {
-            img.setAttribute('class', 'opac-in');
+            jqImg.addClass('opac-in');
           });
         }
 
