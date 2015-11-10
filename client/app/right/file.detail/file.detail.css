@@ -130,10 +130,6 @@
 
 }
 
-.file-detail-body .image_wrapper {
-  text-align: center;
-  margin-bottom: 15px;
-}
 .file-detail-body .image_wrapper.zoom-in {
   cursor: zoom-in;
 }
