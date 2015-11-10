@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('JndWrapperCtrl', JndWrapperCtrl);
 
-  function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager) {
+  function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice) {
 
     _init();
 
@@ -19,6 +19,7 @@
      */
     function _init() {
       $scope.$on('kickedOut', _onKickedOut);
+      $scope.$on('topicInvite', _onTopicInvite);
     }
 
     /**
@@ -38,6 +39,24 @@
       //  extendedTimeOut: 0,
       //  timeOut: 0
       //});
+    }
+
+    /**
+     * topic invite 이벤트 핸들러
+     * 해당 entity 에 member 를 추가한다
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
+    function _onTopicInvite(angularEvent, data) {
+      var entity = EntityMapManager.get('total', data.room.id);
+      var memberList = entityAPIservice.getMemberList(entity);
+      _.forEach(data.inviter, function(memberId) {
+        if (memberList.indexOf(memberId) === -1) {
+          memberList.push(memberId);
+        }
+      });
+      entity.members = memberList;
     }
   }
 })();
