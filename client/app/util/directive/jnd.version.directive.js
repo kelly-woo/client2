@@ -20,16 +20,18 @@
       var version = configuration.version;
       var name = configuration.name;
 
+      scope.isStaging = name.indexOf('staging') !== -1;
       scope.isAlpha = version.indexOf('alpha') !== -1;
-      scope.isLive = name.indexOf('staging') !== -1;
+      scope.isShow = !scope.isStaging || scope.isAlpha;
 
-      if (!scope.isLive) {
+      if (!scope.isStaging) {
         if (scope.isAlpha) {
           version = version.split('-')[0] + '-' + name;
         } else {
           version += '-' + name;
         }
       }
+
       scope.version = version;
     }
   }
