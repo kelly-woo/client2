@@ -23,7 +23,15 @@
     };
 
     function link(scope) {
-      scope.backToFileList = backToFileList;
+      _init();
+
+      /**
+       * init
+       * @private
+       */
+      function _init() {
+        scope.backToFileList = backToFileList;
+      }
 
       /**
        * Redirect user back to file list.

@@ -28,6 +28,10 @@
 
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         var file = scope.file;
 
@@ -41,6 +45,10 @@
         _on();
       }
 
+      /**
+       * on listener
+       * @private
+       */
       function _on() {
         scope.$on('fileShared', _onFileShared);
         scope.$on('fileUnshared', _onFileUnshared);
@@ -102,7 +110,7 @@
       }
 
       /**
-       * 공유 해제 클릭시 이벤트 핸들러
+       * 공유 해제 click event handler
        * @param {object} entity
        */
       function onClickUnshare(entity) {
@@ -151,7 +159,7 @@
       }
 
       /**
-       * file이 공유된 topic명 설정
+       * file이 공유된 topic명 설정한다.
        */
       function _setShared() {
         var file = scope.file;
@@ -188,6 +196,12 @@
         }
       }
 
+      /**
+       * file object 갱신 event handler
+       * @param {object} newFile
+       * @param {object} oldFile
+       * @private
+       */
       function _onChangeFile(newFile, oldFile) {
         if (newFile && oldFile !== newFile) {
           // 공유된 room 갱신

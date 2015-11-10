@@ -45,7 +45,9 @@
       }
 
       /**
-       * file detail에서 preview 공간에 들어갈 image의 url을 설정함
+       * file detail에서 preview 공간에 들어갈 image의 url을 설정한다.
+       * @param {object} content
+       * @private
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
@@ -92,7 +94,8 @@
       }
 
       /**
-       * 이미지 클릭시 이벤트 핸들러
+       * image click event handler
+       * @param {object} $event
        */
       function onImageClick($event) {
         if ($filter('isIntegrationContent')(fileDetail.content)) {

@@ -16,6 +16,10 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       if (_isRedirectFileDetail()) {
         _setRightPanelTail(true);
@@ -26,17 +30,23 @@
 
         if (fileId = $state.params.itemId) {
           $scope.hasInitialLoaded = false;
+
+          // comment 작성 되지 않은 모음
           $scope.errorComments = [];
 
           $scope.onUserClick = onUserClick;
           $scope.postComment = postComment;
-          _getFileDetail();
+          _setFileDetail();
 
           _on();
         }
       }
     }
 
+    /**
+     * on listeners
+     * @private
+     */
     function _on() {
       $scope.$on('right:updateFile', _onUpdateFile);
       $scope.$on('right:updateComments', _onUpdateComments);
@@ -45,25 +55,48 @@
       $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     }
 
-    function _onUpdateFile(event, fn) {
-      _requestFileDetail('file', fn);
+    /**
+     * file 갱신 event handler
+     * @param {object} event
+     * @param {function} callback
+     * @private
+     */
+    function _onUpdateFile(event, callback) {
+      _requestFileDetail('file', callback);
     }
 
-    function _onUpdateComments(event, fn) {
-      _requestFileDetail('comment', fn);
+    /**
+     * comments 갱신 event handler
+     * @param {object} event
+     * @param {function} callback
+     * @private
+     */
+    function _onUpdateComments(event, callback) {
+      _requestFileDetail('comment', callback);
     }
 
-    function _getFileDetail() {
+    /**
+     * file detail을 설정한다.
+     * @private
+     */
+    function _setFileDetail() {
       var fileDetail = fileAPIservice.dualFileDetail;
 
       if (fileDetail) {
+        // request하지 않아도 출력할 file object가 이미 존재함
         _onSuccessFileDetail(fileDetail);
       } else {
        _requestFileDetail();
       }
     }
 
-    function _requestFileDetail(updateType, fn) {
+    /**
+     * request file detail
+     * @param {string} updateType
+     * @param {function} callback
+     * @private
+     */
+    function _requestFileDetail(updateType, callback) {
       var deferred;
 
       if (_isFileDetailActive()) {
@@ -74,7 +107,7 @@
           .success(function(response) {
             _onSuccessFileDetail(response, updateType);
 
-            fn && fn();
+            callback && callback();
           })
           .error(_onErrorFileDetail)
           .finally(function() {
@@ -85,6 +118,12 @@
       }
     }
 
+    /**
+     * success file detail
+     * @param {object} response
+     * @param {string} updateType
+     * @private
+     */
     function _onSuccessFileDetail(response, updateType) {
       var messageDetails;
       var fileDetail;
@@ -108,6 +147,13 @@
       $scope.hasInitialLoaded = true;
     }
 
+    /**
+     * file과 comments를 분류하여 전달한다.
+     * @param {array} messageDetails
+     * @param {string} updateType
+     * @returns {{file: *, comments: Array}}
+     * @private
+     */
     function _getFileDetailData(messageDetails, updateType) {
       var file;
       var comments = [];
@@ -144,13 +190,25 @@
       return file.status == 'archived';
     }
 
+    /**
+     * file 설정한다.
+     * @param {object} file
+     * @private
+     */
     function _setFile(file) {
       $scope.file = file;
 
+      // 외부 파일공유 되었는지 여부
       $scope.isExternalShared = file.content.externalShared;
+      // 관리자 인지 여부
       $scope.isAdmin = memberService.isAdmin();
     }
 
+    /**
+     * comments 설정한다.
+     * @param {array} comments
+     * @private
+     */
     function _setComments(comments) {
       comments = _.sortBy(comments, 'createTime');
 
@@ -158,6 +216,12 @@
       $scope.comments = comments;
     }
 
+    /**
+     * comments에 comment를 추가한다.
+     * @param {object} item
+     * @param {array} comments
+     * @private
+     */
     function _pushComment(item, comments) {
       var type = item.contentType;
 
@@ -213,15 +277,29 @@
       }
     }
 
+    /**
+     * error file detail
+     * @private
+     */
     function _onErrorFileDetail() {
       $scope.hasInitialLoaded = $scope.isInvalidRequest = true;
       $state.go('messages.detail.files.item', $state.params);
     }
 
+    /**
+     * file detail을 출력하는 하도록 redirect 해야하는지 여부
+     * @returns {boolean}
+     * @private
+     */
     function _isRedirectFileDetail() {
       return /redirect/.test($state.current.name);
     }
 
+    /**
+     * file detail에서 뒤로가야할 상태를 설정한다.
+     * @param {boolean} isRedirect
+     * @private
+     */
     function _setRightPanelTail(isRedirect) {
       var activeMenu;
 
@@ -236,7 +314,7 @@
     }
 
     /**
-     * user 이미지 클릭시 이벤트 핸들러
+     * user image click event handler
      * @param {object} user
      */
     function onUserClick(user) {
@@ -247,7 +325,7 @@
     }
 
     /**
-     * comment가 작성된 날짜 get
+     * comment가 작성된 날짜를 전달한다.
      * @param {number} index - current index
      * @param {object} comment - current comment
      * @returns {string} comment 작성 날짜
@@ -275,7 +353,7 @@
     }
 
     /**
-     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+     * updateMemberProfile event handler
      * @param {object} event
      * @param {{event: object, member: object}} data
      * @private
@@ -296,11 +374,17 @@
       });
     }
 
+    /**
+     * file 삭제 event handler
+     * @param event
+     * @param param
+     * @private
+     */
     function _onRightFileDetailOnFileDeleted(event, param) {
       var deletedFileId = param.file.id;
 
       if (fileId == deletedFileId) {
-        _getFileDetail();
+        _setFileDetail();
       }
     }
 
@@ -313,12 +397,20 @@
       return fileId && $state.params.itemId != null && $state.params.itemId !== '';
     }
 
+    /**
+     * comment 입력이 끝나 post 중이고 comments 갱신 중인 comment를 추가한다.
+     * @param {object} data
+     * @returns {{sticker: *, comment: *}}
+     * @private
+     */
     function _addSendingComment(data) {
       var comments = $scope.comments;
       var sendingComment;
       var sendingSticker;
       var sticker;
       var comment;
+
+      // sticker와 comment가 같이 존재한다면 sticker가 먼저 입력되도록 한다.
 
       if (sticker = data.sticker) {
         sendingSticker = _getSendingComment('comment_sticker', sticker);
@@ -328,8 +420,6 @@
       if (comment = data.comment) {
         sendingComment = _getSendingComment('comment', comment);
         _pushComment(sendingComment, comments);
-
-        sendingComment.content.body += '';
       }
 
       // comments에 추가함
@@ -341,6 +431,13 @@
       };
     }
 
+    /**
+     * post 중인 comment를 전달한다.
+     * @param {string} type
+     * @param {object} value
+     * @returns {{writerId: *, contentType: *, createTime: Date, isSendingComment: boolean}}
+     * @private
+     */
     function _getSendingComment(type, value) {
       var currentMember = memberService.getMember();
       var sendingComment = {
@@ -361,7 +458,10 @@
     }
 
     /**
-     * comment 를 posting 한다.
+     * comment를 post 한다.
+     * @param {string} comment
+     * @param {object} sticker
+     * @returns {deferred.promise|{then, always}}
      */
     function postComment(comment, sticker) {
       var deferred = $q.defer();
@@ -394,6 +494,11 @@
       return deferred.promise;
     }
 
+    /**
+     * comment 작성 error handler
+     * @param {object} comment
+     * @private
+     */
     function _setErrorComments(comment) {
       var index = $scope.comments.indexOf(comment);
 

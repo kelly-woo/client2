@@ -43,8 +43,8 @@
         scope.onKeyUp = onKeyUp;
         scope.watchFileDetail = watchFileDetail;
 
+        _initCommentFocus();
         _setProfileImage(memberService.getMember());
-        _setCommentFocus();
 
         _on();
       }
@@ -90,7 +90,7 @@
       }
 
       /**
-       * keyDown 핸들러
+       * keyDown event handler
        * @param keyUpEvent
        */
       function onKeyUp(keyUpEvent) {
@@ -100,7 +100,7 @@
       }
 
       /**
-       * file_detail이 변경되면 mentionList 갱신
+       * file이 변경되면 mentionList 갱신한다.
        * @param {object} $mentionScope
        */
       function watchFileDetail($mentionScope, $mentionCtrl) {
@@ -145,18 +145,32 @@
         });
       }
 
+      /**
+       * focus input event handler
+       * @private
+       */
       function _onFocusInput() {
         _focusInput();
       }
 
+      /**
+       * comment input element에 focus
+       * @private
+       */
       function _focusInput() {
         jqCommentInput.focus();
       }
 
+      /**
+       * 입력할 sticker 변경 event handler
+       * @param event
+       * @param item
+       * @private
+       */
       function _onChangeSticker(event, item) {
-        sticker = item;
-
-        _focusInput();
+        if (sticker = item) {
+          _focusInput();
+        }
       }
 
       /**
@@ -168,7 +182,7 @@
       }
 
       /**
-       * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
+       * scope 의 $destroy 이벤트 발생 시 event handler
        * @private
        */
       function _onDestroy() {
@@ -184,7 +198,7 @@
       }
 
       /**
-       * comment input 저장
+       * comment input의 값을 webstorage에 저장한다.
        * @private
        */
       function _saveCommentInput() {
@@ -216,7 +230,7 @@
       }
 
       /**
-       * add mention member
+       * mention member를 추가한다.
        * @param {object} data
        * @private
        */
@@ -233,7 +247,7 @@
       }
 
       /**
-       * remove mention member
+       * mention member를 삭제한다.
        * @param {object} data
        * @private
        */
@@ -250,7 +264,11 @@
         }
       }
 
-      function _setCommentFocus() {
+      /**
+       * comment input의 초기 focus 설정한다.
+       * @private
+       */
+      function _initCommentFocus() {
         if ($rootScope.setFileDetailCommentFocus) {
           $rootScope.setFileDetailCommentFocus = false;
 
@@ -268,7 +286,7 @@
       }
 
       /**
-       * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+       * updateMemberProfile 이벤트 발생시 event handler
        * @param {object} event
        * @param {{event: object, member: object}} data
        * @private
@@ -283,6 +301,12 @@
         }
       }
 
+      /**
+       * file 삭제 event handler
+       * @param event
+       * @param param
+       * @private
+       */
       function _onRightFileDetailOnFileDeleted(event, param) {
         var deletedFileId = param.file.id;
 
@@ -291,6 +315,10 @@
         }
       }
 
+      /**
+       * elastic resize event handler
+       * @private
+       */
       function _onElasticResize() {
         var jqFileDetail = $('.file-detail');
 
@@ -302,6 +330,10 @@
         }
       }
 
+      /**
+       * comment input의 값을 초기화하고 focus를 설정한다.
+       * @private
+       */
       function _clearWithFocus() {
         setTimeout(function() {
           jqCommentInput.val('').focus()[0].removeAttribute('style');

@@ -26,8 +26,6 @@
     };
 
     function link(scope, el) {
-      var jqSendingComments = el.find('.sending-comment-item');
-
       _init();
 
       /**
@@ -55,7 +53,7 @@
       }
 
       /**
-       * comment 소유했는지 여부
+       * comment 소유했는지 여부를 전달한다.
        * @param {object} comment
        * @returns {boolean|string}
        */
@@ -64,7 +62,7 @@
       }
 
       /**
-       * comment 를 즐겨찾기함
+       * comment 를 즐겨찾기한다.
        * @param {object} event
        */
       function starComment(event) {
@@ -73,6 +71,11 @@
         });
       }
 
+      /**
+       * postComment 실패한 comment를 재전송한다.
+       * @param {number} index
+       * @param {object} comment
+       */
       function retry(index, comment) {
         deleteSendingComment(index);
 
@@ -82,6 +85,10 @@
         })
       }
 
+      /**
+       * postComment 실패한 comment를 삭제한다.
+       * @param index
+       */
       function deleteSendingComment(index) {
         scope.errorComments.splice(index, 1);
       }
@@ -105,7 +112,7 @@
       }
 
       /**
-       * 삭제 성공시 이벤트 핸들러
+       * 삭제 성공 event handler
        * @private
        */
       function _onSuccessDelete() {
@@ -116,31 +123,38 @@
         });
       }
 
-      // 실패시 page 전체를 refresh 하므로 주석처리
-      ///**
-      // * 삭제 실패시 이벤트 핸들러
-      // * @param {object} err
-      // * @param {string} referrer
-      // * @private
-      // */
-      //function _onErrorDelete(err, referrer) {
-      //  $state.go('error', {code: err.code, msg: err.msg, referrer: referrer});
-      //}
-
+      /**
+       * comment 작성 event handler
+       * @param {object} event
+       * @param {object} data
+       * @private
+       */
       function _onCreateComment(event, data) {
-        if (_isCurrent(data)) {
+        if (_isCurrentFileEvent(data)) {
           jndPubSub.pub('right:updateComments');
         }
       }
 
+      /**
+       * comment 삭제 event handler
+       * @param {object} event
+       * @param {object} data
+       * @private
+       */
       function _onDeleteComment(event, data) {
-        if (_isCurrent(data)) {
+        if (_isCurrentFileEvent(data)) {
           jndPubSub.pub('right:updateComments');
         }
       }
 
-      function _isCurrent(data) {
-        return data.file.id === parseInt(scope.file.id, 10);
+      /**
+       * 현재 file에 대한 event 인지 여부를 전달한다.
+       * @param {object} data
+       * @returns {boolean}
+       * @private
+       */
+      function _isCurrentFileEvent(data) {
+        return data.file.id == scope.file.id;
       }
     }
   }

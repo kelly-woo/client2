@@ -29,6 +29,10 @@
     function link(scope) {
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         var file = scope.file;
 
@@ -50,7 +54,7 @@
       }
 
       /**
-       * download 클릭시 이벤트 핸들러
+       * download click event handler
        * @param {object} file
        */
       function onClickDownload() {
@@ -68,7 +72,7 @@
       }
 
       /**
-       * 공유 클릭시 이벤트 핸들러
+       * share click event handler
        * @param file
        */
       function onClickShare() {
@@ -78,7 +82,7 @@
       }
 
       /**
-       * 댓글 남기기 클릭 시 이벤트 핸들러
+       * focus click event handler
        */
       function onCommentFocusClick() {
         jndPubSub.pub('setCommentFocus');
@@ -94,7 +98,7 @@
       }
 
       /**
-       * file 삭제 클릭시 이벤트 핸들러
+       * file delete click event handler
        * @param fileId
        */
       function onFileDeleteClick() {
@@ -152,7 +156,7 @@
       }
 
       /**
-       * file download 설정
+       * file download 값을 설정한다.
        * @private
        */
       function _setFileDownLoad() {
