@@ -116,7 +116,7 @@
           _onImageLoadError();
         } else {
           _onImageLoadSuccess();
-          jqImg.addClass(imgClass).addClass('image-loader-image opac-zero');
+          jqImg.attr('class', 'image-loader-image opac-zero ' + imgClass);
 
           _resizeImage(img);
 
