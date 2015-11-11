@@ -98,11 +98,7 @@
           bodyClass: 'normal-body external-share-body',
           confirmButtonText: translate('@common-open-new-window'),
           cancelButtonText: translate('@btn-close'),
-          onDialogLoad: function(el) {
-            setTimeout(function() {
-              el.find('.external-share-uri').focus().select();
-            }, 200);
-          },
+          absoluteFocus: '.external-share-uri',
           onClose: function(type) {
             type === 'okay' && window.open(externalShareUri, '_blank');
           }

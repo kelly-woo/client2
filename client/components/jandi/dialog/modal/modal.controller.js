@@ -38,6 +38,10 @@
           _close(result);
           $scope.deferred.reject(result);
         });
+
+      $modalInstance.rendered.then(function() {
+        $scope.setInitFocus();
+      });
     }
 
     /**
