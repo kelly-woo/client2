@@ -65,34 +65,43 @@
      * @private
      */
     function openShareDialog(content, isCreateLink) {
-      var translate = $filter('translate');
-      var externalShareUri = _externalShareDomain + content.externalCode;
-      var confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
-        '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
-      var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
-        '<span>' + translate('@external-share-create-desc') + '</span>';
+      var translate;
+      var externalShareUri;
+      var confirmTitle;
+      var confirmBody;
 
-      if (isCreateLink) {
-        Dialog.success({
-          title: translate('@external-share-create-msg')
+      if (content.externalCode != null) {
+        translate = $filter('translate');
+        externalShareUri = _externalShareDomain + content.externalCode;
+        confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
+          '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
+        confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
+          '<span>' + translate('@external-share-create-desc') + '</span>';
+
+        if (isCreateLink) {
+          Dialog.success({
+            title: translate('@external-share-create-msg')
+          });
+        }
+
+        Dialog.confirm({
+          allowHtml: true,
+          title: confirmTitle,
+          titleClass: 'external-share-title break',
+          body: $sce.trustAsHtml(confirmBody),
+          bodyClass: 'normal-body external-share-body',
+          confirmButtonText: translate('@common-open-new-window'),
+          cancelButtonText: translate('@btn-close'),
+          onDialogLoad: function(el) {
+            setTimeout(function() {
+              el.find('.external-share-uri').focus().select();
+            }, 10);
+          },
+          onClose: function(type) {
+            type === 'okay' && window.open(externalShareUri, '_blank');
+          }
         });
       }
-
-      Dialog.confirm({
-        allowHtml: true,
-        title: confirmTitle,
-        titleClass: 'external-share-title break',
-        body: $sce.trustAsHtml(confirmBody),
-        bodyClass: 'normal-body external-share-body',
-        confirmButtonText: translate('@common-open-new-window'),
-        cancelButtonText: translate('@btn-close'),
-        onDialogLoad: function(el) {
-          el.find('.external-share-uri').focus().select();
-        },
-        onClose: function(type) {
-          type === 'okay' && window.open(externalShareUri, '_blank');
-        }
-      });
     }
 
     /**
