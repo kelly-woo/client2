@@ -99,9 +99,21 @@
           confirmButtonText: translate('@common-open-new-window'),
           cancelButtonText: translate('@btn-close'),
           onDialogLoad: function(el) {
-            setTimeout(function() {
-              el.find('.external-share-uri').focus().select();
-            }, 200);
+            var jqInput = el.find('input');
+            jqInput.on('focus', _select)
+              .on('blur', _focus)
+              .on('click', _select);
+            _focus();
+
+            function _focus() {
+              jqInput.focus();
+            }
+
+            function _select() {
+              setTimeout(function() {
+                jqInput.select();
+              });
+            }
           },
           onClose: function(type) {
             type === 'okay' && window.open(externalShareUri, '_blank');
