@@ -42,16 +42,24 @@
                   ng-class="{ 'post-loading': isPosting,
                                 'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
                   message-submit="postMessage()"
-                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
+                  ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   maxlength=""
                   placeholder="{{::'@placeholder-input-message' | translate }}"
-                  ng-keyup="onKeyUp($event);"
                   jnd-elastic
+                  jnd-elastic-on-change="onMessageInputChange($event)"
                   mentionahead></textarea>
       </form>
     </div>
       
-    <sticker-panel name="chat"></sticker-panel>
+    <sticker-panel name="chat" max-columns="4"></sticker-panel>
 
+  </div>
+
+  <div class="markdown-guide-content fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
+    <span class="markdown-guide-bold" translate>@markdown-bold</span>
+    <span class="markdown-guide-italics" translate>@markdown-italics</span>
+    <span class="markdown-guide-bold-italics" translate>@markdown-bold-italics</span>
+    <span class="markdown-guide-strikethrough" translate>@markdown-strikethrough</span>
+    <span class="markdown-guide-code" translate>@markdown-code</span>
   </div>
 </div>

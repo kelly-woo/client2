@@ -102,7 +102,7 @@
               //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
               fileInfo.share = scope.selectedEntityId;
 
-              fileInfo.comment = el.find('#file_upload_comment').val();
+              fileInfo.comment = el.find('#file_upload_comment').val().trim();
 
 
               _setMentions(fileInfo);

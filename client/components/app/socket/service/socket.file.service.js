@@ -12,11 +12,15 @@
   function jndWebSocketFile(jndPubSub) {
     var FILE_CREATED = 'file_created';
     var FILE_IMAGE = 'file_image';
+    var FILE_IMAGE_ERROR = 'file_image_error';
     var FILE_SHARED = 'file_shared';
     var FILE_UNSHARED = 'file_unshared';
     var FILE_DELETED = 'file_deleted';
     var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
+
+    var FILE_EXTERNAL_SHARED = 'file_external_shared';
+    var FILE_EXTERNAL_UNSHARED = 'file_external_unshared';
 
     var events = [
       {
@@ -26,6 +30,10 @@
       {
         name: FILE_IMAGE,
         handler: _onFileImage
+      },
+      {
+        name: FILE_IMAGE_ERROR,
+        handler: _onFileImageError
       },
       {
         name: FILE_SHARED,
@@ -46,6 +54,14 @@
       {
         name: FILE_COMMENT_DELETED,
         handler: _onFileCommentDeleted
+      },
+      {
+        name: FILE_EXTERNAL_SHARED,
+        handler: _onFileExternalShared
+      },
+      {
+        name: FILE_EXTERNAL_UNSHARED,
+        handler: _onFileExternalUnshared
       }
     ];
 
@@ -65,6 +81,15 @@
      */
     function _onFileImage(data) {
       jndPubSub.pub('createdThumbnailImage', data);
+    }
+
+    /**
+     * image file에 대한 thumbnail 생성실패 socket event
+     * @param {object} data
+     * @private
+     */
+    function _onFileImageError(data) {
+      jndPubSub.pub('errorThumbnailImage', data);
     }
 
     function _onFileShared(data) {
@@ -111,6 +136,26 @@
       jndPubSub.updateLeftPanel();
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
+    }
+
+    /**
+     * 파일 외부링크 공유설정
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onFileExternalShared(socketEvent) {
+      var data = socketEvent.data;
+      jndPubSub.pub('externalShared', data);
+    }
+
+    /**
+     * 파일 외부링크 공유해제
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onFileExternalUnshared(socketEvent) {
+      var data = socketEvent.data;
+      jndPubSub.pub('unExternalShared', data);
     }
   }
 })();

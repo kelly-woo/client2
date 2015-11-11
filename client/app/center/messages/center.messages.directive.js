@@ -61,6 +61,7 @@
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
         scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
+        scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
       }
@@ -571,6 +572,7 @@
        */
       function _onBeforeRemove(angularEvent, index) {
         var msg = MessageCollection.list[index];
+        var isLastMsg = (index === MessageCollection.list.length - 1);
         var jqTarget = $('#' + msg.id);
         var jqPrev = jqTarget.prev();
 
@@ -578,7 +580,12 @@
         if (jqTarget.length) {
           if (jqPrev.attr('content-type') === 'dateDivider') {
             jqPrev.remove();
+            jqPrev = jqTarget.prev();
           }
+          if (jqPrev.attr('content-type') === 'unreadBookmark' && isLastMsg) {
+            jqPrev.remove();
+          }
+
           jqTarget.remove();
         }
       }
@@ -628,19 +635,45 @@
       }
 
       /**
-       * thumbnail 이벤트 핸들러
-       * @param {object} angularEvent
-       * @param {object} socketData
+       * thumbnail created event handler
+       * @param {object} $event
+       * @param {object} socketEvent
        * @private
        */
-      function _onCreatedThumbnailImage(angularEvent, socketData) {
-        var messageId = socketData.data.message.id;
+      function _onCreatedThumbnailImage($event, socketEvent) {
+        _refreshFileMessage(socketEvent, function(msg) {
+          msg.message.content.extraInfo = socketEvent.data.message.content.extraInfo;
+        });
+      }
+
+      /**
+       * thumbnail error event handler
+       * @param {object} $event
+       * @param {object} socketEvent
+       * @private
+       */
+      function _onErrorThumbnailImage($event, socketEvent) {
+        _refreshFileMessage(socketEvent, function(msg) {
+          msg.message.content.fileUrl = socketEvent.data.message.content.fileUrl;
+        });
+      }
+
+      /**
+       * 특정 file message를 갱신한다.
+       * @param {object} socketEvent
+       * @param {function} callback
+       * @private
+       */
+      function _refreshFileMessage(socketEvent, callback) {
+        var messageId = socketEvent.data.message.id;
         MessageCollection.forEach(function(msg, index) {
           if (messageId === (msg.message && msg.message.id) && !msg.message.content.extHasPreview) {
             // back-end에서 link
             msg.message.content.extHasPreview = true;
             msg.message.content.extIsNewImage = false;
-            msg.message.content.extraInfo = socketData.data.message.content.extraInfo;
+
+            callback(msg);
+
             _refresh(msg.id, index);
             return false;
           }

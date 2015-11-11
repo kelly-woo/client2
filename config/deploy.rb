@@ -64,6 +64,7 @@ namespace :deploy do
       within release_path do
         execute :bower, 'prune', '--quiet'
         execute :bower, 'install', '--quiet'
+        execute :grunt, 'build'
         execute :ln, '-s', '/srv/www/web_client/current/dist/public', './public/app'
         execute :ln, '-s', '/srv/www/web_landing/current/dist/public', './public/landing'
         execute :ln, '-s', '/srv/www/web_admin/current/dist/public', './public/main'

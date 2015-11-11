@@ -30,29 +30,44 @@
       if (scope.file.type === 'file') {
         // 파일 공유, 댓글, 다운로드, 삭제 메뉴버튼의 click event handling
         el.find('.file-menu')
-          .on('click', 'i,a.star-file,a.share-file,a.focus-comment-file,a.download-file,a.original-file,a.delete-file', function (event) {
-            var selector;
-
+          .on('click', function(event) {
             event.stopPropagation();
+          })
+          .on('click', 'a.external-share-file', function() {
+            // file external share
 
-            selector = event.currentTarget.className;
-            if (selector === 'star-file') {
+            scope.status.isopen = false;
+          })
+          .on('click', 'a.star-file', function() {
+            // file star
+
+            scope.status.isopen = false;
+            el.find('.file-star i').trigger('click');
+          })
+          .on('click', 'a.download-file,a.original-file', function() {
+            // file download
+
+            scope.$apply(function() {
               scope.status.isopen = false;
-              el.find('.file-star i').trigger('click');
-            } else if (selector === 'share-file') {
-              scope.status.isopen = false;
-              scope.onOpenShareModal();
-            } else if (selector === 'focus-comment-file') {
-              scope.status.isopen = false;
-              scope.setCommentFocus();
-            } else if (selector === 'delete-file') {
-              scope.status.isopen = false;
-              scope.onFileDeleteClick();
-            } else if (selector === 'download-file' || selector === 'original-file') {
-              scope.$apply(function() {
-                scope.status.isopen = false;
-              });
-            }
+            });
+          })
+          .on('click', 'a.share-file', function() {
+            // file share
+
+            scope.status.isopen = false;
+            scope.onOpenShareModal();
+          })
+          .on('click', 'a.focus-comment-file', function() {
+            // file comment
+
+            scope.status.isopen = false;
+            scope.setCommentFocus();
+          })
+          .on('click', 'a.delete-file', function() {
+            // file delete
+
+            scope.status.isopen = false;
+            scope.onFileDeleteClick();
           });
       }
     }
