@@ -238,3 +238,16 @@
 .footer .markdown-guide-content > span {
   margin-left: 10px;
 }
+
+.markdown-guide-content .markdown-guide-bold {
+  font-weight: bold;
+}
+
+.markdown-guide-content .markdown-guide-italics {
+  font-style: italic;
+}
+
+.markdown-guide-content .markdown-guide-bold-italics {
+  font-weight: bold;
+  font-style: italic;
+}
