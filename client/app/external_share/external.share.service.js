@@ -9,7 +9,7 @@
     .service('ExternalShareService', ExternalShareService);
 
   /* @ngInject */
-  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog) {
+  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog, Browser) {
     var that = this;
     var _server_address = configuration.server_address;
     var _externalShareDomain = configuration.external_share_address;
@@ -69,14 +69,20 @@
       var externalShareUri;
       var confirmTitle;
       var confirmBody;
+      var copyDesc;
+      var shortcut;
 
       if (content.externalCode != null) {
         translate = $filter('translate');
         externalShareUri = _externalShareDomain + content.externalCode;
         confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
           '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
-        confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
-          '<span>' + translate('@external-share-create-desc') + '</span>';
+
+        shortcut = Browser.platform.isMac  ? 'Cmd + C' : 'Ctrl + C';
+        copyDesc = translate('@external-share-copy').replace('{{shortcut}}', shortcut);
+
+        confirmBody = '<input class="form-control external-share-uri" readonly value="' + externalShareUri + '" />' +
+          '<span>' + copyDesc + ' ' + translate('@external-share-create-desc') + '</span>';
 
         if (isCreateLink) {
           Dialog.success({
