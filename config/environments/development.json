@@ -4,6 +4,7 @@
   "api_address"            : "https://i1.jandi.io/",
   "socket_address"         : "https://ws.jandi.io/",
   "file_address"           : "https://files.jandi.io/",
+  "file_upload_address"    : "https://upload.jandi.io/",
   "api_version"            : 2,
   "ga_token"               : "UA-54051037-1",
   "ga_token_global"        : "UA-54051037-4",

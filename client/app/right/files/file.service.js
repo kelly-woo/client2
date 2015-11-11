@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout,
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, configuration,
                                        memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
@@ -66,7 +66,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       files = undefined;
       url = $rootScope.server_address + 'v2/file/integrate';
     } else {
-      url = $rootScope.server_address + flash_url + 'file';
+      url = configuration.file_upload_address + 'inner-api/' + flash_url + 'file';
     }
 
     fileInfo.teamId  = memberService.getTeamId();
