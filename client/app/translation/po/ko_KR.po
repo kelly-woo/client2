@@ -982,11 +982,11 @@ msgstr "비밀번호 찾기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
-msgstr "**볼드체**"
+msgstr "**진하게**"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold-italics"
-msgstr "***볼드 이탤릭체***"
+msgstr "***진하게&기울임***"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-code"
@@ -994,7 +994,7 @@ msgstr "```(줄바꿈) 코드 블록"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-italics"
-msgstr "*이탤릭체*"
+msgstr "*기울임*"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-strikethrough"
