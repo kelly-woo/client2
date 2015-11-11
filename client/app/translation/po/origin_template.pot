@@ -683,6 +683,10 @@ msgid "@error-404-title"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@external-share-copy"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-create"
 msgstr ""
 
