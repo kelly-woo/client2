@@ -451,13 +451,13 @@
      * @private
      */
     function _modalRendered(modal, options) {
-      options.duration = options.duration || (Browser.msie ? 400 : 0);
+      options.renderedTimeout = options.renderedTimeout || (Browser.msie ? 400 : 0);
 
       modal.rendered.then(function() {
         if (options.autofocus) {
           setTimeout(function() {
             $(options.autofocus).focus();
-          }, options.duration);
+          }, options.renderedTimeout);
         }
       });
     }
