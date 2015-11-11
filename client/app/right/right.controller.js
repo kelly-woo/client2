@@ -79,10 +79,12 @@
           tab.active = true;
           $scope.activeTabName = tab.name;
 
-          $timeout(function() {
-            jndPubSub.pub('resetRPanelSearchStatusKeyword');
-            jndPubSub.pub('rPanelSearchFocus');
-          });
+          if (data.fromTitle !== 'FILE DETAIL') {
+            $timeout(function() {
+              jndPubSub.pub('resetRPanelSearchStatusKeyword');
+              jndPubSub.pub('rPanelSearchFocus');
+            });
+          }
         }
       }
     });

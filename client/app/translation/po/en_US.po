@@ -368,15 +368,15 @@ msgstr "File type"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
-msgstr "all"
+msgstr "All"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
-msgstr "audio"
+msgstr "Audio"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
-msgstr "documents"
+msgstr "Documents"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
@@ -396,7 +396,7 @@ msgstr "Google spreadsheet"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
-msgstr "images"
+msgstr "Images"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
@@ -408,15 +408,15 @@ msgstr "PDF"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
-msgstr "presentations"
+msgstr "Presentations"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
-msgstr "spreadsheets"
+msgstr "Spreadsheets"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
-msgstr "video"
+msgstr "Video"
 
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
@@ -451,6 +451,10 @@ msgstr "Additional Information"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-invalid-access"
 msgstr "You cannot access this item anymore."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-kicked-out"
+msgstr "You have been removed from {{TopicName}}."
 
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
@@ -974,6 +978,26 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold"
+msgstr "**bold**"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-bold-italics"
+msgstr "***bold&italics***"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-code"
+msgstr "```(next line) code"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-italics"
+msgstr "*italics*"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@markdown-strikethrough"
+msgstr "~~strikethrough~~"
+
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (topic members)"
@@ -1189,6 +1213,10 @@ msgstr "TOPIC NOT JOINED"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
 msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-cond-reset"
+msgstr "Clear search filters"
 
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html

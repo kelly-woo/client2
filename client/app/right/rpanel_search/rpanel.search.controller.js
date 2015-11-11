@@ -11,6 +11,8 @@
 
   /* @ngInject */
   function rPanelSearchCtrl($scope, $filter, jndPubSub) {
+    $scope.resetQuery = resetQuery;
+
     _init();
 
     // First function to be called.
@@ -44,6 +46,15 @@
     $scope.onFileTitleQueryEnter = function(value) {
       jndPubSub.pub('onrPanelFileTitleQueryChanged', value);
     };
+
+
+    /**
+     * query를 reset 한다
+     * @param {event} clickEvent
+     */
+    function resetQuery(clickEvent) {
+      jndPubSub.pub('rPanelResetQuery');
+    }
 
     /**
      * 현재 가지고 있는 keyword 를 reset 한다.

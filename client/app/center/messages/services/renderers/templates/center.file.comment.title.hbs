@@ -9,10 +9,10 @@
             최초 댓글
             DISPLAY COMMENT BODY WHEN IT IS TITLE
             IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
-    <div class="msg-comment msg-comment-with-thumbnail {{ css.archived }} cursor_pointer _fileGo">
+    <div class="msg-comment msg-comment-with-thumbnail {{ css.archived }}">
       <!--    LEFT PART OF BODY CONTENT
               IMAGE/FILE THUMBNAIL    -->
-      <div class="msg-file-body-float pull-left">
+      <div class="msg-file-body-float pull-left cursor_pointer _fileGo">
         {{#if isArchived }}
           <div class="msg-file-body__thumbnail">
             <img class="fileicon" src="assets/images/fileicon_archived.png"/>
@@ -48,7 +48,7 @@
 
 
       <!--    RIGHT PART OF BODY CONTENT  -->
-      <div class="msg-file-meta">
+      <div class="msg-file-meta cursor_pointer _fileGo">
         <div class="msg-comment-header">
           Commented on
 

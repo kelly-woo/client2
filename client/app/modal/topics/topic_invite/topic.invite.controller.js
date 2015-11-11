@@ -26,14 +26,12 @@
       $scope.selectedUser = '';
       $scope.hasAllMembers = false;
 
-      if ($scope.account && $scope.account.memberships.length >= 2) {
-        // team size >= 2
-        msg1 = '@emptyMsg-everyone-in-current-topic';
-        msg2 = '@emptyMsg-invite-not-joined-teammate';
-      } else {
-        // team size < 2
+      if ($scope.activeMembers.length === 1) {
         msg1 = '@emptyMsg-no-team-member-joined';
         msg2 = '@emptyMsg-click-to-invite-to-current-team';
+      } else {
+        msg1 = '@emptyMsg-everyone-in-current-topic';
+        msg2 = '@emptyMsg-invite-not-joined-teammate';
       }
 
       $scope.inviteTeamMsg1 = $filter('translate')(msg1);
@@ -71,15 +69,23 @@
 
       $scope.availableMemberMap = {};
 
+      // 활성 member list
+      $scope.activeMembers = [];
+
       $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+        var isActiveMember = memberService.isActiveMember(user);
 
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
           user.selected = prevAvailableMemberMap[user.id].selected;
         }
 
+        if (isActiveMember) {
+          $scope.activeMembers.push(user);
+        }
+
         $scope.availableMemberMap[user.id] = user;
 
-        return members.indexOf(user.id) > -1 || !memberService.isActiveMember(user);
+        return members.indexOf(user.id) > -1 || !isActiveMember;
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
