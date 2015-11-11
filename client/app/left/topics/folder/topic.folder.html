@@ -59,7 +59,10 @@
       'display': isOpened ? 'block' : 'none'
     }">
       <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by joinedEntity.id"
-          ng-class="{active: entityId == joinedEntity.id}"
+          ng-class="{
+            active: entityId == joinedEntity.id,
+            invited: joinedEntity.extHasInvitedFlag
+          }"
           data-ng-click="enterEntity(joinedEntity);"
           class="cursor_pointer">
         <topic current-room="joinedEntity"></topic>

@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil) {
+                            JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil, TopicInvitedFlagMap) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -224,6 +224,7 @@
             tempEntity.extIsCurrent = (+tempEntity.id === +(currentEntity && currentEntity.id));
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
+            tempEntity.extHasInvitedFlag = TopicInvitedFlagMap.isInvited(entity.roomId);
             entityList.push(tempEntity);
           }
         }

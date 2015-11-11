@@ -9,7 +9,8 @@
     .module('jandiApp')
     .controller('JndWrapperCtrl', JndWrapperCtrl);
 
-  function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub) {
+  function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
+                          currentSessionHelper, TopicInvitedFlagMap) {
     _init();
 
     /**
@@ -51,6 +52,11 @@
     function _onTopicInvite(angularEvent, data) {
       var entity = EntityMapManager.get('total', data.room.id);
       var memberList = entityAPIservice.getMemberList(entity);
+
+      if (_hasInvitedFlag(entity, data.inviter)) {
+        TopicInvitedFlagMap.add(data.room.id);
+      }
+
       _.forEach(data.inviter, function(memberId) {
         if (memberList.indexOf(memberId) === -1) {
           memberList.push(memberId);
@@ -59,6 +65,28 @@
       entity.members = memberList;
 
       jndPubSub.pub('room:memberAdded');
+    }
+
+    /**
+     * invited flag 를 가지는지 여부를 판단한다
+     * @param {object} entity
+     * @param {Array} inviter
+     * @returns {boolean}
+     * @private
+     */
+    function _hasInvitedFlag(entity, inviter) {
+      var currentUserId = memberService.getMemberId();
+      return !_isCurrentEntity(entity)  && inviter.indexOf(currentUserId) !== -1;
+    }
+
+    /**
+     * 인자로 들어온 entity 가 현재 entity 인지 반환한다
+     * @param {object} entity
+     * @returns {boolean}
+     * @private
+     */
+    function _isCurrentEntity(entity) {
+      return currentSessionHelper.getCurrentEntity().id === entity.id;
     }
 
     /**
