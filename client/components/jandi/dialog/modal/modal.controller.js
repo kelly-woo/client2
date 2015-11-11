@@ -10,7 +10,7 @@
     .controller('ModalCtrl', ModalCtrl);
 
   /* @ngInject */
-  function ModalCtrl($scope, $modalInstance, options) {
+  function ModalCtrl($scope, $modalInstance, $filter, options) {
 
     _init();
 
@@ -19,6 +19,9 @@
       $scope.bodyClass = 'normal-body';
       $scope.okayClass = 'btn-ok';
       $scope.cancelClass = 'btn-cancel';
+
+      $scope.confirmButtonText = $filter('translate')('@btn-confirm');
+      $scope.cancelButtonText = $filter('translate')('@btn-cancel');
 
       _.extend($scope, options);
 

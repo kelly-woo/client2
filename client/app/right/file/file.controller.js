@@ -28,6 +28,9 @@
       $scope.contentTitle = file.contentTitle;
 
       $scope.isStarred = file.isStarred || false;
+      if (file.content) {
+        $scope.isExternalShared = file.content.externalShared;
+      }
 
       $scope.onFileCardClick = onFileCardClick;
 
