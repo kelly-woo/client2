@@ -998,7 +998,7 @@ module.exports = function (grunt) {
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
     grunt.config.set('bump.options.createTag', true);
-    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'bump::commit-only']);
+    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
   });
 
   /**
