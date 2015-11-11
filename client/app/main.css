@@ -73,6 +73,10 @@ input[type="email"] {
 .body-wrapper {
   position: relative;
 }
+/* temporary fix icon-style */
+.icon-star-off.icon-star-on:before {
+  content: "\e651";
+}
 /********************************************
 
             BASIC TEMPLATE.
