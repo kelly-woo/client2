@@ -42,14 +42,14 @@
         scope.onToggled = onToggled;
 
          _setStickerPanelSize();
-        _on();
+        _attachDomEvents();
       }
 
       /**
-       * on listeners
+       * attach dom events
        * @private
        */
-      function _on() {
+      function _attachDomEvents() {
         jqStickerPanelBtn.on('keydown', _onKeyDown);
       }
 

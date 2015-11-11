@@ -32,17 +32,20 @@
        * @private
        */
       function _init() {
-        _on();
+        _attachEvents();
+        _attachDomEvents();
       }
 
       /**
-       * on listeners
+       * attach events
        * @private
        */
-      function _on() {
+      function _attachEvents() {
         scope.$on('externalShared', _onExternalShared);
         scope.$on('unExternalShared', _onUnExternalShared);
+      }
 
+      function _attachDomEvents() {
         el.on('click', _onClick);
       }
 
@@ -112,19 +115,26 @@
         var fileId = scope.$eval(attrs.fileId);
 
         ExternalShareService.share(fileId, teamId)
-          .success(function(data) {
-            var content;
+          .success(_onExternalShareSuccess);
+      }
 
-            if (content = data.content) {
-              scope.externalUrl = content.externalUrl;
-              scope.externalCode = content.externalCode;
-              scope.externalShared = content.externalShared;
+      /**
+       * exteral share success
+       * @param {object} data
+       * @private
+       */
+      function _onExternalShareSuccess(data) {
+        var content;
 
-              scope.isExternalShared = !scope.isExternalShared;
+        if (content = data.content) {
+          scope.externalUrl = content.externalUrl;
+          scope.externalCode = content.externalCode;
+          scope.externalShared = content.externalShared;
 
-              ExternalShareService.openShareDialog(content, true);
-            }
-          });
+          scope.isExternalShared = !scope.isExternalShared;
+
+          ExternalShareService.openShareDialog(content, true);
+        }
       }
 
       /**
@@ -135,21 +145,28 @@
         var fileId = scope.$eval(attrs.fileId);
 
         ExternalShareService.unshare(fileId, teamId)
-          .success(function(data) {
-            var content;
+          .success(_onExternalUnshareSuccess);
+      }
 
-            if (content = data.content) {
-              Dialog.success({
-                title: $filter('translate')('@external-share-remove-msg')
-              });
+      /**
+       * external unshare success
+       * @param {object} data
+       * @private
+       */
+      function _onExternalUnshareSuccess(data) {
+        var content;
 
-              scope.externalUrl = content.externalUrl;
-              scope.externalCode = content.externalCode;
-              scope.externalShared = content.externalShared;
-
-              scope.isExternalShared = !scope.isExternalShared;
-            }
+        if (content = data.content) {
+          Dialog.success({
+            title: $filter('translate')('@external-share-remove-msg')
           });
+
+          scope.externalUrl = content.externalUrl;
+          scope.externalCode = content.externalCode;
+          scope.externalShared = content.externalShared;
+
+          scope.isExternalShared = !scope.isExternalShared;
+        }
       }
     }
   }

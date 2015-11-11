@@ -56,14 +56,14 @@
       $scope.isActiveGroup = isActiveGroup;
       $scope.isRecentGroup = isRecentGroup;
 
-      _on();
+      _attachEvents();
     }
 
     /**
-     * on listeners
+     * attach events
      * @private
      */
-    function _on() {
+    function _attachEvents() {
       if ($scope.name === 'chat') {
         $scope.$on('center:toggleSticker', _onCenterToggleSticker);
         $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
@@ -75,7 +75,7 @@
      * @private
      */
     function _onCenterToggleSticker() {
-      $scope.$apply(function() {
+      JndUtil.safeApply($scope, function() {
         $scope.status.isOpen = !$scope.status.isOpen;
       });
     }
@@ -85,7 +85,7 @@
      * @private
      */
     function _onToggleQuickLauncher() {
-      $scope.$apply(function() {
+      JndUtil.safeApply($scope, function() {
         $scope.status.isOpen = false;
       });
     }
@@ -150,19 +150,19 @@
       var activeGroup = _groups[_activeGroupIndex];
       var list = $scope.list;
 
-      var acx = activeGroup.activeIndex % MAX_COLUMN;
-      var acy = Math.floor(activeGroup.activeIndex / MAX_COLUMN);
+      var activePointX = activeGroup.activeIndex % MAX_COLUMN;
+      var activePointY = Math.floor(activeGroup.activeIndex / MAX_COLUMN);
 
-      var cpx = acx + x;
-      var cpy = acy + y;
+      var controlPointX = activePointX + x;
+      var controlPointY = activePointY + y;
 
-      if (_isNextGroup(cpx, cpy, x, y)) {
+      if (_isNextGroup(controlPointX, controlPointY, x, y)) {
         //setActiveItem(false);
         _setNextGroup((x > 0 || y > 0) ? 1 : -1);
       } else {
         $scope.$apply(function() {
           //setActiveItem(false);
-          _setNextItem(list[cpy * MAX_COLUMN + cpx] == null && y > 0 ? list.length - 1 : cpy * MAX_COLUMN + cpx);
+          _setNextItem(list[controlPointY * MAX_COLUMN + controlPointX] == null && y > 0 ? list.length - 1 : controlPointY * MAX_COLUMN + controlPointX);
         });
       }
     }
@@ -204,16 +204,16 @@
 
     /**
      * 다음 group 으로 이동해야 하는지 여부
-     * @param {number} cpx - 다음 이동해야할 x
-     * @param {number} cpy - 다음 이동해야할 y
-     * @param {numer} x - x 가감
-     * @param {numer} y - y 가감
+     * @param {number} controlPointX - 다음 이동해야할 x
+     * @param {number} controlPointY - 다음 이동해야할 y
+     * @param {number} x - x 가감
+     * @param {number} y - y 가감
      * @returns {boolean}
      * @private
      */
-    function _isNextGroup(cpx, cpy, x, y) {
+    function _isNextGroup(controlPointX, controlPointY, x, y) {
       var list = $scope.list;
-      return ((list[cpy * MAX_COLUMN] == null && (y > 0 || y < 0)) || (list[cpy * MAX_COLUMN + cpx] == null && (x > 0 || x < 0))) && _groups.length > 1;
+      return ((list[controlPointY * MAX_COLUMN] == null && (y > 0 || y < 0)) || (list[controlPointY * MAX_COLUMN + controlPointX] == null && (x > 0 || x < 0))) && _groups.length > 1;
     }
 
     /**
@@ -245,7 +245,17 @@
      * @private
      */
     function _getNextGroup(next) {
-      return _groups[_activeGroupIndex + next] == null ? next > 0 ? _groups[0] : _groups[_groups.length - 1] : _groups[_activeGroupIndex + next];
+      var group;
+      if (_groups[_activeGroupIndex + next] == null) {
+        // 다음으로 넘어갈 group 존재하지 않음
+
+        // 순환처리
+        group = next > 0 ? _groups[0] : _groups[_groups.length - 1];
+      } else {
+        group = _groups[_activeGroupIndex + next];
+      }
+
+      return group;
     }
   }
 })();
