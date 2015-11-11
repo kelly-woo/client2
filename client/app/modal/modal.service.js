@@ -451,7 +451,9 @@
      * @private
      */
     function _modalRendered(modal, options) {
-      options.renderedTimeout = options.renderedTimeout || (Browser.msie ? 400 : 0);
+      // dev/alpha에서 focus가 body로 갔다가 modal로 가는 현상때문에 msie의 rendering
+      // 버그와 별개로 timeout 400을 줌
+      options.renderedTimeout = options.renderedTimeout || (Browser.msie ? 400 : 400);
 
       modal.rendered.then(function() {
         if (options.autofocus) {
