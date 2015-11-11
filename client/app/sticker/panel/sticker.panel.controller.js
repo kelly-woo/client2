@@ -56,14 +56,14 @@
       $scope.isActiveGroup = isActiveGroup;
       $scope.isRecentGroup = isRecentGroup;
 
-      _on();
+      _attachEvents();
     }
 
     /**
-     * on listeners
+     * attach events
      * @private
      */
-    function _on() {
+    function _attachEvents() {
       if ($scope.name === 'chat') {
         $scope.$on('center:toggleSticker', _onCenterToggleSticker);
         $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
