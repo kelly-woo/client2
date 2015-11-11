@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog) {
+                             NetInterceptor, Dialog, Browser) {
 
     var that = this;
 
@@ -136,6 +136,7 @@
         templateUrl: 'app/modal/topics/topic_create/topic.create.html',
         controller: 'TopicCreateCtrl',
         size: 'lg',
+        autofocus: '#topic-create-name',
         resolve: {
           topicName: function () {
             return (options && options.topicName) || '';
@@ -155,6 +156,7 @@
         controller: 'TopicInviteCtrl',
         size: 'lg',
         windowClass: 'allowOverflowY',
+        autofocus: '#invite-member-filter',
         resolve: {
           data: function() {
             // 토픽으로 초대 가능한 member의 수
@@ -189,7 +191,8 @@
         scope: $scope,
         templateUrl: 'app/modal/topics/topic_join/topic.join.html',
         controller: 'TopicJoinCtrl',
-        size: 'lg'
+        size: 'lg',
+        autofocus: '#invite-member-filter'
       };
       _modalOpener(modalOption);
     }
@@ -203,7 +206,8 @@
         scope: $scope,
         templateUrl: 'app/modal/topics/topic_rename/topic.rename.html',
         controller: 'TopicRenameCtrl',
-        size: 'lg'
+        size: 'lg',
+        autofocus: '#topic-rename-name'
       };
       _modalOpener(modalOption);
     }
@@ -229,7 +233,8 @@
       var modalOption = {
         templateUrl: 'app/modal/teams/team_member_list/team.member.list.html',
         controller: 'TeamMemberListCtrl',
-        size: 'lg'
+        size: 'lg',
+        autofocus: '#team-member-filter'
       };
       _modalOpener(modalOption);
     }
@@ -271,7 +276,8 @@
         templateUrl: 'app/modal/members/current_member_profile/current.member.profile.html',
         controller: 'ProfileSettingCtrl',
         backdrop: 'static',
-        windowClass: 'current-member-profile'
+        windowClass: 'current-member-profile',
+        autofocus: '#member-profile-name'
       };
 
       _modalOpener(modalOption);
@@ -420,11 +426,14 @@
      * @returns {object} $modalInstance
      * @private
      */
-    function _modalOpener(modalOption) {
+    function _modalOpener(options) {
       closeModal();
 
       if (NetInterceptor.isConnected()) {
-        return modal = $modal.open(modalOption);
+        modal = $modal.open(options);
+        _modalRendered(modal, options);
+
+        return modal;
       }
     }
 
@@ -433,6 +442,24 @@
      */
     function closeModal() {
       return modal && modal.dismiss('close');
+    }
+
+    /**
+     * modal rendered promise
+     * @param {object} modal
+     * @param {object} options
+     * @private
+     */
+    function _modalRendered(modal, options) {
+      options.duration = options.duration || (Browser.msie ? 400 : 0);
+
+      modal.rendered.then(function() {
+        if (options.autofocus) {
+          setTimeout(function() {
+            $(options.autofocus).focus();
+          }, options.duration);
+        }
+      });
     }
   }
 })();
