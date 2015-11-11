@@ -47,9 +47,11 @@
        */
       function _setCount() {
         if (scope.content > 999) {
-          scope.count = '999+';
+          scope.count = '999';
+          scope.suffix = '+';
         } else {
           scope.count = scope.content;
+          scope.suffix = '';
         }
       }
 
