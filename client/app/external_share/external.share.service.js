@@ -101,7 +101,7 @@
           onDialogLoad: function(el) {
             setTimeout(function() {
               el.find('.external-share-uri').focus().select();
-            }, 10);
+            }, 200);
           },
           onClose: function(type) {
             type === 'okay' && window.open(externalShareUri, '_blank');
