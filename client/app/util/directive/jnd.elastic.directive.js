@@ -145,11 +145,11 @@
        * @param {object} event
        * @private
        */
-      function _onChange(event) {
+      function _onChange(changeEvent) {
         $timeout.cancel(_resizeTimer);
         _resizeTimer = $timeout(function() {
           onChangeCallback(scope, {
-            $event: event
+            $event: changeEvent
           });
           _resize();
         }, 50);
