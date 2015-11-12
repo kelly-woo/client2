@@ -104,16 +104,16 @@
     function _onFileComment(data) {
       var room;
 
-      if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
+      _.forEach(data.rooms, function(room) {
         if (jndWebSocketCommon.isCurrentEntity(room)) {
           // 현재 해당 room을 보고 있는경우
-
           jndPubSub.updateCenterPanel();
         }
+      });
 
+      if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         // badge count를 올리기 위함이요.
         jndPubSub.updateLeftPanel();
-
         data.room = room;
         _sendBrowserNotification(data, true);
       }
