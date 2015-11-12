@@ -16,12 +16,11 @@
         activeIndex: 0,
         className: 'recent'
       },
-      // mobile 준비되면 그때 들어갈 예정
-      //{
-      //  activeIndex: 0,
-      //  className: 'kiyomi',
-      //  id: 101
-      //},
+      {
+        activeIndex: 0,
+        className: 'kiyomi',
+        id: 101
+      },
       {
         activeIndex: 0,
         className: 'pangya',
