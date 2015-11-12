@@ -13,8 +13,8 @@
     <!--  TOPIC TITLE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2"><span>{{ ::'@common-name' | translate }}</span></label>
-        <div class="col-sm-10">
+        <label class="control-label col-sm-3"><span>{{ ::'@common-name' | translate }}</span></label>
+        <div class="col-sm-9">
           <input class="form-control"
                  type="text"
                  name="entityName"
@@ -32,8 +32,8 @@
     <!--  TOPIC TYPE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2 entity-type-title"><span>{{ ::'@common-entity-type' | translate }}</span></label>
-        <div class="col-sm-10">
+        <label class="control-label col-sm-3 entity-type-title"><span>{{ ::'@common-entity-type' | translate }}</span></label>
+        <div class="col-sm-9">
           <div class="radio-container">
             <input type="radio" ng-model="entityType" value="public"/><span class="radio-title">{{ ::'@common-type-public' | translate }}</span>
             <input type="radio" ng-model="entityType" value="private"/><span class="radio-title">{{ ::'@common-type-private' | translate }}</span>
@@ -51,14 +51,31 @@
         </div>
       </div>
     </div>
+    
+    <!--  TOPIC AUTO INVITE  -->
+    <div class="form-horizontal">
+	  <div class="form-group">
+		<label class="control-label col-sm-3 auto-invite-title">
+		  <span>자동 초대</span>
+		</label>
+		<div class="col-sm-9">
+		  <div class="modal-body-auto-invite-container">
+			<input type="checkbox" id="topic-auto-invite" ng-click="">
+			<div class="auto-invite-description">
+			  <span translate="" class="ng-scope"><span class="ng-scope">새로 팀에 참여하는 모든 멤버를 이 토픽에 초대합니다.</span></span>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
     <!-- TOPIC DESCRIPTION  -->
     <div class="form-horizontal topic-description-container">
       <div class="form-group">
-        <label class="control-label col-sm-2">
+        <label class="control-label col-sm-3">
           <span>{{ ::'@topic-description' | translate }}</span>
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
