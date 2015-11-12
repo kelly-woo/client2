@@ -9,7 +9,7 @@
     .directive('jndElastic', jndElastic);
 
 
-  function jndElastic($timeout, Browser, jndPubSub) {
+  function jndElastic($timeout, $parse, Browser, jndPubSub) {
     return {
       restrict: 'A',
       scope: false,
@@ -26,6 +26,8 @@
       var _paddingHorizontal;
 
       var _name = attrs.jndElastic;
+      
+      var onChangeCallback = $parse(attrs.jndElasticOnChange);
 
       _init();
 
@@ -142,12 +144,17 @@
 
       /**
        * onChange 이벤트 핸들러
-       * @param {event} keyEvent
+       * @param {object} event
        * @private
        */
-      function _onChange(keyEvent) {
+      function _onChange(changeEvent) {
         $timeout.cancel(_resizeTimer);
-        _resizeTimer = $timeout(_resize, 50);
+        _resizeTimer = $timeout(function() {
+          onChangeCallback(scope, {
+            $event: changeEvent
+          });
+          _resize();
+        }, 50);
       }
     }
   }

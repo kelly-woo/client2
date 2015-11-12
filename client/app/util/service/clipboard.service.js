@@ -29,17 +29,6 @@
       return hasFlash;
   }
 
-  // flash clipboard inject 해야 하는 상황인지 확인 후 inject
-  if (!hasWinClipData && hasFlash) {
-    $.ajax({
-        type: "GET",
-        url: '//cdn.jsdelivr.net/zeroclipboard/2.1.6/ZeroClipboard.min.js',
-        dataType: "script",
-        cache: true,
-        error: errorMsg
-    });
-  }
-
   function clipboard() {
     var Clipboard = {
       init: function(ele, options) {

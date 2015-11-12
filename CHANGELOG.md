@@ -1,3 +1,39 @@
+<a name="1.9.0-alpha.0"></a>
+# [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.1-alpha.0...v1.9.0-alpha.0) (2015-11-11)
+
+
+
+
+<a name="1.8.1-alpha.0"></a>
+## [1.8.1-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.8.1-alpha.0) (2015-11-11)
+
+
+
+
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.11...v1.8.0) (2015-11-11)
+
+
+
+
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/tosslab/web_client/compare/v1.7.1...v1.7.2) (2015-11-05)
+
+
+
+
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/tosslab/web_client/compare/v1.7.1...v1.7.2) (2015-11-05)
+
+
+
+
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/tosslab/web_client/compare/v1.7.0...v1.7.1) (2015-11-05)
+
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/tosslab/web_client/compare/v1.6.3...v1.7.0) (2015-11-04)
 

@@ -102,31 +102,19 @@
      * @private
      */
     function _onFileComment(data) {
-      var _hasNotificationOn = false;
-      var _roomToSendNotification;
+      var room;
 
-      _.forEach(data.rooms, function(room) {
-        _hasNotificationOn = _hasNotificationOn || memberService.isTopicNotificationOn(room.id);
-
-        if ((entityAPIservice.isJoinedTopic(room) && _.isUndefined(_roomToSendNotification)) || room.type === 'chat') {
-          // 조인된 토픽(비공개/공개)이거나 1:1 dm일경우에 room을 설정한다.
-          // 바로 아래 있는 if loop에서 설정한 값을 덮어쓰지 않기위해서 _currentRoom이 undefined일 때만 설정.
-          // 굳이 설정을 해야하는 이유는 notification 에서 항상 data.room을 확인/체크하기때문임.
-          _roomToSendNotification = room;
-        }
-
+      if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         if (jndWebSocketCommon.isCurrentEntity(room)) {
-          // 현재 방일 경우 코멘트를 보여주기 위해 센터를 업데이트한다.
-          _roomToSendNotification = room;
+          // 현재 해당 room을 보고 있는경우
+
           jndPubSub.updateCenterPanel();
         }
-      });
 
-      // badge count를 올리기 위함이요.
-      jndPubSub.updateLeftPanel();
+        // badge count를 올리기 위함이요.
+        jndPubSub.updateLeftPanel();
 
-      if (_hasNotificationOn) {
-        data.room = _roomToSendNotification;
+        data.room = room;
         _sendBrowserNotification(data, true);
       }
     }

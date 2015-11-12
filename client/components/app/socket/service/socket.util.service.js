@@ -28,6 +28,8 @@
     this.shouldSendNotification = shouldSendNotification;
     this.getTeamId = getTeamId;
 
+    this.getNotificationRoom = getNotificationRoom;
+
     function updateLeft() {
       jndPubSub.updateLeftPanel();
     }
@@ -283,6 +285,29 @@
       }
 
       return _teamId;
+    }
+
+    /**
+     * notification해야 하는 room을 전달한다.
+     * @param {array} rooms
+     * @returns {*}
+     */
+    function getNotificationRoom(rooms) {
+      var currentMemberId = memberService.getMemberId();
+      var notificationRoom;
+
+      _.forEach(rooms, function(room) {
+        if ((entityAPIservice.isJoinedTopic(room) && memberService.isTopicNotificationOn(room.id)) ||
+          (room.type === 'chat' && _.indexOf(room.members, currentMemberId) > -1)) {
+          // 생성된 room이 존재하고 알림이 활성화 되어있는 경우 또는 DM이고 DM의 member인 경우
+
+          notificationRoom = room;
+
+          return false;
+        }
+      });
+
+      return notificationRoom;
     }
   }
 })();

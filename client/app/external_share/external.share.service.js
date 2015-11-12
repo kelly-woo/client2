@@ -9,7 +9,7 @@
     .service('ExternalShareService', ExternalShareService);
 
   /* @ngInject */
-  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog) {
+  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog, Browser) {
     var that = this;
     var _server_address = configuration.server_address;
     var _externalShareDomain = configuration.external_share_address;
@@ -65,34 +65,61 @@
      * @private
      */
     function openShareDialog(content, isCreateLink) {
-      var translate = $filter('translate');
-      var externalShareUri = _externalShareDomain + content.externalCode;
-      var confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
-        '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
-      var confirmBody = '<input class="form-control external-share-uri" value="' + externalShareUri + '" />' +
-        '<span>' + translate('@external-share-create-desc') + '</span>';
+      var translate;
+      var externalShareUri;
+      var confirmTitle;
+      var confirmBody;
+      var copyDesc;
+      var shortcut;
 
-      if (isCreateLink) {
-        Dialog.success({
-          title: translate('@external-share-create-msg')
+      if (content.externalCode != null) {
+        translate = $filter('translate');
+        externalShareUri = _externalShareDomain + content.externalCode;
+        confirmTitle = '<span class="title-icon"><i class="icon-link"></i></span>' +
+          '<span class="title-text">' + translate('@external-share-create-title').replace('{{fileName}}', content.name) + '</span>';
+
+        shortcut = Browser.platform.isMac  ? 'Cmd + C' : 'Ctrl + C';
+        copyDesc = translate('@external-share-copy').replace('{{shortcut}}', shortcut);
+
+        confirmBody = '<input class="form-control external-share-uri" readonly value="' + externalShareUri + '" />' +
+          '<span>' + copyDesc + ' ' + translate('@external-share-create-desc') + '</span>';
+
+        if (isCreateLink) {
+          Dialog.success({
+            title: translate('@external-share-create-msg')
+          });
+        }
+
+        Dialog.confirm({
+          allowHtml: true,
+          title: confirmTitle,
+          titleClass: 'external-share-title break',
+          body: $sce.trustAsHtml(confirmBody),
+          bodyClass: 'normal-body external-share-body',
+          confirmButtonText: translate('@common-open-new-window'),
+          cancelButtonText: translate('@btn-close'),
+          onDialogLoad: function(el) {
+            var jqInput = el.find('input');
+            jqInput.on('focus', _select)
+              .on('blur', _focus)
+              .on('click', _select);
+            _focus();
+
+            function _focus() {
+              jqInput.focus();
+            }
+
+            function _select() {
+              setTimeout(function() {
+                jqInput.select();
+              });
+            }
+          },
+          onClose: function(type) {
+            type === 'okay' && window.open(externalShareUri, '_blank');
+          }
         });
       }
-
-      Dialog.confirm({
-        allowHtml: true,
-        title: confirmTitle,
-        titleClass: 'external-share-title break',
-        body: $sce.trustAsHtml(confirmBody),
-        bodyClass: 'normal-body external-share-body',
-        confirmButtonText: translate('@common-open-new-window'),
-        cancelButtonText: translate('@btn-close'),
-        onDialogLoad: function(el) {
-          el.find('.external-share-uri').focus().select();
-        },
-        onClose: function(type) {
-          type === 'okay' && window.open(externalShareUri, '_blank');
-        }
-      });
     }
 
     /**

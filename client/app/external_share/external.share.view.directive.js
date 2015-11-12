@@ -33,17 +33,20 @@
        * @private
        */
       function _init() {
-        _on();
+        _attachEvents();
+        _attachDomEvents();
       }
 
       /**
-       * on listeners
+       * attach events
        * @private
        */
-      function _on() {
+      function _attachEvents() {
         scope.$on('externalShared', _onExternalShared);
         scope.$on('unExternalShared', _onUnExternalShared);
+      }
 
+      function _attachDomEvents() {
         el.on('click', _onClick);
       }
 
@@ -117,15 +120,22 @@
         var fileId = scope.$eval(attrs.fileId);
 
         ExternalShareService.share(fileId, teamId)
-          .success(function(data) {
-            var content;
+          .success(_onExternalShareSuccess);
+      }
 
-            if (content = data.content) {
-              _setExternalContent(content);
+      /**
+       * exteral share success
+       * @param {object} data
+       * @private
+       */
+      function _onExternalShareSuccess(data) {
+        var content;
 
-              ExternalShareService.openShareDialog(content, true);
-            }
-          });
+        if (content = data.content) {
+          _setExternalContent(content);
+  
+          ExternalShareService.openShareDialog(content, true);
+        }
       }
 
       /**
@@ -136,19 +146,26 @@
         var fileId = scope.$eval(attrs.fileId);
 
         ExternalShareService.unshare(fileId, teamId)
-          .success(function(data) {
-            var content;
-
-            if (content = data.content) {
-              Dialog.success({
-                title: $filter('translate')('@external-share-remove-msg')
-              });
-
-              _setExternalContent(content);
-            }
-          });
+          .success(_onExternalUnshareSuccess);
       }
 
+      /**
+       * external unshare success
+       * @param {object} data
+       * @private
+       */
+      function _onExternalUnshareSuccess(data) {
+        var content;
+
+        if (content = data.content) {
+          Dialog.success({
+            title: $filter('translate')('@external-share-remove-msg')
+          });
+  
+          _setExternalContent(content);
+        }
+      }
+  
       /**
        * external content를 설정한다.
        * @param {object} content
@@ -158,7 +175,7 @@
         scope.externalUrl = content.externalUrl;
         scope.externalCode = content.externalCode;
         scope.externalShared = content.externalShared;
-
+    
         scope.setExternalShare({
           $value: scope.externalShared
         });
