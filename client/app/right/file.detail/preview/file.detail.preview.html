@@ -2,7 +2,7 @@
   <div class="image_wrapper" ng-click="onImageClick($event);"
        image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
   </div>
-  <div class="external-share-btn cursor_pointer opac-zero" ng-show="isExternalShared" ng-class="{'opac-in': !isLoadingImage}" ng-click="onExternalShareClick();">
+  <div class="external-share-btn cursor_pointer opac-zero" ng-if="!isIntegrateFile" ng-show="isExternalShared" ng-class="{'opac-in': !isLoadingImage}" ng-click="onExternalShareClick();">
     <i class="icon-link"></i>
   </div>
   <div class="loading_bar" ng-if="!!isLoadingImage">

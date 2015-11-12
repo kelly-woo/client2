@@ -15,6 +15,7 @@
       scope: {
         fileDetail: '=',
         fileIcon: '=',
+        isIntegrateFile: '=',
         isExternalShared: '='
       },
       link: link,

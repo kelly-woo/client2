@@ -63,22 +63,23 @@
 
     /**
      * topic leave 이벤트 핸들러
-     * 해당 entity 에 member 를 추가한다
+     * 해당 entity 에 member 를 삭제한다
      * @param {object} angularEvent
      * @param {object} data
      * @private
      */
     function _onTopicLeave(angularEvent, data) {
-      var entity = EntityMapManager.get('total', data.room.id);
-      var memberList = entityAPIservice.getMemberList(entity);
+      var room = EntityMapManager.get('total', data.room.id);
+      var member = data.writer;
+      var memberList;
       var index;
-      _.forEach(data.inviter, function(memberId) {
-        index = memberList.indexOf(memberId);
-        if (index > -1) {
-          memberList.splice(index, 1);
+
+      if (room && (memberList = entityAPIservice.getMemberList(room))) {
+        if (index = memberList.indexOf(member)) {
+          index > -1 && memberList.splice(index, 1);
         }
-      });
-      entity.members = memberList;
+      }
+      room.members = memberList;
 
       jndPubSub.pub('room:memberDeleted');
     }
