@@ -40,14 +40,14 @@
         scope.retry = retry;
         scope.deleteSendingComment = deleteSendingComment;
 
-        _on();
+        _attachEvents();
       }
 
       /**
-       * on listener
+       * attach events
        * @private
        */
-      function _on() {
+      function _attachEvents() {
         scope.$on('rightFileDetailOnFileCommentCreated', _onCreateComment);
         scope.$on('rightFileDetailOnFileCommentDeleted', _onDeleteComment);
       }
@@ -63,11 +63,11 @@
 
       /**
        * comment 를 즐겨찾기한다.
-       * @param {object} event
+       * @param {object} $event
        */
-      function starComment(event) {
+      function starComment($event) {
         setTimeout(function() {
-          $(event.target).parents('.comment-item-header__action').find('.comment-star i').trigger('click');
+          $($event.target).parents('.comment-item-header__action').find('.comment-star i').trigger('click');
         });
       }
 
@@ -125,11 +125,11 @@
 
       /**
        * comment 작성 event handler
-       * @param {object} event
+       * @param {object} angularEvent
        * @param {object} data
        * @private
        */
-      function _onCreateComment(event, data) {
+      function _onCreateComment(angularEvent, data) {
         if (_isCurrentFileEvent(data)) {
           jndPubSub.pub('right:updateComments');
         }
@@ -137,11 +137,11 @@
 
       /**
        * comment 삭제 event handler
-       * @param {object} event
+       * @param {object} angularEvent
        * @param {object} data
        * @private
        */
-      function _onDeleteComment(event, data) {
+      function _onDeleteComment(angularEvent, data) {
         if (_isCurrentFileEvent(data)) {
           jndPubSub.pub('right:updateComments');
         }

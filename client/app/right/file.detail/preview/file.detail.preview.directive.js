@@ -20,11 +20,11 @@
       templateUrl : 'app/right/file.detail/preview/file.detail.preview.html'
     };
 
-    function link(scope, el, attrs) {
+    function link(scope, el) {
       var fileDetail = scope.file;
       var content = fileDetail.content;
 
-      var fileIcon = $filter('fileIcon')(fileDetail.content);;
+      var fileIcon = $filter('fileIcon')(fileDetail.content);
 
       _init();
 
@@ -106,7 +106,7 @@
               // image file api data
               messageId: fileDetail.id,
               // image carousel view data
-              userName: fileDetail.writer.name,
+              userName: fileDetail.extWriter.name,
               uploadDate: fileDetail.createTime,
               fileTitle: fileDetail.content.title,
               fileUrl: fileDetail.content.fileUrl,

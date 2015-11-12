@@ -9,12 +9,11 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($scope, $state, $parse, $filter, $timeout, entityAPIservice,
-                            currentSessionHelper, MentionExtractor, Dialog) {
+  function MentionaheadCtrl($scope, $state, $filter, entityAPIservice, currentSessionHelper,
+                            MentionExtractor, Dialog) {
     var that = this;
 
     var entityId = $state.params.entityId;
-    var timerUpdateMentionAhead;
 
     var $originScope;
     var $model;
@@ -34,8 +33,6 @@
     that.showMentionahead = showMentionahead;
 
     function init(options) {
-      var fn;
-
       $originScope = options.originScope;
       $originScope.getMentions = getMentions;
 
@@ -48,23 +45,7 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
-      // mention list를 생성 option
-      fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
-
-      if (fn) {
-        $scope.mentionList = fn($originScope, {
-          $mentionScope: $scope,
-          $mentionCtrl: that
-        });
-      } else {
-        // current entity change event handler에서 한번 mention list 설정
-        $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-
-        $timeout.cancel(timerUpdateMentionAhead);
-        timerUpdateMentionAhead = $timeout(function() {
-          _setMentionList();
-        }, 200);
-      }
+      _attachEvents(options);
 
       // message를 submit하는 method
       if (options.attrs.messageSubmit) {
@@ -73,30 +54,24 @@
     }
 
     /**
-     * current entity changed event handler
+     * attach events
+     * @param {object} options
      * @private
      */
-    function _onCurrentEntityChanged() {
-      $timeout.cancel(timerUpdateMentionAhead);
-      timerUpdateMentionAhead = $timeout(function() {
-        _setMentionList();
-      }, 200);
+    function _attachEvents(options) {
+      var type = options.attrs.mentionaheadType;
+
+      $scope.$on('mentionMembersUpdate:' + type, _onMentionMembersUpdate);
     }
 
     /**
-     * default mention list 설정함.
+     * mention update event handler
+     * @param {object} angularEvent
+     * @param {object} mentionMembers
      * @private
      */
-    function _setMentionList() {
-      var currentEntity = currentSessionHelper.getCurrentEntity();
-      var members = entityAPIservice.getMemberList(currentEntity);
-      var mentionList;
-
-      if (members) {
-        mentionList = MentionExtractor.getMentionList(members, entityId);
-
-        setMentions(mentionList);
-      }
+    function _onMentionMembersUpdate(angularEvent, mentionMembers) {
+      setMentions(mentionMembers);
     }
 
     /**

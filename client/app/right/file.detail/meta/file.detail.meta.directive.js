@@ -42,14 +42,14 @@
 
         _setShared();
 
-        _on();
+        _attachEvents();
       }
 
       /**
-       * on listener
+       * attach events
        * @private
        */
-      function _on() {
+      function _attachEvents() {
         scope.$on('fileShared', _onFileShared);
         scope.$on('fileUnshared', _onFileUnshared);
 
@@ -220,11 +220,11 @@
 
       /**
        * 공유 된 topic 변경 event handler
-       * @param event
+       * @param angularEvent
        * @param data
        * @private
        */
-      function _onChangeShared(event, data) {
+      function _onChangeShared(angularEvent, data) {
         var shareEntities = scope.file.shareEntities;
 
         if (data && shareEntities.length === 1 &&

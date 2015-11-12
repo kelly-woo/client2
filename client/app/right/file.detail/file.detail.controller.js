@@ -36,18 +36,19 @@
 
           $scope.onUserClick = onUserClick;
           $scope.postComment = postComment;
+          $scope.setMentionsGetter = setMentionsGetter;
           _setFileDetail();
 
-          _on();
+          _attachEvents();
         }
       }
     }
 
     /**
-     * on listeners
+     * attach events
      * @private
      */
-    function _on() {
+    function _attachEvents() {
       $scope.$on('right:updateFile', _onUpdateFile);
       $scope.$on('right:updateComments', _onUpdateComments);
 
@@ -57,21 +58,21 @@
 
     /**
      * file 갱신 event handler
-     * @param {object} event
+     * @param {object} angularEvent
      * @param {function} callback
      * @private
      */
-    function _onUpdateFile(event, callback) {
+    function _onUpdateFile(angularEvent, callback) {
       _requestFileDetail('file', callback);
     }
 
     /**
      * comments 갱신 event handler
-     * @param {object} event
+     * @param {object} angularEvent
      * @param {function} callback
      * @private
      */
-    function _onUpdateComments(event, callback) {
+    function _onUpdateComments(angularEvent, callback) {
       _requestFileDetail('comment', callback);
     }
 
@@ -354,11 +355,11 @@
 
     /**
      * updateMemberProfile event handler
-     * @param {object} event
+     * @param {object} angularEvent
      * @param {{event: object, member: object}} data
      * @private
      */
-    function _onUpdateMemberProfile(event, data) {
+    function _onUpdateMemberProfile(angularEvent, data) {
       var file = $scope.file;
       var comments = $scope.comments;
       var id = data.member.id;
@@ -376,11 +377,11 @@
 
     /**
      * file 삭제 event handler
-     * @param event
+     * @param angularEvent
      * @param param
      * @private
      */
-    function _onRightFileDetailOnFileDeleted(event, param) {
+    function _onRightFileDetailOnFileDeleted(angularEvent, param) {
       var deletedFileId = param.file.id;
 
       if (fileId == deletedFileId) {
@@ -474,7 +475,7 @@
       if (comment || sticker) {
         if ($scope.getMentions) {
           if (content = $scope.getMentions()) {
-            comment = content.comment;
+            comment = content.msg;
             mentions = content.mentions;
           }
         }
@@ -506,6 +507,14 @@
         $scope.comments.splice(index, 1);
       }
       $scope.errorComments.push(comment);
+    }
+
+    /**
+     * mention getter 설정한다.
+     * @param {function} getter
+     */
+    function setMentionsGetter(getter) {
+      $scope.getMentions = getter;
     }
   }
 })();

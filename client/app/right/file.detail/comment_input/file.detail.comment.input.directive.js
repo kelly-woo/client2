@@ -18,6 +18,7 @@
         file: '=',
         hasInitialLoaded: '=',
         postComment: '&',
+        setMentionsGetter: '&',
         onUserClick: '='
       },
       templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
@@ -41,32 +42,40 @@
       function _init() {
         scope.createComment = createComment;
         scope.onKeyUp = onKeyUp;
-        scope.watchFileDetail = watchFileDetail;
 
         _initCommentFocus();
         _setProfileImage(memberService.getMember());
 
-        _on();
+        _attachEvents();
       }
 
       /**
-       * on listener
+       * attach events
        * @private
        */
-      function _on() {
+      function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$on('window:unload', _onWindowUnload);
 
         scope.$on('setCommentFocus', _onFocusInput);
         scope.$on('onChangeSticker:' + stickerType, _onChangeSticker);
 
-        scope.$on('topicInvite', _onTopicInvite);
-        scope.$on('topicLeave', _onTopicLeave);
-
         scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
 
-        scope.$on('elasticResize:comment', _onElasticResize)
+        scope.$on('elasticResize:comment', _onElasticResize);
+
+        scope.$on('room:memberAdded', _onMemberUpdate);
+        scope.$on('room:memberDeleted', _onMemberUpdate);
+
+        scope.$watch('file', _onFileChange);
+        scope.$watch('getMentions', _onGetMentionChange);
+      }
+
+      function _onGetMentionChange(value) {
+        scope.setMentionsGetter({
+          $getter: value
+        });
       }
 
       /**
@@ -100,52 +109,6 @@
       }
 
       /**
-       * file이 변경되면 mentionList 갱신한다.
-       * @param {object} $mentionScope
-       */
-      function watchFileDetail($mentionScope, $mentionCtrl) {
-        var currentMemberId = memberService.getMemberId();
-
-        // file_detail 변경시 마다 mention list 변경
-        scope.$watch('file', function(value) {
-          var sharedEntities;
-          var entity;
-          var members;
-          var member;
-          var i;
-          var iLen;
-          var j;
-          var jLen;
-
-          var mentionList = [];
-
-          if (value) {
-            sharedEntities = value.shareEntities;
-            for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
-              entity = EntityMapManager.get('total', sharedEntities[i]);
-              if (entity && /channels|privategroups/.test(entity.type)) {
-                members = entityAPIservice.getMemberList(entity);
-                if (members) {
-                  for (j = 0, jLen = members.length; j < jLen; j++) {
-                    member = EntityMapManager.get('total', members[j]);
-                    if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                      member.extViewName = '[@' + member.name + ']';
-                      member.extSearchName = member.name;
-                      mentionList.push(member);
-                    }
-                  }
-                }
-              }
-            }
-
-            $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy(function (item) {
-              return item.name.toLowerCase();
-            }).value());
-          }
-        });
-      }
-
-      /**
        * focus input event handler
        * @private
        */
@@ -163,11 +126,11 @@
 
       /**
        * 입력할 sticker 변경 event handler
-       * @param event
+       * @param angularEvent
        * @param item
        * @private
        */
-      function _onChangeSticker(event, item) {
+      function _onChangeSticker(angularEvent, item) {
         if (sticker = item) {
           _focusInput();
         }
@@ -206,62 +169,11 @@
       }
 
       /**
-       * topic invite event handler
-       * @param {object} event
-       * @param {object} data
+       * topic member update event handler
        * @private
        */
-      function _onTopicInvite(event, data) {
-        _addMentionMember(data);
-
+      function _onMemberUpdate() {
         jndPubSub.pub('right:updateFile');
-      }
-
-      /**
-       * topic leave event handler
-       * @param {object} event
-       * @param {object} data
-       * @private
-       */
-      function _onTopicLeave(event, data) {
-        _removeMentionMember(data);
-
-        jndPubSub.pub('right:updateFile');
-      }
-
-      /**
-       * mention member를 추가한다.
-       * @param {object} data
-       * @private
-       */
-      function _addMentionMember(data) {
-        var room = EntityMapManager.get('total', data.room.id);
-        var members = data.inviter;
-        var joinMembers;
-
-        if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-          _.each(members, function(member) {
-            joinMembers.indexOf(member) < 0 && joinMembers.push(member);
-          });
-        }
-      }
-
-      /**
-       * mention member를 삭제한다.
-       * @param {object} data
-       * @private
-       */
-      function _removeMentionMember(data) {
-        var room = EntityMapManager.get('total', data.room.id);
-        var member = data.writer;
-        var joinMembers;
-        var index;
-
-        if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-          if (index = joinMembers.indexOf(member)) {
-            index > -1 && joinMembers.splice(index, 1);
-          }
-        }
       }
 
       /**
@@ -287,11 +199,11 @@
 
       /**
        * updateMemberProfile 이벤트 발생시 event handler
-       * @param {object} event
+       * @param {object} angularEvent
        * @param {{event: object, member: object}} data
        * @private
        */
-      function _onUpdateMemberProfile(event, data) {
+      function _onUpdateMemberProfile(angularEvent, data) {
         var currentMember = memberService.getMember();
         var member = data.member;
         var id = member.id;
@@ -303,11 +215,11 @@
 
       /**
        * file 삭제 event handler
-       * @param event
+       * @param angularEvent
        * @param param
        * @private
        */
-      function _onRightFileDetailOnFileDeleted(event, param) {
+      function _onRightFileDetailOnFileDeleted(angularEvent, param) {
         var deletedFileId = param.file.id;
 
         if (scope.file.id == deletedFileId) {
@@ -338,6 +250,55 @@
         setTimeout(function() {
           jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
+      }
+
+      /**
+       * file change event handler
+       * @param {object} file
+       * @private
+       */
+      function _onFileChange(file) {
+        _setMentionMembers(file);
+      }
+
+      /**
+       * mention 가능한 member 설정한다.
+       * @param {object} file
+       * @private
+       */
+      function _setMentionMembers(file) {
+        var currentMemberId = memberService.getMemberId();
+        var sharedEntities;
+        var mentionMembers;
+
+        if (file) {
+          sharedEntities = file.shareEntities;
+          mentionMembers = [];
+
+          _.each(sharedEntities, function(sharedEntity) {
+            var entity = EntityMapManager.get('total', sharedEntity);
+            var members;
+
+            if (entity && /channels|privategroups/.test(entity.type)) {
+              members = entityAPIservice.getMemberList(entity);
+              _.each(members, function(member) {
+                member = EntityMapManager.get('total', member);
+                if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                  member.extViewName = '[@' + member.name + ']';
+                  member.extSearchName = member.name;
+                  mentionMembers.push(member);
+                }
+              });
+            }
+          });
+
+          // 공유된 room 마다 mention 가능한 member를 설정함
+          mentionMembers = _.chain(mentionMembers).uniq('id').sortBy(function (item) {
+            return item.name.toLowerCase();
+          }).value();
+
+          jndPubSub.pub('mentionMembersUpdate:comment', mentionMembers);
+        }
       }
     }
   }

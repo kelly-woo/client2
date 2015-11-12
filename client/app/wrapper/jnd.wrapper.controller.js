@@ -49,14 +49,17 @@
      * @private
      */
     function _onTopicInvite(angularEvent, data) {
-      var entity = EntityMapManager.get('total', data.room.id);
-      var memberList = entityAPIservice.getMemberList(entity);
-      _.forEach(data.inviter, function(memberId) {
-        if (memberList.indexOf(memberId) === -1) {
-          memberList.push(memberId);
-        }
-      });
-      entity.members = memberList;
+      var room = EntityMapManager.get('total', data.room.id);
+      var members = data.inviter;
+      var joinMembers;
+
+      if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
+        _.each(members, function(member) {
+          joinMembers.indexOf(member) < 0 && joinMembers.push(member);
+        });
+      }
+
+      room.members = joinMembers;
 
       jndPubSub.pub('room:memberAdded');
     }
@@ -69,16 +72,18 @@
      * @private
      */
     function _onTopicLeave(angularEvent, data) {
-      var entity = EntityMapManager.get('total', data.room.id);
-      var memberList = entityAPIservice.getMemberList(entity);
+      var room = EntityMapManager.get('total', data.room.id);
+      var member = data.writer;
+      var joinMembers;
       var index;
-      _.forEach(data.inviter, function(memberId) {
-        index = memberList.indexOf(memberId);
-        if (index > -1) {
-          memberList.splice(index, 1);
+
+      if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
+        if (index = joinMembers.indexOf(member)) {
+          index > -1 && joinMembers.splice(index, 1);
         }
-      });
-      entity.members = memberList;
+      }
+
+      room.members = joinMembers;
 
       jndPubSub.pub('room:memberDeleted');
     }
