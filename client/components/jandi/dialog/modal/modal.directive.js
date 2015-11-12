@@ -53,7 +53,10 @@
                 nonSelectEvent.preventDefault();
                 jqAbsoluteFocus.focus().select();
               });
+
+            setTimeout(function() {
               jqAbsoluteFocus.focus();
+            });
           }
         }
       }
