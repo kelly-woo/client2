@@ -1,3 +1,22 @@
+<a name="1.9.0-alpha.3"></a>
+# [1.9.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.8.1...v1.9.0-alpha.3) (2015-11-12)
+
+
+### Bug Fixes
+
+* **center:** center event 연결시점 수정 ([7a7ed32](https://github.com/tosslab/web_client/commit/7a7ed32))
+* **center:** input box 최대 사이즈 증가 ([1210c6c](https://github.com/tosslab/web_client/commit/1210c6c))
+* **right:** integration file은 외부공유 링크 생성하지 않도록 수정 ([ddc946c](https://github.com/tosslab/web_client/commit/ddc946c))
+* **sticker:** 잘못된 preload url 수정 ([835265b](https://github.com/tosslab/web_client/commit/835265b))
+
+
+
+<a name="1.9.0-alpha.0"></a>
+# [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.9.0-alpha.0) (2015-11-11)
+
+
+
+
 <a name="1.9.0-alpha.0"></a>
 # [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.1-alpha.0...v1.9.0-alpha.0) (2015-11-11)
 
