@@ -63,7 +63,7 @@
               <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
             </a>
           </li>
-          <li class="cursor_pointer">
+          <li class="cursor_pointer" ng-if="!isIntegrateFile">
             <a class="external-share-file" file-id="{{::file.id}}"
                external-share-view
                external-share-get="getExternalShare()"

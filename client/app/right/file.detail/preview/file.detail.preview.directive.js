@@ -14,6 +14,7 @@
       replace: true,
       scope: {
         file: '=',
+        isIntegrateFile: '=',
         isExternalShared: '='
       },
       link: link,

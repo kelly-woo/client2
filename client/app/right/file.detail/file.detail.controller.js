@@ -199,6 +199,9 @@
     function _setFile(file) {
       $scope.file = file;
 
+      // integrate file 여부
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl);
+
       // 외부 파일공유 되었는지 여부
       $scope.isExternalShared = file.content.externalShared;
       // 관리자 인지 여부

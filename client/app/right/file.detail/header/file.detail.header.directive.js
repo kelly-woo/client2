@@ -20,6 +20,7 @@
         isInvalidRequest: '=',
         isExternalShared: '=',
         isAdmin: '=',
+        isIntegrateFile: '=',
         onUserClick: '='
       },
       templateUrl : 'app/right/file.detail/header/file.detail.header.html',
@@ -38,7 +39,6 @@
 
         scope.isStarred = file.isStarred;
         scope.isFileOwner = $filter('isFileWriter')(file);
-        scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl); // integrate file 여부
 
         scope.backToFileList = backToFileList;
         scope.onClickDownload = onClickDownload;

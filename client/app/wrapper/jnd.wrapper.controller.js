@@ -49,24 +49,21 @@
      * @private
      */
     function _onTopicInvite(angularEvent, data) {
-      var room = EntityMapManager.get('total', data.room.id);
-      var members = data.inviter;
-      var joinMembers;
-
-      if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-        _.each(members, function(member) {
-          joinMembers.indexOf(member) < 0 && joinMembers.push(member);
-        });
-      }
-
-      room.members = joinMembers;
+      var entity = EntityMapManager.get('total', data.room.id);
+      var memberList = entityAPIservice.getMemberList(entity);
+      _.forEach(data.inviter, function(memberId) {
+        if (memberList.indexOf(memberId) === -1) {
+          memberList.push(memberId);
+        }
+      });
+      entity.members = memberList;
 
       jndPubSub.pub('room:memberAdded');
     }
 
     /**
      * topic leave 이벤트 핸들러
-     * 해당 entity 에 member 를 추가한다
+     * 해당 entity 에 member 를 삭제한다
      * @param {object} angularEvent
      * @param {object} data
      * @private
@@ -74,16 +71,15 @@
     function _onTopicLeave(angularEvent, data) {
       var room = EntityMapManager.get('total', data.room.id);
       var member = data.writer;
-      var joinMembers;
+      var memberList;
       var index;
 
-      if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-        if (index = joinMembers.indexOf(member)) {
-          index > -1 && joinMembers.splice(index, 1);
+      if (room && (memberList = entityAPIservice.getMemberList(room))) {
+        if (index = memberList.indexOf(member)) {
+          index > -1 && memberList.splice(index, 1);
         }
       }
-
-      room.members = joinMembers;
+      room.members = memberList;
 
       jndPubSub.pub('room:memberDeleted');
     }

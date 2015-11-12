@@ -43,7 +43,8 @@
         scope.createComment = createComment;
         scope.onKeyUp = onKeyUp;
 
-        _initCommentFocus();
+        _initComment();
+
         _setProfileImage(memberService.getMember());
 
         _attachEvents();
@@ -177,15 +178,17 @@
       }
 
       /**
-       * comment input의 초기 focus 설정한다.
+       * comment input의 초기 설정한다.
        * @private
        */
-      function _initCommentFocus() {
+      function _initComment() {
         if ($rootScope.setFileDetailCommentFocus) {
           $rootScope.setFileDetailCommentFocus = false;
 
           _focusInput();
         }
+
+        $('#file-detail-comment-input').val(JndMessageStorage.getCommentInput(scope.file.id));
       }
 
       /**
