@@ -1,3 +1,13 @@
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+### Bug Fixes
+
+* **modal:** 팀 초대 모달 링크복사 수정 ([254e2e8](https://github.com/tosslab/web_client/commit/254e2e8))
+
+
+
 <a name="1.8.3"></a>
 ## [1.8.3](https://github.com/tosslab/web_client/compare/v1.8.2...v1.8.3) (2015-11-13)
 
