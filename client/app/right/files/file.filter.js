@@ -217,7 +217,7 @@
   });
 
   /**
-   * preview를 전달한다.
+   * preview url을 전달한다.
    */
   app.filter('getPreview', function($filter) {
     var sizeMap = {
@@ -226,7 +226,29 @@
       large: 'largeThumbnailUrl'
     };
     return function(content, size) {
-      return $filter('getFileUrl')(content ? content.extraInfo ? content.extraInfo[sizeMap[size] || sizeMap.medium] : content.fileUrl : '');
+      var url;
+      var thumbnailType;
+
+      if (content) {
+        thumbnailType = sizeMap[size] || sizeMap.medium;
+
+        if (content.extraInfo && content.extraInfo[thumbnailType]) {
+          // extraInfo가 존재하고 참조가능한 thumbnail url을 server에서 보장함
+
+          // thumbnail url
+          url = content.extraInfo[thumbnailType];
+        } else if (content.fileUrl) {
+          // server에서 file size, dimention 제한 또는 특수한 상황으로 인해
+          // extraInfo에 thumbnail url을 보장하지 못했을 경우
+
+          // 원본 url
+          url = content.fileUrl;
+        }
+      } else {
+        url = '';
+      }
+
+      return $filter('getFileUrl')(url);
     };
   });
 
@@ -235,8 +257,35 @@
    */
   app.filter('hasPreview', function() {
     var rImage = /image/i;
+
+    /**
+     * thumbnail url 존재 여부
+     * @param {object} extraInfo
+     * @returns {boolean}
+     * @private
+     */
+    function _hasThumbnailUrl(extraInfo) {
+      return !!(extraInfo && extraInfo.smallThumbnailUrl && extraInfo.mediumThumbnailUrl && extraInfo.largeThumbnailUrl);
+    }
+
     return function(content) {
-      return !!(content && (content.extIsNewImage ? content.extraInfo : (content.extraInfo || content.fileUrl)) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
+      var hasPreview = false;
+      var hasImageUrl;
+      var hasThumbnailUrl;
+
+      if (content) {
+        hasThumbnailUrl = _hasThumbnailUrl(content.extraInfo);
+
+        // extIsNewImage에 대한 설명은 'message.collection.service'의 '_addImageMsgData'를 참조한다.
+        // extIsNewImage가 true일때 thumbnail url이 존재한다면 request할 url을 가진다.
+        // extIsNewImage가 false일때 thumbnail url이 존재하거나 fileUrl이 존재한다면 request할 url을 가진다.
+        hasImageUrl = !!(content.extIsNewImage ? hasThumbnailUrl : (hasThumbnailUrl || content.fileUrl));
+
+        // image를 request할 url이 존재하고 file type이 image이고 integration file이 아닌 경우 preview를 가진다.
+        hasPreview = hasImageUrl && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+      }
+
+      return hasPreview;
     };
   });
 

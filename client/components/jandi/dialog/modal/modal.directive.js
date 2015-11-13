@@ -13,9 +13,9 @@
 
     return {
       restrict: 'A',
-      link: function(scope) {
+      link: function(scope, el) {
         $timeout(function() {
-          $('.' + scope.okayClass).focus();
+          scope.onDialogLoad ? scope.onDialogLoad(el) : el.find('.' + scope.okayClass).focus();
         }, 10);
       }
     };

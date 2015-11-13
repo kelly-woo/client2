@@ -1,0 +1,28 @@
+.rpanel-body .file-detail-preview {
+  position: relative;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rpanel-body .file-detail-preview .image_wrapper {
+  text-align: center;
+}
+
+.rpanel-body .external-share-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  padding: 6px;
+  font-size: 22px;
+  border-radius: 7px;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  color: #1C6C88;
+}
+
+.rpanel-body .external-share-btn:hover {
+  background-color: white;
+  color: #1C6C88;
+  opacity: 1;
+}

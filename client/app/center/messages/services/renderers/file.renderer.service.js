@@ -104,7 +104,7 @@
           messageId: message.id,
           entityId: currentEntity.entityId || currentEntity.id,
           // image carousel view data
-          userName: message.writer.name,
+          userName: $filter('getName')(message.writerId),
           uploadDate: msg.time,
           fileTitle: content.title,
           fileUrl: content.fileUrl,

@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $filter, $compile, $timeout, jndKeyCode, config, Browser, Loading) {
+  function ImageCarousel($rootScope, $filter, $compile, $timeout, jndKeyCode, EntityMapManager, Browser, Loading) {
     var that = this;
 
     // image item의 최소 크기
@@ -407,6 +407,7 @@
       var imageItem;
       var i;
       var cal;
+      var writer;
 
       if (data) {
         // prev, next, init에 따라 data 시작점 달라짐
@@ -419,17 +420,19 @@
         }
 
         for (; message = data[i]; i += cal) {
-          if (type === INIT && message.id === messageId) {
-            imageList.splice(imageList.indexOf(messageId), 1);
-            imageItem = imageMap[messageId];
-            imageMap[messageId] = undefined;
-          } else {
-            imageItem = {
-              userName: message.writer.name,
-              uploadDate: message.createTime,
-              fileTitle: message.content.title,
-              fileUrl: message.content.fileUrl
-            };
+          if (writer = EntityMapManager.get('member', message.writerId)) {
+            if (type === INIT && message.id === messageId) {
+              imageList.splice(imageList.indexOf(messageId), 1);
+              imageItem = imageMap[messageId];
+              imageMap[messageId] = undefined;
+            } else {
+              imageItem = {
+                userName: writer.name,
+                uploadDate: message.createTime,
+                fileTitle: message.content.title,
+                fileUrl: message.content.fileUrl
+              };
+            }
           }
 
           _pushImage(message.id, type, imageItem);

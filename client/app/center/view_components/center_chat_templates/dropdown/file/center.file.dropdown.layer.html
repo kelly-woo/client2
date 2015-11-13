@@ -28,12 +28,30 @@
   <!-- OPEN ORIGINAL  -->
   <li class="cursor_pointer">
     <a class="cursor_pointer"
-        href="{{originalUrl}}"
-        target="_blank">
+       href="{{originalUrl}}"
+       target="_blank">
       <i class="icon-minimize"></i>
       <span translate>@msg-open-original</span>
     </a>
   </li>
+
+  <!-- STAR  -->
+  <li class="cursor_pointer">
+    <a class="star-file" star-view="isStarred" message-id="{{fileId}}">
+      <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
+      <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
+    </a>
+  </li>
+
+  <!-- EXTERNAL SHARE  -->
+  <li class="cursor_pointer">
+    <a class="external-share-file" file-id="{{fileId}}" external-share-view="isExternalShared"
+       external-shared="msg.message.content.externalShared">
+      <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
+      <span><span ng-if="isExternalShared" translate>@external-share-remove</span><span ng-if="!isExternalShared" translate>@external-share-create</span></span>
+    </a>
+  </li>
+
   <li class="cursor_pointer" ng-if="isFileOwner || isAdmin" ng-click="onFileDeleteClick();">
     <a class="delete-file">
       <i class="icon-trash"></i>

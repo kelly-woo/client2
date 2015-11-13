@@ -7,7 +7,7 @@
   width: 360px;
   height: 270px;
 }
-
+.medium-thumbnail.msg-file-body__img__background,
 .medium-thumbnail.medium-thumbnail-wrapper {
   margin-top: 10px;
 }
