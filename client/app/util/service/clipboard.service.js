@@ -70,6 +70,10 @@
         var that = this;
         var client = new ZeroClipboard(that.ele);
 
+        ZeroClipboard.config({
+          swfPath:'../bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+        });
+
         client.on('ready', function(event) {
             client.on('copy', function(event) {
                 var text;
