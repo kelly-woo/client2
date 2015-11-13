@@ -1,3 +1,9 @@
+<a name="1.8.3"></a>
+## [1.8.3](https://github.com/tosslab/web_client/compare/v1.8.2...v1.8.3) (2015-11-13)
+
+
+
+
 <a name="1.8.2"></a>
 ## [1.8.2](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.3...v1.8.2) (2015-11-12)
 
