@@ -149,7 +149,9 @@
      * @private
      */
     function _setStickers(group, stickers, active) {
-      $scope.list = stickers;
+      JndUtil.safeApply($scope, function() {
+        $scope.list = stickers;
+      });
 
       if (_isResentStickers(group)) {
         _recentStickers = stickers;
