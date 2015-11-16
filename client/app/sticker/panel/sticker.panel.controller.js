@@ -31,6 +31,8 @@
     var MAX_COLUMN = parseInt($attrs.maxColumns, 10);
     var _activeGroupIndex = 1;
 
+    var _recentStickers;
+
     _init();
 
     /**
@@ -54,6 +56,8 @@
       $scope.isActiveSticer = isActiveSticer;
       $scope.isActiveGroup = isActiveGroup;
       $scope.isRecentGroup = isRecentGroup;
+
+      $scope.resetRecentStickers = resetRecentStickers;
 
       _attachEvents();
     }
@@ -127,17 +131,56 @@
 
       _activeGroupIndex = _groups.indexOf(group);
 
-      Sticker.getStickers(group.id)
-        .then(function(stickers) {
-          $scope.list = stickers;
+      if (_isResentStickers(group) && _recentStickers != null) {
+        _setStickers(group, _recentStickers, active);
+      } else {
+        Sticker.getStickers(group.id)
+          .then(function(stickers) {
+            _setStickers(group, stickers, active);
+          });
+      }
+    }
 
-          //_updateSelect(group);
-          if (stickers.length > 0) {
-            active ?  _setNextItem(stickers.length - 1) :  _setNextItem(0);
-          }
+    /**
+     * sticker dropdown menu에 출력할 sticker item을 설정한다.
+     * @param {object} group
+     * @param {array} stickers
+     * @param {boolean} active
+     * @private
+     */
+    function _setStickers(group, stickers, active) {
+      $scope.list = stickers;
 
-          $scope.onCreateSticker();
-        });
+      if (_isResentStickers(group)) {
+        _recentStickers = stickers;
+        $scope.isRecentEmpty = !stickers || stickers.length === 0
+      } else {
+        $scope.isRecentEmpty = false;
+      }
+
+      if (stickers.length > 0) {
+        active ?  _setNextItem(stickers.length - 1) : _setNextItem(0);
+      }
+
+      $scope.onCreateSticker();
+    }
+
+    /**
+     * 최근 사용 sticker 그룹인지 여부
+     * @param {object} group
+     * @returns {boolean}
+     * @private
+     */
+    function _isResentStickers(group) {
+      return _groups[0] === group;
+    }
+
+    /**
+     * 최근 사용 sticker 초기화
+     */
+    function resetRecentStickers() {
+      _recentStickers = null;
+      $scope.isRecentEmpty = false;
     }
 
     /**
