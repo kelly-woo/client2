@@ -17,18 +17,47 @@
     function link(scope) {
       var jqBody = $('body');
 
-      var shortcutMap= {
-        keydown: {
-          'toggleQuickLauncher': _isQuickLauncherShortcut,
-          'center:toggleSticker': _isCenterStickerShortcut
+      var keyHandlerMap = {
+        //
+        'always': {
+          'ENTER': _setChatInputFocus
         },
-        keyup: {
-          'setChatInputFocus': _isChatInputFocus
+        'ctrlShift': {
+          'CHAR_K': _toggleSticker,
+          'CHAR_L': _togglePrivate
+        },
+        'shift': {
+        },
+        'ctrl': {
+          'CHAR_J': _toggleQuickLauncher
+        },
+        'only': {
         }
       };
 
       _init();
 
+      function _toggleSticker() {
+        jndPubSub.pub('center:toggleSticker');
+      }
+
+      function _toggleQuickLauncher() {
+        jndPubSub.pub('toggleQuickLauncher');
+      }
+
+      function _setChatInputFocus(keyEvent) {
+        if (_isChatInputFocus(keyEvent)) {
+          jndPubSub.pub('setChatInputFocus');
+        }
+      }
+
+      function _togglePrivate() {
+        if ($('body').hasClass('blurred')) {
+          $('body').removeClass('blurred');
+        } else {
+          $('body').addClass('blurred');
+        }
+      }
       /**
        * 생성자
        * @private
@@ -43,11 +72,10 @@
        */
       function _on() {
         scope.$on('$destroy', _onDestroy);
-        scope.$on('document:visibilityChange', _onVisibilitychange);
+        scope.$on('document:visibilityChange', onVisibilityChange);
 
         jqBody
-          .on('keydown', _onKeyDown)
-          .on('keyup', _onKeyUp);
+          .on('keydown', _onKeyInput);
       }
 
       /**
@@ -56,8 +84,7 @@
        */
       function _off() {
         jqBody
-          .off('keydown', _onKeyDown)
-          .off('keyup', _onKeyUp);
+          .off('keydown', _onKeyInput);
       }
 
       /**
@@ -72,44 +99,50 @@
        * visibility change event handler
        * @private
        */
-      function _onVisibilitychange() {
+      function onVisibilityChange() {
         if (!currentSessionHelper.isBrowserHidden()) {
           jqBody.focus();
         }
       }
 
       /**
-       * keydown 이벤트 핸들러
+       *
+       * @param keyEvent
+       * @param keyHandler
+       * @returns {boolean}
        * @private
        */
-      function _onKeyDown(keyEvent) {
-        _pubShortcutEvent(shortcutMap.keydown, keyEvent);
+      function _executeHandler(keyEvent, keyHandler) {
+        if (_.isFunction(keyHandler)) {
+          keyEvent.preventDefault();
+          keyHandler(keyEvent);
+          return true;
+        } else {
+          return false;
+        }
       }
-
+      
       /**
-       * keyup 이벤트 핸들러
-       * @param {object} keyEvent
+       * key 이벤트 핸들러
        * @private
        */
-      function _onKeyUp(keyEvent) {
-        _pubShortcutEvent(shortcutMap.keyup, keyEvent);
-      }
-
-      /**
-       * pub shortcut event
-       * @param {object} shortcuts
-       * @param {object} keyEvent
-       * @private
-       */
-      function _pubShortcutEvent(shortcuts, keyEvent) {
-        _.each(shortcuts, function(fn, name) {
-          if (fn(keyEvent)) {
-            // keyboard shortcut이라면 기본동작 막음
-            keyEvent.preventDefault();
-
-            jndPubSub.pub(name);
+      function _onKeyInput(keyEvent) {
+        var keyName = jndKeyCode.getName(keyEvent.keyCode);
+        if (keyName) {
+          if (!_executeHandler(keyEvent, keyHandlerMap['always'][keyName])) {
+            if (keyEvent.shiftKey) {
+              if (keyEvent.ctrlKey || keyEvent.metaKey) {
+                _executeHandler(keyEvent, keyHandlerMap['ctrlShift'][keyName]);
+              } else {
+                _executeHandler(keyEvent, keyHandlerMap['shift'][keyName]);
+              }
+            } else if (keyEvent.ctrlKey || keyEvent.metaKey) {
+              _executeHandler(keyEvent, keyHandlerMap['ctrl'][keyName]);
+            } else {
+              _executeHandler(keyEvent, keyHandlerMap['none'][keyName]);
+            }
           }
-        });
+        }
       }
 
       /**
@@ -140,26 +173,6 @@
        */
       function _isInput(jqTarget) {
         return jqTarget.is('input') || jqTarget.is('textarea') || jqTarget.is('button');
-      }
-
-      /**
-       * quick launcher shortcut인지 여부를 반환한다.
-       * @param {boolean} keyEvent
-       * @returns {*|boolean}
-       * @private
-       */
-      function _isQuickLauncherShortcut(keyEvent) {
-        var keyCode = keyEvent.keyCode;
-        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keyCode));
-      }
-
-      /**
-       * center sticker shortcut 인지 여부를 반환한다.
-       * @param {object} keyEvent
-       */
-      function _isCenterStickerShortcut(keyEvent) {
-        var keyCode = keyEvent.keyCode;
-        return (keyEvent.ctrlKey || keyEvent.metaKey) && keyEvent.shiftKey && jndKeyCode.match('CHAR_K', keyCode);
       }
     }
   }
