@@ -15,7 +15,7 @@
   <!--    TITLE   -->
   <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
         ng-click="onEntityTitleClicked();">
-    <span class="inline-overflow-ellipsis panel-title-info__name">
+    <span class="inline-overflow-ellipsis panel-title-info__name private-effect">
       {{currentEntity | getName}}
     </span>
   </span>
@@ -125,7 +125,7 @@
         <i class="icon-angle-down"></i>
       </div>
 
-      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
+      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
         <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
           <a ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>

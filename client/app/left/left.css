@@ -14,7 +14,12 @@
 
 .lpanel-list ul li a,
 .lpanel-list-user_search {
-  padding-left: 28px;
+  padding-left: 25px;
+}
+
+.lpanel-list ul li a span {
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .lpanel-list__header .fa-comment {

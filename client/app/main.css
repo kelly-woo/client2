@@ -1293,3 +1293,32 @@ input[type="radio"] {
 .scroll_gray ::-webkit-scrollbar-corner{
   background-color: transparent;
 }
+.blurred span,
+.blurred a {
+  opacity: 0.6;
+}
+.blurred .private-effect,
+.blurred .private-effect *:not([placeholder]),
+.blurred .modal-dialog,
+.blurred .modal-dialog *:not([placeholder]) {
+  color: transparent !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+.blurred .private-effect.white,
+.blurred .private-effect.white *:not([placeholder]):not(i) {
+  color: transparent !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+}
+
+.blurred .private-effect img,
+.blurred .modal-dialog img,
+.blurred .fileicon {
+  -webkit-filter: blur(7px);
+  filter: blur(7px);
+  opacity: 0.3;
+}
+
+
+
+

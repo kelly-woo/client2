@@ -1,8 +1,8 @@
 <div class="rpanel-header">
   <div class="ng-hide" ng-show="initialLoaded">
     <i class="icon-arrow-left" ng-click="backToFileList()"></i>
-    <span ng-if="!isFileArchived" class="file-detail-title">{{::file_detail.content.title}}</span>
-    <span ng-if="isFileArchived" class="file-detail-title" translate>@common-deleted-file-title</span>
+    <span ng-if="!isFileArchived" class="file-detail-title private-effect">{{::file_detail.content.title}}</span>
+    <span ng-if="isFileArchived" class="file-detail-title private-effect" translate>@common-deleted-file-title</span>
   </div>
 </div>
 <div class="rpanel-body" scroll-glue ng-model="glued">
@@ -10,7 +10,7 @@
   <!-- FILE -->
   <div class="rpanel-body-content file-detail ng-hide" ng-show="!isFileArchived && !hasFileAPIError">
 
-    <div class="file-detail-body-container" ng-if="initialLoaded && file_detail">
+    <div class="file-detail-body-container private-effect" ng-if="initialLoaded && file_detail">
       <page-tracker page="files/detail" title="File Detail"></page-tracker>
 
       <div class="file-detail-header">
@@ -120,7 +120,7 @@
             <div class="file-detail-body__meta-info-down">
               <span ng-if="hasTopic">
                 <span translate>@common-shared-in</span>
-                <span ng-repeat="sharedEntity in file_detail.extShared">
+                <span ng-repeat="sharedEntity in file_detail.extShared" class="private-effect">
                   <span ng-hide="($index === 0)">, </span>
                   <span class="file-item-meta__shared cursor_pointer" ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
@@ -140,7 +140,7 @@
       </div>
 
       <div class="rpanel-detail-body-comment">
-        <div class="comment-item" ng-repeat="comment in file_comments | orderBy: 'createTime':false" id="{{ comment.id }}"
+        <div class="comment-item private-effect" ng-repeat="comment in file_comments | orderBy: 'createTime':false" id="{{ comment.id }}"
              ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writerId)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
@@ -230,7 +230,7 @@
     </div>
 
     <!-- ARCHIVED FILE  -->
-    <div class="file-detail-body-container" ng-if="initialLoaded && file_detail && isFileArchived">
+    <div class="file-detail-body-container private-effect" ng-if="initialLoaded && file_detail && isFileArchived">
 
       <div class="file-detail-header">
         <div class="file-detail-header-box">
@@ -260,7 +260,7 @@
       </div>
 
       <div class="rpanel-detail-body-comment" ng-if="file_comments.length > 0">
-        <div class="comment-item" ng-repeat="comment in file_comments" comment-id="{{ comment.id }}">
+        <div class="comment-item private-effect" ng-repeat="comment in file_comments" comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ comment.extProfileImg }}"
