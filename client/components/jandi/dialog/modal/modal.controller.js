@@ -10,7 +10,7 @@
     .controller('ModalCtrl', ModalCtrl);
 
   /* @ngInject */
-  function ModalCtrl($scope, $modalInstance, $filter, options) {
+  function ModalCtrl($scope, $modalInstance, $filter, options, modalHelper) {
 
     _init();
 
@@ -38,6 +38,8 @@
           _close(result);
           $scope.deferred.reject(result);
         });
+
+      modalHelper.setRemovePromise($modalInstance);
     }
 
     /**
