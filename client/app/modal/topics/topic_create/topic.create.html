@@ -54,20 +54,20 @@
     
     <!--  TOPIC AUTO INVITE  -->
     <div class="form-horizontal">
-	  <div class="form-group">
-		<label class="control-label col-sm-3 auto-invite-title">
-		  <span translate>@common-auto-join</span>
-		</label>
-		<div class="col-sm-9">
-		  <div class="modal-body-auto-invite-container">
-			  <input type="checkbox" id="topic-auto-invite" ng-model="isAutoJoin">
-        <label for="topic-auto-invite">
-          <div class="auto-invite-description">
-            <span translate>@common-invite-all</span>
-          </div>
-        </label>
-		  </div>
-		</div>
+	  <div ng-if="entityType !== 'private'" class="form-group">
+      <label class="control-label col-sm-3 auto-invite-title">
+        <span translate>@common-auto-join</span>
+      </label>
+      <div class="col-sm-9">
+        <div class="modal-body-auto-invite-container">
+          <input type="checkbox" id="topic-auto-invite" ng-model="isAutoJoin">
+          <label for="topic-auto-invite">
+            <div class="auto-invite-description">
+              <span translate>@common-invite-all</span>
+            </div>
+          </label>
+        </div>
+      </div>
 	  </div>
 	</div>
 

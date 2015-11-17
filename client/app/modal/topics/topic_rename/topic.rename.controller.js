@@ -20,6 +20,8 @@
     var _topicDescription = $scope.topicDescription = _currentEntity.description;
     var _isAutoJoin = $scope.isAutoJoin = _currentEntity.autoJoin;
 
+    $scope.hasAutoJoin = _hasAutoJoin();
+
     _init();
 
     function _init() {
@@ -30,6 +32,15 @@
 
       $scope.onRenameClick = onRenameClick;
       $scope.isInvalid = isInvalid;
+    }
+
+    /**
+     * 자동 초대 기능을 지원하는지 여부를 반환한다
+     * @returns {boolean}
+     * @private
+     */
+    function _hasAutoJoin() {
+      return _currentEntity.type !== 'privategroups' && _currentEntity.id !==  currentSessionHelper.getDefaultTopicId();
     }
 
     /**
