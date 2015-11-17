@@ -143,7 +143,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _init() {
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
-    $scope.$on('$destroy', _onDestroy);
 
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
@@ -230,6 +229,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
+    $scope.$on('$destroy', _onDestroy);
     $scope.$on('$viewContentLoaded', _onViewContentLoaded);
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
