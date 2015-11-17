@@ -962,9 +962,6 @@ module.exports = function (grunt) {
   /**
    * 버전 릴리즈
    */
-  /**
-   * 버전 릴리즈
-   */
   grunt.registerTask('version-release', function(target) {
     switch (target) {
       case 'major':
