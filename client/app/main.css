@@ -1375,6 +1375,15 @@ input[type="radio"] {
   opacity: 1;
 }
 
+.blurred-guide-wrapper-dim {
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
 .blurred-msg-container .msg-icon-container {
   position: absolute;
   left: 14px;
