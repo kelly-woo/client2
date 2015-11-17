@@ -24,9 +24,9 @@
          */
         function _init() {
           scope.modal.rendered.finally(function() {
-            //setTimeout(function() {
+            setTimeout(function() {
               _setInitFocus();
-            //});
+            }, 20);
           });
         }
 
