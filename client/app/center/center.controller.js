@@ -142,6 +142,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
 
+    $scope.$on('$destroy', _onDestroy);
+    $scope.$on('$viewContentLoaded', _onViewContentLoaded);
+    
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
       _initializeListeners();
@@ -150,8 +153,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
-      $scope.$on('$destroy', _onDestroy);
-      $scope.$on('$viewContentLoaded', _onViewContentLoaded);
       $scope.$on('dataInitDone', _init);
     }
   }
