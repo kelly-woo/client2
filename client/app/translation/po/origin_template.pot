@@ -207,6 +207,10 @@ msgstr ""
 msgid "@common-api-error-msg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-auto-join"
+msgstr ""
+
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
 msgstr ""
@@ -423,6 +427,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-invalid-access"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invite-all"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
