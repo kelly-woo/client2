@@ -29,6 +29,8 @@
       $scope.okay = okay;
       $scope.cancel = cancel;
 
+      $scope.modal = $modalInstance;
+
       $modalInstance.result.then(
         function(result) {
           _close(result);
@@ -38,7 +40,6 @@
           _close(result);
           $scope.deferred.reject(result);
         });
-      $scope.modal = $modalInstance;
     }
 
     /**
