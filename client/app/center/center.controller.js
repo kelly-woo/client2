@@ -155,8 +155,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
-      $scope.$on('$destroy', _onDestroy);
-      $scope.$on('$viewContentLoaded', _onViewContentLoaded);
       $scope.$on('dataInitDone', _init);
     }
   }
