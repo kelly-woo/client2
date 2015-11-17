@@ -18,6 +18,7 @@
 
     var _topicName = $scope.topicName = _currentEntity.name;
     var _topicDescription = $scope.topicDescription = _currentEntity.description;
+    var _isAutoJoin = $scope.isAutoJoin = _currentEntity.autoJoin;
 
     _init();
 
@@ -47,6 +48,10 @@
 
         if ($scope.topicDescription !== _currentEntity.description) {
           _.extend(_body, {description: $scope.topicDescription});
+        }
+
+        if ($scope.isAutoJoin !== _currentEntity.autoJoin) {
+          _.extend(_body, {autoJoin: $scope.isAutoJoin});
         }
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)
@@ -110,12 +115,18 @@
       }
     }
 
+    function _isChanged() {
+      return $scope.topicName !== _topicName ||
+        $scope.topicDescription !== _topicDescription ||
+        $scope.isAutoJoin !== _isAutoJoin;
+    }
+
     /**
      * 값이 타당하지 않은지 여부
      * @returns {boolean}
      */
     function isInvalid() {
-      return ($scope.topicName === _topicName && $scope.topicDescription === _topicDescription) ||
+      return !_isChanged() ||
         $scope.topicName.length > $scope.nameMaxLength || $scope.topicDescription.length > $scope.descMaxLength;
     }
   }
