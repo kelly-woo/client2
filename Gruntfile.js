@@ -755,7 +755,7 @@ module.exports = function (grunt) {
         updateConfigs: [],
         commit: false,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json', 'CHANGELOG.md', 'README.md'],
+        commitFiles: ['package.json', 'CHANGELOG.md', 'README.md', 'CHANGELOG-ALPHA.md'],
         createTag: false, //tobe true
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
@@ -997,7 +997,8 @@ module.exports = function (grunt) {
     }
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
-    grunt.config.set('bump.options.createTag', true);
+    grunt.config.set('bump.options.createTag', false);
+    grunt.config.set('conventionalChangelog.release.src', 'CHANGELOG-ALPHA.md');
     grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
   });
 

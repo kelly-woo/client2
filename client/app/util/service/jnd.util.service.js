@@ -18,10 +18,11 @@
      * @param {function} fn
      */
     function safeApply(scope, fn) {
+      var phase = scope.$root.$$phase;
       if (scope) {
         fn = _.isFunction(fn) ? fn : function () {
         };
-        if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
+        if (phase !== '$apply' && phase !== '$digest') {
           scope.$apply(fn);
         } else {
           fn();

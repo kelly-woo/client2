@@ -56,6 +56,7 @@
           return function(response) {
             var list = response ? response.data : [];
 
+            _setStickersUrl(list);
             if (groupId === 'recent') {
               deferred.resolve(list.reverse());
             } else {
@@ -70,6 +71,18 @@
       }
 
       return deferred.promise;
+    }
+
+    /**
+     * set stickers url
+     * @param {array} list
+     * @private
+     */
+    function _setStickersUrl(list) {
+      _.each(list, function(item) {
+        // stickers url에 size query를 붙임
+        item.url += '?size=130';
+      });
     }
 
     /**
