@@ -1345,7 +1345,7 @@ input[type="radio"] {
 .blurred .fileicon {
   -webkit-filter: blur(7px);
   filter: blur(7px);
-  opacity: 0.3;
+  opacity: 0.08;
 }
 
 .blurred .blurred-msg-container {
@@ -1356,17 +1356,21 @@ input[type="radio"] {
   box-shadow: 0 0px 5px 2px rgba(0,0,0,0.15);
   border:1px solid rgba(0,0,0,0.15);
   padding: 18px 18px 18px 58px;
-  position: relative;
-  margin:auto;
-  top:50%;
-  -webkit-transform:translateY(-50%);
-  -webkit-transform:-webkit-translateY(-50%);
-  -moz-transform:translateY(-50%);
-  -ms-transform:translateY(-50%);
-  -o-transform:translateY(-50%);
-  transform:translateY(-50%);
-  z-index: 1111;
+  position: absolute;
   
+  bottom:32px;
+  left: 32px;
+
+  z-index: 1111; 
+}
+.blurred-msg-container {
+  left: -450px;
+  
+  -webkit-transition: left 0.45s;
+  -moz-transition: left 0.45s;
+  -ms-transition: left 0.45s;
+  -o-transition: left 0.45s;
+  transition: left 0.45s;
 }
 .blurred-msg-container .msg-icon-container {
   position: absolute;
