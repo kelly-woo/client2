@@ -23,13 +23,17 @@
          * @private
          */
         function _init() {
-          scope.setInitFocus = setInitFocus;
+          scope.modal.rendered.finally(function() {
+            //setTimeout(function() {
+              _setInitFocus();
+            //});
+          });
         }
 
         /**
          * 초기 focus 설정한다.
          */
-        function setInitFocus() {
+        function _setInitFocus() {
           if (absoluteFocus) {
             _setAbsoluteFocus();
           } else {
@@ -49,14 +53,12 @@
               .on('focus', function() {
                 jqAbsoluteFocus.select();
               })
-              .on('mouseup blur', function(nonSelectEvent) {
-                nonSelectEvent.preventDefault();
+              .on('mouseup blur', function(nonFocusEvent) {
+                nonFocusEvent.preventDefault();
                 jqAbsoluteFocus.focus().select();
               });
 
-            setTimeout(function() {
-              jqAbsoluteFocus.focus();
-            });
+            jqAbsoluteFocus.focus();
           }
         }
       }
