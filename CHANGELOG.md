@@ -6,6 +6,8 @@
 
 <a name="1.9.0-alpha.3"></a>
 # [1.9.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.8.1...v1.9.0-alpha.3) (2015-11-12)
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.0...v1.8.1) (2015-11-12)
 
 
 ### Bug Fixes
@@ -40,15 +42,7 @@
 
 
 
-<a name="1.9.0-alpha.0"></a>
-# [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.1-alpha.0...v1.9.0-alpha.0) (2015-11-11)
-
-
-
-
-<a name="1.8.1-alpha.0"></a>
-## [1.8.1-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.8.1-alpha.0) (2015-11-11)
-
+* **socket:** 파일 공유 시 자신이 2번째 공유한 방에서 center panel 업데이트 되지 않는 현상 수정 ([e0cee03](https://github.com/tosslab/web_client/commit/e0cee03))
 
 
 
@@ -61,6 +55,7 @@
 <a name="1.8.1-alpha.0"></a>
 ## [1.8.1-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.8.1-alpha.0) (2015-11-11)
 
+>>>>>>> Temporary merge branch 2
 
 
 
