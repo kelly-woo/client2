@@ -1293,22 +1293,47 @@ input[type="radio"] {
 .scroll_gray ::-webkit-scrollbar-corner{
   background-color: transparent;
 }
-.blurred span,
-.blurred a {
-  opacity: 0.6;
+
+/********************************************
+                 화면가리기 효과
+********************************************/
+
+/* 헤더영역 버튼 */
+.blurred .hpanel .header > div {
+  opacity: 0.05 !important;
 }
+/* 좌측 패널 */
+.blurred .lpanel-list__header *,
+.blurred .lpanel i,
+.blurred .lpanel i.icon-star-on {
+  opacity: 0.3;
+}
+/* 중앙 패널 헤더 */
+.blurred .cpanel .panel-title-container * {
+  opacity: 0.35 !important;
+}
+/* 우측 패널 헤더 */
+.blurred .rpanel .rpanel-header *,
+.blurred .rpanel .rpanel-body-tab-container * {
+  opacity: 0.25 !important;
+}
+/* 우측 패널 서치인풋 */
+.blurred .rpanel-search {
+  opacity: 0 !important;
+}
+
 .blurred .private-effect,
 .blurred .private-effect *:not([placeholder]),
 .blurred .modal-dialog,
 .blurred .modal-dialog *:not([placeholder]) {
   color: transparent !important;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8) !important;
+  text-shadow: 0 0 7px rgba(10, 50, 75, 0.15) !important;
 }
 
 .blurred .private-effect.white,
 .blurred .private-effect.white *:not([placeholder]):not(i) {
   color: transparent !important;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+  text-shadow: 0 0 7px rgba(255, 255, 255, 0.15) !important;
 }
 
 .blurred .private-effect img,
@@ -1319,6 +1344,48 @@ input[type="radio"] {
   opacity: 0.3;
 }
 
-
-
-
+.blurred .blurred-msg-container {
+  background-color: #FFF;
+  width: 430px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px 1px rgba(0,0,0,0.15);
+  border:1px solid rgba(0,0,0,0.15);
+  padding: 18px 18px 18px 58px;
+  position: relative;
+  margin:auto;
+  top:50%;
+  -webkit-transform:translateY(-50%);
+  -webkit-transform:-webkit-translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  transform:translateY(-50%);
+  z-index: 1111;
+  
+}
+.blurred-msg-container .msg-icon-container {
+  position: absolute;
+  left: 14px;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  -webkit-transform:translateY(-50%);
+  -webkit-transform:-webkit-translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  transform: translateY(-50%);
+  color: #FFF;
+  background-color: #B0BEC8;
+  padding: 6px;
+  padding-left: 7px;
+  border-radius: 20px;
+  text-align: center;
+}
+.blurred-msg-container span {
+  line-height: 20px;
+}
+.blurred-msg-container .icon-lock {
+  font-size: 19px;
+}
