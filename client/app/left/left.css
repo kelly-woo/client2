@@ -463,6 +463,8 @@ last element of list
 .left-header-badge {
   position: absolute;
   right: 10px;
+  border-left:20px solid #FCFCFC;
+  background-color: #FCFCFC;
 }
 .left-header-badge .left-panel_badge {
   margin-top:4px;

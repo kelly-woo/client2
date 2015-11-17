@@ -1,3 +1,13 @@
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.0...v1.8.1) (2015-11-12)
+
+
+### Bug Fixes
+
+* **socket:** 파일 공유 시 자신이 2번째 공유한 방에서 center panel 업데이트 되지 않는 현상 수정 ([e0cee03](https://github.com/tosslab/web_client/commit/e0cee03))
+
+
+
 <a name="1.9.0-alpha.0"></a>
 # [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.1-alpha.0...v1.9.0-alpha.0) (2015-11-11)
 
