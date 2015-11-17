@@ -47,7 +47,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var deferredObject = {
     getMessage: null,
     postMessage: null,
-    updateMessage: null
+    updateMessage: null,
+    updateMessageMarker: null,
+    getRoomInformation: null
   };
 
   var firstMessageId;             // 현재 엔티티(토픽, DM)의 가장 위 메세지 아이디.
@@ -141,6 +143,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _init() {
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
+    $scope.$on('$destroy', _onDestroy);
 
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
@@ -227,7 +230,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
-    $scope.$on('$destroy', _onDestroy);
     $scope.$on('$viewContentLoaded', _onViewContentLoaded);
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
@@ -1027,7 +1029,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //  Updating message marker for current entity.
   function updateMessageMarker() {
     //console.log('::updateMessageMarker', lastMessageId);
-    messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
+    deferredObject.updateMessageMarker = $q.defer();
+    messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId, deferredObject.updateMessageMarker)
       .success(function(response) {
         memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
         //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
@@ -1568,8 +1571,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getCurrentRoomInfo() {
     var currentRoomId = _getEntityId();
-
-    messageAPIservice.getRoomInformation(currentRoomId)
+    deferredObject.getRoomInformation = $q.defer();
+    messageAPIservice.getRoomInformation(currentRoomId, deferredObject.getRoomInformation)
       .success(function(response) {
         _initMarkers(response.markers);
         hasRetryGetRoomInfo = false;
@@ -1687,9 +1690,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageId;
     var linkPreview;
     var timeoutCaller;
-
+    deferredObject.getMessage = $q.defer();
     messageAPIservice
-      .getMessage(memberService.getTeamId(), data.message.id)
+      .getMessage(memberService.getTeamId(), data.message.id, {}, deferredObject.getMessage)
       .success(function(response) {
         messageId = response.id;
         linkPreview = response.linkPreview;
