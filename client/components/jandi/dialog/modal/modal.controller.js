@@ -10,7 +10,7 @@
     .controller('ModalCtrl', ModalCtrl);
 
   /* @ngInject */
-  function ModalCtrl($scope, $modalInstance, $filter, options) {
+  function ModalCtrl($scope, $modalInstance, $filter, options, modalHelper) {
 
     _init();
 
@@ -30,7 +30,6 @@
       $scope.cancel = cancel;
 
       $scope.modal = $modalInstance;
-
       $modalInstance.result.then(
         function(result) {
           _close(result);

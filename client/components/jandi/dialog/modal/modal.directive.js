@@ -23,11 +23,7 @@
          * @private
          */
         function _init() {
-          scope.modal.rendered.finally(function() {
-            setTimeout(function() {
-              _setInitFocus();
-            }, 20);
-          });
+          _setInitFocus();
         }
 
         /**
@@ -35,9 +31,9 @@
          */
         function _setInitFocus() {
           if (absoluteFocus) {
-            _setAbsoluteFocus();
-          } else {
-            el.find('.' + scope.okayClass).focus();
+            scope.modal.rendered.then(function() {
+              _setAbsoluteFocus();
+            });
           }
         }
 
@@ -53,12 +49,14 @@
               .on('focus', function() {
                 jqAbsoluteFocus.select();
               })
-              .on('mouseup blur', function(nonFocusEvent) {
-                nonFocusEvent.preventDefault();
+              .on('mouseup blur', function(nonSelectEvent) {
+                nonSelectEvent.preventDefault();
                 jqAbsoluteFocus.focus().select();
               });
 
-            jqAbsoluteFocus.focus();
+            setTimeout(function() {
+              jqAbsoluteFocus.focus();
+            });
           }
         }
       }
