@@ -1348,7 +1348,7 @@ input[type="radio"] {
   opacity: 0.08;
 }
 
-.blurred .blurred-msg-container {
+.blurred-msg-container {
   background-color: #FFF;
   width: 430px;
   height: auto;
@@ -1359,19 +1359,22 @@ input[type="radio"] {
   position: absolute;
   
   bottom:32px;
-  left: 32px;
+  left: -450px;
+  opacity: 0;
 
   z-index: 1111; 
+    
+  -webkit-transition: left 0.45s, opacity 0.25s;
+  -moz-transition: left 0.45s, opacity 0.25s;
+  -ms-transition: left 0.45s, opacity 0.25s;
+  -o-transition: left 0.45s, opacity 0.25s;
+  transition: left 0.45s, opacity 0.25s;
 }
-.blurred-msg-container {
-  left: -450px;
-  
-  -webkit-transition: left 0.45s;
-  -moz-transition: left 0.45s;
-  -ms-transition: left 0.45s;
-  -o-transition: left 0.45s;
-  transition: left 0.45s;
+.blurred .blurred-msg-container {
+  left: 32px;
+  opacity: 1;
 }
+
 .blurred-msg-container .msg-icon-container {
   position: absolute;
   left: 14px;
