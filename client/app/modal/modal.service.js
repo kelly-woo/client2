@@ -441,7 +441,7 @@
      * 모달을 별 이유없이 닫는다.
      */
     function closeModal() {
-      return modal && modal.dismiss('close');
+      return modal && modal.close();
     }
 
     /**
