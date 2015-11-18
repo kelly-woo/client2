@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper) {
     return {
       restrict: 'A',
       link: link
@@ -17,6 +17,12 @@
     function link(scope) {
       var _isActivated = false;
       var jqBody = $('body');
+      var _rPanelMenuList = [
+        'files',
+        'messages',
+        'stars',
+        'mentions'
+      ];
       var keyHandlerMap = {
         'shift-ctrl-alt': {
 
@@ -26,7 +32,7 @@
           'CHAR_L': _togglePrivacy
         },
         'shift-alt': {
-
+          'CHAR_T': _openTeamModal
         },
         'shift': {
 
@@ -35,7 +41,10 @@
 
         },
         'ctrl': {
-          'CHAR_J': _toggleQuickLauncher
+          'CHAR_J': _toggleQuickLauncher,
+          '[': _toggleRightPanel,
+          'RIGHT_ARROW': _rPanelNext,
+          'LEFT_ARROW': _rPanelPrev
         },
         'alt': {
 
@@ -48,6 +57,57 @@
       _init();
 
       /**
+       * 오른쪽 패널 열고 닫음을 토글한다
+       * @private
+       */
+      function _toggleRightPanel() {
+        var index = _getCurrentRightPanelIndex();
+        if (index === -1) {
+          index = 0;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[index]);
+      }
+
+      /**
+       * right panel 에서 다음 메뉴로 이동한다
+       * @private
+       */
+      function _rPanelNext() {
+        var current = _getCurrentRightPanelIndex();
+        var next = current + 1;
+        if (next === _rPanelMenuList.length) {
+          next = 0;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[next]);
+      }
+
+      /**
+       * right panel 에서 이전 메뉴로 이동한다
+       * @private
+       */
+      function _rPanelPrev() {
+        var current = _getCurrentRightPanelIndex();
+        var prev = current - 1;
+        if (current === -1) {
+          prev = 0;
+        } else if (prev === -1) {
+          prev = _rPanelMenuList.length - 1;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[prev]);
+      }
+
+      /**
+       * 현재 right panel 에 open 된 메뉴가 몇 번째 메뉴인지를 반환한다.
+       * @returns {number}
+       * @private
+       */
+      function _getCurrentRightPanelIndex() {
+        var currentNameList = $state.current.name.split('.');
+        var tabName = currentNameList[currentNameList.length - 1];
+        return _rPanelMenuList.indexOf(tabName);
+      }
+
+      /**
        * 생성자
        * @private
        */
@@ -56,6 +116,9 @@
         _on();
       }
 
+      function _openTeamModal() {
+        modalHelper.openTeamChangeModal(scope);
+      }
       /**
        * on listeners
        * @private

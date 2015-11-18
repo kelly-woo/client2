@@ -82,6 +82,13 @@
       _attachLEventListeners();
     }
 
+    function _onHotkeyOpenRight(angularEvent, type) {
+      openRightPanel(type);
+    }
+
+    function _onHotKeyCloseRight() {
+      _closeRightPanel();
+    }
     /**
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
@@ -90,6 +97,8 @@
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         stateParams = toParams;
       });
+      $scope.$on('hotkey-open-right', _onHotkeyOpenRight);
+      $scope.$on('hotkey-close-right', _onHotKeyCloseRight);
 
       // header icon의 active event handler
       $scope.$on('onActiveHeaderTab', function($event, type) {
