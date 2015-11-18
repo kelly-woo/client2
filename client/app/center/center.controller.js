@@ -150,6 +150,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
+      $scope.$on('$destroy', _onDestroy);
+      $scope.$on('$viewContentLoaded', _onViewContentLoaded);
       $scope.$on('dataInitDone', _init);
     }
   }
@@ -227,15 +229,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
-    $scope.$on('$destroy', _onDestroy);
-    $scope.$on('$viewContentLoaded', _onViewContentLoaded);
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
 
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
-    $scope.$on('elastic:resize', _onElasticResize);
+    $scope.$on('elasticResize:message', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
     $scope.$on('centerUpdateChatList', updateList);

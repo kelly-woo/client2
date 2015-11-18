@@ -13,19 +13,19 @@
       restrict: 'E',
       replace: true,
       scope: {
-        fileDetail: '=',
-        fileIcon: '=',
+        file: '=',
+        isIntegrateFile: '=',
         isExternalShared: '='
       },
       link: link,
       templateUrl : 'app/right/file.detail/preview/file.detail.preview.html'
     };
 
-    function link(scope, el, attrs) {
-      var fileDetail = scope.fileDetail;
+    function link(scope, el) {
+      var fileDetail = scope.file;
       var content = fileDetail.content;
 
-      var fileIcon = scope.fileIcon;
+      var fileIcon = $filter('fileIcon')(fileDetail.content);
 
       _init();
 
@@ -46,7 +46,9 @@
       }
 
       /**
-       * file detail에서 preview 공간에 들어갈 image의 url을 설정함
+       * file detail에서 preview 공간에 들어갈 image의 url을 설정한다.
+       * @param {object} content
+       * @private
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
@@ -93,7 +95,8 @@
       }
 
       /**
-       * 이미지 클릭시 이벤트 핸들러
+       * image click event handler
+       * @param {object} $event
        */
       function onImageClick($event) {
         if ($filter('isIntegrationContent')(fileDetail.content)) {
@@ -104,7 +107,7 @@
               // image file api data
               messageId: fileDetail.id,
               // image carousel view data
-              userName: fileDetail.writer.name,
+              userName: fileDetail.extWriter.name,
               uploadDate: fileDetail.createTime,
               fileTitle: fileDetail.content.title,
               fileUrl: fileDetail.content.fileUrl,

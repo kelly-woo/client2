@@ -80,6 +80,9 @@
         scope.originalUrl = urlObj.originalUrl;
 
         scope.isExternalShared = content.externalShared;
+        scope.getExternalShare = getExternalShare;
+        scope.setExternalShare = setExternalShare;
+
         scope.fileId = msg.message.id;
 
         /*
@@ -161,6 +164,22 @@
        */
       function _detachDomEvents() {
         $(window).off('click', _onHide);
+      }
+
+      /**
+       * external share 전달한다.
+       * @returns {string}
+       */
+      function getExternalShare() {
+        return scope.isExternalShared;
+      }
+
+      /**
+       * external share 설정한다.
+       * @param {boolean} isExternalShared
+       */
+      function setExternalShare(isExternalShared) {
+        scope.isExternalShared = isExternalShared;
       }
     }
   }
