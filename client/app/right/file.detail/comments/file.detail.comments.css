@@ -37,6 +37,7 @@
 
 .comment-item-header__name {
   font-weight: 700;
+  cursor: pointer;
 }
 
 .comment-item-header__created {

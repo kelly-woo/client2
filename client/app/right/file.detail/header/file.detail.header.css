@@ -26,6 +26,10 @@
   font-weight: 700;
 }
 
+.file-detail-header__writer > span {
+  cursor: pointer;
+}
+
 .file-detail-header__title {
   word-wrap: break-word;
   line-height: 1.5em;
