@@ -528,6 +528,10 @@ msgstr "Mobile #"
 msgid "@common-position"
 msgstr "Position"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr "The screen is currently locked. Hit ESC or Ctrl-Shift-L to unlock."
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
@@ -1443,6 +1447,14 @@ msgstr "Description"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
 msgstr "Description (optional)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr "{{invitorName}} invited you to a private topic."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
+msgstr "[{{topicName}}] {{invitorName}} invited you to this topic."
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"

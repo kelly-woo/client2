@@ -522,6 +522,12 @@ msgstr "전화번호"
 msgid "@common-position"
 msgstr "직책"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr ""
+"현재 화면 잠금모드입니다. ESC 또는 Ctrl-Shift-L을 누르시면 잠금이 해제됩니"
+"다."
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
@@ -1443,6 +1449,14 @@ msgstr "토픽 설명"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
 msgstr "토픽에 대해 설명해주세요. (옵션)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr "{{invitorName}}님이 새로운 비공개 토픽에 초대했습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
+msgstr "[{{topicName}}] {{invitorName}}님이 새로운 토픽에 초대했습니다."
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"

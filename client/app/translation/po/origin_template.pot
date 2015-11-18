@@ -501,6 +501,10 @@ msgstr ""
 msgid "@common-position"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -1375,6 +1379,14 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
