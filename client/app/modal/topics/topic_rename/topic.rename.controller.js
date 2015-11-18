@@ -18,6 +18,9 @@
 
     var _topicName = $scope.topicName = _currentEntity.name;
     var _topicDescription = $scope.topicDescription = _currentEntity.description;
+    var _isAutoJoin = $scope.isAutoJoin = _currentEntity.autoJoin;
+
+    $scope.hasAutoJoin = _hasAutoJoin();
 
     _init();
 
@@ -29,6 +32,15 @@
 
       $scope.onRenameClick = onRenameClick;
       $scope.isInvalid = isInvalid;
+    }
+
+    /**
+     * 자동 초대 기능을 지원하는지 여부를 반환한다
+     * @returns {boolean}
+     * @private
+     */
+    function _hasAutoJoin() {
+      return _currentEntity.type !== 'privategroups' && _currentEntity.id !==  currentSessionHelper.getDefaultTopicId();
     }
 
     /**
@@ -47,6 +59,10 @@
 
         if ($scope.topicDescription !== _currentEntity.description) {
           _.extend(_body, {description: $scope.topicDescription});
+        }
+
+        if ($scope.isAutoJoin !== _currentEntity.autoJoin) {
+          _.extend(_body, {autoJoin: $scope.isAutoJoin});
         }
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)
@@ -110,12 +126,18 @@
       }
     }
 
+    function _isChanged() {
+      return $scope.topicName !== _topicName ||
+        $scope.topicDescription !== _topicDescription ||
+        $scope.isAutoJoin !== _isAutoJoin;
+    }
+
     /**
      * 값이 타당하지 않은지 여부
      * @returns {boolean}
      */
     function isInvalid() {
-      return ($scope.topicName === _topicName && $scope.topicDescription === _topicDescription) ||
+      return !_isChanged() ||
         $scope.topicName.length > $scope.nameMaxLength || $scope.topicDescription.length > $scope.descMaxLength;
     }
   }

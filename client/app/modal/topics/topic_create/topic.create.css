@@ -1,6 +1,6 @@
 .topic-create,
 .topic-rename {
-  padding-bottom: 3px;
+  padding-bottom: 20px;
 }
 .topic-create .modal-body__description,
 .topic-rename .modal-body__description {
@@ -22,15 +22,41 @@
   border: 1px solid #ebccd1 !important;
   border-radius: 3px;
 }
+.radio-container input:nth-child(3) {
+  margin-left: 8px;
+}
+.modal-body-auto-invite-container {
+  padding-left: 22px;
+}
+.auto-invite-description {
+  line-height: 22px;
+      padding: 6px 14px 8px 0;	
+}
+#topic-auto-invite {
+  position: absolute;
+  top:7px;
+  margin-left: -21px;
+}
 .entity-type-title {
   padding-right: 0;
 }
+.control-label.auto-invite-title {
+  padding-right: 0;
+}
+
+/* 레이블 컬럼 너비 확대로, 언어별 폰트 사이즈 조정 코드 조절이 불필요.
 .entity-type-title:lang(ja) {
   font-size: 12px;
 }
 .entity-type-title:lang(en) {
   padding-right: 15px;
 }
+.control-label.auto-invite-title:lang(en) {
+  line-height: 22px;
+  padding: 6px 0 6px 15px !important;
+  font-size: 13px;
+}
+*/
 
 .topic-description-container .control-label {
   padding-right: 0;
