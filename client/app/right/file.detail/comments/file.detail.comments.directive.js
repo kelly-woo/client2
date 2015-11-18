@@ -117,10 +117,8 @@
        * @private
        */
       function _onSuccessDelete() {
-        jndPubSub.pub('right:updateFile', function() {
-          Dialog.success({
-            title: $filter('translate')('@message-deleted')
-          });
+        Dialog.success({
+          title: $filter('translate')('@message-deleted')
         });
       }
 
@@ -132,7 +130,7 @@
        */
       function _onCreateComment(angularEvent, data) {
         if (_isCurrentFileEvent(data)) {
-          jndPubSub.pub('right:updateComments');
+          jndPubSub.pub('fileDetail:updateComments');
         }
       }
 
@@ -144,7 +142,7 @@
        */
       function _onDeleteComment(angularEvent, data) {
         if (_isCurrentFileEvent(data)) {
-          jndPubSub.pub('right:updateComments');
+          jndPubSub.pub('fileDetail:updateComments');
         }
       }
 
