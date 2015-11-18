@@ -31,6 +31,8 @@
       if (file.content) {
         $scope.isExternalShared = file.content.externalShared;
       }
+      $scope.getExternalShare = getExternalShare;
+      $scope.setExternalShare = setExternalShare;
 
       $scope.onFileCardClick = onFileCardClick;
 
@@ -187,6 +189,22 @@
           $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
         });
       }
+    }
+
+    /**
+     * external share 전달한다.
+     * @returns {string}
+     */
+    function getExternalShare() {
+      return $scope.isExternalShared;
+    }
+
+    /**
+     * external share 설정한다.
+     * @param {boolean} isExternalShared
+     */
+    function setExternalShare(isExternalShared) {
+      $scope.isExternalShared = isExternalShared;
     }
   }
 })();
