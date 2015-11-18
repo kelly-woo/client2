@@ -157,7 +157,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 
   return ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.mustPreview : stack1),{"name":"unless","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPermission : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.program(26, data, 0),"data":data})) != null ? stack1 : "");
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPermission : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.program(28, data, 0),"data":data})) != null ? stack1 : "");
 },"4":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -229,22 +229,26 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
   return "          <!--  FILE PREVIEW IMAGE  -->\n          <div class=\"preview-container\">\n            <!-- MEDIUM SIZE IMAGE THUMBNAIL -->\n            <div class=\"jnd-text-center _compile _fileMediumThumb\">\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPreview : stack1),{"name":"if","hash":{},"fn":this.program(20, data, 0),"inverse":this.program(22, data, 0),"data":data})) != null ? stack1 : "")
     + "            </div>\n\n"
-    + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.unshared : stack1),{"name":"unless","hash":{},"fn":this.program(24, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.unshared : stack1),{"name":"unless","hash":{},"fn":this.program(24, data, 0),"inverse":this.program(26, data, 0),"data":data})) != null ? stack1 : "")
     + "          </div>\n";
 },"20":function(depth0,helpers,partials,data) {
-    var stack1, alias1=this.lambda;
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "                <div class=\"medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand\">\n                  <div image-loader=\""
-    + this.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\" image-max-width=\"360\" image-max-height=\"270\" image-is-center=\"true\">"
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.loading : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n                </div>\n";
+  return "                <div class=\"image_wrapper msg-file-body__img__background cursor_pointer _fileExpand\"\n                     image-view=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1), depth0))
+    + "\"\n                     image-width=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.width : stack1), depth0))
+    + "\"\n                     image-height=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.height : stack1), depth0))
+    + "\"\n                     image-max-width=\"360\"\n                     image-max-height=\"270\"\n                     has-loading-bar=\"true\"></div>\n";
 },"22":function(depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "                <div class=\"medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer\">"
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.loading : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n";
+  return "                <div class=\"image_wrapper msg-file-body__img__background cursor_pointer\"\n                     image-view\n                     image-width=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.width : stack1), depth0))
+    + "\"\n                     image-height=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.height : stack1), depth0))
+    + "\"\n                     image-max-width=\"360\"\n                     image-max-height=\"270\"\n                     has-loading-bar=\"true\"></div>\n";
 },"24":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -252,9 +256,11 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n                  <i class=\"icon-star-on\"></i>\n                </span>\n              </div>\n";
 },"26":function(depth0,helpers,partials,data) {
+    return "\n";
+},"28":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.mustPreview : stack1),{"name":"if","hash":{},"fn":this.program(27, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.mustPreview : stack1),{"name":"if","hash":{},"fn":this.program(29, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "          <div class=\"msg-file-meta\">\n            <div class=\"msg-file-meta-up\" style=\"line-height: 63px;\">\n              <!--  NOT ARCHIVED FILE -->\n              <!--    TITLE   -->\n              <a class=\"msg-file-meta__title file__name break-word cursor_pointer _fileGo\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "</a>\n              <span class=\"bullet\">•</span>\n"
@@ -262,7 +268,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + "              <span class=\"msg-file-meta-info\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.type : stack1), depth0))
     + "</span>\n            </div>\n          </div>\n";
-},"27":function(depth0,helpers,partials,data) {
+},"29":function(depth0,helpers,partials,data) {
     return "            <div class=\"preview-container\">\n              <div class=\"msg-file-body__thumbnail msg-file-body-float pull-left cursor_pointer\">\n                <div class=\"fileicon fileicon-unshared\" ></div>\n              </div>\n            </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;

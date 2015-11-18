@@ -116,11 +116,21 @@
             <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
             <div class="jnd-text-center _compile _fileMediumThumb">
               {{#if file.hasPreview}}
-                <div class="medium-thumbnail medium-thumbnail-wrapper image_wrapper msg-file-body__img__background cursor_pointer _fileExpand">
-                  <div image-loader="{{file.imageUrl}}" image-max-width="360" image-max-height="270" image-is-center="true">{{{html.loading}}}</div>
-                </div>
+                <div class="image_wrapper msg-file-body__img__background cursor_pointer _fileExpand"
+                     image-view="{{file.imageUrl}}"
+                     image-width="{{file.width}}"
+                     image-height="{{file.height}}"
+                     image-max-width="360"
+                     image-max-height="270"
+                     has-loading-bar="true"></div>
               {{else}}
-                <div class="medium-thumbnail image_wrapper msg-file-body__img__background cursor_pointer">{{{html.loading}}}</div>
+                <div class="image_wrapper msg-file-body__img__background cursor_pointer"
+                     image-view
+                     image-width="{{file.width}}"
+                     image-height="{{file.height}}"
+                     image-max-width="360"
+                     image-max-height="270"
+                     has-loading-bar="true"></div>
               {{/if}}
             </div>
 
@@ -131,6 +141,8 @@
                   <i class="icon-star-on"></i>
                 </span>
               </div>
+            {{else}}
+
             {{/unless}}
           </div>
         {{/if}}

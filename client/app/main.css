@@ -127,6 +127,8 @@ input[type="email"] {
 .image_wrapper img {
   -webkit-transition: opacity 0.5s linear; /* Chrome */
   transition: opacity 0.5s linear;
+  width: 100%;
+  height: auto;
 }
 
 .opac-zero {

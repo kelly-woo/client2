@@ -155,16 +155,16 @@
       var hasPermission = publicService.hasFilePermission(msg);
       var isMustPreview = $filter('mustPreview')(content);
 
-      return _template({
+      var data = {
         html: {
           loading: Loading.getTemplate()
         },
         css: {
           unshared: isUnshared ? 'unshared' : '',
-          imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
-          wrapper: isArchived ? ' archived-file': '',
-          star: RendererUtil.getStarCssClass(msg),
-          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
+            imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
+            wrapper: isArchived ? ' archived-file': '',
+            star: RendererUtil.getStarCssClass(msg),
+            disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         attrs: {
           download: _getFileDownloadAttrs(msg)
@@ -185,8 +185,26 @@
           isIntegrateFile: _isIntegrateFile(msg)
         },
         isArchived: isArchived,
-        msg: msg
-      });
+          msg: msg
+      };
+
+      if (isMustPreview && content.extraInfo) {
+        _setExtraInfo(data.file, content.extraInfo);
+      }
+
+      return _template(data);
+    }
+
+    /**
+     * set extraInfo
+     * @param {object} file
+     * @param {object} extraInfo
+     * @private
+     */
+    function _setExtraInfo(file, extraInfo) {
+      file.width = extraInfo.width;
+      file.height = extraInfo.height;
+      file.orientation = extraInfo.orientation;
     }
 
     /**
