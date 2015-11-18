@@ -21,7 +21,8 @@
         isExternalShared: '=',
         isAdmin: '=',
         isIntegrateFile: '=',
-        onUserClick: '='
+        onUserClick: '=',
+        backToPrevState: '='
       },
       templateUrl : 'app/right/file.detail/header/file.detail.header.html',
       link: link
@@ -37,20 +38,22 @@
       function _init() {
         var file = scope.file;
 
-        scope.isStarred = file.isStarred;
-        scope.isFileOwner = $filter('isFileWriter')(file);
+        if (!scope.isInvalidRequest) {
+          scope.isStarred = file.isStarred;
+          scope.isFileOwner = $filter('isFileWriter')(file);
 
-        scope.backToFileList = backToFileList;
-        scope.onClickDownload = onClickDownload;
-        scope.onClickShare = onClickShare;
-        scope.onCommentFocusClick = onCommentFocusClick;
-        scope.onStarClick = onStarClick;
-        scope.onFileDeleteClick = onFileDeleteClick;
+          scope.backToFileList = backToFileList;
+          scope.onClickDownload = onClickDownload;
+          scope.onClickShare = onClickShare;
+          scope.onCommentFocusClick = onCommentFocusClick;
+          scope.onStarClick = onStarClick;
+          scope.onFileDeleteClick = onFileDeleteClick;
 
-        scope.getExternalShare = getExternalShare;
-        scope.setExternalShare = setExternalShare;
+          scope.getExternalShare = getExternalShare;
+          scope.setExternalShare = setExternalShare;
 
-        _setFileDownLoad();
+          _setFileDownLoad();
+        }
       }
 
       /**

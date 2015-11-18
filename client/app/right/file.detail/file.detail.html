@@ -1,6 +1,7 @@
 <file-detail-title file="file"
                    has-initial-loaded="hasInitialLoaded"
-                   is-archived-file="isArchivedFile"></file-detail-title>
+                   is-archived-file="isArchivedFile"
+                   back-to-prev-state="backToPrevState"></file-detail-title>
 <div class="rpanel-body">
 
   <!-- FILE -->
@@ -13,7 +14,8 @@
                           is-external-shared="isExternalShared"
                           is-admin="isAdmin"
                           is-integrate-file="isIntegrateFile"
-                          on-user-click="onUserClick"></file-detail-header>
+                          on-user-click="onUserClick"
+                          back-to-prev-state="backToPrevState"></file-detail-header>
       <div class="file-detail-body">
         <file-detail-preview ng-if="!isArchivedFile && !isInvalidRequest"
                              file="file"
@@ -23,7 +25,8 @@
                            is-archived-file="isArchivedFile"
                            is-invalid-request="isInvalidRequest"></file-detail-meta>
       </div>
-      <file-detail-comments file="file"
+      <file-detail-comments ng-if="!isArchivedFile && !isInvalidRequest"
+                            file="file"
                             comments="comments"
                             error-comments="errorComments"
                             is-archived-file="isArchivedFile"

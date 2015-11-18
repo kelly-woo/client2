@@ -35,14 +35,16 @@
       function _init() {
         var file = scope.file;
 
-        scope.fileIcon = $filter('fileIcon')(file.content);
+        if (!scope.isInvalidRequest) {
+          scope.fileIcon = $filter('fileIcon')(file.content);
 
-        scope.onClickSharedEntity = onClickSharedEntity;
-        scope.onClickUnshare = onClickUnshare;
+          scope.onClickSharedEntity = onClickSharedEntity;
+          scope.onClickUnshare = onClickUnshare;
 
-        _setShared();
+          _setShared();
 
-        _attachEvents();
+          _attachEvents();
+        }
       }
 
       /**

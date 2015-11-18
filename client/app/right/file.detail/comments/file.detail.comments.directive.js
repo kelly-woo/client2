@@ -9,7 +9,7 @@
     .directive('fileDetailComments', fileDetailComments);
 
   /* @ngInject */
-  function fileDetailComments($filter, fileAPIservice, Dialog, jndPubSub) {
+  function fileDetailComments($filter, fileAPIservice, Dialog, jndPubSub, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -58,7 +58,8 @@
        * @returns {boolean|string}
        */
       function hasOwnComment(comment) {
-        return scope.file.writerId === comment.writerId || scope.isAdmin;
+        var currentMemberId = memberService.getMemberId();
+        return currentMemberId === comment.writerId || scope.isAdmin;
       }
 
       /**
@@ -82,7 +83,7 @@
         scope.postComment({
           $comment: comment.content.body,
           $sticker: comment.originSticker
-        })
+        });
       }
 
       /**
@@ -104,10 +105,10 @@
 
         if (isSticker) {
           fileAPIservice.deleteSticker(commentId)
-            .success(_onSuccessDelete)
+            .success(_onSuccessDelete);
         } else {
           fileAPIservice.deleteComment(scope.file.id, commentId)
-            .success(_onSuccessDelete)
+            .success(_onSuccessDelete);
         }
       }
 

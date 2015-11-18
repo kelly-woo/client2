@@ -51,7 +51,7 @@
   min-height:80px;
   padding:9px 0 9px 8px;
   overflow-y: hidden !important;
-  resize: none !important;
+  resize: vertical !important;
   margin-top:0px;
   -webkit-transition: height .06s linear;
   transition: height .06s linear;

@@ -12,7 +12,7 @@
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
                            EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage) {
     var fileId;
-    var abortFileDetailDeferred;
+    var requestFileDetail;
 
     _init();
 
@@ -37,6 +37,8 @@
           $scope.onUserClick = onUserClick;
           $scope.postComment = postComment;
           $scope.setMentionsGetter = setMentionsGetter;
+          $scope.backToPrevState = backToPrevState;
+
           _setFileDetail();
 
           _attachEvents();
@@ -98,24 +100,15 @@
      * @private
      */
     function _requestFileDetail(updateType, callback) {
-      var deferred;
-
       if (_isFileDetailActive()) {
-        deferred = $q.defer();
-
-        abortFileDetailDeferred ? abortFileDetailDeferred.resolve() : (abortFileDetailDeferred = $q.defer());
-        fileAPIservice.getFileDetail(fileId, {timeout: abortFileDetailDeferred})
+        requestFileDetail && requestFileDetail.abort();
+        requestFileDetail = fileAPIservice.getFileDetail(fileId)
           .success(function(response) {
             _onSuccessFileDetail(response, updateType);
 
             callback && callback();
           })
           .error(_onErrorFileDetail)
-          .finally(function() {
-            abortFileDetailDeferred = null;
-
-            deferred.resolve();
-          });
       }
     }
 
@@ -215,7 +208,6 @@
      */
     function _setComments(comments) {
       comments = _.sortBy(comments, 'createTime');
-
       _setCreateTime(comments);
       $scope.comments = comments;
     }
@@ -285,9 +277,13 @@
      * error file detail
      * @private
      */
-    function _onErrorFileDetail() {
-      $scope.hasInitialLoaded = $scope.isInvalidRequest = true;
-      $state.go('messages.detail.files.item', $state.params);
+    function _onErrorFileDetail(data, status) {
+      if (status === 403) {
+        // permission error(비공개 file에 접근했다가 까임)
+
+        $scope.hasInitialLoaded = $scope.isInvalidRequest = true;
+        $state.go('messages.detail.files.item', $state.params);
+      }
     }
 
     /**
@@ -390,6 +386,9 @@
       if (fileId == deletedFileId) {
         _setFileDetail();
       }
+
+      // file 삭제 된다면 comment input 삭제
+      JndMessageStorage.removeCommentInput(deletedFileId);
     }
 
     /**
@@ -483,6 +482,8 @@
           }
         }
 
+        requestFileDetail && requestFileDetail.abort();
+
         result = _addSendingComment({comment: comment, sticker: sticker});
         fileAPIservice.postComment(fileId, comment, sticker, mentions)
           .error(function() {
@@ -518,6 +519,13 @@
      */
     function setMentionsGetter(getter) {
       $scope.getMentions = getter;
+    }
+
+    /**
+     * Redirect user back to prev state.
+     */
+    function backToPrevState() {
+      $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
     }
   }
 })();
