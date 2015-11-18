@@ -1,3 +1,41 @@
+<a name="1.8.5"></a>
+## [1.8.5](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.7...v1.8.5) (2015-11-18)
+
+
+### Bug Fixes
+
+* **right:** 파일 상세에서 이미지 클릭했을때 carousel 출력되도록 수정 ([e329ffc](https://github.com/tosslab/web_client/commit/e329ffc))
+
+
+
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+
+
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+### Bug Fixes
+
+* **modal:** 팀 초대 모달 링크복사 수정 ([254e2e8](https://github.com/tosslab/web_client/commit/254e2e8))
+
+
+
+<a name="1.8.3"></a>
+## [1.8.3](https://github.com/tosslab/web_client/compare/v1.8.2...v1.8.3) (2015-11-13)
+
+
+
+
+<a name="1.8.2"></a>
+## [1.8.2](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.3...v1.8.2) (2015-11-12)
+
+
+
+
 <a name="1.8.1"></a>
 ## [1.8.1](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.0...v1.8.1) (2015-11-12)
 
