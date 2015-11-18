@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -217,6 +217,10 @@ msgstr "文件已分享于所有你加入的议题中"
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "文件上传已取消，请再试一次"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-auto-join"
+msgstr "自动邀请"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
@@ -438,6 +442,10 @@ msgid "@common-invalid-access"
 msgstr "无法存取该文件/信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invite-all"
+msgstr "邀请所有新成员至此议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "你已被移除出{{TopicName}}"
 
@@ -504,6 +512,10 @@ msgstr "电话"
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-position"
 msgstr "职位"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr "目前已锁住屏幕，点击 ESC 或 Ctrl-Shift-L 进行解锁"
 
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -1394,6 +1406,14 @@ msgstr "议题内容"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
 msgstr "描述 (选项)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr "{{invitorName}} 邀请你加入私人议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
+msgstr "[{{topicName}}] {{invitorName}}邀请你加入此议题"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"

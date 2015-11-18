@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil, HybridAppHelper, EntityMapManager) {
+                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, EntityMapManager) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -141,10 +141,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _init() {
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
+    TopicInvitedFlagMap.remove(entityId);
 
     $scope.$on('$destroy', _onDestroy);
     $scope.$on('$viewContentLoaded', _onViewContentLoaded);
-    
+
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
       _initializeListeners();
