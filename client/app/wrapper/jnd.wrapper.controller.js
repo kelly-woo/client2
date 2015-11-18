@@ -11,6 +11,9 @@
 
   function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap) {
+
+    var _inviteSocketQueue = [];
+
     _init();
 
     /**
@@ -21,6 +24,7 @@
       $scope.$on('kickedOut', _onKickedOut);
       $scope.$on('topicInvite', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
+      $scope.$on('onInitLeftListDone', _updateInvitedMemberList);
     }
 
     /**
@@ -51,20 +55,57 @@
      */
     function _onTopicInvite(angularEvent, data) {
       var entity = EntityMapManager.get('total', data.room.id);
-      var memberList = entityAPIservice.getMemberList(entity);
+      var room = data.room;
 
-      if (_hasInvitedFlag(entity, data.inviter)) {
-        TopicInvitedFlagMap.add(data.room.id);
+      if (!entity || _hasInvitedFlag(entity, data.inviter)) {
+        TopicInvitedFlagMap.add(room.id);
       }
+      //entity 정보가 업데이트 되기 이전이므로 queue 에 저장만 한다
+      _inviteSocketQueue.push(data);
+    }
 
-      _.forEach(data.inviter, function(memberId) {
-        if (memberList.indexOf(memberId) === -1) {
-          memberList.push(memberId);
+    /**
+     * invited member list 를 업데이트 한다
+     * @private
+     */
+    function _updateInvitedMemberList() {
+      var hasMemberToUpdate = !!_inviteSocketQueue.length;
+
+      while (_inviteSocketQueue.length) {
+        var data = _inviteSocketQueue.pop();
+        var entity = EntityMapManager.get('total', data.room.id);
+        var memberList = entityAPIservice.getMemberList(entity);
+        var filter = $filter('translate');
+        var msg;
+        var topicName = $filter('htmlEncode')(entity.name);
+        var invitorName = $filter('htmlEncode')($filter('getName')(data.writer));
+
+        if (entity.type.indexOf('private') !== -1) {
+          msg = filter('@topic-invite-private');
+        } else {
+          msg = filter('@topic-invite-public');
         }
-      });
-      entity.members = memberList;
+        msg = msg.replace('{{invitorName}}', invitorName);
+        msg = msg.replace('{{topicName}}', topicName);
 
-      jndPubSub.pub('room:memberAdded');
+        Dialog.success({
+          body:  msg,
+          allowHtml: true,
+          onTap: function() {
+            console.log('### onTap', arguments);
+          }
+        });
+
+        _.forEach(data.inviter, function(memberId) {
+          if (memberList.indexOf(memberId) === -1) {
+            memberList.push(memberId);
+          }
+        });
+        entity.members = memberList;
+      }
+      if (hasMemberToUpdate) {
+        jndPubSub.pub('room:memberAdded');
+      }
     }
 
     /**
@@ -86,7 +127,7 @@
      * @private
      */
     function _isCurrentEntity(entity) {
-      return currentSessionHelper.getCurrentEntity().id === entity.id;
+      return currentSessionHelper.getCurrentEntity().id === (entity && entity.id);
     }
 
     /**
