@@ -18,24 +18,30 @@
       var _isActivated = false;
       var jqBody = $('body');
       var keyHandlerMap = {
-        //ctrl, shift 입력 상태와 관계없이 수행하는  핸들러
-        'always': {
-          'ENTER': _setChatInputFocus
+        'shift-ctrl-alt': {
+
         },
-        //ctrl + shift 와 함께 입력시 핸들러
-        'ctrlShift': {
+        'shift-ctrl': {
           'CHAR_K': _toggleSticker,
           'CHAR_L': _togglePrivacy
         },
-        //shift 와 함께 입력시 핸들러
-        'shift': {
+        'shift-alt': {
+
         },
-        //ctrl 과 함께 입력시 핸들러
+        'shift': {
+
+        },
+        'ctrl-alt': {
+
+        },
         'ctrl': {
           'CHAR_J': _toggleQuickLauncher
         },
-        //ctrl, shift 둘다 입력 없이 수행하는 핸들러
-        'only': {
+        'alt': {
+
+        },
+        'none': {
+          'ENTER': _setChatInputFocus
         }
       };
 
@@ -117,27 +123,79 @@
           return false;
         }
       }
-      
+
+      /**
+       * list 의 모든 item 이 false 인지 여부를 반환한다
+       * @param {array} list
+       * @returns {boolean}
+       * @private
+       */
+      function _isFalsy(list) {
+        var isFalsy = true;
+        _.forEach(list, function(value) {
+          if (value) {
+            isFalsy = false;
+            return false;
+          }
+        });
+        return isFalsy;
+      }
+
+      /**
+       * handler 를 반환한다
+       * @param {Event} keyEvent
+       * @param {String} keyName
+       * @returns {Function|undefined}
+       * @private
+       */
+      function _getHandler(keyEvent, keyName) {
+        var keyHandler;
+        var fnKeyList = [keyEvent.shiftKey, keyEvent.ctrlKey || keyEvent.metaKey, keyEvent.altKey];
+        keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+        while (!_.isFunction(keyHandler) && !_isFalsy(fnKeyList)) {
+          _.forEach(fnKeyList, function(value, key) {
+            if (value) {
+              fnKeyList[key] = false;
+              return false;
+            }
+          });
+          keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+        }
+        return keyHandler;
+      }
+
+      /**
+       * keyHandler name 을 반환한다
+       * @param {boolean} shift
+       * @param {boolean} ctrl
+       * @param {boolean} alt
+       * @returns {string}
+       * @private
+       */
+      function _getHandlerName(shift, ctrl, alt) {
+        var nameList = [];
+        if (shift) {
+          nameList.push('shift');
+        }
+        if (ctrl) {
+          nameList.push('ctrl');
+        }
+        if (alt) {
+          nameList.push('alt');
+        }
+        return nameList.join('-') || 'none';
+      }
+
       /**
        * key 이벤트 핸들러
        * @private
        */
       function _onKeyInput(keyEvent) {
         var keyName = jndKeyCode.getName(keyEvent.keyCode);
+        var handler;
         if (_isActivated && keyName) {
-          if (!_executeHandler(keyEvent, keyHandlerMap['always'][keyName])) {
-            if (keyEvent.shiftKey) {
-              if (keyEvent.ctrlKey || keyEvent.metaKey) {
-                _executeHandler(keyEvent, keyHandlerMap['ctrlShift'][keyName]);
-              } else {
-                _executeHandler(keyEvent, keyHandlerMap['shift'][keyName]);
-              }
-            } else if (keyEvent.ctrlKey || keyEvent.metaKey) {
-              _executeHandler(keyEvent, keyHandlerMap['ctrl'][keyName]);
-            } else {
-              _executeHandler(keyEvent, keyHandlerMap['only'][keyName]);
-            }
-          }
+          handler = _getHandler(keyEvent, keyName);
+          _executeHandler(keyEvent, handler);
         }
       }
 
