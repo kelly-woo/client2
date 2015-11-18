@@ -2,9 +2,11 @@
   <div class="file-detail-header" ng-if="!isArchivedFile && !isInvalidRequest">
     <div class="file-detail-header-box" ng-class="{'file-detail-disabled-member': file.extIsDisabledMember}">
       <div class="file-detail-header__thumbnail">
-        <img class="user-profile user-thumb-sm cursor_pointer" ng-src="{{file.extProfileImg}}" ng-click="onUserClick(file.extWriter);"/>
+        <img class="user-profile user-thumb-sm cursor_pointer" ng-src="{{file.extProfileImg}}" ng-click="onUserClick(file.extWriter)"/>
       </div>
-      <div class="file-detail-header__writer">{{file.extWriterName}}</div>
+      <div class="file-detail-header__writer">
+        <span ng-click="onUserClick(file.extWriter)">{{file.extWriterName}}</span>
+      </div>
       <div class="file-detail-header__title">
         <a href="{{::originalUrl}}" target="_blank">{{file.content | fileTitle}}</a>
       </div>
@@ -95,7 +97,9 @@
              ng-click="onUserClick(file.extWriter);"/>
       </div>
 
-      <div class="file-detail-header__writer">{{file.extWriterName}}</div>
+      <div class="file-detail-header__writer">
+        <span ng-click="onUserClick(file.extWriter)">{{file.extWriterName}}</span>
+      </div>
 
       <div class="file-detail-header__title archived-file__title">
         <div translate>@common-deleted-file-title</div>
