@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.2"></a>
+# [1.10.0-alpha.2](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.1...v1.10.0-alpha.2) (2015-11-18)
+
+
+### Bug Fixes
+
+* **핫키:** shift enter 시 elastic input 늘어나지 않는 현상 수정 ([409a8c2](https://github.com/tosslab/web_client/commit/409a8c2))
+
+
+
 <a name="1.10.0-alpha.1"></a>
 # [1.10.0-alpha.1](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.0...v1.10.0-alpha.1) (2015-11-18)
 
