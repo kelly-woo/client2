@@ -1,3 +1,31 @@
+<a name="1.9.0-alpha.1"></a>
+# [1.9.0-alpha.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.0-alpha.1) (2015-11-18)
+
+
+
+
+<a name="1.9.0-alpha.7"></a>
+# [1.9.0-alpha.7](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.4...v1.9.0-alpha.7) (2015-11-17)
+
+
+### Bug Fixes
+
+* **center:** center controller 소멸 시 request 취소하는 로직 보강 ([141fab7](https://github.com/tosslab/web_client/commit/141fab7))
+
+
+
+<a name="1.9.0-alpha.4"></a>
+# [1.9.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.9.0-alpha.4) (2015-11-13)
+
+
+
+
+<a name="1.9.0-alpha.3"></a>
+# [1.9.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.8.1...v1.9.0-alpha.3) (2015-11-12)
+
+
+
+
 <a name="1.9.0-alpha.7"></a>
 # [1.9.0-alpha.7](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.4...v1.9.0-alpha.7) (2015-11-17)
 
