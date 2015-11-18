@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap) {
+                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, EntityMapManager) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -231,8 +231,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
-    $scope.$on('$destroy', _onDestroy);
-    $scope.$on('$viewContentLoaded', _onViewContentLoaded);
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
@@ -1230,11 +1228,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function setCommentFocus(file) {
+    var writer;
     if ($state.params.itemId != file.id) {
       $rootScope.setFileDetailCommentFocus = true;
-
+      writer = EntityMapManager.get('member', file.writerId);
       $state.go('files', {
-        userName    : file.writer.name,
+        userName    : writer.name,
         itemId      : file.id
       });
     } else {
