@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.1"></a>
+# [1.10.0-alpha.1](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.0...v1.10.0-alpha.1) (2015-11-18)
+
+
+### Bug Fixes
+
+* **자동 업데이트:** 버전 비교시 string 으로 비교하는 로직 int 로 수정 ([d3319be](https://github.com/tosslab/web_client/commit/d3319be))
+
+
+
 <a name="1.10.0-alpha.0"></a>
 # [1.10.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.1...v1.10.0-alpha.0) (2015-11-18)
 
