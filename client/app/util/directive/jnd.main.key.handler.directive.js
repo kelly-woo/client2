@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper) {
     return {
       restrict: 'A',
       link: link
@@ -17,29 +17,95 @@
     function link(scope) {
       var _isActivated = false;
       var jqBody = $('body');
+      var _rPanelMenuList = [
+        'files',
+        'messages',
+        'stars',
+        'mentions'
+      ];
       var keyHandlerMap = {
-        //ctrl, shift 입력 상태와 관계없이 수행하는  핸들러
-        'always': {
-          'ENTER': _setChatInputFocus
+        'shift-ctrl-alt': {
+
         },
-        //ctrl + shift 와 함께 입력시 핸들러
-        'ctrlShift': {
+        'shift-ctrl': {
           'CHAR_K': _toggleSticker,
           'CHAR_L': _togglePrivacy
         },
-        //shift 와 함께 입력시 핸들러
+        'shift-alt': {
+          'CHAR_T': _openTeamModal
+        },
         'shift': {
+
         },
-        //ctrl 과 함께 입력시 핸들러
+        'ctrl-alt': {
+
+        },
         'ctrl': {
-          'CHAR_J': _toggleQuickLauncher
+          'CHAR_J': _toggleQuickLauncher,
+          '[': _toggleRightPanel,
+          'RIGHT_ARROW': _rPanelNext,
+          'LEFT_ARROW': _rPanelPrev
         },
-        //ctrl, shift 둘다 입력 없이 수행하는 핸들러
-        'only': {
+        'alt': {
+
+        },
+        'none': {
+          'ENTER': _setChatInputFocus
         }
       };
 
       _init();
+
+      /**
+       * 오른쪽 패널 열고 닫음을 토글한다
+       * @private
+       */
+      function _toggleRightPanel() {
+        var index = _getCurrentRightPanelIndex();
+        if (index === -1) {
+          index = 0;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[index]);
+      }
+
+      /**
+       * right panel 에서 다음 메뉴로 이동한다
+       * @private
+       */
+      function _rPanelNext() {
+        var current = _getCurrentRightPanelIndex();
+        var next = current + 1;
+        if (next === _rPanelMenuList.length) {
+          next = 0;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[next]);
+      }
+
+      /**
+       * right panel 에서 이전 메뉴로 이동한다
+       * @private
+       */
+      function _rPanelPrev() {
+        var current = _getCurrentRightPanelIndex();
+        var prev = current - 1;
+        if (current === -1) {
+          prev = 0;
+        } else if (prev === -1) {
+          prev = _rPanelMenuList.length - 1;
+        }
+        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[prev]);
+      }
+
+      /**
+       * 현재 right panel 에 open 된 메뉴가 몇 번째 메뉴인지를 반환한다.
+       * @returns {number}
+       * @private
+       */
+      function _getCurrentRightPanelIndex() {
+        var currentNameList = $state.current.name.split('.');
+        var tabName = currentNameList[currentNameList.length - 1];
+        return _rPanelMenuList.indexOf(tabName);
+      }
 
       /**
        * 생성자
@@ -50,6 +116,9 @@
         _on();
       }
 
+      function _openTeamModal() {
+        modalHelper.openTeamChangeModal(scope);
+      }
       /**
        * on listeners
        * @private
@@ -117,27 +186,79 @@
           return false;
         }
       }
-      
+
+      /**
+       * list 의 모든 item 이 false 인지 여부를 반환한다
+       * @param {array} list
+       * @returns {boolean}
+       * @private
+       */
+      function _isFalsy(list) {
+        var isFalsy = true;
+        _.forEach(list, function(value) {
+          if (value) {
+            isFalsy = false;
+            return false;
+          }
+        });
+        return isFalsy;
+      }
+
+      /**
+       * handler 를 반환한다
+       * @param {Event} keyEvent
+       * @param {String} keyName
+       * @returns {Function|undefined}
+       * @private
+       */
+      function _getHandler(keyEvent, keyName) {
+        var keyHandler;
+        var fnKeyList = [keyEvent.shiftKey, keyEvent.ctrlKey || keyEvent.metaKey, keyEvent.altKey];
+        keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+        while (!_.isFunction(keyHandler) && !_isFalsy(fnKeyList)) {
+          _.forEach(fnKeyList, function(value, key) {
+            if (value) {
+              fnKeyList[key] = false;
+              return false;
+            }
+          });
+          keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+        }
+        return keyHandler;
+      }
+
+      /**
+       * keyHandler name 을 반환한다
+       * @param {boolean} shift
+       * @param {boolean} ctrl
+       * @param {boolean} alt
+       * @returns {string}
+       * @private
+       */
+      function _getHandlerName(shift, ctrl, alt) {
+        var nameList = [];
+        if (shift) {
+          nameList.push('shift');
+        }
+        if (ctrl) {
+          nameList.push('ctrl');
+        }
+        if (alt) {
+          nameList.push('alt');
+        }
+        return nameList.join('-') || 'none';
+      }
+
       /**
        * key 이벤트 핸들러
        * @private
        */
       function _onKeyInput(keyEvent) {
         var keyName = jndKeyCode.getName(keyEvent.keyCode);
+        var handler;
         if (_isActivated && keyName) {
-          if (!_executeHandler(keyEvent, keyHandlerMap['always'][keyName])) {
-            if (keyEvent.shiftKey) {
-              if (keyEvent.ctrlKey || keyEvent.metaKey) {
-                _executeHandler(keyEvent, keyHandlerMap['ctrlShift'][keyName]);
-              } else {
-                _executeHandler(keyEvent, keyHandlerMap['shift'][keyName]);
-              }
-            } else if (keyEvent.ctrlKey || keyEvent.metaKey) {
-              _executeHandler(keyEvent, keyHandlerMap['ctrl'][keyName]);
-            } else {
-              _executeHandler(keyEvent, keyHandlerMap['only'][keyName]);
-            }
-          }
+          handler = _getHandler(keyEvent, keyName);
+          _executeHandler(keyEvent, handler);
         }
       }
 
