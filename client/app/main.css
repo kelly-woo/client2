@@ -1298,97 +1298,144 @@ input[type="radio"] {
                  화면가리기 효과
 ********************************************/
 
-/* 헤더영역 버튼 */
-.blurred .hpanel .header > div {
-  opacity: 0.05 !important;
-}
-/* 좌측 패널, 중앙 패널 헤더, 중앙 푸터 */
-.blurred .lpanel-list__header *,
+.blurred .badge,
 .blurred .lpanel i,
 .blurred .lpanel i.icon-star-on,
-.blurred .footer,
-.blurred .cpanel .panel-title-container * {
-  opacity: 0.35;
-}
-/* 우측 패널 헤더, 우측 패널 탭 */
-.blurred .rpanel .rpanel-header *,
-.blurred .rpanel .rpanel-body-tab-container * {
-  opacity: 0.25 !important;
-}
-/* 우측 패널 서치인풋, 좌측 패널 리스트 새메시지 버튼, 좌측 패널 뱃지 */
-.blurred .rpanel-search,
-.blurred .lpanel-list-help-unread .btn-danger,
-.blurred .red_badge {
-  opacity: 0 !important;
-}
-
-.blurred .lpanel-list,
-.blurred #msgs-container {
-  overflow-y:hidden;
+.blurred .panel-title-container .prefix,
+.blurred .panel-title-topic-description {
+  opacity: .35;
 }
 
 .blurred .private-effect,
 .blurred .private-effect *:not([placeholder]),
 .blurred .modal-dialog,
-.blurred .modal-dialog *:not([placeholder]) {
+.blurred .modal-dialog *:not([placeholder]),
+.blurred .advanced-search-option__title *,
+.blurred .search-status-container *,
+.blurred .search-result-container *,
+.blurred .infinite-scroll-bottom-list *,
+.blurred .rpanel-alert-msg-container *,
+.blurred .lpanel-list__header * {
   color: transparent !important;
-  text-shadow: 0 0 7px rgba(10, 50, 75, 0.15) !important;
+  text-shadow: 0 0 6px rgba(130,135,140,0.95) !important;
 }
 
 .blurred .private-effect.white,
 .blurred .private-effect.white *:not([placeholder]):not(i) {
   color: transparent !important;
-  text-shadow: 0 0 7px rgba(255, 255, 255, 0.15) !important;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.95) !important;
+}
+.blurred .btn-danger * {
+  color: transparent !important;
+  text-shadow: 0 0 6px rgba(217, 83, 79, 0.95) !important;
+}
+.blurred input::-webkit-input-placeholder,
+.blurred textarea::-webkit-input-placeholder {
+  color: transparent !important;
+  text-shadow: 0 0 5px rgba(130,135,140,0.75) !important;
 }
 .blurred .private-effect img,
 .blurred .modal-dialog img,
 .blurred .fileicon {
   -webkit-filter: blur(7px);
   filter: blur(7px);
-  opacity: 0.08;
+  opacity: 0.5;
+  
+  -webkit-transition: opacity 0.1s;
+  -moz-transition: opacity 0.1s;
+  -ms-transition: opacity 0.1s;
+  -o-transition: opacity 0.1s;
+  transition: opacity 0.1s;
 }
 
 .blurred-msg-container {
-  background-color: #FFF;
-  width: 430px;
+  background-color: rgba(65, 65, 65, 0.65);
+  color: #FFF;
+  width: 242px;
   height: auto;
-  border-radius: 4px;
-  box-shadow: 0 0px 5px 2px rgba(0,0,0,0.15);
+  border-radius: 6px;
   border:1px solid rgba(0,0,0,0.15);
-  padding: 18px 18px 18px 58px;
-  position: absolute;
+  padding: 150px 24px 28px 24px;
+  position: relative;
   
-  bottom:32px;
-  left: -450px;
-  opacity: 0;
-
-  z-index: 1111; 
-    
-  -webkit-transition: left 0.45s, opacity 0.25s;
-  -moz-transition: left 0.45s, opacity 0.25s;
-  -ms-transition: left 0.45s, opacity 0.25s;
-  -o-transition: left 0.45s, opacity 0.25s;
-  transition: left 0.45s, opacity 0.25s;
-}
-.blurred .blurred-msg-container {
-  left: 32px;
-  opacity: 1;
-}
-
-.blurred-msg-container .msg-icon-container {
-  position: absolute;
-  left: 14px;
-  width: 32px;
-  height: 32px;
-  top: 50%;
+  top:50%;
   -webkit-transform:translateY(-50%);
   -webkit-transform:-webkit-translateY(-50%);
   -moz-transform:translateY(-50%);
   -ms-transform:translateY(-50%);
   -o-transform:translateY(-50%);
   transform: translateY(-50%);
+  margin:auto;
+  
+  opacity: 0;
+
+  z-index: 1111; 
+  
+}
+.blurred .blurred-msg-container {
+  
+  -webkit-animation-name: fade-out;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -webkit-animation-iteration-count: 1;
+  
+  -moz-animation-name: fade-out;
+  -moz-animation-duration: 5s;
+  -moz-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -moz-animation-iteration-count: 1;
+
+  -o-animation-name: fade-out;
+  -o-animation-duration: 5s;
+  -o-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -o-animation-iteration-count: 1;
+  
+  -ms-animation-name: fade-out;
+  -ms-animation-duration: 5s;
+  -ms-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -ms-animation-iteration-count: 1;
+  
+  animation-name: fade-out;
+  animation-duration: 5s;
+  animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  animation-iteration-count: 1;
+}
+
+@-webkit-keyframes fade-out {
+  0% { opacity: 0; }
+  7% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+
+}
+
+@-ms-keyframes fade-out {
+  0% { opacity: 0; }
+  7% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-moz-keyframes fade-out {
+  0% { opacity: 0; }
+  7% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes fade-out {
+  0% { opacity: 0; }
+  7% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.blurred-msg-container .msg-icon-container {
+  position: absolute;
+  left: 54px;
+  width: 132px;
+  height: 132px;
+  top:16px;
+
   color: #FFF;
-  background-color: #e66;
   padding: 6px;
   padding-left: 7px;
   border-radius: 20px;
@@ -1396,7 +1443,9 @@ input[type="radio"] {
 }
 .blurred-msg-container span {
   line-height: 20px;
+  text-align: center;
+  display: block;
 }
 .blurred-msg-container .icon-lock {
-  font-size: 19px;
+  font-size: 110px;
 }
