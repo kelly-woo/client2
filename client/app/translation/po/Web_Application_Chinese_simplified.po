@@ -513,6 +513,10 @@ msgstr "电话"
 msgid "@common-position"
 msgstr "职位"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr "目前已锁住屏幕，点击 ESC 或 Ctrl-Shift-L 进行解锁"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "隐私权条款"
@@ -1402,6 +1406,14 @@ msgstr "议题内容"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
 msgstr "描述 (选项)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr "{{invitorName}} 邀请你加入私人议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
+msgstr "[{{topicName}}] {{invitorName}}邀请你加入此议题"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"

@@ -83,7 +83,7 @@
                   <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
                 </a>
               </li>
-              <li class="cursor_pointer">
+              <li class="cursor_pointer" ng-if="!isIntegrateFile">
                 <a class="external-share-file" file-id="{{::file_detail.id}}" external-share-view="isExternalShared"
                    external-code="file_detail.content.externalCode"
                    external-url="file_detail.content.externalUrl"
@@ -104,7 +104,7 @@
       </div>
 
       <div class="file-detail-body">
-        <file-detail-preview file-detail="file_detail" file-icon="fileIcon" is-external-shared="isExternalShared"></file-detail-preview>
+        <file-detail-preview file-detail="file_detail" file-icon="fileIcon" is-integrate-file="isIntegrateFile" is-external-shared="isExternalShared"></file-detail-preview>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
           <div class="fileicon fileicon-{{::fileIcon}}"></div>

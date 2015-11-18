@@ -34,7 +34,12 @@
       '../assets/images/jandi-logo-200x200.png',
       // Favicons
       '../assets/images/favicon/favicon.png',
-      '../assets/images/favicon/favicon_noti.png'
+      '../assets/images/favicon/favicon_noti.png',
+      // sticker
+      '../assets/images/sticker/pangya_pangya_off.svg',
+      '../assets/images/sticker/pangya_pangya_on.svg',
+      '../assets/images/sticker/kiyomi_off.svg',
+      '../assets/images/sticker/kiyomi_on.svg'
     ];
   }
 
