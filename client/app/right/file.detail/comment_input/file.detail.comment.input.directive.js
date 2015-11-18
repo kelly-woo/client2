@@ -133,7 +133,7 @@
        */
       function _onChangeSticker(angularEvent, item) {
         if (sticker = item) {
-          _focusInput();
+          setTimeout(_focusInput);
         }
       }
 
