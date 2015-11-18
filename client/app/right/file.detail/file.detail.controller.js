@@ -51,8 +51,8 @@
      * @private
      */
     function _attachEvents() {
-      $scope.$on('right:updateFile', _onUpdateFile);
-      $scope.$on('right:updateComments', _onUpdateComments);
+      $scope.$on('fileDetail:updateFile', _onUpdateFile);
+      $scope.$on('fileDetail:updateComments', _onUpdateComments);
 
       $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
       $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
@@ -60,22 +60,18 @@
 
     /**
      * file 갱신 event handler
-     * @param {object} angularEvent
-     * @param {function} callback
      * @private
      */
-    function _onUpdateFile(angularEvent, callback) {
-      _requestFileDetail('file', callback);
+    function _onUpdateFile() {
+      _requestFileDetail('file');
     }
 
     /**
      * comments 갱신 event handler
-     * @param {object} angularEvent
-     * @param {function} callback
      * @private
      */
-    function _onUpdateComments(angularEvent, callback) {
-      _requestFileDetail('comment', callback);
+    function _onUpdateComments() {
+      _requestFileDetail('comment');
     }
 
     /**
@@ -96,17 +92,14 @@
     /**
      * request file detail
      * @param {string} updateType
-     * @param {function} callback
      * @private
      */
-    function _requestFileDetail(updateType, callback) {
+    function _requestFileDetail(updateType) {
       if (_isFileDetailActive()) {
         requestFileDetail && requestFileDetail.abort();
         requestFileDetail = fileAPIservice.getFileDetail(fileId)
           .success(function(response) {
             _onSuccessFileDetail(response, updateType);
-
-            callback && callback();
           })
           .error(_onErrorFileDetail)
       }

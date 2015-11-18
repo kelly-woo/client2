@@ -174,7 +174,7 @@
        * @private
        */
       function _onMemberUpdate() {
-        jndPubSub.pub('right:updateFile');
+        jndPubSub.pub('fileDetail:updateFile');
       }
 
       /**
