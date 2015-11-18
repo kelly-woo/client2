@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('privacyGuide', privacyGuide);
 
-  function privacyGuide(jndKeyCode) {
+  function privacyGuide($filter, jndKeyCode, Privacy, Browser) {
     return {
       restrict: 'E',
       link: link,
@@ -29,6 +29,11 @@
        * @private
        */
       function _init() {
+        var msg = $filter('translate')('@common-privacy-lock-msg');
+        if (Browser.platform.isMac) {
+          msg = msg.replace('Ctrl', 'Cmd');
+        }
+        el.find('._msg').html(msg);
         el.hide();
         scope.$on('privacy:set', _onPrivacySet);
         scope.$on('privacy:unset', _onPrivacyUnSet);
@@ -59,7 +64,10 @@
        * @private
        */
       function _onKeyDown(keyEvent) {
-        if (!_isLockKeyEntered(keyEvent)) {
+        if (jndKeyCode.match('ESC', keyEvent.keyCode)) {
+          keyEvent.stopPropagation();
+          Privacy.unset();
+        } else if (!_isLockKeyEntered(keyEvent)) {
           keyEvent.stopPropagation();
           _showGuideText();
         }
@@ -71,7 +79,7 @@
        */
       function _showGuideText() {
         clearTimeout(_timer);
-        _timer = setTimeout(_hideGuideText, 4000);
+        _timer = setTimeout(_hideGuideText, 3000);
         _jqMsgContainer.stop().fadeIn(800);
       }
 
