@@ -28,11 +28,20 @@
 
         },
         'shift-ctrl': {
-          'CHAR_K': _toggleSticker,
-          'CHAR_L': _togglePrivacy
+          'CHAR_K': {
+            handler: _toggleSticker,
+            isPreventDefault: true
+          },
+          'CHAR_L': {
+            handler: _togglePrivacy,
+            isPreventDefault: true
+          }
         },
         'shift-alt': {
-          'CHAR_T': _openTeamModal
+          'CHAR_T': {
+            handler: _openTeamModal,
+            isPreventDefault: true
+          }
         },
         'shift': {
 
@@ -41,16 +50,31 @@
 
         },
         'ctrl': {
-          'CHAR_J': _toggleQuickLauncher,
-          '[': _toggleRightPanel,
-          'RIGHT_ARROW': _rPanelNext,
-          'LEFT_ARROW': _rPanelPrev
+          'CHAR_J': {
+            handler: _toggleQuickLauncher,
+            isPreventDefault: true
+          },
+          '[': {
+            handler: _toggleRightPanel,
+            isPreventDefault: true
+          },
+          'RIGHT_ARROW': {
+            handler: _rPanelNext,
+            isPreventDefault: true
+          },
+          'LEFT_ARROW': {
+            handler: _rPanelPrev,
+            isPreventDefault: true
+          }
         },
         'alt': {
 
         },
         'none': {
-          'ENTER': _setChatInputFocus
+          'ENTER': {
+            handler: _setChatInputFocus,
+            isPreventDefault: false
+          }
         }
       };
 
@@ -172,15 +196,19 @@
 
       /**
        *
-       * @param keyEvent
-       * @param keyHandler
+       * @param {Event} keyEvent
+       * @param {Object} keyHandlerObj
+       *    @param {function} keyHandlerObj.handler
+       *    @param {boolean} keyHandlerObj.isPreventDefault
        * @returns {boolean}
        * @private
        */
-      function _executeHandler(keyEvent, keyHandler) {
-        if (_.isFunction(keyHandler)) {
-          keyEvent.preventDefault();
-          keyHandler(keyEvent);
+      function _executeHandler(keyEvent, keyHandlerObj) {
+        if (_.isFunction(keyHandlerObj && keyHandlerObj.handler)) {
+          if (keyHandlerObj.isPreventDefault) {
+            keyEvent.preventDefault();
+          }
+          keyHandlerObj.handler(keyEvent);
           return true;
         } else {
           return false;
@@ -211,20 +239,20 @@
        * @returns {Function|undefined}
        * @private
        */
-      function _getHandler(keyEvent, keyName) {
-        var keyHandler;
+      function _getHandlerObj(keyEvent, keyName) {
+        var keyHandlerObj;
         var fnKeyList = [keyEvent.shiftKey, keyEvent.ctrlKey || keyEvent.metaKey, keyEvent.altKey];
-        keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
-        while (!_.isFunction(keyHandler) && !_isFalsy(fnKeyList)) {
+        keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+        while (!_.isFunction(keyHandlerObj && keyHandlerObj.handler) && !_isFalsy(fnKeyList)) {
           _.forEach(fnKeyList, function(value, key) {
             if (value) {
               fnKeyList[key] = false;
               return false;
             }
           });
-          keyHandler = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+          keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
         }
-        return keyHandler;
+        return keyHandlerObj;
       }
 
       /**
@@ -255,10 +283,10 @@
        */
       function _onKeyInput(keyEvent) {
         var keyName = jndKeyCode.getName(keyEvent.keyCode);
-        var handler;
+        var handlerObj;
         if (_isActivated && keyName) {
-          handler = _getHandler(keyEvent, keyName);
-          _executeHandler(keyEvent, handler);
+          handlerObj = _getHandlerObj(keyEvent, keyName);
+          _executeHandler(keyEvent, handlerObj);
         }
       }
 
