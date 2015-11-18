@@ -135,7 +135,7 @@
             } else if (keyEvent.ctrlKey || keyEvent.metaKey) {
               _executeHandler(keyEvent, keyHandlerMap['ctrl'][keyName]);
             } else {
-              _executeHandler(keyEvent, keyHandlerMap['none'][keyName]);
+              _executeHandler(keyEvent, keyHandlerMap['only'][keyName]);
             }
           }
         }

@@ -1366,38 +1366,10 @@ input[type="radio"] {
   -o-transform:translateY(-50%);
   transform: translateY(-50%);
   margin:auto;
-  
-  opacity: 0;
-
-  z-index: 1111; 
-  
+  z-index: 1111;
 }
-.blurred .blurred-msg-container {
-  
-  -webkit-animation-name: fade-out;
-  -webkit-animation-duration: 5s;
-  -webkit-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
-  -webkit-animation-iteration-count: 1;
-  
-  -moz-animation-name: fade-out;
-  -moz-animation-duration: 5s;
-  -moz-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
-  -moz-animation-iteration-count: 1;
 
-  -o-animation-name: fade-out;
-  -o-animation-duration: 5s;
-  -o-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
-  -o-animation-iteration-count: 1;
-  
-  -ms-animation-name: fade-out;
-  -ms-animation-duration: 5s;
-  -ms-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
-  -ms-animation-iteration-count: 1;
-  
-  animation-name: fade-out;
-  animation-duration: 5s;
-  animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
-  animation-iteration-count: 1;
+.blurred .blurred-msg-container {
 }
 
 @-webkit-keyframes fade-out {
@@ -1430,10 +1402,8 @@ input[type="radio"] {
 
 .blurred-guide-wrapper-dim {
   position:absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width:100%;
+  height:100%;
   z-index: 1000;
 }
 
