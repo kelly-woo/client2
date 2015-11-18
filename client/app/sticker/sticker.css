@@ -87,14 +87,14 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.sticker_panel_contents.empty {
-  display: table-cell;
+
+.sticker_panel_contents .sticker_empty {
   background: #f1f4f8;
   color: #154a67;
-  vertical-align: middle;
   text-align: center;
+  padding-top: 91px;
+  height: 100%;
 }
-
 .sticker_panel_empty_icon {
   font-size: 46px;
   opacity: 0.3;
@@ -104,6 +104,7 @@
   font-size: 14px;
   opacity: 0.5;
 }
+
 .sticker_panel_ul {
   list-style-type: none;
   padding: 7px;
@@ -144,6 +145,7 @@
   border-right: 1px solid #d7e0e8;
   width: 35px;
   text-align: center;
+  cursor: pointer;
 }
 .sticker_panel_tab li.on {
   background-color: white;

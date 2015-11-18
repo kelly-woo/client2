@@ -1,46 +1,46 @@
-<a name="1.9.0-alpha.4"></a>
-# [1.9.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.8.4...v1.9.0-alpha.4) (2015-11-13)
+<a name="1.8.5"></a>
+## [1.8.5](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.7...v1.8.5) (2015-11-18)
+
+
+### Bug Fixes
+
+* **right:** 파일 상세에서 이미지 클릭했을때 carousel 출력되도록 수정 ([e329ffc](https://github.com/tosslab/web_client/commit/e329ffc))
+
+
+
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
 
 
 
 
-<a name="1.9.0-alpha.3"></a>
-# [1.9.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.8.1...v1.9.0-alpha.3) (2015-11-12)
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+### Bug Fixes
+
+* **modal:** 팀 초대 모달 링크복사 수정 ([254e2e8](https://github.com/tosslab/web_client/commit/254e2e8))
+
+
+
+<a name="1.8.3"></a>
+## [1.8.3](https://github.com/tosslab/web_client/compare/v1.8.2...v1.8.3) (2015-11-13)
+
+
+
+
+<a name="1.8.2"></a>
+## [1.8.2](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.3...v1.8.2) (2015-11-12)
+
+
+
+
 <a name="1.8.1"></a>
 ## [1.8.1](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.0...v1.8.1) (2015-11-12)
 
 
 ### Bug Fixes
-
-* **center:** input box 최대 사이즈 증가 ([1210c6c](https://github.com/tosslab/web_client/commit/1210c6c))
-* **sticker:** 잘못된 preload url 수정 ([835265b](https://github.com/tosslab/web_client/commit/835265b))
-
-
-
-<a name="1.9.0-alpha.0"></a>
-# [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.9.0-alpha.0) (2015-11-11)
-
-
-
-
-<a name="1.9.0-alpha.3"></a>
-# [1.9.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.8.1...v1.9.0-alpha.3) (2015-11-12)
-
-
-### Bug Fixes
-
-* **center:** center event 연결시점 수정 ([7a7ed32](https://github.com/tosslab/web_client/commit/7a7ed32))
-* **center:** input box 최대 사이즈 증가 ([1210c6c](https://github.com/tosslab/web_client/commit/1210c6c))
-* **right:** integration file은 외부공유 링크 생성하지 않도록 수정 ([ddc946c](https://github.com/tosslab/web_client/commit/ddc946c))
-* **sticker:** 잘못된 preload url 수정 ([835265b](https://github.com/tosslab/web_client/commit/835265b))
-
-
-
-<a name="1.9.0-alpha.0"></a>
-# [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.0...v1.9.0-alpha.0) (2015-11-11)
-
-
-
 
 * **socket:** 파일 공유 시 자신이 2번째 공유한 방에서 center panel 업데이트 되지 않는 현상 수정 ([e0cee03](https://github.com/tosslab/web_client/commit/e0cee03))
 
