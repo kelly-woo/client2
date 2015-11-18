@@ -1433,7 +1433,7 @@ input[type="radio"] {
   left: 54px;
   width: 132px;
   height: 132px;
-  top:16px;
+  top:24px;
 
   color: #FFF;
   padding: 6px;
@@ -1447,5 +1447,5 @@ input[type="radio"] {
   display: block;
 }
 .blurred-msg-container .icon-lock {
-  font-size: 110px;
+  font-size: 90px;
 }
