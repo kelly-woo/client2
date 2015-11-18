@@ -8,22 +8,34 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler(jndKeyCode, jndPubSub, currentSessionHelper) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope) {
+      var _isActivated = false;
       var jqBody = $('body');
-
-      var shortcutMap= {
-        keydown: {
-          'toggleQuickLauncher': _isQuickLauncherShortcut,
-          'center:toggleSticker': _isCenterStickerShortcut
+      var keyHandlerMap = {
+        //ctrl, shift 입력 상태와 관계없이 수행하는  핸들러
+        'always': {
+          'ENTER': _setChatInputFocus
         },
-        keyup: {
-          'setChatInputFocus': _isChatInputFocus
+        //ctrl + shift 와 함께 입력시 핸들러
+        'ctrlShift': {
+          'CHAR_K': _toggleSticker,
+          'CHAR_L': _togglePrivacy
+        },
+        //shift 와 함께 입력시 핸들러
+        'shift': {
+        },
+        //ctrl 과 함께 입력시 핸들러
+        'ctrl': {
+          'CHAR_J': _toggleQuickLauncher
+        },
+        //ctrl, shift 둘다 입력 없이 수행하는 핸들러
+        'only': {
         }
       };
 
@@ -34,6 +46,7 @@
        * @private
        */
       function _init() {
+        _setActiveStatus();
         _on();
       }
 
@@ -43,11 +56,22 @@
        */
       function _on() {
         scope.$on('$destroy', _onDestroy);
-        scope.$on('document:visibilityChange', _onVisibilitychange);
+        scope.$on('document:visibilityChange', onVisibilityChange);
+        scope.$on('$stateChangeSuccess', _onStateChageSuccess);
+        jqBody.on('keydown', _onKeyInput);
+      }
 
-        jqBody
-          .on('keydown', _onKeyDown)
-          .on('keyup', _onKeyUp);
+      function _onStateChageSuccess(angularEvent, toState, toParams, fromState, fromParams) {
+        _setActiveStatus();
+      }
+
+      /**
+       * key handler 의 active status 를 설정한다.
+       * (sign-in 일 경우 key handler 의 기능을 막는다)
+       * @private
+       */
+      function _setActiveStatus() {
+        _isActivated = ($state.current.name !== 'signin');
       }
 
       /**
@@ -56,8 +80,7 @@
        */
       function _off() {
         jqBody
-          .off('keydown', _onKeyDown)
-          .off('keyup', _onKeyUp);
+          .off('keydown', _onKeyInput);
       }
 
       /**
@@ -72,46 +95,91 @@
        * visibility change event handler
        * @private
        */
-      function _onVisibilitychange() {
+      function onVisibilityChange() {
         if (!currentSessionHelper.isBrowserHidden()) {
           jqBody.focus();
         }
       }
 
       /**
-       * keydown 이벤트 핸들러
+       *
+       * @param keyEvent
+       * @param keyHandler
+       * @returns {boolean}
        * @private
        */
-      function _onKeyDown(keyEvent) {
-        _pubShortcutEvent(shortcutMap.keydown, keyEvent);
+      function _executeHandler(keyEvent, keyHandler) {
+        if (_.isFunction(keyHandler)) {
+          keyEvent.preventDefault();
+          keyHandler(keyEvent);
+          return true;
+        } else {
+          return false;
+        }
       }
-
+      
       /**
-       * keyup 이벤트 핸들러
-       * @param {object} keyEvent
+       * key 이벤트 핸들러
        * @private
        */
-      function _onKeyUp(keyEvent) {
-        _pubShortcutEvent(shortcutMap.keyup, keyEvent);
-      }
-
-      /**
-       * pub shortcut event
-       * @param {object} shortcuts
-       * @param {object} keyEvent
-       * @private
-       */
-      function _pubShortcutEvent(shortcuts, keyEvent) {
-        _.each(shortcuts, function(fn, name) {
-          if (fn(keyEvent)) {
-            // keyboard shortcut이라면 기본동작 막음
-            keyEvent.preventDefault();
-
-            jndPubSub.pub(name);
+      function _onKeyInput(keyEvent) {
+        var keyName = jndKeyCode.getName(keyEvent.keyCode);
+        if (_isActivated && keyName) {
+          if (!_executeHandler(keyEvent, keyHandlerMap['always'][keyName])) {
+            if (keyEvent.shiftKey) {
+              if (keyEvent.ctrlKey || keyEvent.metaKey) {
+                _executeHandler(keyEvent, keyHandlerMap['ctrlShift'][keyName]);
+              } else {
+                _executeHandler(keyEvent, keyHandlerMap['shift'][keyName]);
+              }
+            } else if (keyEvent.ctrlKey || keyEvent.metaKey) {
+              _executeHandler(keyEvent, keyHandlerMap['ctrl'][keyName]);
+            } else {
+              _executeHandler(keyEvent, keyHandlerMap['only'][keyName]);
+            }
           }
-        });
+        }
       }
 
+      /**
+       * sticker 토글
+       * @private
+       */
+      function _toggleSticker() {
+        jndPubSub.pub('center:toggleSticker');
+      }
+
+      /**
+       * quick launcher 토글
+       * @private
+       */
+      function _toggleQuickLauncher() {
+        jndPubSub.pub('toggleQuickLauncher');
+      }
+
+      /**
+       * center input 에 포커스
+       * @param {Event} keyEvent
+       * @private
+       */
+      function _setChatInputFocus(keyEvent) {
+        if (_isChatInputFocus(keyEvent)) {
+          jndPubSub.pub('setChatInputFocus');
+        }
+      }
+
+      /**
+       * privacy 기능 toggle
+       * @private
+       */
+      function _togglePrivacy() {
+        if (Privacy.is()) {
+          Privacy.unset();
+        } else {
+          Privacy.set();
+        }
+      }
+      
       /**
        * center의 chat input에 focus가야하는 shortcut인지 여부를 반환한다.
        * @param {object} keyEvent
@@ -140,26 +208,6 @@
        */
       function _isInput(jqTarget) {
         return jqTarget.is('input') || jqTarget.is('textarea') || jqTarget.is('button');
-      }
-
-      /**
-       * quick launcher shortcut인지 여부를 반환한다.
-       * @param {boolean} keyEvent
-       * @returns {*|boolean}
-       * @private
-       */
-      function _isQuickLauncherShortcut(keyEvent) {
-        var keyCode = keyEvent.keyCode;
-        return (keyEvent.ctrlKey || keyEvent.metaKey) && (jndKeyCode.match('CHAR_J', keyCode));
-      }
-
-      /**
-       * center sticker shortcut 인지 여부를 반환한다.
-       * @param {object} keyEvent
-       */
-      function _isCenterStickerShortcut(keyEvent) {
-        var keyCode = keyEvent.keyCode;
-        return (keyEvent.ctrlKey || keyEvent.metaKey) && keyEvent.shiftKey && jndKeyCode.match('CHAR_K', keyCode);
       }
     }
   }

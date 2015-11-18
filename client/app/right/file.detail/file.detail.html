@@ -5,7 +5,7 @@
 <div class="rpanel-body">
 
   <!-- FILE -->
-  <div class="rpanel-body-content file-detail" ng-if="hasInitialLoaded" ng-class="{'archived-file-detail': isArchivedFile || isInvalidRequest}">
+  <div class="rpanel-body-content file-detail private-effect" ng-if="hasInitialLoaded" ng-class="{'archived-file-detail': isArchivedFile || isInvalidRequest}">
     <div class="file-detail-body-container">
       <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <file-detail-header file="file"

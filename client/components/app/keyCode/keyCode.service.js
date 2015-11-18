@@ -28,6 +28,7 @@
       'CHAR_Q': 81,
       'CHAR_R': 82,
       'CHAR_V': 86,
+      'CHAR_L': 76,
       'CHAR_COMMA': 188,
       'LEFT_WINDOW_KEY': 91,
       'F5': 116,
@@ -42,9 +43,21 @@
     };
     this.keyCodeMap = keyCodeMap;
     this.match = match;
+    this.getName = getName;
 
     function match(keyName, keyCode) {
       return keyCodeMap[keyName] === keyCode;
+    }
+
+    function getName(keyCode) {
+      var keyName = null;
+      _.each(keyCodeMap, function(code, name) {
+        if (keyCode === code) {
+          keyName = name;
+          return false;
+        }
+      });
+      return keyName;
     }
   }
 
