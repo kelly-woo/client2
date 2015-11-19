@@ -63,15 +63,18 @@
             isExactMatch: true,
             isPreventDefault: true
           }
+          //,
           //'RIGHT_ARROW': {
           //  handler: _rPanelNext,
           //  isExactMatch: true,
-          //  isPreventDefault: true
+          //  isPreventDefault: true,
+          //  extraCondition: _isNotInput
           //},
           //'LEFT_ARROW': {
           //  handler: _rPanelPrev,
           //  isExactMatch: true,
-          //  isPreventDefault: true
+          //  isPreventDefault: true,
+          //  extraCondition: _isNotInput
           //}
         },
         'alt': {
@@ -87,6 +90,10 @@
       };
 
       _init();
+
+      function _isNotInput(keyEvent) {
+        return _isInput($(keyEvent.target));
+      }
 
       /**
        * 오른쪽 패널 열고 닫음을 토글한다
@@ -260,7 +267,14 @@
             }
           });
           keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
-          if (keyHandlerObj && keyHandlerObj.isExactMatch) {
+          if (keyHandlerObj) {
+            if (keyHandlerObj.isExactMatch) {
+              keyHandlerObj = null;
+            }
+          }
+        }
+        if (keyHandlerObj && _.isFunction(keyHandlerObj.extraCondition)) {
+          if (keyHandlerObj.extraCondition(keyEvent)) {
             keyHandlerObj = null;
           }
         }
