@@ -31,6 +31,9 @@
 
         },
         'shift-ctrl': {
+          'CHAR_L': {
+            handler: _togglePrivacy
+          },
           //스티커 토글
           'CHAR_K': {
             handler: _toggleSticker
