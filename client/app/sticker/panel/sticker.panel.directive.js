@@ -41,7 +41,7 @@
 
         scope.onToggled = onToggled;
 
-         _setStickerPanelSize();
+        _setStickerPanelSize();
         _attachDomEvents();
       }
 
@@ -94,6 +94,7 @@
           scope.select();
           jqStickerPanelBtn.attr('tabIndex', -1)
         } else {
+          scope.resetRecentStickers();
           jqStickerPanelBtn.removeAttr('tabIndex');
         }
       }

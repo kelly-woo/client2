@@ -379,6 +379,40 @@ last element of list
 
 }
 
+.noti-indicator {
+  display: none;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  left: 14px;
+  top:12px;
+  background-color: #FF5B49;
+  color: #FF5B49;
+  border-radius: 50%;
+}
+.lpanel-list ul li.invited .noti-indicator {
+  display: block;
+  
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-name: blinker;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  animation-name: blinker;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;	
+}
+.lpanel-list ul li.invited {
+  background-color: rgba(60,160,230,0.15);
+}
+.lpanel-list ul li.invited:hover .icon-star-off {
+  opacity: 0;
+}
+
 .lpanel-list-help-unread {
   position: absolute;
   width: inherit;
@@ -468,6 +502,8 @@ last element of list
 .left-header-badge {
   position: absolute;
   right: 10px;
+  border-left:20px solid #FCFCFC;
+  background-color: #FCFCFC;
 }
 .left-header-badge .left-panel_badge {
   margin-top:4px;
