@@ -300,7 +300,7 @@
             return item.name.toLowerCase();
           }).value();
 
-          jndPubSub.pub('mentionMembersUpdate:comment', mentionMembers);
+          jndPubSub.pub('mentionahead:comment', mentionMembers);
         }
       }
     }
