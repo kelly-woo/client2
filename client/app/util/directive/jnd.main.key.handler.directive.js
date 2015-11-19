@@ -85,6 +85,13 @@
         'ctrl-alt': {
         },
         'ctrl': {
+          //중앙 input에 focus
+          'ENTER': {
+            handler: _triggertModalSubmit,
+            extraCondition: function(keyEvent) {
+              return _isModalShown();
+            }
+          },
           //upload
           'CHAR_U': {
             handler: function() {
@@ -166,6 +173,9 @@
 
       _init();
 
+      function _triggertModalSubmit() {
+        $('._modalEnter').trigger('click');
+      }
       /**
        * zoom in
        * @private

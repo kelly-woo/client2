@@ -26,7 +26,7 @@
     <div class="modal-body">
       <div class="invite-work ng-hide" ng-show="!isInviteDone">
         <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" active="isInviteDone" ></div>
-        <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send();"></button>
+        <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn _modalEnter" ng-click="send();"></button>
       </div>
       <div class="invite-done ng-hide" ng-show="isInviteDone">
         <img src="{{::doneImage}}">
