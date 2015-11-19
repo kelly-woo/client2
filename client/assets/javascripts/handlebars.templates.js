@@ -240,25 +240,27 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.width : stack1), depth0))
     + "\"\n                     image-height=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.height : stack1), depth0))
-    + "\"\n                     image-max-width=\"360\"\n                     image-max-height=\"270\"\n                     has-loading-bar=\"true\">\n                  <div class=\"msg-file-actions-bg non-selectable _compile\">\n                    <div class=\"msg-file-actions\">\n                      <div class=\"action-group\">\n                        <!--  MORE  -->\n                        <span class=\"msg-file-comment\">\n                          <i class=\"icon-cog-fill cursor_pointer file-action\"\n                             jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@file-action-more",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                             data-direction=\"top\"></i>\n                        </span>\n"
+    + "\"\n                     image-max-width=\"360\"\n                     image-max-height=\"270\"\n                     has-loading-bar=\"true\">\n                  <div class=\"msg-file-actions-bg non-selectable _compile\">\n                    <div class=\"msg-file-actions\">\n                      <div class=\"action-group\">\n                        <div class=\"action-item  _fileDetailComment\">\n                          <!--  MORE  -->\n                          <span class=\"action-comment\">\n                            <i class=\"icon-comment\"\n                               jnd-tooltip-trigger=\""
+    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@btn-comment",{"name":"translate","hash":{},"data":data}))
+    + "\"\n                               data-direction=\"top\"></i>\n                            <span class=\"comment-count-"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
+    + "\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.commentCount : stack1), depth0))
+    + "</span>\n                          </span>\n                        </div>\n"
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isIntegrateFile : stack1),{"name":"unless","hash":{},"fn":this.program(21, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "                        <!--  SHARE -->\n                        <i class=\"icon-share-right-fill cursor_pointer file-action _fileShare\"\n                           jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@btn-share",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                           data-direction=\"top\"></i>\n                        <!--  MORE  -->\n                        <span class=\"file-uploaded-more _fileMore\">\n                          <i class=\"icon-cog-fill cursor_pointer file-action\"\n                             jnd-tooltip-trigger=\""
+    + "                        <div class=\"action-item\">\n                          <!--  MORE  -->\n                          <i class=\"icon-cog _fileMore\"\n                             jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@file-action-more",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                             data-direction=\"top\"></i>\n                        </span>\n                      </div>\n                      <div class=\"action-group\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"icon-share-right-fill cursor_pointer file-action _fileShare\"\n                           jnd-tooltip-trigger=\""
+    + "\"\n                             data-direction=\"top\"></i>\n                        </div>\n                      </div>\n                      <div class=\"action-group\">\n                        <div class=\"action-item\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"icon-arrow-right _fileDetail\"\n                             jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@btn-share",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                           data-direction=\"top\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n";
+    + "\"\n                             data-direction=\"top\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n";
 },"21":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "                        <!--  DOWNLOAD  -->\n                        <span class=\"file-uploaded-download\">\n                          <a class=\"_fileDownload\" "
+  return "                        <div class=\"action-item\">\n                          <!--  DOWNLOAD  -->\n                          <span class=\"_fileDownload\">\n                            <a class=\"file_action\" "
     + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.attrs : depth0)) != null ? stack1.download : stack1), depth0)) != null ? stack1 : "")
-    + ">\n                            <i class=\"icon-download-fill cursor_pointer file-action\"\n                               jnd-tooltip-trigger=\""
+    + ">\n                              <i class=\"icon-download\"\n                                 jnd-tooltip-trigger=\""
     + this.escapeExpression((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-download",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                               data-direction=\"top\"></i>\n                          </a>\n                        </span>\n";
+    + "\"\n                                 data-direction=\"top\"></i>\n                            </a>\n                          </span>\n                        </div>\n";
 },"23":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 

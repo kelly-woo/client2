@@ -64,6 +64,9 @@
         scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
+
+        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentUpdate);
+        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentUpdate);
       }
 
       /**
@@ -678,6 +681,16 @@
             return false;
           }
         });
+      }
+
+      /**
+       * comment count update handler
+       * @param angularEvent
+       * @param data
+       * @private
+       */
+      function _onFileCommentUpdate(angularEvent, data) {
+        $('.comment-count-' + data.file.id).text(data.file.commentCount);
       }
     }
   }

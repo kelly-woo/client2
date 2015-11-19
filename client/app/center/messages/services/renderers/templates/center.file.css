@@ -59,9 +59,32 @@
   background: #fff;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
-  padding: 3px 6px;
   float: left;
   margin-left: 6px;
+}
+
+.action-group .action-item {
+  float:left;
+  padding: 4px 7px;
+}
+
+.action-group .action-item .icon-arrow-right {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.action-group .action-item:not(:last-child) {
+  border-right: 1px solid #e1e1e1;
+}
+
+.msg-file-actions .action-comment span {
+  font-size: 12px;
+  color: #333;
+}
+.msg-file-actions i {
+  font-size: 18px;
+  color: #575757;
+  vertical-align: middle;
 }
 
 .file-uploaded-extra {

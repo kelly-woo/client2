@@ -9,8 +9,9 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService, EntityMapManager,
-                        memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper, publicService) {
+  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil, Loading,
+                        centerService, memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper,
+                        publicService) {
     var _template = '';
 
     this.render = render;
@@ -45,12 +46,46 @@
 
       if (jqTarget.closest('._fileDownload').length) {
         _onClickFileDownload(msg);
+      } else if (jqTarget.closest('._fileDetail').length) {
+        _onClickFileDetail(msg);
+      } else if (jqTarget.closest('._fileDetailComment').length) {
+        _onClickFileDetail(msg, true);
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
       } else if (jqTarget.closest('._fileExpand').length) {
         _onClickFileExpand(msg, jqTarget);
       } else if (jqTarget.closest('._fileToggle').length) {
         _onClickFileToggle(msg, jqTarget);
+      }
+    }
+
+    /**
+     * file detail
+     * @param {object} msg
+     * @param {boolean} focusCommentInput
+     * @private
+     */
+    function _onClickFileDetail(msg, focusCommentInput) {
+      var contentType = msg.message.contentType;
+      var userName = $filter('getName')(msg.message.writerId);
+      var itemId = msg.message.id;
+
+      if ($state.params.itemId != itemId) {
+        if (msg.feedback && contentType !== 'file') {
+          userName = $filter('getName')(msg.feedback.writerId);
+          itemId = msg.feedback.id;
+        }
+
+        if (focusCommentInput) {
+          $rootScope.setFileDetailCommentFocus = true;
+        }
+
+        $state.go('files', {
+          userName: userName,
+          itemId: itemId
+        });
+      } else if (focusCommentInput) {
+        fileAPIservice.broadcastCommentFocus();
       }
     }
 
@@ -161,15 +196,16 @@
         },
         css: {
           unshared: isUnshared ? 'unshared' : '',
-            imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
-            wrapper: isArchived ? ' archived-file': '',
-            star: RendererUtil.getStarCssClass(msg),
-            disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
+          imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
+          wrapper: isArchived ? ' archived-file': '',
+          star: RendererUtil.getStarCssClass(msg),
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         attrs: {
           download: _getFileDownloadAttrs(msg)
         },
         file: {
+          id: msg.message.id,
           unshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
@@ -182,7 +218,8 @@
           size: $filter('bytes')(content.size),
           isFileOwner: _isFileOwner(msg),
           ownerName: $filter('getName')(msg.message.writerId),
-          isIntegrateFile: _isIntegrateFile(msg)
+          isIntegrateFile: _isIntegrateFile(msg),
+          commentCount: msg.message.commentCount || 0
         },
         isArchived: isArchived,
           msg: msg

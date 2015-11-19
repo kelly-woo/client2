@@ -126,38 +126,41 @@
                   <div class="msg-file-actions-bg non-selectable _compile">
                     <div class="msg-file-actions">
                       <div class="action-group">
-                        <!--  MORE  -->
-                        <span class="msg-file-comment">
-                          <i class="icon-cog-fill cursor_pointer file-action"
-                             jnd-tooltip-trigger="{{translate '@file-action-more'}}"
-                             data-direction="top"></i>
-                        </span>
-                        {{#unless file.isIntegrateFile}}
-                        <!--  DOWNLOAD  -->
-                        <span class="file-uploaded-download">
-                          <a class="_fileDownload" {{{ attrs.download }}}>
-                            <i class="icon-download-fill cursor_pointer file-action"
-                               jnd-tooltip-trigger="{{translate '@common-download'}}"
+                        <div class="action-item  _fileDetailComment">
+                          <!--  MORE  -->
+                          <span class="action-comment">
+                            <i class="icon-comment"
+                               jnd-tooltip-trigger="{{translate '@btn-comment'}}"
                                data-direction="top"></i>
-                          </a>
-                        </span>
+                            <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
+                          </span>
+                        </div>
+                        {{#unless file.isIntegrateFile}}
+                        <div class="action-item">
+                          <!--  DOWNLOAD  -->
+                          <span class="_fileDownload">
+                            <a class="file_action" {{{ attrs.download }}}>
+                              <i class="icon-download"
+                                 jnd-tooltip-trigger="{{translate '@common-download'}}"
+                                 data-direction="top"></i>
+                            </a>
+                          </span>
+                        </div>
                         {{/unless}}
-                        <!--  SHARE -->
-                        <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
-                           jnd-tooltip-trigger="{{translate '@btn-share'}}"
-                           data-direction="top"></i>
-                        <!--  MORE  -->
-                        <span class="file-uploaded-more _fileMore">
-                          <i class="icon-cog-fill cursor_pointer file-action"
+                        <div class="action-item">
+                          <!--  MORE  -->
+                          <i class="icon-cog _fileMore"
                              jnd-tooltip-trigger="{{translate '@file-action-more'}}"
                              data-direction="top"></i>
-                        </span>
+                        </div>
                       </div>
                       <div class="action-group">
-                        <!--  FILE DETAIL -->
-                        <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
-                           jnd-tooltip-trigger="{{translate '@btn-share'}}"
-                           data-direction="top"></i>
+                        <div class="action-item">
+                          <!--  FILE DETAIL -->
+                          <i class="icon-arrow-right _fileDetail"
+                             jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                             data-direction="top"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
