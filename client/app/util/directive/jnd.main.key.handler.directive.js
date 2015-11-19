@@ -19,7 +19,7 @@
       var _jqBody = $('body');
       var _isLocked = false;
       var _lockTimer;
-
+      var _currentScale = 1;
       var _rPanelMenuList = [
         'files',
         'messages',
@@ -104,6 +104,13 @@
           '[': {
             handler: _toggleRightPanel
           }
+          //,
+          //'PLUS': {
+          //  handler: _zoomIn
+          //},
+          //'MINUS': {
+          //  handler: _zoomOut
+          //}
         },
         'alt': {
           //파일 검색 탭
@@ -156,6 +163,44 @@
 
       _init();
 
+      /**
+       * zoom in
+       * @private
+       */
+      function _zoomIn() {
+        _currentScale += 0.01;
+        _setZoom();
+      }
+
+      /**
+       * zoom 을 설정한다
+       * @private
+       */
+      function _setZoom() {
+        $('.content-wrapper').css({
+          'zoom': _currentScale,
+          'transform': 'scale('+_currentScale+')',
+          '-ms-transform': 'scale('+_currentScale+')',
+          '-moz-transform': 'scale('+_currentScale+')',
+          '-webkit-transform': 'scale('+_currentScale+')',
+          'transform-origin': 'left top',
+          '-ms-transform-origin': 'left top',
+          '-moz-transform-origin': 'left top',
+          '-webkit-transform-origin': 'left top',
+          'position': 'absolute',
+          'width': '100%',
+          'height': '100%'
+        });
+      }
+
+      /**
+       * zoom out
+       * @private
+       */
+      function _zoomOut() {
+        _currentScale -= 0.01;
+        _setZoom();
+      }
 
       /**
        * 오른쪽 패널 열고 닫음을 토글한다
