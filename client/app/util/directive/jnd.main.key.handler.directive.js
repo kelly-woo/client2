@@ -84,16 +84,16 @@
           'ENTER': {
             handler: _setChatInputFocus,
             isExactMatch: true,
-            isPreventDefault: true
+            isPreventDefault: true,
+            extraCondition: function(keyEvent) {
+              return !_isModalShown() && !_isInput($(keyEvent.target));
+            }
           }
         }
       };
 
       _init();
 
-      function _isNotInput(keyEvent) {
-        return _isInput($(keyEvent.target));
-      }
 
       /**
        * 오른쪽 패널 열고 닫음을 토글한다
@@ -274,7 +274,7 @@
           }
         }
         if (keyHandlerObj && _.isFunction(keyHandlerObj.extraCondition)) {
-          if (keyHandlerObj.extraCondition(keyEvent)) {
+          if (!keyHandlerObj.extraCondition(keyEvent)) {
             keyHandlerObj = null;
           }
         }
