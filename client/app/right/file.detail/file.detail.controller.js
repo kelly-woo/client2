@@ -115,7 +115,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
     $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
       _sticker = item;
-      _focusInput();
+      setTimeout(_focusInput);
     });
 
     /**

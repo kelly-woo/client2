@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -222,6 +222,10 @@ msgstr "이미 참여중인 모든 토픽에 공유된 파일입니다."
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "잠시 후에 다시 시도하여 주십시요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-auto-join"
+msgstr "자동 초대"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
@@ -447,6 +451,10 @@ msgid "@common-invalid-access"
 msgstr "원본에 대한 접근 권한이 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invite-all"
+msgstr "새로 팀에 참여하는 모든 멤버를 이 토픽에 초대합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}에서 관리자에 의해 퇴장되었습니다."
 
@@ -513,6 +521,12 @@ msgstr "전화번호"
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-position"
 msgstr "직책"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr ""
+"현재 화면 잠금모드입니다. ESC 또는 Ctrl-Shift-L을 누르시면 잠금이 해제됩니"
+"다."
 
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -1435,6 +1449,14 @@ msgstr "토픽 설명"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
 msgstr "토픽에 대해 설명해주세요. (옵션)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr "{{invitorName}}님이 새로운 비공개 토픽에 초대했습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
+msgstr "[{{topicName}}] {{invitorName}}님이 새로운 토픽에 초대했습니다."
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"

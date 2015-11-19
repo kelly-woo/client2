@@ -197,8 +197,11 @@
       if (data.type === 'files') {
         _isActivated = true;
 
-        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나 최초 load가 수행되지 않았다면 file list 갱신함
-        if ((data.toUrl !== data.fromUrl) && (data.fromTitle !== 'FILE DETAIL' || !initialLoadDone)) {
+        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나
+        // 최초 load가 수행되지 않았다면 file list 갱신함
+        if ((data.toUrl !== data.fromUrl) &&
+          data.fromTitle !== 'FILE DETAIL' &&
+          !initialLoadDone) {
           _resetSearchStatusKeyword();
           _refreshFileList();
         }
