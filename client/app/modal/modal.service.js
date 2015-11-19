@@ -84,7 +84,7 @@
       var selectOptions;
 
       selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-      selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
+      //selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
 
       if (!selectOptions.length) {
         Dialog.warning({
@@ -105,7 +105,7 @@
             }
           }
         }
-      };
+      }
       _modalOpener(modalOption);
       _safeApply($scope);
     }
