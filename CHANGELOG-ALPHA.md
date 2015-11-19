@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.10"></a>
+# [1.10.0-alpha.10](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.9...v1.10.0-alpha.10) (2015-11-19)
+
+
+### Bug Fixes
+
+* **핫키:** 1차 feedback 반영 ([1093fed](https://github.com/tosslab/web_client/commit/1093fed))
+
+
+
 <a name="1.10.0-alpha.9"></a>
 # [1.10.0-alpha.9](https://github.com/tosslab/web_client/compare/v1.9.1...v1.10.0-alpha.9) (2015-11-19)
 
