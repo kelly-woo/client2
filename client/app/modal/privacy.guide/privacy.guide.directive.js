@@ -29,15 +29,40 @@
        * @private
        */
       function _init() {
+        _initializeElements();
+        _attachEvents();
+        _attachDomEvents();
+      }
+
+      /**
+       * 엘리먼트를 초기화 한다.
+       * @private
+       */
+      function _initializeElements() {
         var msg = $filter('translate')('@common-privacy-lock-msg');
         if (Browser.platform.isMac) {
           msg = msg.replace('Ctrl', 'Cmd');
         }
         el.find('._msg').html(msg);
         el.hide();
+      }
+
+      /**
+       * events listener 를 등록한다
+       * @private
+       */
+      function _attachEvents() {
         scope.$on('privacy:set', _onPrivacySet);
         scope.$on('privacy:unset', _onPrivacyUnSet);
-        _attachDomEvents();
+        scope.$on('notification-click', _onNotificationClick);
+      }
+
+      /**
+       * notification click 시 privacy mode 를 unset 한다
+       * @private
+       */
+      function _onNotificationClick() {
+        Privacy.unset();
       }
 
       /**
