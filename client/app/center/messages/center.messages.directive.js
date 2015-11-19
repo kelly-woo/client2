@@ -64,6 +64,29 @@
         scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
+
+        scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
+        scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
+      }
+
+      /**
+       *
+       * @private
+       */
+      function _onHotkeyScrollUp() {
+        var container = document.getElementById('msgs-container');
+        var jqInput = $('#message-input');
+        container.scrollTop -= ($(container).height() - jqInput.height() - 20);
+      }
+
+      /**
+       *
+       * @private
+       */
+      function _onHotkeyScrollDown() {
+        var container = document.getElementById('msgs-container');
+        var jqInput = $('#message-input');
+        container.scrollTop += ($(container).height() - jqInput.height() - 20);
       }
 
       /**

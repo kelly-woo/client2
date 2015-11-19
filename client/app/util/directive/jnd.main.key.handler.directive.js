@@ -16,7 +16,10 @@
 
     function link(scope) {
       var _isActivated = false;
-      var jqBody = $('body');
+      var _jqBody = $('body');
+      var _isLocked = false;
+      var _lockTimer;
+
       var _rPanelMenuList = [
         'files',
         'messages',
@@ -28,65 +31,124 @@
 
         },
         'shift-ctrl': {
+          //스티커 토글
           'CHAR_K': {
-            handler: _toggleSticker,
-            isExactMatch: true,
-            isPreventDefault: true
+            handler: _toggleSticker
           },
-          'CHAR_L': {
-            handler: _togglePrivacy,
-            isExactMatch: true,
-            isPreventDefault: true
+          //파일 검색 탭
+          'CHAR_F': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
+            }
+          },
+          //메세지 검색 탭
+          'CHAR_G': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
+            }
+          },
+          //즐겨찾기 탭
+          'CHAR_S': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
+            }
+          },
+          //멘션 탭
+          'CHAR_M': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          },
+          //다음탭 이동
+          'CHAR_DOT': {
+            handler: _rPanelNext
+          },
+          //이전탭 이동
+          'CHAR_COMMA': {
+            handler: _rPanelPrev
           }
         },
         'shift-alt': {
+          //팀전환
           'CHAR_T': {
-            handler: _openTeamModal,
-            isExactMatch: true,
-            isPreventDefault: true
+            handler: function() {
+              modalHelper.openTeamChangeModal(scope);
+            }
           }
         },
         'shift': {
 
         },
         'ctrl-alt': {
-
         },
         'ctrl': {
-          'CHAR_J': {
-            handler: _toggleQuickLauncher,
-            isExactMatch: true,
-            isPreventDefault: true
+          //upload
+          'CHAR_U': {
+            handler: function() {
+              jndPubSub.pub('hotkey-upload');
+            }
           },
+          //토픽에 멤버 초대
+          'CHAR_I': {
+            handler: function() {
+              if (currentSessionHelper.getCurrentEntityType() !== 'users') {
+                modalHelper.openTopicInviteModal(scope);
+              }
+            }
+          },
+          //퀵 런처
+          'CHAR_J': {
+            handler: _toggleQuickLauncher
+          },
+          //우측패널 토글
           '[': {
-            handler: _toggleRightPanel,
-            isExactMatch: true,
-            isPreventDefault: true
+            handler: _toggleRightPanel
           }
-          //,
-          //'RIGHT_ARROW': {
-          //  handler: _rPanelNext,
-          //  isExactMatch: true,
-          //  isPreventDefault: true,
-          //  extraCondition: _isNotInput
-          //},
-          //'LEFT_ARROW': {
-          //  handler: _rPanelPrev,
-          //  isExactMatch: true,
-          //  isPreventDefault: true,
-          //  extraCondition: _isNotInput
-          //}
         },
         'alt': {
-
+          //파일 검색 탭
+          'NUM_1': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
+            }
+          },
+          //메세지 검색 탭
+          'NUM_2': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
+            }
+          },
+          //즐겨찾기 탭
+          'NUM_3': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
+            }
+          },
+          //멘션 탭
+          'NUM_4': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          }
         },
         'none': {
+          //중앙 input에 focus
           'ENTER': {
             handler: _setChatInputFocus,
-            isExactMatch: true,
-            isPreventDefault: true,
             extraCondition: function(keyEvent) {
               return !_isModalShown() && !_isInput($(keyEvent.target));
+            }
+          },
+          //위로 스크롤
+          'PAGE_UP': {
+            handler: function() {
+              jndPubSub.pub('hotkey-scroll-page-up');
+            }
+          },
+          //아래로 스크롤
+          'PAGE_DOWN': {
+            handler: function() {
+              jndPubSub.pub('hotkey-scroll-page-down');
             }
           }
         }
@@ -101,10 +163,13 @@
        */
       function _toggleRightPanel() {
         var index = _getCurrentRightPanelIndex();
-        if (index === -1) {
-          index = 0;
+        if (!_isLocked) {
+          _keyLock();
+          if (index === -1) {
+            index = 0;
+          }
+          jndPubSub.pub('hotkey-open-right', _rPanelMenuList[index]);
         }
-        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[index]);
       }
 
       /**
@@ -114,10 +179,21 @@
       function _rPanelNext() {
         var current = _getCurrentRightPanelIndex();
         var next = current + 1;
-        if (next === _rPanelMenuList.length) {
-          next = 0;
+
+        if (!_isLocked) {
+          _keyLock();
+          if (next === _rPanelMenuList.length) {
+            next = 0;
+          }
+          jndPubSub.pub('hotkey-open-right', _rPanelMenuList[next]);
         }
-        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[next]);
+      }
+
+      function _keyLock() {
+        _isLocked = true;
+        _lockTimer = setTimeout(function() {
+          _isLocked = false;
+        }, 100);
       }
 
       /**
@@ -127,12 +203,15 @@
       function _rPanelPrev() {
         var current = _getCurrentRightPanelIndex();
         var prev = current - 1;
-        if (current === -1) {
-          prev = 0;
-        } else if (prev === -1) {
-          prev = _rPanelMenuList.length - 1;
+        if (!_isLocked) {
+          _keyLock();
+          if (current === -1) {
+            prev = 0;
+          } else if (prev === -1) {
+            prev = _rPanelMenuList.length - 1;
+          }
+          jndPubSub.pub('hotkey-open-right', _rPanelMenuList[prev]);
         }
-        jndPubSub.pub('hotkey-open-right', _rPanelMenuList[prev]);
       }
 
       /**
@@ -155,9 +234,6 @@
         _on();
       }
 
-      function _openTeamModal() {
-        modalHelper.openTeamChangeModal(scope);
-      }
       /**
        * on listeners
        * @private
@@ -166,7 +242,7 @@
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);
-        jqBody.on('keydown', _onKeyInput);
+        _jqBody.on('keydown', _onKeyInput);
       }
 
       function _onStateChageSuccess(angularEvent, toState, toParams, fromState, fromParams) {
@@ -187,7 +263,7 @@
        * @private
        */
       function _off() {
-        jqBody
+        _jqBody
           .off('keydown', _onKeyInput);
       }
 
@@ -205,7 +281,7 @@
        */
       function onVisibilityChange() {
         if (!currentSessionHelper.isBrowserHidden()) {
-          jqBody.focus();
+          _jqBody.focus();
         }
       }
 
@@ -219,8 +295,10 @@
        * @private
        */
       function _executeHandler(keyEvent, keyHandlerObj) {
+        var isPreventDefault;
         if (_.isFunction(keyHandlerObj && keyHandlerObj.handler)) {
-          if (keyHandlerObj.isPreventDefault) {
+          isPreventDefault = _.isBoolean(keyHandlerObj.isPreventDefault) ? keyHandlerObj.isPreventDefault : true;
+          if (isPreventDefault) {
             keyEvent.preventDefault();
           }
           keyHandlerObj.handler(keyEvent);
@@ -256,6 +334,10 @@
        */
       function _getHandlerObj(keyEvent, keyName) {
         var keyHandlerObj;
+        var isExactMatch;
+        var extraCondition = function() {
+          return !_isModalShown();
+        };
         var fnKeyList = [keyEvent.shiftKey, keyEvent.ctrlKey || keyEvent.metaKey, keyEvent.altKey];
         keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
 
@@ -268,13 +350,18 @@
           });
           keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
           if (keyHandlerObj) {
-            if (keyHandlerObj.isExactMatch) {
+            isExactMatch = _.isBoolean(keyHandlerObj.isExactMatch) ? keyHandlerObj.isExactMatch : true;
+            if (isExactMatch) {
               keyHandlerObj = null;
             }
           }
         }
-        if (keyHandlerObj && _.isFunction(keyHandlerObj.extraCondition)) {
-          if (!keyHandlerObj.extraCondition(keyEvent)) {
+        if (keyHandlerObj) {
+          if (_.isFunction(keyHandlerObj.extraCondition)) {
+            extraCondition = keyHandlerObj.extraCondition;
+          }
+
+          if (!extraCondition(keyEvent)) {
             keyHandlerObj = null;
           }
         }
