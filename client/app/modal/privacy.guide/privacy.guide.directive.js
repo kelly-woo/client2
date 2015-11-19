@@ -79,7 +79,7 @@
        */
       function _showGuideText() {
         clearTimeout(_timer);
-        _timer = setTimeout(_hideGuideText, 3000);
+        _timer = setTimeout(_hideGuideText, 2000);
         _jqMsgContainer.stop().fadeIn(800);
       }
 
