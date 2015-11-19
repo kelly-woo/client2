@@ -1,3 +1,15 @@
+<a name="1.10.0-alpha.5"></a>
+# [1.10.0-alpha.5](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.4...v1.10.0-alpha.5) (2015-11-19)
+
+
+### Bug Fixes
+
+* **핫키:** ctrl + 화살표 키 disable ([1a6927b](https://github.com/tosslab/web_client/commit/1a6927b))
+* **핫키:** 댓글 창에서 줄바꿈이 Enter → Shift+Enter 만 동작하는 현상 수정 ([b20c2dc](https://github.com/tosslab/web_client/commit/b20c2dc))
+* **핫키:** 댓글 창에서 줄바꿈이 Enter → Shift+Enter 만 동작하는 현상 수정 ([a365c65](https://github.com/tosslab/web_client/commit/a365c65))
+
+
+
 <a name="1.10.0-alpha.4"></a>
 # [1.10.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.3...v1.10.0-alpha.4) (2015-11-19)
 
