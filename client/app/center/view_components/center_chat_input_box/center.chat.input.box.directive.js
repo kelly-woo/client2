@@ -60,6 +60,7 @@
        * @private
        */
       function _attachEvents() {
+        scope.$on('hotkey-upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
@@ -93,6 +94,10 @@
           mentionMembers = MentionExtractor.getMentionList(members, entityId);
           jndPubSub.pub('mentionMembersUpdate:message', mentionMembers);
         }
+      }
+
+      function _onHotkeyUpload() {
+        uploadMap['computer']();
       }
 
       /**
