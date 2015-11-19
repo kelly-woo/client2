@@ -30,16 +30,19 @@
         'shift-ctrl': {
           'CHAR_K': {
             handler: _toggleSticker,
+            isExactMatch: true,
             isPreventDefault: true
           },
           'CHAR_L': {
             handler: _togglePrivacy,
+            isExactMatch: true,
             isPreventDefault: true
           }
         },
         'shift-alt': {
           'CHAR_T': {
             handler: _openTeamModal,
+            isExactMatch: true,
             isPreventDefault: true
           }
         },
@@ -52,20 +55,24 @@
         'ctrl': {
           'CHAR_J': {
             handler: _toggleQuickLauncher,
+            isExactMatch: true,
             isPreventDefault: true
           },
           '[': {
             handler: _toggleRightPanel,
-            isPreventDefault: true
-          },
-          'RIGHT_ARROW': {
-            handler: _rPanelNext,
-            isPreventDefault: true
-          },
-          'LEFT_ARROW': {
-            handler: _rPanelPrev,
+            isExactMatch: true,
             isPreventDefault: true
           }
+          //'RIGHT_ARROW': {
+          //  handler: _rPanelNext,
+          //  isExactMatch: true,
+          //  isPreventDefault: true
+          //},
+          //'LEFT_ARROW': {
+          //  handler: _rPanelPrev,
+          //  isExactMatch: true,
+          //  isPreventDefault: true
+          //}
         },
         'alt': {
 
@@ -73,7 +80,8 @@
         'none': {
           'ENTER': {
             handler: _setChatInputFocus,
-            isPreventDefault: false
+            isExactMatch: true,
+            isPreventDefault: true
           }
         }
       };
@@ -243,6 +251,7 @@
         var keyHandlerObj;
         var fnKeyList = [keyEvent.shiftKey, keyEvent.ctrlKey || keyEvent.metaKey, keyEvent.altKey];
         keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+
         while (!_.isFunction(keyHandlerObj && keyHandlerObj.handler) && !_isFalsy(fnKeyList)) {
           _.forEach(fnKeyList, function(value, key) {
             if (value) {
@@ -251,6 +260,9 @@
             }
           });
           keyHandlerObj = keyHandlerMap[_getHandlerName.apply(this, fnKeyList)][keyName];
+          if (keyHandlerObj && keyHandlerObj.isExactMatch) {
+            keyHandlerObj = null;
+          }
         }
         return keyHandlerObj;
       }
