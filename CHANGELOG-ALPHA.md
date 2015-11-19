@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.4"></a>
+# [1.10.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.3...v1.10.0-alpha.4) (2015-11-19)
+
+
+### Bug Fixes
+
+* **핫키:** ctrl + 화살표 키 disable ([04472e1](https://github.com/tosslab/web_client/commit/04472e1))
+
+
+
 <a name="1.10.0-alpha.3"></a>
 # [1.10.0-alpha.3](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.2...v1.10.0-alpha.3) (2015-11-18)
 
