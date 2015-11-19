@@ -34,10 +34,6 @@
           'CHAR_L': {
             handler: _togglePrivacy
           },
-          //스티커 토글
-          'CHAR_K': {
-            handler: _toggleSticker
-          },
           //파일 검색 탭
           'CHAR_F': {
             handler: function() {
@@ -69,15 +65,14 @@
           //이전탭 이동
           'CHAR_COMMA': {
             handler: _rPanelPrev
+          },
+          //우측패널 토글
+          '[': {
+            handler: _toggleRightPanel,
+            isExactMatch: false
           }
         },
         'shift-alt': {
-          //팀전환
-          'CHAR_T': {
-            handler: function() {
-              modalHelper.openTeamChangeModal(scope);
-            }
-          }
         },
         'shift': {
 
@@ -85,6 +80,10 @@
         'ctrl-alt': {
         },
         'ctrl': {
+          //스티커 토글
+          'CHAR_E': {
+            handler: _toggleSticker
+          },
           //upload
           'CHAR_U': {
             handler: function() {
@@ -102,10 +101,6 @@
           //퀵 런처
           'CHAR_J': {
             handler: _toggleQuickLauncher
-          },
-          //우측패널 토글
-          '[': {
-            handler: _toggleRightPanel
           }
           //,
           //'PLUS': {
@@ -138,6 +133,12 @@
           'NUM_4': {
             handler: function() {
               jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          },
+          //팀전환
+          'CHAR_T': {
+            handler: function() {
+              modalHelper.openTeamChangeModal(scope);
             }
           }
         },
