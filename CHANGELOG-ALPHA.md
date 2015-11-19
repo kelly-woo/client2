@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.8"></a>
+# [1.10.0-alpha.8](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.7...v1.10.0-alpha.8) (2015-11-19)
+
+
+### Bug Fixes
+
+* **핫키:** 상단 바탕화면 알림 사용하기 바 노출시 사생활 보호 레이어 정상적으로 노출되지 않는 현상 수정 ([b7429a3](https://github.com/tosslab/web_client/commit/b7429a3))
+
+
+
 <a name="1.10.0-alpha.7"></a>
 # [1.10.0-alpha.7](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.6...v1.10.0-alpha.7) (2015-11-19)
 
