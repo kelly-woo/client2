@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('privacyGuide', privacyGuide);
 
-  function privacyGuide($filter, jndKeyCode, Privacy, Browser) {
+  function privacyGuide($filter, jndKeyCode, jndPubSub, Privacy, Browser) {
     return {
       restrict: 'E',
       link: link,
