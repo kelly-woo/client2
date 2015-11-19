@@ -122,6 +122,8 @@
       function _onPrivacyUnSet() {
         $('body').removeClass('blurred');
         el.hide();
+        _jqInput.blur();
+        jndPubSub.pub('setChatInputFocus');
       }
     }
   }
