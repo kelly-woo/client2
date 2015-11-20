@@ -105,7 +105,7 @@
           direction = 'old';
         }
 
-        if (scrollDiff === 0) {
+        if (scrollDiff < 10) {
           scope.clearNewMessageAlerts();
         } else if (scope.hasMoreNewMessageToLoad()) {
           scope.hasScrollToBottom = true;
