@@ -76,7 +76,7 @@
       var currentTeam = currentSessionHelper.getCurrentTeam();
       if (currentTeam.id ===  socketEvent.data.teamId) {
         jndPubSub.pub('kickedOut', socketEvent);
-        if (jndWebSocketCommon.isCurrentEntity({id: data.roomId})) {
+        if (jndWebSocketCommon.isCurrentEntity({id: socketEvent.data.roomId})) {
           jndPubSub.toDefaultTopic();
         }
         _updateLeftPanel({
