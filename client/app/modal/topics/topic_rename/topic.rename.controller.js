@@ -9,6 +9,8 @@
   function TopicRenameCtrl($scope, entityheaderAPIservice, $filter, analyticsService,
                            AnalyticsHelper, modalHelper, currentSessionHelper, jndPubSub,
                            Dialog) {
+
+
     var duplicate_name_error = 40008;
 
     var _currentEntity = currentSessionHelper.getCurrentEntity();
@@ -16,9 +18,15 @@
     var _entityType = _currentEntity.type;
     var _entityId = _currentEntity.id;
 
-    var _topicName = $scope.topicName = _currentEntity.name;
-    var _topicDescription = $scope.topicDescription = _currentEntity.description;
-    var _isAutoJoin = $scope.isAutoJoin = _currentEntity.autoJoin;
+    $scope.form = {
+      topicName: _currentEntity.name,
+      topicDescription: _currentEntity.description,
+      isAutoJoin: !!_currentEntity.autoJoin
+    };
+
+    var _topicName = $scope.form.topicName;
+    var _topicDescription = $scope.form.topicDescription;
+    var _isAutoJoin = $scope.form.isAutoJoin;
 
     $scope.hasAutoJoin = _hasAutoJoin();
 
@@ -27,7 +35,9 @@
     function _init() {
       $scope.nameMaxLength = 60;
       $scope.descMaxLength = 300;
-
+      //$scope.$watch('isAutoJoin', function() {
+      //  console.log('autojoin changed', arguments);
+      //});
       $scope.cancel = modalHelper.closeModal;
 
       $scope.onRenameClick = onRenameClick;
@@ -53,16 +63,16 @@
         _body = {};
         jndPubSub.showLoading();
 
-        if ($scope.topicName !== _currentEntity.name) {
-          _.extend(_body, {name: $scope.topicName});
+        if ($scope.form.topicName !== _currentEntity.name) {
+          _.extend(_body, {name: $scope.form.topicName});
         }
 
-        if ($scope.topicDescription !== _currentEntity.description) {
-          _.extend(_body, {description: $scope.topicDescription});
+        if ($scope.form.topicDescription !== _currentEntity.description) {
+          _.extend(_body, {description: $scope.form.topicDescription});
         }
 
-        if ($scope.isAutoJoin !== _currentEntity.autoJoin) {
-          _.extend(_body, {autoJoin: $scope.isAutoJoin});
+        if ($scope.form.isAutoJoin !== _currentEntity.autoJoin) {
+          _.extend(_body, {autoJoin: $scope.form.isAutoJoin});
         }
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)
@@ -127,9 +137,10 @@
     }
 
     function _isChanged() {
-      return $scope.topicName !== _topicName ||
-        $scope.topicDescription !== _topicDescription ||
-        $scope.isAutoJoin !== _isAutoJoin;
+      console.log($scope.form.isAutoJoin, _isAutoJoin);
+      return $scope.form.topicName !== _topicName ||
+        $scope.form.topicDescription !== _topicDescription ||
+        $scope.form.isAutoJoin !== _isAutoJoin;
     }
 
     /**
@@ -138,7 +149,7 @@
      */
     function isInvalid() {
       return !_isChanged() ||
-        $scope.topicName.length > $scope.nameMaxLength || $scope.topicDescription.length > $scope.descMaxLength;
+        $scope.form.topicName.length > $scope.nameMaxLength || $scope.form.topicDescription.length > $scope.descMaxLength;
     }
   }
 })();

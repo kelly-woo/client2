@@ -16,10 +16,13 @@
     _init();
 
     function _init() {
-      $scope.topicName = topicName || '';
-      $scope.topicDescription = '';
+      $scope.form = {
+        topicName: topicName || '',
+        topicDescription: '',
+        isAutoJoin: false
+      };
+
       $scope.entityType = 'public';
-      $scope.isAutoJoin = false;
       $scope.nameMaxLength = 60;
       $scope.descMaxLength = 300;
 
@@ -40,12 +43,12 @@
       if (!$scope.isLoading && !form.$invalid) {
         _entityType = $scope.entityType === 'private' ? 'privateGroup' : 'channel';
         _body = {
-          name: $scope.topicName,
-          autoJoin:  $scope.isAutoJoin
+          name: $scope.form.topicName,
+          autoJoin:  $scope.form.isAutoJoin
         };
 
-        if (!!$scope.topicDescription) {
-          _body.description = $scope.topicDescription;
+        if (!!$scope.form.topicDescription) {
+          _body.description = $scope.form.topicDescription;
         }
 
         jndPubSub.showLoading();

@@ -19,10 +19,10 @@
                  type="text"
                  name="entityName"
                  id="topic-create-name"
-                 jnd-input-model="topicName"
+                 jnd-input-model="form.topicName"
                  jnd-is-trim="on"
                  placeholder="{{ ::'@input-create-ch' | translate }}"/>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
@@ -60,7 +60,7 @@
       </label>
       <div class="col-sm-9">
         <div class="modal-body-auto-invite-container">
-          <input type="checkbox" id="topic-auto-invite" ng-model="isAutoJoin">
+          <input type="checkbox" id="topic-auto-invite" ng-model="form.isAutoJoin">
           <label for="topic-auto-invite">
             <div class="auto-invite-description">
               <span translate>@common-invite-all</span>
@@ -81,13 +81,13 @@
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
-            jnd-input-model="topicDescription"
+            jnd-input-model="form.topicDescription"
             jnd-is-trim="on"
             placeholder="{{ ::'@topic-description-placeholder' | translate }}"
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > descMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicDescription.length > descMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
@@ -97,7 +97,7 @@
 
   <div class="modal-footer">
     <span class="btn btn-cancel" ng-click="cancel();">{{ ::'@btn-close' | translate }}</span>
-    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ ::'@btn-create' | translate }}" ng-disabled="!topicName.length" />
+    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ ::'@btn-create' | translate }}" ng-disabled="!form.topicName.length" />
   </div>
 </form>
 <jnd-loading></jnd-loading>
