@@ -1,3 +1,19 @@
+<a name="1.10.0-alpha.13"></a>
+# [1.10.0-alpha.13](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.12...v1.10.0-alpha.13) (2015-11-20)
+
+
+### Bug Fixes
+
+* **alpha:** body 스타일 제거 ([e4c32a2](https://github.com/tosslab/web_client/commit/e4c32a2))
+* **center:** zoom 추가로 인해 new message 레이블 지우는 코드 threshold 추가 ([82ae50f](https://github.com/tosslab/web_client/commit/82ae50f))
+* **notification:** 토픽 초대 시 Hello World! 노티 노출되는 현상 수정 ([f2d4223](https://github.com/tosslab/web_client/commit/f2d4223))
+* **socket:** 강퇴 reference 오류 수정 ([4a5b145](https://github.com/tosslab/web_client/commit/4a5b145))
+* **socket:** 강퇴 reference 오류 수정 #2 ([e07fef0](https://github.com/tosslab/web_client/commit/e07fef0))
+* **socket:** 강퇴 reference 오류 수정 #3 ([30e97ed](https://github.com/tosslab/web_client/commit/30e97ed))
+* **socket:** 초대 및 강퇴 버그 수정 ([0630500](https://github.com/tosslab/web_client/commit/0630500))
+
+
+
 <a name="1.10.0-alpha.12"></a>
 # [1.10.0-alpha.12](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.11...v1.10.0-alpha.12) (2015-11-20)
 
