@@ -8,17 +8,22 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser,
+                             JndLocalStorage) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope) {
+      var MAX_SCALE = 1.30;
+      var MIN_SCALE = 0.70;
+
       var _isActivated = false;
       var _jqBody = $('body');
       var _isLocked = false;
       var _lockTimer;
+
       var _currentScale = 1;
       var _rPanelMenuList = [
         'files',
@@ -108,14 +113,16 @@
           //퀵 런처
           'CHAR_J': {
             handler: _toggleQuickLauncher
+          },
+          'PLUS': {
+            handler: _zoomIn
+          },
+          'MINUS': {
+            handler: _zoomOut
+          },
+          'NUM_0': {
+            handler: _zoomReset
           }
-          //,
-          //'PLUS': {
-          //  handler: _zoomIn
-          //},
-          //'MINUS': {
-          //  handler: _zoomOut
-          //}
         },
         'alt': {
           //파일 검색 탭
@@ -178,12 +185,26 @@
         $('._modalEnter').trigger('click');
       }
       /**
+       * zoom 을 초기화 한다
+       * @private
+       */
+      function _zoomReset() {
+        _currentScale = 1;
+        _setZoom();
+      }
+
+      /**
        * zoom in
        * @private
        */
       function _zoomIn() {
         _currentScale += 0.01;
-        _setZoom();
+        _currentScale = Math.ceil(_currentScale * 100) / 100;
+        if (_currentScale > MAX_SCALE) {
+          _currentScale = MAX_SCALE;
+        } else {
+          _setZoom();
+        }
       }
 
       /**
@@ -191,20 +212,17 @@
        * @private
        */
       function _setZoom() {
-        $('.content-wrapper').css({
-          'zoom': _currentScale,
-          'transform': 'scale('+_currentScale+')',
-          '-ms-transform': 'scale('+_currentScale+')',
-          '-moz-transform': 'scale('+_currentScale+')',
-          '-webkit-transform': 'scale('+_currentScale+')',
-          'transform-origin': 'left top',
-          '-ms-transform-origin': 'left top',
-          '-moz-transform-origin': 'left top',
-          '-webkit-transform-origin': 'left top',
-          'position': 'absolute',
-          'width': '100%',
-          'height': '100%'
-        });
+        _currentScale = _.isNumber(_currentScale) ? _currentScale : 1;
+        if (_currentScale < MIN_SCALE) {
+          _currentScale = MIN_SCALE;
+        } else if (_currentScale > MAX_SCALE) {
+          _currentScale = MAX_SCALE;
+        } else {
+          JndLocalStorage.set(0, 'zoom', _currentScale);
+          $('.content-wrapper').css({
+            'zoom': _currentScale
+          });
+        }
       }
 
       /**
@@ -213,7 +231,12 @@
        */
       function _zoomOut() {
         _currentScale -= 0.01;
-        _setZoom();
+        _currentScale = Math.ceil(_currentScale * 100) / 100;
+        if (_currentScale < MIN_SCALE) {
+          _currentScale = MIN_SCALE;
+        } else {
+          _setZoom();
+        }
       }
 
       /**
@@ -290,14 +313,26 @@
        */
       function _init() {
         _setActiveStatus();
-        _on();
+        _attachEvents();
+
+      }
+
+      /**
+       * zoom 상태를 초기화 한다
+       * @private
+       */
+      function _initializeZoom() {
+        _currentScale = JndLocalStorage.get(0, 'zoom') || 1;
+        _currentScale = parseFloat(_currentScale) || 1;
+        _setZoom();
       }
 
       /**
        * on listeners
        * @private
        */
-      function _on() {
+      function _attachEvents() {
+        scope.$on('dataInitDone', _initializeZoom);
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);
