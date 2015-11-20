@@ -59,7 +59,7 @@
     function send() {
       var emails;
 
-      if (!$scope.isLoading && !$scope.inviteDisabled && $scope.isInviteDone) {
+      if (!$scope.isLoading && !$scope.inviteDisabled && $scope.emails.length) {
         $scope.isLoading = true;
 
         emails = $scope.emails;
