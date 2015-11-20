@@ -174,7 +174,7 @@
        * @private
        */
       function _onMemberUpdate() {
-        jndPubSub.pub('right:updateFile');
+        jndPubSub.pub('fileDetail:updateFile');
       }
 
       /**
@@ -300,7 +300,7 @@
             return item.name.toLowerCase();
           }).value();
 
-          jndPubSub.pub('mentionMembersUpdate:comment', mentionMembers);
+          jndPubSub.pub('mentionahead:comment', mentionMembers);
         }
       }
     }
