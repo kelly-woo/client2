@@ -61,7 +61,7 @@
     function _attachEvents(options) {
       var type = options.attrs.mentionaheadType;
 
-      $scope.$on('mentionMembersUpdate:' + type, _onMentionMembersUpdate);
+      $scope.$on('mentionahead:' + type, _onMentionMembersUpdate);
     }
 
     /**

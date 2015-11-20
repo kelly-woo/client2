@@ -180,7 +180,7 @@
         var file = scope.file;
 
         if (data.file.id == file.id) {
-          jndPubSub.pub('right:updateFile');
+          jndPubSub.pub('fileDetail:updateFile');
         }
       }
 
@@ -194,7 +194,7 @@
         var file = scope.file;
 
         if (data.file.id == file.id) {
-          jndPubSub.pub('right:updateFile');
+          jndPubSub.pub('fileDetail:updateFile');
         }
       }
 
@@ -237,7 +237,7 @@
         } else {
           // topic이 삭제되어 leftside menu가 update되어야 사용자에게 update된 file detail을 보여줄 수 있다.
           setTimeout(function() {
-            jndPubSub.pub('right:updateFile');
+            jndPubSub.pub('fileDetail:updateFile');
           }, 800);
         }
       }
