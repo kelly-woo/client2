@@ -1,3 +1,9 @@
+<a name="1.10.0-alpha.11"></a>
+# [1.10.0-alpha.11](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.10...v1.10.0-alpha.11) (2015-11-20)
+
+
+
+
 <a name="1.10.0-alpha.10"></a>
 # [1.10.0-alpha.10](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.9...v1.10.0-alpha.10) (2015-11-19)
 
