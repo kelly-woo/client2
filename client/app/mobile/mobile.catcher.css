@@ -1,3 +1,8 @@
+.mobile-view {
+    top: 0px !important;
+    text-align: center;
+    overflow: auto;
+}
 .mobile-catcher {
     overflow: hidden;
     opacity: 0;
