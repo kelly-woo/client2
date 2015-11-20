@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser) {
     return {
       restrict: 'A',
       link: link
@@ -101,14 +101,13 @@
           //퀵 런처
           'CHAR_J': {
             handler: _toggleQuickLauncher
+          },
+          'PLUS': {
+            handler: _zoomIn
+          },
+          'MINUS': {
+            handler: _zoomOut
           }
-          //,
-          //'PLUS': {
-          //  handler: _zoomIn
-          //},
-          //'MINUS': {
-          //  handler: _zoomOut
-          //}
         },
         'alt': {
           //파일 검색 탭
@@ -181,20 +180,11 @@
        * @private
        */
       function _setZoom() {
-        $('.content-wrapper').css({
-          'zoom': _currentScale,
-          'transform': 'scale('+_currentScale+')',
-          '-ms-transform': 'scale('+_currentScale+')',
-          '-moz-transform': 'scale('+_currentScale+')',
-          '-webkit-transform': 'scale('+_currentScale+')',
-          'transform-origin': 'left top',
-          '-ms-transform-origin': 'left top',
-          '-moz-transform-origin': 'left top',
-          '-webkit-transform-origin': 'left top',
-          'position': 'absolute',
-          'width': '100%',
-          'height': '100%'
-        });
+        if (!Browser.firefox) {
+          $('.content-wrapper').css({
+            'zoom': _currentScale
+          });
+        }
       }
 
       /**
