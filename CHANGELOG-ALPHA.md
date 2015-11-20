@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.17"></a>
+# [1.10.0-alpha.17](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.16...v1.10.0-alpha.17) (2015-11-20)
+
+
+### Bug Fixes
+
+* **자동참여:** ng-bind 오류 수정 ([051df86](https://github.com/tosslab/web_client/commit/051df86))
+
+
+
 <a name="1.10.0-alpha.16"></a>
 # [1.10.0-alpha.16](https://github.com/tosslab/web_client/compare/v1.9.3...v1.10.0-alpha.16) (2015-11-20)
 
