@@ -203,10 +203,16 @@
        */
       function _setZoom() {
         _currentScale = _.isNumber(_currentScale) ? _currentScale : 1;
-        JndLocalStorage.set(0, 'zoom', _currentScale);
-        $('.content-wrapper').css({
-          'zoom': _currentScale
-        });
+        if (_currentScale < MIN_SCALE) {
+          _currentScale = MIN_SCALE;
+        } else if (_currentScale > MAX_SCALE) {
+          _currentScale = MAX_SCALE;
+        } else {
+          JndLocalStorage.set(0, 'zoom', _currentScale);
+          $('.content-wrapper').css({
+            'zoom': _currentScale
+          });
+        }
       }
 
       /**
@@ -307,7 +313,7 @@
        */
       function _initializeZoom() {
         _currentScale = JndLocalStorage.get(0, 'zoom') || 1;
-        _currentScale = parseInt(_currentScale, 10);
+        _currentScale = parseFloat(_currentScale) || 1;
         _setZoom();
       }
 
