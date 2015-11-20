@@ -107,6 +107,9 @@
           },
           'MINUS': {
             handler: _zoomOut
+          },
+          'NUM_0': {
+            handler: _zoomReset
           }
         },
         'alt': {
@@ -165,6 +168,15 @@
       };
 
       _init();
+
+      /**
+       * zoom 을 초기화 한다
+       * @private
+       */
+      function _zoomReset() {
+        _currentScale = 1;
+        _setZoom();
+      }
 
       /**
        * zoom in
