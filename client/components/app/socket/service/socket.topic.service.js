@@ -81,7 +81,7 @@
         }
         _updateLeftPanel({
           topic: {
-            id: data.roomId
+            id: socketEvent.data.roomId
           }
         });
       }
