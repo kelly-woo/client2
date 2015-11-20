@@ -8,17 +8,22 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser,
+                             JndLocalStorage) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope) {
+      var MAX_SCALE = 1.30;
+      var MIN_SCALE = 0.70;
+
       var _isActivated = false;
       var _jqBody = $('body');
       var _isLocked = false;
       var _lockTimer;
+
       var _currentScale = 1;
       var _rPanelMenuList = [
         'files',
@@ -184,7 +189,12 @@
        */
       function _zoomIn() {
         _currentScale += 0.01;
-        _setZoom();
+        _currentScale = Math.ceil(_currentScale * 100) / 100;
+        if (_currentScale > MAX_SCALE) {
+          _currentScale = MAX_SCALE;
+        } else {
+          _setZoom();
+        }
       }
 
       /**
@@ -192,11 +202,11 @@
        * @private
        */
       function _setZoom() {
-        if (!Browser.firefox) {
-          $('.content-wrapper').css({
-            'zoom': _currentScale
-          });
-        }
+        _currentScale = _.isNumber(_currentScale) ? _currentScale : 1;
+        JndLocalStorage.set(0, 'zoom', _currentScale);
+        $('.content-wrapper').css({
+          'zoom': _currentScale
+        });
       }
 
       /**
@@ -205,7 +215,12 @@
        */
       function _zoomOut() {
         _currentScale -= 0.01;
-        _setZoom();
+        _currentScale = Math.ceil(_currentScale * 100) / 100;
+        if (_currentScale < MIN_SCALE) {
+          _currentScale = MIN_SCALE;
+        } else {
+          _setZoom();
+        }
       }
 
       /**
@@ -282,14 +297,26 @@
        */
       function _init() {
         _setActiveStatus();
-        _on();
+        _attachEvents();
+
+      }
+
+      /**
+       * zoom 상태를 초기화 한다
+       * @private
+       */
+      function _initializeZoom() {
+        _currentScale = JndLocalStorage.get(0, 'zoom') || 1;
+        _currentScale = parseInt(_currentScale, 10);
+        _setZoom();
       }
 
       /**
        * on listeners
        * @private
        */
-      function _on() {
+      function _attachEvents() {
+        scope.$on('dataInitDone', _initializeZoom);
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);
