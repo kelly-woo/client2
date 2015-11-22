@@ -16,15 +16,15 @@
     };
 
     function link(scope) {
-      var MAX_SCALE = 1.30;
-      var MIN_SCALE = 0.70;
+      var MAX_ZOOM_SCALE = 1.30;
+      var MIN_ZOOM_SCALE = 0.70;
 
       var _isActivated = false;
       var _jqBody = $('body');
       var _isLocked = false;
       var _lockTimer;
 
-      var _currentScale = 1;
+      var _currentZoomScale = 1;
       var _rPanelMenuList = [
         'files',
         'messages',
@@ -189,7 +189,7 @@
        * @private
        */
       function _zoomReset() {
-        _currentScale = 1;
+        _currentZoomScale = 1;
         _setZoom();
       }
 
@@ -198,10 +198,10 @@
        * @private
        */
       function _zoomIn() {
-        _currentScale += 0.01;
-        _currentScale = Math.ceil(_currentScale * 100) / 100;
-        if (_currentScale > MAX_SCALE) {
-          _currentScale = MAX_SCALE;
+        _currentZoomScale += 0.01;
+        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        if (_currentZoomScale > MAX_ZOOM_SCALE) {
+          _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
           _setZoom();
         }
@@ -212,15 +212,15 @@
        * @private
        */
       function _setZoom() {
-        _currentScale = _.isNumber(_currentScale) ? _currentScale : 1;
-        if (_currentScale < MIN_SCALE) {
-          _currentScale = MIN_SCALE;
-        } else if (_currentScale > MAX_SCALE) {
-          _currentScale = MAX_SCALE;
+        _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
+        if (_currentZoomScale < MIN_ZOOM_SCALE) {
+          _currentZoomScale = MIN_ZOOM_SCALE;
+        } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
+          _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
-          JndLocalStorage.set(0, 'zoom', _currentScale);
+          JndLocalStorage.set(0, 'zoom', _currentZoomScale);
           $('.content-wrapper').css({
-            'zoom': _currentScale
+            'zoom': _currentZoomScale
           });
         }
       }
@@ -230,10 +230,10 @@
        * @private
        */
       function _zoomOut() {
-        _currentScale -= 0.01;
-        _currentScale = Math.ceil(_currentScale * 100) / 100;
-        if (_currentScale < MIN_SCALE) {
-          _currentScale = MIN_SCALE;
+        _currentZoomScale -= 0.01;
+        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        if (_currentZoomScale < MIN_ZOOM_SCALE) {
+          _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
           _setZoom();
         }
@@ -322,8 +322,8 @@
        * @private
        */
       function _initializeZoom() {
-        _currentScale = JndLocalStorage.get(0, 'zoom') || 1;
-        _currentScale = parseFloat(_currentScale) || 1;
+        _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
+        _currentZoomScale = parseFloat(_currentZoomScale) || 1;
         _setZoom();
       }
 
