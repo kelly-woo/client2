@@ -1,3 +1,14 @@
+<a name="1.10.0-alpha.19"></a>
+# [1.10.0-alpha.19](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.18...v1.10.0-alpha.19) (2015-11-22)
+
+
+### Bug Fixes
+
+* **zoom:** modal 에도 zoom level 적용되도록 수정 ([f022d39](https://github.com/tosslab/web_client/commit/f022d39))
+* **레이아웃:** body 높이를 직접 수정하지 않고 css 에서 처리하도록 수정 ([32563fb](https://github.com/tosslab/web_client/commit/32563fb))
+
+
+
 <a name="1.10.0-alpha.18"></a>
 # [1.10.0-alpha.18](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.17...v1.10.0-alpha.18) (2015-11-22)
 
