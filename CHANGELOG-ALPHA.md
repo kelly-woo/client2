@@ -1,3 +1,13 @@
+<a name="1.10.0-alpha.18"></a>
+# [1.10.0-alpha.18](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.17...v1.10.0-alpha.18) (2015-11-22)
+
+
+### Bug Fixes
+
+* **center:** onClick 이벤트에 강제로 digest 할 수 있도록 safeApply 적용 ([735ae32](https://github.com/tosslab/web_client/commit/735ae32))
+
+
+
 <a name="1.10.0-alpha.17"></a>
 # [1.10.0-alpha.17](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.16...v1.10.0-alpha.17) (2015-11-20)
 
