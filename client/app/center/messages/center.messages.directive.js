@@ -11,7 +11,7 @@
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
-                                   EntityMapManager) {
+                                   EntityMapManager, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -286,16 +286,25 @@
         var jqTarget = $(clickEvent.target);
         var id = jqTarget.closest('.msgs-group').attr('id');
         var msg = MessageCollection.get(id);
+        var hasAction = false;
 
         //star 클릭 시
         if (jqTarget.closest('._star').length) {
           _onClickStar(msg);
+          hasAction = true;
         } else if (jqTarget.closest('._user').length) {
           _onClickUser(msg);
+          hasAction = true;
         } else if (jqTarget.closest('._fileShare').length) {
           _onClickFileShare(msg);
+          hasAction = true;
         } else if (jqTarget.closest('._fileGo').length) {
           _onClickFileGo(msg);
+          hasAction = true;
+        }
+
+        if (hasAction) {
+          JndUtil.safeApply(scope);
         }
       }
 
