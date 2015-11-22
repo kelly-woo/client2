@@ -73,6 +73,9 @@ input[type="email"] {
 .body-wrapper {
   position: relative;
 }
+.body-wrapper.has-banner {
+  height: calc(100% - 40px);
+}
 /* temporary fix icon-style */
 .icon-star-off.icon-star-on:before {
   content: "\e651";
@@ -102,6 +105,10 @@ input[type="email"] {
 .body.full-screen {
   top: 42px;
 }
+.body.has-banner {
+  height: calc(100% - 40px);
+}
+
 .title__divider {
   width: 90px;
   height: 1px;
