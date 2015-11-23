@@ -29,10 +29,8 @@
           callback: _onNotificationClicked,
           data: socketEvent
         };
+        (notification = _createInstance(options)) && notification.show();
       }
-
-      (notification = _createInstance(options)) && notification.show();
-
     }
 
     /**
