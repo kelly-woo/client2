@@ -997,9 +997,10 @@ module.exports = function (grunt) {
     }
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
-    grunt.config.set('bump.options.createTag', true);
-    grunt.config.set('conventionalChangelog.release.src', 'CHANGELOG-ALPHA.md');
-    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
+    //grunt.config.set('bump.options.createTag', true);
+    //grunt.config.set('conventionalChangelog.release.src', 'CHANGELOG-ALPHA.md');
+    //grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
+    grunt.task.run(['bump:' + target + ':bump-only', 'bump::commit-only']);
   });
 
   /**
