@@ -301,15 +301,6 @@
      }
 
      /**
-      * 인자로 받은 value 에 해당하는 엘리먼트에 focus 처리한다
-      * @param {string|number} value
-      * @private
-      */
-     function _focusByValue(value) {
-       _focus(_getTargetByValue(value));
-     }
-
-     /**
       * scroll 위치를 조정한다
       * @private
       */
@@ -321,6 +312,11 @@
        }
      }
 
+     /**
+      * 최 상단 scroll 로 돌아가도록 수정
+      * @param {object} jqTarget
+      * @private
+      */
      function _toScrollTop(jqTarget) {
        jqTarget = jqTarget || _jqCurrent;
        var jqContainer = jqTarget.closest('._container');
