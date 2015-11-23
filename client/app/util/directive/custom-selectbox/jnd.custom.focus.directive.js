@@ -210,9 +210,9 @@
      }
 
      /**
-      *
-      * @param angularEvent
-      * @param value
+      * value 값을 이용하여 focus 한다
+      * @param {object} angularEvent
+      * @param {number|string} value
       * @private
       */
      function _onFocusByValue(angularEvent, value) {
