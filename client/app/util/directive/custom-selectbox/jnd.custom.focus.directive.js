@@ -44,6 +44,7 @@
      function _attachEvents() {
        scope.$on('custom-focus:blur', _blur);
        scope.$on('custom-focus:focus', _onFocus);
+       scope.$on('custom-focus:focus-value', _onFocusByValue);
        scope.$on('custom-focus:focus-next', _focusNext);
        scope.$on('custom-focus:focus-prev', _focusPrev);
      }
@@ -130,12 +131,36 @@
       * @private
       */
      function _initialSelect() {
+       var jqTarget;
        if (scope.selectedValue) {
-         _focusByValue(scope.selectedValue);
-       } else {
-         _focus();
+         jqTarget = _getTargetByValue(scope.selectedValue);
        }
+
+       _focus(jqTarget);
+       _toScrollTop();
+
        _select(_jqCurrent, true);
+     }
+
+     /**
+      *
+      * @param value
+      * @returns {*}
+      * @private
+      */
+     function _getTargetByValue(value) {
+       var jqList = el.find('._selectable');
+       var jqEl;
+       var jqTarget = jqList.eq(0);
+
+       _.forEach(jqList, function (el, index) {
+         jqEl = angular.element(el);
+         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
+           jqTarget = jqEl;
+           return false;
+         }
+       });
+       return jqTarget;
      }
 
      /**
@@ -182,6 +207,16 @@
       */
      function _onFocus(angularEvent, jqTarget) {
        _focus(jqTarget);
+     }
+
+     /**
+      *
+      * @param angularEvent
+      * @param value
+      * @private
+      */
+     function _onFocusByValue(angularEvent, value) {
+       _focus(_getTargetByValue(value));
      }
 
      /**
@@ -271,19 +306,7 @@
       * @private
       */
      function _focusByValue(value) {
-       var jqList = el.find('._selectable');
-       var jqEl;
-       var jqTarget = jqList.eq(0);
-
-       _.forEach(jqList, function (el, index) {
-         jqEl = angular.element(el);
-         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
-           jqTarget = jqEl;
-           return false;
-         }
-       });
-
-       _focus(jqTarget);
+       _focus(_getTargetByValue(value));
      }
 
      /**
@@ -295,6 +318,18 @@
        var scrollTop = jqContainer.scrollTop();
        if (jqContainer.length) {
          jqContainer.scrollTop(scrollTop + _getDifference());
+       }
+     }
+
+     function _toScrollTop(jqTarget) {
+       jqTarget = jqTarget || _jqCurrent;
+       var jqContainer = jqTarget.closest('._container');
+       var scrollTop = jqContainer.scrollTop();
+       var currentOffset = jqTarget.offset();
+       var offset = jqContainer.offset();
+       var difference = currentOffset.top - offset.top;
+       if (jqContainer.length) {
+         jqContainer.scrollTop(scrollTop + difference);
        }
      }
 
