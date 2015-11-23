@@ -1,3 +1,8 @@
+.mobile-view {
+    top: 0px !important;
+    text-align: center;
+    overflow: auto;
+}
 .mobile-catcher {
     overflow: hidden;
     opacity: 0;
@@ -6,55 +11,66 @@
     -ms-transition: opacity 0.7s;
     -o-transition: opacity 0.7s;
     transition: opacity 0.7s;
+    text-align: center;
 }
 
-.signin-mobile-background-img {
-    width: 100%;
+.signin-mobile-bg-img {
+    width: 105px;
+    padding-top: 14px;
+    padding-bottom: 13px;
+}
+.signin-mobile-line {
+    width: 300px;
+    display: block;
+    margin: 32px auto;
 }
 
-
-.mobile-catcher #download {
+.mobile-view #download {
     background-color: white;
-    position: absolute;
     width: 100%;
+    height: 100%;
     padding: 10px;
-    bottom: 0;
     text-align: center;
     border-top: 1px solid #e1e1e1;
 }
 .download-title {
     padding-top: 5px;
+    font-weight: 400;
+    line-height: 22px;
+    font-size: 14px;
+    color: #717f8c;
 }
-.mobile-catcher #download .btn {
+.mobile-view #download .btn {
     display: block;
     margin: 11px auto !important;
-    height: 46px;
-    width: 100%;
-    font-size: 16px;
-
+    height: 36px;
+    min-width: 120px;
+    font-size: 15px;
+    font-weight: 500;
 }
 #download hr {
     border-width: 2px;
-    width: 150px;
-
+    width: 96%;
+    margin-top: 34px !important;
+    margin-bottom: 30px !important;
 }
-.mobile-catcher #download h1,
-.mobile-catcher #download h2 {
-    font-weight: 300;
-}
-.mobile-catcher #download h1 {
-    font-size: 18px;
-    margin-bottom: 15px;
+.mobile-view #download h1 {
+    font-size: 21px;
+    margin-bottom: 10px;
     padding: 0 15px;
+    color: #142547;
+    font-weight: 500;
 }
-.mobile-catcher #download h2 {
-    line-height: 32px;
-    font-size: 16px;
+.mobile-view #download h2 {
+    font-weight: 400;
+    line-height: 22px;
+    font-size: 15px;
     margin-top: 0;
-    color: #666;
+    color: #717f8c;
     padding: 0 10px;
+    margin-bottom: 15px !important;
 }
 .download-badge img {
-    width: 150px;
+    width: 146px;
     padding: 5px 0;
 }
