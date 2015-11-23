@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('jndSelectboxRoom', jndSelectboxRoom);
 
-  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil, jndPubSub) {
+  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil, jndPubSub,
+                            memberService) {
     return {
       restrict: 'AE',
       link: link,
@@ -251,15 +252,18 @@
        * @private
        */
       function _getMemberData() {
+        var currentMemberId = memberService.getMemberId();
         var memberMap = EntityMapManager.getMap('member');
         var enabledList = [];
         var disabledList = [];
         _.each(memberMap, function(member) {
           if (!_filterMap || (_filterMap && _filterMap[member.id])) {
-            if (publicService.isDisabledMember(member)) {
-              disabledList.push(member);
-            } else {
-              enabledList.push(member)
+            if(currentMemberId !== member.id) {
+              if (publicService.isDisabledMember(member)) {
+                disabledList.push(member);
+              } else {
+                enabledList.push(member)
+              }
             }
           }
         });
