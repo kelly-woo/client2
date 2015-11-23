@@ -1448,10 +1448,10 @@ input[type="radio"] {
 .zoom-msg-container .icon-text-zoom {
   background-image: url('../assets/images/img-zoom-status.svg');
   background-size: cover;
-  width: 162px;
-  height: 94px;
+  width: 145px;
+  height: 84px;
   position: absolute;
-  top:0;
-  left: -16px;
+  top:6px;
+  left: -8px;
   
 }
