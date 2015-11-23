@@ -964,10 +964,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
           //console.log('::_onUpdateListSuccess', lastMessageId);
           jndPubSub.pub('onMessageDeleted');
-          //  marker 설정
-          if (_hasBrowserFocus()) {
-            updateMessageMarker();
-          }
           _checkEntityMessageStatus();
         }
       }
