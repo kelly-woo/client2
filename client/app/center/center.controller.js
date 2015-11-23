@@ -190,7 +190,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         } else {
           loadMore();
         }
-
       }
     }
   }
@@ -661,7 +660,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           //  marker 설정
           if (!$scope.isInitialLoadingCompleted || _hasBrowserFocus()) {
-            updateMessageMarker();
+            _clearBadgeCount($scope.currentEntity);
           }
           _getCurrentRoomInfo();
 
