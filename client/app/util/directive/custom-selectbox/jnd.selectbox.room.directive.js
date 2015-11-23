@@ -272,8 +272,16 @@
             _.each(_getAllEntities(), function (entity) {
               start = entity.name.toLowerCase().search(keyword);
               if (start !== -1) {
-                entity.extSearchName = _highlight(entity.name, start, keyword.length);
-                result.push(entity);
+                if (scope.isShowDisabled) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  if (publicService.isDisabledMember(entity)) {
+                    entity.extSearchName = '<del>' + entity.extSearchName + '</del>';
+                  }
+                  result.push(entity);
+                } else if (!publicService.isDisabledMember(entity)) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  result.push(entity);
+                }
               }
             });
           }
