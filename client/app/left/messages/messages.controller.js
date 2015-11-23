@@ -16,9 +16,6 @@
     // failed - failed to retrieve list from server.
     $scope.messageListLoadingStatus = 'okay';
 
-    // no longer used in this controller. ready to remove?
-    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
-
     $scope.messageList;
     $scope.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
 
@@ -125,7 +122,6 @@
 
     function _generateMessageList(messages) {
       var messageList = [];
-      var _currentEntity;
 
       EntityMapManager.reset('memberEntityId');
       messages = _.uniq(messages, 'entityId');
@@ -139,6 +135,7 @@
             //현재 activate DM 이 아닌곳에 한해서 unread count 를 업데이트 한다.
             if (!_isActiveCurrentDm(entity)) {
               entityAPIservice.updateBadgeValue(entity, message.unread);
+              console.log('### not active!', entity);
             }
           }
 
@@ -158,8 +155,9 @@
      * @private
      */
     function _isActiveCurrentDm(entity) {
-      return $scope.currentEntity &&
-        ($scope.currentEntity.id === entity.id) &&
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+      return currentEntity &&
+        (currentEntity.id === entity.id) &&
         centerService.hasBottomReached() &&
         !currentSessionHelper.isBrowserHidden();
     }
