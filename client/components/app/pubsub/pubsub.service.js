@@ -13,6 +13,7 @@
   function jndPubSub($rootScope, $timeout) {
     var that = this;
     var badgeTimer;
+    var leftPanelTimer;
     that.pub = publish;
 
     that.updateLeftPanel = updateLeftPanel;
@@ -58,8 +59,11 @@
      * 레프트 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
     function updateLeftPanel() {
-      $rootScope.$broadcast('updateLeftPanelCaller');
-      updateBadgePosition();
+      $timeout.cancel(leftPanelTimer);
+      leftPanelTimer = $timeout(function() {
+        $rootScope.$broadcast('updateLeftPanelCaller');
+        updateBadgePosition();
+      }, 100);
     }
 
     /**
