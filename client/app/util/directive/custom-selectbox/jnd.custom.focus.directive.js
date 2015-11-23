@@ -143,8 +143,8 @@
      }
 
      /**
-      *
-      * @param value
+      * value 값으로 해당 element 를 반환한다
+      * @param {number|string} value
       * @returns {*}
       * @private
       */
