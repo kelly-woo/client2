@@ -8,7 +8,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
+  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
                              TopicFolderModel, jndPubSub) {
@@ -21,11 +21,10 @@
     var fileIdMap = {};
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
     var _isActivated;
-
+    var _timerSearch;
     _init();
 
     function _init() {
-      console.log('### INIT');
       $scope.searchStatus = {
         keyword: '',
         length: ''
@@ -202,7 +201,7 @@
         // 최초 load가 수행되지 않았다면 file list 갱신함
         if ((data.toUrl !== data.fromUrl) &&
           data.fromTitle !== 'FILE DETAIL' &&
-          !initialLoadDone) {
+          (!initialLoadDone || $scope.fileRequest.keyword)) {
           _resetSearchStatusKeyword();
           _refreshFileList();
         }
@@ -300,8 +299,15 @@
 
     function _refreshFileList() {
       if (_isFileTabActive() && $scope.isConnected) {
-        preLoadingSetup();
-        getFileList();
+        /*
+          rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+         중복 호출을 방지하기 위하여 timeout 을 사용한다
+         */
+        $timeout.cancel(_timerSearch);
+        _timerSearch = $timeout(function() {
+          preLoadingSetup();
+          getFileList();
+        }, 100);
       }
     }
 
