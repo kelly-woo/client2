@@ -45,9 +45,10 @@
                   ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   maxlength=""
                   placeholder="{{::'@placeholder-input-message' | translate }}"
-                  jnd-elastic
+                  jnd-elastic="message"
                   jnd-elastic-on-change="onMessageInputChange($event)"
-                  mentionahead></textarea>
+                  mentionahead
+                  mentionahead-type="message"></textarea>
       </form>
     </div>
       

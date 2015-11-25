@@ -239,7 +239,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
 
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
-    $scope.$on('elastic:resize', _onElasticResize);
+    $scope.$on('elasticResize:message', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
     $scope.$on('centerUpdateChatList', updateList);
