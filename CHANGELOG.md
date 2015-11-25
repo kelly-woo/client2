@@ -1,3 +1,129 @@
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.19...v1.10.0) (2015-11-25)
+
+
+### Bug Fixes
+
+* **left:** reconnect 시 update left panel 호출하도록 수정 ([eaec055](https://github.com/tosslab/web_client/commit/eaec055))
+* **socket:** member 정보 업데이트하는 socket 이벤트 로직 보강 ([9a01ca3](https://github.com/tosslab/web_client/commit/9a01ca3))
+
+
+
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/tosslab/web_client/compare/v1.9.2...v1.9.3) (2015-11-20)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.9.1...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.15...v1.9.3) (2015-11-20)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.9.1...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.14...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.8...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.8...v1.9.0) (2015-11-18)
+
+
+### Bug Fixes
+
+* **center:**  파일 > cog 버튼으로> "댓글남기기" 불가 한 현상 수정 ([2f54f3d](https://github.com/tosslab/web_client/commit/2f54f3d))
+
+
+
+<a name="1.8.5"></a>
+## [1.8.5](https://github.com/tosslab/web_client/compare/v1.8.4...v1.8.5) (2015-11-18)
+
+
+### Bug Fixes
+
+* **left-토픽 헤더:** 토픽 헤더에 on over 이벤트 발생 시 뱃지가 존재할 경우 버튼 숨기는 로직 추가 ([a12e350](https://github.com/tosslab/web_client/commit/a12e350))
+* **modal:** Dialog modal open시 항상 focus가도록 하는 option 추가 ([382e797](https://github.com/tosslab/web_client/commit/382e797))
+* **modal:** modal이 닫혀도 dom element가 사라지지 않는 버그 수정 ([baa4e7d](https://github.com/tosslab/web_client/commit/baa4e7d))
+* **right:** right panel 열림과 search entity 변경이 같이 이루어 졌을때 request 두번 하는 버그 수정 ([95c934a](https://github.com/tosslab/web_client/commit/95c934a))
+* **sticker:** sticker list 변경이 view에 바로 반영되도록 수정 ([3f07bc7](https://github.com/tosslab/web_client/commit/3f07bc7))
+* **sticker:** sticker 조작시 깜빡이는 버그 수정 ([5c52085](https://github.com/tosslab/web_client/commit/5c52085))
+
+
+
+<a name="1.8.0-alpha.9"></a>
+# [1.8.0-alpha.9](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.8...v1.8.0-alpha.9) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.8"></a>
+# [1.8.0-alpha.8](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.7...v1.8.0-alpha.8) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.7"></a>
+# [1.8.0-alpha.7](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.6...v1.8.0-alpha.7) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.6"></a>
+# [1.8.0-alpha.6](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.5...v1.8.0-alpha.6) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.5"></a>
+# [1.8.0-alpha.5](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.4...v1.8.0-alpha.5) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.4"></a>
+# [1.8.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.2...v1.8.0-alpha.4) (2015-11-11)
+
+
+
+
 <a name="1.8.5"></a>
 ## [1.8.5](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.7...v1.8.5) (2015-11-18)
 

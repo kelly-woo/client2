@@ -1661,7 +1661,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onChangeSticker(event, item) {
     _sticker = item;
-    _setChatInputFocus();
+    setTimeout(_setChatInputFocus);
   }
 
   /**

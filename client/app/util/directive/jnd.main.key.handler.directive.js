@@ -219,7 +219,7 @@
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
           JndLocalStorage.set(0, 'zoom', _currentZoomScale);
-          $('.content-wrapper').css({
+          $('body').css({
             'zoom': _currentZoomScale
           });
         }

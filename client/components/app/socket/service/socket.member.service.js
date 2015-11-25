@@ -74,7 +74,12 @@
      * @private
      */
     function _replaceMemberEntityInMemberList(member) {
-      entityAPIservice.extend(EntityMapManager.get('member', member.id), member);
+      var entity = EntityMapManager.get('member', member.id);
+      if (!entity) {
+        entity = member;
+        EntityMapManager.set('member', member.id, member);
+      }
+      entityAPIservice.extend(entity, member);
 
       if (EntityMapManager.contains('memberEntityId', member.entityId)) {
         entityAPIservice.extend(EntityMapManager.get('memberEntityId', member.id), member);
