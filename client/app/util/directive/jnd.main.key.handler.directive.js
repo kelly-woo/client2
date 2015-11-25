@@ -182,7 +182,7 @@
       _init();
 
       function _triggertModalSubmit() {
-        $('._modalEnter').trigger('click');
+        $('._modalSubmit').trigger('click');
       }
       /**
        * zoom 을 초기화 한다
