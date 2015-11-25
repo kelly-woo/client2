@@ -25,38 +25,47 @@
     var events = [
       {
         name: 'topic_kicked_out',
+        version: 1,
         handler: _onTopicKickedOut
       },
       {
         name: 'topic_left',
+        version: 1,
         handler: _onTopicLeft
       },
       {
         name: 'topic_joined',
+        version: 1,
         handler: _onTopicJoined
       },
       {
         name: 'topic_deleted',
+        version: 1,
         handler: _onTopicLDeleted
       },
       {
         name: 'topic_created',
+        version: 1,
         handler: _onTopicLCreated
       },
       {
         name: 'topic_updated',
+        version: 1,
         handler: _onTopicUpdated
       },
       {
         name: 'topic_starred',
+        version: 1,
         handler: _onTopicStarChanged
       },
       {
         name: 'topic_unstarred',
+        version: 1,
         handler: _onTopicStarChanged
       },
       {
         name: 'room_subscription_updated',
+        version: 1,
         handler: _onTopicSubscriptionChanged
       }
     ];

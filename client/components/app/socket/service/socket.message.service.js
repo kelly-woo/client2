@@ -17,14 +17,17 @@
     var events = [
       {
         name: MESSAGE,
+        version: 1,
         handler: _onMessage
       },
       {
         name: MESSAGE_STARRED,
+        version: 1,
         handler: _onMessageStarred
       },
       {
         name: MESSAGE_UNSTARRED,
+        version: 1,
         handler: _onMessageUnStarred
       }
     ];
