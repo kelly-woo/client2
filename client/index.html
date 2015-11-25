@@ -78,8 +78,13 @@
   <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
   <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
   <link rel="stylesheet" href="app/modal/topics/topic_join/topic.join.css">
+  <link rel="stylesheet" href="app/right/file.detail/comment_input/file.detail.comment.input.css">
+  <link rel="stylesheet" href="app/right/file.detail/comments/file.detail.comments.css">
   <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
+  <link rel="stylesheet" href="app/right/file.detail/header/file.detail.header.css">
+  <link rel="stylesheet" href="app/right/file.detail/meta/file.detail.meta.css">
   <link rel="stylesheet" href="app/right/file.detail/preview/file.detail.preview.css">
+  <link rel="stylesheet" href="app/right/file.detail/title/file.detail.title.css">
   <link rel="stylesheet" href="app/right/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
   <link rel="stylesheet" href="app/right/mentions/mentions.css">
@@ -129,7 +134,8 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body active-notifier
+<body jnd-main-key-handler
+      active-notifier
       window-title-manager
       jnd-wrapper>
 <!--[if lte IE 9]>
@@ -167,8 +173,8 @@
     <tutorial-welcome></tutorial-welcome>
   </div>
   <div ng-if="!isReady" class="full-screen z-index-top">
-
   </div>
+  <privacy-guide></privacy-guide>
 </div>
 
 <!--<div class="is-ready-loading" ng-show="!isReady">-->
@@ -308,6 +314,7 @@
 <script src="app/util/service/notification.service.helper.js"></script>
 <script src="app/util/service/notification.service.js"></script>
 <script src="app/util/service/other.team.badge.service.js"></script>
+<script src="app/util/service/privacy.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
 <script src="app/util/service/session.service.js"></script>
 <script src="app/util/service/sticker.service.js"></script>
@@ -417,6 +424,7 @@
 <script src="app/modal/members/member_profile/member.profile.view.controller.js"></script>
 <script src="app/modal/modal.service.js"></script>
 <script src="app/modal/password/password.reset.request.controller.js"></script>
+<script src="app/modal/privacy.guide/privacy.guide.directive.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
@@ -430,9 +438,13 @@
 <script src="app/modal/topics/topic_invite_from_dm/topic.invite.direct.controller.js"></script>
 <script src="app/modal/topics/topic_join/topic.join.controller.js"></script>
 <script src="app/modal/topics/topic_rename/topic.rename.controller.js"></script>
+<script src="app/right/file.detail/comment_input/file.detail.comment.input.directive.js"></script>
+<script src="app/right/file.detail/comments/file.detail.comments.directive.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
-<script src="app/right/file.detail/file.detail.directive.js"></script>
+<script src="app/right/file.detail/header/file.detail.header.directive.js"></script>
+<script src="app/right/file.detail/meta/file.detail.meta.directive.js"></script>
 <script src="app/right/file.detail/preview/file.detail.preview.directive.js"></script>
+<script src="app/right/file.detail/title/file.detail.title.directive.js"></script>
 <script src="app/right/file/file.controller.js"></script>
 <script src="app/right/file/file.directive.js"></script>
 <script src="app/right/file/file.service.js"></script>

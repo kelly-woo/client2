@@ -30,20 +30,19 @@
     /**
      * kick out 이벤트 핸들러
      * @param {object} angularEvent
-     * @param {object} data
+     * @param {object} socketEvent
      * @private
      */
-    function _onKickedOut(angularEvent, data) {
-      var topicEntity = EntityMapManager.get('total', data.topic.id);
+    function _onKickedOut(angularEvent, socketEvent) {
+      var topicEntity = EntityMapManager.get('total', socketEvent.data.roomId);
       var topicName = topicEntity.name;
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);
-
-      //Dialog.warning({
-      //  body:  msg,
-      //  extendedTimeOut: 0,
-      //  timeOut: 0
-      //});
+      Dialog.warning({
+        body:  msg,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
     }
 
     /**
@@ -59,9 +58,9 @@
 
       if (!entity || _hasInvitedFlag(entity, data.inviter)) {
         TopicInvitedFlagMap.add(room.id);
+        //entity 정보가 업데이트 되기 이전이므로 queue 에 저장만 한다
+        _inviteSocketQueue.push(data);
       }
-      //entity 정보가 업데이트 되기 이전이므로 queue 에 저장만 한다
-      _inviteSocketQueue.push(data);
     }
 
     /**
@@ -93,7 +92,9 @@
           allowHtml: true,
           onTap: function() {
             console.log('### onTap', arguments);
-          }
+          },
+          extendedTimeOut: 0,
+          timeOut: 0
         });
 
         _.forEach(data.inviter, function(memberId) {

@@ -9,7 +9,7 @@
     .service('desktopNotificationHelper', desktopNotificationHelper);
 
   /* @ngInject */
-  function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil) {
+  function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil, jndPubSub) {
     var NOTIFICATION_EXPIRE_TIME = 10000;
 
     /**
@@ -82,7 +82,6 @@
        */
       function onNotificationClick() {
         var fn;
-
         if (_.isFunction(that.options.callback)) {
           fn = that.options.callback;
 
@@ -105,11 +104,11 @@
               $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});
             }
           }
-
         }
 
         window.focus();
         options.onClick && options.onClick();
+        jndPubSub.pub('notification-click');
       }
     }
 

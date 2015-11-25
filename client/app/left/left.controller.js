@@ -508,10 +508,7 @@ app.controller('leftPanelController1', function(
     currentSessionHelper.setCurrentTeam(response.team);
     currentSessionHelper.setCurrentTeamMemberList($scope.memberList);
 
-    //  When there is unread messages on left Panel.
-    if (response.alarmInfoCount != 0) {
-      leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
-    }
+
 
     // generating starred list.
     if (memberService.getStarredEntities().length > 0) {
@@ -524,6 +521,11 @@ app.controller('leftPanelController1', function(
     }
 
     entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
+
+    //  When there is unread messages on left Panel.
+    if (response.alarmInfoCount != 0) {
+      leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+    }
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
@@ -683,7 +685,7 @@ app.controller('leftPanelController1', function(
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
-
+  $scope.$on('connected', updateLeftPanelCaller);
   $scope.$on('leftOnMemberListChange', function() {
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
   });

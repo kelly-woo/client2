@@ -10,7 +10,7 @@
 
   function file() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       replace: true,
       scope: {
         fileType: '=',

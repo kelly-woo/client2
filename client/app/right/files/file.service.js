@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, configuration,
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, $q, configuration,
                                        memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
@@ -104,14 +104,30 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     });
   }
 
+  /**
+   * requset file detail
+   * @param {number|string} fileId
+   * @returns {*}
+   */
   function getFileDetail(fileId) {
-    return $http({
+    var abortDeferred = $q.defer();
+    var request = $http({
       method  : 'GET',
       url     : $rootScope.server_address + 'messages/' + fileId,
       params  : {
         teamId: memberService.getTeamId()
-      }
+      },
+      timeout: abortDeferred.promise
     });
+
+    request.abort = function() {
+      abortDeferred.resolve();
+    };
+    request.finally(function() {
+      request.abort = angular.noop;
+    });
+
+    return request;
   }
 
   /**

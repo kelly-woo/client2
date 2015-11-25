@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
-                       EntityMapManager) {
+                       EntityMapManager, currentSessionHelper) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -23,6 +23,10 @@
     var ROOM_SUBSCRIBE = 'room_subscription_updated';
 
     var events = [
+      {
+        name: 'topic_kicked_out',
+        handler: _onTopicKickedOut
+      },
       {
         name: 'topic_left',
         handler: _onTopicLeft
@@ -64,6 +68,26 @@
     }
 
     /**
+     * kickout 시 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onTopicKickedOut(socketEvent) {
+      var currentTeam = currentSessionHelper.getCurrentTeam();
+      if (currentTeam.id ===  socketEvent.data.teamId) {
+        jndPubSub.pub('kickedOut', socketEvent);
+        if (jndWebSocketCommon.isCurrentEntity({id: socketEvent.data.roomId})) {
+          jndPubSub.toDefaultTopic();
+        }
+        _updateLeftPanel({
+          topic: {
+            id: socketEvent.data.roomId
+          }
+        });
+      }
+    }
+
+    /**
      * 'topic_left' EVENT HANDLER
      * @param {object} data - socket event parameter
      * @private
@@ -72,8 +96,6 @@
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       }
-
-      jndPubSub.pub('kickedOut', data);
 
       _updateLeftPanel(data);
     }

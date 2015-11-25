@@ -42,9 +42,9 @@
 <div class="modal-footer">
   <div ng-if="!!confirm">
     <button class="btn btn-cancel" ng-click="close();"><span translate>@btn-cancel</span></button>
-    <button class="btn btn-ok" ng-click="integrate()"><span translate>@integration-submit</span></button>
+    <button class="btn btn-ok _modalSubmit" ng-click="integrate()"><span translate>@integration-submit</span></button>
   </div>
   <div ng-if="!!alert">
-    <button class="btn btn-ok" ng-click="close();"><span translate>@btn-confirm</span></button>
+    <button class="btn btn-ok _modalSubmit" ng-click="close();"><span translate>@btn-confirm</span></button>
   </div>
 </div>

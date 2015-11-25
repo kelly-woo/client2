@@ -39,7 +39,7 @@
           <i class="icon-star-off left-star" ng-class="{'icon-star-on': userEntity.isStarred}"
              data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
-          <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
+          <span class="inline-overflow-ellipsis left-panel__name private-effect" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
           <badge content="{{userEntity.alarmCnt}}" group="user" key="{{userEntity.id}}" entity="{{userEntity}}"></badge>
           <!--<span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>-->
           <span class="left-panel_leave pull-right"

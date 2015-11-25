@@ -18,16 +18,35 @@
                  class="form-control"
                  name="newTopicName"
                  id="topic-rename-name"
-                 jnd-input-model="topicName"
+                 jnd-input-model="form.topicName"
                  jnd-is-trim="on"
                  placeholder="{{ ::'@input-rename' | translate }}"
                  ng-required/>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate }}
           </alert>
         </div>
       </div>
     </div>
+    
+    <!--  TOPIC AUTO INVITE  -->
+    <div ng-if="hasAutoJoin" class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-sm-3 auto-invite-title">
+          <span translate>@common-auto-join</span>
+        </label>
+        <div class="col-sm-9">
+          <div class="modal-body-auto-invite-container">
+          <input type="checkbox" id="topic-auto-invite" ng-model="form.isAutoJoin">
+            <label for="topic-auto-invite">
+              <div class="auto-invite-description">
+                <span translate>@common-invite-all</span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+	  </div>
 
     <div class="form-horizontal topic-description-container">
       <div class="form-group">
@@ -37,14 +56,14 @@
         <div class="col-sm-9">
           <textarea
             class="form-control topic-description-input"
-            name="topicDescription"
-            jnd-input-model="topicDescription"
+            name="form.topicDescription"
+            jnd-input-model="form.topicDescription"
             jnd-is-trim="on"
             placeholder="{{ ::'@topic-description-placeholder' | translate }}"
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > descMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicDescription.length > descMaxLength">
             {{ ::'@input-max-length-error' | translate }}
           </alert>
         </div>
@@ -54,7 +73,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-cancel" ng-click="cancel()"><span>{{ ::'@btn-cancel' | translate }}</span></button>
-    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ ::'@common-done' | translate }}"
+    <input class="btn btn-ok _modalSubmit" type="submit" id="rename_channel" value="{{ ::'@common-done' | translate }}"
            ng-disabled="isInvalid()"/>
   </div>
 </form>

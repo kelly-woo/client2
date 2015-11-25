@@ -11,7 +11,7 @@
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
-                                   EntityMapManager, RendererUtil) {
+                                   EntityMapManager, JndUtil, RendererUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -65,8 +65,31 @@
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
 
+        scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
+        scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
+
         scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentUpdate);
         scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentUpdate);
+      }
+
+      /**
+       *
+       * @private
+       */
+      function _onHotkeyScrollUp() {
+        var container = document.getElementById('msgs-container');
+        var jqInput = $('#message-input');
+        container.scrollTop -= ($(container).height() - jqInput.height() - 20);
+      }
+
+      /**
+       *
+       * @private
+       */
+      function _onHotkeyScrollDown() {
+        var container = document.getElementById('msgs-container');
+        var jqInput = $('#message-input');
+        container.scrollTop += ($(container).height() - jqInput.height() - 20);
       }
 
       /**
@@ -266,17 +289,26 @@
         var jqTarget = $(clickEvent.target);
         var id = jqTarget.closest('.msgs-group').attr('id');
         var msg = MessageCollection.get(id);
+        var hasAction = false;
         var jqElement;
 
         //star 클릭 시
         if ((jqElement = jqTarget.closest('._star')).length) {
           _onClickStar(msg, jqElement);
+          hasAction = true;
         } else if (jqTarget.closest('._user').length) {
           _onClickUser(msg);
+          hasAction = true;
         } else if (jqTarget.closest('._fileShare').length) {
           _onClickFileShare(msg);
+          hasAction = true;
         } else if (jqTarget.closest('._fileGo').length) {
           _onClickFileGo(msg);
+          hasAction = true;
+        }
+
+        if (hasAction) {
+          JndUtil.safeApply(scope);
         }
       }
 
