@@ -135,7 +135,6 @@
             //현재 activate DM 이 아닌곳에 한해서 unread count 를 업데이트 한다.
             if (!_isActiveCurrentDm(entity)) {
               entityAPIservice.updateBadgeValue(entity, message.unread);
-              console.log('### not active!', entity);
             }
           }
 
