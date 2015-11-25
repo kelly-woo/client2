@@ -89,6 +89,13 @@
           'CHAR_E': {
             handler: _toggleSticker
           },
+          //중앙 input에 focus
+          'ENTER': {
+            handler: _triggertModalSubmit,
+            extraCondition: function(keyEvent) {
+              return _isModalShown();
+            }
+          },
           //upload
           'CHAR_U': {
             handler: function() {
@@ -174,6 +181,9 @@
 
       _init();
 
+      function _triggertModalSubmit() {
+        $('._modalSubmit').trigger('click');
+      }
       /**
        * zoom 을 초기화 한다
        * @private

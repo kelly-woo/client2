@@ -105,7 +105,8 @@
         var which = event.which;
         var value;
 
-        if (jndKeyCode.match('ENTER', which) || jndKeyCode.match('SPACE', which) || jndKeyCode.match('CHAR_COMMA', which)) {
+        if ((!event.metaKey && !event.ctrlKey && jndKeyCode.match('ENTER', which))
+          || jndKeyCode.match('SPACE', which) || jndKeyCode.match('CHAR_COMMA', which)) {
           value = jqEmailInput.val();
           _insertEmail(value);
         }
