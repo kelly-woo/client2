@@ -60,7 +60,7 @@
     function _on() {
       $scope.$on('onInitLeftListDone', _onInitLeftListDone);
       $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
-      $scope.$on('onRightPanel', _onRightPanel);
+      $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
       $scope.$on('changedLanguage', _changedLanguage);
       $scope.$on('topic-folder:update', _initChatRoomOption);
       $scope.$on('onBeforeEntityChange', _onBeforeEntityChange);
@@ -109,7 +109,7 @@
     /**
      * open right panel event handler
      */
-    function _onRightPanel($event, data) {
+    function _onRightPanelStatusChange($event, data) {
       if (data.type === 'messages') {
         _isActivated = true;
 

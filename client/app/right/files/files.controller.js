@@ -25,6 +25,7 @@
     _init();
 
     function _init() {
+      console.log('### INIT');
       $scope.searchStatus = {
         keyword: '',
         length: ''
@@ -193,7 +194,7 @@
     /**
      * open right panel event handler
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    $scope.$on('rightPanelStatusChange', function($event, data) {
       if (data.type === 'files') {
         _isActivated = true;
 
