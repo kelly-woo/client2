@@ -11,7 +11,7 @@
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
-                                   EntityMapManager) {
+                                   EntityMapManager, RendererUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -266,10 +266,11 @@
         var jqTarget = $(clickEvent.target);
         var id = jqTarget.closest('.msgs-group').attr('id');
         var msg = MessageCollection.get(id);
+        var jqElement;
 
         //star 클릭 시
-        if (jqTarget.closest('._star').length) {
-          _onClickStar(msg);
+        if ((jqElement = jqTarget.closest('._star')).length) {
+          _onClickStar(msg, jqElement);
         } else if (jqTarget.closest('._user').length) {
           _onClickUser(msg);
         } else if (jqTarget.closest('._fileShare').length) {
@@ -313,15 +314,24 @@
        * @param {object} msg
        * @private
        */
-      function _onClickStar(msg) {
-        var index = MessageCollection.at(msg.messageId);
-        msg.message.isStarred = !msg.message.isStarred;
-        _refreshStar(msg);
-        if (msg.message.isStarred) {
-          StarAPIService.star(msg.messageId, _teamId)
+      function _onClickStar(msg, jqElement) {
+        var message;
+        var messageId;
+
+        if (jqElement.data('feedback')) {
+          message = RendererUtil.getFeedbackMessage(msg);
+          messageId = msg.feedbackId;
+        } else {
+          message = msg.message;
+          messageId = msg.messageId;
+        }
+
+        message.isStarred = !message.isStarred;
+        if (message.isStarred) {
+          StarAPIService.star(messageId, _teamId)
             .error(_.bind(_onStarRequestError, that, msg));
         } else {
-          StarAPIService.unStar(msg.messageId, _teamId)
+          StarAPIService.unStar(messageId, _teamId)
             .error(_.bind(_onStarRequestError, that, msg));
         }
       }
@@ -333,7 +343,7 @@
        */
       function _onStarRequestError(msg) {
         msg.message.isStarred = !msg.message.isStarred;
-        _refreshStar(msg);
+        _refreshStar(msg, msg.message);
 
         Dialog.error({
           title: $filter('translate')('@star-forbidden')
@@ -358,12 +368,8 @@
        * @private
        */
       function _onStarred(event, param) {
-        var msg = MessageCollection.getByMessageId(param.messageId);
-        var index;
-
         if (_teamId.toString() === param.teamId.toString()) {
-          msg.message.isStarred = true;
-          _refreshStar(msg);
+          _setStarred(param.messageId, true);
         }
       }
 
@@ -376,23 +382,45 @@
        * @private
        */
       function _onUnStarred(event, param) {
-        var msg = MessageCollection.getByMessageId(param.messageId);
-        var index;
         if (_teamId.toString() === param.teamId.toString()) {
-          msg.message.isStarred = false;
-          _refreshStar(msg);
+          _setStarred(param.messageId, false);
         }
       }
 
       /**
-       * star 의 상태를 변경한다.
-       * @param {object} msg
+       * set starred
+       * @param {number|string} messageId
+       * @param {boolean} isStarred
        * @private
        */
-      function _refreshStar(msg) {
-        var jqTarget = $('#' + msg.id).find('._star');
+      function _setStarred(messageId, isStarred) {
+        MessageCollection.forEach(function(msg) {
+          var message;
+
+          if (msg.feedbackId === messageId) {
+            message = RendererUtil.getFeedbackMessage(msg);
+
+            message.isStarred = isStarred;
+            _refreshStar(msg, message, '.star-' + msg.feedbackId);
+          } else if (msg.message.id === messageId) {
+            message = msg.message;
+
+            message.isStarred = isStarred;
+            _refreshStar(msg, message, '.star-' + msg.message.id);
+          }
+        });
+      }
+
+      /**
+       * star 의 상태를 변경한다.
+       * @param {object} message
+       * @param {string|object} jqTarget
+       * @private
+       */
+      function _refreshStar(msg, message, jqTarget) {
+        jqTarget = $('#' + msg.id).find(jqTarget || '._star');
         if (jqTarget.length) {
-          if (msg.message.isStarred) {
+          if (message.isStarred) {
             jqTarget.removeClass('off').removeClass('msg-item__action');
           } else {
             jqTarget.addClass('off msg-item__action');

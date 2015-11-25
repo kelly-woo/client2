@@ -8,3 +8,26 @@
   background-color: black;
   opacity: .5;
 }
+
+.comment-title .icon-file {
+  position: absolute;
+  font-size: 20px;
+  color: #d1dae7;
+  left: 34px;
+  top: 5px;
+}
+
+/* hover시 extra menu css */
+.comment-title .msg-file {
+  position: relative;
+}
+.msg-item:hover.comment-title .msg-file .msg-item__action,
+.msg-item:hover.comment-title .continue-comment-body .msg-item__action {
+  display: none;
+}
+.msg-item.comment-title .msg-file:hover .msg-item__action {
+  display: inline-block;
+}
+.msg-item.comment-title .continue-comment-body:hover .msg-item__action {
+  display: inline-block;
+}

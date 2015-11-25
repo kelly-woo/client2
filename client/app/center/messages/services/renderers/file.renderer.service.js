@@ -9,7 +9,7 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil, Loading,
+  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil,
                         centerService, memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper,
                         publicService) {
     var _template = '';
@@ -97,16 +97,16 @@
      */
     function _onClickFileToggle(msg, jqTarget) {
       var jqMsg = $('#' + msg.id);
-      var jqThumb = jqMsg.find('._fileMediumThumb');
+      var jqToggleTarget = jqMsg.find('._fileToggleTarget');
       var jqToogle = jqMsg.find('._fileToggle');
-      var isHide = jqThumb.css('display') === 'none';
+      var isHide = jqToggleTarget.css('display') === 'none';
       var isScrollBottom = centerService.isScrollBottom();
 
       if (isHide) {
-        jqThumb.show();
+        jqToggleTarget.show();
         jqToogle.addClass('icon-angle-down').removeClass('icon-angle-right');
       } else {
-        jqThumb.hide();
+        jqToggleTarget.hide();
         jqToogle.addClass('icon-angle-right').removeClass('icon-angle-down');
       }
 
@@ -128,7 +128,7 @@
       var currentEntity;
 
       if (!jqTarget.hasClass('no-image-preview')) {
-        content = _getFeedbackContent(msg);
+        content = RendererUtil.getFeedbackContent(msg);
         currentEntity = currentSessionHelper.getCurrentEntity();
 
         modalHelper.openImageCarouselModal({
@@ -170,7 +170,7 @@
       jndPubSub.pub('show:center-file-dropdown', {
         target: jqTarget,
         msg: msg,
-        isIntegrateFile: _isIntegrateFile(msg)
+        isIntegrateFile: RendererUtil.isIntegrateFile(msg)
       });
     }
 
@@ -191,18 +191,13 @@
       var isMustPreview = $filter('mustPreview')(content);
 
       var data = {
-        html: {
-          loading: Loading.getTemplate()
-        },
         css: {
-          unshared: isUnshared ? 'unshared' : '',
-          imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
-          wrapper: isArchived ? ' archived-file': '',
-          star: RendererUtil.getStarCssClass(msg),
+          wrapper: isArchived ? '': '',
+          star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         attrs: {
-          download: _getFileDownloadAttrs(msg)
+          download: RendererUtil.getFileDownloadAttrs(msg)
         },
         file: {
           id: msg.message.id,
@@ -218,11 +213,11 @@
           size: $filter('bytes')(content.size),
           isFileOwner: _isFileOwner(msg),
           ownerName: $filter('getName')(msg.message.writerId),
-          isIntegrateFile: _isIntegrateFile(msg),
-          commentCount: msg.message.commentCount || 0
+          isIntegrateFile: RendererUtil.isIntegrateFile(msg),
+          commentCount: RendererUtil.getCommentCount(msg)
         },
         isArchived: isArchived,
-          msg: msg
+        msg: msg
       };
 
       if (isMustPreview && content.extraInfo) {
@@ -245,33 +240,6 @@
     }
 
     /**
-     * file download 에 랜더링 할 attribute 문자열을 반환한다.
-     * @param {object} msg
-     * @returns {string}
-     * @private
-     */
-    function _getFileDownloadAttrs(msg) {
-      var fileUrl = msg.message.content.fileUrl;
-      var attrList = [];
-      var urlObj = $filter('downloadFile')(_isIntegrateFile(msg), msg.message.content.title, fileUrl);
-
-      attrList.push('download="' + msg.message.content.title + '"');
-      attrList.push('href="' + urlObj.downloadUrl + '"');
-
-      return attrList.join(' ');
-    }
-
-    /**
-     * msg 에서 feedback(comment) 정보를 담고있는 데이터를 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _getFeedbackContent(msg) {
-      return centerService.isCommentType(msg.message.contentType) ? msg.feedback.content : msg.message.content;
-    }
-
-    /**
      * 현재 사용자가 file 작성자인지 여부를 반환한다.
      * @param {object} msg
      * @returns {boolean}
@@ -279,17 +247,6 @@
      */
     function _isFileOwner(msg) {
       return msg.message.writerId === memberService.getMemberId();
-    }
-
-    /**
-     * integrate file 인지 여부를 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _isIntegrateFile(msg) {
-      var content = _getFeedbackContent(msg);
-      return fileAPIservice.isIntegrateFile(content.serverUrl);
     }
   }
 })();

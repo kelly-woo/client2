@@ -3,24 +3,25 @@
   min-height: 0 !important;
 }
 
-/*.medium-thumbnail > div[image-loader] {*/
-  /*width: 360px;*/
-  /*height: 270px;*/
-/*}*/
+.image_wrapper.medium-thumbnail {
+  min-width: 200px;
+  min-height: 80px;
+  text-align: left;
+}
 .medium-thumbnail.msg-file-body__img__background,
 .medium-thumbnail.medium-thumbnail-wrapper {
   position: relative;
   margin-top: 10px;
 }
 
-.medium-thumbnail.msg-file-body__img__background img {
-  width: 100%;
-  height: 100%;
+.image_wrapper.medium-thumbnail .loading-bar-wrapper {
+  position: absolute;
 }
 
-.medium-thumbnail .msg-file-actions-bg {
-  display: block;
-}
+/*.medium-thumbnail.medium-thumbnail-wrapper img {*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+/*}*/
 
 .file-action {
   line-height: 16px !important;
@@ -41,40 +42,56 @@
   margin-left: -2px;
 }
 
-.msg-file-actions-bg {
+.preview-card:hover .msg-file-actions-content,
+.medium-thumbnail:hover .msg-file-actions-content {
+  display: block;
+}
+
+.msg-file-actions-content {
+  display: none;
+}
+.msg-file-actions-content.actions-dimmed {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  display: none;
   background-color: #f5f5f5;
   opacity: .85;
 }
-.msg-file-actions-bg .msg-file-actions {
+
+.image_wrapper .msg-file-actions-content {
+  background-color: transparent;
+}
+.msg-file-actions-content .msg-file-actions {
   position: absolute;
   top: 14px;
   right: 14px;
 }
 
 .msg-file-actions .action-group {
-  background: #fff;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
+  cursor: pointer;
   float: left;
   margin-left: 6px;
 }
 
 .action-group .action-item {
+  background-color: #fff;
   float:left;
-  padding: 4px 7px;
-}
-
-.action-group .action-item .icon-arrow-right {
-  font-weight: bold;
-  font-size: 15px;
 }
 
 .action-group .action-item:not(:last-child) {
   border-right: 1px solid #e1e1e1;
+}
+
+.action-item .action-comment,
+.action-item .action-file-download,
+.action-item .action-file-more,
+.action-item .action-file-detail {
+  display: inline-block;
+  padding: 4px 7px;
 }
 
 .msg-file-actions .action-comment span {
@@ -121,4 +138,89 @@
   padding-left: 0px;
   padding-right: 0px;
   font-size: 15px;
+}
+
+.preview-card {
+  position: relative;
+  width: 430px;
+  min-height: 60px;
+  border: 1px solid #e1e1e1;
+  background-color: #f1f4f8;
+}
+
+.preview-card .card-type {
+  float: left;
+  padding: 15px;
+}
+
+.preview-card .card-info {
+  border-left: 1px solid #e1e1e1;
+  background-color: #fff;
+  margin-left: 55px;
+}
+
+.card-info .info-group {
+  padding: 10px 15px 4px;
+  font-size: 14px;
+}
+
+.info-group .info-writer {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.info-group .info-created-time {
+  font-size: 12px;
+  color: #999;
+  letter-spacing: .02em;
+}
+
+.info-group .info-comment-count {
+  font-size: 12px;
+}
+
+.info-comment-count > i {
+  color: #666;
+  letter-spacing: .02em;
+  vertical-align: middle;
+}
+.info-comment-count > span {
+  color: #999;
+  vertical-align: middle;
+}
+
+.card-info .info-group-bottom {
+  width: 100%;
+  padding: 0 15px 10px 15px;
+}
+
+.info-group-bottom .info-title {
+  max-width: 250px;
+  vertical-align: text-bottom;
+  color: #333;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.info-group-bottom .info-size,
+.info-group-bottom .info-type {
+  color: #666;
+  font-size: 12px;
+}
+
+.card-info.card-archived,
+.card-info.card-unshared {
+  padding-left: 12px;
+  line-height: 60px;
+}
+
+.card-info.card-archived .info-title,
+.card-info.card-unshared .info-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: #b7b7b7;
+}
+
+.card-info.card-unshared .info-title {
+  text-decoration: line-through;
 }

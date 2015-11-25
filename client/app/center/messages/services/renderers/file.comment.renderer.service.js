@@ -40,20 +40,36 @@
 
       var template = isTitle ? _templateTitle : _template;
 
-      return template({
+      var icon = $filter('fileIcon')(content);
+
+      var isUnshared = publicService.isFileUnshared(msg);
+      var isMustPreview = $filter('mustPreview')(content);
+      var hasPreview = $filter('hasPreview')(content);
+
+      var data = {
         css: {
-          unshared: publicService.isFileUnshared(msg, true) ? 'unshared' : '',
-          star: RendererUtil.getStarCssClass(msg),
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
-          archived: isArchived ? 'archived-file-with-comment' : '',
+          star: RendererUtil.getStarCssClass(msg.message),
+          fileStar: RendererUtil.getStarCssClass(RendererUtil.getFeedbackMessage(msg)),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
+        attrs: {
+          download: RendererUtil.getFileDownloadAttrs(msg)
+        },
         file: {
+          id: msg.feedbackId,
+          unshared: isUnshared,
           hasPermission: publicService.hasFilePermission(msg, true),
-          icon: $filter('fileIcon')(content),
+          icon: icon,
+          isImageIcon: icon === 'img',
+          mustPreview: isMustPreview,
+          hasPreview: hasPreview,
+          imageUrl: $filter('getPreview')(content, 'medium'),
           title: $filter('fileTitle')(content),
-          imageUrl: $filter('getPreview')(content, 'small'),
-          hasPreview: $filter('hasPreview')(content)
+          type: $filter('fileType')(content),
+          size: $filter('bytes')(content.size),
+          isIntegrateFile: RendererUtil.isIntegrateFile(msg),
+          commentCount: RendererUtil.getCommentCount(msg)
         },
         hasStar: RendererUtil.hasStar(msg),
         isSticker: RendererUtil.isSticker(msg),
@@ -63,7 +79,25 @@
         translate: {
         },
         msg: msg
-      });
+      };
+
+      if (hasPreview && content.extraInfo) {
+        _setExtraInfo(data.file, content.extraInfo);
+      }
+
+      return template(data);
+    }
+
+    /**
+     * set extraInfo
+     * @param {object} file
+     * @param {object} extraInfo
+     * @private
+     */
+    function _setExtraInfo(file, extraInfo) {
+      file.width = extraInfo.width;
+      file.height = extraInfo.height;
+      file.orientation = extraInfo.orientation;
     }
   }
 })();

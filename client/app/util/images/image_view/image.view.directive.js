@@ -36,6 +36,7 @@
 
       var jqLoadingBar;
       var jqImage;
+      var dimention = _getDimention();
 
       _init();
 
@@ -60,7 +61,10 @@
        * @private
        */
       function _createLoadingBar() {
-        jqLoadingBar = $(Loading.getTemplate())
+        jqLoadingBar = $('<div class="loading-bar-wrapper" ' +
+                              'style="width:' + dimention.width + 'px;height:' + dimention.height + 'px;">' +
+                            Loading.getTemplate() +
+                         '</div>')
           .appendTo(jqEle);
       }
 
@@ -69,7 +73,9 @@
        * @private
        */
       function _createImage() {
-        jqImage = $('<img class="opac-zero" style="display: none" src="' + imageView + '">')
+        jqImage = $('<img class="opac-zero" ' +
+                         'style="display:none;width:' + dimention.width + 'px;height:' + dimention.height + 'px;" ' +
+                         'src="' + imageView + '">')
           .on('load', _onImageLoad)
           .appendTo(jqEle);
       }
@@ -92,8 +98,6 @@
        * @private
        */
       function _setImageBasket() {
-        var dimention = _getDimention();
-
         jqEle.css({
           width: dimention.width,
           height: dimention.height
