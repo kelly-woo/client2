@@ -28,7 +28,7 @@
               }"></i>
       </span>
       <span class="topic-folder-title-text">
-        <span class="_folderTitle"
+        <span class="_folderTitle private-effect"
             ng-class="{
               'topic-folder-current': folder.isCurrent
             }">{{folder.name}}</span>
@@ -38,7 +38,7 @@
                ng-click="$event.stopPropagation()"
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
       </span>
-      <span class="topic-folder-title-count">({{folder.entityList.length}})</span>
+      <span class="topic-folder-title-count private-effect">({{folder.entityList.length}})</span>
       <span ng-show="!isOpening && isShowBadge && alarmCnt" class="topic-folder-badge">
         <badge group="folder" key="{{folder.id}}" content="{{alarmCnt}}"></badge>
       </span>

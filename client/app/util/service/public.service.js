@@ -176,20 +176,16 @@
      * @param isBannerUp
      */
     function adjustBodyWrapperHeight(isBannerUp) {
-      var bodyWrapperHeight;
-
       var jqBodyWrapper = $('.body-wrapper');
       var jqBody = $('.body');
 
-      var BANNER_HEIGHT = 40;
-      var HEADER_HEIGHT = 40;
-
-      var heightOffset = isBannerUp ? BANNER_HEIGHT : 0;
-
-      bodyWrapperHeight = $(window).height() - heightOffset;
-
-      jqBodyWrapper.height(bodyWrapperHeight);
-      jqBody.height(bodyWrapperHeight - HEADER_HEIGHT);
+      if (isBannerUp) {
+        jqBodyWrapper.addClass('has-banner');
+        jqBody.addClass('has-banner');
+      } else {
+        jqBodyWrapper.removeClass('has-banner');
+        jqBody.removeClass('has-banner');
+      }
     }
 
     function hideTransitionLoading() {

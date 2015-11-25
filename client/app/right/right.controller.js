@@ -83,7 +83,7 @@
             $timeout(function() {
               jndPubSub.pub('resetRPanelSearchStatusKeyword');
               jndPubSub.pub('rPanelSearchFocus');
-            });
+            }, 100);
           }
         }
       }

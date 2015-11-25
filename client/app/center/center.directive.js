@@ -104,8 +104,8 @@
         } else {
           direction = 'old';
         }
-
-        if (scrollDiff === 0) {
+        //zoom 추가로 인해 scrollDiff === 0 인 조건을 5 이하로 수정
+        if (scrollDiff < 5) {
           scope.clearNewMessageAlerts();
         } else if (scope.hasMoreNewMessageToLoad()) {
           scope.hasScrollToBottom = true;

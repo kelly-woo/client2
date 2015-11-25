@@ -1,17 +1,18 @@
-.open .sticker_panel {
-  opacity: 1;
-  visibility: visible;
-}
-
 .sticker_panel {
   bottom: 30px !important;
   padding-top:0px !important;
   padding-bottom:0px !important;
-  display: block;
   opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity .12s ease, visibility .12s ease;
-  transition: opacity .12s ease, visibility .12s ease;
+  display: none;
+  -webkit-transition: opacity .15s ease;
+  transition: opacity .15s ease;
+}
+
+.sticker_panel.open {
+  display: block;
+}
+.sticker_panel.vivid {
+  opacity: 1;
 }
 
 .sticker_panel:focus {

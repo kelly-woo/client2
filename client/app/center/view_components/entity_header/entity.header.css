@@ -100,12 +100,12 @@
   -o-transitionDISABLED:color .15s ease-out;
   transitionDISABLED:color .15s ease-out;
   cursor:pointer;
-  margin-right: 3px;
   font-size: 16px;
 }
 .prefix.star { margin-right: 0; padding-right: 5px; }
 .prefix .icon-star-on { color: #f9bb00; }
 .panel-title-info__name {
+  padding-left:3px;
   width: 100%;
   font-weight: 700;
 }
@@ -124,10 +124,13 @@
   right: 10px !important;
 }
 .header-title-member__dropdown > li > a {
-  padding: 0 2.5rem 0 2.5rem !important;
+  padding: 0 2.5rem 0 2.3rem !important;
   height: 38px !important;
   line-height: 38px !important;
   max-width: 200px;
+}
+.header-title-member__dropdown > li > a > span {
+  padding-left: 3px;
 }
 
 .header-title-member__dropdown > li:hover > a {

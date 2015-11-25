@@ -15,7 +15,8 @@
         externalUrl: '=?',
         externalCode: '=?',
         externalShared: '=?',
-        isExternalShared: '=externalShareView'
+        getExternalShare: '&externalShareGet',
+        setExternalShare: '&externalShareSet'
       },
       link: link
     };
@@ -57,7 +58,7 @@
       function _onClick(event) {
         //event.stopPropagation();
 
-        if (scope.isExternalShared) {
+        if (scope.getExternalShare()) {
           ExternalShareService.openUnshareDialog(function(type) {
             type === 'okay' && _setExternalUnshare();
           });
@@ -76,7 +77,9 @@
        */
       function _onExternalShared(event, param) {
         if (_isMyId(param)) {
-          scope.isExternalShared = true;
+          scope.setExternalShare({
+            $value: true
+          });
         }
       }
       
@@ -90,7 +93,9 @@
        */
       function _onUnExternalShared(event, param) {
         if (_isMyId(param)) {
-          scope.isExternalShared = false;
+          scope.setExternalShare({
+            $value: false
+          });
         }
       }
       
@@ -127,12 +132,8 @@
         var content;
 
         if (content = data.content) {
-          scope.externalUrl = content.externalUrl;
-          scope.externalCode = content.externalCode;
-          scope.externalShared = content.externalShared;
-
-          scope.isExternalShared = !scope.isExternalShared;
-
+          _setExternalContent(content);
+  
           ExternalShareService.openShareDialog(content, true);
         }
       }
@@ -160,13 +161,24 @@
           Dialog.success({
             title: $filter('translate')('@external-share-remove-msg')
           });
-
-          scope.externalUrl = content.externalUrl;
-          scope.externalCode = content.externalCode;
-          scope.externalShared = content.externalShared;
-
-          scope.isExternalShared = !scope.isExternalShared;
+  
+          _setExternalContent(content);
         }
+      }
+  
+      /**
+       * external content를 설정한다.
+       * @param {object} content
+       * @private
+       */
+      function _setExternalContent(content) {
+        scope.externalUrl = content.externalUrl;
+        scope.externalCode = content.externalCode;
+        scope.externalShared = content.externalShared;
+    
+        scope.setExternalShare({
+          $value: scope.externalShared
+        });
       }
     }
   }
