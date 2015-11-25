@@ -1,3 +1,32 @@
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.19...v1.10.0) (2015-11-25)
+
+
+### Bug Fixes
+
+* **left:** reconnect 시 update left panel 호출하도록 수정 ([eaec055](https://github.com/tosslab/web_client/commit/eaec055))
+* **socket:** member 정보 업데이트하는 socket 이벤트 로직 보강 ([9a01ca3](https://github.com/tosslab/web_client/commit/9a01ca3))
+
+
+
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/tosslab/web_client/compare/v1.9.2...v1.9.3) (2015-11-20)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.9.1...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
 <a name="1.9.3"></a>
 ## [1.9.3](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.15...v1.9.3) (2015-11-20)
 
