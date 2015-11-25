@@ -683,7 +683,7 @@ app.controller('leftPanelController1', function(
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
-
+  $scope.$on('connected', updateLeftPanelCaller);
   $scope.$on('leftOnMemberListChange', function() {
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
   });
