@@ -32,6 +32,7 @@
       });
 
       that.getStickers = getStickers;
+      that.getRetinaStickerUrl = getRetinaStickerUrl;
     }
 
     /**
@@ -117,6 +118,15 @@
         method  : 'GET',
         url     : server_address + 'stickers/groups/' + groupId
       });
+    }
+
+    /**
+     * get retina sticker url
+     * @param {string} url
+     * @returns {*}
+     */
+    function getRetinaStickerUrl(url) {
+      return url.replace(/\?size=[\d]+$/, '');
     }
   }
 })();

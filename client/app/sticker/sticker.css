@@ -23,7 +23,6 @@
   right: 10px;
   bottom: 8px;
   width:16px;
-  z-index: 1000;
 }
 .sticker_panel_wrap.shift{
   right: 20px;
@@ -48,7 +47,7 @@
   position: absolute;
   top: .63em;
   left: 5px;
-  height: 1.5px;
+  height: .1em;
   width: .47em;
   background-color: #fff;
   display: inline-block;
@@ -71,10 +70,12 @@
   top: .57em;
   left: 4px;
   width: .58em;
-  height: 4px;
+  height: .23em;
   background-color: #fff;
   display: inline-block;
   border-top: 1px solid rgba(0, 0, 0, .8);
+ border-bottom-right-radius: 12px 8px;
+ border-bottom-left-radius: 12px 8px;
 }
 .sticker_panel_wrap .sticker_panel_btn.on > .lip {
   border-color: #00abe6;
@@ -202,8 +203,8 @@ img.sticker {
 }
 
 img.sticker.size_5 {
-  width: 145px;
-  height: 145px;
+  width: 130px;
+  height: 130px;
 }
 img.sticker.size_1 {
   width: 65px;

@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
-                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage) {
+                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker) {
     var fileId;
     var requestFileDetail;
 
@@ -446,7 +446,7 @@
       if (type === 'comment') {
         sendingComment.content = {body: value};
       } else if (type === 'comment_sticker') {
-        sendingComment.content = {url: value.url};
+        sendingComment.content = {url: Sticker.getRetinaStickerUrl(value.url)};
         sendingComment.originSticker = value;
       }
 
