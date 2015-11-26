@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -118,6 +118,14 @@ msgstr "删除"
 msgid "@btn-edit"
 msgstr "提交"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-file-detail"
+msgstr "文件信息"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-image-expand"
+msgstr "浏览图像"
+
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
@@ -198,6 +206,10 @@ msgstr "我们最近更新了排版和增加了一些极好的功能以提高您
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@comment-all-desc"
+msgstr "显示{{commentCount}}则留言"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -816,8 +828,8 @@ msgstr "重新命名"
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
-"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题列"
-"表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
+"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题"
+"列表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
 
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-never-show"
@@ -899,8 +911,8 @@ msgstr "串联你的Google帐户"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用筛"
-"选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
+"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用"
+"筛选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -925,8 +937,8 @@ msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
-"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab.com"
-"\">support@tosslab.com</a>"
+"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab."
+"com\">support@tosslab.com</a>"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
@@ -1182,11 +1194,11 @@ msgstr "搜索议题或1:1传信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "搜索议题或1:1传信 (Cmd - J)"
+msgstr "搜索议题或1:1传信 (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "搜索议题或1:1传信 (Ctrl - J)"
+msgstr "搜索议题或1:1传信 (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
@@ -1337,8 +1349,8 @@ msgstr "{{msg.message.content.actionOwner}} 删除公告"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@team-create-info-help-msg"
 msgstr ""
-"有了JANDI，您可以任意建立许多团队及任意邀请许多成员加入，完全免费。不如自己"
-"亲自来看看JANDI可以如何改善您在工作场合里的沟通方式。"
+"有了JANDI，您可以任意建立许多团队及任意邀请许多成员加入，完全免费。不如自"
+"己亲自来看看JANDI可以如何改善您在工作场合里的沟通方式。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -1655,8 +1667,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾"
-"经分享在哪个议题下”的项目进行搜索。"
+"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、"
+"曾经分享在哪个议题下”的项目进行搜索。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1677,8 +1689,8 @@ msgstr "送出信息及上传文件"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮"
-"和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按"
+"钮和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1692,14 +1704,14 @@ msgstr "TIPS"
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 "直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
-"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接传"
-"讯，同时仍然保留讯息历史直到对话重新启动。"
+"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接"
+"传讯，同时仍然保留讯息历史直到对话重新启动。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的"
-"私人议题。"
+"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新"
+"的私人议题。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1708,9 +1720,9 @@ msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建"
-"议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自"
-"己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
+"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的"
+"建议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立"
+"您自己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1719,8 +1731,8 @@ msgstr "继续 »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
-"的提示。"
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重"
+"要的提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1990,8 +2002,8 @@ msgstr "星期三"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- 已"
-#~ "设定为公开或私人的议题在建立之后不能被转换成另一个"
+#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- "
+#~ "已设定为公开或私人的议题在建立之后不能被转换成另一个"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人议题仅向其成员显示，且仅其成员可以阅读或搜索其内容。"
@@ -2053,7 +2065,8 @@ msgstr "星期三"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组成。"
+#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组"
+#~ "成。"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改团队名称"
@@ -2099,8 +2112,8 @@ msgstr "星期三"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
-#~ "开吗？"
+#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要"
+#~ "离开吗？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "没有上传档案"

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -120,6 +120,14 @@ msgstr "Delete"
 msgid "@btn-edit"
 msgstr "Submit"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-file-detail"
+msgstr "File detail"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-image-expand"
+msgstr "View image"
+
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
@@ -208,6 +216,10 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@comment-all-desc"
+msgstr "Show all {{commentCount}} comments"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -1216,11 +1228,11 @@ msgstr "Search for topics or DMs"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "Search for topics or DMs (Cmd - J)"
+msgstr "Search for topics or DMs (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "Search for topics or DMs (Ctrl - J)"
+msgstr "Search for topics or DMs (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
