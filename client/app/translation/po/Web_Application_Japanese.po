@@ -1236,11 +1236,11 @@ msgstr "トピックまたはダイレクトメッセージを検索"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "トピックまたはダイレクトメッセージを検索 (Cmd - J)"
+msgstr "トピックまたはダイレクトメッセージを検索 (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "トピックまたはダイレクトメッセージを検索 (Ctrl - J)"
+msgstr "トピックまたはダイレクトメッセージを検索 (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"

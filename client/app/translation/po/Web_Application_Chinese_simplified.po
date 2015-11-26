@@ -1194,11 +1194,11 @@ msgstr "搜索议题或1:1传信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "搜索议题或1:1传信 (Cmd - J)"
+msgstr "搜索议题或1:1传信 (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "搜索议题或1:1传信 (Ctrl - J)"
+msgstr "搜索议题或1:1传信 (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"

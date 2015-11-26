@@ -1228,11 +1228,11 @@ msgstr "Search for topics or DMs"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "Search for topics or DMs (Cmd - J)"
+msgstr "Search for topics or DMs (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "Search for topics or DMs (Ctrl - J)"
+msgstr "Search for topics or DMs (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
