@@ -39,11 +39,18 @@
   background-color: #d7e0e8;
 }
 
+.comment-guide .guide-line-bg {
+  position: absolute;
+  width: 29px;
+  height: 32px;
+  background-color: #fff;
+}
+
 .comment-guide .comment-writer {
   position: relative;
   width: 28px;
   height: 28px;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .continue-comment-body .comment-content {

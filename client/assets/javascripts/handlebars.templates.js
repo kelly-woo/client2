@@ -56,7 +56,7 @@ this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1
 
   return "<div class=\"msg-item "
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.wrapper : stack1), depth0))
-    + "\">\n  <!--    HEADER PART -->\n  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n  <div class=\"msg-item-header\">\n    <!--    CONTINUED COMMENT ON SAME FILE  -->\n    <div class=\"continue-comment-body\">\n      <!-- COMMENT GUIDE LINE -->\n      <div class=\"comment-guide\">\n        <div class=\"guide-line\"></div>\n"
+    + "\">\n  <!--    HEADER PART -->\n  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n  <div class=\"msg-item-header\">\n    <!--    CONTINUED COMMENT ON SAME FILE  -->\n    <div class=\"continue-comment-body\">\n      <!-- COMMENT GUIDE LINE -->\n      <div class=\"comment-guide\">\n        <div class=\"guide-line\"></div>\n        <div class=\"guide-line-bg\"></div>\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isChild : depth0),{"name":"unless","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n      <!--    COMMENT CONTENT -->\n      <div class=\"comment-content\">\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isChild : depth0),{"name":"unless","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
@@ -70,7 +70,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     var alias1=helpers.helperMissing, alias2=this.escapeExpression;
 
   return "          <!--  ARCHIVED FILE PREVIEW IMAGE  -->\n          <div class=\"preview-container\">\n            <div class=\"preview-card cursor_pointer _compile\">\n              <div class=\"msg-file-actions-content actions-dimmed _fileGo\"></div>\n              <div class=\"msg-file-actions-content non-selectable\">\n                <div class=\"msg-file-actions\">\n                  <div class=\"action-group\">\n                    <div class=\"action-item\"\n                         jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--  ARCHIVED FILE -->\n              <div class=\"card-type\">\n                <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n              </div>\n              <div class=\"card-info card-archived\">\n                <span class=\"info-title\">"
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
     + "</span>\n              </div>\n            </div>\n          </div>\n";
@@ -164,7 +164,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     var stack1, alias1=this.escapeExpression;
 
   return "            <!--  UNSHARED FILE  -->\n            <div class=\"preview-container\">\n              <div class=\"preview-card cursor_pointer _compile\">\n                <div class=\"msg-file-actions-content actions-dimmed _fileGo\"></div>\n                <div class=\"msg-file-actions-content non-selectable\">\n                  <div class=\"msg-file-actions\">\n                    <div class=\"action-group\">\n                      <div class=\"action-item\"\n                           jnd-tooltip-trigger=\""
-    + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-unshared\"></div>\n                </div>\n                <div class=\"card-info card-unshared\">\n                  <span class=\"info-title break-word\">"
     + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "</span>\n                </div>\n              </div>\n            </div>\n";
@@ -237,7 +237,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"32":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "      <div class=\"msg-item comment-all\">\n        <div class=\"continue-comment-body\">\n          <!--    COMMENT CONTENT -->\n          <div class=\"comment-content\">\n            <!-- COMMENT GUIDE LINE -->\n            <div class=\"comment-guide\">\n              <div class=\"guide-line\"></div>\n            </div>\n            <span class=\"comment-all-desc _fileGo\">\n              "
+  return "      <div class=\"msg-item comment-all\">\n        <div class=\"continue-comment-body\">\n          <!--    COMMENT CONTENT -->\n          <div class=\"comment-content\">\n            <span class=\"comment-all-desc _fileGo\">\n              "
     + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.translate : depth0)) != null ? stack1.commentAllDesc : stack1), depth0)) != null ? stack1 : "")
     + "\n            </span>\n          </div>\n        </div>\n      </div>\n";
 },"34":function(depth0,helpers,partials,data) {
@@ -283,7 +283,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "      </div>\n    </div>\n\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasCommentAllDesc : depth0),{"name":"if","hash":{},"fn":this.program(32, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\n    <div class=\"msg-item comment-continue\">\n      <!--    HEADER PART -->\n      <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n      <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n      <div class=\"msg-item-header\">\n        <!--    CONTINUED COMMENT ON SAME FILE  -->\n        <div class=\"continue-comment-body\">\n          <!-- COMMENT GUIDE LINE -->\n          <div class=\"comment-guide\">\n            <div class=\"guide-line\"></div>\n"
+    + "\n    <div class=\"msg-item comment-continue\">\n      <!--    HEADER PART -->\n      <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n      <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n      <div class=\"msg-item-header\">\n        <!--    CONTINUED COMMENT ON SAME FILE  -->\n        <div class=\"continue-comment-body\">\n          <!-- COMMENT GUIDE LINE -->\n          <div class=\"comment-guide\">\n            <div class=\"guide-line\"></div>\n            <div class=\"guide-line-bg\"></div>\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isChild : depth0),{"name":"unless","hash":{},"fn":this.program(34, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "          </div>\n          <!--    COMMENT CONTENT -->\n          <div class=\"comment-content\">\n            <!--    WRITER  -->\n            <span class=\"msg-item-header__name cursor_pointer "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
@@ -300,7 +300,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     var alias1=helpers.helperMissing, alias2=this.escapeExpression;
 
   return "        <!--  ARCHIVED FILE PREVIEW IMAGE  -->\n        <div class=\"preview-container\">\n          <div class=\"preview-card cursor_pointer _compile\">\n            <div class=\"msg-file-actions-content actions-dimmed _fileGo\"></div>\n            <div class=\"msg-file-actions-content non-selectable\">\n              <div class=\"msg-file-actions\">\n                <div class=\"action-group\">\n                  <div class=\"action-item\"\n                       jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                       data-direction=\"top\">\n                    <!--  FILE DETAIL -->\n                    <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <!--  ARCHIVED FILE -->\n            <div class=\"card-type\">\n              <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n            </div>\n            <div class=\"card-info card-archived\">\n              <span class=\"info-title\">"
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
     + "</span>\n            </div>\n          </div>\n        </div>\n";
@@ -358,7 +358,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + "                        <div class=\"action-item\"\n                             jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@file-action-more",{"name":"translate","hash":{},"data":data}))
     + "\"\n                             data-direction=\"top\">\n                          <!--  MORE  -->\n                          <i class=\"action-file-more icon-cog _fileMore\"></i>\n                        </div>\n                      </div>\n                      <div class=\"action-group\">\n                        <div class=\"action-item\"\n                             jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                             data-direction=\"top\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n";
 },"10":function(depth0,helpers,partials,data) {
     var stack1;
@@ -390,7 +390,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     var stack1, alias1=this.escapeExpression;
 
   return "          <!--  UNSHARED FILE  -->\n          <div class=\"preview-container\">\n            <div class=\"preview-card cursor_pointer _compile\">\n              <div class=\"msg-file-actions-content actions-dimmed _fileGo\"></div>\n              <div class=\"msg-file-actions-content non-selectable\">\n                <div class=\"msg-file-actions\">\n                  <div class=\"action-group\">\n                    <div class=\"action-item\"\n                         jnd-tooltip-trigger=\""
-    + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--    FILE TYPE THUMBNAIL -->\n              <div class=\"card-type\">\n                <div class=\"fileicon fileicon-unshared\"></div>\n              </div>\n              <div class=\"card-info card-unshared\">\n                <span class=\"info-title break-word\">"
     + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "</span>\n              </div>\n            </div>\n          </div>\n";

@@ -7,6 +7,9 @@
 .text-highlight-background {
   background-color: #f2fbff;
 }
+.text-highlight-background .guide-line-bg {
+  background-color: #f2fbff;
+}
 
 .msg-item__action {
   display:none;
