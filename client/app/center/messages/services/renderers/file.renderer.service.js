@@ -123,12 +123,13 @@
      * @private
      */
     function _onClickFileExpand(msg, jqTarget) {
-      var message = msg.message;
+      var message;
       var content;
       var currentEntity;
 
       if (!jqTarget.hasClass('no-image-preview')) {
-        content = RendererUtil.getFeedbackContent(msg);
+        message = RendererUtil.getFeedbackMessage(msg);
+        content = message.content;
         currentEntity = currentSessionHelper.getCurrentEntity();
 
         modalHelper.openImageCarouselModal({

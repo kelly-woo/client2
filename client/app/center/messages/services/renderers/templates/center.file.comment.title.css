@@ -1,4 +1,15 @@
-/* opac layer over image thumbnail  */
+.msg-item.comment-all {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.msg-item.comment-all .comment-all-desc {
+  font-size: 14px;
+  color: #999;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .msg-comment .small-thumbnail-overlay{
   position: absolute;
   top: 0;

@@ -17,7 +17,7 @@
                 <div class="msg-file-actions">
                   <div class="action-group">
                     <div class="action-item"
-                         jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                         jnd-tooltip-trigger="{{translate '@common-file-detail'}}"
                          data-direction="top">
                       <!--  FILE DETAIL -->
                       <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -53,14 +53,14 @@
                   {{/unless}}
                   <span class="msg-file-meta-info">{{ file.type }}</span>
                   {{#if file.hasPreview}}
-                  <i class="preview-icon icon-angle-right non-selectable _fileToggle"></i>
+                  <i class="preview-icon icon-angle-down non-selectable _fileToggle"></i>
                   {{/if}}
                 </div>
               </div>
               <!--  FILE PREVIEW IMAGE  -->
               <div class="preview-container">
                 <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
-                <div class="jnd-text-center _compile _fileToggleTarget" style="display: none;">
+                <div class="jnd-text-center _compile _fileToggleTarget">
                   {{#if file.hasPreview}}
                     <div class="image_wrapper medium-thumbnail medium-thumbnail-wrapper cursor_pointer _fileExpand"
                          image-view="{{file.imageUrl}}"
@@ -100,7 +100,7 @@
                           </div>
                           <div class="action-group">
                             <div class="action-item"
-                                 jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                                 jnd-tooltip-trigger="{{translate 'common-file-detail'}}"
                                  data-direction="top">
                               <!--  FILE DETAIL -->
                               <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -142,7 +142,7 @@
                   <div class="msg-file-actions">
                     <div class="action-group">
                       <div class="action-item"
-                           jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                           jnd-tooltip-trigger="{{translate '@common-file-detail'}}"
                            data-direction="top">
                         <!--  FILE DETAIL -->
                         <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -156,7 +156,7 @@
                   <div class="fileicon fileicon-unshared"></div>
                 </div>
                 <div class="card-info card-unshared">
-                  <span class="info-title">{{ file.title }}</span>
+                  <span class="info-title break-word">{{ file.title }}</span>
                 </div>
               </div>
             </div>
@@ -172,12 +172,12 @@
                     <div class="action-group">
                       {{#if file.isImageIcon}}
                         <div class="action-item"
-                             jnd-tooltip-trigger="{{translate '@btn-comment'}}"
+                             jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
                              data-direction="top">
                           <!--  file expand  -->
-                      <span class="action-comment _fileExpand">
-                        <i class="fa-search-plus"></i>
-                      </span>
+                          <span class="action-comment _fileExpand">
+                            <i class="fa-search-plus"></i>
+                          </span>
                         </div>
                       {{/if}}
                       <div class="action-item"
@@ -208,7 +208,7 @@
                     </div>
                     <div class="action-group">
                       <div class="action-item"
-                           jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                           jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
                            data-direction="top">
                         <!--  FILE DETAIL -->
                         <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -230,8 +230,8 @@
                       <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
                     </span>
                   </div>
-                  <div class="info-group-bottom inline-overflow-ellipsis">
-                    <span class="info-title">{{ file.title }}</span>
+                  <div class="info-group-bottom">
+                    <span class="info-title break-word">{{ file.title }}</span>
                     {{#unless file.isIntegrateFile}}
                       {{#if file.size}}
                         <!--    SIZE AND FILE TYPE  -->
@@ -257,6 +257,23 @@
         {{/if}}
       </div>
     </div>
+
+    {{#if hasCommentAllDesc}}
+      <div class="msg-item comment-all">
+        <div class="continue-comment-body">
+          <!--    COMMENT CONTENT -->
+          <div class="comment-content">
+            <!-- COMMENT GUIDE LINE -->
+            <div class="comment-guide">
+              <div class="guide-line"></div>
+            </div>
+            <span class="comment-all-desc _fileGo">
+              {{{translate.commentAllDesc}}}
+            </span>
+          </div>
+        </div>
+      </div>
+    {{/if}}
 
     <div class="msg-item comment-continue">
       <!--    HEADER PART -->

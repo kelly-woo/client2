@@ -45,6 +45,9 @@
       var isUnshared = publicService.isFileUnshared(msg);
       var isMustPreview = $filter('mustPreview')(content);
       var hasPreview = $filter('hasPreview')(content);
+      var hasPermission = publicService.hasFilePermission(msg, true);
+
+      var commentCount = RendererUtil.getCommentCount(msg);
 
       var data = {
         css: {
@@ -59,7 +62,7 @@
         file: {
           id: msg.feedbackId,
           unshared: isUnshared,
-          hasPermission: publicService.hasFilePermission(msg, true),
+          hasPermission: hasPermission,
           icon: icon,
           isImageIcon: icon === 'img',
           mustPreview: isMustPreview,
@@ -69,14 +72,16 @@
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
           isIntegrateFile: RendererUtil.isIntegrateFile(msg),
-          commentCount: RendererUtil.getCommentCount(msg)
+          commentCount: commentCount
         },
+        hasCommentAllDesc: commentCount > 0 && !isArchived && hasPermission,
         hasStar: RendererUtil.hasStar(msg),
         isSticker: RendererUtil.isSticker(msg),
         isChild: isChild,
         isTitle: isTitle,
         isArchived: isArchived,
         translate: {
+          commentAllDesc: _getCommentAllDesc(msg.feedbackId, commentCount)
         },
         msg: msg
       };
@@ -98,6 +103,18 @@
       file.width = extraInfo.width;
       file.height = extraInfo.height;
       file.orientation = extraInfo.orientation;
+    }
+
+    /**
+     * get comment all desc
+     * @private
+     */
+    function _getCommentAllDesc(fileId, commentCount) {
+      var text = $filter('translate')('@comment-all-desc');
+
+      return text.replace('{{commentCount}}', function() {
+        return '<span class="comment-count-' + fileId + '">' + commentCount + '</span>';
+      });
     }
   }
 })();

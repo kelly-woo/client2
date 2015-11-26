@@ -70,6 +70,7 @@
 }
 
 .msg-file-actions .action-group {
+  background-color: #fff;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
   cursor: pointer;
@@ -78,7 +79,6 @@
 }
 
 .action-group .action-item {
-  background-color: #fff;
   float:left;
 }
 
@@ -192,6 +192,7 @@
 .card-info .info-group-bottom {
   width: 100%;
   padding: 0 15px 10px 15px;
+  line-height: 18px;
 }
 
 .info-group-bottom .info-title {

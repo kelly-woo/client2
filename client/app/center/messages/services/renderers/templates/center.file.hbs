@@ -32,7 +32,7 @@
               <div class="msg-file-actions">
                 <div class="action-group">
                   <div class="action-item"
-                       jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                       jnd-tooltip-trigger="{{translate '@common-file-detail'}}"
                        data-direction="top">
                     <!--  FILE DETAIL -->
                     <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -114,7 +114,7 @@
                       </div>
                       <div class="action-group">
                         <div class="action-item"
-                             jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                             jnd-tooltip-trigger="{{translate '@common-file-detail'}}"
                              data-direction="top">
                           <!--  FILE DETAIL -->
                           <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -155,7 +155,7 @@
                 <div class="msg-file-actions">
                   <div class="action-group">
                     <div class="action-item"
-                         jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                         jnd-tooltip-trigger="{{translate '@common-file-detail'}}"
                          data-direction="top">
                       <!--  FILE DETAIL -->
                       <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -169,7 +169,7 @@
                 <div class="fileicon fileicon-unshared"></div>
               </div>
               <div class="card-info card-unshared">
-                <span class="info-title">{{ file.title }}</span>
+                <span class="info-title break-word">{{ file.title }}</span>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@
                   <div class="action-group">
                     {{#if file.isImageIcon}}
                     <div class="action-item"
-                         jnd-tooltip-trigger="{{translate '@btn-comment'}}"
+                         jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
                          data-direction="top">
                       <!--  file expand  -->
                       <span class="action-comment _fileExpand">
@@ -221,7 +221,7 @@
                   </div>
                   <div class="action-group">
                     <div class="action-item"
-                         jnd-tooltip-trigger="{{translate '@btn-share'}}"
+                         jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
                          data-direction="top">
                       <!--  FILE DETAIL -->
                       <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -243,8 +243,8 @@
                       <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
                     </span>
                 </div>
-                <div class="info-group-bottom inline-overflow-ellipsis">
-                  <span class="info-title">{{ file.title }}</span>
+                <div class="info-group-bottom">
+                  <span class="info-title break-word">{{ file.title }}</span>
                   {{#unless file.isIntegrateFile}}
                     {{#if file.size}}
                     <!--    SIZE AND FILE TYPE  -->
