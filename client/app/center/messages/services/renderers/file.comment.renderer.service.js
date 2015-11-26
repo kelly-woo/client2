@@ -77,7 +77,7 @@
         hasCommentAllDesc: commentCount > 0 && !isArchived && hasPermission,
         hasStar: RendererUtil.hasStar(msg),
         isSticker: RendererUtil.isSticker(msg),
-        isChild: isChild,
+        isChild: false,
         isTitle: isTitle,
         isArchived: isArchived,
         translate: {
