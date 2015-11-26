@@ -206,8 +206,11 @@
 
     function _getPayload(content, sticker, mentions) {
       sticker = _.clone(sticker);
-      sticker.url = Sticker.getRetinaStickerUrl(sticker.url);
 
+      if (sticker) {
+        sticker.url = Sticker.getRetinaStickerUrl(sticker.url);
+      }
+      
       return {
         content: content,
         sticker: sticker,
