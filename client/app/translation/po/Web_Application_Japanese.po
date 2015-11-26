@@ -126,7 +126,7 @@ msgstr "ファイル詳細"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@btn-image-expand"
-msgstr ""
+msgstr "画像を表示"
 
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
