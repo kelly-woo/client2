@@ -22,10 +22,10 @@
 
 .comment-title .icon-file {
   position: absolute;
-  font-size: 20px;
+  font-size: 25px;
   color: #d1dae7;
-  left: 34px;
-  top: 5px;
+  left: 28px;
+  top: 12px;
 }
 
 /* hover시 extra menu css */

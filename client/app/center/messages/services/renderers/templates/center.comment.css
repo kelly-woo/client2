@@ -41,22 +41,23 @@
 
 .comment-guide .guide-line-bg {
   position: absolute;
-  width: 29px;
-  height: 32px;
+  width: 28px;
+  height: 33px;
   background-color: #fff;
 }
 
 .comment-guide .comment-writer {
   position: relative;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   margin-top: 2px;
 }
 
 .continue-comment-body .comment-content {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  line-height: 1.6rem;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  line-height: 1.5rem;
+  min-height: 33px;
 }
 
 .comment-content .comment-text {

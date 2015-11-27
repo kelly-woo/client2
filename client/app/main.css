@@ -134,6 +134,8 @@ input[type="email"] {
 .image_wrapper img {
   -webkit-transition: opacity 0.5s linear; /* Chrome */
   transition: opacity 0.5s linear;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  border-radius: 3px;
 }
 
 .opac-zero {

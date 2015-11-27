@@ -110,7 +110,7 @@ article {
   color: #192d3e;
   display: table;
   padding: 5px 12px;
-  margin: 15px 0 10px 66px;
+  margin: 10px 0 10px 66px;
 }
 .msgs-group__divider-label {
   display: inline-block;
@@ -130,7 +130,7 @@ article {
 /*}*/
 
 .msg-item.text {
-  margin-top: 15px;
+  margin-top: 7px;
   margin-bottom: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -163,6 +163,7 @@ article {
 
 .msg-item.comment-continue .msg-item-header {
   padding: 0 45px 0 0;
+  margin-top: 2px;
 }
 
 /* continued comment writer name */
