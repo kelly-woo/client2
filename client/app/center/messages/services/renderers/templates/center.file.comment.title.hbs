@@ -100,7 +100,7 @@
                           </div>
                           <div class="action-group">
                             <div class="action-item"
-                                 jnd-tooltip-trigger="{{translate 'common-file-detail'}}"
+                                 jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
                                  data-direction="top">
                               <!--  FILE DETAIL -->
                               <i class="action-file-detail icon-arrow-right _fileDetail"></i>
@@ -223,8 +223,8 @@
                 </div>
                 <div class="card-info">
                   <div class="info-group">
-                    <span class="info-writer">{{ msg.extWriterName }}</span>
-                    <span class="info-created-time">{{ msg.extTime }}</span>
+                    <span class="info-writer inline-overflow-ellipsis">{{ file.writerName }}</span>
+                    <span class="info-created-time">{{ file.time }}</span>
                     <span class="info-comment-count">
                       <i class="icon-comment"></i>
                       <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>

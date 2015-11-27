@@ -9,7 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($filter, MessageCollection, RendererUtil, publicService) {
+  function FileCommentRenderer($filter, MessageCollection, RendererUtil, publicService, memberService) {
     var _templateTitle = '';
     var _template = '';
 
@@ -34,27 +34,30 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.feedback.content;
-      var isArchived = (msg.feedback.status === 'archived');
-      var isChild = MessageCollection.isChildComment(index);
-      var isTitle = MessageCollection.isTitleComment(index);
-
-      var template = isTitle ? _templateTitle : _template;
 
       var icon = $filter('fileIcon')(content);
 
+      var isArchived = (msg.feedback.status === 'archived');
       var isUnshared = publicService.isFileUnshared(msg);
+
+      var hasPermission = publicService.hasFilePermission(msg, true);
       var isMustPreview = $filter('mustPreview')(content);
       var hasPreview = $filter('hasPreview')(content);
-      var hasPermission = publicService.hasFilePermission(msg, true);
+
+      var isTitle = MessageCollection.isTitleComment(index);
+      var isChild = MessageCollection.isChildComment(index);
+      var template = isTitle ? _templateTitle : _template;
 
       var commentCount = RendererUtil.getCommentCount(msg);
+
+      var feedback = RendererUtil.getFeedbackMessage(msg);
 
       var data = {
         css: {
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
           star: RendererUtil.getStarCssClass(msg.message),
-          fileStar: RendererUtil.getStarCssClass(RendererUtil.getFeedbackMessage(msg)),
-          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
+          fileStar: RendererUtil.getStarCssClass(feedback)
         },
         attrs: {
           download: RendererUtil.getFileDownloadAttrs(msg)
@@ -72,7 +75,9 @@
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
           isIntegrateFile: RendererUtil.isIntegrateFile(msg),
-          commentCount: commentCount
+          commentCount: commentCount,
+          writerName: memberService.getNameById(feedback.writerId),
+          time: $filter('getyyyyMMddformat')(feedback.createTime)
         },
         hasCommentAllDesc: commentCount > 0 && !isArchived && hasPermission,
         hasStar: RendererUtil.hasStar(msg),

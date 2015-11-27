@@ -167,6 +167,8 @@
 .info-group .info-writer {
   font-size: 14px;
   font-weight: 700;
+  max-width: 175px;
+  vertical-align: text-bottom;
 }
 
 .info-group .info-created-time {

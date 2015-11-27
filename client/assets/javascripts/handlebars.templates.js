@@ -132,7 +132,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + "                            <div class=\"action-item\"\n                                 jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@file-action-more",{"name":"translate","hash":{},"data":data}))
     + "\"\n                                 data-direction=\"top\">\n                              <!--  MORE  -->\n                              <i class=\"action-file-more icon-cog _fileMore\"></i>\n                            </div>\n                          </div>\n                          <div class=\"action-group\">\n                            <div class=\"action-item\"\n                                 jnd-tooltip-trigger=\""
-    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"common-file-detail",{"name":"translate","hash":{},"data":data}))
+    + alias2((helpers.translate || (depth0 && depth0.translate) || alias3).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                                 data-direction=\"top\">\n                              <!--  FILE DETAIL -->\n                              <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n";
 },"12":function(depth0,helpers,partials,data) {
     var stack1;
@@ -187,10 +187,10 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\" ></div>\n                </div>\n                <div class=\"card-info\">\n                  <div class=\"info-group\">\n                    <span class=\"info-writer\">"
-    + alias2(alias3(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
+    + "\" ></div>\n                </div>\n                <div class=\"card-info\">\n                  <div class=\"info-group\">\n                    <span class=\"info-writer inline-overflow-ellipsis\">"
+    + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.writerName : stack1), depth0))
     + "</span>\n                    <span class=\"info-created-time\">"
-    + alias2(alias3(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
+    + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.time : stack1), depth0))
     + "</span>\n                    <span class=\"info-comment-count\">\n                      <i class=\"icon-comment\"></i>\n                      <span class=\"comment-count-"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
     + "\">"
@@ -413,10 +413,10 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
     + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--    FILE TYPE THUMBNAIL -->\n              <div class=\"card-type\">\n                <div class=\"fileicon fileicon-"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\" ></div>\n              </div>\n              <div class=\"card-info\">\n                <div class=\"info-group\">\n                  <span class=\"info-writer\">"
+    + "\" ></div>\n              </div>\n              <div class=\"card-info\">\n                <div class=\"info-group\">\n                  <span class=\"info-writer inline-overflow-ellipsis\">"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + "</span>\n                  <span class=\"info-created-time\">"
-    + alias2(alias3(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
+    + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.time : stack1), depth0))
     + "</span>\n                    <span class=\"info-comment-count\">\n                      <i class=\"icon-comment\"></i>\n                      <span class=\"comment-count-"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
     + "\">"

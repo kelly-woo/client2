@@ -183,13 +183,16 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
-      
-      var isArchived = (msg.message.status === 'archived');
+
       var icon = $filter('fileIcon')(content);
-  
+
+      var isArchived = (msg.message.status === 'archived');
       var isUnshared = publicService.isFileUnshared(msg);
+
       var hasPermission = publicService.hasFilePermission(msg);
       var isMustPreview = $filter('mustPreview')(content);
+
+      var feedback = RendererUtil.getFeedbackMessage(msg);
 
       var data = {
         css: {
@@ -212,10 +215,11 @@
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
+          isIntegrateFile: RendererUtil.isIntegrateFile(msg),
+          commentCount: RendererUtil.getCommentCount(msg),
           isFileOwner: _isFileOwner(msg),
           ownerName: $filter('getName')(msg.message.writerId),
-          isIntegrateFile: RendererUtil.isIntegrateFile(msg),
-          commentCount: RendererUtil.getCommentCount(msg)
+          time: $filter('getyyyyMMddformat')(feedback.createTime)
         },
         isArchived: isArchived,
         msg: msg
