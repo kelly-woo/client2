@@ -149,8 +149,9 @@
               }
             });
             _.forEach(MessageCollection.list, function(msg, index) {
-              if (msg.message.id === fileId) {
-                msg.message.shareEntities = shareEntities;
+              var message = RendererUtil.getFeedbackMessage(msg);
+              if (message.id === fileId) {
+                message.shareEntities = shareEntities;
                 _refresh(msg.id, index);
               }
             });

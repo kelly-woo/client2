@@ -196,6 +196,8 @@
 
       var data = {
         css: {
+          unshared: isUnshared ? 'unshared' : '',
+          archived: isArchived ? 'archived' : '',
           wrapper: isArchived ? '': '',
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
@@ -205,7 +207,7 @@
         },
         file: {
           id: msg.message.id,
-          unshared: isUnshared,
+          isUnshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
           isImageIcon: icon === 'img',

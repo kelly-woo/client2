@@ -38,7 +38,7 @@
       var icon = $filter('fileIcon')(content);
 
       var isArchived = (msg.feedback.status === 'archived');
-      var isUnshared = publicService.isFileUnshared(msg);
+      var isUnshared = publicService.isFileUnshared(msg, true);
 
       var hasPermission = publicService.hasFilePermission(msg, true);
       var isMustPreview = $filter('mustPreview')(content);
@@ -54,6 +54,8 @@
 
       var data = {
         css: {
+          unshared: isUnshared ? 'unshared' : '',
+          archived: isArchived ? 'archived' : '',
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
@@ -64,7 +66,7 @@
         },
         file: {
           id: msg.feedbackId,
-          unshared: isUnshared,
+          isUnshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
           isImageIcon: icon === 'img',

@@ -22,12 +22,12 @@
 
   <div class="msg-item-body">
     <!-- FILE -->
-    <div class="msg-file">
+    <div class="msg-file {{css.unshared}} {{css.archived}}">
       {{#if isArchived}}
         <!--  ARCHIVED FILE PREVIEW IMAGE  -->
         <div class="preview-container">
-          <div class="preview-card cursor_pointer _compile">
-            <div class="msg-file-actions-content actions-dimmed _fileGo"></div>
+          <div class="preview-card cursor_pointer _compile _fileGo">
+            <div class="msg-file-actions-content actions-dimmed"></div>
             <div class="msg-file-actions-content non-selectable">
               <div class="msg-file-actions">
                 <div class="action-group">
@@ -85,6 +85,7 @@
                      has-loading-bar="true">
                   <div class="msg-file-actions-content non-selectable">
                     <div class="msg-file-actions">
+                      {{#unless file.isUnshared}}
                       <div class="action-group">
                         <div class="action-item"
                              jnd-tooltip-trigger="{{translate '@btn-comment'}}"
@@ -112,6 +113,7 @@
                           <i class="action-file-more icon-cog _fileMore"></i>
                         </div>
                       </div>
+                      {{/unless}}
                       <div class="action-group">
                         <div class="action-item"
                              jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
@@ -134,7 +136,7 @@
               {{/if}}
             </div>
 
-            {{#unless file.unshared}}
+            {{#unless file.isUnshared}}
               <!-- Star -->
               <div class="msg-extra file-uploaded-extra">
                 <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle star-{{msg.message.id}} _star {{css.star}}">
@@ -149,8 +151,8 @@
         {{else}}
           <!--  UNSHARED FILE  -->
           <div class="preview-container">
-            <div class="preview-card cursor_pointer _compile">
-              <div class="msg-file-actions-content actions-dimmed _fileGo"></div>
+            <div class="preview-card cursor_pointer _compile _fileGo">
+              <div class="msg-file-actions-content actions-dimmed"></div>
               <div class="msg-file-actions-content non-selectable">
                 <div class="msg-file-actions">
                   <div class="action-group">
@@ -178,10 +180,11 @@
         {{#unless file.mustPreview}}
           <!--  FILE PREVIEW IMAGE  -->
           <div class="preview-container">
-            <div class="preview-card cursor_pointer _compile" >
-              <div class="msg-file-actions-content actions-dimmed _fileGo"></div>
+            <div class="preview-card cursor_pointer _compile _fileGo">
+              <div class="msg-file-actions-content actions-dimmed"></div>
               <div class="msg-file-actions-content non-selectable">
                 <div class="msg-file-actions">
+                  {{#unless file.isUnshared}}
                   <div class="action-group">
                     {{#if file.isImageIcon}}
                     <div class="action-item"
@@ -219,6 +222,7 @@
                       <i class="action-file-more icon-cog _fileMore"></i>
                     </div>
                   </div>
+                  {{/unless}}
                   <div class="action-group">
                     <div class="action-item"
                          jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
@@ -256,7 +260,7 @@
               </div>
             </div>
 
-            {{#unless file.unshared}}
+            {{#unless file.isUnshared}}
             <!-- Star -->
             <div class="msg-extra file-uploaded-extra">
               <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle star-{{msg.message.id}} _star {{css.star}}">

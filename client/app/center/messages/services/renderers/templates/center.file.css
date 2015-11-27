@@ -211,19 +211,27 @@
   font-size: 12px;
 }
 
-.card-info.card-archived,
-.card-info.card-unshared {
+/* unshared image preview & filter type preview */
+.msg-file.unshared .card-info.card-unshared,
+.msg-file.archived .card-info.card-archived {
   padding-left: 12px;
   line-height: 60px;
 }
 
-.card-info.card-archived .info-title,
-.card-info.card-unshared .info-title {
-  font-weight: 700;
-  font-size: 15px;
+.msg-file.unshared .info-title,
+.msg-file.archived .info-title {
   color: #b7b7b7;
 }
 
-.card-info.card-unshared .info-title {
+.msg-file.unshared .info-title {
+  text-decoration: line-through;
+}
+
+.msg-file.unshared .msg-file-meta {
+  opacity: .4;
+}
+
+.msg-file.unshared .info-group-bottom .info-title,
+.msg-file.unshared .msg-file-meta__title {
   text-decoration: line-through;
 }
