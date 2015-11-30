@@ -36,45 +36,9 @@
 
         },
         'shift-ctrl': {
+          //잠금기능
           'CHAR_L': {
             handler: _togglePrivacy
-          },
-          //파일 검색 탭
-          'CHAR_F': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
-            }
-          },
-          //메세지 검색 탭
-          'CHAR_G': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
-            }
-          },
-          //즐겨찾기 탭
-          'CHAR_S': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
-            }
-          },
-          //멘션 탭
-          'CHAR_M': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
-            }
-          },
-          //다음탭 이동
-          'CHAR_DOT': {
-            handler: _rPanelNext
-          },
-          //이전탭 이동
-          'CHAR_COMMA': {
-            handler: _rPanelPrev
-          },
-          //우측패널 토글
-          '[': {
-            handler: _toggleRightPanel,
-            isExactMatch: false
           }
         },
         'shift-alt': {
@@ -114,14 +78,17 @@
           'CHAR_J': {
             handler: _toggleQuickLauncher
           },
+          //확대
           'PLUS': {
             handler: _zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
+          //축소
           'MINUS': {
             handler: _zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
+          //zoom reset
           'NUM_0': {
             handler: _zoomReset,
             extraCondition: HybridAppHelper.isHybridApp
@@ -157,6 +124,43 @@
             handler: function() {
               modalHelper.openTeamChangeModal(scope);
             }
+          },
+          //우측패널 토글
+          '[': {
+            handler: _toggleRightPanel,
+            isExactMatch: false
+          },
+          //파일 검색 탭
+          'CHAR_F': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
+            }
+          },
+          //메세지 검색 탭
+          'CHAR_G': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
+            }
+          },
+          //즐겨찾기 탭
+          'CHAR_S': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
+            }
+          },
+          //멘션 탭
+          'CHAR_M': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          },
+          //다음탭 이동
+          'CHAR_DOT': {
+            handler: _rPanelNext
+          },
+          //이전탭 이동
+          'CHAR_COMMA': {
+            handler: _rPanelPrev
           }
         },
         'none': {
