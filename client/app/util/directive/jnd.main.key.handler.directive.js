@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser,
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
                              JndLocalStorage) {
     return {
       restrict: 'A',
@@ -115,13 +115,16 @@
             handler: _toggleQuickLauncher
           },
           'PLUS': {
-            handler: _zoomIn
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
           },
           'MINUS': {
-            handler: _zoomOut
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
           },
           'NUM_0': {
-            handler: _zoomReset
+            handler: _zoomReset,
+            extraCondition: HybridAppHelper.isHybridApp
           }
         },
         'alt': {
@@ -212,16 +215,18 @@
        * @private
        */
       function _setZoom() {
-        _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
-        if (_currentZoomScale < MIN_ZOOM_SCALE) {
-          _currentZoomScale = MIN_ZOOM_SCALE;
-        } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
-          _currentZoomScale = MAX_ZOOM_SCALE;
-        } else {
-          JndLocalStorage.set(0, 'zoom', _currentZoomScale);
-          $('body').css({
-            'zoom': _currentZoomScale
-          });
+        if (HybridAppHelper.isHybridApp()) {
+          _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
+          if (_currentZoomScale < MIN_ZOOM_SCALE) {
+            _currentZoomScale = MIN_ZOOM_SCALE;
+          } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
+            _currentZoomScale = MAX_ZOOM_SCALE;
+          } else {
+            JndLocalStorage.set(0, 'zoom', _currentZoomScale);
+            $('body').css({
+              'zoom': _currentZoomScale
+            });
+          }
         }
       }
 
