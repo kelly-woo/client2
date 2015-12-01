@@ -30,6 +30,9 @@ app.controller('leftPanelController1', function(
 
   var _hasToUpdate = false;
 
+  // center chat timer
+  var timerUpdateCenterChat;
+
   $scope.entityId = $state.params.entityId;
 
   //todo: refactoring 시 main view 의 property로 로 분리해야 함.
@@ -478,20 +481,13 @@ app.controller('leftPanelController1', function(
     ////////////    END OF PARSING      ////////////
 
     $rootScope.joinedChannelList    = $scope.joinedChannelList;
-    $rootScope.joinedChannelMap     = $scope.joinedChannelMap;
     $rootScope.privateGroupList     = $scope.privateGroupList;
-    $rootScope.privateGroupMap      = $scope.privateGroupMap;
     $rootScope.totalEntities        = $scope.totalEntities;
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
-    $rootScope.totalUserMap  = $scope.totalUserMap;
-    $rootScope.totalTopicMap  = $scope.totalTopicMap;
-
     currentSessionHelper.setCurrentTeam(response.team);
     currentSessionHelper.setCurrentTeamUserList(EntityMapManager.toArray('user'));
-
-
 
     // generating starred list.
     if (memberService.getStarredEntities().length > 0) {
@@ -516,6 +512,9 @@ app.controller('leftPanelController1', function(
     }
     TopicFolderModel.update();
     $rootScope.$broadcast('onInitLeftListDone');
+
+    // 전체 entity 갱신시 chat list를 갱신하므로 반드시 수정되어야 함
+    _updateCenterChat();
   }
 
 
@@ -1031,5 +1030,16 @@ app.controller('leftPanelController1', function(
         fileAPIservice.clearCurUpload();
       }
     }
+  }
+
+  /**
+   * upcate center chat
+   * @private
+   */
+  function _updateCenterChat() {
+    $timeout.cancel(timerUpdateCenterChat);
+    timerUpdateCenterChat = $timeout(function() {
+      jndPubSub.pub('updateChatList');
+    }, 50);
   }
 });
