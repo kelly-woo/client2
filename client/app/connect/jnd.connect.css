@@ -156,7 +156,7 @@
   bottom: 0;
 }
 
-.jnd-connect-service-container div {
+.jnd-connect-service-container > div {
   max-width: 1048px;
   margin: 0 auto 16px;
   position: relative;
@@ -208,12 +208,6 @@
   display: block;
   word-break: keep-all;
   position: relative;
-}
-.integration-service-container {
-  min-height: 100px;
-  background-color:#FFF;
-  border: 1px solid #E1E1E1;
-  border-radius: 3px;
 }
 
 @-moz-document url-prefix() {

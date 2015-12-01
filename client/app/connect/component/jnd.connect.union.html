@@ -1,0 +1,22 @@
+<div class="connect-union-wrapper">
+  <div class="connect-union-header">
+    <div class="connect-union-icon">
+      {{union.icon}}
+    </div>
+    <div>
+      <div class="connect-union-title">
+        {{union.title}}
+      </div>
+      <div class="connect-union-desc">
+        {{union.desc}}
+      </div>
+    </div>
+    <div class="connect-union-float-right">
+      <span class="connect-union-btn jnd-cursor-pointer" ng-click="toggleCollapse();">2개의 연동된 항목</span>
+      <span class="connect-union-btn primary jnd-cursor-pointer">연동 항목 추가하기</span>
+    </div>
+  </div>
+  <div class="connect-union-body">
+    <jnd-connect-union-plug></jnd-connect-union-plug>
+  </div>
+</div>

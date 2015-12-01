@@ -1,0 +1,48 @@
+.connect-union-plug-wrapper {
+  width: 100%;
+  height: 100px;
+  background-color: #FFF;
+  border-top: 1px solid #E4E4E4;
+  box-sizing: border-box;
+}
+
+.connect-union-plug-wrapper > div {
+  float: left;
+}
+
+.connect-union-plug-icon {
+  width:32px;
+  height: 32px;
+  margin: 18px 38px 18px 26px;
+}
+
+.connect-union-plug-title,
+.connect-union-plug-desc {
+  color: #505050;
+  font-size: 16px;
+  line-height: 23px;
+  font-weight: 600;
+}
+
+.connect-union-plug-btn-wrapper {
+  color: #B3B3B3;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+.connect-union-plug-btn-wrapper.on {
+
+}
+
+.connect-union-plug-btn-wrapper.on .connect-union-plug-btn-switch {
+  color: #13A4EB;
+  background: #FAFAFA;
+  border-top: 1px solid #E4E4E4;
+  box-sizing: border-box;
+}
+
+.connect-union-plug-btn-text {
+
+}
+
