@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text-sending/text.sending.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
+  <link rel="stylesheet" href="app/common.css">
   <link rel="stylesheet" href="app/disconnect/disconnect.css">
   <link rel="stylesheet" href="app/external_share/external.share.css">
   <link rel="stylesheet" href="app/header/header.css">
@@ -57,7 +58,6 @@
   <link rel="stylesheet" href="app/left/topics/topics.css">
   <link rel="stylesheet" href="app/left/topics/tutorial/left.tutorial.folder.css">
   <link rel="stylesheet" href="app/loading/loading.center.css">
-  <link rel="stylesheet" href="app/main.css">
   <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
   <link rel="stylesheet" href="app/modal/files/integration/integration.css">
@@ -136,7 +136,7 @@
 <body jnd-main-key-handler
       active-notifier
       window-title-manager
-      jnd-wrapper>
+      jnd-main>
 <!--[if lte IE 9]>
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
@@ -400,7 +400,8 @@
 <script src="app/left/topics/tutorial/left.tutorial.folder.controller.js"></script>
 <script src="app/left/topics/tutorial/left.tutorial.folder.directive.js"></script>
 <script src="app/loading/loading.center.directive.js"></script>
-<script src="app/main.js"></script>
+<script src="app/main/jnd.main.controller.js"></script>
+<script src="app/main/jnd.main.directive.js"></script>
 <script src="app/mention/mention.view.directive.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
 <script src="app/modal/files/integration/integration.controller.js"></script>
@@ -529,8 +530,6 @@
 <script src="app/tutorial/tutorial.service.js"></script>
 <script src="app/tutorial/welcome/tutorial.welcome.controller.js"></script>
 <script src="app/tutorial/welcome/tutorial.welcome.directive.js"></script>
-<script src="app/wrapper/jnd.wrapper.controller.js"></script>
-<script src="app/wrapper/jnd.wrapper.directive.js"></script>
 <script src="components/app/active_notifier/active.notifier.directive.js"></script>
 <script src="components/app/analytics/analyticsv1.service.js"></script>
 <script src="components/app/analytics/directives/buttonTrakcer.directive.js"></script>

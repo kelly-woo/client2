@@ -6,12 +6,12 @@
 
   angular
     .module('jandiApp')
-    .directive('jndWrapper', jndWrapper);
+    .directive('jndMain', jndMain);
 
-  function jndWrapper() {
+  function jndMain() {
     return {
       restrict: 'A',
-      controller: 'JndWrapperCtrl',
+      controller: 'JndMainCtrl',
       link: link
     };
 

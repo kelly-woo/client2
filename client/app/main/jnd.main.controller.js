@@ -7,9 +7,9 @@
 
   angular
     .module('jandiApp')
-    .controller('JndWrapperCtrl', JndWrapperCtrl);
+    .controller('JndMainCtrl', JndMainCtrl);
 
-  function JndWrapperCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
+  function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap) {
 
     var _inviteSocketQueue = [];
