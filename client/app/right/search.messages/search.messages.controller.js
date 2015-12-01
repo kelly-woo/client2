@@ -340,12 +340,12 @@
      * @private
      */
     function _initChatRoomOption() {
-      var newOptions = fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList);
+      var newOptions = fileAPIservice.getShareOptionsWithoutMe(
+        $scope.joinedEntities,
+        currentSessionHelper.getCurrentTeamUserList()
+      );
       var newMessageLocation = _getMessageLocation(newOptions);
       $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
-      //if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-      //  $('._chatRoomOptions').change();
-      //}
 
       if (newMessageLocation) {
         _setMessageLocation(newMessageLocation);
@@ -392,7 +392,7 @@
      * @private
      */
     function _initChatWriterOption() {
-      $scope.chatWriterOptions = fileAPIservice.getShareOptions($scope.memberList);
+      $scope.chatWriterOptions = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
     }
 
     /**

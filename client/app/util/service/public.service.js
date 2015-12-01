@@ -43,13 +43,15 @@
     function getInviteOptions(joinedChannelList, privateGroupList, inviteeId) {
       var list = [];
 
-      angular.forEach(joinedChannelList, function(entity, index) {
-        if (!_.contains(entity.ch_members, inviteeId))
+      angular.forEach(joinedChannelList, function(entity) {
+        var users = entityAPIservice.getUserList(entity);
+        if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 
-      angular.forEach(privateGroupList, function(entity, index) {
-        if (!_.contains(entity.pg_members, inviteeId))
+      angular.forEach(privateGroupList, function(entity) {
+        var users = entityAPIservice.getUserList(entity);
+        if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 

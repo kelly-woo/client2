@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper) {
 
     var that = this;
 
@@ -83,8 +83,10 @@
       var modalOption;
       var selectOptions;
 
-      selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-      //selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
+      selectOptions = fileAPIservice.getShareOptions(
+        $rootScope.joinedEntities,
+        currentSessionHelper.getCurrentTeamUserList()
+      );
 
       if (!selectOptions.length) {
         Dialog.warning({

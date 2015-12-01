@@ -84,14 +84,6 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
 
-  /**
-   * language 변경 event handling
-   */
-  $scope.$on('changedLanguage', function() {
-    //  Setting prefix for each entity.
-    setEntityPrefix();
-  });
-
   $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
 
   $scope.goUnreadBelow = goUnreadBelow;
@@ -467,19 +459,13 @@ app.controller('leftPanelController1', function(
     $scope.joinEntityCount  = response.joinEntityCount;
     $scope.joinEntities     = response.joinEntities;
 
-    //  Setting prefix for each entity.
-    setEntityPrefix();
-
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joinedData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
-
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
-    var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
-
-    _.extend($scope, generalData, joinedData);
+    var generalData = entityAPIservice.createTotalData($scope.totalEntities, $scope.joinEntities);
+    _.extend($scope, generalData);
 
     //$scope.memberList           = generalData.memberList;
     //$scope.memberMap           = generalData.memberMap;
@@ -491,13 +477,10 @@ app.controller('leftPanelController1', function(
     $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
     ////////////    END OF PARSING      ////////////
 
-    $rootScope.totalChannelList     = $scope.totalChannelList;
     $rootScope.joinedChannelList    = $scope.joinedChannelList;
     $rootScope.joinedChannelMap     = $scope.joinedChannelMap;
     $rootScope.privateGroupList     = $scope.privateGroupList;
     $rootScope.privateGroupMap      = $scope.privateGroupMap;
-    $rootScope.memberList           = $scope.memberList;
-    $rootScope.memberMap            = $scope.memberMap;
     $rootScope.totalEntities        = $scope.totalEntities;
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
@@ -506,7 +489,7 @@ app.controller('leftPanelController1', function(
     $rootScope.totalTopicMap  = $scope.totalTopicMap;
 
     currentSessionHelper.setCurrentTeam(response.team);
-    currentSessionHelper.setCurrentTeamMemberList($scope.memberList);
+    currentSessionHelper.setCurrentTeamUserList(EntityMapManager.toArray('user'));
 
 
 
@@ -583,13 +566,6 @@ app.controller('leftPanelController1', function(
    */
   function _checkSocketStatus() {
     jndWebSocket.checkSocketConnection();
-  }
-
-  /**
-   * 각 엔티티의 prefix 를 설정해준다.
-   */
-  function setEntityPrefix() {
-    leftpanelAPIservice.setEntityPrefix($scope);
   }
 
   //  When there is anything to update, call this function and below function will handle properly.
@@ -686,9 +662,6 @@ app.controller('leftPanelController1', function(
     $scope.updateLeftPanelCaller();
   });
   $scope.$on('connected', updateLeftPanelCaller);
-  $scope.$on('leftOnMemberListChange', function() {
-    $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
-  });
 
   $scope.openModal = function(selector, options) {
     if (selector == 'join') {

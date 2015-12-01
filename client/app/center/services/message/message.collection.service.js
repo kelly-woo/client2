@@ -687,7 +687,7 @@
       if (centerService.isChat()) {
         globalUnreadCount = 1;
       } else {
-        globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity()) - 1;
       }
       globalUnreadCount = globalUnreadCount - markerOffset;
 

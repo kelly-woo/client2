@@ -52,7 +52,6 @@
 
       $scope.onClickShare = onClickShare;
       $scope.onClickUnshare = onClickUnshare;
-      $scope.onClickSharedEntity = onClickSharedEntity;
 
       $scope.isFiltered = isFilterred;
       $scope.isFileSearchQueryDefault = isFileSearchQueryDefault;
@@ -336,10 +335,9 @@
      * @private
      */
     function _generateShareOptions() {
-      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
-      //if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-      //  $('._chatRoomOptions').change();
-      //}
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+      );
     }
 
     /**
@@ -384,7 +382,7 @@
      * @private
      */
     function _addToSharedByOption(member) {
-      $scope.selectOptionsUsers = fileAPIservice.getShareOptions($scope.memberList);
+      $scope.selectOptionsUsers = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
     }
 
     /**
@@ -630,30 +628,6 @@
         .error(function(err) {
           alert(err.msg);
         });
-    }
-
-    /**
-     * shared event handler
-     * @param {number} entityId
-     */
-    function onClickSharedEntity(entityId) {
-      var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-      if (fileAPIservice.isMember(targetEntity, $scope.member)) {
-        // topic에 member이면
-
-        $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
-      } else {
-        entityheaderAPIservice.joinChannel(targetEntity.id)
-          .success(function(response) {
-            $rootScope.$emit('updateLeftPanelCaller');
-            $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
-            analyticsService.mixpanelTrack( "topic Join" );
-
-          })
-          .error(function(err) {
-            alert(err.msg);
-          });
-      }
     }
 
     /**

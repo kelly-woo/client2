@@ -208,7 +208,7 @@
 
         msg = msg
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
-          .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getMemberLength(currentEntity), 10) - 1);
+          .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getUserLength(currentEntity), 10) - 1);
 
         Dialog.warning({
           title: msg

@@ -9,7 +9,7 @@
     .service('TopicItemRenderer', TopicItemRenderer);
 
   /* @ngInject */
-  function TopicItemRenderer($filter) {
+  function TopicItemRenderer($filter, entityAPIservice) {
     var _template;
 
     this.render = render;
@@ -31,7 +31,7 @@
         createTime: $filter('getyyyyMMddformat')(data.ch_createTime),
         topicDescription: data.description,
         creatorName: $filter('getName')(data.ch_creatorId),
-        memberCount: data.ch_members.length,
+        userCount: entityAPIservice.getUserList(data).length,
         commonJoinedMessage: $filter('translate')('@common-joined'),
         itemHeight: !!data.description ? 130 : 77
       });

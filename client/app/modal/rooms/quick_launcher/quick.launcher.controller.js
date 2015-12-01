@@ -213,7 +213,7 @@
     function _getEnabledMembers(value) {
       var members = [];
 
-      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
+      _.forEach(currentSessionHelper.getCurrentTeamUserList(), function(member) {
         if (member.name.toLowerCase().indexOf(value.toLowerCase()) > -1 && !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id) {
         //if (memberService.getMemberId() !== member.id && member.name.indexOf(value) > -1) {
           members.push({

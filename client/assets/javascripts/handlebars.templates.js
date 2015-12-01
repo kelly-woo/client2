@@ -611,7 +611,7 @@ this["Handlebars"]["templates"]["modal.topic.list.item"] = Handlebars.template({
     + "  <div class=\"topic-general-info\">\n    <i class=\"icon-user\"></i>\n    <span class=\"join-modal-channel_creator inline-overflow-ellipsis\"> "
     + alias3(((helper = (helper = helpers.creatorName || (depth0 != null ? depth0.creatorName : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"creatorName","hash":{},"data":data}) : helper)))
     + "</span>\n    <span class=\"bullet\"> • </span>"
-    + alias3(((helper = (helper = helpers.memberCount || (depth0 != null ? depth0.memberCount : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"memberCount","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.userCount || (depth0 != null ? depth0.userCount : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"userCount","hash":{},"data":data}) : helper)))
     + "<span>"
     + alias3(((helper = (helper = helpers.commonJoinedMessage || (depth0 != null ? depth0.commonJoinedMessage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"commonJoinedMessage","hash":{},"data":data}) : helper)))
     + "</span>\n  </div>\n</div>\n";

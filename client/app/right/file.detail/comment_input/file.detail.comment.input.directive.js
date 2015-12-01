@@ -280,16 +280,16 @@
 
           _.each(sharedEntities, function(sharedEntity) {
             var entity = EntityMapManager.get('total', sharedEntity);
-            var members;
+            var users;
 
             if (entity && /channels|privategroups/.test(entity.type)) {
-              members = entityAPIservice.getMemberList(entity);
-              _.each(members, function(member) {
-                member = EntityMapManager.get('total', member);
-                if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                  member.extViewName = '[@' + member.name + ']';
-                  member.extSearchName = member.name;
-                  mentionMembers.push(member);
+              users = entityAPIservice.getUserList(entity);
+              _.each(users, function(userId) {
+                var user = EntityMapManager.get('user', userId);
+                if (user && currentMemberId !== user.id && user.status === 'enabled') {
+                  user.extViewName = '[@' + user.name + ']';
+                  user.extSearchName = user.name;
+                  mentionMembers.push(user);
                 }
               });
             }
