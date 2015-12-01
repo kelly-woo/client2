@@ -1,5 +1,5 @@
 /**
- * @fileoverview jandi wrapper controller
+ * @fileoverview jandi main controller
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

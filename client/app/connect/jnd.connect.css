@@ -7,9 +7,23 @@
   top: 0;
 }
 
-.jnd-connect-setting-container .header-navbar__topmenu {
+.jnd-connect-hpanel {
+  position: relative;
+  z-index: 7024;
+}
+.jnd-connect-header {
+  height: 42px;
+  line-height: 42px;
+  background-color: #154a67;
+  min-width: 220px;
+  color: white;
+}
+.jnd-connect-setting-container .jnd-connect-header-navbar__topmenu {
   padding-right: 16px;
   height: 42px;
+  display: block;
+  padding: 0 10px 0 12px;
+  line-height: 41px;
 }
 .jnd-connect-setting-container .back-button {
   float: left;
@@ -19,14 +33,26 @@
   padding-right: 14px;
 }
 
+.jnd-connect-header-navbar__title {
+  line-height: 42px;
+  margin-left: 3px;
+}
+.jnd-connect-header-navbar__menu-icon {
+  vertical-align: middle;
+  padding-right: 0px;
+}
+
+
 .jnd-connect-setting-container .back-button:hover,
 .jnd-connect-setting-container .exit-button:hover
 {
   background-color: #0B3C57;
 }
 
+
 #connect-setting-ui {
   background-color: #F3F4F5;
+  top: 42px;
 }
 .connect-setting-lpanel {
   background-color: #FAFAFA;
@@ -38,6 +64,7 @@
   position: absolute;
   top: 0;
   overflow: hidden;
+  z-index: 7001;
 }
 
 .jnd-connect-logo-container {
@@ -49,7 +76,7 @@
 }
 
 .jnd-connect-logo {
-  background: url('../../client/assets/images/service-logo-jnd-connect-active.png');
+  background: url('../../assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
   height: 32px;
   width: 32px;
@@ -81,11 +108,19 @@
   font-size: 14px;
   line-height: 14px;
   font-weight: 600;
+  position: relative;
 }
 
 #jnd-connect-list-container {
   top: 98px;
   overflow-y: auto;
+  width: 239px;
+  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #F9F9F9;
+  box-sizing: content-box;
 }
 
 .no-integration-container {
@@ -102,7 +137,7 @@
   display: block;
 }
 .icon-jnd-connect {
-  background: url('../../client/assets/images/service-logo-jnd-connect-inactive.png');
+  background: url('../../assets/images/service-logo-jnd-connect-inactive.png');
   margin:0 auto;
   width: 20px;
   height: 20px;
@@ -112,8 +147,13 @@
 }
 
 #jnd-connect-available-service {
-  padding:32px 36px;	
+  padding:32px 36px;
   overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 240px;
+  right: 0;
+  bottom: 0;
 }
 
 .jnd-connect-service-container div {
@@ -125,7 +165,7 @@
   min-height: 120px;
   background-image: linear-gradient(-270deg, #13A4EB 0%, #0784C1 100%);
   border-radius: 3px;
-  
+
   padding: 32px 36px;
   overflow: hidden;
 }
@@ -141,7 +181,7 @@
 }
 
 .jnd-connect.banner-image {
-  background:url('../../client/assets/images/jnd-connect-banner-img.png');
+  background:url('../../assets/images/jnd-connect-banner-img.png');
   background-size: cover;
   width: 310px;
   height: 104px;
@@ -176,26 +216,30 @@
   border-radius: 3px;
 }
 
+@-moz-document url-prefix() {
+  .integrated-service .header-title {
+    top:-1px;
+  }
+}
 
 /* if browser width is smaller than 960px : */
 @media (max-width: 960px) {
   .connect-setting-lpanel {
-	width: 100%;
-	position: relative;
-	max-height: 64px;
-	border-bottom:1px solid #DDDDDD;
-	overflow: visible;
+    width: 100%;
+    position: relative;
+    max-height: 64px;
+    border-bottom:1px solid #D7D8DB;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
   }
-  
+
   .connect-setting-lpanel div {
-	display: none;
+    display: none;
   }
   .connect-setting-lpanel div.jnd-connect-logo-container {
-	display: block;
-	box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
+    display: block;
   }
-  .jnd-connect-service-container {
-	left: 0;
-	top: 65px;
+  #jnd-connect-available-service {
+    left: 0;
+    top: 65px;
   }
 }

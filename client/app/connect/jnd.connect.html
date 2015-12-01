@@ -1,21 +1,21 @@
 <div class="jnd-connect-setting-container">
 
-  <div class="hpanel non-selectable">
-    <div class="header ng-scope">
-		  <span class="header-navbar__topmenu back-button cursor_pointer" ng-click="">
-		    <i class="icon-long-arrow-left header-navbar__menu-icon"></i>
+  <div class="jnd-connect-hpanel non-selectable">
+    <div class="jnd-connect-header">
+		  <span class="jnd-connect-header-navbar__topmenu back-button cursor_pointer" ng-click="">
+		    <i class="icon-long-arrow-left jnd-connect-header-navbar__menu-icon"></i>
         <!-- translate:  -->
-		    <span class="header-navbar__title ng-scope" translate="">돌아가기</span>
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate="">돌아가기</span>
 		  </span>
-		  <span class="header-navbar__topmenu exit-button cursor_pointer" ng-click="">
+		  <span class="jnd-connect-header-navbar__topmenu exit-button cursor_pointer" ng-click="">
 		    <!-- translate:  -->
-		    <span class="header-navbar__title ng-scope" translate="">잔디 커넥트 닫기</span>
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate="">잔디 커넥트 닫기</span>
 		  </span>
 
     </div>
   </div>
 
-  <div class="body full-screen" id="connect-setting-ui" ui-view="">
+  <div class="full-screen" id="connect-setting-ui">
 
     <aside class="connect-setting-lpanel non-selectable opac-zero opac-in"
            ng-class="">
@@ -29,7 +29,7 @@
         <span class="jnd-connect header-title">연동된 서비스</span>
       </div>
 
-      <div class="jnd-connect-list lpanel-list" id="jnd-connect-list-container">
+      <div class="jnd-connect-list" id="jnd-connect-list-container">
 
         <!-- integrated service list will be placed here -->
         <!-- no-service container will be placed here -->
@@ -43,7 +43,7 @@
     </aside>
 
 
-    <div class="cpanel jnd-connect-service-container" id="jnd-connect-available-service">
+    <div class="jnd-connect-service-container" id="jnd-connect-available-service">
 
       <div class="jnd-connect-banner">
         <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
