@@ -403,6 +403,8 @@
 
           privateGroupList.push(entity);
         }
+
+        EntityMapManager.add('total', entity);
       });
 
       _createEntityData(totalEntities, function(entity, type) {
@@ -432,14 +434,14 @@
      * @private
      */
     function _createEntityData(entities, callback) {
-      var regxEntityType = /channel|privategroup|user|bot/;
+      var regxEntityType = /channel|privategroup|user|bot/i;
 
       _.each(entities, function(entity) {
         var match = regxEntityType.exec(entity.type);
         var type;
 
         if (match) {
-          type = match[0];
+          type = match[0].toLowerCase();
           _transDatas(entity, type);
 
           callback(entity, type);
