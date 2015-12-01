@@ -238,7 +238,7 @@
   .connect-setting-lpanel div.jnd-connect-logo-container {
 	display: block;
   }
-  .jnd-connect-service-container {
+  #jnd-connect-available-service {
 	left: 0;
 	top: 65px;
   }
