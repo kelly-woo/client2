@@ -178,7 +178,7 @@ sticker-layer {
 }
 .sticker_layer {
   z-index:2;
-  height: 150px;
+  height: 138px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   position:relative;
@@ -203,8 +203,8 @@ img.sticker {
 }
 
 img.sticker.size_5 {
-  width: 145px;
-  height: 145px;
+  width: 126px;
+  height: 126px;
 }
 img.sticker.size_1 {
   width: 65px;
