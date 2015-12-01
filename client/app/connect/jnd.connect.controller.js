@@ -6,7 +6,17 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl() {
+  function JndConnectCtrl($scope, JndConnect) {
+    $scope.historyBack = historyBack;
+    $scope.close = close;
 
+
+    function close() {
+      JndConnect.hide();
+    }
+
+    function historyBack() {
+      JndConnect.hide();
+    }
   }
 })();

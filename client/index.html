@@ -171,7 +171,7 @@
     </div>
     <jnd-tooltip></jnd-tooltip>
     <tutorial-welcome></tutorial-welcome>
-    <jnd-connect></jnd-connect>
+    <jnd-connect ng-if="isShowJndConnect"></jnd-connect>
   </div>
   <div ng-if="!isReady" class="full-screen z-index-top">
   </div>
@@ -373,6 +373,7 @@
 <script src="app/center/view_components/entity_header/topic_description/topic.description.directive.js"></script>
 <script src="app/connect/jnd.connect.controller.js"></script>
 <script src="app/connect/jnd.connect.directive.js"></script>
+<script src="app/connect/jnd.connect.service.js"></script>
 <script src="app/disconnect/disconnect.controller.js"></script>
 <script src="app/error/error.controller.js"></script>
 <script src="app/external_share/external.share.service.js"></script>
