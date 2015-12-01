@@ -134,6 +134,8 @@
   <!-- endbuild -->
   
   <link rel="stylesheet" href="connect-setting.css">
+  <script src="../../client/bower_components/jquery/dist/jquery.js"></script>
+
   
 </head>
 
@@ -186,7 +188,50 @@
 		  <div class="jnd-connect-list has-content" id="jnd-connect-list-container">
 			  
 			<!-- integrated service list will be placed here -->
-			
+			<div class="integration-list-container">
+				
+			  <!-- dummy service 01 -->
+			  <div class="active-service google-calendar">
+				
+				<div class="service-title cursor_pointer">
+				  <i class="icon-service-logo"></i>
+				  <i class="icon-angle-up"></i>
+				  <span class="active-service-name">Google Calendar</span>
+				</div>
+				
+				<div class="member-list">
+				  <ul>
+					<li><a><span>MKChoi</span></a></li>
+					<li><a><span>Ted</span></a></li>
+					<li><a><span>Admin</span></a></li>
+				  </ul>
+				</div>
+				
+			  </div>
+			  <!-- dummy service 01 END -->
+			  
+			  <!-- dummy service 02 -->
+			  <div class="active-service github">
+				
+				<div class="service-title cursor_pointer">
+				  <i class="icon-service-logo"></i>
+				  <i class="icon-angle-up"></i>
+				  <span class="active-service-name">Github</span>
+				</div>
+				
+				<div class="member-list">
+				  <ul>
+					<li><a><span>MKChoi</span></a></li>
+					<li><a><span>Ted</span></a></li>
+					<li><a><span>Admin</span></a></li>
+				  </ul>
+				</div>
+				
+			  </div>
+			  <!-- dummy service 02 END -->
+			  
+			  
+			</div>
 			
 			
 			<!-- no-service container will be placed here -->
@@ -246,6 +291,19 @@
     jsUrl   : location.protocol + '//' + location.host + '/javascripts/FileAPI.min.js',
     flashUrl: location.protocol + '//' + location.host + '/etc/FileAPI.flash.swf'
   };
+  
+  $(document).ready(function(){
+	  
+	$('.service-title').click(function() {
+	  if($(this).parent().hasClass('collapsed')){
+		$(this).parent().removeClass('collapsed');
+	  }
+	  else {
+		$(this).parent().addClass('collapsed');
+	  }
+	});
+	
+  });
 </script>
 
 <!-- build:js(client) app/vendor.js -->
