@@ -1,4 +1,4 @@
-.connect-union-wrapper {
+.connect-union-container {
   position: relative;
   overflow:auto;
   max-width: 1048px;
@@ -60,4 +60,8 @@
   font-size: 15px;
   line-height: 15px;
   font-weight: 700;
+}
+
+.connect-union-body {
+  display: none;
 }

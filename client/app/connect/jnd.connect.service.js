@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 커넥트 페이지 서비스
+ * @fileoverview 잔디 커넥트 페이지 서비스 모듈
  * @author young.park <young.park@tosslab.com>
  */
 (function() {

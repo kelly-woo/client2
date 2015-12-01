@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 디렉티브
+ * @fileoverview 잔디 컨넥트 서비스(union) 에 연결된 plug 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

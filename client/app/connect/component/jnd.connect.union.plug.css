@@ -1,19 +1,25 @@
-.connect-union-plug-wrapper {
+.connect-union-plug-container {
   width: 100%;
   height: 100px;
   background-color: #FFF;
   border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
+  padding: 10px 18px 10px 26px;
 }
 
-.connect-union-plug-wrapper > div {
+.connect-union-plug-container:hover {
+  background: #FAFAFA;
+}
+
+.connect-union-plug-container > div {
   float: left;
 }
 
 .connect-union-plug-icon {
   width:32px;
   height: 32px;
-  margin: 18px 38px 18px 26px;
+  margin: 8px 38px 8px 0;
+  border: 1px solid #E4E4E4;
 }
 
 .connect-union-plug-title,
@@ -24,25 +30,29 @@
   font-weight: 600;
 }
 
-.connect-union-plug-btn-wrapper {
+.connect-union-plug-tool-container {
   color: #B3B3B3;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
   font-size: 15px;
-  line-height: 15px;
+  line-height: 80px;
   font-weight: 700;
 }
 
-.connect-union-plug-btn-wrapper.on {
+.connect-union-plug-tool-container.on {
 
 }
 
-.connect-union-plug-btn-wrapper.on .connect-union-plug-btn-switch {
+.connect-union-plug-tool-container.on .connect-union-plug-tool-btn {
   color: #13A4EB;
   background: #FAFAFA;
   border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
 }
 
-.connect-union-plug-btn-text {
-
+.connect-union-plug-tool-container.on .connect-union-plug-tool-text {
+  color: #13A4EB;
+  background: #FAFAFA;
 }
 

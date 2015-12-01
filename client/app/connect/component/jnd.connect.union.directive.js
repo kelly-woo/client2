@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 디렉티브
+ * @fileoverview 잔디 컨넥트 서비스(union) 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -20,7 +20,6 @@
 
     function link(scope, el, attrs) {
       scope.toggleCollapse = toggleCollapse;
-      console.log('### scope', scope);
       _init();
 
       /**
@@ -28,7 +27,6 @@
        * @private
        */
       function _init() {
-        console.log('######init');
       }
 
       /**
