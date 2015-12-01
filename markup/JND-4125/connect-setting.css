@@ -19,10 +19,9 @@
   color: white;
 }
 .jnd-connect-setting-container .jnd-connect-header-navbar__topmenu {
-  padding-right: 16px;
   height: 42px;
   display: block;
-  padding: 0 10px 0 12px;
+  padding: 0 16px 0 12px;
   line-height: 41px;
 }
 .jnd-connect-setting-container .back-button {
@@ -122,7 +121,9 @@
   background: #F9F9F9;
   box-sizing: content-box;
 }
-
+.has-content .no-integration-container{
+  display: none;
+}
 .no-integration-container {
   padding: 32px;
   position: relative;
@@ -157,9 +158,11 @@
 }
 
 .jnd-connect-service-container div {
-  max-width: 1048px;
-  margin: 0 auto 16px;
+  max-width: 1024px;
+  /*margin: 0 auto 16px 4px;*/
+  margin: 0 auto 16px 5%;
   position: relative;
+  width: 90%;
 }
 .jnd-connect-banner {
   min-height: 120px;
@@ -187,7 +190,7 @@
   height: 104px;
   position: absolute;
   bottom:-16px;
-  left: 55%;
+  left: 52%;
 }
 .jnd-connect-banner button.close {
   z-index: 3;
@@ -201,13 +204,14 @@
   top: 18px;
 }
 .banner-description {
-  max-width: 50%;
+  max-width: 49%;
   color: #FFF;
   font-size: 16px;
   line-height: 26px;
   display: block;
   word-break: keep-all;
   position: relative;
+  margin-bottom: 10px;
 }
 .integration-service-container {
   min-height: 100px;
@@ -222,8 +226,8 @@
   }
 }
 
-/* if browser width is smaller than 960px : */
-@media (max-width: 960px) {
+/* if browser width is smaller than 1024px : */
+@media (max-width: 1024px) {
   .connect-setting-lpanel {
 	width: 100%;
 	position: relative;
@@ -241,5 +245,56 @@
   #jnd-connect-available-service {
 	left: 0;
 	top: 65px;
+  }
+  .jnd-connect-service-container div {
+	margin: 0 auto 16px;
+  }
+  .jnd-connect-banner {
+	min-height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .jnd-connect-banner .banner-description {
+	max-width: 100%;
+    margin: 24px auto 20px;
+    text-align: center;
+  }
+  .jnd-connect.banner-image {
+	margin: 0 auto;
+    position: relative;
+    left: auto;
+    background-size: cover;
+    bottom: 0px;
+  }
+  .jnd-connect-service-container div {
+	width: 95%;
+	padding: 24px 28px 0;
+  }
+  
+}
+
+
+@media (max-width: 460px) {
+  .jnd-connect.banner-image {
+	margin: 0;
+    position: relative;
+    left: 50%;
+    -webkit-transform:translateX(-50%);
+    -moz-transform:translateX(-50%);
+    -o-transform:translateX(-50%);
+    -ms-transform:translateX(-50%);
+    transform: translateX(-50%);
+    background-size: cover;
+    bottom: 0px;
+  }
+  #jnd-connect-available-service {
+	padding: 22px 26px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .jnd-connect-banner .banner-description {
+	max-width: 55%;
   }
 }
