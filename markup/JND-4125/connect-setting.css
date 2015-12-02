@@ -159,13 +159,18 @@
 .service-title .icon-angle-up {
   position: absolute;
   right: 12px;
+  top: 9px;
+  font-size: 12px;
   color: #B0B0B0;
   
-  -webkit-transition: -webkit-transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 300ms;
-  -moz--transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 300ms;
-  -o-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 300ms;
-  -moz-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 300ms;
-  transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 300ms;
+  -webkit-transition: -webkit-transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz--transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -o-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+}
+.service-title:hover {
+  background-color: #F1F4F8;
 }
 .service-title:hover .icon-angle-up {
   color: #555;
@@ -211,7 +216,7 @@
   overflow: hidden;
 }
 .member-list ul {
-  padding: 0 10px;
+  padding: 0 12px 0 10px;
   list-style: none;
 }
 .member-list li {
