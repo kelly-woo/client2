@@ -79,7 +79,7 @@
           linkPreview: _getLinkPreview(msg, index)
         },
         css: {
-          star: RendererUtil.getStarCssClass(msg),
+          star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         hasMore: RendererUtil.hasMore(msg),
@@ -113,6 +113,5 @@
 
       return returnValue;
     }
-
   }
 })();
