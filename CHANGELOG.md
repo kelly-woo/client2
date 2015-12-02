@@ -1,3 +1,22 @@
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/tosslab/web_client/compare/v1.10.0...v1.11.0) (2015-12-02)
+
+
+### Bug Fixes
+
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([19ff767](https://github.com/tosslab/web_client/commit/19ff767))
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([2bfd575](https://github.com/tosslab/web_client/commit/2bfd575))
+* **badge:** Unfocused 상태의 뱃지카운트가 댓글 등록될때 초기화되는 현상 수정 ([31d4994](https://github.com/tosslab/web_client/commit/31d4994))
+* **custom-selectbox:** 커스텀 셀렉트 박스의 '공유된 곳' 필터에 자신의 이름이 표시되는 현상 수정 ([45c728c](https://github.com/tosslab/web_client/commit/45c728c))
+* **Custom-Selectbox:** 커스텀 셀랙트 박스에서 차단된 멤버 검색되지 않도록 수정 ([e247380](https://github.com/tosslab/web_client/commit/e247380))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([6f9aeb8](https://github.com/tosslab/web_client/commit/6f9aeb8))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([071d822](https://github.com/tosslab/web_client/commit/071d822))
+* **zoom:** zoom 이 최대 확대된 이후 특정 값에서 줄어들지 않는 현상 수정 ([d18c553](https://github.com/tosslab/web_client/commit/d18c553))
+* **파일공유:** 파일을 이미 공유된 토픽에 재공유 할 수 있도록 수정 ([96040c3](https://github.com/tosslab/web_client/commit/96040c3))
+* **핫키:** 팀 초대 모달에서 cmd+enter 조건 오류 수정 ([9b49780](https://github.com/tosslab/web_client/commit/9b49780))
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.19...v1.10.0) (2015-11-25)
 
