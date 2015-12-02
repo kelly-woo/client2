@@ -9,6 +9,8 @@
     <div class="file-detail-body-container">
       <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <file-detail-header file="file"
+                          download-url="downloadUrl"
+                          original-url="originalUrl"
                           is-archived-file="isArchivedFile"
                           is-invalid-request="isInvalidRequest"
                           is-external-shared="isExternalShared"
@@ -19,6 +21,7 @@
       <div class="file-detail-body">
         <file-detail-preview ng-if="!isArchivedFile && !isInvalidRequest"
                              file="file"
+                             original-url="originalUrl"
                              is-external-shared="isExternalShared"
                              is-integrate-file="isIntegrateFile"></file-detail-preview>
         <file-detail-meta  file="file"

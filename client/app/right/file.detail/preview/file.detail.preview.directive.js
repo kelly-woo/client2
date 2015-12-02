@@ -14,6 +14,7 @@
       replace: true,
       scope: {
         file: '=',
+        originalUrl: '=',
         isIntegrateFile: '=',
         isExternalShared: '='
       },
@@ -52,8 +53,9 @@
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
+          jqElement.addClass('image-preview');
+
           scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
-          scope.hasZoomIn = true;
           scope.previewCursor = 'zoom-in';
 
           // 이미지 회전에 대한 data를 전달 받지 않는 이상 자연스러운  dimention 처리는 불가능 함.
@@ -61,11 +63,13 @@
           //  _setImageDimension(content.extraInfo);
           //}
         } else {
+          jqElement.addClass('filter-type-preview');
+
           scope.ImageUrl = $filter('getFilterTypePreview')(content);
-          scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
+          scope.previewCursor = 'pointer'
         }
 
-        el.find('.image_wrapper').css('cursor', scope.previewCursor);
+        jqElement.find('.image_wrapper').css('cursor', scope.previewCursor);
       }
 
       /**
@@ -88,7 +92,7 @@
           ratio = 1;
         }
 
-        el.css({
+        jqElement.css({
           width: width * ratio,
           height: height * ratio
         });
@@ -101,20 +105,20 @@
       function onImageClick($event) {
         if ($filter('isIntegrationContent')(fileDetail.content)) {
           window.open(fileDetail.content.fileUrl, '_blank');
-        } else {
-          if (!$($event.target).hasClass('no-image-preview') && scope.hasZoomIn) {
-            modalHelper.openImageCarouselModal({
-              // image file api data
-              messageId: fileDetail.id,
-              // image carousel view data
-              userName: fileDetail.extWriter.name,
-              uploadDate: fileDetail.createTime,
-              fileTitle: fileDetail.content.title,
-              fileUrl: fileDetail.content.fileUrl,
-              // single
-              isSingle: true
-            });
-          }
+        } else if (jqElement.hasClass('filter-type-preview')) {
+          window.open(scope.originalUrl, '_blank');
+        } else if (jqElement.hasClass('image-preview')) {
+          modalHelper.openImageCarouselModal({
+            // image file api data
+            messageId: fileDetail.id,
+            // image carousel view data
+            userName: fileDetail.extWriter.name,
+            uploadDate: fileDetail.createTime,
+            fileTitle: fileDetail.content.title,
+            fileUrl: fileDetail.content.fileUrl,
+            // single
+            isSingle: true
+          });
         }
       }
 

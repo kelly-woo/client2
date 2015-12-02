@@ -192,6 +192,8 @@
       $scope.isExternalShared = file.content.externalShared;
       // 관리자 인지 여부
       $scope.isAdmin = memberService.isAdmin();
+
+      _setFileDownLoad();
     }
 
     /**
@@ -519,6 +521,18 @@
      */
     function backToPrevState() {
       $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
+    }
+
+    /**
+     * file download 값을 설정한다.
+     * @private
+     */
+    function _setFileDownLoad() {
+      var file = $scope.file;
+      var value = $filter('downloadFile')($scope.isIntegrateFile, file.content.name, file.content.fileUrl);
+
+      $scope.downloadUrl = value.downloadUrl;
+      $scope.originalUrl = value.originalUrl;
     }
   }
 })();
