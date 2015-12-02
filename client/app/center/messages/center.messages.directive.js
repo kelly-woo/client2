@@ -294,8 +294,11 @@
         var jqElement;
 
         //star 클릭 시
-        if ((jqElement = jqTarget.closest('._star')).length) {
-          _onClickStar(msg, jqElement);
+        if (jqTarget.closest('._star').length) {
+          _onClickStar(msg);
+          hasAction = true;
+        } else if ((jqElement = jqTarget.closest('._fileStar')).length) {
+          _onClickFileStar(msg, jqElement);
           hasAction = true;
         } else if (jqTarget.closest('._user').length) {
           _onClickUser(msg);
@@ -347,17 +350,38 @@
        * @param {object} msg
        * @private
        */
-      function _onClickStar(msg, jqElement) {
-        var message;
-        var messageId;
+      function _onClickStar(msg) {
+        var message = msg.message;
 
-        if (jqElement.data('feedback')) {
+        _requestStar(msg, message);
+      }
+
+      /**
+       * file star click 핸들러
+       * @param {object} msg
+       * @param {object} jqElement
+       * @private
+       */
+      function _onClickFileStar(msg, jqElement) {
+        var message;
+
+        if (jqElement.hasClass('_feedbackStar')) {
           message = RendererUtil.getFeedbackMessage(msg);
-          messageId = msg.feedbackId;
         } else {
           message = msg.message;
-          messageId = msg.messageId;
         }
+
+        _requestStar(msg, message);
+      }
+
+      /**
+       * request star
+       * @param {object} msg
+       * @param {object} message
+       * @private
+       */
+      function _requestStar(msg, message) {
+        var messageId = message.id;
 
         message.isStarred = !message.isStarred;
         if (message.isStarred) {
@@ -434,12 +458,12 @@
             message = RendererUtil.getFeedbackMessage(msg);
 
             message.isStarred = isStarred;
-            _refreshStar(msg, message, '.star-' + msg.feedbackId);
+            _refreshStar(msg, message, '._star-' + msg.feedbackId);
           } else if (msg.message.id === messageId) {
             message = msg.message;
 
             message.isStarred = isStarred;
-            _refreshStar(msg, message, '.star-' + msg.message.id);
+            _refreshStar(msg, message, '._star-' + msg.message.id);
           }
         });
       }

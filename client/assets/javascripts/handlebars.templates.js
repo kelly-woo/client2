@@ -46,9 +46,9 @@ this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1
 },"9":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "        <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "        <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n          <i class=\"icon-star-on\"></i>\n        </span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -159,9 +159,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"17":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "                  <!-- Star -->\n                  <div class=\"msg-extra file-uploaded-extra\">\n                    <span data-feedback=\"true\"\n                          class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "                  <!-- Star -->\n                  <div class=\"msg-extra file-uploaded-extra\">\n                    <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.fileStar : stack1), depth0))
     + "\">\n                      <i class=\"icon-star-on\"></i>\n                    </span>\n                  </div>\n";
 },"19":function(depth0,helpers,partials,data) {
@@ -241,9 +241,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"32":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "                <!-- Star -->\n                <div class=\"msg-extra file-uploaded-extra\">\n                  <span data-feedback=\"true\"\n                        class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "                <!-- Star -->\n                <div class=\"msg-extra file-uploaded-extra\">\n                  <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.fileStar : stack1), depth0))
     + "\">\n                    <i class=\"icon-star-on\"></i>\n                  </span>\n                </div>\n";
 },"34":function(depth0,helpers,partials,data) {
@@ -281,9 +281,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"42":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n            <i class=\"icon-star-on\"></i>\n          </span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -401,9 +401,9 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 },"15":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "              <!-- Star -->\n              <div class=\"msg-extra file-uploaded-extra\">\n                <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "              <!-- Star -->\n              <div class=\"msg-extra file-uploaded-extra\">\n                <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n                  <i class=\"icon-star-on\"></i>\n                </span>\n              </div>\n";
 },"17":function(depth0,helpers,partials,data) {
@@ -483,9 +483,9 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 },"30":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "            <!-- Star -->\n            <div class=\"msg-extra file-uploaded-extra\">\n              <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "            <!-- Star -->\n            <div class=\"msg-extra file-uploaded-extra\">\n              <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n                <i class=\"icon-star-on\"></i>\n              </span>\n            </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -606,9 +606,9 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
 },"7":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n            <i class=\"icon-star-on\"></i>\n          </span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -646,9 +646,9 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
 },"7":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle star-"
+  return "          <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.id : stack1), depth0))
-    + " _star "
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n            <i class=\"icon-star-on\"></i>\n          </span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

@@ -62,10 +62,10 @@
     /**
      * file detail
      * @param {object} msg
-     * @param {boolean} focusCommentInput
+     * @param {boolean} [isFocusCommentInput=false]
      * @private
      */
-    function _onClickFileDetail(msg, focusCommentInput) {
+    function _onClickFileDetail(msg, isFocusCommentInput) {
       var contentType = msg.message.contentType;
       var userName = $filter('getName')(msg.message.writerId);
       var itemId = msg.message.id;
@@ -76,7 +76,7 @@
           itemId = msg.feedback.id;
         }
 
-        if (focusCommentInput) {
+        if (isFocusCommentInput) {
           $rootScope.setFileDetailCommentFocus = true;
         }
 
@@ -84,7 +84,7 @@
           userName: userName,
           itemId: itemId
         });
-      } else if (focusCommentInput) {
+      } else if (isFocusCommentInput) {
         fileAPIservice.broadcastCommentFocus();
       }
     }
