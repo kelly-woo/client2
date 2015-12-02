@@ -11,6 +11,7 @@
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
                                         EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotification) {
+    var VERSION = 1;
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
     var ROOM_SUBSCRIPTION_UPDATED = 'room_subscription_updated';
@@ -37,17 +38,20 @@
      * @param socketEvent
      */
     function onSocketEvent(socketEvent) {
-      _setLastLinkId(socketEvent);
+      //TODO: 다른 핸들러와 동일하게 각각 이벤트에 구독할 version 정보를 설정할 수 있도록 리펙토링 필요
+      if (socketEvent.version === VERSION) {
+        _setLastLinkId(socketEvent);
 
-      if (_isRoomMarkerUpdatedByMe(socketEvent)) {
-        _updateOtherTeamUnreadAlert();
-      } else if (_isRoomSubscriptionUpdated(socketEvent)) {
-        _onRoomSubscriptionUpdated(socketEvent);
-      } else if (_shouldUpdateBadgeCountOnly(socketEvent)) {
-        _updateBadgeCountOnly(socketEvent);
-      } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
-        // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
-        _notificationSender(socketEvent);
+        if (_isRoomMarkerUpdatedByMe(socketEvent)) {
+          _updateOtherTeamUnreadAlert();
+        } else if (_isRoomSubscriptionUpdated(socketEvent)) {
+          _onRoomSubscriptionUpdated(socketEvent);
+        } else if (_shouldUpdateBadgeCountOnly(socketEvent)) {
+          _updateBadgeCountOnly(socketEvent);
+        } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
+          // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
+          _notificationSender(socketEvent);
+        }
       }
     }
 

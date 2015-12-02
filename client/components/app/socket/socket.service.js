@@ -14,6 +14,9 @@
                         storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor, jndWebSocketCommon,
                         jndWebSocketServiceHelper, logger, jndWebSocketEmitter, jndWebSocketOtherTeamManager) {
 
+    //emit 소켓 버전
+    var VERSION = 1;
+
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -150,7 +153,10 @@
 
         _.forEach(eventsList, function(obj) {
           socket.on(obj.name, _onSocketEvent);
-          handlers[obj.name] = obj.handler;
+          handlers[obj.name] = {
+            version: obj.version,
+            fn: obj.handler
+          };
         });
       });
     }
@@ -161,9 +167,13 @@
      * @private
      */
     function _onSocketEvent(socketEvent) {
+      var handler;
       logger.socketEventLogger(socketEvent.event, socketEvent);
       if (_isCurrentTeamEvent(socketEvent)) {
-        handlers[socketEvent.event](socketEvent);
+        handler = handlers[socketEvent.event];
+        if (socketEvent.version === handler.version) {
+          handler.fn(socketEvent);
+        }
       } else {
         jndWebSocketOtherTeamManager.onSocketEvent(socketEvent);
       }
@@ -276,6 +286,8 @@
      * @param data {object} object to be attached along with socket event
      */
     function _emit(eventName, data) {
+      //emit 이벤트에 version 정보를 inject 한다.
+      data = _.extend({}, data, {version: VERSION});
       socket.emit(eventName, data);
       jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }
