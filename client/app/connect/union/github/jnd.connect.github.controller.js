@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
+    .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectGithubCtrl($scope, JndConnect, EntityMapManager) {
 
     _init();
 

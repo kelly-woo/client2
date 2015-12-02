@@ -47,7 +47,7 @@
     };
 
     //$scope.list = UNION_LIST;
-
+    $scope.currentUnionName = null;
     $scope.historyBack = historyBack;
     $scope.close = close;
     $scope.unions = [];
@@ -60,9 +60,31 @@
      * @private
      */
     function _init() {
-
+      _attachEvents();
       getList();
+    }
 
+    /**
+     * event handler 를 바인딩 한다.
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('union:addPlug', _onAddPlug);
+    }
+
+    function _onAddPlug(angularEvent, unionName) {
+      var targetUnion;
+      _.each($scope.unions, function(union) {
+        if (union.name === unionName) {
+          targetUnion = union;
+          return false;
+        }
+      });
+      if (targetUnion) {
+        $scope.currentUnionName = targetUnion.name;
+      } else {
+        $scope.currentUnionName = null;
+      }
     }
 
     /**

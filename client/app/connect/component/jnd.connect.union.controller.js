@@ -10,6 +10,11 @@
     .controller('JndConnectUnionCtrl', JndConnectUnionCtrl);
 
   /* @ngInject */
-  function JndConnectUnionCtrl($scope) {
+  function JndConnectUnionCtrl($scope, jndPubSub) {
+    $scope.addPlug = addPlug;
+
+    function addPlug() {
+      jndPubSub.pub('union:addPlug', $scope.union.name);
+    }
   }
 })();

@@ -7,16 +7,16 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnect', jndConnect);
+    .directive('jndConnectJira', jndConnectJira);
 
-  function jndConnect() {
+  function jndConnectJira() {
     return {
       restrict: 'E',
       scope: false,
-      controller: 'JndConnectCtrl',
+      controller: 'JndConnectJiraCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/jnd.connect.html'
+      templateUrl: 'app/connect/union/jira/jnd.connect.jira.html'
     };
 
     function link(scope, el, attrs) {

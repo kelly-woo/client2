@@ -7,16 +7,16 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectJira', jndConnectJira);
+    .directive('jndConnectGoogleCalendar', jndConnectGoogleCalendar);
 
-  function jndConnectJira() {
+  function jndConnectGoogleCalendar() {
     return {
       restrict: 'E',
       scope: false,
-      controller: 'JndConnectJiraCtrl',
+      controller: 'JndConnectGoogleCalendarCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/jira/jnd.connect.jira.html'
+      templateUrl: 'app/connect/union/google-calendar/jnd.connect.google.calendar.html'
     };
 
     function link(scope, el, attrs) {
