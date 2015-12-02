@@ -353,7 +353,7 @@
 	left: 0;
 	top: 65px;
   }
-  .jnd-connect-service-container div {
+  .jnd-connect-service-container > div {
 	margin: 0 auto 16px;
   }
   .jnd-connect-banner {
