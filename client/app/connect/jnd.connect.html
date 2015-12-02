@@ -1,0 +1,61 @@
+<div class="jnd-connect-setting-container">
+
+  <div class="jnd-connect-hpanel non-selectable">
+    <div class="jnd-connect-header">
+		  <span class="jnd-connect-header-navbar__topmenu back-button cursor_pointer" ng-click="historyBack()">
+		    <i class="icon-long-arrow-left jnd-connect-header-navbar__menu-icon"></i>
+        <!-- translate:  -->
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate="">돌아가기</span>
+		  </span>
+		  <span class="jnd-connect-header-navbar__topmenu exit-button cursor_pointer" ng-click="close()">
+		    <!-- translate:  -->
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate="">잔디 커넥트 닫기</span>
+		  </span>
+
+    </div>
+  </div>
+
+  <div class="full-screen" id="connect-setting-ui">
+
+    <aside class="connect-setting-lpanel non-selectable opac-zero opac-in"
+           ng-class="">
+
+      <div class="jnd-connect-logo-container">
+        <i class="jnd-connect-logo"></i>
+        <span class="jnd-connect-title">잔디 커넥트</span>
+      </div>
+
+      <div class="jnd-connect integrated-service left-header">
+        <span class="jnd-connect header-title">연동된 서비스</span>
+      </div>
+
+      <div class="jnd-connect-list" id="jnd-connect-list-container">
+
+        <!-- integrated service list will be placed here -->
+        <!-- no-service container will be placed here -->
+        <div class="no-integration-container">
+          <i class="icon-jnd-connect"></i>
+          <span class="">아직 연동된 서비스가 없습니다.</span>
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <div class="jnd-connect-service-container" id="jnd-connect-available-service">
+
+      <div class="jnd-connect-banner">
+        <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
+        <div class="jnd-connect banner-image"></div>
+        <span class="banner-description"><b>잔디 커넥트</b>를 처음 사용하시나요? 이제 Google Calendar, Jira, Trello, Github 등을 연동하여 잔디에서 알림을 받아보세요.</span>
+      </div>
+
+      <!-- integration contents here -->
+      <jnd-connect-union ng-repeat="union in unions"></jnd-connect-union>
+
+    </div>
+
+  </div>
+
+</div>

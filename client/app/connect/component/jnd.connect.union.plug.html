@@ -1,0 +1,28 @@
+<div class="connect-union-plug-container">
+  <div class="connect-union-plug-icon">
+    plug icon
+  </div>
+  <div>
+    <div class="connect-union-plug-title">
+      <i class="icon-user"></i> <span>{{plug.user.name}}</span>
+    </div>
+    <div class="connect-union-plug-desc">
+      <span ng-if="plug.room.type === 'channels'">
+        <i class="icon-topic"></i> <span>{{ plug.room.name }}</span>
+      </span>
+      <span ng-if="plug.room.type !== 'channels'">
+        <i class="icon-lock"></i> <span>비공개 또는 1:1 메시지</span>
+      </span>
+
+    </div>
+  </div>
+  <div class="connect-union-float-right connect-union-plug-tool-container"
+    ng-class="{
+      'on': plug.isOn
+    }">
+    <span class="connect-union-plug-tool-text" ng-click="toggleOnOff()">작동중 {{plug.isOn}}</span>
+    <span class="connect-union-plug-tool-btn jnd-cursor-pointer" ng-click="toggleOnOff()">버튼</span>
+    <i class="icon-pencil"></i>
+    <i class="icon-trash"></i>
+  </div>
+</div>

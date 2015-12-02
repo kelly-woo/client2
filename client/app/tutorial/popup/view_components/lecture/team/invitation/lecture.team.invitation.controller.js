@@ -40,7 +40,7 @@
           content: $filter('translate')('@tutorial_team_intro'),
           top: 200,
           left: 300,
-          hasSkip: false,
+          hasSkip: true,
           hasNext: true
         },
         {

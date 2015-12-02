@@ -19,14 +19,17 @@
     var events = [
       {
         name: ANNOUNCEMENT_CREATED,
+        version: 1,
         handler: _onAnnouncementCreated
       },
       {
         name: ANNOUNCEMENT_DELETED,
+        version: 1,
         handler: _onAnnouncementDeleted
       },
       {
         name: ANNOUNCEMENT_STATUS_UPDATED,
+        version: 1,
         handler: _onAnnouncementStatusUpdated
       }
     ];

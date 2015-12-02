@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
                       publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -63,9 +63,10 @@
       $scope.onShowTutorialClick = onShowTutorialClick;
       $scope.onTutorialPulseClick = onTutorialPulseClick;
       $scope.openRightPanel = openRightPanel;
+      $scope.showConnect = showConnect;
 
       $scope.openQuickLauncher = openQuickLauncher;
-      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip()
+      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
       $scope.toolbar = {
         files: false,
@@ -82,13 +83,31 @@
       _attachLEventListeners();
     }
 
+    /**
+     * 우측 패널 open 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {string} type
+     * @private
+     */
     function _onHotkeyOpenRight(angularEvent, type) {
       openRightPanel(type);
     }
 
+    /**
+     * 우측패널 닫기 이벤트 핸들러
+     * @private
+     */
     function _onHotKeyCloseRight() {
       _closeRightPanel();
     }
+
+    /**
+     * connect 메뉴를 노출한다.
+     */
+    function showConnect() {
+      JndConnect.show();
+    }
+
     /**
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
@@ -111,7 +130,7 @@
       });
 
       // right panel의 open event handler
-      $scope.$on('onRightPanel', function($event, data) {
+      $scope.$on('rightPanelStatusChange', function($event, data) {
         $rootScope.isOpenRightPanel = true;
 
         _setTabStatus(currentRightPanel, false);

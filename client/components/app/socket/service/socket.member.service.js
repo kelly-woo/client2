@@ -19,18 +19,22 @@
     var events = [
       {
         name: MEMBER_STARRED,
+        version: 1,
         handler: _onMemberStarred
       },
       {
         name: MEMBER_UNSTARRED,
+        version: 1,
         handler: _onMemberUnStarred
       },
       {
         name: MEMBER_PROFILE_UPDATED,
+        version: 1,
         handler: _onMemberProfileUpdated
       },
       {
         name: MEMBER_PRESENCE_UPDATED,
+        version: 1,
         handler: _onMemberPresenceUpdated
       }
     ];

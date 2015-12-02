@@ -1,0 +1,67 @@
+.connect-union-container {
+  position: relative;
+  overflow:auto;
+  max-width: 1048px;
+  min-height: 100px;
+  background-color:#FFF;
+  border: 1px solid #E1E1E1;
+  border-radius: 3px;
+  padding: 20px 32px 20px 34px;
+}
+
+.connect-union-header {
+  height: 100px;
+}
+
+.connect-union-header > div {
+  float: left;
+  min-height:10px;
+}
+
+.connect-union-icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 26px;
+}
+
+.connect-union-title {
+  color: #505050;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.connect-union-desc {
+  color: #9c9c9c;
+  font-size: 15px;
+  line-height: 17px;
+  font-weight: 500;
+}
+
+.connect-union-float-right {
+  float: right !important;
+}
+
+.connect-union-btn {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  border-radius: 3px;
+  border: 1px solid #E1E1E1;
+  background-color: #FFF;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.connect-union-btn.primary {
+  border: 0;
+  background-color: #13A4EB;
+  color: #FFFFFF;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+.connect-union-body {
+  display: none;
+}

@@ -1,5 +1,5 @@
 /**
- * @fileoverview jandi wrapper controller
+ * @fileoverview jandi main controller
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -11,6 +11,8 @@
 
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap) {
+
+    $scope.isShowJndConnect = false;
 
     var _inviteSocketQueue = [];
 
@@ -25,6 +27,18 @@
       $scope.$on('topicInvite', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
       $scope.$on('onInitLeftListDone', _updateInvitedMemberList);
+
+      $scope.$on('JndConnect:show', _onJndConnectShow);
+      $scope.$on('JndConnect:hide', _onJndConnectHide);
+    }
+
+
+    function _onJndConnectShow() {
+      $scope.isShowJndConnect = true;
+    }
+
+    function _onJndConnectHide() {
+      $scope.isShowJndConnect = false;
     }
 
     /**

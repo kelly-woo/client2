@@ -764,19 +764,23 @@ input[type="button"] {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;
   width: 130px;
   height: 130px;
+  background-size: contain;
 }
 .help-invite-members {
   background: url('../assets/images/center/help-invite-members.png') no-repeat;
   width: 130px;
   height: 130px;
+  background-size: contain;
 }
 .help-send-invitations {
   background: url('../assets/images/center/help-send-invitations.png') no-repeat;
+  background-size: contain;
 }
 .help-upload-a-file {
   background: url('../assets/images/center/help-upload-a-file.png') no-repeat;
   width: 100px;
   height: 80px;
+  background-size: contain;
 }
 
 
