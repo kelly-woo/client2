@@ -68,8 +68,8 @@
         scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
         scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
 
-        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentUpdate);
-        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentUpdate);
+        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentCreated);
+        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentDeleted);
       }
 
       /**
@@ -143,13 +143,15 @@
         return fileAPIservice.getFileDetail(fileId)
           .success(function(response) {
             var shareEntities;
+            var message;
+
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
                 shareEntities = _toEntityIdList(item.shareEntities);
               }
             });
             _.forEach(MessageCollection.list, function(msg, index) {
-              var message = RendererUtil.getFeedbackMessage(msg);
+              message = RendererUtil.getFeedbackMessage(msg);
               if (message.id === fileId) {
                 message.shareEntities = shareEntities;
                 _refresh(msg.id, index);
@@ -769,12 +771,31 @@
       }
 
       /**
+       * created file comment
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onFileCommentCreated(angularEvent, data) {
+        _updateFileComment(data);
+      }
+
+      /**
+       * deleted file comment
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onFileCommentDeleted(angularEvent, data) {
+        _updateFileComment(data);
+      }
+
+      /**
        * comment count update handler
-       * @param angularEvent
        * @param data
        * @private
        */
-      function _onFileCommentUpdate(angularEvent, data) {
+      function _updateFileComment(data) {
         $('.comment-count-' + data.file.id).text(data.file.commentCount);
       }
     }
