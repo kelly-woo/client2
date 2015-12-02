@@ -235,6 +235,8 @@
 .search-result-container .rpanel-list-empty__img,
 .search-result-container .star-empty__img {
   margin-bottom: 20px;
+  width: 100px;
+  height: 80px;
 }
 
 .rpanel-body.star-list .search-result-container,
