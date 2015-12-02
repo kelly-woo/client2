@@ -206,7 +206,7 @@
        */
       function _zoomIn() {
         _currentZoomScale += 0.01;
-        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
         if (_currentZoomScale > MAX_ZOOM_SCALE) {
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
@@ -240,7 +240,7 @@
        */
       function _zoomOut() {
         _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
         if (_currentZoomScale < MIN_ZOOM_SCALE) {
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
