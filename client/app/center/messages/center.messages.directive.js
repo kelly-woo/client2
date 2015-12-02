@@ -386,6 +386,7 @@
         var messageId = message.id;
 
         message.isStarred = !message.isStarred;
+        _refreshStar(msg, message, '._fileStar');
         if (message.isStarred) {
           StarAPIService.star(messageId, _teamId)
             .error(_.bind(_onStarRequestError, that, msg));
