@@ -53,7 +53,7 @@
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
-          jqElement.addClass('image-preview');
+          el.addClass('image-preview');
 
           scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
           scope.previewCursor = 'zoom-in';
@@ -63,13 +63,13 @@
           //  _setImageDimension(content.extraInfo);
           //}
         } else {
-          jqElement.addClass('filter-type-preview');
+          el.addClass('filter-type-preview');
 
           scope.ImageUrl = $filter('getFilterTypePreview')(content);
           scope.previewCursor = 'pointer'
         }
 
-        jqElement.find('.image_wrapper').css('cursor', scope.previewCursor);
+        el.find('.image_wrapper').css('cursor', scope.previewCursor);
       }
 
       /**
@@ -92,7 +92,7 @@
           ratio = 1;
         }
 
-        jqElement.css({
+        el.css({
           width: width * ratio,
           height: height * ratio
         });
@@ -105,9 +105,9 @@
       function onImageClick($event) {
         if ($filter('isIntegrationContent')(fileDetail.content)) {
           window.open(fileDetail.content.fileUrl, '_blank');
-        } else if (jqElement.hasClass('filter-type-preview')) {
+        } else if (el.hasClass('filter-type-preview')) {
           window.open(scope.originalUrl, '_blank');
-        } else if (jqElement.hasClass('image-preview')) {
+        } else if (el.hasClass('image-preview')) {
           modalHelper.openImageCarouselModal({
             // image file api data
             messageId: fileDetail.id,
