@@ -22,7 +22,7 @@
       templateUrl : 'app/right/file.detail/preview/file.detail.preview.html'
     };
 
-    function link(scope, jqElement) {
+    function link(scope, el) {
       var fileDetail = scope.file;
       var content = fileDetail.content;
 
