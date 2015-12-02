@@ -130,7 +130,7 @@
       });
 
       // right panel의 open event handler
-      $scope.$on('onRightPanel', function($event, data) {
+      $scope.$on('rightPanelStatusChange', function($event, data) {
         $rootScope.isOpenRightPanel = true;
 
         _setTabStatus(currentRightPanel, false);

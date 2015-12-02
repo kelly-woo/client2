@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser,
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
                              JndLocalStorage) {
     return {
       restrict: 'A',
@@ -36,45 +36,9 @@
 
         },
         'shift-ctrl': {
+          //잠금기능
           'CHAR_L': {
             handler: _togglePrivacy
-          },
-          //파일 검색 탭
-          'CHAR_F': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
-            }
-          },
-          //메세지 검색 탭
-          'CHAR_G': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
-            }
-          },
-          //즐겨찾기 탭
-          'CHAR_S': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
-            }
-          },
-          //멘션 탭
-          'CHAR_M': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
-            }
-          },
-          //다음탭 이동
-          'CHAR_DOT': {
-            handler: _rPanelNext
-          },
-          //이전탭 이동
-          'CHAR_COMMA': {
-            handler: _rPanelPrev
-          },
-          //우측패널 토글
-          '[': {
-            handler: _toggleRightPanel,
-            isExactMatch: false
           }
         },
         'shift-alt': {
@@ -114,14 +78,20 @@
           'CHAR_J': {
             handler: _toggleQuickLauncher
           },
+          //확대
           'PLUS': {
-            handler: _zoomIn
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
           },
+          //축소
           'MINUS': {
-            handler: _zoomOut
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
           },
+          //zoom reset
           'NUM_0': {
-            handler: _zoomReset
+            handler: _zoomReset,
+            extraCondition: HybridAppHelper.isHybridApp
           }
         },
         'alt': {
@@ -154,6 +124,43 @@
             handler: function() {
               modalHelper.openTeamChangeModal(scope);
             }
+          },
+          //우측패널 토글
+          '[': {
+            handler: _toggleRightPanel,
+            isExactMatch: false
+          },
+          //파일 검색 탭
+          'CHAR_F': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
+            }
+          },
+          //메세지 검색 탭
+          'CHAR_G': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
+            }
+          },
+          //즐겨찾기 탭
+          'CHAR_S': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
+            }
+          },
+          //멘션 탭
+          'CHAR_M': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          },
+          //다음탭 이동
+          'CHAR_DOT': {
+            handler: _rPanelNext
+          },
+          //이전탭 이동
+          'CHAR_COMMA': {
+            handler: _rPanelPrev
           }
         },
         'none': {
@@ -199,7 +206,7 @@
        */
       function _zoomIn() {
         _currentZoomScale += 0.01;
-        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
         if (_currentZoomScale > MAX_ZOOM_SCALE) {
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
@@ -212,16 +219,18 @@
        * @private
        */
       function _setZoom() {
-        _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
-        if (_currentZoomScale < MIN_ZOOM_SCALE) {
-          _currentZoomScale = MIN_ZOOM_SCALE;
-        } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
-          _currentZoomScale = MAX_ZOOM_SCALE;
-        } else {
-          JndLocalStorage.set(0, 'zoom', _currentZoomScale);
-          $('body').css({
-            'zoom': _currentZoomScale
-          });
+        if (HybridAppHelper.isHybridApp()) {
+          _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
+          if (_currentZoomScale < MIN_ZOOM_SCALE) {
+            _currentZoomScale = MIN_ZOOM_SCALE;
+          } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
+            _currentZoomScale = MAX_ZOOM_SCALE;
+          } else {
+            JndLocalStorage.set(0, 'zoom', _currentZoomScale);
+            $('body').css({
+              'zoom': _currentZoomScale
+            });
+          }
         }
       }
 
@@ -231,7 +240,7 @@
        */
       function _zoomOut() {
         _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.ceil(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
         if (_currentZoomScale < MIN_ZOOM_SCALE) {
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {

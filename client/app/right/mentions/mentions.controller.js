@@ -33,7 +33,7 @@
     /**
      * open right panel event handler
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    $scope.$on('rightPanelStatusChange', function($event, data) {
       if (data.type === 'mentions') {
         isActivated = true;
 
