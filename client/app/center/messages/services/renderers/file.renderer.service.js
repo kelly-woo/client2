@@ -213,7 +213,7 @@
           hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: $filter('hasPreview')(content),
-          imageUrl: $filter('getPreview')(content, 'medium'),
+          imageUrl: $filter('getPreview')(content, 'large'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
