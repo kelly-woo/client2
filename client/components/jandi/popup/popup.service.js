@@ -195,7 +195,7 @@
     function _parameterize(data) {
       var queryList = [];
       _.each(data, function(value, key) {
-        queryList.push(key + '=' + value);
+        queryList.push(key + '=' + encodeURIComponent(value));
       });
       return queryList.join('&');
     }
