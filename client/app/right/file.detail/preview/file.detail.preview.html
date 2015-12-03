@@ -1,7 +1,13 @@
 <div class="file-detail-preview">
   <div class="image_wrapper" ng-click="onImageClick($event);" ng-switch on="isImagePreview">
     <div ng-switch-when="true" image-loader="{{::imageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true"></div>
-    <a ng-switch-default href="{{::originalUrl}}" target="_blank"><img src="{{::imageUrl}}"></a>
+    <a ng-switch-default class="filter-type-preview-wrapper" href="{{::originalUrl}}" target="_blank">
+      <div class="filter-type-preview-bg"></div>
+      <div class="filter-type-preview-text">
+        <span translate>@msg-open-original</span>
+      </div>
+      <img src="{{::imageUrl}}">
+    </a>
   </div>
   <div class="external-share-btn cursor_pointer opac-zero" ng-if="!isIntegrateFile" ng-show="isExternalShared" ng-class="{'opac-in': !isLoadingImage}" ng-click="onExternalShareClick();">
     <i class="icon-link"></i>

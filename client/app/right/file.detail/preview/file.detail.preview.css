@@ -14,6 +14,44 @@
   height: auto;
 }
 
+.filter-type-preview-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.filter-type-preview-wrapper:hover > div {
+  display: block;
+}
+
+.filter-type-preview-bg {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.filter-type-preview-text {
+  display: none;
+  position: absolute;
+  top: 52px;
+  width: 100%;
+}
+
+.filter-type-preview-text > span {
+  display: inline-block;
+  padding: 8px 30px;
+  border: 2px solid rgba(255, 255, 255, .4);
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
 .external-share-btn {
   position: absolute;
   top: -6px;
