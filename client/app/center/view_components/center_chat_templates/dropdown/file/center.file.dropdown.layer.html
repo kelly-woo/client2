@@ -49,7 +49,7 @@
        external-share-view
        external-share-get="getExternalShare()"
        external-share-set="setExternalShare($value)"
-       external-shared="msg.message.content.externalShared">
+       external-shared="message.content.externalShared">
       <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
       <span><span ng-if="isExternalShared" translate>@external-share-remove</span><span ng-if="!isExternalShared" translate>@external-share-create</span></span>
     </a>
