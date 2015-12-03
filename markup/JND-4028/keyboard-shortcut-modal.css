@@ -128,7 +128,7 @@
 
 @media (max-width:768px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
-	top: 0%;
+	top: 5%;
 	-webkit-transform:translate(-50%, 0%) !important;
     -moz-transform:translate(-50%, 0%) !important;
     -o-transform:translate(-50%, 0%) !important;
