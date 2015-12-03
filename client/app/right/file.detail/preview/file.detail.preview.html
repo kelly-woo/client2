@@ -9,7 +9,7 @@
       <img src="{{::imageUrl}}">
     </a>
   </div>
-  <div class="external-share-btn cursor_pointer opac-zero" ng-if="!isIntegrateFile" ng-show="isExternalShared" ng-class="{'opac-in': !isLoadingImage}" ng-click="onExternalShareClick();">
+  <div class="external-share-btn cursor_pointer opac-zero" ng-if="!isIntegrateFile" ng-show="isExternalShared" ng-class="{'opac-in': !isImagePreview || !isLoadingImage}" ng-click="onExternalShareClick();">
     <i class="icon-link"></i>
   </div>
   <div class="loading_bar" ng-if="isImagePreview && !!isLoadingImage">
