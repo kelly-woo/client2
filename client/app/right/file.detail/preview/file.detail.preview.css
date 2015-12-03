@@ -1,15 +1,20 @@
-.rpanel-body .file-detail-preview {
+.file-detail-preview {
   position: relative;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.rpanel-body .file-detail-preview .image_wrapper {
+.file-detail-preview .image_wrapper {
   text-align: center;
 }
 
-.rpanel-body .external-share-btn {
+.file-detail-preview .image_wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.external-share-btn {
   position: absolute;
   top: -6px;
   right: -6px;
@@ -21,7 +26,7 @@
   color: #1C6C88;
 }
 
-.rpanel-body .external-share-btn:hover {
+.external-share-btn:hover {
   background-color: white;
   color: #1C6C88;
   opacity: 1;
