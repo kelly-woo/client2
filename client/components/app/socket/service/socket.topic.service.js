@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
-                       EntityMapManager) {
+                       EntityMapManager, currentSessionHelper) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -24,35 +24,48 @@
 
     var events = [
       {
+        name: 'topic_kicked_out',
+        version: 1,
+        handler: _onTopicKickedOut
+      },
+      {
         name: 'topic_left',
+        version: 1,
         handler: _onTopicLeft
       },
       {
         name: 'topic_joined',
+        version: 1,
         handler: _onTopicJoined
       },
       {
         name: 'topic_deleted',
+        version: 1,
         handler: _onTopicLDeleted
       },
       {
         name: 'topic_created',
+        version: 1,
         handler: _onTopicLCreated
       },
       {
         name: 'topic_updated',
+        version: 1,
         handler: _onTopicUpdated
       },
       {
         name: 'topic_starred',
+        version: 1,
         handler: _onTopicStarChanged
       },
       {
         name: 'topic_unstarred',
+        version: 1,
         handler: _onTopicStarChanged
       },
       {
         name: 'room_subscription_updated',
+        version: 1,
         handler: _onTopicSubscriptionChanged
       }
     ];
@@ -64,6 +77,26 @@
     }
 
     /**
+     * kickout 시 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onTopicKickedOut(socketEvent) {
+      var currentTeam = currentSessionHelper.getCurrentTeam();
+      if (currentTeam.id ===  socketEvent.data.teamId) {
+        jndPubSub.pub('kickedOut', socketEvent);
+        if (jndWebSocketCommon.isCurrentEntity({id: socketEvent.data.roomId})) {
+          jndPubSub.toDefaultTopic();
+        }
+        _updateLeftPanel({
+          topic: {
+            id: socketEvent.data.roomId
+          }
+        });
+      }
+    }
+
+    /**
      * 'topic_left' EVENT HANDLER
      * @param {object} data - socket event parameter
      * @private
@@ -72,8 +105,6 @@
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       }
-
-      jndPubSub.pub('kickedOut', data);
 
       _updateLeftPanel(data);
     }

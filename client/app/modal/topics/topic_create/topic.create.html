@@ -13,16 +13,16 @@
     <!--  TOPIC TITLE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2"><span>{{ ::'@common-name' | translate }}</span></label>
-        <div class="col-sm-10">
+        <label class="control-label col-sm-3"><span>{{ ::'@common-name' | translate }}</span></label>
+        <div class="col-sm-9">
           <input class="form-control"
                  type="text"
                  name="entityName"
                  id="topic-create-name"
-                 jnd-input-model="topicName"
+                 jnd-input-model="form.topicName"
                  jnd-is-trim="on"
                  placeholder="{{ ::'@input-create-ch' | translate }}"/>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
@@ -32,8 +32,8 @@
     <!--  TOPIC TYPE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2 entity-type-title"><span>{{ ::'@common-entity-type' | translate }}</span></label>
-        <div class="col-sm-10">
+        <label class="control-label col-sm-3 entity-type-title"><span>{{ ::'@common-entity-type' | translate }}</span></label>
+        <div class="col-sm-9">
           <div class="radio-container">
             <input type="radio" ng-model="entityType" value="public"/><span class="radio-title">{{ ::'@common-type-public' | translate }}</span>
             <input type="radio" ng-model="entityType" value="private"/><span class="radio-title">{{ ::'@common-type-private' | translate }}</span>
@@ -52,23 +52,42 @@
       </div>
     </div>
 
+    <!--  TOPIC AUTO INVITE  -->
+    <div class="form-horizontal">
+	  <div ng-if="entityType !== 'private'" class="form-group">
+      <label class="control-label col-sm-3 auto-invite-title">
+        <span translate>@common-auto-join</span>
+      </label>
+      <div class="col-sm-9">
+        <div class="modal-body-auto-invite-container">
+          <input type="checkbox" id="topic-auto-invite" ng-model="form.isAutoJoin">
+          <label for="topic-auto-invite">
+            <div class="auto-invite-description">
+              <span translate>@common-invite-all</span>
+            </div>
+          </label>
+        </div>
+      </div>
+	  </div>
+	</div>
+
     <!-- TOPIC DESCRIPTION  -->
     <div class="form-horizontal topic-description-container">
       <div class="form-group">
-        <label class="control-label col-sm-2">
+        <label class="control-label col-sm-3">
           <span>{{ ::'@topic-description' | translate }}</span>
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
-            jnd-input-model="topicDescription"
+            jnd-input-model="form.topicDescription"
             jnd-is-trim="on"
             placeholder="{{ ::'@topic-description-placeholder' | translate }}"
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > descMaxLength">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="form.topicDescription.length > descMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
@@ -78,7 +97,7 @@
 
   <div class="modal-footer">
     <span class="btn btn-cancel" ng-click="cancel();">{{ ::'@btn-close' | translate }}</span>
-    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ ::'@btn-create' | translate }}" ng-disabled="!topicName.length" />
+    <input class="btn btn-ok _modalSubmit" type="submit" id="create_new_channel" value="{{ ::'@btn-create' | translate }}" ng-disabled="!form.topicName.length" />
   </div>
 </form>
 <jnd-loading></jnd-loading>

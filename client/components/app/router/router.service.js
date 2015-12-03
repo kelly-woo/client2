@@ -158,7 +158,7 @@
           case 'messages.detail.messages':
           case 'messages.detail.stars':
           case 'messages.detail.mentions':
-            jndPubSub.pub('onRightPanel', {
+            jndPubSub.pub('rightPanelStatusChange', {
               type: getActiveRightTabName(toState),
               toUrl: toState.url,
               toTitle: toState.title,

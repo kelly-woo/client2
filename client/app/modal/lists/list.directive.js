@@ -202,7 +202,7 @@
             activeIndex = ((activeIndex + 1) % matches.length);
             _focusItem(activeIndex);
             ListRenderer.render(itemType, matches, viewport);
-          } else if (jndKeyCode.match('ENTER', which)) {
+          } else if (!event.metaKey && !event.ctrlKey && jndKeyCode.match('ENTER', which)) {
             event.preventDefault();
 
             _select();

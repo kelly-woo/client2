@@ -190,7 +190,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         } else {
           loadMore();
         }
-
       }
     }
   }
@@ -661,7 +660,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           //  marker 설정
           if (!$scope.isInitialLoadingCompleted || _hasBrowserFocus()) {
-            updateMessageMarker();
+            _clearBadgeCount($scope.currentEntity);
           }
           _getCurrentRoomInfo();
 
@@ -964,10 +963,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
           //console.log('::_onUpdateListSuccess', lastMessageId);
           jndPubSub.pub('onMessageDeleted');
-          //  marker 설정
-          if (_hasBrowserFocus()) {
-            updateMessageMarker();
-          }
           _checkEntityMessageStatus();
         }
       }
@@ -1661,7 +1656,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onChangeSticker(event, item) {
     _sticker = item;
-    _setChatInputFocus();
+    setTimeout(_setChatInputFocus);
   }
 
   /**

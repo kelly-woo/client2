@@ -15,6 +15,7 @@
     var events = [
       {
         name: ROOM_MARKER_UPDATED,
+        version: 1,
         handler: _onRoomMarkerUpdated
       }
     ];

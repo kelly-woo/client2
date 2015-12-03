@@ -34,18 +34,22 @@
       //},
       {
         name: TEAM_NAME_UPDATED,
+        version: 1,
         handler: _onTeamNameUpdated
       },
       {
         name: TEAM_DOMAIN_UPDATED,
+        version: 1,
         handler: _onTeamDomainUpdated
       },
       {
         name: TEAM_DELETED,
+        version: 1,
         handler: _onTeamDeleted
       },
       {
         name: TEAM_LEFT,
+        version: 1,
         handler: _onTeamLeft
       }
     ];
