@@ -109,8 +109,12 @@
 .modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keylabel {
   border-color: rgba(21, 74, 103, 0.35);
   color: #3C5664;
-  /*background-image:none;*/
 }
+.modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keystyle {
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #F7F7F7 50%, #E8EAED 100%);
+
+}
+
 .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
   margin-bottom: 0;
 }
@@ -149,6 +153,7 @@
 @media (max-width:768px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
 	top: 5%;
+	margin-bottom: 5%;
 	-webkit-transform:translate(-50%, 0%) !important;
     -moz-transform:translate(-50%, 0%) !important;
     -o-transform:translate(-50%, 0%) !important;
