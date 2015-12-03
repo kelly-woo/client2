@@ -70,21 +70,26 @@
      */
     function _attachEvents() {
       $scope.$on('union:addPlug', _onAddPlug);
+      $scope.$on('union:backToMain', _onBackToMain);
     }
 
     function _onAddPlug(angularEvent, unionName) {
-      var targetUnion;
-      _.each($scope.unions, function(union) {
-        if (union.name === unionName) {
-          targetUnion = union;
-          return false;
-        }
+      var targetUnion = _.find($scope.unions, function(union) {
+        return union.name === unionName;
       });
       if (targetUnion) {
         $scope.currentUnionName = targetUnion.name;
       } else {
         $scope.currentUnionName = null;
       }
+    }
+
+    /**
+     *
+     * @private
+     */
+    function _onBackToMain() {
+      $scope.currentUnionName = null;
     }
 
     /**
