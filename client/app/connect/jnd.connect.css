@@ -296,13 +296,6 @@
 
 
 
-#jnd-connect-available-service.detail > div{
-  display: none;
-}
-#jnd-connect-available-service.detail .detail,
-#jnd-connect-available-service.detail #jnd-connect-detail-container {
-  display: block;
-}
 
 #jnd-connect-detail-container {
   width: 100%;
@@ -501,7 +494,7 @@
   border-radius: 3px;
 }
 
-#jnd-connect-available-service {
+.jnd-connect-service-container {
   padding:32px 36px;
   overflow-y: auto;
   position: absolute;
@@ -511,18 +504,13 @@
   bottom: 0;
 }
 
-#jnd-connect-available-service > div {
+.jnd-connect-service-container > div {
   max-width: 1024px;
   margin: 0 auto 16px 5%;
   position: relative;
   width: 90%;
 }
 
-/* temporary style */
-#jnd-connect-available-service .connected:hover {
-  background-color:#f1f4f8;
-  cursor:pointer;
-}
 
 
 
@@ -608,35 +596,35 @@
   .connect-setting-lpanel div.jnd-connect-logo-container {
     display: block;
   }
-  #jnd-connect-available-service {
+  .jnd-connect-service-container {
     left: 0;
     top: 65px;
   }
-  #jnd-connect-available-service > div {
+  .jnd-connect-service-container > div {
     margin: 0 auto 16px;
   }
-  #jnd-connect-available-service > div.jnd-connect-banner {
+  .jnd-connect-service-container > div.jnd-connect-banner {
     min-height: 150px;
   }
 }
 
 @media (max-width: 768px) {
-  #jnd-connect-available-service > div.jnd-connect-banner .banner-description {
+  .jnd-connect-service-container > div.jnd-connect-banner .banner-description {
     max-width: 100%;
     margin: 24px auto 20px;
     text-align: center;
   }
-  #jnd-connect-available-service > div.jnd-connect-banner .banner-image {
+  .jnd-connect-service-container > div.jnd-connect-banner .banner-image {
     margin: 0 auto;
     position: relative;
     left: auto;
     background-size: cover;
     bottom: 0px;
   }
-  #jnd-connect-available-service > div {
+  .jnd-connect-service-container > div {
     width: 95%;
   }
-  #jnd-connect-available-service > div.jnd-connect-banner {
+  .jnd-connect-service-container > div.jnd-connect-banner {
     padding: 24px 28px 0;
   }
 
@@ -644,7 +632,7 @@
 
 
 @media (max-width: 460px) {
-  #jnd-connect-available-service > div.jnd-connect-banner .banner-image {
+  .jnd-connect-service-container > div.jnd-connect-banner .banner-image {
     margin: 0;
     position: relative;
     left: 50%;
@@ -656,13 +644,13 @@
     background-size: cover;
     bottom: 0px;
   }
-  #jnd-connect-available-service {
+  .jnd-connect-service-container {
     padding: 32px 22px;
   }
 }
 
 @media (min-width: 1400px) {
-  #jnd-connect-available-service > div.jnd-connect-banner .banner-description {
-    max-width: 55%;
+  .jnd-connect-service-container > div.jnd-connect-banner .banner-description {
+    max-width: 52%;
   }
 }
