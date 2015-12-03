@@ -53,8 +53,6 @@
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
-          el.addClass('image-preview');
-
           scope.isImagePreview = true;
           scope.imageUrl = $filter('getFileUrl')(content.fileUrl);
           scope.previewCursor = 'zoom-in';
@@ -100,12 +98,9 @@
 
       /**
        * image click event handler
-       * @param {object} $event
        */
-      function onImageClick($event) {
-        if ($filter('isIntegrationContent')(fileDetail.content)) {
-          window.open(fileDetail.content.fileUrl, '_blank');
-        } else if (el.hasClass('image-preview')) {
+      function onImageClick() {
+        if (scope.isImagePreview) {
           modalHelper.openImageCarouselModal({
             // image file api data
             messageId: fileDetail.id,
