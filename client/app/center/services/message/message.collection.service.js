@@ -373,7 +373,7 @@
         msg.extFromEntityId = fromEntityId;
         msg.extWriter = writer;
         msg.extWriterName = $filter('getName')(writer);
-        msg.exProfileImg = $filter('getSmallThumbnail')(writer);
+        msg.exProfileImg = _getProfileImage(writer);
         msg.extTime = $filter('gethmmaFormat')(msg.time);
       }
     }
@@ -383,7 +383,10 @@
      * @private
      */
     function _getProfileImage(writer) {
-      if (writer.type)
+      console.log('profile image', writer);
+      //if (writer.type)
+
+      return $filter('getSmallThumbnail')(writer);
     }
 
     function _isSending(msg) {
