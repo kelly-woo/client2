@@ -134,6 +134,8 @@ input[type="email"] {
 .image_wrapper img {
   -webkit-transition: opacity 0.5s linear; /* Chrome */
   transition: opacity 0.5s linear;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  border-radius: 3px;
 }
 
 .opac-zero {
@@ -764,19 +766,23 @@ input[type="button"] {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;
   width: 130px;
   height: 130px;
+  background-size: contain;
 }
 .help-invite-members {
   background: url('../assets/images/center/help-invite-members.png') no-repeat;
   width: 130px;
   height: 130px;
+  background-size: contain;
 }
 .help-send-invitations {
   background: url('../assets/images/center/help-send-invitations.png') no-repeat;
+  background-size: contain;
 }
 .help-upload-a-file {
   background: url('../assets/images/center/help-upload-a-file.png') no-repeat;
   width: 100px;
   height: 80px;
+  background-size: contain;
 }
 
 

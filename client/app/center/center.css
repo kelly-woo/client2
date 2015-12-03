@@ -120,25 +120,20 @@ article {
 .msg-item {
   height: 100%;
   position: relative;
-  /*padding: 0 20px 0 47px;*/
-  padding: 5px 15px 5px 67px;
-  margin-bottom: 5px;
+  margin-top: 8px;
+  padding: 5px 15px 0 67px;
   display: block;
 }
 /*.msgs-group:last-of-type > .msg-item {*/
   /*margin-bottom: 0;*/
   /*padding-bottom: 14px;*/
 /*}*/
-.msg-item.comment-title,
-.msg-item.comment-continue{
-  margin-bottom: 0;
-  margin-top: -1px !important;
-  padding: 3px 15px 3px 67px;
-}
-
 
 .msg-item.text {
-  margin-top: 5px;
+  margin-top: 7px;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .msg-item.text-child {
   margin-top: -6px;
@@ -168,6 +163,7 @@ article {
 
 .msg-item.comment-continue .msg-item-header {
   padding: 0 45px 0 0;
+  margin-top: 2px;
 }
 
 /* continued comment writer name */
@@ -183,19 +179,6 @@ article {
   color: #333;
   font-weight: 700;
   font-size: 15px;
-}
-.continue-comment-body {
-  font-size: 14px;
-  font-weight: 400;
-  display: inline-block;
-  width: 100%;
-  line-height: 1.6rem;
-}
-.continue-comment-body p {
-  margin: 0;
-}
-.continue-comment-body .msg-hidden {
-  visibility: hidden;
 }
 .msg-item-header__created {
   font-size: 10px;
@@ -261,36 +244,9 @@ article {
   color: #333333;
 }
 
-
-.msg-file {
-  min-height: 65px;
-  margin-bottom: 5px;
-}
 .msg-file-header {
   font-size: 16px;
   font-weight: 700;
-}
-
-/* issue : JND-3207
- * fix : add unshared file meta class
- */
-.msg-file.unshared .msg-file-meta {
-  opacity: 0.3 !important;
-}
-.msg-file.unshared .msg-file-meta-down {
-	display: none;
-}
-.msg-file.unshared .msg-file-meta-up {
-  line-height: 63px;
-}
-.msg-file.image-unshare .msg-file-meta-up {
-  line-height: inherit;
-}
-.msg-file.unshared .msg-file-meta__title {
-  text-decoration: line-through;
-}
-.msg-file.unshared .fileicon {
-  background-position: 0 -155px;
 }
 
 /*
@@ -331,11 +287,6 @@ by ysyun 2015.2.25
   width: 65px;
   background-color: #f2f2f2;
   padding: 15px;
-}
-
-.medium-thumbnail {
-  width: 362px;
-  height: 272px;
 }
 
 .large-thumbnail {
@@ -425,10 +376,6 @@ by ysyun 2015.2.25
   font-weight: 700;
   font-size: 15px;
 }
-.msg-comment .msg-file-meta__title {
-  display: block;
-  margin-top: 6px;
-}
 .msg-file-meta__title:hover {
   color: #404040;
 }
@@ -448,11 +395,7 @@ by ysyun 2015.2.25
   font-size: 12px;
 }
 .msg-file-meta__writer {  }
-.msg-comment { }
 
-.msg-comment-with-thumbnail {
-  min-height: 65px;
-}
 .msg-comment-header {
   color: #999999;
   font-size: 14px;
@@ -763,23 +706,6 @@ by ysyun 2015.2.25
     width: auto;
   }
 }
-/********************************************
-
-            Archived File
-
-********************************************/
-.archived-file {
-
-}
-
-.archived-file-title {
-  line-height: 63px;
-}
-.archived-file .msg-file-meta__title {
-  color: #b7b7b7;
-  font-size: 14px;
-}
-
 
 /********************************************
 

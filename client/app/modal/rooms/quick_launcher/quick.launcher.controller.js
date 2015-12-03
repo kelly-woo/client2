@@ -150,15 +150,53 @@
               name: entity.name,
               count: entity.alarmCnt
             };
-            entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+
+            if (entity.type === 'users') {
+              room.profileImage = memberService.getSmallThumbnailUrl(entity);
+              room.priority = 1;
+            } else {
+              room.priority = 2;
+            }
+
             rooms.push(room);
           }
         }
       }
 
-      return _.sortBy(rooms, function (room) {
-        return room.name.toLowerCase();
+      return rooms.sort(function (value1, value2) {
+        var result = _comparePriority(value1, value2);
+        return result === 0 ? _compareName(value1, value2) : result;
       });
+    }
+
+    /**
+     * compare priority
+     * @param {object} value1
+     * @param {object} value2
+     * @returns {number}
+     * @private
+     */
+    function _comparePriority(value1, value2) {
+      var result = 0;
+
+      if (value1.priority > value2.priority) {
+        result = 1;
+      } else if (value1.priority < value2.priority) {
+        result = -1;
+      }
+
+      return result;
+    }
+
+    /**
+     * compare name
+     * @param {object} value1
+     * @param {object} value2
+     * @returns {boolean}
+     * @private
+     */
+    function _compareName(value1, value2) {
+      return value1.name.toLowerCase() > value2.name.toLowerCase();
     }
 
     /**

@@ -16,10 +16,12 @@
     var events = [
       {
         name: MESSAGE_PREVIEW,
+        version: 1,
         handler: _onLinkPreview
       },
       {
         name: MESSAGE_PREVIEW_IMAGE,
+        version: 1,
         handler: _onLinkPreviewImage
       }
     ];

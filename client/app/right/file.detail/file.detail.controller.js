@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
-                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage) {
+                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker) {
     var fileId;
     var requestFileDetail;
 
@@ -192,6 +192,8 @@
       $scope.isExternalShared = file.content.externalShared;
       // 관리자 인지 여부
       $scope.isAdmin = memberService.isAdmin();
+
+      _setFileDownLoad();
     }
 
     /**
@@ -446,7 +448,7 @@
       if (type === 'comment') {
         sendingComment.content = {body: value};
       } else if (type === 'comment_sticker') {
-        sendingComment.content = {url: value.url};
+        sendingComment.content = {url: Sticker.getRetinaStickerUrl(value.url)};
         sendingComment.originSticker = value;
       }
 
@@ -519,6 +521,18 @@
      */
     function backToPrevState() {
       $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
+    }
+
+    /**
+     * file download 값을 설정한다.
+     * @private
+     */
+    function _setFileDownLoad() {
+      var file = $scope.file;
+      var value = $filter('downloadFile')($scope.isIntegrateFile, file.content.name, file.content.fileUrl);
+
+      $scope.downloadUrl = value.downloadUrl;
+      $scope.originalUrl = value.originalUrl;
     }
   }
 })();

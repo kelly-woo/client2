@@ -25,42 +25,52 @@
     var events = [
       {
         name: FILE_CREATED,
+        version: 1,
         handler: _onFileCreated
       },
       {
         name: FILE_IMAGE,
+        version: 1,
         handler: _onFileImage
       },
       {
         name: FILE_IMAGE_ERROR,
+        version: 1,
         handler: _onFileImageError
       },
       {
         name: FILE_SHARED,
+        version: 1,
         handler: _onFileShared
       },
       {
         name: FILE_UNSHARED,
+        version: 1,
         handler: _onFileUnshared
       },
       {
         name: FILE_DELETED,
+        version: 1,
         handler: _onFileDeleted
       },
       {
         name: FILE_COMMENT_CREATED,
+        version: 1,
         handler: _onFileCommentCreated
       },
       {
         name: FILE_COMMENT_DELETED,
+        version: 1,
         handler: _onFileCommentDeleted
       },
       {
         name: FILE_EXTERNAL_SHARED,
+        version: 1,
         handler: _onFileExternalShared
       },
       {
         name: FILE_EXTERNAL_UNSHARED,
+        version: 1,
         handler: _onFileExternalUnshared
       }
     ];

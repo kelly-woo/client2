@@ -72,7 +72,7 @@
     }
 
     // open right panel
-    $scope.$on('onRightPanel', _onRightPanel);
+    $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
     // star / unstar
     $scope.$on('starred', _starred);
@@ -92,12 +92,12 @@
      * @param {object} data
      * @private
      */
-    function _onRightPanel($event, data) {
+    function _onRightPanelStatusChange($event, data) {
       if (data.type === 'stars') {
         isActivated = true;
 
         if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
-          // 'onRightPanel' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
+          // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
           _initStarListData($scope.activeTabName);
           _initGetStarList($scope.activeTabName);
         }

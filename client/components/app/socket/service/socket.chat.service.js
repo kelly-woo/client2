@@ -15,6 +15,7 @@
     var events = [
       {
         name: 'chat_close',
+        version: 1,
         handler: _onChatClose
       }
     ];
