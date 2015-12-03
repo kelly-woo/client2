@@ -178,6 +178,16 @@
         templateUrl: 'app/error/404.html',
         controller: 'errorController'
       })
+      .state('popup', {
+        abstract: true,
+        url: '/popup',
+        template: '<ui-view/>'
+      })
+      .state('popup.success', {
+        url: '/success?callbackEvent',
+        templateUrl: 'app/popup/popup.success.html',
+        controller: 'PopupSuccessCtrl'
+      })
       .state('notfound', {
         url: '/lostinjandi',
         title: '404',
