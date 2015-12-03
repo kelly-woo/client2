@@ -26,6 +26,8 @@
   border: 1px solid rgba(0, 0, 0, 0.25);
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  
+  cursor: default;
 }
 
 
@@ -65,8 +67,8 @@
   width: 50%;
   border-right: 1px solid #E1E1E1;
   height: auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .modal.keyboard-shortcut-modal .shortcut-list:first-child {
   padding-left:0;
@@ -90,7 +92,24 @@
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li {
   line-height: 20px;
-  margin-bottom: 8px;
+
+  padding: 4px 4px 4px 8px;
+  border-radius: 3px;
+  
+  -webkit-transition: background-color .2s ease-in-out;
+  -moz-transition: background-color .2s ease-in-out;
+  -o-transition: background-color .2s ease-in-out;
+  -ms-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul li:hover {
+  background-color: #F8F9FA;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keystyle,
+.modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keylabel {
+  border-color: rgba(21, 74, 103, 0.35);
+  color: #3C5664;
+  /*background-image:none;*/
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
   margin-bottom: 0;
@@ -117,6 +136,7 @@
   font-size: 12px;
   line-height: 12px;
   padding: 4px 4px;
+  background-color: #FFF;
   background-image: linear-gradient(-180deg, #FFFFFF 0%, #EFEFEF 100%);
   border: 1px solid #CECECE;
   border-radius: 3px;
@@ -141,6 +161,6 @@
 	padding:0;
   }
   .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
-	margin-bottom: 8px;
+	margin-bottom: 0px;
   }
 }
