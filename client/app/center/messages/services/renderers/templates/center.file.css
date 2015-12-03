@@ -84,6 +84,19 @@
   min-width: 26px;
   min-height: 26px;
 }
+.action-group .action-item:hover {
+  background-color: #F0F6FB;
+  color: #154a67;
+}
+.action-group .action-item:hover .action-comment span {
+  color: #154a67;
+}
+.action-group .action-item:hover i {
+  color: #154a67;
+}
+.action-group .action-item:active {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .125);
+}
 
 .action-group .action-item:not(:last-child) {
   border-right: 1px solid #e1e1e1;
