@@ -34,6 +34,8 @@
       // image view에서 image 불러오는중 loading bar 사용여부
       var hasLoadingBar = attrs.hasLoadingBar === 'true';
 
+      var imageOrientation = parseInt(attrs.imageOrientation, 10);
+
       var jqLoadingBar;
       var jqImage;
       var dimention = _getDimention();
@@ -73,7 +75,7 @@
        * @private
        */
       function _createImage() {
-        jqImage = $('<img class="opac-zero" ' +
+        jqImage = $('<img class="opac-zero _fileExpand" ' +
                          'style="display:none;width:' + dimention.width + 'px;height:' + dimention.height + 'px;" ' +
                          'src="' + imageView + '">')
           .on('load', _onImageLoad)
@@ -111,6 +113,14 @@
        */
       function _getDimention() {
         var ratio;
+        var temp;
+
+        // orientation 처리 참조: http://www.impulseadventure.com/photo/exif-orientation.html
+        if (_.isNumber(imageOrientation) && imageOrientation > 4) {
+          temp = imageWidth;
+          imageWidth = imageHeight;
+          imageHeight = temp;
+        }
 
         if (imageMaxWidth < imageWidth || imageMaxHeight < imageHeight) {
           // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.

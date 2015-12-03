@@ -11,7 +11,7 @@
         {{#if isArchived}}
           <!--  ARCHIVED FILE PREVIEW IMAGE  -->
           <div class="preview-container">
-            <div class="preview-card cursor_pointer _compile _fileGo">
+            <div class="preview-card cursor_pointer _compile _fileDetail">
               <div class="msg-file-actions-content actions-dimmed"></div>
               <div class="msg-file-actions-content non-selectable">
                 <div class="msg-file-actions">
@@ -43,7 +43,7 @@
                 <div class="msg-file-meta-up">
                   <!--  NOT ARCHIVED FILE -->
                   <!--    TITLE   -->
-                  <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">{{ file.title }}</a>
+                  <a class="msg-file-meta__title file__name break-word cursor_pointer _fileDetail">{{ file.title }}</a>
                   <span class="bullet">•</span>
                   {{#unless file.isIntegrateFile}}
                     {{#if file.size}}
@@ -62,10 +62,11 @@
                 <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
                 <div class="jnd-text-center _compile _fileToggleTarget">
                   {{#if file.hasPreview}}
-                    <div class="image_wrapper medium-thumbnail medium-thumbnail-wrapper cursor_pointer _fileExpand"
+                    <div class="image_wrapper medium-thumbnail medium-thumbnail-wrapper cursor_pointer"
                          image-view="{{file.imageUrl}}"
                          image-width="{{file.width}}"
                          image-height="{{file.height}}"
+                         image-orientation="{{file.orientation}}"
                          image-max-width="360"
                          image-max-height="270"
                          has-loading-bar="true">
@@ -116,6 +117,7 @@
                          image-view
                          image-width="{{file.width}}"
                          image-height="{{file.height}}"
+                         image-orientation="{{file.orientation}}"
                          image-max-width="360"
                          image-max-height="270"
                          has-loading-bar="true"></div>
@@ -124,7 +126,7 @@
 
                 {{#unless file.isUnshared}}
                   <!-- Star -->
-                  <div class="msg-extra file-uploaded-extra">
+                  <div class="msg-extra file-uploaded-extra non-selectable">
                     <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-{{file.id}} {{css.fileStar}}">
                       <i class="icon-star-on"></i>
                     </span>
@@ -137,7 +139,7 @@
           {{else}}
             <!--  UNSHARED FILE  -->
             <div class="preview-container">
-              <div class="preview-card cursor_pointer _compile _fileGo">
+              <div class="preview-card cursor_pointer _compile _fileDetail">
                 <div class="msg-file-actions-content actions-dimmed"></div>
                 <div class="msg-file-actions-content non-selectable">
                   <div class="msg-file-actions">
@@ -166,7 +168,7 @@
           {{#unless file.mustPreview}}
             <!--  FILE PREVIEW IMAGE  -->
             <div class="preview-container">
-              <div class="preview-card cursor_pointer _compile _fileGo">
+              <div class="preview-card cursor_pointer _compile _fileDetail">
                 <div class="msg-file-actions-content actions-dimmed"></div>
                 <div class="msg-file-actions-content non-selectable">
                   <div class="msg-file-actions">
@@ -248,7 +250,7 @@
 
               {{#unless file.isUnshared}}
                 <!-- Star -->
-                <div class="msg-extra file-uploaded-extra">
+                <div class="msg-extra file-uploaded-extra non-selectable">
                   <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-{{file.id}} {{css.fileStar}}">
                     <i class="icon-star-on"></i>
                   </span>
@@ -265,7 +267,7 @@
         <div class="continue-comment-body">
           <!--    COMMENT CONTENT -->
           <div class="comment-content">
-            <span class="comment-all-desc _fileGo">
+            <span class="comment-all-desc _fileDetail">
               {{{translate.commentAllDesc}}}
             </span>
           </div>
@@ -314,7 +316,7 @@
           </div>
         </div>
         <!-- Star -->
-        <div class="msg-extra msg-extra-comment-continue">
+        <div class="msg-extra msg-extra-comment-continue non-selectable">
           {{#if hasStar}}
           <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-{{msg.message.id}} {{css.star}}">
             <i class="icon-star-on"></i>

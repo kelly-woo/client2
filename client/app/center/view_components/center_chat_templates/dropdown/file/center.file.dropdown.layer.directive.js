@@ -83,7 +83,8 @@
         scope.getExternalShare = getExternalShare;
         scope.setExternalShare = setExternalShare;
 
-        scope.fileId = msg.feedback ? msg.feedback.id : msg.message.id;
+        scope.message = msg.feedback ? msg.feedback : msg.message;
+        scope.fileId = scope.message.id;
 
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.

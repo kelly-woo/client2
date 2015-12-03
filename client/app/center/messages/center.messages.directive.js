@@ -308,34 +308,11 @@
         } else if (jqTarget.closest('._fileShare').length) {
           _onClickFileShare(msg);
           hasAction = true;
-        } else if (jqTarget.closest('._fileGo').length) {
-          _onClickFileGo(msg);
-          hasAction = true;
         }
 
         if (hasAction) {
           JndUtil.safeApply(scope);
         }
-      }
-
-      /**
-       * 우측 패널 오픈
-       * @param {Object} msg
-       * @private
-       */
-      function _onClickFileGo(msg) {
-        var contentType = msg.message.contentType;
-        var userName = $filter('getName')(msg.message.writerId);;
-        var itemId = msg.message.id;
-
-        if (msg.feedback && contentType !== 'file') {
-          userName = $filter('getName')(msg.feedback.writerId);
-          itemId = msg.feedback.id;
-        }
-        $state.go('files', {
-          userName: userName,
-          itemId: itemId
-        });
       }
 
       /**
@@ -355,7 +332,7 @@
       function _onClickStar(msg) {
         var message = msg.message;
 
-        _requestStar(msg, message);
+        _requestStar(msg, message, '._star');
       }
 
       /**
@@ -373,7 +350,7 @@
           message = msg.message;
         }
 
-        _requestStar(msg, message);
+        _requestStar(msg, message, '._fileStar');
       }
 
       /**
@@ -382,28 +359,29 @@
        * @param {object} message
        * @private
        */
-      function _requestStar(msg, message) {
+      function _requestStar(msg, message, jqTarget) {
         var messageId = message.id;
 
         message.isStarred = !message.isStarred;
-        _refreshStar(msg, message, '._fileStar');
+        _refreshStar(msg, message, jqTarget);
         if (message.isStarred) {
           StarAPIService.star(messageId, _teamId)
-            .error(_.bind(_onStarRequestError, that, msg));
+            .error(_.bind(_onStarRequestError, that, msg, message, jqTarget));
         } else {
           StarAPIService.unStar(messageId, _teamId)
-            .error(_.bind(_onStarRequestError, that, msg));
+            .error(_.bind(_onStarRequestError, that, msg, message, jqTarget));
         }
       }
 
       /**
        * star 오류 핸들러
        * @param {object} msg
+       * @param {object} message
        * @private
        */
-      function _onStarRequestError(msg) {
-        msg.message.isStarred = !msg.message.isStarred;
-        _refreshStar(msg, msg.message);
+      function _onStarRequestError(msg, message, jqTarget) {
+        message.isStarred = !message.isStarred;
+        _refreshStar(msg, message, jqTarget);
 
         Dialog.error({
           title: $filter('translate')('@star-forbidden')
