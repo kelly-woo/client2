@@ -382,11 +382,14 @@
 
     /**
      * client에서 사용할 모든 entity data를 생성한다.
-     * @param {array} totalEntities
-     * @param {array} joinedEntities
+     * @param {object} response
      * @returns {{joinedChannelList: Array, privateGroupList: Array, unJoinedChannelList: Array}}
      */
-    function createTotalData(totalEntities, joinedEntities) {
+    function createTotalData(response) {
+      var totalEntities = response.entities;
+      var joinedEntities = response.joinEntities;
+      var bots = response.bots;
+
       var joinedChannelList = [];
       var privateGroupList = [];
       var unJoinedChannelList = [];
@@ -412,11 +415,17 @@
           EntityMapManager.add('unjoined', entity);
 
           unJoinedChannelList.push(entity);
-        } else if (type === 'user' || type === 'bot') {
-          EntityMapManager.add(type, entity);
+        } else if (type === 'user') {
+          EntityMapManager.add('user', entity);
           EntityMapManager.add('member', entity);
         }
 
+        EntityMapManager.add('total', entity);
+      });
+
+      _createEntityData(bots, function(entity) {
+        EntityMapManager.add('bot', entity);
+        EntityMapManager.add('member', entity);
         EntityMapManager.add('total', entity);
       });
 

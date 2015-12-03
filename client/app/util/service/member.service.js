@@ -77,7 +77,12 @@
       isActiveMember: isActiveMember,
       isDeactivatedMember: isDeactivatedMember,
       isDisabled: isDisabled,
-      isDeleted: isDeleted
+      isDeleted: isDeleted,
+
+      isUser: isUser,
+      isBot: isBot,
+      isJandiBot: isJandiBot,
+      isIntegrationBot: isIntegrationBot
     };
 
 
@@ -567,6 +572,48 @@
      */
     function isDeleted(member) {
       return member && member.status === 'deleted';
+    }
+
+    /**
+     * user 인지 여부
+     * @param {number|object} member
+     * @returns {*|boolean|*}
+     */
+    function isUser(member) {
+      var memberId = _.isObject(member) ? member.id : member;
+      return EntityMapManager.contains('user', memberId);
+    }
+
+    /**
+     * bot 인지 여부
+     * @param {number|object} member
+     * @returns {*|boolean|*}
+     */
+    function isBot(member) {
+      var memberId = _.isObject(member) ? member.id : member;
+      return EntityMapManager.contains('bot', memberId);
+    }
+
+    /**
+     * bot 인지 여부
+     * @param {number|object} member
+     * @returns {*|boolean|*}
+     */
+    function isJandiBot(member) {
+      var memberId = _.isObject(member) ? member.id : member;
+      var bot = EntityMapManager.get('bot', memberId);
+      return isBot(memberId) && bot && bot.botType === 'jandi_bot';
+    }
+
+    /**
+     * bot 인지 여부
+     * @param {number|object} member
+     * @returns {*|boolean|*}
+     */
+    function isIntegrationBot(member) {
+      var memberId = _.isObject(member) ? member.id : member;
+      var bot = EntityMapManager.get('bot', memberId);
+      return isBot(memberId) && bot && bot.botType === 'integration_bot';
     }
   }
 })();

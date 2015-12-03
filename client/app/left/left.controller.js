@@ -467,7 +467,7 @@ app.controller('leftPanelController1', function(
     //  privateGroupList    - List of joined private groups.
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
-    var generalData = entityAPIservice.createTotalData($scope.totalEntities, $scope.joinEntities);
+    var generalData = entityAPIservice.createTotalData(response);
     _.extend($scope, generalData);
 
     //$scope.memberList           = generalData.memberList;
