@@ -210,7 +210,7 @@
           isUnshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
-          isImageIcon: icon === 'img',
+          hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: $filter('hasPreview')(content),
           imageUrl: $filter('getPreview')(content, 'medium'),

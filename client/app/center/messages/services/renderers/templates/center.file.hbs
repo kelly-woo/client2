@@ -156,7 +156,7 @@
                     <div class="msg-file-actions">
                       {{#unless file.isUnshared}}
                         <div class="action-group">
-                          {{#if file.isImageIcon}}
+                          {{#if file.hasOriginalImageView}}
                             <div class="action-item"
                                  jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
                                  data-direction="top">
@@ -170,10 +170,10 @@
                                jnd-tooltip-trigger="{{translate '@btn-comment'}}"
                                data-direction="top">
                             <!--  MORE  -->
-                      <span class="action-comment _fileDetailComment">
-                        <i class="icon-comment"></i>
-                        <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
-                      </span>
+                            <span class="action-comment _fileDetailComment">
+                              <i class="icon-comment"></i>
+                              <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
+                            </span>
                           </div>
                           {{#unless file.isIntegrateFile}}
                             <div class="action-item"
