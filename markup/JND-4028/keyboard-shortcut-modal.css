@@ -105,14 +105,12 @@
 .modal.keyboard-shortcut-modal .shortcut-list ul li:hover {
   background-color: #F8F9FA;
 }
-.modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keystyle,
-.modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keylabel {
-  border-color: rgba(21, 74, 103, 0.35);
+.modal.keyboard-shortcut-modal .shortcut-list ul li:hover span {
   color: #3C5664;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li:hover .keystyle {
+  border-color: rgba(21, 74, 103, 0.35);
   background-image: linear-gradient(-180deg, #FFFFFF 0%, #F7F7F7 50%, #E8EAED 100%);
-
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
