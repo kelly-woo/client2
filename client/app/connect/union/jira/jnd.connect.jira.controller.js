@@ -32,6 +32,7 @@
     function save() {
       Popup.open('http://local.jandi.io:8080/connect/google/calendar/auth', {
         name: 'google',
+        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
         data: {
           redirectUri: '/popup/success?callbackEvent=popup-done'
         }
