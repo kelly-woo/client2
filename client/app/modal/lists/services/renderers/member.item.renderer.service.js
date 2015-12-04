@@ -27,7 +27,7 @@
      */
     function render(data) {
       return _template({
-        profileImage: $filter('getSmallThumbnail')(data),
+        profileImage: memberService.getProfileImage(data.id, 'small'),
         userName: $filter('getName')(data),
         starClass: data.isStarred ? 'icon-star-on' : '',
         isShowStar: !publicService.isDisabledMember(data) && data.id !== memberService.getMemberId(),

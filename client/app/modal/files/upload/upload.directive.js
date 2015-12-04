@@ -308,7 +308,7 @@
           users = entityAPIservice.getUserList(room);
 
           if (users && users.length > 0) {
-            mentionList = MentionExtractor.getMentionList(users, $state.params.entityId);
+            mentionList = MentionExtractor.getMentionListForTopic(users, $state.params.entityId);
             mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
             //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
             if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {

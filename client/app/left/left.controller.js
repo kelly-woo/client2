@@ -686,7 +686,7 @@ app.controller('leftPanelController1', function(
     else {
       user = EntityMapManager.get('total', user.id);
     }
-    modalHelper.openMemberProfileModal($scope, user);
+    modalHelper.openUserProfileModal($scope, user);
   };
 
   // based on uesr.u_starredEntities, populating starred look-up list.

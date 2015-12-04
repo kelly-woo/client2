@@ -53,6 +53,7 @@
       var roomTypeImage;
       switch(data.type) {
         case 'users':
+        case 'bots':
           roomTypeImage = '<img class="room-type-image" src="' + data.profileImage + '" />';
           break;
         case 'channels':

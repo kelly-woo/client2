@@ -33,6 +33,7 @@
       getUserLength: getUserLength,
       isUser: isUser,
       getBotList: getBotList,
+      getJandiBot: getJandiBot,
       isLeavedTopic: isLeavedTopic,
 
       createTotalData: createTotalData
@@ -330,12 +331,30 @@
     }
 
     /**
-     * entity의 bot list를 전달한다.
+     * bot list를 전달한다.
      * @param {object} entity
      * @returns {Array}
      */
-    function getBotList(entity) {
-      return _getMemberList('bot', entity);
+    function getBotList() {
+      //return _getMemberList('bot', entity);
+      return EntityMapManager.toArray('bot');
+    }
+
+    /**
+     * jandi bot을 전달한다.
+     */
+    function getJandiBot() {
+      var botList = getBotList();
+      var jandiBot;
+
+      _.each(botList, function(bot) {
+        if (bot.botType === 'jandi_bot') {
+          jandiBot = bot;
+          return false;
+        }
+      });
+
+      return jandiBot;
     }
 
     /**

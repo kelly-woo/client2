@@ -36,8 +36,9 @@
     that.openTeamMemberListModal = openTeamMemberListModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
-    that.openCurrentMemberModal = openCurrentMemberModal;
-    that.openMemberProfileModal = openMemberProfileModal;
+    that.openCurrentUserModal = openCurrentUserModal;
+    that.openUserProfileModal = openUserProfileModal;
+    that.openBotProfileModal = openBotProfileModal;
 
     that.openImageCarouselModal = openImageCarouselModal;
     that.openFullScreenImageModal = openFullScreenImageModal;
@@ -274,10 +275,10 @@
      * 현재 나의 프로필을 수정/확인 할 수 있는 모달창을 연다.
      * @param $scope
      */
-    function openCurrentMemberModal($scope) {
+    function openCurrentUserModal($scope) {
       var modalOption = {
         scope: $scope,
-        templateUrl: 'app/modal/members/current_member_profile/current.member.profile.html',
+        templateUrl: 'app/modal/members/current-user-profile/current.user.profile.html',
         controller: 'ProfileSettingCtrl',
         backdrop: 'static',
         windowClass: 'current-member-profile',
@@ -288,18 +289,38 @@
     }
 
     /**
-     * 멤버의 간단한 프로필을 보는 모달창을 연다.
+     * user의 간단한 프로필을 보는 모달창을 연다.
      * @param $scope {scope}
      * @param member {object} member entity to be shown
      */
-    function openMemberProfileModal($scope, member) {
+    function openUserProfileModal($scope, member) {
       var modalOption = {
         scope: $scope.$new(),
-        templateUrl: 'app/modal/members/member_profile/member.profile.view.html',
+        templateUrl: 'app/modal/members/user-profile/user.profile.view.html',
         controller: 'ProfileViewCtrl',
         windowClass: 'profile-view-modal',
         resolve: {
           curUser: function getCurUser(){ return member; }
+        }
+      };
+
+      _modalOpener(modalOption);
+      _safeApply($scope);
+    }
+
+    /**
+     * bot의 간단한 프로필을 보는 모달창을 연다.
+     * @param $scope {scope}
+     * @param member {object} member entity to be shown
+     */
+    function openBotProfileModal($scope, bot) {
+      var modalOption = {
+        scope: $scope.$new(),
+        templateUrl: 'app/modal/members/bot-profile/bot.profile.html',
+        controller: 'BotProfileCtrl',
+        windowClass: 'profile-view-modal',
+        resolve: {
+          curBot: function getCurUser(){ return bot; }
         }
       };
 

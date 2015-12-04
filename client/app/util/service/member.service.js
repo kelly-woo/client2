@@ -23,6 +23,12 @@
 
     var currentMember;
 
+    var thumbnailUrlMap = {
+      small: getSmallThumbnailUrl,
+      medium: getMediumThumbnailUrl,
+      large: getLargeThumbnailUrl
+    };
+
     var service = {
       updateCurrentMember: updateCurrentMember,
 
@@ -55,6 +61,7 @@
       getMediumThumbnailUrl: getMediumThumbnailUrl,
       getLargeThumbnailUrl: getLargeThumbnailUrl,
       getPhotoUrl: getPhotoUrl,
+      getProfileImage: getProfileImage,
 
       getNameById: getNameById,
 
@@ -79,6 +86,7 @@
       isDisabled: isDisabled,
       isDeleted: isDeleted,
 
+      isMember: isMember,
       isUser: isUser,
       isBot: isBot,
       isJandiBot: isJandiBot,
@@ -342,6 +350,27 @@
     }
 
     /**
+     * member의 프로필 사진 주소를 리턴한다.
+     * @param {number} memberId
+     * @param {string} [size]
+     */
+    function getProfileImage(memberId, size) {
+      var member = EntityMapManager.get('member', memberId);
+      var profileImage;
+
+      if (member) {
+        if (isUser(member.id)) {
+          size = size || 'small';
+          profileImage = thumbnailUrlMap[size](member);
+        } else if (isBot(member.id)) {
+          profileImage = member.thumbnailUrl;
+        }
+      }
+
+      return profileImage;
+    }
+
+    /**
      * 아이디를 사용해 해당하는 유저의 이름을 리턴한다.
      * @param {number} entityId - 아이디
      * @returns {string} name - 아이디를 가진 유져의 이름
@@ -575,43 +604,48 @@
     }
 
     /**
-     * user 인지 여부
-     * @param {number|object} member
+     * member 인지 여부
+     * @param {number} memberId
      * @returns {*|boolean|*}
      */
-    function isUser(member) {
-      var memberId = _.isObject(member) ? member.id : member;
+    function isMember(memberId) {
+      return EntityMapManager.contains('member', memberId);
+    }
+
+    /**
+     * user 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isUser(memberId) {
       return EntityMapManager.contains('user', memberId);
     }
 
     /**
      * bot 인지 여부
-     * @param {number|object} member
+     * @param {number} memberId
      * @returns {*|boolean|*}
      */
-    function isBot(member) {
-      var memberId = _.isObject(member) ? member.id : member;
+    function isBot(memberId) {
       return EntityMapManager.contains('bot', memberId);
     }
 
     /**
      * bot 인지 여부
-     * @param {number|object} member
+     * @param {number} memberId
      * @returns {*|boolean|*}
      */
-    function isJandiBot(member) {
-      var memberId = _.isObject(member) ? member.id : member;
+    function isJandiBot(memberId) {
       var bot = EntityMapManager.get('bot', memberId);
       return isBot(memberId) && bot && bot.botType === 'jandi_bot';
     }
 
     /**
      * bot 인지 여부
-     * @param {number|object} member
+     * @param {number} memberId
      * @returns {*|boolean|*}
      */
-    function isIntegrationBot(member) {
-      var memberId = _.isObject(member) ? member.id : member;
+    function isIntegrationBot(memberId) {
       var bot = EntityMapManager.get('bot', memberId);
       return isBot(memberId) && bot && bot.botType === 'integration_bot';
     }

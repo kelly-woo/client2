@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, EntityMapManager, entityAPIservice, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, $filter, MentionExtractor, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -270,38 +270,8 @@
        * @private
        */
       function _setMentionMembers(file) {
-        var currentMemberId = memberService.getMemberId();
-        var sharedEntities;
-        var mentionMembers;
-
-        if (file) {
-          sharedEntities = file.shareEntities;
-          mentionMembers = [];
-
-          _.each(sharedEntities, function(sharedEntity) {
-            var entity = EntityMapManager.get('total', sharedEntity);
-            var users;
-
-            if (entity && /channels|privategroups/.test(entity.type)) {
-              users = entityAPIservice.getUserList(entity);
-              _.each(users, function(userId) {
-                var user = EntityMapManager.get('user', userId);
-                if (user && currentMemberId !== user.id && user.status === 'enabled') {
-                  user.extViewName = '[@' + user.name + ']';
-                  user.extSearchName = user.name;
-                  mentionMembers.push(user);
-                }
-              });
-            }
-          });
-
-          // 공유된 room 마다 mention 가능한 member를 설정함
-          mentionMembers = _.chain(mentionMembers).uniq('id').sortBy(function (item) {
-            return item.name.toLowerCase();
-          }).value();
-
-          jndPubSub.pub('mentionahead:comment', mentionMembers);
-        }
+        var mentionList = MentionExtractor.getMentionListForFile(file);
+        jndPubSub.pub('mentionahead:comment', mentionList);
       }
     }
   }

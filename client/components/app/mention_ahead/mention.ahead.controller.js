@@ -23,7 +23,6 @@
     that.getValue = getValue;
     that.setValue = setValue;
 
-    that.setMentions = setMentions;
     that.clearMention = clearMention;
 
     that.setMentionOnLive = setMentionOnLive;
@@ -71,14 +70,15 @@
      * @private
      */
     function _onMentionMembersUpdate(angularEvent, mentionMembers) {
-      setMentions(mentionMembers);
+      _setMentions(mentionMembers);
     }
 
     /**
      * mention ahead list 설정함.
      * @param mentionList
+     * @private
      */
-    function setMentions(mentionList) {
+    function _setMentions(mentionList) {
       $scope.mentionList = mentionList;
 
       // 중복 user name에 대한 처리

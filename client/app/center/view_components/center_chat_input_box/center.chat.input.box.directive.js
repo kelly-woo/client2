@@ -91,7 +91,7 @@
         var mentionMembers;
 
         if (users) {
-          mentionMembers = MentionExtractor.getMentionList(users, entityId);
+          mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
           jndPubSub.pub('mentionahead:message', mentionMembers);
         }
       }
