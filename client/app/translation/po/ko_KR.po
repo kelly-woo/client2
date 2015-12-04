@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -620,6 +620,10 @@ msgstr "팀"
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "이용약관"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-text-size"
+msgstr "텍스트 크기"
 
 #: client/app/modal/files/upload/upload.html
 msgid "@common-title"
@@ -1307,6 +1311,90 @@ msgstr "바탕화면 알림 사용하지 않기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "바탕화면 알림 사용하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-confirm-modal"
+msgstr "각종 안내 창에서 확인 버튼 선택"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-focus-input"
+msgstr "메시지 입력창으로 커서 즉시 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-invite-topic"
+msgstr "토픽에 멤버 초대하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-jump"
+msgstr "점프"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-lock-screen"
+msgstr "화면 가리기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-open-shortcut"
+msgstr "단축키 목록 보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-file"
+msgstr "파일 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-mentions"
+msgstr "멘션 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-message"
+msgstr "메시지 검색 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-next"
+msgstr "오른쪽 탭 : 오른쪽 탭으로 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-prev"
+msgstr "오른쪽 탭 : 왼쪽 탭으로 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-stars"
+msgstr "즐겨찾기 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-down"
+msgstr "대화 스크롤 다운"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-up"
+msgstr "대화 스크롤 업"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-show-sticker"
+msgstr "스티커"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-switch-teams"
+msgstr "팀 전환하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-toggle-rpanel"
+msgstr "오른쪽 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-upload"
+msgstr "내 컴퓨터에서 파일 업로드"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-in"
+msgstr "글자 크기 확대"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-out"
+msgstr "글자 크기 축소"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-reset"
+msgstr "글자 크기 기본값으로 복원"
 
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html

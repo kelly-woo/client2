@@ -599,6 +599,10 @@ msgstr ""
 msgid "@common-terms-of-service"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-text-size"
+msgstr ""
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-title"
 msgstr ""
@@ -1248,6 +1252,90 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-confirm-modal"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-focus-input"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-invite-topic"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-jump"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-lock-screen"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-open-shortcut"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-file"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-mentions"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-message"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-next"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-prev"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-stars"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-down"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-up"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-show-sticker"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-switch-teams"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-toggle-rpanel"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-upload"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-in"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-out"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-reset"
 msgstr ""
 
 #: client/app/right/file.detail/file.detail.html
