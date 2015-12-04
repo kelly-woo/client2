@@ -514,8 +514,9 @@
        * sticker 토글
        * @private
        */
-      function _toggleSticker() {
-        jndPubSub.pub('center:toggleSticker');
+      function _toggleSticker(keyEvent) {
+        var target = $(keyEvent.target).is('#file-detail-comment-input') ? 'file' : 'chat';
+        jndPubSub.pub(target + ':toggleSticker');
       }
 
       /**
