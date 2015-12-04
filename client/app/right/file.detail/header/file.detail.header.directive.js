@@ -16,6 +16,8 @@
       replace: true,
       scope: {
         file: '=',
+        downloadUrl: '=',
+        originalUrl: '=',
         isArchivedFile: '=',
         isInvalidRequest: '=',
         isExternalShared: '=',
@@ -51,8 +53,6 @@
 
           scope.getExternalShare = getExternalShare;
           scope.setExternalShare = setExternalShare;
-
-          _setFileDownLoad();
         }
       }
 
@@ -156,18 +156,6 @@
         });
 
         jndPubSub.pub('onFileDeleted', file.id);
-      }
-
-      /**
-       * file download 값을 설정한다.
-       * @private
-       */
-      function _setFileDownLoad() {
-        var file = scope.file;
-        var value = $filter('downloadFile')(scope.isIntegrateFile, file.content.name, file.content.fileUrl);
-
-        scope.downloadUrl = value.downloadUrl;
-        scope.originalUrl = value.originalUrl;
       }
 
       /**

@@ -48,6 +48,7 @@
       var writerId = message.message.writerId;
 
       if (!isTitle(index, list) &&
+        prevMessage.message.contentType === 'comment' &&
         prevMessage.message.writerId === writerId &&
         !centerService.isElapsed(prevMessage.time, message.time)) {
         return true;

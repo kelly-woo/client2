@@ -37,8 +37,8 @@
       var _duration = attrs.duration || 200;
       var _startWidth = attrs.startWidth || 0;
       var _startHeight = attrs.startHeight || 0;
-      var _endWidth = attrs.endWidth || 145;
-      var _endHeight = attrs.endHeight || 145;
+      var _endWidth = attrs.endWidth || 126;
+      var _endHeight = attrs.endHeight || 126;
 
       var _marginVertical;
       var _marginHorizontal;
