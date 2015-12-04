@@ -274,3 +274,14 @@ app.filter('getFileUrl', ['config',
         };
     }
 ]);
+
+/**
+ * control key 에 해당하는 text 를 반환한다.
+ */
+app.filter('ctrlKey', ['Browser',
+  function(Browser) {
+    return function() {
+      return Browser.platform.isMac ? 'Cmd' : 'Ctrl';
+    };
+  }
+]);
