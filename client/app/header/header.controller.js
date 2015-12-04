@@ -31,6 +31,9 @@
       },
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
+      },
+      'shortcut': function() {
+        modalHelper.openShortcutModal($scope);
       }
     };
 

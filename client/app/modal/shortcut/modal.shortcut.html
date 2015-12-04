@@ -14,7 +14,7 @@
   <section ng-repeat="column in columnList" class="shortcut-list">
     <ul>
       <li ng-repeat="row in column">
-        <span class="keylabel" translate>{{ row.l10n }}</span>
+        <span class="keylabel">{{ row.text }}</span>
         <span ng-repeat="combination in row.keys">
           <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">{{row.keys.length}} or</span>
           <span class="pull-right keystyle" ng-repeat="key in combination">

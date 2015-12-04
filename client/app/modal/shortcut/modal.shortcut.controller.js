@@ -179,6 +179,7 @@
           _.forEach(row.keys, function(combination) {
             combination.reverse();
           });
+          row.text = $filter('translate')(row.l10n);
           $scope.columnList[columnIdx].push(row);
         }
       });
