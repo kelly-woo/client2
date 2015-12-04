@@ -1359,7 +1359,8 @@ input[type="radio"] {
   transition: opacity 0.1s;
 }
 
-.blurred-msg-container {
+.blurred-msg-container,
+.zoom-msg-container {
   background-color: rgba(65, 65, 65, 0.65);
   color: #FFF;
   width: 242px;
@@ -1420,7 +1421,8 @@ input[type="radio"] {
   z-index: 9999;
 }
 
-.blurred-msg-container .msg-icon-container {
+.blurred-msg-container .msg-icon-container,
+.zoom-msg-container .msg-icon-container {
   position: absolute;
   left: 54px;
   width: 132px;
@@ -1433,11 +1435,27 @@ input[type="radio"] {
   border-radius: 20px;
   text-align: center;
 }
-.blurred-msg-container span {
+.blurred-msg-container span,
+.zoom-msg-container span {
   line-height: 20px;
   text-align: center;
   display: block;
 }
+.zoom-msg-container span.zoom-ratio {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top:16px;
+}
 .blurred-msg-container .icon-lock {
   font-size: 90px;
+}
+.zoom-msg-container .icon-text-zoom {
+  background-image: url('../assets/images/img-zoom-status.svg');
+  background-size: cover;
+  width: 145px;
+  height: 84px;
+  position: absolute;
+  top:6px;
+  left: -8px;
+  
 }
