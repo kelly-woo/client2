@@ -26,7 +26,6 @@
   margin-top: 12px;
 }
 .header-navbar-invite {
-  margin-left: 6px;
 }
 .header-navbar-quick-launcher {
   margin-left: 2px;
@@ -41,7 +40,6 @@
   float: left;
   font-size: 14px;
 }
-.header-navbar-invite,
 .header-navbar-settings,
 .header-navbar-quick-launcher {
   margin-right: 6px;
@@ -65,14 +63,17 @@
 .header-navbar-menu.open .dot {
   border: 2px solid #173e54;
 }
-
+.header-navbar__topmenu:hover {
+  background-color: #0E3E58;
+  cursor: pointer;
+  height: 42px !important;
+}
 #team-menu .header-navbar__topmenu {
   padding: 0 12px 0 12px;
   z-index: 100;
 }
 #invite .header-navbar__topmenu {
   /*padding-top: 1px;*/
-  padding-left: 10px;
 }
 .header-navbar__topmenu {
   display: block;

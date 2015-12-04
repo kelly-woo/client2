@@ -80,6 +80,9 @@
   overflow: hidden;
   white-space: nowrap;
 }
+.search-message-footer .search-message-title:hover {
+  color: #00709E;
+}
 .search-message-footer .search-message-time {
   color: #999;
 }
