@@ -230,6 +230,7 @@
             $('body').css({
               'zoom': _currentZoomScale
             });
+            jndPubSub.pub('zoom:change', _currentZoomScale);
           }
         }
       }
