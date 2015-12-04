@@ -1,5 +1,5 @@
 .jnd-connect-setting-container {
-  z-index: 7000;
+  z-index: 700;
   position: absolute;
   left: 0;
   right: 0;
@@ -9,7 +9,7 @@
 
 .jnd-connect-hpanel {
   position: relative;
-  z-index: 7024;
+  z-index: 724;
 }
 .jnd-connect-header {
   height: 42px;
@@ -63,14 +63,14 @@
   position: absolute;
   top: 0;
   overflow: hidden;
-  z-index: 7001;
+  z-index: 701;
 }
 
 .jnd-connect-logo-container {
   position: relative;
   min-height: 64px;
   padding: 16px 36px 16px 58px;
-  z-index: 7005;
+  z-index: 705;
   background-color: #FAFAFA;
 }
 
@@ -100,7 +100,7 @@
   box-sizing: border-box;
   padding:8px 14px;
   box-shadow: 0px 1px 4px rgba(0,0,0,0.08);
-  z-index: 7003;
+  z-index: 703;
 }
 .integrated-service .header-title {
   color: #888;
