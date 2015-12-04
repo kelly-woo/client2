@@ -92,6 +92,9 @@
           'NUM_0': {
             handler: _zoomReset,
             extraCondition: HybridAppHelper.isHybridApp
+          },
+          'SLASH': {
+            handler: _showShortcutGuide
           }
         },
         'alt': {
@@ -545,7 +548,15 @@
           Privacy.set();
         }
       }
-      
+
+      /**
+       * 키보드 숏컷 가이드를 노출한다
+       * @private
+       */
+      function _showShortcutGuide() {
+        modalHelper.openShortcutModal(scope);
+      }
+
       /**
        * center의 chat input에 focus가야하는 shortcut인지 여부를 반환한다.
        * @param {object} keyEvent

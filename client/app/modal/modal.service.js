@@ -50,6 +50,7 @@
     that.openPrivacyModal = openPrivacyModal;
 
     that.openQuickLauncherModal = openQuickLauncherModal;
+    that.openShortcutModal = openShortcutModal;
 
     that.closeModal = closeModal;
 
@@ -349,6 +350,21 @@
             return fileUrl;
           }
         }
+      };
+
+      _modalOpener(modalOption);
+    }
+
+    /**
+     * keyboard shortcut 모달을 open 한다
+     * @param $scope
+     */
+    function openShortcutModal($scope) {
+      var modalOption = {
+        scope: $scope,
+        controller: 'ModalShortcutCtrl',
+        templateUrl: 'app/modal/shortcut/modal.shortcut.html',
+        windowClass: 'keyboard-shortcut-modal'
       };
 
       _modalOpener(modalOption);

@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="close()">
+    <i class="icon-delete"></i>
+  </button>
+  <h3 class="modal-header__title">
+    <!-- translate:  -->
+    <span translate="" class="">Keyboard Shortcuts</span></span>
+  </h3>
+</div>
+
+<div class="modal-body">
+
+
+  <section ng-repeat="column in columnList" class="shortcut-list">
+    <ul>
+      <li ng-repeat="row in column">
+        <span class="keylabel" translate>{{ row.l10n }}</span>
+        <span ng-repeat="combination in row.keys">
+          <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">{{row.keys.length}} or</span>
+          <span class="pull-right keystyle" ng-repeat="key in combination">
+            {{key}}
+          </span>
+        </span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+  </section>
+  <div class="clear" style="clear: both;"></div>
+
+</div>
