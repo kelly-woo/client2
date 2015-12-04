@@ -1459,5 +1459,17 @@ input[type="radio"] {
   position: absolute;
   top:6px;
   left: -8px;
-  
+}
+.shortcuts-label {
+  margin-left: 6px;
+  line-height: 18px;
+  padding: 2px 5px;
+  background-color: #eee;
+  color: #a7a7a7;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  position: absolute;
+  right: 11px;
+  top: 5px;
 }

@@ -68,20 +68,8 @@
         <i class="icon-angle-down"></i>
       </span>
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-        <li role="presentation">
-          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-            <i class="icon-info-fill"></i>
-            <span translate>@common-faq</span>
-          </a>
-        </li>
 
-        <li role="presentation">
-          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
-            <i class="icon-help-fill"></i>
-            <span translate>@common-show-tutorial</span>
-          </a>
-        </li>
-
+        <!-- 언어 설정 -->
         <li role="presentation">
           <div class="menu-item" role="menuitem" tabindex="-1">
             <i class="icon-global"></i>
@@ -99,8 +87,26 @@
           </div>
         </li>
 
+        <!-- 튜토리얼 보기 -->
+        <li role="presentation">
+          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
+            <i class="icon-help-fill"></i>
+            <span translate>@common-show-tutorial</span>
+          </a>
+        </li>
+
+        <!-- 단축키 보기 -->
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+            <i class="fa fa-keyboard-o"></i>
+            <span translate>@Shortcuts</span>
+            <span class="shortcuts-label">Ctrl+/</span>
+          </a>
+        </li>
+
         <li class="divider"></li>
 
+        <!-- 이용 약관 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
             <i class="icon-folder-fill"></i>
@@ -108,12 +114,32 @@
           </a>
         </li>
 
+        <!-- 개인정보취급방침 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
             <i class="icon-lock"></i>
             <span translate>@common-privacy-policy</span>
           </a>
         </li>
+
+        <li class="divider"></li>
+
+        <!-- FAQ -->
+        <li role="presentation">
+          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
+            <i class="icon-info-fill"></i>
+            <span translate>@common-faq</span>
+          </a>
+        </li>
+
+        <!-- 문의하기 -->
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+            <i class="icon-mail"></i>
+            <span translate>@문의하기</span>
+          </a>
+        </li>
+
       </ul>
     </div>
 
