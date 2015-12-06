@@ -19,7 +19,7 @@
         hasInitialLoaded: '=',
         postComment: '&',
         setMentionsGetter: '&',
-        onUserClick: '='
+        onMemberClick: '='
       },
       templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
       link: link

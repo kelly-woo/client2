@@ -334,7 +334,7 @@
      * @param memberId
      */
     function openMemberModal(memberId) {
-      jndPubSub.pub('onUserClick', memberId || _currentEntity);
+      jndPubSub.pub('onMemberClick', memberId || _currentEntity);
     }
 
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.

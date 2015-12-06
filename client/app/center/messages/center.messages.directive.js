@@ -416,7 +416,7 @@
        * @private
        */
       function _onClickUser(msg) {
-        jndPubSub.pub('onUserClick', msg.extWriter.id);
+        jndPubSub.pub('onMemberClick', msg.extWriter.id);
       }
 
       /**

@@ -23,7 +23,7 @@
         isExternalShared: '=',
         isAdmin: '=',
         isIntegrateFile: '=',
-        onUserClick: '=',
+        onMemberClick: '=',
         backToPrevState: '='
       },
       templateUrl : 'app/right/file.detail/header/file.detail.header.html',

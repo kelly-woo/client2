@@ -674,19 +674,23 @@ app.controller('leftPanelController1', function(
     }
   };
 
-  $rootScope.$on('onUserClick', function(event, user) {
-    $scope.onUserClick(user);
+  $rootScope.$on('onMemberClick', function(event, member) {
+    $scope.onMemberClick(member);
   });
-  //  Add 'onUserClick' to redirect to direct message to 'user'
+  //  Add 'onMemberClick' to redirect to direct message to 'user'
   //  center and header are calling.
-  $scope.onUserClick = function(user) {
-    if (angular.isNumber(user)) {
-      user = EntityMapManager.get('total', user);
+  $scope.onMemberClick = function(member) {
+    if (angular.isNumber(member)) {
+      member = EntityMapManager.get('total', member);
+    } else {
+      member = EntityMapManager.get('total', member.id);
     }
-    else {
-      user = EntityMapManager.get('total', user.id);
+
+    if (memberService.isUser(member.id)) {
+      modalHelper.openUserProfileModal($scope, member);
+    } else if (memberService.isJandiBot(member.id)) {
+      modalHelper.openBotProfileModal($scope, member);
     }
-    modalHelper.openUserProfileModal($scope, user);
   };
 
   // based on uesr.u_starredEntities, populating starred look-up list.
