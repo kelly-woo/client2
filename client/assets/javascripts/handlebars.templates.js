@@ -208,7 +208,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     var stack1, alias1=helpers.helperMissing, alias2=this.escapeExpression, alias3=this.lambda;
 
   return "                    <div class=\"action-group\">\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isImageIcon : stack1),{"name":"if","hash":{},"fn":this.program(25, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasOriginalImageView : stack1),{"name":"if","hash":{},"fn":this.program(25, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                      <div class=\"action-item\"\n                           jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-comment",{"name":"translate","hash":{},"data":data}))
     + "\"\n                           data-direction=\"top\">\n                        <!--  MORE  -->\n                      <span class=\"action-comment _fileDetailComment\">\n                        <i class=\"icon-comment\"></i>\n                        <span class=\"comment-count-"
@@ -442,14 +442,14 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     var stack1, alias1=helpers.helperMissing, alias2=this.escapeExpression, alias3=this.lambda;
 
   return "                        <div class=\"action-group\">\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isImageIcon : stack1),{"name":"if","hash":{},"fn":this.program(19, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasOriginalImageView : stack1),{"name":"if","hash":{},"fn":this.program(19, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                          <div class=\"action-item\"\n                               jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-comment",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                               data-direction=\"top\">\n                            <!--  MORE  -->\n                      <span class=\"action-comment _fileDetailComment\">\n                        <i class=\"icon-comment\"></i>\n                        <span class=\"comment-count-"
+    + "\"\n                               data-direction=\"top\">\n                            <!--  MORE  -->\n                            <span class=\"action-comment _fileDetailComment\">\n                              <i class=\"icon-comment\"></i>\n                              <span class=\"comment-count-"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.id : stack1), depth0))
     + "\">"
     + alias2(alias3(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.commentCount : stack1), depth0))
-    + "</span>\n                      </span>\n                          </div>\n"
+    + "</span>\n                            </span>\n                          </div>\n"
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isIntegrateFile : stack1),{"name":"unless","hash":{},"fn":this.program(21, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                          <div class=\"action-item\"\n                               jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@file-action-more",{"name":"translate","hash":{},"data":data}))

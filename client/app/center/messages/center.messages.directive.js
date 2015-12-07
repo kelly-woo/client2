@@ -775,7 +775,17 @@
        * @private
        */
       function _updateFileComment(data) {
-        $('.comment-count-' + data.file.id).text(data.file.commentCount);
+        var fileId = data.file.id;
+        var commentCount = data.file.commentCount;
+        var message;
+
+        _.forEach(MessageCollection.list, function(msg) {
+          message = RendererUtil.getFeedbackMessage(msg);
+          if (message.id === fileId) {
+            message.commentCount = commentCount;
+          }
+        });
+        $('.comment-count-' + data.file.id).text(commentCount);
       }
     }
   }
