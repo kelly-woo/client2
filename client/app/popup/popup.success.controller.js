@@ -11,7 +11,7 @@
     .controller('PopupSuccessCtrl', PopupSuccessCtrl);
 
   /* @ngInject */
-  function PopupSuccessCtrl($scope, $state) {
+  function PopupSuccessCtrl($scope, JndUtil) {
     _init();
 
     /**
@@ -20,7 +20,8 @@
      */
     function _init() {
       //참고: $state.params 의 모든 value 들은 router.service.js 에서 lowerCase 로 변환된다.
-      var callbackEvent = $state.params.callbackEvent;
+      var params = JndUtil.parseUrl();
+      var callbackEvent = params.callbackEvent;
       var parentAngular = window.opener && window.opener.angular;
       var jqBody;
       var parenPubSub;
