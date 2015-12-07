@@ -294,8 +294,10 @@
    */
   app.filter('mustPreview', function($filter) {
     var rImage = /image/i;
+
     return function(content) {
-      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
+      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType)
+      && !integrationMap[content.serverUrl] && content.extraInfo && $filter('validPreviewDemention')(content.extraInfo));
     };
   });
 
@@ -307,6 +309,16 @@
     return function(content) {
       return content && content.size < MAX_IMAGE_SIZE
     }
+  });
+
+  /**
+   * preview 생성 가능한 dimention인지 여부
+   */
+  app.filter('validPreviewDemention', function() {
+    var MAX_IMAGE_DIMENTION = 8192;
+    return function(dimention) {
+      return dimention.width < MAX_IMAGE_DIMENTION && dimention.height < MAX_IMAGE_DIMENTION;
+    };
   });
 
   /**

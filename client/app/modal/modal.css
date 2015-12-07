@@ -678,13 +678,14 @@
 .profile-view__info:lang(ja) {
   padding: 11px 0 11px 105px;
 }
-.info-title {
+
+.modal-content .info-title {
   color: #999;
   position: absolute;
   left: 0;
   top: 11px;
 }
-.info-content {
+.modal-content .info-content {
   color: #333;
 }
 

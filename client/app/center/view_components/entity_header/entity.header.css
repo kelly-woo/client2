@@ -229,7 +229,6 @@
 }
 .panel-title-member {
   line-height: 0;
-
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -272,13 +271,9 @@
   padding-top: 3.5px;
   padding-right: 9px;
   padding-left: 11px;
-
   color: #154a67;
-
   font-size: 17px;
-
   height: 100%;
-
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -289,12 +284,9 @@
 }
 .panel-title-right-menu__more_icon {
   padding: 0 5px;
-
   height: 25px;
   line-height: 25px;
-
   position: relative;
-
   color: #154a67;
 }
 
@@ -325,6 +317,28 @@
 .cpanel .prefix > i {
   font-size: 16px;
 }
+
+.panel-title-right-menu.topic-integration-connect {
+  margin: 0;
+  display: block;
+  height: inherit;
+  line-height: inherit;
+  float: right;
+  cursor: pointer;
+  background-color: transparent;
+}
+.panel-title-right-menu .panel-title-right-item {
+  margin-top: 5px;
+  border-radius: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 5px;
+  background-color: #fff;
+}
+.panel-title-right-menu .panel-title-right-item:hover {
+  background-color: #d7e0e8;
+}
+
 @media (max-width: 1374px) {
   .rpanel-show .panel-title-info {
     max-width: 60%;
