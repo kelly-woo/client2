@@ -7,6 +7,9 @@
 .text-highlight-background {
   background-color: #f2fbff;
 }
+.text-highlight-background .guide-line-bg {
+  background-color: #f2fbff;
+}
 
 .msg-item__action {
   display:none;
@@ -54,8 +57,9 @@
 .msg-item-star.off:hover {
   background: #f9bb00;
 }
-.comment-continue .msg-item-star.off {
-  padding: 1px 0 0 3px !important;
+.comment-continue .msg-item-star i {
+  vertical-align: top;
+  display: inline-block;
 }
 
 

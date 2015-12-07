@@ -1,0 +1,63 @@
+.topic-integration-connect .connect-wrapper {
+  position: absolute;
+  width: 392px;
+  cursor: default;
+
+  display: block;
+  right: 100px;
+}
+
+.topic-integration-connect .connect-wrapper ul {
+  list-style: none;
+}
+
+.connect-status {
+  padding: 22px 24px 24px;
+  text-align: center;
+}
+.connect-status img {
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+.connect-status > span {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
+  color: #9d9e9e;
+}
+.connect-status > span.has-plugs {
+  color: #155172;
+}
+
+.connect-body .connect-empty{
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 24px 24px 0 24px;
+  border-top: 1px solid #e1e1e1;
+  text-align: center;
+  color: #114768;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.connect-body .connect-plugs {
+  padding: 0 10px;
+  margin-bottom: 24px;
+}
+.connect-body .connect-plugs > li {
+  margin-bottom: 10px;
+}
+.connect-body .connect-plugs > li:last-child {
+  margin-bottom: 0;
+}
+
+.connect-footer {
+  margin-bottom: 26px;
+  text-align: center;
+}

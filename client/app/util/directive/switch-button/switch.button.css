@@ -1,0 +1,46 @@
+.switch-button {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 999px;
+  background-color: #dcdcdc;
+  border: 1px solid #e1e1e1;
+}
+.switch-button .switch-handler {
+  position: absolute;
+  top: 5%;
+  width: 50%;
+  height: 90%;
+  border-radius: 999px;
+  background-color: #fff;
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out
+}
+.switch-button .switch-background {
+  height: 100%;
+  border-radius: 999px;
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+}
+.switch-button.switch-off .switch-handler {
+  transform: translateX(5%) scale(.9);
+}
+.switch-button.switch-off .switch-background {
+  width: 50%;
+  background-color: #dcdcdc;
+  border: 1px solid #e1e1e1;
+  transform: scale(.9);
+}
+.switch-button.switch-on .switch-handler {
+  transform: translateX(95%) scale(1);
+}
+.switch-button.switch-on .switch-background {
+  width: 100%;
+  background-color: #00abe6;
+  border: 1px solid #00abe6;
+  transform: scale(1);
+}

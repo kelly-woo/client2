@@ -148,11 +148,10 @@
           tooltip-class="panel-title-invite-tooltip"
           ng-click="openInviteModal();">
     </span>
-
   </span>
 
   <!-- TOPIC NOTIFICATION INDICATOR -->
-  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__notification_bell" ng-if="!isUserType">
     <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
       tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
       tooltip-class="panel-title-bell-tooltip">
@@ -164,6 +163,8 @@
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
+
+  <topic-connector></topic-connector>
 </div>
 
 <div ng-if='!isConnected' class="panel-title-container non-selectable center-panel-disabled-member">

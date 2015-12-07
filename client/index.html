@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="app/center/center.css">
   <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.comment.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.title.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.css">
@@ -44,11 +45,14 @@
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text-sending/text.sending.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/topic-connector/connect-plug/connect.plug.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/topic-connector/topic.connector.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
   <link rel="stylesheet" href="app/common.css">
   <link rel="stylesheet" href="app/connect/component/jnd.connect.union.css">
   <link rel="stylesheet" href="app/connect/component/jnd.connect.union.plug.css">
   <link rel="stylesheet" href="app/connect/jnd.connect.css">
+  <link rel="stylesheet" href="app/connect/union/common/jnd.connect.union.header.css">
   <link rel="stylesheet" href="app/connect/union/dropbox/jnd.connect.dropbox.css">
   <link rel="stylesheet" href="app/connect/union/github/jnd.connect.github.css">
   <link rel="stylesheet" href="app/connect/union/google-calendar/jnd.connect.google.calendar.css">
@@ -134,6 +138,7 @@
   <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
+  <link rel="stylesheet" href="app/util/directive/switch-button/switch.button.css">
   <link rel="stylesheet" href="assets/components/google-code-prettify/prettify.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
   <link rel="stylesheet" href="components/jandi/dialog/dialog.css">
@@ -290,6 +295,7 @@
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/other.team.badge.indicator.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
+<script src="app/util/directive/switch-button/switch.button.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
 <script src="app/util/directive/window.title.directive.js"></script>
 <script src="app/util/filter/date.filter.js"></script>
@@ -302,6 +308,7 @@
 <script src="app/util/filter/template.filter.js"></script>
 <script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/image.loader.directive.js"></script>
+<script src="app/util/images/image_view/image.view.directive.js"></script>
 <script src="app/util/images/images.service.js"></script>
 <script src="app/util/images/on.image.load.directive.js"></script>
 <script src="app/util/service/account.hasSeen.service.js"></script>
@@ -377,6 +384,9 @@
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.service.js"></script>
+<script src="app/center/view_components/entity_header/topic-connector/connect-plug/connect.plug.directive.js"></script>
+<script src="app/center/view_components/entity_header/topic-connector/topic.connector.directive.js"></script>
+<script src="app/center/view_components/entity_header/topic-connector/topic.connector.service.js"></script>
 <script src="app/center/view_components/entity_header/topic_description/topic.description.controller.js"></script>
 <script src="app/center/view_components/entity_header/topic_description/topic.description.directive.js"></script>
 <script src="app/connect/component/jnd.connect.union.controller.js"></script>
@@ -386,6 +396,8 @@
 <script src="app/connect/jnd.connect.controller.js"></script>
 <script src="app/connect/jnd.connect.directive.js"></script>
 <script src="app/connect/jnd.connect.service.js"></script>
+<script src="app/connect/union/common/jnd.connect.union.header.controller.js"></script>
+<script src="app/connect/union/common/jnd.connect.union.header.directive.js"></script>
 <script src="app/connect/union/dropbox/jnd.connect.dropbox.controller.js"></script>
 <script src="app/connect/union/dropbox/jnd.connect.dropbox.directive.js"></script>
 <script src="app/connect/union/github/jnd.connect.github.controller.js"></script>
@@ -466,6 +478,7 @@
 <script src="app/modal/topics/topic_invite_from_dm/topic.invite.direct.controller.js"></script>
 <script src="app/modal/topics/topic_join/topic.join.controller.js"></script>
 <script src="app/modal/topics/topic_rename/topic.rename.controller.js"></script>
+<script src="app/popup/popup.success.controller.js"></script>
 <script src="app/right/file.detail/comment_input/file.detail.comment.input.directive.js"></script>
 <script src="app/right/file.detail/comments/file.detail.comments.directive.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
