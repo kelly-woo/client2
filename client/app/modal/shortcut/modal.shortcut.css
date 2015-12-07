@@ -124,7 +124,7 @@
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel {
-  width: calc(100% - 125px);
+  width: calc(100% - 135px);
   max-width: 245px;
   overflow: hidden;
   text-overflow: ellipsis;
