@@ -92,6 +92,9 @@
           'NUM_0': {
             handler: _zoomReset,
             extraCondition: HybridAppHelper.isHybridApp
+          },
+          'SLASH': {
+            handler: _showShortcutGuide
           }
         },
         'alt': {
@@ -230,6 +233,7 @@
             $('body').css({
               'zoom': _currentZoomScale
             });
+            jndPubSub.pub('zoom:change', _currentZoomScale);
           }
         }
       }
@@ -510,8 +514,9 @@
        * sticker 토글
        * @private
        */
-      function _toggleSticker() {
-        jndPubSub.pub('center:toggleSticker');
+      function _toggleSticker(keyEvent) {
+        var target = $(keyEvent.target).is('#file-detail-comment-input') ? 'file' : 'chat';
+        jndPubSub.pub(target + ':toggleSticker');
       }
 
       /**
@@ -544,7 +549,15 @@
           Privacy.set();
         }
       }
-      
+
+      /**
+       * 키보드 숏컷 가이드를 노출한다
+       * @private
+       */
+      function _showShortcutGuide() {
+        modalHelper.openShortcutModal(scope);
+      }
+
       /**
        * center의 chat input에 focus가야하는 shortcut인지 여부를 반환한다.
        * @param {object} keyEvent

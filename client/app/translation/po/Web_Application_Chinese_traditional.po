@@ -1274,6 +1274,90 @@ msgstr "關閉電腦版推播通知"
 msgid "@setting-notification-turn-on"
 msgstr "開啟電腦版的推撥通知"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-confirm-modal"
+msgstr "確認 (執行任何等待確認的指令)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-focus-input"
+msgstr "跳至訊息欄"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-invite-topic"
+msgstr "邀請成員至議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-jump"
+msgstr "開啟快搜"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-lock-screen"
+msgstr "鎖住螢幕"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-open-shortcut"
+msgstr "開啟快捷功能表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-file"
+msgstr "開/闔檔案庫 (右面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-mentions"
+msgstr "開/闔成員提及清單 (右面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-message"
+msgstr "開/闔訊息搜尋 (右面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-next"
+msgstr "順時針循環右方功能表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-prev"
+msgstr "逆時針循環右方功能表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-stars"
+msgstr "開/闔項目標示清單 (右面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-down"
+msgstr "頁面向下滑 (中間面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-up"
+msgstr "頁面向上滑 (中間面板)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-show-sticker"
+msgstr "開啟貼圖列表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-switch-teams"
+msgstr "更換團隊"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-toggle-rpanel"
+msgstr "切換至右邊面板"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-upload"
+msgstr "從我的電腦上傳檔案"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-in"
+msgstr "放大頁面"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-out"
+msgstr "縮小頁面"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-reset"
+msgstr "重置頁面大小"
+
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"

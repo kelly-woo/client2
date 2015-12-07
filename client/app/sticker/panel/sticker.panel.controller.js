@@ -70,17 +70,15 @@
      * @private
      */
     function _attachEvents() {
-      if ($scope.name === 'chat') {
-        $scope.$on('center:toggleSticker', _onCenterToggleSticker);
-        $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
-      }
+      $scope.$on($scope.name + ':toggleSticker', _onToggleSticker);
+      $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
     }
 
     /**
      * toggle sticker event handler
      * @private
      */
-    function _onCenterToggleSticker() {
+    function _onToggleSticker() {
       JndUtil.safeApply($scope, function() {
         $scope.status.isOpen = !$scope.status.isOpen;
       });

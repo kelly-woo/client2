@@ -31,6 +31,9 @@
       },
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
+      },
+      'shortcut': function() {
+        modalHelper.openShortcutModal($scope);
       }
     };
 
@@ -126,7 +129,6 @@
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
 
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
-      $scope.$on('center:toggleSticker', _onToggleSticker);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -332,14 +334,6 @@
           openQuickLauncher();
         }, 50);
       }
-    }
-
-    /**
-     * on toggle sticker
-     * @private
-     */
-    function _onToggleSticker() {
-      modalHelper.closeModal();
     }
 
     /**
