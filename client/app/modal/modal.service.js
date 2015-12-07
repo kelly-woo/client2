@@ -480,6 +480,7 @@
       var jqBackdrop = $('.modal-backdrop');
 
       modal.result.finally(function() {
+        modal.close();
         setTimeout(function() {
           jqBody.removeClass('modal-open');
           jqModal.remove();
