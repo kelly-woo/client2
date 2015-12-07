@@ -272,3 +272,8 @@
   white-space: pre;
   max-width: none;
 }
+
+
+.header-navbar__dropdown li.open-shortcut .shortcut-menu {
+  margin-right: 60px;
+}

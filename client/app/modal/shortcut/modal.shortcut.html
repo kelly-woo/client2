@@ -15,12 +15,14 @@
     <ul>
       <li ng-repeat="row in column">
         <span class="keylabel">{{ row.text }}</span>
-        <span ng-repeat="combination in row.keys">
-          <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">{{row.keys.length}} or</span>
-          <span class="pull-right keystyle" ng-repeat="key in combination">
-            {{key}}
+        <div class="pull-right">
+          <span ng-repeat="combination in row.keys" class="">
+            <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">{{row.keys.length}} or</span>
+            <span class="keystyle pull-right" ng-repeat="key in combination">
+              {{key}}
+            </span>
           </span>
-        </span>
+        </div>
         <div class="clear" style="clear: both;"></div>
       </li>
     </ul>
