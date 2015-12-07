@@ -12,7 +12,7 @@ this["Handlebars"]["templates"]["center.date.divider"] = Handlebars.template({"c
 this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "          <!--  User Thumbnail -->\n          <img class=\"comment-writer cursor_pointer user-profile user-thumb _user\" src=\""
+  return "          <div class=\"guide-line-bg\"></div>\n          <!--  User Thumbnail -->\n          <img class=\"comment-writer cursor_pointer user-profile user-thumb _user\" src=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n";
 },"3":function(depth0,helpers,partials,data) {
@@ -56,7 +56,7 @@ this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1
 
   return "<div class=\"msg-item "
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.wrapper : stack1), depth0))
-    + "\">\n  <!--    HEADER PART -->\n  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n  <div class=\"msg-item-header\">\n    <!--    CONTINUED COMMENT ON SAME FILE  -->\n    <div class=\"continue-comment-body\">\n      <!-- COMMENT GUIDE LINE -->\n      <div class=\"comment-guide\">\n        <div class=\"guide-line\"></div>\n        <div class=\"guide-line-bg\"></div>\n"
+    + "\">\n  <!--    HEADER PART -->\n  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->\n  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->\n  <div class=\"msg-item-header\">\n    <!--    CONTINUED COMMENT ON SAME FILE  -->\n    <div class=\"continue-comment-body\">\n      <!-- COMMENT GUIDE LINE -->\n      <div class=\"comment-guide\">\n        <div class=\"guide-line\"></div>\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isChild : depth0),{"name":"unless","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n      <!--    COMMENT CONTENT -->\n      <div class=\"comment-content\">\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isChild : depth0),{"name":"unless","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
