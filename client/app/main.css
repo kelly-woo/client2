@@ -823,7 +823,7 @@ input[type="button"] {
 .dropdown-menu .language-sub-menu {
   position: absolute;
   top: -5px;
-  margin-left: 194px !important;
+  margin-left: calc(100% - 5px) !important;
 }
 
 .right-align {
