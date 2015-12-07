@@ -75,7 +75,7 @@
 }
 
 .jnd-connect-logo {
-  background: url('../../assets/images/service-logo-jnd-connect-active.png');
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
   height: 32px;
   width: 32px;
@@ -195,15 +195,15 @@
 
 }
 .google-calendar .icon-service-logo {
-  background: url('../../assets/images/service-logo-google-calendar.png');
+  background: url('/assets/images/service-logo-google-calendar.png');
   background-size: cover;
 }
 .github .icon-service-logo {
-  background: url('../../assets/images/service-logo-github.png');
+  background: url('/assets/images/service-logo-github.png');
   background-size: cover;
 }
 .jira .icon-service-logo {
-  background: url('../../assets/images/service-logo-jira.png');
+  background: url('/assets/images/service-logo-jira.png');
   background-size: cover;
 }
 
@@ -251,7 +251,7 @@
   display: block;
 }
 .icon-jnd-connect {
-  background: url('../../assets/images/service-logo-jnd-connect-inactive.png');
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
   margin:0 auto;
   width: 20px;
   height: 20px;
@@ -260,7 +260,7 @@
   background-size: cover;
 }
 .icon-jnd-connect.active {
-  background: url('../../assets/images/service-logo-jnd-connect-active.png');
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
 }
 
@@ -495,7 +495,7 @@
 }
 
 .jnd-connect-service-container {
-  padding:32px 36px;
+  padding:32px 36px 90px 36px;
   overflow-y: auto;
   position: absolute;
   top: 0;
@@ -535,13 +535,13 @@
 }
 
 .jnd-connect.banner-image {
-  background:url('../../assets/images/jnd-connect-banner-img.png');
+  background:url('/assets/images/jnd-connect-banner-img.png');
   background-size: cover;
   width: 310px;
   height: 104px;
   position: absolute;
   bottom:-16px;
-  left: 52%;
+  left: 54%;
 }
 .jnd-connect-banner button.close {
   z-index: 3;
@@ -562,7 +562,7 @@
   display: block;
   word-break: keep-all;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 

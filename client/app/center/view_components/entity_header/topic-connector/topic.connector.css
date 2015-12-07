@@ -4,7 +4,8 @@
   cursor: default;
 
   display: block;
-  right: 100px;
+  left: -338px;
+  margin-top: -3px !important;
 }
 
 .topic-integration-connect .connect-wrapper ul {
@@ -15,12 +16,15 @@
   padding: 22px 24px 24px;
   text-align: center;
 }
-.connect-status img {
+.connect-status .connect-status-icon {
   width: 32px;
   height: 32px;
   display: block;
   margin: 0 auto;
   border-radius: 50%;
+  
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png'); /* temp icon (inactive) */
+  background-size: cover;
 }
 .connect-status > span {
   display: inline-block;
