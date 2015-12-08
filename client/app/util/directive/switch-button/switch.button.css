@@ -8,7 +8,11 @@
   cursor: pointer;
   border-radius: 999px;
   background-color: #dcdcdc;
-  border: 1px solid #e1e1e1;
+  margin-right: 4px;
+  margin-left: 4px;
+  padding:2px;
+  vertical-align: middle;
+  overflow: hidden;
 }
 .switch-button .switch-handler {
   position: absolute;
@@ -16,31 +20,46 @@
   width: 50%;
   height: 90%;
   border-radius: 999px;
-  background-color: #fff;
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out
-}
-.switch-button .switch-background {
-  height: 100%;
-  border-radius: 999px;
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out;
-}
-.switch-button.switch-off .switch-handler {
-  transform: translateX(5%) scale(.9);
+  
+  -webkit-transition: all ease-out 200ms;
+  -moz-transition: all ease-out 200ms;
+  -o-transition: all ease-out 200ms;
+  -moz-transition: all ease-out 200ms;
+  transition: all ease-out 200ms;
+  
+  background-color: #13A4EB;
 }
 .switch-button.switch-off .switch-background {
+  background-color: transparent;
   width: 50%;
-  background-color: #dcdcdc;
-  border: 1px solid #e1e1e1;
-  transform: scale(.9);
+  height: 100%;
+  border-radius: 999px;
+  position: absolute;
+  margin: -2px;
+  
+  -webkit-transition: all ease-out 200ms;
+  -moz-transition: all ease-out 200ms;
+  -o-transition: all ease-out 200ms;
+  -moz-transition: all ease-out 200ms;
+  transition: all ease-out 200ms;
 }
+.switch-button.switch-off .switch-handler {
+  background-color:#FFF;
+  height: 100%;
+  width: 50%;
+  border-radius: 50%;
+  position: relative;
+  left: 0;
+  top:0;
+
+}
+
 .switch-button.switch-on .switch-handler {
-  transform: translateX(95%) scale(1);
+  left: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 .switch-button.switch-on .switch-background {
+  background-color: #13A4EB;
   width: 100%;
-  background-color: #00abe6;
-  border: 1px solid #00abe6;
-  transform: scale(1);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.25);
 }

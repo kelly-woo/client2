@@ -55,48 +55,11 @@
   font-weight: 700;
 }
 
-.connect-union-plug-tool-container .connect-union-plug-tool-btn {
-  margin-right: 4px;
-  margin-left: 4px;
-  width: 44px;
-  height: 24px;   
-  border-radius: 44px;
-  -webkit-user-select: none;
-  display: inline-block;
+.connect-union-plug-tool-text {
   vertical-align: middle;
-  margin-top: -2px;
-  background-color: #dcdcdc;
-  box-sizing: border-box;
-  padding:2px;
-}
-
-.connect-union-plug-tool-container .connect-union-plug-tool-btn .switch-handler {
-  background-color:#FFF;
-  height: 100%;
-  width: 50%;
-  border-radius: 50%;
-  position: relative;
-  left: 0;
-  
-  -webkit-transition: left ease-out 200ms;
-  -moz-transition: left ease-out 200ms;
-  -o-transition: left ease-out 200ms;
-  -moz-transition: left ease-out 200ms;
-  transition: left ease-out 200ms;
-}
-
-.connect-union-plug-tool-container.on .connect-union-plug-tool-btn {
-  box-sizing: border-box;
-  background-color: #13A4EB;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.25);
-}
-.connect-union-plug-tool-container.on .connect-union-plug-tool-btn .switch-handler {
-  left: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 .connect-union-plug-tool-container.on .connect-union-plug-tool-text {
   color: #13A4EB;
-
 }
 
 .connect-union-plug-tool-container .opt-button {
