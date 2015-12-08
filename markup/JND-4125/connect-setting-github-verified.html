@@ -134,7 +134,12 @@
   <!-- endbuild -->
   
   <link rel="stylesheet" href="../../client/app/connect/jnd.connect.css">
-  <link rel="stylesheet" href="../../client/app/connect/union/jira/jnd.connect.jira.css">
+  <link rel="stylesheet" href="../../client/app/connect/submenu/jnd.connect.submenu.css">
+  <link rel="stylesheet" href="../../client/app/connect/union/google-calendar/jnd.connect.google.calendar.css">
+  <link rel="stylesheet" href="../../client/app/connect/component/jnd.connect.union.plug.css">
+  <link rel="stylesheet" href="../../client/app/connect/component/jnd.connect.union.css">
+  <link rel="stylesheet" href="../../client/app/util/directive/switch-button/switch.button.css">
+  <link rel="stylesheet" href="../../client/app/connect/card/jnd.connect.card.plug.css">
 
   <script src="../../client/bower_components/jquery/dist/jquery.js"></script>
 
@@ -260,37 +265,79 @@
 		      <span class="ng-scope" translate="">서비스 설정 화면으로 돌아가기</span>
 		    </span>
 
-        <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
+        <div class="integration-service-container detail-container github" id="jnd-connect-detail-container">
 
-          <section class="active-member-info" style="display: none;">
+          <section class="active-member-info" style="">
             <!-- active member info will be placed here -->
+            <span class="ng-scope" translate=""><b class="active-member-count">1</b> 명의 다른 팀원이 연동중</span>
           </section>
 
-          <section class="service-info jira">
+          <section class="service-info jnd-column-5-width jnd-float-left">
             <i class="icon-service-logo"></i>
             <i class="icon-jnd-connect active"></i>
 
-            <span class="user-name">Admin</span><span class="service-name">'s Jira Webhook</span>
+            <span class="user-name">Admin</span><span class="service-name">'s Github</span>
             <span class="date-info">2015-12-01 생성</span>
           </section>
+          
+          <section class="service-info jnd-column-5-width jnd-float-left second-column">
+	          
+            <div class="connect-union-plug-tool-container jnd-float-left"
+				 ng-class="{
+			     'on': plug.isOn
+				}">
+			  <span class="connect-union-plug-tool-text" ng-click="toggleOnOff()">중지됨</span>
+			  
+			  <div class="switch-button switch-off switch-on" ng-class="{'switch-on': active}" ng-click="onClick();">
+			    <div class="switch-background"></div>
+				<div class="switch-handler"></div>
+    		  </div>    		
+    		    
+    		  <span class="opt-button jnd-cursor-pointer" style="display: none;"><i class="icon-pencil"></i></span>
+			  <span class="opt-button jnd-cursor-pointer"><i class="icon-trash"></i></span>
+  			</div>
+  			
+  			<div class="verified-email-container jnd-float-left single-account">
+  			    <span class="verified-label white-button">인증된 계정</span>
+  			    <span class="verified-email-address white-button">ted.kim@tosslab.com</span>
+  			    
+  			    <!-- if current service can not support multiple account, this button needs to be hidden. -->
+  			    <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+                </div>
+                
+  			  </div>
 
-          <section class="service-setting introduction collapsed">
-            <span class="setting-label">설정방법 안내</span>
-            <span class="expand-button pull-right cursor_pointer">설정방법 보기</span>
+  			
           </section>
 
-          <section class="service-setting webhook-url">
-            <span class="setting-label">Webhook URL</span>
-            <input class="setting-input pull-right form-control" name="" id="" placeholder="https://hooks.jandi.com/services/T03F">
-            <div class="clear"></div>
-          </section>
+          <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column has-inputfield">
+            <span class="setting-label">Repository 선택</span>
+            <div class="setting-contents">
+              <span class="setting-description"></span>
 
-          <section class="service-setting select-conversation">
+              <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+                <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+                <span class="">Repository 선택</span>
+              </div>
+              
+              <input class="setting-input jnd-float-left form-control" name="" id="" placeholder="Branch 입력 (선택사항)">
+
+              <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
+              
+			  <i class="icon-long-arrow-right"></i>
+			  
+              <div class="clear"></div>
+
+            </div>
+          </section>
+          
+          <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
             <span class="setting-label">연동 토픽 또는 1:1 메시지 선택</span>
             <div class="setting-contents">
-              <span class="setting-description">연동 서비스 또는 메시지를 받을 토픽 또는 1:1 메시지를 선택할 수 있습니다. 연동 설정 이후에도 변경 가능합니다.</span>
+              <span class="setting-description"></span>
 
-              <div class="custom-select-box-btn" ng-class="" ng-click="">
+              <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
                 <i class="fa custom-selectbox-arrow icon-angle-down"></i>
                 <span class="">토스랩 코리아</span>
               </div>
@@ -301,7 +348,90 @@
 
             </div>
           </section>
+          
+          <section class="service-setting select-nofification clear">
+            <span class="setting-label">메시지 발생 이벤트 선택</span>
+            <div class="setting-contents">
+              <span class="setting-description"></span>
+              
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Commits</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Commit Comments</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Pull Requests Opened / Closed</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Pull Request Comments</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Issue Opened / Closed</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Issue Comments</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Branch or Tag Created / Deleted</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="checkbox-list-container text-only jnd-float-left half-width">
+                <input type="checkbox" id="" class="">
+                <label>
+                  <div class="checkbox-description">
+                    <span translate="">Branch force-pushed</span>
+                  </div>
+                </label>
+              </div>
+                            
+              <div class="clear"></div>
 
+            </div>
+          </section>
+          
           <section class="service-setting select-profile">
             <span class="setting-label">연동 서비스 프로필 설정</span>
             <div class="setting-contents">
@@ -312,16 +442,16 @@
                 <span class="overlay-label">Edit</span>
               </div>
 
-              <input class="setting-input form-control" name="" id="" placeholder="webhook name">
+              <input class="setting-input form-control" name="" id="" placeholder="Github">
 
               <div class="clear"></div>
 
             </div>
           </section>
-
+          
           <input type="submit" class="btn comment-btn save-button" value="설정 저장하기">
-
-
+          
+		  
         </div>
 
       </div>
