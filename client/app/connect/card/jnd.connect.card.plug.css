@@ -1,14 +1,17 @@
 .connect-union-plug-container {
   width: 100%;
-  height: 100px;
   background-color: #FFF;
   border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
-  padding: 10px 18px 10px 26px;
+  padding: 10px 18px 12px 26px;
 }
 
+.connect-union-plug-container:last-child {
+  clear: both;
+}
 .connect-union-plug-container:hover {
   background: #FAFAFA;
+  cursor: default;
 }
 
 .connect-union-plug-container > div {
@@ -19,40 +22,94 @@
   width:32px;
   height: 32px;
   margin: 8px 38px 8px 0;
-  border: 1px solid #E4E4E4;
+  color: transparent;
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
+  background-size: cover;
 }
 
 .connect-union-plug-title,
 .connect-union-plug-desc {
   color: #505050;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 23px;
   font-weight: 600;
+  padding-left: 24px;
+  position: relative;
+}
+.connect-union-plug-title > i,
+.connect-union-plug-desc i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  font-size: 15px;
+  color:#B0B0B0;
 }
 
 .connect-union-plug-tool-container {
   color: #B3B3B3;
-  display: table-cell;
+  display: inline;
   vertical-align: middle;
-  height: 100%;
+  max-height: 46px;
   font-size: 15px;
-  line-height: 80px;
+  line-height: 46px;
   font-weight: 700;
 }
 
-.connect-union-plug-tool-container.on {
+.connect-union-plug-tool-container .connect-union-plug-tool-btn {
+  margin-right: 4px;
+  margin-left: 4px;
+  width: 44px;
+  height: 24px;   
+  border-radius: 44px;
+  -webkit-user-select: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  background-color: #dcdcdc;
+  box-sizing: border-box;
+  padding:2px;
+}
 
+.connect-union-plug-tool-container .connect-union-plug-tool-btn .switch-handler {
+  background-color:#FFF;
+  height: 100%;
+  width: 50%;
+  border-radius: 50%;
+  position: relative;
+  left: 0;
+  
+  -webkit-transition: left ease-out 200ms;
+  -moz-transition: left ease-out 200ms;
+  -o-transition: left ease-out 200ms;
+  -moz-transition: left ease-out 200ms;
+  transition: left ease-out 200ms;
 }
 
 .connect-union-plug-tool-container.on .connect-union-plug-tool-btn {
-  color: #13A4EB;
-  background: #FAFAFA;
-  border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
+  background-color: #13A4EB;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.25);
 }
-
+.connect-union-plug-tool-container.on .connect-union-plug-tool-btn .switch-handler {
+  left: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
 .connect-union-plug-tool-container.on .connect-union-plug-tool-text {
   color: #13A4EB;
-  background: #FAFAFA;
+
 }
 
+.connect-union-plug-tool-container .opt-button {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  color: #999;
+  font-size: 16px;
+  border-radius: 50%;
+  padding: 6px 7px;
+  line-height: 24px;
+}
+.connect-union-plug-tool-container .opt-button:hover {
+  background-color: rgba(0,0,0,0.07);
+  color: #5E5E5E;
+}

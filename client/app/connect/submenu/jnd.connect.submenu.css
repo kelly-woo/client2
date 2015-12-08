@@ -1,0 +1,174 @@
+
+/* 좌측 연동된 서비스 영역 스타일 (시작) */
+.integrated-service {
+  background-color:#FFF;
+  border:1px solid #DDDDDD;
+  border-left-width: 0;
+  border-right-width: 0;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding:8px 14px;
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.08);
+  z-index: 703;
+}
+.integrated-service .header-title {
+  color: #888;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  position: relative;
+}
+
+#jnd-connect-list-container {
+  top: 98px;
+  overflow-y: auto;
+  width: 239px;
+  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #F9F9F9;
+  box-sizing: content-box;
+}
+#jnd-connect-list-container.has-content {
+  z-index: 7007;
+}
+
+.integration-list-container {
+  display: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  min-height: 100%;
+  background-color: #FFF;
+}
+
+#jnd-connect-list-container.has-content .no-integration-container {
+  display: none;
+}
+#jnd-connect-list-container.has-content .integration-list-container {
+  display: block;
+}
+.active-service {
+  width: 100%;
+  position: relative;
+  margin-bottom: 4px;
+
+}
+.active-service.collapsed .member-list {
+  height: 0;
+}
+
+.service-title {
+  padding: 11px 12px 11px 44px;
+  position: relative;
+}
+
+.service-title .icon-angle-up {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 12px;
+  color: #B0B0B0;
+
+  -webkit-transition: -webkit-transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz--transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -o-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+}
+.service-title:hover {
+  background-color: #F1F4F8;
+}
+.service-title:hover .icon-angle-up {
+  color: #555;
+}
+
+.active-service.collapsed .icon-angle-up {
+  -webkit-transform:rotate(180deg);
+  -moz-transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -ms-transform:rotate(180deg);
+  transform:rotate(180deg);
+}
+
+.icon-service-logo {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  display: block;
+  top: 5px;
+  left: 10px;
+
+}
+.google-calendar .icon-service-logo {
+  background: url('/assets/images/service-logo-google-calendar.png');
+  background-size: cover;
+}
+.github .icon-service-logo {
+  background: url('/assets/images/service-logo-github.png');
+  background-size: cover;
+}
+.jira .icon-service-logo {
+  background: url('/assets/images/service-logo-jira.png');
+  background-size: cover;
+}
+
+
+.active-service-name {
+  font-weight: 700;
+  font-size: 13px;
+  color:#6E6E6E;
+  line-height: 1;
+}
+
+.active-service .member-list {
+  position: relative;
+  overflow: hidden;
+}
+.member-list ul {
+  padding: 0 12px 0 10px;
+  list-style: none;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.member-list li {
+  padding: 6px 14px;
+}
+.member-list li:hover {
+  background-color:#F6F5F6;
+  cursor: pointer;
+}
+
+.member-list a {
+  text-decoration: none;
+  color: #969696;
+}
+.no-integration-container {
+  padding: 32px;
+  position: relative;
+  text-align: center;
+}
+.no-integration-container span {
+  color: #B5B5B5;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  margin: 14px auto;
+  display: block;
+}
+.icon-jnd-connect {
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
+  margin:0 auto;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: block;
+  background-size: cover;
+}
+.icon-jnd-connect.active {
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
+  background-size: cover;
+}
+/* 좌측 연동된 서비스 영역 스타일 (끝) */
+
