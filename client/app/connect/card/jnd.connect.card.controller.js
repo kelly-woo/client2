@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .controller('JndConnectUnionCtrl', JndConnectUnionCtrl);
+    .controller('JndConnectCardCtrl', JndConnectCardCtrl);
 
   /* @ngInject */
-  function JndConnectUnionCtrl($scope, jndPubSub) {
+  function JndConnectCardCtrl($scope, jndPubSub) {
     $scope.addPlug = addPlug;
 
     function addPlug() {

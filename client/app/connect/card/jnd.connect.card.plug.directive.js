@@ -7,16 +7,16 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectUnionPlug', jndConnectUnionPlug);
+    .directive('jndConnectCardPlug', jndConnectCardPlug);
 
-  function jndConnectUnionPlug() {
+  function jndConnectCardPlug() {
     return {
       restrict: 'E',
       scope: false,
-      controller: 'JndConnectUnionPlugCtrl',
+      controller: 'JndConnectCardPlugCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/component/jnd.connect.union.plug.html'
+      templateUrl: 'app/connect/card/jnd.connect.card.plug.html'
     };
 
     function link(scope, el, attrs) {

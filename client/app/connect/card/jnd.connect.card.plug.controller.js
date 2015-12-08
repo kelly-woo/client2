@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .controller('JndConnectUnionPlugCtrl', JndConnectUnionPlugCtrl);
+    .controller('JndConnectCardPlugCtrl', JndConnectCardPlugCtrl);
 
   /* @ngInject */
-  function JndConnectUnionPlugCtrl($scope) {
+  function JndConnectCardPlugCtrl($scope) {
     $scope.toggleOnOff = toggleOnOff;
 
     /**
