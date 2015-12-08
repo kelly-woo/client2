@@ -3,7 +3,7 @@
   <div class="integration-service detail">
     <jnd-union-header></jnd-union-header>
     <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
-      <section class="active-member-info" style="">
+      <section class="active-member-info">
         <!-- active member info will be placed here -->
         <span class="ng-scope" translate=""><b class="active-member-count">1</b> 명의 다른 팀원이 연동중</span>
       </section>
@@ -16,16 +16,14 @@
       <section class="service-info jnd-column-5-width jnd-float-left second-column">
         <div class="connect-union-plug-tool-container jnd-float-left" ng-class="{'on': plug.isOn}">
           <span class="connect-union-plug-tool-text" ng-click="toggleOnOff()">중지됨</span>
-          <div class="connect-union-plug-tool-btn jnd-cursor-pointer" ng-click="toggleOnOff()">
-            <div class="switch-handler"></div>
-          </div>
+          <switch-button active="isActive" toggle="onServiceToggle($value)"></switch-button>
           <span class="opt-button jnd-cursor-pointer" style="display: none;"><i class="icon-pencil"></i></span>
           <span class="opt-button jnd-cursor-pointer"><i class="icon-trash"></i></span>
         </div>
         <div class="verfied-email-container jnd-float-left">
           <span class="verified-label white-button">인증된 계정</span>
           <span class="verified-email-address white-button">ted.kim@tosslab.com</span>
-          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+          <div class="custom-select-box-btn white-button">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
           </div>
         </div>
@@ -35,9 +33,9 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
 
-          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+          <div class="custom-select-box-btn white-button">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="">캘린더 선택</span>
+            <span>캘린더 선택</span>
           </div>
           <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
           <i class="icon-long-arrow-right"></i>
@@ -48,9 +46,9 @@
         <span class="setting-label">연동 토픽 또는 1:1 메시지 선택</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
-          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+          <div class="custom-select-box-btn white-button">
             <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="">토스랩 코리아</span>
+            <span>토스랩 코리아</span>
           </div>
           <span class="create-new-topic white-button cursor_pointer animate-all">토픽 생성하기</span>
           <div class="clear"></div>
@@ -61,10 +59,10 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
           <div class="checkbox-list-container">
-            <input type="checkbox" id="" class="">
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <input type="checkbox">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">15분 전</span>
+              <span>15분 전</span>
             </div>
             <label>
               <div class="checkbox-description">
@@ -73,19 +71,19 @@
             </label>
           </div>
           <div class="checkbox-list-container">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">종일 일정의 경우</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">당일</span>
+              <span>당일</span>
             </div>
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">15분 전</span>
+              <span>15분 전</span>
             </div>
             <label>
               <div class="checkbox-description">
@@ -101,15 +99,15 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
           <div class="checkbox-list-container">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">매일</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">15분 전</span>
+              <span>15분 전</span>
             </div>
             <label>
               <div class="checkbox-description">
@@ -118,19 +116,19 @@
             </label>
           </div>
           <div class="checkbox-list-container">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">매주</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">15분 전</span>
+              <span>15분 전</span>
             </div>
-            <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <div class="custom-select-box-btn white-button">
               <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span class="">월요일</span>
+              <span>월요일</span>
             </div>
             <label>
               <div class="checkbox-description">
@@ -146,7 +144,7 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
           <div class="checkbox-list-container text-only">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">일정이 새롭게 생성되었거나 일정에 초대되었을 때 알림</span>
@@ -154,7 +152,7 @@
             </label>
           </div>
           <div class="checkbox-list-container text-only">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">일정의 제목이나 시간, 장소가 수정되었을 때 알림</span>
@@ -162,7 +160,7 @@
             </label>
           </div>
           <div class="checkbox-list-container text-only">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">일정이 취소되었거나 삭제되었을 때 알림</span>
@@ -179,7 +177,7 @@
           <div class="change-profile cursor_pointer">
             <span class="overlay-label">Edit</span>
           </div>
-          <input class="setting-input form-control" name="" id="" placeholder="Google Calendar">
+          <input class="setting-input form-control" name="" placeholder="Google Calendar">
           <div class="clear"></div>
         </div>
       </section>
