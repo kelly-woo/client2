@@ -3,14 +3,29 @@
 var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, $q, configuration,
-                                       memberService, entityAPIservice, storageAPIservice) {
+                                       memberService, entityAPIservice, storageAPIservice, Preloader) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
     'dropbox': true
   };
+
+  var filterTypePreviewMap = {
+    pdf: '../assets/images/preview_pdf.png',
+    video:'../assets/images/preview_video.png',
+    audio: '../assets/images/preview_audio.png',
+    document: '../assets/images/preview_document.png',
+    spreadsheet: '../assets/images/preview_spreadsheet.png',
+    presentation: '../assets/images/preview_presentation.png',
+    googleDocs: '../assets/images/preview_google_docs.png',
+    dropbox: '../assets/images/preview_dropbox.png',
+    etc: '../assets/images/preview_other.png'
+  };
+
   var fileDetail;
   var _timerClearCurUpload;
+
+  _init();
 
   this.upload = upload;
   this.abort = abort;
@@ -44,6 +59,12 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.dataURItoBlob = dataURItoBlob;
 
   this.broadcastCommentFocus = broadcastCommentFocus;
+
+  this.getFilterTypePreviewMap = getFilterTypePreviewMap;
+
+  function _init() {
+    Preloader.img(getFilterTypePreviewMap());
+  }
 
   function upload(files, fileInfo, supportHTML, uploadType) {
     var url;
@@ -469,4 +490,12 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       fileDetail = value;
     }
   });
+
+  /**
+   * filter type preview map을 전달한다.
+   * @returns {*}
+   */
+  function getFilterTypePreviewMap() {
+    return filterTypePreviewMap;
+  }
 });
