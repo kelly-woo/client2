@@ -102,15 +102,15 @@
 
 }
 .google-calendar .icon-service-logo {
-  background: url('../../assets/images/service-logo-google-calendar.png');
+  background: url('/assets/images/service-logo-google-calendar.png');
   background-size: cover;
 }
 .github .icon-service-logo {
-  background: url('../../assets/images/service-logo-github.png');
+  background: url('/assets/images/service-logo-github.png');
   background-size: cover;
 }
 .jira .icon-service-logo {
-  background: url('../../assets/images/service-logo-jira.png');
+  background: url('/assets/images/service-logo-jira.png');
   background-size: cover;
 }
 
@@ -158,7 +158,7 @@
   display: block;
 }
 .icon-jnd-connect {
-  background: url('../../assets/images/service-logo-jnd-connect-inactive.png');
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
   margin:0 auto;
   width: 20px;
   height: 20px;
@@ -167,7 +167,7 @@
   background-size: cover;
 }
 .icon-jnd-connect.active {
-  background: url('../../assets/images/service-logo-jnd-connect-active.png');
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
 }
 /* 좌측 연동된 서비스 영역 스타일 (끝) */
