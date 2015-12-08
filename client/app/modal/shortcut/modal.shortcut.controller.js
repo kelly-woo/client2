@@ -173,7 +173,9 @@
         $scope.columnList[columnIdx] = $scope.columnList[columnIdx] || [];
         if ($scope.columnList[columnIdx].length === MAX_ROW) {
           columnIdx++;
+          $scope.columnList[columnIdx] = $scope.columnList[columnIdx] || [];
         }
+
         if (!_.isFunction(row.condition) || row.condition()) {
           //float right 스타일로 인해 역순으로 정렬한다.
           _.forEach(row.keys, function(combination) {
