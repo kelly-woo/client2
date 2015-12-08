@@ -89,6 +89,35 @@
 }
 
 
+.survey-container {
+  z-index: 703;
+  position: absolute;
+  width: 100%;
+  bottom:0;
+  min-height: 146px;
+  background-color: rgba(255,255,255,0.85);
+  border-top:1px solid #D7D8DB;
+  padding: 32px 24px;
+}
+.survey-description {
+  display: block;
+  width: 100%;
+  word-break: keep-all;
+  font-size: 14px;
+  line-height: 20px;
+  color: #155172;
+  text-align: center;
+}
+.survey-container .btn {
+  margin: 20px auto 0;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 /* integration service detail style */
 .integration-service.detail {
