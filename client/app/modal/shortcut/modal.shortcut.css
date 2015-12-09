@@ -3,7 +3,7 @@
   top: 50%;
   left: 50%;
 
-  max-width: 860px;
+  max-width: 900px;
   width: 90%;
   min-width: 368px;
   
@@ -125,13 +125,13 @@
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel {
-  width: calc(100% - 140px);
-  max-width: 245px;
+  width: calc(100% - 120px);
+  max-width: 310px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   position: absolute;
-  left: 124px;
+  left: 126px;
 }
 .modal.keyboard-shortcut-modal .shortcut-list:first-child ul li span.keylabel {
   left: 88px;
@@ -156,7 +156,7 @@
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list .key-list-container {
-  width: 102px;
+  width: 106px;
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list .key:nth-child(2) {
