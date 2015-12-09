@@ -274,9 +274,28 @@
 }
 
 
-.header-navbar__dropdown li.open-shortcut .shortcut-menu {
-  margin-right: 42px;
-}
 .header-navbar__dropdown li.open-shortcut i.fa-keyboard-o {
-  font-size: 21px;
+  font-size: 19px;
+}
+.header-navbar__dropdown li.open-shortcut .shortcut-menu {
+  margin-right: 40px;
+}
+
+.unjoined-channel-label,
+.shortcuts-label {
+  padding: 2px 5px;
+  background-color: rgba(15,60,85,0.1);
+  color: rgba(14,60,85,0.28);
+  border-radius: 3px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shortcuts-label {
+  line-height: 18px;
+  top: 5px;
+  right: 8px;
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
