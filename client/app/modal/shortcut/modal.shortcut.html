@@ -14,15 +14,19 @@
   <section ng-repeat="column in columnList" class="shortcut-list">
     <ul>
       <li ng-repeat="row in column">
-        <span class="keylabel">{{ row.text }}</span>
-        <div class="pull-right">
-          <span ng-repeat="combination in row.keys" class="">
-            <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">{{row.keys.length}} or</span>
+      
+        <div class="jnd-float-left key-list-container">
+          
+          <span ng-repeat="combination in row.keys" class="key" ng-class="{'row.keys.length >= 2': multi-key }">
+            
+            <span ng-if="row.keys.length === 2 && $index === 0" class="pull-right divider">or</span>
             <span class="keystyle pull-right" ng-repeat="key in combination">
               {{key}}
             </span>
           </span>
         </div>
+        <span class="keylabel">{{ row.text }}</span>
+        
         <div class="clear" style="clear: both;"></div>
       </li>
     </ul>

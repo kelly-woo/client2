@@ -118,7 +118,7 @@
 }
 
 .header-navbar__title {
-  line-height: 43px;
+  line-height: 42px;
   margin-left:3px;
 }
 .header-navbar__dropdown {
@@ -284,8 +284,8 @@
 .unjoined-channel-label,
 .shortcuts-label {
   padding: 2px 5px;
-  background-color: rgba(15,60,85,0.1);
-  color: rgba(14,60,85,0.28);
+  background-color: rgba(15,60,85,0.085);
+  color: rgba(14,60,85,0.235);
   border-radius: 3px;
   margin-left: 10px;
   font-size: 13px;
@@ -297,5 +297,7 @@
   top: 5px;
   right: 8px;
   position: absolute;
+  background-color: rgba(15,60,85,0.105);
+  color: rgba(14,60,85,0.275);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
