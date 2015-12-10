@@ -118,10 +118,32 @@
        * @private
        */
       function _getSelectedName() {
-        var selectedEntity = _.find(_getAllEntities(), function(entity) {
-          return entity.id === scope.selectedValue;
-        });
-        return selectedEntity ? selectedEntity.name : $filter('translate')('@option-all-rooms');
+        var name;
+        var entityList;
+        var selectedEntity;
+        if (scope.selectedValue) {
+          selectedEntity = _.find(_getAllEntities(), function(entity) {
+            return entity.id === scope.selectedValue;
+          });
+          name = selectedEntity.name;
+        } else {
+          if (scope.hasAll) {
+            name = $filter('translate')('@option-all-rooms');
+          } else {
+            _.forEach(scope.folderData.folderList, function(folder) {
+              entityList = $filter('orderBy')(folder.entityList, ['isStarred', '-name'], true);
+              _.forEach(entityList, function (entity) {
+                name = entity.name;
+                scope.selectedValue = entity.id;
+                return false;
+              });
+              if (name) {
+                return false;
+              }
+            });
+          }
+        }
+        return name;
       }
 
       /**
