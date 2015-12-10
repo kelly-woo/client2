@@ -12,7 +12,9 @@
   function jndConnectJira() {
     return {
       restrict: 'E',
-      scope: false,
+      scope: {
+        'union': '=jndDataUnion'
+      },
       controller: 'JndConnectJiraCtrl',
       link: link,
       replace: true,

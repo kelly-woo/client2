@@ -7,18 +7,15 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectGithub', jndConnectGithub);
+    .directive('jndConnectUnionFooter', jndConnectUnionFooter);
 
-  function jndConnectGithub() {
+  function jndConnectUnionFooter() {
     return {
       restrict: 'E',
-      scope: {
-        'union': '=jndDataUnion'
-      },
-      controller: 'JndConnectGithubCtrl',
+      controller: 'JndConnectUnionFooterCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/github/jnd.connect.github.html'
+      templateUrl: 'app/connect/union/common/jnd.connect.union.footer.html'
     };
 
     function link(scope, el, attrs) {

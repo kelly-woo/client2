@@ -3,12 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('JndUnionHeaderCtrl', JndUnionHeaderCtrl);
+    .controller('JndConnectUnionHeaderCtrl', JndConnectUnionHeaderCtrl);
 
   /* @ngInject */
-  function JndUnionHeaderCtrl($scope, jndPubSub, JndConnect, EntityMapManager) {
-
-    $scope.backToMain = backToMain;
+  function JndConnectUnionHeaderCtrl($scope, jndPubSub, JndConnect, EntityMapManager) {
 
     _init();
 
@@ -17,10 +15,7 @@
      * @private
      */
     function _init() {
-    }
-
-    function backToMain() {
-      jndPubSub.pub('union:backToMain');
+      console.log('####', $scope)
     }
   }
 })();

@@ -10,44 +10,57 @@
 
     var UNION_DATA = {
       '1': {
-        name: 'google-calendar',
+        name: 'googleCalendar',
         icon: '',
         title: 'Google Calendar',
         desc: 'Google Calendar에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다.',
+        hasAuth: false,
         popover: ''
       },
-      '2': {
-        name: 'google-drive',
-        icon: '',
-        title: 'Google Drive',
-        desc: 'Google Drive 에 등록된 파일을 잔디로 공유할 수 있습니다.',
-        popover: ''
-      },
+      //'2': {
+      //  name: 'googleDrive',
+      //  icon: '',
+      //  title: 'Google Drive',
+      //  desc: 'Google Drive 에 등록된 파일을 잔디로 공유할 수 있습니다.',
+      //  hasAuth: false,
+      //  popover: ''
+      //},
       '3': {
         name: 'github',
         icon: '',
         title: 'Github',
         desc: 'Github의 repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다.',
+        hasAuth: false,
         popover: ''
       },
-      '4': {
-        name: 'dropbox',
-        icon: '',
-        title: 'Dropbox',
-        desc: 'Dropbox에 공유된 파일을 손쉽게 잔디로 공유할 수 있습니다.',
-        popover: ''
-      },
+      //'4': {
+      //  name: 'dropbox',
+      //  icon: '',
+      //  title: 'Dropbox',
+      //  desc: 'Dropbox에 공유된 파일을 손쉽게 잔디로 공유할 수 있습니다.',
+      //  hasAuth: false,
+      //  popover: ''
+      //},
       '5': {
         name: 'jira',
         icon: '',
         title: 'Jira',
         desc: 'Jira에 등록된 이슈들에 대한 알림을 잔디에서 확인할 수 있습니다',
+        hasAuth: false,
+        popover: ''
+      },
+      '6': {
+        name: 'trello',
+        icon: '',
+        title: 'Trello',
+        desc: '트렐로로로로',
+        hasAuth: false,
         popover: ''
       }
     };
 
     //$scope.list = UNION_LIST;
-    $scope.currentUnionName = null;
+    $scope.currentUnion = null;
     $scope.historyBack = historyBack;
     $scope.close = close;
     $scope.unions = [];
@@ -78,9 +91,9 @@
         return union.name === unionName;
       });
       if (targetUnion) {
-        $scope.currentUnionName = targetUnion.name;
+        $scope.currentUnion = targetUnion;
       } else {
-        $scope.currentUnionName = null;
+        $scope.currentUnion = null;
       }
     }
 
@@ -89,7 +102,7 @@
      * @private
      */
     function _onBackToMain() {
-      $scope.currentUnionName = null;
+      $scope.currentUnion = null;
     }
 
     /**

@@ -7,7 +7,6 @@
 
   /* @ngInject */
   function JndConnectJiraCtrl($scope, modalHelper, jndPubSub, Popup) {
-    $scope.save = save;
     $scope.openTopicCreateModal = openTopicCreateModal;
     _init();
 
@@ -20,30 +19,11 @@
     }
 
     function _attachEvents() {
-      //for test
-      $scope.$on('popupDone', function() {
-        console.log('### popup done recv');
-      });
+      $scope.$on('unionFooter:save', _onSave);
     }
 
-    /**
-     * 설정을 저장한다.
-     */
-    function save() {
-      //Popup.open('http://local.jandi.io:8080/connect/auth/googleCalendar', {
-      //  name: 'google',
-      //  optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
-      //  data: {
-      //    redirectUri: '/popup/success?callbackEvent=popupDone'
-      //  }
-      //});
-      Popup.open('http://local.jandi.io:8080/connect/auth/googleCalendar', {
-        name: 'google',
-        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
-        data: {
-          redirectUri: '/popup/success?callbackEvent=popupDone'
-        }
-      });
+    function _onSave() {
+      console.log('###jira save');
     }
 
     /**

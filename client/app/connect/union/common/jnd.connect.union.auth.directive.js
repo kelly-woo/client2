@@ -7,18 +7,18 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectGithub', jndConnectGithub);
+    .directive('jndConnectUnionAuth', jndConnectUnionAuth);
 
-  function jndConnectGithub() {
+  function jndConnectUnionAuth() {
     return {
       restrict: 'E',
-      scope: {
-        'union': '=jndDataUnion'
-      },
-      controller: 'JndConnectGithubCtrl',
+      controller: 'JndConnectUnionAuthCtrl',
       link: link,
+      scope: {
+        union: '=jndDataUnion'
+      },
       replace: true,
-      templateUrl: 'app/connect/union/github/jnd.connect.github.html'
+      templateUrl: 'app/connect/union/common/jnd.connect.union.auth.html'
     };
 
     function link(scope, el, attrs) {

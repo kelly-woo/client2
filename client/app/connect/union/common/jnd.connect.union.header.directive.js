@@ -7,13 +7,12 @@
 
   angular
     .module('jandiApp')
-    .directive('jndUnionHeader', jndUnionHeader);
+    .directive('jndConnectUnionHeader', jndConnectUnionHeader);
 
-  function jndUnionHeader() {
+  function jndConnectUnionHeader() {
     return {
       restrict: 'E',
-      scope: false,
-      controller: 'JndUnionHeaderCtrl',
+      controller: 'JndConnectUnionHeaderCtrl',
       link: link,
       replace: true,
       templateUrl: 'app/connect/union/common/jnd.connect.union.header.html'

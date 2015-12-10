@@ -12,7 +12,9 @@
   function jndConnectTrello() {
     return {
       restrict: 'E',
-      scope: false,
+      scope: {
+        'union': '=jndDataUnion'
+      },
       controller: 'JndConnectTrelloCtrl',
       link: link,
       replace: true,

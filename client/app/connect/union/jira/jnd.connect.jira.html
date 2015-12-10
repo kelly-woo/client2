@@ -1,22 +1,14 @@
 <div class="jnd-connect-service-container" id="jnd-connect-available-service">
   <!--JIRA-->
   <div class="integration-service detail">
-
-		<jnd-union-header></jnd-union-header>
-
+		<jnd-connect-union-nav></jnd-connect-union-nav>
     <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
 
       <section class="active-member-info" style="display: none;">
         <!-- active member info will be placed here -->
       </section>
 
-      <section class="service-info jira">
-        <i class="icon-service-logo"></i>
-        <i class="icon-jnd-connect active"></i>
-
-        <span class="user-name">Admin</span><span class="service-name">'s Jira Webhook</span>
-        <span class="date-info">2015-12-01 생성</span>
-      </section>
+      <jnd-connect-union-header></jnd-connect-union-header>
 
       <section class="service-setting introduction collapsed">
         <span class="setting-label">설정방법 안내</span>
@@ -46,26 +38,7 @@
         </div>
       </section>
 
-      <section class="service-setting select-profile">
-        <span class="setting-label">연동 서비스 프로필 설정</span>
-        <div class="setting-contents">
-          <span class="setting-description">팀 내에서 연동 항목이 메시지를 보낼 때 노출되는 프로필 이미지와 이름을 지정할 수 있습니다.</span>
-
-
-          <div class="change-profile cursor_pointer">
-            <span class="overlay-label">Edit</span>
-          </div>
-
-          <input class="setting-input form-control" placeholder="webhook name">
-
-          <div class="clear"></div>
-
-        </div>
-      </section>
-
-      <input type="submit" class="btn comment-btn save-button" ng-click="save();" value="설정 저장하기">
-
-
+      <jnd-connect-union-footer></jnd-connect-union-footer>
     </div>
 
   </div>

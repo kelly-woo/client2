@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 디렉티브
+ * @fileoverview 잔디 컨넥트 Navigation 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,18 +7,16 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectGithub', jndConnectGithub);
+    .directive('jndConnectUnionNav', jndConnectUnionNav);
 
-  function jndConnectGithub() {
+  function jndConnectUnionNav() {
     return {
       restrict: 'E',
-      scope: {
-        'union': '=jndDataUnion'
-      },
-      controller: 'JndConnectGithubCtrl',
+      scope: false,
+      controller: 'JndConnectUnionNavCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/github/jnd.connect.github.html'
+      templateUrl: 'app/connect/union/common/jnd.connect.union.nav.html'
     };
 
     function link(scope, el, attrs) {
