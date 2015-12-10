@@ -80,37 +80,11 @@
     function _initWithParam(param) {
       if (!!param) {
         _checkCurrentEntity(param);
-        _filterDeactivateMembers();
         _checkDisabledMember();
 
         _checkOwnership();
         _checkIfDefaultTopic();
         _checkNotificationStatus();
-      }
-    }
-
-    /**
-     * currentEntity 로 부터 deactivate member 를 제거한다.
-     * @param {object} currentEntity
-     * @returns {object} deactive member 를 제거한 entity
-     * @private
-     */
-    function _filterDeactivateMembers() {
-      var members = _currentEntity && _currentEntity.members || [];
-      var totalEntities = $rootScope.totalEntities;
-      var member;
-      var entity;
-      var i;
-
-      if (members && members.length) {
-        for (i = 0; i < members.length; i++) {
-          member = members[i];
-          entity = EntityMapManager.get('total', member);
-          if (!entity || !entity.name) {
-            members.splice(i, 1);
-            i -= 1;
-          }
-        }
       }
     }
 
@@ -138,12 +112,14 @@
     function _setCurrentEntity(entity) {
       if (!!entity) {
         entity.members = entityAPIservice.getMemberList(entity);
+
         _currentEntity = entity;
         _entityId = entity.id;
         _entityType = entity.type;
+
         $scope.currentEntity = entity;
         $scope.isUserType = _currentEntity.type === 'users';
-
+        $scope.users = entityAPIservice.getUserList(entity);
       }
     }
 
@@ -358,7 +334,7 @@
      * @param memberId
      */
     function openMemberModal(memberId) {
-      jndPubSub.pub('onUserClick', memberId || _currentEntity);
+      jndPubSub.pub('onMemberClick', memberId || _currentEntity);
     }
 
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.

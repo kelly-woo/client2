@@ -10,7 +10,6 @@
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                            entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
-    var members;
     var msg1;
     var msg2;
 
@@ -61,18 +60,15 @@
      * set member list
      */
     function generateMemberList() {
-      var prevAvailableMemberMap;
-
-      prevAvailableMemberMap = $scope.availableMemberMap;
-
-      members = entityAPIservice.getMemberList($scope.currentEntity);
+      var prevAvailableMemberMap = $scope.availableMemberMap;
+      var users = entityAPIservice.getUserList($scope.currentEntity);
 
       $scope.availableMemberMap = {};
 
       // 활성 member list
       $scope.activeMembers = [];
 
-      $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+      $scope.availableMemberList = _.reject(currentSessionHelper.getCurrentTeamUserList(), function(user) {
         var isActiveMember = memberService.isActiveMember(user);
 
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
@@ -85,7 +81,7 @@
 
         $scope.availableMemberMap[user.id] = user;
 
-        return members.indexOf(user.id) > -1 || !isActiveMember;
+        return users.indexOf(user.id) > -1 || !isActiveMember;
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {

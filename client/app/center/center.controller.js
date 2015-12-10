@@ -1324,12 +1324,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _amIAlone() {
-    var memberCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
+    var userCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
 
     //console.log()
     //console.log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
 
-    return memberCount == 1;
+    return userCount == 1;
   }
 
   function _hasNoMessage() {
@@ -1360,17 +1360,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isSoloTeam() {
-    return currentSessionHelper.getCurrentTeamMemberCount() == 1;
+    return currentSessionHelper.getCurrentTeamUserCount() == 1;
   }
 
   function _isFullRoom() {
+    var currentEntityUserCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
+    var totalTeamUserCount = currentSessionHelper.getCurrentTeamUserCount();
 
-    var currentEntityMemberCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
-
-    var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount();
-
-    //console.log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
-    return currentEntityMemberCount == totalTeamMemberCount;
+    return currentEntityUserCount == totalTeamUserCount;
   }
 
   function _isDefaultTopic() {

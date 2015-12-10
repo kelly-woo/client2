@@ -1,7 +1,7 @@
 {
   "name"                   : "local",
   "path"                   : "app/",
-  "api_address"            : "https://i1.jandi.io/",
+  "api_address"            : "https://i-bot.jandi.io/",
   "socket_address"         : "https://ws.jandi.io/",
   "file_address"           : "https://files.jandi.io/",
   "file_upload_address"    : "https://upload.jandi.io/",

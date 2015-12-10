@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memberService) {
+app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memberService, currentSessionHelper) {
     var userAPI = {};
 
     function getEntityFromListById(list, value) {
@@ -23,7 +23,9 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memb
     }
 
     userAPI.getNameFromUserId = function(userId) {
-        return memberService.getNameFromMember(getEntityFromListById($rootScope.memberList, userId));
+        return memberService.getNameFromMember(
+          getEntityFromListById(currentSessionHelper.getCurrentTeamUserList(), userId)
+        );
     };
 
     userAPI.updateUserName = function(new_name) {

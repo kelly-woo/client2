@@ -859,3 +859,17 @@ by ysyun 2015.2.25
   margin-left: 3px;
   display: inline-block;
 }
+
+.member-profile,
+.user-profile {
+  display: inline-block;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.member-thumb,
+.user-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
