@@ -36,6 +36,7 @@
     this.getSystemMessageCount = getSystemMessageCount;
 
     this.hasLinkPreview = hasLinkPreview;
+    this.hasIntegrationPreview = hasIntegrationPreview;
 
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
@@ -308,6 +309,10 @@
      */
     function hasLinkPreview(index) {
       return !_.isEmpty(that.list[index].message.linkPreview);
+    }
+
+    function hasIntegrationPreview(index) {
+      return !_.isEmpty(that.list[index].message.content.connectInfo);
     }
 
     /**

@@ -139,9 +139,47 @@
       var content = msg.message.content;
 
       var integrationPreview;
+      var hasSubset1;
+      var hasSubset2;
 
+      // //dummy data
+      //content.connectInfo = [
+      //  {
+      //    "event": "schedule_place_updated",
+      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
+      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서"
+      //  },
+      //  {
+      //    "event": "schedule_place_updated",
+      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
+      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서"
+      //  }
+      //];
+      //content.connectColor = 'red';
 
-      if (memberService.isBot(msg.message.writerId) && content.connectInfo) {
+      //if (memberService.isIntegrationBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
+      if (MessageCollection.hasIntegrationPreview(index)) {
+        integrationPreview = '';
+        hasSubset1 = true;
+        hasSubset2 = true;
+
+        _.each(content.connectInfo, function(info) {
+          integrationPreview += _templateIntegrationPreview({
+            html: {
+              title: _getConnectText(info.title),
+              description: _getConnectText(info.description),
+              subsetTitle1: 'asdfkjasldkf',
+              subsetDescription1: 'aefjowiejf',
+              subsetTitle2: 'asdfkjasldkf',
+              subsetDescription2: 'aefjowiejf'
+            },
+            hasTitle: !!info.title,
+            hasDescription: !!info.description,
+            hasSubsets: hasSubset1 || hasSubset2,
+            hasSubset1: hasSubset1,
+            hasSubset2: hasSubset2
+          });
+        });
 
         html = _templateAttachment({
           html: {
@@ -154,6 +192,30 @@
       }
 
       return html;
+    }
+
+    /**
+     * connect text를 전달한다.
+     * @param {string} fullText
+     * @returns {string}
+     * @private
+     */
+    function _getConnectText(fullText) {
+      var regxAnchor = /\[(.*?)\]\((.*?)\)/g;
+      var match;
+      var beginIndex = 0;
+      var lastIndex;
+      var text = '';
+
+      while (match = regxAnchor.exec(fullText)) {
+        lastIndex = regxAnchor.lastIndex;
+
+        text = text + fullText.substring(beginIndex, lastIndex).replace(match[0], '<a href="' + match[2] + '" target="_blank">' + match[1] + '</a>');
+
+        beginIndex = lastIndex;
+      }
+
+      return text || fullText;
     }
   }
 })();
