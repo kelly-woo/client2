@@ -24,8 +24,9 @@
 }
 
 /* integration-preview-wrapper가 두개 연속으로 올 수 있기 때문에 float으로 하지 않고 inline-block으로 처리함 */
-.integration-preview-wrapper .subset-short {
+.integration-preview-wrapper .preview-subsets .preview-subset.subset-short {
   display: inline-block;
+  margin-top: 0;
   margin-right: 8px;
   width: calc(50% - 28px);
 }

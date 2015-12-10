@@ -707,17 +707,17 @@ this["Handlebars"]["templates"]["center.text.integration.preview"] = Handlebars.
 },"6":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda;
 
-  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title\">"
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle1 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n      <div class=\"preview-subset-description\">"
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription1 : stack1), depth0)) != null ? stack1 : "")
     + "</div>\n    </div>\n";
 },"8":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda;
 
-  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title\">"
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle2 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n      <div class=\"preview-subset-description\">"
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription2 : stack1), depth0)) != null ? stack1 : "")
     + "</div>\n    </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
