@@ -9,10 +9,13 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
+  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil, memberService) {
     var _template;
     var _templateChild;
+
+    var _templateAttachment;
     var _templateLinkPreview;
+    var _templateIntegrationPreview;
 
     this.render = render;
     this.delegateHandler = {
@@ -26,9 +29,12 @@
      * @private
      */
     function _init() {
-      _templateChild = Handlebars.templates['center.text.child'];
       _template = Handlebars.templates['center.text'];
+      _templateChild = Handlebars.templates['center.text.child'];
+
+      _templateAttachment = Handlebars.templates['center.text.attachment'];
       _templateLinkPreview = Handlebars.templates['center.text.link.preview'];
+      _templateIntegrationPreview = Handlebars.templates['center.text.integration.preview'];
     }
 
 
@@ -76,7 +82,8 @@
 
       return template({
         html: {
-          linkPreview: _getLinkPreview(msg, index)
+          linkPreview: _getLinkPreview(msg, index),
+          integrationPreview: _getIntegrationPreview(msg, index)
         },
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
@@ -98,7 +105,8 @@
      * @private
      */
     function _getLinkPreview(msg, index) {
-      var returnValue = '';
+      var html = '';
+      var linkPreview;
 
       if (MessageCollection.hasLinkPreview(index)) {
         if (msg.message.linkPreview.extThumbnail) {
@@ -108,10 +116,106 @@
             hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
           };
         }
-        returnValue = _templateLinkPreview({msg: msg});
+
+        linkPreview = _templateLinkPreview({msg: msg});
+        html = _templateAttachment({
+          html: {
+            content: linkPreview
+          }
+        });
       }
 
-      return returnValue;
+      return html;
+    }
+
+    /**
+     * msg에 보여줄 connect preview가 있으면 보여주고 없으면 안보여주는 template을 전달한다.
+     * @param msg
+     * @param index
+     * @private
+     */
+    function _getIntegrationPreview(msg, index) {
+      var html = '';
+      var content = msg.message.content;
+
+      var integrationPreview;
+      var hasSubset1;
+      var hasSubset2;
+
+      // //dummy data
+      //content.connectInfo = [
+      //  {
+      //    "event": "schedule_place_updated",
+      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
+      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서"
+      //  },
+      //  {
+      //    "event": "schedule_place_updated",
+      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
+      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서"
+      //  }
+      //];
+      //content.connectColor = 'red';
+
+      //if (memberService.isIntegrationBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
+      if (MessageCollection.hasIntegrationPreview(index)) {
+        integrationPreview = '';
+        hasSubset1 = true;
+        hasSubset2 = true;
+
+        _.each(content.connectInfo, function(info) {
+          integrationPreview += _templateIntegrationPreview({
+            html: {
+              title: _getConnectText(info.title),
+              description: _getConnectText(info.description),
+              subsetTitle1: 'asdfkjasldkf',
+              subsetDescription1: 'aefjowiejf',
+              subsetTitle2: 'asdfkjasldkf',
+              subsetDescription2: 'aefjowiejf'
+            },
+            hasTitle: !!info.title,
+            hasDescription: !!info.description,
+            hasSubsets: hasSubset1 || hasSubset2,
+            hasSubset1: hasSubset1,
+            hasSubset2: hasSubset2
+          });
+        });
+
+        html = _templateAttachment({
+          html: {
+            content: integrationPreview
+          },
+          style: {
+            bar: 'background-color: ' + (content.connectColor || '#000') + ';'
+          }
+        });
+      }
+
+      return html;
+    }
+
+    /**
+     * connect text를 전달한다.
+     * @param {string} fullText
+     * @returns {string}
+     * @private
+     */
+    function _getConnectText(fullText) {
+      var regxAnchor = /\[(.*?)\]\((.*?)\)/g;
+      var match;
+      var beginIndex = 0;
+      var lastIndex;
+      var text = '';
+
+      while (match = regxAnchor.exec(fullText)) {
+        lastIndex = regxAnchor.lastIndex;
+
+        text = text + fullText.substring(beginIndex, lastIndex).replace(match[0], '<a href="' + match[2] + '" target="_blank">' + match[1] + '</a>');
+
+        beginIndex = lastIndex;
+      }
+
+      return text || fullText;
     }
   }
 })();

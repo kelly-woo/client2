@@ -34,7 +34,7 @@
           // comment 작성 되지 않은 모음
           $scope.errorComments = [];
 
-          $scope.onUserClick = onUserClick;
+          $scope.onMemberClick = onMemberClick;
           $scope.postComment = postComment;
           $scope.setMentionsGetter = setMentionsGetter;
           $scope.backToPrevState = backToPrevState;
@@ -312,11 +312,11 @@
      * user image click event handler
      * @param {object} user
      */
-    function onUserClick(user) {
-      if (_.isNumber(user)) {
-        user = EntityMapManager.get('member', user);
+    function onMemberClick(member) {
+      if (_.isNumber(member)) {
+        member = EntityMapManager.get('member', member);
       }
-      jndPubSub.pub('onUserClick', user);
+      jndPubSub.pub('onMemberClick', member);
     }
 
     /**

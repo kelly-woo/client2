@@ -298,17 +298,17 @@
        */
       function _setMentions(fileInfo) {
         var room;
-        var members;
+        var users;
         var mentionList;
         var mentionMap;
         var mention;
 
         //if (room = EntityMapManager.get('total', fileInfo.roomId)) {
         if (room = EntityMapManager.get('total', fileInfo.share)) {
-          members = entityAPIservice.getMemberList(room);
+          users = entityAPIservice.getUserList(room);
 
-          if (members && members.length > 0) {
-            mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
+          if (users && users.length > 0) {
+            mentionList = MentionExtractor.getMentionListForTopic(users, $state.params.entityId);
             mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
             //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
             if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {

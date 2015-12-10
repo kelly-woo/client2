@@ -39,7 +39,10 @@
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.comment.title.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.file.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.attachment.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.integration.preview.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.link.preview.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.unread.bookmark.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.css">
@@ -54,6 +57,9 @@
   <link rel="stylesheet" href="app/connect/jnd.connect.css">
   <link rel="stylesheet" href="app/connect/submenu/jnd.connect.submenu.css">
   <link rel="stylesheet" href="app/connect/union/common/jnd.connect.union.nav.css">
+  <link rel="stylesheet" href="app/connect/submenu/jnd.connect.submenu.member.css">
+  <link rel="stylesheet" href="app/connect/submenu/jnd.connect.submenu.union.css">
+  <link rel="stylesheet" href="app/connect/union/common/jnd.connect.union.header.css">
   <link rel="stylesheet" href="app/connect/union/dropbox/jnd.connect.dropbox.css">
   <link rel="stylesheet" href="app/connect/union/github/jnd.connect.github.css">
   <link rel="stylesheet" href="app/connect/union/google-calendar/jnd.connect.google.calendar.css">
@@ -79,7 +85,7 @@
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
   <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
   <link rel="stylesheet" href="app/modal/lists/services/renderers/templates/modal.room.list.item.css">
-  <link rel="stylesheet" href="app/modal/members/current_member_profile/current.member.profile.css">
+  <link rel="stylesheet" href="app/modal/members/current-user-profile/current.user.profile.css">
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
@@ -398,6 +404,9 @@
 <script src="app/connect/jnd.connect.controller.js"></script>
 <script src="app/connect/jnd.connect.directive.js"></script>
 <script src="app/connect/jnd.connect.service.js"></script>
+<script src="app/connect/submenu/jnd.connect.submenu.directive.js"></script>
+<script src="app/connect/submenu/jnd.connect.submenu.member.directive.js"></script>
+<script src="app/connect/submenu/jnd.connect.submenu.union.directive.js"></script>
 <script src="app/connect/union/common/jnd.connect.union.auth.controller.js"></script>
 <script src="app/connect/union/common/jnd.connect.union.auth.directive.js"></script>
 <script src="app/connect/union/common/jnd.connect.union.footer.controller.js"></script>
@@ -467,9 +476,10 @@
 <script src="app/modal/lists/services/renderers/member.item.renderer.service.js"></script>
 <script src="app/modal/lists/services/renderers/room.item.renderer.service.js"></script>
 <script src="app/modal/lists/services/renderers/topic.item.renderer.service.js"></script>
-<script src="app/modal/members/current_member_profile/current.member.profile.controller.js"></script>
-<script src="app/modal/members/current_member_profile/current.member.profile.service.js"></script>
-<script src="app/modal/members/member_profile/member.profile.view.controller.js"></script>
+<script src="app/modal/members/bot-profile/bot.profile.controller.js"></script>
+<script src="app/modal/members/current-user-profile/current.user.profile.controller.js"></script>
+<script src="app/modal/members/current-user-profile/current.user.profile.service.js"></script>
+<script src="app/modal/members/user-profile/user.profile.view.controller.js"></script>
 <script src="app/modal/modal.service.js"></script>
 <script src="app/modal/password/password.reset.request.controller.js"></script>
 <script src="app/modal/privacy.guide/privacy.guide.directive.js"></script>

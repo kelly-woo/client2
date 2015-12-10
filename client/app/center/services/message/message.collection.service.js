@@ -36,6 +36,7 @@
     this.getSystemMessageCount = getSystemMessageCount;
 
     this.hasLinkPreview = hasLinkPreview;
+    this.hasIntegrationPreview = hasIntegrationPreview;
 
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
@@ -310,6 +311,10 @@
       return !_.isEmpty(that.list[index].message.linkPreview);
     }
 
+    function hasIntegrationPreview(index) {
+      return !_.isEmpty(that.list[index].message.content.connectInfo);
+    }
+
     /**
      * 새로운 날짜의 시작인지 여부를 반환한다.
      * @param {number} index
@@ -367,13 +372,15 @@
      */
     function manipulateMessage(msg) {
       var fromEntityId = msg.fromEntity;
-      var writer = entityAPIservice.getEntityById('user', fromEntityId);
+      var writer = EntityMapManager.get('member', fromEntityId);
 
-      msg.extFromEntityId = fromEntityId;
-      msg.extWriter = writer;
-      msg.extWriterName = $filter('getName')(writer);
-      msg.exProfileImg = $filter('getSmallThumbnail')(writer);
-      msg.extTime = $filter('gethmmaFormat')(msg.time);
+      if (writer) {
+        msg.extFromEntityId = fromEntityId;
+        msg.extWriter = writer;
+        msg.extWriterName = $filter('getName')(writer);
+        msg.exProfileImg = memberService.getProfileImage(writer.id, 'small');
+        msg.extTime = $filter('gethmmaFormat')(msg.time);
+      }
     }
 
     function _isSending(msg) {
@@ -687,7 +694,7 @@
       if (centerService.isChat()) {
         globalUnreadCount = 1;
       } else {
-        globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity()) - 1;
       }
       globalUnreadCount = globalUnreadCount - markerOffset;
 

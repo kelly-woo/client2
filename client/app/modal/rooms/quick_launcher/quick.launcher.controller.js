@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function QuickLauncherCtrl($rootScope, $scope, $state, UnreadBadge, EntityMapManager, centerService, memberService,
-                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, accountService) {
+                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, entityAPIservice) {
     _init();
 
     /**
@@ -151,8 +151,8 @@
               count: entity.alarmCnt
             };
 
-            if (entity.type === 'users') {
-              room.profileImage = memberService.getSmallThumbnailUrl(entity);
+            if (memberService.isMember(entity.id)) {
+              room.profileImage = memberService.getProfileImage(entity.id);
               room.priority = 1;
             } else {
               room.priority = 2;
@@ -218,7 +218,10 @@
             id: entity.id,
             name: entity.name
           };
-          entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+
+          if (memberService.isMember(entity.id)) {
+            room.profileImage = memberService.getProfileImage(entity.id);
+          }
           rooms.push(room);
         }
       }
@@ -249,24 +252,31 @@
      * @private
      */
     function _getEnabledMembers(value) {
-      var members = [];
+      var members = currentSessionHelper.getCurrentTeamUserList();
+      var jandiBot = entityAPIservice.getJandiBot();
 
-      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
+      var enabledMembers = [];
+
+      if (jandiBot) {
+        members = members.concat([jandiBot]);
+      }
+
+      _.forEach(members, function(member) {
         if (member.name.toLowerCase().indexOf(value.toLowerCase()) > -1 && !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id) {
         //if (memberService.getMemberId() !== member.id && member.name.indexOf(value) > -1) {
-          members.push({
+          enabledMembers.push({
             type: member.type,
             id: member.id,
             name: member.name,
             status: member.status,
-            profileImage: memberService.getSmallThumbnailUrl(member),
+            profileImage: memberService.getProfileImage(member.id),
             query: value,
             count: member.alarmCnt
           });
         }
       });
 
-      return _.sortBy(members, function (member) {
+      return _.sortBy(enabledMembers, function (member) {
         return member.name.toLowerCase();
       });
     }

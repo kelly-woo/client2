@@ -33,9 +33,11 @@
       }
 
       function onClick() {
-        scope.toggle({
-          $value: scope.active
-        });
+        if (scope.toggle) {
+          scope.toggle({
+            $value: scope.active
+          });
+        }
       }
     }
   }

@@ -228,7 +228,7 @@
      * @private
      */
     function _openMemberProfileModal (memberId) {
-      jndPubSub.pub('onUserClick', memberId);
+      jndPubSub.pub('onMemberClick', memberId);
     }
 
     /**
