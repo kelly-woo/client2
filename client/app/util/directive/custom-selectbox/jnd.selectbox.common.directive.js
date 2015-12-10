@@ -115,7 +115,7 @@
        */
       function _getSelectedName() {
         var selectedItem;
-
+        var text;
         _.forEach(scope.list, function(item) {
           if (item.extIsGroup) {
             _.forEach(item.list, function(unit) {
@@ -132,7 +132,12 @@
             return false;
           }
         });
-        return selectedItem ? selectedItem.text : _getDefaultItem().text;
+        if (!selectedItem) {
+          selectedItem = _getDefaultItem();
+          scope.selectedValue = selectedItem.value;
+        }
+
+        return selectedItem.text;
       }
 
 
