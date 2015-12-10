@@ -1,12 +1,24 @@
 <div class="connect-plug">
-  <img class="plug-service-image" src="{{serviceImage}}"/>
+  <div class="connect-union-icon plug-service-image">
+      {{union.icon}}
+  </div>
   <div class="plug-body">
-    <div class="plug-service overflow-ellipsis">qwoiejqoiwjeoiqwjeoiqwjeoij</div>
-    <div class="plug-user overflow-ellipsis"><i class="icon-user"></i>qweoiijqwoiejoqiwjeoiqwje</div>
+    <div class="plug-service overflow-ellipsis">Google Calendar</div>
+    <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>MKChoi</div>
   </div>
-  <div class="plug-menu">
-    <switch-button active="isActive" toggle="onServiceToggle($value)"></switch-button>
-    <i class="plug-update icon-user"></i>
-    <i class="plug-delete icon-user"></i>
+  
+  <div class="plug-menu connect-union-float-right connect-union-plug-tool-container"
+       ng-class="{
+      'on': plug.isOn
+	   }">
+		   
+    <div class="switch-button switch-off switch-on" ng-class="{'switch-on': active}" ng-click="onClick();">
+	  <div class="switch-background"></div>
+      <div class="switch-handler"></div>
+    </div>
+
+    <span class="opt-button jnd-cursor-pointer"><i class="icon-pencil"></i></span>
+    <span class="opt-button jnd-cursor-pointer"><i class="icon-trash"></i></span>
   </div>
+  
 </div>

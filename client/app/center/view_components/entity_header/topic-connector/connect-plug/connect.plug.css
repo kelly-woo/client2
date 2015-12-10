@@ -5,21 +5,18 @@
   background-color: #fafafa;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
-  padding-top: 10px;
+  padding: 10px 17px 10px 78px;
 }
 
 .connect-plug .plug-service-image {
-  float: left;
-  width: 60px;
-  height: 60px;
-  margin-left: 10px;
+  left: 10px;
+  top: 9px;
+  margin:0;
 }
-
 .connect-plug .plug-body {
-  width: 150px;
-  margin-left: 77px;
+  width: 160px;
   font-weight: 700;
-  color: #505050;
+  color: #6E6E6E;
 }
 
 .plug-body .plug-service {
@@ -29,18 +26,22 @@
   line-height: 17px;
 }
 .plug-body .plug-user {
-  margin-top: 7px;
+  margin-top: 4px;
   width: 100%;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  padding-left: 18px;
 }
 .plug-body .plug-user i.icon-user {
-  margin-right: 5px;
+  left: -1px;
+  top: 3px;
+  font-size: 14px;
 }
 
 .connect-plug .plug-menu {
   position: absolute;
-  top: 24px;
+  top: 14px;
   right: 14px;
 }
 
@@ -57,5 +58,4 @@
 .plug-menu .switch-button {
   width: 44px;
   height: 24px;
-  vertical-align: text-bottom;
 }
