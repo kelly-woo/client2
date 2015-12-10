@@ -15,6 +15,7 @@
       socket_address      : '@@socket_address',
       file_address        : '@@file_address',
       file_upload_address : '@@file_upload_address',
+      connect_auth_address: '@@connect_auth_address',
       api_version         : '@@api_version',
       ga_token            : '@@ga_token',
       ga_token_global     : '@@ga_token_global',
