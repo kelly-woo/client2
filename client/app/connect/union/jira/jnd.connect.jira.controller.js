@@ -30,7 +30,14 @@
      * 설정을 저장한다.
      */
     function save() {
-      Popup.open('http://local.jandi.io:8080/connect/google/calendar/auth', {
+      //Popup.open('http://local.jandi.io:8080/connect/auth/googleCalendar', {
+      //  name: 'google',
+      //  optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
+      //  data: {
+      //    redirectUri: '/popup/success?callbackEvent=popupDone'
+      //  }
+      //});
+      Popup.open('http://local.jandi.io:8080/connect/auth/googleCalendar', {
         name: 'google',
         optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
         data: {
