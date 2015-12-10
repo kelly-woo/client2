@@ -137,7 +137,7 @@
           popup = window.open(_getFullUrl(url, options.data), name, options.optionStr);
         } else {
           if (options.useReload) {
-            popup.location.replace(url);
+            popup.location.replace(_getFullUrl(url, options.data));
           }
           popup.focus();
         }
@@ -156,7 +156,7 @@
       if (!_.isEmpty(data)) {
         url = url + (/\?/.test(url) ? '&' : '?') + _parameterize(data);
       }
-
+      console.log('###', url);
       return url;
     }
 
