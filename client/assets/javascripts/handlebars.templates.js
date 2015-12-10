@@ -585,6 +585,16 @@ this["Handlebars"]["templates"]["center.system.event"] = Handlebars.template({"1
     + "</span>\n      </div>\n    </div>\n  </div>\n</div>\n\n";
 },"useData":true});
 
+this["Handlebars"]["templates"]["center.text.attachment"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\" style=\""
+    + this.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.style : depth0)) != null ? stack1.bar : stack1), depth0))
+    + "\"></div>\n  <div class=\"attachment-content\">\n    "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.content : stack1), depth0)) != null ? stack1 : "")
+    + "\n  </div>  <!-- end of attachment-content  -->\n</div>  <!--  end of attachment-content-wrapper -->\n";
+},"useData":true});
+
 this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -670,55 +680,60 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n    </div>\n  </div>\n  "
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.linkPreview : stack1), depth0)) != null ? stack1 : "")
+    + "\n  "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.integrationPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n</div>\n";
 },"useData":true});
 
+this["Handlebars"]["templates"]["center.text.integration.preview"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "<div class=\"integration-preview-wrapper\">\n  <div class=\"preview-title\"></div>\n  <div class=\"preview-description\"></div>\n  <div class=\"integration-preview-subsets\">\n    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title\"></div>\n      <div class=\"preview-subset-description\"></div>\n    </div>\n    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title\"></div>\n      <div class=\"preview-subset-description\"></div>\n    </div>\n  </div>\n</div>\n";
+},"useData":true});
+
 this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-image loading\">\n        <div class=\"loading_bar\">\n          <span class=\"three-quarters-loader jnd-three-quarters-loader\"></span>\n        </div>\n      </div>\n";
+    return "<div class=\"social-image loading\">\n  <div class=\"loading_bar\">\n    <span class=\"three-quarters-loader jnd-three-quarters-loader\"></span>\n  </div>\n</div>\n";
 },"3":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "      <div class=\"social-image\">\n        <a href=\""
+  return "<div class=\"social-image\">\n  <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n          <img src=\""
+    + "\" target=\"_blank\">\n    <img src=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"/>\n        </a>\n      </div>\n";
+    + "\"/>\n  </a>\n</div>\n";
 },"5":function(depth0,helpers,partials,data) {
-    return "    <div class=\"social-body has-image\">\n";
+    return "<div class=\"social-body has-image\">\n";
 },"7":function(depth0,helpers,partials,data) {
-    return "    <div class=\"social-body\">\n";
+    return "<div class=\"social-body\">\n";
 },"9":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "      <div class=\"social-title neighbor\">\n        <a href=\""
+  return "  <div class=\"social-title neighbor\">\n    <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n          <span>"
+    + "\" target=\"_blank\">\n      <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.title : stack1), depth0))
-    + "</span>\n        </a>\n      </div>\n";
+    + "</span>\n    </a>\n  </div>\n";
 },"11":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(12, data, 0),"inverse":this.program(14, data, 0),"data":data})) != null ? stack1 : "")
-    + "      <a href=\""
+    + "    <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n        <span>"
+    + "\" target=\"_blank\">\n      <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1), depth0))
-    + "</span>\n      </a>\n    </div> <!-- end of social-desc  -->\n";
+    + "</span>\n    </a>\n  </div> <!-- end of social-desc  -->\n";
 },"12":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-desc neighbor has-domain\">\n";
+    return "  <div class=\"social-desc neighbor has-domain\">\n";
 },"14":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-desc neighbor\">\n";
+    return "  <div class=\"social-desc neighbor\">\n";
 },"16":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "      <div class=\"social-domain\">\n        <span>"
+  return "  <div class=\"social-domain\">\n    <span>"
     + this.escapeExpression(this.lambda(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1), depth0))
-    + "</span>\n      </div>\n";
+    + "</span>\n  </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n\n  <div class=\"attachment-content\">\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.hasSuccess : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n\n"
@@ -729,7 +744,7 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(16, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "  </div> <!-- end of social-body -->\n  </div>  <!-- end of attachment-content  -->\n  </div>  <!--  end of attachment-content-wrapper -->\n";
+    + "</div> <!-- end of social-body -->\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

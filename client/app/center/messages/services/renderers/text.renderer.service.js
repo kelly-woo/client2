@@ -9,10 +9,13 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
+  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil, memberService) {
     var _template;
     var _templateChild;
+
+    var _templateAttachment;
     var _templateLinkPreview;
+    var _templateIntegrationPreview;
 
     this.render = render;
     this.delegateHandler = {
@@ -26,9 +29,12 @@
      * @private
      */
     function _init() {
-      _templateChild = Handlebars.templates['center.text.child'];
       _template = Handlebars.templates['center.text'];
+      _templateChild = Handlebars.templates['center.text.child'];
+
+      _templateAttachment = Handlebars.templates['center.text.attachment'];
       _templateLinkPreview = Handlebars.templates['center.text.link.preview'];
+      _templateIntegrationPreview = Handlebars.templates['center.text.integration.preview'];
     }
 
 
@@ -76,7 +82,8 @@
 
       return template({
         html: {
-          linkPreview: _getLinkPreview(msg, index)
+          linkPreview: _getLinkPreview(msg, index),
+          integrationPreview: _getIntegrationPreview(msg, index)
         },
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
@@ -98,7 +105,8 @@
      * @private
      */
     function _getLinkPreview(msg, index) {
-      var returnValue = '';
+      var html = '';
+      var linkPreview;
 
       if (MessageCollection.hasLinkPreview(index)) {
         if (msg.message.linkPreview.extThumbnail) {
@@ -108,10 +116,44 @@
             hasSuccess: RendererUtil.hasThumbnailCreated(msg.message.linkPreview)
           };
         }
-        returnValue = _templateLinkPreview({msg: msg});
+
+        linkPreview = _templateLinkPreview({msg: msg});
+        html = _templateAttachment({
+          html: {
+            content: linkPreview
+          }
+        });
       }
 
-      return returnValue;
+      return html;
+    }
+
+    /**
+     * msg에 보여줄 connect preview가 있으면 보여주고 없으면 안보여주는 template을 전달한다.
+     * @param msg
+     * @param index
+     * @private
+     */
+    function _getIntegrationPreview(msg, index) {
+      var html = '';
+      var content = msg.message.content;
+
+      var integrationPreview;
+
+
+      if (memberService.isBot(msg.message.writerId) && content.connectInfo) {
+
+        html = _templateAttachment({
+          html: {
+            content: integrationPreview
+          },
+          style: {
+            bar: 'background-color: ' + (content.connectColor || '#000') + ';'
+          }
+        });
+      }
+
+      return html;
     }
   }
 })();
