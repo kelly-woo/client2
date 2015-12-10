@@ -89,6 +89,35 @@
 }
 
 
+.survey-container {
+  z-index: 703;
+  position: absolute;
+  width: 100%;
+  bottom:0;
+  min-height: 146px;
+  background-color: rgba(255,255,255,0.85);
+  border-top:1px solid #D7D8DB;
+  padding: 32px 24px;
+}
+.survey-description {
+  display: block;
+  width: 100%;
+  word-break: keep-all;
+  font-size: 14px;
+  line-height: 20px;
+  color: #155172;
+  text-align: center;
+}
+.survey-container .btn {
+  margin: 20px auto 0;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 /* integration service detail style */
 .integration-service.detail {
@@ -145,6 +174,28 @@
   border-color: transparent;
   padding-bottom: 0;
 }
+#jnd-connect-detail-container section.unverified-container {
+  height: 109px;
+}
+
+#jnd-connect-detail-container section.connect-info {
+  border-left: 1px solid #E6E6E6;
+  border-right: 1px solid #E6E6E6;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background-color: #FAFAFA;
+  
+  padding : 20px 20px 20px 64px;
+}
+
+#jnd-connect-detail-container section.connect-info >i {
+  font-size: 24px;
+  color: rgba(50,50,50,0.18);
+  left: 24px;
+  top: 20px;
+  position: absolute;
+}
+
 #jnd-connect-detail-container section.arrow-column .icon-long-arrow-right {
   font-size: 14px;
   float: left;
@@ -170,6 +221,7 @@
 .service-info {
   position: relative;
   min-height: 70px;
+  height: 109px;
   padding: 30px 0 30px 96px;
 }
 
@@ -191,7 +243,9 @@
   left: 52px;
 }
 
-.service-info > span {
+.service-info .user-name,
+.service-info .date-info,
+.service-info .service-name {
   font-size: 16px;
   line-height: 24px;
   color: #505050;
@@ -200,17 +254,28 @@
 .service-info span.user-name {
   font-weight: 700;
 }
+
 .service-info span.date-info {
   font-size: 14px;
   color:#B3B3B3;
   display: block;
 }
-
-.service-info .verfied-email-container {
-  margin: 7px 0 0;
+.service-info .service-name {
+  font-weight: 400;
+}
+.service-info .service-name.unverified {
+  font-weight: 700;
+  font-size: 16px;
+}
+.service-info .verified-email-container {
+  margin: 7px 0;
   width: calc(100% - 140px);
 }
-.service-info .verfied-email-container > span {
+
+.service-info .verify-button {
+  margin: 7px 0;
+}
+.service-info .verified-email-container > span {
   margin: 0;
   display: inline;
   border: 1px solid rgba(32,75,96,0.15);
@@ -225,9 +290,9 @@
   
   padding:0 10px;
 }
-.verfied-email-container .white-button.verified-label,
-.verfied-email-container .white-button.verified-label:hover,
-.verfied-email-container .white-button.verified-label:active {
+.verified-email-container .white-button.verified-label,
+.verified-email-container .white-button.verified-label:hover,
+.verified-email-container .white-button.verified-label:active {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   
@@ -240,7 +305,7 @@
   width: 30%;
 }
 
-.verfied-email-container .white-button.verified-email-address {
+.verified-email-container .white-button.verified-email-address {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   color:#979797;
@@ -252,7 +317,7 @@
   padding-right: 32px;
 }
 
-.verfied-email-container .custom-select-box-btn {
+.verified-email-container .custom-select-box-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   font-weight: 500;
@@ -269,13 +334,18 @@
   right: 1px;
   border: 1px solid rgba(32,75,96,0.15);
 }
-.verfied-email-container .custom-select-box-btn > i {
+.verified-email-container .custom-select-box-btn > i {
   line-height: 35px;
   top: 0;
   color: #81939B;
 }
 
-    
+.verified-email-container.single-account .custom-select-box-btn {
+  display: none;
+}
+.verified-email-container.single-account .white-button.verified-email-address {
+  padding-right: 10px;
+}
     
 .service-setting {
   padding: 12px 20px;
@@ -310,15 +380,24 @@
   margin-bottom: 12px;
   margin-top: 8px;
 }
-.setting-contents .setting-description {
+.setting-description {
   float: left;
+  display: block;
+  margin-top: 6px;
+  word-break: keep-all;
+}
+.service-setting .setting-description {
   max-width: 45%;
   color:#979797;
   font-size: 14px;
   line-height: 24px;
-  display: block;
-  margin-top: 6px;
-  word-break: keep-all;
+}
+.connect-info .setting-description {
+  max-width: 100%;
+  font-size: 15px;
+  line-height: 22px;
+  color: #505050;
+  margin: 0;
 }
 
 .service-setting .custom-select-box-btn {
@@ -345,6 +424,16 @@
   width: 100%;
   max-width: calc(65% - 4px);
 }
+.service-setting.jnd-column-5-width.has-inputfield .custom-select-box-btn {
+  width: 100%;
+  max-width: calc(46% - 4px);
+}
+.service-setting.jnd-column-5-width.has-inputfield .setting-input {
+  max-width: calc(45% - 4px);
+  margin-left: 4px;
+  height: 35px;
+}
+
 
 .service-setting .custom-select-box-btn i {
   line-height: 26px;
@@ -469,6 +558,9 @@
 .checkbox-list-container.text-only {
   line-height: 18px;
 }
+.checkbox-list-container.half-width {
+  width: 50%;
+} 
 .checkbox-list-container > input {
   margin-right: 4px;
 }
