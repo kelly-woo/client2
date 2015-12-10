@@ -12,7 +12,9 @@
   function jndConnectGoogleCalendar() {
     return {
       restrict: 'E',
-      scope: false,
+      scope: {
+        'union': '=jndDataUnion'
+      },
       controller: 'JndConnectGoogleCalendarCtrl',
       link: link,
       replace: true,

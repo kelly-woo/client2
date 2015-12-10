@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, JndConnect, EntityMapManager) {
-
+    $scope.selectedRoom = null;
     _init();
 
     /**

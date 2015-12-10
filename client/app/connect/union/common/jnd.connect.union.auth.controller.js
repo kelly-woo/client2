@@ -24,7 +24,7 @@
     }
 
     function getAuth() {
-      Popup.open('http://local.jandi.io:8080/connect/auth/' + $scope.union.name, {
+      Popup.open('http://www.jandi.io/connect/auth/' + $scope.union.name, {
         name: 'connectAuth',
         optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
         data: {
