@@ -219,9 +219,10 @@
 
       /**
        * zoom 을 설정한다
+       * @param {boolean} [isPreventEvent=false] 이벤트 트리거를 수행할 지 여부
        * @private
        */
-      function _setZoom() {
+      function _setZoom(isPreventEvent) {
         if (HybridAppHelper.isHybridApp()) {
           _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
           if (_currentZoomScale < MIN_ZOOM_SCALE) {
@@ -233,7 +234,9 @@
             $('body').css({
               'zoom': _currentZoomScale
             });
-            jndPubSub.pub('zoom:change', _currentZoomScale);
+            if (!isPreventEvent) {
+              jndPubSub.pub('zoom:change', _currentZoomScale);
+            }
           }
         }
       }
@@ -337,7 +340,7 @@
       function _initializeZoom() {
         _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
         _currentZoomScale = parseFloat(_currentZoomScale) || 1;
-        _setZoom();
+        _setZoom(true);
       }
 
       /**
