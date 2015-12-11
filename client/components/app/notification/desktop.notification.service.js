@@ -316,7 +316,8 @@
      * @private
      */
     function _loadLocalNotificationFlag() {
-      isNotificationOnLocally = _getBoolean(localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY));
+      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
+      isNotificationOnLocally = value ? _getBoolean(value) : true;
     }
 
     /**
