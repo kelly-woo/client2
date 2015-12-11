@@ -6,7 +6,7 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectCtrl($scope, $timeout, JndConnect, EntityMapManager) {
 
     var UNION_DATA = {
       '1': {
@@ -61,6 +61,7 @@
 
     //$scope.list = UNION_LIST;
     $scope.currentUnion = null;
+    $scope.isClose = false;
     $scope.historyBack = historyBack;
     $scope.close = close;
     $scope.unions = [];
@@ -109,7 +110,10 @@
      * 잔디 커넥트 닫기 버튼 클릭시 핸들러
      */
     function close() {
-      JndConnect.hide();
+      $scope.isClose = true;
+      $timeout(function() {
+        JndConnect.hide();
+      }, 300);
     }
 
     /**
@@ -117,7 +121,11 @@
      * TODO: depth 가 있는 경우 로직 추가해야 함
      */
     function historyBack() {
-      JndConnect.hide();
+      $scope.isClose = true;
+      $timeout(function() {
+        JndConnect.hide();
+      }, 300);
+      //JndConnect.hide();
     }
 
     /**
