@@ -97,9 +97,15 @@
      * @private
      */
     function _initHybridSetting() {
+      var temp;
       notificationPermission = 'granted';
-      _onNotificationSettingChanged();
+
+      _loadLocalNotificationFlag();
+      temp = isNotificationOnLocally;
+
       _onPermissionGranted();
+      _storeLocalNotificationFlag(temp);
+      _onNotificationSettingChanged();
     }
 
     /**
@@ -182,8 +188,7 @@
      * @private
      */
     function _setDesktopNotificationLocally(newNotificationLocalValue) {
-      isNotificationOnLocally = newNotificationLocalValue;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(newNotificationLocalValue);
     }
 
     /**
@@ -231,8 +236,7 @@
     function _onPermissionGranted() {
       _resetNeverAskFlag();
       setShowNotificationContent(true);
-      isNotificationOnLocally = true;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(true);
     }
 
     /**
@@ -241,8 +245,7 @@
      */
     function _onPermissionDenied() {
       setShowNotificationContent(false);
-      isNotificationOnLocally = false;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(false);
     }
 
     /**
@@ -299,9 +302,11 @@
 
     /**
      * isNotificationOnLocally 을 local storage 에 저장한다.
+     * @param {boolean} flag
      * @private
      */
-    function _storeLocalNotificationFlag() {
+    function _storeLocalNotificationFlag(flag) {
+      isNotificationOnLocally = !!flag;
       localStorageHelper.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
     }
 
