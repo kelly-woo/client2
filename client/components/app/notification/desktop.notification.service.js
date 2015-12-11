@@ -97,14 +97,23 @@
      * @private
      */
     function _initHybridSetting() {
-      var temp;
-      notificationPermission = 'granted';
+      var isNotificationOnLocallyFlag;
+      var isShowNotificationContentFlag;
 
       _loadLocalNotificationFlag();
-      temp = isNotificationOnLocally;
+      _loadShowNotificationContentFlag();
+
+      notificationPermission = 'granted';
+      isShowNotificationContentFlag = isShowNotificationContent;
+      isNotificationOnLocallyFlag = isNotificationOnLocally;
 
       _onPermissionGranted();
-      _storeLocalNotificationFlag(temp);
+      /*
+        _onPermissionGranted 에서 isShowNotificationContent, isNotificationOnLocally 값을 강제 true 로 설정하므로,
+        해당 값을 localStorage 값으로 다시 설정 한다
+       */
+      _storeLocalNotificationFlag(isNotificationOnLocallyFlag);
+      setShowNotificationContent(isShowNotificationContentFlag);
       _onNotificationSettingChanged();
     }
 
