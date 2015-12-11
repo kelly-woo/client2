@@ -83,8 +83,16 @@
             handler: _zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
+          'NUM_PAD_PLUS': {
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
           //축소
           'MINUS': {
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          'NUM_PAD_MINUS': {
             handler: _zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
