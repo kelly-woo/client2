@@ -119,7 +119,7 @@
 }
 
 .header-navbar__title {
-  line-height: 43px;
+  line-height: 42px;
   margin-left:3px;
 }
 .header-navbar__dropdown {
@@ -275,9 +275,30 @@
 }
 
 
-.header-navbar__dropdown li.open-shortcut .shortcut-menu {
-  margin-right: 42px;
-}
 .header-navbar__dropdown li.open-shortcut i.fa-keyboard-o {
-  font-size: 21px;
+  font-size: 19px;
+}
+.header-navbar__dropdown li.open-shortcut .shortcut-menu {
+  margin-right: 40px;
+}
+
+.unjoined-channel-label,
+.shortcuts-label {
+  padding: 2px 5px;
+  background-color: rgba(15,60,85,0.085);
+  color: rgba(14,60,85,0.3);
+  border-radius: 3px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shortcuts-label {
+  line-height: 18px;
+  top: 5px;
+  right: 8px;
+  position: absolute;
+  background-color: rgba(15,60,85,0.105);
+  color: rgba(14,60,85,0.3);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
