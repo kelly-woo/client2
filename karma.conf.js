@@ -26,6 +26,7 @@ module.exports = function(config) {
       'client/bower_components/angular-socket-io/socket.js',
       'client/bower_components/angular-animate/angular-animate.js',
       'client/bower_components/angular-local-storage/angular-local-storage.js',
+      'client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'client/bower_components/lodash/lodash.js',
       'client/bower_components/jquery.lazyload/jquery.lazyload.js',
       'client/bower_components/jquery.lazyload/jquery.scrollstop.js',
@@ -42,6 +43,8 @@ module.exports = function(config) {
       'client/bower_components/blueimp-load-image/js/load-image-meta.js',
       'client/bower_components/blueimp-load-image/js/load-image-exif.js',
       'client/bower_components/blueimp-load-image/js/load-image-exif-map.js',
+      'client/bower_components/zeroclipboard/dist/ZeroClipboard.js',
+      'client/bower_components/handlebars/handlebars.js',
 
       'client/components/jandi/**/*.js',
       'client/components/config/common/**/*.js',
