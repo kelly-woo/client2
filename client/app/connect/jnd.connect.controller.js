@@ -6,16 +6,16 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager) {
 
     var UNION_DATA = {
       '1': {
         name: 'googleCalendar',
         icon: '',
-        title: 'Google Calendar',
-        desc: 'Google Calendar에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다.',
+        title: $filter('translate')('@jnd-connect-5'),
+        desc: $filter('translate')('@jnd-connect-6'),
         hasAuth: false,
-        popover: ''
+        popover: $filter('translate')('@jnd-connect-24')
       },
       //'2': {
       //  name: 'googleDrive',
@@ -28,10 +28,10 @@
       '3': {
         name: 'github',
         icon: '',
-        title: 'Github',
-        desc: 'Github의 repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다.',
+        title: $filter('translate')('@jnd-connect-15'),
+        desc: $filter('translate')('@jnd-connect-16'),
         hasAuth: false,
-        popover: ''
+        popover: $filter('translate')('@jnd-connect-23')
       },
       //'4': {
       //  name: 'dropbox',
@@ -44,23 +44,32 @@
       '5': {
         name: 'jira',
         icon: '',
-        title: 'Jira',
-        desc: 'Jira에 등록된 이슈들에 대한 알림을 잔디에서 확인할 수 있습니다',
+        title: $filter('translate')('@jnd-connect-17'),
+        desc: $filter('translate')('@jnd-connect-18'),
         hasAuth: false,
-        popover: ''
+        popover: $filter('translate')('@jnd-connect-25')
       },
       '6': {
         name: 'trello',
         icon: '',
-        title: 'Trello',
-        desc: '트렐로로로로',
+        title: $filter('translate')('@jnd-connect-19'),
+        desc: $filter('translate')('@jnd-connect-20'),
         hasAuth: false,
-        popover: ''
+        popover: $filter('translate')('@jnd-connect-26')
+      },
+      '7': {
+        name: 'webhook',
+        icon: '',
+        title: $filter('translate')('@jnd-connect-21'),
+        desc: $filter('translate')('@jnd-connect-22'),
+        hasAuth: false,
+        popover: $filter('translate')('@jnd-connect-27')
       }
     };
 
     //$scope.list = UNION_LIST;
     $scope.currentUnion = null;
+    $scope.isClose = false;
     $scope.historyBack = historyBack;
     $scope.close = close;
     $scope.unions = [];
@@ -109,7 +118,10 @@
      * 잔디 커넥트 닫기 버튼 클릭시 핸들러
      */
     function close() {
-      JndConnect.hide();
+      $scope.isClose = true;
+      $timeout(function() {
+        JndConnect.hide();
+      }, 300);
     }
 
     /**
@@ -117,7 +129,11 @@
      * TODO: depth 가 있는 경우 로직 추가해야 함
      */
     function historyBack() {
-      JndConnect.hide();
+      $scope.isClose = true;
+      $timeout(function() {
+        JndConnect.hide();
+      }, 300);
+      //JndConnect.hide();
     }
 
     /**

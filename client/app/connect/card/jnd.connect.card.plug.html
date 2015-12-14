@@ -20,12 +20,9 @@
     ng-class="{
       'on': plug.isOn
     }">
-    <span class="connect-union-plug-tool-text" ng-click="toggleOnOff()">{{plug.isOn}} 작동중</span>
-    
-    <div class="switch-button switch-off switch-on" ng-class="{'switch-on': active}" ng-click="onClick();">
-	  <div class="switch-background"></div>
-      <div class="switch-handler"></div>
-    </div>
+    <span class="connect-union-plug-tool-text jnd-cursor_pointer" ng-click="toggleOnOff();">작동중</span>
+    <switch-button active="plug.isOn"></switch-button>
+
     
     <span class="opt-button jnd-cursor-pointer"><i class="icon-pencil"></i></span>
     <span class="opt-button jnd-cursor-pointer"><i class="icon-trash"></i></span>

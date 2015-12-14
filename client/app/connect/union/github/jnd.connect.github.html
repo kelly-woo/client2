@@ -5,21 +5,21 @@
     <div class="integration-service-container detail-container github" id="jnd-connect-detail-container">
       <jnd-connect-union-header></jnd-connect-union-header>
       <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column has-inputfield">
-        <span class="setting-label">Repository 선택</span>
+        <span class="setting-label" translate>@jnd-connect-137</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
           <!--<div class="custom-select-box-btn white-button" ng-class="" ng-click="">-->
             <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-            <!--<span class="">Repository 선택</span>-->
+            <!--<span>Repository 선택</span>-->
           <!--</div>-->
           <jnd-selectbox-common
               jnd-data-list="repositories"
               jnd-data-model="selectedRepo"></jnd-selectbox-common>
 
-          <input class="setting-input jnd-float-left form-control" name="" id="" placeholder="Branch 입력 (선택사항)">
+          <input class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">
 
-          <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
+          <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;" translate>@jnd-connect-40</span>
 
           <i class="icon-long-arrow-right"></i>
 
@@ -29,7 +29,7 @@
       </section>
 
       <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
-        <span class="setting-label">연동 토픽 또는 1:1 메시지 선택</span>
+        <span class="setting-label" translate>@jnd-connect-38</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
@@ -37,10 +37,10 @@
               jnd-data-model="selectedRoom"></jnd-selectbox-room>
           <!--<div class="custom-select-box-btn white-button" ng-class="" ng-click="">-->
             <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-            <!--<span class="">토스랩 코리아</span>-->
+            <!--<span>토스랩 코리아</span>-->
           <!--</div>-->
 
-          <span class="create-new-topic white-button cursor_pointer animate-all">토픽 생성하기</span>
+          <span class="create-new-topic white-button cursor_pointer animate-all" translate>@jnd-connect-40</span>
 
           <div class="clear"></div>
 
@@ -48,13 +48,13 @@
       </section>
 
       <section class="service-setting select-nofification clear">
-        <span class="setting-label">메시지 발생 이벤트 선택</span>
+        <span class="setting-label" translate>@jnd-connect-113</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Commits</span>
@@ -63,7 +63,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Commit Comments</span>
@@ -72,7 +72,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Pull Requests Opened / Closed</span>
@@ -81,7 +81,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Pull Request Comments</span>
@@ -90,7 +90,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Issue Opened / Closed</span>
@@ -99,7 +99,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Issue Comments</span>
@@ -108,7 +108,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Branch or Tag Created / Deleted</span>
@@ -117,7 +117,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" id="" class="">
+            <input type="checkbox">
             <label>
               <div class="checkbox-description">
                 <span translate="">Branch force-pushed</span>

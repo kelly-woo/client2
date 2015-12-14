@@ -32,11 +32,13 @@
         scope.onClick = onClick;
       }
 
+      /**
+       * on click 이벤트 핸들러
+       */
       function onClick() {
-        if (scope.toggle) {
-          scope.toggle({
-            $value: scope.active
-          });
+        scope.active = !scope.active;
+        if (_.isFunction(scope.toggle)) {
+          scope.toggle(scope.active);
         }
       }
     }
