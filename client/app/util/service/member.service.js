@@ -10,7 +10,7 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload,
+  function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
                          jndPubSub, currentSessionHelper, EntityMapManager) {
     var noUExtraData = "i dont have u_extraData";
 
@@ -95,6 +95,28 @@
       isDefaultProfileImage: isDefaultProfileImage
     };
 
+    // 특정 method에 request에 abort 추가
+    _.each(['setName', 'setEmail', 'updateProfile'], function(fnName) {
+      service[fnName] = (function(originFn) {
+        return function () {
+          var abortDeferred = $q.defer();
+          var args = [].slice.apply(arguments);
+          var request;
+
+          args.push({timeout: abortDeferred.promise});
+          request = originFn.apply(service, args);
+
+          request.abort = function() {
+            abortDeferred.resolve();
+          };
+          request.finally(function() {
+            request.abort = angular.noop;
+          });
+
+          return request;
+        };
+      }(service[fnName]));
+    });
 
     return service;
 
@@ -127,8 +149,8 @@
      * @param {object} member 업데이트 할 멤버
      * @returns {*}
      */
-    function updateProfile(member) {
-      return $http({
+    function updateProfile(member, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/profile',
         data: {
@@ -137,8 +159,9 @@
           department      :   member.u_extraData.department,
           position        :   member.u_extraData.position
         }
-      });
+      };
 
+      return $http(_.extend(requestConfig, options));
     }
 
     /**
@@ -224,14 +247,15 @@
      * @param {string} name 새로 지정할 이름
      * @returns {*}
      */
-    function setName(name) {
-      return $http({
+    function setName(name, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/name',
         data: {
           name: name
         }
-      });
+      };
+      return $http(_.extend(requestConfig, options));
     }
 
     /**
@@ -248,14 +272,15 @@
      * @param {string} email 새로 지정할 이메일
      * @returns {*}
      */
-    function setEmail(email) {
-      return $http({
+    function setEmail(email, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/email',
         data: {
           email: email
         }
-      });
+      };
+      return $http(_.extend(requestConfig, options));
     }
 
     /**

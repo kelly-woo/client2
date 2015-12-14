@@ -7,22 +7,19 @@
 
   angular
     .module('jandiApp')
-    .controller('ProfileViewCtrl', ProfileViewCtrl);
+    .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice) {
+  function UserProfileCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
+                           analyticsService) {
+    var requestSetName;
+    var requestSetEmail;
+    var requestSetProfile;
+
     _init();
 
     function _init() {
-      $scope.curUser = curUser;
-      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'small');
-
-      $scope.name = $filter('getName')($scope.curUser);
-      $scope.department = $filter('getUserDepartment')($scope.curUser);
-      $scope.position = $filter('getUserPosition')($scope.curUser);
-      $scope.phoneNumber = $filter('getUserPhoneNumber')($scope.curUser);
-      $scope.email = $filter('getUserEmail')($scope.curUser);
-      $scope.statusMessage = $filter('getUserStatusMessage')($scope.curUser);
+      _setCurrentUser(curUser);
 
       $scope.isDefaultProfileImage = memberService.isDefaultProfileImage($scope.curUser.u_photoUrl);
       $scope.isStarred = $scope.curUser.isStarred;
@@ -36,9 +33,14 @@
       $scope.close = close;
       $scope.onActionClick = onActionClick;
       $scope.onSubmitDoneClick = onSubmitDoneClick;
+      $scope.onProfileChange = onProfileChange;
       $scope.postMessage = postMessage;
 
       _attachEvents();
+
+      if ($scope.isMyself) {
+        $scope.emails = $scope.account.emails;
+      }
     }
 
     /**
@@ -47,6 +49,26 @@
      */
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
+      $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
+    }
+
+    function _setCurrentUser(curUser) {
+      $scope.curUser = curUser;
+
+      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'small');
+      $scope.name = $filter('getName')($scope.curUser);
+      $scope.department = $filter('getUserDepartment')($scope.curUser);
+      $scope.position = $filter('getUserPosition')($scope.curUser);
+      $scope.phoneNumber = $filter('getUserPhoneNumber')($scope.curUser);
+      $scope.email = $filter('getUserEmail')($scope.curUser);
+      $scope.statusMessage = $filter('getUserStatusMessage')($scope.curUser);
+    }
+
+    /**
+     * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.
+     */
+    function _onCurrentMemberChanged() {
+      _setCurrentUser(memberService.getMember());
     }
 
     /**
@@ -219,6 +241,82 @@
       if (_isEnableDM() && value !== '') {
         $scope.showSubmitDone = false;
       }
+    }
+
+    function onProfileChange(type, value) {
+      switch(type) {
+        case 'name':
+          $scope.curUser.name = value;
+          _changeProfileName();
+          break;
+        case 'email':
+          $scope.curUser.u_email = value;
+          _changeProfileEmail();
+          break;
+        case 'department':
+          $scope.curUser.u_extraData.department = value;
+          _changeProfileOtherInfo();
+          break;
+        case 'position':
+          $scope.curUser.u_extraData.position = value;
+          _changeProfileOtherInfo();
+          break;
+        case 'phoneNumber':
+          $scope.curUser.u_extraData.phoneNumber = value;
+          _changeProfileOtherInfo();
+          break;
+        case 'statusMessage':
+          $scope.curUser.u_statusMessage = value;
+          _changeProfileOtherInfo();
+          break;
+      }
+    }
+
+    /**
+     * 현재 보고 있는 프로필의 이름을 바꾼다.
+     */
+    function _changeProfileName() {
+      requestSetName && requestSetName.abort();
+      requestSetName = memberService.setName(memberService.getName($scope.curUser))
+        .error(function (err) {
+          console.log(err);
+        });
+    }
+
+    /**
+     * 현재 보고 있는 프로필의 이메일을 바꾼다.
+     */
+    function _changeProfileEmail() {
+      requestSetEmail && requestSetEmail.abort();
+      requestSetEmail = memberService.setEmail(memberService.getEmail($scope.curUser))
+        .error(function (err) {
+          console.log(err);
+        });
+    }
+
+    /**
+     * 현재 보고 있는 프로필의 다른 정보(추가 정보)들을 바꾼다.
+     *   - 오늘의 기분, 전화번호, 부서, 그리고 직책
+     */
+    function _changeProfileOtherInfo() {
+      requestSetProfile && requestSetProfile.abort();
+      requestSetProfile = memberService.updateProfile($scope.curUser)
+        .success(function() {
+          // analytics
+          analyticsService.mixpanelTrack( "Set Profile" );
+          var profile_data = {
+
+            "status"    : $scope.curUser.u_statusMessage,
+            "mobile"    : $scope.curUser.u_extraData.phoneNumber,
+            "division"  : $scope.curUser.u_extraData.department,
+            "position"  : $scope.curUser.u_extraData.position
+          };
+
+          analyticsService.mixpanelPeople( "set", profile_data );
+        })
+        .error(function(err) {
+          console.error('updateUserProfile', err.code, err.msg);
+        });
     }
   }
 })();

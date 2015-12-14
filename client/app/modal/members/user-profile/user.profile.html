@@ -1,0 +1,102 @@
+<page-tracker page="topic/profile" title="Member Profile"></page-tracker>
+<!-- Modal: Mini Profile View -->
+<div class="modal-body profile-view-body" user-profile ng-switch="isSelectedImage">
+  <div class="crop-area" ng-switch-when="true">
+    <div class="croping-image">
+      <img-crop image="selectedImage"
+                result-image="croppedImage"
+                on-change="onCroppedImageChange($dataURI);"></img-crop>
+    </div>
+    <div class="crop-actions">
+      <button type="button" class="btn btn-cancel" ng-click="onCropCancel()">
+        <span translate>@btn-cancel</span>
+      </button>
+      <button type="button" class="new_channel_btn btn btn-ok" ng-click="onCropDone()">
+        <span translate>@btn-change</span>
+      </button>
+    </div>
+  </div>
+  <div ng-switch-default>
+    <div class="profile-image-wrapper">
+      <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
+        <img ng-if="!isDefaultProfileImage" class="profile-image-bg" ng-src="{{curUser.extProfileImage}}" />
+        <div ng-switch="isMyself">
+          <div class="profile-condition" ng-switch-when="false">{{statusMessage}}</div>
+          <expanding-input ng-switch-default
+                           ng-model="statusMessage"
+                           max-length="60"
+                           on-change="onProfileChange($type, $value)"
+                           input-class="profile-condition editing"></expanding-input>
+        </div>
+        <i class="icon-delete cursor_pointer" ng-click="close()"></i>
+      </div>
+      <div class="profile-image">
+        <img ng-src="{{curUser.extProfileImage}}" />
+        <div class="profile-image-change" ng-if="isMyself" ng-click="onImageEditClick()">
+          <span>편집</span>
+        </div>
+      </div>
+    </div>
+    <i class="user-star cursor_pointer" ng-if="!isMyself" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"
+       star-view="isStarred" star-view-type="member" star-view-id="{{curUser.id}}"></i>
+
+    <div ng-switch="isMyself">
+      <div class="profile-text readonly" ng-switch-when="false">
+        <div class="profile-name">{{name}}</div>
+        <div class="profile-department">{{department}}</div>
+        <div class="profile-position">{{position}}</div>
+        <div class="profile-phone-number">{{phoneNumber}}</div>
+        <div class="profile-email">{{email}}</div>
+      </div>
+      <div class="profile-text editing" ng-switch-default>
+        <expanding-input ng-model="name"
+                         max-length="30"
+                         input-class="profile-name"
+                         on-change="onProfileChange($type, $value)"
+                         input-status-class="profile-name-status"></expanding-input>
+        <expanding-input ng-model="department"
+                         max-length="60"
+                         on-change="onProfileChange($type, $value)"
+                         input-class="profile-department" ></expanding-input>
+        <expanding-input ng-model="position"
+                         max-length="60"
+                         on-change="onProfileChange($type, $value)"
+                         input-class="profile-position" ></expanding-input>
+        <expanding-input ng-model="phoneNumber"
+                         max-length="20"
+                         on-change="onProfileChange($type, $value)"
+                         input-class="profile-phone-number" ></expanding-input>
+        <expanding-input ng-model="email"
+                         list="emails"
+                         on-change="onProfileChange($type, $value)"
+                         input-class="profile-email" ></expanding-input>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <div class="action-buttons">
+        <span class="action-email" ng-click="onActionClick('email')">
+          <i class="icon-mail"></i><span translate>@common-send-mail</span>
+        </span>
+        <span class="action-file" ng-click="onActionClick('file')">
+          <i class="icon-file"></i><span translate>@common-file-list</span>
+        </span>
+        <span class="action-go" ng-switch="isMyself">
+          <span class="action-dm" ng-switch-when="false" ng-click="onActionClick('directMessage')">
+            <i class="icon-chat"></i><span translate>@common-chat-dm</span>
+          </span>
+          <span class="action-mention" ng-switch-default ng-click="onActionClick('mention')">
+            <i class="icon-at"></i><span translate>@common-mention</span>
+          </span>
+        </span>
+      </div>
+      <div class="action-direct-message" ng-if="!isDeactivatedUser && !isMyself">
+        <input class="form-control" type="text" placeholder="1:1메시지 바로 보내기" autofocus
+               message-submit="postMessage()" ng-model="message.content">
+        <div class="message-submit-bg" ng-class="{'show-submit-done': showSubmitDone}" ng-click="onSubmitDoneClick()">
+          <i class="icon-check"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

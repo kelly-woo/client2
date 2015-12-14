@@ -296,8 +296,8 @@
     function openUserProfileModal($scope, member) {
       var modalOption = {
         scope: $scope.$new(),
-        templateUrl: 'app/modal/members/user-profile/user.profile.view.html',
-        controller: 'ProfileViewCtrl',
+        templateUrl: 'app/modal/members/user-profile/user.profile.html',
+        controller: 'UserProfileCtrl',
         windowClass: 'profile-view-modal',
         resolve: {
           curUser: function getCurUser(){ return member; }
