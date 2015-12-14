@@ -3,30 +3,30 @@
   top: 50%;
   left: 50%;
 
-  max-width: 900px;
+  max-width: 860px;
   width: 90%;
   min-width: 368px;
-  
+
   -webkit-transition: opacity .3s ease-out;
   -moz-transition: opacity .3s ease-out;
   -o-transition: opacity .3s ease-out;
   -ms-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
-  
-  
+
+
   -webkit-transform:translate(-50%, -50%) !important;
   -moz-transform:translate(-50%, -50%) !important;
   -o-transform:translate(-50%, -50%) !important;
   -ms-transform:translate(-50%, -50%) !important;
   transform:translate(-50%, -50%) !important;
-  
+
   margin:0;
-  
+
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  
+
   cursor: default;
 }
 
@@ -36,7 +36,7 @@
 .modal.keyboard-shortcut-modal .modal-content,
 .modal.keyboard-shortcut-modal .modal-body {
   background-color:#FFF;
-  
+
 }
 .modal.keyboard-shortcut-modal .modal-header {
   background-color:#FCFCFC;
@@ -65,38 +65,51 @@
 .modal.keyboard-shortcut-modal .shortcut-list {
   float: left;
   width: 50%;
-  border-right: 1px solid #E1E1E1;
   height: auto;
   padding-left: 8px;
-  padding-right: 8px;
+  padding-right: 12px;
   position: relative;
 }
+
 .modal.keyboard-shortcut-modal .shortcut-list:first-child {
   padding-left:0;
 }
+.modal.keyboard-shortcut-modal .shortcut-list:first-child::after {
+  content:'';
+  top:-24px;
+  bottom:-24px;
+  right:0;
+  border-right: 1px solid #E1E1E1;
+  position: absolute;
+}
 .modal.keyboard-shortcut-modal .shortcut-list:nth-child(2) {
-  border-right-width: 0px;
   padding-right:0;
 }
 
 .modal-body__column-title {
-  margin-top: 0;
-  margin-bottom: 19px;
+  margin: 0 auto 11px 7px;
   font-size: 18px;
-  color: #C8CBCD;
-  display: none;
+  color: #AEB5B9;
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list ul {
   list-style: none;
   margin: 0;
+  border-bottom:1px solid #EDEDED;
+  padding-bottom: 9px;
+  margin-bottom: 14px;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul:last-child {
+  border-color: transparent;
+  margin-bottom: 0;
+  padding-bottom: 1px;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li {
   line-height: 20px;
 
-  padding: 4px 4px 4px 4px;
+  padding: 4px 4px 4px 8px;
   border-radius: 3px;
-  
+
   -webkit-transition: background-color .2s ease-in-out;
   -moz-transition: background-color .2s ease-in-out;
   -o-transition: background-color .2s ease-in-out;
@@ -123,22 +136,17 @@
   line-height: 20px;
   float: left;
 }
-.modal.keyboard-shortcut-modal .shortcut-list ul li span:lang(ja) {
-  font-size: 13px;
-}
+
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel {
-  width: calc(100% - 140px);
-  max-width: 310px;
+  width: calc(100% - 125px);
+  max-width: 245px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  position: absolute;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.divider {
   margin-left: 5px;
   margin-right: 2px;
-  font-size: 12px;
-  color: #979797;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.keystyle {
   font-size: 12px;
@@ -153,31 +161,38 @@
   text-align: center;
 }
 
-.modal.keyboard-shortcut-modal .shortcut-list .key-list-container {
-  /*width: 106px;*/
-}
 
-.modal.keyboard-shortcut-modal .shortcut-list .key:nth-child(2) {
-  /*margin-top: 4px;*/
-}
-
-
-@media (max-width:1000px) {
+@media (max-width:840px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
-	top: 5%;
-	margin-bottom: 5%;
-	-webkit-transform:translate(-50%, 0%) !important;
+    top: 5%;
+    margin-bottom: 5%;
+    -webkit-transform:translate(-50%, 0%) !important;
     -moz-transform:translate(-50%, 0%) !important;
     -o-transform:translate(-50%, 0%) !important;
     -ms-transform:translate(-50%, 0%) !important;
     transform:translate(-50%, 0%) !important;
   }
   .modal.keyboard-shortcut-modal .shortcut-list {
-	width: 100%;
-	border-right-width: 0;
-	padding:0;
+    width: 100%;
+    border-right-width: 0;
+    padding:0;
+  }
+  .modal.keyboard-shortcut-modal .shortcut-list:first-child::after {
+    border-color: transparent;
+  }
+  .modal.keyboard-shortcut-modal .shortcut-list ul:last-child {
+    border-bottom:1px solid #EDEDED;
+    padding-bottom: 9px;
+    margin-bottom: 14px;
+  }
+  .modal.keyboard-shortcut-modal .shortcut-list:nth-child(2) > ul:last-child {
+    border-color: transparent;
+    margin-bottom: 0;
   }
   .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  .modal-body__column-title {
+    margin-bottom:9px;
   }
 }
