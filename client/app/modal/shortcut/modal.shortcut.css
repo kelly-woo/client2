@@ -79,7 +79,7 @@
   top:-24px;
   bottom:-24px;
   right:0;
-  border-right: 1px solid #E1E1E1;
+  border-right: 1px solid #C4C4C4;
   position: absolute;
 }
 .modal.keyboard-shortcut-modal .shortcut-list:nth-child(2) {
@@ -144,6 +144,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel:lang(ja) {
+  font-size: 13px;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel > b{
+  color: #71828B;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel.upload-shortcut {
+  width: calc(100% - 64px);
+  max-width: 290px;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel.confirm-shortcut {
+  width: calc(100% - 82px);
+  max-width: 280px;
+}
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.divider {
   margin-left: 5px;
   margin-right: 2px;
@@ -159,10 +173,11 @@
   margin-left: 3px;
   min-width: 20px;
   text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 
-@media (max-width:840px) {
+@media (max-width:900px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
     top: 5%;
     margin-bottom: 5%;
