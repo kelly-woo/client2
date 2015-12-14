@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  describe('mention.view.directive', function() {
+  xdescribe('mention.view.directive', function() {
     var $compile;
     var $rootScope;
     var baseData;
