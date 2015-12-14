@@ -11,7 +11,7 @@
   function markdown() {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /(>|^|\s)([\*_~]{1,3})([^\2].*?)\2(<\/|$|\s)/g,
+      bolditalic: /([\*~]{1,3})([^\1].*)\1/g,
       anchor: /<a.*?<\/a>/g
     };
 
@@ -119,25 +119,27 @@
       for (var i = 0; i < 3; i++) {
         count = 0;
         while ((stra = (new RegExp(_regx.bolditalic)).exec(str)) !== null) {
-          if (count === 0 && (stra[0] === '>' || stra[4] === '</')) {
+          if (count === 0 && stra[0] === '>') {
             break;
           } else {
             repstr = [];
-            if (stra[2] === '~~') {
-              str = str.replace(stra[0], stra[1] + '<del>' + stra[3] + '</del>' + stra[4]);
+            if (stra[1] === '~~') {
+              str = str.replace(stra[0], '<del>' + stra[2] + '</del>');
             } else {
-              switch (stra[2].length) {
-                case 1:
-                  repstr = ['<i>', '</i>'];
-                  break;
-                case 2:
-                  repstr = ['<b>', '</b>'];
-                  break;
-                case 3:
-                  repstr = ['<i><b>', '</b></i>'];
-                  break;
+              if (stra[1].indexOf('~') === -1) {
+                switch (stra[1].length) {
+                  case 1:
+                    repstr = ['<i>', '</i>'];
+                    break;
+                  case 2:
+                    repstr = ['<b>', '</b>'];
+                    break;
+                  case 3:
+                    repstr = ['<i><b>', '</b></i>'];
+                    break;
+                }
+                str = str.replace(stra[0], repstr[0] + stra[2] + repstr[1]);
               }
-              str = str.replace(stra[0], stra[1] + repstr[0] + stra[3] + repstr[1] + stra[4]);
             }
             count++;
           }
