@@ -83,8 +83,16 @@
             handler: _zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
+          'NUM_PAD_PLUS': {
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
           //축소
           'MINUS': {
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          'NUM_PAD_MINUS': {
             handler: _zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
@@ -209,7 +217,7 @@
        */
       function _zoomIn() {
         _currentZoomScale += 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale > MAX_ZOOM_SCALE) {
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
@@ -219,9 +227,10 @@
 
       /**
        * zoom 을 설정한다
+       * @param {boolean} [isPreventEvent=false] 이벤트 트리거를 수행할 지 여부
        * @private
        */
-      function _setZoom() {
+      function _setZoom(isPreventEvent) {
         if (HybridAppHelper.isHybridApp()) {
           _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
           if (_currentZoomScale < MIN_ZOOM_SCALE) {
@@ -233,7 +242,9 @@
             $('body').css({
               'zoom': _currentZoomScale
             });
-            jndPubSub.pub('zoom:change', _currentZoomScale);
+            if (!isPreventEvent) {
+              jndPubSub.pub('zoom:change', _currentZoomScale);
+            }
           }
         }
       }
@@ -244,7 +255,7 @@
        */
       function _zoomOut() {
         _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale < MIN_ZOOM_SCALE) {
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
@@ -337,7 +348,7 @@
       function _initializeZoom() {
         _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
         _currentZoomScale = parseFloat(_currentZoomScale) || 1;
-        _setZoom();
+        _setZoom(true);
       }
 
       /**
