@@ -121,6 +121,7 @@
   font-size: 14px;
   color:#707478;
   line-height: 20px;
+  float: left;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li span:lang(ja) {
   font-size: 13px;
