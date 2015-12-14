@@ -16,7 +16,7 @@
       <li ng-repeat="row in column">
         <span class="keylabel">{{ row.text }}</span>
         <div class="pull-right">
-          <span ng-repeat="combination in row.keys" class="">
+          <span ng-repeat="combination in row.keys" class="key">
             <span ng-if="row.keys.length > 1 && $index === 0" class="pull-right divider">or</span>
             <span class="keystyle pull-right" ng-repeat="key in combination">
               {{key}}
@@ -30,4 +30,3 @@
   <div class="clear" style="clear: both;"></div>
 
 </div>
-
