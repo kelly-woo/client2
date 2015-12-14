@@ -65,30 +65,44 @@
 .modal.keyboard-shortcut-modal .shortcut-list {
   float: left;
   width: 50%;
-  border-right: 1px solid #E1E1E1;
   height: auto;
   padding-left: 8px;
-  padding-right: 8px;
+  padding-right: 12px;
+  position: relative;
 }
+
 .modal.keyboard-shortcut-modal .shortcut-list:first-child {
   padding-left:0;
 }
+.modal.keyboard-shortcut-modal .shortcut-list:first-child::after {
+  content:'';
+  top:-24px;
+  bottom:-24px;
+  right:0;
+  border-right: 1px solid #E1E1E1;
+  position: absolute;
+}
 .modal.keyboard-shortcut-modal .shortcut-list:nth-child(2) {
-  border-right-width: 0px;
   padding-right:0;
 }
 
 .modal-body__column-title {
-  margin-top: 0;
-  margin-bottom: 19px;
+  margin: 0 auto 7px 7px;  
   font-size: 18px;
   color: #C8CBCD;
-  display: none;
 }
 
 .modal.keyboard-shortcut-modal .shortcut-list ul {
   list-style: none;
   margin: 0;
+  border-bottom:1px solid #EDEDED;
+  padding-bottom: 9px;
+  margin-bottom: 14px;
+}
+.modal.keyboard-shortcut-modal .shortcut-list ul:last-child {
+  border-color: transparent;
+  margin-bottom: 0;
+  padding-bottom: 1px;
 }
 .modal.keyboard-shortcut-modal .shortcut-list ul li {
   line-height: 20px;
@@ -148,7 +162,7 @@
 }
 
 
-@media (max-width:768px) {
+@media (max-width:840px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
 	top: 5%;
 	margin-bottom: 5%;
@@ -163,7 +177,22 @@
 	border-right-width: 0;
 	padding:0;
   }
+  .modal.keyboard-shortcut-modal .shortcut-list:first-child::after {
+    border-color: transparent;
+  }
+  .modal.keyboard-shortcut-modal .shortcut-list ul:last-child {
+    border-bottom:1px solid #EDEDED;
+    padding-bottom: 9px;
+    margin-bottom: 14px;
+  }
+  .modal.keyboard-shortcut-modal .shortcut-list:nth-child(2) > ul:last-child {
+	border-color: transparent;
+	margin-bottom: 0;
+  }
   .modal.keyboard-shortcut-modal .shortcut-list ul li:last-child {
 	margin-bottom: 0px;
+  }
+  .modal-body__column-title {
+	margin-bottom:9px;
   }
 }

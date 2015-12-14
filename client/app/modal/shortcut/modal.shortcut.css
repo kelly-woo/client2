@@ -94,7 +94,7 @@
 .modal.keyboard-shortcut-modal .shortcut-list ul li {
   line-height: 20px;
 
-  padding: 4px 4px 4px 8px;
+  padding: 4px 4px 4px 4px;
   border-radius: 3px;
   
   -webkit-transition: background-color .2s ease-in-out;
@@ -122,9 +122,11 @@
   color:#707478;
   line-height: 20px;
 }
-
+.modal.keyboard-shortcut-modal .shortcut-list ul li span:lang(ja) {
+  font-size: 13px;
+}
 .modal.keyboard-shortcut-modal .shortcut-list ul li span.keylabel {
-  width: calc(100% - 120px);
+  width: calc(100% - 140px);
   max-width: 310px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -159,7 +161,7 @@
 }
 
 
-@media (max-width:768px) {
+@media (max-width:1000px) {
   .modal.keyboard-shortcut-modal .modal-dialog {
 	top: 5%;
 	margin-bottom: 5%;
