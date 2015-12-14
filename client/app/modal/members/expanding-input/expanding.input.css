@@ -1,0 +1,46 @@
+.expanding-input {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 1px solid transparent
+}
+
+.expanding-input.guide-line {
+  border-color: #e1e1e1;
+}
+
+.expanding-input:hover .expanding-input-status {
+  display: block;
+}
+
+.expanding-input input {
+  width: 100%;
+  padding-right: 24px;
+  text-align: center;
+  outline: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.expanding-input .expanding-input-status {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  border-left: 1px solid transparent;
+  cursor: pointer;
+}
+
+.expanding-input.guide-line .expanding-input-status {
+  display: block;
+  border-left-color: #e1e1e1;
+}
+
+.expanding-input .expanding-input-status i {
+  display: inline-block;
+  margin-top: 4px;
+}

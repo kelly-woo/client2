@@ -10,8 +10,8 @@
   <li ng-if="hasStar"
       role="presentation" tabindex="-1"
       star-view="msg.message.isStarred"
-      event-bubble="on"
-      message-id="{{ msg.message.id }}">
+      star-view-id="{{ msg.message.id }}"
+      event-bubble="on">
     <a role="menuitem" tabindex="-1">
       <i ng-if="!msg.message.isStarred" class="icon-star-off"></i><span ng-if="!msg.message.isStarred" translate>@star-add</span>
       <i ng-if="msg.message.isStarred" class="icon-star-on"></i><span ng-if="msg.message.isStarred" translate>@star-remove</span>

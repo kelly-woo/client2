@@ -90,7 +90,9 @@
       isUser: isUser,
       isBot: isBot,
       isJandiBot: isJandiBot,
-      isIntegrationBot: isIntegrationBot
+      isIntegrationBot: isIntegrationBot,
+
+      isDefaultProfileImage: isDefaultProfileImage
     };
 
 
@@ -648,6 +650,16 @@
     function isIntegrationBot(memberId) {
       var bot = EntityMapManager.get('bot', memberId);
       return isBot(memberId) && bot && bot.botType === 'integration_bot';
+    }
+
+    /**
+     * default profile 인지 여부
+     * @param {string} user
+     * @returns {boolean}
+     */
+    function isDefaultProfileImage(profileImage) {
+      var regxExtention = /(\.[\w]{2,3})$/;
+      return !!profileImage && regxExtention.test(profileImage);
     }
   }
 })();

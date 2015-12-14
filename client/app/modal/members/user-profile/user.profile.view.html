@@ -1,63 +1,59 @@
 <page-tracker page="topic/profile" title="Member Profile"></page-tracker>
 <!-- Modal: Mini Profile View -->
 <div class="modal-body profile-view-body">
-  <div class="profile-view-general-container" ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
-    <img class="user-profile__photo view" data-ng-src="{{ curUser.exProfileImg }}"/>
-    <div class="user-profile__fullName">{{ curUser | getName }}</div>
-    <div class="user-profile__nickName">{{ curUser | getUserStatusMessage }}</div>
+  <div class="profile-image-wrapper">
+    <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
+      <img ng-if="!isDefaultProfileImage" class="profile-image-bg" ng-src="{{curUser.extProfileImage}}" />
+      <div class="profile-condition">{{statusMessage}}</div>
+      <i class="icon-delete cursor_pointer" ng-click="close()"></i>
+    </div>
+    <img class="profile-image" ng-src="{{curUser.extProfileImage}}" />
+  </div>
+  <i class="user-star cursor_pointer" ng-if="!isMyself" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"
+     star-view="isStarred" star-view-type="member" star-view-id="{{curUser.id}}"></i>
+
+  <div ng-switch="isMyself">
+    <div class="profile-text readonly" ng-switch-when="false">
+      <div class="profile-name">{{name}}</div>
+      <div class="profile-department">{{department}}</div>
+      <div class="profile-position">{{position}}</div>
+      <div class="profile-phone-number">{{phoneNumber}}</div>
+      <div class="profile-email">{{email}}</div>
+    </div>
+    <div class="profile-text editing" ng-switch-default>
+      <expanding-input input-class="profile-name" input-status-class="profile-name-status"></expanding-input>
+      <div><input type="text" ng-model="department"/></div>
+      <div><input type="text" ng-model="position"/></div>
+      <div><input type="text" ng-model="phoneNumber"/></div>
+      <div><input type="text" ng-model="email"/></div>
+    </div>
   </div>
 
-  <div class="profile-view-info-container" ng-if="!isDeactivatedUser">
-    <div class="profile-view__info border-bottom_grey">
-      <div class="info-title"><span translate>@common-department</span></div>
-      <div class="info-content">{{ curUser | getUserDepartment }}</div>
-    </div>
-    <div class="profile-view__info border-bottom_grey">
-      <div class="info-title"><span translate>@common-position</span></div>
-      <div class="info-content">{{ curUser | getUserPosition }}</div>
-    </div>
-    <div class="profile-view__info border-bottom_grey">
-      <div class="info-title"><span translate>@common-phone</span></div>
-      <div class="info-content">{{ curUser | getUserPhoneNumber }}</div>
-    </div>
-    <div class="profile-view__info">
-      <div class="info-title"><span translate>@common-email</span></div>
-      <div class="info-content email">{{ curUser | getUserEmail }}</div>
-    </div>
-  </div>
 
-  <div class="profile-view-info-container disabled-member-profile-body" ng-if="isDeactivatedUser">
-    <img class="disabled-member-profile-body__image" src="assets/images/icon-disabled-member.png"/>
-    <span>{{::deactivatedMessage}}</span>
-  </div>
 
-  <div class="profile-view-action-container">
-    <div class="profile-view-action border-right_grey" data-ng-click="onActionClick('email');"
-         ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
-      <div class="profile-view-action__img">
-        <i class="icon-mail"></i>
+  <div class="profile-actions">
+    <div class="action-buttons">
+      <span class="action-email" ng-click="onActionClick('email')">
+        <i class="icon-mail"></i><span translate>@common-send-mail</span>
+      </span>
+      <span class="action-file" ng-click="onActionClick('file')">
+        <i class="icon-file"></i><span translate>@common-file-list</span>
+      </span>
+      <span class="action-go" ng-switch="isMyself">
+        <span class="action-dm" ng-switch-when="false" ng-click="onActionClick('directMessage')">
+          <i class="icon-chat"></i><span translate>@common-chat-dm</span>
+        </span>
+        <span class="action-mention" ng-switch-default ng-click="onActionClick('mention')">
+          <i class="icon-at"></i><span translate>@common-mention</span>
+        </span>
+      </span>
+    </div>
+    <div class="action-direct-message" ng-if="!isDeactivatedUser && !isMyself">
+      <input class="form-control" type="text" placeholder="1:1메시지 바로 보내기" autofocus
+             message-submit="postMessage()" ng-model="message.content">
+      <div class="message-submit-bg" ng-class="{'show-submit-done': showSubmitDone}" ng-click="onSubmitDoneClick()">
+        <i class="icon-check"></i>
       </div>
-      <div class="profile-view-action__text"><span translate>@common-send-mail</span></div>
-    </div>
-
-    <div class="profile-view-action" data-ng-click="onActionClick('file');">
-      <div class="profile-view-action__img">
-        <i class="icon-file"></i>
-      </div>
-      <div class="profile-view-action__text"><span translate>@common-file-list</span></div>
-    </div>
-
-    <div class="profile-view-action border-left_grey" data-ng-click="onActionClick('directMessage');"
-         ng-class="{'disabled-member-opac-overlay': isUserDisabled || isMyself}">
-
-      <div class="profile-view-action__img">
-        <i class="icon-chat"></i>
-      </div>
-      <div class="profile-view-action__text"><span translate>@common-chat-dm</span></div>
     </div>
   </div>
-
-  <span ng-if="false">
-    <span translate>@common-deleted-member-profile-msg</span>
-  </span>
 </div>

@@ -1,0 +1,7 @@
+<div class="expanding-input {{::inputClass}}" ng-class="{'guide-line': hasGuideLine}" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()">
+  <input type="text" ng-model="model" ng-focus="onFocus()" ng-blur="onBlur()"/>
+  <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-click="onClick()">
+    <i class="icon-pencil-fill" ng-switch-when="edit"></i>
+    <i class="icon-delete" ng-switch-when="cancel"></i>
+  </div>
+</div>

@@ -121,9 +121,9 @@
       if (memberList) {
         if (jandiBot) {
           jandiBot = entityAPIservice.getJandiBot();
+          memberList = memberList.concat([jandiBot]);
         }
 
-        memberList = memberList.concat([jandiBot]);
         _.forEach(memberList, function(member) {
           if (memberService.isDeactivatedMember(member)) {
             disabledMemberList.push(member);

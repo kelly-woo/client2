@@ -30,7 +30,7 @@
     <div class="file-extend">
       <div class="file-star" ng-class="{'show': isStarred}"
             tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
-        <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" message-id="{{file.id}}"></i>
+        <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="{{file.id}}"></i>
       </div>
       <!--    DROPDOWN MENU   -->
       <div class="file-menu" dropdown is-open="status.isopen" ng-show="file.type === 'file'">

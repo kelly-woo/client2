@@ -47,7 +47,7 @@
       var data = socketEvent.data;
 
       if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('starred', data);
+        jndPubSub.pub('message:starred', data);
       }
     }
 
@@ -59,7 +59,7 @@
     function _onMessageUnStarred(socketEvent) {
       var data = socketEvent.data;
       if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('unStarred', data);
+        jndPubSub.pub('message:unStarred', data);
       }
     }
 

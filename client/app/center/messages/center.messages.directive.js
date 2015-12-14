@@ -50,8 +50,8 @@
 
         scope.$on('messages:updateUnread', _onUpdateUnread);
 
-        scope.$on('starred', _onStarred);
-        scope.$on('unStarred', _onUnStarred);
+        scope.$on('message:starred', _onStarred);
+        scope.$on('message:unStarred', _onUnStarred);
 
         scope.$on('$destroy', _onDestroy);
 
