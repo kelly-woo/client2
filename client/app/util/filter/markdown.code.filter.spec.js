@@ -1,10 +1,6 @@
 (function() {
   'use strict';
 
-  //@JiHoon 291
-  //@Young Park 11153801
-  //@mak pak 3017772
-
   describe('markdown.code.filter', function() {
     var $filter;
 
