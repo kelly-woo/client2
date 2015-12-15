@@ -117,7 +117,61 @@
         expect(markdownString1).toEqual(expectString1);
       });
     });
+    describe('link-anchor', function() {
+      it('여러가지 케이스를 테스트 한다.', function() {
+        var markdownString1 = $filter('[링크](http://naver.com) 입니다.');
+        var expectString1 = '<a href="http://naver.com" target="_blank" rel="nofollow">링크</a> 입니다.';
 
+        var markdownString2 = $filter('중간 [링크](http://naver.com) 입니다.');
+        var expectString2 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크</a> 입니다.';
+
+        var markdownString3 = $filter('중간 [링크](http://naver.com)');
+        var expectString3 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크</a>';
+
+        var markdownString4 = $filter('중간 [링크1](http://naver.com)하하[링크2](http://google.com)');
+        var expectString4 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a>하하<a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+        var markdownString5 = $filter('중간 [링크1](http://naver.com) 하하 [링크2](http://google.com)');
+        var expectString5 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+        expect(markdownString1).toEqual(expectString1);
+        expect(markdownString2).toEqual(expectString2);
+        expect(markdownString3).toEqual(expectString3);
+        expect(markdownString4).toEqual(expectString4);
+        expect(markdownString5).toEqual(expectString5);
+      });
+      it('꺽쇠 <> 포멧의 경우 지원하는지 확인한다.', function() {
+        var markdownString6 = $filter('중간 [링크1](<http://naver.com>) 하하 [링크2](<http://google.com>)');
+        var expectString6 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+        expect(markdownString6).toEqual(expectString6);
+      });
+
+      it('img(!) 가 들어갔을 경우를 테스트 한다. 현재 스펙은 링크 그대로 반환한다.', function() {
+        //TODO: img 태그 지원가능한 스펙이 된다면 img tag 로 변환이 잘 되는지를 테스트해야함.
+        var markdownString1 = $filter('![링크](http://naver.com) 입니다.');
+        var expectString1 = '!<a href="http://naver.com" target="_blank" rel="nofollow">링크</a> 입니다.';
+
+        var markdownString2 = $filter('중간 ![링크](http://naver.com) 입니다.');
+        var expectString2 = '중간 !<a href="http://naver.com" target="_blank" rel="nofollow">링크</a> 입니다.';
+
+        var markdownString3 = $filter('중간 ![링크](http://naver.com)');
+        var expectString3 = '중간 !<a href="http://naver.com" target="_blank" rel="nofollow">링크</a>';
+
+        var markdownString4 = $filter('중간 ![링크1](http://naver.com)하하![링크2](http://google.com)');
+        var expectString4 = '중간 !<a href="http://naver.com" target="_blank" rel="nofollow">링크1</a>하하!<a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+        var markdownString5 = $filter('중간 ![링크1](http://naver.com) 하하 ![링크2](http://google.com)');
+        var expectString5 = '중간 !<a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 !<a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+        expect(markdownString1).toEqual(expectString1);
+        expect(markdownString2).toEqual(expectString2);
+        expect(markdownString3).toEqual(expectString3);
+        expect(markdownString4).toEqual(expectString4);
+        expect(markdownString5).toEqual(expectString5);
+
+      });
+
+    });
 
     describe('혼합 테스트', function() {
       describe('계층 구조의 텍스트도 잘 변환하는지 확인한다.', function() {
@@ -146,6 +200,19 @@
         it('띄어쓰기 없는 복잡한 마크다운 1', function() {
           var markdownString1 = $filter('일반*기울임**굵게기울임~~그리고<a href="http://www.jandi.com/test">취소선</a>~~을해본다**텍스트의끝*');
           var expectString1 = '일반<i>기울임<b>굵게기울임<del>그리고<a href="http://www.jandi.com/test">취소선</a></del>을해본다</b>텍스트의끝</i>';
+          expect(markdownString1).toEqual(expectString1);
+        });
+      });
+      describe('link markdown 까지 잘 변환하는지 확인한다.', function() {
+        it('복잡한 마크다운 1 - link 에 상대 경로/절대경로 적용시', function() {
+          var markdownString1 = $filter('일반 *기울임 **굵게 기울임 ~~그리고 <a href="http://www.jandi.com/test">취소선</a>[링크1](/index.html)~~을 [링크2](./index.html) 해본다**텍스트의 끝*');
+          var expectString1 = '일반 <i>기울임 <b>굵게 기울임 <del>그리고 <a href="http://www.jandi.com/test">취소선</a><a href="/index.html" target="_blank" rel="nofollow">링크1</a></del>을 <a href="./index.html" target="_blank" rel="nofollow">링크2</a> 해본다</b>텍스트의 끝</i>';
+          expect(markdownString1).toEqual(expectString1);
+        });
+
+        it('복잡한 마크다운 2 - link 에 url 적용시', function() {
+          var markdownString1 = $filter('일반 *기울임 **굵게 기울임 ~~그리고 <a href="http://www.jandi.com/test">취소선</a>[링크1](http://www.jandi.com/index.html)~~을 [링크2](http://www.jandi.com/index2.html) 해본다**텍스트의 끝*');
+          var expectString1 = '일반 <i>기울임 <b>굵게 기울임 <del>그리고 <a href="http://www.jandi.com/test">취소선</a><a href="http://www.jandi.com/index.html" target="_blank" rel="nofollow">링크1</a></del>을 <a href="http://www.jandi.com/index2.html" target="_blank" rel="nofollow">링크2</a> 해본다</b>텍스트의 끝</i>';
           expect(markdownString1).toEqual(expectString1);
         });
       });
