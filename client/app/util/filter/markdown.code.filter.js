@@ -10,12 +10,12 @@
     .module('jandiApp')
     .filter('markdown', markdown);
 
-  function markdown() {
+  function markdown($filter) {
     var _regx = {
       isCode: /^`{3,}/,
       bolditalic: /([\*~]{1,3})([^\1].*)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g
+      links: /\[([^\]<>]+)\]\(<?(.*?)>?\)/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
 
@@ -168,8 +168,10 @@
      */
     function _parseLinks(str) {
       var stra;
+      str = $filter('htmlDecode')(str);
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
+        console.log(stra);
         if (stra[0].substr(0, 1) === '!') {
           str = str.replace(stra[0], '<img src="' + stra[2] + '" style="max-width:100%" alt="' + stra[1] + '" title="' + stra[1] + '" />\n');
         } else {

@@ -140,12 +140,34 @@
         expect(markdownString4).toEqual(expectString4);
         expect(markdownString5).toEqual(expectString5);
       });
-      it('꺽쇠 <> 포멧의 경우 지원하는지 확인한다.', function() {
-        var markdownString6 = $filter('중간 [링크1](<http://naver.com>) 하하 [링크2](<http://google.com>)');
-        var expectString6 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
-        expect(markdownString6).toEqual(expectString6);
+      describe('꺽쇠 <> 포멧의 경우 지원하는지 확인한다.', function() {
+        it('일반 꺽쇠', function() {
+          var markdownString1 = $filter('중간 [링크1](<>) 하하 [링크2](<>)');
+          var expectString1 = '중간 <a href="" target="_blank" rel="nofollow">링크1</a> 하하 <a href="" target="_blank" rel="nofollow">링크2</a>';
+
+          var markdownString2 = $filter('중간 [링크1](<http://naver.com>) 하하 [링크2](<http://google.com>)');
+          var expectString2 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+          expect(markdownString1).toEqual(expectString1);
+          expect(markdownString2).toEqual(expectString2);
+        });
+        it('html encode 된 꺽쇠', function() {
+          var markdownString1 = $filter('중간 [링크1](&lt;&gt;) 하하 [링크2](&lt;&gt;)');
+          var expectString1 = '중간 <a href="" target="_blank" rel="nofollow">링크1</a> 하하 <a href="" target="_blank" rel="nofollow">링크2</a>';
+
+          var markdownString2 = $filter('중간 [링크1](&lt;http://naver.com&gt;) 하하 [링크2](&lt;http://google.com&gt;)');
+          var expectString2 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+
+          expect(markdownString1).toEqual(expectString1);
+          expect(markdownString2).toEqual(expectString2);
+        });
       });
 
+      it('pre link parser 에 의해 선 파싱되었을 경우에도 정상 동작하는지 확인한다.', function() {
+        var markdownString1 = $filter('중간 [링크1](<<a href="http://naver.com" target="_blank" rel="nofollow">http://naver.com</a>>) 하하 [링크2](<<a href="http://google.com" target="_blank" rel="nofollow">http://google.com</a>>)');
+        var expectString1 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
+        expect(markdownString1).toEqual(expectString1);
+      });
       it('img(!) 가 들어갔을 경우를 테스트 한다. 현재 스펙은 링크 그대로 반환한다.', function() {
         //TODO: img 태그 지원가능한 스펙이 된다면 img tag 로 변환이 잘 되는지를 테스트해야함.
         var markdownString1 = $filter('![링크](http://naver.com) 입니다.');
