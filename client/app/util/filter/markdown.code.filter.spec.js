@@ -18,7 +18,7 @@
         var markdownString1 = $filter('*텍스트* 입니다.');
         var expectString1 = '<i>텍스트</i> 입니다.';
 
-        var markdownString2 = $filter('* 텍스트 * 입니다.');;
+        var markdownString2 = $filter('* 텍스트 * 입니다.');
         var expectString2 = '<i> 텍스트 </i> 입니다.';
 
         var markdownString3 = $filter('중간 *텍스트* 입니다.');
@@ -47,7 +47,7 @@
         var markdownString1 = $filter('**텍스트** 입니다.');
         var expectString1 = '<b>텍스트</b> 입니다.';
 
-        var markdownString2 = $filter('** 텍스트 ** 입니다.');;
+        var markdownString2 = $filter('** 텍스트 ** 입니다.');
         var expectString2 = '<b> 텍스트 </b> 입니다.';
 
         var markdownString3 = $filter('중간 **텍스트** 입니다.');
@@ -81,7 +81,7 @@
         var markdownString1 = $filter('***텍스트*** 입니다.');
         var expectString1 = '<i><b>텍스트</b></i> 입니다.';
 
-        var markdownString2 = $filter('*** 텍스트 *** 입니다.');;
+        var markdownString2 = $filter('*** 텍스트 *** 입니다.');
         var expectString2 = '<i><b> 텍스트 </b></i> 입니다.';
 
         var markdownString3 = $filter('중간 ***텍스트*** 입니다.');
