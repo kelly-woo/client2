@@ -25,10 +25,15 @@
       var parentAngular = window.opener && window.opener.angular;
       var jqBody;
       var parenPubSub;
+      var parentJndUtil;
       if (parentAngular && callbackEvent) {
+
         jqBody = parentAngular.element('body');
         parenPubSub = jqBody.injector().get('jndPubSub');
-        parenPubSub.pub(callbackEvent);
+        parentJndUtil = jqBody.injector().get('JndUtil');
+        parentJndUtil.safeApply(jqBody.scope(), function() {
+          parenPubSub.pub(callbackEvent);
+        });
       } else {
         //opener 없이 접근한 경우
       }
