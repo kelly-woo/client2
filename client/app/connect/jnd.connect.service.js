@@ -13,6 +13,14 @@
   function JndConnect(jndPubSub) {
     this.show = show;
     this.hide = hide;
+    this.hideLoading = hideLoading;
+
+    /**
+     * connect main 의 loading 을 hide 한다.
+     */
+    function hideLoading() {
+      jndPubSub.pub('JndConnect:hideLoading');
+    }
 
     /**
      * 커넥트 화면을 show 한다.
