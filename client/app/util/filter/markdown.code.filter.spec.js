@@ -136,6 +136,7 @@
         expect(markdownString4).toEqual(expectString4);
         expect(markdownString5).toEqual(expectString5);
       });
+      //현재 꺽쇠 스펙은 지원하지 않음
       xdescribe('꺽쇠 <> 포멧의 경우 지원하는지 확인한다.', function() {
         it('일반 꺽쇠', function() {
           var markdownString1 = $filter('중간 [링크1](<>) 하하 [링크2](<>)');
