@@ -32,12 +32,13 @@
         <span class="setting-label" translate>@jnd-connect-41</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
-          <div class="checkbox-list-container">
+          <div class="checkbox-list-container notification-minute-container">
             <input type="checkbox">
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>15분 전</span>
-            </div>
+            <jnd-connect-union-button list="notificationMinuteList"></jnd-connect-union-button>
+            <!--<div class="custom-select-box-btn white-button">-->
+              <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
+              <!--<span>15분 전</span>-->
+            <!--</div>-->
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -51,14 +52,8 @@
                 <span translate>@jnd-connect-54</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>당일</span>
-            </div>
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>15분 전</span>
-            </div>
+            <jnd-connect-union-button list="allDayNotificationDateList"></jnd-connect-union-button>
+            <jnd-connect-union-button list="allDaynotificationHourList"></jnd-connect-union-button>
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -79,10 +74,7 @@
                 <span translate>@jnd-connect-88</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>15분 전</span>
-            </div>
+            <jnd-connect-union-button list="dailyScheduleSummaryHourList"></jnd-connect-union-button>
             <label>
               <div class="checkbox-description">
                 <span translate="">(KST)</span>
@@ -96,14 +88,8 @@
                 <span translate>@jnd-connect-89</span>
               </div>
             </label>
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>15분 전</span>
-            </div>
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>월요일</span>
-            </div>
+            <jnd-connect-union-button list="weeklyScheduleSummaryDayList"></jnd-connect-union-button>
+            <jnd-connect-union-button list="weeklyScheduleSummaryHourList"></jnd-connect-union-button>
             <label>
               <div class="checkbox-description">
                 <span translate="">(KST)</span>

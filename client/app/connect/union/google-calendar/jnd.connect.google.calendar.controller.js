@@ -6,8 +6,9 @@
     .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, JndConnect, EntityMapManager) {
-    $scope.selectedRoom = null;
+  function JndConnectGoogleCalendarCtrl($scope, JndConnectGoogleCalendar) {
+    $scope.selectedRoom = '';
+
     _init();
 
     /**
@@ -15,6 +16,13 @@
      * @private
      */
     function _init() {
+      $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
+      $scope.allDayNotificationDateList = JndConnectGoogleCalendar.getDateList();
+      $scope.allDaynotificationHourList = JndConnectGoogleCalendar.getHourList();
+
+      $scope.dailyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
+      $scope.weeklyScheduleSummaryDayList = JndConnectGoogleCalendar.getDayList();
+      $scope.weeklyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
     }
   }
 })();

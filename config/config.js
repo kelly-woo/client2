@@ -12,6 +12,7 @@
       team_name           : '@@team_name',
       name                : '@@name',
       api_address         : '@@api_address',
+      api_connect_address : '@@api_connect_address',
       socket_address      : '@@socket_address',
       file_address        : '@@file_address',
       file_upload_address : '@@file_upload_address',

@@ -1,0 +1,14 @@
+<div class="union-button-wrapper {{::unionButtonClass}}" ng-class="{'active': isActiveButton}"dropdown on-toggle="onToggle(open)">
+  <div class="union-button" dropdown-toggle>
+    <span class="" ng-bind="selectedItem.text"></span>
+    <i class="icon-angle-down"></i>
+  </div>
+  <ul class="dropdown-menu grey_dropdown" role="menu">
+    <li role="presentation" tabindex="-1" ng-repeat="item in list track by $index"
+        ng-class="{active: isActive($index)}"
+        ng-mouseenter="selectActive($index)"
+        ng-click="selectItem($index)">
+      <span>{{item.text}}</span>
+    </li>
+  </ul>
+</div>

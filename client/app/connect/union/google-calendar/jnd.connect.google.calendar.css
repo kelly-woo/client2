@@ -1,0 +1,10 @@
+.notification-minute-container ._selectbox {
+  display: inline-block;
+  height: 33px;
+  line-height: 33px;
+  vertical-align: middle;
+}
+
+.notification-minute-container ._selectbox .custom-select-box-btn {
+  width: 100px;
+}
