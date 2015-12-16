@@ -92,7 +92,7 @@
     $scope.$on('rPanelResetQuery', _onResetQuery);
 
     //  From profileViewerCtrl
-    $rootScope.$on('updateFileWriterId', function(event, userId) {
+    $scope.$on('updateFileWriterId', function(event, userId) {
       var entity = EntityMapManager.get('total', userId);
 
       _initSharedByFilter(entity);
@@ -104,7 +104,7 @@
     /**
      * When file type filter has been changed.
      */
-    $rootScope.$on('updateFileTypeQuery', function(event, type) {
+    $scope.$on('updateFileTypeQuery', function(event, type) {
       _onUpdateFileTypeQuery(type);
     });
 

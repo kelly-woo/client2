@@ -54,8 +54,6 @@
 
     that.closeModal = closeModal;
 
-    that.setRemovePromise = setRemovePromise;
-
     /**
      * file 을 upload 하는 모달창을 연다.
      * @param $scope
@@ -451,7 +449,6 @@
         modal = $modal.open(options);
 
         _modalRendered(modal, options);
-        setRemovePromise(modal);
 
         return modal;
       }
@@ -481,27 +478,6 @@
             $(options.autofocus).focus();
           }, options.renderedTimeout);
         }
-      });
-    }
-
-    /**
-     * modal element 강제 삭제 설정
-     * modal이 close 되어도 element가 삭제되지 않는 경우 처리를 위함
-     * @param {object} modal
-     * @private
-     */
-    function setRemovePromise(modal) {
-      var jqModal = $('div.modal');
-      var jqBody = $('body');
-      var jqBackdrop = $('.modal-backdrop');
-
-      modal.result.finally(function() {
-        modal.close();
-        setTimeout(function() {
-          jqBody.removeClass('modal-open');
-          jqModal.remove();
-          jqBackdrop.remove();
-        }, 200);
       });
     }
   }
