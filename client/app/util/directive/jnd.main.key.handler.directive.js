@@ -9,7 +9,7 @@
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
   function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
-                             JndLocalStorage) {
+                             JndLocalStorage, JndZoom) {
     return {
       restrict: 'A',
       link: link
@@ -83,8 +83,16 @@
             handler: _zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
+          'NUM_PAD_PLUS': {
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
           //축소
           'MINUS': {
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          'NUM_PAD_MINUS': {
             handler: _zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
@@ -92,6 +100,9 @@
           'NUM_0': {
             handler: _zoomReset,
             extraCondition: HybridAppHelper.isHybridApp
+          },
+          'SLASH': {
+            handler: _showShortcutGuide
           }
         },
         'alt': {
@@ -206,7 +217,7 @@
        */
       function _zoomIn() {
         _currentZoomScale += 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale > MAX_ZOOM_SCALE) {
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
@@ -216,9 +227,10 @@
 
       /**
        * zoom 을 설정한다
+       * @param {boolean} [isPreventEvent=false] 이벤트 트리거를 수행할 지 여부
        * @private
        */
-      function _setZoom() {
+      function _setZoom(isPreventEvent) {
         if (HybridAppHelper.isHybridApp()) {
           _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
           if (_currentZoomScale < MIN_ZOOM_SCALE) {
@@ -230,6 +242,9 @@
             $('body').css({
               'zoom': _currentZoomScale
             });
+            if (!isPreventEvent) {
+              JndZoom.zoom(_currentZoomScale);
+            }
           }
         }
       }
@@ -240,7 +255,7 @@
        */
       function _zoomOut() {
         _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale < MIN_ZOOM_SCALE) {
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
@@ -333,7 +348,7 @@
       function _initializeZoom() {
         _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
         _currentZoomScale = parseFloat(_currentZoomScale) || 1;
-        _setZoom();
+        _setZoom(true);
       }
 
       /**
@@ -510,8 +525,9 @@
        * sticker 토글
        * @private
        */
-      function _toggleSticker() {
-        jndPubSub.pub('center:toggleSticker');
+      function _toggleSticker(keyEvent) {
+        var target = $(keyEvent.target).is('#file-detail-comment-input') ? 'file' : 'chat';
+        jndPubSub.pub(target + ':toggleSticker');
       }
 
       /**
@@ -544,7 +560,15 @@
           Privacy.set();
         }
       }
-      
+
+      /**
+       * 키보드 숏컷 가이드를 노출한다
+       * @private
+       */
+      function _showShortcutGuide() {
+        modalHelper.openShortcutModal(scope);
+      }
+
       /**
        * center의 chat input에 focus가야하는 shortcut인지 여부를 반환한다.
        * @param {object} keyEvent

@@ -1,7 +1,7 @@
 <div class="text-msg-item-container">
   <!--  User Thumbnail -->
   <div ng-if="hasProfile" class="msg-item-float cursor_pointer _user">
-    <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
+    <img class="user-profile user-thumb" ng-src="{{ msg.exProfileImg }}"/>
   </div>
 
   <div ng-if="hasProfile" class="msg-item-header _user">
@@ -16,7 +16,7 @@
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
-      <img ng-if="::msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
+      <img ng-if="::msg.message.contentType === 'sticker'" class="sticker size_5" ng-src="{{msg.message.content.url}}"/>
       <span ng-if="::msg.message.contentType !== 'sticker'"
             class="keep msg-text-body msg-text-sending"
             ng-bind-html="(msg.message.content.body) || ''"></span>

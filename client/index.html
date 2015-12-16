@@ -88,6 +88,7 @@
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
+  <link rel="stylesheet" href="app/modal/shortcut/modal.shortcut.css">
   <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
   <link rel="stylesheet" href="app/modal/teams/team_invite/invite_emails/invite.emails.css">
   <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
@@ -194,7 +195,8 @@
   </div>
   <div ng-if="!isReady" class="full-screen z-index-top">
   </div>
-  <privacy-guide></privacy-guide>
+  <guide-privacy></guide-privacy>
+  <guide-zoom></guide-zoom>
 </div>
 
 <!--<div class="is-ready-loading" ng-show="!isReady">-->
@@ -298,6 +300,7 @@
 <script src="app/util/directive/jnd.main.key.handler.directive.js"></script>
 <script src="app/util/directive/jnd.tooltip.directive.js"></script>
 <script src="app/util/directive/jnd.tooltip.trigger.directive.js"></script>
+<script src="app/util/directive/jnd.translate.html.js"></script>
 <script src="app/util/directive/jnd.version.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/other.team.badge.indicator.directive.js"></script>
@@ -433,6 +436,8 @@
 <script src="app/external_share/external.share.view.directive.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
+<script src="app/layer/guide/guide.privacy.directive.js"></script>
+<script src="app/layer/guide/guide.zoom.directive.js"></script>
 <script src="app/left/badge/badge.directive.js"></script>
 <script src="app/left/left.controller.js"></script>
 <script src="app/left/left.service.js"></script>
@@ -482,10 +487,10 @@
 <script src="app/modal/members/user-profile/user.profile.view.controller.js"></script>
 <script src="app/modal/modal.service.js"></script>
 <script src="app/modal/password/password.reset.request.controller.js"></script>
-<script src="app/modal/privacy.guide/privacy.guide.directive.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
+<script src="app/modal/shortcut/modal.shortcut.controller.js"></script>
 <script src="app/modal/teams/team_change/team.change.controller.js"></script>
 <script src="app/modal/teams/team_invite/invite_emails/invite.emails.directive.js"></script>
 <script src="app/modal/teams/team_invite/team.invite.controller.js"></script>

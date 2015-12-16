@@ -1971,10 +1971,6 @@ msgid "@setting-notification-turn-on"
 msgstr "开启电脑版的推拨通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@shorcut-new-line"
-msgstr "进行换行"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-confirm-modal"
 msgstr "确认 (执行任何等待确认的指令)"
 
@@ -1993,6 +1989,10 @@ msgstr "开启快找"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "锁住屏幕"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr "进行换行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-open-shortcut"
@@ -2037,6 +2037,26 @@ msgstr "开启贴图列表"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
 msgstr "更换团队"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr "進階快捷"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr "基本快捷"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr "信息框控制"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr "右面板控制"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr "页面浏览"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-toggle-rpanel"
@@ -2621,6 +2641,9 @@ msgstr "JANDI 新信息"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "星期三"
+
+#~ msgid "@shorcut-new-line"
+#~ msgstr "进行换行"
 
 #~ msgid "@btn-send"
 #~ msgstr "送出"

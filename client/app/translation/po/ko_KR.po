@@ -2058,10 +2058,6 @@ msgid "@setting-notification-turn-on"
 msgstr "바탕화면 알림 사용하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@shorcut-new-line"
-msgstr "줄바꿈"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-confirm-modal"
 msgstr "각종 안내 창에서 확인 버튼 누르기"
 
@@ -2080,6 +2076,10 @@ msgstr "점프 (<b>J</b>ump)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "전체 화면 흐림 처리하여 화면 가리기 (<b>L</b>ock)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr "줄바꿈"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-open-shortcut"
@@ -2124,6 +2124,26 @@ msgstr "스티커 (<b>E</b>moticon)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
 msgstr "팀 전환하기 (<b>T</b>eam)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr "추가 기능"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr "기본 기능"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr "메시지 작성"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr "오른쪽 탭"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr "보기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-toggle-rpanel"
@@ -2740,6 +2760,9 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@shorcut-new-line"
+#~ msgstr "줄바꿈"
 
 #~ msgid "@btn-send"
 #~ msgstr "보내기"

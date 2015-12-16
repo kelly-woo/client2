@@ -51,6 +51,8 @@
       '[': 219,
       'PLUS': 187,
       'MINUS': 189,
+      'NUM_PAD_PLUS': 107,
+      'NUM_PAD_MINUS': 109,
       'SLASH': 191,
       'LEFT_WINDOW_KEY': 91,
       'F5': 116,

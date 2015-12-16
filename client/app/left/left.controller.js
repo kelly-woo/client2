@@ -656,7 +656,7 @@ app.controller('leftPanelController1', function(
   /**
    *
    */
-  $rootScope.$on('updateLeftPanelCaller', function() {
+  $scope.$on('updateLeftPanelCaller', function() {
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
@@ -674,18 +674,18 @@ app.controller('leftPanelController1', function(
     }
   };
 
-  $rootScope.$on('onMemberClick', function(event, member) {
-    $scope.onMemberClick(member);
+  $scope.$on('onUserClick', function(event, user) {
+    $scope.onUserClick(user);
   });
-  //  Add 'onMemberClick' to redirect to direct message to 'user'
+  //  Add 'onUserClick' to redirect to direct message to 'user'
   //  center and header are calling.
-  $scope.onMemberClick = function(member) {
-    if (angular.isNumber(member)) {
-      member = EntityMapManager.get('total', member);
-    } else {
-      member = EntityMapManager.get('total', member.id);
+  $scope.onUserClick = function(user) {
+    if (angular.isNumber(user)) {
+      user = EntityMapManager.get('total', user);
     }
-
+    else {
+      user = EntityMapManager.get('total', user.id);
+    }
     if (memberService.isUser(member.id)) {
       modalHelper.openUserProfileModal($scope, member);
     } else if (memberService.isJandiBot(member.id)) {

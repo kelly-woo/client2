@@ -6,15 +6,15 @@
 
   angular
     .module('jandiApp')
-    .directive('privacyGuide', privacyGuide);
+    .directive('guidePrivacy', guidePrivacy);
 
-  function privacyGuide($filter, jndKeyCode, jndPubSub, Privacy, Browser) {
+  function guidePrivacy($filter, jndKeyCode, jndPubSub, Privacy, Browser) {
     return {
       restrict: 'E',
       link: link,
       replace: true,
       scope: {},
-      templateUrl: 'app/modal/privacy.guide/privacy.guide.html'
+      templateUrl: 'app/layer/guide/guide.privacy.html'
     };
 
     function link(scope, el, attrs) {
