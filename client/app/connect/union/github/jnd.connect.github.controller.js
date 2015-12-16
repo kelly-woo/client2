@@ -6,10 +6,10 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectGithubCtrl($scope, $timeout, JndConnect, EntityMapManager) {
     $scope.selectedRoom = null;
     $scope.selectedRepo = 0;
-
+    $scope.isInitialized = false;
     $scope.repositories = [
       {
         text: 'repo0',
@@ -40,6 +40,9 @@
      */
     function _init() {
       _attachEvents();
+      $timeout(function() {
+        $scope.isInitialized = true;
+      }, 1000);
     }
     function _attachEvents() {
       $scope.$on('unionFooter:save', _onSave);

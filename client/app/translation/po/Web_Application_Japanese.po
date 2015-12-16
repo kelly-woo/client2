@@ -2018,10 +2018,6 @@ msgid "@setting-notification-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@shorcut-new-line"
-msgstr "改行"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-confirm-modal"
 msgstr "各種の案内メッセージで「確認」ボタンを選択"
 
@@ -2040,6 +2036,10 @@ msgstr "ジャンプ"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "画面ロック"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr "改行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-open-shortcut"
@@ -2084,6 +2084,26 @@ msgstr "スタンプ"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
 msgstr "チーム切り替え"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr "追加機能"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr "基本機能"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr "メッセージ作成"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr "右側のタブ"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr "表示"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-toggle-rpanel"
@@ -2695,6 +2715,9 @@ msgstr "JANDI 新着メッセージ通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "水曜日"
+
+#~ msgid "@shorcut-new-line"
+#~ msgstr "改行"
 
 #~ msgid "@btn-send"
 #~ msgstr "送信"

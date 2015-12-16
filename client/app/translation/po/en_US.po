@@ -2008,10 +2008,6 @@ msgid "@setting-notification-turn-on"
 msgstr "Turn on Desktop Notifications"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@shorcut-new-line"
-msgstr "Multiline"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-confirm-modal"
 msgstr "Confirm (any open modal)"
 
@@ -2030,6 +2026,10 @@ msgstr "Jump"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "Lock screen"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr "Multiline"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-open-shortcut"
@@ -2074,6 +2074,26 @@ msgstr "Choose a sticker"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
 msgstr "Switch teams"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr "Advanced"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr "Basics"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr "Message Composition"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr "Right Panel"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr "View"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-toggle-rpanel"
@@ -2693,6 +2713,9 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#~ msgid "@shorcut-new-line"
+#~ msgstr "Multiline"
 
 #~ msgid "@btn-send"
 #~ msgstr "Send"
