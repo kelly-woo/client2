@@ -1,5 +1,14 @@
 /**
- * @fileoverview scale up animation 을 수행하는 directive
+ * @fileoverview translate 와 동일한 역할을 하는 directive
+ *
+ * 차이점:
+ * translate)
+ *  Test <b>bold</b> test
+ *  => <span>Test</span> <b>bold</b> <span>test</span>
+ *
+ * jnd-html-translate)
+ * Test <b>bold</b> test
+ *  => Test <b>bold</b> test
  */
 (function() {
   'use strict';

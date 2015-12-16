@@ -9,7 +9,7 @@
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
   function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
-                             JndLocalStorage) {
+                             JndLocalStorage, JndZoom) {
     return {
       restrict: 'A',
       link: link
@@ -243,7 +243,7 @@
               'zoom': _currentZoomScale
             });
             if (!isPreventEvent) {
-              jndPubSub.pub('zoom:change', _currentZoomScale);
+              JndZoom.zoom(_currentZoomScale);
             }
           }
         }

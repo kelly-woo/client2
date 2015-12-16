@@ -52,7 +52,7 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('zoom:change', _onZoomChange);
+        scope.$on('JndZoom:change', _onZoomChange);
       }
 
       function _onZoomChange(angularEvent, scale) {
