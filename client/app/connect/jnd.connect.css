@@ -71,6 +71,7 @@
   padding: 16px 36px 16px 58px;
   z-index: 705;
   background-color: #FAFAFA;
+  box-shadow: 0 1px 0 #DDDDDD;
 }
 .jnd-connect-logo {
   background: url('../../assets/images/service-logo-jnd-connect-active.png');
@@ -116,6 +117,22 @@
   text-overflow: ellipsis;
 }
 
+/* jnd-connect loading container style */
+.jnd-connect-loading-container {
+  position: absolute;
+  left: 240px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  background-color: rgba(243,244,245,0.6);
+}
+.detail-container .jnd-connect-loading-container {
+  border-radius: 3px;
+  left: 0 !important;
+  top:0 !important;
+  background-color: rgba(255,255,255,0.7);
+}
 
 
 
@@ -145,6 +162,7 @@
   vertical-align: middle;
   display: inline-block;
 }
+
 
 
 
@@ -676,7 +694,8 @@
   .connect-setting-lpanel div.jnd-connect-logo-container {
     display: block;
   }
-  .jnd-connect-service-container {
+  .jnd-connect-service-container,
+  .jnd-connect-loading-container {
     left: 0;
     top: 65px;
   }
