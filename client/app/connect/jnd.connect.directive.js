@@ -20,6 +20,7 @@
     };
 
     function link(scope, el, attrs) {
+      scope.isInitialized = false;
 
       _init();
 
@@ -36,14 +37,16 @@
 
         $timeout(function() {
           JndConnect.hideLoading();
-        });
+        }, 3000);
       }
+
 
       /**
        * 데이터를 받아온 후 hide loading 이벤트 핸들러가 수행되었을 때 콜백
        * @private
        */
       function _onHideLoading() {
+        scope.isInitialized = true;
         _startAnimation();
       }
 

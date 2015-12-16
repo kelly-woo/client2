@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 디렉티브
+ * @fileoverview 잔디 컨넥트 로딩 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,14 +7,14 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectUnionLoading', jndConnectUnionLoading);
+    .directive('jndConnectLoading', jndConnectLoading);
 
-  function jndConnectUnionLoading() {
+  function jndConnectLoading() {
     return {
       restrict: 'E',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.loading.html'
+      templateUrl: 'app/connect/jnd.connect.loading.html'
     };
 
     function link(scope, el, attrs) {

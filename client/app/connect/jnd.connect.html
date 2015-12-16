@@ -35,15 +35,18 @@
     <div ng-switch="currentUnion.name">
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
-        <div class="jnd-connect-banner">
+        <jnd-connect-loading ng-show="!isInitialized"></jnd-connect-loading>
+        <div ng-show="isInitialized" class="jnd-connect-banner">
           <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
-          
+
           <span class="banner-description" translate>@jnd-connect-28</span>
           <div class="jnd-connect banner-image"></div>
         </div>
 
         <!-- integration contents here -->
-        <jnd-connect-card ng-repeat="union in unions"></jnd-connect-card>
+        <jnd-connect-card
+            ng-show="isInitialized"
+            ng-repeat="union in unions"></jnd-connect-card>
       </div>
       <div ng-switch-when="googleCalendar">
         <jnd-connect-union-auth ng-if="!currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-union-auth>
