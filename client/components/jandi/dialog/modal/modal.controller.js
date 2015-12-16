@@ -39,8 +39,6 @@
           _close(result);
           $scope.deferred.reject(result);
         });
-
-      modalHelper.setRemovePromise($modalInstance);
     }
 
     /**
