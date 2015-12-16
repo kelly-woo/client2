@@ -57,7 +57,7 @@
 
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.push">
             <label>
               <div class="checkbox-description">
                 <span translate="">Commits</span>
@@ -66,7 +66,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.commit_comment">
             <label>
               <div class="checkbox-description">
                 <span translate="">Commit Comments</span>
@@ -75,7 +75,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.pull_request">
             <label>
               <div class="checkbox-description">
                 <span translate="">Pull Requests Opened / Closed</span>
@@ -84,7 +84,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.pull_request_review_comment">
             <label>
               <div class="checkbox-description">
                 <span translate="">Pull Request Comments</span>
@@ -93,7 +93,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.issues">
             <label>
               <div class="checkbox-description">
                 <span translate="">Issue Opened / Closed</span>
@@ -102,7 +102,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.issue_comment">
             <label>
               <div class="checkbox-description">
                 <span translate="">Issue Comments</span>
@@ -111,7 +111,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="githubEvents.create">
             <label>
               <div class="checkbox-description">
                 <span translate="">Branch or Tag Created / Deleted</span>
@@ -119,14 +119,14 @@
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox">
-            <label>
-              <div class="checkbox-description">
-                <span translate="">Branch force-pushed</span>
-              </div>
-            </label>
-          </div>
+          <!--<div class="checkbox-list-container text-only jnd-float-left half-width">-->
+            <!--<input type="checkbox" ng-model="githubEvents.issues">-->
+            <!--<label>-->
+              <!--<div class="checkbox-description">-->
+                <!--<span translate="">Branch force-pushed</span>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
 
           <div class="clear"></div>
 

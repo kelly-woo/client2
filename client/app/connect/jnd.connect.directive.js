@@ -37,7 +37,7 @@
 
         $timeout(function() {
           JndConnect.hideLoading();
-        }, 3000);
+        }, 1000);
       }
 
 

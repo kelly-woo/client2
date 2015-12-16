@@ -7,6 +7,26 @@
 
   /* @ngInject */
   function JndConnectGithubCtrl($scope, $timeout, JndConnect, EntityMapManager) {
+    $scope.requestData = {
+      mode: 'authed',
+      roomId: null,
+      botName: 'Github',
+      botThumbnailFile: null,
+      lang: 'ko',
+      authenticationId: 1,
+      events: [],
+      branch: [],
+      token: ""
+    };
+    $scope.githubEvents = {
+      'push': false,
+      'commit_comment': false,
+      'pull_request': false,
+      'pull_request_review_comment': false,
+      'issues': false,
+      'issue_comment': false,
+      'create': false
+    };
     $scope.selectedRoom = null;
     $scope.selectedRepo = 0;
     $scope.isInitialized = false;
@@ -50,6 +70,21 @@
 
     function _onSave() {
       console.log('###github save');
+      _setRequestData();
+      console.log('$scope.requestData', $scope.requestData);
+    }
+
+    function _setRequestData() {
+      var events = [];
+      _.each($scope.githubEvents, function(value, key) {
+        if (value) {
+          events.push(key);
+          if (key === 'create') {
+            events.push('delete');
+          }
+        }
+      });
+      $scope.requestData.events = events;
     }
   }
 })();
