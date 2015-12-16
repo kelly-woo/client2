@@ -10,23 +10,7 @@
     .controller('StickerPanelCtrl', StickerPanelCtrl);
 
   function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker, JndUtil) {
-    // 서버에서 group 리스트 API 완성전에 대비하여 임시로 만든 데이터
-    var _groups = [
-      {
-        activeIndex: 0,
-        className: 'recent'
-      },
-      {
-        activeIndex: 0,
-        className: 'kiyomi',
-        id: 101
-      },
-      {
-        activeIndex: 0,
-        className: 'pangya',
-        id: 100
-      }
-    ];
+    var _groups;
 
     var MAX_COLUMN = parseInt($attrs.maxColumns, 10);
     var _activeGroupIndex = 1;
@@ -40,7 +24,6 @@
      * @private
      */
     function _init() {
-      $scope.groups = _groups;
       $scope.name = $attrs.name;
       $scope.status = {
         isOpen: false
@@ -60,6 +43,26 @@
       $scope.resetRecentStickers = resetRecentStickers;
 
       _attachEvents();
+
+      _setGroups();
+    }
+
+    /**
+     * set groups
+     * @private
+     */
+    function _setGroups() {
+      var stickerGroups = Sticker.getStickerGroups();
+
+      _groups = [];
+      _.each(stickerGroups, function(stickerGroup) {
+        var group = _.clone(stickerGroup);
+        group.activeIndex = 0;
+
+        _groups.push(group);
+      });
+
+      $scope.groups = _groups;
     }
 
     /**
@@ -67,17 +70,15 @@
      * @private
      */
     function _attachEvents() {
-      if ($scope.name === 'chat') {
-        $scope.$on('center:toggleSticker', _onCenterToggleSticker);
-        $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
-      }
+      $scope.$on($scope.name + ':toggleSticker', _onToggleSticker);
+      $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
     }
 
     /**
      * toggle sticker event handler
      * @private
      */
-    function _onCenterToggleSticker() {
+    function _onToggleSticker() {
       JndUtil.safeApply($scope, function() {
         $scope.status.isOpen = !$scope.status.isOpen;
       });

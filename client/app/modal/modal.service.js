@@ -50,10 +50,9 @@
     that.openPrivacyModal = openPrivacyModal;
 
     that.openQuickLauncherModal = openQuickLauncherModal;
+    that.openShortcutModal = openShortcutModal;
 
     that.closeModal = closeModal;
-
-    that.setRemovePromise = setRemovePromise;
 
     /**
      * file 을 upload 하는 모달창을 연다.
@@ -354,6 +353,21 @@
       _modalOpener(modalOption);
     }
 
+    /**
+     * keyboard shortcut 모달을 open 한다
+     * @param $scope
+     */
+    function openShortcutModal($scope) {
+      var modalOption = {
+        scope: $scope,
+        controller: 'ModalShortcutCtrl',
+        templateUrl: 'app/modal/shortcut/modal.shortcut.html',
+        windowClass: 'keyboard-shortcut-modal'
+      };
+
+      _modalOpener(modalOption);
+    }
+
     function openNotificationSettingModal($scope) {
       var modalOption = {
         scope: $scope,
@@ -435,7 +449,6 @@
         modal = $modal.open(options);
 
         _modalRendered(modal, options);
-        setRemovePromise(modal);
 
         return modal;
       }
@@ -465,26 +478,6 @@
             $(options.autofocus).focus();
           }, options.renderedTimeout);
         }
-      });
-    }
-
-    /**
-     * modal element 강제 삭제 설정
-     * modal이 close 되어도 element가 삭제되지 않는 경우 처리를 위함
-     * @param {object} modal
-     * @private
-     */
-    function setRemovePromise(modal) {
-      var jqModal = $('div.modal');
-      var jqBody = $('body');
-      var jqBackdrop = $('.modal-backdrop');
-
-      modal.result.finally(function() {
-        setTimeout(function() {
-          jqBody.removeClass('modal-open');
-          jqModal.remove();
-          jqBackdrop.remove();
-        }, 200);
       });
     }
   }

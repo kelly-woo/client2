@@ -9,7 +9,7 @@
     .service('RendererUtil', RendererUtil);
 
   /* @ngInject */
-  function RendererUtil(publicService, currentSessionHelper, memberService) {
+  function RendererUtil($filter, publicService, currentSessionHelper, memberService, fileAPIservice, centerService) {
     var _regxPreviewThumbnail = /linkpreview-thumb/;
     var _thumbnailTracker = [];
 
@@ -26,6 +26,11 @@
     this.addToThumbnailTracker = addToThumbnailTracker;
     this.cancelThumbnailTracker = cancelThumbnailTracker;
 
+    this.getFileDownloadAttrs = getFileDownloadAttrs;
+    this.isIntegrateFile = isIntegrateFile;
+    this.getFeedbackMessage = getFeedbackMessage;
+    this.getFeedbackContent = getFeedbackContent;
+    this.getCommentCount = getCommentCount;
     _init();
 
     /**
@@ -37,11 +42,11 @@
 
     /**
      * star 에 필요한 css 클래스 문자열을 반환한다.
-     * @param {object} msg
+     * @param {object} message
      * @returns {string}
      */
-    function getStarCssClass(msg) {
-      return msg.message.isStarred ? '' : 'off msg-item__action';
+    function getStarCssClass(message) {
+      return message.isStarred ? '' : 'off msg-item__action';
     }
 
     /**
@@ -116,5 +121,62 @@
       delete _thumbnailTracker[messageId];
     }
 
+    /**
+     * file download 에 랜더링 할 attribute 문자열을 반환한다.
+     * @param {object} msg
+     * @returns {string}
+     */
+    function getFileDownloadAttrs(msg) {
+      var content = getFeedbackContent(msg);
+      var fileUrl = content.fileUrl;
+      var attrList = [];
+      var urlObj = $filter('downloadFile')(fileAPIservice.isIntegrateFile(content.serverUrl), content.title, fileUrl);
+
+      attrList.push('download="' + content.title + '"');
+      attrList.push('href="' + urlObj.downloadUrl + '"');
+
+      return attrList.join(' ');
+    }
+
+    /**
+     * integrate file 인지 여부를 반환한다.
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
+    function isIntegrateFile(msg) {
+      var content = getFeedbackContent(msg);
+      return fileAPIservice.isIntegrateFile(content.serverUrl);
+    }
+
+    /**
+     * msg 에서 feedback(comment) 정보를 담고있는 message를 반환한다.
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
+    function getFeedbackMessage(msg) {
+      return centerService.isCommentType(msg.message.contentType) ? msg.feedback : msg.message;
+    }
+
+    /**
+     * msg 에서 feedback(comment) 정보를 담고있는 content를 반환한다.
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
+    function getFeedbackContent(msg) {
+      return centerService.isCommentType(msg.message.contentType) ? msg.feedback.content : msg.message.content;
+    }
+
+    /**
+     * get comment count
+     * @param {object} msg
+     * @returns {*|number}
+     */
+    function getCommentCount(msg) {
+      var message = getFeedbackMessage(msg);
+      return message.commentCount || 0;
+    }
   }
 })();

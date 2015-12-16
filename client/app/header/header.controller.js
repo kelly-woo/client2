@@ -31,6 +31,9 @@
       },
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
+      },
+      'shortcut': function() {
+        modalHelper.openShortcutModal($scope);
       }
     };
 
@@ -111,7 +114,7 @@
       });
 
       // right panel의 open event handler
-      $scope.$on('onRightPanel', function($event, data) {
+      $scope.$on('rightPanelStatusChange', function($event, data) {
         $rootScope.isOpenRightPanel = true;
 
         _setTabStatus(currentRightPanel, false);
@@ -126,7 +129,6 @@
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
 
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
-      $scope.$on('center:toggleSticker', _onToggleSticker);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -155,7 +157,9 @@
           } catch (e) {
           }
 
-          accountService.setAccountLanguage(response.lang);
+          // server에서 response 값 전달시 account api 호출시 전달한 lang값을 설정한 row를 
+          // 조회 하지 못하는 케이스가 발생하므로 account api 호출시 사용한 data를 그대로 사용한다.
+          accountService.setAccountLanguage(lang);
 
           publicService.setLanguageConfig(accountService.getAccountLanguage());
 
@@ -330,14 +334,6 @@
           openQuickLauncher();
         }, 50);
       }
-    }
-
-    /**
-     * on toggle sticker
-     * @private
-     */
-    function _onToggleSticker() {
-      modalHelper.closeModal();
     }
 
     /**

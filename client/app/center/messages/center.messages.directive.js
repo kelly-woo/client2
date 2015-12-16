@@ -11,7 +11,7 @@
 
   function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
-                                   EntityMapManager, JndUtil) {
+                                   EntityMapManager, JndUtil, RendererUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -67,6 +67,9 @@
 
         scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
         scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
+
+        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentCreated);
+        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentDeleted);
       }
 
       /**
@@ -140,14 +143,17 @@
         return fileAPIservice.getFileDetail(fileId)
           .success(function(response) {
             var shareEntities;
+            var message;
+
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
                 shareEntities = _toEntityIdList(item.shareEntities);
               }
             });
             _.forEach(MessageCollection.list, function(msg, index) {
-              if (msg.message.id === fileId) {
-                msg.message.shareEntities = shareEntities;
+              message = RendererUtil.getFeedbackMessage(msg);
+              if (message.id === fileId) {
+                message.shareEntities = shareEntities;
                 _refresh(msg.id, index);
               }
             });
@@ -287,10 +293,14 @@
         var id = jqTarget.closest('.msgs-group').attr('id');
         var msg = MessageCollection.get(id);
         var hasAction = false;
+        var jqElement;
 
         //star 클릭 시
         if (jqTarget.closest('._star').length) {
           _onClickStar(msg);
+          hasAction = true;
+        } else if ((jqElement = jqTarget.closest('._fileStar')).length) {
+          _onClickFileStar(msg, jqElement);
           hasAction = true;
         } else if (jqTarget.closest('._user').length) {
           _onClickUser(msg);
@@ -298,34 +308,11 @@
         } else if (jqTarget.closest('._fileShare').length) {
           _onClickFileShare(msg);
           hasAction = true;
-        } else if (jqTarget.closest('._fileGo').length) {
-          _onClickFileGo(msg);
-          hasAction = true;
         }
 
         if (hasAction) {
           JndUtil.safeApply(scope);
         }
-      }
-
-      /**
-       * 우측 패널 오픈
-       * @param {Object} msg
-       * @private
-       */
-      function _onClickFileGo(msg) {
-        var contentType = msg.message.contentType;
-        var userName = $filter('getName')(msg.message.writerId);;
-        var itemId = msg.message.id;
-
-        if (msg.feedback && contentType !== 'file') {
-          userName = $filter('getName')(msg.feedback.writerId);
-          itemId = msg.feedback.id;
-        }
-        $state.go('files', {
-          userName: userName,
-          itemId: itemId
-        });
       }
 
       /**
@@ -343,26 +330,58 @@
        * @private
        */
       function _onClickStar(msg) {
-        var index = MessageCollection.at(msg.messageId);
-        msg.message.isStarred = !msg.message.isStarred;
-        _refreshStar(msg);
-        if (msg.message.isStarred) {
-          StarAPIService.star(msg.messageId, _teamId)
-            .error(_.bind(_onStarRequestError, that, msg));
+        var message = msg.message;
+
+        _requestStar(msg, message, '._star');
+      }
+
+      /**
+       * file star click 핸들러
+       * @param {object} msg
+       * @param {object} jqElement
+       * @private
+       */
+      function _onClickFileStar(msg, jqElement) {
+        var message;
+
+        if (jqElement.hasClass('_feedbackStar')) {
+          message = RendererUtil.getFeedbackMessage(msg);
         } else {
-          StarAPIService.unStar(msg.messageId, _teamId)
-            .error(_.bind(_onStarRequestError, that, msg));
+          message = msg.message;
+        }
+
+        _requestStar(msg, message, '._fileStar');
+      }
+
+      /**
+       * request star
+       * @param {object} msg
+       * @param {object} message
+       * @private
+       */
+      function _requestStar(msg, message, jqTarget) {
+        var messageId = message.id;
+
+        message.isStarred = !message.isStarred;
+        _refreshStar(msg, message, jqTarget);
+        if (message.isStarred) {
+          StarAPIService.star(messageId, _teamId)
+            .error(_.bind(_onStarRequestError, that, msg, message, jqTarget));
+        } else {
+          StarAPIService.unStar(messageId, _teamId)
+            .error(_.bind(_onStarRequestError, that, msg, message, jqTarget));
         }
       }
 
       /**
        * star 오류 핸들러
        * @param {object} msg
+       * @param {object} message
        * @private
        */
-      function _onStarRequestError(msg) {
-        msg.message.isStarred = !msg.message.isStarred;
-        _refreshStar(msg);
+      function _onStarRequestError(msg, message, jqTarget) {
+        message.isStarred = !message.isStarred;
+        _refreshStar(msg, message, jqTarget);
 
         Dialog.error({
           title: $filter('translate')('@star-forbidden')
@@ -387,12 +406,8 @@
        * @private
        */
       function _onStarred(event, param) {
-        var msg = MessageCollection.getByMessageId(param.messageId);
-        var index;
-
         if (_teamId.toString() === param.teamId.toString()) {
-          msg.message.isStarred = true;
-          _refreshStar(msg);
+          _setStarred(param.messageId, true);
         }
       }
 
@@ -405,23 +420,45 @@
        * @private
        */
       function _onUnStarred(event, param) {
-        var msg = MessageCollection.getByMessageId(param.messageId);
-        var index;
         if (_teamId.toString() === param.teamId.toString()) {
-          msg.message.isStarred = false;
-          _refreshStar(msg);
+          _setStarred(param.messageId, false);
         }
       }
 
       /**
-       * star 의 상태를 변경한다.
-       * @param {object} msg
+       * set starred
+       * @param {number|string} messageId
+       * @param {boolean} isStarred
        * @private
        */
-      function _refreshStar(msg) {
-        var jqTarget = $('#' + msg.id).find('._star');
+      function _setStarred(messageId, isStarred) {
+        MessageCollection.forEach(function(msg) {
+          var message;
+
+          if (msg.feedbackId === messageId) {
+            message = RendererUtil.getFeedbackMessage(msg);
+
+            message.isStarred = isStarred;
+            _refreshStar(msg, message, '._star-' + msg.feedbackId);
+          } else if (msg.message.id === messageId) {
+            message = msg.message;
+
+            message.isStarred = isStarred;
+            _refreshStar(msg, message, '._star-' + msg.message.id);
+          }
+        });
+      }
+
+      /**
+       * star 의 상태를 변경한다.
+       * @param {object} message
+       * @param {string|object} jqTarget
+       * @private
+       */
+      function _refreshStar(msg, message, jqTarget) {
+        jqTarget = $('#' + msg.id).find(jqTarget || '._star');
         if (jqTarget.length) {
-          if (msg.message.isStarred) {
+          if (message.isStarred) {
             jqTarget.removeClass('off').removeClass('msg-item__action');
           } else {
             jqTarget.addClass('off msg-item__action');
@@ -710,6 +747,45 @@
             return false;
           }
         });
+      }
+
+      /**
+       * created file comment
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onFileCommentCreated(angularEvent, data) {
+        _updateFileComment(data);
+      }
+
+      /**
+       * deleted file comment
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onFileCommentDeleted(angularEvent, data) {
+        _updateFileComment(data);
+      }
+
+      /**
+       * comment count update handler
+       * @param data
+       * @private
+       */
+      function _updateFileComment(data) {
+        var fileId = data.file.id;
+        var commentCount = data.file.commentCount;
+        var message;
+
+        _.forEach(MessageCollection.list, function(msg) {
+          message = RendererUtil.getFeedbackMessage(msg);
+          if (message.id === fileId) {
+            message.commentCount = commentCount;
+          }
+        });
+        $('.comment-count-' + data.file.id).text(commentCount);
       }
     }
   }

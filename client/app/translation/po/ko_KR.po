@@ -120,6 +120,14 @@ msgstr "삭제하기"
 msgid "@btn-edit"
 msgstr "확인"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-file-detail"
+msgstr "파일 상세"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-image-expand"
+msgstr "이미지 보기"
+
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
@@ -203,6 +211,10 @@ msgstr "잔디의 사용방법이 크게 달라졌습니다!"
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽 "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@comment-all-desc"
+msgstr "{{commentCount}}개의 댓글 모두 보기"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -609,6 +621,10 @@ msgstr "팀"
 msgid "@common-terms-of-service"
 msgstr "이용약관"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-text-size"
+msgstr "텍스트 크기"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-title"
 msgstr "타이틀"
@@ -971,6 +987,751 @@ msgstr "멤버 초대 기능이 관리자에 의해 비활성화 되었습니다
 msgid "@invitation-link-desc"
 msgstr "또는 이 링크를 공유하여 멤버들을 초대하세요."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-1"
+msgstr "돌아가기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-10"
+msgstr "작동중"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-100"
+msgstr "언어 설정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-101"
+msgstr "연동 서비스로부터 수신되는 메시지에 사용될 언어를 선택합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-102"
+msgstr "{{이메일 계정}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-103"
+msgstr "한국어"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-104"
+msgstr "English"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-105"
+msgstr "日本語 (일본어)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-106"
+msgstr "简体中文(중국어-번체)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-107"
+msgstr "繁體中文(중국어-간체)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-108"
+msgstr "설정 저장하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-109"
+msgstr "구독 토픽"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-11"
+msgstr "수정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-110"
+msgstr "생성자"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-111"
+msgstr "알림을 받고자 하는 Board를 선택해주세요"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-112"
+msgstr "Board 선택"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-113"
+msgstr "메시지 발생 이벤트 선택"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-114"
+msgstr "카드"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-115"
+msgstr "카드가 생성되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-116"
+msgstr "카드가 옮겨졌을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-117"
+msgstr "카드 이름이 변경되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-118"
+msgstr "코멘트가 카드에 추가되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-119"
+msgstr "첨부 파일이 카드에 추가되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-12"
+msgstr "삭제"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-120"
+msgstr "설명(Description)이 변경되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-121"
+msgstr "마감일(Due date)이 변경되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-122"
+msgstr "라벨(Label)이 변경되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-123"
+msgstr "카드에 멤버가 추가되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-124"
+msgstr "카드가 archive 또는 unarchive되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-125"
+msgstr "리스트"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-126"
+msgstr "리스트가 생성되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-127"
+msgstr "리스트 이름이 바뀌었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-128"
+msgstr "리스트가 다른 보드로 옮겨졌을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-129"
+msgstr "리스트가 archive 또는 unarchive되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-13"
+msgstr "비공개 토픽 또는 1:1메시지"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-130"
+msgstr "보드 이름이 바뀌었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-131"
+msgstr "보드에 멤버가 추가되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-132"
+msgstr "체크리스트"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-133"
+msgstr "체크리스트가 카드에 추가되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-134"
+msgstr "체크리스트 아이템이 생성되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-135"
+msgstr "체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-136"
+msgstr "이미지 업로드"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-137"
+msgstr "알림을 받고자 하는 Repository/Branch를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-138"
+msgstr "Repository 선택"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-139"
+msgstr "branch (선택사항)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-14"
+msgstr "연동하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-140"
+msgstr "계정 추가하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-141"
+msgstr ""
+"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동"
+"작하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-142"
+msgstr "연동 서비스 추가를 위해서는 계정 인증이 필요합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-143"
+msgstr ""
+"Github 계정 연동을 하시면 잔디에서 직접 수신 메시지 종류를 설정하실 수 있습"
+"니다. 계정 연동 없이 Github에서 직접 설정을 원하시는 경우 수동 설정 페이지에"
+"서 연동해주세요. "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-144"
+msgstr "{{serviceName}} 계정 인증하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-145"
+msgstr "설정방법 안내"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-146"
+msgstr "설정방법 보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-147"
+msgstr "STEP 1"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-148"
+msgstr "JIRA에 관리자 계정으로 로그인 후 System 메뉴로 진입해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-149"
+msgstr "STEP 2"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-15"
+msgstr "Github"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-150"
+msgstr "왼쪽 메뉴들 중 Advanced 섹션에서 Webhooks 메뉴를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-151"
+msgstr "STEP 3"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-152"
+msgstr ""
+"Create a Webhook 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-153"
+msgstr "STEP 4"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-154"
+msgstr ""
+"구독하고자 하는 이벤트들을 선택하신 뒤 Create 버튼을 눌러 설정을 저장해주세"
+"요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-155"
+msgstr "설정방법 닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-156"
+msgstr ""
+"Github 계정에서 구독하고 싶은 계정을 선택하신뒤, 왼쪽 메뉴에서 Settings를 클"
+"릭해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-157"
+msgstr ""
+"Webhooks & Services 메뉴를 클릭하신 뒤, Add webhook 버튼을 클릭해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-158"
+msgstr "Payload URL에 잔디에서 제공되는 이 URL을 붙여넣어 주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-159"
+msgstr ""
+"다른 항목들은 기본값으로 해주시고, 맨 아래에 Active 체크박스가 체크된 것을 "
+"확인하신 뒤 Add Webhook 버튼을 눌러주시면 됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-16"
+msgstr "Guthub Repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-160"
+msgstr "Webhook이란?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-161"
+msgstr ""
+"웹훅(Webhook)이란 잔디에 잔디가 정한 포맷에 일치하는 데이터를 수신하여 지정"
+"된 대화에 메시지 형태로 전송해주는 기능을 말합니다. 현재 잔디 커넥트에서 지"
+"원하지 않고 있는 서비스라도 웹훅 발신(Outgoing Webhook)을 지원하는 경우 잔디"
+"와 연동하여 변동 사항에 대해 메시지를 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-162"
+msgstr ""
+"이 기능을 사용하기 위해서는 HTTP POST request를 아래의 URL로 전송해주시면 됩"
+"니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-163"
+msgstr ""
+"request에는 반드시 Accept와 Content-Type을 다음과 같이 지정해줘야 합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-164"
+msgstr ""
+"또한 JANDI Webhook은 restful API로 동작하기 때문에 http method를 POST로 하"
+"지 않으시면 정상적으로 등록되지 않습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-165"
+msgstr "POST request의 포맷은 다음과 같습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-166"
+msgstr "다음은 curl request의 샘플입니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-167"
+msgstr "이렇게 수신된 메시지는 선택된 대화에 다음과 같이 전송됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-168"
+msgstr "더 궁금한 점이 있으시면 잔디 고객센터로 문의해주시기 바랍니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-169"
+msgstr "JANDI 커넥트"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-17"
+msgstr "JIRA"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-170"
+msgstr "JANDI 커넥트 설정 권한"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-171"
+msgstr "모든 멤버"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-172"
+msgstr ""
+"모든 멤버가 자유롭게 연동 서비스를 추가할 수 있지만, 각 멤버는 다른 멤버의 "
+"연동 내용을 볼 수 없으며 관리자만 전체 내역을 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-173"
+msgstr "관리자만"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-174"
+msgstr "관리자만 연동 항목을 추가할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-18"
+msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-19"
+msgstr "Trello"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-2"
+msgstr "잔디 커넥트 닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-20"
+msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-21"
+msgstr "Webhook 수신 (Incoming Webhook)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-22"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-23"
+msgstr ""
+"Github은 Git 버전 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장"
+"소입니다.\n"
+"\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-24"
+msgstr ""
+"Google 캘린더는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스"
+"입니다.\n"
+"\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-25"
+msgstr ""
+"JIRA는 Atlassian사의 프로젝트 매니지먼트 툴입니다.\n"
+"\n"
+"JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황을 "
+"잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-26"
+msgstr ""
+"Trello는 인터랙티브한 방식으로 할 일 관리를 할 수 있는 협업툴입니다.\n"
+"\n"
+"Trello를 잔디와 연동하게 되면, 각 카드나 보드의 변동 사항을 잔디 팀 내에서 "
+"메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-27"
+msgstr ""
+"Incoming Webhook은 Webhook을 지원하는 서비스를 잔디와 연결하여 외부 서비스"
+"의 변동 사항을 잔디 팀 내의 메시지로 수신할 수 있는 기능입니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-28"
+msgstr ""
+"잔디 커넥트를 처음 사용하시나요? 이제 Google 캘린더, Trello, Github, JIRA 등"
+"을 연동하여 잔디에서 알림을 받아보세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-29"
+msgstr "잔디에 추가를 원하시는 서비스가 있으신가요?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-3"
+msgstr "잔디 커넥트"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-30"
+msgstr "서비스 연동 요청하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-31"
+msgstr "서비스 설정 화면으로"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-32"
+msgstr "{{integratedMemberCount}}명의 다른 멤버가 연동중"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-33"
+msgstr "{{memberName}}의 {{serviceName}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-34"
+msgstr "{{yyyy-mm-dd}}에 생성됨"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-35"
+msgstr "인증된 계정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-36"
+msgstr "알림을 받고자 하는 캘린더를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-37"
+msgstr "캘린더 선택"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-38"
+msgstr "알림 메시지를 등록할 토픽 또는 1:1 메시지를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-39"
+msgstr "Mr. J"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-4"
+msgstr "연동된 서비스"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-40"
+msgstr "토픽 생성하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-41"
+msgstr "알림 설정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-42"
+msgstr "일정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-43"
+msgstr "정각"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-44"
+msgstr "1분 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-45"
+msgstr "5분 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-46"
+msgstr "10분 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-47"
+msgstr "15분 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-48"
+msgstr "30분 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-49"
+msgstr "1시간 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-5"
+msgstr "Google Calendar"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-50"
+msgstr "2시간 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-51"
+msgstr "4시간 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-52"
+msgstr "1일 전 "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-53"
+msgstr "알림 메시지 수신"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-54"
+msgstr "종일 일정의 경우"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-55"
+msgstr "당일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-56"
+msgstr "하루 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-57"
+msgstr "이틀 전"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-58"
+msgstr "0:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-59"
+msgstr "1:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-6"
+msgstr ""
+"Google Calendar에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-60"
+msgstr "2:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-61"
+msgstr "3:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-62"
+msgstr "4:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-63"
+msgstr "5:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-64"
+msgstr "6:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-65"
+msgstr "7:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-66"
+msgstr "8:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-67"
+msgstr "9:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-68"
+msgstr "10:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-69"
+msgstr "11:00 AM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-7"
+msgstr "{{integrationCount}}개의 연동된 항목"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-70"
+msgstr "12:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-71"
+msgstr "1:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-72"
+msgstr "2:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-73"
+msgstr "3:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-74"
+msgstr "4:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-75"
+msgstr "5:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-76"
+msgstr "6:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-77"
+msgstr "7:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-78"
+msgstr "8:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-79"
+msgstr "9:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-8"
+msgstr "연동 항목 추가하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-80"
+msgstr "10:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-81"
+msgstr "11:00 PM"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-82"
+msgstr "에 알림 {{timezone}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-83"
+msgstr "캘린더 업데이트 옵션"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-84"
+msgstr "일정이 새롭게 생성되었을 거나 일정에 초대되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-85"
+msgstr "일정의 제목이나 시각, 장소가 수정되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-86"
+msgstr "일정이 취소되거나 삭제되었을 때"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-87"
+msgstr "일정 요약"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-88"
+msgstr "매일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-89"
+msgstr "매주"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-9"
+msgstr "중지됨"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-90"
+msgstr "월요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-91"
+msgstr "화요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-92"
+msgstr "수요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-93"
+msgstr "목요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-94"
+msgstr "금요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-95"
+msgstr "토요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-96"
+msgstr "일요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-97"
+msgstr "{{timezone}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-98"
+msgstr "연동 서비스 프로필 설정"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-99"
+msgstr ""
+"팀 내에서 이 연동 항목이 메시지를 보낼 때의 프로필 이미지와 이름을 지정하실 "
+"수 있습니다. "
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "로그인 상태 유지"
@@ -1216,11 +1977,11 @@ msgstr "토픽 또는 1:1메시지로 바로 이동하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-mac"
-msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Cmd - J)"
+msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-tooltip-for-win"
-msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Ctrl - J)"
+msgstr "토픽 또는 1:1메시지로 바로 이동하기 (Ctrl+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-unjoin-topic"
@@ -1295,6 +2056,114 @@ msgstr "바탕화면 알림 사용하지 않기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-on"
 msgstr "바탕화면 알림 사용하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-confirm-modal"
+msgstr "각종 안내 창에서 확인 버튼 누르기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-focus-input"
+msgstr "메시지 입력창으로 커서 즉시 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-invite-topic"
+msgstr "토픽에 멤버 초대하기 (<b>I</b>nvite)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-jump"
+msgstr "점프 (<b>J</b>ump)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-lock-screen"
+msgstr "전체 화면 흐림 처리하여 화면 가리기 (<b>L</b>ock)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr "줄바꿈"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-open-shortcut"
+msgstr "단축키 목록 보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-file"
+msgstr "파일 탭 열기/닫기 (<b>F</b>ile)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-mentions"
+msgstr "멘션 탭 열기/닫기 (<b>M</b>ention)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-message"
+msgstr "메시지 검색 탭 열기/닫기 (Messa<b>g</b>e)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-next"
+msgstr "오른쪽 탭 : 오른쪽 탭으로 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-prev"
+msgstr "오른쪽 탭 : 왼쪽 탭으로 이동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-stars"
+msgstr "즐겨찾기 탭 열기/닫기 (<b>S</b>tar)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-down"
+msgstr "대화 스크롤 다운"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-up"
+msgstr "대화 스크롤 업"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-show-sticker"
+msgstr "스티커 (<b>E</b>moticon)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-switch-teams"
+msgstr "팀 전환하기 (<b>T</b>eam)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr "추가 기능"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr "기본 기능"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr "메시지 작성"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr "오른쪽 탭"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr "보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-toggle-rpanel"
+msgstr "오른쪽 탭 열기/닫기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-upload"
+msgstr "내 컴퓨터에서 파일 업로드 (<b>U</b>pload)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-in"
+msgstr "글자 크기 확대"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-out"
+msgstr "글자 크기 축소"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-reset"
+msgstr "글자 크기 기본값으로 복원"
 
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -1891,6 +2760,9 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@shorcut-new-line"
+#~ msgstr "줄바꿈"
 
 #~ msgid "@btn-send"
 #~ msgstr "보내기"

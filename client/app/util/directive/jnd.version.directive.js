@@ -26,7 +26,12 @@
 
       if (!scope.isStaging) {
         if (scope.isAlpha) {
-          version = version.split('-')[0] + '-' + name;
+          //QA 시 version 정보가 노출되면 혼선의 여지가 있으므로 development 라는 label 만 노출한다.
+          if (name === 'development') {
+            version = name;
+          } else {
+            version = version.split('-')[0] + '-' + name;
+          }
         } else {
           version += '-' + name;
         }

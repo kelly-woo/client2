@@ -79,7 +79,7 @@
     // topic title에 mouseenter시 tooltip의 출력 여부 설정하는 function
     // angular ui tooltip에 '' 문자열을 입력하면 tooltip을 출력하지 않음
     function onTooltipShow(event, joinedEntityName) {
-      var target
+      var target;
       var c;
 
       $scope.tooltip = joinedEntityName;
@@ -92,9 +92,6 @@
 
       if (c.width() <= target.width()) {
         $scope.tooltip = joinedEntityName;
-        $timeout(function() {
-          target.trigger('show');
-        });
       } else {
         $scope.tooltip = '';
       }
@@ -104,9 +101,6 @@
 
     function onTooltipHide(event) {
       $scope.tooltip = '';
-      $timeout(function() {
-        $(event.target).trigger('hide');
-      });
     }
   }
 })();

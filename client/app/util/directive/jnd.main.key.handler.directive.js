@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
-  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, Browser,
-                             JndLocalStorage) {
+  function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
+                             JndLocalStorage, JndZoom) {
     return {
       restrict: 'A',
       link: link
@@ -36,45 +36,9 @@
 
         },
         'shift-ctrl': {
+          //잠금기능
           'CHAR_L': {
             handler: _togglePrivacy
-          },
-          //파일 검색 탭
-          'CHAR_F': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
-            }
-          },
-          //메세지 검색 탭
-          'CHAR_G': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
-            }
-          },
-          //즐겨찾기 탭
-          'CHAR_S': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
-            }
-          },
-          //멘션 탭
-          'CHAR_M': {
-            handler: function() {
-              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
-            }
-          },
-          //다음탭 이동
-          'CHAR_DOT': {
-            handler: _rPanelNext
-          },
-          //이전탭 이동
-          'CHAR_COMMA': {
-            handler: _rPanelPrev
-          },
-          //우측패널 토글
-          '[': {
-            handler: _toggleRightPanel,
-            isExactMatch: false
           }
         },
         'shift-alt': {
@@ -114,14 +78,31 @@
           'CHAR_J': {
             handler: _toggleQuickLauncher
           },
+          //확대
           'PLUS': {
-            handler: _zoomIn
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
           },
+          'NUM_PAD_PLUS': {
+            handler: _zoomIn,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          //축소
           'MINUS': {
-            handler: _zoomOut
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
           },
+          'NUM_PAD_MINUS': {
+            handler: _zoomOut,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          //zoom reset
           'NUM_0': {
-            handler: _zoomReset
+            handler: _zoomReset,
+            extraCondition: HybridAppHelper.isHybridApp
+          },
+          'SLASH': {
+            handler: _showShortcutGuide
           }
         },
         'alt': {
@@ -154,6 +135,43 @@
             handler: function() {
               modalHelper.openTeamChangeModal(scope);
             }
+          },
+          //우측패널 토글
+          '[': {
+            handler: _toggleRightPanel,
+            isExactMatch: false
+          },
+          //파일 검색 탭
+          'CHAR_F': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[0]);
+            }
+          },
+          //메세지 검색 탭
+          'CHAR_G': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[1]);
+            }
+          },
+          //즐겨찾기 탭
+          'CHAR_S': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[2]);
+            }
+          },
+          //멘션 탭
+          'CHAR_M': {
+            handler: function() {
+              jndPubSub.pub('hotkey-open-right', _rPanelMenuList[3]);
+            }
+          },
+          //다음탭 이동
+          'CHAR_DOT': {
+            handler: _rPanelNext
+          },
+          //이전탭 이동
+          'CHAR_COMMA': {
+            handler: _rPanelPrev
           }
         },
         'none': {
@@ -199,7 +217,7 @@
        */
       function _zoomIn() {
         _currentZoomScale += 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale > MAX_ZOOM_SCALE) {
           _currentZoomScale = MAX_ZOOM_SCALE;
         } else {
@@ -209,19 +227,25 @@
 
       /**
        * zoom 을 설정한다
+       * @param {boolean} [isPreventEvent=false] 이벤트 트리거를 수행할 지 여부
        * @private
        */
-      function _setZoom() {
-        _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
-        if (_currentZoomScale < MIN_ZOOM_SCALE) {
-          _currentZoomScale = MIN_ZOOM_SCALE;
-        } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
-          _currentZoomScale = MAX_ZOOM_SCALE;
-        } else {
-          JndLocalStorage.set(0, 'zoom', _currentZoomScale);
-          $('body').css({
-            'zoom': _currentZoomScale
-          });
+      function _setZoom(isPreventEvent) {
+        if (HybridAppHelper.isHybridApp()) {
+          _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
+          if (_currentZoomScale < MIN_ZOOM_SCALE) {
+            _currentZoomScale = MIN_ZOOM_SCALE;
+          } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
+            _currentZoomScale = MAX_ZOOM_SCALE;
+          } else {
+            JndLocalStorage.set(0, 'zoom', _currentZoomScale);
+            $('body').css({
+              'zoom': _currentZoomScale
+            });
+            if (!isPreventEvent) {
+              JndZoom.zoom(_currentZoomScale);
+            }
+          }
         }
       }
 
@@ -231,7 +255,7 @@
        */
       function _zoomOut() {
         _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.floor(_currentZoomScale * 100) / 100;
+        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
         if (_currentZoomScale < MIN_ZOOM_SCALE) {
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
@@ -324,7 +348,7 @@
       function _initializeZoom() {
         _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
         _currentZoomScale = parseFloat(_currentZoomScale) || 1;
-        _setZoom();
+        _setZoom(true);
       }
 
       /**
@@ -501,8 +525,9 @@
        * sticker 토글
        * @private
        */
-      function _toggleSticker() {
-        jndPubSub.pub('center:toggleSticker');
+      function _toggleSticker(keyEvent) {
+        var target = $(keyEvent.target).is('#file-detail-comment-input') ? 'file' : 'chat';
+        jndPubSub.pub(target + ':toggleSticker');
       }
 
       /**
@@ -535,7 +560,15 @@
           Privacy.set();
         }
       }
-      
+
+      /**
+       * 키보드 숏컷 가이드를 노출한다
+       * @private
+       */
+      function _showShortcutGuide() {
+        modalHelper.openShortcutModal(scope);
+      }
+
       /**
        * center의 chat input에 focus가야하는 shortcut인지 여부를 반환한다.
        * @param {object} keyEvent

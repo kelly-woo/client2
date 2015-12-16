@@ -681,7 +681,7 @@ app.controller('leftPanelController1', function(
   /**
    *
    */
-  $rootScope.$on('updateLeftPanelCaller', function() {
+  $scope.$on('updateLeftPanelCaller', function() {
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
@@ -702,7 +702,7 @@ app.controller('leftPanelController1', function(
     }
   };
 
-  $rootScope.$on('onUserClick', function(event, user) {
+  $scope.$on('onUserClick', function(event, user) {
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
