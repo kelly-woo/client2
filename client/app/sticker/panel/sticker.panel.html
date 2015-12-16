@@ -25,7 +25,7 @@
             ng-class="{'active': isActiveSticer($index)}"
             ng-mouseenter="selectActiveSticker($index)"
             ng-mousedown="selectSticker()">
-          <img class="sticker size_1" src="{{::item.url}}"/>
+          <img class="sticker size_1" ng-src="{{::item.url}}"/>
         </li>
       </ul>
     </div>
