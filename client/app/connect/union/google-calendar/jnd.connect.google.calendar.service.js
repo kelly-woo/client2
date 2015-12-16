@@ -9,7 +9,7 @@
     .service('JndConnectGoogleCalendar', JndConnectGoogleCalendar);
 
   /* @ngInject */
-  function JndConnectGoogleCalendar($http, $filter, memberService) {
+  function JndConnectGoogleCalendar($http, $filter, memberService, configuration) {
     var that = this;
     var teamId = memberService.getTeamId();
 
@@ -89,7 +89,7 @@
     function disconnect(connectId) {
       return $http({
         method: 'DELETE',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar',
         data: {
           connectId: connectId
         }
@@ -105,7 +105,7 @@
     function getConnectInfo(connectId) {
       return $http({
         method: 'GET',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar/' + connectId
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/' + connectId
       });
     }
 
@@ -117,7 +117,7 @@
     function getAccountList() {
       return $http({
         method: 'GET',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'
       });
     }
 
@@ -130,7 +130,7 @@
     function connect(data) {
       return $http({
         method: 'POST',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar',
         data: data
       });
     }
@@ -144,7 +144,7 @@
     function setting(data) {
       return $http({
         method: 'PUT',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar/setting',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/setting',
         data: data
       });
     }
@@ -159,7 +159,7 @@
     function setStatus(connectId, status) {
       return $http({
         method: 'PUT',
-        url: $rootScope.api_connect_address + 'teams/' + teamId + '/googleCalendar/status',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/status',
         data: {
           connectId: connectId,
           status: status

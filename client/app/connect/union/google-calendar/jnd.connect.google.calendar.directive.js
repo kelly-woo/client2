@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('jndConnectGoogleCalendar', jndConnectGoogleCalendar);
 
-  function jndConnectGoogleCalendar() {
+  function jndConnectGoogleCalendar($timeout) {
     return {
       restrict: 'E',
       scope: {
@@ -30,7 +30,14 @@
        * @private
        */
       function _init() {
+        $timeout(function() {
+          scope.weeklyScheduleSummaryHour = 2;
+          console.log('change week ::: ', scope.weeklyScheduleSummaryHour);
+        }, 3000);
 
+        $timeout(function() {
+          console.log('change week ::: ', scope.weeklyScheduleSummaryHour);
+        }, 5000);
       }
 
     }

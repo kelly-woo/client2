@@ -2,7 +2,7 @@
   <!--Google Calendar-->
   <div class="integration-service detail">
     <jnd-connect-union-nav></jnd-connect-union-nav>
-    <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
+    <div ng-if="true" class="integration-service-container detail-container" id="jnd-connect-detail-container">
       <jnd-connect-union-header></jnd-connect-union-header>
       <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
         <span class="setting-label" translate>@jnd-connect-36</span>
@@ -22,8 +22,7 @@
         <span class="setting-label" translate>@jnd-connect-38</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
-          <jnd-selectbox-room
-              jnd-data-model="selectedRoom"></jnd-selectbox-room>
+          <jnd-selectbox-room jnd-data-model="selectedRoom"></jnd-selectbox-room>
           <span class="create-new-topic white-button cursor_pointer animate-all" translate>@jnd-connect-40</span>
           <div class="clear"></div>
         </div>
@@ -34,11 +33,8 @@
           <span class="setting-description"></span>
           <div class="checkbox-list-container notification-minute-container">
             <input type="checkbox">
-            <jnd-connect-union-selectbox list="notificationMinuteList"></jnd-connect-union-selectbox>
-            <!--<div class="custom-select-box-btn white-button">-->
-              <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-              <!--<span>15분 전</span>-->
-            <!--</div>-->
+            <!--<jnd-connect-union-selectbox list="notificationMinuteList"-->
+                                         <!--ng-model="dailyScheduleSummary"></jnd-connect-union-selectbox>-->
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -52,8 +48,10 @@
                 <span translate>@jnd-connect-54</span>
               </div>
             </label>
-            <jnd-connect-union-selectbox list="allDayNotificationDateList"></jnd-connect-union-selectbox>
-            <jnd-connect-union-selectbox list="allDaynotificationHourList"></jnd-connect-union-selectbox>
+            <!--<jnd-connect-union-selectbox list="allDayNotificationDateList"-->
+                                         <!--ng-model="allDayNotificationBeforeDates"></jnd-connect-union-selectbox>-->
+            <!--<jnd-connect-union-selectbox list="allDaynotificationHourList"-->
+                                         <!--ng-model="allDayNotificationHour"></jnd-connect-union-selectbox>-->
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -74,7 +72,8 @@
                 <span translate>@jnd-connect-88</span>
               </div>
             </label>
-            <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"></jnd-connect-union-selectbox>
+            <!--<jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"-->
+                                         <!--ng-model="notificationBefore"></jnd-connect-union-selectbox>-->
             <label>
               <div class="checkbox-description">
                 <span translate="">(KST)</span>
@@ -82,14 +81,16 @@
             </label>
           </div>
           <div class="checkbox-list-container">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="data.hasWeeklyScheduleSummary">
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-89</span>
               </div>
             </label>
-            <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"></jnd-connect-union-selectbox>
-            <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"></jnd-connect-union-selectbox>
+            <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"
+                                         value="data.weeklyScheduleSummaryDayOfWeek"</jnd-connect-union-selectbox>
+            <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
+                                         value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
             <label>
               <div class="checkbox-description">
                 <span translate="">(KST)</span>
@@ -130,6 +131,7 @@
           <div class="clear"></div>
         </div>
       </section>
+      <button ng-click="onSettingClick()">췤췤</button>
       <jnd-connect-union-footer></jnd-connect-union-footer>
     </div>
   </div>

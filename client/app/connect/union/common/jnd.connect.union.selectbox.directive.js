@@ -14,11 +14,10 @@
       replace: true,
       scope: {
         'list': '=',
-        'value': '=?',
-        'onSelect': '&select'
+        'value': '='
       },
-      link: link,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.selectbox.html'
+      templateUrl: 'app/connect/union/common/jnd.connect.union.selectbox.html',
+      link: link
     };
 
     function link(scope, el, attrs) {
@@ -31,6 +30,8 @@
        * @private
        */
       function _init() {
+        var index;
+
         scope.unionSelectboxClass = unionSelectboxClass;
 
         scope.isActive = isActive;
@@ -39,7 +40,9 @@
         scope.onToggle = onToggle;
 
         if (scope.value != null) {
-          scope.selectItem(_.findIndex(scope.list, {value: value}));
+          index = _.findIndex(scope.list, {value: scope.value});
+          index = scope.list[index] ? index : 0;
+          scope.selectItem(index);
         } else {
           scope.selectItem(0);
         }
@@ -54,20 +57,23 @@
       }
 
       function selectItem(index) {
-        scope.selectedIndex = scope.activeIndex = index;
-        scope.selectedItem = scope.list[index];
+        var selectedItem;
 
-        scope.onSelect({
-          $item: scope.selectedItem
-        });
+        if (scope.list[index] != null) {
+          scope.selectedIndex = scope.activeIndex = index;
+
+          selectedItem = scope.list[scope.selectedIndex];
+          scope.selectedItemText = selectedItem.text;
+          scope.value = selectedItem.value;
+        }
       }
 
       function onToggle(isOpen) {
-        scope.isActiveButton = isOpen
+        scope.isActiveButton = isOpen;
 
-        JndUtil.safeApply(scope, function() {
+        //JndUtil.safeApply(scope, function() {
           scope.activeIndex = scope.selectedIndex;
-        });
+        //});
       }
     }
   }
