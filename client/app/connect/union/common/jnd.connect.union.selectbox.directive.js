@@ -1,14 +1,14 @@
 /**
- * @fileoverview union button directive
+ * @fileoverview union selectbox directive
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .directive('jndConnectUnionButton', jndConnectUnionButton);
+    .directive('jndConnectUnionSelectbox', jndConnectUnionSelectbox);
 
-  function jndConnectUnionButton(JndUtil) {
+  function jndConnectUnionSelectbox(JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -18,11 +18,11 @@
         'onSelect': '&select'
       },
       link: link,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.button.html'
+      templateUrl: 'app/connect/union/common/jnd.connect.union.selectbox.html'
     };
 
     function link(scope, el, attrs) {
-      var unionButtonClass = attrs.unionButtonClass || '';
+      var unionSelectboxClass = attrs.unionSelectboxClass || '';
 
       _init();
 
@@ -31,7 +31,7 @@
        * @private
        */
       function _init() {
-        scope.unionButtonClass = unionButtonClass;
+        scope.unionSelectboxClass = unionSelectboxClass;
 
         scope.isActive = isActive;
         scope.selectActive = selectActive;
