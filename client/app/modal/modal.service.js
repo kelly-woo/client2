@@ -52,7 +52,7 @@
 
     that.openQuickLauncherModal = openQuickLauncherModal;
     that.openShortcutModal = openShortcutModal;
-
+    that.openBotProfileSettingModal = openBotProfileSettingModal;
     that.closeModal = closeModal;
 
     /**
@@ -131,6 +131,28 @@
       };
       _modalOpener(modalOption);
     }
+
+    /**
+     *
+     * @param $scope
+     * @param files
+     */
+    function openBotProfileSettingModal($scope, files) {
+      var modalOption = {
+        scope: $scope,
+        templateUrl: 'app/modal/connect/bot.profile.setting.html',
+        controller: 'BotProfileSettingCtrl',
+        size: 'lg',
+        windowClass: '',
+        resolve: {
+          files: function() {
+            return files;
+          }
+        }
+      };
+      _modalOpener(modalOption);
+    }
+
     /**
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
