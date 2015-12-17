@@ -120,7 +120,7 @@
 /* jnd-connect loading container style */
 .jnd-connect-loading-container {
   position: absolute;
-  left: 240px;
+  left: 0;
   top: 0;
   bottom: 0;
   right: 0;
@@ -217,6 +217,7 @@
   float: left;
   margin-left: 5.5%;
   margin-top: 10px;
+  position: absolute;
 }
 
 .jnd-float-left {
@@ -290,6 +291,7 @@
 
 .service-info .verify-button {
   margin: 7px 0;
+  height: 34px;
 }
 .service-info .verified-email-container > span {
   margin: 0;
@@ -374,6 +376,10 @@
   line-height: 28px;
   margin-top:6px;
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 95%;
 }
 
 .expand-button {
@@ -743,21 +749,13 @@
 
 
 /* browser responsive style for jnd-connect */
-
-@media (max-width: 1164px) {
+@media (min-width:0px) {
   .connect-setting-lpanel {
     width: 100%;
     position: relative;
     max-height: 64px;
     border-bottom:1px solid #D7D8DB;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
-  }
-
-  .connect-setting-lpanel div {
-    display: none;
-  }
-  .connect-setting-lpanel div.jnd-connect-logo-container {
-    display: block;
   }
   .jnd-connect-service-container,
   .jnd-connect-loading-container {
@@ -766,6 +764,16 @@
   }
   .jnd-connect-service-container > div {
     margin: 0 auto 16px;
+  }
+  
+}
+
+@media (max-width: 1164px) {
+  .connect-setting-lpanel div {
+    display: none;
+  }
+  .connect-setting-lpanel div.jnd-connect-logo-container {
+    display: block;
   }
   .jnd-connect-service-container > div.jnd-connect-banner {
     min-height: 150px;
