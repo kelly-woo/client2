@@ -30,6 +30,10 @@
       $scope.weeklyScheduleSummaryDayList = JndConnectGoogleCalendar.getDayList();
       $scope.weeklyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
 
+      $scope.onSettingClick = function() {
+        console.log('weeklyScheduleSummaryHour ::: ', $scope.data.weeklyScheduleSummaryHour);
+      }
+
       _createModels();
       if (isSettingMode) {
         _setGoogleCalendarData([
@@ -76,7 +80,7 @@
     }
 
     function _setConnectInfo(data) {
-      //console.log('set connect info ::: ', data);
+      console.log('set connect info ::: ', data);
 
       $scope.member = EntityMapManager.get('user', data.memberId);
       $scope.room = EntityMapManager.get('total', data.roomId);

@@ -32,9 +32,9 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
           <div class="checkbox-list-container notification-minute-container">
-            <input type="checkbox">
-            <!--<jnd-connect-union-selectbox list="notificationMinuteList"-->
-                                         <!--ng-model="dailyScheduleSummary"></jnd-connect-union-selectbox>-->
+            <input type="checkbox" ng-model="data.hasNotificationBefore">
+            <jnd-connect-union-selectbox list="notificationMinuteList"
+                                         value="data.notificationBefore"></jnd-connect-union-selectbox>
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -42,16 +42,16 @@
             </label>
           </div>
           <div class="checkbox-list-container">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="data.hasAllDayNotification">
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-54</span>
               </div>
             </label>
-            <!--<jnd-connect-union-selectbox list="allDayNotificationDateList"-->
-                                         <!--ng-model="allDayNotificationBeforeDates"></jnd-connect-union-selectbox>-->
-            <!--<jnd-connect-union-selectbox list="allDaynotificationHourList"-->
-                                         <!--ng-model="allDayNotificationHour"></jnd-connect-union-selectbox>-->
+            <jnd-connect-union-selectbox list="allDayNotificationDateList"
+                                         value="data.allDayNotificationBeforeDates"></jnd-connect-union-selectbox>
+            <jnd-connect-union-selectbox list="allDaynotificationHourList"
+                                         value="data.allDayNotificationHour"></jnd-connect-union-selectbox>
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-82</span>
@@ -66,14 +66,14 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
           <div class="checkbox-list-container">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="data.hasNotificationBefore">
             <label>
               <div class="checkbox-description">
                 <span translate>@jnd-connect-88</span>
               </div>
             </label>
-            <!--<jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"-->
-                                         <!--ng-model="notificationBefore"></jnd-connect-union-selectbox>-->
+            <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
+                                         value="data.notificationBefore"></jnd-connect-union-selectbox>
             <label>
               <div class="checkbox-description">
                 <span translate="">(KST)</span>
@@ -88,7 +88,7 @@
               </div>
             </label>
             <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"
-                                         value="data.weeklyScheduleSummaryDayOfWeek"</jnd-connect-union-selectbox>
+                                         value="data.weeklyScheduleSummaryDayOfWeek"></jnd-connect-union-selectbox>
             <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
                                          value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
             <label>

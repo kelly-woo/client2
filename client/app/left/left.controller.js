@@ -674,18 +674,18 @@ app.controller('leftPanelController1', function(
     }
   };
 
-  $scope.$on('onUserClick', function(event, user) {
-    $scope.onUserClick(user);
+  $scope.$on('onMemberClick', function(event, user) {
+    $scope.onMemberClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
   //  center and header are calling.
-  $scope.onUserClick = function(user) {
-    if (angular.isNumber(user)) {
-      user = EntityMapManager.get('total', user);
+  $scope.onMemberClick = function(member) {
+    if (angular.isNumber(member)) {
+      member = EntityMapManager.get('total', member);
+    } else {
+      member = EntityMapManager.get('total', member.id);
     }
-    else {
-      user = EntityMapManager.get('total', user.id);
-    }
+
     if (memberService.isUser(member.id)) {
       modalHelper.openUserProfileModal($scope, member);
     } else if (memberService.isJandiBot(member.id)) {

@@ -30,16 +30,7 @@
        * @private
        */
       function _init() {
-        $timeout(function() {
-          scope.weeklyScheduleSummaryHour = 2;
-          console.log('change week ::: ', scope.weeklyScheduleSummaryHour);
-        }, 3000);
-
-        $timeout(function() {
-          console.log('change week ::: ', scope.weeklyScheduleSummaryHour);
-        }, 5000);
       }
-
     }
   }
 })();
