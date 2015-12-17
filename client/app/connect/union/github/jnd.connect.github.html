@@ -18,6 +18,7 @@
           <!--</div>-->
           <jnd-selectbox-common
               jnd-data-list="repositories"
+              jnd-data-is-disabled="!isRepoLoaded"
               jnd-data-model="formData.repoId"></jnd-selectbox-common>
 
           <input jnd-input-model="formData.branches" class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">

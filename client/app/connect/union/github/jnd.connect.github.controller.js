@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $timeout, JndConnectDummy) {
+  function JndConnectGithubCtrl($scope, $timeout, JndConnectDummy, JndConnectGithubApi) {
     var _originalRepos;
 
     $scope.requestData = {
@@ -21,9 +21,9 @@
       authenticationId: null,
       repo: '',
       events: [],
-      branch: [],
-      token: ''
+      branch: []
     };
+
     $scope.githubEvents = {
       'push': false,
       'commit_comment': false,
@@ -35,7 +35,12 @@
     };
 
     $scope.isInitialized = false;
-    $scope.repositories = [];
+    $scope.repositories = [
+      {
+        text: '@불러오는중',
+        value: ''
+      }
+    ];
 
     $scope.formData = {
       roomId: null,
@@ -43,10 +48,12 @@
       branches: '',
       header: {},
       footer: {
-        botThumbnailFile: $scope.requestData.botThumbnailFile
+        botThumbnailFile: $scope.requestData.botThumbnailFile,
+        botName: 'Github'
       }
     };
 
+    $scope.isRepoLoaded = false;
 
     _init();
 
@@ -57,9 +64,6 @@
     function _init() {
       _attachEvents();
       _initialRequest();
-      $timeout(function() {
-        $scope.isInitialized = true;
-      }, 1000);
     }
 
     /**
@@ -67,20 +71,22 @@
      * @private
      */
     function _initialRequest() {
-      $timeout(_onInitialRequestSuccess, 1000);
+      $scope.isInitialized = true;
+      JndConnectGithubApi.getRepos().success(_onInitialRequestSuccess);
     }
 
     /**
      * 초기 request 성공 시 이벤트 핸들러
      * @private
      */
-    function _onInitialRequestSuccess() {
-      var githubData = JndConnectDummy.get('github');
-      _originalRepos = githubData.repo.repos;
+    function _onInitialRequestSuccess(response) {
+      //var githubData = JndConnectDummy.get('github');
+      _originalRepos = response.repos;
 
-      $scope.repositories =_getSelectboxRepos(githubData.repo.repos);
-      $scope.requestData.authenticationId = githubData.repo.authenticationId;
-      $scope.isInitialized = true;
+      $scope.requestData.authenticationId = response.authenticationId;
+      $scope.repositories =_getSelectboxRepos(response.repos);
+      $scope.formData.repoId = null;
+      $scope.isRepoLoaded = true;
     }
 
     /**
@@ -122,8 +128,20 @@
      */
     function _onSave() {
       _setRequestData();
+      JndConnectGithubApi.create($scope.requestData, $scope.formData.footer.botThumbnailFile)
+        .success(_onCreateSuccess);
+
       console.log('$scope.requestData', $scope.requestData);
       console.log('$scope.formData', $scope.formData);
+    }
+
+    function _onCreateSuccess() {
+      Dialog.success({
+        body:  '성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
     }
 
     /**
@@ -146,9 +164,8 @@
         roomId: formData.roomId,
         repo: _getRepoData(formData.repoId).full_name,
         branch: _getBranches(),
-        botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile
-    });
+        botName: footer.botName
+      });
       $scope.requestData.events = events;
     }
 
@@ -158,11 +175,18 @@
      * @private
      */
     function _getBranches() {
-      var branches = $scope.formData.branches.split(',');
-      branches = _.map(branches, function(branch) {
-        return _.trim(branch);
-      });
-      return branches;
+      var text = _.trim($scope.formData.branches);
+      var results = [];
+      var branches = _.trim($scope.formData.branches).split(',');
+      if (text) {
+        _.forEach(branches, function(branch) {
+          branch = _.trim(branch);
+          if (branch) {
+            results.push(branch);
+          }
+        });
+      }
+      return results;
     }
 
     /**
