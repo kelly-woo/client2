@@ -120,7 +120,7 @@
 /* jnd-connect loading container style */
 .jnd-connect-loading-container {
   position: absolute;
-  left: 240px;
+  left: 0;
   top: 0;
   bottom: 0;
   right: 0;
@@ -217,6 +217,7 @@
   float: left;
   margin-left: 5.5%;
   margin-top: 10px;
+  position: absolute;
 }
 
 .jnd-float-left {
@@ -374,6 +375,10 @@
   line-height: 28px;
   margin-top:6px;
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 95%;
 }
 
 .expand-button {
