@@ -13,7 +13,8 @@
   function markdown($filter) {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /([\*~]{1,3})([^\1].*)\1/g,
+      bolditalic: /([\*]{1,3})([^\1].+)\1/g,
+      strikethrough: /([~]{2})([^\1].+)\1/g,
       anchor: /<a.*?<\/a>/g,
       links: /\[([^\[]+)\]\(([^\)]+)\)/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
@@ -96,6 +97,7 @@
         return marker;
       });
       parsedText = _parseBoldItalic(string);
+      parsedText = _parseStrikeThrough(parsedText);
       parsedText = _parseLinks(parsedText);
       parsedText = parsedText.replace(regxMarker, function(matchText, $1, $2, $3, $4) {
         //선 수행된 url 파서로 인해 <a> 혹은 <img> 태그 안에 중첩되어 <a> 태그가 정의 된 경우, url parser 로 적용된 태그는 제거한다.
@@ -135,27 +137,29 @@
             break;
           } else {
             repstr = [];
-            if (stra[1] === '~~') {
-              str = str.replace(stra[0], '<del>' + stra[2] + '</del>');
-            } else {
-              if (stra[1].indexOf('~') === -1) {
-                switch (stra[1].length) {
-                  case 1:
-                    repstr = ['<i>', '</i>'];
-                    break;
-                  case 2:
-                    repstr = ['<b>', '</b>'];
-                    break;
-                  case 3:
-                    repstr = ['<i><b>', '</b></i>'];
-                    break;
-                }
-                str = str.replace(stra[0], repstr[0] + stra[2] + repstr[1]);
-              }
+            switch (stra[1].length) {
+              case 1:
+                repstr = ['<i>', '</i>'];
+                break;
+              case 2:
+                repstr = ['<b>', '</b>'];
+                break;
+              case 3:
+                repstr = ['<i><b>', '</b></i>'];
+                break;
             }
+            str = str.replace(stra[0], repstr[0] + stra[2] + repstr[1]);
             count++;
           }
         }
+      }
+      return str;
+    }
+
+    function _parseStrikeThrough(str) {
+      var stra;
+      while ((stra = (new RegExp(_regx.strikethrough)).exec(str)) !== null) {
+        str = str.replace(stra[0], '<del>' + stra[2] + '</del>');
       }
       return str;
     }

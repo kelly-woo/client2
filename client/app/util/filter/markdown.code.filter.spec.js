@@ -59,7 +59,7 @@
         var expectString6 = '중간 <b> 텍스트 </b>';
 
         var markdownString7 = $filter('중간 ~* 텍스트 *~');
-        var expectString7 = '중간 ~* 텍스트 *~';
+        var expectString7 = '중간 ~<i> 텍스트 </i>~';
         
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
@@ -93,7 +93,7 @@
         var expectString6 = '중간 <i><b> 텍스트 </b></i>';
 
         var markdownString7 = $filter('중간 *~* 텍스트 *~*');
-        var expectString7 = '중간 *~* 텍스트 *~*';
+        var expectString7 = '중간 <i>~<i> 텍스트 </i>~</i>';
         
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
@@ -103,12 +103,24 @@
         expect(markdownString6).toEqual(expectString6);
         expect(markdownString7).toEqual(expectString7);
       });
+      it('공백 테스트', function() {
+        var markdownString1 = $filter('***텍스트 입니다.');
+        var expectString1 = '***텍스트 입니다.';
+
+        expect(markdownString1).toEqual(expectString1);
+      });
     });
 
     describe('strike-through', function() {
       it('여러가지 케이스를 테스트 한다.', function() {
         var markdownString1 = $filter('~~텍스트~~ 입니다.');
         var expectString1 = '<del>텍스트</del> 입니다.';
+
+        expect(markdownString1).toEqual(expectString1);
+      });
+      it('공백 테스트', function() {
+        var markdownString1 = $filter('~~텍스트 입니다.');
+        var expectString1 = '~~텍스트 입니다.';
 
         expect(markdownString1).toEqual(expectString1);
       });
