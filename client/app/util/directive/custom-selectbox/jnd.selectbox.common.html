@@ -31,8 +31,8 @@
       <!-- saearc-result -->
       <div ng-if="searchList.length" class="custom-select-box__search-result-items">
         <span class="menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
-        <ul class="menulist-item-filetype">
-          <li class="topic-title menu-item _selectable" ng-repeat="item in searchList">
+        <ul class="menulist-item-result">
+          <li class="menu-item _selectable" ng-repeat="item in searchList">
             <a>
               <span ng-bind-html="item.extSearchName"></span>
             </a>
@@ -50,8 +50,8 @@
             <!-- filetype -->
             <div class="custom-select-box__menulist-items">
               <span translate class="menulist-item-header">{{item.name}}</span>
-              <ul class="menulist-item-filetype">
-                <li class="topic-title menu-item _selectable" ng-repeat="item in item.list">
+              <ul class="menulist-item-result">
+                <li class="menu-item _selectable" ng-repeat="item in item.list">
                   <a>
                     <span>{{ item.text }}</span>
                   </a>
