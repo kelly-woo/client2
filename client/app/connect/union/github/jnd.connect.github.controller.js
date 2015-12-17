@@ -6,17 +6,18 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $timeout, JndConnect, EntityMapManager) {
+  function JndConnectGithubCtrl($scope, $timeout, JndConnectDummy) {
     $scope.requestData = {
       mode: 'authed',
       roomId: null,
       botName: 'Github',
       botThumbnailFile: null,
       lang: 'ko',
-      authenticationId: 1,
+      authenticationId: null,
+      repo: '',
       events: [],
       branch: [],
-      token: ""
+      token: ''
     };
     $scope.githubEvents = {
       'push': false,
@@ -30,28 +31,8 @@
     $scope.selectedRoom = null;
     $scope.selectedRepo = 0;
     $scope.isInitialized = false;
-    $scope.repositories = [
-      {
-        text: 'repo0',
-        value: 0
-      },
-      {
-        text: 'repo1',
-        value: 1
-      },
-      {
-        text: 'repo2',
-        value: 2
-      },
-      {
-        text: 'repo3',
-        value: 3
-      },
-      {
-        text: 'repo4',
-        value: 4
-      }
-    ];
+    $scope.repositories = [];
+
     _init();
 
     /**
@@ -60,10 +41,43 @@
      */
     function _init() {
       _attachEvents();
+      _initialRequest();
       $timeout(function() {
         $scope.isInitialized = true;
       }, 1000);
     }
+
+    function _initialRequest() {
+      $timeout(_onInitialRequestSuccess, 1000);
+    }
+
+    function _onInitialRequestSuccess() {
+      var githubData = JndConnectDummy.get('github');
+
+      $scope.repositories =_getSelectboxRepos(githubData.repo.repos);
+      $scope.requestData.authenticationId = githubData.repo.authenticationId;
+      $scope.isInitialized = true;
+    }
+
+    function _getSelectboxRepos(repos) {
+      var groupList = [];
+      var list;
+      _.forEach(repos, function(group) {
+        list = [];
+        _.forEach(group.lists, function(repo) {
+          list.push({
+            text: repo.name,
+            value: repo.id
+          })
+        });
+        groupList.push({
+          name: group.owner,
+          list: list
+        });
+      });
+      return groupList;
+    }
+
     function _attachEvents() {
       $scope.$on('unionFooter:save', _onSave);
     }
