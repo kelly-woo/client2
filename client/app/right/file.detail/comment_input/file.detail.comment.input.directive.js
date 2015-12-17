@@ -42,10 +42,11 @@
       function _init() {
         scope.createComment = createComment;
         scope.onKeyUp = onKeyUp;
+        scope.member = memberService.getMember();
 
         _initComment();
 
-        _setProfileImage(memberService.getMember());
+        _setProfileImage(scope.member);
 
         _attachEvents();
       }

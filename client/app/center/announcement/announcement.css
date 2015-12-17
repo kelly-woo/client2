@@ -148,6 +148,10 @@
 }
 .announcement-option {
   margin-left: 30px;
+  color: #3A687F;
+}
+.announcement-option:hover {
+  color: #154a67;
 }
 .maximized-announcement__icon {
   font-size: 14px;

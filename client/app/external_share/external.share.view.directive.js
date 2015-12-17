@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('externalShareView', externalShareView);
 
-  function externalShareView($filter, memberService, ExternalShareService, Dialog) {
+  function externalShareView($filter, memberService, ExternalShareService, Dialog, JndUtil) {
     return {
       restrict: 'A',
       scope: {
@@ -58,9 +58,12 @@
       function _onClick(event) {
         //event.stopPropagation();
 
+
         if (scope.getExternalShare()) {
-          ExternalShareService.openUnshareDialog(function(type) {
-            type === 'okay' && _setExternalUnshare();
+          JndUtil.safeApply(scope, function() {
+            ExternalShareService.openUnshareDialog(function(type) {
+              type === 'okay' && _setExternalUnshare();
+            });
           });
         } else {
           _setExternalShare();

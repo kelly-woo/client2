@@ -34,17 +34,17 @@
 
     /**
      * image template 을 preload 한다.
-     * @param {String|Array} data - preload 할 image url. 복수개의 경우 array 를 넘긴다.
+     * @param {String|Array|object} data - preload 할 image url. 복수개의 경우 array|object 를 넘긴다.
      * @return {Preloader}
      */
     function img(data) {
       var list = [];
       var hasUrlInterceptor = _.isFunction(_urlInterceptor);
 
-      if (!_.isArray(data)) {
-        list.push(data);
-      } else {
+      if (_.isObject(data) || _.isArray(data)) {
         list = data;
+      } else {
+        list.push(data);
       }
 
       _.forEach(list, function(url) {

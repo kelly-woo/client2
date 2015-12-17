@@ -324,22 +324,11 @@
   /**
    * filter type의 preview
    */
-  app.filter('getFilterTypePreview', function($filter) {
-    var filterTypePreviewMap = {
-      pdf: '../assets/images/preview_pdf.png',
-      video:'../assets/images/preview_video.png',
-      audio: '../assets/images/preview_audio.png',
-      document: '../assets/images/preview_document.png',
-      spreadsheet: '../assets/images/preview_spreadsheet.png',
-      presentation: '../assets/images/preview_presentation.png',
-      googleDocs: '../assets/images/preview_google_docs.png',
-      dropbox: '../assets/images/preview_dropbox.png',
-      etc: '../assets/images/preview_other.png'
-    };
+  app.filter('getFilterTypePreview', function(fileAPIservice) {
+    var filterTypePreviewMap = fileAPIservice.getFilterTypePreviewMap();
 
     // 이미지 타입의 프리뷰가 보여져야하지만 etc로 분류되서 no_preview_available이 보여지는 extention의 모음.
     var noPreviewButImageType = {psd: true, ai: true};
-
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 
     return function(content) {

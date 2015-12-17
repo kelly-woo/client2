@@ -86,8 +86,7 @@
 }
 .panel-title-info-name-container {
   color: #1d1d1d;
-
-  cursor:pointer;
+  cursor: default;
   display:inline-block;
   height: inherit;
 }
@@ -99,10 +98,9 @@
   -moz-transitionDISABLED:color .15s ease-out;
   -o-transitionDISABLED:color .15s ease-out;
   transitionDISABLED:color .15s ease-out;
-  cursor:pointer;
   font-size: 16px;
 }
-.prefix.star { margin-right: 0; padding-right: 5px; }
+.prefix.star { margin-right: 0; padding-right: 5px; cursor:pointer;}
 .prefix .icon-star-on { color: #f9bb00; }
 .panel-title-info__name {
   padding-left:3px;
