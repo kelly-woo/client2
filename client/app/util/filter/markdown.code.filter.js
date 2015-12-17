@@ -156,6 +156,12 @@
       return str;
     }
 
+    /**
+     * strike through 를 파싱한다.
+     * @param {string} str
+     * @returns {string}
+     * @private
+     */
     function _parseStrikeThrough(str) {
       var stra;
       while ((stra = (new RegExp(_regx.strikethrough)).exec(str)) !== null) {
