@@ -31,7 +31,7 @@
 }
 
 .connect-union-contents {
-  width: calc(100% - 320px);
+  width: calc(100% - 324px);
   position: relative;
 }
 .connect-union-contents > div{
@@ -117,7 +117,8 @@
   display: inline-block;
 }
 .connect-union-float-right {
-  float: right !important;
+  position: absolute;
+  right: 0;
 }
 .connect-union-float-right span:first-child {
   margin-left: 8px;
