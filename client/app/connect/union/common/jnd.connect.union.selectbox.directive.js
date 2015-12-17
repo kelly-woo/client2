@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndConnectUnionSelectbox', jndConnectUnionSelectbox);
 
-  function jndConnectUnionSelectbox(JndUtil) {
+  function jndConnectUnionSelectbox() {
     return {
       restrict: 'E',
       replace: true,
@@ -22,17 +22,19 @@
 
     function link(scope, el, attrs) {
       var unionSelectboxClass = attrs.unionSelectboxClass || '';
+      var jqDropdown = el.find('ul');
 
       _init();
 
       /**
-       * 생성자
+       * init
        * @private
        */
       function _init() {
         var index;
 
         scope.unionSelectboxClass = unionSelectboxClass;
+        scope.isActiveSelectbox = false;
 
         scope.isActive = isActive;
         scope.selectActive = selectActive;
@@ -46,16 +48,39 @@
         } else {
           scope.selectItem(0);
         }
+
+        _attachEvents();
       }
 
+      /**
+       * attach events
+       * @private
+       */
+      function _attachEvents() {
+        scope.$watch('isActiveSelectbox', _onIsActiveSelectboxChange);
+      }
+
+      /**
+       * highlight되는 item 인지 여부 전달함
+       * @param {number} index
+       * @returns {boolean}
+       */
       function isActive(index) {
         return scope.activeIndex === index;
       }
 
+      /**
+       * highlight되는 item으로 선택함
+       * @param {number} index
+       */
       function selectActive(index) {
         scope.activeIndex = index;
       }
 
+      /**
+       * item을 선택함
+       * @param {number} index
+       */
       function selectItem(index) {
         var selectedItem;
 
@@ -68,12 +93,52 @@
         }
       }
 
+      /**
+       * dropdown이 toggle된 직 후 event 처리함
+       * @param {isOpen} isOpen
+       */
       function onToggle(isOpen) {
-        scope.isActiveButton = isOpen;
+        if (isOpen) {
+          // dropdown toggle 시 최초 출력시에만 focus 이동함
+          _focusItem(scope.selectedIndex);
+          scope.onToggle = angular.noop;
+        }
+      }
 
-        //JndUtil.safeApply(scope, function() {
-          scope.activeIndex = scope.selectedIndex;
-        //});
+      /**
+       * selectbox가 동작중 인지 flag 변경 처리함
+       * @param {boolean} value
+       * @private
+       */
+      function _onIsActiveSelectboxChange(value) {
+        if (!value) {
+          // dropdown toggle시 깜빡임 방지를 위해 닫히기 직전 focus 이동함
+          _focusItem(scope.selectedIndex);
+        }
+        scope.activeIndex = scope.selectedIndex;
+      }
+
+      /**
+       * list의 특정 item으로 focus 이동함
+       * @param {number} index
+       * @private
+       */
+      function _focusItem(index) {
+        var viewportScrollTop = jqDropdown.scrollTop() || 0;
+        //var viewportHeight = jqDropdown.height();
+        var viewportTop = jqDropdown.offset().top;
+
+        var jqItem = jqDropdown.children().eq(index);
+        //var itemHeight = jqItem.height();
+
+        var compare = jqItem.offset().top - viewportTop;
+
+        jqDropdown.scrollTop(viewportScrollTop + compare);
+        //if (compare < 0) {
+        //  jqDropdown.scrollTop(viewportScrollTop + compare);
+        //} else if (compare + itemHeight > viewportHeight) {
+        //  jqDropdown.scrollTop(viewportScrollTop + compare - viewportHeight + itemHeight);
+        //}
       }
     }
   }

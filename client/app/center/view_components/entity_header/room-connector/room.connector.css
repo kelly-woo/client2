@@ -1,14 +1,14 @@
-.topic-integration-connect .connect-wrapper {
+.room-integration-connect .connect-wrapper {
   position: absolute;
   width: 392px;
   cursor: default;
-
-  display: none;
   left: -338px;
   margin-top: -3px !important;
 }
 
-.topic-integration-connect .connect-wrapper ul {
+.room-integration-connect .connect-wrapper ul {
+  max-height: 304px;
+  overflow-y: auto;
   list-style: none;
 }
 
@@ -22,9 +22,13 @@
   display: block;
   margin: 0 auto;
   border-radius: 50%;
-  
-  background: url('/assets/images/service-logo-jnd-connect-inactive.png'); /* temp icon (inactive) */
   background-size: cover;
+}
+.connect-status .connect-status-icon.connect-active {
+  background-image: url('/assets/images/service-logo-jnd-connect-active.png');
+}
+.connect-status .connect-status-icon.connect-inactive {
+  background-image: url('/assets/images/service-logo-jnd-connect-inactive.png');
 }
 .connect-status > span {
   display: inline-block;
@@ -64,4 +68,8 @@
 .connect-footer {
   margin-bottom: 26px;
   text-align: center;
+}
+
+.room-integration-connect .jnd-connect-loading-container {
+
 }

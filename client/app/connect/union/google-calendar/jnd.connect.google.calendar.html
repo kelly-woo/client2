@@ -10,11 +10,10 @@
           <span class="setting-label" translate>@jnd-connect-36</span>
           <div class="setting-contents">
             <span class="setting-description"></span>
+            <jnd-selectbox-common jnd-data-list="data.calendarList"
+                                  jnd-data-model="data.calendarId"
+                                  jnd-data-is-disabled="isSettingMode"></jnd-selectbox-common>
 
-            <div class="custom-select-box-btn white-button">
-              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-              <span>캘린더 선택</span>
-            </div>
             <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
             <i class="icon-long-arrow-right"></i>
             <div class="clear"></div>
@@ -24,8 +23,12 @@
           <span class="setting-label" translate>@jnd-connect-38</span>
           <div class="setting-contents">
             <span class="setting-description"></span>
-            <jnd-selectbox-room jnd-data-model="selectedRoom"></jnd-selectbox-room>
-            <span class="create-new-topic white-button cursor_pointer animate-all" translate>@jnd-connect-40</span>
+
+            <jnd-selectbox-room jnd-data-model="data.roomId"></jnd-selectbox-room>
+
+            <span class="create-new-topic white-button cursor_pointer animate-all"
+                  ng-click="onTopicCreateClick()"
+                  translate>@jnd-connect-40</span>
             <div class="clear"></div>
           </div>
         </section>
@@ -68,14 +71,14 @@
           <div class="setting-contents">
             <span class="setting-description"></span>
             <div class="checkbox-list-container">
-              <input type="checkbox" ng-model="data.hasNotificationBefore">
+              <input type="checkbox" ng-model="data.hasDailyScheduleSummary">
               <label>
                 <div class="checkbox-description">
                   <span translate>@jnd-connect-88</span>
                 </div>
               </label>
               <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
-                                           value="data.notificationBefore"></jnd-connect-union-selectbox>
+                                           value="data.dailyScheduleSummary"></jnd-connect-union-selectbox>
               <label>
                 <div class="checkbox-description">
                   <span translate="">(KST)</span>
@@ -107,7 +110,7 @@
           <div class="setting-contents">
             <span class="setting-description"></span>
             <div class="checkbox-list-container text-only">
-              <input type="checkbox">
+              <input type="checkbox" ng-model="data.newEventNotification">
               <label>
                 <div class="checkbox-description">
                   <span translate>@jnd-connect-84</span>
@@ -115,7 +118,7 @@
               </label>
             </div>
             <div class="checkbox-list-container text-only">
-              <input type="checkbox">
+              <input type="checkbox" ng-model="data.updatedEventNotification">
               <label>
                 <div class="checkbox-description">
                   <span translate>@jnd-connect-85</span>
@@ -123,7 +126,7 @@
               </label>
             </div>
             <div class="checkbox-list-container text-only">
-              <input type="checkbox">
+              <input type="checkbox" ng-model="data.cancelledEventNotification">
               <label>
                 <div class="checkbox-description">
                   <span translate>@jnd-connect-86</span>

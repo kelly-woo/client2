@@ -117,7 +117,8 @@
     function getAccountList() {
       return $http({
         method: 'GET',
-        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'
+        //url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'
+        url: configuration.api_connect_address + 'authenticate/googleCalendar/calendarList'
       });
     }
 

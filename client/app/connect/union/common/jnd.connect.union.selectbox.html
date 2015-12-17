@@ -1,4 +1,6 @@
-<div class="union-selectbox-wrapper {{::unionSelectboxClass}}" ng-class="{'active': isActiveButton}"dropdown on-toggle="onToggle(open)">
+<div class="union-selectbox-wrapper {{::unionSelectboxClass}}" ng-class="{'active': isActiveSelectbox}" dropdown
+     on-toggle="onToggle(open)"
+     is-open="isActiveSelectbox">
   <div class="union-selectbox" dropdown-toggle>
     <span class="" ng-bind="selectedItemText"></span>
     <i class="icon-angle-down"></i>
