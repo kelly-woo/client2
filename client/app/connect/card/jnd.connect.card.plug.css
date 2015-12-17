@@ -4,6 +4,7 @@
   border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
   padding: 10px 18px 12px 26px;
+  position: relative;
 }
 
 .connect-union-plug-container:last-child {
