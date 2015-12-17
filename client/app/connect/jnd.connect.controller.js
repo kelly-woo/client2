@@ -6,7 +6,7 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager, JndConnectDummy) {
+  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager, JndConnectDummy, JndConnectApi) {
 
     var UNION_DATA = {
       '1': {
@@ -148,16 +148,17 @@
      */
     function getList() {
       //TODO: request 로직
-      $timeout(_onGetListSuccess, 1000);
+      JndConnectApi.getList().success(_onGetListSuccess);
+      //$timeout(_onGetListSuccess, 1000);
     }
 
     /**
      * list 조회 success 핸들러
      * @private
      */
-    function _onGetListSuccess() {
+    function _onGetListSuccess(response) {
       var list = [];
-      var response = DUMMY.common.connectList;
+      //var response = DUMMY.common.connectList;
       _.each(UNION_DATA, function(union) {
         list.push(_getUnion(union, response[union.name]));
       });
