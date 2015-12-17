@@ -1,0 +1,13 @@
+.bot-profile-upload-btn {
+  position: absolute;
+  display: block;
+  width: 75px;
+  height: 75px;
+  top: 50px;
+  opacity: 0;
+}
+
+img.bot-profile{
+  width:72px;
+  height:72px;
+}

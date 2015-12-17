@@ -30,7 +30,7 @@
         icon: '',
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
-        hasAuth: false,
+        hasAuth: true,
         popover: $filter('translate')('@jnd-connect-23')
       },
       //'4': {

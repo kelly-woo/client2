@@ -5,14 +5,19 @@
       <span class="setting-description" translate>@jnd-connect-99</span>
 
 
-      <div class="change-profile cursor_pointer">
+
+      <div class="change-profile">
+        <img ng-src="{{ profileImg }}" class="bot-profile"/>
         <span class="overlay-label">Edit</span>
+        <input type="file"
+               class="bot-profile-upload-btn cursor_pointer"
+               ng-file-select="onFileSelect($files);"
+               accept="image/*">
       </div>
 
       <input class="setting-input form-control" name="" id="" placeholder="Github">
 
       <div class="clear"></div>
-
     </div>
   </section>
   <input type="submit" class="btn comment-btn save-button" ng-click="save()" value="설정 저장하기">

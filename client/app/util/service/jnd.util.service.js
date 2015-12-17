@@ -12,7 +12,7 @@
     this.safeApply = safeApply;
     this.alertUnknownError = alertUnknownError;
     this.parseUrl = parseUrl;
-
+    this.dataURItoBlob = dataURItoBlob;
     /**
      * angular 의 $apply 를 안전하게 수행한다.
      * @param {object} scope
@@ -77,6 +77,34 @@
         });
       }
       return data;
+    }
+
+    /**
+     * data uri 를 blob 데이터로 변경해주는 함수.
+     * @param {string} dataURI
+     * @returns {*}
+     */
+    function dataURItoBlob (dataURI) {
+      // convert base64 to raw binary data held in a string
+      // doesn't handle URLEncoded DataURIs
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+      else
+        byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to an ArrayBuffer
+      var ab = new ArrayBuffer(byteString.length);
+      var ia = new Uint8Array(ab);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      // write the ArrayBuffer to a blob, and you're done
+      return new Blob([ab],{type: 'image/png'});
     }
   }
 })();
