@@ -130,6 +130,7 @@
   <link rel="stylesheet" href="../../client/components/jandi/dialog/dialog.css">
   <link rel="stylesheet" href="../../client/components/jandi/dialog/modal/modal.css">
   <link rel="stylesheet" href="../../client/components/jandi/dialog/toast/toast.css">
+
   <!-- endinjector -->
   <!-- endbuild -->
   
@@ -266,7 +267,7 @@
 		      <span class="ng-scope" translate="">서비스 설정 화면으로 돌아가기</span>
 		    </span>
 
-        <div class="integration-service-container detail-container google-calendar" id="jnd-connect-detail-container">
+        <div class="integration-service-container detail-container trello" id="jnd-connect-detail-container">
 
           <section class="active-member-info" style="">
             <!-- active member info will be placed here -->
@@ -277,7 +278,7 @@
             <i class="icon-service-logo"></i>
             <i class="icon-jnd-connect active"></i>
 
-            <span class="user-name">Admin</span><span class="service-name">'s Google Calendar</span>
+            <span class="user-name">Admin</span><span class="service-name">'s Trello</span>
             <span class="date-info">2015-12-01 생성</span>
           </section>
           
@@ -312,13 +313,13 @@
 
 
           <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
-            <span class="setting-label">캘린더 선택하기</span>
+            <span class="setting-label">알림을 받고자 하는 Board를 선택해주세요.</span>
             <div class="setting-contents">
               <span class="setting-description"></span>
 
               <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
                 <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                <span class="">캘린더 선택</span>
+                <span class="">Board 선택</span>
               </div>
 
               <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
@@ -346,146 +347,212 @@
 
             </div>
           </section>
-          
 
-          <section class="service-setting select-nofification clear borderless-section jnd-column-5-width jnd-float-left">
-            <span class="setting-label">알림 설정</span>
-            <div class="setting-contents">
-              <span class="setting-description"></span>
-              
-              
-              <div class="checkbox-list-container">
-                <input type="checkbox" id="" class="">
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">15분 전</span>
-                </div>
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">알림</span>
-                  </div>
-                </label>
-              </div>
-              
-              <div class="checkbox-list-container">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">종일 일정의 경우</span>
-                  </div>
-                </label>
-                
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">당일</span>
-                </div>
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">15분 전</span>
-                </div>
-                
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">(KST)에 알림</span>
-                  </div>
-                </label>
-              </div>
-
-              <div class="clear"></div>
-
-            </div>
-          </section>
-          
-          
-          <section class="service-setting select-nofification borderless-section jnd-column-5-width jnd-float-left second-column">
-            <span class="setting-label">일정 요약</span>
-            <div class="setting-contents">
-              <span class="setting-description"></span>
-              
-              
-              <div class="checkbox-list-container">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">매일</span>
-                  </div>
-                </label>
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">15분 전</span>
-                </div>
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">(KST)</span>
-                  </div>
-                </label>
-              </div>
-              
-              <div class="checkbox-list-container">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">매주</span>
-                  </div>
-                </label>
-                
-                
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">15분 전</span>
-                </div>
-                <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-                  <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-                  <span class="">월요일</span>
-                </div>
-                
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">(KST)</span>
-                  </div>
-                </label>
-              </div>
-              
-              <div class="clear"></div>
-
-            </div>
-          </section>
-          
           
           <section class="service-setting select-nofification clear">
-            <span class="setting-label">캘린더 업데이트</span>
+            <span class="setting-label">메시지 발생 이벤트 선택</span>
             <div class="setting-contents">
               <span class="setting-description"></span>
               
               
-              <div class="checkbox-list-container text-only">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">일정이 새롭게 생성되었거나 일정에 초대되었을 때 알림</span>
-                  </div>
-                </label>
-              </div>
+              <div class="inner-column jnd-column-5-width jnd-float-left">
+                <h3 class="column-title first-title">카드</h3>
               
-              <div class="checkbox-list-container text-only">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">일정의 제목이나 시간, 장소가 수정되었을 때 알림</span>
-                  </div>
-                </label>
-              </div>
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">카드가 생성되었을 때</span>
+                    </div>
+                  </label>
+                </div>
               
-              <div class="checkbox-list-container text-only">
-                <input type="checkbox" id="" class="">
-                <label>
-                  <div class="checkbox-description">
-                    <span translate="">일정이 취소되었거나 삭제되었을 때 알림</span>
-                  </div>
-                </label>
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">카드가 옮겨졌을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">카드 이름이 변경되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">코멘트 카드가 추가되었을 떄</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">첨부 파일이 카드에 추가되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">설명(Description)이 변경되었을 때</span>
+                   </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">마감일(Due date)이 변경되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">라벨(Label)이 변경되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">카드에 멤버가 추가되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">카드가 archive 또는 unarchive되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+                
+                <div class="clear"></div>
+              
+                
               </div>
-                            
+              <!-- inner column ENDS -->
+              
+              <div class="inner-column jnd-column-5-width jnd-float-left">
+                <h3 class="column-title">리스트</h3>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">리스트가 생성되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">리스트 이름이 바뀌었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                     <span translate="">리스트가 다른 보드로 옮겨졌을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">리스트가 archive 또는 unarchive되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+                
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">보드 이름이 바뀌었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">보드에 멤버가 추가되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="clear"></div>
+                
+              </div>
+              <!-- inner column ENDS -->
+              
+              <div class="inner-column jnd-column-5-width jnd-float-left">
+                <h3 class="column-title">체크리스트</h3>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">체크리스트가 카드에 추가되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">체크리스트 아이템이 생성되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+              
+                <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+                  <input type="checkbox" id="" class="">
+                  <label>
+                    <div class="checkbox-description">
+                      <span translate="">체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때</span>
+                    </div>
+                  </label>
+                </div>
+           
+                <div class="clear"></div>
+              
+              </div>
+              <!-- inner column ENDS -->
+              
               <div class="clear"></div>
+              
 
             </div>
           </section>

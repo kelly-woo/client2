@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 디렉티브
+ * @fileoverview union 공통 footer 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -14,7 +14,7 @@
       restrict: 'E',
       controller: 'JndConnectUnionFooterCtrl',
       scope: {
-
+        data: '=jndData'
       },
       link: link,
       replace: true,
@@ -22,8 +22,6 @@
     };
 
     function link(scope, el, attrs) {
-      scope.selectFile = selectFile;
-
       _init();
 
       /**
@@ -31,11 +29,6 @@
        * @private
        */
       function _init() {
-
-      }
-
-      function selectFile() {
-        $(el).find('._file').trigger('click');
       }
     }
   }

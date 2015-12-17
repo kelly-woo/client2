@@ -14,7 +14,7 @@
     $scope.addPlug = addPlug;
 
     function addPlug() {
-      jndPubSub.pub('union:addPlug', $scope.union.name);
+      jndPubSub.pub('connectCard:addPlug', $scope.union.name);
     }
   }
 })();

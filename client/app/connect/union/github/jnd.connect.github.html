@@ -18,9 +18,9 @@
           <!--</div>-->
           <jnd-selectbox-common
               jnd-data-list="repositories"
-              jnd-data-model="selectedRepo"></jnd-selectbox-common>
+              jnd-data-model="formData.repoId"></jnd-selectbox-common>
 
-          <input class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">
+          <input jnd-input-model="formData.branches" class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">
 
           <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;" translate>@jnd-connect-40</span>
 
@@ -37,7 +37,7 @@
           <span class="setting-description"></span>
 
           <jnd-selectbox-room
-              jnd-data-model="selectedRoom"></jnd-selectbox-room>
+              jnd-data-model="formData.roomId"></jnd-selectbox-room>
           <!--<div class="custom-select-box-btn white-button" ng-class="" ng-click="">-->
             <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
             <!--<span>토스랩 코리아</span>-->
@@ -56,71 +56,71 @@
           <span class="setting-description"></span>
 
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.push">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check1" type="checkbox" ng-model="githubEvents.push">
+            <label for="git-check1">
               <div class="checkbox-description">
-                <span translate="">Commits</span>
+                <span>Commits</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.commit_comment">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check2" type="checkbox" ng-model="githubEvents.commit_comment">
+            <label for="git-check2">
               <div class="checkbox-description">
-                <span translate="">Commit Comments</span>
+                <span>Commit Comments</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.pull_request">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check3" type="checkbox" ng-model="githubEvents.pull_request">
+            <label for="git-check3">
               <div class="checkbox-description">
-                <span translate="">Pull Requests Opened / Closed</span>
+                <span>Pull Requests Opened / Closed</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.pull_request_review_comment">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check4" type="checkbox" ng-model="githubEvents.pull_request_review_comment">
+            <label for="git-check4">
               <div class="checkbox-description">
-                <span translate="">Pull Request Comments</span>
+                <span>Pull Request Comments</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.issues">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check5" type="checkbox" ng-model="githubEvents.issues">
+            <label for="git-check5">
               <div class="checkbox-description">
-                <span translate="">Issue Opened / Closed</span>
+                <span>Issue Opened / Closed</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.issue_comment">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check6" type="checkbox" ng-model="githubEvents.issue_comment">
+            <label for="git-check6">
               <div class="checkbox-description">
-                <span translate="">Issue Comments</span>
+                <span>Issue Comments</span>
               </div>
             </label>
           </div>
 
-          <div class="checkbox-list-container text-only jnd-float-left half-width">
-            <input type="checkbox" ng-model="githubEvents.create">
-            <label>
+          <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
+            <input id="git-check7" type="checkbox" ng-model="githubEvents.create">
+            <label for="git-check7">
               <div class="checkbox-description">
-                <span translate="">Branch or Tag Created / Deleted</span>
+                <span>Branch or Tag Created / Deleted</span>
               </div>
             </label>
           </div>
 
-          <!--<div class="checkbox-list-container text-only jnd-float-left half-width">-->
-            <!--<input type="checkbox" ng-model="githubEvents.issues">-->
+          <!--<div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">-->
+            <!--<input type="checkbox">-->
             <!--<label>-->
               <!--<div class="checkbox-description">-->
                 <!--<span translate="">Branch force-pushed</span>-->
@@ -132,7 +132,7 @@
 
         </div>
       </section>
-      <jnd-connect-union-footer></jnd-connect-union-footer>
+      <jnd-connect-union-footer jnd-data="formData.footer"></jnd-connect-union-footer>
     </div>
   </div>
 </div>

@@ -149,6 +149,7 @@
               defaultItem = unit;
               return false;
             });
+            return false;
           } else {
             defaultItem = item;
             return false;

@@ -20,7 +20,7 @@
     }
 
     function backToMain() {
-      jndPubSub.pub('union:backToMain');
+      jndPubSub.pub('unionNav:backToMain');
     }
   }
 })();
