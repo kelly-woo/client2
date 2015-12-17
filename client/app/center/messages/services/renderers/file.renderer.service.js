@@ -46,16 +46,16 @@
 
       if (jqTarget.closest('._fileDownload').length) {
         _onClickFileDownload(msg);
-      } else if (jqTarget.closest('._fileDetail').length) {
-        _onClickFileDetail(msg);
-      } else if (jqTarget.closest('._fileDetailComment').length) {
-        _onClickFileDetail(msg, true);
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
       } else if (jqTarget.closest('._fileExpand').length) {
         _onClickFileExpand(msg, jqTarget);
       } else if (jqTarget.closest('._fileToggle').length) {
         _onClickFileToggle(msg, jqTarget);
+      } else if (jqTarget.closest('._fileDetailComment').length) {
+        _onClickFileDetail(msg, true);
+      } else if (jqTarget.closest('._fileDetail').length) {
+        _onClickFileDetail(msg);
       }
     }
 
@@ -210,10 +210,10 @@
           isUnshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
-          isImageIcon: icon === 'img',
+          hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: $filter('hasPreview')(content),
-          imageUrl: $filter('getPreview')(content, 'medium'),
+          imageUrl: $filter('getPreview')(content, 'large'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),

@@ -26,7 +26,7 @@
       {{#if isArchived}}
         <!--  ARCHIVED FILE PREVIEW IMAGE  -->
         <div class="preview-container">
-          <div class="preview-card cursor_pointer _compile _fileGo">
+          <div class="preview-card cursor_pointer _compile _fileDetail">
             <div class="msg-file-actions-content actions-dimmed"></div>
             <div class="msg-file-actions-content non-selectable">
               <div class="msg-file-actions">
@@ -58,7 +58,7 @@
             <div class="msg-file-meta-up">
               <!--  NOT ARCHIVED FILE -->
               <!--    TITLE   -->
-              <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">{{ file.title }}</a>
+              <a class="msg-file-meta__title file__name break-word cursor_pointer _fileDetail">{{ file.title }}</a>
               <span class="bullet">•</span>
               {{#unless file.isIntegrateFile}}
                 {{#if file.size}}
@@ -76,10 +76,11 @@
             <!-- MEDIUM SIZE IMAGE THUMBNAIL -->
             <div class="jnd-text-center _compile _fileToggleTarget">
               {{#if file.hasPreview}}
-                <div class="image_wrapper medium-thumbnail medium-thumbnail-wrapper cursor_pointer _fileExpand"
+                <div class="image_wrapper medium-thumbnail medium-thumbnail-wrapper cursor_pointer"
                      image-view="{{file.imageUrl}}"
                      image-width="{{file.width}}"
                      image-height="{{file.height}}"
+                     image-orientation="{{file.orientation}}"
                      image-max-width="360"
                      image-max-height="270"
                      has-loading-bar="true">
@@ -130,6 +131,7 @@
                      image-view
                      image-width="{{file.width}}"
                      image-height="{{file.height}}"
+                     image-orientation="{{file.orientation}}"
                      image-max-width="360"
                      image-max-height="270"
                      has-loading-bar="true"></div>
@@ -138,7 +140,7 @@
 
             {{#unless file.isUnshared}}
               <!-- Star -->
-              <div class="msg-extra file-uploaded-extra">
+              <div class="msg-extra file-uploaded-extra non-selectable">
                 <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _star-{{msg.message.id}} {{css.star}}">
                   <i class="icon-star-on"></i>
                 </span>
@@ -148,30 +150,30 @@
           {{else}}
               <!--  FILE PREVIEW IMAGE  -->
               <div class="preview-container">
-                <div class="preview-card cursor_pointer _compile _fileGo">
+                <div class="preview-card cursor_pointer _compile _fileDetail">
                   <div class="msg-file-actions-content actions-dimmed"></div>
                   <div class="msg-file-actions-content non-selectable">
                     <div class="msg-file-actions">
                       {{#unless file.isUnshared}}
                         <div class="action-group">
-                          {{#if file.isImageIcon}}
+                          {{#if file.hasOriginalImageView}}
                             <div class="action-item"
                                  jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
                                  data-direction="top">
                               <!--  file expand  -->
-                      <span class="action-comment _fileExpand">
-                        <i class="fa-search-plus"></i>
-                      </span>
+                              <span class="action-comment _fileExpand">
+                                <i class="fa-search-plus"></i>
+                              </span>
                             </div>
                           {{/if}}
                           <div class="action-item"
                                jnd-tooltip-trigger="{{translate '@btn-comment'}}"
                                data-direction="top">
                             <!--  MORE  -->
-                      <span class="action-comment _fileDetailComment">
-                        <i class="icon-comment"></i>
-                        <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
-                      </span>
+                            <span class="action-comment _fileDetailComment">
+                              <i class="icon-comment"></i>
+                              <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
+                            </span>
                           </div>
                           {{#unless file.isIntegrateFile}}
                             <div class="action-item"
@@ -230,10 +232,10 @@
 
                 {{#unless file.isUnshared}}
                   <!-- Star -->
-                  <div class="msg-extra file-uploaded-extra">
-              <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _star-{{msg.message.id}} {{css.star}}">
-                <i class="icon-star-on"></i>
-              </span>
+                  <div class="msg-extra file-uploaded-extra non-selectable">
+                    <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _star-{{msg.message.id}} {{css.star}}">
+                      <i class="icon-star-on"></i>
+                    </span>
                   </div>
                 {{/unless}}
               </div>
@@ -241,7 +243,7 @@
         {{else}}
           <!--  UNSHARED FILE  -->
           <div class="preview-container">
-            <div class="preview-card cursor_pointer _compile _fileGo">
+            <div class="preview-card cursor_pointer _compile _fileDetail">
               <div class="msg-file-actions-content actions-dimmed"></div>
               <div class="msg-file-actions-content non-selectable">
                 <div class="msg-file-actions">

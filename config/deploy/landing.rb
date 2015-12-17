@@ -20,8 +20,8 @@ set :deploy_to, '/srv/www/web_landing'
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '172.31.39.146', user: 'jandi', roles: 'client'
-server '172.31.39.147', user: 'jandi', roles: 'client'
+server '172.31.39.102', user: 'jandi', roles: 'client'
+server '172.31.39.103', user: 'jandi', roles: 'client'
 
 # Custom SSH Options
 # ==================

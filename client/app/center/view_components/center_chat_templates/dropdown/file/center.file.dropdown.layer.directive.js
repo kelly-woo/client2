@@ -60,10 +60,10 @@
        */
       function _onShow(angularEvent, data) {
         var msg = data.msg;
-        var content = msg.message.content;
-        var fileUrl = content.fileUrl;
+        var content;
+        var fileUrl;
 
-        var urlObj = $filter('downloadFile')(data.isIntegrateFile, content.title, fileUrl);
+        var urlObj;
 
         _onHide();
 
@@ -75,15 +75,22 @@
 
         scope.isAdmin = memberService.isAdmin();
 
-        scope.hasProtocol = _regxHTTP.test(fileUrl);
-        scope.downloadUrl = urlObj.downloadUrl;
-        scope.originalUrl = urlObj.originalUrl;
-
-        scope.isExternalShared = content.externalShared;
         scope.getExternalShare = getExternalShare;
         scope.setExternalShare = setExternalShare;
 
-        scope.fileId = msg.feedback ? msg.feedback.id : msg.message.id;
+        scope.message = msg.feedback ? msg.feedback : msg.message;
+        scope.fileId = scope.message.id;
+
+        content = scope.message.content;
+        fileUrl = content.fileUrl;
+
+        scope.isExternalShared = content.externalShared;
+
+        urlObj = $filter('downloadFile')(data.isIntegrateFile, content.title, fileUrl);
+        scope.downloadUrl = urlObj.downloadUrl;
+        scope.originalUrl = urlObj.originalUrl;
+
+        scope.hasProtocol = _regxHTTP.test(fileUrl);
 
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.
