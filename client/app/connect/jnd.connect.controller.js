@@ -6,7 +6,7 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager) {
+  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager, JndConnectDummy) {
 
     var UNION_DATA = {
       '1': {
@@ -58,7 +58,7 @@
         popover: $filter('translate')('@jnd-connect-26')
       },
       '7': {
-        name: 'webhook',
+        name: 'incoming',
         icon: '',
         title: $filter('translate')('@jnd-connect-21'),
         desc: $filter('translate')('@jnd-connect-22'),
@@ -74,6 +74,7 @@
     $scope.close = close;
     $scope.unions = [];
 
+    var DUMMY = JndConnectDummy.get();
 
     _init();
 
@@ -91,10 +92,16 @@
      * @private
      */
     function _attachEvents() {
-      $scope.$on('union:addPlug', _onAddPlug);
-      $scope.$on('union:backToMain', _onBackToMain);
+      $scope.$on('connectCard:addPlug', _onAddPlug);
+      $scope.$on('unionNav:backToMain', _onBackToMain);
     }
 
+    /**
+     * 플러그 추가시 핸들러
+     * @param angularEvent
+     * @param unionName
+     * @private
+     */
     function _onAddPlug(angularEvent, unionName) {
       var targetUnion = _.find($scope.unions, function(union) {
         return union.name === unionName;
@@ -137,79 +144,55 @@
     }
 
     /**
-     * union list 데이터를 가공한다.
+     * 연동된 data list 를 request 하여 가져온다.
      */
     function getList() {
+      //TODO: request 로직
+      $timeout(_onGetListSuccess, 1000);
+    }
+
+    /**
+     * list 조회 success 핸들러
+     * @private
+     */
+    function _onGetListSuccess() {
       var list = [];
-      //test
+      var response = DUMMY.common.connectList;
       _.each(UNION_DATA, function(union) {
-        list.push(_createDummyUnion(union));
+        list.push(_getUnion(union, response[union.name]));
       });
       $scope.unions = list;
     }
-    /*
-    -=-=-=-=-=-= 이하 테스트 더미데이터 생성을 위한 코드 -=-=-=-=-=-=-
-     */
 
     /**
-     * for test
-     * @param type
-     * @returns {*}
+     * server data 로 부터 UI 에 맞는 plug 데이터를 가공하여 반환한다.
+     * @param data
+     * @returns {{user: *, room: *, isOn: boolean, raw: *}}
      * @private
      */
-    function _getEntity(type) {
-      type = type || 'total';
-      var randNum = Math.floor((Math.random() * 10) + 1);
-      var count = 0;
-      var targetEntity;
-      var map = EntityMapManager.getMap(type);
-      _.each(map, function(entity) {
-        if (count === randNum) {
-          targetEntity = entity;
-          return false;
-        }
-        count++;
-      });
-      return targetEntity;
+    function _getPlug(data) {
+      return {
+        user: EntityMapManager.get('member', data.memberId),
+        room: EntityMapManager.get('total', data.roomId),
+        isOn: data.status === 'enabled',
+        raw: data
+      }
     }
 
-    function _createDummyUnion(union) {
-
-      var item = _.extend({}, union);
-      var randCount = Math.floor((Math.random() * 20));
-      var i = 0;
+    /**
+     * UI 에 적합한 Union 데이터를 가공하여 반환한다.
+     * @param {Object} constUnion - 최상단에 정의된 UNION 데이터
+     * @param {Array} list
+     * @returns {Object}
+     * @private
+     */
+    function _getUnion(constUnion, list) {
+      var item = _.extend({}, constUnion);
       item.plugs = [];
-
-      for (;i < randCount; i++) {
-        item.plugs.push(_getPlug());
-      }
+      _.forEach(list, function(data) {
+        item.plugs.push(_getPlug(data));
+      });
       return item;
     }
-
-    function _getPlug() {
-      var roomType;
-      var randType = Math.floor((Math.random() * 3));
-      switch (randType) {
-        case 0:
-          roomType = 'joined';
-          break;
-        case 1:
-          roomType = 'private';
-          break;
-        case 2:
-          roomType = 'memberEntityId';
-          break;
-        default:
-          roomType = 'joined';
-          break;
-      }
-
-      return {
-        user: _getEntity('member'),
-        room: _getEntity(roomType),
-        isOn: !!Math.floor((Math.random() * 2))
-      }
-    }
-
   }
 })();
