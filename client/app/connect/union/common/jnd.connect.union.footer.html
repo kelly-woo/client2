@@ -3,11 +3,10 @@
     <span class="setting-label" translate>@jnd-connect-98</span>
     <div class="setting-contents">
       <span class="setting-description" translate>@jnd-connect-99</span>
-
-
-
       <div class="change-profile">
-        <img ng-src="{{ profileImg }}" class="bot-profile"/>
+
+        <img ng-if="!changedFileUri" ng-src="{{ data.botThumbnailFile }}" class="bot-profile"/>
+        <img ng-if="changedFileUri" ng-src="{{ changedFileUri }}" class="bot-profile"/>
         <span class="overlay-label">Edit</span>
         <input type="file"
                class="bot-profile-upload-btn cursor_pointer"
@@ -15,7 +14,7 @@
                accept="image/*">
       </div>
 
-      <input class="setting-input form-control" name="" id="" placeholder="Github">
+      <input jnd-input-model="data.botName" class="setting-input form-control" placeholder="Github">
 
       <div class="clear"></div>
     </div>

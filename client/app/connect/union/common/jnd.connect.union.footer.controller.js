@@ -1,3 +1,6 @@
+/**
+ * @fileoverview union 공통 footer 컨트롤러
+ */
 (function() {
   'use strict';
 
@@ -6,10 +9,11 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, jndPubSub, modalHelper) {
+  function JndConnectUnionFooterCtrl($scope, JndUtil, jndPubSub, modalHelper) {
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
-    $scope.profileImg = '';
+    $scope.data = $scope.data || {};
+    $scope.changedFileUri = null;
     _init();
 
     /**
@@ -20,15 +24,28 @@
       $scope.$on('BlobProfileSettingCtrl:done', _onProfileSettingDone);
     }
 
+    /**
+     * 모달의 profile 이미지 변경 완료 이벤트 발생시 핸들러
+     * @param {object} angularEvent
+     * @param {string} url
+     * @private
+     */
     function _onProfileSettingDone(angularEvent, url) {
-      console.log('### _onProfileSettingDone', url);
-      $scope.profileImg = url;
+      $scope.changedFileUri = url;
+      $scope.data.botThumbnailFile = JndUtil.dataURItoBlob(url);
     }
 
+    /**
+     * 설정 저장하기 클릭 시
+     */
     function save() {
       jndPubSub.pub('unionFooter:save');
     }
 
+    /**
+     * file select 이벤트 핸들러
+     * @param {object} $files
+     */
     function onFileSelect($files) {
       if ($files && $files.length) {
         modalHelper.openBotProfileSettingModal($scope, $files);

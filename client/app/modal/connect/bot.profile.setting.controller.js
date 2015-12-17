@@ -16,6 +16,10 @@
 
     _init();
 
+    /**
+     * 초기화
+     * @private
+     */
     function _init() {
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
@@ -41,21 +45,27 @@
         }
       }
     }
+
+    /**
+     * 영역 변경 이벤트 발생시
+     * @param {string} tempPic
+     */
     function onChange(tempPic) {
       $scope.croppedProfilePic = tempPic;
-      jndPubSub.pub('BlobProfileSettingCtrl:done', $scope.croppedProfilePic);
-      console.log('###onChange', $scope.croppedProfilePic);
     }
 
+    /**
+     * 취소 버튼 클릭 시 이벤트 핸들러
+     */
     function cancel() {
       modalHelper.closeModal('cancel');
     }
 
+    /**
+     * 변경하기 버튼 클릭 시 이벤트 핸들러
+     */
     function done() {
-      var blob;
-      console.log('###done', $scope.croppedProfilePic);
       if ($scope.croppedProfilePic) {
-        //blob = JndUtil.dataURItoBlob($scope.croppedProfilePic);
         jndPubSub.pub('BlobProfileSettingCtrl:done', $scope.croppedProfilePic);
       }
       modalHelper.closeModal('cancel');
