@@ -668,13 +668,13 @@
     }
 
     /**
-     * bot 인지 여부
+     * connect bot 인지 여부
      * @param {number} memberId
      * @returns {*|boolean|*}
      */
     function isIntegrationBot(memberId) {
       var bot = EntityMapManager.get('bot', memberId);
-      return isBot(memberId) && bot && bot.botType === 'integration_bot';
+      return isBot(memberId) && bot && bot.botType === 'connect_bot';
     }
 
     /**

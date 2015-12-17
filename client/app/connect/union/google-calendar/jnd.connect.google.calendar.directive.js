@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('jndConnectGoogleCalendar', jndConnectGoogleCalendar);
 
-  function jndConnectGoogleCalendar($timeout) {
+  function jndConnectGoogleCalendar() {
     return {
       restrict: 'E',
       scope: {

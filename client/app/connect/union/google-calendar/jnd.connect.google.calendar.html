@@ -12,7 +12,7 @@
             <span class="setting-description"></span>
             <jnd-selectbox-common jnd-data-list="data.calendarList"
                                   jnd-data-model="data.calendarId"
-                                  jnd-data-is-disabled="isSettingMode"></jnd-selectbox-common>
+                                  jnd-data-is-disabled="isSettingMode || !isCalendarListLoaded"></jnd-selectbox-common>
 
             <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
             <i class="icon-long-arrow-right"></i>
@@ -136,8 +136,7 @@
             <div class="clear"></div>
           </div>
         </section>
-        <button ng-click="onSettingClick()">췤췤</button>
-        <jnd-connect-union-footer></jnd-connect-union-footer>
+        <jnd-connect-union-footer jnd-data="data"></jnd-connect-union-footer>
       </div>
     </div>
   </div>

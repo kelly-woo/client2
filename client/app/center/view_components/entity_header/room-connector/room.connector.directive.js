@@ -30,6 +30,12 @@
        * @private
        */
       function _init() {
+
+        scope.onConnectStatusChange = onConnectStatusChange;
+
+        scope.onConnectSetting = onConnectSetting;
+        scope.onConnectDelete = onConnectDelete;
+
         _attachEvents();
       }
 
@@ -39,7 +45,7 @@
        */
       function _attachEvents() {
         scope.$watch('isConnectBoxOpen', _onIsConnectBoxOpenChange);
-        scope.$on('connectPlug:connectDelete', _onConnectDelete);
+
       }
 
       function _onIsConnectBoxOpenChange(isOpen) {
@@ -48,17 +54,72 @@
         }
       }
 
-      function _onConnectDelete(angularEvent, connectId) {
-        var index = _.findIndex(scope.connectPlugs, {id: connectId});
-        scope.connectPlugs.splice(index, 1);
+      /**
+       * change connect status
+       */
+      function onConnectStatusChange(connectId, status) {
+        _requestConnectStatus();
       }
 
+      /**
+       * setting connect
+       * @param connectId
+       */
+      function onConnectSetting(connectId) {
+        _openConnectSetting();
+      }
+
+      /**
+       * delete connect
+       * @param angularEvent
+       * @param connectId
+       * @private
+       */
+      function onConnectDelete(connectId) {
+        var index = _.findIndex(scope.connectPlugs, {id: connectId});
+        scope.connectPlugs.splice(index, 1);
+
+        _requestConnectDelete();
+      }
+
+      /**
+       * request connect status
+       * @private
+       */
+      function _requestConnectStatus() {
+
+      }
+
+      /**
+       * open connect setting page
+       * @private
+       */
+      function _openConnectSetting() {
+
+      }
+
+      /**
+       * request connect delete
+       * @private
+       */
+      function _requestConnectDelete() {
+
+      }
+
+      /**
+       * init connect info
+       * @private
+       */
       function _initConnectInfo() {
         clearWatch && clearWatch();
         scope.connectPlugs = [];
         scope.isInitialized = false;
       }
 
+      /**
+       * request connect info
+       * @private
+       */
       function _requestRoomConnectInfo() {
         _initConnectInfo();
 
@@ -67,8 +128,12 @@
           .finally(_finallyRoomConnectInfo);
       }
 
+      /**
+       * request success
+       * @param data
+       * @private
+       */
       function _successRoomConnectInfo(data) {
-        return;
         var temp = {
           "google_calendar": [
             {
@@ -170,15 +235,23 @@
         });
       }
 
+      /**
+       * request finally
+       * @private
+       */
       function _finallyRoomConnectInfo() {
-        //scope.isInitialized = true;
+        scope.isInitialized = true;
 
-        _setConnectStatus();
+        _setConnectContent();
 
-        clearWatch = scope.$watch('connectPlugs.length', _setConnectStatus);
+        clearWatch = scope.$watch('connectPlugs.length', _setConnectContent);
       }
 
-      function _setConnectStatus() {
+      /**
+       * connect plug가 존재하거나 아니거나에 따라 출력되는 상태를 설정함
+       * @private
+       */
+      function _setConnectContent() {
         scope.hasConnectPlugs = scope.connectPlugs.length > 0;
 
         if (scope.hasConnectPlugs) {

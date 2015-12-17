@@ -1,12 +1,12 @@
 <div class="connect-plug">
-  <div class="connect-union-icon plug-service-image">{{union.icon}}</div>
+  <img class="connect-union-icon plug-service-image" ng-src="{{botProfileImage}}"/>
   <div class="plug-body">
-    <div class="plug-service overflow-ellipsis">Google Calendar</div>
-    <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>MKChoi</div>
+    <div class="plug-service overflow-ellipsis">{{botName}}</div>
+    <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>{{memberName}}</div>
   </div>
   <div class="plug-menu connect-union-float-right connect-union-plug-tool-container">
     <switch-button active="isActive" toggle="onServiceToggle($value)"></switch-button>
-    <span class="opt-button jnd-cursor-pointer"><i class="icon-pencil"></i></span>
-    <span class="opt-button jnd-cursor-pointer connect-delete"><i class="icon-trash"></i></span>
+    <span class="opt-button jnd-cursor-pointer" ng-click="onSettingClick($event)"><i class="icon-pencil"></i></span>
+    <span class="opt-button jnd-cursor-pointer" ng-click="onDeleteClick($event)"><i class="icon-trash"></i></span>
   </div>
 </div>

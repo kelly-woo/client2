@@ -67,11 +67,12 @@
     _init();
 
     function _init() {
-      that.disconnect = disconnect;
       that.getConnectInfo = getConnectInfo;
       that.getAccountList = getAccountList;
       that.connect = connect;
       that.setting = setting;
+
+      that.disconnect = disconnect;
       that.setStatus = setStatus;
 
       that.getMinuteList = getMinuteList;
@@ -80,21 +81,6 @@
       that.getDayList = getDayList;
     }
 
-    /**
-     * http://wiki.tosslab.com/pages/viewpage.action?pageId=7242005
-     * connect 연동을 해제함
-     * @param {number} connectId
-     * @returns {*}
-     */
-    function disconnect(connectId) {
-      return $http({
-        method: 'DELETE',
-        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar',
-        data: {
-          connectId: connectId
-        }
-      });
-    }
 
     /**
      * http://wiki.tosslab.com/pages/viewpage.action?pageId=7241997
@@ -151,6 +137,22 @@
     }
 
     /**
+     * http://wiki.tosslab.com/pages/viewpage.action?pageId=7242005
+     * connect 연동을 해제함
+     * @param {number} connectId
+     * @returns {*}
+     */
+    function disconnect(connectId) {
+      return $http({
+        method: 'DELETE',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar',
+        data: {
+          connectId: connectId
+        }
+      });
+    }
+
+    /**
      * http://wiki.tosslab.com/pages/viewpage.action?pageId=7241994
      * connect 연동을 enable/disable 함
      * @param {number} connectId
@@ -168,18 +170,34 @@
       });
     }
 
+    /**
+     * get minute list
+     * @returns {Array.<*>}
+     */
     function getMinuteList() {
       return minuteList.slice(0);
     }
 
+    /**
+     * get hour list
+     * @returns {Array.<*>}
+     */
     function getHourList() {
       return hourList.slice(0);
     }
 
+    /**
+     * get date list
+     * @returns {Array.<*>}
+     */
     function getDateList() {
       return dateList.slice(0);
     }
 
+    /**
+     * get day list
+     * @returns {Array.<*>}
+     */
     function getDayList() {
       return dayList.slice(0);
     }
