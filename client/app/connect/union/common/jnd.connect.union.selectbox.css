@@ -5,6 +5,7 @@
   text-align: left;
   font-weight: 500;
   cursor: pointer;
+  line-height: 28px;
 }
 
 .union-selectbox-wrapper .union-selectbox {

@@ -68,7 +68,7 @@
 
     function _init() {
       that.getConnectInfo = getConnectInfo;
-      that.getAccountList = getAccountList;
+      that.getCalendarList = getCalendarList;
       that.connect = connect;
       that.setting = setting;
 
@@ -100,7 +100,7 @@
      * 등록된 캘린더 리스트를 반환함
      * @returns {*}
      */
-    function getAccountList() {
+    function getCalendarList() {
       return $http({
         method: 'GET',
         //url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'

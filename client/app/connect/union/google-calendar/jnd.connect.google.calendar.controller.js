@@ -89,34 +89,6 @@
     }
 
     /**
-     * request google calendar data
-     * @param requests
-     * @private
-     */
-    function _requestGoogleCalendarData(requests) {
-      var deferred = $q.all(_.pluck(requests, 'request'));
-
-      deferred.then(
-        function(results) {
-          _.each(results, function(result, index) {
-            var success;
-
-            if (result && result.data) {
-              if (success = requests[index].success) {
-                success(result.data);
-              }
-            }
-          });
-
-          $scope.isInitialized = true;
-        },
-        function() {
-          console.log('do 에러 처리');
-        }
-      );
-    }
-
-    /**
      * request connect info
      * @param {number} connectId
      * @returns {*}
@@ -143,10 +115,7 @@
      * @private
      */
     function _requestCalendarInfo() {
-      $scope.isCalendarListLoaded = false;
-      $scope.data.calendarList = [
-        {text: '불러오는 중', value: ''}
-      ];
+      _initCalendarList();
 
       setTimeout(function() {
         var temp = [{
@@ -181,13 +150,20 @@
           $scope.isCalendarListLoaded = true;
           _setCalendarList(temp);
         });
-      }, 3000);
+      }, 2000);
 
-      //JndConnectGoogleCalendar.getAccountList()
+      //JndConnectGoogleCalendar.getCalendarList()
       //  .success(function(calendarInfo) {
       //    $scope.isCalendarListLoaded = true;
       //    _setCalendarList(calendarInfo);
       //  });
+    }
+
+    function _initCalendarList() {
+      $scope.isCalendarListLoaded = false;
+      $scope.data.calendarList = [
+        {text: '@불러오는 중', value: ''}
+      ];
     }
 
     /**
