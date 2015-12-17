@@ -291,6 +291,7 @@
 
 .service-info .verify-button {
   margin: 7px 0;
+  height: 34px;
 }
 .service-info .verified-email-container > span {
   margin: 0;
