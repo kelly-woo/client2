@@ -25,11 +25,14 @@
 	<span class="setting-label">언어 설정</span>
     <div class="setting-contents">
       <span class="setting-description">연동 서비스로부터 수신되는 메시지에 사용될 언어를 선택합니다.</span>
-	  
-	  <div class="custom-select-box-btn white-button pull-right" ng-class="" ng-click="">
-        <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-        <span class="">한국어</span>
-      </div>
+
+      <jnd-connect-union-selectbox class="pull-right"
+                                   list="langList"
+                                   value="data.lang"></jnd-connect-union-selectbox>
+	  <!--<div class="custom-select-box-btn white-button pull-right" ng-class="" ng-click="">-->
+        <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
+        <!--<span class="">한국어</span>-->
+      <!--</div>-->
 
       <div class="clear"></div>
 

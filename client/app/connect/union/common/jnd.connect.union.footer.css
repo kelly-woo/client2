@@ -8,6 +8,7 @@
 }
 
 img.bot-profile{
+  position:absolute;
   width:72px;
   height:72px;
 }
