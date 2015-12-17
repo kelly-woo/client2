@@ -2,137 +2,140 @@
   <!--Google Calendar-->
   <div class="integration-service detail">
     <jnd-connect-union-nav></jnd-connect-union-nav>
-    <div ng-if="true" class="integration-service-container detail-container" id="jnd-connect-detail-container">
-      <jnd-connect-union-header></jnd-connect-union-header>
-      <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
-        <span class="setting-label" translate>@jnd-connect-36</span>
-        <div class="setting-contents">
-          <span class="setting-description"></span>
+    <div class="integration-service-container detail-container github" id="jnd-connect-detail-container">
+      <jnd-connect-loading ng-if="!isInitialized"></jnd-connect-loading>
+      <div ng-if="isInitialized">
+        <jnd-connect-union-header></jnd-connect-union-header>
+        <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
+          <span class="setting-label" translate>@jnd-connect-36</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
 
-          <div class="custom-select-box-btn white-button">
-            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span>캘린더 선택</span>
+            <div class="custom-select-box-btn white-button">
+              <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+              <span>캘린더 선택</span>
+            </div>
+            <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
+            <i class="icon-long-arrow-right"></i>
+            <div class="clear"></div>
           </div>
-          <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
-          <i class="icon-long-arrow-right"></i>
-          <div class="clear"></div>
-        </div>
-      </section>
-      <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
-        <span class="setting-label" translate>@jnd-connect-38</span>
-        <div class="setting-contents">
-          <span class="setting-description"></span>
-          <jnd-selectbox-room jnd-data-model="selectedRoom"></jnd-selectbox-room>
-          <span class="create-new-topic white-button cursor_pointer animate-all" translate>@jnd-connect-40</span>
-          <div class="clear"></div>
-        </div>
-      </section>
-      <section class="service-setting select-nofification clear borderless-section jnd-column-5-width jnd-float-left">
-        <span class="setting-label" translate>@jnd-connect-41</span>
-        <div class="setting-contents">
-          <span class="setting-description"></span>
-          <div class="checkbox-list-container notification-minute-container">
-            <input type="checkbox" ng-model="data.hasNotificationBefore">
-            <jnd-connect-union-selectbox list="notificationMinuteList"
-                                         value="data.notificationBefore"></jnd-connect-union-selectbox>
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-82</span>
-              </div>
-            </label>
+        </section>
+        <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
+          <span class="setting-label" translate>@jnd-connect-38</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <jnd-selectbox-room jnd-data-model="selectedRoom"></jnd-selectbox-room>
+            <span class="create-new-topic white-button cursor_pointer animate-all" translate>@jnd-connect-40</span>
+            <div class="clear"></div>
           </div>
-          <div class="checkbox-list-container">
-            <input type="checkbox" ng-model="data.hasAllDayNotification">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-54</span>
-              </div>
-            </label>
-            <jnd-connect-union-selectbox list="allDayNotificationDateList"
-                                         value="data.allDayNotificationBeforeDates"></jnd-connect-union-selectbox>
-            <jnd-connect-union-selectbox list="allDaynotificationHourList"
-                                         value="data.allDayNotificationHour"></jnd-connect-union-selectbox>
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-82</span>
-              </div>
-            </label>
+        </section>
+        <section class="service-setting select-nofification clear borderless-section jnd-column-5-width jnd-float-left">
+          <span class="setting-label" translate>@jnd-connect-41</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container notification-minute-container">
+              <input type="checkbox" ng-model="data.hasNotificationBefore">
+              <jnd-connect-union-selectbox list="notificationMinuteList"
+                                           value="data.notificationBefore"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-82</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasAllDayNotification">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-54</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="allDayNotificationDateList"
+                                           value="data.allDayNotificationBeforeDates"></jnd-connect-union-selectbox>
+              <jnd-connect-union-selectbox list="allDaynotificationHourList"
+                                           value="data.allDayNotificationHour"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-82</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
-        </div>
-      </section>
-      <section class="service-setting select-nofification borderless-section jnd-column-5-width jnd-float-left second-column">
-        <span class="setting-label">일정 요약</span>
-        <div class="setting-contents">
-          <span class="setting-description"></span>
-          <div class="checkbox-list-container">
-            <input type="checkbox" ng-model="data.hasNotificationBefore">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-88</span>
-              </div>
-            </label>
-            <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
-                                         value="data.notificationBefore"></jnd-connect-union-selectbox>
-            <label>
-              <div class="checkbox-description">
-                <span translate="">(KST)</span>
-              </div>
-            </label>
+        </section>
+        <section class="service-setting select-nofification borderless-section jnd-column-5-width jnd-float-left second-column">
+          <span class="setting-label">일정 요약</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasNotificationBefore">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-88</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
+                                           value="data.notificationBefore"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">(KST)</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasWeeklyScheduleSummary">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-89</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"
+                                           value="data.weeklyScheduleSummaryDayOfWeek"></jnd-connect-union-selectbox>
+              <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
+                                           value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">(KST)</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="checkbox-list-container">
-            <input type="checkbox" ng-model="data.hasWeeklyScheduleSummary">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-89</span>
-              </div>
-            </label>
-            <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"
-                                         value="data.weeklyScheduleSummaryDayOfWeek"></jnd-connect-union-selectbox>
-            <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
-                                         value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
-            <label>
-              <div class="checkbox-description">
-                <span translate="">(KST)</span>
-              </div>
-            </label>
+        </section>
+        <section class="service-setting select-nofification clear">
+          <span class="setting-label" translate>@jnd-connect-83</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container text-only">
+              <input type="checkbox">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-84</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container text-only">
+              <input type="checkbox">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-85</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container text-only">
+              <input type="checkbox">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-86</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
-        </div>
-      </section>
-      <section class="service-setting select-nofification clear">
-        <span class="setting-label" translate>@jnd-connect-83</span>
-        <div class="setting-contents">
-          <span class="setting-description"></span>
-          <div class="checkbox-list-container text-only">
-            <input type="checkbox">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-84</span>
-              </div>
-            </label>
-          </div>
-          <div class="checkbox-list-container text-only">
-            <input type="checkbox">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-85</span>
-              </div>
-            </label>
-          </div>
-          <div class="checkbox-list-container text-only">
-            <input type="checkbox">
-            <label>
-              <div class="checkbox-description">
-                <span translate>@jnd-connect-86</span>
-              </div>
-            </label>
-          </div>
-          <div class="clear"></div>
-        </div>
-      </section>
-      <button ng-click="onSettingClick()">췤췤</button>
-      <jnd-connect-union-footer></jnd-connect-union-footer>
+        </section>
+        <button ng-click="onSettingClick()">췤췤</button>
+        <jnd-connect-union-footer></jnd-connect-union-footer>
+      </div>
     </div>
   </div>
 </div>

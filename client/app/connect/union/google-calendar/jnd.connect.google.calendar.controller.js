@@ -35,6 +35,7 @@
       }
 
       _createModels();
+
       if (isSettingMode) {
         _setGoogleCalendarData([
           {
@@ -46,6 +47,8 @@
             success: _setAccountList
           }
         ]);
+      } else {
+        $scope.isInitialized = true;
       }
     }
 
@@ -56,19 +59,24 @@
     function _setGoogleCalendarData(requests) {
       var deferred = $q.all(_.pluck(requests, 'request'));
 
-      deferred.then(function(results) {
-        _.each(results, function(result, index) {
-          var success;
+      deferred.then(
+        function(results) {
+          _.each(results, function(result, index) {
+            var success;
 
-          if (result && result.data) {
-            if (success = requests[index].success) {
-              success(result.data);
+            if (result && result.data) {
+              if (success = requests[index].success) {
+                success(result.data);
+              }
             }
-          }
-        });
+          });
 
-        $scope.isDataLoaded = true;
-      });
+          $scope.isInitialized = true;
+        },
+        function() {
+          console.log('do 에러 처리');
+        }
+      );
     }
 
     function _requestConnectInfo(connectId) {
