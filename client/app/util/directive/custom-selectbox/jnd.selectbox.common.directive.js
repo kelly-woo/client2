@@ -68,6 +68,11 @@
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch('selectedValue', _setSelectedName);
+        scope.$watch('list', function() {
+          console.log('###list changed');
+          _initializeData();
+        });
+
       }
 
       /**
@@ -137,19 +142,25 @@
           scope.selectedValue = selectedItem.value;
         }
 
+        console.log('###_getSelectedName', selectedItem, scope.list);
         return selectedItem.text;
       }
 
 
       function _getDefaultItem() {
-        var defaultItem;
+        var defaultItem = {
+          text: '',
+          value: ''
+        };
         _.forEach(scope.list, function(item) {
           if (item.extIsGroup) {
             _.forEach(item.list, function(unit) {
               defaultItem = unit;
               return false;
             });
-            return false;
+            if (defaultItem) {
+              return false;
+            }
           } else {
             defaultItem = item;
             return false;
@@ -164,7 +175,7 @@
        */
       function _initializeData() {
         _.forEach(scope.list, function(item) {
-          if (item.name && item.list && item.list.length) {
+          if (item.name) {
             item.extIsGroup = true;
           }
         });

@@ -13,6 +13,29 @@
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
     $scope.data = $scope.data || {};
+
+    $scope.langList = [
+      {
+        text: '@한국어',
+        value: 'ko'
+      },
+      {
+        text: '@영어',
+        value: 'en'
+      },
+      {
+        text: '@중국어',
+        value: 'zh-cn'
+      },
+      {
+        text: '@중국어(tw)',
+        value: 'zh-tw'
+      },
+      {
+        text: '@일본어',
+        value: 'ja'
+      },
+    ];
     $scope.changedFileUri = null;
     _init();
 
