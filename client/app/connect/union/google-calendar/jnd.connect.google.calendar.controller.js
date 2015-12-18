@@ -8,6 +8,7 @@
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $attrs, $q, JndConnectGoogleCalendar, EntityMapManager,
                                         JndUtil) {
+    var googleAccountSpliter = '%^%';
     $scope.selectedRoom = '';
 
     _init();
@@ -201,7 +202,7 @@
         _.each(googleAccount.list, function(calendar) {
           calendarList.push({
             text: calendar.summary,
-            value: calendar.id
+            value: calendar.id + '' +
           });
         });
       });
