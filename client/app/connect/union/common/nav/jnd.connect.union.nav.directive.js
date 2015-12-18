@@ -16,7 +16,7 @@
       controller: 'JndConnectUnionNavCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.nav.html'
+      templateUrl: 'app/connect/union/common/nav/jnd.connect.union.nav.html'
     };
 
     function link(scope, el, attrs) {

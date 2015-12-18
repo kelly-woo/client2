@@ -18,7 +18,7 @@
         union: '=jndDataUnion'
       },
       replace: true,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.auth.html'
+      templateUrl: 'app/connect/union/common/auth/jnd.connect.union.auth.html'
     };
 
     function link(scope, el, attrs) {

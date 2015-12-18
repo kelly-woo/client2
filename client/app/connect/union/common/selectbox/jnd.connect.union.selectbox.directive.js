@@ -16,7 +16,7 @@
         'list': '=',
         'value': '='
       },
-      templateUrl: 'app/connect/union/common/jnd.connect.union.selectbox.html',
+      templateUrl: 'app/connect/union/common/selectbox/jnd.connect.union.selectbox.html',
       link: link
     };
 

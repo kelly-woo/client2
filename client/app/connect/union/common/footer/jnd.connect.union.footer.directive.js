@@ -18,7 +18,7 @@
       },
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.footer.html'
+      templateUrl: 'app/connect/union/common/footer/jnd.connect.union.footer.html'
     };
 
     function link(scope, el, attrs) {

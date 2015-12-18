@@ -22,7 +22,7 @@
         createDate: '='
       },
       replace: true,
-      templateUrl: 'app/connect/union/common/jnd.connect.union.header.html'
+      templateUrl: 'app/connect/union/common/header/jnd.connect.union.header.html'
     };
 
     function link(scope, el, attrs) {
