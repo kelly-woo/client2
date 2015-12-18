@@ -11,6 +11,13 @@
 
 
   function JndConnectUnionApi(jndPubSub) {
+    _init();
 
+    /**
+     * 초기화 메서드
+     * @private
+     */
+    function _init() {
+    }
   }
 })();
