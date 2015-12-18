@@ -36,7 +36,7 @@
     function create(data, file) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       delete data.botThumbnailFile;
-      console.log(data, file);
+
       return $upload.upload({
         method: 'POST',
         url: _apiUrl + 'teams/' + teamId + '/github',
