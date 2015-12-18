@@ -78,7 +78,7 @@ input[type="email"] {
 }
 /* temporary fix icon-style */
 .icon-star-off.icon-star-on:before {
-  content: "\e651";
+  content: "\e961";
 }
 /********************************************
 
