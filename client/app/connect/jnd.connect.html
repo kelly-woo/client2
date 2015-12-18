@@ -32,7 +32,7 @@
     </aside>
 
     <!--MAIN-->
-    <div ng-switch="currentUnion.name">
+    <div ng-switch="current.union.name">
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
         <jnd-connect-loading ng-show="!isInitialized"></jnd-connect-loading>
@@ -49,19 +49,19 @@
             ng-repeat="union in unions"></jnd-connect-card>
       </div>
       <div ng-switch-when="googleCalendar">
-        <jnd-connect-union-auth ng-if="!currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-union-auth>
-        <jnd-connect-google-calendar ng-if="currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-google-calendar>
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-google-calendar ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-google-calendar>
       </div>
       <div ng-switch-when="github">
-        <jnd-connect-union-auth ng-if="!currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-union-auth>
-        <jnd-connect-github ng-if="currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-github>
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-github ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-github>
       </div>
       <div ng-switch-when="trello">
-        <jnd-connect-union-auth ng-if="!currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-union-auth>
-        <jnd-connect-trello ng-if="currentUnion.hasAuth" jnd-data-union="currentUnion"></jnd-connect-trello>
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-trello ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-trello>
       </div>
       <div ng-switch-when="jira">
-        <jnd-connect-jira jnd-data-union="currentUnion"></jnd-connect-jira>
+        <jnd-connect-jira jnd-data-current="current"></jnd-connect-jira>
       </div>
     </div>
   </div>

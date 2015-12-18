@@ -13,7 +13,7 @@
     return {
       restrict: 'E',
       scope: {
-        'union': '=jndDataUnion'
+        'current': '=jndDataCurrent'
       },
       controller: 'JndConnectGoogleCalendarCtrl',
       link: link,

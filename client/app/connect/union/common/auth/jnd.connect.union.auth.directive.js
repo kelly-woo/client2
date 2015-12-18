@@ -15,7 +15,7 @@
       controller: 'JndConnectUnionAuthCtrl',
       link: link,
       scope: {
-        union: '=jndDataUnion'
+        'current': '=jndDataCurrent'
       },
       replace: true,
       templateUrl: 'app/connect/union/common/auth/jnd.connect.union.auth.html'

@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $timeout, JndConnectDummy, JndConnectGithubApi) {
+  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, JndConnectGithubApi) {
     var _originalRepos;
 
     $scope.requestData = {
@@ -62,6 +62,7 @@
      * @private
      */
     function _init() {
+      $scope.isModify = !!$scope.current.connectId;
       _attachEvents();
       _initialRequest();
     }
@@ -71,15 +72,68 @@
      * @private
      */
     function _initialRequest() {
-      $scope.isInitialized = true;
-      JndConnectGithubApi.getRepos().success(_onInitialRequestSuccess);
+      //create
+      var deferred = $q.defer();
+      var promises = [];
+
+      promises.push(JndConnectGithubApi.getRepos());
+
+      if (!$scope.isModify) {
+        $scope.isInitialized = true;
+      } else {
+        promises.push(JndConnectGithubApi.get($scope.current.connectId));
+      }
+
+      $q.all(promises)
+        .then(_onInitialRequestSuccess, _onInitialRequestFailed);
+    }
+
+    function _onInitialRequestSuccess(results) {
+      _onSuccessRepo(results[0]);
+      if ($scope.isModify) {
+        _onSuccessGetSetting(results[1]);
+      }
+    }
+
+    function _onInitialRequestFailed() {
+      console.log('failed');
+    }
+
+    function _onSuccessGetSetting(response) {
+      console.log(response);
+      $scope.requestData = {
+        mode: 'authed',
+        connectId: $scope.current.connectId,
+        roomId: response.roomId,
+        botName: '????? none',
+        botThumbnailFile: '????? none',
+        lang: response.lang,
+        repo: '??? hookId',
+        events: response.hookEvent,
+        branch: response.hookBranch
+      };
+      //_.extend($scope.requestData, {
+      //  roomId: response.roomId,
+      //
+      //});
+      //$scope.requestData = {
+      //  mode: 'authed',
+      //  roomId: null,
+      //  botName: 'Github',
+      //  botThumbnailFile: 'https://files.jandi.io/files-profile/94918bd3ab4222a1e5d57d427706164b?size=80',
+      //  lang: 'ko',
+      //  authenticationId: null,
+      //  repo: '',
+      //  events: [],
+      //  branch: []
+      //};
     }
 
     /**
      * 초기 request 성공 시 이벤트 핸들러
      * @private
      */
-    function _onInitialRequestSuccess(response) {
+    function _onSuccessRepo(response) {
       //var githubData = JndConnectDummy.get('github');
       _originalRepos = response.repos;
 
@@ -87,6 +141,7 @@
       $scope.repositories =_getSelectboxRepos(response.repos);
       $scope.formData.repoId = null;
       $scope.isRepoLoaded = true;
+      $scope.isInitialized = true;
     }
 
     /**

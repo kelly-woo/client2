@@ -13,7 +13,7 @@
     return {
       restrict: 'E',
       scope: {
-        'union': '=jndDataUnion'
+        'current': '=jndDataCurrent'
       },
       controller: 'JndConnectGithubCtrl',
       link: link,
