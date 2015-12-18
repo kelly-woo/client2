@@ -38,9 +38,11 @@
 .msg-file-meta-up .preview-icon {
   vertical-align: middle;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 10px;
+  line-height: 15px;
   color: #575757;
-  margin-left: -2px;
+  margin-left: 3px;
+  font-style: normal;
 }
 
 .preview-card:hover .msg-file-actions-content,
