@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, JndConnectGithubApi) {
+  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, JndConnectGithubApi, JndConnectUnionApi) {
     var _originalRepos;
 
     $scope.requestData = {
@@ -89,9 +89,9 @@
     }
 
     function _onInitialRequestSuccess(results) {
-      _onSuccessRepo(results[0]);
+      _onSuccessRepo(results[0].data);
       if ($scope.isModify) {
-        _onSuccessGetSetting(results[1]);
+        _onSuccessGetSetting(results[1].data);
       }
     }
 
@@ -186,7 +186,7 @@
      */
     function _onSave() {
       _setRequestData();
-      JndConnectGithubApi.create($scope.requestData, $scope.formData.footer.botThumbnailFile)
+      JndConnectUnionApi.create('github', $scope.requestData)
         .success(_onCreateSuccess);
 
       console.log('$scope.requestData', $scope.requestData);
@@ -222,7 +222,8 @@
         roomId: formData.roomId,
         repo: _getRepoData(formData.repoId).full_name,
         branch: _getBranches(),
-        botName: footer.botName
+        botName: footer.botName,
+        botThumbnailFile: footer.botThumbnailFile
       });
       $scope.requestData.events = events.join(',');
     }
