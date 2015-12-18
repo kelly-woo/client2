@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, JndConnectGithubApi, JndConnectUnionApi) {
+  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, Dialog, JndConnectGithubApi, JndConnectUnionApi) {
     var _originalRepos;
 
     $scope.requestData = {

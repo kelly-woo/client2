@@ -20,7 +20,7 @@
     };
 
     function link(scope, el, attrs) {
-      scope.isInitialized = false;
+      scope.isLoading = true;
 
       _init();
 
@@ -30,24 +30,24 @@
        */
       function _init() {
         scope.$on('JndConnect:hideLoading', _onHideLoading);
-
-        $timeout(function() {
-          _initializeElements();
-        });
-
-        $timeout(function() {
-          JndConnect.hideLoading();
-        }, 1000);
+        scope.$on('JndConnect:showLoading', _onShowLoading);
+        _initializeElements();
       }
 
+      function _onShowLoading() {
+        scope.isLoading = true;
+        _initializeElements();
+      }
 
       /**
        * 데이터를 받아온 후 hide loading 이벤트 핸들러가 수행되었을 때 콜백
        * @private
        */
       function _onHideLoading() {
-        scope.isInitialized = true;
-        _startAnimation();
+        if (scope.isLoading) {
+          scope.isLoading = false;
+          _startAnimation();
+        }
       }
 
       /**
@@ -65,11 +65,13 @@
        * @private
        */
       function _initializeElements() {
-        el.find('.connect-union-container').css('opacity', 0);
-        el.find('.jnd-connect-banner').css('opacity', 0);
-        el.find('.integrated-service').css('opacity', 0);
-        el.find('.jnd-connect-header-navbar__topmenu.back-button').css('opacity', 0);
-        el.addClass('opac-in');
+        $timeout(function() {
+          el.find('.connect-union-container').css('opacity', 0);
+          el.find('.jnd-connect-banner').css('opacity', 0);
+          el.find('.integrated-service').css('opacity', 0);
+          el.find('.jnd-connect-header-navbar__topmenu.back-button').css('opacity', 0);
+          el.addClass('opac-in');
+        });
       }
 
       /**
@@ -78,6 +80,7 @@
        */
       function _animateBanner() {
         el.find('.jnd-connect-banner').css({
+          opacity: 0,
           marginTop: '30px'
         }).animate({
           marginTop: 0,
@@ -106,6 +109,7 @@
        */
       function _animateBackButton() {
         el.find('.jnd-connect-header-navbar__topmenu.back-button').css({
+          opacity: 0,
           marginLeft: '20px'
         }).animate({
           opacity: 1,
@@ -114,7 +118,10 @@
       }
 
       function _animateSubmenu() {
-        el.find('.integrated-service').animate({
+        el.find('.integrated-service')
+          .css({
+            opacity: 0
+          }).animate({
           opacity: 1
         }, 500);
       }

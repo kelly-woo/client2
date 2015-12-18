@@ -35,8 +35,8 @@
     <div ng-switch="current.union.name">
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
-        <jnd-connect-loading ng-show="!isInitialized"></jnd-connect-loading>
-        <div ng-show="isInitialized" class="jnd-connect-banner">
+        <jnd-connect-loading ng-show="isLoading"></jnd-connect-loading>
+        <div ng-show="!isLoading" class="jnd-connect-banner">
           <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
 
           <span class="banner-description" translate>@jnd-connect-28</span>
@@ -45,7 +45,7 @@
 
         <!-- integration contents here -->
         <jnd-connect-card
-            ng-show="isInitialized"
+            ng-show="!isLoading"
             ng-repeat="union in unions"></jnd-connect-card>
       </div>
       <div ng-switch-when="googleCalendar">

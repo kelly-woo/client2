@@ -14,12 +14,20 @@
     this.show = show;
     this.hide = hide;
     this.hideLoading = hideLoading;
+    this.showLoading = showLoading;
 
     /**
      * connect main 의 loading 을 hide 한다.
      */
     function hideLoading() {
       jndPubSub.pub('JndConnect:hideLoading');
+    }
+
+    /**
+     * connect main 의 loading 을 hide 한다.
+     */
+    function showLoading() {
+      jndPubSub.pub('JndConnect:showLoading');
     }
 
     /**

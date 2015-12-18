@@ -134,6 +134,7 @@
       $scope.current.union = null;
       $scope.current.connectId = null;
       $scope.current.isShowAuth = false;
+      getList();
     }
 
     function _getUnion(unionName) {
@@ -177,8 +178,8 @@
      */
     function getList() {
       //TODO: request 로직
+      JndConnect.showLoading();
       JndConnectApi.getList().success(_onGetListSuccess);
-      //$timeout(_onGetListSuccess, 1000);
     }
 
     /**
@@ -186,12 +187,14 @@
      * @private
      */
     function _onGetListSuccess(response) {
+      console.log('###_onGetListSuccess', response);
       var list = [];
       //var response = DUMMY.common.connectList;
       _.each(UNION_DATA, function(union) {
         list.push(_getUnionData(union, response[union.name]));
       });
       $scope.unions = list;
+      JndConnect.hideLoading();
     }
 
     /**
