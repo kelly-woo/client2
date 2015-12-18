@@ -12,6 +12,7 @@
 
   function JndConnectGithubApi($http, $upload, configuration, currentSessionHelper) {
     var _apiUrl = configuration.api_connect_address;
+    this.get = get;
     this.getRepos = getRepos;
     this.create = create;
     this.update = update;
@@ -27,6 +28,19 @@
       });
     }
 
+    /**
+     *
+     * @param connectId
+     * @returns {*}
+     */
+    function get(connectId) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+      return $http({
+        method: 'GET',
+        url: _apiUrl + 'teams/' + teamId + '/github/' + connectId
+      });
+
+    }
     /**
      *
      * @param data

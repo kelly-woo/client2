@@ -68,7 +68,12 @@
     };
 
     //$scope.list = UNION_LIST;
-    $scope.currentUnion = null;
+    $scope.current = {
+      union: null,
+      connectId: null,
+      isShowAuth: false
+    };
+
     $scope.isClose = false;
     $scope.historyBack = historyBack;
     $scope.close = close;
@@ -93,24 +98,48 @@
      */
     function _attachEvents() {
       $scope.$on('connectCard:addPlug', _onAddPlug);
+      $scope.$on('connectCard:modifyPlug', _onModifyPlug);
+
       $scope.$on('unionNav:backToMain', _onBackToMain);
     }
 
     /**
      * 플러그 추가시 핸들러
      * @param angularEvent
-     * @param unionName
+     * @param data
      * @private
      */
-    function _onAddPlug(angularEvent, unionName) {
-      var targetUnion = _.find($scope.unions, function(union) {
+    function _onAddPlug(angularEvent, data) {
+      _setCurrent(data);
+    }
+
+    function _setCurrent(data) {
+      data = data || {};
+      var targetUnion = _getUnion(data.unionName);
+      if (targetUnion) {
+        $scope.current.union = targetUnion;
+        $scope.current.connectId = data.connectId || null;
+        $scope.current.isShowAuth = !!(!$scope.current.connectId && !$scope.current.union.hasAuth);
+      } else {
+        _resetCurrent();
+      }
+
+    }
+
+    function _onModifyPlug(angularEvent, data) {
+      _setCurrent(data);
+    }
+
+    function _resetCurrent() {
+      $scope.current.union = null;
+      $scope.current.connectId = null;
+      $scope.current.isShowAuth = false;
+    }
+
+    function _getUnion(unionName) {
+      return _.find($scope.unions, function(union) {
         return union.name === unionName;
       });
-      if (targetUnion) {
-        $scope.currentUnion = targetUnion;
-      } else {
-        $scope.currentUnion = null;
-      }
     }
 
     /**
@@ -118,7 +147,7 @@
      * @private
      */
     function _onBackToMain() {
-      $scope.currentUnion = null;
+      _resetCurrent();
     }
 
     /**
@@ -160,7 +189,7 @@
       var list = [];
       //var response = DUMMY.common.connectList;
       _.each(UNION_DATA, function(union) {
-        list.push(_getUnion(union, response[union.name]));
+        list.push(_getUnionData(union, response[union.name]));
       });
       $scope.unions = list;
     }
@@ -187,7 +216,7 @@
      * @returns {Object}
      * @private
      */
-    function _getUnion(constUnion, list) {
+    function _getUnionData(constUnion, list) {
       var item = _.extend({}, constUnion);
       item.plugs = [];
       _.forEach(list, function(data) {

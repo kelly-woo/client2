@@ -18,13 +18,13 @@
       //for test
 
       $scope.$on('popupDone', function() {
-        $scope.union.hasAuth = true;
+        $scope.current.union.hasAuth = true;
       });
 
     }
 
     function getAuth() {
-      Popup.open(configuration.connect_auth_address + 'connect/auth/' + $scope.union.name, {
+      Popup.open(configuration.connect_auth_address + 'connect/auth/' + $scope.current.union.name, {
         name: 'connectAuth',
         optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
         data: {
