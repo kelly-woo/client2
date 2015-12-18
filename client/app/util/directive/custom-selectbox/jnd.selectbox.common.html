@@ -32,7 +32,10 @@
       <div ng-if="searchList.length" class="custom-select-box__search-result-items">
         <span class="menulist-item-header">{{searchList.length}}<span translate>@selectbox-query-matches</span></span>
         <ul class="menulist-item-result">
-          <li class="menu-item _selectable" ng-repeat="item in searchList">
+          <li class="menu-item" ng-repeat="item in searchList" ng-class="{
+                      '_selectable': !item.isDisabled,
+                      'item-disabled': item.isDisabled
+                    }">
             <a>
               <span ng-bind-html="item.extSearchName"></span>
             </a>
@@ -51,7 +54,12 @@
             <div class="custom-select-box__menulist-items">
               <span translate class="menulist-item-header">{{item.name}}</span>
               <ul class="menulist-item-result">
-                <li class="menu-item _selectable" ng-repeat="item in item.list">
+                <li class="menu-item"
+                    ng-repeat="item in item.list"
+                    ng-class="{
+                      '_selectable': !item.isDisabled,
+                      'item-disabled': item.isDisabled
+                    }">
                   <a>
                     <span>{{ item.text }}</span>
                   </a>
@@ -61,7 +69,10 @@
           </div>
         </div>
         <div ng-if="!item.extIsGroup">
-          <a class="select-all _selectable">
+          <a class="select-all" ng-class="{
+                      '_selectable': !item.isDisabled,
+                      'item-disabled': item.isDisabled
+                    }">
             <span>{{ item.text }}</span>
           </a>
         </div>
