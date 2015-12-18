@@ -20,7 +20,6 @@
     };
 
     function link(scope, el) {
-      var roomId = $state.params.entityId || $state.params.roomId;
       var clearWatch;
 
       _init();
@@ -121,6 +120,8 @@
        * @private
        */
       function _requestRoomConnectInfo() {
+        var roomId = $state.params.entityId || $state.params.roomId;
+
         _initConnectInfo();
 
         RoomConnector.getConnectInfo(roomId)
