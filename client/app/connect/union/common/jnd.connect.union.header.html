@@ -1,48 +1,28 @@
-<div>
-
-  <section class="active-member-info" style="">
-    <!-- active member info will be placed here -->
-    <span class="ng-scope" translate=""><b class="active-member-count">1</b> 명의 다른 팀원이 연동중</span>
+<div class="integration-service-header">
+  <section class="active-member-info">
+    <span class="active-member-count"><b >1</b> 명의 다른 팀원이 연동중</span>
   </section>
-
   <section class="service-info jnd-column-5-width jnd-float-left">
     <i class="icon-service-logo"></i>
     <i class="icon-jnd-connect active"></i>
-
     <span class="user-name">Admin</span><span class="service-name">'s {{union.title}}</span>
     <span class="date-info">2015-12-01 생성</span>
   </section>
-
   <section class="service-info jnd-column-5-width jnd-float-left second-column">
-
     <div class="verified-email-container jnd-float-right single-account">
       <span class="verified-label white-button" translate>@jnd-connect-35</span>
       <span class="verified-email-address white-button">ted.kim@tosslab.com</span>
-
       <!-- if current service can not support multiple account, this button needs to be hidden. -->
       <div class="custom-select-box-btn white-button">
         <i class="fa custom-selectbox-arrow icon-angle-down"></i>
       </div>
-
     </div>
-
     <div class="connect-union-plug-tool-container jnd-float-right"
-         ng-class="{
-			       'on': plug.isOn
-				  }">
-      <span class="connect-union-plug-tool-text" ng-click="toggleOnOff()">중지됨</span>
-
-      <div class="switch-button switch-off switch-on" ng-class="{'switch-on': active}" ng-click="onClick();">
-        <div class="switch-background"></div>
-        <div class="switch-handler"></div>
-      </div>
-
-      <span class="opt-button jnd-cursor-pointer" style="display: none;"><i class="icon-pencil"></i></span>
-      <span class="opt-button jnd-cursor-pointer"><i class="icon-trash"></i></span>
+         ng-class="{'on': plug.isOn}">
+      <span class="connect-union-plug-tool-text">중지됨</span>
+      <switch-button active="isActive" toggle="onServiceToggle($value)"></switch-button>
+      <span class="opt-button jnd-cursor-pointer" ng-click="onDeleteClick()"><i class="icon-trash"></i></span>
     </div>
-
   </section>
-
   <div class="clear"></div>
-
 </div>

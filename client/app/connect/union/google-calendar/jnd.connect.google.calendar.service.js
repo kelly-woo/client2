@@ -18,7 +18,12 @@
       {text: $filter('translate')('@jnd-connect-44'), value: '1m'},
       {text: $filter('translate')('@jnd-connect-45'), value: '5m'},
       {text: $filter('translate')('@jnd-connect-46'), value: '10m'},
-      {text: $filter('translate')('@jnd-connect-47'), value: '15m'}
+      {text: $filter('translate')('@jnd-connect-47'), value: '15m'},
+      {text: $filter('translate')('@jnd-connect-48'), value: '30m'},
+      {text: $filter('translate')('@jnd-connect-59'), value: '1h'},
+      {text: $filter('translate')('@jnd-connect-50'), value: '2h'},
+      {text: $filter('translate')('@jnd-connect-51'), value: '4h'},
+      {text: $filter('translate')('@jnd-connect-52'), value: '1d'}
     ];
 
     var hourList = [

@@ -15,7 +15,23 @@
      * @private
      */
     function _init() {
-      console.log('####', $scope)
+      //console.log('####', $scope)
+    }
+
+    function requestStatusChange() {
+
+    }
+
+    function requestConnectDelete() {
+
+    }
+
+    function requestAddGoogleAccount() {
+
+    }
+
+    function requestDeleteGoogleAccount() {
+
     }
   }
 })();

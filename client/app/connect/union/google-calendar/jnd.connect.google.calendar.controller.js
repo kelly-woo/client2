@@ -22,7 +22,7 @@
      */
     function _init() {
       // connect를 추가하는게 아닌 setting mode
-      $scope.isSettingMode = true;
+      $scope.isSettingMode = false;
 
       $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
       $scope.allDayNotificationDateList = JndConnectGoogleCalendar.getDateList();
@@ -40,10 +40,18 @@
       _setContent();
     }
 
+    /**
+     * attach events
+     * @private
+     */
     function _attachEvents() {
       $scope.$on('unionFooter:save', _onSave);
     }
 
+    /**
+     * set content
+     * @private
+     */
     function _setContent() {
       if ($scope.isSettingMode) {
         _requestConnectInfo(connectId);
@@ -86,17 +94,19 @@
      */
     function _createModel() {
       if ($scope.isSettingMode) {
-        $scope.data = {};
+        $scope.data = {
+          footer: {}
+        };
       } else {
         $scope.data = {
           hasNotificationBefore: true,
           notificationBefore: '15m',
           hasDailyScheduleSummary: true,
           dailyScheduleSummary: 9,
-          newEventNotification: true
+          newEventNotification: true,
+          footer: {}
         };
       }
-
     }
 
     /**
