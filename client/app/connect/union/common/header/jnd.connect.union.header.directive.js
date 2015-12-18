@@ -15,11 +15,14 @@
       controller: 'JndConnectUnionHeaderCtrl',
       link: link,
       scope: {
-        accountList: '=',
+        connectId: '=',
         connectMemberCount: '=',
         memberName: '=',
         unionName: '=',
-        createDate: '='
+        createDate: '=',
+        status: '=',
+        accountId: '=',
+        accountList: '='
       },
       replace: true,
       templateUrl: 'app/connect/union/common/header/jnd.connect.union.header.html'
@@ -34,24 +37,25 @@
        * @private
        */
       function _init() {
+        setTimeout(function() {
+          console.log('eoifjweoijwe ::: ', scope.accountId, scope.accountList);
+        }, 4000);
+
+        scope.connectTitle = $filter('translate')('@jnd-connect-33')
+          .replace('{{memberName}}', '<span class="user-name">' + scope.memberName + '</span>')
+          .replace('{{serviceName}}', scope.unionName);
+        scope.connectCreateAt = $filter('translate')('@jnd-connect-34').replace('{{yyyy-mm-dd}}', scope.createDate);
+
         _attachEvents();
       }
 
       function _attachEvents() {
         scope.$watch('connectMemberCount', _onConnectMemberCountChange);
-        scope.$watch('memberName', _onConnectTitleChange);
-        scope.$watch('unionName', _onConnectTitleChange);
       }
 
       function _onConnectMemberCountChange(value) {
-        scope.connectMemberDescription =
-          $filter('translate')('@jnd-connect-32').replace('{{integratedMemberCount}}', value);
-      }
-
-      function _onConnectTitleChange() {
-        scope._onConnectTitleChange = $filter('translate')('@jnd-connect-33')
-          .replace('{{memberName}}', scope.memberName)
-          .replace('{{serviceName}}', scope.unionName);
+        scope.connectMemberCountDescription =
+          $filter('translate')('@jnd-connect-32').replace('{{integratedMemberCount}}', '<b>' + value + '</b>');
       }
     }
   }

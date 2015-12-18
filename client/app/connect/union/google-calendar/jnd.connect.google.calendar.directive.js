@@ -9,11 +9,11 @@
     .module('jandiApp')
     .directive('jndConnectGoogleCalendar', jndConnectGoogleCalendar);
 
-  function jndConnectGoogleCalendar() {
+  function jndConnectGoogleCalendar(modalHelper) {
     return {
       restrict: 'E',
       scope: {
-        'union': '=jndDataUnion'
+        'current': '=jndDataCurrent'
       },
       controller: 'JndConnectGoogleCalendarCtrl',
       link: link,
@@ -21,7 +21,7 @@
       templateUrl: 'app/connect/union/google-calendar/jnd.connect.google.calendar.html'
     };
 
-    function link(scope, el, attrs) {
+    function link(scope) {
 
       _init();
 
@@ -30,6 +30,14 @@
        * @private
        */
       function _init() {
+        scope.onTopicCreateClick = onTopicCreateClick;
+      }
+
+      /**
+       * topic create click
+       */
+      function onTopicCreateClick() {
+        modalHelper.openTopicCreateModal();
       }
     }
   }

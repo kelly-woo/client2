@@ -41,12 +41,14 @@
         scope.selectItem = selectItem;
         scope.onToggle = onToggle;
 
-        if (scope.value != null) {
-          index = _.findIndex(scope.list, {value: scope.value});
-          index = scope.list[index] ? index : 0;
-          scope.selectItem(index);
-        } else {
-          scope.selectItem(0);
+        if (scope.list) {
+          if (scope.value != null) {
+            index = _.findIndex(scope.list, {value: scope.value});
+            index = scope.list[index] ? index : 0;
+            scope.selectItem(index);
+          } else {
+            scope.selectItem(0);
+          }
         }
 
         _attachEvents();
@@ -131,9 +133,11 @@
         var jqItem = jqDropdown.children().eq(index);
         //var itemHeight = jqItem.height();
 
-        var compare = jqItem.offset().top - viewportTop;
-
-        jqDropdown.scrollTop(viewportScrollTop + compare);
+        var compare;
+        if (jqItem.length > 0) {
+          compare = jqItem.offset().top - viewportTop;
+          jqDropdown.scrollTop(viewportScrollTop + compare);
+        }
         //if (compare < 0) {
         //  jqDropdown.scrollTop(viewportScrollTop + compare);
         //} else if (compare + itemHeight > viewportHeight) {

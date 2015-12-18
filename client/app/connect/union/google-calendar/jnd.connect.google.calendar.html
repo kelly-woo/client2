@@ -5,7 +5,14 @@
     <div class="integration-service-container detail-container github" id="jnd-connect-detail-container">
       <jnd-connect-loading ng-if="!isInitialized"></jnd-connect-loading>
       <div ng-if="isInitialized">
-        <jnd-connect-union-header></jnd-connect-union-header>
+        <jnd-connect-union-header connect-id=""
+                                  connect-member-count=""
+                                  member-name=""
+                                  union-name=""
+                                  create-date="data.createdAt"
+                                  status="data.status"
+                                  account-id="data.calendarId"
+                                  account-list="accountList"></jnd-connect-union-header>
         <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
           <span class="setting-label" translate>@jnd-connect-36</span>
           <div class="setting-contents">
@@ -26,7 +33,6 @@
             <jnd-selectbox-room jnd-data-model="data.roomId"></jnd-selectbox-room>
 
             <span class="create-new-topic white-button cursor_pointer animate-all"
-                  ng-click="onTopicCreateClick()"
                   translate>@jnd-connect-40</span>
             <div class="clear"></div>
           </div>

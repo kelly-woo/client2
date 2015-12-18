@@ -1,0 +1,21 @@
+.integration-service-header .service-info .union-selectbox-wrapper {
+  width: 64%;
+}
+
+.integration-service-header .service-info  .union-selectbox-wrapper .union-selectbox {
+  width: 100%;
+  height: inherit;
+  max-width: 100%;
+  padding-right: 25px;
+  line-height: 33px;
+}
+
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status {
+  border-left: 1px solid #d2d2d2;
+  background-color: #e6e6e6;
+  width: 25px;
+}
+
+.integration-service-header .service-info .union-selectbox-wrapper .dropdown-menu {
+  width: 100%;
+}

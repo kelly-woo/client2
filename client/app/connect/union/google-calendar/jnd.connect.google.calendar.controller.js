@@ -6,12 +6,8 @@
     .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, $attrs, $q, modalHelper, JndConnectGoogleCalendar, EntityMapManager,
+  function JndConnectGoogleCalendarCtrl($scope, $attrs, $q, JndConnectGoogleCalendar, EntityMapManager,
                                         JndUtil) {
-    // connect id 필수
-    var connectId = $attrs.connectId || 49;
-
-
     $scope.selectedRoom = '';
 
     _init();
@@ -22,7 +18,7 @@
      */
     function _init() {
       // connect를 추가하는게 아닌 setting mode
-      $scope.isSettingMode = false;
+      $scope.isSettingMode = $scope.current.connectId != null;
 
       $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
       $scope.allDayNotificationDateList = JndConnectGoogleCalendar.getDateList();
@@ -31,8 +27,6 @@
       $scope.dailyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
       $scope.weeklyScheduleSummaryDayList = JndConnectGoogleCalendar.getDayList();
       $scope.weeklyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
-
-      $scope.onTopicCreateClick = onTopicCreateClick;
 
       _attachEvents();
 
@@ -81,13 +75,6 @@
     }
 
     /**
-     * topic create click
-     */
-    function onTopicCreateClick() {
-      modalHelper.openTopicCreateModal();
-    }
-
-    /**
      * create model
      * @see http://wiki.tosslab.com/pages/viewpage.action?pageId=7241997
      * @private
@@ -111,12 +98,11 @@
 
     /**
      * request connect info
-     * @param {number} connectId
      * @returns {*}
      * @private
      */
-    function _requestConnectInfo(connectId) {
-      JndConnectGoogleCalendar.getConnectInfo(connectId)
+    function _requestConnectInfo() {
+      JndConnectGoogleCalendar.getConnectInfo($scope.current.connectId)
         .success(function(connectInfo) {
           var data = $scope.data;
           //console.log('set connect info ::: ', data);
@@ -195,11 +181,17 @@
     function _setCalendarList(calendarInfo) {
       var data = $scope.data;
       var list = [];
+      var accountList = [];
 
       console.log('set account list ::: ', calendarInfo);
 
       _.each(calendarInfo, function(googleAccount) {
         var calendarList = [];
+
+        accountList.push({
+          text: googleAccount.googleId,
+          value: googleAccount.googleId
+        });
 
         list.push({
           name: googleAccount.googleId,
@@ -215,6 +207,7 @@
       });
 
       data.calendarList = list;
+      $scope.accountList = accountList;
     }
   }
 })();

@@ -1,9 +1,11 @@
-<div class="union-selectbox-wrapper {{::unionSelectboxClass}}" ng-class="{'active': isActiveSelectbox}" dropdown
+<div class="union-selectbox-wrapper" ng-class="{'active': isActiveSelectbox}" dropdown
      on-toggle="onToggle(open)"
      is-open="isActiveSelectbox">
-  <div class="union-selectbox" dropdown-toggle>
-    <span class="" ng-bind="selectedItemText"></span>
-    <i class="icon-angle-down"></i>
+  <div class="union-selectbox {{::unionSelectboxClass}}" dropdown-toggle>
+    <span class="selecte-item-text" ng-bind="selectedItemText"></span>
+    <div class="dropdown-status">
+      <i class="icon-angle-down"></i>
+    </div>
   </div>
   <ul class="dropdown-menu grey_dropdown" role="menu">
     <li role="presentation" tabindex="-1" ng-repeat="item in list track by $index"

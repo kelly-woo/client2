@@ -1,21 +1,25 @@
 <div class="integration-service-header">
   <section class="active-member-info">
-    <span class="active-member-count"><b >1</b> 명의 다른 팀원이 연동중</span>
+    <span class="active-member-count" ng-bind-html="connectMemberCountDescription"></span>
   </section>
   <section class="service-info jnd-column-5-width jnd-float-left">
     <i class="icon-service-logo"></i>
     <i class="icon-jnd-connect active"></i>
-    <span class="user-name">Admin</span><span class="service-name">'s {{union.title}}</span>
-    <span class="date-info">2015-12-01 생성</span>
+    <span class="connect-title" ng-bind-html="connectTitle"></span>
+    <span class="date-info" ng-bind="connectCreateAt"></span>
   </section>
   <section class="service-info jnd-column-5-width jnd-float-left second-column">
     <div class="verified-email-container jnd-float-right single-account">
       <span class="verified-label white-button" translate>@jnd-connect-35</span>
-      <span class="verified-email-address white-button">ted.kim@tosslab.com</span>
+      <jnd-connect-union-selectbox list="accountList"
+                                   value="accountId"
+                                   union-selectbox-class="verified-email-address white-button inline-overflow-ellipsis"
+        ></jnd-connect-union-selectbox>
+      <!--<span class="verified-email-address white-button">ted.kim@tosslab.com</span>-->
       <!-- if current service can not support multiple account, this button needs to be hidden. -->
-      <div class="custom-select-box-btn white-button">
-        <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-      </div>
+      <!--<div class="custom-select-box-btn white-button">-->
+        <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
+      <!--</div>-->
     </div>
     <div class="connect-union-plug-tool-container jnd-float-right"
          ng-class="{'on': plug.isOn}">
@@ -24,5 +28,6 @@
       <span class="opt-button jnd-cursor-pointer" ng-click="onDeleteClick()"><i class="icon-trash"></i></span>
     </div>
   </section>
+
   <div class="clear"></div>
 </div>

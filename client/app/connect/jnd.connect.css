@@ -260,15 +260,14 @@
   left: 52px;
 }
 
-.service-info .user-name,
-.service-info .date-info,
-.service-info .service-name {
+.service-info .connect-title,
+.service-info .date-info {
   font-size: 16px;
   line-height: 24px;
   color: #505050;
 }
 
-.service-info span.user-name {
+.service-info .connect-title .user-name {
   font-weight: 700;
 }
 
@@ -358,12 +357,12 @@
   color: #81939B;
 }
 
-.verified-email-container.single-account .custom-select-box-btn {
-  display: none;
-}
-.verified-email-container.single-account .white-button.verified-email-address {
-  padding-right: 10px;
-}
+/*.verified-email-container.single-account .custom-select-box-btn {*/
+  /*display: none;*/
+/*}*/
+/*.verified-email-container.single-account .white-button.verified-email-address {*/
+  /*padding-right: 10px;*/
+/*}*/
     
 .service-setting {
   padding: 14px 20px 12px;

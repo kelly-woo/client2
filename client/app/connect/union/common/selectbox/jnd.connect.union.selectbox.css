@@ -5,12 +5,12 @@
   text-align: left;
   font-weight: 500;
   cursor: pointer;
-  line-height: 28px;
 }
 
 .union-selectbox-wrapper .union-selectbox {
   position: relative;
   height: 30px;
+  line-height: 28px;
   padding-left: 10px;
   padding-right: 23px;
   border: 1px solid #d2d2d2;
@@ -24,6 +24,7 @@
 
 .union-selectbox-wrapper ul {
   max-height: 300px;
+  line-height: 28px;
   overflow-y: auto;
 }
 
@@ -38,12 +39,20 @@
   padding-right: 10px;
 }
 
-.union-selectbox-wrapper .union-selectbox > span {
+.union-selectbox-wrapper .union-selectbox > .selecte-item-text {
   display: inline-block;
   width: 100%;
 }
+.union-selectbox-wrapper .union-selectbox > .dropdown-status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 22px;
+  height: 100%;
+  text-align: center;
+}
 
-.union-selectbox-wrapper .union-selectbox > i {
+.union-selectbox-wrapper .dropdown-status i {
   position: absolute;
   top: 8px;
   right: 5px;
@@ -51,7 +60,7 @@
   transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
 }
 
-.union-selectbox-wrapper.active .union-selectbox > i {
+.union-selectbox-wrapper.active .dropdown-status > i {
   -webkit-transform: rotate(-180deg) translateY(0px);
   transform: rotate(-180deg) translateY(0px);
 }
