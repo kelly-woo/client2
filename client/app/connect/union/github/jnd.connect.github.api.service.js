@@ -14,8 +14,6 @@
     var _apiUrl = configuration.api_connect_address;
     this.get = get;
     this.getRepos = getRepos;
-    this.create = create;
-    this.update = update;
 
     /**
      * plug list 를 받아온다
@@ -41,30 +39,6 @@
       });
 
     }
-    /**
-     *
-     * @param data
-     * @param file
-     * @returns {*}
-     */
-    function create(data, file) {
-      var teamId = currentSessionHelper.getCurrentTeam().id;
-      delete data.botThumbnailFile;
 
-      return $upload.upload({
-        method: 'POST',
-        url: _apiUrl + 'teams/' + teamId + '/github',
-        file: file,
-        fileFormDataName: 'botThumbnailFile',
-        data: data
-      });
-    }
-
-    /**
-     *
-     */
-    function update() {
-
-    }
   }
 })();
