@@ -103,13 +103,13 @@
 }
 .lpanel-collapse-arrow {
   position: absolute;
-  top: 7px;
-  left: 12px;
-  color: #575757;
+  top: 8px;
+  left: 9px;
+  color: #333;
   font-size: 14px;
 }
 .lpanel-list__header.collapsed .lpanel-collapse-arrow {
-  color: #999;
+  color: #777;
 }
 
 .lpanel-list__title {
