@@ -42,6 +42,9 @@
 .custom-select-box-btn.disabled {
   background-color: #CCC;
 }
+.item-disabled span{
+  color: #CCC !important;
+}
 .custom-selectbox-arrow {
   position:absolute;
   top:8px;

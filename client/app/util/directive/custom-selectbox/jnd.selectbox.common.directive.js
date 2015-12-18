@@ -69,7 +69,6 @@
         scope.$on('$destroy', _onDestroy);
         scope.$watch('selectedValue', _setSelectedName);
         scope.$watch('list', function() {
-          console.log('###list changed');
           _initializeData();
         });
 
@@ -142,30 +141,38 @@
           scope.selectedValue = selectedItem.value;
         }
 
-        console.log('###_getSelectedName', selectedItem, scope.list);
         return selectedItem.text;
       }
 
-
+      /**
+       * selectedValue 가 없을 경우 default item 을 반환한다
+       * @returns {{text: string, value: string}}
+       * @private
+       */
       function _getDefaultItem() {
-        var defaultItem = {
-          text: '',
-          value: ''
-        };
+        var defaultItem;
         _.forEach(scope.list, function(item) {
           if (item.extIsGroup) {
             _.forEach(item.list, function(unit) {
-              defaultItem = unit;
-              return false;
+              if (unit.isDisabled) {
+                defaultItem = unit;
+                return false;
+              }
             });
             if (defaultItem) {
               return false;
             }
           } else {
-            defaultItem = item;
-            return false;
+            if (item.isDisabled) {
+              defaultItem = item;
+              return false;
+            }
           }
         });
+        defaultItem = defaultItem ||  {
+          text: '',
+          value: ''
+        };
         return defaultItem;
       }
 

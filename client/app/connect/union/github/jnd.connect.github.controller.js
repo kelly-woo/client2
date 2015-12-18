@@ -98,13 +98,16 @@
     function _getSelectboxRepos(repos) {
       var groupList = [];
       var list;
+      var isDisabled;
       _.forEach(repos, function(group) {
         list = [];
         _.forEach(group.lists, function(repo) {
+          isDisabled = repo.permissions && repo.permissions.admin === false;
           list.push({
             text: repo.name,
-            value: repo.id
-          })
+            value: repo.id,
+            isDisabled: isDisabled
+          });
         });
         groupList.push({
           name: group.owner,
@@ -166,12 +169,12 @@
         branch: _getBranches(),
         botName: footer.botName
       });
-      $scope.requestData.events = events;
+      $scope.requestData.events = events.join(',');
     }
 
     /**
      * 서버 포멧에 맞춘 branch 배열을 반환한다.
-     * @returns {Array}
+     * @returns {String}
      * @private
      */
     function _getBranches() {
@@ -186,7 +189,7 @@
           }
         });
       }
-      return results;
+      return results.join(',');
     }
 
     /**
