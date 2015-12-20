@@ -19,7 +19,9 @@
      */
     function _init() {
       // connect를 추가하는게 아닌 setting mode
-      $scope.isSettingMode = $scope.current.connectId != null;
+      //$scope.isSettingMode = $scope.current.connectId != null;
+      $scope.isSettingMode = true;
+      $scope.connectId = 49;
 
       $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
       $scope.allDayNotificationDateList = JndConnectGoogleCalendar.getDateList();
@@ -49,7 +51,7 @@
      */
     function _setContent() {
       if ($scope.isSettingMode) {
-        _requestConnectInfo(connectId);
+        _requestConnectInfo($scope.connectId);
         _requestCalendarInfo();
       } else {
         $scope.isInitialized = true;
@@ -81,6 +83,15 @@
      * @private
      */
     function _createModel() {
+      $scope.headerDataModel = {
+        current: $scope.current,
+        accounts: [],
+        memberId: '',
+        createTime: '',
+        status: false,
+        maxAccount: 0
+      };
+
       if ($scope.isSettingMode) {
         $scope.data = {
           footer: {}
@@ -111,6 +122,11 @@
           _.extend(data, connectInfo);
 
           $scope.member = EntityMapManager.get('user', data.memberId);
+
+          $scope.headerDataModel.memberId = connectInfo.memberId;
+          $scope.headerDataModel.createTime = connectInfo.createdAt;
+          $scope.headerDataModel.status = connectInfo.status;
+          $scope.headerDataModel.accountId = connectInfo.googleId;
         })
         .finally(function() {
           $scope.isInitialized = true;
@@ -202,13 +218,13 @@
         _.each(googleAccount.list, function(calendar) {
           calendarList.push({
             text: calendar.summary,
-            value: calendar.id + '' +
+            value: calendar.id + googleAccountSpliter + calendar.summary
           });
         });
       });
 
       data.calendarList = list;
-      $scope.accountList = accountList;
+      $scope.headerDataModel.accounts = accountList;
     }
   }
 })();

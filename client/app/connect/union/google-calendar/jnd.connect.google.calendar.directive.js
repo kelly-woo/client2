@@ -22,7 +22,7 @@
     };
 
     function link(scope) {
-
+      console.log('jnd data current ::: ', scope.current);
       _init();
 
       /**
