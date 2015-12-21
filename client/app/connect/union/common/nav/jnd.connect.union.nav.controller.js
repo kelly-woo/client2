@@ -6,9 +6,9 @@
     .controller('JndConnectUnionNavCtrl', JndConnectUnionNavCtrl);
 
   /* @ngInject */
-  function JndConnectUnionNavCtrl($scope, jndPubSub, JndConnect, EntityMapManager) {
+  function JndConnectUnionNavCtrl($scope, JndConnect) {
 
-    $scope.backToMain = backToMain;
+    $scope.backToMain = JndConnect.backToMain;
 
     _init();
 
@@ -17,10 +17,6 @@
      * @private
      */
     function _init() {
-    }
-
-    function backToMain() {
-      jndPubSub.pub('unionNav:backToMain');
     }
   }
 })();

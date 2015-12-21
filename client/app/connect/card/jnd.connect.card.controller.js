@@ -12,7 +12,20 @@
   /* @ngInject */
   function JndConnectCardCtrl($scope, jndPubSub) {
     $scope.addPlug = addPlug;
+    $scope.style = {};
+    _init();
 
+    /**
+     * 초기화 메서드
+     * @private
+     */
+    function _init() {
+      $scope.style.display = $scope.union.isOpen ? 'block' : 'none';
+    }
+
+    /**
+     * plug 를 추가한다.
+     */
     function addPlug() {
       jndPubSub.pub('connectCard:addPlug', {
         unionName: $scope.union.name

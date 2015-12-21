@@ -41,7 +41,7 @@
     function update(unionName, data) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       return _requestMultipartConnect({
-        method: 'POST',
+        method: 'PUT',
         url: _apiUrl + 'teams/' + teamId + '/' + unionName + '/setting',
         data: data
       })

@@ -19,7 +19,7 @@
           <jnd-selectbox-common
               jnd-data-list="repositories"
               jnd-data-is-disabled="!isRepoLoaded"
-              jnd-data-model="formData.repoId"></jnd-selectbox-common>
+              jnd-data-model="formData.hookRepoId"></jnd-selectbox-common>
 
           <input jnd-input-model="formData.branches" class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">
 
@@ -58,7 +58,7 @@
 
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check1" type="checkbox" ng-model="githubEvents.push">
+            <input id="git-check1" type="checkbox" ng-model="formData.hookEvent.push">
             <label for="git-check1">
               <div class="checkbox-description">
                 <span>Commits</span>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check2" type="checkbox" ng-model="githubEvents.commit_comment">
+            <input id="git-check2" type="checkbox" ng-model="formData.hookEvent.commit_comment">
             <label for="git-check2">
               <div class="checkbox-description">
                 <span>Commit Comments</span>
@@ -76,7 +76,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check3" type="checkbox" ng-model="githubEvents.pull_request">
+            <input id="git-check3" type="checkbox" ng-model="formData.hookEvent.pull_request">
             <label for="git-check3">
               <div class="checkbox-description">
                 <span>Pull Requests Opened / Closed</span>
@@ -85,7 +85,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check4" type="checkbox" ng-model="githubEvents.pull_request_review_comment">
+            <input id="git-check4" type="checkbox" ng-model="formData.hookEvent.pull_request_review_comment">
             <label for="git-check4">
               <div class="checkbox-description">
                 <span>Pull Request Comments</span>
@@ -94,7 +94,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check5" type="checkbox" ng-model="githubEvents.issues">
+            <input id="git-check5" type="checkbox" ng-model="formData.hookEvent.issues">
             <label for="git-check5">
               <div class="checkbox-description">
                 <span>Issue Opened / Closed</span>
@@ -103,7 +103,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check6" type="checkbox" ng-model="githubEvents.issue_comment">
+            <input id="git-check6" type="checkbox" ng-model="formData.hookEvent.issue_comment">
             <label for="git-check6">
               <div class="checkbox-description">
                 <span>Issue Comments</span>
@@ -112,7 +112,7 @@
           </div>
 
           <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
-            <input id="git-check7" type="checkbox" ng-model="githubEvents.create">
+            <input id="git-check7" type="checkbox" ng-model="formData.hookEvent.create">
             <label for="git-check7">
               <div class="checkbox-description">
                 <span>Branch or Tag Created / Deleted</span>
