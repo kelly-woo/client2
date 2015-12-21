@@ -42,6 +42,7 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('unionHeader:accountInfoChange', _onAccountInfoChange);
       $scope.$on('unionFooter:save', _onSave);
     }
 
@@ -57,6 +58,10 @@
         $scope.isInitialized = true;
         _requestCalendarInfo();
       }
+    }
+
+    function _onAccountInfoChange(angularEvent, accountInfo) {
+      _setCalendarList(accountInfo);
     }
 
     /**

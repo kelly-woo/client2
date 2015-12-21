@@ -36,9 +36,8 @@
        * on click 이벤트 핸들러
        */
       function onClick() {
-        scope.active = !scope.active;
         if (_.isFunction(scope.toggle)) {
-          scope.toggle(scope.active);
+          scope.toggle(!scope.active);
         }
       }
     }

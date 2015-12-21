@@ -1,0 +1,39 @@
+.account-menu .account-add,
+.account-menu .account-item {
+  position: relative;
+  font-size: 15px;
+  height: 33px;
+  line-height: 33px;
+}
+.account-menu .account-add .icon-user-plus,
+.account-menu .account-item .icon-user {
+  float: left;
+  margin-top: 8px;
+  font-size: 16px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+.account-menu .account-add .account-add-text,
+.account-menu .account-item .account-name {
+  width: 70%;
+  padding: 0;
+}
+
+.account-menu .account-item .icon-delete {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  font-size: 6px;
+  border-radius: 10px;
+  background-color: #e1e1e1;
+  color: #fff;
+  padding: 4px;
+}
+.account-menu .account-item .icon-delete:hover {
+  background-color: #a1a1a1;
+}
+
+.account-menu .account-add:hover {
+  background-color: #e1e1e1;
+}

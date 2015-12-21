@@ -14,7 +14,8 @@
       replace: true,
       scope: {
         'list': '=',
-        'value': '='
+        'value': '=',
+        'headerDataModel': '=?'
       },
       templateUrl: 'app/connect/union/common/selectbox/jnd.connect.union.selectbox.html',
       link: link
@@ -22,7 +23,8 @@
 
     function link(scope, el, attrs) {
       var unionSelectboxClass = attrs.unionSelectboxClass || '';
-      var jqDropdown = el.find('ul');
+
+      var menuType = attrs.menuType;
 
       _init();
 
@@ -35,6 +37,7 @@
 
         scope.unionSelectboxClass = unionSelectboxClass;
         scope.isActiveSelectbox = false;
+        scope.menuType = menuType;
 
         scope.isActive = isActive;
         scope.selectActive = selectActive;
@@ -126,23 +129,17 @@
        * @private
        */
       function _focusItem(index) {
+        var jqDropdown = el.find('.dropdown-menu');
         var viewportScrollTop = jqDropdown.scrollTop() || 0;
-        //var viewportHeight = jqDropdown.height();
         var viewportTop = jqDropdown.offset().top;
 
-        var jqItem = jqDropdown.children().eq(index);
-        //var itemHeight = jqItem.height();
+        var jqItem = jqDropdown.find('.dropdown-list').children().eq(index);
 
         var compare;
         if (jqItem.length > 0) {
           compare = jqItem.offset().top - viewportTop;
           jqDropdown.scrollTop(viewportScrollTop + compare);
         }
-        //if (compare < 0) {
-        //  jqDropdown.scrollTop(viewportScrollTop + compare);
-        //} else if (compare + itemHeight > viewportHeight) {
-        //  jqDropdown.scrollTop(viewportScrollTop + compare - viewportHeight + itemHeight);
-        //}
       }
     }
   }

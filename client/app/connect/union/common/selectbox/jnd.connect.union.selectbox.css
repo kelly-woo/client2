@@ -22,10 +22,13 @@
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
 }
 
-.union-selectbox-wrapper ul {
+.union-selectbox-wrapper .dropdown-menu {
   max-height: 300px;
   line-height: 28px;
   overflow-y: auto;
+}
+.union-selectbox-wrapper ul {
+  margin: 0;
 }
 
 .union-selectbox-wrapper li.active {

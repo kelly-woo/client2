@@ -7,12 +7,9 @@
       <i class="icon-angle-down"></i>
     </div>
   </div>
-  <ul class="dropdown-menu grey_dropdown" role="menu">
-    <li role="presentation" tabindex="-1" ng-repeat="item in list track by $index"
-        ng-class="{active: isActive($index)}"
-        ng-mouseenter="selectActive($index)"
-        ng-click="selectItem($index)">
-      <span>{{item.text}}</span>
-    </li>
-  </ul>
+
+  <div class="dropdown-menu grey_dropdown" ng-switch="menuType" role="menu">
+    <jnd-connect-selectbox-account-menu ng-switch-when="account"></jnd-connect-selectbox-account-menu>
+    <jnd-connect-selectbox-default-menu ng-switch-default></jnd-connect-selectbox-default-menu>
+  </div>
 </div>

@@ -30,11 +30,13 @@
        * @private
        */
       function _init() {
-        console.log('data model qweqweqw ::: ', scope.data);
-        setTimeout(function() {
-          console.log('eoifjweoijwe ::: ', scope.accountId, scope.accountList);
-          console.log('data model ::: ', scope.data);
-        }, 4000);
+        scope.isSettingMode = scope.data.current.connectId != null;
+
+        //console.log('data model qweqweqw ::: ', scope.data);
+        //setTimeout(function() {
+        //  console.log('eoifjweoijwe ::: ', scope.accountId, scope.accountList);
+        //  console.log('data model ::: ', scope.data);
+        //}, 4000);
 
         scope.connectTitle = $filter('translate')('@jnd-connect-33')
           .replace('{{memberName}}', '<span class="user-name">' + scope.memberName + '</span>')
