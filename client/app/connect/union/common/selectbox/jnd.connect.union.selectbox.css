@@ -8,6 +8,12 @@
   line-height: 28px;
 }
 
+.service-setting.select-lang .union-selectbox-wrapper {
+  min-width: 50%;
+  margin-top: -6px;
+}
+
+
 .union-selectbox-wrapper .union-selectbox {
   position: relative;
   height: 30px;
@@ -23,7 +29,7 @@
   margin-top: 2px !important;
   min-width: calc(100% + 4px);
   width: auto;
-  left: -2px;
+  left: -2px !important;
 }
 .union-selectbox-wrapper ul li {
   padding-right: 14px;
