@@ -790,6 +790,8 @@
   display: block; 
   text-align: center;
   margin:0;
+  background-color: #A0B8C7;
+  color: #FFF;
 }
 
 .introduction-container .introduction-desc {
