@@ -22,11 +22,11 @@
   overflow-y: auto;
   margin-top: 2px !important;
   min-width: calc(100% + 4px);
-  width: calc(100% + 4px);
+  width: auto;
   left: -2px;
 }
 .union-selectbox-wrapper ul li {
-  padding-right: 24px;
+  padding-right: 14px;
 }
 
 .union-selectbox-wrapper li.active {
