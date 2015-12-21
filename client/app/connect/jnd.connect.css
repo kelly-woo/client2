@@ -70,7 +70,7 @@
   min-height: 64px;
   padding: 16px 36px 16px 58px;
   z-index: 705;
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   box-shadow: 0 1px 0 #DDDDDD;
 }
 .jnd-connect-logo {
@@ -415,6 +415,11 @@
   position: relative;
 }
 
+/* 안내 영역 같은 경우, 기본적으로 collapsed 클래스가 붙는다. 이때(숨김상태)는 안내 컨텐츠를 디스플레이 하지 않는다.*/
+.service-setting.collapsed .introduction {
+  display: none;
+}
+
 .service-setting.select-profile .setting-contents,
 .service-setting.select-lang .setting-contents {
   margin-bottom: 6px;
@@ -455,7 +460,6 @@
 
 .service-setting .custom-select-box-btn {
   float: left;
-  margin-left: 5%;
   width: 100%;
   max-width: 35%;
 
@@ -478,6 +482,12 @@
   width: 100%;
   max-width: 90%;
 }
+.service-setting.select-conversation .custom-select-box-btn {
+  margin-left: 0;
+  width: calc(48% - 72px);
+}
+
+
 
 .service-setting .custom-select-box.dropdown-menu.active {
    width: 100%;
@@ -758,9 +768,41 @@
 
 
 
+.introduction-container {
+  width: 100%;
+  margin-top:38px;
+}
 
+.introduction-container .introduction-label {
+  float: left;
+  position: relative;	
+  padding:2px 8px;
+}
 
+.introduction-container .introduction-desc {
+  float: left;
+  line-height: 32px;
+  margin-left: 6px;
+  margin-bottom:10px;
+}
 
+.introduction-container .form-control {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 12px 16px;
+  clear: both;
+  margin-left: 68px;
+  position: relative;
+  max-width: 70%;
+}
+.introduction-container > img {
+  position: relative;
+  max-width: 70%;
+  margin-top: 0;
+  margin-left: 68px;
+  border: 1px solid #e1e1e1;
+  
+}
 
 @-moz-document url-prefix() {
   .integrated-service .header-title {

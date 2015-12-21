@@ -42,7 +42,7 @@
 .custom-select-box-btn.disabled,
 .custom-select-box-btn.disabled:hover,
 .custom-select-box-btn.disabled:active {
-  background-color: #e1e1e1;
+  background-color: #ECECEC;
   color: #BBB;
   border-color: #CBCBCB;
 }
