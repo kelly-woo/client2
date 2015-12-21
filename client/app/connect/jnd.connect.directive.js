@@ -31,22 +31,29 @@
       function _init() {
         scope.$on('JndConnect:hideLoading', _onHideLoading);
         scope.$on('JndConnect:showLoading', _onShowLoading);
-        _initializeElements();
+        $timeout(_initializeElements);
       }
 
       function _onShowLoading() {
-        scope.isLoading = true;
-        _initializeElements();
+        if (!scope.isLoading) {
+          scope.isLoading = true;
+          _setElementLoadingPosition();
+        }
       }
+
 
       /**
        * 데이터를 받아온 후 hide loading 이벤트 핸들러가 수행되었을 때 콜백
        * @private
        */
       function _onHideLoading() {
+        $timeout(_doHideLoading);
+      }
+
+      function _doHideLoading() {
         if (scope.isLoading) {
           scope.isLoading = false;
-          _startAnimation();
+         _startAnimation();
         }
       }
 
@@ -65,13 +72,18 @@
        * @private
        */
       function _initializeElements() {
-        $timeout(function() {
-          el.find('.connect-union-container').css('opacity', 0);
-          el.find('.jnd-connect-banner').css('opacity', 0);
-          el.find('.integrated-service').css('opacity', 0);
-          el.find('.jnd-connect-header-navbar__topmenu.back-button').css('opacity', 0);
-          el.addClass('opac-in');
+        el.find('.jnd-connect-header-navbar__topmenu.back-button').css({
+          'opacity': 0,
+          'margin-left': '20px'
         });
+        _setElementLoadingPosition();
+        el.addClass('opac-in');
+      }
+
+      function _setElementLoadingPosition() {
+        el.find('.connect-union-container').css('opacity', 0);
+        el.find('.jnd-connect-banner').css('opacity', 0);
+        el.find('.integrated-service').css('opacity', 0);
       }
 
       /**
@@ -108,10 +120,7 @@
        * @private
        */
       function _animateBackButton() {
-        el.find('.jnd-connect-header-navbar__topmenu.back-button').css({
-          opacity: 0,
-          marginLeft: '20px'
-        }).animate({
+        el.find('.jnd-connect-header-navbar__topmenu.back-button').animate({
           opacity: 1,
           marginLeft: 0
         }, 200);
