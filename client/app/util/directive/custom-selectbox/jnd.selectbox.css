@@ -39,8 +39,12 @@
 .custom-select-box-btn.active span {
   color: #424C53;
 }
-.custom-select-box-btn.disabled {
-  background-color: #CCC;
+.custom-select-box-btn.disabled,
+.custom-select-box-btn.disabled:hover,
+.custom-select-box-btn.disabled:active {
+  background-color: #e1e1e1;
+  color: #BBB;
+  border-color: #CBCBCB;
 }
 .item-disabled span{
   color: #CCC !important;
