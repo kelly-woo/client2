@@ -272,13 +272,19 @@
   padding-left:40px;
 }
 .menulist-item-filetype li {
-  padding:14px;
-  padding-left: 46px;
+  padding:10px;
+  padding-left: 34px;
 }
 .menulist-item-filetype li .fileicon {
   position: absolute;
-  top:7px;
-  left:10px;
+  top:4px;
+  left:5px;
+  
+  -webkit-transform: scale(0.48);
+  -moz-transform: scale(0.48);
+  -o-transform: scale(0.48);
+  -ms-transform: scale(0.48);
+  transform: scale(0.48);
 }
 
 .menulist-item-topics li.folder-title span,
