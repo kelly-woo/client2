@@ -74,9 +74,11 @@
     function _init() {
       that.getConnectInfo = getConnectInfo;
       that.getCalendarList = getCalendarList;
+      that.getConnectCount = getConnectCount;
+
+      // deprecated
       that.connect = connect;
       that.setting = setting;
-
       that.disconnect = disconnect;
       that.setStatus = setStatus;
 
@@ -108,8 +110,14 @@
     function getCalendarList() {
       return $http({
         method: 'GET',
-        //url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/calendarList'
         url: configuration.api_connect_address + 'authenticate/googleCalendar/calendarList'
+      });
+    }
+
+    function getConnectCount() {
+      return $http({
+        method: 'GET',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/googleCalendar/count'
       });
     }
 

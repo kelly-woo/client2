@@ -9,7 +9,7 @@
     .directive('jndConnectSelectboxAccountMenu', jndConnectSelectboxAccountMenu);
 
   /* @ngInject */
-  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnectUnionApi) {
+  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnectUnionApi, JndConnectGoogleCalendar) {
     return {
       restrict: 'E',
       replace: true,
@@ -43,15 +43,35 @@
        * account delete click handler
        */
       function onAccountDeleteClick() {
-        Dialog.confirm({
-          body: translate('@jnd-connect-187'),
-          confirmButtonText: translate('@jnd-connect-188'),
-          onClose: function (result) {
-            if (result === 'okay') {
-              _requestAccountDelete();
+        _requestConnectCount();
+      }
+
+      /**
+       * request connect count
+       * @private
+       */
+      function _requestConnectCount() {
+        JndConnectGoogleCalendar.getConnectCount()
+          .success(_successConnectCount);
+      }
+
+      /**
+       * success connect count
+       * @param data
+       * @private
+       */
+      function _successConnectCount(data) {
+        if (data) {
+          Dialog.confirm({
+            body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', data.count || 0),
+            confirmButtonText: translate('@jnd-connect-188'),
+            onClose: function (result) {
+              if (result === 'okay') {
+                _requestAccountDelete();
+              }
             }
-          }
-        });
+          });
+        }
       }
 
       /**

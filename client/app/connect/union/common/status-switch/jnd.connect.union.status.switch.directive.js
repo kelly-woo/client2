@@ -16,7 +16,8 @@
       scope: {
         connectId: '=',
         active: '=',
-        isNonApiCall: '=?'
+        isNonApiCall: '=?',
+        onToggleCallback: '&?'
       },
       templateUrl : 'app/connect/union/common/status-switch/jnd.connect.union.status.switch.html',
       link: link
@@ -36,7 +37,7 @@
       /**
        * on toggle 이벤트 핸들러
        */
-      function onToggle() {
+      function onToggle($event) {
         if (scope.isNonApiCall) {
           scope.active = !scope.active;
         } else {
@@ -47,18 +48,29 @@
             Dialog.confirm({
               body: '이 연동을 중지하시겠습니까?',
               confirmButtonText: '중지하기',
+              stopPropagation: true,
               onClose: function(result) {
                 if (result === 'okay') {
                   scope.active = false;
-                  _requestConnectStatus('enable')
+
+                  _callback(false);
+                  _requestConnectStatus('disable')
                 }
               }
             });
           } else {
             scope.active = true;
-            _requestConnectStatus('disable')
+
+            _callback(true);
+            _requestConnectStatus('enable')
           }
         }
+      }
+
+      function _callback(value) {
+        scope.onToggleCallback({
+          $value: value
+        });
       }
 
       function _requestConnectStatus(status) {

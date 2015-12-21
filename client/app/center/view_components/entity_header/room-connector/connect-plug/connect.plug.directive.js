@@ -76,13 +76,11 @@
        * service toggle handler
        * @param $value
        */
-      function onServiceToggle($value) {
-        if (scope.onStatusChange) {
-          scope.onStatusChange({
-            $connectId: scope.connectId,
-            $status: $value
-          });
-        }
+      function onServiceToggle(value) {
+        scope.onStatusChange({
+          $connectId: scope.connectId,
+          $status: value
+        });
       }
 
       /**
@@ -90,26 +88,23 @@
        * @param event
        */
       function onSettingClick(event) {
-        //event.stopPropagation();
+        event.stopPropagation();
 
-        if (scope.onSetting) {
-          scope.onSetting({
-            $connectId: scope.connectId,
-            $unionName: scope.unionName
-          });
-        }
+        scope.onSetting({
+          $connectId: scope.connectId,
+          $unionName: scope.unionName
+        });
       }
 
       /**
        * delete handler
        * @param {object} event
        */
-      function onDeleteClick(event) {
-        event.stopPropagation();
-
-        if (scope.onDelete) {
+      function onDeleteClick(value) {
+        if (value) {
           scope.onDelete({
-            $connetId: scope.connectId
+            $connetId: scope.connectId,
+            $value: value
           });
         }
       }

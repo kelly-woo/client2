@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $attrs, $q, JndConnectGoogleCalendar, EntityMapManager,
-                                        JndUtil) {
+                                        JndUtil, JndConnectUnionApi) {
     var googleAccountSpliter = '%^%';
     $scope.selectedRoom = '';
 
@@ -19,8 +19,8 @@
      */
     function _init() {
       // connect를 추가하는게 아닌 setting mode
-      //$scope.isSettingMode = $scope.current.connectId != null;
-      $scope.isSettingMode = true;
+      $scope.isSettingMode = $scope.current.connectId != null;
+      //$scope.isSettingMode = true;
       $scope.connectId = 49;
 
       $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
@@ -56,10 +56,18 @@
         _requestCalendarInfo();
       } else {
         $scope.isInitialized = true;
-        _requestCalendarInfo();
+        setTimeout(function() {
+          _requestCalendarInfo();
+        }, 5000);
       }
     }
 
+    /**
+     * account info change handler
+     * @param {object} angularEvent
+     * @param {object} accountInfo
+     * @private
+     */
     function _onAccountInfoChange(angularEvent, accountInfo) {
       _setCalendarList(accountInfo);
     }
@@ -69,17 +77,64 @@
      * @private
      */
     function _onSave() {
-      var data = $scope.data;
-
-      if (!(data.thumbnailUrl instanceof Blob)) {
-        delete data.thumbnailUrl;
-      }
+      //var data = $scope.data;
+      //
+      //if (!(data.thumbnailUrl instanceof Blob)) {
+      //  delete data.thumbnailUrl;
+      //}
+      var requestData = _createRequestData($scope.data);
 
       if ($scope.isSettingMode) {
-        JndConnectGoogleCalendar.setting(data);
+        JndConnectUnionApi.update('googleCalendar', requestData);
       } else {
-        JndConnectGoogleCalendar.connect(data);
+        JndConnectUnionApi.create('googleCalendar', requestData);
       }
+    }
+
+    /**
+     * create requestData
+     * @param {object} data
+     * @returns {{}}
+     * @private
+     */
+    function _createRequestData(data) {
+      var requestData = {};
+      var calendar;
+
+      if ($scope.isSettingMode) {
+        requestData.connectId = $scope.current.connectId;
+      }
+
+      if (data) {
+        calendar = data.calendarId.split(googleAccountSpliter);
+        requestData.googleId = calendar[0];
+        requestData.calendarId = calendar[1];
+        requestData.calendarSummary = calendar[2];
+        requestData.roomId = data.roomId;
+        requestData.botName = data.footer.botName || 'GoogleCalendar';
+        requestData.botThumbnailFile = data.footer.botThumbnailFile;
+        requestData.lang = data.footer.lang;
+
+        requestData.hasNotificationBefore = !!data.hasNotificationBefore;
+        requestData.notificationBefore = data.notificationBefore;
+
+        requestData.hasAllDayNotification = !!data.hasAllDayNotification;
+        requestData.allDayNotificationBeforeDates = data.allDayNotificationBeforeDates;
+        requestData.allDayNotificationHour = data.allDayNotificationHour;
+
+        requestData.hasDailyScheduleSummary = !!data.hasDailyScheduleSummary;
+        requestData.dailyScheduleSummary = data.dailyScheduleSummary;
+
+        requestData.hasWeeklyScheduleSummary = !!data.hasWeeklyScheduleSummary;
+        requestData.weeklyScheduleSummaryHour = data.weeklyScheduleSummaryHour;
+        requestData.weeklyScheduleSummaryDayOfWeek = data.weeklyScheduleSummaryDayOfWeek;
+
+        requestData.newEventNotification = !!data.newEventNotification;
+        requestData.updatedEventNotification = !!data.updatedEventNotification;
+        requestData.cancelledEventNotification = !!data.cancelledEventNotification;
+      }
+
+      return requestData;
     }
 
     /**
@@ -128,10 +183,16 @@
 
           $scope.member = EntityMapManager.get('user', data.memberId);
 
-          $scope.headerDataModel.memberId = connectInfo.memberId;
-          $scope.headerDataModel.createTime = connectInfo.createdAt;
-          $scope.headerDataModel.status = connectInfo.status;
-          $scope.headerDataModel.accountId = connectInfo.googleId;
+          $scope.headerDataModel.memberId = data.memberId;
+          $scope.headerDataModel.createTime = data.createdAt;
+          $scope.headerDataModel.status = data.status;
+          $scope.headerDataModel.accountId = data.googleId;
+
+          $scope.footer = {
+            lang: data.lang,
+            botThumbnailFile: _.isString(data.botThumbnailUrl) && data.botThumbnailUrl,
+            botName: data.botName
+          };
         })
         .finally(function() {
           $scope.isInitialized = true;
@@ -146,48 +207,17 @@
     function _requestCalendarInfo() {
       _initCalendarList();
 
-      setTimeout(function() {
-        var temp = [{
-          "googleId":"alex.kim@tosslab.com",
-          "list":[{
-            "id":"alex.kim@tosslab.com",
-            "summary":"alex.kim@tosslab.com",
-            "timeZone":"Asia/Seoul"
-          },{
-            "id":"jandi.room3@gmail.com",
-            "summary":"jandi.room3@gmail.com",
-            "timeZone":"Asia/Seoul"
-          },{
-            "id":"jandi.room1@gmail.com",
-            "summary":"jandi.room1@gmail.com",
-            "timeZone":"Asia/Seoul"
-          },{
-            "id":"jandi.room2@gmail.com",
-            "summary":"jandi.room2@gmail.com",
-            "timeZone":"Asia/Seoul"
-          },{
-            "id":"#contacts@group.v.calendar.google.com",
-            "summary":"생일",
-            "timeZone":"Asia/Seoul"
-          },{
-            "id":"ko.south_korea#holiday@group.v.calendar.google.com",
-            "summary":"대한민국의 휴일",
-            "timeZone":"Asia/Seoul"
-          }]
-        }];
-        JndUtil.safeApply($scope, function() {
+      JndConnectGoogleCalendar.getCalendarList()
+        .success(function(calendarInfo) {
           $scope.isCalendarListLoaded = true;
-          _setCalendarList(temp);
+          _setCalendarList(calendarInfo);
         });
-      }, 2000);
-
-      //JndConnectGoogleCalendar.getCalendarList()
-      //  .success(function(calendarInfo) {
-      //    $scope.isCalendarListLoaded = true;
-      //    _setCalendarList(calendarInfo);
-      //  });
     }
 
+    /**
+     * request 중 초기 calendar list 값을 설정함
+     * @private
+     */
     function _initCalendarList() {
       $scope.isCalendarListLoaded = false;
       $scope.data.calendarList = [
@@ -223,7 +253,7 @@
         _.each(googleAccount.list, function(calendar) {
           calendarList.push({
             text: calendar.summary,
-            value: calendar.id + googleAccountSpliter + calendar.summary
+            value: googleAccount.googleId + googleAccountSpliter + calendar.id + googleAccountSpliter + calendar.summary
           });
         });
       });

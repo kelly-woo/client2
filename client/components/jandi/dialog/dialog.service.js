@@ -125,8 +125,8 @@
         scope: $rootScope.$new(true),
         controller: 'ModalCtrl',
         templateUrl: 'components/jandi/dialog/modal/modal.html',
-        windowClass: 'center-dialog-modal',
-        backdrop: 'static',
+        windowClass: options.windowClass || 'center-dialog-modal',
+        backdrop: options.backdrop || 'static',
         resolve: {
           options: function() {
             return options;

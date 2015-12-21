@@ -58,7 +58,7 @@
        * change connect status
        */
       function onConnectStatusChange(connectId, status) {
-        _requestConnectStatus();
+        //_requestConnectStatus();
       }
 
       /**
