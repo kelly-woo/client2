@@ -37,7 +37,9 @@
       <span ng-if="union.plugs.length" class="connect-union-btn white-button pull-right jnd-cursor-pointer" ng-click="toggleCollapse();">{{union.plugs.length}} 개의 연동된 항목</span>
     </div>
   </div>
-  <div class="connect-union-body">
+  <div class="connect-union-body" ng-style="{
+    'display': style.display
+  }">
     <jnd-connect-card-plug ng-repeat="plug in union.plugs"></jnd-connect-card-plug>
   </div>
 </div>

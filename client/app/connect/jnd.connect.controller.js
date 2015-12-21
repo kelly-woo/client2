@@ -6,16 +6,19 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, JndConnect, EntityMapManager, JndConnectDummy, JndConnectApi) {
+  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil) {
 
     var UNION_DATA = {
       '1': {
         name: 'googleCalendar',
         icon: '',
+        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-5'),
         desc: $filter('translate')('@jnd-connect-6'),
         hasAuth: false,
-        popover: $filter('translate')('@jnd-connect-24')
+        authCount: 0,
+        popover: $filter('translate')('@jnd-connect-24'),
+        isOpen: false
       },
       //'2': {
       //  name: 'googleDrive',
@@ -28,10 +31,13 @@
       '3': {
         name: 'github',
         icon: '',
+        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
         hasAuth: false,
-        popover: $filter('translate')('@jnd-connect-23')
+        authCount: 0,
+        popover: $filter('translate')('@jnd-connect-23'),
+        isOpen: false
       },
       //'4': {
       //  name: 'dropbox',
@@ -44,26 +50,34 @@
       '5': {
         name: 'jira',
         icon: '',
+        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-17'),
         desc: $filter('translate')('@jnd-connect-18'),
         hasAuth: false,
-        popover: $filter('translate')('@jnd-connect-25')
+        authCount: 0,
+        popover: $filter('translate')('@jnd-connect-25'),
+        isOpen: false
       },
       '6': {
         name: 'trello',
         icon: '',
+        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-19'),
         desc: $filter('translate')('@jnd-connect-20'),
         hasAuth: false,
+        authCount: 0,
         popover: $filter('translate')('@jnd-connect-26')
       },
       '7': {
         name: 'incoming',
         icon: '',
+        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-21'),
         desc: $filter('translate')('@jnd-connect-22'),
         hasAuth: false,
-        popover: $filter('translate')('@jnd-connect-27')
+        authCount: 0,
+        popover: $filter('translate')('@jnd-connect-27'),
+        isOpen: false
       }
     };
 
@@ -79,8 +93,6 @@
     $scope.close = close;
     $scope.unions = [];
 
-    var DUMMY = JndConnectDummy.get();
-
     _init();
 
     /**
@@ -89,9 +101,85 @@
      */
     function _init() {
       _attachEvents();
-      getList();
+      _requestAll();
     }
 
+    /**
+     * Connect Setting 을 위한 기본 정보 조회
+     * @private
+     */
+    function _requestAll() {
+      var deferred = $q.defer();
+      var promises = [];
+      
+      JndConnect.showLoading();
+      
+      promises.push(JndConnectApi.getList());
+      promises.push(JndConnectApi.getAllAuth());
+      promises.push(JndConnectApi.getConnectInfo());
+
+      $q.all(promises)
+        .then(_onSuccessRequestAll, _onErrorRequestAll);
+    }
+
+    /**
+     * request 가 모두 성공했을 경우 이벤트 핸들러
+     * @param {Array} results 모든 request 에 대한 response
+     * @private
+     */
+    function _onSuccessRequestAll(results) {
+      _onSuccessGetList(results[0].data);
+      _onSuccessGetAllAuth(results[1].data);
+      _onSuccessGetConnectionInfo(results[2].data);
+      _initializeLanding();
+      JndConnect.hideLoading();
+    }
+
+    /**
+     * Center panel 등을 통해 직접 서비스 수정 페이지로 진입할 경우, landing 관련 정보를 설정한다.
+     * @private
+     */
+    function _initializeLanding() {
+      if ($scope.params) {
+        _setCurrent($scope.params);
+      }
+      $scope.params = null;
+    }
+
+    /**
+     * 모든 인증 정보 조회 콜백 
+     * @param {Array} response
+     * @private
+     */
+    function _onSuccessGetAllAuth(response) {
+      _.forEach(response, function(info) {
+        var union = _getUnion(info.id);
+        union.authCount = info.count;
+        union.hasAuth = info.count > 0;
+      });
+    }
+
+    /**
+     * 기타 정보 성공 콜백 (bot default image url 을 포함한)  
+     * @param {Array} response
+     * @private
+     */
+    function _onSuccessGetConnectionInfo(response) {
+      _.forEach(response.connects, function(info) {
+        var union = _getUnion(info.name);
+        union.botThumbnailUrl = info.botThumbnail;
+      });
+    }
+
+    /**
+     * 오류 발생했을 경우 오류 alert 을 노출하고 Connect 를 닫는다.
+     * @private
+     */
+    function _onErrorRequestAll(response) {
+      JndUtil.alertUnknownError(response);
+      JndConnect.close();
+    }
+    
     /**
      * event handler 를 바인딩 한다.
      * @private
@@ -100,7 +188,7 @@
       $scope.$on('connectCard:addPlug', _onAddPlug);
       $scope.$on('connectCard:modifyPlug', _onModifyPlug);
       $scope.$on('JndConnect:refresh', _onRefresh);
-      $scope.$on('unionNav:backToMain', _onBackToMain);
+      $scope.$on('JndConnect:backToMain', _onBackToMain);
     }
 
     /**
@@ -153,7 +241,8 @@
       $scope.current.union = null;
       $scope.current.connectId = null;
       $scope.current.isShowAuth = false;
-      getList();
+      _essentialRequest();
+      //getList();
     }
 
     /**
@@ -192,13 +281,12 @@
     function close() {
       $scope.isClose = true;
       $timeout(function() {
-        JndConnect.hide();
+        JndConnect.close();
       }, 300);
     }
 
     /**
      * 돌아가기 버튼 클릭시 핸들러
-     * TODO: depth 가 있는 경우 로직 추가해야 함
      */
     function historyBack() {
       if ($scope.current.union) {
@@ -213,32 +301,23 @@
      */
     function getList() {
       //TODO: request 로직
-      JndConnect.showLoading();
-      JndConnectApi.getList().success(_onGetListSuccess);
+      //JndConnect.showLoading();
+      JndConnectApi.getList().success(_onSuccessGetList);
     }
 
     /**
      * list 조회 success 핸들러
      * @private
      */
-    function _onGetListSuccess(response) {
-      console.log('###_onGetListSuccess', response);
+    function _onSuccessGetList(response) {
       var list = [];
       //var response = DUMMY.common.connectList;
       _.each(UNION_DATA, function(union) {
         list.push(_getUnionData(union, response[union.name]));
       });
       $scope.unions = list;
-      _initLanding();
-      JndConnect.hideLoading();
     }
 
-    function _initLanding() {
-      if ($scope.params) {
-        _setCurrent($scope.params);
-      }
-      $scope.params = null;
-    }
 
     /**
      * server data 로 부터 UI 에 맞는 plug 데이터를 가공하여 반환한다.
@@ -257,13 +336,13 @@
 
     /**
      * UI 에 적합한 Union 데이터를 가공하여 반환한다.
-     * @param {Object} constUnion - 최상단에 정의된 UNION 데이터
+     * @param {Object} union - 최상단에 정의된 UNION 데이터
      * @param {Array} list
      * @returns {Object}
      * @private
      */
-    function _getUnionData(constUnion, list) {
-      var item = _.extend({}, constUnion);
+    function _getUnionData(union, list) {
+      var item = union;
       item.plugs = [];
       _.forEach(list, function(data) {
         item.plugs.push(_getPlug(data));

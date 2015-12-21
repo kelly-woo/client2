@@ -13,7 +13,7 @@
                           currentSessionHelper, TopicInvitedFlagMap) {
 
     $scope.connectSetting = {
-      isShow: false,
+      isOpen: false,
       params: null
     };
     var _inviteSocketQueue = [];
@@ -30,8 +30,8 @@
       $scope.$on('topicLeave', _onTopicLeave);
       $scope.$on('onInitLeftListDone', _updateInvitedMemberList);
 
-      $scope.$on('JndConnect:show', _onJndConnectShow);
-      $scope.$on('JndConnect:hide', _onJndConnectHide);
+      $scope.$on('JndConnect:open', _onJndConnectOpen);
+      $scope.$on('JndConnect:close', _onJndConnectClose);
     }
 
 
@@ -43,8 +43,8 @@
      *  @param  {number} params.connectId - connectId
      * @private
      */
-    function _onJndConnectShow(angularEvent, params) {
-      $scope.connectSetting.isShow = true;
+    function _onJndConnectOpen(angularEvent, params) {
+      $scope.connectSetting.isOpen = true;
       $scope.connectSetting.params = params || null;
     }
 
@@ -52,8 +52,8 @@
      * connect hide 이벤트 핸들러
      * @private
      */
-    function _onJndConnectHide() {
-      $scope.connectSetting.isShow = false;
+    function _onJndConnectClose() {
+      $scope.connectSetting.isOpen = false;
       $scope.connectSetting.params = null;
     }
 

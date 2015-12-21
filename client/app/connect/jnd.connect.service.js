@@ -11,9 +11,10 @@
 
 
   function JndConnect(jndPubSub) {
-    this.show = show;
-    this.hide = hide;
-    this.refresh = refresh;
+    this.open = open;
+    this.close = close;
+    this.reloadList = reloadList;
+    this.backToMain = backToMain;
     this.hideLoading = hideLoading;
     this.showLoading = showLoading;
 
@@ -32,24 +33,28 @@
     }
 
     /**
-     * 커넥트 화면을 show 한다.
+     * 커넥트 화면을 open 한다.
      * @param {object} [params=null] - 세팅 회면 진입 시 connectId 의 수정 페이지를 바로 노출할 경우 해당 변수를 전달해야 한다.
      *  @param  {string} params.unionName - union 이름
      *  @param  {number} params.connectId - connectId
      */
-    function show(params) {
-      jndPubSub.pub('JndConnect:show', params);
+    function open(params) {
+      jndPubSub.pub('JndConnect:open', params);
     }
 
     /**
-     * 커넥트 화면을 hide 한다.
+     * 커넥트 화면을 close 한다.
      */
-    function hide() {
-      jndPubSub.pub('JndConnect:hide');
+    function close() {
+      jndPubSub.pub('JndConnect:close');
     }
 
-    function refresh() {
+    function reloadList() {
       jndPubSub.pub('JndConnect:refresh');
+    }
+
+    function backToMain() {
+      jndPubSub.pub('JndConnect:backToMain');
     }
   }
 })();

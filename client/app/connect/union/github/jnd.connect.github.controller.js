@@ -9,29 +9,12 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, $timeout, JndConnectDummy, Dialog, JndConnectGithubApi, JndConnectUnionApi) {
+  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
     var _originalRepos;
 
     $scope.requestData = {
       mode: 'authed',
-      roomId: null,
-      botName: 'Github',
-      botThumbnailFile: 'https://files.jandi.io/files-profile/94918bd3ab4222a1e5d57d427706164b?size=80',
-      lang: 'ko',
-      authenticationId: null,
-      repo: '',
-      events: [],
-      branch: []
-    };
-
-    $scope.githubEvents = {
-      'push': false,
-      'commit_comment': false,
-      'pull_request': false,
-      'pull_request_review_comment': false,
-      'issues': false,
-      'issue_comment': false,
-      'create': false
+      authenticationId: null
     };
 
     $scope.isInitialized = false;
@@ -44,12 +27,22 @@
 
     $scope.formData = {
       roomId: null,
-      repoId: null,
+      hookRepoId: null,
       branches: '',
       header: {},
+      hookEvent: {
+        'push': false,
+        'commit_comment': false,
+        'pull_request': false,
+        'pull_request_review_comment': false,
+        'issues': false,
+        'issue_comment': false,
+        'create': false
+      },
       footer: {
-        botThumbnailFile: $scope.requestData.botThumbnailFile,
-        botName: 'Github'
+        botThumbnailFile: $scope.current.union.botThumbnailUrl,
+        botName: 'Github',
+        lang: 'ko'
       }
     };
 
@@ -62,7 +55,7 @@
      * @private
      */
     function _init() {
-      $scope.isModify = !!$scope.current.connectId;
+      $scope.isUpdate = !!$scope.current.connectId;
       _attachEvents();
       _initialRequest();
     }
@@ -72,74 +65,87 @@
      * @private
      */
     function _initialRequest() {
-      //create
       var deferred = $q.defer();
       var promises = [];
 
       promises.push(JndConnectGithubApi.getRepos());
 
-      if (!$scope.isModify) {
+      //update 모드가 아닐 경우 바로 view 를 노출한다.
+      if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
         promises.push(JndConnectGithubApi.get($scope.current.connectId));
       }
 
       $q.all(promises)
-        .then(_onInitialRequestSuccess, _onInitialRequestFailed);
+        .then(_onSuccessInitialRequest, _onErrorInitialRequest);
     }
 
-    function _onInitialRequestSuccess(results) {
-      _onSuccessRepo(results[0].data);
-      if ($scope.isModify) {
+    /**
+     * initial  request 성공 시 이벤트 핸들러
+     * @param {array} results
+     * @private
+     */
+    function _onSuccessInitialRequest(results) {
+      _onSuccessGetRepo(results[0].data);
+      if ($scope.isUpdate) {
         _onSuccessGetSetting(results[1].data);
       }
     }
 
-    function _onInitialRequestFailed() {
-      console.log('failed');
-    }
-
-    function _onSuccessGetSetting(response) {
-      console.log(response);
-      $scope.requestData = {
-        mode: 'authed',
-        connectId: $scope.current.connectId,
-        roomId: response.roomId,
-        botName: '????? none',
-        botThumbnailFile: '????? none',
-        lang: response.lang,
-        repo: '??? hookId',
-        events: response.hookEvent,
-        branch: response.hookBranch
-      };
-      //_.extend($scope.requestData, {
-      //  roomId: response.roomId,
-      //
-      //});
-      //$scope.requestData = {
-      //  mode: 'authed',
-      //  roomId: null,
-      //  botName: 'Github',
-      //  botThumbnailFile: 'https://files.jandi.io/files-profile/94918bd3ab4222a1e5d57d427706164b?size=80',
-      //  lang: 'ko',
-      //  authenticationId: null,
-      //  repo: '',
-      //  events: [],
-      //  branch: []
-      //};
+    /**
+     * initial request 실패 시 이벤트 핸들러
+     * @param results
+     * @private
+     */
+    function _onErrorInitialRequest(results) {
+      JndUtil.alertUnknownError(results);
     }
 
     /**
-     * 초기 request 성공 시 이벤트 핸들러
+     * update 모드일 경우 formData 에 해당하는 데이터들을 설정한다.
+     * @param {object} response
      * @private
      */
-    function _onSuccessRepo(response) {
-      //var githubData = JndConnectDummy.get('github');
+    function _setFormDataFromResponse(response) {
+      var formData = $scope.formData;
+      formData.roomId = response.roomId;
+      formData.hookRepoId = response.hookRepoId;
+
+      //branches
+      formData.branches = response.hookBranch.join(',');
+
+      //hookEvent
+      _.forEach(response.hookEvent, function(eventName) {
+        if (!_.isUndefined(formData.hookEvent[eventName])) {
+          formData.hookEvent[eventName] = true;
+        }
+      });
+
+      //footers
+      formData.footer.botName = response.botName;
+      formData.footer.botThumbnailFile = response.botThumbnailUrl;
+      formData.footer.lang = response.lang;
+    }
+
+    /**
+     * setting 조회 성공 시 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessGetSetting(response) {
+      _setFormDataFromResponse(response);
+    }
+
+    /**
+     * 레포지토리 정보 조회 성공 시 이벤트 핸들러
+     * @private
+     */
+    function _onSuccessGetRepo(response) {
       _originalRepos = response.repos;
 
       $scope.requestData.authenticationId = response.authenticationId;
       $scope.repositories =_getSelectboxRepos(response.repos);
-      $scope.formData.repoId = null;
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
     }
@@ -154,6 +160,10 @@
       var groupList = [];
       var list;
       var isDisabled;
+      groupList.push({
+        text: '@선택하세요',
+        value: ''
+      });
       _.forEach(repos, function(group) {
         list = [];
         _.forEach(group.lists, function(repo) {
@@ -186,20 +196,63 @@
      */
     function _onSave() {
       _setRequestData();
-      JndConnectUnionApi.create('github', $scope.requestData)
-        .success(_onCreateSuccess);
-
-      console.log('$scope.requestData', $scope.requestData);
-      console.log('$scope.formData', $scope.formData);
+      if ($scope.isUpdate) {
+        JndConnectUnionApi.update('github', $scope.requestData)
+          .success(_onSuccessUpdate)
+          .error(_onErrorUpdate);
+      } else {
+        JndConnectUnionApi.create('github', $scope.requestData)
+          .success(_onSuccessCreate)
+          .error(_onErrorCreate);
+      }
     }
 
-    function _onCreateSuccess() {
+    /**
+     * update request 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessUpdate(response) {
       Dialog.success({
-        body:  '성공성공',
+        body:  '업데이트 성공성공',
         allowHtml: true,
         extendedTimeOut: 0,
         timeOut: 0
       });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * 생성 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessCreate(response) {
+      Dialog.success({
+        body:  '생성 성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * update 오류 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onErrorUpdate(response) {
+      JndUtil.alertUnknownError(response);
+    }
+
+    /**
+     * create 오류 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onErrorCreate(response) {
+      JndUtil.alertUnknownError(response);
     }
 
     /**
@@ -207,25 +260,29 @@
      * @private
      */
     function _setRequestData() {
-      var events = [];
+      var hookEvent = [];
       var formData = $scope.formData;
       var footer = formData.footer;
-      _.each($scope.githubEvents, function(value, key) {
+      _.each($scope.formData.hookEvent, function(value, key) {
         if (value) {
-          events.push(key);
+          hookEvent.push(key);
           if (key === 'create') {
-            events.push('delete');
+            hookEvent.push('delete');
           }
         }
       });
       _.extend($scope.requestData, {
         roomId: formData.roomId,
-        repo: _getRepoData(formData.repoId).full_name,
-        branch: _getBranches(),
+        hookRepoId: formData.hookRepoId,
+        hookRepoName: _getRepoData(formData.hookRepoId).full_name,
+        hookEvent: hookEvent.join(','),
+        hookBranch: _getBranches(),
         botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile
+        botThumbnailFile: footer.botThumbnailFile,
+        connectId: $scope.current.connectId,
+        lang: footer.lang
       });
-      $scope.requestData.events = events.join(',');
+
     }
 
     /**

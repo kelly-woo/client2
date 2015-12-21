@@ -1,5 +1,5 @@
 /**
- * @fileoverview 잔디 컨넥트 서비스(union) 디렉티브
+ * @fileoverview 잔디 컨넥트 서비스(union) 카드 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -33,7 +33,12 @@
        * collapse 를 토글한다.
        */
       function toggleCollapse() {
-        el.find('.connect-union-body').slideToggle();
+        var jqEl = el.find('.connect-union-body');
+        jqEl.slideToggle({
+          complete: function() {
+            scope.union.isOpen = jqEl.css('display') === 'block';
+          }
+        });
       }
     }
   }
