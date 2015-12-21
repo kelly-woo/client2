@@ -13,6 +13,7 @@
   function JndConnect(jndPubSub) {
     this.show = show;
     this.hide = hide;
+    this.refresh = refresh;
     this.hideLoading = hideLoading;
     this.showLoading = showLoading;
 
@@ -45,6 +46,10 @@
      */
     function hide() {
       jndPubSub.pub('JndConnect:hide');
+    }
+
+    function refresh() {
+      jndPubSub.pub('JndConnect:refresh');
     }
   }
 })();

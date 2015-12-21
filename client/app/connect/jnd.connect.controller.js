@@ -30,7 +30,7 @@
         icon: '',
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
-        hasAuth: true,
+        hasAuth: false,
         popover: $filter('translate')('@jnd-connect-23')
       },
       //'4': {
@@ -99,7 +99,7 @@
     function _attachEvents() {
       $scope.$on('connectCard:addPlug', _onAddPlug);
       $scope.$on('connectCard:modifyPlug', _onModifyPlug);
-
+      $scope.$on('JndConnect:refresh', _onRefresh);
       $scope.$on('unionNav:backToMain', _onBackToMain);
     }
 
@@ -154,6 +154,16 @@
       $scope.current.connectId = null;
       $scope.current.isShowAuth = false;
       getList();
+    }
+
+    /**
+     * refresh 이벤트 핸들러
+     * @private
+     */
+    function _onRefresh() {
+      if (!$scope.current.union) {
+        _resetCurrent();
+      }
     }
 
     /**
