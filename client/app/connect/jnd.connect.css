@@ -54,7 +54,7 @@
   top: 42px;
 }
 .connect-setting-lpanel {
-  background-color: #FAFAFA;
+  background-color: #FCFCFC;
   width: 239px;
   border-right: 1px solid #D7D8DB;
   box-sizing: content-box;
@@ -833,8 +833,12 @@
   .jnd-connect-service-container > div {
     margin: 0 auto 16px;
   }
+  .integrated-service {
+	display: none;
+  }
   
 }
+
 
 @media (max-width: 1164px) {
   .connect-setting-lpanel div {
