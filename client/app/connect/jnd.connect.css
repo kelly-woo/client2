@@ -138,7 +138,7 @@
 
 /* integration service detail style */
 .integration-service.detail {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .integration-service.detail .back-button,
@@ -286,7 +286,7 @@
 }
 .service-info .verified-email-container {
   margin: 7px 0;
-  width: calc(100% - 140px);
+  width: calc(100% - 240px);
 }
 
 .service-info .verify-button {
@@ -330,7 +330,7 @@
   font-weight: 500;
   margin-left: -1px;
   
-  max-width: 70%;
+  max-width: calc(70% - 19px);
   width: 70%;
   padding-right: 32px;
 }
@@ -473,21 +473,25 @@
   max-width: 90%;
 }
 
+.service-setting .custom-select-box.dropdown-menu.active {
+   width: 100%;
+}
+
 /* compound-column : CSB & White Button */
-.service-setting.jnd-column-5-width.compound-column .custom-select-box-btn,
-.service-setting.jnd-column-5-width.compound-column .custom-select-box.dropdown-menu.active {
+.service-setting.compound-column .custom-select-box-btn,
+.service-setting.compound-column .custom-select-box.dropdown-menu.active {
   width: 100%;
   max-width: calc(65% - 4px);
 }
 
 /* has-inputfield : CSB & Input Field */
-.service-setting.jnd-column-5-width.has-inputfield .custom-select-box-btn,
-.service-setting.jnd-column-5-width.has-inputfield .custom-select-box.dropdown-menu.active {
+.service-setting.has-inputfield .custom-select-box-btn,
+.service-setting.has-inputfield .custom-select-box.dropdown-menu.active {
   width: 100%;
   max-width: calc(46% - 4px);
 }
 
-.service-setting.jnd-column-5-width.has-inputfield .setting-input {
+.service-setting.has-inputfield .setting-input {
   max-width: calc(45% - 4px);
   margin-left: 4px;
   height: 35px;
@@ -495,12 +499,15 @@
 
 .service-setting .custom-select-box.dropdown-menu.active {
   margin-top: -89px !important;
-  margin-left: -8px !important;
+  margin-left: -10px !important;
+  max-width: calc(90% + 4px) !important;
   border-color: rgba(5,35,55,0.12);
   box-shadow: 0 1px 3px 0 rgba(2, 23, 34, 0.15);
 }
 
-
+.service-setting.compound-column .custom-select-box.dropdown-menu.active {
+  max-width: calc(65% - 0px) !important;
+}
 
 .service-setting .custom-select-box-btn i {
   line-height: 26px;
@@ -583,7 +590,8 @@
   transition: background-color 150ms, border-color 150ms;
 }
 .white-button:hover,
-.service-setting .custom-select-box-btn:hover {
+.service-setting .custom-select-box-btn:hover,
+.union-selectbox-wrapper .union-selectbox:hover {
   background-color: #F7F8FA;
   border-color:rgba(33,75,96,0.25);
   color:#214B60;
@@ -591,6 +599,7 @@
 
 .white-button:active,
 .service-setting .custom-select-box-btn:active,
+.union-selectbox-wrapper .union-selectbox:active,
 .service-setting .custom-select-box-btn.active {
   background-color: #F7F8FA;
   border-color: #00abe7;
@@ -598,8 +607,14 @@
 
   box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
 }
-.service-setting .custom-select-box-btn.active {
-  border-color:rgba(33,75,96,0.25);
+.service-setting .custom-select-box-btn.active,
+.union-selectbox-wrapper.active .union-selectbox {
+  background-color: #F7F8FA;
+  border-color:#9CB7C9;
+  color:#214B60;
+
+  box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
+  
 }
 .service-setting .custom-select-box-btn.active span {
   color:#214B60;
@@ -655,8 +670,14 @@
 .inner-column {
   
 }
+.jnd-column-4-width {
+  width: 40%;
+}
 .jnd-column-5-width {
   width: 50%;
+}
+.jnd-column-6-width {
+  width: 60%;
 }
 .jnd-column-10-width {
   width: 100%;
