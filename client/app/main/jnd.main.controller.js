@@ -12,8 +12,10 @@
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap) {
 
-    $scope.isShowJndConnect = false;
-
+    $scope.connectSetting = {
+      isShow: false,
+      params: null
+    };
     var _inviteSocketQueue = [];
 
     _init();
@@ -33,12 +35,26 @@
     }
 
 
-    function _onJndConnectShow() {
-      $scope.isShowJndConnect = true;
+    /**
+     * connect setting show 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {object} [params=null] - 세팅 회면 진입 시 connectId 의 수정 페이지를 바로 노출할 경우 해당 변수를 전달해야 한다.
+     *  @param  {string} params.unionName - union 이름
+     *  @param  {number} params.connectId - connectId
+     * @private
+     */
+    function _onJndConnectShow(angularEvent, params) {
+      $scope.connectSetting.isShow = true;
+      $scope.connectSetting.params = params || null;
     }
 
+    /**
+     * connect hide 이벤트 핸들러
+     * @private
+     */
     function _onJndConnectHide() {
-      $scope.isShowJndConnect = false;
+      $scope.connectSetting.isShow = false;
+      $scope.connectSetting.params = null;
     }
 
     /**

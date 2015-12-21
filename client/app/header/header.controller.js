@@ -107,8 +107,8 @@
     /**
      * connect 메뉴를 노출한다.
      */
-    function showConnect() {
-      JndConnect.show();
+    function showConnect(data) {
+      JndConnect.show(data);
     }
 
     /**
