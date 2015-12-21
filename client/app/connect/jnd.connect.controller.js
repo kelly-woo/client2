@@ -186,8 +186,8 @@
      */
     function _attachEvents() {
       $scope.$on('connectCard:addPlug', _onAddPlug);
-      $scope.$on('connectCard:modifyPlug', _onModifyPlug);
-      $scope.$on('JndConnect:refresh', _onRefresh);
+      $scope.$on('JndConnect:modify', _onModifyPlug);
+      $scope.$on('JndConnect:reloadList', _onReloadList);
       $scope.$on('JndConnect:backToMain', _onBackToMain);
     }
 
@@ -248,7 +248,7 @@
      * refresh 이벤트 핸들러
      * @private
      */
-    function _onRefresh() {
+    function _onReloadList() {
       if (!$scope.current.union) {
         _resetCurrent();
       }

@@ -49,12 +49,30 @@
       jndPubSub.pub('JndConnect:close');
     }
 
+    /**
+     * connect list 를 리로드한다.
+     */
     function reloadList() {
-      jndPubSub.pub('JndConnect:refresh');
+      jndPubSub.pub('JndConnect:reloadList');
     }
 
+    /**
+     * main 으로 되돌아온다.
+     */
     function backToMain() {
       jndPubSub.pub('JndConnect:backToMain');
+    }
+
+    /**
+     *
+     * @param unionName
+     * @param connectId
+     */
+    function modify(unionName, connectId) {
+      jndPubSub.pub('JndConnect:modify', {
+        unionName: unionName,
+        connectId: connectId
+      });
     }
   }
 })();

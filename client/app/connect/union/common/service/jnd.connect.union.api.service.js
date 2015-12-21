@@ -16,6 +16,7 @@
     this.create = create;
     this.update = update;
     this.remove = remove;
+    this.setStatus = setStatus;
 
     /**
      * connect 를 생성한다
@@ -68,6 +69,12 @@
       }
     }
 
+    /**
+     *
+     * @param unionName
+     * @param connectId
+     * @returns {*}
+     */
     function remove(unionName, connectId) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       return $http({
@@ -77,7 +84,26 @@
           connectId: connectId
         }
       });
+    }
 
+    /**
+     *
+     * @param {string} unionName
+     * @param {number} connectId
+     * @param {boolean} isEnabled
+     * @returns {*}
+     */
+    function setStatus(unionName, connectId, isEnabled) {
+      var status = isEnabled ? 'enabled' : 'disabled';
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+      return $http({
+        method: 'PUT',
+        url: _apiUrl + 'teams/' + teamId + '/' + unionName + '/status',
+        data: {
+          connectId: connectId,
+          status: status
+        }
+      });
     }
   }
 })();

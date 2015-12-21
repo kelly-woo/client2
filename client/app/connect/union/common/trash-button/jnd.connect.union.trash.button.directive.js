@@ -9,14 +9,17 @@
     .directive('jndConnectTrashButton', jndConnectTrashButton);
 
   /* @ngInject */
-  function jndConnectTrashButton(Dialog, JndConnectUnionApi) {
+  function jndConnectTrashButton(Dialog, JndConnectUnionApi, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
         connectId: '=',
+        unionName: '=',
         disabled: '=?',
-        onDeleteCallback: '&?'
+        onConfirmCallback: '&?',
+        onSuccessCallback: '&?',
+        onErrorCallback: '&?'
       },
       templateUrl : 'app/connect/union/common/trash-button/jnd.connect.union.trash.button.html',
       link: link
@@ -46,10 +49,10 @@
             stopPropagation: true,
             onClose: function(result) {
               if (result === 'okay') {
-                _callback(true);
+                _confirmCallback(true);
                 _requestConnectDelete()
               } else {
-                _callback(false)
+                _confirmCallback(false)
               }
             }
           });
@@ -61,8 +64,8 @@
        * @param value
        * @private
        */
-      function _callback(value) {
-        scope.onDeleteCallback({
+      function _confirmCallback(value) {
+        scope.onConfirmCallback({
           $value: value
         });
       }
@@ -73,7 +76,32 @@
        */
       function _requestConnectDelete() {
         // delete api call
-        JndConnectUnionApi
+        JndConnectUnionApi.remove(scope.unionName, scope.connectId)
+          .success(_onSuccessCallback)
+          .error(_onErrorCallback);
+      }
+
+      /**
+       * request success 콜백
+       * @private
+       */
+      function _onSuccessCallback() {
+        Dialog.success({
+          title: '@삭제 성공'
+        });
+        scope.onSuccessCallback();
+      }
+
+      /**
+       * request error 콜백
+       * @param {object} response
+       * @private
+       */
+      function _onErrorCallback(response) {
+        JndUtil.alertUnknownError(response);
+        scope.onErrorCallback({
+          $value: response
+        });
       }
     }
   }

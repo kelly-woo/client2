@@ -24,11 +24,20 @@
       'on': plug.isOn
     }">
     <span class="connect-union-plug-tool-text jnd-cursor_pointer" ng-click="toggleOnOff();">작동중</span>
-    <switch-button active="plug.isOn"></switch-button>
+    <jnd-connect-status-switch connect-id="plug.raw.id"
+                   union-name="union.name"
+                   on-success-callback="onSuccessSwitch()"
+                   on-fail-callback="onErrorSwitch($value)"
+                   active="plug.isOn"></jnd-connect-status-switch>
 
     
     <span class="opt-button jnd-cursor-pointer" ng-click="modify();"><i class="icon-pencil"></i></span>
-    <span class="opt-button jnd-cursor-pointer" ng-click="remove();"><i class="icon-trash"></i></span>
+    <jnd-connect-trash-button connect-id="plug.raw.id"
+                              union-name="union.name"
+                              on-success-callback="onSuccessRemove()"
+                              on-fail-callback="onErrorRemove($value)"
+    ></jnd-connect-trash-button>
+    <!--<span class="opt-button jnd-cursor-pointer" ng-click="remove();"><i class="icon-trash"></i></span>-->
   </div>
   <div class="clear" style="clear: both;float: none;"></div>
 </div>
