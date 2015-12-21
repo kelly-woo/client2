@@ -241,8 +241,7 @@
       $scope.current.union = null;
       $scope.current.connectId = null;
       $scope.current.isShowAuth = false;
-      _essentialRequest();
-      //getList();
+      _requestAll();
     }
 
     /**
