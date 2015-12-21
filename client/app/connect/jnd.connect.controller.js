@@ -14,7 +14,7 @@
         icon: '',
         title: $filter('translate')('@jnd-connect-5'),
         desc: $filter('translate')('@jnd-connect-6'),
-        hasAuth: true,
+        hasAuth: false,
         popover: $filter('translate')('@jnd-connect-24')
       },
       //'2': {
@@ -30,7 +30,7 @@
         icon: '',
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
-        hasAuth: true,
+        hasAuth: false,
         popover: $filter('translate')('@jnd-connect-23')
       },
       //'4': {
@@ -99,7 +99,7 @@
     function _attachEvents() {
       $scope.$on('connectCard:addPlug', _onAddPlug);
       $scope.$on('connectCard:modifyPlug', _onModifyPlug);
-
+      $scope.$on('JndConnect:refresh', _resetCurrent);
       $scope.$on('unionNav:backToMain', _onBackToMain);
     }
 
