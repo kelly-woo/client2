@@ -106,13 +106,33 @@
     /**
      * 플러그 추가시 핸들러
      * @param angularEvent
-     * @param data
+     * @param {object} [data=null] - 플러그 추가 화면 진입 시 필요한 데이터
+     *  @param  {string} data.unionName - union 이름
      * @private
      */
     function _onAddPlug(angularEvent, data) {
       _setCurrent(data);
     }
 
+    /**
+     * 플러그 수정시 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {object} [data=null] - 수정 화면 진입 시 필요한 데이터
+     *  @param  {string} data.unionName - union 이름
+     *  @param  {number} data.connectId - connectId
+     * @private
+     */
+    function _onModifyPlug(angularEvent, data) {
+      _setCurrent(data);
+    }
+
+    /**
+     * 현재 union 정보를 설정한다.
+     * @param {object} [data=null] - 수정 화면 진입 시 필요한 데이터
+     *  @param  {string} data.unionName - union 이름
+     *  @param  {number} [data.connectId=null] - 존재하지 않을 경우 plug 추가로 간주한다.
+     * @private
+     */
     function _setCurrent(data) {
       data = data || {};
       var targetUnion = _getUnion(data.unionName);
@@ -123,13 +143,12 @@
       } else {
         _resetCurrent();
       }
-
     }
 
-    function _onModifyPlug(angularEvent, data) {
-      _setCurrent(data);
-    }
-
+    /**
+     * current 정보를 초기화 한다. (main 화면 진입시 호출한다.)
+     * @private
+     */
     function _resetCurrent() {
       $scope.current.union = null;
       $scope.current.connectId = null;
@@ -137,6 +156,12 @@
       getList();
     }
 
+    /**
+     * unionName 으로부터 union 데이터를 반환한다.
+     * @param {string} unionName
+     * @returns {*}
+     * @private
+     */
     function _getUnion(unionName) {
       return _.find($scope.unions, function(union) {
         return union.name === unionName;
@@ -166,11 +191,11 @@
      * TODO: depth 가 있는 경우 로직 추가해야 함
      */
     function historyBack() {
-      $scope.isClose = true;
-      $timeout(function() {
-        JndConnect.hide();
-      }, 300);
-      //JndConnect.hide();
+      if ($scope.current.union) {
+        _resetCurrent();
+      } else {
+        close();
+      }
     }
 
     /**
@@ -194,7 +219,15 @@
         list.push(_getUnionData(union, response[union.name]));
       });
       $scope.unions = list;
+      _initLanding();
       JndConnect.hideLoading();
+    }
+
+    function _initLanding() {
+      if ($scope.params) {
+        _setCurrent($scope.params);
+      }
+      $scope.params = null;
     }
 
     /**

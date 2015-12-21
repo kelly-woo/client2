@@ -12,7 +12,9 @@
   function jndConnect($timeout, JndConnect) {
     return {
       restrict: 'E',
-      scope: false,
+      scope: {
+        params: '=jndDataParams'
+      },
       controller: 'JndConnectCtrl',
       link: link,
       replace: true,
@@ -34,6 +36,10 @@
         $timeout(_initializeElements);
       }
 
+      /**
+       * loading show 이벤트 핸들러
+       * @private
+       */
       function _onShowLoading() {
         if (!scope.isLoading) {
           scope.isLoading = true;
@@ -43,13 +49,18 @@
 
 
       /**
-       * 데이터를 받아온 후 hide loading 이벤트 핸들러가 수행되었을 때 콜백
+       * 데이터를 받아온 후 hide loading 이벤트 핸들러가 수행되었을 때 콜백.
+       * 이벤트를 바로 받은 직후에는 element 가 랜더링 되기 전일 수 있기 때문에 $timeout 을 사용한다.
        * @private
        */
       function _onHideLoading() {
         $timeout(_doHideLoading);
       }
 
+      /**
+       * loading hide 를 수행한다.
+       * @private
+       */
       function _doHideLoading() {
         if (scope.isLoading) {
           scope.isLoading = false;
@@ -80,6 +91,10 @@
         el.addClass('opac-in');
       }
 
+      /**
+       * 초기화 이후 loading 에 필요한 element 속성 설정 한다.
+       * @private
+       */
       function _setElementLoadingPosition() {
         el.find('.connect-union-container').css('opacity', 0);
         el.find('.jnd-connect-banner').css('opacity', 0);
@@ -106,13 +121,17 @@
        */
       function _animateCards() {
         var jqCards = el.find('.connect-union-container');
-        jqCards.each(function(count) {
-          var callback = (count === 1) ? _animateBackButton : null;
-          $(this).css({
-            opacity: 0
+        if (jqCards.length) {
+          jqCards.each(function(count) {
+            var callback = (count === 1) ? _animateBackButton : null;
+            $(this).css({
+              opacity: 0
+            });
+            setTimeout(_.bind(_slideUpAndFadeIn, this, $(this), callback), 100 * count);
           });
-          setTimeout(_.bind(_slideUpAndFadeIn, this, $(this), callback), 100 * count);
-        });
+        } else {
+          _animateBackButton();
+        }
       }
 
       /**
@@ -126,6 +145,10 @@
         }, 200);
       }
 
+      /**
+       * 좌측 submenu 의 animation 을 담당한다.
+       * @private
+       */
       function _animateSubmenu() {
         el.find('.integrated-service')
           .css({
@@ -134,6 +157,7 @@
           opacity: 1
         }, 500);
       }
+
       /**
        * slide & fade in 하는 animation 함수
        * @param el

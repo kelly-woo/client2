@@ -195,7 +195,7 @@
     </div>
     <jnd-tooltip></jnd-tooltip>
     <tutorial-welcome></tutorial-welcome>
-    <jnd-connect ng-if="isShowJndConnect"></jnd-connect>
+    <jnd-connect ng-if="connectSetting.isShow" jnd-data-params="connectSetting.params"></jnd-connect>
   </div>
   <div ng-if="!isReady" class="full-screen z-index-top">
   </div>
