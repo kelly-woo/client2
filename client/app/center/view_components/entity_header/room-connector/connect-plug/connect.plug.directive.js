@@ -14,10 +14,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        connectId: '=',
-        memberId: '=',
-        botId: '=',
-        status: '=',
+        data: '=jndDataModel',
         onStatusChange: '&',
         onSetting: '&',
         onDelete: '&'
@@ -28,6 +25,10 @@
 
     function link(scope) {
       _init();
+      //connect-id="connectPlug.id"
+      //member-id="connectPlug.memberId"
+      //bot-id="connectPlug.botId"
+      //status="connectPlug.status"
 
       /**
        * init
@@ -43,6 +44,11 @@
         //thumbnailUrl: "https://www.jandi.io/images/bot_assets/bot-trello.png"
         //type: "bots"
         //typeCategory: "1:1 대화방"
+        scope.connectId = scope.data.id;
+        scope.memberId = scope.data.memberId;
+        scope.botId = scope.data.botId;
+        scope.status = scope.data.status;
+        scope.unionName = scope.data.name;
 
         scope.isActive = scope.status === 'enabled';
 
@@ -88,7 +94,8 @@
 
         if (scope.onSetting) {
           scope.onSetting({
-            $connectId: scope.connectId
+            $connectId: scope.connectId,
+            $unionName: scope.unionName
           });
         }
       }

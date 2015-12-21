@@ -5,8 +5,8 @@
     <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>{{memberName}}</div>
   </div>
   <div class="plug-menu connect-union-float-right connect-union-plug-tool-container">
-    <switch-button active="isActive" toggle="onServiceToggle($value)"></switch-button>
+    <jnd-connect-status-switch connect-id="data.connectId" active="isActive"></jnd-connect-status-switch>
     <span class="opt-button jnd-cursor-pointer" ng-click="onSettingClick($event)"><i class="icon-pencil"></i></span>
-    <span class="opt-button jnd-cursor-pointer" ng-click="onDeleteClick($event)"><i class="icon-trash"></i></span>
+    <jnd-connect-trash-button connect-id="data.connectId" ng-click="onDeleteClick()"></jnd-connect-trash-button>
   </div>
 </div>

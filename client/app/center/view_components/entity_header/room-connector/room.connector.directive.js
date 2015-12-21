@@ -9,7 +9,7 @@
     .directive('roomConnector', roomConnector);
 
   /* @ngInject */
-  function roomConnector($state, RoomConnector) {
+  function roomConnector($state, RoomConnector, JndConnect) {
     return {
       restrict: 'E',
       replace: true,
@@ -34,6 +34,7 @@
 
         scope.onConnectSetting = onConnectSetting;
         scope.onConnectDelete = onConnectDelete;
+        scope.onConnectAddClick = onConnectAddClick;
 
         _attachEvents();
       }
@@ -64,8 +65,8 @@
        * setting connect
        * @param connectId
        */
-      function onConnectSetting(connectId) {
-        _openConnectSetting();
+      function onConnectSetting(connectId, unionName) {
+        _openConnectSetting(connectId, unionName);
       }
 
       /**
@@ -76,9 +77,16 @@
        */
       function onConnectDelete(connectId) {
         var index = _.findIndex(scope.connectPlugs, {id: connectId});
-        scope.connectPlugs.splice(index, 1);
 
-        _requestConnectDelete();
+        // jnd-connect-trash-button directive에서 삭제 request를 하므로 view list에서 item만 제거한다.
+        scope.connectPlugs.splice(index, 1);
+      }
+
+      /**
+       * add connect
+       */
+      function onConnectAddClick() {
+        JndConnect.show();
       }
 
       /**
@@ -93,16 +101,11 @@
        * open connect setting page
        * @private
        */
-      function _openConnectSetting() {
-
-      }
-
-      /**
-       * request connect delete
-       * @private
-       */
-      function _requestConnectDelete() {
-
+      function _openConnectSetting(connectId, unionName) {
+        JndConnect.show({
+          connectId: connectId,
+          unionName: unionName
+        });
       }
 
       /**
@@ -225,12 +228,14 @@
 
         data = temp;
 
-        _.each(data, function(connects) {
+        _.each(data, function(connects, name) {
           _.each(connects, function(connect) {
             scope.connectPlugs.push({
+              unionName: name,
               id: connect.id,
               memberId: connect.memberId,
-              botId: connect.botId
+              botId: connect.botId,
+              status: connect.status
             });
           });
         });
