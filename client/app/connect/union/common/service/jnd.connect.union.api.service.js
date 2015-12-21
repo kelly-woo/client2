@@ -15,6 +15,7 @@
 
     this.create = create;
     this.update = update;
+    this.remove = remove;
 
     /**
      * connect 를 생성한다
@@ -65,6 +66,18 @@
         delete data.botThumbnailFile;
         return $http(options);
       }
+    }
+
+    function remove(unionName, connectId) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+      return $http({
+        method: 'DELETE',
+        url: _apiUrl + 'teams/' + teamId + '/' + unionName,
+        params: {
+          connectId: connectId
+        }
+      });
+
     }
   }
 })();
