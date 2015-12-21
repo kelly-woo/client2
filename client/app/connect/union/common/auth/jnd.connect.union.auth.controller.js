@@ -19,6 +19,7 @@
 
       $scope.$on('popupDone', function() {
         $scope.current.union.hasAuth = true;
+        $scope.current.isShowAuth = false;
       });
 
     }
