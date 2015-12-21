@@ -8,6 +8,7 @@
         <img ng-if="!changedFileUri" ng-src="{{ data.botThumbnailFile }}" class="bot-profile"/>
         <img ng-if="changedFileUri" ng-src="{{ changedFileUri }}" class="bot-profile"/>
         <span class="overlay-label">Edit</span>
+        <div class="bot-profile-mask"></div>
         <input type="file"
                class="bot-profile-upload-btn cursor_pointer"
                ng-file-select="onFileSelect($files);"
