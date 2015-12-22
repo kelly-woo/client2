@@ -54,7 +54,7 @@
   top: 42px;
 }
 .connect-setting-lpanel {
-  background-color: #FAFAFA;
+  background-color: #FCFCFC;
   width: 239px;
   border-right: 1px solid #D7D8DB;
   box-sizing: content-box;
@@ -70,7 +70,7 @@
   min-height: 64px;
   padding: 16px 36px 16px 58px;
   z-index: 705;
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   box-shadow: 0 1px 0 #DDDDDD;
 }
 .jnd-connect-logo {
@@ -138,7 +138,7 @@
 
 /* integration service detail style */
 .integration-service.detail {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .integration-service.detail .back-button,
@@ -168,33 +168,38 @@
 
 
 
-#jnd-connect-detail-container {
+.integration-service-container {
   width: 100%;
   margin: 0;
   position: relative;
   padding: 0 24px 24px 24px;
+  min-height: 100px;
+  background-color:#FFF;
+  border: 1px solid #E1E1E1;
+  border-radius: 3px;
+
 }
 
-#jnd-connect-detail-container section {
+.integration-service-container section {
   border-bottom: 1px solid #E6E6E6;
   position: relative;
 }
 
-#jnd-connect-detail-container section.second-column {
+.integration-service-container section.second-column {
   padding-left: 0;
 }
-#jnd-connect-detail-container .second-column .connect-union-plug-tool-container {
+.integration-service-container .second-column .connect-union-plug-tool-container {
   width: 140px;
 }
-#jnd-connect-detail-container section.borderless-section {
+.integration-service-container section.borderless-section {
   border-color: transparent;
   padding-bottom: 0;
 }
-#jnd-connect-detail-container section.unverified-container {
+.integration-service-container section.unverified-container {
   height: 109px;
 }
 
-#jnd-connect-detail-container section.connect-info {
+.integration-service-container section.connect-info {
   border-left: 1px solid #E6E6E6;
   border-right: 1px solid #E6E6E6;
   border-bottom-left-radius: 3px;
@@ -204,7 +209,7 @@
   padding : 20px 20px 20px 64px;
 }
 
-#jnd-connect-detail-container section.connect-info >i {
+.integration-service-container section.connect-info >i {
   font-size: 24px;
   color: rgba(50,50,50,0.18);
   left: 24px;
@@ -212,7 +217,7 @@
   position: absolute;
 }
 
-#jnd-connect-detail-container section.arrow-column .icon-long-arrow-right {
+.integration-service-container section.arrow-column .icon-long-arrow-right {
   font-size: 14px;
   float: left;
   margin-left: 5.5%;
@@ -285,7 +290,7 @@
 }
 .service-info .verified-email-container {
   margin: 7px 0;
-  width: calc(100% - 140px);
+  width: calc(100% - 240px);
 }
 
 .service-info .verify-button {
@@ -329,7 +334,7 @@
   font-weight: 500;
   margin-left: -1px;
   
-  max-width: 70%;
+  max-width: calc(70% - 19px);
   width: 70%;
   padding-right: 32px;
 }
@@ -409,6 +414,11 @@
   position: relative;
 }
 
+/* 안내 영역 같은 경우, 기본적으로 collapsed 클래스가 붙는다. 이때(숨김상태)는 안내 컨텐츠를 디스플레이 하지 않는다.*/
+.service-setting.collapsed .introduction {
+  display: none;
+}
+
 .service-setting.select-profile .setting-contents,
 .service-setting.select-lang .setting-contents {
   margin-bottom: 6px;
@@ -421,11 +431,12 @@
   word-break: keep-all;
 }
 .service-setting .setting-description {
-  max-width: 45%;
+  max-width: 50%;
   color:#979797;
   font-size: 14px;
   line-height: 24px;
   margin-top: -2px;
+  padding-right: 5%;
 }
 .connect-info .setting-description {
   max-width: 100%;
@@ -448,7 +459,6 @@
 
 .service-setting .custom-select-box-btn {
   float: left;
-  margin-left: 5%;
   width: 100%;
   max-width: 35%;
 
@@ -471,22 +481,32 @@
   width: 100%;
   max-width: 90%;
 }
+.service-setting.select-conversation .custom-select-box-btn {
+  margin-left: 0;
+  width: calc(48% - 72px);
+}
+
+
+
+.service-setting .custom-select-box.dropdown-menu.active {
+   width: 100%;
+}
 
 /* compound-column : CSB & White Button */
-.service-setting.jnd-column-5-width.compound-column .custom-select-box-btn,
-.service-setting.jnd-column-5-width.compound-column .custom-select-box.dropdown-menu.active {
+.service-setting.compound-column .custom-select-box-btn,
+.service-setting.compound-column .custom-select-box.dropdown-menu.active {
   width: 100%;
   max-width: calc(65% - 4px);
 }
 
 /* has-inputfield : CSB & Input Field */
-.service-setting.jnd-column-5-width.has-inputfield .custom-select-box-btn,
-.service-setting.jnd-column-5-width.has-inputfield .custom-select-box.dropdown-menu.active {
+.service-setting.has-inputfield .custom-select-box-btn,
+.service-setting.has-inputfield .custom-select-box.dropdown-menu.active {
   width: 100%;
   max-width: calc(46% - 4px);
 }
 
-.service-setting.jnd-column-5-width.has-inputfield .setting-input {
+.service-setting.has-inputfield .setting-input {
   max-width: calc(45% - 4px);
   margin-left: 4px;
   height: 35px;
@@ -494,12 +514,15 @@
 
 .service-setting .custom-select-box.dropdown-menu.active {
   margin-top: -89px !important;
-  margin-left: -8px !important;
+  margin-left: -10px !important;
+  max-width: calc(90% + 4px) !important;
   border-color: rgba(5,35,55,0.12);
   box-shadow: 0 1px 3px 0 rgba(2, 23, 34, 0.15);
 }
 
-
+.service-setting.compound-column .custom-select-box.dropdown-menu.active {
+  max-width: calc(65% - 0px) !important;
+}
 
 .service-setting .custom-select-box-btn i {
   line-height: 26px;
@@ -526,25 +549,26 @@
 
 .service-setting .change-profile {
   float: left;
-  margin-left: 5%;
   margin-top: -20px;
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
 
-  border-radius: 50%;
   overflow: hidden;
   background-color: #F6F6F6;
+  position:relative;
+  
+  box-shadow: inset 0 0 13px 2px rgba(0,0,0,0.03);
 }
 
 .service-setting .change-profile .overlay-label {
-  position: relative;
+  position: absolute;
   background-color: rgba(0,0,0,0.5);
   display: block;
   color: #FFF;
-  width: 72px;
+  width: 70px;
   height: 34px;
   text-align: center;
-  top: 46px;
+  top: 44px;
   padding-top: 4px;
 }
 .select-profile .setting-input {
@@ -553,7 +577,7 @@
   width: calc(48% - 72px);
 }
 
-#jnd-connect-detail-container .save-button {
+.integration-service-container .save-button {
   position: relative;
   margin: 32px auto 8px;
   display: block;
@@ -582,7 +606,8 @@
   transition: background-color 150ms, border-color 150ms;
 }
 .white-button:hover,
-.service-setting .custom-select-box-btn:hover {
+.service-setting .custom-select-box-btn:hover,
+.union-selectbox-wrapper .union-selectbox:hover {
   background-color: #F7F8FA;
   border-color:rgba(33,75,96,0.25);
   color:#214B60;
@@ -590,6 +615,7 @@
 
 .white-button:active,
 .service-setting .custom-select-box-btn:active,
+.union-selectbox-wrapper .union-selectbox:active,
 .service-setting .custom-select-box-btn.active {
   background-color: #F7F8FA;
   border-color: #00abe7;
@@ -597,8 +623,14 @@
 
   box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
 }
-.service-setting .custom-select-box-btn.active {
-  border-color:rgba(33,75,96,0.25);
+.service-setting .custom-select-box-btn.active,
+.union-selectbox-wrapper.active .union-selectbox {
+  background-color: #F7F8FA;
+  border-color:#9CB7C9;
+  color:#214B60;
+
+  box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
+  
 }
 .service-setting .custom-select-box-btn.active span {
   color:#214B60;
@@ -621,12 +653,6 @@
 }
 
 
-.integration-service-container {
-  min-height: 100px;
-  background-color:#FFF;
-  border: 1px solid #E1E1E1;
-  border-radius: 3px;
-}
 
 .checkbox-list-container {
   line-height: 28px;
@@ -654,8 +680,14 @@
 .inner-column {
   
 }
+.jnd-column-4-width {
+  width: 40%;
+}
 .jnd-column-5-width {
   width: 50%;
+}
+.jnd-column-6-width {
+  width: 60%;
 }
 .jnd-column-10-width {
   width: 100%;
@@ -735,7 +767,117 @@
 
 
 
+.introduction-container {
+  width: 100%;
+  margin-top:24px;
+}
+.introduction-container.step {
+  padding-left: 84px;
+  position: relative;
+}
 
+.introduction-container > * {
+  margin-bottom: 10px;
+}
+.introduction-container .introduction-label {
+  position: absolute;	
+  padding:2px 8px;
+  left: 0;
+  top:5px;
+  width: 64px;
+  display: block; 
+  text-align: center;
+  margin:0;
+  background-color: #8DA4B3;
+  color: #FFF;
+}
+
+.introduction-container .introduction-desc {
+  float: left;
+  line-height: 28px;
+  margin-left: 0;
+  margin-top:2px;
+  width: 100%;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.introduction-container .form-control {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 12px 16px;
+  clear: both;
+  margin-left: 0;
+  position: relative;
+  max-width: 70%;
+}
+.introduction-container > img {
+  position: relative;
+  max-width: 70%;
+  max-height: 360px;
+  margin-top: 0;
+  margin-left: 0;
+  border: 1px solid #e1e1e1;
+  
+}
+.introduction-container > img.example {
+  max-width: 100%;
+}
+.introduction-title {
+  margin: 0 auto 14px 0;
+  font-size: 18px;
+  color: #AEB5B9;
+  width: 90%;
+}
+.introduction-title ~ .introduction-desc {
+  width: 100%;
+  line-height: 26px;
+  margin: 0;
+}
+
+.introduction-code-view {
+  white-space: nowrap;
+  padding: 12px 0;
+  clear: both;
+  margin-left: 0;
+  position: relative;
+  max-width: 100%;
+  border-radius: 3px;
+  border: 1px solid #CCC;
+  line-height: 20px;
+  font-family: "Courier New", Courier !important;
+  overflow-x:auto;
+}
+.introduction-code-view .code-line {
+  font-size: 13px;
+}
+.introduction-code-view .code-line:hover{
+  background-color:#EBF0F3;
+  color:#000;
+}
+.introduction-code-view.long .code-line {
+  width: 888px !important;
+}
+.introduction-code-view.short .code-line {
+  width: 400px !important;
+}
+.introduction-code-view .code-line.indent-0depth,
+.introduction-code-view .code-line.indent-1depth,
+.introduction-code-view .code-line.indent-2depth {
+  padding-right: 16px;
+  width: 846px;
+  min-width: 100%;
+}
+.indent-0depth {
+  padding-left: 24px;
+}
+
+.indent-1depth {
+  padding-left: 48px;
+}
+.indent-2depth {
+  padding-left: 72px;
+}
 
 
 
@@ -764,8 +906,12 @@
   .jnd-connect-service-container > div {
     margin: 0 auto 16px;
   }
+  .integrated-service {
+	display: none;
+  }
   
 }
+
 
 @media (max-width: 1164px) {
   .connect-setting-lpanel div {
