@@ -91,15 +91,14 @@
 
 
 .survey-container {
-  z-index: 703;
-  position: absolute;
   width: 100%;
-  bottom:0;
-  min-height: 146px;
-  background-color: rgba(255,255,255,0.85);
-  border-top:1px solid #D7D8DB;
   padding: 32px 24px;
+  margin-top: 20px !important;
+  border-radius: 3px;
+  background-color: rgba(21, 74, 103, 0.035);
+  border: 1px dashed rgba(21, 74, 103, 0.15);
 }
+
 .survey-description {
   display: block;
   width: 100%;
@@ -110,24 +109,28 @@
   text-align: center;
 }
 .survey-container .btn {
-  margin: 20px auto 0;
+  margin: 18px auto 0 !important;
   position: relative;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 34px;
+  max-width: 160px;
 }
 
 /* jnd-connect loading container style */
-.jnd-connect-loading-container {
+.jnd-connect-service-container .jnd-connect-loading-container {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
   height: 100%;
+  margin: auto;
   background-color: rgba(243,244,245,0.6);
 }
-.detail-container .jnd-connect-loading-container {
+.detail-container .jnd-connect-loading-container,
+.room-integration-connect .connect-wrapper .jnd-connect-loading-container {
   border-radius: 3px;
   left: 0 !important;
   top:0 !important;
@@ -261,8 +264,8 @@
   background-color: #FFF;
   border-radius: 50%;
   box-sizing: content-box;
-  bottom: 18px;
-  left: 52px;
+  bottom: 20px;
+  left: 58px;
 }
 
 .service-info .connect-title,
@@ -695,7 +698,7 @@
 
 
 .jnd-connect-service-container {
-  padding:32px 36px 90px 36px;
+  padding:32px 36px 60px 36px;
   overflow-y: auto;
   position: absolute;
   top: 0;
