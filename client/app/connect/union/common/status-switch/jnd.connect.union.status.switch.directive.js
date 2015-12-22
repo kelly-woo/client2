@@ -9,7 +9,7 @@
     .directive('jndConnectStatusSwitch', jndConnectStatusSwitch);
 
   /* @ngInject */
-  function jndConnectStatusSwitch(Dialog, JndConnectUnionApi) {
+  function jndConnectStatusSwitch(Dialog, JndConnectUnionApi, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -26,7 +26,9 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el, attrs) {
+      var isNonStatusText = attrs.isNonStatusText;
+
       _init();
 
       /**
@@ -34,15 +36,24 @@
        * @private
        */
       function _init() {
+        scope.isNonStatusText = scope.$eval(isNonStatusText);
+
         scope.onToggle = onToggle;
+
+        _setStatusText(scope.active);
       }
 
       /**
        * on toggle 이벤트 핸들러
        */
       function onToggle($event) {
+        var value;
+
         if (scope.isNonApiCall) {
-          scope.active = !scope.active;
+          value  = !scope.active;
+
+          _setActive(value);
+          _setStatusText(value);
         } else {
           // toggle 시 api를 호출해야하는 상황
           // connection 된 후 해당 정보를 update하는 경우
@@ -53,18 +64,44 @@
               stopPropagation: true,
               onClose: function(result) {
                 if (result === 'okay') {
-                  scope.active = false;
-                  _confirmCallback(false);
+                  value = false;
+
+                  _setActive(value);
+                  _setStatusText(value);
+                  _confirmCallback(value);
                   _requestConnectStatus();
                 }
               }
             });
           } else {
-            scope.active = true;
-            _confirmCallback(true);
+            value = true;
+
+            _setActive(value);
+            _setStatusText(value);
+            _confirmCallback(value);
             _requestConnectStatus();
           }
         }
+      }
+
+      /**
+       * set acitve
+       * @param {boolean} value
+       * @private
+       */
+      function _setActive(value) {
+        scope.active = value;
+      }
+
+      /**
+       * set status text
+       * @param {boolean} value
+       * @private
+       */
+      function _setStatusText(value) {
+        JndUtil.safeApply(scope, function() {
+          scope.statusText = value ? '작동중' : '중지됨';
+        });
       }
 
       /**

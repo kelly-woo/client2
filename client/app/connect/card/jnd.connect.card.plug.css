@@ -62,6 +62,9 @@
 .connect-union-plug-tool-container.on .connect-union-plug-tool-text {
   color: #13A4EB;
 }
+.connect-union-plug-tool-text.connect-enabled {
+  color: #13A4EB;
+}
 
 .connect-union-plug-tool-container .opt-button {
   position: relative;

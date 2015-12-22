@@ -56,9 +56,7 @@
         _requestCalendarInfo();
       } else {
         $scope.isInitialized = true;
-        setTimeout(function() {
-          _requestCalendarInfo();
-        }, 5000);
+        _requestCalendarInfo();
       }
     }
 
@@ -147,7 +145,7 @@
         current: $scope.current,
         accounts: [],
         memberId: '',
-        createTime: '',
+        createdAt: '',
         status: false,
         maxAccount: 0
       };
@@ -209,8 +207,8 @@
 
       JndConnectGoogleCalendar.getCalendarList()
         .success(function(calendarInfo) {
-          $scope.isCalendarListLoaded = true;
           _setCalendarList(calendarInfo);
+          $scope.isCalendarListLoaded = true;
         });
     }
 
@@ -236,7 +234,6 @@
       var accountList = [];
 
       console.log('set account list ::: ', calendarInfo);
-
       _.each(calendarInfo, function(googleAccount) {
         var calendarList = [];
 
@@ -253,13 +250,16 @@
         _.each(googleAccount.list, function(calendar) {
           calendarList.push({
             text: calendar.summary,
-            value: googleAccount.googleId + googleAccountSpliter + calendar.id + googleAccountSpliter + calendar.summary
+            //value: googleAccount.googleId + googleAccountSpliter + calendar.id + googleAccountSpliter + calendar.summary
+            value: calendar.id
           });
         });
       });
 
-      data.calendarList = list;
-      $scope.headerDataModel.accounts = accountList;
+      JndUtil.safeApply($scope, function() {
+        data.calendarList = list;
+        $scope.headerDataModel.accounts = accountList;
+      });
     }
   }
 })();
