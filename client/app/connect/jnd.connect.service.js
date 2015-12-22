@@ -10,7 +10,8 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect(jndPubSub) {
+  function JndConnect(jndPubSub, configuration, Popup) {
+
     this.open = open;
     this.close = close;
     this.modify = modify;
@@ -18,6 +19,7 @@
     this.backToMain = backToMain;
     this.hideLoading = hideLoading;
     this.showLoading = showLoading;
+    this.openAuthPopup = openAuthPopup;
 
     /**
      * connect main 의 loading 을 hide 한다.
@@ -73,6 +75,22 @@
       jndPubSub.pub('JndConnect:modify', {
         unionName: unionName,
         connectId: connectId
+      });
+    }
+
+    /**
+     * 인증 popup 을 open 한다.
+     * @param {string} unionName
+     * @param {string} [callbackEventName='popupDone'] - 모든 인증이 정상 완료된 이후 trigger 할 이벤트 명
+     */
+    function openAuthPopup(unionName, callbackEventName) {
+      callbackEventName = callbackEventName || 'popupDone';
+      Popup.open(configuration.connect_auth_address + 'connect/auth/' + unionName, {
+        name: 'connectAuth',
+        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
+        data: {
+          redirectUri: '/popup/success?callbackEvent=' + callbackEventName
+        }
       });
     }
   }
