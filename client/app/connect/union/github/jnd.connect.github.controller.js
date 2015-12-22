@@ -9,9 +9,9 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
+  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil, modalHelper) {
     var _originalRepos;
-
+    var _createdRoomId = null;
     $scope.requestData = {
       mode: 'authed',
       authenticationId: null
@@ -48,6 +48,8 @@
 
     $scope.isRepoLoaded = false;
 
+    $scope.openTopicCreateModal = openTopicCreateModal;
+
     _init();
 
     /**
@@ -79,6 +81,10 @@
 
       $q.all(promises)
         .then(_onSuccessInitialRequest, _onErrorInitialRequest);
+    }
+
+    function openTopicCreateModal() {
+      modalHelper.openTopicCreateModal();
     }
 
     /**
@@ -187,8 +193,22 @@
      * @private
      */
     function _attachEvents() {
+      //$scope.$on('topicCreateCtrl:created', _onTopicCreated);
+      //$scope.$on('topic-folder:update', _onFolderUpdate);
       $scope.$on('unionFooter:save', _onSave);
     }
+
+    //토픽 생성시 바로 선택되도록 하기위한 로직. 현재 반응이 느리기 때문에 주석처리 함
+    //function _onTopicCreated(angularEvent, roomId) {
+    //  _createdRoomId = roomId;
+    //}
+    //
+    //function _onFolderUpdate(angularEvent, folderData) {
+    //  if (_createdRoomId) {
+    //    $scope.formData.roomId = _createdRoomId;
+    //    _createdRoomId = null;
+    //  }
+    //}
 
     /**
      * 설정 저장하기 버튼 클릭 시 이벤트 핸들러
