@@ -62,11 +62,8 @@
           fileFormDataName: 'botThumbnailFile'
         });
         delete data.botThumbnailFile;
-        return $upload.upload(options);
-      } else {
-        delete data.botThumbnailFile;
-        return $http(options);
       }
+      return $upload.upload(options);
     }
 
     /**
@@ -87,7 +84,7 @@
     }
 
     /**
-     *
+     * 활성/비활성 상태를 저장한다.
      * @param {string} unionName
      * @param {number} connectId
      * @param {boolean} isEnabled

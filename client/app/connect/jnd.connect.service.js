@@ -13,6 +13,7 @@
   function JndConnect(jndPubSub) {
     this.open = open;
     this.close = close;
+    this.modify = modify;
     this.reloadList = reloadList;
     this.backToMain = backToMain;
     this.hideLoading = hideLoading;
@@ -64,9 +65,9 @@
     }
 
     /**
-     *
-     * @param unionName
-     * @param connectId
+     * connect 설정 수정
+     * @param {string} unionName
+     * @param {number} connectId
      */
     function modify(unionName, connectId) {
       jndPubSub.pub('JndConnect:modify', {
