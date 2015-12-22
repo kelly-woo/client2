@@ -5,7 +5,250 @@
     <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
       <jnd-connect-union-header></jnd-connect-union-header>
 
+      <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
+        <span class="setting-label">알림을 받고자 하는 Board를 선택해주세요.</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
 
+          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+            <span class="">Board 선택</span>
+          </div>
+
+          <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
+
+          <i class="icon-long-arrow-right"></i>
+
+          <div class="clear"></div>
+
+        </div>
+      </section>
+
+      <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
+        <span class="setting-label">연동 토픽 또는 1:1 메시지 선택</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
+
+          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
+            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+            <span class="">토스랩 코리아</span>
+          </div>
+
+          <span class="create-new-topic white-button cursor_pointer animate-all">토픽 생성하기</span>
+
+          <div class="clear"></div>
+
+        </div>
+      </section>
+
+
+      <section class="service-setting select-nofification clear">
+        <span class="setting-label">메시지 발생 이벤트 선택</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
+
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title first-title">카드</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>카드가 생성되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardMoved">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">카드가 옮겨졌을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardRenamed">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">카드 이름이 변경되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardCommentCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">코멘트 카드가 추가되었을 떄</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardAttachmentCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">첨부 파일이 카드에 추가되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardDescriptionUpdated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">설명(Description)이 변경되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardDueDateUpdated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">마감일(Due date)이 변경되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardLabelCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">??? 라벨(Label)이 변경되었을 때 showCardLabelCreated showCardLabelDeleted</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardMemberCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">카드에 멤버가 추가되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardArchived">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">??? 카드가 archive 또는 unarchive되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title">리스트</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showListCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">리스트가 생성되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showListRenamed">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">리스트 이름이 바뀌었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">### 리스트가 다른 보드로 옮겨졌을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showListArchived">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">??? 리스트가 archive 또는 unarchive되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showBoardRenamed">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">보드 이름이 바뀌었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">### 보드에 멤버가 추가되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title">체크리스트</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">체크리스트가 카드에 추가되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistItemCreated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">체크리스트 아이템이 생성되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistItemUpdated">
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">??? 체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="clear"></div>
+
+
+        </div>
+      </section>
 
       <jnd-connect-union-footer></jnd-connect-union-footer>
     </div>
