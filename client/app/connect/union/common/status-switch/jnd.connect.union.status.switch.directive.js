@@ -9,7 +9,7 @@
     .directive('jndConnectStatusSwitch', jndConnectStatusSwitch);
 
   /* @ngInject */
-  function jndConnectStatusSwitch(Dialog, JndConnectUnionApi) {
+  function jndConnectStatusSwitch(Dialog, JndConnectUnionApi, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
