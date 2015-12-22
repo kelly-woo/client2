@@ -91,15 +91,14 @@
 
 
 .survey-container {
-  z-index: 703;
-  position: absolute;
   width: 100%;
-  bottom:0;
-  min-height: 146px;
-  background-color: rgba(255,255,255,0.85);
-  border-top:1px solid #D7D8DB;
   padding: 32px 24px;
+  margin-top: 20px !important;
+  border-radius: 3px;
+  background-color: rgba(21, 74, 103, 0.035);
+  border: 1px dashed rgba(21, 74, 103, 0.15);
 }
+
 .survey-description {
   display: block;
   width: 100%;
@@ -110,11 +109,13 @@
   text-align: center;
 }
 .survey-container .btn {
-  margin: 20px auto 0;
+  margin: 18px auto 0 !important;
   position: relative;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 34px;
+  max-width: 160px;
 }
 
 /* jnd-connect loading container style */
@@ -697,7 +698,7 @@
 
 
 .jnd-connect-service-container {
-  padding:32px 36px 90px 36px;
+  padding:32px 36px 60px 36px;
   overflow-y: auto;
   position: absolute;
   top: 0;
