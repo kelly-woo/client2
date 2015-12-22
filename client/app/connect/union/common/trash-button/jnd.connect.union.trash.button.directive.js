@@ -16,7 +16,7 @@
       scope: {
         connectId: '=',
         unionName: '=',
-        disabled: '=?',
+        isDisabled: '=?',
         onConfirmCallback: '&?',
         onSuccessCallback: '&?',
         onErrorCallback: '&?'
@@ -40,8 +40,8 @@
        * on toggle 이벤트 핸들러
        */
       function onClick($event) {
-        if (!scope.disabled) {
-          // disabled 상태가 아닐때 즉 setting 일때만 삭제하기가 가능함.
+        if (!scope.isDisabled) {
+          // isDisabled 상태가 아닐때 즉 setting 일때만 삭제하기가 가능함.
 
           Dialog.confirm({
             body: '이 연동 항목을 삭제하시겠습니까?',

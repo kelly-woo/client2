@@ -1,7 +1,8 @@
 <div class="union-selectbox-wrapper" ng-class="{'active': isActiveSelectbox}" dropdown
      on-toggle="onToggle(open)"
      is-open="isActiveSelectbox">
-  <div class="union-selectbox {{::unionSelectboxClass}}" dropdown-toggle>
+  <div class="union-selectbox {{::unionSelectboxClass}}"
+       ng-class="{'disalbed': permission.allowAccountUpdate === false}" dropdown-toggle>
     <span class="selecte-item-text" ng-bind="selectedItemText"></span>
     <div class="dropdown-status">
       <i class="icon-angle-down"></i>

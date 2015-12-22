@@ -16,7 +16,7 @@
       scope: {
         connectId: '=',
         unionName: '=',
-        active: '=',
+        isActive: '=',
         isNonApiCall: '=?',
         onConfirmCallback: '&?',
         onSuccessCallback: '&?',
@@ -40,7 +40,7 @@
 
         scope.onToggle = onToggle;
 
-        _setStatusText(scope.active);
+        _setStatusText(scope.isActive);
       }
 
       /**
@@ -50,14 +50,14 @@
         var value;
 
         if (scope.isNonApiCall) {
-          value  = !scope.active;
+          value  = !scope.isActive;
 
           _setActive(value);
           _setStatusText(value);
         } else {
           // toggle 시 api를 호출해야하는 상황
           // connection 된 후 해당 정보를 update하는 경우
-          if (scope.active) {
+          if (scope.isActive) {
             Dialog.confirm({
               body: '@이 연동을 중지하시겠습니까?',
               confirmButtonText: '@중지하기',
@@ -90,7 +90,7 @@
        * @private
        */
       function _setActive(value) {
-        scope.active = value;
+        scope.isActive = value;
       }
 
       /**
@@ -121,7 +121,7 @@
        */
       function _requestConnectStatus() {
         // status api call
-        JndConnectUnionApi.setStatus(scope.unionName, scope.connectId, scope.active)
+        JndConnectUnionApi.setStatus(scope.unionName, scope.connectId, scope.isActive)
           .success(_onSuccessSetStatus)
           .error(_onErrorSetStatus);
       }

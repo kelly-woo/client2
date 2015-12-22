@@ -15,22 +15,19 @@
                                    value="data.accountId"
                                    header-data-model="data"
                                    union-selectbox-class="verified-email-address white-button inline-overflow-ellipsis"
-                                   menu-type="account"></jnd-connect-union-selectbox>
-      <!--<span class="verified-email-address white-button">ted.kim@tosslab.com</span>-->
-      <!-- if current service can not support multiple account, this button needs to be hidden. -->
-      <!--<div class="custom-select-box-btn white-button">-->
-        <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-      <!--</div>-->
+                                   menu-type="account"
+                                   permission="permission"></jnd-connect-union-selectbox>
     </div>
     <div class="connect-union-plug-tool-container jnd-float-right"
          ng-class="{'on': plug.isOn}">
       <jnd-connect-status-switch connect-id="data.current.connectId"
-                                 active="data.status"
+                                 union-name="unionName"
+                                 is-active="data.isActive"
                                  is-non-api-call="!isSettingMode"></jnd-connect-status-switch>
       <jnd-connect-trash-button connect-id="data.current.connectId"
-                                disabled="!isSettingMode"></jnd-connect-trash-button>
+                                union-name="unionName"
+                                is-disabled="!isSettingMode"></jnd-connect-trash-button>
     </div>
   </section>
-
   <div class="clear"></div>
 </div>

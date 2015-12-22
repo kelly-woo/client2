@@ -9,7 +9,7 @@
       <i class="icon-delete" ng-click="onAccountDeleteClick()"></i>
     </li>
   </ul>
-  <div class="account-add" ng-click="onAccountAddClick()">
+  <div class="account-add" ng-if="permission.allowAccountAdd" ng-click="onAccountAddClick()">
     <i class="icon-user-plus"></i>
     <span class="account-add-text">add account</span>
   </div>

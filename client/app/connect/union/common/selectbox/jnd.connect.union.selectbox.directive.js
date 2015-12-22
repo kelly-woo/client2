@@ -15,7 +15,8 @@
       scope: {
         'list': '=',
         'value': '=',
-        'headerDataModel': '=?'
+        'headerDataModel': '=?',
+        'permission': '=?'
       },
       templateUrl: 'app/connect/union/common/selectbox/jnd.connect.union.selectbox.html',
       link: link
@@ -33,8 +34,6 @@
        * @private
        */
       function _init() {
-        var index;
-
         scope.unionSelectboxClass = unionSelectboxClass;
         scope.isActiveSelectbox = false;
         scope.menuType = menuType;
@@ -44,16 +43,6 @@
         scope.selectItem = selectItem;
         scope.onToggle = onToggle;
 
-        if (scope.list) {
-          if (scope.value != null) {
-            index = _.findIndex(scope.list, {value: scope.value});
-            index = scope.list[index] ? index : 0;
-            scope.selectItem(index);
-          } else {
-            scope.selectItem(0);
-          }
-        }
-
         _attachEvents();
       }
 
@@ -62,6 +51,7 @@
        * @private
        */
       function _attachEvents() {
+        scope.$watch('list', _onListChange);
         scope.$watch('isActiveSelectbox', _onIsActiveSelectboxChange);
       }
 
@@ -116,11 +106,34 @@
        * @private
        */
       function _onIsActiveSelectboxChange(value) {
-        if (!value) {
-          // dropdown toggle시 깜빡임 방지를 위해 닫히기 직전 focus 이동함
-          _focusItem(scope.selectedIndex);
+        if (scope.permission && scope.permission.allowAccountUpdate === false) {
+          scope.isActiveSelectbox = false;
+        } else {
+          if (!value) {
+            // dropdown toggle시 깜빡임 방지를 위해 닫히기 직전 focus 이동함
+            _focusItem(scope.selectedIndex);
+          }
+          scope.activeIndex = scope.selectedIndex;
         }
-        scope.activeIndex = scope.selectedIndex;
+      }
+
+      /**
+       * list change event handler
+       * @param value
+       * @private
+       */
+      function _onListChange(value) {
+        var index;
+
+        if (value) {
+          if (scope.value != null) {
+            index = _.findIndex(scope.list, {value: scope.value});
+            index = scope.list[index] ? index : 0;
+            scope.selectItem(index);
+          } else {
+            scope.selectItem(0);
+          }
+        }
       }
 
       /**

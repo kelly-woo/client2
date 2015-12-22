@@ -20,8 +20,8 @@
       $scope.getMemberName = getMemberName;
       $scope.getCreatedAt = getCreatedAt;
 
-      $scope.isReadonlyAccount =isReadonlyAccount;
-      $scope.isValidAddAccount = isValidAddAccount;
+      $scope.isAllowAccountUpdate = isAllowAccountUpdate;
+      $scope.isAllowAccountAdd = isAllowAccountAdd;
 
     }
 
@@ -75,13 +75,13 @@
      * @param {string} unionName
      * @returns {boolean}
      */
-    function isReadonlyAccount(unionName) {
-      var result = false;
+    function isAllowAccountUpdate(unionName) {
+      var result = true;
 
       if ($scope.isSettingMode) {
         switch (unionName) {
           case 'googleCalendar':
-            result = true;
+            result = false;
             break;
         }
       }
@@ -94,7 +94,7 @@
      * @param unionName
      * @returns {boolean}
      */
-    function isValidAddAccount(unionName) {
+    function isAllowAccountAdd(unionName) {
       var result = false;
       switch (unionName) {
         case 'googleCalendar':
