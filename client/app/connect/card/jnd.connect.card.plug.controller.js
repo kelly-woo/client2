@@ -10,7 +10,9 @@
     .controller('JndConnectCardPlugCtrl', JndConnectCardPlugCtrl);
 
   /* @ngInject */
-  function JndConnectCardPlugCtrl($scope, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil, Dialog) {
+  function JndConnectCardPlugCtrl($scope, JndConnect, memberService) {
+    $scope.isModifiable = false;
+
     $scope.toggleOnOff = toggleOnOff;
     $scope.modify = modify;
 
@@ -19,6 +21,16 @@
 
     $scope.onSuccessSwitch = onSuccessSwitch;
     $scope.onErrorSwitch = onErrorSwitch;
+
+    _init();
+
+    /**
+     * 생성자
+     * @private
+     */
+    function _init() {
+      $scope.isModifiable = ($scope.plug.raw.memberId === memberService.getMemberId());
+    }
 
     /**
      * plug 의 on off 상태를 토글한다.
@@ -31,7 +43,9 @@
      * "수정" 버튼 이벤트 핸들러
      */
     function modify() {
-      JndConnect.modify($scope.union.name, $scope.plug.raw.id);
+      if ($scope.isModifiable) {
+        JndConnect.modify($scope.union.name, $scope.plug.raw.id);
+      }
     }
 
     /**

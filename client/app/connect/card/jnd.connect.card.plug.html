@@ -31,7 +31,11 @@
                    active="plug.isOn"></jnd-connect-status-switch>
 
     
-    <span class="opt-button jnd-cursor-pointer" ng-click="modify();"><i class="icon-pencil"></i></span>
+    <span class="opt-button jnd-cursor-pointer"
+          ng-class="{
+            'disabled': !isModifiable
+          }"
+          ng-click="modify();"><i class="icon-pencil"></i></span>
     <jnd-connect-trash-button connect-id="plug.raw.id"
                               union-name="union.name"
                               on-success-callback="onSuccessRemove()"
