@@ -771,7 +771,6 @@
 .introduction-container {
   width: 100%;
   margin-top:24px;
-  padding-left: 18px;
 }
 .introduction-container.step {
   padding-left: 84px;
@@ -839,7 +838,7 @@
 
 .introduction-code-view {
   white-space: nowrap;
-  padding: 12px 16px;
+  padding: 12px 0;
   clear: both;
   margin-left: 0;
   position: relative;
@@ -857,21 +856,28 @@
   background-color:#EBF0F3;
   color:#000;
 }
+.introduction-code-view.long .code-line {
+  width: 888px !important;
+}
+.introduction-code-view.short .code-line {
+  width: 400px !important;
+}
 .introduction-code-view .code-line.indent-0depth,
 .introduction-code-view .code-line.indent-1depth,
 .introduction-code-view .code-line.indent-2depth {
   padding-right: 16px;
-  width: 830px;
+  width: 846px;
+  min-width: 100%;
 }
 .indent-0depth {
-  padding-left: 0;
+  padding-left: 24px;
 }
 
 .indent-1depth {
-  padding-left: 24px;
+  padding-left: 48px;
 }
 .indent-2depth {
-  padding-left: 48px;
+  padding-left: 72px;
 }
 
 
