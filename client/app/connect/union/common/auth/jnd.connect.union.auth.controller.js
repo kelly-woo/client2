@@ -6,7 +6,7 @@
     .controller('JndConnectUnionAuthCtrl', JndConnectUnionAuthCtrl);
 
   /* @ngInject */
-  function JndConnectUnionAuthCtrl($scope, configuration, Popup) {
+  function JndConnectUnionAuthCtrl($scope, JndConnect) {
     $scope.getAuth = getAuth;
     _init();
 
@@ -25,13 +25,7 @@
     }
 
     function getAuth() {
-      Popup.open(configuration.connect_auth_address + 'connect/auth/' + $scope.current.union.name, {
-        name: 'connectAuth',
-        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
-        data: {
-          redirectUri: '/popup/success?callbackEvent=popupDone'
-        }
-      });
+      JndConnect.openAuthPopup($scope.current.union.name);
     }
   }
 })();
