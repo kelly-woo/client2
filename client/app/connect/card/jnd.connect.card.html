@@ -1,4 +1,4 @@
-<div class="connect-union-container">
+  <div class="connect-union-container _card">
   <div class="connect-union-header">
     <img class="connect-union-icon" />
     <div class="connect-union-contents">
@@ -8,18 +8,17 @@
         <div class="connect-union-tooltip">
 	      <i class="icon-info-fill"></i>
 	      <div class="description-container">
-		    <div class="description-arrow-left"></div>
-		    <div class="description-content-container">
-			  <div class="topic-description__description keep selectable ng-binding" ng-class="">
-			    <span>
-			    <!--<b class="service-name jnd-cursor-pointer">Github</b>는 Git 버젼 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다. -->
-			    <!--잔디와 연동하게 되면 Git 브랜치의 Commit, Comments, Pull Request 등의 변동사항을 팀 내에서 메시지로 수신할 수 있습니다.-->
-            {{union.popover}}
-			    </span>
-			  </div>
-			  <span class="connect-union-btn btn-ok primary jnd-cursor-pointer" ng-click="">연동하기</span>
-			  
-			</div>
+          <div class="description-arrow-left"></div>
+          <div class="description-content-container">
+          <div class="topic-description__description keep selectable ng-binding" ng-class="">
+            <span>
+            <!--<b class="service-name jnd-cursor-pointer">Github</b>는 Git 버젼 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다. -->
+            <!--잔디와 연동하게 되면 Git 브랜치의 Commit, Comments, Pull Request 등의 변동사항을 팀 내에서 메시지로 수신할 수 있습니다.-->
+              {{union.popover}}
+            </span>
+          </div>
+          <span class="connect-union-btn btn-ok primary jnd-cursor-pointer" ng-click="addPlug()">연동하기</span>
+        </div>
 		  </div>
 		  
         </div>

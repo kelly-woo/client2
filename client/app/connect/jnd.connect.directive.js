@@ -83,7 +83,7 @@
        * @private
        */
       function _initializeElements() {
-        el.find('.jnd-connect-header-navbar__topmenu.back-button').css({
+        el.find('._backBtn').css({
           'opacity': 0,
           'margin-left': '20px'
         });
@@ -96,9 +96,9 @@
        * @private
        */
       function _setElementLoadingPosition() {
-        el.find('.connect-union-container').css('opacity', 0);
-        el.find('.jnd-connect-banner').css('opacity', 0);
-        el.find('.integrated-service').css('opacity', 0);
+        el.find('._card').css('opacity', 0);
+        el.find('._bannerTop').css('opacity', 0);
+        el.find('._submenu').css('opacity', 0);
       }
 
       /**
@@ -106,7 +106,7 @@
        * @private
        */
       function _animateBanner() {
-        el.find('.jnd-connect-banner').css({
+        el.find('._bannerTop').css({
           opacity: 0,
           marginTop: '30px'
         }).animate({
@@ -120,7 +120,7 @@
        * @private
        */
       function _animateCards() {
-        var jqCards = el.find('.connect-union-container');
+        var jqCards = el.find('._card');
         if (jqCards.length) {
           jqCards.each(function(count) {
             var callback = (count === 1) ? _animateBackButton : null;
@@ -139,7 +139,7 @@
        * @private
        */
       function _animateBackButton() {
-        el.find('.jnd-connect-header-navbar__topmenu.back-button').animate({
+        el.find('._backBtn').animate({
           opacity: 1,
           marginLeft: 0
         }, 200);
@@ -150,7 +150,7 @@
        * @private
        */
       function _animateSubmenu() {
-        el.find('.integrated-service')
+        el.find('._submenu')
           .css({
             opacity: 0
           }).animate({

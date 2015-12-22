@@ -5,7 +5,7 @@
 
   <div class="jnd-connect-hpanel non-selectable">
     <div class="jnd-connect-header">
-		  <span class="jnd-connect-header-navbar__topmenu back-button cursor_pointer" ng-click="historyBack()">
+		  <span class="jnd-connect-header-navbar__topmenu back-button cursor_pointer _backBtn" ng-click="historyBack()">
 		    <i class="icon-long-arrow-left jnd-connect-header-navbar__menu-icon"></i>
         <!-- translate:  -->
 		    <span class="jnd-connect-header-navbar__title ng-scope" translate>@jnd-connect-1</span>
@@ -38,7 +38,7 @@
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
         <jnd-connect-loading ng-show="isLoading"></jnd-connect-loading>
-        <div ng-show="!isLoading" class="jnd-connect-banner">
+        <div ng-show="!isLoading" class="jnd-connect-banner _bannerTop">
           <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
 
           <span class="banner-description" translate>@jnd-connect-28</span>
@@ -49,6 +49,11 @@
         <jnd-connect-card
             ng-show="!isLoading"
             ng-repeat="union in unions"></jnd-connect-card>
+
+        <div ng-show="!isLoading" class="jnd-connect survey-container _card">
+          <span class="survey-description">잔디에 추가를 원하시는 서비스가 있으신가요?</span>
+          <span class="btn btn-ok jnd-cursor-pointer" ng-click="">서비스 연동 요청하기</span>
+        </div>
       </div>
       <div ng-switch-when="googleCalendar">
         <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
