@@ -16,7 +16,6 @@
         title: $filter('translate')('@jnd-connect-5'),
         desc: $filter('translate')('@jnd-connect-6'),
         hasAuth: false,
-        authCount: 0,
         popover: $filter('translate')('@jnd-connect-24'),
         isOpen: false
       },
@@ -35,7 +34,6 @@
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
         hasAuth: false,
-        authCount: 0,
         popover: $filter('translate')('@jnd-connect-23'),
         isOpen: false
       },
@@ -54,7 +52,6 @@
         title: $filter('translate')('@jnd-connect-17'),
         desc: $filter('translate')('@jnd-connect-18'),
         hasAuth: false,
-        authCount: 0,
         popover: $filter('translate')('@jnd-connect-25'),
         isOpen: false
       },
@@ -65,7 +62,6 @@
         title: $filter('translate')('@jnd-connect-19'),
         desc: $filter('translate')('@jnd-connect-20'),
         hasAuth: false,
-        authCount: 0,
         popover: $filter('translate')('@jnd-connect-26')
       },
       '7': {
@@ -75,7 +71,6 @@
         title: $filter('translate')('@jnd-connect-21'),
         desc: $filter('translate')('@jnd-connect-22'),
         hasAuth: false,
-        authCount: 0,
         popover: $filter('translate')('@jnd-connect-27'),
         isOpen: false
       }
@@ -152,10 +147,14 @@
      * @private
      */
     function _onSuccessGetAllAuth(response) {
+      var union;
+      var createdList;
       _.forEach(response, function(info) {
-        var union = _getUnion(info.id);
-        union.authCount = info.count;
-        union.hasAuth = info.count > 0;
+        union = _getUnion(info.id);
+        createdList = _.filter(info.datas, function(data) {
+          return data.status === 'created';
+        });
+        union.hasAuth = createdList.length || 0;
       });
     }
 

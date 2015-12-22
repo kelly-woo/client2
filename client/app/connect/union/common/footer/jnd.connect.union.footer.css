@@ -1,14 +1,28 @@
 .bot-profile-upload-btn {
   position: absolute;
   display: block;
-  width: 75px;
-  height: 75px;
-  top: -20px;
+  width: 70px;
+  height: 70px;
+  top: 0;
   opacity: 0;
+  border-radius: 50%;
 }
 
 img.bot-profile{
   position:absolute;
-  width:72px;
-  height:72px;
+  width: 74px;
+  height: 74px;
+  top: -2px;
+  left: -2px;
+}
+.bot-profile-mask {
+  background:url('/assets/images/circle-mask.png');
+  background-size:cover;
+  
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 0 10px 10px #FFF;
 }
