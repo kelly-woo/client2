@@ -22,7 +22,7 @@
     };
 
     function link(scope, el, attrs) {
-
+      scope.toggleCollapseGuide = toggleCollapseGuide;
       _init();
 
       /**
@@ -33,6 +33,10 @@
 
       }
 
+      function toggleCollapseGuide() {
+        var jqEl = el.find('._guide');
+        jqEl.slideToggle();
+      }
     }
   }
 })();

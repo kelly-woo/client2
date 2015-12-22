@@ -23,7 +23,7 @@
     }
 
     function _onSave() {
-      console.log('###jira save');
+
     }
 
     /**

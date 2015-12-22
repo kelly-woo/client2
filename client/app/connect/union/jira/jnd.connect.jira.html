@@ -7,44 +7,46 @@
 
       <section class="service-setting introduction collapsed">
         <span class="setting-label">설정방법 안내</span>
-        <span class="expand-button pull-right cursor_pointer">설정방법 보기</span>
-        <div class="setting-contents introduction">
-	        
-	      <div class="introduction-container step">
-		    <span class="introduction-label shortcuts-label">STEP 1</span>
-	        <span class="introduction-desc">JIRA에 관리자 계정으로 로그인 후 <b>System</b> 메뉴로 진입해주세요.</span>
-	        <img src="assets/images/jnd-connect-introduction-jira-01.png" />
-	        <div class="clear"></div>
-	      </div>
-	      
-	      
-	      <div class="introduction-container step">
-		    <span class="introduction-label shortcuts-label">STEP 2</span>
-	        <span class="introduction-desc">왼쪽 메뉴들 중 <b>Advanced</b> 섹션에서 <b>Webhooks</b> 메뉴를 선택해주세요.</span>
-	        <img src="assets/images/jnd-connect-introduction-jira-02.png" />
-	        <div class="clear"></div>
-	      </div>
-	      
-	      <div class="introduction-container step">
-		    <span class="introduction-label shortcuts-label">STEP 3</span>
-	        <span class="introduction-desc"><b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요.</span>
-	        <input class="setting-input form-control" placeholder="" value="https://hooks.jandi.com/services/T03FG">
-	        <div class="clear"></div>
-	      </div>
-	      
-	      <div class="introduction-container step">
-		    <span class="introduction-label shortcuts-label">STEP 4</span>
-	        <span class="introduction-desc">구독하고자 하는 이벤트들을 선택하신 뒤 <b>Create</b> 버튼을 눌러 설정을 저장해주세요.</span>
-	        <img src="assets/images/jnd-connect-introduction-jira-03.png" />
-	        <div class="clear"></div>
-	      </div>
-	      
+        <span class="expand-button pull-right cursor_pointer" ng-click="toggleCollapseGuide();">설정방법 보기</span>
+
+        <div class="setting-contents introduction _guide">
+          <div class="introduction-container step">
+          <span class="introduction-label shortcuts-label">STEP 1</span>
+            <span class="introduction-desc">JIRA에 관리자 계정으로 로그인 후 <b>System</b> 메뉴로 진입해주세요.</span>
+            <img src="assets/images/jnd-connect-introduction-jira-01.png" />
+            <div class="clear"></div>
+          </div>
+
+
+          <div class="introduction-container step">
+          <span class="introduction-label shortcuts-label">STEP 2</span>
+            <span class="introduction-desc">왼쪽 메뉴들 중 <b>Advanced</b> 섹션에서 <b>Webhooks</b> 메뉴를 선택해주세요.</span>
+            <img src="assets/images/jnd-connect-introduction-jira-02.png" />
+            <div class="clear"></div>
+          </div>
+
+          <div class="introduction-container step">
+          <span class="introduction-label shortcuts-label">STEP 3</span>
+            <span class="introduction-desc"><b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요.</span>
+            <input class="setting-input form-control" placeholder="" value="https://hooks.jandi.com/services/T03FG">
+            <div class="clear"></div>
+          </div>
+
+          <div class="introduction-container step">
+          <span class="introduction-label shortcuts-label">STEP 4</span>
+            <span class="introduction-desc">구독하고자 하는 이벤트들을 선택하신 뒤 <b>Create</b> 버튼을 눌러 설정을 저장해주세요.</span>
+            <img src="assets/images/jnd-connect-introduction-jira-03.png" />
+            <div class="clear"></div>
+          </div>
         </div>
       </section>
 
       <section class="service-setting webhook-url">
         <span class="setting-label">Webhook URL</span>
-        <input class="setting-input pull-right form-control" placeholder="https://hooks.jandi.com/services/T03F">
+        <input class="setting-input pull-right form-control"
+               jnd-input-model="formData.token"
+               jnd-is-trim="on"
+               placeholder="https://hooks.jandi.com/services/T03F">
         <div class="clear"></div>
       </section>
 
@@ -53,10 +55,8 @@
         <div class="setting-contents">
           <span class="setting-description">연동 서비스 또는 메시지를 받을 토픽 또는 1:1 메시지를 선택할 수 있습니다. 연동 설정 이후에도 변경 가능합니다.</span>
 
-          <div class="custom-select-box-btn white-button">
-            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="">토스랩 코리아</span>
-          </div>
+          <jnd-selectbox-room
+              jnd-data-model="formData.roomId"></jnd-selectbox-room>
 
           <span class="create-new-topic white-button cursor_pointer animate-all" ng-click="openTopicCreateModal()">토픽 생성하기</span>
 
