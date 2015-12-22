@@ -118,16 +118,18 @@
 }
 
 /* jnd-connect loading container style */
-.jnd-connect-loading-container {
+.jnd-connect-service-container .jnd-connect-loading-container {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
   height: 100%;
+  margin: auto;
   background-color: rgba(243,244,245,0.6);
 }
-.detail-container .jnd-connect-loading-container {
+.detail-container .jnd-connect-loading-container,
+.room-integration-connect .connect-wrapper .jnd-connect-loading-container {
   border-radius: 3px;
   left: 0 !important;
   top:0 !important;
@@ -261,8 +263,8 @@
   background-color: #FFF;
   border-radius: 50%;
   box-sizing: content-box;
-  bottom: 18px;
-  left: 52px;
+  bottom: 20px;
+  left: 58px;
 }
 
 .service-info .connect-title,

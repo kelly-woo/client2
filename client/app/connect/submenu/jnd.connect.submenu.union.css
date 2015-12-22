@@ -53,18 +53,6 @@
   top: 5px;
   left: 10px;
 }
-.google-calendar .icon-service-logo {
-  background: url('/assets/images/service-logo-google-calendar.png');
-  background-size: cover;
-}
-.github .icon-service-logo {
-  background: url('/assets/images/service-logo-github.png');
-  background-size: cover;
-}
-.jira .icon-service-logo {
-  background: url('/assets/images/service-logo-jira.png');
-  background-size: cover;
-}
 
 .active-service-name {
   font-weight: 700;
