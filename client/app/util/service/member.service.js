@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper, EntityMapManager) {
+                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -340,7 +340,7 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -352,7 +352,7 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.mediumThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -364,7 +364,7 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -373,7 +373,7 @@
      * @returns {string} url - profile photo url
      */
     function getPhotoUrl(member) {
-      return member.u_photoUrl;
+      return JndUtil.pick(member, 'u_photoUrl');
     }
 
     /**

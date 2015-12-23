@@ -42,7 +42,15 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
   };
 
   leftpanelAPI.getDefaultChannel = function(input) {
-    return input.team.t_defaultChannelId;
+    var defaultChannelId = input.team.t_defaultChannelId;
+    var joindEntityMap = EntityMapManager.getMap('joined');
+    if (!EntityMapManager.get('joined', defaultChannelId)) {
+      _.each(joindEntityMap, function(entity) {
+        defaultChannelId = entity.id;
+        return false;
+      });
+    }
+    return defaultChannelId;
   };
 
   leftpanelAPI.getMessages = function() {
