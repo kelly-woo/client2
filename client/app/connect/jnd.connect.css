@@ -256,6 +256,7 @@
   padding: 18px 24px;
   font-size: 15px;
   color: #868686;
+  display: none; /* spec-out in jnd-connect initial feature. */
 }
 
 .service-info {
@@ -436,7 +437,10 @@
 .service-setting.collapsed .introduction {
   display: none;
 }
-
+.setting-contents.introduction {
+  margin-top: 0 !important;
+}
+    
 .service-setting.select-profile .setting-contents,
 .service-setting.select-lang .setting-contents {
   margin-bottom: 6px;
@@ -519,7 +523,8 @@
 
 /* has-inputfield : CSB & Input Field */
 .service-setting.has-inputfield .custom-select-box-btn,
-.service-setting.has-inputfield .custom-select-box.dropdown-menu.active {
+.service-setting.has-inputfield .custom-select-box.dropdown-menu.active,
+.service-setting.has-inputfield .loading-container {
   width: 100%;
   max-width: calc(46% - 4px);
 }
@@ -712,6 +717,36 @@
 }
 
 
+.setting-contents .loading-container,
+.setting-contents .loading-container:hover,
+.setting-contents .loading-container:active,
+.setting-contents .loading-container:focus {
+  border: 1px solid #D8DFE3;
+  color: #B4C2CA;
+  background-color: #FFFFFF;
+  font-size: 13px;
+  padding-right: 6px;
+  padding-left: 38px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 0 0 transparent;
+}
+.setting-contents .loading-container .loading_bar {
+  position: absolute;
+  left: 8px;
+  
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+}
+.setting-contents .loading-container .loading_bar .jnd-three-quarters-loader {
+  border: 2px solid #C3CDD3;
+  border-right-color: transparent;
+}
 .jnd-connect-service-container {
   padding:32px 36px 60px 36px;
   overflow-y: auto;
