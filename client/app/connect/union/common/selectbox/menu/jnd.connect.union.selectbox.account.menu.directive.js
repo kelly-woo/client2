@@ -37,13 +37,23 @@
 
         scope.onAccountDeleteClick = onAccountDeleteClick;
         scope.onAccountAddClick = onAccountAddClick;
+
+        _requestConnectCount();
       }
 
       /**
        * account delete click handler
        */
       function onAccountDeleteClick() {
-        _requestConnectCount();
+        Dialog.confirm({
+          body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', scope.numberOfConnects),
+          confirmButtonText: translate('@jnd-connect-188'),
+          onClose: function (result) {
+            if (result === 'okay') {
+              _requestAccountDelete();
+            }
+          }
+        });
       }
 
       /**
@@ -61,17 +71,7 @@
        * @private
        */
       function _successConnectCount(data) {
-        if (data) {
-          Dialog.confirm({
-            body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', data.count || 0),
-            confirmButtonText: translate('@jnd-connect-188'),
-            onClose: function (result) {
-              if (result === 'okay') {
-                _requestAccountDelete();
-              }
-            }
-          });
-        }
+        scope.numberOfConnects = data.count;
       }
 
       /**

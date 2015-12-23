@@ -16,7 +16,7 @@
       scope: {
         connectId: '=',
         unionName: '=',
-        active: '=',
+        isActive: '=',
         isNonApiCall: '=?',
         onConfirmCallback: '&?',
         onSuccessCallback: '&?',
@@ -26,7 +26,9 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el, attrs) {
+      var isNonStatusText = attrs.isNonStatusText;
+
       _init();
 
       /**
@@ -34,37 +36,72 @@
        * @private
        */
       function _init() {
+        scope.isNonStatusText = scope.$eval(isNonStatusText);
+
         scope.onToggle = onToggle;
+
+        _setStatusText(scope.isActive);
       }
 
       /**
        * on toggle 이벤트 핸들러
        */
       function onToggle($event) {
+        var value;
+
         if (scope.isNonApiCall) {
-          scope.active = !scope.active;
+          value  = !scope.isActive;
+
+          _setActive(value);
+          _setStatusText(value);
         } else {
           // toggle 시 api를 호출해야하는 상황
           // connection 된 후 해당 정보를 update하는 경우
-          if (scope.active) {
+          if (scope.isActive) {
             Dialog.confirm({
               body: '@이 연동을 중지하시겠습니까?',
               confirmButtonText: '@중지하기',
               stopPropagation: true,
               onClose: function(result) {
                 if (result === 'okay') {
-                  scope.active = false;
-                  _confirmCallback(false);
+                  value = false;
+
+                  _setActive(value);
+                  _setStatusText(value);
+                  _confirmCallback(value);
                   _requestConnectStatus();
                 }
               }
             });
           } else {
-            scope.active = true;
-            _confirmCallback(true);
+            value = true;
+
+            _setActive(value);
+            _setStatusText(value);
+            _confirmCallback(value);
             _requestConnectStatus();
           }
         }
+      }
+
+      /**
+       * set acitve
+       * @param {boolean} value
+       * @private
+       */
+      function _setActive(value) {
+        scope.isActive = value;
+      }
+
+      /**
+       * set status text
+       * @param {boolean} value
+       * @private
+       */
+      function _setStatusText(value) {
+        JndUtil.safeApply(scope, function() {
+          scope.statusText = value ? '작동중' : '중지됨';
+        });
       }
 
       /**
@@ -84,7 +121,7 @@
        */
       function _requestConnectStatus() {
         // status api call
-        JndConnectUnionApi.setStatus(scope.unionName, scope.connectId, scope.active)
+        JndConnectUnionApi.setStatus(scope.unionName, scope.connectId, scope.isActive)
           .success(_onSuccessSetStatus)
           .error(_onErrorSetStatus);
       }

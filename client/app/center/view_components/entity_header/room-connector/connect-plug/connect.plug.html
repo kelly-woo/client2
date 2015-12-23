@@ -6,10 +6,12 @@
   </div>
   <div class="plug-menu connect-union-float-right connect-union-plug-tool-container">
     <jnd-connect-status-switch connect-id="data.connectId"
+                               union-name="data.unionName"
                                active="isActive"
-                               on-toggle-callback="onServiceToggle($value)"></jnd-connect-status-switch>
+                               is-non-status-text="true"></jnd-connect-status-switch>
     <span class="opt-button jnd-cursor-pointer" ng-click="onSettingClick($event)"><i class="icon-pencil"></i></span>
     <jnd-connect-trash-button connect-id="data.connectId"
-                              on-delete-callback="onDeleteClick($value)"></jnd-connect-trash-button>
+                              union-name="data.unionName"
+                              on-confirm-callback="onDeleteClick($value)"></jnd-connect-trash-button>
   </div>
 </div>

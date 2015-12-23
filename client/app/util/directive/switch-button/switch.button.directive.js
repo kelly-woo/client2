@@ -14,7 +14,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        active: '=',
+        isActive: '=',
         toggle: '&'
       },
       templateUrl : 'app/util/directive/switch-button/switch.button.html',
@@ -37,7 +37,7 @@
        */
       function onClick() {
         if (_.isFunction(scope.toggle)) {
-          scope.toggle(!scope.active);
+          scope.toggle(!scope.isActive);
         }
       }
     }

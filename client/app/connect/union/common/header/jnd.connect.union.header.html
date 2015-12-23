@@ -1,6 +1,6 @@
 <div class="integration-service-header">
   <section class="active-member-info">
-    <span class="active-member-count" ng-bind-html="connectMemberCountDescription"></span>
+    <span class="active-member-count" ng-bind-html="connectAuthCountDescription"></span>
   </section>
   <section class="service-info jnd-column-4-width jnd-float-left">
     <img class="icon-service-logo" />
@@ -16,23 +16,18 @@
                                    header-data-model="data"
                                    union-selectbox-class="verified-email-address white-button inline-overflow-ellipsis"
                                    menu-type="account"
-        ></jnd-connect-union-selectbox>
-      <!--<span class="verified-email-address white-button">ted.kim@tosslab.com</span>-->
-      <!-- if current service can not support multiple account, this button needs to be hidden. -->
-      <!--<div class="custom-select-box-btn white-button">-->
-        <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-      <!--</div>-->
+                                   permission="permission"></jnd-connect-union-selectbox>
     </div>
     <div class="connect-union-plug-tool-container jnd-float-right"
          ng-class="{'on': plug.isOn}">
-      <span class="connect-union-plug-tool-text">중지됨</span>
       <jnd-connect-status-switch connect-id="data.current.connectId"
-                                 active="data.status"
+                                 union-name="unionName"
+                                 is-active="data.isActive"
                                  is-non-api-call="!isSettingMode"></jnd-connect-status-switch>
       <jnd-connect-trash-button connect-id="data.current.connectId"
-                                disabled="!isSettingMode"></jnd-connect-trash-button>
+                                union-name="unionName"
+                                is-disabled="!isSettingMode"></jnd-connect-trash-button>
     </div>
   </section>
-
   <div class="clear"></div>
 </div>
