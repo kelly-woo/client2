@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .controller('JndConnectJiraCtrl', JndConnectJiraCtrl);
+    .controller('JndConnectIncomingCtrl', JndConnectIncomingCtrl);
 
   /* @ngInject */
-  function JndConnectJiraCtrl($scope, $q, JndUtil, modalHelper, JndConnectUnionApi, jndPubSub, Popup) {
+  function JndConnectIncomingCtrl($scope, $q, JndUtil, modalHelper, JndConnectUnionApi, jndPubSub, Popup) {
     $scope.isInitialized = false;
     $scope.isLoading = false;
     $scope.isUpdate = false;
@@ -19,7 +19,7 @@
       token: null,
       footer: {
         botThumbnailFile: $scope.current.union.botThumbnailUrl,
-        botName: 'JIRA',
+        botName: 'Incoming Webhook',
         lang: 'ko'
       }
     };
@@ -92,12 +92,12 @@
     function _initialRequest() {
       //update 모드일 경우 조회 API 를 콜한다.
       if ($scope.isUpdate) {
-        JndConnectUnionApi.read('jira', $scope.current.connectId)
+        JndConnectUnionApi.read('incoming', $scope.current.connectId)
           .success(_onSuccessGetSetting)
           .error(_onErrorInitialRequest)
           .finally(_onInitialRequestEnd);
       } else {
-        JndConnectUnionApi.getWebhookToken('jira')
+        JndConnectUnionApi.getWebhookToken('incoming')
           .success(_onSuccessGetWebhookToken)
           .error(_onErrorInitialRequest)
           .finally(_onInitialRequestEnd);

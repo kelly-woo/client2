@@ -48,14 +48,14 @@
     <div ng-if="!searchKeyword" class="custom-select-box__menulist _container">
       <div ng-repeat="item in list">
         <!-- group 일 경우 -->
-        <div ng-if="item.extIsGroup">
+        <div ng-if="item.groupName">
           <div class="custom-select-box__menulist-category">
             <!-- filetype -->
             <div class="custom-select-box__menulist-items">
-              <span translate class="menulist-item-header">{{item.name}}</span>
+              <span translate class="menulist-item-header">{{item.groupName}}</span>
               <ul class="menulist-item-result">
                 <li class="menu-item"
-                    ng-repeat="item in item.list"
+                    ng-repeat="item in item.groupList"
                     ng-class="{
                       '_selectable': !item.isDisabled,
                       'item-disabled': item.isDisabled
@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div ng-if="!item.extIsGroup">
+        <div ng-if="!item.groupName">
           <a class="select-all" ng-class="{
                       '_selectable': !item.isDisabled,
                       'item-disabled': item.isDisabled

@@ -12,9 +12,10 @@
   function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil, modalHelper) {
     var _originalRepos;
     var _createdRoomId = null;
+    var _hookRepoId = null;
 
     $scope.isInitialized = false;
-    $scope.isLoading = true;
+    $scope.isLoading = false;
     $scope.isRepoLoaded = false;
 
     $scope.requestData = {
@@ -71,17 +72,18 @@
       var deferred = $q.defer();
       var promises = [];
 
-      promises.push(JndConnectGithubApi.getRepos());
+      JndConnectGithubApi.getRepos()
+        .success(_onSuccessGetRepo)
+        .error(_onErrorInitialRequest);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        promises.push(JndConnectUnionApi.read('github', $scope.current.connectId));
+        JndConnectUnionApi.read('github', $scope.current.connectId)
+          .success(_onSuccessGetSetting)
+          .error(_onErrorInitialRequest);
       }
-
-      $q.all(promises)
-        .then(_onSuccessInitialRequest, _onErrorInitialRequest);
     }
 
     function openTopicCreateModal() {
@@ -117,7 +119,7 @@
     function _setFormDataFromResponse(response) {
       var formData = $scope.formData;
       formData.roomId = response.roomId;
-      formData.hookRepoId = response.hookRepoId;
+      formData.hookRepoId = _hookRepoId = response.hookRepoId;
 
       //branches
       formData.branches = response.hookBranch.join(',');
@@ -142,6 +144,7 @@
      */
     function _onSuccessGetSetting(response) {
       _setFormDataFromResponse(response);
+      $scope.isInitialized = true;
     }
 
     /**
@@ -155,6 +158,7 @@
       $scope.repositories =_getSelectboxRepos(response.repos);
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
+      $scope.formData.hookRepoId = _hookRepoId;
     }
 
     /**
@@ -174,7 +178,7 @@
       _.forEach(repos, function(group) {
         list = [];
         _.forEach(group.lists, function(repo) {
-          isDisabled = repo.permissions && repo.permissions.admin === false;
+          isDisabled = JndUtil.pick(repo, 'permissions', 'admin') === false;
           list.push({
             text: repo.name,
             value: repo.id,
@@ -182,8 +186,8 @@
           });
         });
         groupList.push({
-          name: group.owner,
-          list: list
+          groupName: group.owner,
+          groupList: list
         });
       });
       return groupList;
@@ -218,16 +222,24 @@
     function _onSave() {
       _setRequestData();
       $scope.isLoading = true;
-      if ($scope.isUpdate) {
-        JndConnectUnionApi.update('github', $scope.requestData)
-          .success(_onSuccessUpdate)
-          .error(_onErrorUpdate)
-          .finally(_onSaveEnd);
+      var invalidField = _validate();
+      if (!invalidField) {
+        if ($scope.isUpdate) {
+          JndConnectUnionApi.update('github', $scope.requestData)
+            .success(_onSuccessUpdate)
+            .error(_onErrorUpdate)
+            .finally(_onSaveEnd);
+        } else {
+          JndConnectUnionApi.create('github', $scope.requestData)
+            .success(_onSuccessCreate)
+            .error(_onErrorCreate)
+            .finally(_onSaveEnd);
+        }
       } else {
-        JndConnectUnionApi.create('github', $scope.requestData)
-          .success(_onSuccessCreate)
-          .error(_onErrorCreate)
-          .finally(_onSaveEnd);
+        _onSaveEnd();
+        Dialog.error({
+          'title': '@required 필드 오류'
+        });
       }
     }
 
@@ -302,7 +314,7 @@
       _.extend($scope.requestData, {
         roomId: formData.roomId,
         hookRepoId: formData.hookRepoId,
-        hookRepoName: _getRepoData(formData.hookRepoId).full_name,
+        hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
         hookEvent: hookEvent.join(','),
         hookBranch: _getBranches(),
         botName: footer.botName,
@@ -353,6 +365,31 @@
         });
       });
       return repoData;
+    }
+
+    /**
+     *
+     * @returns {*}
+     * @private
+     */
+    function _validate() {
+      var invalidField = null;
+      var requiredList = [
+        'roomId',
+        'hookRepoId',
+        'hookEvent',
+        'botName',
+        'lang'
+      ];
+
+      _.forEach(requiredList, function(fieldName) {
+        if (!$scope.requestData[fieldName]) {
+          invalidField = fieldName;
+          return false;
+        }
+      });
+
+      return invalidField;
     }
   }
 })();

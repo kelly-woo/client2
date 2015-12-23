@@ -38,7 +38,6 @@
       function _init() {
         scope.isShown = false;
         scope.searchKeyword = '';
-        scope.hasGroup = _.isObject(scope.list);
 
         _initializeData();
         _attachEvents();
@@ -121,8 +120,8 @@
         var selectedItem;
         var text;
         _.forEach(scope.list, function(item) {
-          if (item.extIsGroup) {
-            _.forEach(item.list, function(unit) {
+          if (item.groupName) {
+            _.forEach(item.groupList, function(unit) {
               if (unit.value === scope.selectedValue) {
                 selectedItem = unit;
               }
@@ -152,8 +151,8 @@
       function _getDefaultItem() {
         var defaultItem;
         _.forEach(scope.list, function(item) {
-          if (item.extIsGroup) {
-            _.forEach(item.list, function(unit) {
+          if (item.groupName) {
+            _.forEach(item.groupList, function(unit) {
               if (unit.isDisabled) {
                 defaultItem = unit;
                 return false;
@@ -181,11 +180,6 @@
        * @private
        */
       function _initializeData() {
-        _.forEach(scope.list, function(item) {
-          if (item.name) {
-            item.extIsGroup = true;
-          }
-        });
         scope.searchList = [];
         scope.selectedName = _getSelectedName();
       }
@@ -238,8 +232,8 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(scope.list, function (item) {
-              if (item.extIsGroup) {
-                _.forEach(item.list, function (item) {
+              if (item.groupName) {
+                _.forEach(item.groupList, function (item) {
                   start = item.text.toLowerCase().search(keyword);
                   if (start !== -1) {
                     item.extSearchName = _highlight(item.text, start, keyword.length);

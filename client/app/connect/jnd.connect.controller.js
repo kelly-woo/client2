@@ -51,7 +51,7 @@
         botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-17'),
         desc: $filter('translate')('@jnd-connect-18'),
-        hasAuth: false,
+        hasAuth: true,
         popover: $filter('translate')('@jnd-connect-25'),
         isOpen: false
       },
@@ -70,7 +70,7 @@
         botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-21'),
         desc: $filter('translate')('@jnd-connect-22'),
-        hasAuth: false,
+        hasAuth: true,
         popover: $filter('translate')('@jnd-connect-27'),
         isOpen: false
       }

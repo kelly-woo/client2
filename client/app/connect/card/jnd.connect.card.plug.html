@@ -23,12 +23,11 @@
     ng-class="{
       'on': plug.isOn
     }">
-    <span class="connect-union-plug-tool-text jnd-cursor_pointer" ng-click="toggleOnOff();">작동중</span>
     <jnd-connect-status-switch connect-id="plug.raw.id"
                    union-name="union.name"
                    on-success-callback="onSuccessSwitch()"
-                   on-fail-callback="onErrorSwitch($value)"
-                   active="plug.isOn"></jnd-connect-status-switch>
+                   on-error-callback="onErrorSwitch($value)"
+                   is-active="plug.isOn"></jnd-connect-status-switch>
 
     
     <span class="opt-button jnd-cursor-pointer"
