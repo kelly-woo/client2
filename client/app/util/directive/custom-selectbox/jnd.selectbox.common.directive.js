@@ -118,7 +118,6 @@
        */
       function _getSelectedName() {
         var selectedItem;
-        var text;
         _.forEach(scope.list, function(item) {
           if (item.groupName) {
             _.forEach(item.groupList, function(unit) {
@@ -139,7 +138,6 @@
           selectedItem = _getDefaultItem();
           scope.selectedValue = selectedItem.value;
         }
-
         return selectedItem.text;
       }
 
@@ -153,7 +151,7 @@
         _.forEach(scope.list, function(item) {
           if (item.groupName) {
             _.forEach(item.groupList, function(unit) {
-              if (unit.isDisabled) {
+              if (!unit.isDisabled) {
                 defaultItem = unit;
                 return false;
               }
@@ -162,7 +160,7 @@
               return false;
             }
           } else {
-            if (item.isDisabled) {
+            if (!item.isDisabled) {
               defaultItem = item;
               return false;
             }
