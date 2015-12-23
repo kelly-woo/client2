@@ -22,7 +22,7 @@
     function getBoards() {
       return $http({
         method: 'GET',
-        url: _apiUrl + 'authenticate/trello/boards'
+        url: _apiUrl + 'authentication/trello/boards'
       });
     }
 

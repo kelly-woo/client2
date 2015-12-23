@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $q, JndUtil, JndConnect, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, $q, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
 
     $scope.isInitialized = false;
 
@@ -41,7 +41,7 @@
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        promises.push(JndConnectTrelloApi.get($scope.current.connectId));
+        promises.push(JndConnectUnionApi.read('trello', $scope.current.connectId));
       }
 
       $q.all(promises)

@@ -76,7 +76,7 @@
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        promises.push(JndConnectGithubApi.get($scope.current.connectId));
+        promises.push(JndConnectUnionApi.read('github', $scope.current.connectId));
       }
 
       $q.all(promises)
