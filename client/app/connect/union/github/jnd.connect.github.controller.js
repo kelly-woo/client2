@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil, modalHelper) {
+  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
     var _originalRepos;
     var _createdRoomId = null;
     var _hookRepoId = null;
@@ -50,7 +50,7 @@
       }
     };
 
-    $scope.openTopicCreateModal = openTopicCreateModal;
+    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
 
     _init();
 
@@ -84,10 +84,6 @@
           .success(_onSuccessGetSetting)
           .error(_onErrorInitialRequest);
       }
-    }
-
-    function openTopicCreateModal() {
-      modalHelper.openTopicCreateModal();
     }
 
     /**

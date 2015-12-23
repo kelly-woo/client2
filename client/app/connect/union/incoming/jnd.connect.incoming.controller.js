@@ -24,7 +24,7 @@
       }
     };
     $scope.requestData = {};
-    $scope.openTopicCreateModal = openTopicCreateModal;
+    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
 
     _init();
 
@@ -105,13 +105,6 @@
     function _onSuccessGetWebhookToken(response) {
       $scope.formData.webhookToken = response.webhookToken;
       $scope.formData.webhookUrl = response.webhookUrl;
-    }
-
-    /**
-     * topic 생성 모달을 open 한다.
-     */
-    function openTopicCreateModal() {
-      modalHelper.openTopicCreateModal();
     }
 
     /**
