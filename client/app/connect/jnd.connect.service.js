@@ -10,7 +10,7 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect(jndPubSub, configuration, Popup) {
+  function JndConnect(jndPubSub, configuration, Popup, modalHelper) {
 
     this.open = open;
     this.close = close;
@@ -20,6 +20,7 @@
     this.hideLoading = hideLoading;
     this.showLoading = showLoading;
     this.openAuthPopup = openAuthPopup;
+    this.openTopicCreateModal = openTopicCreateModal;
 
     /**
      * connect main 의 loading 을 hide 한다.
@@ -91,6 +92,15 @@
         data: {
           redirectUri: '/popup/success?callbackEvent=' + callbackEventName
         }
+      });
+    }
+
+    /**
+     * topic create modal 을 생성한다.
+     */
+    function openTopicCreateModal() {
+      modalHelper.openTopicCreateModal({
+        isEnterTopic: false
       });
     }
   }
