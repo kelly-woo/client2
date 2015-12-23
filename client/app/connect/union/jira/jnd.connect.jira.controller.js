@@ -10,7 +10,7 @@
     .controller('JndConnectJiraCtrl', JndConnectJiraCtrl);
 
   /* @ngInject */
-  function JndConnectJiraCtrl($scope, $q, JndUtil, modalHelper, JndConnectUnionApi, jndPubSub, Popup) {
+  function JndConnectJiraCtrl($scope, Dialog, JndUtil, JndConnect, modalHelper, JndConnectUnionApi) {
     $scope.isInitialized = false;
     $scope.isLoading = false;
     $scope.isUpdate = false;
@@ -47,46 +47,7 @@
     }
 
     /**
-     * 저장 버튼 클릭시 이벤트 핸들러
-     * @private
-     */
-    function _onSave() {
-      _setRequestData();
-      if ($scope.isUpdate) {
-        JndConnectUnionApi.update('jira', $scope.requestData)
-          .success(_onSuccessUpdate)
-          .error(_onErrorUpdate)
-          .finally(_onSaveEnd);
-      } else {
-        JndConnectUnionApi.create('jira', $scope.requestData)
-          .success(_onSuccessCreate)
-          .error(_onErrorCreate)
-          .finally(_onSaveEnd);
-      }
-    }
-
-    function _onSaveEnd() {
-      $scope.isLoading = false;
-    }
-
-    function _onSuccessUpdate() {
-
-    }
-
-    function _onErrorUpdate() {
-
-    }
-
-    function _onSuccessCreate() {
-
-    }
-
-    function _onErrorCreate() {
-
-    }
-
-    /**
-     * trello 데이터를 가져오기 위한 첫번째 request
+     * JIRA 데이터를 가져오기 위한 첫번째 request
      * @private
      */
     function _initialRequest() {
@@ -105,7 +66,7 @@
     }
 
     /**
-     *
+     * 첫번째 request 완료 후 콜백
      * @private
      */
     function _onInitialRequestEnd() {
@@ -147,15 +108,21 @@
     }
 
     /**
+     * topic 생성 모달을 open 한다.
+     */
+    function openTopicCreateModal() {
+      modalHelper.openTopicCreateModal();
+    }
+
+    /**
      * create, update 를 위한 request 데이터를 생성한다.
      * @private
      */
-
     function _setRequestData() {
       var formData = $scope.formData;
       var footer = formData.footer;
       _.extend($scope.requestData, {
-        webhookUrl: formData.webhookUrl,
+        webhookToken: formData.webhookToken,
         roomId: formData.roomId,
         botName: footer.botName,
         botThumbnailFile: footer.botThumbnailFile
@@ -163,10 +130,75 @@
     }
 
     /**
-     * topic 생성 모달을 open 한다.
+     * 저장 버튼 클릭시 이벤트 핸들러
+     * @private
      */
-    function openTopicCreateModal() {
-      modalHelper.openTopicCreateModal();
+    function _onSave() {
+      _setRequestData();
+      $scope.isLoading = true;
+      if ($scope.isUpdate) {
+        JndConnectUnionApi.update('jira', $scope.requestData)
+          .success(_onSuccessUpdate)
+          .error(_onErrorUpdate)
+          .finally(_onSaveEnd);
+      } else {
+        JndConnectUnionApi.create('jira', $scope.requestData)
+          .success(_onSuccessCreate)
+          .error(_onErrorCreate)
+          .finally(_onSaveEnd);
+      }
+    }
+
+    /**
+     * 저장 완료시 finally callback
+     * @private
+     */
+    function _onSaveEnd() {
+      $scope.isLoading = false;
+    }
+
+    /**
+     * 업데이트 성공 콜백
+     * @private
+     */
+    function _onSuccessUpdate() {
+      Dialog.success({
+        body:  '업데이트 성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * 업데이트 오류 콜백
+     * @private
+     */
+    function _onErrorUpdate(response) {
+      JndUtil.alertUnknownError(response);
+    }
+
+    /**
+     * 생성 성공 콜백
+     * @private
+     */
+    function _onSuccessCreate() {
+      Dialog.success({
+        body:  '생성 성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * 생성 오류 콜백
+     * @private
+     */
+    function _onErrorCreate() {
+      JndUtil.alertUnknownError(response);
     }
   }
 })();
