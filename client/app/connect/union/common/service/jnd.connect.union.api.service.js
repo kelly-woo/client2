@@ -13,10 +13,26 @@
   function JndConnectUnionApi($upload, $http, configuration, currentSessionHelper) {
     var _apiUrl = configuration.api_connect_address;
 
+    this.read = read;
     this.create = create;
     this.update = update;
     this.remove = remove;
+    this.getWebhookToken = getWebhookToken;
     this.setStatus = setStatus;
+
+    /**
+     * connectId 에 해당하는 connect 정보를 반환한다.
+     * @param {string} unionName
+     * @param {number} connectId
+     * @returns {*}
+     */
+    function read(unionName, connectId) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+      return $http({
+        method: 'GET',
+        url: _apiUrl + 'teams/' + teamId + '/' + unionName +'/' + connectId
+      });
+    }
 
     /**
      * connect 를 생성한다
@@ -67,9 +83,9 @@
     }
 
     /**
-     *
-     * @param unionName
-     * @param connectId
+     * 해당 connect 를 삭제한다.
+     * @param {string} unionName
+     * @param {number} connectId
      * @returns {*}
      */
     function remove(unionName, connectId) {
@@ -80,6 +96,19 @@
         params: {
           connectId: connectId
         }
+      });
+    }
+
+    /**
+     * 웹훅 용 토큰 요청 API
+     * @param {string} unionName
+     * @returns {*}
+     */
+    function getWebhookToken(unionName) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+      return $http({
+        method: 'GET',
+        url: _apiUrl + 'teams/' + teamId + '/' + unionName + '/token'
       });
     }
 
