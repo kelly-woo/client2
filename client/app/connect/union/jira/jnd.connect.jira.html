@@ -28,7 +28,11 @@
           <div class="introduction-container step">
           <span class="introduction-label shortcuts-label">STEP 3</span>
             <span class="introduction-desc"><b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요.</span>
-            <input class="setting-input form-control" placeholder="" value="https://hooks.jandi.com/services/T03FG">
+            <input class="setting-input form-control"
+                   jnd-input-model="formData.webhookUrl"
+                   jnd-is-trim="on"
+                   ng-click="selectInput($event)"
+                   readonly/>
             <div class="clear"></div>
           </div>
 
@@ -44,9 +48,10 @@
       <section class="service-setting webhook-url">
         <span class="setting-label">Webhook URL</span>
         <input class="setting-input pull-right form-control"
-               jnd-input-model="formData.token"
+               jnd-input-model="formData.webhookUrl"
                jnd-is-trim="on"
-               placeholder="https://hooks.jandi.com/services/T03F">
+               ng-click="selectInput($event)"
+               readonly/>
         <div class="clear"></div>
       </section>
 
@@ -65,7 +70,7 @@
         </div>
       </section>
 
-      <jnd-connect-union-footer></jnd-connect-union-footer>
+      <jnd-connect-union-footer jnd-data="formData.footer"></jnd-connect-union-footer>
     </div>
 
   </div>
