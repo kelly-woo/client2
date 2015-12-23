@@ -1,0 +1,84 @@
+.union-selectbox-wrapper {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.service-setting.select-lang .union-selectbox-wrapper {
+  min-width: 50%;
+  margin-top: -6px;
+}
+
+
+.union-selectbox-wrapper .union-selectbox {
+  position: relative;
+  height: 30px;
+  line-height: 28px;
+  padding-left: 10px;
+  padding-right: 27px;
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.union-selectbox-wrapper .union-selectbox.disalbed {
+  background-color: #ECECEC;
+  color: #BBB;
+  border-color: #CBCBCB;
+}
+.union-selectbox-wrapper .dropdown-menu {
+  max-height: 300px;
+  line-height: 28px;
+  overflow-y: auto;
+  margin-top: 2px !important;
+  min-width: calc(100% + 4px);
+  width: auto;
+  left: -2px !important;
+  box-shadow: 0 1px 3px 0 rgba(2, 23, 34, 0.15);
+}
+.union-selectbox-wrapper ul li {
+  padding-right: 14px;
+}
+.union-selectbox-wrapper ul {
+  margin: 0;
+}
+
+.union-selectbox-wrapper li.active {
+  background-color: #e8f3f9;
+}
+
+.union-selectbox-wrapper li > span {
+  display: inline-block;
+  width: 100%;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+.union-selectbox-wrapper .union-selectbox > .selecte-item-text {
+  display: inline-block;
+  width: 100%;
+}
+.union-selectbox-wrapper .union-selectbox > .dropdown-status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 22px;
+  height: 100%;
+  text-align: center;
+}
+
+.union-selectbox-wrapper .dropdown-status i {
+  position: absolute;
+  top: 8px;
+  right: 6px;
+  font-size: 12px;
+  -webkit-transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
+  transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
+}
+
+.union-selectbox-wrapper.active .dropdown-status > i {
+  -webkit-transform: rotate(-180deg) translateY(0px);
+  transform: rotate(-180deg) translateY(0px);
+}
