@@ -12,12 +12,15 @@
   function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil, modalHelper) {
     var _originalRepos;
     var _createdRoomId = null;
+
+    $scope.isInitialized = false;
+    $scope.isLoading = true;
+    $scope.isRepoLoaded = false;
+
     $scope.requestData = {
       mode: 'authed',
       authenticationId: null
     };
-
-    $scope.isInitialized = false;
     $scope.repositories = [
       {
         text: '@불러오는중',
@@ -45,8 +48,6 @@
         lang: 'ko'
       }
     };
-
-    $scope.isRepoLoaded = false;
 
     $scope.openTopicCreateModal = openTopicCreateModal;
 
@@ -216,15 +217,22 @@
      */
     function _onSave() {
       _setRequestData();
+      $scope.isLoading = true;
       if ($scope.isUpdate) {
         JndConnectUnionApi.update('github', $scope.requestData)
           .success(_onSuccessUpdate)
-          .error(_onErrorUpdate);
+          .error(_onErrorUpdate)
+          .finally(_onSaveEnd);
       } else {
         JndConnectUnionApi.create('github', $scope.requestData)
           .success(_onSuccessCreate)
-          .error(_onErrorCreate);
+          .error(_onErrorCreate)
+          .finally(_onSaveEnd);
       }
+    }
+
+    function _onSaveEnd() {
+      $scope.isLoading = false;
     }
 
     /**
