@@ -110,7 +110,7 @@
     function getCalendarList() {
       return $http({
         method: 'GET',
-        url: configuration.api_connect_address + 'authenticate/googleCalendar/calendarList'
+        url: configuration.api_connect_address + 'authentication/googleCalendar/calendarList'
       });
     }
 
