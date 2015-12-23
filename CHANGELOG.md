@@ -1,3 +1,13 @@
+<a name="1.12.1"></a>
+## [1.12.1](https://github.com/tosslab/web_client/compare/v1.12.0...v1.12.1) (2015-12-23)
+
+
+### Bug Fixes
+
+* **default-topic-id:** 서버로부터 전송받은 defaultTopicId 가 존재하지 않는 entity 일 경우(데이터 오류) 자신이 가입한 토픽 Map 중 가장 첫번째  ([fd8479d](https://github.com/tosslab/web_client/commit/fd8479d))
+
+
+
 <a name="1.12.0"></a>
 # [1.12.0](https://github.com/tosslab/web_client/compare/v1.11.0...v1.12.0) (2015-12-16)
 
