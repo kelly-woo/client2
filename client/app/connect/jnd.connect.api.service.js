@@ -36,7 +36,7 @@
     function getAllAuth() {
       return $http({
         method: 'GET',
-        url: _apiUrl + 'authenticate'
+        url: _apiUrl + 'authentication'
       });
     }
 
