@@ -12,19 +12,11 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
 
-          <!--<div class="custom-select-box-btn white-button" ng-class="" ng-click="">-->
-            <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-            <!--<span>Repository 선택</span>-->
-          <!--</div>-->
-          <div class="white-button loading-container">
-            <div class="loading_bar"><span class="three-quarters-loader jnd-three-quarters-loader"></span></div>
-            <span>Importing...</span>
-          </div>
-          <jnd-selectbox-common
-              style="display:none"
+          <jnd-connect-union-selectbox-pending
+              jnd-data-is-loaded="isRepoLoaded"
               jnd-data-list="repositories"
               jnd-data-is-disabled="!isRepoLoaded"
-              jnd-data-model="formData.hookRepoId"></jnd-selectbox-common>
+              jnd-data-model="formData.hookRepoId"></jnd-connect-union-selectbox-pending>
 
           <input jnd-input-model="formData.branches" class="setting-input jnd-float-left form-control" name="" placeholder="{{::'@jnd-connect-139' | translate }}">
 
