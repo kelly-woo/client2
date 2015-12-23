@@ -136,6 +136,21 @@
   top:0 !important;
   background-color: rgba(255,255,255,0.7);
 }
+.jnd-connect-service-container .jnd-connect-loading-container.big .loading_bar {
+  width: 96px;
+  height: 96px;
+  margin: -48px auto auto;
+  background-color: rgb(255, 255, 255);
+  padding: 24px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 4px rgba(21, 74, 103, 0.1);
+}
+.jnd-connect-service-container .jnd-connect-loading-container.big .loading_bar .jnd-three-quarters-loader {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+  border-radius: 50%;
+}
 
 
 
