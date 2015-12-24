@@ -16,7 +16,7 @@
     "angular-resource": "1.3.6",
     "angular-cookies": "1.3.6",
     "angular-sanitize": "1.3.6",
-    "angular-bootstrap": "~0.13.0",
+    "angular-bootstrap": "0.13.4",
     "angular-ui-router": "0.2.10",
     "angular-xeditable": "~0.1.8",
     "angular-socket-io": "~0.7.0",
