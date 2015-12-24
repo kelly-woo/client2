@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $q, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
 
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -25,8 +25,31 @@
     ];
 
     $scope.formData = {
-
+      trelloBoardId: null,
+      roomId: null,
+      hookEvent: {
+        showBoardRenamed: false,
+        showCardArchived: false,
+        showCardAttachmentCreated: false,
+        showCardChecklistCreated: false,
+        showCardChecklistItemCreated: false,
+        showCardChecklistItemUpdated: false,
+        showCardCommentCreated: false,
+        showCardCreated: false,
+        showCardDescriptionUpdated: false,
+        showCardDueDateUpdated: false,
+        showCardLabelCreated: false,
+        showCardLabelDeleted: false,
+        showCardMemberCreated: false,
+        showCardMoved: false,
+        showCardRenamed: false,
+        showListArchived: false,
+        showListCreated: false,
+        showListRenamed: false
+      }
     };
+    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
+
     _init();
 
     /**
@@ -41,7 +64,15 @@
 
 
     function _attachEvents() {
+      $scope.$on('unionFooter:save', _onSave);
+    }
 
+    /**
+     * 설정 저장하기 버튼 클릭 시 이벤트 핸들러
+     * @private
+     */
+    function _onSave() {
+      _setRequestData();
     }
 
     /**
@@ -70,10 +101,16 @@
      */
     function _onSuccessGetBoards(response) {
       console.log(response);
-      //_onSuccessGetRepo(results[0].data);
-      //if ($scope.isUpdate) {
-      //  _onSuccessGetSetting(results[1].data);
-      //}
+      var boards = [];
+      _.forEach(response.boards, function(board) {
+        boards.push({
+          value: board.id,
+          text: board.name
+        });
+      });
+
+      $scope.boards = boards;
+      $scope.isBoardLoaded = true;
     }
 
     function _onSuccessGetSetting(response) {
@@ -87,6 +124,44 @@
      */
     function _onErrorInitialRequest(results) {
       JndUtil.alertUnknownError(results);
+    }
+
+    /**
+     * request 데이터를 가공한다.
+     * @private
+     */
+    function _setRequestData() {
+      var formData = $scope.formData;
+      var hookEvent = formData.hookEvent;
+      var footer = formData.footer;
+
+      _.each(hookEvent, function(value, key) {
+        if (key === 'showCardLabelCreated') {
+          hookEvent.showCardLabelDeleted = value;
+        }
+      });
+
+      console.log($scope.formData);
+      //_.each($scope.formData.hookEvent, function(value, key) {
+      //  if (value) {
+      //    hookEvent.push(key);
+      //    if (key === 'create') {
+      //      hookEvent.push('delete');
+      //    }
+      //  }
+      //});
+      //_.extend($scope.requestData, {
+      //  roomId: formData.roomId,
+      //  hookRepoId: formData.hookRepoId,
+      //  hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
+      //  hookEvent: hookEvent.join(','),
+      //  hookBranch: _getBranches(),
+      //  botName: footer.botName,
+      //  botThumbnailFile: footer.botThumbnailFile,
+      //  connectId: $scope.current.connectId,
+      //  lang: footer.lang
+      //});
+
     }
   }
 })();

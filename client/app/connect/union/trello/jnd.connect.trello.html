@@ -10,10 +10,11 @@
         <div class="setting-contents">
           <span class="setting-description"></span>
 
-          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="">Board 선택</span>
-          </div>
+          <jnd-connect-union-selectbox-pending
+              jnd-data-is-loaded="isBoardLoaded"
+              jnd-data-list="boards"
+              jnd-data-is-disabled="!isBoardLoaded"
+              jnd-data-model="formData.trelloBoardId"></jnd-connect-union-selectbox-pending>
 
           <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
 
@@ -25,16 +26,16 @@
       </section>
 
       <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
-        <span class="setting-label">연동 토픽 또는 1:1 메시지 선택</span>
+        <span class="setting-label" translate>@jnd-connect-38</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
-          <div class="custom-select-box-btn white-button" ng-class="" ng-click="">
-            <i class="fa custom-selectbox-arrow icon-angle-down"></i>
-            <span class="">토스랩 코리아</span>
-          </div>
+          <jnd-selectbox-room
+              jnd-data-model="formData.roomId"></jnd-selectbox-room>
 
-          <span class="create-new-topic white-button cursor_pointer animate-all">토픽 생성하기</span>
+          <span class="create-new-topic white-button cursor_pointer animate-all"
+                ng-click="openTopicCreateModal();"
+                translate>@jnd-connect-40</span>
 
           <div class="clear"></div>
 
@@ -52,8 +53,8 @@
             <h3 class="column-title first-title">카드</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardCreated">
-              <label>
+              <input type="checkbox" id="trello-check1" ng-model="formData.hookEvent.showCardCreated">
+              <label for="trello-check1">
                 <div class="checkbox-description">
                   <span translate>카드가 생성되었을 때</span>
                 </div>
@@ -61,8 +62,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardMoved">
-              <label>
+              <input type="checkbox" id="trello-check2" class="" ng-model="formData.hookEvent.showCardMoved">
+              <label for="trello-check2">
                 <div class="checkbox-description">
                   <span translate="">카드가 옮겨졌을 때</span>
                 </div>
@@ -70,8 +71,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardRenamed">
-              <label>
+              <input type="checkbox" id="trello-check3" class="" ng-model="formData.hookEvent.showCardRenamed">
+              <label for="trello-check3">
                 <div class="checkbox-description">
                   <span translate="">카드 이름이 변경되었을 때</span>
                 </div>
@@ -79,8 +80,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardCommentCreated">
-              <label>
+              <input type="checkbox" id="trello-check4" class="" ng-model="formData.hookEvent.showCardCommentCreated">
+              <label for="trello-check4">
                 <div class="checkbox-description">
                   <span translate="">코멘트 카드가 추가되었을 떄</span>
                 </div>
@@ -88,8 +89,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardAttachmentCreated">
-              <label>
+              <input type="checkbox" id="trello-check5" class="" ng-model="formData.hookEvent.showCardAttachmentCreated">
+              <label for="trello-check5">
                 <div class="checkbox-description">
                   <span translate="">첨부 파일이 카드에 추가되었을 때</span>
                 </div>
@@ -97,8 +98,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardDescriptionUpdated">
-              <label>
+              <input type="checkbox" id="trello-check6" class="" ng-model="formData.hookEvent.showCardDescriptionUpdated">
+              <label for="trello-check6">
                 <div class="checkbox-description">
                   <span translate="">설명(Description)이 변경되었을 때</span>
                 </div>
@@ -106,8 +107,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardDueDateUpdated">
-              <label>
+              <input type="checkbox" id="trello-check7" class="" ng-model="formData.hookEvent.showCardDueDateUpdated">
+              <label for="trello-check7">
                 <div class="checkbox-description">
                   <span translate="">마감일(Due date)이 변경되었을 때</span>
                 </div>
@@ -115,17 +116,17 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardLabelCreated">
-              <label>
+              <input type="checkbox" id="trello-check8" class="" ng-model="formData.hookEvent.showCardLabelCreated">
+              <label for="trello-check8">
                 <div class="checkbox-description">
-                  <span translate="">??? 라벨(Label)이 변경되었을 때 showCardLabelCreated showCardLabelDeleted</span>
+                  <span translate="">라벨(Label)이 변경되었을 때</span>
                 </div>
               </label>
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardMemberCreated">
-              <label>
+              <input type="checkbox" id="trello-check9" class="" ng-model="formData.hookEvent.showCardMemberCreated">
+              <label for="trello-check9">
                 <div class="checkbox-description">
                   <span translate="">카드에 멤버가 추가되었을 때</span>
                 </div>
@@ -133,8 +134,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardArchived">
-              <label>
+              <input type="checkbox" id="trello-check10" class="" ng-model="formData.hookEvent.showCardArchived">
+              <label for="trello-check10">
                 <div class="checkbox-description">
                   <span translate="">??? 카드가 archive 또는 unarchive되었을 때</span>
                 </div>
@@ -151,8 +152,8 @@
             <h3 class="column-title">리스트</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showListCreated">
-              <label>
+              <input type="checkbox" id="trello-check11" class="" ng-model="formData.hookEvent.showListCreated">
+              <label for="trello-check11">
                 <div class="checkbox-description">
                   <span translate="">리스트가 생성되었을 때</span>
                 </div>
@@ -160,8 +161,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showListRenamed">
-              <label>
+              <input type="checkbox" id="trello-check12" class="" ng-model="formData.hookEvent.showListRenamed">
+              <label for="trello-check12">
                 <div class="checkbox-description">
                   <span translate="">리스트 이름이 바뀌었을 때</span>
                 </div>
@@ -169,17 +170,17 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="">
-              <label>
+              <input type="checkbox" id="trello-check13" class="">
+              <label for="trello-check13">
                 <div class="checkbox-description">
-                  <span translate="">### 리스트가 다른 보드로 옮겨졌을 때</span>
+                  <span translate="">??? 리스트가 다른 보드로 옮겨졌을 때</span>
                 </div>
               </label>
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showListArchived">
-              <label>
+              <input type="checkbox" id="trello-check14" class="" ng-model="formData.hookEvent.showListArchived">
+              <label for="trello-check14">
                 <div class="checkbox-description">
                   <span translate="">??? 리스트가 archive 또는 unarchive되었을 때</span>
                 </div>
@@ -187,8 +188,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showBoardRenamed">
-              <label>
+              <input type="checkbox" id="trello-check15" class="" ng-model="formData.hookEvent.showBoardRenamed">
+              <label for="trello-check15">
                 <div class="checkbox-description">
                   <span translate="">보드 이름이 바뀌었을 때</span>
                 </div>
@@ -196,10 +197,10 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="">
-              <label>
+              <input type="checkbox" id="trello-check16" class="">
+              <label for="trello-check16">
                 <div class="checkbox-description">
-                  <span translate="">### 보드에 멤버가 추가되었을 때</span>
+                  <span translate="">??? 보드에 멤버가 추가되었을 때</span>
                 </div>
               </label>
             </div>
@@ -213,8 +214,8 @@
             <h3 class="column-title">체크리스트</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistCreated">
-              <label>
+              <input type="checkbox" id="trello-check17" class="" ng-model="formData.hookEvent.showCardChecklistCreated">
+              <label for="trello-check17">
                 <div class="checkbox-description">
                   <span translate="">체크리스트가 카드에 추가되었을 때</span>
                 </div>
@@ -222,8 +223,8 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistItemCreated">
-              <label>
+              <input type="checkbox" id="trello-check18" class="" ng-model="formData.hookEvent.showCardChecklistItemCreated">
+              <label for="trello-check18">
                 <div class="checkbox-description">
                   <span translate="">체크리스트 아이템이 생성되었을 때</span>
                 </div>
@@ -231,10 +232,10 @@
             </div>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
-              <input type="checkbox" id="" class="" ng-model="formData.event.showCardChecklistItemUpdated">
-              <label>
+              <input type="checkbox" id="trello-check19" class="" ng-model="formData.hookEvent.showCardChecklistItemUpdated">
+              <label for="trello-check19">
                 <div class="checkbox-description">
-                  <span translate="">??? 체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때</span>
+                  <span translate="">체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때</span>
                 </div>
               </label>
             </div>
