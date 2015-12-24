@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $q, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
+  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
     var _originalRepos;
     var _createdRoomId = null;
     var _hookRepoId = null;
@@ -69,9 +69,6 @@
      * @private
      */
     function _initialRequest() {
-      var deferred = $q.defer();
-      var promises = [];
-
       JndConnectGithubApi.getRepos()
         .success(_onSuccessGetRepo)
         .error(_onErrorInitialRequest);
