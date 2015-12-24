@@ -9,7 +9,24 @@
   function JndConnectTrelloCtrl($scope, $q, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
 
     $scope.isInitialized = false;
+    $scope.isLoading = false;
+    $scope.isBoardLoaded = false;
 
+    $scope.requestData = {
+      mode: 'authed',
+      authenticationId: null
+    };
+
+    $scope.boards = [
+      {
+        text: '@불러오는중',
+        value: ''
+      }
+    ];
+
+    $scope.formData = {
+
+    };
     _init();
 
     /**
@@ -32,33 +49,35 @@
      * @private
      */
     function _initialRequest() {
-      var deferred = $q.defer();
-      var promises = [];
-
-      promises.push(JndConnectTrelloApi.getBoards());
+      JndConnectTrelloApi.getBoards()
+        .success(_onSuccessGetBoards)
+        .error(_onErrorInitialRequest);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        promises.push(JndConnectUnionApi.read('trello', $scope.current.connectId));
+        JndConnectUnionApi.read('trello', $scope.current.connectId)
+          .success(_onSuccessGetSetting)
+          .error(_onErrorInitialRequest);
       }
-
-      $q.all(promises)
-        .then(_onSuccessInitialRequest, _onErrorInitialRequest);
     }
 
     /**
      * initial  request 성공 시 이벤트 핸들러
-     * @param {array} results
+     * @param {array} response
      * @private
      */
-    function _onSuccessInitialRequest(results) {
-      console.log(results);
+    function _onSuccessGetBoards(response) {
+      console.log(response);
       //_onSuccessGetRepo(results[0].data);
       //if ($scope.isUpdate) {
       //  _onSuccessGetSetting(results[1].data);
       //}
+    }
+
+    function _onSuccessGetSetting(response) {
+      console.log(response);
     }
 
     /**
