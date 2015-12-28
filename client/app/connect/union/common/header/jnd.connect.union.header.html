@@ -11,12 +11,10 @@
   <section class="service-info jnd-column-6-width jnd-float-left second-column">
     <div class="verified-email-container jnd-float-right single-account">
       <span class="verified-label white-button" translate>@jnd-connect-35</span>
-      <div ng-if="!data.isAccountLoaded" class="union-selectbox-wrapper ng-isolate-scope dropdown">
-        <div class="union-selectbox verified-email-address white-button inline-overflow-ellipsis">
+      <div ng-if="!data.isAccountLoaded" class="union-selectbox-wrapper ng-isolate-scope">
+        <div class="white-button inline-overflow-ellipsis loading-container">
+          <div class="loading_bar"><span class="three-quarters-loader jnd-three-quarters-loader"></span></div>
           <span class="selecte-item-text">불러오는중...</span>
-          <div class="dropdown-status">
-            <i class="icon-angle-down"></i>
-          </div>
         </div>
       </div>
       <jnd-connect-union-selectbox ng-if="data.isAccountLoaded"

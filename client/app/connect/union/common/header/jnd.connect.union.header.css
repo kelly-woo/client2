@@ -9,13 +9,30 @@
   padding-right: 25px;
   line-height: 33px;
 }
-
-.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status {
-  border-left: 1px solid #d2d2d2;
-  background-color: #e6e6e6;
-  width: 25px;
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox:hover .dropdown-status {
+  border-color: rgba(33,75,96,0.2);
+  background-color:rgba(60,100,125,0.1);
+}
+.integration-service-header .service-info  .union-selectbox-wrapper.active .union-selectbox {
+  border-color: #9CB7C9;
+  background-color: #F7F8FA;
+  box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
+}
+.integration-service-header .service-info  .union-selectbox-wrapper.active .union-selectbox .dropdown-status {
+  background-color: rgba(21, 74, 103, 0.15);
+  color: #214B60;
+  border-color: #9CB7C9;
+  box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
 }
 
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status {
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  width: 24px;
+}
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status i {
+  top:10px;
+}
 .integration-service-header .service-info .union-selectbox-wrapper .dropdown-menu {
   width: 100%;
+  margin-left: -1px !important;
 }
