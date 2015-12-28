@@ -741,6 +741,12 @@
   text-align: left;
   box-shadow: 0 0 0 transparent;
 }
+.setting-contents .loading-container {
+  width: 100%;
+  max-width: 90%;
+}
+    
+
 .setting-contents .loading-container .loading_bar {
   position: absolute;
   left: 8px;
