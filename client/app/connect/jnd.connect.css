@@ -120,7 +120,7 @@
 
 /* jnd-connect loading container style */
 .jnd-connect-service-container .jnd-connect-loading-container {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
@@ -425,7 +425,13 @@
 .service-setting .setting-input:focus {
   border-color: #8EAFC3;
 }
-
+.service-setting .setting-input[readonly] {
+  background-color: #D2E2EC;
+  border-color: rgba(21, 74, 103, 0.25);
+}
+.service-setting .setting-input[readonly]:focus {
+  border-color: #00abe6;
+}
 
 .setting-contents {
   margin-bottom: 12px;
@@ -745,9 +751,32 @@
   width: 100%;
   max-width: 90%;
 }
+
+.service-info .loading-container,
+.service-info .loading-container:hover,
+.service-info .loading-container:active,
+.service-info .loading-container:focus {
+  width: 100%;
+  border: 1px solid #D8DFE3;
+  color: #B4C2CA;
+  background-color: #FFFFFF;
+  font-size: 14px;
+  padding-right: 28px;
+  padding-left: 32px;
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 0 0 transparent;
+  cursor: default;
+}
     
 
-.setting-contents .loading-container .loading_bar {
+.setting-contents .loading-container .loading_bar,
+.service-info .loading-container .loading_bar {
   position: absolute;
   left: 8px;
   
@@ -757,10 +786,12 @@
   -ms-transform: scale(0.7);
   transform: scale(0.7);
 }
-.setting-contents .loading-container .loading_bar .jnd-three-quarters-loader {
+.setting-contents .loading-container .loading_bar .jnd-three-quarters-loader,
+.service-info .loading-container .loading_bar .jnd-three-quarters-loader {
   border: 2px solid #C3CDD3;
   border-right-color: transparent;
 }
+
 .jnd-connect-service-container {
   padding:32px 36px 60px 36px;
   overflow-y: auto;
@@ -889,6 +920,7 @@
 }
 .introduction-container > img.example {
   max-width: 100%;
+  max-height: 205px;
 }
 .introduction-title {
   margin: 0 auto 14px 0;
