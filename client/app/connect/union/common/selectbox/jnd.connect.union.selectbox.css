@@ -48,7 +48,10 @@
 .union-selectbox-wrapper li.active {
   background-color: #e8f3f9;
 }
-
+.union-selectbox-wrapper li:active,
+.union-selectbox-wrapper li:focus {
+  outline: 0;
+}
 .union-selectbox-wrapper li > span {
   display: inline-block;
   width: 100%;
