@@ -61,8 +61,8 @@
        * @private
        */
       function _requestConnectCount() {
-        JndConnectGoogleCalendar.getConnectCount()
-          .success(_successConnectCount);
+        //JndConnectGoogleCalendar.getConnectCount()
+        //  .success(_successConnectCount);
       }
 
       /**
