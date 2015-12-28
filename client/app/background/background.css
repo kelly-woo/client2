@@ -8,13 +8,12 @@
   position: relative;
 }
 .spinner-logo {
-  background-image: url('../../../assets/images/jnd-logo-only.png');
+  background-image: url('../../../assets/images/favicon/favicon.png');
   width: inherit;
   height: inherit;
   background-repeat: no-repeat;
-  background-position:50% 32px;
+  background-position:28px 32px;
   background-color: #f1f4f8;
-  background-size: 64px 64px;
   border-radius: 50%;
   z-index: 99 !important;
 }
