@@ -6,45 +6,13 @@
       <jnd-connect-loading></jnd-connect-loading>
     </div>
     <div ng-if="isInitialized" class="integration-service-container detail-container" id="jnd-connect-detail-container">
-      <jnd-connect-union-header></jnd-connect-union-header>
+      <jnd-connect-union-header jnd-data-model="formData.header"></jnd-connect-union-header>
 
       <section class="service-setting introduction collapsed">
         <span class="setting-label">설정방법 안내</span>
         <span class="expand-button pull-right cursor_pointer" ng-click="toggleCollapseGuide();">설정방법 보기</span>
-
-        <div class="setting-contents introduction _guide">
-          <div class="introduction-container step">
-          <span class="introduction-label shortcuts-label">STEP 1</span>
-            <span class="introduction-desc">JIRA에 관리자 계정으로 로그인 후 <b>System</b> 메뉴로 진입해주세요.</span>
-            <img src="assets/images/jnd-connect-introduction-jira-01.png" />
-            <div class="clear"></div>
-          </div>
-
-
-          <div class="introduction-container step">
-          <span class="introduction-label shortcuts-label">STEP 2</span>
-            <span class="introduction-desc">왼쪽 메뉴들 중 <b>Advanced</b> 섹션에서 <b>Webhooks</b> 메뉴를 선택해주세요.</span>
-            <img src="assets/images/jnd-connect-introduction-jira-02.png" />
-            <div class="clear"></div>
-          </div>
-
-          <div class="introduction-container step">
-          <span class="introduction-label shortcuts-label">STEP 3</span>
-            <span class="introduction-desc"><b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요.</span>
-            <input class="setting-input form-control"
-                   jnd-input-model="formData.webhookUrl"
-                   jnd-is-trim="on"
-                   ng-click="selectInput($event)"
-                   readonly/>
-            <div class="clear"></div>
-          </div>
-
-          <div class="introduction-container step">
-          <span class="introduction-label shortcuts-label">STEP 4</span>
-            <span class="introduction-desc">구독하고자 하는 이벤트들을 선택하신 뒤 <b>Create</b> 버튼을 눌러 설정을 저장해주세요.</span>
-            <img src="assets/images/jnd-connect-introduction-jira-03.png" />
-            <div class="clear"></div>
-          </div>
+        <div class="setting-contents introduction _guide"
+             ng-include="guideTemplateUrl">
         </div>
       </section>
 

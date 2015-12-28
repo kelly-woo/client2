@@ -68,10 +68,10 @@
         <jnd-connect-trello ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-trello>
       </div>
       <div ng-switch-when="jira">
-        <jnd-connect-jira jnd-data-current="current"></jnd-connect-jira>
+        <jnd-connect-webhook jnd-data-current="current"></jnd-connect-webhook>
       </div>
       <div ng-switch-when="incoming">
-        <jnd-connect-incoming jnd-data-current="current"></jnd-connect-incoming>
+        <jnd-connect-webhook jnd-data-current="current"></jnd-connect-webhook>
       </div>
     </div>
   </div>

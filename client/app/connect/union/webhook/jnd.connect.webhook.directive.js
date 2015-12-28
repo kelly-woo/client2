@@ -1,5 +1,5 @@
 /**
- * @fileoverview 컨넥트 JIRA 디렉티브
+ * @fileoverview Webhook 타입 컨넥트 공통 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,18 +7,18 @@
 
   angular
     .module('jandiApp')
-    .directive('jndConnectJira', jndConnectJira);
+    .directive('jndConnectWebhook', jndConnectWebhook);
 
-  function jndConnectJira() {
+  function jndConnectWebhook() {
     return {
       restrict: 'E',
       scope: {
         'current': '=jndDataCurrent'
       },
-      controller: 'JndConnectJiraCtrl',
+      controller: 'JndConnectWebhookCtrl',
       link: link,
       replace: true,
-      templateUrl: 'app/connect/union/jira/jnd.connect.jira.html'
+      templateUrl: 'app/connect/union/webhook/jnd.connect.webhook.html'
     };
 
     function link(scope, el, attrs) {

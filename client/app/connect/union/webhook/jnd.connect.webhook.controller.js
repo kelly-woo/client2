@@ -1,5 +1,5 @@
 /**
- * @fileoverview 컨넥트 JIRA 컨트롤러
+ * @fileoverview Webhook 타입 컨넥트 공통 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,25 +7,25 @@
 
   angular
     .module('jandiApp')
-    .controller('JndConnectJiraCtrl', JndConnectJiraCtrl);
+    .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectJiraCtrl($scope, Dialog, JndUtil, JndConnect, modalHelper, JndConnectUnionApi) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnionApi, JndConnectUnion) {
+    var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
     $scope.isUpdate = false;
     $scope.formData = {
+      header: {
+        hasAccount: false
+      },
       roomId: null,
       token: null,
-      footer: {
-        botThumbnailFile: $scope.current.union.imageUrl,
-        botName: 'JIRA Bot',
-        defaultBotName: 'JIRA Bot',
-        lang: 'ko'
-      }
+      footer: {}
     };
     $scope.requestData = {};
     $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
+    $scope.guideTemplateUrl = TEMPLATE_BASE_PATH + $filter('camelToDot')($scope.current.union.name) + '.html';
 
     _init();
 
@@ -35,6 +35,10 @@
      */
     function _init() {
       $scope.isUpdate = !!$scope.current.connectId;
+      JndConnectUnion.initData($scope.current, {
+        header: $scope.formData.header,
+        footer: $scope.formData.footer
+      });
       _attachEvents();
       _initialRequest();
     }
@@ -52,16 +56,21 @@
      * @private
      */
     function _initialRequest() {
+      var formData = $scope.formData;
+      var current = $scope.current;
+      var name = JndUtil.pick(current, 'union', 'name');
       //update 모드일 경우 조회 API 를 콜한다.
       if ($scope.isUpdate) {
-        JndConnectUnionApi.read('jira', $scope.current.connectId)
-          .success(_onSuccessGetSetting)
-          .error(_onErrorInitialRequest)
+        JndConnectUnion.read({
+          current: current,
+          header: formData.header,
+          footer: formData.footer
+        }).success(_onSuccessGetSetting)
           .finally(_onInitialRequestEnd);
       } else {
-        JndConnectUnionApi.getWebhookToken('jira')
+        JndConnectUnionApi.getWebhookToken(name)
           .success(_onSuccessGetWebhookToken)
-          .error(_onErrorInitialRequest)
+          .error(JndUtil.alertUnknownError)
           .finally(_onInitialRequestEnd);
       }
     }
@@ -80,22 +89,10 @@
      * @private
      */
     function _onSuccessGetSetting(response) {
-      $scope.requestData.connectId = $scope.current.connectId;
       _.extend($scope.formData, {
         webhookUrl: response.webhookUrl,
         roomId: response.roomId
       });
-      $scope.formData.footer.botThumbnailFile = response.botThumbnailUrl;
-      $scope.formData.footer.botName = response.botName;
-    }
-
-    /**
-     * 초기 request 실패시 콜백
-     * @param {array} results
-     * @private
-     */
-    function _onErrorInitialRequest(results) {
-      JndUtil.alertUnknownError(results);
     }
 
     /**
@@ -115,11 +112,9 @@
     function _setRequestData() {
       var formData = $scope.formData;
       var footer = formData.footer;
-      _.extend($scope.requestData, {
+      _.extend($scope.requestData, footer, {
         webhookToken: formData.webhookToken,
-        roomId: formData.roomId,
-        botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile
+        roomId: formData.roomId
       });
     }
 
@@ -130,17 +125,10 @@
     function _onSave() {
       _setRequestData();
       $scope.isLoading = true;
-      if ($scope.isUpdate) {
-        JndConnectUnionApi.update('jira', $scope.requestData)
-          .success(_onSuccessUpdate)
-          .error(_onErrorUpdate)
-          .finally(_onSaveEnd);
-      } else {
-        JndConnectUnionApi.create('jira', $scope.requestData)
-          .success(_onSuccessCreate)
-          .error(_onErrorCreate)
-          .finally(_onSaveEnd);
-      }
+      JndConnectUnion.save({
+        current: $scope.current,
+        data: $scope.requestData
+      }).finally(_onSaveEnd);
     }
 
     /**
@@ -149,50 +137,6 @@
      */
     function _onSaveEnd() {
       $scope.isLoading = false;
-    }
-
-    /**
-     * 업데이트 성공 콜백
-     * @private
-     */
-    function _onSuccessUpdate() {
-      Dialog.success({
-        body:  '업데이트 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * 업데이트 오류 콜백
-     * @private
-     */
-    function _onErrorUpdate(response) {
-      JndUtil.alertUnknownError(response);
-    }
-
-    /**
-     * 생성 성공 콜백
-     * @private
-     */
-    function _onSuccessCreate() {
-      Dialog.success({
-        body:  '생성 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * 생성 오류 콜백
-     * @private
-     */
-    function _onErrorCreate() {
-      JndUtil.alertUnknownError(response);
     }
   }
 })();
