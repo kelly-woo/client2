@@ -9,7 +9,8 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil) {
+  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil,
+                                memberService) {
     var _originalRepos;
     var _createdRoomId = null;
     var _hookRepoId = null;
@@ -30,10 +31,19 @@
     ];
 
     $scope.formData = {
+      header: {
+        isUpdate: false,
+        isAccountLoaded: false,
+        accountId: null,
+        accounts: [],
+        current: $scope.current,
+        memberId: memberService.getMemberId(),
+        createdAt: null,
+        isActive: false
+      },
       roomId: null,
       hookRepoId: null,
       branches: '',
-      header: {},
       hookEvent: {
         'push': false,
         'commit_comment': false,
@@ -60,7 +70,7 @@
      * @private
      */
     function _init() {
-      $scope.isUpdate = !!$scope.current.connectId;
+      $scope.formData.header.isUpdate = $scope.isUpdate = !!$scope.current.connectId;
       _attachEvents();
       _initialRequest();
     }
@@ -146,8 +156,17 @@
      * @private
      */
     function _onSuccessGetRepo(response) {
+      var header = $scope.formData.header;
       _originalRepos = response.repos;
-
+      _.extend(header, {
+        isAccountLoaded: true,
+        accountId: response.authenticationId,
+        accounts: [
+          {
+            text: response.authenticationName,
+            value: response.authenticationId
+          }]
+      });
       $scope.requestData.authenticationId = response.authenticationId;
       $scope.repositories =_getSelectboxRepos(response.repos);
       $scope.isRepoLoaded = true;
