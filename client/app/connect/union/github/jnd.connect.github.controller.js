@@ -70,7 +70,7 @@
      * @private
      */
     function _init() {
-      $scope.formData.header.isUpdate = $scope.isUpdate = !!$scope.current.connectId;
+      $scope.isUpdate = $scope.formData.header.isUpdate = !!$scope.current.connectId;
       _attachEvents();
       _initialRequest();
     }
@@ -122,6 +122,9 @@
      */
     function _setFormDataFromResponse(response) {
       var formData = $scope.formData;
+      var header = formData.header;
+      var footer = formData.footer;
+
       formData.roomId = response.roomId;
       formData.hookRepoId = _hookRepoId = response.hookRepoId;
 
@@ -135,10 +138,25 @@
         }
       });
 
+      //headers
+      _.extend(header, {
+        isAccountLoaded: true,
+        accountId: response.authenticationId,
+        createdAt: response.createdAt,
+        isActive: response.status === 'enabled',
+        accounts: [
+          {
+            text: response.authenticationName,
+            value: response.authenticationId
+          }]
+      });
+      header.createdAt = response.createdAt;
+      header.isActive = response.status === 'enabled';
+
       //footers
-      formData.footer.botName = response.botName;
-      formData.footer.botThumbnailFile = response.botThumbnailUrl;
-      formData.footer.lang = response.lang;
+      footer.botName = response.botName;
+      footer.botThumbnailFile = response.botThumbnailUrl;
+      footer.lang = response.lang;
     }
 
     /**
@@ -156,17 +174,7 @@
      * @private
      */
     function _onSuccessGetRepo(response) {
-      var header = $scope.formData.header;
       _originalRepos = response.repos;
-      _.extend(header, {
-        isAccountLoaded: true,
-        accountId: response.authenticationId,
-        accounts: [
-          {
-            text: response.authenticationName,
-            value: response.authenticationId
-          }]
-      });
       $scope.requestData.authenticationId = response.authenticationId;
       $scope.repositories =_getSelectboxRepos(response.repos);
       $scope.isRepoLoaded = true;
