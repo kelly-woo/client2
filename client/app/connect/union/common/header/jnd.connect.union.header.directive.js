@@ -3,14 +3,14 @@
  * @author Young Park <young.park@tosslab.com>
  * @example
  * @param {object}  data
- *    @param {boolean} data.isUpdate - 수정 모드인지 여부 (삭제/스위치 버튼 노출 파악)
+ *    @param {object} data.current - 'jnd.connect.controller'의 current object
+ *    @param {number} data.memberId - connect 생성/수정하는 member id. default) login 중인 member id
  *    @param {boolean} data.isAccountLoaded - 계정 정보가 Load 완료 되었는지 여부
  *    @param {string} data.accountId - 인정된 계정의 id. ex) tmsla123@gmail.com
  *    @param {array}  data.accounts - 인정된 계정 list
- *    @param {object} data.current - 'jnd.connect.controller'의 current object
- *    @param {number} data.memberId - connect 생성/수정하는 member id. default) login 중인 member id
- *    @param {string} data.createdAt - connect 생성 string. default) 현재 date(yyyy-MM-dd)
- *    @param {boolean} data.isActive - connect status
+ *    @param {boolean} data.isUpdate - 수정 모드인지 여부 (삭제/스위치 버튼 노출 파악)
+ *    @param {string} [data.createdAt] - connect 생성 string. default) 현재 date(yyyy-MM-dd)
+ *    @param {boolean} [data.isActive] - connect status
  *
  * <jnd-connect-union-header jnd-data-model="data"></jnd-connect-union-header>
  */
