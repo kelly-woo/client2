@@ -1,4 +1,7 @@
-  <div class="connect-union-container _card">
+  <div class="connect-union-container _card"
+       ng-class="{
+       'open': union.isOpen
+       }">
   <div class="connect-union-header">
     <img class="connect-union-icon" ng-src="{{::union.imageUrl}}"/>
     <div class="connect-union-contents">
