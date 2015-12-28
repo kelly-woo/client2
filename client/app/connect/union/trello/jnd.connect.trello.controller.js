@@ -13,7 +13,6 @@
     $scope.isBoardLoaded = false;
 
     $scope.requestData = {
-      mode: 'authed',
       authenticationId: null
     };
 
@@ -79,6 +78,78 @@
      */
     function _onSave() {
       _setRequestData();
+      $scope.isLoading = true;
+      var invalidField = _getInvalidField();
+      if (!invalidField) {
+        if ($scope.isUpdate) {
+          JndConnectUnionApi.update('trello', $scope.requestData)
+            .success(_onSuccessUpdate)
+            .error(_onErrorUpdate)
+            .finally(_onSaveEnd);
+        } else {
+          JndConnectUnionApi.create('trello', $scope.requestData)
+            .success(_onSuccessCreate)
+            .error(_onErrorCreate)
+            .finally(_onSaveEnd);
+        }
+      } else {
+        _onSaveEnd();
+        Dialog.error({
+          'title': '@required 필드 오류'
+        });
+      }
+    }
+
+    function _onSaveEnd() {
+      $scope.isLoading = false;
+    }
+
+    /**
+     * update request 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessUpdate(response) {
+      Dialog.success({
+        body:  '업데이트 성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * 생성 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessCreate(response) {
+      Dialog.success({
+        body:  '생성 성공성공',
+        allowHtml: true,
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+      JndConnect.backToMain();
+    }
+
+    /**
+     * update 오류 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onErrorUpdate(response) {
+      JndUtil.alertUnknownError(response);
+    }
+
+    /**
+     * create 오류 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onErrorCreate(response) {
+      JndUtil.alertUnknownError(response);
     }
 
     /**
@@ -114,7 +185,7 @@
           text: board.name
         });
       });
-
+      $scope.requestData.authenticationId = response.authenticationId;
       $scope.boards = boards;
       $scope.isBoardLoaded = true;
     }
@@ -147,27 +218,17 @@
         }
       });
 
-      console.log($scope.formData);
-      //_.each($scope.formData.hookEvent, function(value, key) {
-      //  if (value) {
-      //    hookEvent.push(key);
-      //    if (key === 'create') {
-      //      hookEvent.push('delete');
-      //    }
-      //  }
-      //});
-      //_.extend($scope.requestData, {
-      //  roomId: formData.roomId,
-      //  hookRepoId: formData.hookRepoId,
-      //  hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
-      //  hookEvent: hookEvent.join(','),
-      //  hookBranch: _getBranches(),
-      //  botName: footer.botName,
-      //  botThumbnailFile: footer.botThumbnailFile,
-      //  connectId: $scope.current.connectId,
-      //  lang: footer.lang
-      //});
+      _.extend($scope.requestData, hookEvent, {
+        botName: footer.botName,
+        botThumbnailFile: footer.botThumbnailFile,
+        lang: footer.lang,
+        roomId: formData.roomId,
+        trelloBoardId: formData.trelloBoardId
+      });
+    }
 
+    function _getInvalidField() {
+      return null;
     }
   }
 })();

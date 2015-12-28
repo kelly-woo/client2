@@ -2,13 +2,16 @@
  * @fileoverview 잔디 컨넥트 디렉티브
  * @author Young Park <young.park@tosslab.com>
  * @example
+ * @param {object}  data
+ *    @param {boolean} data.isUpdate - 수정 모드인지 여부 (삭제/스위치 버튼 노출 파악)
+ *    @param {boolean} data.isAccountLoaded - 계정 정보가 Load 완료 되었는지 여부
+ *    @param {string} data.accountId - 인정된 계정의 id. ex) tmsla123@gmail.com
+ *    @param {array}  data.accounts - 인정된 계정 list
+ *    @param {object} data.current - 'jnd.connect.controller'의 current object
+ *    @param {number} data.memberId - connect 생성/수정하는 member id. default) login 중인 member id
+ *    @param {string} data.createdAt - connect 생성 string. default) 현재 date(yyyy-MM-dd)
+ *    @param {boolean} data.isActive - connect status
  *
- * // data.accountId: 인정된 계정의 id. ex) tmsla123@gmail.com
- * // data.accounts: 인정된 계정 list
- * // data.current: 'jnd.connect.controller'의 current object
- * // data.memberId: connect 생성/수정하는 member id. default) login 중인 member id
- * // data.createdAt: connect 생성 string. default) 현재 date(yyyy-MM-dd)
- * // data.isActive: connect status ex) true/false
  * <jnd-connect-union-header jnd-data-model="data"></jnd-connect-union-header>
  */
 (function() {
@@ -63,11 +66,12 @@
        * @private
        */
       function _initAccounts() {
-        var accounts = scope.data.accounts;
-        if (!_.isArray(accounts) || accounts.length < 1) {
-          accounts = accounts || [];
-          accounts.push({text: '@불러오는 중', value: ''});
-        }
+        scope.data.accounts = scope.data.accounts || [];
+        //var accounts = scope.data.accounts;
+        //if (!_.isArray(accounts) || accounts.length < 1) {
+        //  accounts = accounts || [];
+        //  accounts.push({text: '@불러오는 중', value: ''});
+        //}
       }
 
       function _setPermission() {

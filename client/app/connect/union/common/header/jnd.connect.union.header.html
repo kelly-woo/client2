@@ -6,19 +6,28 @@
     <img class="icon-service-logo" />
     <i class="icon-jnd-connect active"></i>
     <span class="connect-title" ng-bind-html="connectTitle"></span>
-    <span class="date-info" ng-bind="connectCreateAt"></span>
+    <span ng-if="::data.isUpdate" class="date-info" ng-bind="connectCreateAt"></span>
   </section>
   <section class="service-info jnd-column-6-width jnd-float-left second-column">
     <div class="verified-email-container jnd-float-right single-account">
       <span class="verified-label white-button" translate>@jnd-connect-35</span>
-      <jnd-connect-union-selectbox list="data.accounts"
+      <div ng-if="!data.isAccountLoaded" class="union-selectbox-wrapper ng-isolate-scope dropdown">
+        <div class="union-selectbox verified-email-address white-button inline-overflow-ellipsis">
+          <span class="selecte-item-text">불러오는중...</span>
+          <div class="dropdown-status">
+            <i class="icon-angle-down"></i>
+          </div>
+        </div>
+      </div>
+      <jnd-connect-union-selectbox ng-if="data.isAccountLoaded"
+                                   list="data.accounts"
                                    value="data.accountId"
                                    header-data-model="data"
                                    union-selectbox-class="verified-email-address white-button inline-overflow-ellipsis"
                                    menu-type="account"
                                    permission="permission"></jnd-connect-union-selectbox>
     </div>
-    <div class="connect-union-plug-tool-container jnd-float-right"
+    <div ng-if="::data.isUpdate" class="connect-union-plug-tool-container jnd-float-right"
          ng-class="{'on': plug.isOn}">
       <jnd-connect-status-switch connect-id="data.current.connectId"
                                  union-name="unionName"
