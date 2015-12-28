@@ -11,8 +11,7 @@
     var UNION_DATA = {
       '1': {
         name: 'googleCalendar',
-        icon: '',
-        botThumbnailUrl: '',
+        imageUrl: '',
         title: $filter('translate')('@jnd-connect-5'),
         desc: $filter('translate')('@jnd-connect-6'),
         hasAuth: false,
@@ -29,8 +28,7 @@
       //},
       '3': {
         name: 'github',
-        icon: '',
-        botThumbnailUrl: '',
+        imageUrl: '',
         title: $filter('translate')('@jnd-connect-15'),
         desc: $filter('translate')('@jnd-connect-16'),
         hasAuth: false,
@@ -47,8 +45,7 @@
       //},
       '5': {
         name: 'jira',
-        icon: '',
-        botThumbnailUrl: '',
+        imageUrl: '',
         title: $filter('translate')('@jnd-connect-17'),
         desc: $filter('translate')('@jnd-connect-18'),
         hasAuth: true,
@@ -57,8 +54,6 @@
       },
       '6': {
         name: 'trello',
-        icon: '',
-        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-19'),
         desc: $filter('translate')('@jnd-connect-20'),
         hasAuth: false,
@@ -66,8 +61,6 @@
       },
       '7': {
         name: 'incoming',
-        icon: '',
-        botThumbnailUrl: '',
         title: $filter('translate')('@jnd-connect-21'),
         desc: $filter('translate')('@jnd-connect-22'),
         hasAuth: true,
@@ -166,7 +159,7 @@
     function _onSuccessGetConnectionInfo(response) {
       _.forEach(response.connects, function(info) {
         var union = _getUnion(info.name);
-        union.botThumbnailUrl = info.botThumbnail;
+        union.imageUrl = info.botThumbnail;
       });
     }
 

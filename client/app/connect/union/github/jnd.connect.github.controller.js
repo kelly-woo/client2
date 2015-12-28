@@ -54,7 +54,7 @@
         'create': false
       },
       footer: {
-        botThumbnailFile: $scope.current.union.botThumbnailUrl,
+        botThumbnailFile: $scope.current.union.imageUrl,
         botName: 'Github Bot',
         defaultBotName: 'Github Bot',
         lang: 'ko'
@@ -325,15 +325,15 @@
         }
       });
       _.extend($scope.requestData, {
+        connectId: $scope.current.connectId,
+        botName: footer.botName,
+        botThumbnailFile: footer.botThumbnailFile,
+        lang: footer.lang,
         roomId: formData.roomId,
         hookRepoId: formData.hookRepoId,
         hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
         hookEvent: hookEvent.join(','),
-        hookBranch: _getBranches(),
-        botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile,
-        connectId: $scope.current.connectId,
-        lang: footer.lang
+        hookBranch: _getBranches()
       });
 
     }

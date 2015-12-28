@@ -8,23 +8,23 @@
       </section>
 
       <section class="service-info jnd-column-5-width jnd-float-left">
-        <i class="icon-service-logo"></i>
+        <img class="icon-service-logo" ng-src="{{::current.union.imageUrl}}"/>
         <i class="icon-jnd-connect active"></i>
 
         <!-- <span class="user-name">Admin</span><span class="service-name">'s Github</span> -->
-        <span class="service-name unverified">{{current.union.title}}</span>
+        <span class="service-name unverified">{{::current.union.title}}</span>
         <span class="date-info">사용하려면 계정인증이 필요합니다.</span>
       </section>
 
       <section class="service-info jnd-column-5-width jnd-float-left second-column unverified-container">
-        <span class="btn btn-ok pull-right jnd-cursor-pointer verify-button" ng-click="getAuth();">{{current.union.title}} 계정 인증하기</span>
+        <span class="btn btn-ok pull-right jnd-cursor-pointer verify-button" ng-click="getAuth();">{{::current.union.title}} 계정 인증하기</span>
       </section>
 
       <section class="service-setting clear connect-info">
         <i class="icon-info"></i>
                   <span class="setting-description">
                   계정 연동을 하시면 잔디에서 직접 수신 메시지를 설정하실 수 있습니다.
-                  계정 연동 없이 {{current.union.title}} 직접 설정을 원하시는 경우, 수동 설정 페이지에서 연동해 주세요.
+                  계정 연동 없이 {{::current.union.title}} 직접 설정을 원하시는 경우, 수동 설정 페이지에서 연동해 주세요.
                   </span>
         <div class="clear"></div>
       </section>

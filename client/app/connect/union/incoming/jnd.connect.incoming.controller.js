@@ -18,7 +18,7 @@
       roomId: null,
       token: null,
       footer: {
-        botThumbnailFile: $scope.current.union.botThumbnailUrl,
+        botThumbnailFile: $scope.current.union.imageUrl,
         botName: 'Incoming Webhook',
         lang: 'ko'
       }

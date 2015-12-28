@@ -43,7 +43,7 @@
        */
       function _init() {
         scope.isSettingMode = scope.data.current.connectId != null;
-        scope.unionImageUrl = scope.data.current.union.icon;
+        scope.unionImageUrl = scope.data.current.union.imageUrl;
         scope.unionName = scope.data.current.union.name;
 
         _attachEvents();

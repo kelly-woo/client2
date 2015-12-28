@@ -7,6 +7,7 @@
 
   /* @ngInject */
   function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
+    var _trelloBoardId = null;
 
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -47,7 +48,7 @@
         showListRenamed: false
       },
       footer: {
-        botThumbnailFile: $scope.current.union.botThumbnailUrl,
+        botThumbnailFile: $scope.current.union.imageUrl,
         botName: 'Trello Bot',
         defaultBotName: 'Trello Bot',
         lang: 'ko'
@@ -188,12 +189,31 @@
       $scope.requestData.authenticationId = response.authenticationId;
       $scope.boards = boards;
       $scope.isBoardLoaded = true;
+      $scope.isInitialized = true;
+      $scope.formData.trelloBoardId = _trelloBoardId;
     }
 
     function _onSuccessGetSetting(response) {
-      console.log(response);
+      _setFormDataFromResponse(response);
+      $scope.isInitialized = true;
     }
 
+    function _setFormDataFromResponse(response) {
+      var formData = $scope.formData;
+      formData.roomId = response.roomId;
+      formData.trelloBoardId = _trelloBoardId = response.webhookTrelloBoardId;
+
+      _.each(formData.hookEvent, function(value, name) {
+        formData.hookEvent[name] = !!response[name];
+      });
+
+      console.log('###', formData.hookEvent);
+      console.log('###', response);
+      //footers
+      formData.footer.botName = response.botName;
+      formData.footer.botThumbnailFile = response.botThumbnailUrl;
+      formData.footer.lang = response.lang;
+    }
     /**
      * initial request 실패 시 이벤트 핸들러
      * @param results
@@ -219,6 +239,7 @@
       });
 
       _.extend($scope.requestData, hookEvent, {
+        connectId: $scope.current.connectId,
         botName: footer.botName,
         botThumbnailFile: footer.botThumbnailFile,
         lang: footer.lang,

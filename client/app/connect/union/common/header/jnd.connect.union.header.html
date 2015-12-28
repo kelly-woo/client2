@@ -3,7 +3,7 @@
     <span class="active-member-count" ng-bind-html="connectAuthCountDescription"></span>
   </section>
   <section class="service-info jnd-column-4-width jnd-float-left">
-    <img class="icon-service-logo" />
+    <img class="icon-service-logo" ng-src="{{::unionImageUrl}}"/>
     <i class="icon-jnd-connect active"></i>
     <span class="connect-title" ng-bind-html="connectTitle"></span>
     <span ng-if="::data.isUpdate" class="date-info" ng-bind="connectCreateAt"></span>
