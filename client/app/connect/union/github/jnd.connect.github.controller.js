@@ -216,7 +216,7 @@
     function _onSave() {
       _setRequestData();
       $scope.isLoading = true;
-      var invalidField = _validate();
+      var invalidField = _getInvalidField();
       if (!invalidField) {
         if ($scope.isUpdate) {
           JndConnectUnionApi.update('github', $scope.requestData)
@@ -366,7 +366,7 @@
      * @returns {*}
      * @private
      */
-    function _validate() {
+    function _getInvalidField() {
       var invalidField = null;
       var requiredList = [
         'roomId',
