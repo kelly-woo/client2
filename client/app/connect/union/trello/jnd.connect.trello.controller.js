@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi, memberService) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -25,6 +25,16 @@
     ];
 
     $scope.formData = {
+      header: {
+        isUpdate: false,
+        isAccountLoaded: false,
+        accountId: null,
+        accounts: [],
+        current: $scope.current,
+        memberId: memberService.getMemberId(),
+        createdAt: null,
+        isActive: false
+      },
       trelloBoardId: null,
       roomId: null,
       hookEvent: {
@@ -63,7 +73,7 @@
      * @private
      */
     function _init() {
-      $scope.isUpdate = !!$scope.current.connectId;
+      $scope.isUpdate = $scope.formData.header.isUpdate = !!$scope.current.connectId;
       _attachEvents();
       _initialRequest();
     }
@@ -178,7 +188,6 @@
      * @private
      */
     function _onSuccessGetBoards(response) {
-      console.log(response);
       var boards = [];
       _.forEach(response.boards, function(board) {
         boards.push({
@@ -200,6 +209,9 @@
 
     function _setFormDataFromResponse(response) {
       var formData = $scope.formData;
+      var header = formData.header;
+      var footer = formData.footer;
+
       formData.roomId = response.roomId;
       formData.trelloBoardId = _trelloBoardId = response.webhookTrelloBoardId;
 
@@ -207,12 +219,23 @@
         formData.hookEvent[name] = !!response[name];
       });
 
-      console.log('###', formData.hookEvent);
-      console.log('###', response);
+      //headers
+      _.extend(header, {
+        isAccountLoaded: true,
+        accountId: response.authenticationId,
+        createdAt: response.createdAt,
+        isActive: response.status === 'enabled',
+        accounts: [
+          {
+            text: response.authenticationName,
+            value: response.authenticationId
+          }]
+      });
+
       //footers
-      formData.footer.botName = response.botName;
-      formData.footer.botThumbnailFile = response.botThumbnailUrl;
-      formData.footer.lang = response.lang;
+      footer.botName = response.botName;
+      footer.botThumbnailFile = response.botThumbnailUrl;
+      footer.lang = response.lang;
     }
     /**
      * initial request 실패 시 이벤트 핸들러
