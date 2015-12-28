@@ -429,6 +429,9 @@
   background-color: #D2E2EC;
   border-color: rgba(21, 74, 103, 0.25);
 }
+.service-setting .setting-input[readonly]:focus {
+  border-color: #00abe6;
+}
 
 .setting-contents {
   margin-bottom: 12px;
@@ -892,6 +895,7 @@
 }
 .introduction-container > img.example {
   max-width: 100%;
+  max-height: 205px;
 }
 .introduction-title {
   margin: 0 auto 14px 0;
