@@ -813,7 +813,17 @@
   width: 90%;
 }
 
+.jnd-connect-service-container > div.open {
+  border-color:#C9D2D6;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.1);
+}
 
+.jnd-connect-service-container > div.open .connect-union-header .connect-union-btn.white-button {
+  background-color: #F7F8FA;
+  border-color: #A1C6DF;
+  color:#0B88C5;
+  box-shadow: inset 0 2px 3px rgba(17,71,104,0.1);
+}
 
 
 
