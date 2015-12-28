@@ -120,7 +120,7 @@
 
 /* jnd-connect loading container style */
 .jnd-connect-service-container .jnd-connect-loading-container {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
@@ -761,8 +761,8 @@
   color: #B4C2CA;
   background-color: #FFFFFF;
   font-size: 14px;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 28px;
+  padding-left: 32px;
   margin-left: -1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
