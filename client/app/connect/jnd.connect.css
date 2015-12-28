@@ -547,6 +547,13 @@
   max-width: calc(65% - 0px) !important;
 }
 
+.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active {
+  width: calc(48% - 72px);
+  left: 50%;
+  max-width: calc(35% + 4px) !important;
+  margin-left:-2px !important;
+}
+
 .service-setting .custom-select-box-btn i {
   line-height: 26px;
   right: 8px;
@@ -727,6 +734,7 @@
   font-size: 13px;
   padding-right: 6px;
   padding-left: 38px;
+  margin-left: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
