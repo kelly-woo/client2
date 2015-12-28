@@ -45,7 +45,8 @@
       },
       footer: {
         botThumbnailFile: $scope.current.union.botThumbnailUrl,
-        botName: 'Github',
+        botName: 'Github Bot',
+        defaultBotName: 'Github Bot',
         lang: 'ko'
       }
     };

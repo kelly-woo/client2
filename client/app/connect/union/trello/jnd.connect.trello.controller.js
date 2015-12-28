@@ -46,6 +46,12 @@
         showListArchived: false,
         showListCreated: false,
         showListRenamed: false
+      },
+      footer: {
+        botThumbnailFile: $scope.current.union.botThumbnailUrl,
+        botName: 'Trello Bot',
+        defaultBotName: 'Trello Bot',
+        lang: 'ko'
       }
     };
     $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;

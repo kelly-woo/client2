@@ -34,7 +34,7 @@
       {
         text: '@일본어',
         value: 'ja'
-      },
+      }
     ];
     $scope.changedFileUri = null;
     _init();

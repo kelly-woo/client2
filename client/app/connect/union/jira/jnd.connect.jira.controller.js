@@ -19,7 +19,8 @@
       token: null,
       footer: {
         botThumbnailFile: $scope.current.union.botThumbnailUrl,
-        botName: 'JIRA',
+        botName: 'JIRA Bot',
+        defaultBotName: 'JIRA Bot',
         lang: 'ko'
       }
     };
