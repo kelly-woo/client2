@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnionApi, JndConnectTrelloApi, memberService) {
+  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -25,16 +25,7 @@
     ];
 
     $scope.formData = {
-      header: {
-        isUpdate: false,
-        isAccountLoaded: false,
-        accountId: null,
-        accounts: [],
-        current: $scope.current,
-        memberId: memberService.getMemberId(),
-        createdAt: null,
-        isActive: false
-      },
+      header: {},
       trelloBoardId: null,
       roomId: null,
       hookEvent: {
@@ -57,12 +48,7 @@
         showListCreated: false,
         showListRenamed: false
       },
-      footer: {
-        botThumbnailFile: $scope.current.union.imageUrl,
-        botName: 'Trello Bot',
-        defaultBotName: 'Trello Bot',
-        lang: 'ko'
-      }
+      footer: {}
     };
     $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
 
@@ -73,12 +59,19 @@
      * @private
      */
     function _init() {
-      $scope.isUpdate = $scope.formData.header.isUpdate = !!$scope.current.connectId;
+      $scope.isUpdate = !!$scope.current.connectId;
+      JndConnectUnion.initData($scope.current, {
+        header: $scope.formData.header,
+        footer: $scope.formData.footer
+      });
       _attachEvents();
       _initialRequest();
     }
 
-
+    /**
+     * 설정 저장하기 버튼 클릭 시 이벤트 핸들러
+     * @private
+     */
     function _attachEvents() {
       $scope.$on('unionFooter:save', _onSave);
     }
@@ -92,17 +85,10 @@
       $scope.isLoading = true;
       var invalidField = _getInvalidField();
       if (!invalidField) {
-        if ($scope.isUpdate) {
-          JndConnectUnionApi.update('trello', $scope.requestData)
-            .success(_onSuccessUpdate)
-            .error(_onErrorUpdate)
-            .finally(_onSaveEnd);
-        } else {
-          JndConnectUnionApi.create('trello', $scope.requestData)
-            .success(_onSuccessCreate)
-            .error(_onErrorCreate)
-            .finally(_onSaveEnd);
-        }
+        JndConnectUnion.save({
+          current: $scope.current,
+          data: $scope.requestData
+        }).finally(_onSaveEnd);
       } else {
         _onSaveEnd();
         Dialog.error({
@@ -111,56 +97,12 @@
       }
     }
 
+    /**
+     * 저장 완료 이후 반드시 수행되는 콜백
+     * @private
+     */
     function _onSaveEnd() {
       $scope.isLoading = false;
-    }
-
-    /**
-     * update request 성공 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onSuccessUpdate(response) {
-      Dialog.success({
-        body:  '업데이트 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * 생성 성공 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onSuccessCreate(response) {
-      Dialog.success({
-        body:  '생성 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * update 오류 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onErrorUpdate(response) {
-      JndUtil.alertUnknownError(response);
-    }
-
-    /**
-     * create 오류 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onErrorCreate(response) {
-      JndUtil.alertUnknownError(response);
     }
 
     /**
@@ -170,15 +112,17 @@
     function _initialRequest() {
       JndConnectTrelloApi.getBoards()
         .success(_onSuccessGetBoards)
-        .error(_onErrorInitialRequest);
+        .error(JndUtil.alertUnknownError);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        JndConnectUnionApi.read('trello', $scope.current.connectId)
-          .success(_onSuccessGetSetting)
-          .error(_onErrorInitialRequest);
+        JndConnectUnion.read({
+          current: $scope.current,
+          header: $scope.formData.header,
+          footer: $scope.formData.footer
+        }).success(_onSuccessGetSetting);
       }
     }
 
@@ -200,17 +144,16 @@
       $scope.isBoardLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.trelloBoardId = _trelloBoardId;
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, response);
     }
 
+    /**
+     * setting 값 조회 완료시 콜백
+     * @param {object} response
+     * @private
+     */
     function _onSuccessGetSetting(response) {
-      _setFormDataFromResponse(response);
-      $scope.isInitialized = true;
-    }
-
-    function _setFormDataFromResponse(response) {
       var formData = $scope.formData;
-      var header = formData.header;
-      var footer = formData.footer;
 
       formData.roomId = response.roomId;
       formData.trelloBoardId = _trelloBoardId = response.webhookTrelloBoardId;
@@ -218,32 +161,7 @@
       _.each(formData.hookEvent, function(value, name) {
         formData.hookEvent[name] = !!response[name];
       });
-
-      //headers
-      _.extend(header, {
-        isAccountLoaded: true,
-        accountId: response.authenticationId,
-        createdAt: response.createdAt,
-        isActive: response.status === 'enabled',
-        accounts: [
-          {
-            text: response.authenticationName,
-            value: response.authenticationId
-          }]
-      });
-
-      //footers
-      footer.botName = response.botName;
-      footer.botThumbnailFile = response.botThumbnailUrl;
-      footer.lang = response.lang;
-    }
-    /**
-     * initial request 실패 시 이벤트 핸들러
-     * @param results
-     * @private
-     */
-    function _onErrorInitialRequest(results) {
-      JndUtil.alertUnknownError(results);
+      $scope.isInitialized = true;
     }
 
     /**
@@ -261,16 +179,17 @@
         }
       });
 
-      _.extend($scope.requestData, hookEvent, {
-        connectId: $scope.current.connectId,
-        botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile,
-        lang: footer.lang,
+      _.extend($scope.requestData, footer, hookEvent, {
         roomId: formData.roomId,
         trelloBoardId: formData.trelloBoardId
       });
     }
 
+    /**
+     * invalid
+     * @returns {null}
+     * @private
+     */
     function _getInvalidField() {
       return null;
     }

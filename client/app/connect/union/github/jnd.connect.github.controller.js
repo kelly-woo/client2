@@ -9,8 +9,8 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnectUnionApi, JndConnect, JndUtil,
-                                memberService) {
+  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnect, JndUtil,
+                                JndConnectUnion) {
     var _originalRepos;
     var _createdRoomId = null;
     var _hookRepoId = null;
@@ -31,16 +31,7 @@
     ];
 
     $scope.formData = {
-      header: {
-        isUpdate: false,
-        isAccountLoaded: false,
-        accountId: null,
-        accounts: [],
-        current: $scope.current,
-        memberId: memberService.getMemberId(),
-        createdAt: null,
-        isActive: false
-      },
+      header: {},
       roomId: null,
       hookRepoId: null,
       branches: '',
@@ -53,12 +44,7 @@
         'issue_comment': false,
         'create': false
       },
-      footer: {
-        botThumbnailFile: $scope.current.union.imageUrl,
-        botName: 'Github Bot',
-        defaultBotName: 'Github Bot',
-        lang: 'ko'
-      }
+      footer: {}
     };
 
     $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
@@ -70,7 +56,11 @@
      * @private
      */
     function _init() {
-      $scope.isUpdate = $scope.formData.header.isUpdate = !!$scope.current.connectId;
+      $scope.isUpdate = !!$scope.current.connectId;
+      JndConnectUnion.initData($scope.current, {
+        header: $scope.formData.header,
+        footer: $scope.formData.footer
+      });
       _attachEvents();
       _initialRequest();
     }
@@ -82,48 +72,27 @@
     function _initialRequest() {
       JndConnectGithubApi.getRepos()
         .success(_onSuccessGetRepo)
-        .error(_onErrorInitialRequest);
+        .error(JndUtil.alertUnknownError);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
       } else {
-        JndConnectUnionApi.read('github', $scope.current.connectId)
-          .success(_onSuccessGetSetting)
-          .error(_onErrorInitialRequest);
+        JndConnectUnion.read({
+          current: $scope.current,
+          header: $scope.formData.header,
+          footer: $scope.formData.footer
+        }).success(_onSuccessGetSetting);
       }
     }
 
     /**
-     * initial  request 성공 시 이벤트 핸들러
-     * @param {array} results
-     * @private
-     */
-    function _onSuccessInitialRequest(results) {
-      _onSuccessGetRepo(results[0].data);
-      if ($scope.isUpdate) {
-        _onSuccessGetSetting(results[1].data);
-      }
-    }
-
-    /**
-     * initial request 실패 시 이벤트 핸들러
-     * @param results
-     * @private
-     */
-    function _onErrorInitialRequest(results) {
-      JndUtil.alertUnknownError(results);
-    }
-
-    /**
-     * update 모드일 경우 formData 에 해당하는 데이터들을 설정한다.
+     * setting 조회 성공 시 콜백
      * @param {object} response
      * @private
      */
-    function _setFormDataFromResponse(response) {
+    function _onSuccessGetSetting(response) {
       var formData = $scope.formData;
-      var header = formData.header;
-      var footer = formData.footer;
 
       formData.roomId = response.roomId;
       formData.hookRepoId = _hookRepoId = response.hookRepoId;
@@ -137,35 +106,6 @@
           formData.hookEvent[eventName] = true;
         }
       });
-
-      //headers
-      _.extend(header, {
-        isAccountLoaded: true,
-        accountId: response.authenticationId,
-        createdAt: response.createdAt,
-        isActive: response.status === 'enabled',
-        accounts: [
-          {
-            text: response.authenticationName,
-            value: response.authenticationId
-          }]
-      });
-      header.createdAt = response.createdAt;
-      header.isActive = response.status === 'enabled';
-
-      //footers
-      footer.botName = response.botName;
-      footer.botThumbnailFile = response.botThumbnailUrl;
-      footer.lang = response.lang;
-    }
-
-    /**
-     * setting 조회 성공 시 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onSuccessGetSetting(response) {
-      _setFormDataFromResponse(response);
       $scope.isInitialized = true;
     }
 
@@ -180,6 +120,7 @@
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.hookRepoId = _hookRepoId;
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, response);
     }
 
     /**
@@ -219,22 +160,8 @@
      * @private
      */
     function _attachEvents() {
-      //$scope.$on('topicCreateCtrl:created', _onTopicCreated);
-      //$scope.$on('topic-folder:update', _onFolderUpdate);
       $scope.$on('unionFooter:save', _onSave);
     }
-
-    //토픽 생성시 바로 선택되도록 하기위한 로직. 현재 반응이 느리기 때문에 주석처리 함
-    //function _onTopicCreated(angularEvent, roomId) {
-    //  _createdRoomId = roomId;
-    //}
-    //
-    //function _onFolderUpdate(angularEvent, folderData) {
-    //  if (_createdRoomId) {
-    //    $scope.formData.roomId = _createdRoomId;
-    //    _createdRoomId = null;
-    //  }
-    //}
 
     /**
      * 설정 저장하기 버튼 클릭 시 이벤트 핸들러
@@ -245,17 +172,10 @@
       $scope.isLoading = true;
       var invalidField = _getInvalidField();
       if (!invalidField) {
-        if ($scope.isUpdate) {
-          JndConnectUnionApi.update('github', $scope.requestData)
-            .success(_onSuccessUpdate)
-            .error(_onErrorUpdate)
-            .finally(_onSaveEnd);
-        } else {
-          JndConnectUnionApi.create('github', $scope.requestData)
-            .success(_onSuccessCreate)
-            .error(_onErrorCreate)
-            .finally(_onSaveEnd);
-        }
+        JndConnectUnion.save({
+          current: $scope.current,
+          data: $scope.requestData
+        }).finally(_onSaveEnd);
       } else {
         _onSaveEnd();
         Dialog.error({
@@ -264,56 +184,12 @@
       }
     }
 
+    /**
+     * 저장 완료 이후 반드시 수행되는 콜백
+     * @private
+     */
     function _onSaveEnd() {
       $scope.isLoading = false;
-    }
-
-    /**
-     * update request 성공 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onSuccessUpdate(response) {
-      Dialog.success({
-        body:  '업데이트 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * 생성 성공 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onSuccessCreate(response) {
-      Dialog.success({
-        body:  '생성 성공성공',
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
-      });
-      JndConnect.backToMain();
-    }
-
-    /**
-     * update 오류 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onErrorUpdate(response) {
-      JndUtil.alertUnknownError(response);
-    }
-
-    /**
-     * create 오류 콜백
-     * @param {object} response
-     * @private
-     */
-    function _onErrorCreate(response) {
-      JndUtil.alertUnknownError(response);
     }
 
     /**
@@ -323,8 +199,9 @@
     function _setRequestData() {
       var hookEvent = [];
       var formData = $scope.formData;
+      var requestData = $scope.requestData;
       var footer = formData.footer;
-      _.each($scope.formData.hookEvent, function(value, key) {
+      _.each(formData.hookEvent, function(value, key) {
         if (value) {
           hookEvent.push(key);
           if (key === 'create') {
@@ -332,18 +209,13 @@
           }
         }
       });
-      _.extend($scope.requestData, {
-        connectId: $scope.current.connectId,
-        botName: footer.botName,
-        botThumbnailFile: footer.botThumbnailFile,
-        lang: footer.lang,
+      _.extend(requestData, footer, {
         roomId: formData.roomId,
         hookRepoId: formData.hookRepoId,
         hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
         hookEvent: hookEvent.join(','),
         hookBranch: _getBranches()
       });
-
     }
 
     /**

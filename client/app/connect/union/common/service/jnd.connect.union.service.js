@@ -14,6 +14,7 @@
     this.initData = initData;
     this.save = save;
     this.read = read;
+    this.setHeaderAccountData = setHeaderAccountData;
 
     /**
      * header, footer 데이터를 초기화한다.
@@ -29,7 +30,6 @@
 
       if (header) {
         _.extend(header, {
-          isUpdate: !!current.connectId,
           isAccountLoaded: false,
           accountId: null,
           accounts: [],
@@ -71,18 +71,18 @@
      * @param {object} options
      *    @param {string} options.current - current union 객체
      *    @param {object} options.data - request 할 데이터
-     *    @param {boolean} [options.isUpdate=false] - 수정모드인지 여부
      * @returns {*}
      */
     function save(options) {
       var promise;
       var name = JndUtil.pick(options, 'current', 'union', 'name');
       var connectId = JndUtil.pick(options, 'current', 'connectId');
+      var isUpdate = !!connectId;
       var data = _.extend(options.data, {
         connectId: connectId
       });
 
-      if (options.isUpdate) {
+      if (isUpdate) {
         promise = JndConnectUnionApi.update(name, data)
           .success(_onSuccessUpdate)
           .error(_onErrorCommon);
@@ -106,15 +106,10 @@
       var header = options.header;
       var footer = options.footer;
       if (header) {
+        setHeaderAccountData(header, response);
         _.extend(header, {
-          isAccountLoaded: true,
-          accountId: response.authenticationId,
           createdAt: response.createdAt,
-          isActive: response.status === 'enabled',
-          accounts: [{
-            text: response.authenticationName,
-            value: response.authenticationId
-          }]
+          isActive: response.status === 'enabled'
         });
       }
       if (footer) {
@@ -122,6 +117,24 @@
           botName: response.botName,
           botThumbnailFile: response.botThumbnailUrl,
           lang: response.lang
+        });
+      }
+    }
+
+    /**
+     * 공통 header 데이터에서 account 관련 데이터를 주입 한다.
+     * @param {object} header - 공통 header
+     * @param {object} response - 공통 포멧 응답 값
+     */
+    function setHeaderAccountData(header, response) {
+      if (header) {
+        _.extend(header, {
+          isAccountLoaded: true,
+          accountId: response.authenticationId,
+          accounts: [{
+            text: response.authenticationName,
+            value: response.authenticationId
+          }]
         });
       }
     }
