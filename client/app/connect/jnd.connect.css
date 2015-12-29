@@ -122,7 +122,7 @@
 .jnd-connect-service-container .jnd-connect-loading-container {
   position: fixed;
   left: 0;
-  top: 107px;
+  top: 42px;
   bottom: 0;
   right: 0;
   height: 100%;
@@ -137,6 +137,9 @@
   left: 0 !important;
   top:0 !important;
   background-color: rgba(255,255,255,0.7);
+}
+.room-integration-connect .connect-wrapper .jnd-connect-loading-container {
+  position: relative;
 }
 
 /* jnd-connect loading container style : save updates */
@@ -285,14 +288,14 @@
   border-radius: 50%;
   box-sizing: content-box;
   bottom: 20px;
-  left: 58px;
+  left: 56px;
 }
-
 .service-info .connect-title,
 .service-info .date-info {
   font-size: 16px;
-  line-height: 24px;
+  line-height: 30px;
   color: #505050;
+  white-space: nowrap;
 }
 
 .service-info .connect-title .user-name {
@@ -301,8 +304,10 @@
 
 .service-info span.date-info {
   font-size: 14px;
+  line-height: 20px;
   color:#B3B3B3;
   display: block;
+  margin-top: -4px;
 }
 .service-info .service-name {
   font-weight: 400;
@@ -312,7 +317,7 @@
   font-size: 16px;
 }
 .service-info .verified-email-container {
-  margin: 7px 0;
+  margin: 7px 0 7px 6px;
   width: calc(100% - 240px);
 }
 
@@ -353,10 +358,10 @@
 .verified-email-container .white-button.verified-email-address {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  color:#979797;
+  color:#7F99A7;
   font-weight: 500;
   margin-left: -1px;
-  
+  font-size: 14px;
   max-width: calc(70% - 19px);
   width: 70%;
   padding-right: 32px;
@@ -478,7 +483,7 @@
   margin: 0;
 }
 .setting-contents .column-title {
-  margin: 24px auto 7px -1px;
+  margin: 24px auto 7px 4px;
   font-size: 16px;
   color: #7F99A7;
   line-height: 16px;
@@ -649,7 +654,7 @@
 .service-setting .custom-select-box-btn:hover,
 .union-selectbox-wrapper .union-selectbox:hover {
   background-color: #F7F8FA;
-  border-color:rgba(33,75,96,0.25);
+  border-color:rgba(33,75,96,0.28);
   color:#214B60;
 }
 
@@ -666,7 +671,7 @@
 .service-setting .custom-select-box-btn.active,
 .union-selectbox-wrapper.active .union-selectbox {
   background-color: #F7F8FA;
-  border-color:#9CB7C9;
+  border-color:#92B2C7;
   color:#214B60;
 
   box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
@@ -697,28 +702,46 @@
 .checkbox-list-container {
   line-height: 28px;
   margin-top: 6px;
-  padding-left: 16px;
+  padding-left: 25px;
   position: relative;
-  
+  border-radius: 3px;
 }
-.checkbox-list-container.text-only {
-  /*line-height: 18px;*/
+.checkbox-list-container.text-only:hover {
+  background-color:#F8F9FA;
+}
+.checkbox-list-container.text-only:hover .checkbox-description {
+  color:#6F787D;
 }
 .checkbox-list-container > input {
   margin-right: 4px;
   position: absolute;
-  left: 0;
+  left: 8px;
   top:4px;
 }
+
+.checkbox-list-container > label {
+  vertical-align: top;
+}
+
+.checkbox-list-container.text-only > label {
+  display: block;
+  margin:0;
+}
+
 .checkbox-description {
   margin:3px 4px auto 4px;
   font-weight: 500;
   color:#979797;
   line-height: 22px;
+      
+}
+.checkbox-list-container.text-only .checkbox-description {
+  margin:0 4px auto 4px;
+  line-height: 28px;	
 }
 
 .inner-column {
-  
+  padding-right: 8px;
 }
 .jnd-column-4-width {
   width: 40%;
@@ -798,7 +821,7 @@
 
 .jnd-connect-service-container {
   padding:32px 36px 60px 36px;
-  overflow-y: auto;
+  overflow: auto;
   position: absolute;
   top: 0;
   left: 240px;
@@ -811,6 +834,7 @@
   margin: 0 auto 16px 5%;
   position: relative;
   width: 90%;
+  min-width: 778px;
 }
 
 .jnd-connect-service-container > div.open {
@@ -819,7 +843,7 @@
 }
 
 .jnd-connect-service-container > div.open .connect-union-header .connect-union-btn.white-button {
-  background-color: #F7F8FA;
+  background-color: #E7EAEC;
   border-color: #A1C6DF;
   color:#0B88C5;
   box-shadow: inset 0 2px 3px rgba(17,71,104,0.1);

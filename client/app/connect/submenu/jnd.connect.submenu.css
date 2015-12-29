@@ -51,8 +51,8 @@
 .icon-jnd-connect {
   background: url('/assets/images/service-logo-jnd-connect-inactive.png');
   margin:0 auto;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   position: relative;
   display: block;
   background-size: cover;
@@ -60,4 +60,5 @@
 .icon-jnd-connect.active {
   background: url('/assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
+  background-color:#FFF;
 }
