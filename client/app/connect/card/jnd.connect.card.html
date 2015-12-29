@@ -14,10 +14,7 @@
           <div class="description-arrow-left"></div>
           <div class="description-content-container">
           <div class="topic-description__description keep selectable ng-binding">
-            <span>
-            <!--<b class="service-name jnd-cursor-pointer">Github</b>는 Git 버젼 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다. -->
-            <!--잔디와 연동하게 되면 Git 브랜치의 Commit, Comments, Pull Request 등의 변동사항을 팀 내에서 메시지로 수신할 수 있습니다.-->
-              {{::union.popover}}
+            <span ng-bind-html="::union.popover">
             </span>
           </div>
           <span class="connect-union-btn btn-ok primary jnd-cursor-pointer" ng-click="addPlug()" translate>@jnd-connect-14</span>
