@@ -13,7 +13,7 @@
   function JndConnectCardCtrl($scope, $filter, jndPubSub) {
     $scope.addPlug = addPlug;
     $scope.style = {};
-
+    $scope.text = {};
     _init();
 
     /**
@@ -22,7 +22,7 @@
      */
     function _init() {
       $scope.style.display = $scope.union.isOpen ? 'block' : 'none';
-      $scope.textConnected = $filter('translate')('@jnd-connect-7')
+      $scope.text.connected = $filter('translate')('@jnd-connect-7')
         .replace('{{integrationCount}}', $scope.union.plugs.length);
     }
 
