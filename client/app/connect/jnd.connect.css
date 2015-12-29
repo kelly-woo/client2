@@ -478,7 +478,7 @@
   margin: 0;
 }
 .setting-contents .column-title {
-  margin: 24px auto 7px -1px;
+  margin: 24px auto 7px 4px;
   font-size: 16px;
   color: #7F99A7;
   line-height: 16px;
@@ -697,24 +697,31 @@
 .checkbox-list-container {
   line-height: 28px;
   margin-top: 6px;
-  padding-left: 16px;
+  padding-left: 25px;
   position: relative;
-  
+  border-radius: 3px;
 }
-.checkbox-list-container.text-only {
-  /*line-height: 18px;*/
+.checkbox-list-container.text-only:hover {
+  background-color:#F8F9FA;
+}
+.checkbox-list-container.text-only:hover .checkbox-description {
+  color:#6F787D;
 }
 .checkbox-list-container > input {
   margin-right: 4px;
   position: absolute;
-  left: 0;
+  left: 8px;
   top:4px;
 }
+.checkbox-list-container.text-only > label {
+  display: block;
+  margin:0;
+}
 .checkbox-description {
-  margin:3px 4px auto 4px;
+  margin:0 4px auto 4px;
   font-weight: 500;
   color:#979797;
-  line-height: 22px;
+  line-height: 28px;
 }
 
 .inner-column {
