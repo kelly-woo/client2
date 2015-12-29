@@ -138,6 +138,9 @@
   top:0 !important;
   background-color: rgba(255,255,255,0.7);
 }
+.room-integration-connect .connect-wrapper .jnd-connect-loading-container {
+  position: relative;
+}
 
 /* jnd-connect loading container style : save updates */
 .jnd-connect-service-container .jnd-connect-loading-container.big .loading_bar {
@@ -314,7 +317,7 @@
   font-size: 16px;
 }
 .service-info .verified-email-container {
-  margin: 7px 0;
+  margin: 7px 0 7px 6px;
   width: calc(100% - 240px);
 }
 
