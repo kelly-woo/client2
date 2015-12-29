@@ -8,6 +8,10 @@
   max-width: 100%;
   padding-right: 25px;
   line-height: 33px;
+  border-color: rgba(32,75,96,0.15);
+}
+.integration-service-header .service-info  .union-selectbox-wrapper .union-selectbox:hover {
+  border-color:rgba(33,75,96,0.35);
 }
 .integration-service-header .service-info .union-selectbox-wrapper .union-selectbox:hover .dropdown-status {
   border-color: rgba(33,75,96,0.2);
@@ -26,7 +30,7 @@
 }
 
 .integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status {
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(32,75,96,0.15);
   width: 24px;
 }
 .integration-service-header .service-info .union-selectbox-wrapper .union-selectbox .dropdown-status i {
