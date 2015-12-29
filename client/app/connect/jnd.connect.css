@@ -290,7 +290,7 @@
 .service-info .connect-title,
 .service-info .date-info {
   font-size: 16px;
-  line-height: 24px;
+  line-height: 30px;
   color: #505050;
   white-space: nowrap;
 }
@@ -301,8 +301,10 @@
 
 .service-info span.date-info {
   font-size: 14px;
+  line-height: 20px;
   color:#B3B3B3;
   display: block;
+  margin-top: -4px;
 }
 .service-info .service-name {
   font-weight: 400;
@@ -356,7 +358,7 @@
   color:#7F99A7;
   font-weight: 500;
   margin-left: -1px;
-  
+  font-size: 14px;
   max-width: calc(70% - 19px);
   width: 70%;
   padding-right: 32px;
@@ -713,15 +715,26 @@
   left: 8px;
   top:4px;
 }
+
+.checkbox-list-container > label {
+  vertical-align: top;
+}
+
 .checkbox-list-container.text-only > label {
   display: block;
   margin:0;
 }
+
 .checkbox-description {
-  margin:0 4px auto 4px;
+  margin:3px 4px auto 4px;
   font-weight: 500;
   color:#979797;
-  line-height: 28px;
+  line-height: 22px;
+      
+}
+.checkbox-list-container.text-only .checkbox-description {
+  margin:0 4px auto 4px;
+  line-height: 28px;	
 }
 
 .inner-column {

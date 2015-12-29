@@ -50,8 +50,9 @@
 .connect-union-desc {
   color: #9c9c9c;
   font-size: 14px;
-  line-height: 14px;
+  line-height: 20px;
   font-weight: 500;
+  margin-top: -4px;
 }
 .connect-union-tooltip {
   position: relative;
