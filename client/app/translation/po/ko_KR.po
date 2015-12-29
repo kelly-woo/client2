@@ -1210,7 +1210,7 @@ msgstr "STEP 1"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
-msgstr "JIRA에 관리자 계정으로 로그인 후 System 메뉴로 진입해주세요."
+msgstr "JIRA에 관리자 계정으로 로그인 후 <b>System</b> 메뉴로 진입해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
@@ -1222,7 +1222,8 @@ msgstr "Github"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-150"
-msgstr "왼쪽 메뉴들 중 Advanced 섹션에서 Webhooks 메뉴를 선택해주세요."
+msgstr ""
+"왼쪽 메뉴들 중 <b>Advanced</b> 섹션에서 <b>Webhooks</b> 메뉴를 선택해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-151"
@@ -1231,7 +1232,8 @@ msgstr "STEP 3"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-152"
 msgstr ""
-"Create a Webhook 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요."
+"<b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주"
+"세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-153"
@@ -1256,7 +1258,8 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-157"
 msgstr ""
-"Webhooks & Services 메뉴를 클릭하신 뒤, Add webhook 버튼을 클릭해주세요."
+"Webhooks & Services 메뉴를 클릭하신 뒤, <b>Add webhook</b> 버튼을 클릭해주세"
+"요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-158"
@@ -1293,7 +1296,8 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
 msgstr ""
-"request에는 반드시 Accept와 Content-Type을 다음과 같이 지정해줘야 합니다."
+"request에는 반드시 <b>Accept</b>와 <b>Content-Type</b>을 다음과 같이 지정해"
+"줘야 합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-164"
@@ -1315,7 +1319,10 @@ msgstr "이렇게 수신된 메시지는 선택된 대화에 다음과 같이 �
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
-msgstr "더 궁금한 점이 있으시면 잔디 고객센터로 문의해주시기 바랍니다."
+msgstr ""
+"프로필 이미지와 이름 변경이 필요할 경우 수정이 가능합니다. 더 궁금한 점이 있"
+"으시면 <a href=\"https://jandi.zendesk.com/hc/ko/requests/new\" target="
+"\"_blank\">잔디 고객센터</a>로 문의해주시기 바랍니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
