@@ -42,7 +42,7 @@
        * @private
        */
       function _init() {
-        scope.isSettingMode = scope.data.current.connectId != null;
+        scope.isSettingMode = !!scope.data.current.connectId;
         scope.unionImageUrl = scope.data.current.union.imageUrl;
         scope.unionName = scope.data.current.union.name;
 
