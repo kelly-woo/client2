@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function JndConnectCardPlugCtrl($scope, JndConnect, memberService) {
-    $scope.isModifiable = false;
+    $scope.isAccessible = false;
 
     $scope.toggleOnOff = toggleOnOff;
     $scope.modify = modify;
@@ -29,7 +29,7 @@
      * @private
      */
     function _init() {
-      $scope.isModifiable = ($scope.plug.raw.memberId === memberService.getMemberId());
+      $scope.isAccessible = ($scope.plug.raw.memberId === memberService.getMemberId());
     }
 
     /**
@@ -43,7 +43,7 @@
      * "수정" 버튼 이벤트 핸들러
      */
     function modify() {
-      if ($scope.isModifiable) {
+      if ($scope.isAccessible) {
         JndConnect.modify($scope.union.name, $scope.plug.raw.id);
       }
     }

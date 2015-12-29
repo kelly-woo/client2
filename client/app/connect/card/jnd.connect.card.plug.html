@@ -9,17 +9,24 @@
     <div class="connect-union-plug-title">
       <i class="icon-user"></i> <span>{{::plug.user.name}}</span>
     </div>
-    <div class="connect-union-plug-desc">
+    <div ng-if="isAccessible" class="connect-union-plug-desc">
       <span>
+        <i ng-class="{
+            'icon-topic': plug.room.type === 'channels',
+            'icon-lock': plug.room.type === 'privategroups',
+            'icon-user': plug.room.type === 'users'
+           }"></i> <span>{{ ::plug.room.name }}</span>
+      </span>
+    </div>
+    <div ng-if="!isAccessible"
+         ng-switch="plug.room.type"
+         class="connect-union-plug-desc">
+      <span ng-switch-when="channels">
         <i class="icon-topic"></i> <span>{{ ::plug.room.name }}</span>
       </span>
-      <!--<span ng-if="plug.room.type === 'channels'">
-        <i class="icon-topic"></i> <span>{{ plug.room.name }}</span>
-      </span>
-      <span ng-if="plug.room.type !== 'channels'">
+      <span ng-switch-default>
         <i class="icon-lock"></i> <span>비공개 또는 1:1 메시지</span>
-      </span>-->
-
+      </span>
     </div>
   </div>
   <div class="connect-union-float-right connect-union-plug-tool-container"
@@ -35,7 +42,7 @@
     
     <span class="opt-button jnd-cursor-pointer"
           ng-class="{
-            'disabled': !isModifiable
+            'disabled': !isAccessible
           }"
           ng-click="modify();"><i class="icon-pencil"></i></span>
     <jnd-connect-trash-button connect-id="plug.raw.id"
