@@ -6,9 +6,15 @@
     .controller('JndConnectUnionHeaderCtrl', JndConnectUnionHeaderCtrl);
 
   /* @ngInject */
-  function JndConnectUnionHeaderCtrl($scope, $filter, EntityMapManager, memberService) {
+  function JndConnectUnionHeaderCtrl($scope, $filter, JndConnect, EntityMapManager, memberService) {
     var regxCreatedAt = /(?:(.+)T)/;
     var dateFilter = $filter('date');
+
+    $scope.getMemberName = getMemberName;
+    $scope.getCreatedAt = getCreatedAt;
+    $scope.onSuccessRemove = onSuccessRemove;
+    $scope.isAllowAccountUpdate = isAllowAccountUpdate;
+    $scope.isAllowAccountAdd = isAllowAccountAdd;
 
     _init();
 
@@ -17,12 +23,6 @@
      * @private
      */
     function _init() {
-      $scope.getMemberName = getMemberName;
-      $scope.getCreatedAt = getCreatedAt;
-
-      $scope.isAllowAccountUpdate = isAllowAccountUpdate;
-      $scope.isAllowAccountAdd = isAllowAccountAdd;
-
     }
 
     function requestStatusChange() {
@@ -40,6 +40,14 @@
     function requestDeleteAccount() {
       // delete api call
     }
+
+    /**
+     * 삭제 성공시 콜백
+     */
+    function onSuccessRemove() {
+      JndConnect.backToMain();
+    }
+
     /**
      * get member name
      * @returns {boolean|*}

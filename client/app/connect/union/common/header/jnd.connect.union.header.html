@@ -37,7 +37,8 @@
                                  is-non-api-call="!isSettingMode"></jnd-connect-status-switch>
       <jnd-connect-trash-button connect-id="data.current.connectId"
                                 union-name="unionName"
-                                is-disabled="!isSettingMode"></jnd-connect-trash-button>
+                                is-disabled="!isSettingMode"
+                                on-success-callback="onSuccessRemove();"></jnd-connect-trash-button>
     </div>
   </section>
   <div class="clear"></div>
