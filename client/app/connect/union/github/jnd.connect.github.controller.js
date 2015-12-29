@@ -31,7 +31,7 @@
     ];
 
     $scope.formData = {
-      header: {},
+      header: JndConnectUnion.getDefaultHeader($scope.current),
       roomId: null,
       hookRepoId: null,
       branches: '',
@@ -44,7 +44,7 @@
         'issue_comment': false,
         'create': false
       },
-      footer: {}
+      footer: JndConnectUnion.getDefaultFooter($scope.current)
     };
 
     _init();
@@ -55,10 +55,6 @@
      */
     function _init() {
       $scope.isUpdate = !!$scope.current.connectId;
-      JndConnectUnion.initData($scope.current, {
-        header: $scope.formData.header,
-        footer: $scope.formData.footer
-      });
       _attachEvents();
       _initialRequest();
     }

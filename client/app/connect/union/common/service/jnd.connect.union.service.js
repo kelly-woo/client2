@@ -11,43 +11,40 @@
 
 
   function JndConnectUnion(memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog) {
-    this.initData = initData;
+    this.getDefaultHeader = getDefaultHeader;
+    this.getDefaultFooter = getDefaultFooter;
     this.save = save;
     this.read = read;
     this.setHeaderAccountData = setHeaderAccountData;
 
     /**
-     * header, footer 데이터를 초기화한다.
+     * header default 데이터를 반환한다.
      * @param {object} current - current union 객체
-     * @param {object} options
-     *    @param {object} [options.header]  - 초기화 할 공통 header 데이터 object
-     *    @param {object} [options.footer]  - 초기화 할 공통 footer 데이터 object
      */
-    function initData(current, options) {
-      var header = options.header;
-      var footer = options.footer;
-      var botName = JndUtil.pick(current, 'union', 'name') + 'Bot';
+    function getDefaultHeader(current) {
+      return {
+        isAccountLoaded: false,
+        accountId: null,
+        accounts: [],
+        current: current,
+        memberId: memberService.getMemberId(),
+        createdAt: null,
+        isActive: false
+      };
+    }
 
-      if (header) {
-        _.extend(header, {
-          isAccountLoaded: false,
-          accountId: null,
-          accounts: [],
-          current: current,
-          memberId: memberService.getMemberId(),
-          createdAt: null,
-          isActive: false
-        });
-      }
-
-      if(footer) {
-        _.extend(footer, {
-          botThumbnailFile: JndUtil.pick(current, 'union', 'imageUrl'),
-          botName: botName,
-          defaultBotName: botName,
-          lang: 'ko'
-        });
-      }
+    /**
+     * footer default 데이터를 반환한다.
+     * @param {object} current - current union 객체
+     */
+    function getDefaultFooter(current) {
+      var botName = JndUtil.pick(current, 'union', 'title') + 'Bot';
+      return {
+        botThumbnailFile: JndUtil.pick(current, 'union', 'imageUrl'),
+        botName: botName,
+        defaultBotName: botName,
+        lang: 'ko'
+      };
     }
 
     /**

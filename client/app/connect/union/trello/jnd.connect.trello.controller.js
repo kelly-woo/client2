@@ -25,7 +25,7 @@
     ];
 
     $scope.formData = {
-      header: {},
+      header: JndConnectUnion.getDefaultHeader($scope.current),
       trelloBoardId: null,
       roomId: null,
       hookEvent: {
@@ -48,7 +48,7 @@
         showListCreated: false,
         showListRenamed: false
       },
-      footer: {}
+      footer: JndConnectUnion.getDefaultFooter($scope.current)
     };
 
     _init();
@@ -59,10 +59,6 @@
      */
     function _init() {
       $scope.isUpdate = !!$scope.current.connectId;
-      JndConnectUnion.initData($scope.current, {
-        header: $scope.formData.header,
-        footer: $scope.formData.footer
-      });
       _attachEvents();
       _initialRequest();
     }

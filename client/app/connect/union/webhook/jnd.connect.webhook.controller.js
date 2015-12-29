@@ -16,12 +16,10 @@
     $scope.isLoading = false;
     $scope.isUpdate = false;
     $scope.formData = {
-      header: {
-        hasAccount: false
-      },
+      header: JndConnectUnion.getDefaultHeader($scope.current),
       roomId: null,
       token: null,
-      footer: {}
+      footer: JndConnectUnion.getDefaultFooter($scope.current)
     };
     $scope.requestData = {};
     $scope.guideTemplateUrl = TEMPLATE_BASE_PATH + $filter('camelToDot')($scope.current.union.name) + '.html';
@@ -33,11 +31,8 @@
      * @private
      */
     function _init() {
+      $scope.formData.header.hasAccount = false;
       $scope.isUpdate = !!$scope.current.connectId;
-      JndConnectUnion.initData($scope.current, {
-        header: $scope.formData.header,
-        footer: $scope.formData.footer
-      });
       _attachEvents();
       _initialRequest();
     }
