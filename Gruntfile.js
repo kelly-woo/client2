@@ -623,7 +623,7 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: /(\.\.\/)+assets/g,
+              match: /[\.\/]?assets/g,
               replacement: function() {
                 return '../assets';
               }
@@ -641,7 +641,7 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: /(\.\.\/)+assets/g,
+              match: /[\.\/]?assets/g,
               replacement: function() {
                 return 'assets';
               }
