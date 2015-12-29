@@ -1381,34 +1381,33 @@ msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
-"<b><a href=\\”https://github.com\\”  target=\\”_blank\\” >Github</a></b>은 "
-"Git 버전 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다."
-"<br/><br/>\n"
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
 "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
 "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
 msgstr ""
-"<b><a href=\\”https://calendar.google.com\\”  target=\\”_blank\\”>Google 캘"
-"린더</a></b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입"
-"니다.<br /><br />\n"
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
 "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
 "디 팀 내에서 메시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
-"<b><a href=\\“https://atlassian.com/software/jira\\” target=\\“_blank"
-"\\”>JIRA</a></b>는 Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
+"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>는 "
+"Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
 "JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황을 "
 "잔디 팀 내에서 메시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
 msgstr ""
-"<b><a href=\\“https://trello.com\\” target=\\“_blank\\”>Trello</a></b>는 인"
-"터랙티브한 방식으로 할 일 관리를 할 수 있는 협업툴입니다.<br /><br />\n"
+"<b><a href=https://trello.com target=_blank>Trello</a></b>는 인터랙티브한 방"
+"식으로 할 일 관리를 할 수 있는 협업툴입니다.<br /><br />\n"
 "Trello를 잔디와 연동하게 되면, 각 카드나 보드의 변동 사항을 잔디 팀 내에서 "
 "메시지로 받을 수 있습니다."
 
