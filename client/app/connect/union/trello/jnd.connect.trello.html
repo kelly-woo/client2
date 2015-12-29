@@ -6,7 +6,7 @@
       <jnd-connect-union-header jnd-data-model="formData.header"></jnd-connect-union-header>
 
       <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
-        <span class="setting-label">알림을 받고자 하는 Board를 선택해주세요.</span>
+        <span class="setting-label" translate>@jnd-connect-111</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
@@ -15,8 +15,6 @@
               jnd-data-list="boards"
               jnd-data-is-disabled="!isBoardLoaded"
               jnd-data-model="formData.trelloBoardId"></jnd-connect-union-selectbox-pending>
-
-          <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
 
           <i class="icon-long-arrow-right"></i>
 
@@ -37,13 +35,13 @@
 
 
       <section class="service-setting select-nofification clear">
-        <span class="setting-label">메시지 발생 이벤트 선택</span>
+        <span class="setting-label" translate>@jnd-connect-113</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
 
 
           <div class="inner-column jnd-column-5-width jnd-float-left">
-            <h3 class="column-title first-title">카드</h3>
+            <h3 class="column-title first-title" translate>@jnd-connect-114</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
               <input type="checkbox" id="trello-check1" ng-model="formData.hookEvent.showCardCreated">
@@ -142,7 +140,7 @@
           <!-- inner column ENDS -->
 
           <div class="inner-column jnd-column-5-width jnd-float-left">
-            <h3 class="column-title">리스트</h3>
+            <h3 class="column-title" translate>@jnd-connect-125</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
               <input type="checkbox" id="trello-check11" class="" ng-model="formData.hookEvent.showListCreated">
@@ -204,7 +202,7 @@
           <!-- inner column ENDS -->
 
           <div class="inner-column jnd-column-5-width jnd-float-left">
-            <h3 class="column-title">체크리스트</h3>
+            <h3 class="column-title" translate>@jnd-connect-132</h3>
 
             <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
               <input type="checkbox" id="trello-check17" class="" ng-model="formData.hookEvent.showCardChecklistCreated">

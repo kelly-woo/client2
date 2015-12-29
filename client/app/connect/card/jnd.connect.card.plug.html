@@ -25,7 +25,7 @@
         <i class="icon-topic"></i> <span>{{ ::plug.room.name }}</span>
       </span>
       <span ng-switch-default>
-        <i class="icon-lock"></i> <span>비공개 또는 1:1 메시지</span>
+        <i class="icon-lock"></i> <span>@jnd-connect-13</span>
       </span>
     </div>
   </div>
@@ -33,7 +33,7 @@
     ng-class="{
       'on': plug.isOn
     }">
-	<span class="date-info shortcuts-label">@2015-12-24 생성됨</span>
+	<span class="date-info shortcuts-label">@{{plug.raw.createdAt|date:'yyyy-MM-dd'}} 생성됨</span>
     <jnd-connect-status-switch connect-id="plug.raw.id"
                    union-name="union.name"
                    on-success-callback="onSuccessSwitch()"

@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, JndUtil, JndConnectUnion, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnectUnion, JndConnectTrelloApi) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -128,6 +128,10 @@
      */
     function _onSuccessGetBoards(response) {
       var boards = [];
+      boards.push({
+        value: '',
+        text: $filter('translate')('@jandi-connect-112')
+      });
       _.forEach(response.boards, function(board) {
         boards.push({
           value: board.id,

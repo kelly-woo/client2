@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndUtil,
+  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectGithubApi, JndUtil,
                                 JndConnectUnion) {
     var _originalRepos;
     var _createdRoomId = null;
@@ -128,7 +128,7 @@
       var list;
       var isDisabled;
       groupList.push({
-        text: '@선택하세요',
+        text: $filter('translate')('@jnd-connect-138'),
         value: ''
       });
       _.forEach(repos, function(group) {

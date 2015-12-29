@@ -9,30 +9,31 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, JndUtil, jndPubSub, modalHelper) {
+  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper) {
+    var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
     $scope.data = $scope.data || {};
 
     $scope.langList = [
       {
-        text: '@한국어',
+        text: _translate('@jnd-connect-103'),
         value: 'ko'
       },
       {
-        text: '@영어',
+        text: _translate('@jnd-connect-104'),
         value: 'en'
       },
       {
-        text: '@중국어',
+        text: _translate('@jnd-connect-105'),
         value: 'zh-cn'
       },
       {
-        text: '@중국어(tw)',
+        text: _translate('@jnd-connect-106'),
         value: 'zh-tw'
       },
       {
-        text: '@일본어',
+        text: _translate('@jnd-connect-107'),
         value: 'ja'
       }
     ];
