@@ -62,6 +62,9 @@
 .union-selectbox-wrapper .union-selectbox > .selecte-item-text {
   display: inline-block;
   width: 100%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .union-selectbox-wrapper .union-selectbox > .dropdown-status {
   position: absolute;
