@@ -34,18 +34,8 @@
         <span class="setting-label" translate>@jnd-connect-38</span>
         <div class="setting-contents">
           <span class="setting-description"></span>
-
-          <jnd-selectbox-room
-              jnd-data-model="formData.roomId"></jnd-selectbox-room>
-          <!--<div class="custom-select-box-btn white-button" ng-class="" ng-click="">-->
-            <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
-            <!--<span>토스랩 코리아</span>-->
-          <!--</div>-->
-
-          <span class="create-new-topic white-button cursor_pointer animate-all"
-                ng-click="openTopicCreateModal();"
-                translate>@jnd-connect-40</span>
-
+          <jnd-connect-union-selectbox-room
+              jnd-data-model="formData.roomId"></jnd-connect-union-selectbox-room>
           <div class="clear"></div>
 
         </div>

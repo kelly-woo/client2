@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, JndUtil, JndConnectUnion, JndConnectTrelloApi) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -50,7 +50,6 @@
       },
       footer: {}
     };
-    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
 
     _init();
 

@@ -51,6 +51,15 @@
       }
 
       /**
+       * 필터를 reset 한다.
+       * @private
+       */
+      function _resetFilter() {
+        _initializeFilter();
+        _initializeData();
+      }
+
+      /**
        * selectbox 를 닫는다
        */
       function close() {
@@ -73,6 +82,7 @@
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch('selectedValue', _setSelectedName);
+        scope.$watch('list', _resetFilter)
       }
 
       /**

@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndConnect, JndUtil,
+  function JndConnectGithubCtrl($scope, Dialog, JndConnectGithubApi, JndUtil,
                                 JndConnectUnion) {
     var _originalRepos;
     var _createdRoomId = null;
@@ -46,8 +46,6 @@
       },
       footer: {}
     };
-
-    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
 
     _init();
 

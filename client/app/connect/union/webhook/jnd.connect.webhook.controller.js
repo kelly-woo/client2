@@ -10,7 +10,7 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnionApi, JndConnectUnion) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -24,7 +24,6 @@
       footer: {}
     };
     $scope.requestData = {};
-    $scope.openTopicCreateModal = JndConnect.openTopicCreateModal;
     $scope.guideTemplateUrl = TEMPLATE_BASE_PATH + $filter('camelToDot')($scope.current.union.name) + '.html';
 
     _init();
