@@ -22,6 +22,15 @@
      */
     function _init() {
       $scope.style.display = $scope.union.isOpen ? 'block' : 'none';
+      _setText();
+      $scope.$watch('union.plugs.length', _setText);
+    }
+
+    /**
+     * 노출할 text 문구를 설정한다.
+     * @private
+     */
+    function _setText() {
       $scope.text.connected = $filter('translate')('@jnd-connect-7')
         .replace('{{integrationCount}}', $scope.union.plugs.length);
     }
