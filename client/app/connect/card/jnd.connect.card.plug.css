@@ -24,6 +24,10 @@
   height: 32px;
   margin: 8px 38px 8px 0;
   color: transparent;
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
+  background-size: cover;
+}
+.connect-union-plug-icon.active {
   background: url('/assets/images/service-logo-jnd-connect-active.png');
   background-size: cover;
 }
