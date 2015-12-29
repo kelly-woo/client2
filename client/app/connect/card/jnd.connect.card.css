@@ -6,6 +6,12 @@
   border: 1px solid #E1E1E1;
   border-radius: 3px;
   padding: 20px 32px 0px 34px;
+  
+  -webkit-transition: box-shadow 150ms, border-color 150ms;
+  -o-transition: box-shadow 150ms, border-color 150ms;
+  -moz-transition: box-shadow 150ms, border-color 150ms;
+  -ms-transition: box-shadow 150ms, border-color 150ms;
+  transition: box-shadow 150ms, border-color 150ms;
 }
 
 .connect-union-header {
