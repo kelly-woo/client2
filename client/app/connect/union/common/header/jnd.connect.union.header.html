@@ -4,9 +4,12 @@
   </section>
   <section class="service-info jnd-column-4-width jnd-float-left">
     <img class="icon-service-logo" ng-src="{{::unionImageUrl}}"/>
-    <i class="icon-jnd-connect active"></i>
+    <i class="icon-jnd-connect"
+       ng-class="{
+        'active': !isSettingMode || data.isActive
+       }"></i>
     <span class="connect-title" ng-bind-html="connectTitle"></span>
-    <span ng-if="::data.isSettingMode" class="date-info" ng-bind="connectCreateAt"></span>
+    <span ng-if="::isSettingMode" class="date-info" ng-bind="connectCreateAt"></span>
   </section>
   <section class="service-info jnd-column-6-width jnd-float-left second-column">
     <div ng-if="data.hasAccount"
@@ -26,8 +29,8 @@
                                    menu-type="account"
                                    permission="permission"></jnd-connect-union-selectbox>
     </div>
-    <div ng-if="::data.isSettingMode" class="connect-union-plug-tool-container jnd-float-right"
-         ng-class="{'on': plug.isOn}">
+    <div ng-if="::isSettingMode" class="connect-union-plug-tool-container jnd-float-right"
+         ng-class="{'on': data.isActive}">
       <jnd-connect-status-switch connect-id="data.current.connectId"
                                  union-name="unionName"
                                  is-active="data.isActive"
