@@ -10,7 +10,7 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion(memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog) {
     this.getDefaultHeader = getDefaultHeader;
     this.getDefaultFooter = getDefaultFooter;
     this.save = save;
@@ -150,7 +150,7 @@
      */
     function _onSuccessUpdate() {
       Dialog.success({
-        body:  '업데이트 성공성공',
+        body: $filter('translate')('@업데이트 성공'),
         allowHtml: true,
         extendedTimeOut: 0,
         timeOut: 0
@@ -164,7 +164,7 @@
      */
     function _onSuccessCreate() {
       Dialog.success({
-        body:  '생성 성공성공',
+        body: $filter('translate')('@생성 성공'),
         allowHtml: true,
         extendedTimeOut: 0,
         timeOut: 0

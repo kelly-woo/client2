@@ -9,7 +9,7 @@
     .directive('jndConnectStatusSwitch', jndConnectStatusSwitch);
 
   /* @ngInject */
-  function jndConnectStatusSwitch(Dialog, JndConnectUnionApi, JndUtil) {
+  function jndConnectStatusSwitch($filter, Dialog, JndConnectUnionApi, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -59,8 +59,8 @@
           // connection 된 후 해당 정보를 update하는 경우
           if (scope.isActive) {
             Dialog.confirm({
-              body: '@이 연동을 중지하시겠습니까?',
-              confirmButtonText: '@중지하기',
+              body: $filter('translate')('@이 연동을 중지하시겠습니까?'),
+              confirmButtonText: $filter('translate')('@중지하기'),
               stopPropagation: true,
               onClose: function(result) {
                 if (result === 'okay') {

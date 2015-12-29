@@ -87,7 +87,7 @@
       } else {
         _onSaveEnd();
         Dialog.error({
-          'title': '@required 필드 오류'
+          'title': $filter('translate')('@required 필드 오류')
         });
       }
     }

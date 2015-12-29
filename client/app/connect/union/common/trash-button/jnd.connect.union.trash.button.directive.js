@@ -9,7 +9,7 @@
     .directive('jndConnectTrashButton', jndConnectTrashButton);
 
   /* @ngInject */
-  function jndConnectTrashButton(Dialog, JndConnectUnionApi, JndUtil) {
+  function jndConnectTrashButton($filter, Dialog, JndConnectUnionApi, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -44,8 +44,8 @@
           // isDisabled 상태가 아닐때 즉 setting 일때만 삭제하기가 가능함.
 
           Dialog.confirm({
-            body: '이 연동 항목을 삭제하시겠습니까?',
-            confirmButtonText: '삭제하기',
+            body: $filter('translate')('@이 연동 항목을 삭제하시겠습니까?'),
+            confirmButtonText: $filter('translate')('@삭제하기'),
             stopPropagation: true,
             onClose: function(result) {
               if (result === 'okay') {
@@ -87,7 +87,7 @@
        */
       function _onSuccessCallback() {
         Dialog.success({
-          title: '@삭제 성공'
+          title: $filter('translate')('@삭제 성공')
         });
         scope.onSuccessCallback();
       }
