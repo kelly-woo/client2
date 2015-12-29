@@ -285,14 +285,14 @@
   border-radius: 50%;
   box-sizing: content-box;
   bottom: 20px;
-  left: 58px;
+  left: 56px;
 }
-
 .service-info .connect-title,
 .service-info .date-info {
   font-size: 16px;
   line-height: 24px;
   color: #505050;
+  white-space: nowrap;
 }
 
 .service-info .connect-title .user-name {
@@ -353,7 +353,7 @@
 .verified-email-container .white-button.verified-email-address {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  color:#979797;
+  color:#7F99A7;
   font-weight: 500;
   margin-left: -1px;
   
@@ -649,7 +649,7 @@
 .service-setting .custom-select-box-btn:hover,
 .union-selectbox-wrapper .union-selectbox:hover {
   background-color: #F7F8FA;
-  border-color:rgba(33,75,96,0.25);
+  border-color:rgba(33,75,96,0.28);
   color:#214B60;
 }
 
@@ -666,7 +666,7 @@
 .service-setting .custom-select-box-btn.active,
 .union-selectbox-wrapper.active .union-selectbox {
   background-color: #F7F8FA;
-  border-color:#9CB7C9;
+  border-color:#92B2C7;
   color:#214B60;
 
   box-shadow: inset 0 2px 3px rgba(17,71,104, 0.1);
@@ -798,7 +798,7 @@
 
 .jnd-connect-service-container {
   padding:32px 36px 60px 36px;
-  overflow-y: auto;
+  overflow: auto;
   position: absolute;
   top: 0;
   left: 240px;
@@ -811,6 +811,7 @@
   margin: 0 auto 16px 5%;
   position: relative;
   width: 90%;
+  min-width: 778px;
 }
 
 .jnd-connect-service-container > div.open {
@@ -819,7 +820,7 @@
 }
 
 .jnd-connect-service-container > div.open .connect-union-header .connect-union-btn.white-button {
-  background-color: #F7F8FA;
+  background-color: #E7EAEC;
   border-color: #A1C6DF;
   color:#0B88C5;
   box-shadow: inset 0 2px 3px rgba(17,71,104,0.1);
