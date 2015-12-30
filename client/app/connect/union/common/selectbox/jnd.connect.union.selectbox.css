@@ -5,6 +5,8 @@
   text-align: left;
   font-weight: 500;
   cursor: pointer;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .service-setting.select-lang .union-selectbox-wrapper {

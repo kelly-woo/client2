@@ -63,7 +63,7 @@
 .connect-union-tooltip {
   position: relative;
   display: inline;
-  margin-left: 2px;
+  margin-left: 4px;
   font-size: 14px;
   color: #C6D4D8;
 }
@@ -90,8 +90,13 @@
   width: 320px;
   margin-bottom: 24px;
 }
-.connect-union-tooltip .description-content-container .service-name {
-  text-decoration: underline;
+.connect-union-tooltip .description-content-container .topic-description__description > span > b > a {
+  color: #0786C3;
+  text-decoration: none;
+}
+.connect-union-tooltip .description-content-container .topic-description__description > span > b > a:hover {
+  color: #00abe6;
+  border-bottom:1px solid #82D2FE;
 }
 .description-arrow-left {
   position: absolute;
