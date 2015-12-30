@@ -6,7 +6,7 @@
 
   angular
     .module('jandiApp')
-    .filter('connectCreateDate', unionCreateDate);
+    .filter('connectCreateDate', connectCreateDate);
 
   /* @ngInject */
   function connectCreateDate($filter) {
