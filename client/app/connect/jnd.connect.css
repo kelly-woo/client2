@@ -559,7 +559,7 @@
 }
 
 .service-setting.compound-column .custom-select-box.dropdown-menu.active {
-  max-width: calc(65% - 0px) !important;
+  max-width: 65% !important;
 }
 
 .service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active {

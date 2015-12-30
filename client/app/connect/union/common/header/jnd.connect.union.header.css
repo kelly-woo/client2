@@ -1,5 +1,6 @@
 .integration-service-header .service-info .union-selectbox-wrapper {
   width: 64%;
+  margin: 0;
 }
 
 .integration-service-header .service-info  .union-selectbox-wrapper .union-selectbox {
