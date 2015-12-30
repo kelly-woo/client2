@@ -33,7 +33,7 @@
     ng-class="{
       'on': plug.isOn
     }">
-	<span class="date-info shortcuts-label" translate>@{{plug.raw.createdAt|date:'yyyy-MM-dd'}} 생성됨</span>
+	<span class="date-info shortcuts-label">{{plug.raw.createdAt|connectCreateDate}}</span>
     <jnd-connect-status-switch connect-id="plug.raw.id"
                    union-name="union.name"
                    on-success-callback="onSuccessSwitch()"

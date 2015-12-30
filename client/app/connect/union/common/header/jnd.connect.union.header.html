@@ -9,7 +9,7 @@
         'active': !isSettingMode || data.isActive
        }"></i>
     <span class="connect-title" ng-bind-html="connectTitle"></span>
-    <span ng-if="::isSettingMode" class="date-info" ng-bind="connectCreateAt"></span>
+    <span ng-if="::isSettingMode" class="date-info">{{data.createdAt|connectCreateDate}}</span>
   </section>
   <section class="service-info jnd-column-6-width jnd-float-left second-column">
     <div ng-if="data.hasAccount"
