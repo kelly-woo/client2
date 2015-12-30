@@ -90,8 +90,13 @@
   width: 320px;
   margin-bottom: 24px;
 }
-.connect-union-tooltip .description-content-container .service-name {
-  text-decoration: underline;
+.connect-union-tooltip .description-content-container .topic-description__description > span > b > a {
+  color: #0786C3;
+  text-decoration: none;
+}
+.connect-union-tooltip .description-content-container .topic-description__description > span > b > a:hover {
+  color: #00abe6;
+  border-bottom:1px solid #00abe6;
 }
 .description-arrow-left {
   position: absolute;
