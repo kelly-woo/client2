@@ -11,7 +11,9 @@
 
 
   function JndConnect(jndPubSub, configuration, Popup, modalHelper) {
+    var _isOpen = false;
 
+    this.isOpen = isOpen;
     this.open = open;
     this.close = close;
     this.modify = modify;
@@ -37,12 +39,21 @@
     }
 
     /**
+     * 커넥트 화면이 open 되어있는지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isOpen() {
+      return _isOpen;
+    }
+
+    /**
      * 커넥트 화면을 open 한다.
      * @param {object} [params=null] - 세팅 회면 진입 시 connectId 의 수정 페이지를 바로 노출할 경우 해당 변수를 전달해야 한다.
      *  @param  {string} params.unionName - union 이름
      *  @param  {number} params.connectId - connectId
      */
     function open(params) {
+      _isOpen = true;
       jndPubSub.pub('JndConnect:open', params);
     }
 
@@ -50,6 +61,7 @@
      * 커넥트 화면을 close 한다.
      */
     function close() {
+      _isOpen = false;
       jndPubSub.pub('JndConnect:close');
     }
 

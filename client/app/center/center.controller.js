@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, EntityMapManager) {
+                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, EntityMapManager, JndConnect) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -659,7 +659,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateUnreadBookmarkFlag(isSkipBookmark);
 
           //  marker 설정
-          if (!$scope.isInitialLoadingCompleted || _hasBrowserFocus()) {
+          if (!$scope.isInitialLoadingCompleted || _isChatPanelActive()) {
             _clearBadgeCount($scope.currentEntity);
           }
           _getCurrentRoomInfo();
@@ -954,7 +954,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageSendingCollection.clearSentMessages();
 
         if (updateInfo.messageCount) {
-          if (_isBottomReached() && _hasBrowserFocus()) {
+          if (_isBottomReached() && _isChatPanelActive()) {
             _scrollToBottom();
           }
           // 업데이트 된 메세지 처리
@@ -1252,15 +1252,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
+  /**
+   * share 버튼을 click 했을 때 이벤트 핸들러
+   * @param {object} file
+   */
   function onShareClick(file) {
     modalHelper.openFileShareModal($scope, file);
   }
 
-  function _hasBrowserFocus() {
-    return !centerService.isBrowserHidden();
+  /**
+   * 채팅 화면이 active 상태인지 여부를 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _isChatPanelActive() {
+    return !centerService.isBrowserHidden() && !JndConnect.isOpen();
   }
 
-
+  /**
+   * input 에 focus 한다.
+   * @private
+   */
   function _setChatInputFocus() {
     $('#message-input').focus();
   }
@@ -1493,7 +1505,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // Message is not from me -> Someone just wrote a message.
       if (centerService.hasBottomReached()) {
         //log('window with focus')
-        if (_hasBrowserFocus()) {
+        if (_isChatPanelActive()) {
           _scrollToBottom(true);
           return;
         }
