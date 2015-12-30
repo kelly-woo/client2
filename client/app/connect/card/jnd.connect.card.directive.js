@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('jndConnectCard', jndConnectCard);
 
-  function jndConnectCard() {
+  function jndConnectCard(JndUtil) {
     return {
       restrict: 'E',
       controller: 'JndConnectCardCtrl',
@@ -34,9 +34,17 @@
        */
       function toggleCollapse() {
         var jqEl = el.find('.connect-union-body');
+        var isShown = jqEl.css('display') === 'block';
+        if (isShown) {
+          el.removeClass('open');
+        } else {
+          el.addClass('open');
+        }
         jqEl.slideToggle({
           complete: function() {
-            scope.union.isOpen = jqEl.css('display') === 'block';
+            JndUtil.safeApply(scope, function() {
+              scope.union.isOpen = jqEl.css('display') === 'block';
+            });
           }
         });
       }
