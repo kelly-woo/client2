@@ -220,6 +220,7 @@
         $scope.current.union = targetUnion;
         $scope.current.connectId = data.connectId || null;
         $scope.current.isShowAuth = !!(!$scope.current.connectId && !$scope.current.union.hasAuth);
+        $scope.current.isShowAuth = true;
       } else {
         _resetCurrent();
       }

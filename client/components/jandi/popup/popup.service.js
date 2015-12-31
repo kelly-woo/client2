@@ -156,7 +156,6 @@
       if (!_.isEmpty(data)) {
         url = url + (/\?/.test(url) ? '&' : '?') + _parameterize(data);
       }
-      console.log('###', url);
       return url;
     }
 

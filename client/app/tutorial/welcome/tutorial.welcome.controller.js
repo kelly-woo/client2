@@ -89,6 +89,7 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('tutorial:hide', hide);
       $scope.$on('accountLoaded', _onAccountLoaded);
       $scope.$on('tutorial:open', _onTutorialOpen);
       $scope.$on('$destroy', _onDestroy);

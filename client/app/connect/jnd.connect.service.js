@@ -102,7 +102,7 @@
         name: 'connectAuth',
         optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768',
         data: {
-          redirectUri: '/popup/success?callbackEvent=' + callbackEventName
+          callbackEventName: callbackEventName
         }
       });
     }
