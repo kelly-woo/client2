@@ -4,7 +4,7 @@
 (function() {
   'use strict';
 
-  describe('mention.ahead.service', function() {
+  xdescribe('mention.ahead.service', function() {
     var MentionExtractor;
 
 
@@ -220,7 +220,7 @@
       });
     });
 
-    describe('markdown text에서 모든 mention 입력 검출 확인', function() {
+    xdescribe('markdown text에서 모든 mention 입력 검출 확인', function() {
       var mentionsMap = {
         '[@all]': {},
         '[@park]': {id: 1},
