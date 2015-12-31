@@ -46,7 +46,9 @@
         var origin = messageEvent.originalEvent.origin;
         var data = messageEvent.originalEvent.data;
         if (_isWhiteUrl(origin) && data) {
-          jndPubSub.pub(data);
+          JndUtil.safeApply(scope, function() {
+            jndPubSub.pub(data);
+          });
         }
       }
 
