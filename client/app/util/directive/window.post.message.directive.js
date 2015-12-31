@@ -10,7 +10,7 @@
     .directive('windowPostMessage', windowPostMessage);
 
   /* @ngInject */
-  function windowPostMessage(jndPubSub) {
+  function windowPostMessage(JndUtil, jndPubSub) {
 
     return {
       restrict: 'A',
