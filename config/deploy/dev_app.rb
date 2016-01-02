@@ -1,5 +1,5 @@
 set :branch, ENV['BRANCH'] || 'develop'
-set :password, ask('Server password:', nil)
+set :password, ENV['PASSWORD'] || ask('Server password:', nil)
 
 # Simple Role Syntax
 # ==================
