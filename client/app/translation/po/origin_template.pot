@@ -199,12 +199,6 @@ msgstr ""
 msgid "@comment-all-desc"
 msgstr ""
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr ""
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr ""
@@ -634,6 +628,12 @@ msgstr ""
 msgid "@common-visit-homepage"
 msgstr ""
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr ""
@@ -915,10 +915,6 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
@@ -941,6 +937,10 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -1280,11 +1280,111 @@ msgid "@jnd-connect-174"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-175"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-176"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-177"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-178"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-179"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-180"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-181"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-182"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-183"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-184"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-185"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-186"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-187"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-188"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-189"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-19"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-190"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-191"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-192"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-193"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-194"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-195"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-196"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-197"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-198"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-199"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -1296,7 +1396,71 @@ msgid "@jnd-connect-20"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-200"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-201"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-202"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-203"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-204"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-205"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-206"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-207"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-208"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-209"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-21"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-210"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-211"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-212"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-213"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-214"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-215"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2233,6 +2397,80 @@ msgstr ""
 msgid "@turn-on-topic-alarm"
 msgstr ""
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr ""
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr ""
@@ -2421,80 +2659,6 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
