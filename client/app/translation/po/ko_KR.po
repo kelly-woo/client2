@@ -1361,73 +1361,66 @@ msgid "@jnd-connect-176"
 msgstr "Commit Comments"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-177"
-msgstr "JIRA"
+msgstr "Pull Requests Opened / Closed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-178"
-msgstr "JIRA"
+msgstr "Pull Requests Comments"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-179"
-msgstr "JIRA"
+msgstr "Issue Opened / Closed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
 msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-180"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "Issue Comments"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-181"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "Branch or Tag Created / Deleted"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-182"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "Branch force-Pushed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-183"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "죄송합니다. 잔디 커넥트 항목을 더 이상 추가하실 수 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-184"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr ""
+"이 잔디 커넥트 항목을 중지하시겠습니까? 중지하실 경우 더 이상 연동된 서비스"
+"의 변경 사항을 메시지로 받아보실 수 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-185"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr ""
+"이 잔디 커넥트 항목을 정말 삭제하시겠습니까? 연동 항목을 삭제하시더라도 과거"
+"에 수신한 메시지는 보존됩니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-186"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "잔디 커넥트 항목이 성공적으로 추가되었습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-187"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr ""
+"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
+"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-188"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "이 계정 연결 해제하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-189"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "이 잔디 커넥트 항목을 삭제하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-19"
@@ -1439,49 +1432,40 @@ msgid "@jnd-connect-190"
 msgstr "Trello"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-191"
-msgstr "Trello"
+msgstr "본문 텍스트 (필수)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-192"
-msgstr "Trello"
+msgstr "첨부 영역을 나눠주는 막대 요소의 RGB 색상 코드"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-193"
-msgstr "Trello"
+msgstr "첫번째 첨부영역 제목"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-194"
-msgstr "Trello"
+msgstr "첫번째 첨부영역 내용"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-195"
-msgstr "Trello"
+msgstr "두번째 첨부영역 제목"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-196"
-msgstr "Trello"
+msgstr "두번째 첨부영역 내용"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-197"
-msgstr "Trello"
+msgstr "@jnd-connect-197"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-198"
-msgstr "Trello"
+msgstr "@jnd-connect-198"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-199"
-msgstr "Trello"
+msgstr "첨부영역에 추가 가능한 이미지의 URL"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-2"
@@ -1492,83 +1476,69 @@ msgid "@jnd-connect-20"
 msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-200"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "@jnd-connect-200"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-201"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr ""
+"토픽을 나가시면 기존의 잔디 커넥트 항목들이 삭제됩니다. 나가시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-202"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Connect-Survey"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-203"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Connect-Survey"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-204"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Connect-Survey"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-205"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Connect-Survey"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-206"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Not In Use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-207"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "불러오는 중..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-208"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "잔디 커넥트 항목이 업데이트 되었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-209"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "잔디 커넥트 항목이 삭제되었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-21"
 msgstr "Webhook 수신 (Incoming Webhook)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-210"
-msgstr "Webhook 수신 (Incoming Webhook)"
+msgstr "중지하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-211"
-msgstr "Webhook 수신 (Incoming Webhook)"
+msgstr "삭제하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-212"
-msgstr "Webhook 수신 (Incoming Webhook)"
+msgstr "프로필 사진"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-213"
-msgstr "Webhook 수신 (Incoming Webhook)"
+msgstr "변경하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-214"
-msgstr "Webhook 수신 (Incoming Webhook)"
+msgstr "Connect survey Link (Not In Use)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy

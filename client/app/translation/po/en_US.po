@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -220,12 +220,6 @@ msgstr "Topics "
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@comment-all-desc"
 msgstr "Show {{commentCount}} previous comment(s)"
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "Skip the tutorial"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -659,6 +653,12 @@ msgstr "Upload File"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "Skip the tutorial"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "Are you sure you want to remove this member from the topic?"
@@ -955,12 +955,6 @@ msgid "@integration-title-google-drive"
 msgstr "Share from Google Drive"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"The team invitation link has been copied to your clipboard. Use it to invite "
-"others to your team."
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "This email is already a member of {{invitedTeamName}}."
 
@@ -989,701 +983,920 @@ msgstr "Invitations have been disabled."
 msgid "@invitation-link-desc"
 msgstr "Or just send them this link"
 
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"The team invitation link has been copied to your clipboard. Use it to invite "
+"others to your team."
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
-msgstr ""
+msgstr "Back"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-10"
-msgstr ""
+msgstr "On"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-100"
-msgstr ""
+msgstr "Language"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-101"
-msgstr ""
+msgstr "Choose a language for your reminders"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-102"
-msgstr ""
+msgstr "{{Gmail account}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-103"
-msgstr ""
+msgstr "한국어"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-104"
-msgstr ""
+msgstr "English"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-105"
-msgstr ""
+msgstr "日本語"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-106"
-msgstr ""
+msgstr "简体中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-107"
-msgstr ""
+msgstr "繁體中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-108"
-msgstr ""
+msgstr "Save Integration"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-109"
-msgstr ""
+msgstr "Not in Use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-11"
-msgstr ""
+msgstr "Edit"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-110"
-msgstr ""
+msgstr "Not In Use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-111"
-msgstr ""
+msgstr "Which Board do you want to receive notifications for?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-112"
-msgstr ""
+msgstr "Choose Board"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-113"
-msgstr ""
+msgstr "Which events would you like to be notified about on JANDI?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-114"
-msgstr ""
+msgstr "Card"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-115"
-msgstr ""
+msgstr "Card created"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-116"
-msgstr ""
+msgstr "Card moved"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-117"
-msgstr ""
+msgstr "Card name changed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-118"
-msgstr ""
+msgstr "Comment added to card"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-119"
-msgstr ""
+msgstr "Attachment added to card"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-12"
-msgstr ""
+msgstr "Delete"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-120"
-msgstr ""
+msgstr "Description changed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-121"
-msgstr ""
+msgstr "Due date changed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-122"
-msgstr ""
+msgstr "Label changed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-123"
-msgstr ""
+msgstr "Member added to card"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-124"
-msgstr ""
+msgstr "Card archived/unarchived"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-125"
-msgstr ""
+msgstr "Lists"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-126"
-msgstr ""
+msgstr "List created"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-127"
-msgstr ""
+msgstr "List renamed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-128"
-msgstr ""
+msgstr "List moved to other board"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-129"
-msgstr ""
+msgstr "List archived/unarchived"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-13"
-msgstr ""
+msgstr "Added to private conversation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-130"
-msgstr ""
+msgstr "Board renamed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-131"
-msgstr ""
+msgstr "Member added to board"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-132"
-msgstr ""
+msgstr "Checklists"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-133"
-msgstr ""
+msgstr "Checklist added to card"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-134"
-msgstr ""
+msgstr "Checklist Item created"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-135"
-msgstr ""
+msgstr "Checklist Item marked complete/incomplete"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-136"
-msgstr ""
+msgstr "Not In Use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-137"
-msgstr ""
+msgstr "Which repository / branch do you want to receive notifications for?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-138"
-msgstr ""
+msgstr "Choose Repository"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-139"
-msgstr ""
+msgstr "Choose Branch (optional)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-14"
-msgstr ""
+msgstr "Add"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-140"
-msgstr ""
+msgstr "Add account"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-141"
 msgstr ""
+"It will remove {{numberOfConnects}} integrations from all of your JANDI "
+"teams. Are you sure to disconnect?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-142"
 msgstr ""
+"To use this integration, you need to authenticate your {{serviceName}} "
+"account."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-143"
 msgstr ""
+"If you authenticate your GitHub account, you can configure and manage "
+"notification settings from here. \r\rIf you‘d prefer not to authenticate "
+"your GitHub account, notifications can still be managed manually from GitHub "
+"by integrating via a webhook."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-144"
-msgstr ""
+msgstr "Authenticate your {{serviceName}} account"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-145"
-msgstr ""
+msgstr "Setup Instruction"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-146"
-msgstr ""
+msgstr "Expand"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-147"
-msgstr ""
+msgstr "STEP 1"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
-msgstr ""
+msgstr "In your JIRA account, click on System in the JIRA Administration menu"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
-msgstr ""
+msgstr "STEP 2"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-15"
-msgstr ""
+msgstr "GitHub"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-150"
-msgstr ""
+msgstr "In the sidebar under Advanced, click on Webhooks"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-151"
-msgstr ""
+msgstr "STEP 3"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-152"
 msgstr ""
+"Click Create a Webhook. Copy and paste the link from below to the URL field."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-153"
-msgstr ""
+msgstr "STEP 4"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
 msgstr ""
+"Configure events you want to send to JANDI and click the Create button once "
+"you’re finished"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
-msgstr ""
+msgstr "Close"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-156"
 msgstr ""
+"In your GitHub account, choose the repository you want to receive "
+"notifications for. Click on Settings in the right navigation panel."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-157"
 msgstr ""
+"Click on Webhooks & Services from the sidebar. Then, click  Add Webhook."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-158"
-msgstr ""
+msgstr "Copy and paste the link from below to the Payload URL field."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-159"
 msgstr ""
+"Leave the default options and make sure Active is checked. Then, click Add "
+"Webhook."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-16"
-msgstr ""
+msgstr "Get notified of your latest source code changes"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-160"
-msgstr ""
+msgstr "What are webhooks?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-161"
 msgstr ""
+"Webhooks are a simple way to send messages from external services and apps "
+"into JANDI. Think of it as a customized integrations with your favorite "
+"services that support webhooks."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-162"
 msgstr ""
+"To receive incoming messages, send HTTP POST requests to the URL below."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
-msgstr ""
+msgstr "In the request, you must define Accept and Content-Type as below"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-164"
-msgstr ""
+msgstr "Don’t forget to use POST http method as JANDI Webhook is a RESTful API"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-165"
-msgstr ""
+msgstr "See below for the POST request format that you can use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-166"
-msgstr ""
+msgstr "And here is a curl request sample"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-167"
-msgstr ""
+msgstr "The sample format above will be shown as the sample message below. "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
+"You can customize the profile image and the name of the integration bot. If "
+"you have further questions, please feel free to contact us at JANDI support!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
-msgstr ""
+msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-17"
-msgstr ""
+msgstr "JIRA"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-170"
-msgstr ""
+msgstr "JANDI Connect Permissions"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-171"
-msgstr ""
+msgstr "All Members"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-172"
 msgstr ""
+"Anyone can add integrations, but each member can only see his/her own. "
+"Administrators can see all the integrations configured on the team."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-173"
-msgstr ""
+msgstr "Only Team Administrator"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-174"
-msgstr ""
+msgstr "Only the administrator can add integrations. "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-175"
+msgstr "Commits"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-176"
+msgstr "Commit Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-177"
+msgstr "Pull Requests Opened / Closed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-178"
+msgstr "Pull Requests Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-179"
+msgstr "Issue Opened / Closed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
+msgstr "Receive updates on new and existing issues"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-180"
+msgstr "Issue Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-181"
+msgstr "Branch or Tag Created / Deleted"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-182"
+msgstr "Branch force-Pushed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-183"
+msgstr "Sorry your team has reached the maximum of 100 integrations"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-184"
 msgstr ""
+"Are you sure you want to temporarily disable notifications from this "
+"service? "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-185"
+msgstr "Are you sure you want to delete this integration?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-186"
+msgstr "Great! You've successfully added the integration."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-187"
+msgstr "@187: (NOT IN USE) @141"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-188"
+msgstr "Disconnect"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-189"
+msgstr "Are you sure you want to delete this integration?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-19"
-msgstr ""
+msgstr "Trello"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-190"
+msgstr "@190 no l10n"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-191"
+msgstr "Body text (Required)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-192"
+msgstr "Hex code color of attachment bar"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-193"
+msgstr "1st attachment area title"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-194"
+msgstr "1st attachment description"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-195"
+msgstr "2nd attachment area title"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-196"
+msgstr "2nd attachment description"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-197"
+msgstr "not in use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-198"
+msgstr "not in use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-199"
+msgstr "Image URL"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-2"
-msgstr ""
+msgstr "Close JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-20"
+msgstr "Monitor activity on your boards, lists, and cards in real-time"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-200"
+msgstr "not in use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-201"
 msgstr ""
+"If you leave this topic, previously connected integrations will be deleted. "
+"Are you sure you want to leave?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-202"
+msgstr "Connect Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-203"
+msgstr "Connect Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-204"
+msgstr "Connect Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-205"
+msgstr "Connect Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-206"
+msgstr "not in use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-207"
+msgstr "Loading...繁體中文"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-208"
+msgstr "Integration setting has been updatedSave Integration"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-209"
+msgstr "Integration has been deleted"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-21"
+msgstr "Incoming Webhooks"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-210"
+msgstr "Disable"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-211"
+msgstr "Delete"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-212"
+msgstr "Profile Picture{{Gmail account}}"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-213"
+msgstr "Change"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-214"
+msgstr "Not in use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-215"
 msgstr ""
+"GitHub account authentication is not valid. Please authenticate again to "
+"continue."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
-msgstr ""
+msgstr "Send data into JANDI from your favorite external services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
 msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
+"JIRA is an issue tracking platform that allows teams to capture and organize "
+"issues, and assign and monitor workflow. This integration will send "
+"notifications of any updates to JIRA issues."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
 msgstr ""
+"Trello is a flexible task management tool using Kanban boards to run your "
+"projects.This integration will send notifications of any activity on your "
+"boards, lists, and cards"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
+"Incoming Webhooks are a simple way to send messages from external services "
+"or apps of your choice into a JANDI topic. You can think of it as a "
+"customized integration."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-28"
 msgstr ""
+"First time using JANDI Connect? Get notifications from Google Calendar, "
+"Trello, GitHub, and JIRA all in one place."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-29"
-msgstr ""
+msgstr "Don’t see your favorite service on the list? Let us know!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-3"
-msgstr ""
+msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr ""
+msgstr "Submit a request"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
-msgstr ""
+msgstr "Back to Integrations List"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-32"
-msgstr ""
+msgstr "{{integratedMemberCount}} other members are using this integration"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-33"
-msgstr ""
+msgstr "{{memberName}}’s {{serviceName}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-34"
-msgstr ""
+msgstr "Added on {{yyyy-mm-dd}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-35"
-msgstr ""
+msgstr "Authenticated account "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-36"
-msgstr ""
+msgstr "Which calendar do you want to receive notifications from?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-37"
-msgstr ""
+msgstr "Choose a calendar..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-38"
-msgstr ""
+msgstr "Where should we send them?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-39"
-msgstr ""
+msgstr "Mr. J"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-4"
-msgstr ""
+msgstr "Connected Services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr ""
+msgstr "Create New Topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
-msgstr ""
+msgstr "Event Reminders"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-42"
-msgstr ""
+msgstr "Send Reminders"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-43"
-msgstr ""
+msgstr "at the start of"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-44"
-msgstr ""
+msgstr "1 minute before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-45"
-msgstr ""
+msgstr "5 minutes before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-46"
-msgstr ""
+msgstr "10 minutes before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-47"
-msgstr ""
+msgstr "15 minutes before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-48"
-msgstr ""
+msgstr "30 minutes before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-49"
-msgstr ""
+msgstr "1 hour before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-5"
-msgstr ""
+msgstr "Google Calendar"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-50"
-msgstr ""
+msgstr "2 hours before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-51"
-msgstr ""
+msgstr "4 hours before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-52"
-msgstr ""
+msgstr "1 day before"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-53"
-msgstr ""
+msgstr "an event"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-54"
-msgstr ""
+msgstr "Send all day reminders"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-55"
-msgstr ""
+msgstr "the day of at"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-56"
-msgstr ""
+msgstr "a day before at"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-57"
-msgstr ""
+msgstr "2 days before at"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-58"
-msgstr ""
+msgstr "12:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-59"
-msgstr ""
+msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr ""
+msgstr "Stay organized with shared calendars, event reminders, and more"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
-msgstr ""
+msgstr "2:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-61"
-msgstr ""
+msgstr "3:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-62"
-msgstr ""
+msgstr "4:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-63"
-msgstr ""
+msgstr "5:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-64"
-msgstr ""
+msgstr "6:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-65"
-msgstr ""
+msgstr "7:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-66"
-msgstr ""
+msgstr "8:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-67"
-msgstr ""
+msgstr "9:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-68"
-msgstr ""
+msgstr "10:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-69"
-msgstr ""
+msgstr "11:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-7"
-msgstr ""
+msgstr "{{integrationCount}} Configured"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-70"
-msgstr ""
+msgstr "12:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-71"
-msgstr ""
+msgstr "1:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-72"
-msgstr ""
+msgstr "2:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-73"
-msgstr ""
+msgstr "3:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-74"
-msgstr ""
+msgstr "4:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-75"
-msgstr ""
+msgstr "5:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-76"
-msgstr ""
+msgstr "6:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-77"
-msgstr ""
+msgstr "7:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-78"
-msgstr ""
+msgstr "8:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-79"
-msgstr ""
+msgstr "9:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-8"
-msgstr ""
+msgstr "Add Integration"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-80"
-msgstr ""
+msgstr "10:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-81"
-msgstr ""
+msgstr "11:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-82"
-msgstr ""
+msgstr "@jnd-connect-97"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-83"
-msgstr ""
+msgstr "Calendar Updates"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-84"
-msgstr ""
+msgstr "An event is created or you are invited to an event"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-85"
-msgstr ""
+msgstr "An event’s details are changed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-86"
-msgstr ""
+msgstr "An event is canceled or deleted"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-87"
-msgstr ""
+msgstr "Calendar Summaries"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-88"
-msgstr ""
+msgstr "Daily summaries at"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-89"
-msgstr ""
+msgstr "Weekly summaries every"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-9"
-msgstr ""
+msgstr "Paused"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-90"
-msgstr ""
+msgstr "Monday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-91"
-msgstr ""
+msgstr "Tuesday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-92"
-msgstr ""
+msgstr "Wednesday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-93"
-msgstr ""
+msgstr "Thursday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-94"
-msgstr ""
+msgstr "Friday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-95"
-msgstr ""
+msgstr "Saturday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-96"
-msgstr ""
+msgstr "Sunday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-97"
-msgstr ""
+msgstr "{{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-98"
-msgstr ""
+msgstr "Customize Profile"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-99"
 msgstr ""
+"Change the name or profile image that appears for messages from this "
+"integration"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -2300,6 +2513,108 @@ msgstr "Turn on Desktop Notifications"
 msgid "@turn-on-topic-alarm"
 msgstr "Turn on notifications for this topic"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "Click on the pulsing marks to check them out!"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "Got it!"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"All of the files you've shared and that have been shared with you can be "
+"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
+"share, or comment on a file. "
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"To find an older file, search by keyword(s) and use our flexible filters to "
+"sort by file type, uploader, or conversation in which it was shared. You can "
+"also click over to the Messages tab to search through your conversation "
+"history and jump back to specific points in the discussion for more context. "
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"Toggle the view by using the Search and Close buttons to open and minimize "
+"the right panel."
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "Your file drawer and search panel"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "Sending messages and uploading files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"To send messages, simply type in the text bar and press enter. To upload "
+"files, click the button to the left and select the desired file paths, or "
+"drag and drop files anywhere in the center messaging pane."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "Skip tutorial"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"Direct Messages are private, one-on-one conversations between two members. "
+"Direct Messages will automatically appear when you receive a new message, or "
+"you can initiate a conversation by clicking + Add. You can also close and "
+"hide Direct Messages while preserving the message history until the "
+"conversation is restarted."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"Private Topics are available on an invite-only basis and the information "
+"shared is only visible to the participants. Start a new Private Topic by "
+"clicking + Add."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"What’s the difference between Public Topics, Private Topics, and Direct "
+"Messages?"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"Topics are group-oriented forums for discussing and sharing anything you "
+"want – project updates, meeting schedules, ideas for lunch, and more. Public "
+"Topics are open for anybody on your team to participate. You can create your "
+"own with + Add, or join other active Public Topics by clicking ☰ BROWSE."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "Continue »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI wants to transform the way you communicate and connect with people in "
+"the workplace. Here are 3 important tips to help you get started."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI! "
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr "Awesome!"
@@ -2515,108 +2830,6 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "Welcome {{username}}!"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "Click on the pulsing marks to check them out!"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "Got it!"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
-"share, or comment on a file. "
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"To find an older file, search by keyword(s) and use our flexible filters to "
-"sort by file type, uploader, or conversation in which it was shared. You can "
-"also click over to the Messages tab to search through your conversation "
-"history and jump back to specific points in the discussion for more context. "
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"Toggle the view by using the Search and Close buttons to open and minimize "
-"the right panel."
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "Your file drawer and search panel"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "Sending messages and uploading files"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"To send messages, simply type in the text bar and press enter. To upload "
-"files, click the button to the left and select the desired file paths, or "
-"drag and drop files anywhere in the center messaging pane."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "Skip tutorial"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"Direct Messages are private, one-on-one conversations between two members. "
-"Direct Messages will automatically appear when you receive a new message, or "
-"you can initiate a conversation by clicking + Add. You can also close and "
-"hide Direct Messages while preserving the message history until the "
-"conversation is restarted."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"Private Topics are available on an invite-only basis and the information "
-"shared is only visible to the participants. Start a new Private Topic by "
-"clicking + Add."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-"What’s the difference between Public Topics, Private Topics, and Direct "
-"Messages?"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"Topics are group-oriented forums for discussing and sharing anything you "
-"want – project updates, meeting schedules, ideas for lunch, and more. Public "
-"Topics are open for anybody on your team to participate. You can create your "
-"own with + Add, or join other active Public Topics by clicking ☰ BROWSE."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "Continue »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI wants to transform the way you communicate and connect with people in "
-"the workplace. Here are 3 important tips to help you get started."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "Welcome to JANDI! "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
