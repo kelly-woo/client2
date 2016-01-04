@@ -9,7 +9,7 @@
     .directive('jndConnectSelectboxAccountMenu', jndConnectSelectboxAccountMenu);
 
   /* @ngInject */
-  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnectUnionApi, JndConnectGoogleCalendar) {
+  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -29,7 +29,6 @@
        */
       function _init() {
         if (_.isObject(scope.headerDataModel)) {
-          scope.isSettingMode = scope.headerDataModel.current.connectId != null;
           scope.unionName = scope.headerDataModel.current.union.name;
 
           scope.isValidMultiAccount = _getIsValidMultiAccount(scope.unionName);
@@ -38,47 +37,45 @@
         scope.onAccountDeleteClick = onAccountDeleteClick;
         scope.onAccountAddClick = onAccountAddClick;
 
-        _requestConnectCount();
+        _attachEvents();
+      }
+
+      /**
+       * attach events
+       * @private
+       */
+      function _attachEvents() {
+        scope.$on('popupDone', _onPopupDone);
+      }
+
+      /**
+       * popupDone event handler
+       * @private
+       */
+      function _onPopupDone() {
+        jndPubSub.pub('unionHeader:accountInfoChange');
       }
 
       /**
        * account delete click handler
        */
-      function onAccountDeleteClick() {
+      function onAccountDeleteClick(item) {
         Dialog.confirm({
           body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', scope.numberOfConnects),
           confirmButtonText: translate('@jnd-connect-188'),
           onClose: function (result) {
             if (result === 'okay') {
-              _requestAccountDelete();
+              _requestAccountDelete(item);
             }
           }
         });
       }
 
       /**
-       * request connect count
-       * @private
-       */
-      function _requestConnectCount() {
-        //JndConnectGoogleCalendar.getConnectCount()
-        //  .success(_successConnectCount);
-      }
-
-      /**
-       * success connect count
-       * @param data
-       * @private
-       */
-      function _successConnectCount(data) {
-        scope.numberOfConnects = data.count;
-      }
-
-      /**
        * account add click handler
        */
       function onAccountAddClick() {
-
+        JndConnect.openAuthPopup(scope.unionName);
       }
 
       /**
@@ -100,52 +97,18 @@
 
       /**
        * request account delete
+       * @param {object} item
        * @private
        */
-      function _requestAccountDelete() {
-
-      }
-
-      /**
-       * success account delete
-       * @param {array} data
-       * @private
-       */
-      function _successAccountDelete(data) {
-        if (data && data.length > 0) {
-          // account 삭제 후 갱신된 account 정보를 server에서 전달해 준다면
-          // 해당 data로 account info를 갱신하는 event pub 함
-          jndPubSub.pub('unionHeader:accountInfoChange', data);
-        } else {
-          _goToUnionList();
+      function _requestAccountDelete(item) {
+        if (scope.list.length === 1) {
+          JndConnect.backToMain();
         }
-      }
 
-      /**
-       * request account add
-       * @private
-       */
-      function _requestAccountAdd() {
-
-      }
-
-      /**
-       * success account add
-       * @param data
-       * @private
-       */
-      function _successAccountAdd(data) {
-        if (data && data.length > 0) {
-          jndPubSub.pub('unionHeader:accountInfoChange', data);
-        }
-      }
-
-      /**
-       * go union list
-       * @private
-       */
-      function _goToUnionList() {
-
+        JndConnectUnionApi.removeAccount(item.value)
+          .success(function() {
+            jndPubSub.pub('unionHeader:accountInfoChange');
+          });
       }
     }
   }

@@ -10,12 +10,6 @@
     var regxCreatedAt = /(?:(.+)T)/;
     var dateFilter = $filter('date');
 
-    $scope.getMemberName = getMemberName;
-    $scope.getCreatedAt = getCreatedAt;
-    $scope.onSuccessRemove = onSuccessRemove;
-    $scope.isAllowAccountUpdate = isAllowAccountUpdate;
-    $scope.isAllowAccountAdd = isAllowAccountAdd;
-
     _init();
 
     /**
@@ -23,22 +17,11 @@
      * @private
      */
     function _init() {
-    }
-
-    function requestStatusChange() {
-
-    }
-
-    function requestConnectDelete() {
-
-    }
-
-    function requestAddAccount() {
-      // add api call
-    }
-
-    function requestDeleteAccount() {
-      // delete api call
+      $scope.getMemberName = getMemberName;
+      $scope.getCreatedAt = getCreatedAt;
+      $scope.onSuccessRemove = onSuccessRemove;
+      $scope.isAllowAccountUpdate = isAllowAccountUpdate;
+      $scope.isAllowAccountAdd = isAllowAccountAdd;
     }
 
     /**

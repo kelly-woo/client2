@@ -311,6 +311,11 @@
       return !_.isEmpty(that.list[index].message.linkPreview);
     }
 
+    /**
+     * integration message에 대한 preview가 존재하는지 여부를 반환한다.
+     * @param index
+     * @returns {boolean}
+     */
     function hasIntegrationPreview(index) {
       return !_.isEmpty(that.list[index].message.content.connectInfo);
     }

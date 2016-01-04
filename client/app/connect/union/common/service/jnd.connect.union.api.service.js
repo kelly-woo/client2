@@ -20,6 +20,8 @@
     this.getWebhookToken = getWebhookToken;
     this.setStatus = setStatus;
 
+    this.removeAccount = removeAccount;
+
     /**
      * connectId 에 해당하는 connect 정보를 반환한다.
      * @param {string} unionName
@@ -129,6 +131,18 @@
           connectId: connectId,
           status: status
         }
+      });
+    }
+
+    /**
+     * 연동을 위해 인증된 계정을 삭제한다.
+     * @param {number} authenticateionId
+     * @returns {*}
+     */
+    function removeAccount(authenticateionId) {
+      return $http({
+        method: 'DELETE',
+        url: _apiUrl + 'authentications/' + authenticateionId
       });
     }
   }

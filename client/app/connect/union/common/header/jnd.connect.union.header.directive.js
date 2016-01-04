@@ -11,6 +11,7 @@
  *    @param {array}  [data.accounts] - 인정된 계정 list
  *    @param {string} [data.createdAt] - (수정 모드일 경우) connect 생성 string. default) 현재 date(yyyy-MM-dd)
  *    @param {boolean} [data.isActive] - (수정 모드일 경우) connect status
+ *    @param {boolean} [data.isAccountAddable=false] - account 추가 기능 사용여부
  *
  * <jnd-connect-union-header jnd-data-model="data"></jnd-connect-union-header>
  */
@@ -50,7 +51,7 @@
 
         _initAccounts();
         _setPermission();
-        _setFilteredText();
+        _setConnectTitle();
       }
 
       /**
@@ -70,13 +71,12 @@
         if (scope.data.hasAccount) {
           scope.data.accounts = scope.data.accounts || [];
         }
-        //var accounts = scope.data.accounts;
-        //if (!_.isArray(accounts) || accounts.length < 1) {
-        //  accounts = accounts || [];
-        //  accounts.push({text: '@불러오는 중', value: ''});
-        //}
       }
 
+      /**
+       * header의 permission 설정
+       * @private
+       */
       function _setPermission() {
         var unionName = scope.unionName;
 
@@ -86,14 +86,16 @@
         };
       }
 
-      function _setFilteredText() {
+      /**
+       * connect title 설정
+       * @private
+       */
+      function _setConnectTitle() {
         var memberId = scope.data.memberId;
-        var createdAt = scope.data.createdAt;
 
         scope.connectTitle = $filter('translate')('@jnd-connect-33')
           .replace('{{memberName}}', '<span class="user-name">' + scope.getMemberName(memberId) + '</span>')
           .replace('{{serviceName}}', scope.data.current.union.title);
-        scope.connectCreateAt = $filter('translate')('@jnd-connect-34').replace('{{yyyy-mm-dd}}', scope.getCreatedAt(createdAt));
       }
 
       /**

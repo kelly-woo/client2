@@ -6,8 +6,7 @@
     .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, $attrs, $q, JndConnectGoogleCalendar, EntityMapManager,
-                                        JndUtil, JndConnectUnionApi) {
+  function JndConnectGoogleCalendarCtrl($scope, JndConnectGoogleCalendar, EntityMapManager, JndUtil, JndConnectUnion) {
     $scope.selectedRoom = '';
 
     _init();
@@ -19,8 +18,6 @@
     function _init() {
       // connect를 추가하는게 아닌 setting mode
       $scope.isSettingMode = $scope.current.connectId != null;
-      //$scope.isSettingMode = true;
-      $scope.connectId = 49;
 
       $scope.notificationMinuteList = JndConnectGoogleCalendar.getMinuteList();
       $scope.allDayNotificationDateList = JndConnectGoogleCalendar.getDateList();
@@ -51,22 +48,19 @@
      */
     function _setContent() {
       if ($scope.isSettingMode) {
-        _requestConnectInfo($scope.connectId);
-        _requestCalendarInfo();
+        _requestConnectInfo();
       } else {
         $scope.isInitialized = true;
-        _requestCalendarInfo();
       }
+      _requestCalendarInfo();
     }
 
     /**
      * account info change handler
-     * @param {object} angularEvent
-     * @param {object} accountInfo
      * @private
      */
-    function _onAccountInfoChange(angularEvent, accountInfo) {
-      _setCalendarList(accountInfo);
+    function _onAccountInfoChange() {
+      _requestCalendarInfo();
     }
 
     /**
@@ -74,18 +68,11 @@
      * @private
      */
     function _onSave() {
-      //var data = $scope.data;
-      //
-      //if (!(data.thumbnailUrl instanceof Blob)) {
-      //  delete data.thumbnailUrl;
-      //}
       var requestData = _createRequestData($scope.data);
-
-      if ($scope.isSettingMode) {
-        JndConnectUnionApi.update('googleCalendar', requestData);
-      } else {
-        JndConnectUnionApi.create('googleCalendar', requestData);
-      }
+      JndConnectUnion.save({
+        current: $scope.current,
+        data: requestData
+      });
     }
 
     /**
@@ -110,9 +97,6 @@
         requestData.calendarSummary = calendarData.summary;
 
         requestData.roomId = data.roomId;
-        requestData.botName = data.footer.botName || 'GoogleCalendar';
-        requestData.botThumbnailFile = data.footer.botThumbnailFile;
-        requestData.lang = data.footer.lang;
 
         requestData.hasNotificationBefore = !!data.hasNotificationBefore;
         requestData.notificationBefore = data.notificationBefore;
@@ -131,6 +115,8 @@
         requestData.newEventNotification = !!data.newEventNotification;
         requestData.updatedEventNotification = !!data.updatedEventNotification;
         requestData.cancelledEventNotification = !!data.cancelledEventNotification;
+
+        _.extend(requestData, data.footer);
       }
 
       return requestData;
@@ -144,8 +130,8 @@
     function _createModel() {
       if ($scope.isSettingMode) {
         $scope.data = {
-          footer: {},
-          header: {}
+          header: JndConnectUnion.getDefaultHeader($scope.current),
+          footer: JndConnectUnion.getDefaultFooter($scope.current)
         };
       } else {
         $scope.data = {
@@ -154,8 +140,8 @@
           hasDailyScheduleSummary: true,
           dailyScheduleSummary: 9,
           newEventNotification: true,
-          footer: {},
-          header: {}
+          header: JndConnectUnion.getDefaultHeader($scope.current),
+          footer: JndConnectUnion.getDefaultFooter($scope.current)
         };
       }
 
@@ -175,29 +161,21 @@
      * @private
      */
     function _requestConnectInfo() {
-      JndConnectGoogleCalendar.getConnectInfo($scope.current.connectId)
-        .success(function(connectInfo) {
-          var data = $scope.data;
-          //console.log('set connect info ::: ', data);
+      JndConnectUnion.read({
+        current: $scope.current,
+        header: $scope.data.header,
+        footer: $scope.data.footer
+      })
+      .success(function(connectInfo) {
+        var data = $scope.data;
 
-          _.extend(data, connectInfo);
+        _.extend(data, connectInfo);
 
-          $scope.member = EntityMapManager.get('user', data.memberId);
-
-          $scope.data.header.memberId = data.memberId;
-          $scope.data.header.createdAt = data.createdAt;
-          $scope.data.header.isActive = data.status === 'enabled';
-          $scope.data.header.accountId = data.googleId;
-
-          $scope.footer = {
-            lang: data.lang,
-            botThumbnailFile: _.isString(data.botThumbnailUrl) && data.botThumbnailUrl,
-            botName: data.botName
-          };
-        })
-        .finally(function() {
-          $scope.isInitialized = true;
-        });
+        $scope.member = EntityMapManager.get('user', data.memberId);
+      })
+      .finally(function() {
+        $scope.isInitialized = true;
+      });
     }
 
     /**
@@ -211,9 +189,7 @@
       JndConnectGoogleCalendar.getCalendarList()
         .success(function(calendarInfo) {
           _setCalendarList(calendarInfo);
-          if (!$scope.isSettingMode) {
-            $scope.isCalendarListLoaded = true;
-          }
+          $scope.isCalendarListLoaded = true;
         });
     }
 
@@ -236,27 +212,20 @@
     function _setCalendarList(calendarInfo) {
       var data = $scope.data;
       var list = [];
-      var accountList = [];
-
-      //console.log('set account list ::: ', calendarInfo);
 
       $scope.calendarMap = {};
       _.each(calendarInfo, function(googleAccount) {
         var calendarList = [];
-
-        accountList.push({
-          text: googleAccount.googleId,
-          value: googleAccount.googleId
-        });
+        var googleId = googleAccount.authenticationName;
 
         list.push({
-          name: googleAccount.googleId,
-          list: calendarList
+          groupName: googleId,
+          groupList: calendarList
         });
 
         _.each(googleAccount.list, function(calendar) {
           $scope.calendarMap[calendar.id] = {
-            googleId: googleAccount.googleId,
+            googleId: googleId,
             summary: calendar.summary
           };
 
@@ -269,7 +238,7 @@
 
       JndUtil.safeApply($scope, function() {
         data.calendarList = list;
-        $scope.data.header.accounts = accountList;
+        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo);
       });
     }
   }

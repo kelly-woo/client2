@@ -6,7 +6,7 @@
         ng-click="selectItem($index)">
       <i class="icon-user"></i>
       <span class="account-name inline-overflow-ellipsis">{{item.text}}</span>
-      <i class="icon-remove-circle" ng-click="onAccountDeleteClick()"></i>
+      <i class="icon-remove-circle" ng-click="onAccountDeleteClick(item)"></i>
     </li>
   </ul>
   <div class="account-add" ng-if="permission.allowAccountAdd" ng-click="onAccountAddClick()">

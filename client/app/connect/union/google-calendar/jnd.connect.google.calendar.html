@@ -10,9 +10,11 @@
           <span class="setting-label" translate>@jnd-connect-36</span>
           <div class="setting-contents">
             <span class="setting-description"></span>
-            <jnd-selectbox-common jnd-data-list="data.calendarList"
+            <jnd-connect-union-selectbox-pending
+                                  jnd-data-list="data.calendarList"
                                   jnd-data-model="data.calendarId"
-                                  jnd-data-is-disabled="!isCalendarListLoaded"></jnd-selectbox-common>
+                                  jnd-data-is-loaded="isCalendarListLoaded"
+                                  jnd-data-is-disabled="isSettingMode"></jnd-connect-union-selectbox-pending>
             <span class="create-new-topic white-button cursor_pointer animate-all" style="display: none;">토픽 생성하기</span>
             <i class="icon-long-arrow-right"></i>
             <div class="clear"></div>
@@ -21,12 +23,8 @@
         <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
           <span class="setting-label" translate>@jnd-connect-38</span>
           <div class="setting-contents">
-            <span class="setting-description"></span>
-
-            <jnd-selectbox-room jnd-data-model="data.roomId"></jnd-selectbox-room>
-
-            <span class="create-new-topic white-button cursor_pointer animate-all"
-                  translate>@jnd-connect-40</span>
+            <jnd-connect-union-selectbox-room
+              jnd-data-model="data.roomId"></jnd-connect-union-selectbox-room>
             <div class="clear"></div>
           </div>
         </section>

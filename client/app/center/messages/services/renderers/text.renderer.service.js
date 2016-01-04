@@ -142,21 +142,6 @@
       var hasSubset1;
       var hasSubset2;
 
-      ////dummy data
-      //content.connectInfo = [
-      //  {
-      //    "event": "schedule_place_updated",
-      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
-      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서[다음](www.daum.net)컁컁"
-      //  },
-      //  {
-      //    "event": "schedule_place_updated",
-      //    "title": "[주간회의](https://www.google.com/calendar/event?eid=aXI2YnBhcHZhdGxmY3RyZmJvb2dhdXBiYnMgYWxleC5raW1AdG9zc2xhYi5jb20) qwd [더 이상은 네이버](http://www.naver.com)",
-      //    "description": "12월 30일 부터 12월 30일까지 미팅룸1에서"
-      //  }
-      //];
-      //content.connectColor = 'red';
-
       //if (memberService.isIntegrationBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
       if (MessageCollection.hasIntegrationPreview(index)) {
         integrationPreview = '';
@@ -167,17 +152,11 @@
           integrationPreview += _templateIntegrationPreview({
             html: {
               title: _getConnectText(info.title),
-              description: _getConnectText(info.description),
-              subsetTitle1: 'asdfkjasldkf',
-              subsetDescription1: 'aefjowiejf',
-              subsetTitle2: 'asdfkjasldkf',
-              subsetDescription2: 'aefjowiejf'
+              description: _getConnectText(info.description)
             },
             hasTitle: !!info.title,
             hasDescription: !!info.description,
-            hasSubsets: hasSubset1 || hasSubset2,
-            hasSubset1: hasSubset1,
-            hasSubset2: hasSubset2
+            hasSubsets: false
           });
         });
 
