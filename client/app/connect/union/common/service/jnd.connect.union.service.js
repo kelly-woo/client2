@@ -121,17 +121,22 @@
     /**
      * 공통 header 데이터에서 account 관련 데이터를 주입 한다.
      * @param {object} header - 공통 header
-     * @param {object} response - 공통 포멧 응답 값
+     * @param {array} accountList - 계정 리스트
+     *    @param {string} accountList[].authenticationName - 노출할 계정 정보
+     *    @param {number|string} accountList[].authenticationId - 계정의 키값
      */
-    function setHeaderAccountData(header, response) {
+    function setHeaderAccountData(header, accountList) {
       if (header) {
+        var accounts = _.map(accountList, function(account) {
+          return {
+            text: account.authenticationName,
+            value: account.authenticationId
+          };
+        });
         _.extend(header, {
           isAccountLoaded: true,
-          accountId: response.authenticationId,
-          accounts: [{
-            text: response.authenticationName,
-            value: response.authenticationId
-          }]
+          accountId: JndUtil.pick(accountList, 0, 'authenticationId'),
+          accounts: accounts
         });
       }
     }
