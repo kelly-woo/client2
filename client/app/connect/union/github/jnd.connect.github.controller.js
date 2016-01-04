@@ -114,7 +114,7 @@
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.hookRepoId = _hookRepoId;
-      JndConnectUnion.setHeaderAccountData($scope.formData.header, response);
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, [response]);
     }
 
     /**
