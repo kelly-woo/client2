@@ -1063,7 +1063,7 @@
 }
 
 @media (max-width: 768px) {
-  .jnd-connect-service-container > div.jnd-connect-banner .banner-description {
+  /*.jnd-connect-service-container > div.jnd-connect-banner .banner-description {
     max-width: 100%;
     margin: 24px auto 20px;
     text-align: center;
@@ -1075,18 +1075,17 @@
     background-size: cover;
     bottom: 0px;
   }
+  .jnd-connect-service-container > div.jnd-connect-banner {
+    padding: 24px 28px 0;
+  }*/
   .jnd-connect-service-container > div {
     width: 95%;
   }
-  .jnd-connect-service-container > div.jnd-connect-banner {
-    padding: 24px 28px 0;
-  }
-
 }
 
 
 @media (max-width: 460px) {
-  .jnd-connect-service-container > div.jnd-connect-banner .banner-image {
+  /*.jnd-connect-service-container > div.jnd-connect-banner .banner-image {
     margin: 0;
     position: relative;
     left: 50%;
@@ -1100,11 +1099,14 @@
   }
   .jnd-connect-service-container {
     padding: 32px 22px;
-  }
+  }*/
 }
 
 @media (min-width: 1400px) {
   .jnd-connect-service-container > div.jnd-connect-banner .banner-description {
-    max-width: 52%;
+    max-width: 53%;
+  }
+  .jnd-connect.banner-image {
+	left: 58%;
   }
 }
