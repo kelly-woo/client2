@@ -1,3 +1,73 @@
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/tosslab/web_client/compare/v1.11.0...v1.12.0) (2015-12-16)
+
+
+### Bug Fixes
+
+* **app:** 한글일 경우 font-familyd에 돋움 추가 ([47f4912](https://github.com/tosslab/web_client/commit/47f4912))
+* **app:** 한글일 경우 영문 font-family 2개 추가 ([a533f10](https://github.com/tosslab/web_client/commit/a533f10))
+* **app.notification:** _loadLocalNotificationFlag 의 기본값을 true 로 설정하도록 수정 ([aa3a6e2](https://github.com/tosslab/web_client/commit/aa3a6e2))
+* **app.notification:** app 일 경우 notification 설정 값 저장되지 않는 현상 해결 ([da8d695](https://github.com/tosslab/web_client/commit/da8d695))
+* **app.notification:** 앱의 경우 내용 보여주기 관련된 값에 대해서도 재설정 하는 로직 추가 ([42b6f27](https://github.com/tosslab/web_client/commit/42b6f27))
+* **center:** center에 출력되는 thumbnail size를 medium -> large ([d449eb3](https://github.com/tosslab/web_client/commit/d449eb3))
+* **center:** 댓글 뷰도 메세지 뷰와 마찬가지로 작성자 합치기 적용하도록 수정 ([fddffd2](https://github.com/tosslab/web_client/commit/fddffd2))
+* **center:** 원본이미지 보기를 제공하는 file만 "이미지 보기"버튼 출력 하도록 수정 ([ea11ed0](https://github.com/tosslab/web_client/commit/ea11ed0))
+* **center:** 코멘트 타이틀에 표현 되는 코멘트의 총 수가 잘못 표시되는 버그 수정 ([c2353dc](https://github.com/tosslab/web_client/commit/c2353dc))
+* **center:** 파일 뷰 버그 수정 ([ab9cee1](https://github.com/tosslab/web_client/commit/ab9cee1))
+* **center:** 파일 뷰 버그 수정 ([a1a3dad](https://github.com/tosslab/web_client/commit/a1a3dad))
+* **dropdown:** 드롭다운 오버랩 되는 현상 수정 ([35bce9d](https://github.com/tosslab/web_client/commit/35bce9d))
+* **lang:** request후 reponse data가 lang 값 설정값과 sync 되지 않는 버그 수정 ([bbc2629](https://github.com/tosslab/web_client/commit/bbc2629))
+* **left:** 토픽명 길 때 툴팁 없어짐 현상 수정 ([fa00420](https://github.com/tosslab/web_client/commit/fa00420))
+* **modal:** 로그아웃 > 로그인 > 프로필 모달 출력 후 닫히지 않는 버그 수정 ([62617cb](https://github.com/tosslab/web_client/commit/62617cb))
+* **modal:** 백드랍 사라지지 않는 현상에 대한 방어코드 추가 ([47d49ce](https://github.com/tosslab/web_client/commit/47d49ce))
+* **modal:** 점프 모달에서 뱃지카운트가 있는 DM이 최상단에 노출 되도록 수정 ([0549ff7](https://github.com/tosslab/web_client/commit/0549ff7))
+* **noti:** 노티 유지시간 10초에서 7초로 변경 ([b92fdb0](https://github.com/tosslab/web_client/commit/b92fdb0))
+* **right:** server의 버전이 올라가있고 client의 버전이 낮은 경우 client에서 한번도 이미지 요청 하지 않았다가 최초 요청시 네임이 변경된 이 ([aa9b814](https://github.com/tosslab/web_client/commit/aa9b814))
+* **right:** 코멘트 입력란에 프로필 동작하지 않는 버그 수정 ([1f19bbf](https://github.com/tosslab/web_client/commit/1f19bbf))
+* **right:** 파일탭 진입 상태로 토픽 이동시 검색 필터 변경되지 않는 현상 수정 ([f0a788d](https://github.com/tosslab/web_client/commit/f0a788d))
+* **right:** 필터타입 이미지 프리뷰 클릭시 원본 이미지 보도록 수정 ([20a0a52](https://github.com/tosslab/web_client/commit/20a0a52))
+* **shortcut:** shortcut 모달 reference 오류 수정 ([cd3162b](https://github.com/tosslab/web_client/commit/cd3162b))
+* **shortcut:** 단축키 안내 메뉴에 불필요한 테스트용 text 제거 ([f82625f](https://github.com/tosslab/web_client/commit/f82625f))
+* **src:** src 를 ng-src 로 변경함 ([baa1e14](https://github.com/tosslab/web_client/commit/baa1e14))
+* **sticker:** 메세지 입력시 sticker 예외처리 ([867cddc](https://github.com/tosslab/web_client/commit/867cddc))
+* **sticker:** 선택된 sticker와 입력된 sticker의 사이즈 126px로 수정 ([d69355c](https://github.com/tosslab/web_client/commit/d69355c))
+* **sticker:** 스티커 아이콘의 z-index 삭제 & 스티커 입력시 블링크 현상 수정 ([d5c2d82](https://github.com/tosslab/web_client/commit/d5c2d82))
+* **version:** 버전정보 노출 로직 수정 ([bd765bb](https://github.com/tosslab/web_client/commit/bd765bb))
+* **zoom:** window, mac app 일 경우에만 zoom 기능 동작하도록 수정 ([17fd041](https://github.com/tosslab/web_client/commit/17fd041))
+* **zoom:** zoom 이 최대 확대된 이후 특정 값에서 줄어들지 않는 현상 수정 ([8103d0c](https://github.com/tosslab/web_client/commit/8103d0c))
+* **zoom:** 가장 처음 로드 시 zoom 레이어 노출되지 않도록 수정 ([a9d9e48](https://github.com/tosslab/web_client/commit/a9d9e48))
+* **zoom:** 소숫점 버림하였기 때문에 특정값 이상 올라가거나 내려가지 않는 오류 수정 ([bd7d2a5](https://github.com/tosslab/web_client/commit/bd7d2a5))
+* **zoom:** 키패드의 + - 도 인식하도록 수정 ([87f1b50](https://github.com/tosslab/web_client/commit/87f1b50))
+* **핫키:** center 혹은 file comment input 인지 여부에 따라 Ctrl + E 입력 시 sticker 노출 위치 변경 ([9826b3e](https://github.com/tosslab/web_client/commit/9826b3e))
+* **핫키:** 변경된 키셋 적용 ([c576eae](https://github.com/tosslab/web_client/commit/c576eae))
+
+### Features
+
+* **center:** 코멘트 & 이미지 노출 방식 개선 ([dfc2738](https://github.com/tosslab/web_client/commit/dfc2738))
+* **right:** 필터타입 이미지 프리뷰 일때 hover tab 추가 ([b1b4920](https://github.com/tosslab/web_client/commit/b1b4920))
+* **sticker:** 대만용 sticker 출력하도록 추가 ([316bc31](https://github.com/tosslab/web_client/commit/316bc31))
+
+
+
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/tosslab/web_client/compare/v1.10.0...v1.11.0) (2015-12-02)
+
+
+### Bug Fixes
+
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([19ff767](https://github.com/tosslab/web_client/commit/19ff767))
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([2bfd575](https://github.com/tosslab/web_client/commit/2bfd575))
+* **badge:** Unfocused 상태의 뱃지카운트가 댓글 등록될때 초기화되는 현상 수정 ([31d4994](https://github.com/tosslab/web_client/commit/31d4994))
+* **custom-selectbox:** 커스텀 셀렉트 박스의 '공유된 곳' 필터에 자신의 이름이 표시되는 현상 수정 ([45c728c](https://github.com/tosslab/web_client/commit/45c728c))
+* **Custom-Selectbox:** 커스텀 셀랙트 박스에서 차단된 멤버 검색되지 않도록 수정 ([e247380](https://github.com/tosslab/web_client/commit/e247380))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([6f9aeb8](https://github.com/tosslab/web_client/commit/6f9aeb8))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([071d822](https://github.com/tosslab/web_client/commit/071d822))
+* **zoom:** zoom 이 최대 확대된 이후 특정 값에서 줄어들지 않는 현상 수정 ([d18c553](https://github.com/tosslab/web_client/commit/d18c553))
+* **파일공유:** 파일을 이미 공유된 토픽에 재공유 할 수 있도록 수정 ([96040c3](https://github.com/tosslab/web_client/commit/96040c3))
+* **핫키:** 팀 초대 모달에서 cmd+enter 조건 오류 수정 ([9b49780](https://github.com/tosslab/web_client/commit/9b49780))
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.19...v1.10.0) (2015-11-25)
 
