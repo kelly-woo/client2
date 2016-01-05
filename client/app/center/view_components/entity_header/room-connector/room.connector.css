@@ -2,8 +2,7 @@
   position: absolute;
   width: 392px;
   cursor: default;
-  left: -338px;
-  margin-top: -3px !important;
+  margin-top: 5px !important;
 }
 
 .room-integration-connect .connect-wrapper ul {
@@ -30,7 +29,7 @@
 .connect-status .connect-status-icon.connect-inactive {
   background-image: url('/assets/images/service-logo-jnd-connect-inactive.png');
 }
-.connect-status > span {
+.connect-status span {
   display: inline-block;
   margin-top: 8px;
   font-size: 13px;
@@ -38,7 +37,7 @@
   font-weight: 700;
   color: #9d9e9e;
 }
-.connect-status > span.has-plugs {
+.connect-status span.has-plugs {
   color: #155172;
 }
 
