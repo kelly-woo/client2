@@ -9,7 +9,7 @@
     .directive('connectPlug', connectPlug);
 
   /* @ngInject */
-  function connectPlug(EntityMapManager) {
+  function connectPlug(EntityMapManager, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -39,11 +39,15 @@
 
         scope.isActive = scope.status === 'enabled';
 
+        scope.isConnector = _isConnector();
+        scope.isAllowUpdate = scope.isConnector || _isAdmin();
+
         scope.onServiceToggle = onServiceToggle;
         scope.onSettingClick = onSettingClick;
         scope.onDeleteClick = onDeleteClick;
 
         _setContent();
+
       }
 
       /**
@@ -94,6 +98,23 @@
             $value: value
           });
         }
+      }
+
+      /**
+       * connect를 생성한 connector 여부
+       * @private
+       */
+      function _isConnector() {
+        return memberService.getMemberId() === scope.memberId;
+      }
+
+      /**
+       * admin 여부
+       * @returns {*}
+       * @private
+       */
+      function _isAdmin() {
+        return memberService.isAdmin();
       }
     }
   }

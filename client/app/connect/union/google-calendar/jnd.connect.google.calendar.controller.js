@@ -93,11 +93,18 @@
       }
 
       if (data) {
-        requestData.calendarId = data.calendarId;
+        if (!$scope.isSettingMode) {
+          calendarData = $scope.calendarMap[data.calendarMapKey];
+          requestData.googleId = calendarData.googleId;
+          requestData.calendarId = calendarData.calendarId;
+          requestData.calendarSummary = calendarData.summary;
+        } else {
+          requestData.googleId = data.googleId;
+          requestData.calendarId = data.calendarId;
+          requestData.calendarSummary = data.calendarSummary;
+        }
 
-        calendarData = $scope.calendarMap[data.calendarId];
-        requestData.googleId = calendarData.googleId;
-        requestData.calendarSummary = calendarData.summary;
+
 
         requestData.roomId = data.roomId;
 
@@ -191,7 +198,7 @@
 
       JndConnectGoogleCalendar.getCalendarList()
         .success(function(calendarInfo) {
-          _setCalendarList(calendarInfo);
+          _setCalendarInfo(calendarInfo);
           $scope.isCalendarListLoaded = true;
         });
     }
@@ -212,11 +219,23 @@
      * @param calendarInfo
      * @private
      */
+    function _setCalendarInfo(calendarInfo) {
+      JndUtil.safeApply($scope, function() {
+        if (!$scope.isSettingMode) {
+          _setCalendarList(calendarInfo);
+        }
+
+        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo);
+      });
+    }
+
     function _setCalendarList(calendarInfo) {
       var data = $scope.data;
       var list = [];
 
       $scope.calendarMap = {};
+      $scope.calendarMapKey = 0;
+
       _.each(calendarInfo, function(googleAccount) {
         var calendarList = [];
         var googleId = googleAccount.authenticationName;
@@ -227,22 +246,20 @@
         });
 
         _.each(googleAccount.list, function(calendar) {
-          $scope.calendarMap[calendar.id] = {
-            googleId: googleId,
-            summary: calendar.summary
-          };
-
           calendarList.push({
             text: calendar.summary,
-            value: calendar.id
+            value: $scope.calendarMapKey
           });
+
+          $scope.calendarMap[$scope.calendarMapKey++] = {
+            googleId: googleId,
+            calendarId: calendar.id,
+            summary: calendar.summary
+          };
         });
       });
 
-      JndUtil.safeApply($scope, function() {
-        data.calendarList = list;
-        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo);
-      });
+      data.calendarList = list;
     }
 
     /**
@@ -253,8 +270,8 @@
       var account = accountService.getAccount();
 
       if (account) {
-        $scope.timezone = '(' + account.timezone + ')';
-        $scope.timezoneDescription = $filter('translate')('@jnd-connect-82').replace('{{timezone}}', $scope.timezone);
+        $scope.utcTimeOffset = '(UTC' + account.utcTimeOffset + ')';
+        $scope.utcTimeOffsetDescription = $filter('translate')('@jnd-connect-82').replace('{{timezone}}', $scope.utcTimeOffset);
       }
     }
   }

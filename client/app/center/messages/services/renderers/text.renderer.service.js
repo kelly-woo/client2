@@ -80,14 +80,24 @@
       var isChild = MessageCollection.isChildText(index);
       var template = isChild ? _templateChild : _template;
 
+      var connectPreview = _getConnectPreview(msg, index);
+      var profileCursor;
+
+      if (_.isString(connectPreview) && connectPreview.length > 0) {
+        profileCursor = '';
+      } else {
+        profileCursor = 'cursor_pointer';
+      }
+
       return template({
         html: {
           linkPreview: _getLinkPreview(msg, index),
-          connectPreview: _getConnectPreview(msg, index)
+          connectPreview: connectPreview
         },
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
-          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
+          profileCursor: profileCursor
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),

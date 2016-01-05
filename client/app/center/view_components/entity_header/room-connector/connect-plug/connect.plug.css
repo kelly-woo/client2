@@ -14,9 +14,15 @@
   margin:0;
 }
 .connect-plug .plug-body {
-  width: 160px;
+  width: 150px;
   font-weight: 700;
   color: #6E6E6E;
+}
+.connect-plug .plug-body.plug-body-half {
+  width: 180px;
+}
+.connect-plug .plug-body.plug-body-full {
+  width: 100%;
 }
 
 .plug-body .plug-service {

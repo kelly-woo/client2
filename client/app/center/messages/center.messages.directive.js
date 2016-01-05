@@ -396,9 +396,7 @@
       function _onClickUser(msg) {
         var writer = msg.extWriter;
 
-        if (memberService.isConnectBot(writer.id)) {
-          console.log('bot profile clicked ::: ', writer);
-        } else {
+        if (!memberService.isConnectBot(writer.id)) {
           jndPubSub.pub('onMemberClick', writer.id);
         }
       }

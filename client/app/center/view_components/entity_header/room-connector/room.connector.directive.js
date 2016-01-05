@@ -19,7 +19,7 @@
       link: link
     };
 
-    function link(scope, el) {
+    function link(scope) {
       var clearWatch;
 
       _init();
@@ -29,7 +29,6 @@
        * @private
        */
       function _init() {
-
         scope.onConnectStatusChange = onConnectStatusChange;
 
         scope.onConnectSetting = onConnectSetting;
@@ -58,7 +57,7 @@
        * change connect status
        */
       function onConnectStatusChange(connectId, status) {
-        //_requestConnectStatus();
+
       }
 
       /**
@@ -86,15 +85,7 @@
        * add connect
        */
       function onConnectAddClick() {
-        //JndConnect.show();
-      }
-
-      /**
-       * request connect status
-       * @private
-       */
-      function _requestConnectStatus() {
-
+        JndConnect.open();
       }
 
       /**
@@ -138,96 +129,6 @@
        * @private
        */
       function _successRoomConnectInfo(data) {
-        //var temp = {
-        //  "google_calendar": [
-        //    {
-        //      "newEventNotification":true,
-        //      "updatedEventNotification":true,
-        //      "cancelledEventNotification":true,
-        //      "createdAt":"2015-12-14T10:01:26.811Z",
-        //      "updatedAt":null,
-        //      "hasWeeklyScheduleSummary":true,
-        //      "hasDailyScheduleSummary":true,
-        //      "hasAllDayNotification":true,
-        //      "hasNotificationBefore":true,
-        //      "authId":11233500,
-        //      "teamId":11186759,
-        //      "memberId":11232644,
-        //      "status":"enabled",
-        //      "roomId":11232773,
-        //      "calendarId":"alex.kim@tosslab.com",
-        //      "calendarSummary":"alex.kim@tosslab.com",
-        //      "timezone":"Asia/Seoul",
-        //      "botId":11234093,
-        //      "lang":"ko",
-        //      "notificationBefore":"4h",
-        //      "allDayNotificationBeforeDates":"2d",
-        //      "allDayNotificationHour":14,
-        //      "dailyScheduleSummary":11,
-        //      "weeklyScheduleSummaryHour":13,
-        //      "weeklyScheduleSummaryDayOfWeek":"TU",
-        //      "id":119
-        //    }
-        //  ],
-        //  "github": [
-        //    {
-        //      "id": 16,
-        //      "hookRepo": "tosslab/toss_server",
-        //      "hookId": 6692298,
-        //      "botId": 11406106,
-        //      "roomId": 510,
-        //      "memberId": 285,
-        //      "teamId": 279,
-        //      "webhookTokenId": 30,
-        //      "connectAuthId": 3,
-        //      "updatedAt": "2015-12-15T13:58:46.124Z",
-        //      "createdAt": "2015-12-15T13:58:46.122Z",
-        //      "hookEvent": [
-        //        "push",
-        //        "commit_comment"
-        //      ],
-        //      "hookBranch": [
-        //        "develop",
-        //        "feature/connect"
-        //      ],
-        //      "lang": "ko",
-        //      "status": "enabled"
-        //    }
-        //  ],
-        //  "trello": [],
-        //  "jira": [
-        //    {
-        //      "id": 13,
-        //      "botId": 11406138,
-        //      "roomId": 295,
-        //      "webhookTokenId": 4,
-        //      "memberId": 11153799,
-        //      "teamId": 279,
-        //      "updatedAt": "2015-12-14T04:27:43.510Z",
-        //      "createdAt": "2015-12-14T04:27:43.508Z",
-        //      "lang": "ko",
-        //      "status": "enabled"
-        //    }
-        //  ],
-        //  "incoming": [
-        //    {
-        //      "id": 14,
-        //      "botId": 11406139,
-        //      "roomId": 295,
-        //      "webhookTokenId": 15,
-        //      "memberId": 11153799,
-        //      "teamId": 279,
-        //      "updatedAt": "2015-12-14T07:43:29.622Z",
-        //      "createdAt": "2015-12-14T07:43:29.619Z",
-        //      "lang": "en",
-        //      "status": "enabled"
-        //    }
-        //  ]
-        //};
-        //console.log('connect info ::: ', data);
-        //
-        //data = temp;
-
         _.each(data, function(connects, name) {
           _.each(connects, function(connect) {
             scope.connectPlugs.push({

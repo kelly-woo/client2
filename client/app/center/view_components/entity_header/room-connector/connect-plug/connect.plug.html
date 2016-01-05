@@ -1,15 +1,17 @@
 <div class="connect-plug">
   <img class="connect-union-icon plug-service-image" ng-src="{{botProfileImage}}"/>
-  <div class="plug-body">
+  <div class="plug-body" ng-class="{'plug-body-half': isAllowUpdate && !isConnector, 'plug-body-full': !isAllowUpdate}">
     <div class="plug-service overflow-ellipsis">{{botName}}</div>
     <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>{{memberName}}</div>
   </div>
-  <div class="plug-menu connect-union-float-right connect-union-plug-tool-container">
+  <div class="plug-menu connect-union-float-right connect-union-plug-tool-container" ng-if="isAllowUpdate">
     <jnd-connect-status-switch connect-id="data.connectId"
                                union-name="data.unionName"
                                is-active="isActive"
                                is-non-status-text="true"></jnd-connect-status-switch>
-    <span class="opt-button jnd-cursor-pointer" ng-click="onSettingClick($event)"><i class="icon-pencil"></i></span>
+    <span class="opt-button jnd-cursor-pointer"
+          ng-if="isConnector"
+          ng-click="onSettingClick($event)"><i class="icon-pencil"></i></span>
     <jnd-connect-trash-button connect-id="data.connectId"
                               union-name="data.unionName"
                               on-confirm-callback="onDeleteClick($value)"></jnd-connect-trash-button>

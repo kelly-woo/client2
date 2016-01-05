@@ -3,7 +3,7 @@
       auto-close="outsideClick"
       is-open="isConnectBoxOpen">
   <div class="panel-title-right-item"
-       tooltip="잔디 컨넥션"
+       tooltip="@잔디 커넥션"
        tooltip-placement="bottom"
        dropdown-toggle>
     <i class="icon-bell"></i>
@@ -29,7 +29,7 @@
                           on-delete="onConnectDelete($connectId, $value)"></connect-plug>
           </li>
         </ul>
-        <span class="connect-empty" ng-switch-default>잔디 커넥트로 외부 서비스를 연동하여 연동된 서비스의 변경사항을 토픽에서 확인하세요.</span>
+        <span class="connect-empty" ng-switch-default>@잔디 커넥트로 외부 서비스를 연동하여 연동된 서비스의 변경사항을 토픽에서 확인하세요.</span>
       </div>
       <div class="connect-footer">
         <button class="new_channel_btn btn btn-ok" ng-click="onConnectAddClick()">{{connectButtonText}}</button>
