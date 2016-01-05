@@ -1215,7 +1215,8 @@ msgstr "STEP 1"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
-msgstr "In your JIRA account, click on System in the JIRA Administration menu"
+msgstr ""
+"In your JIRA account, click on <b>System</b> in the JIRA Administration menu"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
@@ -1227,7 +1228,7 @@ msgstr "GitHub"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-150"
-msgstr "In the sidebar under Advanced, click on Webhooks"
+msgstr "In the sidebar under <b>Advanced</b>, click on <b>Webhooks</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-151"
@@ -1236,7 +1237,8 @@ msgstr "STEP 3"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-152"
 msgstr ""
-"Click Create a Webhook. Copy and paste the link from below to the URL field."
+"Click <b>Create a Webhook</b>. Copy and paste the link from below to the URL "
+"field."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-153"
@@ -1261,7 +1263,8 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-157"
 msgstr ""
-"Click on Webhooks & Services from the sidebar. Then, click  Add Webhook."
+"Click on Webhooks & Services from the sidebar. Then, click <b>Add webhook</"
+"b>."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-158"
@@ -1295,7 +1298,9 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
-msgstr "In the request, you must define Accept and Content-Type as below"
+msgstr ""
+"In the request, you must define <b>Accept</b> and <b>Content-Type</b> as "
+"below"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-164"
@@ -1317,7 +1322,9 @@ msgstr "The sample format above will be shown as the sample message below. "
 msgid "@jnd-connect-168"
 msgstr ""
 "You can customize the profile image and the name of the integration bot. If "
-"you have further questions, please feel free to contact us at JANDI support!"
+"you have further questions, please feel free to contact us at <a href="
+"\"https://jandi.zendesk.com/hc/en-us/requests/new\" target=\"_blank\">JANDI "
+"support</a>!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1397,7 +1404,9 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-185"
-msgstr "Are you sure you want to delete this integration?"
+msgstr ""
+"Are you sure you want to delete this integration? Previously received "
+"messages will be kept."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-186"
@@ -1540,11 +1549,157 @@ msgstr ""
 "continue."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-216"
+msgstr "Please choose a calendar."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-217"
+msgstr "Please choose a repository."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-218"
+msgstr "Please choose a board."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-219"
+msgstr "Please check at least one event that you want to be notified. "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
 msgstr "Send data into JANDI from your favorite external services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-220"
+msgstr "@jnd-connect-220"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-221"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-222"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-223"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-224"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-225"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-226"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-227"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-228"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-229"
+msgstr "Send data into JANDI from your favorite external services"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b> is an online "
+"source code management platform for Git projects.<br/><br/>\n"
+"This integration will send notifications of commits, comments, pull "
+"requests, and other activity on GitHub Issues to a JANDI topic."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-230"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-231"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-232"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-233"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-234"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-235"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-236"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-237"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-238"
+msgstr ""
+"GitHub is an online source code management platform for Git projects.This "
+"integration will send notifications of commits, comments, pull requests, and "
+"other activity on GitHub Issues to a JANDI topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-239"
 msgstr ""
 "GitHub is an online source code management platform for Git projects.This "
 "integration will send notifications of commits, comments, pull requests, and "
@@ -1553,12 +1708,102 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
 msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google Calendar</a></"
+"b> provides a shared calendar for your team. <br/><br/>\n"
+"This integration will send reminders of scheduled events, notifications of "
+"any updates, and daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-240"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-241"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-242"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-243"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-244"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-245"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-246"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-247"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-248"
+msgstr ""
+"Google Calendar provides a shared calendar for your team.This integration "
+"will send reminders of scheduled events, notifications of any updates, and "
+"daily and weekly summary reports."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-249"
+msgstr ""
 "Google Calendar provides a shared calendar for your team.This integration "
 "will send reminders of scheduled events, notifications of any updates, and "
 "daily and weekly summary reports."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
+msgstr ""
+"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b> is "
+"an issue tracking platform that allows teams to capture and organize issues, "
+"and assign and monitor workflow. <br/><br/>\n"
+"This integration will send notifications of any updates to JIRA issues."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-250"
 msgstr ""
 "JIRA is an issue tracking platform that allows teams to capture and organize "
 "issues, and assign and monitor workflow. This integration will send "
@@ -1567,15 +1812,16 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
 msgstr ""
-"Trello is a flexible task management tool using Kanban boards to run your "
-"projects.This integration will send notifications of any activity on your "
-"boards, lists, and cards"
+"<b><a href=https://trello.com target=_blank>Trello</a></b> is a flexible "
+"task management tool using Kanban boards to run your projects. <br/><br/>\n"
+"This integration will send notifications of any activity on your boards, "
+"lists, and cards."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
-"Incoming Webhooks are a simple way to send messages from external services "
-"or apps of your choice into a JANDI topic. You can think of it as a "
+"<b>Incoming Webhook</b> are a simple way to send messages from external "
+"services or apps of your choice into a JANDI topic. You can think of it as a "
 "customized integration."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -1822,7 +2068,7 @@ msgstr "11:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-82"
-msgstr "@jnd-connect-97"
+msgstr "{{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-83"
