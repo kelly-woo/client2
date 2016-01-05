@@ -252,12 +252,17 @@
   font-size: 16px;
   color: #154a67;
 }
-.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-bell {
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-bell,
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
   font-size: 18px;
   top: 8px;
   left: 6px;
   position: absolute;
 }
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
+  font-size: 20px;
+}
+
 .panel-title-member__more .panel-title-member__count,
 .panel-title-right-menu.room-integration-connect .panel-title-right-item span {
   font-size: 15px;

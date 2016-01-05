@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
-                                        JndConnectUnion, accountService) {
+                                        JndConnectUnion, accountService, JndConnect) {
     $scope.selectedRoom = '';
 
     _init();
@@ -43,6 +43,32 @@
     function _attachEvents() {
       $scope.$on('unionHeader:accountInfoChange', _onAccountInfoChange);
       $scope.$on('unionFooter:save', _onSave);
+      $scope.$on('accountMenuDirective:removeAccountBefore', _onRemoveAccountBefore);
+      $scope.$on('accountMenuDirective:removeAccountDone', _onRemoveAccountDone);
+    }
+
+    /**
+     * header의 account 삭제 수행 전 event handler
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
+    function _onRemoveAccountBefore(angularEvent, data) {
+      if (data.hasSingleItem) {
+        $scope.isLoading = true;
+      }
+    }
+
+    /**
+     * header의 account 삭제 수행완료 event handler
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
+    function _onRemoveAccountDone(angularEvent, data) {
+      if (data.hasSingleItem) {
+        $scope.isLoading = false;
+      }
     }
 
     /**
@@ -72,9 +98,13 @@
      */
     function _onSave() {
       var requestData = _createRequestData($scope.data);
+
+      $scope.isLoading = true;
       JndConnectUnion.save({
         current: $scope.current,
         data: requestData
+      }).finally(function() {
+        $scope.isLoading = false;
       });
     }
 
@@ -103,8 +133,6 @@
           requestData.calendarId = data.calendarId;
           requestData.calendarSummary = data.calendarSummary;
         }
-
-
 
         requestData.roomId = data.roomId;
 

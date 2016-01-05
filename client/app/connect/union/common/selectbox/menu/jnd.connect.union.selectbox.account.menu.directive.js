@@ -107,11 +107,19 @@
           hasSingleItem = true;
         }
 
+        jndPubSub.pub('accountMenuDirective:removeAccountBefore', {
+          hasSingleItem: hasSingleItem
+        });
         JndConnectUnionApi.removeAccount(item.value)
           .success(function() {
             jndPubSub.pub('unionHeader:accountInfoChange');
+            jndPubSub.pub('accountMenuDirective:removeAccountDone', {
+              hasSingleItem: hasSingleItem
+            });
 
-            hasSingleItem && JndConnect.backToMain();
+            if (hasSingleItem) {
+              JndConnect.backToMain();
+            }
           });
       }
     }
