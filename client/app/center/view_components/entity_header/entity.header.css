@@ -30,6 +30,11 @@
   max-width: none;
 }
 
+.panel-title-container .open > .dropdown-menu {
+  top: 27px !important;
+  right: 0  !important;
+  left: auto;
+}
 .panel-title-info {
   max-width: 73%;
 }
@@ -197,10 +202,12 @@
   height: 25px;
   line-height: 0;
 }
-.panel-title-right-menu__item:hover {
+.panel-title-right-menu__item:hover,
+.panel-title-right-menu:hover .panel-title-right-item {
   background-color: #d7e0e8;
 }
-.panel-title-right-menu__item:active {
+.panel-title-right-menu__item:active,
+.panel-title-right-menu:active .panel-title-right-item {
   background-color: #d7e0e8;
 }
 .absolute-right-tooltip {
@@ -270,10 +277,7 @@
 }
 .header-title-member__dropdown {
   max-height: 500px;
-  overflow-y: scroll;
-  top: 27px !important;
-  right: 0;
-  left: auto;
+  overflow-y: auto;
 }
 .panel-title-invite {
   padding-top: 3.5px;

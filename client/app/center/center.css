@@ -59,6 +59,7 @@ article {
   overflow-y: auto;
   min-width: 260px;
   padding-bottom: 0;
+  z-index: 9;
 }
 
 .rpanel-show .scroll-gray .msgs {

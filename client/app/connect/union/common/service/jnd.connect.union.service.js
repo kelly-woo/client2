@@ -103,7 +103,10 @@
       var header = options.header;
       var footer = options.footer;
       if (header) {
-        setHeaderAccountData(header, response);
+        if (response.authenticationName && response.authenticationId) {
+          setHeaderAccountData(header, [response]);
+        }
+
         _.extend(header, {
           createdAt: response.createdAt,
           isActive: response.status === 'enabled'
