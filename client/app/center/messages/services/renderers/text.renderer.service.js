@@ -15,7 +15,7 @@
 
     var _templateAttachment;
     var _templateLinkPreview;
-    var _templateIntegrationPreview;
+    var _templateConnectPreview;
 
     this.render = render;
     this.delegateHandler = {
@@ -34,7 +34,7 @@
 
       _templateAttachment = Handlebars.templates['center.text.attachment'];
       _templateLinkPreview = Handlebars.templates['center.text.link.preview'];
-      _templateIntegrationPreview = Handlebars.templates['center.text.integration.preview'];
+      _templateConnectPreview = Handlebars.templates['center.text.connect.preview'];
     }
 
 
@@ -83,7 +83,7 @@
       return template({
         html: {
           linkPreview: _getLinkPreview(msg, index),
-          integrationPreview: _getIntegrationPreview(msg, index)
+          connectPreview: _getConnectPreview(msg, index)
         },
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
@@ -134,22 +134,18 @@
      * @param index
      * @private
      */
-    function _getIntegrationPreview(msg, index) {
+    function _getConnectPreview(msg, index) {
       var html = '';
       var content = msg.message.content;
 
-      var integrationPreview;
-      var hasSubset1;
-      var hasSubset2;
+      var connectPreview;
 
-      //if (memberService.isIntegrationBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
-      if (MessageCollection.hasIntegrationPreview(index)) {
-        integrationPreview = '';
-        hasSubset1 = true;
-        hasSubset2 = true;
+      //if (memberService.isConnectBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
+      if (MessageCollection.hasConnectPreview(index)) {
+        connectPreview = '';
 
         _.each(content.connectInfo, function(info) {
-          integrationPreview += _templateIntegrationPreview({
+          connectPreview += _templateConnectPreview({
             html: {
               title: _getConnectText(info.title),
               description: _getConnectText(info.description)
@@ -162,7 +158,7 @@
 
         html = _templateAttachment({
           html: {
-            content: integrationPreview
+            content: connectPreview
           },
           style: {
             bar: 'background-color: ' + (content.connectColor || '#000') + ';'

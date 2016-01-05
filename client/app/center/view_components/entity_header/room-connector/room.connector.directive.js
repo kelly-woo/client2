@@ -104,7 +104,7 @@
       function _openConnectSetting(connectId, unionName) {
         JndConnect.open({
           connectId: connectId,
-          unionName: 'googleCalendar' //unionName
+          unionName: unionName
         });
       }
 

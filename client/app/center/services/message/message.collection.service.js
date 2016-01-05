@@ -36,7 +36,7 @@
     this.getSystemMessageCount = getSystemMessageCount;
 
     this.hasLinkPreview = hasLinkPreview;
-    this.hasIntegrationPreview = hasIntegrationPreview;
+    this.hasConnectPreview = hasConnectPreview;
 
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
@@ -316,7 +316,7 @@
      * @param index
      * @returns {boolean}
      */
-    function hasIntegrationPreview(index) {
+    function hasConnectPreview(index) {
       return !_.isEmpty(that.list[index].message.content.connectInfo);
     }
 

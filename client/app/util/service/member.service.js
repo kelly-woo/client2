@@ -90,7 +90,7 @@
       isUser: isUser,
       isBot: isBot,
       isJandiBot: isJandiBot,
-      isIntegrationBot: isIntegrationBot,
+      isConnectBot: isConnectBot,
 
       isDefaultProfileImage: isDefaultProfileImage
     };
@@ -672,7 +672,7 @@
      * @param {number} memberId
      * @returns {*|boolean|*}
      */
-    function isIntegrationBot(memberId) {
+    function isConnectBot(memberId) {
       var bot = EntityMapManager.get('bot', memberId);
       return isBot(memberId) && bot && bot.botType === 'connect_bot';
     }

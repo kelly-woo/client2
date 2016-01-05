@@ -725,6 +725,10 @@ app.controller('leftPanelController1', function(
     if (currentEntity.id === entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
+      if (memberService.isBot(entityId)) {
+        entityType = 'users';
+      }
+
       $state.go('archives', {entityType: entityType, entityId: entityId});
     }
   }

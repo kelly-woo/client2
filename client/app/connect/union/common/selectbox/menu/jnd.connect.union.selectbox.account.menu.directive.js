@@ -101,13 +101,17 @@
        * @private
        */
       function _requestAccountDelete(item) {
+        var hasSingleItem;
+
         if (scope.list.length === 1) {
-          JndConnect.backToMain();
+          hasSingleItem = true;
         }
 
         JndConnectUnionApi.removeAccount(item.value)
           .success(function() {
             jndPubSub.pub('unionHeader:accountInfoChange');
+
+            hasSingleItem && JndConnect.backToMain();
           });
       }
     }

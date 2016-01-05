@@ -442,10 +442,8 @@
         EntityMapManager.add('total', entity);
       });
 
-      _createEntityData(bots, function(entity) {
-        EntityMapManager.add('bot', entity);
-        EntityMapManager.add('member', entity);
-        EntityMapManager.add('total', entity);
+      _createEntityData(bots, function(bot) {
+        addBot(bot);
       });
 
       return {
@@ -492,6 +490,15 @@
 
       if (type === 'user') {
         entity.selected = false;
+      }
+    }
+
+    function addBot(bot) {
+      if (_.isObject(bot)) {
+        bot.name += '-bot';
+        EntityMapManager.add('bot', bot);
+        EntityMapManager.add('member', bot);
+        EntityMapManager.add('total', bot);
       }
     }
   }

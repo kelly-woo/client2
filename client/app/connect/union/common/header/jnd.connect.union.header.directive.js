@@ -81,7 +81,7 @@
         var unionName = scope.unionName;
 
         scope.permission = {
-          allowAccountUpdate: scope.isAllowAccountUpdate(unionName),
+          allowAccountUpdate: true,
           allowAccountAdd: scope.isAllowAccountAdd(unionName)
         };
       }

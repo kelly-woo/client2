@@ -394,7 +394,13 @@
        * @private
        */
       function _onClickUser(msg) {
-        jndPubSub.pub('onMemberClick', msg.extWriter.id);
+        var writer = msg.extWriter;
+
+        if (memberService.isConnectBot(writer.id)) {
+          console.log('bot profile clicked ::: ', writer);
+        } else {
+          jndPubSub.pub('onMemberClick', writer.id);
+        }
       }
 
       /**

@@ -643,6 +643,52 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
     + "\n</div>\n";
 },"useData":true});
 
+this["Handlebars"]["templates"]["center.text.connect.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"preview-title\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.title : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"3":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"preview-description\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.description : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"5":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "  <div class=\"preview-item preview-subsets\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset1 : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset2 : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n";
+},"6":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle1 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription1 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n    </div>\n";
+},"8":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle2 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription2 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n    </div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"integration-preview-wrapper\">\n  <div class=\"preview-item\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasTitle : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasDescription : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubsets : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n";
+},"useData":true});
+
 this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -689,54 +735,8 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
     + "      </div>\n    </div>\n  </div>\n  "
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.linkPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n  "
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.integrationPreview : stack1), depth0)) != null ? stack1 : "")
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.connectPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n</div>\n";
-},"useData":true});
-
-this["Handlebars"]["templates"]["center.text.integration.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    var stack1;
-
-  return "    <div class=\"preview-title\">"
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.title : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n";
-},"3":function(depth0,helpers,partials,data) {
-    var stack1;
-
-  return "    <div class=\"preview-description\">"
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.description : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n";
-},"5":function(depth0,helpers,partials,data) {
-    var stack1;
-
-  return "  <div class=\"preview-item preview-subsets\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset1 : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset2 : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n";
-},"6":function(depth0,helpers,partials,data) {
-    var stack1, alias1=this.lambda;
-
-  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle1 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription1 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n    </div>\n";
-},"8":function(depth0,helpers,partials,data) {
-    var stack1, alias1=this.lambda;
-
-  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle2 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
-    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription2 : stack1), depth0)) != null ? stack1 : "")
-    + "</div>\n    </div>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div class=\"integration-preview-wrapper\">\n  <div class=\"preview-item\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasTitle : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasDescription : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubsets : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {

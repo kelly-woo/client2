@@ -16,7 +16,7 @@
     <div class="connect-container" ng-switch-when="true">
       <div class="connect-header">
         <div class="connect-status">
-          <div class="connect-status-icon" ng-class="hasConnectPlugs ? 'connect-active' : 'connect-inactive'" /></div>
+          <div class="connect-status-icon" ng-class="hasConnectPlugs ? 'connect-active' : 'connect-inactive'"></div>
           <span>{{connectStatusDesciption}}</span>
         </div>
       </div>
@@ -25,7 +25,7 @@
           <li ng-repeat="connectPlug in connectPlugs">
             <connect-plug jnd-data-model="connectPlug"
                           on-status-change="onConnectStatusChange($connectId, $status)"
-                          on-setting="onConnectSetting($connectId)"
+                          on-setting="onConnectSetting($connectId, $unionName)"
                           on-delete="onConnectDelete($connectId, $value)"></connect-plug>
           </li>
         </ul>

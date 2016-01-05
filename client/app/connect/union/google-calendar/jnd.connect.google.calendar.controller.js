@@ -6,7 +6,8 @@
     .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, JndConnectGoogleCalendar, EntityMapManager, JndUtil, JndConnectUnion) {
+  function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
+                                        JndConnectUnion, accountService) {
     $scope.selectedRoom = '';
 
     _init();
@@ -27,10 +28,12 @@
       $scope.weeklyScheduleSummaryDayList = JndConnectGoogleCalendar.getDayList();
       $scope.weeklyScheduleSummaryHourList = JndConnectGoogleCalendar.getHourList();
 
-      _attachEvents();
+      _setTimezone();
 
       _createModel();
       _setContent();
+
+      _attachEvents();
     }
 
     /**
@@ -240,6 +243,19 @@
         data.calendarList = list;
         JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo);
       });
+    }
+
+    /**
+     * timezone 설정
+     * @private
+     */
+    function _setTimezone() {
+      var account = accountService.getAccount();
+
+      if (account) {
+        $scope.timezone = '(' + account.timezone + ')';
+        $scope.timezoneDescription = $filter('translate')('@jnd-connect-82').replace('{{timezone}}', $scope.timezone);
+      }
     }
   }
 })();

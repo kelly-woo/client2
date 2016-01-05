@@ -4,7 +4,7 @@
 (function() {
   'use strict';
 
-  xdescribe('mention.ahead.service', function() {
+  describe('mention.ahead.service', function() {
     var MentionExtractor;
 
 
@@ -20,7 +20,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@',
           sufStr: '',
@@ -38,7 +38,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark',
           sufStr: '',
@@ -57,7 +57,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@850912',
           sufStr: '',
@@ -75,7 +75,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@`!@#$%^&*()_+~-=[];\',.{}|:"<>?',
           sufStr: '',
@@ -93,7 +93,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark @park',
           sufStr: '',
@@ -112,7 +112,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark park',
           sufStr: '',
@@ -130,7 +130,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@박현진',
           sufStr: '',
@@ -148,7 +148,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@박 현진',
           sufStr: '',
@@ -166,7 +166,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark(박 현진)',
           sufStr: '',
@@ -183,7 +183,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -194,7 +194,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -204,7 +204,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -214,13 +214,13 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor(fullText, begin);
+        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
     });
 
-    xdescribe('markdown text에서 모든 mention 입력 검출 확인', function() {
+    describe('markdown text에서 모든 mention 입력 검출 확인', function() {
       var mentionsMap = {
         '[@all]': {},
         '[@park]': {id: 1},
