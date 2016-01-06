@@ -59,8 +59,8 @@
           // connection 된 후 해당 정보를 update하는 경우
           if (scope.isActive) {
             Dialog.confirm({
-              body: $filter('translate')('@이 연동을 중지하시겠습니까?'),
-              confirmButtonText: $filter('translate')('@중지하기'),
+              body: $filter('translate')('@jnd-connect-184'),
+              confirmButtonText: $filter('translate')('@jnd-connect-210'),
               stopPropagation: true,
               onClose: function(result) {
                 if (result === 'okay') {
@@ -99,8 +99,10 @@
        * @private
        */
       function _setStatusText(value) {
+        var key;
         JndUtil.safeApply(scope, function() {
-          scope.statusText = value ? '작동중' : '중지됨';
+          key = value ? '@jnd-connect-10' : '@jnd-connect-9';
+          scope.statusText = $filter('translate')(key);
         });
       }
 

@@ -44,8 +44,8 @@
           // isDisabled 상태가 아닐때 즉 setting 일때만 삭제하기가 가능함.
 
           Dialog.confirm({
-            body: $filter('translate')('@이 연동 항목을 삭제하시겠습니까?'),
-            confirmButtonText: $filter('translate')('@삭제하기'),
+            body: $filter('translate')('@jnd-connect-185'),
+            confirmButtonText: $filter('translate')('@jnd-connect-211'),
             stopPropagation: true,
             onClose: function(result) {
               if (result === 'okay') {
@@ -87,7 +87,7 @@
        */
       function _onSuccessCallback() {
         Dialog.success({
-          title: $filter('translate')('@삭제 성공')
+          title: $filter('translate')('@jnd-connect-209')
         });
         scope.onSuccessCallback();
       }

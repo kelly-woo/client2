@@ -165,7 +165,7 @@
      */
     function _onSuccessUpdate() {
       Dialog.success({
-        body: $filter('translate')('@업데이트 성공'),
+        body: $filter('translate')('@jnd-connect-208'),
         allowHtml: true,
         extendedTimeOut: 0,
         timeOut: 0
@@ -179,7 +179,7 @@
      */
     function _onSuccessCreate() {
       Dialog.success({
-        body: $filter('translate')('@생성 성공'),
+        body: $filter('translate')('@jnd-connect-186'),
         allowHtml: true,
         extendedTimeOut: 0,
         timeOut: 0
