@@ -118,11 +118,14 @@
      */
     function _onSave() {
       _setRequestData();
-      $scope.isLoading = true;
-      JndConnectUnion.save({
-        current: $scope.current,
-        data: $scope.requestData
-      }).finally(_onSaveEnd);
+      if (!$scope.isLoading) {
+        $scope.isLoading = true;
+
+        JndConnectUnion.save({
+          current: $scope.current,
+          data: $scope.requestData
+        }).finally(_onSaveEnd);
+      }
     }
 
     /**
