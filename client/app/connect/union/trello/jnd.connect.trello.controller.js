@@ -31,21 +31,21 @@
       hookEvent: {
         showBoardRenamed: false,
         showCardArchived: false,
-        showCardAttachmentCreated: false,
-        showCardChecklistCreated: false,
-        showCardChecklistItemCreated: false,
-        showCardChecklistItemUpdated: false,
-        showCardCommentCreated: false,
-        showCardCreated: false,
+        showCardAttachmentCreated: true,
+        showCardChecklistCreated: true,
+        showCardChecklistItemCreated: true,
+        showCardChecklistItemUpdated: true,
+        showCardCommentCreated: true,
+        showCardCreated: true,
         showCardDescriptionUpdated: false,
         showCardDueDateUpdated: false,
         showCardLabelCreated: false,
         showCardLabelDeleted: false,
         showCardMemberCreated: false,
-        showCardMoved: false,
+        showCardMoved: true,
         showCardRenamed: false,
         showListArchived: false,
-        showListCreated: false,
+        showListCreated: true,
         showListRenamed: false
       },
       footer: JndConnectUnion.getDefaultFooter($scope.current)
@@ -77,18 +77,33 @@
      */
     function _onSave() {
       _setRequestData();
-      $scope.isLoading = true;
+      var key;
       var invalidField = _getInvalidField();
-      if (!invalidField) {
-        JndConnectUnion.save({
-          current: $scope.current,
-          data: $scope.requestData
-        }).finally(_onSaveEnd);
-      } else {
-        _onSaveEnd();
-        Dialog.error({
-          'title': $filter('translate')('@required 필드 오류')
-        });
+
+      if (!$scope.isLoading) {
+        $scope.isLoading = true;
+
+        if (!invalidField) {
+          JndConnectUnion.save({
+            current: $scope.current,
+            data: $scope.requestData
+          }).finally(_onSaveEnd);
+        } else {
+          switch (invalidField) {
+            case 'trelloBoardId':
+              key = '@jandi-connect-218';
+              break;
+            case 'hookEvent':
+              key = '@jandi-connect-219';
+              break;
+            default:
+              key = invalidField;
+          }
+          _onSaveEnd();
+          Dialog.warning({
+            'title': $filter('translate')(key)
+          });
+        }
       }
     }
 
@@ -185,12 +200,33 @@
     }
 
     /**
-     * invalid
-     * @returns {null}
+     * invalid field 를 반환한다.
+     * @returns {*}
      * @private
      */
     function _getInvalidField() {
-      return null;
+      var invalidField = null;
+      var requiredList = [
+        'trelloBoardId',
+        'roomId'
+      ];
+
+      _.forEach(requiredList, function(fieldName) {
+        if (!$scope.formData[fieldName]) {
+          invalidField = fieldName;
+          return false;
+        }
+      });
+
+      if (!invalidField) {
+        _.forEach($scope.formData.hookEvent, function(value) {
+          if (!value) {
+            invalidField = 'hookEvent';
+            return false;
+          }
+        });
+      }
+      return invalidField;
     }
   }
 })();

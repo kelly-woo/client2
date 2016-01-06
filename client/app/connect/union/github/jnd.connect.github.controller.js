@@ -268,7 +268,7 @@
     }
 
     /**
-     *
+     * invalid field 를 반환한다.
      * @returns {*}
      * @private
      */
