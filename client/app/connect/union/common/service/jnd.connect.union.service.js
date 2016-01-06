@@ -127,7 +127,7 @@
      * @param {array} accountList - 계정 리스트
      *    @param {string} accountList[].authenticationName - 노출할 계정 정보
      *    @param {number|string} accountList[].authenticationId - 계정의 키값
-     * @param {string} accountValue - 선택할 계정 값
+     * @param {string} [accountValue] - 선택할 계정 값
      */
     function setHeaderAccountData(header, accountList, accountValue) {
       var accounts;

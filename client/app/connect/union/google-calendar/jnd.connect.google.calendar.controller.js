@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
-                                        JndConnectUnion, accountService, JndConnect) {
+                                        JndConnectUnion, accountService, Dialog) {
     $scope.selectedRoom = '';
 
     _init();
@@ -97,15 +97,70 @@
      * @private
      */
     function _onSave() {
-      var requestData = _createRequestData($scope.data);
+      var data = $scope.data;
+      var requestData = _createRequestData(data);
+      var invalidMessage = _getInvalidMessage(requestData);
 
-      $scope.isLoading = true;
-      JndConnectUnion.save({
-        current: $scope.current,
-        data: requestData
-      }).finally(function() {
-        $scope.isLoading = false;
-      });
+      if (invalidMessage) {
+        Dialog.warning({
+          body: invalidMessage
+        });
+      } else {
+        $scope.isLoading = true;
+        JndConnectUnion.save({
+          current: $scope.current,
+          data: requestData
+        }).finally(function() {
+          $scope.isLoading = false;
+        });
+      }
+    }
+
+    /**
+     * 유효하지 않은 상태 메세지 전달
+     * @param {object} requestData
+     * @returns {*}
+     * @private
+     */
+    function _getInvalidMessage(requestData) {
+      var invalidMsg;
+
+      if (_isInvalidCalendar(requestData)) {
+        invalidMsg = $filter('translate')('@jnd-connect-216');
+      } else if (_isInvalidNotification(requestData)) {
+        invalidMsg = $filter('translate')('@jnd-connect-219');
+      }
+
+      return invalidMsg;
+    }
+
+    /**
+     * calendar 값의 유효성 검사
+     * @param {object} requestData
+     * @returns {boolean}
+     * @private
+     */
+    function _isInvalidCalendar(requestData) {
+      return requestData.googleId == null ||
+        requestData.calendarId == null ||
+        requestData.calendarSummary == null;
+    }
+
+    /**
+     * notification 값의 유효성 검사
+     * @param {object} requestData
+     * @returns {boolean}
+     * @private
+     */
+    function _isInvalidNotification(requestData) {
+      // 알림 설정, 일정요약 캘린더 업데이트 옵션중 단 하나도 체크된 상태가 아니라면 부정확한 data로 판별한다.
+      return !(requestData.hasNotificationBefore ||
+        requestData.hasAllDayNotification ||
+        requestData.hasDailyScheduleSummary ||
+        requestData.hasWeeklyScheduleSummary ||
+        requestData.newEventNotification ||
+        requestData.updatedEventNotification ||
+        requestData.cancelledEventNotification);
     }
 
     /**

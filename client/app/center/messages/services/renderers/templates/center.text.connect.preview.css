@@ -17,6 +17,11 @@
   font-weight: 500;
 }
 
+.integration-preview-wrapper .preview-image {
+  margin-top: 4px;
+  font-weight: 500;
+}
+
 .attachment-content .integration-preview-wrapper:not(:first-child),
 .integration-preview-wrapper .preview-item:not(:first-child),
 .integration-preview-wrapper .preview-subsets .preview-subset:not(:first-child){

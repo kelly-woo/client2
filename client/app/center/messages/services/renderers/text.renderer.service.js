@@ -158,10 +158,12 @@
           connectPreview += _templateConnectPreview({
             html: {
               title: _getConnectText(info.title),
-              description: _getConnectText(info.description)
+              description: _getConnectText(info.description),
+              image: _getConnectImage(info.imageUrl)
             },
             hasTitle: !!info.title,
             hasDescription: !!info.description,
+            hasImage: !!info.imageUrl,
             hasSubsets: false
           });
         });
@@ -205,6 +207,17 @@
       }
 
       return text || fullText;
+    }
+
+
+    function _getConnectImage(imageUrl) {
+      var html = '';
+
+      if (imageUrl != null) {
+        html = '<a href="' + imageUrl + '" target="_blank">' + imageUrl + '</a>';
+      }
+
+      return html;
     }
   }
 })();
