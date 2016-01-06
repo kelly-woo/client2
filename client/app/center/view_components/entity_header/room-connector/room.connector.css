@@ -41,12 +41,15 @@
   color: #155172;
 }
 
+.connect-body {
+  text-align: center;
+  border-top: 1px solid #e1e1e1;
+}
+
 .connect-body .connect-empty{
   display: inline-block;
   margin-bottom: 15px;
   padding: 24px 24px 0 24px;
-  border-top: 1px solid #e1e1e1;
-  text-align: center;
   color: #114768;
   font-size: 15px;
   line-height: 22px;

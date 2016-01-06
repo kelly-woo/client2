@@ -6,6 +6,7 @@
   border: 1px solid #e1e1e1;
   border-radius: 3px;
   padding: 10px 17px 10px 78px;
+  text-align: left;
 }
 
 .connect-plug .plug-service-image {
