@@ -9,7 +9,7 @@
     .directive('roomConnector', roomConnector);
 
   /* @ngInject */
-  function roomConnector($state, RoomConnector, JndConnect) {
+  function roomConnector($state, $filter, RoomConnector, JndConnect) {
     return {
       restrict: 'E',
       replace: true,
@@ -159,15 +159,16 @@
        * @private
        */
       function _setConnectContent() {
+        var translate = $filter('translate');
         scope.hasConnectPlugs = scope.connectPlugs.length > 0;
 
         if (scope.hasConnectPlugs) {
           scope.connectCount = scope.connectPlugs.length;
-          scope.connectStatusDesciption = '{{plugCount}}개의 서비스가 연동중입니다.'.replace('{{plugCount}}', scope.connectCount);
-          scope.connectButtonText = '연동 항목 추가하기';
+          scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
+          scope.connectButtonText = translate('@jnd-connect-223');
         } else {
-          scope.connectStatusDesciption = '토픽에 연동된 서비스가 없습니다.';
-          scope.connectButtonText = '연동하기';
+          scope.connectStatusDesciption = translate('@jnd-connect-220');
+          scope.connectButtonText = translate('@jnd-connect-14');
         }
       }
     }
