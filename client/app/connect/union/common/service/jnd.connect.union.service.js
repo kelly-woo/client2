@@ -10,7 +10,14 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language) {
+    var LANGUAGE_MAP = {
+      ko: 'ko',
+      ja: 'ja',
+      en_US: 'en',
+      zh_TW: 'zh-tw',
+      zh_CN: 'zh-cn'
+    };
     this.getDefaultHeader = getDefaultHeader;
     this.getDefaultFooter = getDefaultFooter;
     this.save = save;
@@ -43,7 +50,7 @@
         botThumbnailFile: JndUtil.pick(current, 'union', 'imageUrl'),
         botName: botName,
         defaultBotName: botName,
-        lang: 'ko'
+        lang: LANGUAGE_MAP[language.preferences.language]
       };
     }
 
