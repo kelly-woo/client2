@@ -280,20 +280,3 @@
   bottom: 16px;
   font-size: 13px;
 }
-
-.profile-view-modal .crop-area {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.profile-view-modal .crop-area .croping-image {
-  width: 100%;
-  height: calc(100% - 50px);
-  padding: 15px;
-}
-
-.profile-view-modal .crop-area .crop-actions {
-  margin-right: 15px;
-  text-align: right;
-}

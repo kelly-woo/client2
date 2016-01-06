@@ -1,24 +1,4 @@
-<div class="current-member-profile-modal-content">
-  <!-- Modal: Profile Setting -->
-  <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-delete"></i></button>
-    <h3 class="modal-header__title">
-      <span translate>보세이미지를변경해보세여</span>
-    </h3>
-  </div>
-
-  <div class="modal-body profile-body">
-    <div class="cropArea">
-      <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onChange($dataURI);"></img-crop>
-    </div>
-  </div>
-
-  <div class="modal-footer profile-footer">
-    <div>
-      <button type="button" class="btn btn-cancel" ng-click="cancel();">
-        <span translate>@btn-cancel</span>
-      </button>
-      <button type="button" class="new_channel_btn btn btn-ok" ng-click="done();"><span translate>@btn-change</span></button>
-    </div>
-  </div>
+<div class="modal-body profile-view-body">
+  <jnd-image-crop image-data="profilePic"
+                  on-image-crop-done="onImageCropDone($dataURI)"></jnd-image-crop>
 </div>

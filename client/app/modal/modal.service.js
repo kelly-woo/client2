@@ -143,7 +143,7 @@
         templateUrl: 'app/modal/connect/bot.profile.setting.html',
         controller: 'BotProfileSettingCtrl',
         size: 'lg',
-        windowClass: '',
+        windowClass: 'profile-view-modal',
         resolve: {
           files: function() {
             return files;

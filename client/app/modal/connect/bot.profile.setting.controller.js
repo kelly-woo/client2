@@ -9,10 +9,8 @@
     .module('jandiApp')
     .controller('BotProfileSettingCtrl', BotProfileSettingCtrl);
 
-  function BotProfileSettingCtrl($scope, jndPubSub, JndUtil, modalHelper, files) {
-    $scope.cancel = cancel;
-    $scope.done = done;
-    $scope.onChange = onChange;
+  function BotProfileSettingCtrl($scope, jndPubSub, modalHelper, files) {
+    $scope.onImageCropDone = onImageCropDone;
 
     _init();
 
@@ -47,27 +45,14 @@
     }
 
     /**
-     * 영역 변경 이벤트 발생시
-     * @param {string} tempPic
+     * image crop done event handler
+     * @param {string} dataURI
      */
-    function onChange(tempPic) {
-      $scope.croppedProfilePic = tempPic;
-    }
-
-    /**
-     * 취소 버튼 클릭 시 이벤트 핸들러
-     */
-    function cancel() {
-      modalHelper.closeModal('cancel');
-    }
-
-    /**
-     * 변경하기 버튼 클릭 시 이벤트 핸들러
-     */
-    function done() {
-      if ($scope.croppedProfilePic) {
-        jndPubSub.pub('BlobProfileSettingCtrl:done', $scope.croppedProfilePic);
+    function onImageCropDone(dataURI) {
+      if (dataURI) {
+        jndPubSub.pub('BlobProfileSettingCtrl:done', dataURI);
       }
+
       modalHelper.closeModal('cancel');
     }
   }
