@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
-  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel) {
+  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper) {
     return {
       restrict: 'E',
       replace: true,
@@ -31,6 +31,7 @@
        */
       function _init() {
         _setList();
+        scope.model = scope.model || currentSessionHelper.getCurrentEntityId();
         scope.$on('topic-folder:update', _onUpdate);
       }
 

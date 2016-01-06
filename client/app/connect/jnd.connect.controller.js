@@ -77,9 +77,12 @@
     };
 
     $scope.isClose = false;
+    $scope.unions = [];
+    $scope.isBannerShow = true;
+
     $scope.historyBack = historyBack;
     $scope.close = close;
-    $scope.unions = [];
+    $scope.closeBanner = closeBanner;
 
     _init();
 
@@ -88,8 +91,17 @@
      * @private
      */
     function _init() {
+      $scope.isBannerShow = JndConnect.isBannerShow();
       _attachEvents();
       _requestAll();
+    }
+
+    /**
+     * close banner
+     */
+    function closeBanner() {
+      $scope.isBannerShow = false;
+      JndConnect.setBannerStatus($scope.isBannerShow);
     }
 
     /**

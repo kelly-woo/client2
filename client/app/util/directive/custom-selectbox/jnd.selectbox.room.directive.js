@@ -133,8 +133,14 @@
         var selectedEntity;
         if (scope.selectedValue) {
           selectedEntity = _.find(_getAllEntities(), function(entity) {
-            return entity.id === scope.selectedValue;
+            if (_filterMap) {
+              return _filterMap[entity.id] && entity.id === scope.selectedValue;
+            } else {
+              return entity.id === scope.selectedValue;
+            }
           });
+        }
+        if (selectedEntity) {
           name = selectedEntity.name;
         } else {
           if (scope.hasAll) {
