@@ -495,7 +495,6 @@
 
     function addBot(bot) {
       if (_.isObject(bot)) {
-        bot.name += '-bot';
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);

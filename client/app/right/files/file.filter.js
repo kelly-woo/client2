@@ -221,28 +221,38 @@
    */
   app.filter('getPreview', function($filter) {
     var sizeMap = {
-      small: 'smallThumbnailUrl',
-      medium: 'mediumThumbnailUrl',
-      large: 'largeThumbnailUrl'
+      small: {
+        value: 80,
+        property: 'smallThumbnailUrl'
+      },
+      medium: {
+        value: 360,
+        property: 'mediumThumbnailUrl'
+      },
+      large: {
+        value: 640,
+        property: 'largeThumbnailUrl'
+      }
     };
+
     return function(content, size) {
       var url;
       var thumbnailType;
 
       if (content) {
-        thumbnailType = sizeMap[size] || sizeMap.medium;
+        thumbnailType = sizeMap[size];
 
-        if (content.extraInfo && content.extraInfo[thumbnailType]) {
+        if (content.extraInfo && content.extraInfo[thumbnailType.property]) {
           // extraInfo가 존재하고 참조가능한 thumbnail url을 server에서 보장함
 
           // thumbnail url
-          url = content.extraInfo[thumbnailType];
+          url = content.extraInfo[thumbnailType.property];
         } else if (content.fileUrl) {
           // server에서 file size, dimention 제한 또는 특수한 상황으로 인해
           // extraInfo에 thumbnail url을 보장하지 못했을 경우
 
           // 원본 url
-          url = content.fileUrl;
+          url = content.fileUrl + '?size=' + thumbnailType.value;
         }
       } else {
         url = '';
@@ -265,7 +275,11 @@
      * @private
      */
     function _hasThumbnailUrl(extraInfo) {
-      return !!(extraInfo && extraInfo.smallThumbnailUrl && extraInfo.mediumThumbnailUrl && extraInfo.largeThumbnailUrl);
+      return !!(extraInfo &&
+        extraInfo.smallThumbnailUrl &&
+        extraInfo.mediumThumbnailUrl &&
+        extraInfo.largeThumbnailUrl &&
+        extraInfo.thumbnailUrl);
     }
 
     return function(content) {
