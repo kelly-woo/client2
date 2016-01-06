@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language) {
-    alert('test');
+
     var UNION_DATA = {
       '1': {
         name: 'googleCalendar',
