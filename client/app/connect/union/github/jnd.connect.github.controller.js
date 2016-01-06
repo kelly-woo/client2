@@ -94,7 +94,6 @@
       //branches
       formData.branches = response.hookBranch.join(',');
 
-      console.log(response.hookEvent);
       //init events
       _.forEach(formData.hookEvent, function(value, eventName) {
         formData.hookEvent[eventName] = false;

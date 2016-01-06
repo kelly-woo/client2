@@ -38,8 +38,8 @@
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
         <jnd-connect-loading ng-show="isLoading"></jnd-connect-loading>
-        <div ng-show="!isLoading" class="jnd-connect-banner _bannerTop">
-          <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
+        <div ng-show="isBannerShow && !isLoading" class="jnd-connect-banner _bannerTop">
+          <button type="button" class="close" ng-click="closeBanner()"><i class="icon-delete"></i></button>
 
           <span class="banner-description" translate>@jnd-connect-28</span>
           <div class="jnd-connect banner-image"></div>

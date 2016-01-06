@@ -11,6 +11,7 @@
 
 
   function JndConnect(jndPubSub, configuration, Popup, modalHelper) {
+    var _isBannerShow = true;
     var _isOpen = false;
 
     this.isOpen = isOpen;
@@ -23,6 +24,25 @@
     this.showLoading = showLoading;
     this.openAuthPopup = openAuthPopup;
     this.openTopicCreateModal = openTopicCreateModal;
+    this.isBannerShow = isBannerShow;
+    this.setBannerStatus = setBannerStatus;
+
+    /**
+     * banner 의 노출 상태를 반환한다.
+     * @returns {boolean}
+     */
+    function isBannerShow() {
+      return _isBannerShow;
+    }
+
+    /**
+     * banner 노출 정보를 저장한다
+     * @param {boolean} isShow
+     */
+    function setBannerStatus(isShow) {
+      _isBannerShow = isShow;
+      jndPubSub.pub('JndConnect:setBannerStatus', isShow);
+    }
 
     /**
      * connect main 의 loading 을 hide 한다.
