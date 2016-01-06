@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnectUnion, JndConnectTrelloApi) {
+  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnectUnion, JndConnectTrelloApi, Dialog) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -172,6 +172,11 @@
       formData.roomId = response.roomId;
       formData.trelloBoardId = _trelloBoardId = response.webhookTrelloBoardId;
 
+      //init events
+      _.forEach(formData.hookEvent, function(value, eventName) {
+        formData.hookEvent[eventName] = false;
+      });
+
       _.each(formData.hookEvent, function(value, name) {
         formData.hookEvent[name] = !!response[name];
       });
@@ -206,6 +211,7 @@
      */
     function _getInvalidField() {
       var invalidField = null;
+      var selectedList;
       var requiredList = [
         'trelloBoardId',
         'roomId'
@@ -219,12 +225,12 @@
       });
 
       if (!invalidField) {
-        _.forEach($scope.formData.hookEvent, function(value) {
-          if (!value) {
-            invalidField = 'hookEvent';
-            return false;
-          }
+        selectedList = _.filter($scope.formData.hookEvent, function(value) {
+          return value === true;
         });
+        if (!selectedList.length) {
+          invalidField = 'hookEvent';
+        }
       }
       return invalidField;
     }
