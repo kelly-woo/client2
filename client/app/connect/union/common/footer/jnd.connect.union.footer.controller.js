@@ -13,7 +13,7 @@
     var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
-    $scope.data = $scope.data || {};
+    $scope.data = _.extend({}, $scope.data);
 
     $scope.langList = [
       {
@@ -38,6 +38,7 @@
       }
     ];
     $scope.changedFileUri = null;
+
     _init();
 
     /**
@@ -45,7 +46,17 @@
      * @private
      */
     function _init() {
+      $scope.data.inputBotName = $scope.data.botName;
+      $scope.$watch('data.inputBotName', _onChangeBotName);
       $scope.$on('BlobProfileSettingCtrl:done', _onProfileSettingDone);
+    }
+
+    /**
+     * bot name 변경되었을 시 빈값이라면 default bot name 으로 설정한다.
+     * @private
+     */
+    function _onChangeBotName() {
+      $scope.data.botName = $scope.data.inputBotName || $scope.data.defaultBotName;
     }
 
     /**
