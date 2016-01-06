@@ -111,7 +111,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.size : stack1), depth0))
     + "</span>\n";
 },"9":function(depth0,helpers,partials,data) {
-    return "                  <i class=\"preview-icon icon-arrow-up-fill non-selectable _fileToggle\"></i>\n";
+    return "                  <i class=\"preview-icon icon-angle-down non-selectable _fileToggle\"></i>\n";
 },"11":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
@@ -658,11 +658,17 @@ this["Handlebars"]["templates"]["center.text.connect.preview"] = Handlebars.temp
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
+  return "    <div class=\"preview-image\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.image : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"7":function(depth0,helpers,partials,data) {
+    var stack1;
+
   return "  <div class=\"preview-item preview-subsets\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset1 : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset2 : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset1 : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset2 : depth0),{"name":"if","hash":{},"fn":this.program(10, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "  </div>\n";
-},"6":function(depth0,helpers,partials,data) {
+},"8":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda;
 
   return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
@@ -670,7 +676,7 @@ this["Handlebars"]["templates"]["center.text.connect.preview"] = Handlebars.temp
     + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription1 : stack1), depth0)) != null ? stack1 : "")
     + "</div>\n    </div>\n";
-},"8":function(depth0,helpers,partials,data) {
+},"10":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda;
 
   return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
@@ -684,8 +690,9 @@ this["Handlebars"]["templates"]["center.text.connect.preview"] = Handlebars.temp
   return "<div class=\"integration-preview-wrapper\">\n  <div class=\"preview-item\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasTitle : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasDescription : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasImage : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "  </div>\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubsets : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubsets : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "</div>\n";
 },"useData":true});
 
