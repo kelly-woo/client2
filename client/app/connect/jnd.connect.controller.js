@@ -6,7 +6,7 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil) {
+  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language) {
 
     var UNION_DATA = {
       '1': {
@@ -75,7 +75,7 @@
       connectId: null,
       isShowAuth: false
     };
-
+    $scope.surveyUrl = 'https://jandi.typeform.com/to/OtcRfH';
     $scope.isClose = false;
     $scope.unions = [];
     $scope.isBannerShow = true;
@@ -93,7 +93,34 @@
     function _init() {
       $scope.isBannerShow = JndConnect.isBannerShow();
       _attachEvents();
+      _initSurveyUrl();
       _requestAll();
+    }
+
+    /**
+     * 설문조사 url 을 설정한다.
+     * @private
+     */
+    function _initSurveyUrl() {
+      var surveyUrl = 'https://jandi.typeform.com/to/OtcRfH';
+      switch (language.preferences.language) {
+        case 'ko':
+          surveyUrl = 'https://jandi.typeform.com/to/rVKGjd';
+          break;
+        case 'ja':
+          surveyUrl = 'https://jandi.typeform.com/to/ckpPJg';
+          break;
+        case 'en_US':
+          surveyUrl = 'https://jandi.typeform.com/to/OtcRfH';
+          break;
+        case 'zh_TW':
+          surveyUrl = 'https://jandi.typeform.com/to/sN8BQm';
+          break;
+        case 'zh_CN':
+          surveyUrl = 'https://jandi.typeform.com/to/wTrKSI';
+          break;
+      }
+      $scope.surveyUrl = surveyUrl || $scope.surveyUrl;
     }
 
     /**
@@ -271,7 +298,7 @@
     }
 
     /**
-     *
+     * main list 로 돌아간다.
      * @private
      */
     function _onBackToMain() {
