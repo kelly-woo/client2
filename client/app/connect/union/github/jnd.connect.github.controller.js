@@ -175,10 +175,10 @@
         } else {
           switch (invalidField) {
             case 'hookRepoId':
-              key = '@jandi-connect-217';
+              key = '@jnd-connect-217';
               break;
             case 'hookEvent':
-              key = '@jandi-connect-219';
+              key = '@jnd-connect-219';
               break;
             default:
               key = invalidField;

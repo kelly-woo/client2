@@ -91,10 +91,10 @@
         } else {
           switch (invalidField) {
             case 'trelloBoardId':
-              key = '@jandi-connect-218';
+              key = '@jnd-connect-218';
               break;
             case 'hookEvent':
-              key = '@jandi-connect-219';
+              key = '@jnd-connect-219';
               break;
             default:
               key = invalidField;
@@ -145,7 +145,7 @@
       var boards = [];
       boards.push({
         value: '',
-        text: $filter('translate')('@jandi-connect-112')
+        text: $filter('translate')('@jnd-connect-112')
       });
       _.forEach(response.boards, function(board) {
         boards.push({
