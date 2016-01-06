@@ -127,18 +127,28 @@
      * @param {array} accountList - 계정 리스트
      *    @param {string} accountList[].authenticationName - 노출할 계정 정보
      *    @param {number|string} accountList[].authenticationId - 계정의 키값
+     * @param {string} accountValue - 선택할 계정 값
      */
-    function setHeaderAccountData(header, accountList) {
+    function setHeaderAccountData(header, accountList, accountValue) {
+      var accounts;
+      var index;
+
       if (header) {
-        var accounts = _.map(accountList, function(account) {
+        accounts = _.map(accountList, function(account) {
           return {
             text: account.authenticationName,
             value: account.authenticationId
           };
         });
+
+        if (accountValue != null) {
+          index = _.findIndex(accounts, 'text', accountValue);
+        }
+        index = index || 0;
+
         _.extend(header, {
           isAccountLoaded: true,
-          accountId: JndUtil.pick(accountList, 0, 'authenticationId'),
+          accountId: JndUtil.pick(accountList, index, 'authenticationId'),
           accounts: accounts
         });
       }

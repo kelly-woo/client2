@@ -253,7 +253,7 @@
           _setCalendarList(calendarInfo);
         }
 
-        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo);
+        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo, $scope.data.googleId);
       });
     }
 

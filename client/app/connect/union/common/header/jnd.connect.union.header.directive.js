@@ -35,7 +35,6 @@
     };
 
     function link(scope) {
-
       _init();
 
       /**
@@ -81,7 +80,7 @@
         var unionName = scope.unionName;
 
         scope.permission = {
-          allowAccountUpdate: true,
+          allowAccountUpdate: scope.isAllowAccountUpdate(unionName),
           allowAccountAdd: scope.isAllowAccountAdd(unionName)
         };
       }
