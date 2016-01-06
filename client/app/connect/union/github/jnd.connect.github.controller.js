@@ -25,7 +25,7 @@
     };
     $scope.repositories = [
       {
-        text: '@불러오는중',
+        text: '',
         value: ''
       }
     ];
@@ -36,12 +36,12 @@
       hookRepoId: null,
       branches: '',
       hookEvent: {
-        'push': false,
-        'commit_comment': false,
-        'pull_request': false,
-        'pull_request_review_comment': false,
-        'issues': false,
-        'issue_comment': false,
+        'push': true,
+        'commit_comment': true,
+        'pull_request': true,
+        'pull_request_review_comment': true,
+        'issues': true,
+        'issue_comment': true,
         'create': false
       },
       footer: JndConnectUnion.getDefaultFooter($scope.current)
@@ -96,9 +96,7 @@
 
       //hookEvent
       _.forEach(response.hookEvent, function(eventName) {
-        if (!_.isUndefined(formData.hookEvent[eventName])) {
-          formData.hookEvent[eventName] = true;
-        }
+        formData.hookEvent[eventName] = !_.isUndefined(formData.hookEvent[eventName]);
       });
       $scope.isInitialized = true;
     }
@@ -163,18 +161,33 @@
      */
     function _onSave() {
       _setRequestData();
-      $scope.isLoading = true;
+      var key;
       var invalidField = _getInvalidField();
-      if (!invalidField) {
-        JndConnectUnion.save({
-          current: $scope.current,
-          data: $scope.requestData
-        }).finally(_onSaveEnd);
-      } else {
-        _onSaveEnd();
-        Dialog.error({
-          'title': $filter('translate')('@required 필드 오류')
-        });
+
+      if (!$scope.isLoading) {
+        $scope.isLoading = true;
+
+        if (!invalidField) {
+          JndConnectUnion.save({
+            current: $scope.current,
+            data: $scope.requestData
+          }).finally(_onSaveEnd);
+        } else {
+          switch (invalidField) {
+            case 'hookRepoId':
+              key = '@jandi-connect-217';
+              break;
+            case 'hookEvent':
+              key = '@jandi-connect-219';
+              break;
+            default:
+              key = invalidField;
+          }
+          _onSaveEnd();
+          Dialog.warning({
+            'title': $filter('translate')(key)
+          });
+        }
       }
     }
 
