@@ -45,7 +45,7 @@
      * @param {object} current - current union 객체
      */
     function getDefaultFooter(current) {
-      var botName = JndUtil.pick(current, 'union', 'title') + ' Bot';
+      var botName = JndUtil.pick(current, 'union', 'title');
       return {
         botThumbnailFile: JndUtil.pick(current, 'union', 'imageUrl'),
         botName: botName,
