@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnectUnion, JndConnectTrelloApi, Dialog) {
+  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi, Dialog) {
     var _trelloBoardId = null;
 
     $scope.isInitialized = false;
@@ -122,7 +122,7 @@
     function _initialRequest() {
       JndConnectTrelloApi.getBoards()
         .success(_onSuccessGetBoards)
-        .error(JndUtil.alertUnknownError);
+        .error(_onErrorGetBoards);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
@@ -137,7 +137,17 @@
     }
 
     /**
-     * initial  request 성공 시 이벤트 핸들러
+     * board 조회 실패시 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorGetBoards(err) {
+      JndConnect.backToMain();
+      JndUtil.alertUnknownError(err);
+    }
+
+    /**
+     * board 조회 성공 시 이벤트 핸들러
      * @param {array} response
      * @private
      */
