@@ -95,29 +95,6 @@
       isDefaultProfileImage: isDefaultProfileImage
     };
 
-    // 특정 method에 request에 abort 추가
-    _.each(['setName', 'setEmail', 'updateProfile'], function(fnName) {
-      service[fnName] = (function(originFn) {
-        return function () {
-          var abortDeferred = $q.defer();
-          var args = [].slice.apply(arguments);
-          var request;
-
-          args.push({timeout: abortDeferred.promise});
-          request = originFn.apply(service, args);
-
-          request.abort = function() {
-            abortDeferred.resolve();
-          };
-          request.finally(function() {
-            request.abort = angular.noop;
-          });
-
-          return request;
-        };
-      }(service[fnName]));
-    });
-
     return service;
 
     /**
