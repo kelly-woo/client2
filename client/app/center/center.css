@@ -125,6 +125,17 @@ article {
   padding: 5px 15px 0 67px;
   display: block;
 }
+#unread-bookmark.msg-item {
+  margin-bottom: 8px;
+  padding-top: 0;
+}
+#unread-bookmark.msg-item .msg-unread-bookmark {
+  margin: 0;
+  line-height: 28px;
+}
+#unread-bookmark.msg-item .system-event-msg .msg-item-float {
+  top: -1px;
+}
 /*.msgs-group:last-of-type > .msg-item {*/
   /*margin-bottom: 0;*/
   /*padding-bottom: 14px;*/
