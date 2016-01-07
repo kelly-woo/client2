@@ -1510,19 +1510,19 @@ msgstr "将数据从你常使用的外部平台发送至JANDI"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr ""
+msgstr "使用JANDI Connect建立聚合服务"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr ""
+msgstr "使用JANDI Connect将所有外部应用程序及作业平台聚合于一处"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
-msgstr ""
+msgstr "{{connectCount}}项聚合服务已串联"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-223"
-msgstr ""
+msgstr "时区 "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
