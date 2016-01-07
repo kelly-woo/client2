@@ -10,7 +10,7 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnionApi, JndConnectUnion) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -64,7 +64,7 @@
       } else {
         JndConnectUnionApi.getWebhookToken(name)
           .success(_onSuccessGetWebhookToken)
-          .error(JndUtil.alertUnknownError)
+          .error(_onErrorGetWebhookToken)
           .finally(_onInitialRequestEnd);
       }
     }
@@ -97,6 +97,16 @@
     function _onSuccessGetWebhookToken(response) {
       $scope.formData.webhookToken = response.webhookToken;
       $scope.formData.webhookUrl = response.webhookUrl;
+    }
+
+    /**
+     * 웹훅 토큰 조회 실패시 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorGetWebhookToken(err) {
+      JndConnect.backToMain();
+      JndUtil.alertUnknownError(err);
     }
 
     /**

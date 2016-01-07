@@ -67,7 +67,21 @@
       var connectId = JndUtil.pick(options, 'current', 'connectId');
       return JndConnectUnionApi.read(name, connectId)
         .success(_.bind(_onSuccessRead, this, options))
-        .error(_.bind(_onErrorCommon, this, options));
+        .error(_.bind(_onErrorRead, this, options));
+    }
+
+    /**
+     * read 실패시 핸들러
+     * @param {object} options
+     *    @param {string} options.current - current union 객체
+     *    @param {object} [options.header]  - 공통 header 데이터 object
+     *    @param {object} [options.footer]  - 공통 footer 데이터 object
+     * @param {object} err
+     * @private
+     */
+    function _onErrorRead(options, err) {
+      JndConnect.backToMain();
+      _onErrorCommon(err);
     }
 
     /**
