@@ -107,7 +107,7 @@
         var entity;
         if (_type === 'member') {
           entity = EntityMapManager.get('total', _id);
-          jndPubSub.pub('onUserClick', entity);
+          jndPubSub.pub('onMemberClick', entity);
         } else if (_type === 'room') {
           //entity = entityAPIservice.getTopicEntity(_id);
         }

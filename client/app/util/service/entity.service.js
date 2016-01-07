@@ -6,7 +6,7 @@
     .factory('entityAPIservice', entityAPIservice);
 
   /* @ngInject */
-  function entityAPIservice($rootScope, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
+  function entityAPIservice($rootScope, $filter, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
                             currentSessionHelper, HybridAppHelper, NotificationManager) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
@@ -16,20 +16,27 @@
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
       setStarred: setStarred,
-      isMember: isMember,
+
       updateBadgeValue: updateBadgeValue,
       setBadgeValue: setBadgeValue,
       setLastEntityState: setLastEntityState,
       getLastEntityState: getLastEntityState,
       removeLastEntityState: removeLastEntityState,
-      getMemberLength: getMemberLength,
       isDefaultTopic: isDefaultTopic,
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
       isJoinedTopic: isJoinedTopic,
+
       getMemberList: getMemberList,
-      isLeavedTopic: isLeavedTopic
+      getUserList: getUserList,
+      getUserLength: getUserLength,
+      isUser: isUser,
+      getBotList: getBotList,
+      getJandiBot: getJandiBot,
+      isLeavedTopic: isLeavedTopic,
+
+      createTotalData: createTotalData
     };
 
     return service;
@@ -147,14 +154,6 @@
       }
     }
 
-    //  Returns true is 'user' is a member of 'entity'
-    function isMember (entity, user) {
-      if (entity.type == 'channel')
-        return _.indexOf(entity.ch_members, user.id) > -1;
-      else
-        return _.indexOf(entity.pg_members, user.id) > -1;
-    }
-
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     // 'alarmCount' is -1, it means to increment.
     function updateBadgeValue (entity, alarmCount) {
@@ -169,7 +168,7 @@
 
         list = $rootScope.joinedChannelList;
       } else if (entity.type == 'users') {
-        list = $rootScope.memberList;
+        list = currentSessionHelper.getCurrentTeamUserList();
       }
 
       this.setBadgeValue(list, entity, alarmCount);
@@ -236,22 +235,6 @@
     }
 
     /**
-     * Returns number of member in entity including myself.
-     *
-     * @param entity {entity}
-     * @returns {number} number of member in 'entity'
-     */
-    function getMemberLength(entity) {
-      if (angular.isUndefined(entity) || entity.type == 'users') {
-        return -1;
-      }
-
-      var members = getMemberList(entity);
-
-      return members.length;
-    }
-
-    /**
      * 토픽(혹은 dm)이 현재 팀의 default topic 인지 아닌지 확인한다.
      * @param {object} entity - 확인하고자하는 토픽
      * @returns {boolean}
@@ -311,11 +294,87 @@
      * @returns {array} memberList
      */
     function getMemberList(entity) {
-      if (entity.type === 'channels') {
-        return entity.ch_members;
-      } else {
-        return entity.pg_members;
+      return entity.type === 'channels' ? entity.ch_members : entity.pg_members;
+    }
+
+    /**
+     * entity의 user list를 전달한다.
+     * @param {object} entity
+     * @returns {Array}
+     */
+    function getUserList(entity) {
+      return _getMemberList('user', entity);
+    }
+
+    /**
+     * Returns number of member in entity including myself.
+     * @param entity {entity}
+     * @returns {number} number of member in 'entity'
+     */
+    function getUserLength(entity) {
+      var length = -1;
+      if (entity != null && entity.type !== 'users') {
+        length = getUserList(entity).length;
       }
+      return length;
+    }
+
+    /**
+     * Returns true is 'user' is a member of 'entity'
+     * @param {object} entity
+     * @param {object} user
+     * @returns {boolean}
+     */
+    function isUser(entity, user) {
+      var users = getUserList(entity);
+      return _.indexOf(users, user.id) > -1;
+    }
+
+    /**
+     * bot list를 전달한다.
+     * @param {object} entity
+     * @returns {Array}
+     */
+    function getBotList() {
+      //return _getMemberList('bot', entity);
+      return EntityMapManager.toArray('bot');
+    }
+
+    /**
+     * jandi bot을 전달한다.
+     */
+    function getJandiBot() {
+      var botList = getBotList();
+      var jandiBot;
+
+      _.each(botList, function(bot) {
+        if (bot.botType === 'jandi_bot') {
+          jandiBot = bot;
+          return false;
+        }
+      });
+
+      return jandiBot;
+    }
+
+    /**
+     * type에 맞는 member list를 전달한다.
+     * @param {string} type
+     * @param {object} entity
+     * @returns {Array}
+     * @private
+     */
+    function _getMemberList(type, entity) {
+      var members = getMemberList(entity);
+      var list = [];
+
+      _.each(members, function(member) {
+        if (EntityMapManager.contains(type, member)) {
+          list.push(member);
+        }
+      });
+
+      return list;
     }
 
     /**
@@ -338,6 +397,108 @@
       }
 
       return result;
+    }
+
+    /**
+     * client에서 사용할 모든 entity data를 생성한다.
+     * @param {object} response
+     * @returns {{joinedChannelList: Array, privateGroupList: Array, unJoinedChannelList: Array}}
+     */
+    function createTotalData(response) {
+      var totalEntities = response.entities;
+      var joinedEntities = response.joinEntities;
+      var bots = response.bots;
+
+      var joinedChannelList = [];
+      var privateGroupList = [];
+      var unJoinedChannelList = [];
+
+      EntityMapManager.resetAll();
+
+      _createEntityData(joinedEntities, function(entity, type) {
+        if (type === 'channel') {
+          EntityMapManager.add('joined', entity);
+
+          joinedChannelList.push(entity);
+        } else if (type === 'privategroup') {
+          EntityMapManager.add('private', entity);
+
+          privateGroupList.push(entity);
+        }
+
+        EntityMapManager.add('total', entity);
+      });
+
+      _createEntityData(totalEntities, function(entity, type) {
+        if (type === 'channel' && !EntityMapManager.contains('joined', entity.id)) {
+          EntityMapManager.add('unjoined', entity);
+
+          unJoinedChannelList.push(entity);
+        } else if (type === 'user') {
+          EntityMapManager.add('user', entity);
+          EntityMapManager.add('member', entity);
+        }
+
+        EntityMapManager.add('total', entity);
+      });
+
+      _createEntityData(bots, function(bot) {
+        addBot(bot);
+      });
+
+      return {
+        joinedChannelList: joinedChannelList,
+        privateGroupList: privateGroupList,
+        unJoinedChannelList: unJoinedChannelList
+      };
+    }
+
+    /**
+     * entity data를 생성한다.
+     * @param {array} entities
+     * @param {function} callback
+     * @private
+     */
+    function _createEntityData(entities, callback) {
+      var regxEntityType = /channel|privategroup|user|bot/i;
+
+      _.each(entities, function(entity) {
+        var match = regxEntityType.exec(entity.type);
+        var type;
+
+        if (match) {
+          type = match[0].toLowerCase();
+          _transDatas(entity, type);
+
+          callback(entity, type);
+        }
+      });
+    }
+
+    /**
+     * server에서 전달받은 data를 client에서 사용 목적으로 변환한다.
+     * @param {object} entity
+     * @param {string} type
+     * @private
+     */
+    function _transDatas(entity, type) {
+      entity.isStarred = !!entity.isStarred;
+      entity.type = type + 's';
+
+      // select dropdown 에서 분류의 목적으로 data를 설정함
+      entity.typeCategory = $filter('translate')((type === 'channel' || type === 'privategroup') ? '@common-topics' : '@user');
+
+      if (type === 'user') {
+        entity.selected = false;
+      }
+    }
+
+    function addBot(bot) {
+      if (_.isObject(bot)) {
+        EntityMapManager.add('bot', bot);
+        EntityMapManager.add('member', bot);
+        EntityMapManager.add('total', bot);
+      }
     }
   }
 })();

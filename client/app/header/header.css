@@ -2,7 +2,7 @@
 .hpanel {
   /*border-bottom: 1px solid #154a67;*/
   position: relative;
-  z-index: 1024;
+  z-index: 600;
 }
 .header {
   height: 42px;
@@ -58,7 +58,6 @@
   background-color: #e63939;
   border: 2px solid #154a67;
   border-radius: 100%;
-  z-index: 101;
 }
 .header-navbar-menu.open .dot {
   border: 2px solid #173e54;
@@ -70,7 +69,6 @@
 }
 #team-menu .header-navbar__topmenu {
   padding: 0 12px 0 12px;
-  z-index: 100;
 }
 #invite .header-navbar__topmenu {
   /*padding-top: 1px;*/

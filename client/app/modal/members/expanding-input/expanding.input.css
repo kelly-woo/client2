@@ -1,0 +1,73 @@
+.expanding-input {
+  position: relative;
+  display: inline-block;
+  width: 170px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 1px solid transparent;
+  -webkit-transition: border ease-out .2s;
+  transition: border ease-out .2s;
+}
+
+.expanding-input.guide-line {
+  border-color: #e1e1e1;
+}
+
+.expanding-input:hover .expanding-input-status {
+  display: block;
+}
+
+.expanding-input .input-single input {
+  width: 100%;
+  padding-right: 24px;
+  text-align: center;
+  outline: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.expanding-input .input-single .expanding-input-status {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  border-left: 1px solid transparent;
+  cursor: pointer;
+  -webkit-transition: opacity ease-out .2s;
+  transition: opacity ease-out .2s;
+}
+
+.expanding-input select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: 0;
+  padding-right: 24px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.expanding-input .input-multi .expanding-input-status {
+  opacity: 0;
+  float: right;
+  width: 20px;
+  height: 100%;
+  border-left: 1px solid transparent;
+}
+
+.expanding-input.guide-line .expanding-input-status {
+  opacity: 1;
+  border-left-color: #e1e1e1;
+}
+
+.expanding-input .expanding-input-status i {
+  display: inline-block;
+  margin-top: 4px;
+}

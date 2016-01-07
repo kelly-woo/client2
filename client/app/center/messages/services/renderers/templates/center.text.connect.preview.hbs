@@ -1,0 +1,29 @@
+<div class="integration-preview-wrapper">
+  <div class="preview-item">
+    {{#if hasTitle}}
+    <div class="preview-title">{{{html.title}}}</div>
+    {{/if}}
+    {{#if hasDescription}}
+    <div class="preview-description">{{{html.description}}}</div>
+    {{/if}}
+    {{#if hasImage}}
+    <div class="preview-image">{{{html.image}}}</div>
+    {{/if}}
+  </div>
+  {{#if hasSubsets}}
+  <div class="preview-item preview-subsets">
+    {{#if hasSubset1}}
+    <div class="preview-subset">
+      <div class="preview-subset-title overflow-ellipsis">{{{html.subsetTitle1}}}</div>
+      <div class="preview-subset-description overflow-ellipsis">{{{html.subsetDescription1}}}</div>
+    </div>
+    {{/if}}
+    {{#if hasSubset2}}
+    <div class="preview-subset">
+      <div class="preview-subset-title overflow-ellipsis">{{{html.subsetTitle2}}}</div>
+      <div class="preview-subset-description overflow-ellipsis">{{{html.subsetDescription2}}}</div>
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>

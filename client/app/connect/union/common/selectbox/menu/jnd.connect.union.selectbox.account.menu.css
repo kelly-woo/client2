@@ -1,0 +1,38 @@
+.account-menu .account-add,
+.account-menu .account-item {
+  position: relative;
+  font-size: 14px;
+  height: 33px;
+  line-height: 33px;
+}
+.account-menu .account-add .icon-user-plus,
+.account-menu .account-item .icon-user {
+  float: left;
+  margin-top: 10px;
+  font-size: 14px;
+  padding-right: 6px;
+  padding-left: 8px;
+}
+
+.account-menu .account-add .account-add-text,
+.account-menu .account-item .account-name {
+  width: 100%;
+  padding: 0;
+  max-width: calc(100% - 48px);
+  margin-left: 2px;
+}
+
+.account-menu .account-item i:last-child {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  font-size: 22px;
+  color: rgba(21, 74, 103, 0.25);
+}
+.account-menu .account-item i:last-child:hover {
+  color: rgba(21, 74, 103, 0.85);
+}
+
+.account-menu .account-add:hover {
+  background-color: #e1e1e1;
+}

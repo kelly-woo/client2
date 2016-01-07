@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -187,9 +187,9 @@ msgstr "즐겨찾기 해제 "
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합"
-"되었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참"
-"여자들만 열람할 수 있습니다."
+"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합되"
+"었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참여"
+"자들만 열람할 수 있습니다."
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -215,12 +215,6 @@ msgstr "토픽 "
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@comment-all-desc"
 msgstr "{{commentCount}}개의 댓글 모두 보기"
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "튜토리얼 모두 건너뛰기"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -369,8 +363,7 @@ msgstr "파일 리스트"
 #: client/app/modal/files/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
-"파일이 성공적으로 공유되었습니다.<br/> 파일이 공유된 대화로 이동하시겠습니"
-"까?"
+"파일이 성공적으로 공유되었습니다.<br/> 파일이 공유된 대화로 이동하시겠습니까?"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -537,8 +530,7 @@ msgstr "직책"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-privacy-lock-msg"
 msgstr ""
-"현재 화면 잠금모드입니다. ESC 또는 Ctrl-Shift-L을 누르시면 잠금이 해제됩니"
-"다."
+"현재 화면 잠금모드입니다. ESC 또는 Ctrl-Shift-L을 누르시면 잠금이 해제됩니다."
 
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -655,6 +647,12 @@ msgstr "파일 업로드"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "튜토리얼 모두 건너뛰기"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
@@ -915,14 +913,14 @@ msgstr "검색어를 입력하세요."
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
-"브라우저의 팝업이 차단되었을 때는 계정 인증이나 파일 탐색기 실행이 불가능하"
-"므로 <b>꼭 팝업 차단을 해제 후 사용하시기 바랍니다.</b>"
+"브라우저의 팝업이 차단되었을 때는 계정 인증이나 파일 탐색기 실행이 불가능하므"
+"로 <b>꼭 팝업 차단을 해제 후 사용하시기 바랍니다.</b>"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-1"
 msgstr ""
-"드롭박스 계정과 연동하여 드롭박스의 파일을 업로드하고 팀원들과 공유하실 수 "
-"있습니다."
+"드롭박스 계정과 연동하여 드롭박스의 파일을 업로드하고 팀원들과 공유하실 수 있"
+"습니다."
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-2"
@@ -953,12 +951,6 @@ msgid "@integration-title-google-drive"
 msgstr "구글 드라이브에서 파일 업로드하기"
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
-"내세요!"
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "이 이메일 주소는 이미 {{invitedTeamName}}의 멤버입니다."
 
@@ -986,6 +978,12 @@ msgstr "멤버 초대 기능이 관리자에 의해 비활성화 되었습니다
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "또는 이 링크를 공유하여 멤버들을 초대하세요."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
+"내세요!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1178,8 +1176,8 @@ msgstr "계정 추가하기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-141"
 msgstr ""
-"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동"
-"작하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
+"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-142"
@@ -1188,9 +1186,9 @@ msgstr "연동 서비스 추가를 위해서는 계정 인증이 필요합니다
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-143"
 msgstr ""
-"Github 계정 연동을 하시면 잔디에서 직접 수신 메시지 종류를 설정하실 수 있습"
-"니다. 계정 연동 없이 Github에서 직접 설정을 원하시는 경우 수동 설정 페이지에"
-"서 연동해주세요. "
+"GitHub 계정 연동을 하시면 잔디에서 직접 수신 메시지 종류를 설정하실 수 있습니"
+"다. 계정 연동 없이 Github에서 직접 설정을 원하시는 경우 수동 설정 페이지에서 "
+"연동해주세요. "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-144"
@@ -1210,7 +1208,7 @@ msgstr "STEP 1"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
-msgstr "JIRA에 관리자 계정으로 로그인 후 System 메뉴로 진입해주세요."
+msgstr "JIRA에 관리자 계정으로 로그인 후 <b>System</b> 메뉴로 진입해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
@@ -1218,11 +1216,12 @@ msgstr "STEP 2"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-15"
-msgstr "Github"
+msgstr "GitHub"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-150"
-msgstr "왼쪽 메뉴들 중 Advanced 섹션에서 Webhooks 메뉴를 선택해주세요."
+msgstr ""
+"왼쪽 메뉴들 중 <b>Advanced</b> 섹션에서 <b>Webhooks</b> 메뉴를 선택해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-151"
@@ -1231,7 +1230,8 @@ msgstr "STEP 3"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-152"
 msgstr ""
-"Create a Webhook 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주세요."
+"<b>Create a Webhook</b> 버튼을 클릭하신 뒤 아래의 URL을 복사하여 붙여넣어 주"
+"세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-153"
@@ -1250,13 +1250,14 @@ msgstr "설정방법 닫기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-156"
 msgstr ""
-"Github 계정에서 구독하고 싶은 계정을 선택하신뒤, 왼쪽 메뉴에서 Settings를 클"
+"GitHub 계정에서 구독하고 싶은 계정을 선택하신뒤, 왼쪽 메뉴에서 Settings를 클"
 "릭해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-157"
 msgstr ""
-"Webhooks & Services 메뉴를 클릭하신 뒤, Add webhook 버튼을 클릭해주세요."
+"Webhooks & Services 메뉴를 클릭하신 뒤, <b>Add webhook</b> 버튼을 클릭해주세"
+"요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-158"
@@ -1265,12 +1266,12 @@ msgstr "Payload URL에 잔디에서 제공되는 이 URL을 붙여넣어 주세�
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-159"
 msgstr ""
-"다른 항목들은 기본값으로 해주시고, 맨 아래에 Active 체크박스가 체크된 것을 "
-"확인하신 뒤 Add Webhook 버튼을 눌러주시면 됩니다."
+"다른 항목들은 기본값으로 해주시고, 맨 아래에 Active 체크박스가 체크된 것을 확"
+"인하신 뒤 Add Webhook 버튼을 눌러주시면 됩니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-16"
-msgstr "Guthub Repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다"
+msgstr "GitHub Repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-160"
@@ -1280,9 +1281,9 @@ msgstr "Webhook이란?"
 msgid "@jnd-connect-161"
 msgstr ""
 "웹훅(Webhook)이란 잔디에 잔디가 정한 포맷에 일치하는 데이터를 수신하여 지정"
-"된 대화에 메시지 형태로 전송해주는 기능을 말합니다. 현재 잔디 커넥트에서 지"
-"원하지 않고 있는 서비스라도 웹훅 발신(Outgoing Webhook)을 지원하는 경우 잔디"
-"와 연동하여 변동 사항에 대해 메시지를 수신할 수 있습니다."
+"된 대화에 메시지 형태로 전송해주는 기능을 말합니다. 현재 잔디 커넥트에서 지원"
+"하지 않고 있는 서비스라도 웹훅 발신(Outgoing Webhook)을 지원하는 경우 잔디와 "
+"연동하여 변동 사항에 대해 메시지를 수신할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-162"
@@ -1293,13 +1294,14 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
 msgstr ""
-"request에는 반드시 Accept와 Content-Type을 다음과 같이 지정해줘야 합니다."
+"request에는 반드시 <b>Accept</b>와 <b>Content-Type</b>을 다음과 같이 지정해줘"
+"야 합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-164"
 msgstr ""
-"또한 JANDI Webhook은 restful API로 동작하기 때문에 http method를 POST로 하"
-"지 않으시면 정상적으로 등록되지 않습니다."
+"또한 JANDI Webhook은 restful API로 동작하기 때문에 http method를 POST로 하지 "
+"않으시면 정상적으로 등록되지 않습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-165"
@@ -1315,7 +1317,10 @@ msgstr "이렇게 수신된 메시지는 선택된 대화에 다음과 같이 �
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
-msgstr "더 궁금한 점이 있으시면 잔디 고객센터로 문의해주시기 바랍니다."
+msgstr ""
+"프로필 이미지와 이름 변경이 필요할 경우 수정이 가능합니다. 더 궁금한 점이 있"
+"으시면 <a href=\"https://jandi.zendesk.com/hc/ko/requests/new\" target="
+"\"_blank\">잔디 고객센터</a>로 문의해주시기 바랍니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1336,8 +1341,8 @@ msgstr "모든 멤버"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-172"
 msgstr ""
-"모든 멤버가 자유롭게 연동 서비스를 추가할 수 있지만, 각 멤버는 다른 멤버의 "
-"연동 내용을 볼 수 없으며 관리자만 전체 내역을 확인할 수 있습니다."
+"모든 멤버가 자유롭게 연동 서비스를 추가할 수 있지만, 각 멤버는 다른 멤버의 연"
+"동 내용을 볼 수 없으며 관리자만 전체 내역을 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-173"
@@ -1348,12 +1353,119 @@ msgid "@jnd-connect-174"
 msgstr "관리자만 연동 항목을 추가할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-175"
+msgstr " Commits"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-176"
+msgstr "Commit Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-177"
+msgstr "Pull Requests Opened / Closed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-178"
+msgstr "Pull Requests Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-179"
+msgstr "Issue Opened / Closed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
 msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-180"
+msgstr "Issue Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-181"
+msgstr "Branch or Tag Created / Deleted"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-182"
+msgstr "Branch force-Pushed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-183"
+msgstr "죄송합니다. 잔디 커넥트 항목을 더 이상 추가하실 수 없습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-184"
+msgstr ""
+"이 잔디 커넥트 항목을 중지하시겠습니까? 중지하실 경우 더 이상 연동된 서비스"
+"의 변경 사항을 메시지로 받아보실 수 없습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-185"
+msgstr ""
+"이 잔디 커넥트 항목을 정말 삭제하시겠습니까? 연동 항목을 삭제하시더라도 과거"
+"에 수신한 메시지는 보존됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-186"
+msgstr "잔디 커넥트 항목이 성공적으로 추가되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-187"
+msgstr ""
+"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
+"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-188"
+msgstr "이 계정 연결 해제하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-189"
+msgstr "이 잔디 커넥트 항목을 삭제하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-19"
 msgstr "Trello"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-190"
+msgstr "Trello"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-191"
+msgstr "본문 텍스트 (필수)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-192"
+msgstr "첨부 영역을 나눠주는 막대 요소의 RGB 색상 코드"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-193"
+msgstr "첫번째 첨부영역 제목"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-194"
+msgstr "첫번째 첨부영역 내용"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-195"
+msgstr "두번째 첨부영역 제목"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-196"
+msgstr "두번째 첨부영역 내용"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-197"
+msgstr "@jnd-connect-197"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-198"
+msgstr "@jnd-connect-198"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-199"
+msgstr "첨부영역에 추가 가능한 이미지의 URL"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-2"
@@ -1364,57 +1476,385 @@ msgid "@jnd-connect-20"
 msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-200"
+msgstr "@jnd-connect-200"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-201"
+msgstr ""
+"토픽을 나가시면 기존의 잔디 커넥트 항목들이 삭제됩니다. 나가시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-202"
+msgstr "Connect-Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-203"
+msgstr "Connect-Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-204"
+msgstr "Connect-Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-205"
+msgstr "Connect-Survey"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-206"
+msgstr "Not In Use"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-207"
+msgstr "불러오는 중..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-208"
+msgstr "잔디 커넥트 항목이 업데이트 되었습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-209"
+msgstr "잔디 커넥트 항목이 삭제되었습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-21"
 msgstr "Webhook 수신 (Incoming Webhook)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-210"
+msgstr "중지하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-211"
+msgstr "삭제하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-212"
+msgstr "프로필 사진"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-213"
+msgstr "변경하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-214"
+msgstr "Connect survey Link (Not In Use)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-215"
+msgstr ""
+"알 수 없는 이유로 {{serviceName}} 계정 연결이 해제되었습니다. 기존에 설정되"
+"어 있던 잔디 커넥트 항목들이 삭제됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-216"
+msgstr "캘린더를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-217"
+msgstr "Repository를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-218"
+msgstr "Board를 선택해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-219"
+msgstr "알림을 받고자 하는 이벤트를 최소 한 개 이상 선택해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
 msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-220"
+msgstr "아직 연동된 잔디 커넥트 항목이 없습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-221"
+msgstr "다양한 외부 서비스를 연동하여 변경 사항을 잔디에서 확인하세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-222"
+msgstr "{{connectCount}}개의 서비스가 연동중입니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-223"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-224"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-225"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-226"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-227"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-228"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-229"
+msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
-"Github은 Git 버전 컨트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장"
-"소입니다.\n"
-"\n"
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-230"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-231"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-232"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-233"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-234"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-235"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-236"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-237"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-238"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
+"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-239"
+msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
+"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
 "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
 "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
 msgstr ""
-"Google 캘린더는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스"
-"입니다.\n"
-"\n"
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google 캘린더를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔디 "
+"팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-240"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-241"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-242"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-243"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-244"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-245"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-246"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-247"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-248"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
+"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
+"디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-249"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
+"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
+"><br />\n"
 "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
 "디 팀 내에서 메시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
-"JIRA는 Atlassian사의 프로젝트 매니지먼트 툴입니다.\n"
-"\n"
+"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>는 "
+"Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
+"JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황을 "
+"잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@jnd-connect-250"
+msgstr ""
+"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>는 "
+"Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
 "JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황을 "
 "잔디 팀 내에서 메시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
 msgstr ""
-"Trello는 인터랙티브한 방식으로 할 일 관리를 할 수 있는 협업툴입니다.\n"
-"\n"
-"Trello를 잔디와 연동하게 되면, 각 카드나 보드의 변동 사항을 잔디 팀 내에서 "
-"메시지로 받을 수 있습니다."
+"<b><a href=https://trello.com target=_blank>Trello</a></b>는 인터랙티브한 방"
+"식으로 할 일 관리를 할 수 있는 협업툴입니다.<br /><br />\n"
+"Trello를 잔디와 연동하게 되면, 각 카드나 보드의 변동 사항을 잔디 팀 내에서 메"
+"시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
-"Incoming Webhook은 Webhook을 지원하는 서비스를 잔디와 연결하여 외부 서비스"
-"의 변동 사항을 잔디 팀 내의 메시지로 수신할 수 있는 기능입니다."
+"<b>Incoming Webhook</b>은 Webhook을 지원하는 서비스를 잔디와 연결하여 외부 서"
+"비스의 변동 사항을 잔디 팀 내의 메시지로 수신할 수 있는 기능입니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-28"
 msgstr ""
-"잔디 커넥트를 처음 사용하시나요? 이제 Google 캘린더, Trello, Github, JIRA 등"
+"잔디 커넥트를 처음 사용하시나요? 이제 Google 캘린더, Trello, GitHub, JIRA 등"
 "을 연동하여 잔디에서 알림을 받아보세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -1511,7 +1951,7 @@ msgstr "1시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-5"
-msgstr "Google Calendar"
+msgstr "Google 캘린더"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-50"
@@ -1519,7 +1959,7 @@ msgstr "2시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-51"
-msgstr "4시간 전"
+msgstr "더4시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-52"
@@ -1555,8 +1995,7 @@ msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr ""
-"Google Calendar에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "Google 캘린더에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
@@ -1835,8 +2274,7 @@ msgstr "대화방으로 초대"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr ""
-"1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
+msgstr "1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
 
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@modal-invite-members"
@@ -2000,8 +2438,7 @@ msgstr "검색조건 초기화"
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 "
-"중..."
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 중..."
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
@@ -2012,8 +2449,8 @@ msgstr "검색어는 2글자 이상 입력해주세요."
 msgid "@search-result-summary"
 msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>에 대한 "
-"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 "
-"결과가 있습니다."
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 결"
+"과가 있습니다."
 
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
@@ -2278,8 +2715,8 @@ msgstr "올바른 이메일 주소를 사용해주세요."
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
 msgstr ""
-"Ctrl-C (맥의 경우 Cmd-C) 를 누르시면 초대 링크가 복사됩니다. 초대를 원하시"
-"는 멤버에게 이 링크를 보내세요!"
+"Ctrl-C (맥의 경우 Cmd-C) 를 누르시면 초대 링크가 복사됩니다. 초대를 원하시는 "
+"멤버에게 이 링크를 보내세요!"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
@@ -2351,6 +2788,105 @@ msgstr "바탕화면 알림 사용하기"
 msgid "@turn-on-topic-alarm"
 msgstr "현재 토픽 알림 켜기"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr " 잘 알겠습니다! "
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"내가 직접 업로드한 파일들 뿐 아니라 토픽 또는 1:1 메시지로 공유된 모든 파일들"
+"을 파일서랍에서 열람하실 수 있습니다. 파일을 선택한 뒤, 메뉴 버튼 (ᵒᵒᵒ)을 누"
+"르시면 댓글을 달거나 다른 대화에 공유하실 수 있으며 다운로드 또한 가능합니다."
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"검색어와 분류 옵션을 통해 파일을 검색하실 수 있습니다. 파일이 공유된 대화방이"
+"나 업로드한 사람, 또는 파일 종류로 분류가 가능합니다. \"메시지\" 탭에서는 과"
+"거의 메시지 검색이 가능합니다. 검색 결과에서 해당 메시지가 작성된 시점으로 바"
+"로 이동할 수 있으므로 당시의 업무 맥락을 쉽게 파악할 수 있습니다."
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"또한, \"[검색]\"과 \"[닫기 >]\" 버튼을 통해 오른쪽 영역을 열고 닫을 수도 있습"
+"니다."
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "파일 서랍과 검색 패널"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "메시지 입력과 파일 업로드 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"입력창에서 메시지를 작성하세요. 또 왼쪽 아이콘을 클릭하여 파일들을 업로드하거"
+"나 간단하게  <b>드래그&드롭</b> 하실 수도 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "더 이상 보지 않기"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유된 "
+"파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내용"
+"은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. [+추"
+"가] 버튼을 눌러 대화를 시작할 수 있습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"<b>비공개 토픽</b>은 초대를 통해서만 참여할 수 있고 공유 파일들도 참여자들에"
+"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] 메"
+"뉴를 통해 토픽 속성을 선택할 수 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "공개 토픽과 비공개 토픽, 1:1 메시지 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있습"
+"니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유롭"
+"게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목록"
+"을 확인 후 참여하실 수 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "다른 팁 보기 »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 만"
+"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{member|"
+"getName}}</b> 님을 위해 골랐으니 한 번 확인해주세요."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI!"
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr "성공!"
@@ -2396,8 +2932,8 @@ msgstr "1:1 메시지를 한 번 보내보세요. "
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
-"이 파일 상세 화면에서는, 파일에 달린 댓글을 확인하시거나 새로운 댓글을 작성"
-"하실 수 있어요. \"오타 수정이 필요합니다\"라고 댓글을 입력해보세요."
+"이 파일 상세 화면에서는, 파일에 달린 댓글을 확인하시거나 새로운 댓글을 작성하"
+"실 수 있어요. \"오타 수정이 필요합니다\"라고 댓글을 입력해보세요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment_click"
@@ -2410,8 +2946,8 @@ msgstr "이제 팀에 저장된 파일들을 한 번 살펴보도록 해요."
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_download_desc"
 msgstr ""
-"또한 이 아이콘을 클릭하시면 파일을 다운로드 하시거나 다른 토픽으로 공유할 "
-"수 있습니다."
+"또한 이 아이콘을 클릭하시면 파일을 다운로드 하시거나 다른 토픽으로 공유할 수 "
+"있습니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/welcome/tutorial.welcome.html
@@ -2425,8 +2961,7 @@ msgstr "성공!"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_help_remember"
 msgstr ""
-"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니"
-"다."
+"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
@@ -2486,8 +3021,8 @@ msgstr ""
 #: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_team_intro"
 msgstr ""
-"잔디를 사용하시고 완전히 새로워진 팀 커뮤니케이션을 경험해 보세요. 이 테스"
-"트 팀에서는 잔디의 간단한 사용법을 알아보실 수 있습니다."
+"잔디를 사용하시고 완전히 새로워진 팀 커뮤니케이션을 경험해 보세요. 이 테스트 "
+"팀에서는 잔디의 간단한 사용법을 알아보실 수 있습니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_title"
@@ -2520,8 +3055,8 @@ msgstr "{{topicName}} 토픽이 성공적으로 생성되었어요."
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_definition"
 msgstr ""
-"토픽이랑 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하"
-"는 단톡방이라고 할 수 있어요. "
+"토픽이랑 진행중인 프로젝트나 점심 메뉴에 이르기까지 다양하게 만들어 사용하는 "
+"단톡방이라고 할 수 있어요. "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_join"
@@ -2538,8 +3073,8 @@ msgstr "업로드한 파일은 다른 메시지와 함께 대화창에 바로 �
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_sources"
 msgstr ""
-"파일을 내 컴퓨터에서 바로 올리거나, Google 드라이브 또는 드롭박스의 파일을 "
-"등록할 수도 있어요."
+"파일을 내 컴퓨터에서 바로 올리거나, Google 드라이브 또는 드롭박스의 파일을 등"
+"록할 수도 있어요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
@@ -2564,106 +3099,6 @@ msgstr "아직 완료하지 않은 튜토리얼이 남았습니다."
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "{{username}}님, 환영합니다!"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr " 잘 알겠습니다! "
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"내가 직접 업로드한 파일들 뿐 아니라 토픽 또는 1:1 메시지로 공유된 모든 파일"
-"들을 파일서랍에서 열람하실 수 있습니다. 파일을 선택한 뒤, 메뉴 버튼 (ᵒᵒᵒ)을 "
-"누르시면 댓글을 달거나 다른 대화에 공유하실 수 있으며 다운로드 또한 가능합니"
-"다."
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"검색어와 분류 옵션을 통해 파일을 검색하실 수 있습니다. 파일이 공유된 대화방"
-"이나 업로드한 사람, 또는 파일 종류로 분류가 가능합니다. \"메시지\" 탭에서는 "
-"과거의 메시지 검색이 가능합니다. 검색 결과에서 해당 메시지가 작성된 시점으"
-"로 바로 이동할 수 있으므로 당시의 업무 맥락을 쉽게 파악할 수 있습니다."
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"또한, \"[검색]\"과 \"[닫기 >]\" 버튼을 통해 오른쪽 영역을 열고 닫을 수도 있"
-"습니다."
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "파일 서랍과 검색 패널"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "메시지 입력과 파일 업로드 "
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"입력창에서 메시지를 작성하세요. 또 왼쪽 아이콘을 클릭하여 파일들을 업로드하"
-"거나 간단하게  <b>드래그&드롭</b> 하실 수도 있습니다."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "더 이상 보지 않기"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유"
-"된 파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내"
-"용은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. "
-"[+추가] 버튼을 눌러 대화를 시작할 수 있습니다. "
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"<b>비공개 토픽</b>은 초대를 통해서만 참여할 수 있고 공유 파일들도 참여자들에"
-"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] "
-"메뉴를 통해 토픽 속성을 선택할 수 있습니다."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "공개 토픽과 비공개 토픽, 1:1 메시지 "
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있"
-"습니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유"
-"롭게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목"
-"록을 확인 후 참여하실 수 있습니다."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "다른 팁 보기 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 만"
-"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{member|"
-"getName}}</b> 님을 위해 골랐으니 한 번 확인해주세요."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "Welcome to JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
@@ -2783,8 +3218,8 @@ msgstr "수요일"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr ""
-#~ "JANDI의 모든 기능을 이용하기 위해 최신 버전의 인터넷 익스플로러를 설치해"
-#~ "주세요."
+#~ "JANDI의 모든 기능을 이용하기 위해 최신 버전의 인터넷 익스플로러를 설치해주"
+#~ "세요."
 
 #~ msgid "@alert-empty-ch-can-join"
 #~ msgstr "참여 가능한 토픽이 없습니다"
@@ -2948,8 +3383,8 @@ msgstr "수요일"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr ""
-#~ "비공개 토픽은 초대된 멤버만 볼 수 있으며, 파일들 또한 초대된 멤버에게만 "
-#~ "공개됩니다."
+#~ "비공개 토픽은 초대된 멤버만 볼 수 있으며, 파일들 또한 초대된 멤버에게만 공"
+#~ "개됩니다."
 
 #~ msgid "@modal-profile-picture"
 #~ msgstr "프로필 사진"
@@ -2976,8 +3411,8 @@ msgstr "수요일"
 
 #~ msgid "@modal-setting-team-msg"
 #~ msgstr ""
-#~ "팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들"
-#~ "에게 적용되므로 주의하여 주시기 바랍니다."
+#~ "팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에"
+#~ "게 적용되므로 주의하여 주시기 바랍니다."
 
 #~ msgid "@option-noti-all"
 #~ msgstr "모든 메시지"
@@ -2999,8 +3434,8 @@ msgstr "수요일"
 
 #~ msgid "@setting-team-delete-confirm"
 #~ msgstr ""
-#~ "정말로 팀을 삭제하시겠습니까? 모든 메시지와 파일들이 삭제되며 복구할 수 "
-#~ "없습니다."
+#~ "정말로 팀을 삭제하시겠습니까? 모든 메시지와 파일들이 삭제되며 복구할 수 없"
+#~ "습니다."
 
 #~ msgid "@setting-team-domain-change"
 #~ msgstr "팀 주소 변경"
@@ -3159,23 +3594,23 @@ msgstr "수요일"
 
 #~ msgid "@tutorial-intro"
 #~ msgstr ""
-#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위"
-#~ "해 만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
+#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 "
+#~ "만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
 #~ "name}}님을 위해 골랐으니 한 번 확인해주세요. 깜빡이는 아이콘을 한 번씩 클"
 #~ "릭해 주세요! "
 
 #~ msgid ""
 #~ "@tutorial-file-msg1\n"
-#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 "
-#~ "파일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
+#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파"
+#~ "일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
 #~ "다.-->"
 #~ msgstr ""
 #~ "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있"
-#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토"
-#~ "픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하"
-#~ "며, 파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭"
-#~ "하시면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하"
-#~ "실 수도 있습니다."
+#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토픽 "
+#~ "또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하며, "
+#~ "파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시"
+#~ "면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하실 수"
+#~ "도 있습니다."
 
 #~ msgid ""
 #~ "@tutorial-msg-explanation\n"
@@ -3397,8 +3832,7 @@ msgstr "수요일"
 
 #~ msgid "Each fields(Email, Last Name, First Name) are all required."
 #~ msgstr ""
-#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니"
-#~ "다."
+#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다."
 
 #~ msgid "Failed to send email"
 #~ msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
@@ -3470,8 +3904,8 @@ msgstr "수요일"
 
 #~ msgid "Please use Private Group for a closed channel."
 #~ msgstr ""
-#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 "
-#~ "생성하여 초대해 주시기 바랍니다."
+#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생"
+#~ "성하여 초대해 주시기 바랍니다."
 
 #~ msgid "'s"
 #~ msgstr "님의"

@@ -1,0 +1,141 @@
+<div class="jnd-connect-service-container" id="jnd-connect-available-service">
+  <!--Google Calendar-->
+  <div class="integration-service detail">
+    <jnd-connect-union-nav></jnd-connect-union-nav>
+    <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
+      <jnd-connect-loading ng-if="!isInitialized"></jnd-connect-loading>
+      <div ng-if="isInitialized">
+        <jnd-connect-union-header jnd-data-model="data.header"></jnd-connect-union-header>
+        <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
+          <span class="setting-label" translate>@jnd-connect-36</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <jnd-connect-union-selectbox-pending ng-if="!isSettingMode"
+                                                 jnd-data-list="data.calendarList"
+                                                 jnd-data-model="data.calendarMapKey"
+                                                 jnd-data-is-loaded="isCalendarListLoaded"></jnd-connect-union-selectbox-pending>
+            <div class="custom-select-box-btn disabled" ng-if="isSettingMode">
+              <span>{{data.calendarSummary}}</span>
+            </div>
+            <i class="icon-long-arrow-right"></i>
+            <div class="clear"></div>
+          </div>
+        </section>
+        <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
+          <span class="setting-label" translate>@jnd-connect-38</span>
+          <div class="setting-contents">
+            <jnd-connect-union-selectbox-room
+              jnd-data-model="data.roomId"></jnd-connect-union-selectbox-room>
+            <div class="clear"></div>
+          </div>
+        </section>
+        <section class="service-setting select-nofification clear borderless-section jnd-column-5-width jnd-float-left">
+          <span class="setting-label" translate>@jnd-connect-41</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container notification-minute-container">
+              <input type="checkbox" ng-model="data.hasNotificationBefore">
+              <jnd-connect-union-selectbox list="notificationMinuteList"
+                                           value="data.notificationBefore"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span>{{utcTimeOffsetDescription}}</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasAllDayNotification">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-54</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="allDayNotificationDateList"
+                                           value="data.allDayNotificationBeforeDates"></jnd-connect-union-selectbox>
+              <jnd-connect-union-selectbox list="allDaynotificationHourList"
+                                           value="data.allDayNotificationHour"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span>{{utcTimeOffsetDescription}}</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </section>
+        <section class="service-setting select-nofification borderless-section jnd-column-5-width jnd-float-left second-column">
+          <span class="setting-label">일정 요약</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasDailyScheduleSummary">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-88</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
+                                           value="data.dailyScheduleSummary"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span>{{utcTimeOffset}}</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container">
+              <input type="checkbox" ng-model="data.hasWeeklyScheduleSummary">
+              <label>
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-89</span>
+                </div>
+              </label>
+              <jnd-connect-union-selectbox list="weeklyScheduleSummaryDayList"
+                                           value="data.weeklyScheduleSummaryDayOfWeek"></jnd-connect-union-selectbox>
+              <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
+                                           value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
+              <label>
+                <div class="checkbox-description">
+                  <span translate="">{{utcTimeOffset}}</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </section>
+        <section class="service-setting select-nofification clear">
+          <span class="setting-label" translate>@jnd-connect-83</span>
+          <div class="setting-contents">
+            <span class="setting-description"></span>
+            <div class="checkbox-list-container text-only jnd-float-left">
+              <input id="new_event_notification" type="checkbox" ng-model="data.newEventNotification">
+              <label for="new_event_notification">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-84</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container text-only jnd-float-left clear">
+              <input id="updated_event_notification" type="checkbox" ng-model="data.updatedEventNotification">
+              <label for="updated_event_notification">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-85</span>
+                </div>
+              </label>
+            </div>
+            <div class="checkbox-list-container text-only jnd-float-left clear">
+              <input id="cancelled_event_notification" type="checkbox" ng-model="data.cancelledEventNotification">
+              <label for="cancelled_event_notification">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-86</span>
+                </div>
+              </label>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </section>
+        <jnd-connect-union-footer jnd-data="data.footer"></jnd-connect-union-footer>
+      </div>
+    </div>
+    <jnd-connect-loading class="big" ng-if="isLoading"></jnd-connect-loading>
+  </div>
+</div>

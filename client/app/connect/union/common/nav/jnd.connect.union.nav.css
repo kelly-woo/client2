@@ -1,0 +1,28 @@
+.jnd-connect-back-container {
+  height: 40px;
+  background-color:#FFF;
+  display: block !important;
+}
+.jnd-connect-back-container .inner-container {
+  margin:0 auto;
+  display: block;
+  position: relative;
+  max-width: 1024px;
+  width: 90%;
+  height: 40px;
+  padding: 12px 14px 12px 20px;
+}
+
+.jnd-connect-back-container .back-button {
+  color:#777;
+}
+.jnd-connect-back-container .back-button:hover {
+  background-color: transparent;
+  color:#333;
+}
+
+.jnd-connect-back-container .back-button > i {
+  position: absolute;
+  left: -4px;
+  top: 13px;
+}

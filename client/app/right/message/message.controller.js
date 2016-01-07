@@ -104,7 +104,7 @@
         // open user profile
 
         event.stopPropagation();
-        jndPubSub.pub('onUserClick', $scope.writer);
+        jndPubSub.pub('onMemberClick', $scope.writer);
       } else if (!message.preventRedirect) {
         if (message.type !== 'message') {
           // message type이 'message'라면 상위 scope에서 event handling함

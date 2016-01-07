@@ -1,0 +1,8 @@
+<ul class="dropdown-list">
+  <li role="presentation" tabindex="-1" ng-repeat="item in list track by $index"
+      ng-class="{active: isActive($index)}"
+      ng-mouseenter="selectActive($index)"
+      ng-click="selectItem($index)">
+    <span>{{item.text}}</span>
+  </li>
+</ul>

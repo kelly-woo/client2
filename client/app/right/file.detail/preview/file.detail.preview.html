@@ -6,7 +6,7 @@
       <div class="filter-type-preview-text">
         <span translate>@msg-open-original</span>
       </div>
-      <img src="{{::imageUrl}}">
+      <img ng-src="{{::imageUrl}}">
     </a>
   </div>
   <div class="external-share-btn cursor_pointer opac-zero" ng-if="!isIntegrateFile" ng-show="isExternalShared" ng-class="{'opac-in': !isImagePreview || !isLoadingImage}" ng-click="onExternalShareClick();">

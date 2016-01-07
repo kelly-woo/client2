@@ -75,8 +75,8 @@
     $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
     // star / unstar
-    $scope.$on('starred', _starred);
-    $scope.$on('unStarred', _unStarred);
+    $scope.$on('message:starred', _starred);
+    $scope.$on('message:unStarred', _unStarred);
 
     // create/delete comment
     $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);

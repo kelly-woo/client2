@@ -126,7 +126,7 @@
       </div>
 
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
-        <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
+        <li role="presentation" tabindex="-1" ng-repeat="userId in users track by $index">
           <a ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
               <span class="overflow-ellipsis">{{userId | getName}}</span>
@@ -148,7 +148,6 @@
           tooltip-class="panel-title-invite-tooltip"
           ng-click="openInviteModal();">
     </span>
-
   </span>
 
   <!-- TOPIC NOTIFICATION INDICATOR -->
@@ -164,6 +163,8 @@
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
+
+  <!--<room-connector></room-connector>-->
 </div>
 
 <div ng-if='!isConnected' class="panel-title-container non-selectable center-panel-disabled-member">

@@ -1,0 +1,249 @@
+<div class="jnd-connect-service-container" id="jnd-connect-available-service">
+  <!--Trello-->
+  <div class="integration-service detail">
+    <jnd-connect-union-nav></jnd-connect-union-nav>
+    <div class="integration-service-container detail-container" id="jnd-connect-detail-container">
+      <jnd-connect-union-header jnd-data-model="formData.header"></jnd-connect-union-header>
+
+      <section class="service-setting select-calendar clear jnd-column-5-width jnd-float-left arrow-column">
+        <span class="setting-label" translate>@jnd-connect-111</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
+
+          <jnd-connect-union-selectbox-pending
+              jnd-data-is-loaded="isBoardLoaded"
+              jnd-data-list="boards"
+              jnd-data-is-disabled="!isBoardLoaded"
+              jnd-data-model="formData.trelloBoardId"></jnd-connect-union-selectbox-pending>
+
+          <i class="icon-long-arrow-right"></i>
+
+          <div class="clear"></div>
+
+        </div>
+      </section>
+
+      <section class="service-setting select-conversation jnd-column-5-width jnd-float-left second-column compound-column">
+        <span class="setting-label" translate>@jnd-connect-38</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
+          <jnd-connect-union-selectbox-room
+              jnd-data-model="formData.roomId"></jnd-connect-union-selectbox-room>
+          <div class="clear"></div>
+        </div>
+      </section>
+
+
+      <section class="service-setting select-nofification clear">
+        <span class="setting-label" translate>@jnd-connect-113</span>
+        <div class="setting-contents">
+          <span class="setting-description"></span>
+
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title first-title" translate>@jnd-connect-114</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check1" ng-model="formData.hookEvent.showCardCreated">
+              <label for="trello-check1">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-115</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check2" class="" ng-model="formData.hookEvent.showCardMoved">
+              <label for="trello-check2">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-116</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check3" class="" ng-model="formData.hookEvent.showCardRenamed">
+              <label for="trello-check3">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-117</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check4" class="" ng-model="formData.hookEvent.showCardCommentCreated">
+              <label for="trello-check4">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-118</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check5" class="" ng-model="formData.hookEvent.showCardAttachmentCreated">
+              <label for="trello-check5">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-119</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check6" class="" ng-model="formData.hookEvent.showCardDescriptionUpdated">
+              <label for="trello-check6">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-120</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check7" class="" ng-model="formData.hookEvent.showCardDueDateUpdated">
+              <label for="trello-check7">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-121</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check8" class="" ng-model="formData.hookEvent.showCardLabelCreated">
+              <label for="trello-check8">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-122</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check9" class="" ng-model="formData.hookEvent.showCardMemberCreated">
+              <label for="trello-check9">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-123</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check10" class="" ng-model="formData.hookEvent.showCardArchived">
+              <label for="trello-check10">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-124</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title" translate>@jnd-connect-125</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check11" class="" ng-model="formData.hookEvent.showListCreated">
+              <label for="trello-check11">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-126</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check12" class="" ng-model="formData.hookEvent.showListRenamed">
+              <label for="trello-check12">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-127</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check13" class="" ng-model="formData.hookEvent.showBoardListToMoved">
+              <label for="trello-check13">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-128</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check14" class="" ng-model="formData.hookEvent.showListArchived">
+              <label for="trello-check14">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-129</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check15" class="" ng-model="formData.hookEvent.showBoardRenamed">
+              <label for="trello-check15">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-130</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check16" class="" ng-model="formData.hookEvent.showBoardMemberCreated">
+              <label for="trello-check16">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-131</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="inner-column jnd-column-5-width jnd-float-left">
+            <h3 class="column-title" translate>@jnd-connect-132</h3>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check17" class="" ng-model="formData.hookEvent.showCardChecklistCreated">
+              <label for="trello-check17">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-133</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check18" class="" ng-model="formData.hookEvent.showCardChecklistItemCreated">
+              <label for="trello-check18">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-134</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-10-width">
+              <input type="checkbox" id="trello-check19" class="" ng-model="formData.hookEvent.showCardChecklistItemUpdated">
+              <label for="trello-check19">
+                <div class="checkbox-description">
+                  <span translate>@jnd-connect-135</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+          <!-- inner column ENDS -->
+
+          <div class="clear"></div>
+
+
+        </div>
+      </section>
+
+      <jnd-connect-union-footer jnd-data="formData.footer"></jnd-connect-union-footer>
+    </div>
+    <jnd-connect-loading class="big" ng-if="isLoading"></jnd-connect-loading>
+  </div>
+</div>

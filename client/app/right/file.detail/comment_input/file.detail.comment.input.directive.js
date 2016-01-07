@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, EntityMapManager, entityAPIservice, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, $filter, MentionExtractor, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -19,7 +19,7 @@
         hasInitialLoaded: '=',
         postComment: '&',
         setMentionsGetter: '&',
-        onUserClick: '='
+        onMemberClick: '='
       },
       templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
       link: link
@@ -271,38 +271,8 @@
        * @private
        */
       function _setMentionMembers(file) {
-        var currentMemberId = memberService.getMemberId();
-        var sharedEntities;
-        var mentionMembers;
-
-        if (file) {
-          sharedEntities = file.shareEntities;
-          mentionMembers = [];
-
-          _.each(sharedEntities, function(sharedEntity) {
-            var entity = EntityMapManager.get('total', sharedEntity);
-            var members;
-
-            if (entity && /channels|privategroups/.test(entity.type)) {
-              members = entityAPIservice.getMemberList(entity);
-              _.each(members, function(member) {
-                member = EntityMapManager.get('total', member);
-                if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                  member.extViewName = '[@' + member.name + ']';
-                  member.extSearchName = member.name;
-                  mentionMembers.push(member);
-                }
-              });
-            }
-          });
-
-          // 공유된 room 마다 mention 가능한 member를 설정함
-          mentionMembers = _.chain(mentionMembers).uniq('id').sortBy(function (item) {
-            return item.name.toLowerCase();
-          }).value();
-
-          jndPubSub.pub('mentionahead:comment', mentionMembers);
-        }
+        var mentionList = MentionExtractor.getMentionListForFile(file);
+        jndPubSub.pub('mentionahead:comment', mentionList);
       }
     }
   }

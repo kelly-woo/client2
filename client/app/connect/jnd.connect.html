@@ -1,0 +1,80 @@
+<div class="jnd-connect-setting-container opac-zero"
+    ng-class="{
+      'opac-out': isClose
+    }">
+
+  <div class="jnd-connect-hpanel non-selectable">
+    <div class="jnd-connect-header">
+		  <span class="jnd-connect-header-navbar__topmenu back-button cursor_pointer _backBtn" ng-click="historyBack()">
+		    <i class="icon-long-arrow-left jnd-connect-header-navbar__menu-icon"></i>
+        <!-- translate:  -->
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate>@jnd-connect-1</span>
+		  </span>
+		  <span class="jnd-connect-header-navbar__topmenu exit-button cursor_pointer" ng-click="close()">
+		    <!-- translate:  -->
+		    <span class="jnd-connect-header-navbar__title ng-scope" translate>@jnd-connect-2</span>
+		  </span>
+
+    </div>
+  </div>
+
+  <div class="full-screen" id="connect-setting-ui">
+
+    <aside class="connect-setting-lpanel non-selectable opac-zero opac-in"
+           ng-class="">
+
+      <div class="jnd-connect-logo-container">
+        <i class="jnd-connect-logo"></i>
+        <span class="jnd-connect-title" translate>@jnd-connect-3</span>
+      </div>
+      <div class="jnd-connect-back-container">
+	    <div class="inner-container"><jnd-connect-union-nav></jnd-connect-union-nav></div>
+      </div>
+      <jnd-connect-submenu></jnd-connect-submenu>
+    </aside>
+
+    <!--MAIN-->
+    <div ng-switch="current.union.name">
+      <div class="jnd-connect-service-container" id="jnd-connect-available-service"
+           ng-switch-default>
+        <jnd-connect-loading ng-show="isLoading"></jnd-connect-loading>
+        <div ng-show="isBannerShow && !isLoading" class="jnd-connect-banner _bannerTop">
+          <button type="button" class="close" ng-click="closeBanner()"><i class="icon-delete"></i></button>
+
+          <span class="banner-description" translate>@jnd-connect-28</span>
+          <div class="jnd-connect banner-image"></div>
+        </div>
+
+        <!-- integration contents here -->
+        <jnd-connect-card
+            ng-show="!isLoading"
+            ng-repeat="union in unions"></jnd-connect-card>
+
+        <div ng-show="!isLoading" class="jnd-connect survey-container _card" ng-click="goToSurvey();">
+          <span class="survey-description" translate>@jnd-connect-29</span>
+          <a href="{{surveyUrl}}" target="_blank">
+            <span class="btn btn-ok jnd-cursor-pointer" translate>@jnd-connect-30</span>
+          </a>
+        </div>
+      </div>
+      <div ng-switch-when="googleCalendar">
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-google-calendar ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-google-calendar>
+      </div>
+      <div ng-switch-when="github">
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-github ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-github>
+      </div>
+      <div ng-switch-when="trello">
+        <jnd-connect-union-auth ng-if="current.isShowAuth" jnd-data-current="current"></jnd-connect-union-auth>
+        <jnd-connect-trello ng-if="!current.isShowAuth" jnd-data-current="current"></jnd-connect-trello>
+      </div>
+      <div ng-switch-when="jira">
+        <jnd-connect-webhook jnd-data-current="current"></jnd-connect-webhook>
+      </div>
+      <div ng-switch-when="incoming">
+        <jnd-connect-webhook jnd-data-current="current"></jnd-connect-webhook>
+      </div>
+    </div>
+  </div>
+</div>

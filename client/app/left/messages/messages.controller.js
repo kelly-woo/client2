@@ -40,7 +40,6 @@
       _setTotalAlarmCnt();
       // Must keep watching memberList in 'leftController' in order to keep member's starred status.
       $scope.$on('updateBadgePosition', _setTotalAlarmCnt);
-      $scope.$watch('memberList', getMessageList);
       $scope.$on('updateChatList', getMessageList);
       $scope.$watch('isMessageListCollapsed', _onCollapseStatusChanged);
     }

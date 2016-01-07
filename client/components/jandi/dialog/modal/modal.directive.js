@@ -15,6 +15,7 @@
       restrict: 'A',
       link: function(scope, el) {
         var absoluteFocus = scope.absoluteFocus;
+        var jqModal = el.parents('.modal');
 
         _init();
 
@@ -24,6 +25,31 @@
          */
         function _init() {
           _setInitFocus();
+
+          _attachEvents();
+        }
+
+        /**
+         * attach events
+         * @private
+         */
+        function _attachEvents() {
+          jqModal.on('click', _onModalClick);
+        }
+
+        /**
+         * modal click handler
+         * @param {object} event
+         * @private
+         */
+        function _onModalClick(event) {
+          if (scope.stopPropagation) {
+            event.stopPropagation();
+          }
+
+          if (scope.preventDefault) {
+            event.preventDefault();
+          }
         }
 
         /**

@@ -1,0 +1,41 @@
+<span class="panel-title-right-menu room-integration-connect"
+      dropdown
+      auto-close="outsideClick"
+      is-open="isConnectBoxOpen">
+  <div class="panel-title-right-item"
+       tooltip="{{::'@jnd-connect-3' | translate}}"
+       tooltip-placement="bottom"
+       dropdown-toggle>
+    <i class="icon-connect"></i>
+    <span class="panel-title-text">3</span>
+    <i class="icon-angle-down"></i>
+  </div>
+
+  <div class="dropdown-menu connect-wrapper" role="menu" ng-switch="isInitialized">
+    <jnd-connect-loading ng-switch-when="false"></jnd-connect-loading>
+    <div class="connect-container" ng-switch-when="true">
+      <div class="connect-header">
+        <div class="connect-status">
+          <div class="connect-status-icon" ng-class="hasConnectPlugs ? 'connect-active' : 'connect-inactive'"></div>
+          <span>{{connectStatusDesciption}}</span>
+        </div>
+      </div>
+      <div class="connect-body" ng-switch="hasConnectPlugs">
+        <ul class="connect-plugs" ng-switch-when="true">
+          <li ng-repeat="connectPlug in connectPlugs">
+            <connect-plug jnd-data-model="connectPlug"
+                          on-status-change="onConnectStatusChange($connectId, $status)"
+                          on-setting="onConnectSetting($connectId, $unionName)"
+                          on-delete="onConnectDelete($connectId, $value)"></connect-plug>
+          </li>
+        </ul>
+        <span class="connect-empty" ng-switch-default>
+          <span translate>@jnd-connect-221</span>
+        </span>
+      </div>
+      <div class="connect-footer">
+        <button class="new_channel_btn btn btn-ok" ng-click="onConnectAddClick()">{{connectButtonText}}</button>
+      </div>
+    </div>
+  </div>
+</span>

@@ -21,7 +21,8 @@
       'jndWebSocketTopic',
       'jndWebSocketLinkPreview',
       'jndWebSocketRoomMarker',
-      'jndWebSocketTeam'
+      'jndWebSocketTeam',
+      'jndWebSocketConnect'
     ];
 
     this.getServices = getServices;

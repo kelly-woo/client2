@@ -19,7 +19,7 @@
         errorComments: '=',
         isAdmin: '=',
         postComment: '&',
-        onUserClick: '='
+        onMemberClick: '='
       },
       templateUrl : 'app/right/file.detail/comments/file.detail.comments.html',
       link: link

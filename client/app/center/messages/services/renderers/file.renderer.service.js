@@ -104,10 +104,10 @@
 
       if (isHide) {
         jqToggleTarget.show();
-        jqToogle.addClass('icon-angle-down').removeClass('icon-angle-right');
+        jqToogle.addClass('icon-arrow-up-fill').removeClass('icon-arrow-down-fill');
       } else {
         jqToggleTarget.hide();
-        jqToogle.addClass('icon-angle-right').removeClass('icon-angle-down');
+        jqToogle.addClass('icon-arrow-down-fill').removeClass('icon-arrow-up-fill');
       }
 
       if (isScrollBottom) {

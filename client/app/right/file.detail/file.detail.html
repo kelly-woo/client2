@@ -16,7 +16,7 @@
                           is-external-shared="isExternalShared"
                           is-admin="isAdmin"
                           is-integrate-file="isIntegrateFile"
-                          on-user-click="onUserClick"
+                          on-member-click="onMemberClick"
                           back-to-prev-state="backToPrevState"></file-detail-header>
       <div class="file-detail-body">
         <file-detail-preview ng-if="!isArchivedFile && !isInvalidRequest"
@@ -36,13 +36,13 @@
                             is-invalid-request="isInvalidRequest"
                             is-admin="isAdmin"
                             post-comment="postComment($comment, $sticker)"
-                            on-user-click="onUserClick"></file-detail-comments>
+                            on-member-click="onMemberClick"></file-detail-comments>
     </div>
     <file-detail-comment-input ng-if="!isArchivedFile && !isInvalidRequest"
                                file="file"
                                has-initial-loaded="hasInitialLoaded"
                                post-comment="postComment($comment, $sticker)"
                                set-mentions-getter="setMentionsGetter($getter)"
-                               on-user-click="onUserClick"></file-detail-comment-input>
+                               on-member-click="onMemberClick"></file-detail-comment-input>
   </div>
 </div>

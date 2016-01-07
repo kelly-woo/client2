@@ -21,7 +21,9 @@
       $scope.selectedEntityId = $scope.selectedEntity.id;
       $scope.isLoading = false;
 
-      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+      );
 
       $scope.fileUploadOptions = fileUploadOptions;
       $modalInstance.result.then(_clearFileUploader, _clearFileUploader);
@@ -56,17 +58,17 @@
     function _onSelectedEntityIdChange(entityId) {
       var currentMemberId = memberService.getMemberId();
       var mentionList = [];
-      var members;
+      var users;
       var entity = $scope.selectedEntity = EntityMapManager.get('total', entityId);
 
       if (entity && /channels|privategroups/.test(entity.type)) {
-        members = entityAPIservice.getMemberList(entity);
-        _.forEach(members, function(memberId) {
-          var member = EntityMapManager.get('total', memberId);
-          if (member && currentMemberId !== member.id && member.status === 'enabled') {
-            member.extViewName = '[@' + member.name + ']';
-            member.extSearchName = member.name;
-            mentionList.push(member);
+        users = entityAPIservice.getUserList(entity);
+        _.forEach(users, function(userId) {
+          var user = EntityMapManager.get('user', userId);
+          if (user && currentMemberId !== user.id && user.status === 'enabled') {
+            user.extViewName = '[@' + user.name + ']';
+            user.extSearchName = user.name;
+            mentionList.push(user);
           }
         });
       }

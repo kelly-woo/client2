@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -185,8 +185,8 @@ msgstr "取消標記議題"
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像"
-"以前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
+"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -195,9 +195,9 @@ msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並"
-"隱藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史"
-"記錄），或者您也可以點擊‘+添加’來啟動對話。"
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
+"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
+"錄），或者您也可以點擊‘+添加’來啟動對話。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
@@ -210,12 +210,6 @@ msgstr "議題"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@comment-all-desc"
 msgstr "顯示{{commentCount}}則留言"
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "跳過使用教學"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -259,8 +253,8 @@ msgstr "離開"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到"
-"您收到新的訊息或以手動方式重新打開它。 "
+"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
+"收到新的訊息或以手動方式重新打開它。 "
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -645,6 +639,12 @@ msgstr "上傳檔案"
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "跳過使用教學"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
 msgstr "你確定將此成員剔除議題？"
@@ -915,8 +915,8 @@ msgstr "連結你的Google帳戶"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選"
-"功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選功"
+"能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -929,10 +929,6 @@ msgstr "從Dropbox上傳"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "從Google雲端硬碟上傳"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成員邀請的連結已複製到剪貼簿"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
@@ -961,49 +957,53 @@ msgstr "邀請連結已關閉。"
 msgid "@invitation-link-desc"
 msgstr "或者直接轉發此連結"
 
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成員邀請的連結已複製到剪貼簿"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
-msgstr ""
+msgstr "返回"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-10"
-msgstr ""
+msgstr "開啟"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-100"
-msgstr ""
+msgstr "語言設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-101"
-msgstr ""
+msgstr "設定通知的語言"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-102"
-msgstr ""
+msgstr "{{Gmail account}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-103"
-msgstr ""
+msgstr "한국어"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-104"
-msgstr ""
+msgstr "English"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-105"
-msgstr ""
+msgstr "日本語"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-106"
-msgstr ""
+msgstr "简体中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-107"
-msgstr ""
+msgstr "繁體中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-108"
-msgstr ""
+msgstr "儲存設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-109"
@@ -1011,7 +1011,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-11"
-msgstr ""
+msgstr "編輯"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-110"
@@ -1019,439 +1019,770 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-111"
-msgstr ""
+msgstr "選擇欲串聯的Trello看板..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-112"
-msgstr ""
+msgstr "選定工作看板"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-113"
-msgstr ""
+msgstr "任務卡(Card)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-114"
-msgstr ""
+msgstr "選擇欲接收通知的情境..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-115"
-msgstr ""
+msgstr "建立新任務卡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-116"
-msgstr ""
+msgstr "移動任務卡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-117"
-msgstr ""
+msgstr "更改任務卡名稱"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-118"
-msgstr ""
+msgstr "任務卡有新留言"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-119"
-msgstr ""
+msgstr "任務卡有新附件"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-12"
-msgstr ""
+msgstr "刪除"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-120"
-msgstr ""
+msgstr "更改任務卡描述(Description)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-121"
-msgstr ""
+msgstr "更改任務卡截止日期(Due date)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-122"
-msgstr ""
+msgstr "更改標籤(Label)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-123"
-msgstr ""
+msgstr "新成員加入任務卡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-124"
-msgstr ""
+msgstr "任務卡歸檔(Archived)/復原(Unarchived)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-125"
-msgstr ""
+msgstr "列表(List)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-126"
-msgstr ""
+msgstr "建立新列表"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-127"
-msgstr ""
+msgstr "更改列表名稱"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-128"
-msgstr ""
+msgstr "移動列表至其他工作看板"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-129"
-msgstr ""
+msgstr "列表歸檔(Archived)/復原(Unarchived)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-13"
-msgstr ""
+msgstr "已添加至私訊"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-130"
-msgstr ""
+msgstr "更改工作看板名稱"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-131"
-msgstr ""
+msgstr "新成員加入工作看板"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-132"
-msgstr ""
+msgstr "代辦項目(Checklists)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-133"
-msgstr ""
+msgstr "添加代辦項目至任務卡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-134"
-msgstr ""
+msgstr "建立代辦項目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-135"
-msgstr ""
+msgstr "標示代辦項目完成/未完成"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-136"
-msgstr ""
+msgstr "@jnd-connect-136"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-137"
-msgstr ""
+msgstr "選擇欲串聯的儲存庫(Repository)或分支(Branch)..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-138"
-msgstr ""
+msgstr "選定儲存庫"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-139"
-msgstr ""
+msgstr "選定分支(選填)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-14"
-msgstr ""
+msgstr "添加"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-140"
-msgstr ""
+msgstr "新增帳戶"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-141"
-msgstr ""
+msgstr "取消串連後{{numberOfConnects}}項整合服務將會被刪除，你確定繼續執行嗎？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-142"
-msgstr ""
+msgstr "欲使用此整合服務，需驗證你的{{serviceName}}帳戶"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-143"
-msgstr ""
+msgstr "通過帳戶驗證後，即可於此設定和管理Github整合通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-144"
-msgstr ""
+msgstr "驗證你的{{serviceName}}帳戶"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-145"
-msgstr ""
+msgstr "設定指導"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-146"
-msgstr ""
+msgstr "開啟設定指導"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-147"
-msgstr ""
+msgstr "步驟一"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
 msgstr ""
+"進入JIRA帳戶後，點擊右上角工具鍵進入「JIRA ADMINISTRATION」選擇<b>「System」"
+"</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
-msgstr ""
+msgstr "步驟二"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-15"
-msgstr ""
+msgstr "GitHub"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-150"
-msgstr ""
+msgstr "於側邊欄位的<b>「Advanced」</b>點選<b>「Webhooks」</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-151"
-msgstr ""
+msgstr "步驟三"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-152"
-msgstr ""
+msgstr "點擊<b>「Create a Webhook」</b>，並將下列連結複製貼上至網址欄位"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-153"
-msgstr ""
+msgstr "步驟四"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
-msgstr ""
+msgstr "設定寄發JANDI的通知項目，並於設定完成後點擊「Create」按鍵"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
-msgstr ""
+msgstr "關閉"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-156"
 msgstr ""
+"在 GitHub 帳戶點擊右方面板的「Settings」選擇你想要接收通知的存儲庫"
+"(Repository)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-157"
-msgstr ""
+msgstr "點擊側邊欄位的「Webhooks & Services」後，選擇<b>「Add Webhook」</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-158"
-msgstr ""
+msgstr "將下列連結複製貼上至「Payload URL」欄位"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-159"
-msgstr ""
+msgstr "保留所有預設選項並確認勾選「Active」後，點擊「Add Webhook」"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-16"
-msgstr ""
+msgstr "收取最新代碼更改通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-160"
-msgstr ""
+msgstr "什麼是Webhooks？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-161"
 msgstr ""
+"Webhooks可視為個人化的整合服務，將外部平台或應用程式的通知寄發至JANDI。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-162"
-msgstr ""
+msgstr "欲將通知寄發至JANDI，只需發送HTTP POST至下列網址即可"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
 msgstr ""
+"在提交Webhooks請求時，必須確認下列<b>「Accept」</b>和<b>「Content-Type」</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-164"
-msgstr ""
+msgstr "由於JANDI Webhooks為RESTful API，請使用POST HTTP方式串聯"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-165"
-msgstr ""
+msgstr "建議參考下列POST請求格式"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-166"
-msgstr ""
+msgstr "此為Curl Request範例"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-167"
-msgstr ""
+msgstr "上述的範例格式將會顯示訊息如下"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
+"你可自製整合服務的名稱和大頭照若有任何疑問，歡迎隨時與 <a href=\"https://"
+"jandi.zendesk.com/hc/zh-tw/requests/new\" target=\"_blank\">JANDI用戶關係團隊"
+"</a>聯絡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
-msgstr ""
+msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-17"
-msgstr ""
+msgstr "JIRA"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-170"
-msgstr ""
+msgstr "JANDI Connect權限"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-171"
-msgstr ""
+msgstr "開放所有成員"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-172"
-msgstr ""
+msgstr "開放所有成員添加整合服務，但成員無法瀏覽他人添加之整合服務"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-173"
-msgstr ""
+msgstr "僅限管理員"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-174"
-msgstr ""
+msgstr "僅限團隊管理員可添加整合服務"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-175"
+msgstr "Commits"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-176"
+msgstr "Commit Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-177"
+msgstr "Pull Requests Opened / Closed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-178"
+msgstr "Pull Requests Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-179"
+msgstr "Issue Opened / Closed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
-msgstr ""
+msgstr "接收新建立或現有問題的更新通知"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-180"
+msgstr "Issue Comments"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-181"
+msgstr "Branch or Tag Created / Deleted"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-182"
+msgstr "Branch force-Pushed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-183"
+msgstr "很抱歉，你無法再添加任何整合服務"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-184"
+msgstr "你確定要暫停此服務？暫停後將無法再接收關於此服務的推播通知"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-185"
+msgstr "你確定要刪除此服務？刪除此服務後，過往訊息仍舊保留"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-186"
+msgstr "你已成功添加一項整合服務！"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-187"
+msgstr "@jnd-connect-187"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-188"
+msgstr "確定取消"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-189"
+msgstr "你確定要刪除此整合服務？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-19"
+msgstr "Trello"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-190"
 msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-191"
+msgstr "正文(必填)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-192"
+msgstr "十六進制編碼顏色附件欄"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-193"
+msgstr "附件一標題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-194"
+msgstr "附件一內容"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-195"
+msgstr "附件二標題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-196"
+msgstr "附件二內容"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-197"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-198"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-199"
+msgstr "圖片網址"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-2"
-msgstr ""
+msgstr "關閉JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-20"
+msgstr "隨時追蹤工作板上的列表和任務卡狀態"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-200"
 msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-201"
+msgstr "離開議題後，先前串聯的整合服務將被刪除。你確定要離開此議題？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-202"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-203"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-204"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-205"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-206"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-207"
+msgstr "載入中..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-208"
+msgstr "整合服務設置已更新"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-209"
+msgstr "整合服務已刪除"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-21"
+msgstr "Incoming Webhooks"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-210"
+msgstr "停用"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-211"
+msgstr "刪除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-212"
+msgstr "簡介照片"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-213"
+msgstr "更改"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-214"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-215"
+msgstr "{{serviceName}}帳戶已中斷，先前串聯的整合服務將遭刪除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-216"
+msgstr "請選擇日曆"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-217"
+msgstr "請選擇儲存庫(Repository)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-218"
+msgstr "請選擇工作看板"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-219"
+msgstr "確認至少一項日程"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
+msgstr "將資料從你常使用的外部平台發送至JANDI"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-220"
+msgstr "使用JANDI Connect建立整合服務"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-221"
+msgstr "使用JANDI Connect將所有外部應用程式及作業平台整合於一處"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-222"
+msgstr "{{connectCount}}項整合服務已串聯"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-223"
+msgstr "時區"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-224"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-225"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-226"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-227"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-228"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-229"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
+"<b><a href=https://github.com  target=_blank >Github</a></b>是一個線上代碼管"
+"理平台，用於存放使用Git版本控制的軟體代碼和內容專案。<br/><br/>\n"
+"串聯GitHub後，你將會於設定接收的議題內收取所有關於留言、代碼拉取請求和其他動"
+"作的通知。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-230"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-231"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-232"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-233"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-234"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-235"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-236"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-237"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-238"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-239"
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
+msgstr ""
+"<b><a href=https://calendar.google.com  target=_blank>Google</a></b>日曆提供"
+"個人及共用行事曆，記錄所有日程。<br/><br/>\n"
+"串聯Google日曆後，提醒通知將排定行程、議程更動和每日、每週行程總結寄至設定接"
+"收的議題內。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-240"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-241"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-242"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-243"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-244"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-245"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-246"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-247"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-248"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-249"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
+"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>是一"
+"個問題追蹤管理系統，將問題設定為專案，方便團隊進行管理和追蹤。<br/><br/>\n"
+"串聯JIRA後，你將會於設定接收的議題內收取所有問題的更新通知。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-250"
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
 msgstr ""
+"<b><a href=https://trello.com target=_blank>Trello</a></b>是高靈活度的任務管"
+"理工具，使用看板模式將進度管理視覺化。<br/><br/>\n"
+"串聯Trello後，所有工作板、列表和任務卡的動態將會寄發至設定接收的議題內。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
+"<b>Incoming Webhook</b>可視為個人化的整合服務，將外部平台或應用程式的通知寄發"
+"至設定接收的議題內。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-28"
 msgstr ""
+"第一次使用JANDI Connect？JANDI Connect協助你整合散落各個平台的資訊，便於成員"
+"們快速接收通知並立即討論。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-29"
-msgstr ""
+msgstr "沒有你想串連的平台？現在就告訴我們！"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-3"
-msgstr ""
+msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr ""
+msgstr "提出需求"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
-msgstr ""
+msgstr "回到整合服務列表"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-32"
-msgstr ""
+msgstr "目前{{integratedMemberCount}}位成員已串聯此服務"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-33"
-msgstr ""
+msgstr "{{memberName}}的{{serviceName}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-34"
-msgstr ""
+msgstr "{{yyyy-mm-dd}}添加"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-35"
-msgstr ""
+msgstr "已驗證帳號"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-36"
-msgstr ""
+msgstr "選擇欲串聯的Google日曆..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-37"
-msgstr ""
+msgstr "選定日曆"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-38"
-msgstr ""
+msgstr "選擇欲接收通知的議題或私訊..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-39"
-msgstr ""
+msgstr "Mr. J"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-4"
-msgstr ""
+msgstr "已串聯服務"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr ""
+msgstr "建立新議題"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
-msgstr ""
+msgstr "行程提醒"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-42"
-msgstr ""
+msgstr "寄發行程通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-43"
-msgstr ""
+msgstr "行程發生時間"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-44"
-msgstr ""
+msgstr "1分鐘前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-45"
-msgstr ""
+msgstr "5分鐘前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-46"
-msgstr ""
+msgstr "10分鐘前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-47"
-msgstr ""
+msgstr "15分鐘前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-48"
-msgstr ""
+msgstr "30分鐘前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-49"
-msgstr ""
+msgstr "1小時前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-5"
-msgstr ""
+msgstr "Google日曆"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-50"
-msgstr ""
+msgstr "2小時前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-51"
-msgstr ""
+msgstr "4小時前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-52"
-msgstr ""
+msgstr "1日前"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-53"
@@ -1459,203 +1790,203 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-54"
-msgstr ""
+msgstr "寄發整日提醒"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-55"
-msgstr ""
+msgstr "行程發生當日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-56"
-msgstr ""
+msgstr "行程發生前一日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-57"
-msgstr ""
+msgstr "行程發生前兩日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-58"
-msgstr ""
+msgstr "0:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-59"
-msgstr ""
+msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr ""
+msgstr "透過共享日曆和行程提醒保持行事曆的井然有序"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
-msgstr ""
+msgstr "2:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-61"
-msgstr ""
+msgstr "3:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-62"
-msgstr ""
+msgstr "4:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-63"
-msgstr ""
+msgstr "5:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-64"
-msgstr ""
+msgstr "6:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-65"
-msgstr ""
+msgstr "7:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-66"
-msgstr ""
+msgstr "8:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-67"
-msgstr ""
+msgstr "9:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-68"
-msgstr ""
+msgstr "10:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-69"
-msgstr ""
+msgstr "11:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-7"
-msgstr ""
+msgstr "{{integrationCount}}件已配置項目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-70"
-msgstr ""
+msgstr "12:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-71"
-msgstr ""
+msgstr "1:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-72"
-msgstr ""
+msgstr "2:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-73"
-msgstr ""
+msgstr "3:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-74"
-msgstr ""
+msgstr "4:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-75"
-msgstr ""
+msgstr "5:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-76"
-msgstr ""
+msgstr "6:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-77"
-msgstr ""
+msgstr "7:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-78"
-msgstr ""
+msgstr "8:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-79"
-msgstr ""
+msgstr "9:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-8"
-msgstr ""
+msgstr "添加整合"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-80"
-msgstr ""
+msgstr "10:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-81"
-msgstr ""
+msgstr "11:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-82"
-msgstr ""
+msgstr "{{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-83"
-msgstr ""
+msgstr "日曆通知設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-84"
-msgstr ""
+msgstr "建立新行程或被邀請至行程"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-85"
-msgstr ""
+msgstr "行程更改"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-86"
-msgstr ""
+msgstr "行程取消或刪除"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-87"
-msgstr ""
+msgstr "總結通知設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-88"
-msgstr ""
+msgstr "每日總結"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-89"
-msgstr ""
+msgstr "每週總結"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-9"
-msgstr ""
+msgstr "暫停"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-90"
-msgstr ""
+msgstr "周一"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-91"
-msgstr ""
+msgstr "周二"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-92"
-msgstr ""
+msgstr "周三"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-93"
-msgstr ""
+msgstr "周四"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-94"
-msgstr ""
+msgstr "周五"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-95"
-msgstr ""
+msgstr "周六"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-96"
-msgstr ""
+msgstr "周日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-97"
-msgstr ""
+msgstr "{{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-98"
-msgstr ""
+msgstr "個人化設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-99"
-msgstr ""
+msgstr "更改通知上顯示的姓名和大頭照"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -1927,8 +2258,8 @@ msgstr "使用關鍵字搜尋請輸入1個以上的字元"
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 "
-"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 <span "
+"class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
@@ -2147,8 +2478,8 @@ msgstr "周日"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-created"
 msgstr ""
-"{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的訊息"
-"為公告"
+"{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的訊息為"
+"公告"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
@@ -2157,8 +2488,8 @@ msgstr "{{msg.message.content.actionOwner}} 刪除公告"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@team-create-info-help-msg"
 msgstr ""
-"有了JANDI，您可以任意建立許多團隊及任意邀請許多成員加入，完全免費。不如自己"
-"親自來看看JANDI可以如何改善您在工作場合裏的溝通方式。"
+"有了JANDI，您可以任意建立許多團隊及任意邀請許多成員加入，完全免費。不如自己親"
+"自來看看JANDI可以如何改善您在工作場合裏的溝通方式。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -2177,8 +2508,8 @@ msgstr "{{inviteeNumber}}封邀請電郵已成功寄出"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done-with-fail"
 msgstr ""
-"{{inviteeNumber}}封邀請電郵成功寄出，但{{failedInviteeNumber}}封邀請電郵傳"
-"送失敗。請再次確認收件人是否已加入團隊。"
+"{{inviteeNumber}}封邀請電郵成功寄出，但{{failedInviteeNumber}}封邀請電郵傳送"
+"失敗。請再次確認收件人是否已加入團隊。"
 
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 #: client/app/modal/teams/team_invite/team.invite.html
@@ -2259,6 +2590,98 @@ msgstr "開啟電腦版的推撥通知"
 msgid "@turn-on-topic-alarm"
 msgstr "開啟議題推播通知"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "點擊跳動的標記來查看一下吧！"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
+"後，將點擊右邊的「ᵒᵒᵒ」即可。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾經"
+"分享在哪個議題下”的項目進行搜尋。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
+"納搜尋欄。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "檔案庫和搜尋欄"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出訊息及上傳檔案"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕和"
+"選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "跳過教學示範"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
+"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳訊，"
+"同時仍然保留訊息歷史直到對話重新啟動。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的私"
+"人議題。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的建"
+"議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您自己"
+"的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "繼續 »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
+"提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "歡迎使用JANDI!"
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr "太好了！"
@@ -2270,8 +2693,8 @@ msgstr "恭喜 {{username}}！"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
 msgstr ""
-"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合作"
-"無間！"
+"你已完成所有的使用教學！接下來將轉移至  {{teamName}} ，開始與工作夥伴的合作無"
+"間！"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
@@ -2453,98 +2876,6 @@ msgstr "想繼續上次未完成的使用教學嗎？"
 msgid "@tutorial_welcome_title"
 msgstr "歡迎 {{username}}"
 
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "點擊跳動的標記來查看一下吧！"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "知道了！"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔"
-"案後，將點擊右邊的「ᵒᵒᵒ」即可。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾"
-"經分享在哪個議題下”的項目進行搜尋。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可"
-"收納搜尋欄。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "檔案庫和搜尋欄"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "送出訊息及上傳檔案"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕"
-"和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "跳過教學示範"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳"
-"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
-"訊，同時仍然保留訊息歷史直到對話重新啟動。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的"
-"私人議題。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不同？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的"
-"建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您"
-"自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "繼續 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要"
-"的提示。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "歡迎使用JANDI!"
-
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"
 msgstr "以下為未讀訊息"
@@ -2658,8 +2989,8 @@ msgstr "周三"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""
-#~ "IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您"
-#~ "上傳檔案。"
+#~ "IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您上"
+#~ "傳檔案。"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽器。"
@@ -2815,8 +3146,8 @@ msgstr "周三"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已"
-#~ "設定爲公開或私人的議題在建立之後不能被轉換成另一個"
+#~ "- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已設"
+#~ "定爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人議題僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
@@ -2924,8 +3255,8 @@ msgstr "周三"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離"
-#~ "開嗎？"
+#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離開"
+#~ "嗎？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "沒有上傳檔案"
