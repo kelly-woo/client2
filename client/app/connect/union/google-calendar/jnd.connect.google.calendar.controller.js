@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
-                                        JndConnectUnion, accountService, Dialog) {
+                                        JndConnectUnion, accountService, Dialog, JndConnect) {
     $scope.selectedRoom = '';
 
     _init();
@@ -283,6 +283,9 @@
         .success(function(calendarInfo) {
           _setCalendarInfo(calendarInfo);
           $scope.isCalendarListLoaded = true;
+        })
+        .error(function () {
+          JndConnect.backToMain();
         });
     }
 

@@ -9,7 +9,7 @@
     .service('jndWebSocketConnect', jndWebSocketConnect);
 
   /* @ngInject */
-  function jndWebSocketConnect(jndPubSub) {
+  function jndWebSocketConnect(jndPubSub, entityAPIservice) {
     var CONNECT_CREATED = 'connect_created';
     var CONNECT_DELETED = 'connect_deleted';
     var CONNECT_UPDATED = 'connect_updated';
@@ -48,7 +48,11 @@
      * @private
      */
     function _onConnectCreated(socketEvent) {
-      jndPubSub.pub('webSocketConnect:connectCreated', socketEvent.data);
+      //var data = socketEvent.data;
+      //
+      //entityAPIservice.addBot(data.bot);
+      //
+      //jndPubSub.pub('webSocketConnect:connectCreated', socketEvent.data);
     }
 
     /**
@@ -57,7 +61,7 @@
      * @private
      */
     function _onConnectDeleted(socketEvent) {
-      jndPubSub.pub('webSocketConnect:connectDeleted', socketEvent.data);
+      //jndPubSub.pub('webSocketConnect:connectDeleted', socketEvent.data);
     }
 
     /**
@@ -66,7 +70,11 @@
      * @private
      */
     function _onConnectUpdated(socketEvent) {
-      jndPubSub.pub('webSocketConnect:connectUpdated', socketEvent.data);
+      //var data = socketEvent.data;
+      //
+      //entityAPIservice.addBot(data.bot);
+      //
+      //jndPubSub.pub('webSocketConnect:connectUpdated', socketEvent.data);
     }
   }
 })();
