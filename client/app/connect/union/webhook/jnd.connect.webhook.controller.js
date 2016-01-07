@@ -42,7 +42,25 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
+      $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+    }
+
+    /**
+     * show loading 이벤트 핸들러
+     * @private
+     */
+    function _onShowLoading() {
+      $scope.isLoading = true;
+    }
+
+    /**
+     * hide loading 이벤트 핸들러
+     * @private
+     */
+    function _onHideLoading() {
+      $scope.isLoading = false;
     }
 
     /**

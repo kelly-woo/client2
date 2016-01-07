@@ -9,7 +9,7 @@
     .directive('jndConnectTrashButton', jndConnectTrashButton);
 
   /* @ngInject */
-  function jndConnectTrashButton($filter, Dialog, JndConnectUnionApi, JndUtil) {
+  function jndConnectTrashButton($filter, Dialog, JndConnectUnionApi, JndUtil, JndConnectUnion, JndConnect) {
     return {
       restrict: 'E',
       replace: true,
@@ -26,6 +26,8 @@
     };
 
     function link(scope) {
+      var _isLoading = false;
+
       _init();
 
       /**
@@ -50,7 +52,7 @@
             onClose: function(result) {
               if (result === 'okay') {
                 _confirmCallback(true);
-                _requestConnectDelete()
+                _requestConnectDelete();
               } else {
                 _confirmCallback(false)
               }
@@ -76,9 +78,26 @@
        */
       function _requestConnectDelete() {
         // delete api call
-        JndConnectUnionApi.remove(scope.unionName, scope.connectId)
-          .success(_onSuccessCallback)
-          .error(_onErrorCallback);
+        if (!_isLoading) {
+          _isLoading = true;
+          JndConnect.showLoading();
+          JndConnectUnion.showLoading();
+          JndConnectUnionApi.remove(scope.unionName, scope.connectId)
+            .success(_onSuccessCallback)
+            .error(_onErrorCallback)
+            .finally(_onDoneCallback);
+        }
+      }
+
+      /**
+       * request done 콜백
+       * @private
+       */
+      function _onDoneCallback() {
+        //JndConnect 메인에서는 request 완료 후 hideLoading 을 호출하기 때문에
+        //JndConnectUnion 의 hideLoading 만 호출한다.
+        JndConnectUnion.hideLoading();
+        _isLoading = false;
       }
 
       /**
@@ -98,6 +117,7 @@
        * @private
        */
       function _onErrorCallback(response) {
+        JndConnect.hideLoading();
         JndUtil.alertUnknownError(response);
         scope.onErrorCallback({
           $value: response
