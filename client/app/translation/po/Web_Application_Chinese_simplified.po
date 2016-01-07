@@ -1274,7 +1274,9 @@ msgstr "上述的范例格式将会显示信息如下"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
-"你可自制聚合服务的名称和头像若有任何疑问，欢迎随时与JANDI用户关系团队联络"
+"你可自制聚合服务的名称和头像若有任何疑问，欢迎随时与 <a href=\"https://jandi."
+"zendesk.com/hc/zh-cn/requests/new\" target=\"_blank\">JANDI用户关系团队</a>联"
+"络"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
