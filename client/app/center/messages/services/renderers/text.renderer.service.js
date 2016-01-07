@@ -80,6 +80,7 @@
       var isChild = MessageCollection.isChildText(index);
       var template = isChild ? _templateChild : _template;
 
+      var linkPreview = _getLinkPreview(msg, index);
       var connectPreview = _getConnectPreview(msg, index);
       var profileCursor;
 
@@ -91,16 +92,19 @@
 
       return template({
         html: {
-          linkPreview: _getLinkPreview(msg, index),
+          linkPreview: linkPreview,
           connectPreview: connectPreview
         },
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
-          profileCursor: profileCursor
+          profileCursor: profileCursor,
+          botText: memberService.isConnectBot(msg.message.writerId) ? 'bot-text' : ''
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),
+        hasLinkPreview: !!linkPreview,
+        hasConnectPreview: !!connectPreview,
         isSticker: RendererUtil.isSticker(msg),
         isChild: isChild,
         msg: msg
@@ -155,27 +159,35 @@
         connectPreview = '';
 
         _.each(content.connectInfo, function(info) {
-          connectPreview += _templateConnectPreview({
-            html: {
-              title: _getConnectText(info.title),
-              description: _getConnectText(info.description),
-              image: _getConnectImage(info.imageUrl)
-            },
-            hasTitle: !!info.title,
-            hasDescription: !!info.description,
-            hasImage: !!info.imageUrl,
-            hasSubsets: false
-          });
-        });
+          var hasTitle = !!info.title;
+          var hasDescription = !!info.description;
+          var hasImage = !!info.imageUrl;
 
-        html = _templateAttachment({
-          html: {
-            content: connectPreview
-          },
-          style: {
-            bar: 'background-color: ' + (content.connectColor || '#000') + ';'
+          if (hasTitle || hasDescription || hasImage) {
+            connectPreview += _templateConnectPreview({
+              html: {
+                title: _getConnectText(info.title),
+                description: _getConnectText(info.description),
+                image: _getConnectImage(info.imageUrl)
+              },
+              hasTitle: hasTitle,
+              hasDescription: hasDescription,
+              hasImage: hasImage,
+              hasSubsets: false
+            });
           }
         });
+
+        if (connectPreview) {
+          html = _templateAttachment({
+            html: {
+              content: connectPreview
+            },
+            style: {
+              bar: 'background-color: ' + (content.connectColor || '#000') + ';'
+            }
+          });
+        }
       }
 
       return html;

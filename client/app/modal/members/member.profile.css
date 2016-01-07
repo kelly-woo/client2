@@ -149,12 +149,13 @@
 }
 .profile-view-modal .profile-text.readonly > div {
   height: 15px;
+  width: 80%;
 }
 .profile-view-modal .profile-text.editing > div {
   margin-left: 20px;
 }
 
-.profile-view-modal .profile-text .profile-name {
+.profile-view-modal .profile-text.readonly > div.profile-name {
   display: inline-block;
   height: 20px;
   line-height: 20px;

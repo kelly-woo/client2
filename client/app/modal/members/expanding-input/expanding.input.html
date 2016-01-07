@@ -10,7 +10,7 @@
       </div>
     </span>
     <span class="input-single" ng-switch-default>
-      <input type="text" ng-model="input.text" maxlength="{{::maxLength}}"
+      <input type="text" ng-model="input.text" maxlength="{{::maxLength}}" placeholder="{{::placeholder}}"
              ng-focus="onFocus()"
              ng-blur="onBlur()"
              ng-keydown="onKeyDown($event)"/>
