@@ -1274,7 +1274,9 @@ msgstr "上述的範例格式將會顯示訊息如下"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
-"你可自製整合服務的名稱和大頭照若有任何疑問，歡迎隨時與JANDI用戶關係團隊聯絡"
+"你可自製整合服務的名稱和大頭照若有任何疑問，歡迎隨時與 <a href=\"https://"
+"jandi.zendesk.com/hc/zh-tw/requests/new\" target=\"_blank\">JANDI用戶關係團隊"
+"</a>聯絡"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1510,19 +1512,19 @@ msgstr "將資料從你常使用的外部平台發送至JANDI"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr ""
+msgstr "使用JANDI Connect建立整合服務"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr ""
+msgstr "使用JANDI Connect將所有外部應用程式及作業平台整合於一處"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
-msgstr ""
+msgstr "{{connectCount}}項整合服務已串聯"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-223"
-msgstr ""
+msgstr "時區"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
@@ -1912,7 +1914,7 @@ msgstr "11:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-82"
-msgstr "{{timezone}}-97時區"
+msgstr "{{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-83"

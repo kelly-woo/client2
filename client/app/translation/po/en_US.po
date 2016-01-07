@@ -1508,7 +1508,7 @@ msgstr "not in use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-207"
-msgstr "Loading...繁體中文"
+msgstr "Loading..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-208"
@@ -1570,17 +1570,17 @@ msgstr "Send data into JANDI from your favorite external services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr "@jnd-connect-220"
+msgstr "Setup your integrations with JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-221"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Integrate external apps and services using JANDI Connect to get all your "
+"notifications in one place"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-222"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr "{{connectCount}} integration(s) connected"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
