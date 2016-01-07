@@ -106,7 +106,9 @@
        * @private
        */
       function _setSelectedName() {
-        scope.selectedName = _getSelectedName();
+        JndUtil.safeApply(scope, function() {
+          scope.selectedName = _getSelectedName();
+        });
       }
 
       /**
