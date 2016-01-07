@@ -4,7 +4,7 @@
 (function() {
   'use strict';
 
-  describe('mention.ahead.service', function() {
+  xdescribe('mention.ahead.service', function() {
     var MentionExtractor;
 
 
