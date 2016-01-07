@@ -75,7 +75,7 @@
 }
 
 .msg-item.bot-text {
-  background-color: #fcfcfc;
+  background-color: #FAFBFD;
   border: 1px solid #edeeed;
   border-left-width: 0;
   border-right-width: 0;
@@ -99,5 +99,5 @@
   height: 48px;
 }
 .bot-text .attachment-content-wrapper {
-  padding: 10px 0 0 0;
+  padding: 12px 0 0 0;
 }

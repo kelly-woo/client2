@@ -505,9 +505,12 @@ by ysyun 2015.2.25
 .system-event-msg {
   min-height: 15px;
   margin-bottom: 0px;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
+  top:6px;
 }
 .system-event-msg .msg-item-float img {
   background-image: none !important;
