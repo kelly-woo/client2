@@ -36,7 +36,7 @@
       $scope.onProfileChange = onProfileChange;
       $scope.postMessage = postMessage;
 
-      $scope.activeIndex = null;
+      $scope.activeIndex = 'statusMessage';
       $scope.onProfileSelect = function(index) {
         $scope.activeIndex = index;
       };

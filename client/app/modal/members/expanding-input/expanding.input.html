@@ -1,8 +1,9 @@
-<div class="expanding-input {{::inputClass}}" ng-class="{'guide-line': hasGuideLine()}" ng-mouseenter="onMouseEnter()">
+<div class="expanding-input {{::inputClass}}" ng-class="{'guide-line': hasGuideLine()}">
   <span ng-switch="hasList">
     <span class="input-multi" ng-switch-when="true">
       <select ng-model="input.text"
               ng-change="onSelectOption()"
+              ng-focus="onFocus()"
               ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
       </select>
       <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">

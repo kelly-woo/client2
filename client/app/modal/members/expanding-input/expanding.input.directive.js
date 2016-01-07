@@ -65,6 +65,10 @@
         scope.onSelectOption = _onSelectOption;
         scope.onKeyDown = _onKeyDown;
         scope.onTextChange = _onTextChange;
+
+        if (hasGuideLine()) {
+          _focusInput();
+        }
       }
 
       /**
@@ -92,9 +96,7 @@
           scope.input.text = '';
 
           if (!scope.hasList) {
-            setTimeout(function() {
-              el.find('input').focus();
-            });
+            _focusInput();
           }
         } else if (scope.status === 'cancel') {
           _cancelValue();
@@ -115,10 +117,14 @@
        * @private
        */
       function _onBlur() {
-        if (scope.status === 'cancel') {
-          _changeValue();
-        }
-        _clearStatus();
+        setTimeout(function() {
+          // jndInputModel에서 blur 처리로 인해 input.text가 공백일때 처리가
+          // 의도한 바와 같이 수행되지 않으므로 setTimeout 설정
+          if (scope.status === 'cancel') {
+            _changeValue();
+          }
+          _clearStatus();
+        }, 50);
       }
 
       /**
@@ -179,13 +185,21 @@
        * @private
        */
       function _changeValue() {
-        if (scope.input.text !== originalValue && scope.onChange) {
+        if (index === 'name' && scope.input.text === '') {
+          _cancelValue();
+        } else if (scope.input.text !== originalValue && scope.onChange) {
           scope.onChange({
             $type: type,
             $value: scope.input.text
           });
           originalValue = scope.input.text;
         }
+      }
+
+      function _focusInput() {
+        setTimeout(function() {
+          el.find('input').focus();
+        });
       }
     }
   }
