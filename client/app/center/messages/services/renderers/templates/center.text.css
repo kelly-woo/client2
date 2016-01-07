@@ -79,12 +79,16 @@
   border: 1px solid #edeeed;
   border-left-width: 0;
   border-right-width: 0;
-  padding:16px 16px 16px 78px;
+  padding:18px 18px 18px 78px;
   margin: 10px 0;
 }
 .msg-item.bot-text.text-child {
-  border-top:1px dashed #edeeed;
+  border-top: 1px dashed #E1E5E8;
   margin-top:-11px;
+}
+.bot-text .msg-item-header {
+  padding: 0px;
+  line-height: 25px;
 }
 .bot-text .msg-item-float {
   top:16px;
@@ -95,6 +99,5 @@
   height: 48px;
 }
 .bot-text .attachment-content-wrapper {
-  padding: 0;
-  margin-top: 10px;
+  padding: 10px 0 0 0;
 }
