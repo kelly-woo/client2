@@ -73,3 +73,7 @@
 .msg-item-more:hover {
   background: #366480;
 }
+
+.msg-item.bot-text {
+  background-color: #e1e1e1;
+}

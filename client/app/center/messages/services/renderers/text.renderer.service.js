@@ -97,7 +97,8 @@
         css: {
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
-          profileCursor: profileCursor
+          profileCursor: profileCursor,
+          botText: memberService.isConnectBot(msg.message.writerId) ? 'bot-text' : ''
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),
