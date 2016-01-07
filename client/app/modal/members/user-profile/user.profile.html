@@ -9,10 +9,13 @@
       <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
         <img ng-if="!isDefaultProfileImage" class="profile-image-bg" ng-src="{{curUser.extProfileImage}}" />
         <div ng-switch="isMyself">
-          <div class="profile-condition display-2-lines" ng-switch-when="false">{{statusMessage}}</div>
+          <div class="profile-condition readonly" ng-switch-when="false">{{statusMessage}}</div>
           <expanding-input ng-switch-default
                            ng-model="statusMessage"
                            max-length="60"
+                           active-index="activeIndex"
+                           index="statusMessage"
+                           on-select="onProfileSelect($index)"
                            on-change="onProfileChange($type, $value)"
                            input-class="profile-condition editing"
                            placeholder="{{::'@common-status-msg' | translate}}"></expanding-input>
@@ -41,26 +44,41 @@
         <expanding-input ng-model="name"
                          max-length="30"
                          input-class="profile-name"
+                         active-index="activeIndex"
+                         index="name"
+                         on-select="onProfileSelect($index)"
                          on-change="onProfileChange($type, $value)"
                          input-status-class="profile-name-status"
                          placeholder="{{::'@common-name' | translate}}"></expanding-input>
         <expanding-input ng-model="department"
                          max-length="60"
+                         active-index="activeIndex"
+                         index="department"
+                         on-select="onProfileSelect($index)"
                          on-change="onProfileChange($type, $value)"
                          input-class="profile-department"
                          placeholder="{{::'@common-department' | translate}}"></expanding-input>
         <expanding-input ng-model="position"
                          max-length="60"
+                         active-index="activeIndex"
+                         index="position"
+                         on-select="onProfileSelect($index)"
                          on-change="onProfileChange($type, $value)"
                          input-class="profile-position"
                          placeholder="{{::'@common-position' | translate}}"></expanding-input>
         <expanding-input ng-model="phoneNumber"
                          max-length="20"
+                         active-index="activeIndex"
+                         index="phoneNumber"
+                         on-select="onProfileSelect($index)"
                          on-change="onProfileChange($type, $value)"
                          input-class="profile-phone-number"
                          placeholder="{{::'@common-phone' | translate}}"></expanding-input>
         <expanding-input ng-model="email"
                          list="emails"
+                         active-index="activeIndex"
+                         index="email"
+                         on-select="onProfileSelect($index)"
                          on-change="onProfileChange($type, $value)"
                          input-class="profile-email" ></expanding-input>
       </div>

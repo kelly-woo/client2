@@ -8,13 +8,15 @@
     .module('jandiApp')
     .directive('expandingInput', expandingInput);
 
-  function expandingInput($timeout, $parse, jndKeyCode) {
+  function expandingInput($timeout, jndKeyCode) {
     return {
       restrict: 'EA',
       replace: true,
       scope: {
         ngModel: '=',
+        activeIndex: '=',
         list: '=?',
+        onSelect: '&',
         onChange: '&?'
       },
       link: link,
@@ -22,6 +24,8 @@
     };
 
     function link(scope, el, attrs) {
+      var index = attrs.index;
+
       var inputClass = attrs.inputClass || '';
       var inputStatusClass = attrs.inputStatusClass || '';
       var placeholder = attrs.placeholder;
@@ -43,8 +47,8 @@
           text: originalValue
         };
 
+        scope.hasGuideLine = hasGuideLine;
         scope.status = 'edit';
-        scope.hasGuideLine = false;
         scope.placeholder = placeholder;
 
         scope.inputClass = inputClass;
@@ -54,13 +58,13 @@
         scope.hasList = _.isArray(scope.list);
 
         scope.onMouseEnter = _onMouseEnter;
-        scope.onMouseLeave = _onMouseLeave;
         scope.onMousedown = _onMousedown;
         scope.onFocus = _onFocus;
         scope.onBlur = _onBlur;
 
-        scope.onSelect = _onSelect;
+        scope.onSelectOption = _onSelectOption;
         scope.onKeyDown = _onKeyDown;
+        scope.onTextChange = _onTextChange;
       }
 
       /**
@@ -68,17 +72,15 @@
        * @private
        */
       function _onMouseEnter() {
-        scope.hasGuideLine = true;
+        scope.onSelect({$index: index});
       }
 
       /**
-       * mouse leave handler
-       * @private
+       * guideline 출력 여부
+       * @returns {boolean}
        */
-      function _onMouseLeave() {
-        if (scope.status === 'edit') {
-          scope.hasGuideLine = false;
-        }
+      function hasGuideLine() {
+        return scope.activeIndex === index;
       }
 
       /**
@@ -95,9 +97,7 @@
             });
           }
         } else if (scope.status === 'cancel') {
-          scope.status = 'edit';
-          scope.hasGuideLine = false;
-          scope.input.text = originalValue;
+          _cancelValue();
         }
       }
 
@@ -107,8 +107,7 @@
        */
       function _onFocus() {
         $timeout.cancel(timerEditStatus);
-        scope.status = 'cancel';
-        scope.hasGuideLine = true;
+        scope.onSelect({$index: index});
       }
 
       /**
@@ -117,7 +116,6 @@
        */
       function _onBlur() {
         if (scope.status === 'cancel') {
-          scope.hasGuideLine = false;
           _changeValue();
         }
         _clearStatus();
@@ -127,7 +125,7 @@
        * select event handler
        * @private
        */
-      function _onSelect() {
+      function _onSelectOption() {
         _changeValue();
       }
 
@@ -138,9 +136,22 @@
        */
       function _onKeyDown(event) {
         if (jndKeyCode.match('ENTER', event.keyCode)) {
-          setTimeout(function() {
-            el.find('input').blur();
-          });
+          _changeValue();
+          scope.status = 'edit';
+        } else if (jndKeyCode.match('ESC', event.keyCode) && scope.status === 'cancel') {
+          event.stopPropagation();
+
+          _cancelValue();
+        }
+      }
+
+      /**
+       * text change event handler
+       * @private
+       */
+      function _onTextChange() {
+        if (scope.input.text !== originalValue) {
+          scope.status = 'cancel';
         }
       }
 
@@ -152,6 +163,15 @@
         timerEditStatus = $timeout(function() {
           scope.status = 'edit';
         }, 500);
+      }
+
+      /**
+       * 변경값을 취소함
+       * @private
+       */
+      function _cancelValue() {
+        scope.status = 'edit';
+        scope.input.text = originalValue;
       }
 
       /**
