@@ -68,7 +68,9 @@
      * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.
      */
     function _onCurrentMemberChanged() {
-      _setCurrentUser(memberService.getMember());
+      if ($scope.isMyself) {
+        _setCurrentUser(memberService.getMember());
+      }
     }
 
     /**
@@ -105,6 +107,11 @@
       }
     }
 
+    /**
+     * dm 활성화 여부
+     * @returns {boolean}
+     * @private
+     */
     function _isEnableDM() {
       return $scope.showSubmitDone && !$scope.isSending
     }

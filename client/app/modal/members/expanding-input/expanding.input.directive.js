@@ -24,6 +24,7 @@
     function link(scope, el, attrs) {
       var inputClass = attrs.inputClass || '';
       var inputStatusClass = attrs.inputStatusClass || '';
+      var placeholder = attrs.placeholder;
 
       var maxLength = parseInt(attrs.maxLength, 10);
       var type = attrs.ngModel;
@@ -33,6 +34,10 @@
 
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         scope.input = {
           text: originalValue
@@ -40,6 +45,7 @@
 
         scope.status = 'edit';
         scope.hasGuideLine = false;
+        scope.placeholder = placeholder;
 
         scope.inputClass = inputClass;
         scope.inputStatusClass = inputStatusClass;
@@ -81,6 +87,8 @@
        */
       function _onMousedown() {
         if (scope.status === 'edit') {
+          scope.input.text = '';
+
           if (!scope.hasList) {
             setTimeout(function() {
               el.find('input').focus();
@@ -115,10 +123,19 @@
         _clearStatus();
       }
 
+      /**
+       * select event handler
+       * @private
+       */
       function _onSelect() {
         _changeValue();
       }
 
+      /**
+       * key down event handler
+       * @param event
+       * @private
+       */
       function _onKeyDown(event) {
         if (jndKeyCode.match('ENTER', event.keyCode)) {
           setTimeout(function() {
@@ -127,12 +144,20 @@
         }
       }
 
+      /**
+       * clear status
+       * @private
+       */
       function _clearStatus() {
         timerEditStatus = $timeout(function() {
           scope.status = 'edit';
         }, 500);
       }
 
+      /**
+       * value change event handler
+       * @private
+       */
       function _changeValue() {
         if (scope.input.text !== originalValue && scope.onChange) {
           scope.onChange({

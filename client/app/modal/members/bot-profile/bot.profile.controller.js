@@ -10,7 +10,7 @@
     .controller('BotProfileCtrl', BotProfileCtrl);
 
   /* @ngInject */
-  function BotProfileCtrl($scope, $filter, curBot, $state, modalHelper, jndPubSub, memberService, messageAPIservice) {
+  function BotProfileCtrl($scope, $filter, curBot, $state, modalHelper, JndConnect, memberService, messageAPIservice) {
     _init();
 
     function _init() {
@@ -117,7 +117,7 @@
      * @private
      */
     function _openConnectSetting() {
-
+      JndConnect.open();
     }
 
     /**
