@@ -628,7 +628,9 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "<div class=\"msg-item text text-child\">\n  <div class=\"text-msg-item-container\">\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
+  return "<div class=\"msg-item text text-child "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.botText : stack1), depth0))
+    + "\">\n  <div class=\"text-msg-item-container\">\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "        <!--  TIME  -->\n        <span class=\"msg-item-header__created\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
