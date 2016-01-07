@@ -10,7 +10,7 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub) {
     var LANGUAGE_MAP = {
       ko: 'ko',
       ja: 'ja',
@@ -22,7 +22,17 @@
     this.getDefaultFooter = getDefaultFooter;
     this.save = save;
     this.read = read;
+    this.showLoading = showLoading;
+    this.hideLoading = hideLoading;
     this.setHeaderAccountData = setHeaderAccountData;
+
+    function showLoading() {
+      jndPubSub.pub('JndConnectUnion:showLoading');
+    }
+
+    function hideLoading() {
+      jndPubSub.pub('JndConnectUnion:hideLoading');
+    }
 
     /**
      * header default 데이터를 반환한다.
