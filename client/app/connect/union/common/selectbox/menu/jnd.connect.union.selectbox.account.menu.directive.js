@@ -63,7 +63,7 @@
        */
       function onAccountDeleteClick(item) {
         Dialog.confirm({
-          body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', scope.numberOfConnects),
+          body: translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount),
           confirmButtonText: translate('@jnd-connect-188'),
           onClose: function (result) {
             if (result === 'okay') {

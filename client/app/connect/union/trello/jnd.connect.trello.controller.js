@@ -200,7 +200,9 @@
       $scope.isBoardLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.trelloBoardId = _trelloBoardId;
-      JndConnectUnion.setHeaderAccountData($scope.formData.header, [response]);
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, {
+        accountList: [response]
+      });
     }
 
     /**
