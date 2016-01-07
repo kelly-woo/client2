@@ -38,8 +38,8 @@
       <div class="jnd-connect-service-container" id="jnd-connect-available-service"
            ng-switch-default>
         <jnd-connect-loading ng-show="isLoading"></jnd-connect-loading>
-        <div ng-show="!isLoading" class="jnd-connect-banner _bannerTop">
-          <button type="button" class="close" ng-click=""><i class="icon-delete"></i></button>
+        <div ng-show="isBannerShow && !isLoading" class="jnd-connect-banner _bannerTop">
+          <button type="button" class="close" ng-click="closeBanner()"><i class="icon-delete"></i></button>
 
           <span class="banner-description" translate>@jnd-connect-28</span>
           <div class="jnd-connect banner-image"></div>
@@ -50,9 +50,11 @@
             ng-show="!isLoading"
             ng-repeat="union in unions"></jnd-connect-card>
 
-        <div ng-show="!isLoading" class="jnd-connect survey-container _card">
+        <div ng-show="!isLoading" class="jnd-connect survey-container _card" ng-click="goToSurvey();">
           <span class="survey-description" translate>@jnd-connect-29</span>
-          <span class="btn btn-ok jnd-cursor-pointer" translate>@jnd-connect-30</span>
+          <a href="{{surveyUrl}}" target="_blank">
+            <span class="btn btn-ok jnd-cursor-pointer" translate>@jnd-connect-30</span>
+          </a>
         </div>
       </div>
       <div ng-switch-when="googleCalendar">
