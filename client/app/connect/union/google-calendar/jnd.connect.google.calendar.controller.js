@@ -329,7 +329,10 @@
           _setCalendarList(calendarInfo);
         }
 
-        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo, $scope.data.googleId);
+        JndConnectUnion.setHeaderAccountData($scope.data.header, {
+          accountList: calendarInfo,
+          accountValue: $scope.data.googleId
+        });
       });
     }
 

@@ -135,7 +135,10 @@
       var footer = options.footer;
       if (header) {
         if (response.authenticationName && response.authenticationId) {
-          setHeaderAccountData(header, [response]);
+          setHeaderAccountData(header, {
+            accountList: [response],
+            isAccountLoaded: false
+          });
         }
 
         _.extend(header, {
@@ -155,20 +158,27 @@
     /**
      * 공통 header 데이터에서 account 관련 데이터를 주입 한다.
      * @param {object} header - 공통 header
-     * @param {array} accountList - 계정 리스트
-     *    @param {string} accountList[].authenticationName - 노출할 계정 정보
-     *    @param {number|string} accountList[].authenticationId - 계정의 키값
-     * @param {string} [accountValue] - 선택할 계정 값
+     * @param {object} options
+     *    @param {array} options.accountList - 계정 리스트
+     *      @param {string} options.accountList[].authenticationName - 노출할 계정 정보
+     *      @param {number|string} options.accountList[].authenticationId - 계정의 키값
+     *    @param {string} [options.accountValue] - 선택할 계정 값
+     *    @param {string} [options.isAccountLoaded=true] - 로드 되었다고 표시할지 여부
+     *
      */
-    function setHeaderAccountData(header, accountList, accountValue) {
+    function setHeaderAccountData(header, options) {
       var accounts;
       var index;
+      var accountList = options.accountList;
+      var accountValue = options.accountValue;
+      var isAccountLoaded = _.isBoolean(options.isAccountLoaded) ? options.isAccountLoaded : true;
 
       if (header) {
         accounts = _.map(accountList, function(account) {
           return {
             text: account.authenticationName,
-            value: account.authenticationId
+            value: account.authenticationId,
+            connectCount: account.connectCount || 0
           };
         });
 
@@ -178,7 +188,7 @@
         index = index || 0;
 
         _.extend(header, {
-          isAccountLoaded: true,
+          isAccountLoaded: isAccountLoaded,
           accountId: JndUtil.pick(accountList, index, 'authenticationId'),
           accounts: accounts
         });
