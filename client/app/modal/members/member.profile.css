@@ -72,7 +72,7 @@
 .profile-view-modal .profile-condition {
   position: absolute;
   top: 30px;
-  width: 200px;
+  width: 227px;
   left: 50%;
   margin-left: -100px;
   font-size: 12px;
@@ -80,8 +80,23 @@
   color: #fff;
   text-align: center;
 }
+
+.profile-view-modal .profile-condition.readonly {
+  height: 68px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-wrap: break-word;
+}
+
 .profile-view-modal .profile-condition.editing {
-  margin-left: -86px;
+  margin-left: -100px;
+}
+.profile-view-modal .profile-condition.editing input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile-view-modal .bot-profile-image,
@@ -149,13 +164,18 @@
 }
 .profile-view-modal .profile-text.readonly > div {
   height: 15px;
-  width: 80%;
+  width: 216px;
 }
 .profile-view-modal .profile-text.editing > div {
+  width: 236px;
   margin-left: 20px;
 }
+.profile-view-modal .profile-text.editing > div input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-.profile-view-modal .profile-text.readonly > div.profile-name {
+.profile-view-modal .profile-text > div.profile-name {
   display: inline-block;
   height: 20px;
   line-height: 20px;
@@ -256,7 +276,7 @@
   height: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 15px;
-  padding: 2px 10px;
+  padding: 7px 10px;
   background-color: #fff;
   font-size: 13px;
   color: #999;
@@ -264,9 +284,9 @@
 
 .profile-view-modal .message-submit-bg {
   position: absolute;
-  top: 16px;
-  left: 10px;
-  right: 10px;
+  top: 14px;
+  left: 15px;
+  right: 15px;
   bottom: 50px;
   opacity: 0;
   background-color: #fff;
@@ -278,6 +298,6 @@
 
 .profile-view-modal .message-submit-bg.show-submit-done {
   opacity: 1;
-  bottom: 16px;
+  bottom: 14px;
   font-size: 13px;
 }
