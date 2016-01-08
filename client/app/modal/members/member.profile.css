@@ -88,8 +88,10 @@
   color: #fff;
   text-align: center;
 }
+
 .profile-view-modal .profile-condition.readonly {
   width: 236px;
+  margin-left: -118px;
 }
 
 .profile-view-modal .profile-text.editing .input-text {

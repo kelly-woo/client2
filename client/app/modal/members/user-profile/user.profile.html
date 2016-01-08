@@ -10,7 +10,7 @@
         <img ng-if="!isDefaultProfileImage" class="profile-default-image-bg" ng-src="{{curUser.extProfileImage}}" />
         <div ng-switch="isMyself">
           <div class="profile-image-bg"></div>
-          <div class="profile-condition readonly" ng-switch-when="false">{{statusMessage}}</div>
+          <div class="profile-condition readonly break" ng-switch-when="false">{{statusMessage}}</div>
           <expanding-input ng-switch-default
                            ng-model="statusMessage"
                            max-length="60"
