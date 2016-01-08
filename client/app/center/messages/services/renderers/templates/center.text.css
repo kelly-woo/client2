@@ -75,5 +75,32 @@
 }
 
 .msg-item.bot-text {
-  background-color: #e1e1e1;
+  background-color: #FAFBFD;
+  border: 1px solid rgba(15,55,80,0.1);
+  border-left-width: 0;
+  border-right-width: 0;
+  padding:18px 18px 18px 78px;
+  margin: 10px 0;
+}
+.msg-item.bot-text.text-child {
+  border-top: 1px dashed #E1E5E8;
+  margin-top:-11px;
+}
+.msg-item.bot-text:hover {
+  background-color: #F5F7FA;
+}
+.bot-text .msg-item-header {
+  padding: 0px;
+  line-height: 25px;
+}
+.bot-text .msg-item-float {
+  top:18px;
+  left: 16px;
+}
+.bot-text .member-thumb {
+  width: 48px;
+  height: 48px;
+}
+.bot-text .attachment-content-wrapper {
+  padding: 12px 0 0 0;
 }

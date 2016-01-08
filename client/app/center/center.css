@@ -125,6 +125,17 @@ article {
   padding: 5px 15px 0 67px;
   display: block;
 }
+#unread-bookmark.msg-item {
+  margin-bottom: 8px;
+  padding-top: 0;
+}
+#unread-bookmark.msg-item .msg-unread-bookmark {
+  margin: 0;
+  line-height: 28px;
+}
+#unread-bookmark.msg-item .system-event-msg .msg-item-float {
+  top: -1px;
+}
 /*.msgs-group:last-of-type > .msg-item {*/
   /*margin-bottom: 0;*/
   /*padding-bottom: 14px;*/
@@ -426,8 +437,18 @@ by ysyun 2015.2.25
   right: 0;
   bottom: 0;
   height: 54px;
+  z-index: 12;
+}
+.footer:after {
+  content: '';
+  position: absolute;
+  left: -30px;
+  right: -30px;
+  bottom: 0;
+  height: 54px;
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
+
 .footer #primary_file_button {
   border: none;
   border-radius: 0;
@@ -494,9 +515,12 @@ by ysyun 2015.2.25
 .system-event-msg {
   min-height: 15px;
   margin-bottom: 0px;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
+  top:6px;
 }
 .system-event-msg .msg-item-float img {
   background-image: none !important;
