@@ -1323,8 +1323,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
-"プロフィール画像と名前の変更が必要な場合修正できます。他のお気になる点はカス"
-"タマーサポートでお問い合わせください。"
+"プロフィール画像と名前の変更が必要な場合修正できます。他のお気になる点は <a "
+"href=\"https://jandi.zendesk.com/hc/ja/requests/new\" target=\"_blank\">カス"
+"タマーサポート</a>でお問い合わせください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1543,22 +1544,24 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-215"
 msgstr ""
+"{{serviceName}}のアカウント連動が解除されました。既存の設定されていたJANDIコ"
+"ネクトの項目は削除されます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-216"
-msgstr ""
+msgstr "カレンダーを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-217"
-msgstr ""
+msgstr "Repositoryを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-218"
-msgstr ""
+msgstr "Boardを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-219"
-msgstr ""
+msgstr "通知を受けようとするイベントを最小１件以上選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
@@ -1566,15 +1569,15 @@ msgstr "Webhookに対応する様々なサービスの通知をJANDIで確認で
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr ""
+msgstr "JANDIコネクトで連動したサービスがありません。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr ""
+msgstr "様々なサービスと連動し、更新情報をJANDIで確認してみましょう。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
-msgstr ""
+msgstr "{{connectCount}}件のサービスが連動されています。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-223"

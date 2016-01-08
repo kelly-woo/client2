@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
-                                        JndConnectUnion, accountService, Dialog) {
+                                        JndConnectUnion, accountService, Dialog, JndConnect) {
     $scope.selectedRoom = '';
 
     _init();
@@ -45,6 +45,24 @@
       $scope.$on('unionFooter:save', _onSave);
       $scope.$on('accountMenuDirective:removeAccountBefore', _onRemoveAccountBefore);
       $scope.$on('accountMenuDirective:removeAccountDone', _onRemoveAccountDone);
+      $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
+      $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
+    }
+
+    /**
+     * show loading 이벤트 핸들러
+     * @private
+     */
+    function _onShowLoading() {
+      $scope.isLoading = true;
+    }
+
+    /**
+     * hide loading 이벤트 핸들러
+     * @private
+     */
+    function _onHideLoading() {
+      $scope.isLoading = false;
     }
 
     /**
@@ -283,6 +301,9 @@
         .success(function(calendarInfo) {
           _setCalendarInfo(calendarInfo);
           $scope.isCalendarListLoaded = true;
+        })
+        .error(function () {
+          JndConnect.backToMain();
         });
     }
 
@@ -308,7 +329,10 @@
           _setCalendarList(calendarInfo);
         }
 
-        JndConnectUnion.setHeaderAccountData($scope.data.header, calendarInfo, $scope.data.googleId);
+        JndConnectUnion.setHeaderAccountData($scope.data.header, {
+          accountList: calendarInfo,
+          accountValue: $scope.data.googleId
+        });
       });
     }
 

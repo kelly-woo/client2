@@ -642,6 +642,8 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n    </div>\n  </div>\n  "
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.linkPreview : stack1), depth0)) != null ? stack1 : "")
+    + "\n  "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.connectPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n</div>\n";
 },"useData":true});
 

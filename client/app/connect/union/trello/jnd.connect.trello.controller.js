@@ -6,9 +6,14 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnectUnion, JndConnectTrelloApi, Dialog) {
+  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi, Dialog) {
     var _trelloBoardId = null;
-
+    var EVENT_PAIR = {
+      'showCardLabelCreated': 'showCardLabelDeleted',
+      'showBoardListToMoved': 'showBoardListFromMoved',
+      'showCardArchived': 'showCardUnarchived',
+      'showListArchived': 'showListUnarchived'
+    };
     $scope.isInitialized = false;
     $scope.isLoading = false;
     $scope.isBoardLoaded = false;
@@ -30,7 +35,6 @@
       roomId: null,
       hookEvent: {
         showBoardRenamed: false,
-        showCardArchived: false,
         showCardAttachmentCreated: true,
         showCardChecklistCreated: true,
         showCardChecklistItemCreated: true,
@@ -39,14 +43,24 @@
         showCardCreated: true,
         showCardDescriptionUpdated: false,
         showCardDueDateUpdated: false,
-        showCardLabelCreated: false,
-        showCardLabelDeleted: false,
         showCardMemberCreated: false,
         showCardMoved: true,
         showCardRenamed: false,
-        showListArchived: false,
         showListCreated: true,
-        showListRenamed: false
+        showListRenamed: false,
+        showBoardMemberCreated: false,
+
+        showCardLabelCreated: false,
+        showCardLabelDeleted: false,
+
+        showListArchived: false,
+        showListUnarchived: false,
+
+        showCardArchived: false,
+        showCardUnarchived: false,
+
+        showBoardListToMoved: false,
+        showBoardListFromMoved: false
       },
       footer: JndConnectUnion.getDefaultFooter($scope.current)
     };
@@ -68,7 +82,25 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
+      $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+    }
+
+    /**
+     * show loading 이벤트 핸들러
+     * @private
+     */
+    function _onShowLoading() {
+      $scope.isLoading = true;
+    }
+
+    /**
+     * hide loading 이벤트 핸들러
+     * @private
+     */
+    function _onHideLoading() {
+      $scope.isLoading = false;
     }
 
     /**
@@ -122,7 +154,7 @@
     function _initialRequest() {
       JndConnectTrelloApi.getBoards()
         .success(_onSuccessGetBoards)
-        .error(JndUtil.alertUnknownError);
+        .error(_onErrorGetBoards);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
@@ -137,7 +169,17 @@
     }
 
     /**
-     * initial  request 성공 시 이벤트 핸들러
+     * board 조회 실패시 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorGetBoards(err) {
+      JndConnect.backToMain();
+      JndUtil.alertUnknownError(err);
+    }
+
+    /**
+     * board 조회 성공 시 이벤트 핸들러
      * @param {array} response
      * @private
      */
@@ -158,7 +200,9 @@
       $scope.isBoardLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.trelloBoardId = _trelloBoardId;
-      JndConnectUnion.setHeaderAccountData($scope.formData.header, [response]);
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, {
+        accountList: [response]
+      });
     }
 
     /**
@@ -191,10 +235,11 @@
       var formData = $scope.formData;
       var hookEvent = formData.hookEvent;
       var footer = formData.footer;
-
+      var pairKey;
       _.each(hookEvent, function(value, key) {
-        if (key === 'showCardLabelCreated') {
-          hookEvent.showCardLabelDeleted = value;
+        pairKey = EVENT_PAIR[key];
+        if (EVENT_PAIR[key]) {
+          hookEvent[pairKey] = value;
         }
       });
 

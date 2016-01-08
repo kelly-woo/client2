@@ -9,7 +9,8 @@
     .directive('jndConnectSelectboxAccountMenu', jndConnectSelectboxAccountMenu);
 
   /* @ngInject */
-  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi) {
+  function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil,
+                                          JndConnectUnion) {
     return {
       restrict: 'E',
       replace: true,
@@ -19,6 +20,7 @@
     };
 
     function link(scope) {
+      var _isLoading = false;
       var translate = $filter('translate');
 
       _init();
@@ -61,7 +63,7 @@
        */
       function onAccountDeleteClick(item) {
         Dialog.confirm({
-          body: translate('@jnd-connect-187').replace('{{numberOfConnects}}', scope.numberOfConnects),
+          body: translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount),
           confirmButtonText: translate('@jnd-connect-188'),
           onClose: function (result) {
             if (result === 'okay') {
@@ -103,24 +105,38 @@
       function _requestAccountDelete(item) {
         var hasSingleItem;
 
-        if (scope.list.length === 1) {
-          hasSingleItem = true;
-        }
-
-        jndPubSub.pub('accountMenuDirective:removeAccountBefore', {
-          hasSingleItem: hasSingleItem
-        });
-        JndConnectUnionApi.removeAccount(item.value)
-          .success(function() {
-            jndPubSub.pub('unionHeader:accountInfoChange');
-            jndPubSub.pub('accountMenuDirective:removeAccountDone', {
-              hasSingleItem: hasSingleItem
-            });
-
-            if (hasSingleItem) {
-              JndConnect.backToMain();
-            }
+        if (!_isLoading) {
+          _isLoading = true;
+          if (scope.list.length === 1) {
+            hasSingleItem = true;
+          }
+          jndPubSub.pub('accountMenuDirective:removeAccountBefore', {
+            hasSingleItem: hasSingleItem
           });
+          JndConnectUnion.showLoading();
+          JndConnectUnionApi.removeAccount(item.value)
+            .success(function () {
+              jndPubSub.pub('unionHeader:accountInfoChange');
+              jndPubSub.pub('accountMenuDirective:removeAccountDone', {
+                hasSingleItem: hasSingleItem
+              });
+
+              if (hasSingleItem) {
+                JndConnect.backToMain();
+              }
+            })
+            .error(JndUtil.alertUnknownError)
+            .finally(_onDoneAccountDelete);
+        }
+      }
+
+      /**
+       * account delete 가 완료된 이후 핸들러
+       * @private
+       */
+      function _onDoneAccountDelete() {
+        JndConnectUnion.hideLoading();
+        _isLoading = false;
       }
     }
   }

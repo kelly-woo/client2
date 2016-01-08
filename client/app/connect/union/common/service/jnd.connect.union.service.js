@@ -10,7 +10,7 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub) {
     var LANGUAGE_MAP = {
       ko: 'ko',
       ja: 'ja',
@@ -22,7 +22,17 @@
     this.getDefaultFooter = getDefaultFooter;
     this.save = save;
     this.read = read;
+    this.showLoading = showLoading;
+    this.hideLoading = hideLoading;
     this.setHeaderAccountData = setHeaderAccountData;
+
+    function showLoading() {
+      jndPubSub.pub('JndConnectUnion:showLoading');
+    }
+
+    function hideLoading() {
+      jndPubSub.pub('JndConnectUnion:hideLoading');
+    }
 
     /**
      * header default 데이터를 반환한다.
@@ -67,7 +77,21 @@
       var connectId = JndUtil.pick(options, 'current', 'connectId');
       return JndConnectUnionApi.read(name, connectId)
         .success(_.bind(_onSuccessRead, this, options))
-        .error(_.bind(_onErrorCommon, this, options));
+        .error(_.bind(_onErrorRead, this, options));
+    }
+
+    /**
+     * read 실패시 핸들러
+     * @param {object} options
+     *    @param {string} options.current - current union 객체
+     *    @param {object} [options.header]  - 공통 header 데이터 object
+     *    @param {object} [options.footer]  - 공통 footer 데이터 object
+     * @param {object} err
+     * @private
+     */
+    function _onErrorRead(options, err) {
+      JndConnect.backToMain();
+      _onErrorCommon(err);
     }
 
     /**
@@ -111,7 +135,10 @@
       var footer = options.footer;
       if (header) {
         if (response.authenticationName && response.authenticationId) {
-          setHeaderAccountData(header, [response]);
+          setHeaderAccountData(header, {
+            accountList: [response],
+            isAccountLoaded: false
+          });
         }
 
         _.extend(header, {
@@ -131,20 +158,27 @@
     /**
      * 공통 header 데이터에서 account 관련 데이터를 주입 한다.
      * @param {object} header - 공통 header
-     * @param {array} accountList - 계정 리스트
-     *    @param {string} accountList[].authenticationName - 노출할 계정 정보
-     *    @param {number|string} accountList[].authenticationId - 계정의 키값
-     * @param {string} [accountValue] - 선택할 계정 값
+     * @param {object} options
+     *    @param {array} options.accountList - 계정 리스트
+     *      @param {string} options.accountList[].authenticationName - 노출할 계정 정보
+     *      @param {number|string} options.accountList[].authenticationId - 계정의 키값
+     *    @param {string} [options.accountValue] - 선택할 계정 값
+     *    @param {string} [options.isAccountLoaded=true] - 로드 되었다고 표시할지 여부
+     *
      */
-    function setHeaderAccountData(header, accountList, accountValue) {
+    function setHeaderAccountData(header, options) {
       var accounts;
       var index;
+      var accountList = options.accountList;
+      var accountValue = options.accountValue;
+      var isAccountLoaded = _.isBoolean(options.isAccountLoaded) ? options.isAccountLoaded : true;
 
       if (header) {
         accounts = _.map(accountList, function(account) {
           return {
             text: account.authenticationName,
-            value: account.authenticationId
+            value: account.authenticationId,
+            connectCount: account.connectCount || 0
           };
         });
 
@@ -154,7 +188,7 @@
         index = index || 0;
 
         _.extend(header, {
-          isAccountLoaded: true,
+          isAccountLoaded: isAccountLoaded,
           accountId: JndUtil.pick(accountList, index, 'authenticationId'),
           accounts: accounts
         });

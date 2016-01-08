@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectGithubApi, JndUtil,
+  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnect, JndConnectGithubApi, JndUtil,
                                 JndConnectUnion) {
     var _originalRepos;
     var _createdRoomId = null;
@@ -66,7 +66,7 @@
     function _initialRequest() {
       JndConnectGithubApi.getRepos()
         .success(_onSuccessGetRepo)
-        .error(JndUtil.alertUnknownError);
+        .error(_onErrorRepo);
 
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
@@ -78,6 +78,16 @@
           footer: $scope.formData.footer
         }).success(_onSuccessGetSetting);
       }
+    }
+
+    /**
+     * repository 보 조회 실패시 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorRepo(err) {
+      JndConnect.backToMain();
+      JndUtil.alertUnknownError(err);
     }
 
     /**
@@ -116,7 +126,9 @@
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.hookRepoId = _hookRepoId;
-      JndConnectUnion.setHeaderAccountData($scope.formData.header, [response]);
+      JndConnectUnion.setHeaderAccountData($scope.formData.header, {
+        accountList: [response]
+      });
     }
 
     /**
@@ -156,7 +168,25 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
+      $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+    }
+
+    /**
+     * show loading 이벤트 핸들러
+     * @private
+     */
+    function _onShowLoading() {
+      $scope.isLoading = true;
+    }
+
+    /**
+     * hide loading 이벤트 핸들러
+     * @private
+     */
+    function _onHideLoading() {
+      $scope.isLoading = false;
     }
 
     /**

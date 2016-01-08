@@ -145,7 +145,8 @@
             dataType: 'jsonp',
             data: {
               access_token: accessToken,
-              active: isActive
+              active: isActive,
+              version: configuration.version
             },
             success: _onSuccessNotify
           });
