@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('expandingInput', expandingInput);
 
-  function expandingInput($timeout, jndKeyCode) {
+  function expandingInput($timeout, jndKeyCode, JndUtil) {
     return {
       restrict: 'EA',
       replace: true,
@@ -24,6 +24,7 @@
     };
 
     function link(scope, el, attrs) {
+
       var index = attrs.index;
 
       var inputClass = attrs.inputClass || '';
@@ -36,6 +37,9 @@
 
       var originalValue = scope.ngModel;
       var timerEditStatus;
+
+      var jqEdit;
+      var jqReadonly;
 
       _init();
 
@@ -58,6 +62,8 @@
 
         scope.hasList = _.isArray(scope.list);
 
+        scope.onInputLoaded = onInputLoaded;
+
         scope.onMouseEnter = _onMouseEnter;
         scope.onMousedown = _onMousedown;
 
@@ -68,6 +74,15 @@
         scope.onSelectOption = _onSelectOption;
         scope.onKeyDown = _onKeyDown;
         scope.onTextChange = _onTextChange;
+      }
+
+      function onInputLoaded() {
+        jqEdit = el.find(scope.hasList ? 'select' : 'input');
+        jqReadonly = el.find('.input-text-wrapper');
+
+        if (scope.input.text === '') {
+          _setShowEdit(true);
+        }
       }
 
       /**
@@ -91,8 +106,14 @@
        * @private
        */
       function _onMousedown() {
-        if (scope.status === 'cancel') {
-          _cancelValue();
+        if (scope.hasList) {
+          //JndUtil.safeApply(scope, function() {
+          //  el.find('select').trigger('change');
+          //});
+        } else {
+          if (scope.status === 'cancel') {
+            _cancelValue();
+          }
         }
       }
 
@@ -101,12 +122,7 @@
        * @private
        */
       function onViewFocus() {
-        var jqEdit = el.find('input');
-        var jqReadonly = el.find('.input-text-wrapper');
-
-        // focus시 입력용 element와 읽기용 element를 switch
-        jqReadonly.hide();
-        jqEdit.show().focus();
+        _setShowEdit(true);
 
         $timeout.cancel(timerEditStatus);
         scope.onSelect({$index: index});
@@ -122,15 +138,7 @@
        * @private
        */
       function onInputBlur() {
-        var jqEdit = el.find('input');
-        var jqReadonly = el.find('.input-text-wrapper');
-
-        if (scope.input.text !== '') {
-          // jqEdit의 placeholder를 사용하기 위해 변경값이 존재 하지 않을때에만
-          // focus시 입력용 element와 읽기용 element를 switch
-          jqEdit.hide();
-          jqReadonly.show();
-        }
+        _setShowEdit(false);
 
         scope.onSelect({$index: null});
         setTimeout(function() {
@@ -141,6 +149,24 @@
           }
           _clearStatus();
         }, 50);
+      }
+
+      /**
+       * show edit 설정
+       * @param {boolean} value
+       * @private
+       */
+      function _setShowEdit(value) {
+        if (value) {
+          // focus시 입력용 element와 읽기용 element를 switch
+          jqReadonly.hide();
+          jqEdit.css('display', 'block').focus();
+        } else if (scope.input.text !== '') {
+          // jqEdit의 placeholder를 사용하기 위해 변경값이 존재 하지 않을때에만
+          // focus시 입력용 element와 읽기용 element를 switch
+          jqEdit.hide();
+          jqReadonly.css('display', 'block');
+        }
       }
 
       /**

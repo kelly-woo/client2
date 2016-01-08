@@ -157,10 +157,8 @@
         }, 2000);
 
         messageAPIservice.postMessage('users', curUser.id, $scope.message.content)
-          .success(function() {
-            $scope.message.content = '';
-          })
           .finally(function() {
+            $scope.message.content = '';
             //$scope.isSending = false;
           });
       }

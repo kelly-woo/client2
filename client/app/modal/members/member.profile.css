@@ -80,32 +80,28 @@
 .profile-view-modal .profile-condition {
   position: absolute;
   top: 48px;
-  width: 245px;
-  left: 44%;
-  margin-left: -100px;
+  left: 50%;
+  margin-left: -118px;
   font-size: 14px;
   line-height: 20px;
   color: #fff;
   text-align: center;
 }
-
 .profile-view-modal .profile-condition.readonly {
-  height: 68px;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  word-wrap: break-word;
+  width: 236px;
 }
 
-.profile-view-modal .profile-condition.editing {
-  margin-left: -97px;
-}
-.profile-view-modal .profile-text.editing .input-text  {
+.profile-view-modal .profile-text.editing .input-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.profile-view-modal .profile-condition .input-text,
+.profile-view-modal .profile-condition.editing > div input,
+.profile-view-modal .profile-text.editing .input-text,
+.profile-view-modal .profile-text.editing > div input {
+  width: 236px;
 }
 
 .profile-view-modal .bot-profile-image,
@@ -125,11 +121,11 @@
   border: 1px solid rgba(0,0,0,0.08);
   overflow: hidden;
 }
-
 .profile-view-modal .profile-image img {
-  /*width: 100%;*/
-  /*height: 100%;*/
+  width: 100%;
+  height: auto;
 }
+
 .profile-view-modal .profile-image-change {
   position: absolute;
   bottom: 0;
@@ -181,20 +177,14 @@
 }
 .profile-view-modal .profile-text.readonly > div {
   height: 17px;
-  width: 216px;
+  width: 220px;
 }
 .profile-view-modal .profile-text.editing > div {
-  width: 236px;
-  margin-left: 20px;
+  margin-left: 24px;
 }
-.profile-view-modal .profile-text.editing > div input {
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*left: 0;*/
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.profile-view-modal .profile-text.editing > div.profile-email {
+  margin-left: 0;
 }
-
 .profile-view-modal .profile-text > div.profile-name {
   display: inline-block;
   height: 20px;
@@ -234,43 +224,10 @@
   color: #428bca;
   line-height: 25px;
 }
-
-.profile-view-modal .profile-text.editing .profile-name {
-  height: inherit;
-}
-.profile-view-modal .profile-text.editing .profile-name-status {
-  font-size: 14px;
+.profile-view-modal .profile-email .input-multi {
+  height: 29px;
 }
 
-.profile-view-modal .profile-text.editing .profile-department .input-text,
-.profile-view-modal .profile-text.editing .profile-position .input-text,
-.profile-view-modal .profile-text.editing .profile-phone-number .input-text {
-  height: 16px;
-  line-height: 16px;
-}
-
-.profile-view-modal .profile-text.editing .profile-department .expanding-input-status ,
-.profile-view-modal .profile-text.editing .profile-position .expanding-input-status ,
-.profile-view-modal .profile-text.editing .profile-phone-number .expanding-input-status {
-  line-height: 24px;
-}
-
-.profile-view-modal .profile-text.editing .profile-name .input-text {
-  height: 24px;
-  line-height: 24px;
-}
-.profile-view-modal .profile-text.editing .profile-name .expanding-input-status {
-  line-height: 29px;
-}
-
-.profile-view-modal .profile-condition.editing .expanding-input-status,
-.profile-view-modal .profile-text.editing .profile-email .expanding-input-status {
-  line-height: 26px;
-}
-
-.profile-view-modal .profile-text.editing .profile-name-status i {
-  margin-left: 1px;
-}
 
 .profile-view-modal .profile-actions {
   margin-top: 26px;

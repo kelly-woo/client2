@@ -1,35 +1,18 @@
 .expanding-input {
   position: relative;
   display: inline-block;
-  width: 170px;
+}
+
+.expanding-input .input-single .text-view {
+  display: table-cell;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 1px solid transparent;
 }
 
-.expanding-input.guide-line {
+.expanding-input.guide-line .input-multi select,
+.expanding-input.guide-line .input-single .text-view {
   border-color: #e1e1e1;
-}
-
-.expanding-input:hover .expanding-input-status {
-  display: block;
-}
-
-.expanding-input .input-single {
-  position: relative;
-}
-
-.expanding-input .input-single .input-text-wrapper,
-.expanding-input .input-single input {
-  width: 100%;
-  padding-right: 24px;
-  text-align: center;
-  outline: 0;
-  border: 1px solid transparent;
-  background-color: transparent;
-  padding-top: 3px;
-  padding-left: 5px;
-  padding-bottom: 3px;
 }
 
 .expanding-input .input-single .input-text-wrapper {
@@ -38,55 +21,69 @@
   overflow: hidden;
 }
 
-.expanding-input .input-single .expanding-input-status {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 24px;
-  height: 100%;
-  border-left: 1px solid transparent;
-  border-top-right-radius: 3px;
-  cursor: pointer;
-  -webkit-transition: opacity ease-out .2s;
-  transition: opacity ease-out .2s;
+.expanding-input select,
+.expanding-input .input-single .input-text-wrapper,
+.expanding-input .input-single input {
+  width: 100%;
+  padding: 3px 5px;
+  text-align: center;
+  outline: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
 }
 
+
 .expanding-input select {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  outline: 0;
-  padding-right: 24px;
-  border: 1px solid transparent;
-  background: transparent;
   cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  padding-top: 3px;
-  padding-left: 5px;
-  padding-bottom: 3px;
   line-height: normal;
   text-align-last: center;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+
+.expanding-input .input-single input::-ms-clear {
+  display: none;
+}
+
+.expanding-input .input-single .expanding-input-status {
+  display: table-cell;
+  width: 24px;
+  opacity: 0;
+  border-top: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.expanding-input .input-single .expanding-input-status i {
+  font-size: 14px;
 }
 
 .expanding-input .input-multi .expanding-input-status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
   opacity: 0;
-  float: right;
+  text-align: center;
   width: 24px;
-  border-left: 1px solid transparent;
+  border: 1px solid transparent;
+  background-color: #fff;
+}
+
+.expanding-input .input-multi .expanding-input-status i {
+  display: block;
+  margin-top: 6px;
 }
 
 .expanding-input.guide-line .expanding-input-status {
   opacity: 0.7;
-  border-left-color: #e1e1e1;
+  border-color: #e1e1e1;
 }
 .expanding-input.guide-line .expanding-input-status:hover {
   opacity: 1;
-}
-
-.expanding-input .expanding-input-status i {
-  display: inline-block;
-  vertical-align: middle;
 }
