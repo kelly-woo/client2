@@ -2640,7 +2640,7 @@ msgstr "トピックの説明（選択）"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@topic-invite-private"
-msgstr "{{invitorName}さんが非公開トピックに招待しました。"
+msgstr "{{invitorName}}さんが非公開トピックに招待しました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@topic-invite-public"
