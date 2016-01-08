@@ -14,7 +14,9 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el) {
+      var timerHideDmSubmit;
+
       _init();
 
       /**
@@ -26,6 +28,8 @@
 
         scope.onImageCropDone = onImageCropDone;
         scope.onImageEditClick = onImageEditClick;
+
+        scope.setShowDmSubmit = setShowDmSubmit;
       }
 
       /**
@@ -51,6 +55,24 @@
             });
           })
           .trigger('click');
+      }
+
+      /**
+       * dm 입력란 상태 설정
+       * @param {boolean} value
+       */
+      function setShowDmSubmit(value) {
+        var jqMessageSubmit = el.find('.message-submit-bg');
+
+        clearTimeout(timerHideDmSubmit);
+        scope.isShowDmSubmit = value;
+        if (value) {
+          jqMessageSubmit.show()
+        } else {
+          timerHideDmSubmit = setTimeout(function() {
+            jqMessageSubmit.hide();
+          }, 200);
+        }
       }
 
       /**

@@ -7,9 +7,10 @@
   <div ng-switch-default>
     <div class="profile-image-wrapper">
       <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
-        <img ng-if="!isDefaultProfileImage" class="profile-image-bg" ng-src="{{curUser.extProfileImage}}" />
+        <img ng-if="!isDefaultProfileImage" class="profile-default-image-bg" ng-src="{{curUser.extProfileImage}}" />
         <div ng-switch="isMyself">
           <div class="profile-condition readonly" ng-switch-when="false">{{statusMessage}}</div>
+          <div class="profile-image-bg"></div>
           <expanding-input ng-switch-default
                            ng-model="statusMessage"
                            max-length="60"
@@ -24,7 +25,7 @@
       </div>
       <div class="profile-image">
         <img ng-src="{{curUser.extProfileImage}}" />
-        <div class="profile-image-change" ng-if="isMyself" ng-click="onImageEditClick()">
+        <div class="profile-image-change" ng-show="isMyself" ng-click="onImageEditClick()">
           <span>편집</span>
         </div>
       </div>
@@ -103,9 +104,12 @@
       </div>
       <div class="action-direct-message" ng-if="!isDeactivatedUser && !isMyself">
         <input class="form-control" type="text" placeholder="1:1메시지 바로 보내기" autofocus
-               message-submit="postMessage()" ng-model="message.content">
-        <div class="message-submit-bg" ng-class="{'show-submit-done': showSubmitDone}" ng-click="onSubmitDoneClick()">
+               ng-model="message.content"
+               message-submit="postMessage()"
+               ng-keydown="onDmKeydown($event)">
+        <div class="message-submit-bg" ng-class="{'show-submit-done': isShowDmSubmit}" ng-click="onSubmitDoneClick()">
           <i class="icon-check"></i>
+          전송이 완료되었습니다.
         </div>
       </div>
     </div>

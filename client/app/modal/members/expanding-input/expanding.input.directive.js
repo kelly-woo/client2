@@ -31,6 +31,7 @@
       var placeholder = attrs.placeholder;
 
       var maxLength = parseInt(attrs.maxLength, 10);
+
       var type = attrs.ngModel;
 
       var originalValue = scope.ngModel;
@@ -59,16 +60,14 @@
 
         scope.onMouseEnter = _onMouseEnter;
         scope.onMousedown = _onMousedown;
-        scope.onFocus = _onFocus;
-        scope.onBlur = _onBlur;
+
+        scope.onViewFocus = onViewFocus;
+        scope.onInputFocus = onInputFocus;
+        scope.onInputBlur = onInputBlur;
 
         scope.onSelectOption = _onSelectOption;
         scope.onKeyDown = _onKeyDown;
         scope.onTextChange = _onTextChange;
-
-        if (hasGuideLine()) {
-          _focusInput();
-        }
       }
 
       /**
@@ -92,13 +91,7 @@
        * @private
        */
       function _onMousedown() {
-        if (scope.status === 'edit') {
-          scope.input.text = '';
-
-          if (!scope.hasList) {
-            _focusInput();
-          }
-        } else if (scope.status === 'cancel') {
+        if (scope.status === 'cancel') {
           _cancelValue();
         }
       }
@@ -107,16 +100,39 @@
        * focus handler
        * @private
        */
-      function _onFocus() {
+      function onViewFocus() {
+        var jqEdit = el.find('input');
+        var jqReadonly = el.find('.input-text-wrapper');
+
+        // focus시 입력용 element와 읽기용 element를 switch
+        jqReadonly.hide();
+        jqEdit.show().focus();
+
+        $timeout.cancel(timerEditStatus);
+        scope.onSelect({$index: index});
+      }
+
+      function onInputFocus() {
         $timeout.cancel(timerEditStatus);
         scope.onSelect({$index: index});
       }
 
       /**
-       * blur handler
+       * input blur handler
        * @private
        */
-      function _onBlur() {
+      function onInputBlur() {
+        var jqEdit = el.find('input');
+        var jqReadonly = el.find('.input-text-wrapper');
+
+        if (scope.input.text !== '') {
+          // jqEdit의 placeholder를 사용하기 위해 변경값이 존재 하지 않을때에만
+          // focus시 입력용 element와 읽기용 element를 switch
+          jqEdit.hide();
+          jqReadonly.show();
+        }
+
+        scope.onSelect({$index: null});
         setTimeout(function() {
           // jndInputModel에서 blur 처리로 인해 input.text가 공백일때 처리가
           // 의도한 바와 같이 수행되지 않으므로 setTimeout 설정
@@ -194,12 +210,6 @@
           });
           originalValue = scope.input.text;
         }
-      }
-
-      function _focusInput() {
-        setTimeout(function() {
-          el.find('input').focus();
-        });
       }
     }
   }

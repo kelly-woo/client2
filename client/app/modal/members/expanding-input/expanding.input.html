@@ -3,25 +3,30 @@
     <span class="input-multi" ng-switch-when="true">
       <select ng-model="input.text"
               ng-change="onSelectOption()"
-              ng-focus="onFocus()"
+              ng-focus="onViewFocus()"
               ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
       </select>
       <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">
         <i class="icon-arrow-down" ng-switch-when="edit"></i>
       </div>
     </span>
-    <span class="input-single" ng-switch-default>
-      <input type="text" maxlength="{{::maxLength}}" placeholder="{{::placeholder}}"
+    <div class="input-single" ng-switch-default>
+      <div class="input-text-wrapper" style="display: block;" readonly
+           contenteditable="true"
+           ng-focus="onViewFocus()">
+        <div class="input-text" ng-bind="input.text"></div>
+      </div>
+      <input style="display: none;" type="text" maxlength="{{::maxLength}}" placeholder="{{::placeholder}}"
              jnd-input-model="input.text"
              jnd-is-trim="on"
              jnd-on-change="onTextChange()"
-             ng-focus="onFocus()"
-             ng-blur="onBlur()"
+             ng-focus="onInputFocus()"
+             ng-blur="onInputBlur()"
              ng-keydown="onKeyDown($event)"/>
       <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">
         <i class="icon-pencil-fill" ng-switch-when="edit"></i>
         <i class="icon-delete" ng-switch-when="cancel"></i>
       </div>
-    </span>
+    </div>
   </span>
 </div>
