@@ -107,7 +107,8 @@
                ng-model="message.content"
                message-submit="postMessage()"
                ng-keydown="onDmKeydown($event)">
-        <div class="message-submit-bg" ng-class="{'show-submit-done': isShowDmSubmit}" ng-click="onSubmitDoneClick()">
+        <div class="message-submit-bg" style="display: none;"
+             ng-class="{'show-submit-done': isShowDmSubmit}" ng-click="onSubmitDoneClick()">
           <i class="icon-check"></i>
           전송이 완료되었습니다.
         </div>

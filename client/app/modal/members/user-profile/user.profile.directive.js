@@ -28,6 +28,7 @@
 
         scope.onImageCropDone = onImageCropDone;
         scope.onImageEditClick = onImageEditClick;
+        scope.onSubmitDoneClick = onSubmitDoneClick;
 
         scope.setShowDmSubmit = setShowDmSubmit;
       }
@@ -55,6 +56,14 @@
             });
           })
           .trigger('click');
+      }
+
+      /**
+       * submit done click event handler
+       */
+      function onSubmitDoneClick() {
+        setShowDmSubmit(false);
+        _focusInput();
       }
 
       /**
@@ -112,6 +121,16 @@
             //  });
             scope.hasUpdatedProfilePic = true;
           })
+      }
+
+      /**
+       * input에 focus
+       * @private
+       */
+      function _focusInput() {
+        var jqInput = el.find('.form-control');
+
+        jqInput.focus();
       }
     }
   }
