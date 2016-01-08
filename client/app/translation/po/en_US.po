@@ -219,7 +219,7 @@ msgstr "Topics "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@comment-all-desc"
-msgstr "Show {{commentCount}} previous comment(s)"
+msgstr "Show all {{commentCount}} comment(s)"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"

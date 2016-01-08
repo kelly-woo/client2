@@ -1959,7 +1959,7 @@ msgstr "2시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-51"
-msgstr "더4시간 전"
+msgstr "4시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-52"
