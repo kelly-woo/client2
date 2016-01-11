@@ -309,6 +309,10 @@ msgstr ""
 msgid "@common-duplicate-name-err"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
+msgstr ""
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
 #: client/app/modal/password/password.reset.request.html
@@ -537,6 +541,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
 msgstr ""
 
 #: client/app/modal/members/member_profile/member.profile.view.html
