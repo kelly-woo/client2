@@ -204,7 +204,12 @@
   border-radius: 3px;
 
 }
-
+.integration-service-container.auth {
+  height: 120px;
+}
+.integration-service-container.auth section {
+  border-color: transparent;
+}
 .integration-service-container section {
   border-bottom: 1px solid #E6E6E6;
   position: relative;
@@ -222,6 +227,10 @@
 }
 .integration-service-container section.unverified-container {
   height: 109px;
+  padding-top:36px;
+}
+.integration-service-container section.unverified-container ~ section {
+  display: none;
 }
 
 .integration-service-container section.connect-info {
