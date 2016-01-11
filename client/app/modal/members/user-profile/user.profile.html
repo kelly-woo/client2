@@ -8,9 +8,9 @@
     <div class="profile-image-wrapper">
       <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
         <img ng-if="!isDefaultProfileImage" class="profile-default-image-bg" ng-src="{{curUser.extProfileImage}}" />
-        <div ng-switch="isMyself">
-          <div class="profile-image-bg"></div>
-          <div class="profile-condition readonly break" ng-switch-when="false">{{statusMessage}}</div>
+        <div class="profile-image-bg"></div>
+        <div class="profile-condition" ng-switch="isMyself">
+          <div class="readonly break" ng-switch-when="false">{{statusMessage}}</div>
           <expanding-input ng-switch-default
                            ng-model="statusMessage"
                            max-length="60"
@@ -18,7 +18,7 @@
                            index="statusMessage"
                            on-select="onProfileSelect($index)"
                            on-change="onProfileChange($type, $value)"
-                           input-class="profile-condition editing"
+                           input-class="editing"
                            placeholder="{{::'@common-status-msg' | translate}}"></expanding-input>
         </div>
         <i class="icon-delete cursor_pointer" ng-click="close()"></i>

@@ -89,19 +89,18 @@
   text-align: center;
 }
 
-.profile-view-modal .profile-condition.readonly {
-  width: 236px;
-  margin-left: -118px;
-}
-
 .profile-view-modal .profile-text.editing .input-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.profile-view-modal .profile-condition .input-text,
-.profile-view-modal .profile-condition.editing > div input,
+.profile-view-modal .profile-condition .readonly,
+.profile-view-modal .profile-condition > .editing .input-text-wrapper,
+.profile-view-modal .profile-condition > .editing > div input {
+  width: 250px;
+}
+
 .profile-view-modal .profile-text.editing .input-text,
 .profile-view-modal .profile-text.editing > div input {
   width: 236px;

@@ -4,6 +4,7 @@
       <div class="text-view">
         <div class="input-text-wrapper" style="display: block;" readonly
              contenteditable="true"
+             ng-mouseenter="onViewFocus()"
              ng-focus="onViewFocus()">
           <div class="input-text" ng-bind="input.text"></div>
         </div>
@@ -20,6 +21,7 @@
       <div class="text-view">
         <div class="input-text-wrapper" style="display: block;" readonly
              contenteditable="true"
+             ng-mouseenter="onViewFocus()"
              ng-focus="onViewFocus()">
           <div class="input-text" ng-bind="input.text"></div>
         </div>
@@ -28,6 +30,7 @@
                jnd-is-trim="on"
                jnd-on-change="onTextChange()"
                ng-focus="onInputFocus()"
+               ng-mouseenter="onViewFocus()"
                ng-blur="onInputBlur()"
                ng-keydown="onKeyDown($event)"/>
       </div>

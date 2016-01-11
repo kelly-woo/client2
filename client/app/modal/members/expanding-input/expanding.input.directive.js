@@ -36,7 +36,6 @@
       var type = attrs.ngModel;
 
       var originalValue = scope.ngModel;
-      var timerEditStatus;
 
       var jqEdit;
       var jqReadonly;
@@ -106,30 +105,25 @@
        * @private
        */
       function _onMousedown() {
-        if (scope.hasList) {
-          //JndUtil.safeApply(scope, function() {
-          //  el.find('select').trigger('change');
-          //});
-        } else {
-          if (scope.status === 'cancel') {
-            _cancelValue();
-          }
+        if (!scope.hasList && scope.status === 'cancel') {
+          _cancelValue();
         }
       }
 
       /**
-       * focus handler
+       * view focus handler
        * @private
        */
       function onViewFocus() {
         _setShowEdit(true);
 
-        $timeout.cancel(timerEditStatus);
         scope.onSelect({$index: index});
       }
 
+      /**
+       * input focus handler
+       */
       function onInputFocus() {
-        $timeout.cancel(timerEditStatus);
         scope.onSelect({$index: index});
       }
 
@@ -147,7 +141,7 @@
           if (scope.status === 'cancel') {
             _changeValue();
           }
-          _clearStatus();
+          scope.status = 'edit';
         }, 50);
       }
 
@@ -184,6 +178,8 @@
        */
       function _onKeyDown(event) {
         if (jndKeyCode.match('ENTER', event.keyCode)) {
+          _setShowEdit(false);
+
           _changeValue();
           scope.status = 'edit';
         } else if (jndKeyCode.match('ESC', event.keyCode) && scope.status === 'cancel') {
@@ -201,16 +197,6 @@
         if (scope.input.text !== originalValue) {
           scope.status = 'cancel';
         }
-      }
-
-      /**
-       * clear status
-       * @private
-       */
-      function _clearStatus() {
-        timerEditStatus = $timeout(function() {
-          scope.status = 'edit';
-        }, 500);
       }
 
       /**
