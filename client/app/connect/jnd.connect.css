@@ -468,7 +468,7 @@
   word-break: keep-all;
 }
 .service-setting .setting-description {
-  max-width: 50%;
+  width: 50%;
   color:#979797;
   font-size: 14px;
   line-height: 24px;
