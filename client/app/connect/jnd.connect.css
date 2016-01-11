@@ -469,6 +469,7 @@
 .service-setting .setting-input[readonly] {
   background-color: #D2E2EC;
   border-color: rgba(21, 74, 103, 0.25);
+  line-height: 1em;
 }
 .service-setting .setting-input[readonly]:focus {
   border-color: #00abe6;
