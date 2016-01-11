@@ -97,13 +97,11 @@
 
 .profile-view-modal .profile-condition .readonly,
 .profile-view-modal .profile-condition > .editing .input-text-wrapper,
-.profile-view-modal .profile-condition > .editing > div input {
+.profile-view-modal .profile-condition > .editing > div input,
+.profile-view-modal .profile-text.editing .input-text-wrapper,
+.profile-view-modal .profile-text.editing > div input,
+.profile-view-modal .profile-text.editing > div select {
   width: 250px;
-}
-
-.profile-view-modal .profile-text.editing .input-text,
-.profile-view-modal .profile-text.editing > div input {
-  width: 236px;
 }
 
 .profile-view-modal .bot-profile-image,
@@ -170,6 +168,9 @@
   color: #f9bb00;
 }
 
+/*
+ PROFILE BODY
+ */
 .profile-view-modal .bot-profile-text,
 .profile-view-modal .profile-text {
   margin-top: 48px;
@@ -177,32 +178,51 @@
   color: #575756;
   text-align: center;
 }
+
+.profile-view-modal .profile-text > div {
+  position: absolute;
+  left: 33px;
+}
+
 .profile-view-modal .profile-text.readonly > div {
-  height: 17px;
-  width: 220px;
+  width: 250px;
 }
-.profile-view-modal .profile-text.editing > div {
-  margin-left: 24px;
+.profile-view-modal .profile-text {
+  position: relative;
+  width: 100%;
+  height: 173px;
 }
-.profile-view-modal .profile-text.editing > div.profile-email {
-  margin-left: 0;
-}
-.profile-view-modal .profile-text > div.profile-name {
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  font-size: 18px;
-  color: #333;
-  font-weight: 600;
+.profile-view-modal .profile-name {
+  top: 0;
+  height: 29px;
+  line-height: 29px;
 }
 
 .profile-view-modal .profile-department {
-  margin-top: 16px;
+  top: 45px;
 }
+.profile-view-modal .profile-position {
+  top: 80px;
+}
+.profile-view-modal .profile-phone-number {
+  top: 115px;
+}
+.profile-view-modal .profile-email {
+  top: 150px;
+}
+
+.profile-view-modal .profile-department,
 .profile-view-modal .profile-position,
 .profile-view-modal .profile-phone-number,
 .profile-view-modal .profile-email {
-  margin-top: 6px;
+  height: 22px;
+  line-height: 22px;
+}
+
+.profile-view-modal .profile-text .profile-name {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
 }
 
 .profile-view-modal .profile-description {
@@ -214,6 +234,13 @@
   line-height: 20px;
 }
 
+.profile-view-modal .profile-email {
+  color: #428bca;
+}
+
+/*
+ JANDI BOT PROFILE
+*/
 .profile-view-modal .profile-connect-setting {
   display: inline-block;
   font-size: 18px;
@@ -221,16 +248,9 @@
   color: #00abe6;
 }
 
-.profile-view-modal .profile-email {
-  font-size: 14px;
-  color: #428bca;
-  line-height: 25px;
-}
-.profile-view-modal .profile-email .input-multi {
-  height: 29px;
-}
-
-
+/*
+ PROFILE ACTION BUTTONS
+*/
 .profile-view-modal .profile-actions {
   margin-top: 26px;
   text-align: center;
@@ -303,17 +323,15 @@
   left: 15px;
   right: 15px;
   bottom: 14px;
-  opacity: 0;
+  color: #00abe6;
   background-color: #fff;
   cursor: pointer;
-  font-size: 0;
+  text-align: center;
+  opacity: 0;
   -webkit-transition: opacity ease-in-out .2s;
   transition: opacity ease-in-out .2s;
 }
 
 .profile-view-modal .message-submit-bg.show-submit-done {
   opacity: 1;
-  font-size: 15px;
-  color: #00abe6;
-  text-align: left;
 }
