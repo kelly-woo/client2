@@ -115,7 +115,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   height: 34px;
-  max-width: 160px;
+  max-width: 180px;
 }
 
 /* jnd-connect loading container style : default */
@@ -1150,9 +1150,6 @@
   }
   .connect-setting-lpanel div.jnd-connect-logo-container {
     display: block;
-  }
-  .integration-service-header .connect-union-plug-tool-text {
-	 display: none;
   }
   /*
   .jnd-connect-service-container > div.jnd-connect-banner {
