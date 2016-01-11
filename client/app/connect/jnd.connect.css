@@ -546,7 +546,7 @@
 .service-setting.select-conversation .custom-select-box-btn:lang(en) {
   margin-left: 0;
   width: calc(43% - 72px);
-  max-width: 30%;
+  max-width: 28%;
 }
 
 
@@ -566,7 +566,7 @@
 .service-setting.compound-column .custom-select-box-btn:lang(en),
 .service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
   width: 100%;
-  max-width: calc(60% - 4px);
+  max-width: calc(58% - 4px);
 }
 
 /* has-inputfield : CSB & Input Field */
@@ -596,7 +596,7 @@
 }
 .service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja),
 .service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
-  max-width: 60% !important;
+  max-width: 58% !important;
 }
 
 .service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active {
@@ -607,7 +607,7 @@
 }
 .service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(ja),
 .service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(en) {
-  max-width: calc(30% + 4px) !important;
+  max-width: calc(28% + 4px) !important;
 }
 
 .service-setting .custom-select-box-btn i {
@@ -735,7 +735,7 @@
 }
 .create-new-topic:lang(ja),
 .create-new-topic:lang(en) {
-  max-width: calc(20% - 4px);
+  max-width: calc(22% - 4px);
   padding-left: 6px;
   padding-right: 6px;
 }
@@ -746,8 +746,8 @@
 }
 .compound-column .create-new-topic:lang(ja),
 .compound-column .create-new-topic:lang(en) {
-  max-width: 40%;
-  width: 40%;
+  max-width: 42%;
+  width: 42%;
   padding-left: 6px;
   padding-right: 6px;
 }
@@ -1115,24 +1115,21 @@
   .connect-setting-lpanel div.jnd-connect-logo-container {
     display: block;
   }
+  /*
   .jnd-connect-service-container > div.jnd-connect-banner {
     min-height: 150px;
   }
-/*
+
   .connect-union-plug-tool-container .connect-union-plug-tool-text {
 	display: none;
   }
-*/
-/*
   .integration-service-container .second-column .connect-union-plug-tool-container {
 	width: 96px;
   }
-*/
-/*
   .connect-union-plug-container > div:nth-child(2) {
     max-width: calc(90% - 320px);
   }
-*/
+  */
 }
 @media (max-width:1080px) {
   
