@@ -1,4 +1,4 @@
-<div class="expanding-input {{::inputClass}}" ng-class="{'guide-line': hasGuideLine()}">
+<div class="expanding-input" ng-class="{'guide-line': hasGuideLine()}" ng-mouseenter="onViewFocus()">
   <div ng-switch="hasList">
     <div class="input-multi" ng-switch-when="true" ng-init="onInputLoaded()">
       <div class="text-view">
@@ -10,8 +10,6 @@
         </div>
         <select style="display: none"
                 ng-model="input.text"
-                ng-focus="onInputFocus()"
-                ng-blur="onInputBlur()"
                 ng-change="onSelectOption()"
                 ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
         </select>
@@ -29,12 +27,9 @@
                jnd-input-model="input.text"
                jnd-is-trim="on"
                jnd-on-change="onTextChange()"
-               ng-focus="onInputFocus()"
-               ng-mouseenter="onViewFocus()"
-               ng-blur="onInputBlur()"
                ng-keydown="onKeyDown($event)"/>
       </div>
-      <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">
+      <div class="expanding-input-status" ng-switch="status" ng-click="onMousedown()">
         <i class="icon-pencil-fill" ng-switch-when="edit"></i>
         <i class="icon-delete" ng-switch-when="cancel"></i>
       </div>
