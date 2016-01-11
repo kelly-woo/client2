@@ -72,13 +72,16 @@
        */
       function setShowDmSubmit(value) {
         var jqMessageSubmit = el.find('.message-submit-bg');
+        var jqMessageInput = el.find('.form-control');
 
         clearTimeout(timerHideDmSubmit);
         scope.isShowDmSubmit = value;
         if (value) {
-          jqMessageSubmit.show()
+          jqMessageInput.blur();
+          jqMessageSubmit.show();
         } else {
           timerHideDmSubmit = setTimeout(function() {
+            jqMessageInput.focus();
             jqMessageSubmit.hide();
           }, 200);
         }
