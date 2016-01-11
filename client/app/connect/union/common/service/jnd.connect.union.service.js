@@ -210,9 +210,7 @@
     function _onSuccessUpdate() {
       Dialog.success({
         body: $filter('translate')('@jnd-connect-208'),
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
+        allowHtml: true
       });
       JndConnect.backToMain();
     }
@@ -224,9 +222,7 @@
     function _onSuccessCreate() {
       Dialog.success({
         body: $filter('translate')('@jnd-connect-186'),
-        allowHtml: true,
-        extendedTimeOut: 0,
-        timeOut: 0
+        allowHtml: true
       });
       JndConnect.backToMain();
     }
