@@ -880,7 +880,9 @@ input[type="button"] {
 }
 
 .grey_dropdown > li > a > i.icon-connect-circle {
-  font-size: 20px;
+  font-size: 25px;
+  top: 7px;
+  left: .58rem;
 }
 
 .grey_dropdown > li > .menu-item:hover,

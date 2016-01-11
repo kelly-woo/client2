@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
-  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper) {
+  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper,
+                                        entityAPIservice) {
     return {
       restrict: 'E',
       replace: true,
@@ -36,7 +37,7 @@
       }
 
       /**
-       *
+       * folder 가 update 되었을 때
        * @private
        */
       function _onUpdate() {
@@ -51,13 +52,24 @@
       function _setList() {
         var list = _.union(
           EntityMapManager.toArray('joined'),
-          EntityMapManager.toArray('private'),
-          EntityMapManager.toArray('bot')
+          EntityMapManager.toArray('private')
         );
+
         list = _.filter(list, function(entity) {
-          return entity.type !== 'users';
+          return _isTopic(entity);
         });
+        list.push(entityAPIservice.getJandiBot());
         scope.list = TopicFolderModel.getNgOptions(list);
+      }
+
+      /**
+       * entity 가 topic 인지 여부를 반환한다.
+       * @param {object} entity
+       * @returns {boolean}
+       * @private
+       */
+      function _isTopic(entity) {
+        return entity.type === 'privategroups' || entity.type === 'channels';
       }
     }
   }
