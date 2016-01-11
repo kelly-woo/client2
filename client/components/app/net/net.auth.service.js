@@ -100,7 +100,6 @@
         } else {
           authAPIservice.requestAccessTokenWithRefreshToken();
         }
-        return $q.reject(rejection);
       } else {
         return $q.reject(rejection);
       }
