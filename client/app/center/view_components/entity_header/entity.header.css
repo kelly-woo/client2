@@ -36,7 +36,7 @@
   left: auto;
 }
 .panel-title-info {
-  max-width: 73%;
+  max-width: calc(100% - 330px);
 }
 
 .panel-title-info,

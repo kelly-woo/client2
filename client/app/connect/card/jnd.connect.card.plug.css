@@ -20,6 +20,9 @@
 .connect-union-plug-container > div {
   float: left;
 }
+.connect-union-plug-container > div:nth-child(2) {
+  max-width: calc(90% - 360px);
+}
 
 .connect-union-plug-icon {
   width:32px;
@@ -42,6 +45,9 @@
   font-weight: 600;
   padding-left: 24px;
   position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .connect-union-plug-title > i,
 .connect-union-plug-desc i {

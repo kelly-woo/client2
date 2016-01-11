@@ -555,6 +555,10 @@ msgstr "원본이 삭제되었습니다."
 msgid "@common-rename"
 msgstr "이름 변경"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr "1:1 메시지 전송하기..."
+
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
 msgstr "메일 보내기"
@@ -1579,9 +1583,8 @@ msgid "@jnd-connect-222"
 msgstr "{{connectCount}}개의 서비스가 연동중입니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-223"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr "시간대 설정"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1959,7 +1962,7 @@ msgstr "2시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-51"
-msgstr "더4시간 전"
+msgstr "4시간 전"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-52"

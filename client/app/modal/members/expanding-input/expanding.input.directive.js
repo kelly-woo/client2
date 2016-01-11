@@ -63,7 +63,7 @@
         scope.onMousedown = _onMousedown;
 
         scope.onViewFocus = onViewFocus;
-        scope.onInputFocus = onInputFocus;
+        //scope.onInputFocus = onInputFocus;
         scope.onInputBlur = onInputBlur;
 
         scope.onSelectOption = _onSelectOption;
@@ -146,12 +146,12 @@
         scope.onSelect({$index: index});
       }
 
-      /**
-       * input focus handler
-       */
-      function onInputFocus() {
-        scope.onSelect({$index: index});
-      }
+      ///**
+      // * input focus handler
+      // */
+      //function onInputFocus() {
+      //  scope.onSelect({$index: index});
+      //}
 
       /**
        * input blur handler

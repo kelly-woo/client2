@@ -32,7 +32,6 @@
 .account-menu .account-item i:last-child:hover {
   color: rgba(21, 74, 103, 0.85);
 }
-
 .account-menu .account-add:hover {
-  background-color: #e1e1e1;
+  background-color: #e8f3f9;
 }
