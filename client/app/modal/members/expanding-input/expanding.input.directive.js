@@ -63,7 +63,6 @@
         scope.onMousedown = _onMousedown;
 
         scope.onViewFocus = onViewFocus;
-        //scope.onInputFocus = onInputFocus;
         scope.onInputBlur = onInputBlur;
 
         scope.onSelectOption = _onSelectOption;
@@ -89,8 +88,8 @@
       function _onActiveIndexChange(value) {
         if (value !== index) {
           // 자신의 index가 아니라면 edit 화면 감춘다
-          _setShowEdit(false);
           jqEdit.blur();
+          _setShowEdit(false);
         }
       }
 
@@ -146,21 +145,12 @@
         scope.onSelect({$index: index});
       }
 
-      ///**
-      // * input focus handler
-      // */
-      //function onInputFocus() {
-      //  scope.onSelect({$index: index});
-      //}
-
       /**
        * input blur handler
        * @private
        */
       function onInputBlur() {
         _setShowEdit(false);
-
-        scope.onSelect({$index: null});
         setTimeout(function() {
           // jndInputModel에서 blur 처리로 인해 input.text가 공백일때 처리가
           // 의도한 바와 같이 수행되지 않으므로 setTimeout 설정
