@@ -232,6 +232,7 @@
   background-color: #FAFAFA;
   
   padding : 20px 20px 20px 64px;
+  display: none;
 }
 
 .integration-service-container section.connect-info >i {
@@ -315,6 +316,7 @@
 .service-info .service-name.unverified {
   font-weight: 700;
   font-size: 16px;
+  line-height: 34px;
 }
 .service-info .verified-email-container {
   margin: 7px 12px 7px 0;
@@ -542,11 +544,15 @@
   margin-left: 0;
   width: calc(48% - 72px);
 }
-.service-setting.select-conversation .custom-select-box-btn:lang(ja),
-.service-setting.select-conversation .custom-select-box-btn:lang(en) {
+.service-setting.select-conversation .custom-select-box-btn:lang(ja) {
   margin-left: 0;
   width: calc(43% - 72px);
   max-width: 28%;
+}
+.service-setting.select-conversation .custom-select-box-btn:lang(en) {
+  margin-left: 0;
+  width: calc(45% - 72px);
+  max-width: 30%;
 }
 
 
@@ -562,11 +568,14 @@
   max-width: calc(65% - 4px);
 }
 .service-setting.compound-column .custom-select-box-btn:lang(ja),
-.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja),
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja) {
+  width: 100%;
+  max-width: calc(58% - 4px);
+}
 .service-setting.compound-column .custom-select-box-btn:lang(en),
 .service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
   width: 100%;
-  max-width: calc(58% - 4px);
+  max-width: calc(60% - 4px);
 }
 
 /* has-inputfield : CSB & Input Field */
@@ -594,9 +603,11 @@
 .service-setting.compound-column .custom-select-box.dropdown-menu.active {
   max-width: 65% !important;
 }
-.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja),
-.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja) {
   max-width: 58% !important;
+}
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
+  max-width: 60% !important;
 }
 
 .service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active {
@@ -605,9 +616,11 @@
   max-width: calc(35% + 4px) !important;
   margin-left:-2px !important;
 }
-.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(ja),
-.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(en) {
+.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(ja) {
   max-width: calc(28% + 4px) !important;
+}
+.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(en) {
+  max-width: calc(30% + 4px) !important;
 }
 
 .service-setting .custom-select-box-btn i {
@@ -733,9 +746,13 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-.create-new-topic:lang(ja),
-.create-new-topic:lang(en) {
+.create-new-topic:lang(ja) {
   max-width: calc(22% - 4px);
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.create-new-topic:lang(en) {
+  max-width: calc(20% - 4px);
   padding-left: 6px;
   padding-right: 6px;
 }
@@ -744,10 +761,15 @@
   max-width: 35%;
   width: 35%;
 }
-.compound-column .create-new-topic:lang(ja),
-.compound-column .create-new-topic:lang(en) {
+.compound-column .create-new-topic:lang(ja) {
   max-width: 42%;
   width: 42%;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.compound-column .create-new-topic:lang(en) {
+  max-width: 40%;
+  width: 40%;
   padding-left: 6px;
   padding-right: 6px;
 }
