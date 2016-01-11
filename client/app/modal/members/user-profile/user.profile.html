@@ -27,7 +27,7 @@
       <div class="profile-image">
         <img ng-src="{{curUser.extProfileImage}}" />
         <div class="profile-image-change" ng-show="isMyself" ng-click="onImageEditClick()">
-          <span>편집</span>
+          <span translate>@common-edit</span>
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@
         </span>
       </div>
       <div class="action-direct-message" ng-if="!isDeactivatedUser && !isMyself">
-        <input class="form-control" type="text" placeholder="1:1메시지 바로 보내기" autofocus
+        <input class="form-control" type="text" placeholder="{{::'@common-send-dm' | translate}}" autofocus
                ng-model="message.content"
                message-submit="postMessage()"
                ng-keydown="onDmKeydown($event)">
