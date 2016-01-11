@@ -220,6 +220,7 @@
       $scope.$on('JndConnect:modify', _onModifyPlug);
       $scope.$on('JndConnect:reloadList', _onReloadList);
       $scope.$on('JndConnect:backToMain', _onBackToMain);
+      $scope.$on('JndConnect:historyBack', historyBack);
     }
 
     /**
@@ -319,11 +320,14 @@
      * 돌아가기 버튼 클릭시 핸들러
      */
     function historyBack() {
-      if ($scope.current.union) {
-        _resetCurrent();
-      } else {
-        close();
-      }
+      JndUtil.safeApply($scope, function() {
+        if ($scope.current.union) {
+          _resetCurrent();
+        } else {
+          close();
+        }
+      });
+
     }
 
     /**
