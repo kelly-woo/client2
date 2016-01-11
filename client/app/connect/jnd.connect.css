@@ -413,7 +413,13 @@
   white-space: nowrap;
   max-width: 95%;
 }
-
+.service-setting.select-calendar.jnd-column-5-width .setting-label:lang(ja),
+.service-setting.select-conversation.jnd-column-5-width .setting-label:lang(ja) {
+  white-space: normal;
+  word-break: break-all; 
+  word-wrap: break-word;
+  min-height: 56px;
+}
 .expand-button {
   color:#979797;
   font-weight: 500;
@@ -466,6 +472,10 @@
   float: left;
   display: block;
   word-break: keep-all;
+  word-wrap:break-word;
+}
+.setting-description:lang(en) {
+  word-break: break-word;
 }
 .service-setting .setting-description {
   width: 50%;
@@ -927,7 +937,9 @@
   background-color: #8DA4B3;
   color: #FFF;
 }
-
+.introduction-container .introduction-label > span {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .introduction-container .introduction-desc {
   float: left;
   line-height: 28px;
