@@ -333,7 +333,7 @@ msgstr "このトピック名は既に使用されています"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-edit"
-msgstr "送信"
+msgstr "修正"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
