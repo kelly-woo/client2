@@ -10,7 +10,7 @@
         </div>
         <select style="display: none"
                 ng-model="input.text"
-                on-blur="onInputBlur()"
+                ng-blur="onInputBlur()"
                 ng-change="onSelectOption()"
                 ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
         </select>
@@ -27,7 +27,7 @@
         <input style="display: none;" type="text" maxlength="{{::maxLength}}" placeholder="{{::placeholder}}"
                jnd-input-model="input.text"
                jnd-is-trim="on"
-               on-blur="onInputBlur()"
+               ng-blur="onInputBlur()"
                jnd-on-change="onTextChange()"
                ng-keydown="onKeyDown($event)"/>
       </div>
