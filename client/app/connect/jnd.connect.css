@@ -310,6 +310,11 @@
 
 .service-info .connect-title .user-name {
   font-weight: 700;
+  display: inline-block;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
 }
 
 .service-info span.date-info {
@@ -1146,6 +1151,9 @@
   .connect-setting-lpanel div.jnd-connect-logo-container {
     display: block;
   }
+  .integration-service-header .connect-union-plug-tool-text {
+	 display: none;
+  }
   /*
   .jnd-connect-service-container > div.jnd-connect-banner {
     min-height: 150px;
@@ -1162,7 +1170,7 @@
   }
   */
 }
-@media (max-width:1080px) {
+@media (max-width: 1080px) {
   
 }
 @media (max-width: 854px) {
