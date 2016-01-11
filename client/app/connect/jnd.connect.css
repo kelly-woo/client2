@@ -542,7 +542,8 @@
   margin-left: 0;
   width: calc(48% - 72px);
 }
-.service-setting.select-conversation .custom-select-box-btn:lang(ja) {
+.service-setting.select-conversation .custom-select-box-btn:lang(ja),
+.service-setting.select-conversation .custom-select-box-btn:lang(en) {
   margin-left: 0;
   width: calc(43% - 72px);
   max-width: 30%;
@@ -561,7 +562,9 @@
   max-width: calc(65% - 4px);
 }
 .service-setting.compound-column .custom-select-box-btn:lang(ja),
-.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja) {
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja),
+.service-setting.compound-column .custom-select-box-btn:lang(en),
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
   width: 100%;
   max-width: calc(60% - 4px);
 }
@@ -591,7 +594,8 @@
 .service-setting.compound-column .custom-select-box.dropdown-menu.active {
   max-width: 65% !important;
 }
-.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja) {
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(ja),
+.service-setting.compound-column .custom-select-box.dropdown-menu.active:lang(en) {
   max-width: 60% !important;
 }
 
@@ -601,7 +605,8 @@
   max-width: calc(35% + 4px) !important;
   margin-left:-2px !important;
 }
-.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(ja) {
+.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(ja),
+.service-setting.select-conversation.jnd-column-10-width .custom-select-box-btn ~ .custom-select-box.dropdown-menu.active:lang(en) {
   max-width: calc(30% + 4px) !important;
 }
 
@@ -728,16 +733,19 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-.create-new-topic:lang(ja) {
+.create-new-topic:lang(ja),
+.create-new-topic:lang(en) {
   max-width: calc(20% - 4px);
   padding-left: 6px;
   padding-right: 6px;
 }
+
 .compound-column .create-new-topic {
   max-width: 35%;
   width: 35%;
 }
-.compound-column .create-new-topic:lang(ja) {
+.compound-column .create-new-topic:lang(ja),
+.compound-column .create-new-topic:lang(en) {
   max-width: 40%;
   width: 40%;
   padding-left: 6px;
