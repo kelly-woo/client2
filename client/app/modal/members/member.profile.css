@@ -195,7 +195,6 @@
 }
 .profile-view-modal .profile-name {
   top: 0;
-  height: 22px;
   line-height: 22px;
 }
 
@@ -217,8 +216,15 @@
 .profile-view-modal .profile-position,
 .profile-view-modal .profile-phone-number,
 .profile-view-modal .profile-email {
-  height: 18px;
   line-height: 18px;
+}
+
+.profile-view-modal .profile-email .text-view {
+  height: 28px;
+  line-height: 28px;
+}
+.profile-view-modal .profile-email select {
+  height: 100%;
 }
 
 .profile-view-modal .profile-text .profile-name {
@@ -327,15 +333,24 @@
   left: 15px;
   right: 15px;
   bottom: 14px;
+  font-size: 13px;
   color: #00abe6;
   background-color: #fff;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   opacity: 0;
   -webkit-transition: opacity ease-in-out .2s;
   transition: opacity ease-in-out .2s;
 }
 
-.profile-view-modal .message-submit-bg.show-submit-done {
+.profile-view-modal .action-direct-message.show-submit-done > input {
+  border-color: #00abe6;
+}
+.profile-view-modal .action-direct-message.show-submit-done .message-submit-bg {
   opacity: 1;
 }
+
+.profile-view-modal .message-submit-bg i {
+  vertical-align: middle;
+}
+

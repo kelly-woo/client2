@@ -107,14 +107,17 @@
           </span>
         </span>
       </div>
-      <div class="action-direct-message" ng-if="!isDeactivatedUser && !isMyself">
+      <div class="action-direct-message"
+           ng-class="{'show-submit-done': isShowDmSubmit}"
+           ng-if="!isDeactivatedUser && !isMyself">
         <input class="form-control" type="text" placeholder="{{::'@common-send-dm' | translate}}" autofocus
                ng-model="message.content"
                message-submit="postMessage()"
                ng-keydown="onDmKeydown($event)">
         <div class="message-submit-bg" style="display: none;"
-             ng-class="{'show-submit-done': isShowDmSubmit}" ng-click="onSubmitDoneClick()">
+              ng-click="onSubmitDoneClick()">
           <i class="icon-check"></i>
+          <span translate>@common-send-dm-success</span>
         </div>
       </div>
     </div>
