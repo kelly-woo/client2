@@ -1,15 +1,21 @@
 .integration-service-header .service-info .union-selectbox-wrapper {
-  width: 64%;
+  width: auto;
   margin: 0;
+  height: 35px;
 }
 
-.integration-service-header .service-info  .union-selectbox-wrapper .union-selectbox {
-  width: 100%;
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox {
+  width: 102%;
   height: 35px;
-  max-width: 100%;
-  padding-right: 25px;
+  max-width: 200px;
+  min-width: 180px;
+  padding-left: 16px;
+  padding-right: 36px;
   line-height: 33px;
   border-color: rgba(32,75,96,0.15);
+}
+.integration-service-header .service-info .union-selectbox-wrapper .union-selectbox.disalbed {
+  cursor: not-allowed;
 }
 .integration-service-header .service-info  .union-selectbox-wrapper .union-selectbox:hover {
   border-color:rgba(33,75,96,0.35);
@@ -40,4 +46,7 @@
 .integration-service-header .service-info .union-selectbox-wrapper .dropdown-menu {
   width: 100%;
   margin-left: -1px !important;
+}
+.integration-service-header .service-info .union-selectbox-wrapper .loading-container {
+  min-width: 180px;
 }
