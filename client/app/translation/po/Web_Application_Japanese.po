@@ -1427,7 +1427,9 @@ msgstr "連動項目が正常に追加されました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
-msgstr "@jnd-connect-187"
+msgstr ""
+"このアカウントの連携を解除すると、このアカウントと連携している他の連携サービ"
+"スも動作しない可能性があります。連携を解除しますか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1803,7 +1805,7 @@ msgstr "連動されたサービス"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr "新規トピックを作成する"
+msgstr "トピックを作成"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
@@ -3034,7 +3036,7 @@ msgstr "さんからダイレクトメッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
-msgstr " "
+msgstr " {{teamName}}に新規メッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
