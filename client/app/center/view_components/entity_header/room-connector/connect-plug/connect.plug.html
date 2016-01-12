@@ -1,8 +1,8 @@
 <div class="connect-plug">
-  <img class="connect-union-icon plug-service-image" ng-src="{{botProfileImage}}"/>
+  <img class="connect-union-icon plug-service-image" ng-src="{{data.botProfileImage}}"/>
   <div class="plug-body" ng-class="{'plug-body-half': isAllowUpdate && !isConnector, 'plug-body-full': !isAllowUpdate}">
-    <div class="plug-service overflow-ellipsis">{{botName}}</div>
-    <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>{{memberName}}</div>
+    <div class="plug-service overflow-ellipsis">{{data.botName}}</div>
+    <div class="plug-user connect-union-plug-title overflow-ellipsis"><i class="icon-user"></i>{{data.memberName}}</div>
   </div>
   <div class="plug-menu connect-union-float-right connect-union-plug-tool-container" ng-if="isAllowUpdate">
     <jnd-connect-status-switch connect-id="data.connectId"
