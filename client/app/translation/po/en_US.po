@@ -1215,7 +1215,7 @@ msgstr "Authenticate your {{serviceName}} account"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-145"
-msgstr "Setup Instruction"
+msgstr "Setup Instructions"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-146"
@@ -1426,7 +1426,9 @@ msgstr "Great! You've successfully added the integration."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
-msgstr "@187: (NOT IN USE) @141"
+msgstr ""
+"If you disconnect this account, it may disable other integrations. Are you "
+"sure you want to continue?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1599,9 +1601,10 @@ msgid "@jnd-connect-223"
 msgstr "Time Zone"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-224"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Please select a topic or DM to receive integration messages. You change it "
+"after saving it."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1631,10 +1634,10 @@ msgstr "Send data into JANDI from your favorite external services"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b> is an online "
+"<b><a href=https://github.com  target=_blank >GitHub</a></b> is an online "
 "source code management platform for Git projects.<br/><br/>\n"
 "This integration will send notifications of commits, comments, pull "
-"requests, and other activity on GitHub Issues to a JANDI topic."
+"requests, and other activity on GitHub Issues to a JANDI topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1831,7 +1834,7 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
-"<b>Incoming Webhook</b> are a simple way to send messages from external "
+"<b>Incoming Webhooks</b> are a simple way to send messages from external "
 "services or apps of your choice into a JANDI topic. You can think of it as a "
 "customized integration."
 
@@ -1895,7 +1898,7 @@ msgstr "Connected Services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr "Create New Topic"
+msgstr "New Topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
