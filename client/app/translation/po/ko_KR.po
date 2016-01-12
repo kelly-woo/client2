@@ -1027,15 +1027,15 @@ msgstr "English"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-105"
-msgstr "日本語 (일본어)"
+msgstr "日本語"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-106"
-msgstr "简体中文(중국어-번체)"
+msgstr "简体中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-107"
-msgstr "繁體中文(중국어-간체)"
+msgstr "繁體中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-108"
