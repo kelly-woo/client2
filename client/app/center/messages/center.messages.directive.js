@@ -224,16 +224,13 @@
 
       /**
        * connect updated event handler
-       * @param {object} event
+       * @param {object} angularEvent
        * @param {object} data
        * @private
        */
-      function _onConnectUpdated(event, data) {
+      function _onConnectUpdated(angularEvent, data) {
         var id = data.bot.id;
-
-        if (scope.entityId == data.connect.roomId) {
-          _refreshMsgByMemberId(id);
-        }
+        _refreshMsgByMemberId(id);
       }
 
       function _refreshMsgByMemberId(id) {

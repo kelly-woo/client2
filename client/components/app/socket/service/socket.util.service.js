@@ -282,6 +282,8 @@
         _teamId = socketEvent.data.teamId;
       } else if (socketEvent.data && socketEvent.data.message && socketEvent.data.message.teamId) {
         _teamId = socketEvent.data.message.teamId;
+      } else if (socketEvent.data && socketEvent.data.bot && socketEvent.data.bot.teamId) {
+        _teamId = socketEvent.data.bot.teamId;
       }
 
       return _teamId;
