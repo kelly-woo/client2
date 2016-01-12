@@ -59,6 +59,7 @@ article {
   overflow-y: auto;
   min-width: 260px;
   padding-bottom: 0;
+  z-index: 9;
 }
 
 .rpanel-show .scroll-gray .msgs {
@@ -123,6 +124,17 @@ article {
   margin-top: 8px;
   padding: 5px 15px 0 67px;
   display: block;
+}
+#unread-bookmark.msg-item {
+  margin-bottom: 8px;
+  padding-top: 0;
+}
+#unread-bookmark.msg-item .msg-unread-bookmark {
+  margin: 0;
+  line-height: 28px;
+}
+#unread-bookmark.msg-item .system-event-msg .msg-item-float {
+  top: -1px;
 }
 /*.msgs-group:last-of-type > .msg-item {*/
   /*margin-bottom: 0;*/
@@ -425,8 +437,18 @@ by ysyun 2015.2.25
   right: 0;
   bottom: 0;
   height: 54px;
+  z-index: 12;
+}
+.footer:after {
+  content: '';
+  position: absolute;
+  left: -30px;
+  right: -30px;
+  bottom: 0;
+  height: 54px;
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
+
 .footer #primary_file_button {
   border: none;
   border-radius: 0;
@@ -493,9 +515,12 @@ by ysyun 2015.2.25
 .system-event-msg {
   min-height: 15px;
   margin-bottom: 0px;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
+  top:6px;
 }
 .system-event-msg .msg-item-float img {
   background-image: none !important;
@@ -740,114 +765,6 @@ by ysyun 2015.2.25
   color: #00abe6;
 }
 
-
-/********************************************
-
-            ATTACH CONTENT
-
-********************************************/
-.attachment-content-wrapper {
-  position: relative;
-  padding-top: 10px;
-  padding-bottom: 8px;
-}
-.attachment-content-wrapper .attachment-content-bar {
-  display: table-cell;
-  min-width: 4px;
-  background-color: #d7e0e8;
-}
-.attachment-content-wrapper .attachment-content {
-  display: table-cell;
-  width: 100%;
-  padding-left: 12px;
-}
-
-.attachment-content-wrapper .neighbor {
-  display: -webkit-box;
-  max-width: 100%;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.attachment-content-wrapper .social-image {
-  position: relative;
-  display: table-cell;
-  float: left;
-  margin-right: 12px;
-
-  width: 110px;
-  height: 110px;
-
-  cursor: pointer;
-  outline: 1px solid #e1e1e1;
-  background-color: #000;
-}
-.attachment-content-wrapper .loading.social-image {
-  background-color: transparent;
-}
-
-.attachment-content-wrapper .social-image>a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.attachment-content-wrapper img {
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-
-  max-width: 110px;
-  max-height: 110px;
-}
-
-.attachment-content-wrapper .social-body {
-  position: relative;
-  display: table-cell;
-  color: #333;
-}
-
-.attachment-content-wrapper .social-body.has-image {
-  height: 110px;
-}
-
-.social-body a {
-  text-decoration: none;
-  color: #333;
-}
-
-.social-body .social-title {
-  font-size: 16px;
-  line-height: 22px;
-  max-height: 42px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.social-body .social-desc {
-  font-size: 13px;
-  line-height: 18px;
-  max-height: 36px;
-}
-.social-body .social-desc.has-domain {
-  margin-bottom: 25px;
-}
-
-.social-body .social-domain {
-  position: absolute;
-  right: 0;
-  bottom: -3px;
-  left: 0;
-  font-size: 12px;
-  color: #999;
-  overflow: hidden;
-}
-
 .icon-sending-indicator {
   /*background-image: url('../../../assets/images/icon_chat_indicator.png');*/
   background-image: url('../../../assets/images/icon_loading.gif');
@@ -857,4 +774,18 @@ by ysyun 2015.2.25
   vertical-align: text-bottom;
   margin-left: 3px;
   display: inline-block;
+}
+
+.member-profile,
+.user-profile {
+  display: inline-block;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.member-thumb,
+.user-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
 }

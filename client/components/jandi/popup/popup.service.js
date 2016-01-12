@@ -137,7 +137,7 @@
           popup = window.open(_getFullUrl(url, options.data), name, options.optionStr);
         } else {
           if (options.useReload) {
-            popup.location.replace(url);
+            popup.location.replace(_getFullUrl(url, options.data));
           }
           popup.focus();
         }
@@ -156,7 +156,6 @@
       if (!_.isEmpty(data)) {
         url = url + (/\?/.test(url) ? '&' : '?') + _parameterize(data);
       }
-
       return url;
     }
 
@@ -195,7 +194,7 @@
     function _parameterize(data) {
       var queryList = [];
       _.each(data, function(value, key) {
-        queryList.push(key + '=' + value);
+        queryList.push(key + '=' + encodeURIComponent(value));
       });
       return queryList.join('&');
     }

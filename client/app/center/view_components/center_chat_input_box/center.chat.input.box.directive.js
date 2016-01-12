@@ -87,11 +87,11 @@
        */
       function _setMentionList() {
         var currentEntity = currentSessionHelper.getCurrentEntity();
-        var members = entityAPIservice.getMemberList(currentEntity);
+        var users = entityAPIservice.getUserList(currentEntity);
         var mentionMembers;
 
-        if (members) {
-          mentionMembers = MentionExtractor.getMentionList(members, entityId);
+        if (users) {
+          mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
           jndPubSub.pub('mentionahead:message', mentionMembers);
         }
       }

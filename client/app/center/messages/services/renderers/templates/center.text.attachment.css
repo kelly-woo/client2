@@ -1,0 +1,15 @@
+.attachment-content-wrapper {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+.attachment-content-wrapper .attachment-content-bar {
+  display: table-cell;
+  min-width: 4px;
+  background-color: #d7e0e8;
+}
+.attachment-content-wrapper .attachment-content {
+  display: table-cell;
+  width: 100%;
+  padding-left: 12px;
+}

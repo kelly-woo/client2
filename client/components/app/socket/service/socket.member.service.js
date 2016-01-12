@@ -47,10 +47,12 @@
 
     function _onMemberStarred(socketEvent) {
       jndWebSocketCommon.updateLeft();
+      jndPubSub.pub('member:starred', socketEvent);
     }
 
     function _onMemberUnStarred(socketEvent) {
       jndWebSocketCommon.updateLeft();
+      jndPubSub.pub('member:unStarred', socketEvent);
     }
 
     function _onMemberProfileUpdated(socketEvent) {

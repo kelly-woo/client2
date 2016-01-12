@@ -1,0 +1,45 @@
+<div class="integration-service-header">
+  <section class="active-member-info">
+    <span class="active-member-count" ng-bind-html="connectAuthCountDescription"></span>
+  </section>
+  <section class="service-info jnd-column-4-width jnd-float-left">
+    <img class="icon-service-logo" ng-src="{{::unionImageUrl}}"/>
+    <i class="icon-jnd-connect"
+       ng-class="{
+        'active': !isSettingMode || data.isActive
+       }"></i>
+    <span class="connect-title" ng-bind-html="connectTitle"></span>
+    <span ng-if="::isSettingMode" class="date-info">{{data.createdAt|connectCreateDate}}</span>
+  </section>
+  <section class="service-info jnd-column-6-width jnd-float-left second-column">
+    <div ng-if="data.hasAccount"
+         class="verified-email-container jnd-float-right single-account">
+      <span class="verified-label white-button" translate>@jnd-connect-35</span>
+      <div ng-if="!data.isAccountLoaded" class="union-selectbox-wrapper ng-isolate-scope">
+        <div class="white-button inline-overflow-ellipsis loading-container">
+          <div class="loading_bar"><span class="three-quarters-loader jnd-three-quarters-loader"></span></div>
+          <span class="selecte-item-text" translate>@jnd-connect-207</span>
+        </div>
+      </div>
+      <jnd-connect-union-selectbox ng-if="data.isAccountLoaded"
+                                   list="data.accounts"
+                                   value="data.accountId"
+                                   header-data-model="data"
+                                   union-selectbox-class="verified-email-address white-button inline-overflow-ellipsis"
+                                   menu-type="account"
+                                   permission="permission"></jnd-connect-union-selectbox>
+    </div>
+    <div ng-if="::isSettingMode" class="connect-union-plug-tool-container jnd-float-right"
+         ng-class="{'on': data.isActive}">
+      <jnd-connect-status-switch connect-id="data.current.connectId"
+                                 union-name="unionName"
+                                 is-active="data.isActive"
+                                 is-non-api-call="!isSettingMode"></jnd-connect-status-switch>
+      <jnd-connect-trash-button connect-id="data.current.connectId"
+                                union-name="unionName"
+                                is-disabled="!isSettingMode"
+                                on-success-callback="onSuccessRemove();"></jnd-connect-trash-button>
+    </div>
+  </section>
+  <div class="clear"></div>
+</div>

@@ -288,14 +288,8 @@
      * @private
      */
     function _close() {
-      var jqParentEl = window.opener.angular.element('#tutorial_welcome');
-      var scope;
-
-      if (jqParentEl.length) {
-        scope = jqParentEl.scope();
-        scope.$apply(function() {
-          scope.hide();
-        });
+      if (window.opener) {
+        window.opener.postMessage('tutorial:hide', '*');
       }
       Popup.close();
     }

@@ -71,7 +71,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 
   return "          <!--  ARCHIVED FILE PREVIEW IMAGE  -->\n          <div class=\"preview-container\">\n            <div class=\"preview-card cursor_pointer _compile _fileDetail\">\n              <div class=\"msg-file-actions-content actions-dimmed\"></div>\n              <div class=\"msg-file-actions-content non-selectable\">\n                <div class=\"msg-file-actions\">\n                  <div class=\"action-group\">\n                    <div class=\"action-item\"\n                         jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--  ARCHIVED FILE -->\n              <div class=\"card-type\">\n                <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n              </div>\n              <div class=\"card-info card-archived\">\n                <span class=\"info-title\">"
+    + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--  ARCHIVED FILE -->\n              <div class=\"card-type\">\n                <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n              </div>\n              <div class=\"card-info card-archived\">\n                <span class=\"info-title\">"
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
     + "</span>\n              </div>\n            </div>\n          </div>\n";
 },"3":function(depth0,helpers,partials,data) {
@@ -127,7 +127,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isUnshared : stack1),{"name":"unless","hash":{},"fn":this.program(12, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                          <div class=\"action-group\">\n                            <div class=\"action-item\"\n                                 jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                                 data-direction=\"top\">\n                              <!--  FILE DETAIL -->\n                              <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n";
+    + "\"\n                                 data-direction=\"top\">\n                              <!--  FILE DETAIL -->\n                              <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n";
 },"12":function(depth0,helpers,partials,data) {
     var stack1, alias1=helpers.helperMissing, alias2=this.escapeExpression, alias3=this.lambda;
 
@@ -175,7 +175,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 
   return "            <!--  UNSHARED FILE  -->\n            <div class=\"preview-container\">\n              <div class=\"preview-card cursor_pointer _compile _fileDetail\">\n                <div class=\"msg-file-actions-content actions-dimmed\"></div>\n                <div class=\"msg-file-actions-content non-selectable\">\n                  <div class=\"msg-file-actions\">\n                    <div class=\"action-group\">\n                      <div class=\"action-item\"\n                           jnd-tooltip-trigger=\""
     + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-unshared\"></div>\n                </div>\n                <div class=\"card-info card-unshared\">\n                  <span class=\"info-title break-word\">"
+    + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-unshared\"></div>\n                </div>\n                <div class=\"card-info card-unshared\">\n                  <span class=\"info-title break-word\">"
     + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "</span>\n                </div>\n              </div>\n            </div>\n";
 },"23":function(depth0,helpers,partials,data) {
@@ -185,7 +185,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isUnshared : stack1),{"name":"unless","hash":{},"fn":this.program(24, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                    <div class=\"action-group\">\n                      <div class=\"action-item\"\n                           jnd-tooltip-trigger=\""
     + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-"
+    + "\"\n                           data-direction=\"top\">\n                        <!--  FILE DETAIL -->\n                        <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!--    FILE TYPE THUMBNAIL -->\n                <div class=\"card-type\">\n                  <div class=\"fileicon fileicon-"
     + alias1(alias2(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
     + "\" ></div>\n                </div>\n                <div class=\"card-info\">\n                  <div class=\"info-group\">\n                    <span class=\"info-writer inline-overflow-ellipsis\">"
     + alias1(alias2(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.writerName : stack1), depth0))
@@ -259,7 +259,7 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"36":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "              <!--  User Thumbnail -->\n              <img class=\"comment-writer cursor_pointer user-profile user-thumb _user\" src=\""
+  return "              <!--  User Thumbnail -->\n              <img class=\"comment-writer cursor_pointer member-profile member-thumb _user\" src=\""
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n";
 },"38":function(depth0,helpers,partials,data) {
@@ -321,7 +321,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 
   return "        <!--  ARCHIVED FILE PREVIEW IMAGE  -->\n        <div class=\"preview-container\">\n          <div class=\"preview-card cursor_pointer _compile _fileDetail\">\n            <div class=\"msg-file-actions-content actions-dimmed\"></div>\n            <div class=\"msg-file-actions-content non-selectable\">\n              <div class=\"msg-file-actions\">\n                <div class=\"action-group\">\n                  <div class=\"action-item\"\n                       jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                       data-direction=\"top\">\n                    <!--  FILE DETAIL -->\n                    <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <!--  ARCHIVED FILE -->\n            <div class=\"card-type\">\n              <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n            </div>\n            <div class=\"card-info card-archived\">\n              <span class=\"info-title\">"
+    + "\"\n                       data-direction=\"top\">\n                    <!--  FILE DETAIL -->\n                    <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <!--  ARCHIVED FILE -->\n            <div class=\"card-type\">\n              <img class=\"fileicon\" src=\"assets/images/fileicon_archived.png\">\n            </div>\n            <div class=\"card-info card-archived\">\n              <span class=\"info-title\">"
     + alias2((helpers.translate || (depth0 && depth0.translate) || alias1).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
     + "</span>\n            </div>\n          </div>\n        </div>\n";
 },"3":function(depth0,helpers,partials,data) {
@@ -341,7 +341,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isIntegrateFile : stack1),{"name":"unless","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "              <span class=\"msg-file-meta-info\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.type : stack1), depth0))
-    + "</span>\n              <i class=\"preview-icon icon-angle-down non-selectable _fileToggle\"></i>\n            </div>\n          </div>\n\n          <!--  FILE PREVIEW IMAGE  -->\n          <div class=\"preview-container\">\n            <!-- MEDIUM SIZE IMAGE THUMBNAIL -->\n            <div class=\"jnd-text-center _compile _fileToggleTarget\">\n"
+    + "</span>\n              <i class=\"preview-icon icon-arrow-up-fill non-selectable _fileToggle\"></i>\n            </div>\n          </div>\n\n          <!--  FILE PREVIEW IMAGE  -->\n          <div class=\"preview-container\">\n            <!-- MEDIUM SIZE IMAGE THUMBNAIL -->\n            <div class=\"jnd-text-center _compile _fileToggleTarget\">\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.hasPreview : stack1),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.program(13, data, 0),"data":data})) != null ? stack1 : "")
     + "            </div>\n\n"
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isUnshared : stack1),{"name":"unless","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
@@ -371,7 +371,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isUnshared : stack1),{"name":"unless","hash":{},"fn":this.program(10, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                      <div class=\"action-group\">\n                        <div class=\"action-item\"\n                             jnd-tooltip-trigger=\""
     + alias2((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                             data-direction=\"top\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n";
+    + "\"\n                             data-direction=\"top\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n";
 },"10":function(depth0,helpers,partials,data) {
     var stack1, alias1=helpers.helperMissing, alias2=this.escapeExpression, alias3=this.lambda;
 
@@ -419,7 +419,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + ((stack1 = helpers.unless.call(depth0,((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.isUnshared : stack1),{"name":"unless","hash":{},"fn":this.program(18, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                      <div class=\"action-group\">\n                        <div class=\"action-item\"\n                             jnd-tooltip-trigger=\""
     + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                             data-direction=\"top\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <!--    FILE TYPE THUMBNAIL -->\n                  <div class=\"card-type\">\n                    <div class=\"fileicon fileicon-"
+    + "\"\n                             data-direction=\"top\">\n                          <!--  FILE DETAIL -->\n                          <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <!--    FILE TYPE THUMBNAIL -->\n                  <div class=\"card-type\">\n                    <div class=\"fileicon fileicon-"
     + alias1(alias2(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.icon : stack1), depth0))
     + "\" ></div>\n                  </div>\n                  <div class=\"card-info\">\n                    <div class=\"info-group\">\n                      <span class=\"info-writer inline-overflow-ellipsis\">"
     + alias1(alias2(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
@@ -489,7 +489,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
 
   return "          <!--  UNSHARED FILE  -->\n          <div class=\"preview-container\">\n            <div class=\"preview-card cursor_pointer _compile _fileDetail\">\n              <div class=\"msg-file-actions-content actions-dimmed\"></div>\n              <div class=\"msg-file-actions-content non-selectable\">\n                <div class=\"msg-file-actions\">\n                  <div class=\"action-group\">\n                    <div class=\"action-item\"\n                         jnd-tooltip-trigger=\""
     + alias1((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@btn-file-detail",{"name":"translate","hash":{},"data":data}))
-    + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-arrow-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--    FILE TYPE THUMBNAIL -->\n              <div class=\"card-type\">\n                <div class=\"fileicon fileicon-unshared\"></div>\n              </div>\n              <div class=\"card-info card-unshared\">\n                <span class=\"info-title break-word\">"
+    + "\"\n                         data-direction=\"top\">\n                      <!--  FILE DETAIL -->\n                      <i class=\"action-file-detail icon-angle-double-right _fileDetail\"></i>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!--    FILE TYPE THUMBNAIL -->\n              <div class=\"card-type\">\n                <div class=\"fileicon fileicon-unshared\"></div>\n              </div>\n              <div class=\"card-info card-unshared\">\n                <span class=\"info-title break-word\">"
     + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.title : stack1), depth0))
     + "</span>\n              </div>\n            </div>\n          </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -501,7 +501,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.wrapper : stack1), depth0))
     + "\">\n  <!--  User Thumbnail -->\n  <div class=\"msg-item-float cursor_pointer "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
-    + " _user\">\n    <img class=\"user-profile user-thumb\" src=\""
+    + " _user\">\n    <img class=\"member-profile member-thumb\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n  </div>\n\n  <div class=\"msg-item-header "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
@@ -586,11 +586,21 @@ this["Handlebars"]["templates"]["center.system.event"] = Handlebars.template({"1
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"msg-item system-event-msg\">\n  <!-- SYSTEM EVENT -->\n  <div class=\"msg-item-float cursor_pointer\">\n    <img class=\"user-profile user-thumb\"/>\n  </div>\n\n  <div class=\"msg-item-body\">\n    <div class=\"msg-text\">\n      <div class=\"msg-comment-header\">\n"
+  return "<div class=\"msg-item system-event-msg\">\n  <!-- SYSTEM EVENT -->\n  <div class=\"msg-item-float cursor_pointer\">\n    <img class=\"member-profile member-thumb\"/>\n  </div>\n\n  <div class=\"msg-item-body\">\n    <div class=\"msg-text\">\n      <div class=\"msg-comment-header\">\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.status : depth0)) != null ? stack1.isInvite : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "        <span class=\"msg-item-header__created\">"
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
     + "</span>\n      </div>\n    </div>\n  </div>\n</div>\n\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["center.text.attachment"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\" style=\""
+    + this.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.style : depth0)) != null ? stack1.bar : stack1), depth0))
+    + "\"></div>\n  <div class=\"attachment-content\">\n    "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.content : stack1), depth0)) != null ? stack1 : "")
+    + "\n  </div>  <!-- end of attachment-content  -->\n</div>  <!--  end of attachment-content-wrapper -->\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -618,7 +628,9 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "<div class=\"msg-item text text-child\">\n  <div class=\"text-msg-item-container\">\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
+  return "<div class=\"msg-item text text-child "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.botText : stack1), depth0))
+    + "\">\n  <div class=\"text-msg-item-container\">\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "        <!--  TIME  -->\n        <span class=\"msg-item-header__created\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
@@ -630,7 +642,62 @@ this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n    </div>\n  </div>\n  "
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.linkPreview : stack1), depth0)) != null ? stack1 : "")
+    + "\n  "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.connectPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n</div>\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["center.text.connect.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"preview-title\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.title : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"3":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"preview-description\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.description : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"5":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"preview-image\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.image : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n";
+},"7":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "  <div class=\"preview-item preview-subsets\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset1 : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubset2 : depth0),{"name":"if","hash":{},"fn":this.program(10, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n";
+},"8":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle1 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription1 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n    </div>\n";
+},"10":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda;
+
+  return "    <div class=\"preview-subset\">\n      <div class=\"preview-subset-title overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetTitle2 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n      <div class=\"preview-subset-description overflow-ellipsis\">"
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.subsetDescription2 : stack1), depth0)) != null ? stack1 : "")
+    + "</div>\n    </div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"integration-preview-wrapper\">\n  <div class=\"preview-item\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasTitle : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasDescription : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasImage : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasSubsets : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -658,13 +725,19 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "<div class=\"msg-item text\">\n  <div class=\"text-msg-item-container\">\n    <!--  User Thumbnail -->\n    <div class=\"msg-item-float cursor_pointer "
+  return "<div class=\"msg-item text "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.botText : stack1), depth0))
+    + "\">\n  <div class=\"text-msg-item-container\">\n    <!--  User Thumbnail -->\n    <div class=\"msg-item-float "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.profileCursor : stack1), depth0))
+    + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
-    + " _user\">\n      <img class=\"user-profile user-thumb\" src=\""
+    + " _user\">\n      <img class=\"member-profile member-thumb\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n    </div>\n\n    <div class=\"msg-item-header "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
-    + "\">\n      <!--    WRITER-->\n      <span class=\"msg-item-header__name cursor_pointer\">\n        <span class=\"msg-item-header__nameSpace _user\">\n          <span>"
+    + "\">\n      <!--    WRITER-->\n      <span class=\"msg-item-header__name "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.profileCursor : stack1), depth0))
+    + "\">\n        <span class=\"msg-item-header__nameSpace _user\">\n          <span>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + "</span>\n        </span>\n      </span>\n    </div>\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
@@ -678,55 +751,56 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.hasStar : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "      </div>\n    </div>\n  </div>\n  "
     + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.linkPreview : stack1), depth0)) != null ? stack1 : "")
+    + "\n  "
+    + ((stack1 = alias1(((stack1 = (depth0 != null ? depth0.html : depth0)) != null ? stack1.connectPreview : stack1), depth0)) != null ? stack1 : "")
     + "\n</div>\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-image loading\">\n        <div class=\"loading_bar\">\n          <span class=\"three-quarters-loader jnd-three-quarters-loader\"></span>\n        </div>\n      </div>\n";
+    return "<div class=\"social-image loading\">\n  <div class=\"loading_bar\">\n    <span class=\"three-quarters-loader jnd-three-quarters-loader\"></span>\n  </div>\n</div>\n";
 },"3":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "      <div class=\"social-image\">\n        <a href=\""
+  return "<div class=\"social-image\">\n  <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n          <img src=\""
+    + "\" target=\"_blank\">\n    <img src=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.imageUrl : stack1), depth0))
-    + "\"/>\n        </a>\n      </div>\n";
+    + "\"/>\n  </a>\n</div>\n";
 },"5":function(depth0,helpers,partials,data) {
-    return "    <div class=\"social-body has-image\">\n";
+    return "<div class=\"social-body has-image\">\n";
 },"7":function(depth0,helpers,partials,data) {
-    return "    <div class=\"social-body\">\n";
+    return "<div class=\"social-body\">\n";
 },"9":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "      <div class=\"social-title neighbor\">\n        <a href=\""
+  return "  <div class=\"social-title neighbor\">\n    <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n          <span>"
+    + "\" target=\"_blank\">\n      <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.title : stack1), depth0))
-    + "</span>\n        </a>\n      </div>\n";
+    + "</span>\n    </a>\n  </div>\n";
 },"11":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(12, data, 0),"inverse":this.program(14, data, 0),"data":data})) != null ? stack1 : "")
-    + "      <a href=\""
+    + "    <a href=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.linkUrl : stack1), depth0))
-    + "\" target=\"_blank\">\n        <span>"
+    + "\" target=\"_blank\">\n      <span>"
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1), depth0))
-    + "</span>\n      </a>\n    </div> <!-- end of social-desc  -->\n";
+    + "</span>\n    </a>\n  </div> <!-- end of social-desc  -->\n";
 },"12":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-desc neighbor has-domain\">\n";
+    return "  <div class=\"social-desc neighbor has-domain\">\n";
 },"14":function(depth0,helpers,partials,data) {
-    return "      <div class=\"social-desc neighbor\">\n";
+    return "  <div class=\"social-desc neighbor\">\n";
 },"16":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "      <div class=\"social-domain\">\n        <span>"
+  return "  <div class=\"social-domain\">\n    <span>"
     + this.escapeExpression(this.lambda(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1), depth0))
-    + "</span>\n      </div>\n";
+    + "</span>\n  </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"attachment-content-wrapper\">\n  <div class=\"attachment-content-bar\"></div>\n\n  <div class=\"attachment-content\">\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.isWaiting : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.extThumbnail : stack1)) != null ? stack1.hasSuccess : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n\n"
@@ -737,11 +811,11 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.description : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.linkPreview : stack1)) != null ? stack1.domain : stack1),{"name":"if","hash":{},"fn":this.program(16, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "  </div> <!-- end of social-body -->\n  </div>  <!-- end of attachment-content  -->\n  </div>  <!--  end of attachment-content-wrapper -->\n";
+    + "</div> <!-- end of social-body -->\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<!-- UNREAD BOOKMARK  -->\n<div class=\"msg-item\" id=\"unread-bookmark\">\n  <div class=\" msg-unread-bookmark system-event-msg\">\n    <div class=\"msg-item-float cursor_pointer\">\n      <img class=\"user-profile user-thumb\"/>\n    </div>\n\n    <div class=\"msg-item-body\">\n      <span>"
+    return "<!-- UNREAD BOOKMARK  -->\n<div class=\"msg-item\" id=\"unread-bookmark\">\n  <div class=\" msg-unread-bookmark system-event-msg\">\n    <div class=\"msg-item-float cursor_pointer\">\n      <img class=\"member-profile member-thumb\"/>\n    </div>\n\n    <div class=\"msg-item-body\">\n      <span>"
     + this.escapeExpression((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@unread-bookmark-message",{"name":"translate","hash":{},"data":data}))
     + "</span>\n    </div>\n  </div>\n</div>";
 },"useData":true});
@@ -843,7 +917,7 @@ this["Handlebars"]["templates"]["modal.topic.list.item"] = Handlebars.template({
     + "  <div class=\"topic-general-info\">\n    <i class=\"icon-user\"></i>\n    <span class=\"join-modal-channel_creator inline-overflow-ellipsis\"> "
     + alias3(((helper = (helper = helpers.creatorName || (depth0 != null ? depth0.creatorName : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"creatorName","hash":{},"data":data}) : helper)))
     + "</span>\n    <span class=\"bullet\"> • </span>"
-    + alias3(((helper = (helper = helpers.memberCount || (depth0 != null ? depth0.memberCount : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"memberCount","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.userCount || (depth0 != null ? depth0.userCount : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"userCount","hash":{},"data":data}) : helper)))
     + "<span>"
     + alias3(((helper = (helper = helpers.commonJoinedMessage || (depth0 != null ? depth0.commonJoinedMessage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"commonJoinedMessage","hash":{},"data":data}) : helper)))
     + "</span>\n  </div>\n</div>\n";

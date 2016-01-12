@@ -1,0 +1,16 @@
+<div class="union-selectbox-wrapper" ng-class="{'active': isActiveSelectbox}" dropdown
+     on-toggle="onToggle(open)"
+     is-open="isActiveSelectbox">
+  <div class="union-selectbox {{::unionSelectboxClass}}"
+       ng-class="{'disalbed': permission.allowAccountUpdate === false}" dropdown-toggle>
+    <span class="selecte-item-text" ng-bind="selectedItemText"></span>
+    <div class="dropdown-status">
+      <i class="icon-angle-down"></i>
+    </div>
+  </div>
+
+  <div class="dropdown-menu grey_dropdown" ng-switch="menuType" role="menu">
+    <jnd-connect-selectbox-account-menu ng-switch-when="account"></jnd-connect-selectbox-account-menu>
+    <jnd-connect-selectbox-default-menu ng-switch-default></jnd-connect-selectbox-default-menu>
+  </div>
+</div>

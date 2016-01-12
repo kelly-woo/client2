@@ -30,8 +30,13 @@
   max-width: none;
 }
 
+.panel-title-container .open > .dropdown-menu {
+  top: 27px !important;
+  right: 0  !important;
+  left: auto;
+}
 .panel-title-info {
-  max-width: 73%;
+  max-width: calc(100% - 330px);
 }
 
 .panel-title-info,
@@ -197,10 +202,12 @@
   height: 25px;
   line-height: 0;
 }
-.panel-title-right-menu__item:hover {
+.panel-title-right-menu__item:hover,
+.panel-title-right-menu:hover .panel-title-right-item {
   background-color: #d7e0e8;
 }
-.panel-title-right-menu__item:active {
+.panel-title-right-menu__item:active,
+.panel-title-right-menu:active .panel-title-right-item {
   background-color: #d7e0e8;
 }
 .absolute-right-tooltip {
@@ -227,7 +234,6 @@
 }
 .panel-title-member {
   line-height: 0;
-
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -241,42 +247,50 @@
   padding-top: 1px;
 }
 
-.panel-title-member__more .icon-user {
+.panel-title-member__more .icon-user,
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i {
   font-size: 16px;
   color: #154a67;
 }
-.panel-title-member__more .panel-title-member__count {
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-bell,
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
+  font-size: 18px;
+  top: 8px;
+  left: 6px;
+  position: absolute;
+}
+.panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
+  font-size: 20px;
+}
+
+.panel-title-member__more .panel-title-member__count,
+.panel-title-right-menu.room-integration-connect .panel-title-right-item span {
   font-size: 15px;
   color: #154a67;
   font-weight: 500;
   margin-left: -2px;
 }
-.panel-title-member__more .icon-angle-down {
+.panel-title-member__more .icon-angle-down,
+.panel-title-right-menu.room-integration-connect .icon-angle-down {
   font-size: 12px;
   color: #154a67;
   margin-left: -3px;
+  vertical-align: middle;
 }
 .panel-title-member__more:hover {
   color: #333;
 }
 .header-title-member__dropdown {
   max-height: 500px;
-  overflow-y: scroll;
-  top: 27px !important;
-  right: 0;
-  left: auto;
+  overflow-y: auto;
 }
 .panel-title-invite {
   padding-top: 3.5px;
   padding-right: 9px;
   padding-left: 11px;
-
   color: #154a67;
-
   font-size: 17px;
-
   height: 100%;
-
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -287,12 +301,9 @@
 }
 .panel-title-right-menu__more_icon {
   padding: 0 5px;
-
   height: 25px;
   line-height: 25px;
-
   position: relative;
-
   color: #154a67;
 }
 
@@ -323,6 +334,33 @@
 .cpanel .prefix > i {
   font-size: 16px;
 }
+
+.panel-title-right-menu.room-integration-connect {
+  margin: 0;
+  margin-right: 2px;
+  display: block;
+  height: inherit;
+  line-height: inherit;
+  float: right;
+  cursor: pointer;
+  background-color: transparent;
+  position: relative;
+}
+.panel-title-right-menu .panel-title-right-item {
+  margin-top: 5px;
+  border-radius: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 5px;
+  background-color: #fff;
+}
+.panel-title-right-menu .panel-title-right-item:hover {
+  background-color: #d7e0e8;
+}
+.panel-title-right-menu.room-integration-connect .panel-title-right-item{
+  padding-left: 30px;
+}
+
 @media (max-width: 1374px) {
   .rpanel-show .panel-title-info {
     max-width: 60%;

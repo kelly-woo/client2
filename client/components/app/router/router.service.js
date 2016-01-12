@@ -6,7 +6,8 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor, storageAPIservice, jndPubSub) {
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
+                  NetInterceptor, storageAPIservice, jndPubSub, JndConnect) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;
@@ -40,11 +41,12 @@
      * @private
      */
     function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-      if (!NetInterceptor.isConnected()) {
+      if (JndConnect.isOpen()) {
+        JndConnect.historyBack();
         event.preventDefault();
-      }
-
-      if (_isStateChange(toState, toParams, fromState, fromParams) && NetInterceptor.isConnected()) {
+      } else if (!NetInterceptor.isConnected()) {
+        event.preventDefault();
+      } else if (_isStateChange(toState, toParams, fromState, fromParams)) {
         //console.info("==============================[stateChange]==============================");
         //console.info("   from    ", fromState.name, ' / ', fromParams);
         //console.info("    to     ", toState.name, ' / ',toParams);

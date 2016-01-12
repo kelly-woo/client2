@@ -183,10 +183,16 @@
      */
     function _createdThumbnailImage($event, socketData) {
       var message = socketData.data.message;
+      var thumbnailUrl;
+
       if ($scope.file.id === message.id) {
+        thumbnailUrl = message.content.extraInfo.smallThumbnailUrl ?
+          message.content.extraInfo.smallThumbnailUrl :
+          message.content.extraInfo.thumbnailUrl + '?size=80';
+
         $scope.$apply(function() {
           $scope.file.hasPreview = true;
-          $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
+          $scope.file.imageUrl = $filter('getFileUrl')(thumbnailUrl);
         });
       }
     }

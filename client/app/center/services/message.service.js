@@ -109,7 +109,7 @@
         params  : {
           teamId  : memberService.getTeamId()
         },
-        timeout : canceller.promise,
+        timeout : canceller && canceller.promise,
         version: 3
       });
     }

@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter,
-                           AnalyticsHelper, modalHelper, jndPubSub, Dialog, topicName) {
+                           AnalyticsHelper, modalHelper, jndPubSub, Dialog, topicName, isEnterTopic) {
 
     _init();
 
@@ -55,8 +55,11 @@
 
         entityheaderAPIservice.createEntity(_entityType, _body)
           .success(function(response) {
+            jndPubSub.pub('topicCreateCtrl:created', response.id);
 
-            $state.go('archives', {entityType:_entityType + 's', entityId:response.id});
+            if (isEnterTopic) {
+              $state.go('archives', {entityType:_entityType + 's', entityId:response.id});
+            }
 
             modalHelper.closeModal();
 

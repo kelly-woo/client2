@@ -355,7 +355,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         // If I don't have it in my 'totalEntities', it means entity is 'archived'.
         // Just return from here;
       } else {
-        if( sharedEntity.type == 'privategroups' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
+        if( sharedEntity.type == 'privategroups' && entityAPIservice.isUser(sharedEntity, $rootScope.member) ||
           sharedEntity.type == 'channels' ||
           sharedEntity.type == 'users' )  {
 

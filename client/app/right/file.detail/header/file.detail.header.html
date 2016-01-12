@@ -2,10 +2,10 @@
   <div class="file-detail-header" ng-if="!isArchivedFile && !isInvalidRequest">
     <div class="file-detail-header-box" ng-class="{'file-detail-disabled-member': file.extIsDisabledMember}">
       <div class="file-detail-header__thumbnail">
-        <img class="user-profile user-thumb-sm cursor_pointer" ng-src="{{file.extProfileImg}}" ng-click="onUserClick(file.extWriter)"/>
+        <img class="user-profile user-thumb-sm cursor_pointer" ng-src="{{file.extProfileImg}}" ng-click="onMemberClick(file.extWriter)"/>
       </div>
       <div class="file-detail-header__writer">
-        <span ng-click="onUserClick(file.extWriter)">{{file.extWriterName}}</span>
+        <span ng-click="onMemberClick(file.extWriter)">{{file.extWriterName}}</span>
       </div>
       <div class="file-detail-header__title">
         <a href="{{::originalUrl}}" target="_blank">{{file.content | fileTitle}}</a>
@@ -13,7 +13,7 @@
     </div>
     <div class="file-item-meta__action">
       <div class="action-star cursor_pointer" tooltip="{{'@star' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
-        <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" message-id="{{ file.id }}"></i>
+        <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="{{ file.id }}"></i>
       </div>
 
       <div class="action-download cursor_pointer"
@@ -94,11 +94,11 @@
       <div class="file-detail-header__thumbnail">
         <img class="user-profile user-thumb-sm cursor_pointer"
              ng-src="{{file.extProfileImg}}"
-             ng-click="onUserClick(file.extWriter);"/>
+             ng-click="onMemberClick(file.extWriter);"/>
       </div>
 
       <div class="file-detail-header__writer">
-        <span ng-click="onUserClick(file.extWriter)">{{file.extWriterName}}</span>
+        <span ng-click="onMemberClick(file.extWriter)">{{file.extWriterName}}</span>
       </div>
 
       <div class="file-detail-header__title archived-file__title">

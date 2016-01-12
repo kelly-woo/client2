@@ -1,0 +1,25 @@
+.active-service.collapsed .member-list {
+  height: 0;
+}
+.active-service .member-list {
+  position: relative;
+  overflow: hidden;
+}
+
+.member-list ul {
+  padding: 0 12px 0 10px;
+  list-style: none;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.member-list li {
+  padding: 6px 14px;
+}
+.member-list li:hover {
+  background-color:#F6F5F6;
+  cursor: pointer;
+}
+.member-list a {
+  text-decoration: none;
+  color: #969696;
+}

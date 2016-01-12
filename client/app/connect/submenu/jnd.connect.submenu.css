@@ -1,0 +1,64 @@
+.jnd-connect.left-header {
+  background-color:#FFF;
+  border:1px solid #DDDDDD;
+  border-left-width: 0;
+  border-right-width: 0;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding:8px 14px;
+  /*box-shadow: 0px 1px 4px rgba(0,0,0,0.08);*/
+  z-index: 705;
+}
+.jnd-connect.left-header .header-title {
+  color: #888;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  position: relative;
+}
+
+#jnd-connect-list-container {
+  top: 98px;
+  overflow-y: auto;
+  width: 239px;
+  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #F9F9F9;
+  box-sizing: content-box;
+}
+#jnd-connect-list-container.has-content {
+  z-index: 703;
+}
+
+.no-integration-container {
+  display: none;
+  padding: 32px;
+  position: relative;
+  text-align: center;
+}
+.no-integration-container span {
+  color: #B5B5B5;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  margin: 14px auto;
+  display: block;
+}
+
+.icon-jnd-connect {
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
+  margin:0 auto;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  display: block;
+  background-size: cover;
+}
+.icon-jnd-connect.active {
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
+  background-size: cover;
+  background-color:#FFF;
+}

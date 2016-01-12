@@ -77,7 +77,6 @@
 .modal-body {
   padding: 20px 20px;
   background-color: #f1f4f8;
-
 }
 .modal-body__description {
   margin: 0 0 20px 0;
@@ -617,121 +616,6 @@
 }
 .modal-share__file-body__meta {
   font-size: 12px;
-}
-
-/*
-    PROFILE VIEW
-*/
-.profile-view-modal {
-}
-.profile-view-modal .modal-dialog {
-  width: 310px;
-  margin: 10px auto;
-}
-.profile-view-modal  .modal-content {
-  border-radius: 10px;
-}
-.profile-view-body {
-  padding: 18px 20px;
-  border-radius: 5px;
-  background-color: white;
-}
-.profile-view-general-container {
-  min-height: 60px;
-  padding-left: 76px;
-  position: relative;
-  padding-top: 12px;
-  margin-bottom: 35px;
-}
-.user-profile__photo.view {
-  height: 60px;
-  width : 60px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.user-profile__fullName {
-  max-width: 270px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  line-height: 22px;
-  font-weight: 700;
-  color: #333;
-  word-wrap: break-word;
-}
-.user-profile__nickName {
-  font-size: 14px;
-  color: #333;
-  word-wrap: break-word;
-}
-.profile-view-info-container {
-  margin-bottom: 28px;
-}
-.profile-view__info {
-  position: relative;
-  font-size: 14px;
-  padding: 11px 0 11px 85px;
-  min-height: 39px;
-  text-align: left;
-  word-wrap: break-word;
-}
-.profile-view__info:lang(ja) {
-  padding: 11px 0 11px 105px;
-}
-
-.modal-content .info-title {
-  color: #999;
-  position: absolute;
-  left: 0;
-  top: 11px;
-}
-.modal-content .info-content {
-  color: #333;
-}
-
-.border-bottom_grey {
-  border-bottom: 1px solid rgb(220,220,220);
-}
-.border-right_grey {
-  border-right: 1px solid rgb(220,220,220);
-}
-.border-left_grey {
-  border-left: 1px solid rgb(220,220,220);
-}
-
-.profile-view-action-container {
-  height: 50px;
-}
-.profile-view-action-container a:hover {
-  text-decoration: none;
-}
-.profile-view-action {
-  height: 50px;
-  float: left;
-  width: 33%;
-  padding-top: 5px;
-  cursor: pointer;
-  color: rgb(85, 84, 89);
-}
-.profile-view-action__text {
-  font-size: 12px;
-  color: #999;
-  text-align: center;
-  margin-top: 5px;
-}
-.profile-view-action:hover,
-.profile-view-action:hover .profile-view-action__text {
-  color: #00abe6;
-}
-.profile-view-action__img {
-  display: block;
-  margin: auto;
-  background-repeat: no-repeat;
-  background-position: center center;
-  text-align: center;
-  font-size: 18px;
-  opacity: 0.7;
-  padding-bottom: 2px;
 }
 
 /*

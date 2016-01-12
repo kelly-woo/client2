@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper,
-                              memberService, modalHelper, jndPubSub) {
+                              memberService, entityAPIservice, modalHelper, jndPubSub) {
     var DISABLED_MEMBER_STATUS = 'disabled';
 
     _init();
@@ -105,7 +105,7 @@
       } else {
         // open profile modal
 
-        modalHelper.openCurrentMemberModal();
+        modalHelper.openCurrentUserModal();
       }
     }
 
@@ -115,21 +115,30 @@
     function generateMemberList() {
       var enabledMemberList = [];
       var disabledMemberList = [];
+      var memberList = currentSessionHelper.getCurrentTeamUserList();
+      var jandiBot;
 
-      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
-        if (memberService.isDeactivatedMember(member)) {
-          disabledMemberList.push(member);
-        } else {
-          if (memberService.getMemberId() !== member.id) {
-            enabledMemberList.push(member);
-          }
+      if (memberList) {
+        if (jandiBot) {
+          jandiBot = entityAPIservice.getJandiBot();
+          memberList = memberList.concat([jandiBot]);
         }
-      });
 
-      $scope.hasMember = currentSessionHelper.getCurrentTeamMemberCount() > 0;
-      $scope.enabledMemberList = enabledMemberList;
-      $scope.disabledMemberList = disabledMemberList;
-      $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+        _.forEach(memberList, function(member) {
+          if (memberService.isDeactivatedMember(member)) {
+            disabledMemberList.push(member);
+          } else {
+            if (memberService.getMemberId() !== member.id) {
+              enabledMemberList.push(member);
+            }
+          }
+        });
+
+        $scope.hasUser = currentSessionHelper.getCurrentTeamUserCount() > 0;
+        $scope.enabledMemberList = enabledMemberList;
+        $scope.disabledMemberList = disabledMemberList;
+        $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+      }
     }
 
     /**

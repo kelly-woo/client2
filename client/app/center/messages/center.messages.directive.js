@@ -50,8 +50,10 @@
 
         scope.$on('messages:updateUnread', _onUpdateUnread);
 
-        scope.$on('starred', _onStarred);
-        scope.$on('unStarred', _onUnStarred);
+        scope.$on('message:starred', _onStarred);
+        scope.$on('message:unStarred', _onUnStarred);
+
+        scope.$on('webSocketConnect:connectUpdated', _onConnectUpdated);
 
         scope.$on('$destroy', _onDestroy);
 
@@ -215,9 +217,27 @@
        * @private
        */
       function _onUpdateMemberProfile(event, data) {
+        var id = data.member.id;
+
+        _refreshMsgByMemberId(id);
+      }
+
+      /**
+       * connect updated event handler
+       * @param {object} event
+       * @param {object} data
+       * @private
+       */
+      function _onConnectUpdated(event, data) {
+        var id = data.bot.id;
+
+        if (scope.entityId == data.connect.roomId) {
+          _refreshMsgByMemberId(id);
+        }
+      }
+
+      function _refreshMsgByMemberId(id) {
         var list = MessageCollection.list;
-        var member = data.member;
-        var id = member.id;
 
         _.forEach(list, function(msg, index) {
           if (msg.extFromEntityId === id) {
@@ -394,7 +414,11 @@
        * @private
        */
       function _onClickUser(msg) {
-        jndPubSub.pub('onUserClick', msg.extWriter.id);
+        var writer = msg.extWriter;
+
+        if (!memberService.isConnectBot(writer.id)) {
+          jndPubSub.pub('onMemberClick', writer.id);
+        }
       }
 
       /**

@@ -1,7 +1,7 @@
 set :application, 'web_landing'
 set :repo_url, 'git@github.com:tosslab/web_landing.git'
 set :branch, ENV['BRANCH'] || 'develop'
-set :password, ask('Server password:', nil)
+set :password, ENV['PASSWORD'] || ask('Server password:', nil)
 set :deploy_to, '/srv/www/web_landing'
 
 # Simple Role Syntax
