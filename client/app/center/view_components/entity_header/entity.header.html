@@ -164,7 +164,7 @@
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
 
-  <room-connector connect-info="connectInfo"></room-connector>
+  <room-connector ng-show="!isUserType" connect-info="connectInfo"></room-connector>
 </div>
 
 <div ng-if='!isConnected' class="panel-title-container non-selectable center-panel-disabled-member">

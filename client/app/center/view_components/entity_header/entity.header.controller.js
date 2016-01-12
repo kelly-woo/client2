@@ -86,7 +86,10 @@
         _checkIfDefaultTopic();
         _checkNotificationStatus();
 
-        _updateConnectInfo();
+        if (!$scope.isUserType) {
+          // DM이 아닐 경우에만 connect info를 갱신한다.
+          _updateConnectInfo();
+        }
       }
     }
 
@@ -120,7 +123,7 @@
         _entityType = entity.type;
 
         $scope.currentEntity = entity;
-        $scope.isUserType = _currentEntity.type === 'users';
+        $scope.isUserType = memberService.isMember(_currentEntity.id);
         $scope.users = entityAPIservice.getUserList(entity);
       }
     }
