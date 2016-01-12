@@ -37,10 +37,26 @@
        */
       function _init() {
         scope.isNonStatusText = scope.$eval(isNonStatusText);
-
         scope.onToggle = onToggle;
 
-        _setStatusText(scope.isActive);
+        _attachEvents();
+      }
+
+      /**
+       * attach events
+       * @private
+       */
+      function _attachEvents() {
+        scope.$watch('isActive', _onIsActiveChange);
+      }
+
+      /**
+       * active flag change event handler
+       * @param value
+       * @private
+       */
+      function _onIsActiveChange(value) {
+        _setStatusText(value);
       }
 
       /**

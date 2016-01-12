@@ -85,6 +85,8 @@
         _checkOwnership();
         _checkIfDefaultTopic();
         _checkNotificationStatus();
+
+        _updateConnectInfo();
       }
     }
 
@@ -396,6 +398,18 @@
      */
     function _onTopicLeft(event, data) {
       _onTopicDeleted(event, data);
+    }
+
+    /**
+     * update connect info
+     * @private
+     */
+    function _updateConnectInfo() {
+      $scope.connectInfo = {};
+      entityHeader.getConnectInfo(_entityId)
+        .success(function(data) {
+          $scope.connectInfo = data;
+        });
     }
   }
 })();
