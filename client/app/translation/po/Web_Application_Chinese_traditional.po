@@ -322,6 +322,10 @@ msgstr "下載"
 msgid "@common-duplicate-name-err"
 msgstr "這個議題名稱已經被使用。請選擇另外一個。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
+msgstr "提交"
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
 #: client/app/modal/password/password.reset.request.html
@@ -545,6 +549,14 @@ msgstr "物件已被刪除"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "重新命名"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr "傳送私訊..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
+msgstr "訊息已成功寄出"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"

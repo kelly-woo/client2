@@ -20,6 +20,7 @@
     this.modify = modify;
     this.reloadList = reloadList;
     this.backToMain = backToMain;
+    this.historyBack = historyBack;
     this.hideLoading = hideLoading;
     this.showLoading = showLoading;
     this.openAuthPopup = openAuthPopup;
@@ -97,6 +98,13 @@
      */
     function backToMain() {
       jndPubSub.pub('JndConnect:backToMain');
+    }
+
+    /**
+     * 이전 화면으로 이동한다.
+     */
+    function historyBack() {
+      jndPubSub.pub('JndConnect:historyBack');
     }
 
     /**

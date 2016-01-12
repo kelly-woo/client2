@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('expandingInput', expandingInput);
 
-  function expandingInput($timeout, jndKeyCode, JndUtil) {
+  function expandingInput(jndKeyCode) {
     return {
       restrict: 'EA',
       replace: true,
@@ -27,8 +27,6 @@
 
       var index = attrs.index;
 
-      var inputClass = attrs.inputClass || '';
-      var inputStatusClass = attrs.inputStatusClass || '';
       var placeholder = attrs.placeholder;
 
       var maxLength = parseInt(attrs.maxLength, 10);
@@ -36,7 +34,6 @@
       var type = attrs.ngModel;
 
       var originalValue = scope.ngModel;
-      var timerEditStatus;
 
       var jqEdit;
       var jqReadonly;
@@ -56,8 +53,6 @@
         scope.status = 'edit';
         scope.placeholder = placeholder;
 
-        scope.inputClass = inputClass;
-        scope.inputStatusClass = inputStatusClass;
         scope.maxLength = maxLength;
 
         scope.hasList = _.isArray(scope.list);
@@ -68,14 +63,39 @@
         scope.onMousedown = _onMousedown;
 
         scope.onViewFocus = onViewFocus;
-        scope.onInputFocus = onInputFocus;
         scope.onInputBlur = onInputBlur;
 
         scope.onSelectOption = _onSelectOption;
         scope.onKeyDown = _onKeyDown;
         scope.onTextChange = _onTextChange;
+
+        _attachEvents();
       }
 
+      /**
+       * attach events
+       * @private
+       */
+      function _attachEvents() {
+        scope.$watch('activeIndex', _onActiveIndexChange);
+      }
+
+      /**
+       * 부모 scope의 activeIndex 값 변경 event handler
+       * @param value
+       * @private
+       */
+      function _onActiveIndexChange(value) {
+        if (value !== index) {
+          // 자신의 index가 아니라면 edit 화면 감춘다
+          jqEdit.blur();
+          _setShowEdit(false);
+        }
+      }
+
+      /**
+       * 입력 element loaded event handler
+       */
       function onInputLoaded() {
         jqEdit = el.find(scope.hasList ? 'select' : 'input');
         jqReadonly = el.find('.input-text-wrapper');
@@ -106,30 +126,22 @@
        * @private
        */
       function _onMousedown() {
-        if (scope.hasList) {
-          //JndUtil.safeApply(scope, function() {
-          //  el.find('select').trigger('change');
-          //});
-        } else {
-          if (scope.status === 'cancel') {
+        if (!scope.hasList) {
+          if (scope.status === 'edit') {
+            jqEdit.focus();
+          } else  if (scope.status === 'cancel') {
             _cancelValue();
           }
         }
       }
 
       /**
-       * focus handler
+       * view focus handler
        * @private
        */
       function onViewFocus() {
         _setShowEdit(true);
 
-        $timeout.cancel(timerEditStatus);
-        scope.onSelect({$index: index});
-      }
-
-      function onInputFocus() {
-        $timeout.cancel(timerEditStatus);
         scope.onSelect({$index: index});
       }
 
@@ -139,15 +151,13 @@
        */
       function onInputBlur() {
         _setShowEdit(false);
-
-        scope.onSelect({$index: null});
         setTimeout(function() {
           // jndInputModel에서 blur 처리로 인해 input.text가 공백일때 처리가
           // 의도한 바와 같이 수행되지 않으므로 setTimeout 설정
           if (scope.status === 'cancel') {
             _changeValue();
           }
-          _clearStatus();
+          scope.status = 'edit';
         }, 50);
       }
 
@@ -160,7 +170,7 @@
         if (value) {
           // focus시 입력용 element와 읽기용 element를 switch
           jqReadonly.hide();
-          jqEdit.css('display', 'block').focus();
+          jqEdit.css('display', 'block');
         } else if (scope.input.text !== '') {
           // jqEdit의 placeholder를 사용하기 위해 변경값이 존재 하지 않을때에만
           // focus시 입력용 element와 읽기용 element를 switch
@@ -184,6 +194,8 @@
        */
       function _onKeyDown(event) {
         if (jndKeyCode.match('ENTER', event.keyCode)) {
+          _setShowEdit(false);
+
           _changeValue();
           scope.status = 'edit';
         } else if (jndKeyCode.match('ESC', event.keyCode) && scope.status === 'cancel') {
@@ -201,16 +213,6 @@
         if (scope.input.text !== originalValue) {
           scope.status = 'cancel';
         }
-      }
-
-      /**
-       * clear status
-       * @private
-       */
-      function _clearStatus() {
-        timerEditStatus = $timeout(function() {
-          scope.status = 'edit';
-        }, 500);
       }
 
       /**

@@ -53,14 +53,15 @@
 
 .profile-view-modal .profile-default-image-bg {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  bottom: -40%;
+  left: -20%;
+  width: 140%;
   height: auto;
-  -webkit-filter: blur(10px);
-  -moz-filter: blur(10px);
-  -o-filter: blur(10px);
-  -ms-filter: blur(10px);
-  filter: blur(10px);
+  -webkit-filter: blur(24px);
+  -moz-filter: blur(24px);
+  -o-filter: blur(24px);
+  -ms-filter: blur(24px);
+  filter: blur(24px);
 }
 
 .profile-view-modal .profile-image-bg {
@@ -68,7 +69,7 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0,0,0,.25);
+  background-color: rgba(0,0,0,.32);
 }
 
 .profile-view-modal .profile-image-backdrop > .icon-delete {
@@ -89,22 +90,19 @@
   text-align: center;
 }
 
-.profile-view-modal .profile-condition.readonly {
-  width: 236px;
-  margin-left: -118px;
-}
-
 .profile-view-modal .profile-text.editing .input-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.profile-view-modal .profile-condition .input-text,
-.profile-view-modal .profile-condition.editing > div input,
-.profile-view-modal .profile-text.editing .input-text,
-.profile-view-modal .profile-text.editing > div input {
-  width: 236px;
+.profile-view-modal .profile-condition .readonly,
+.profile-view-modal .profile-condition > .editing .input-text-wrapper,
+.profile-view-modal .profile-condition > .editing > div input,
+.profile-view-modal .profile-text.editing .input-text-wrapper,
+.profile-view-modal .profile-text.editing > div input,
+.profile-view-modal .profile-text.editing > div select {
+  width: 250px;
 }
 
 .profile-view-modal .bot-profile-image,
@@ -171,6 +169,9 @@
   color: #f9bb00;
 }
 
+/*
+ PROFILE BODY
+ */
 .profile-view-modal .bot-profile-text,
 .profile-view-modal .profile-text {
   margin-top: 48px;
@@ -178,32 +179,58 @@
   color: #575756;
   text-align: center;
 }
+
+.profile-view-modal .profile-text > div {
+  position: absolute;
+  left: 33px;
+}
+
 .profile-view-modal .profile-text.readonly > div {
-  height: 17px;
-  width: 220px;
+  width: 250px;
 }
-.profile-view-modal .profile-text.editing > div {
-  margin-left: 24px;
+.profile-view-modal .profile-text {
+  position: relative;
+  width: 100%;
+  height: 158px;
 }
-.profile-view-modal .profile-text.editing > div.profile-email {
-  margin-left: 0;
-}
-.profile-view-modal .profile-text > div.profile-name {
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  font-size: 18px;
-  color: #333;
-  font-weight: 600;
+.profile-view-modal .profile-name {
+  top: 0;
+  line-height: 22px;
 }
 
 .profile-view-modal .profile-department {
-  margin-top: 16px;
+  top: 45px;
 }
+.profile-view-modal .profile-position {
+  top: 72px;
+}
+.profile-view-modal .profile-phone-number {
+  top: 99px;
+}
+.profile-view-modal .profile-email {
+  top: 126px;
+}
+
+.profile-view-modal .profile-condition,
+.profile-view-modal .profile-department,
 .profile-view-modal .profile-position,
 .profile-view-modal .profile-phone-number,
 .profile-view-modal .profile-email {
-  margin-top: 6px;
+  line-height: 18px;
+}
+
+.profile-view-modal .profile-email .text-view {
+  height: 28px;
+  line-height: 28px;
+}
+.profile-view-modal .profile-email select {
+  height: 100%;
+}
+
+.profile-view-modal .profile-text .profile-name {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
 }
 
 .profile-view-modal .profile-description {
@@ -215,6 +242,13 @@
   line-height: 20px;
 }
 
+.profile-view-modal .profile-email {
+  color: #428bca;
+}
+
+/*
+ JANDI BOT PROFILE
+*/
 .profile-view-modal .profile-connect-setting {
   display: inline-block;
   font-size: 18px;
@@ -222,30 +256,23 @@
   color: #00abe6;
 }
 
-.profile-view-modal .profile-email {
-  font-size: 14px;
-  color: #428bca;
-  line-height: 25px;
-}
-.profile-view-modal .profile-email .input-multi {
-  height: 29px;
-}
-
-
+/*
+ PROFILE ACTION BUTTONS
+*/
 .profile-view-modal .profile-actions {
-  margin-top: 26px;
+  margin-top: 8px;
   text-align: center;
 }
 
 .profile-view-modal .action-buttons {
-  height: 40px;
 }
 
 .profile-view-modal .action-buttons i {
-  margin-right: 4px;
+  display: block;
   font-size: 15px;
   color: #154a67;
   vertical-align: text-top;
+  margin-bottom: 5px;
 }
 .profile-view-modal .action-buttons .action-email,
 .profile-view-modal .action-buttons .action-file,
@@ -253,14 +280,16 @@
 .profile-view-modal .action-buttons .action-mention {
   display: inline-block;
   width: 96px;
-  height: 28px;
-  line-height: 28px;
+  line-height: 20px;
   font-size: 13px;
   color: #154a67;
-  vertical-align: middle;
+  vertical-align: top;
   cursor: pointer;
   background-color: white;
-  border-radius: 18px;
+  border-radius: 5px;
+  padding: 3px;
+  margin-bottom: 8px;
+  padding-top: 8px;
 }
 .profile-view-modal .action-buttons .action-email:hover,
 .profile-view-modal .action-buttons .action-file:hover,
@@ -289,7 +318,6 @@
   height: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 15px;
-  padding: 7px 10px;
   background-color: #fff;
   font-size: 13px;
   color: #333;
@@ -304,17 +332,24 @@
   left: 15px;
   right: 15px;
   bottom: 14px;
-  opacity: 0;
+  font-size: 13px;
+  color: #00abe6;
   background-color: #fff;
   cursor: pointer;
-  font-size: 0;
+  text-align: left;
+  opacity: 0;
   -webkit-transition: opacity ease-in-out .2s;
   transition: opacity ease-in-out .2s;
 }
 
-.profile-view-modal .message-submit-bg.show-submit-done {
-  opacity: 1;
-  font-size: 15px;
-  color: #00abe6;
-  text-align: left;
+.profile-view-modal .action-direct-message.show-submit-done > input {
+  border-color: #00abe6;
 }
+.profile-view-modal .action-direct-message.show-submit-done .message-submit-bg {
+  opacity: 1;
+}
+
+.profile-view-modal .message-submit-bg i {
+  vertical-align: middle;
+}
+
