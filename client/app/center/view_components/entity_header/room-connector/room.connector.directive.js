@@ -94,7 +94,7 @@
        * @private
        */
       function _onConnectDeleted(angularEvent, data) {
-        _removeConnectPlug(data.connect);
+        _removeConnectPlug(data.connect.id);
       }
 
       /**
@@ -133,9 +133,10 @@
       }
 
       /**
-       * add connect
+       * connect add click
        */
       function onConnectAddClick() {
+        // connect 메인 페이지를 연다.
         JndConnect.open();
       }
 
@@ -144,6 +145,7 @@
        * @private
        */
       function _openConnectSetting(connectId, unionName) {
+        // 해당 connect에 대한 설정 페이지를 연다.
         JndConnect.open({
           connectId: connectId,
           unionName: unionName

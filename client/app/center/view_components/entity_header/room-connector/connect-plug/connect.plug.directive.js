@@ -71,7 +71,7 @@
       function onDeleteClick(value) {
         if (value) {
           scope.onDelete({
-            $connetId: scope.data.connectId,
+            $connectId: scope.data.connectId,
             $value: value
           });
         }
