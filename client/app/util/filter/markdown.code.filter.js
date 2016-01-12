@@ -13,10 +13,12 @@
   function markdown($filter) {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /([\*]{1,3})([^\1].+)\1/g,
-      strikethrough: /([~]{2})([^\1].+)\1/g,
+      bolditalic: /([\*]{3})([^\*]+?)\1/g,
+      bold: /([\*]{2})([^\*]+?)\1/g,
+      italic: /([\*]{1})([^\*]+?)\1/g,
+      strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /\[([^\[]+)\]\(([^\)]+)\)/g
+      links: /\[([^\[]+)\]\(([^\)]+?)\)/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
 
@@ -130,33 +132,19 @@
      *    현재 파싱 로직 거의 대부분을 변경 하였음.
      */
     function _parseBoldItalic(str) {
-      var repstr;
       var stra;
-      var count;
-      /* bold and italic */
-      for (var i = 0; i < 3; i++) {
-        count = 0;
-        while ((stra = (new RegExp(_regx.bolditalic)).exec(str)) !== null) {
-          if (count === 0 && stra[0] === '>') {
-            break;
-          } else {
-            repstr = [];
-            switch (stra[1].length) {
-              case 1:
-                repstr = ['<i>', '</i>'];
-                break;
-              case 2:
-                repstr = ['<b>', '</b>'];
-                break;
-              case 3:
-                repstr = ['<i><b>', '</b></i>'];
-                break;
-            }
-            str = str.replace(stra[0], repstr[0] + stra[2] + repstr[1]);
-            count++;
-          }
-        }
+      while ((stra = (new RegExp(_regx.bolditalic)).exec(str)) !== null) {
+        str = str.replace(stra[0], '<i><b>' + stra[2] + '</b></i>');
       }
+
+      while ((stra = (new RegExp(_regx.bold)).exec(str)) !== null) {
+        str = str.replace(stra[0], '<b>' + stra[2] + '</b>');
+      }
+
+      while ((stra = (new RegExp(_regx.italic)).exec(str)) !== null) {
+        str = str.replace(stra[0], '<i>' + stra[2] + '</i>');
+      }
+
       return str;
     }
 
