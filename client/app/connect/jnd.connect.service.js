@@ -10,7 +10,7 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect(jndPubSub, configuration, Popup, modalHelper) {
+  function JndConnect($timeout, jndPubSub, configuration, Popup, modalHelper) {
     var _isBannerShow = true;
     var _isOpen = false;
 
@@ -92,6 +92,18 @@
      */
     function close() {
       _isOpen = false;
+      jndPubSub.pub('JndConnect:fadeOut');
+      //300ms 의 fadeout 이후 close 이벤트를 발행한다.
+      $timeout(function() {
+        _close();
+      }, 300);
+    }
+
+    /**
+     * close 이벤트를 trigger 한다.
+     * @private
+     */
+    function _close() {
       jndPubSub.pub('JndConnect:close');
     }
 
