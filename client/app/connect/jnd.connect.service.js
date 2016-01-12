@@ -15,6 +15,7 @@
     var _isOpen = false;
 
     this.isOpen = isOpen;
+    this.isClose = isClose;
     this.open = open;
     this.close = close;
     this.modify = modify;
@@ -65,6 +66,14 @@
      */
     function isOpen() {
       return _isOpen;
+    }
+
+    /**
+     * 커넥트 화면이 close 되어있는지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isClose() {
+      return !_isOpen;
     }
 
     /**
