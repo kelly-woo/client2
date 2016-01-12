@@ -71,6 +71,10 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       that.getCalendarList = getCalendarList;
 
