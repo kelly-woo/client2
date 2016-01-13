@@ -105,7 +105,7 @@
       } else {
         // open profile modal
 
-        modalHelper.openCurrentUserModal();
+        modalHelper.openUserProfileModal($scope, member);
       }
     }
 

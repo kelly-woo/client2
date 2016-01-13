@@ -36,6 +36,9 @@
       getJandiBot: getJandiBot,
       isLeavedTopic: isLeavedTopic,
 
+      addBot: addBot,
+      updateBot: updateBot,
+
       createTotalData: createTotalData
     };
 
@@ -493,11 +496,30 @@
       }
     }
 
+    /**
+     * add bot
+     * @param {object} bot
+     */
     function addBot(bot) {
       if (_.isObject(bot)) {
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);
+      }
+    }
+
+    /**
+     * update bot
+     * @param {object} bot
+     */
+    function updateBot(bot) {
+      var targetBot;
+      if (_.isObject(bot)) {
+        targetBot = getEntityById('total', bot.id);
+
+        targetBot.status = bot.status;
+        targetBot.name = bot.name;
+        targetBot.thumbnailUrl = bot.thumbnailUrl;
       }
     }
   }

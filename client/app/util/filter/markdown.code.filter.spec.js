@@ -142,12 +142,17 @@
         var markdownString5 = $filter('중간 [링크1](http://naver.com) 하하 [링크2](http://google.com)');
         var expectString5 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
 
+        var markdownString6 = $filter('새 카드 &quot;[<a href="http://google.com" target="_blank" rel="nofollow">google.com</a>](<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">https://www.trello.com/c/iOL2J7j1</a>)&quot; (이)가 &quot;[dkfslkf](<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">https://www.trello.com/b/VgAGh9hF</a>)&quot; 리스트에 추가되었습니다.');
+        var expectString6 = '새 카드 "<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">google.com</a>" (이)가 "<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">dkfslkf</a>" 리스트에 추가되었습니다.';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);
         expect(markdownString4).toEqual(expectString4);
         expect(markdownString5).toEqual(expectString5);
+        expect(markdownString6).toEqual(expectString6);
       });
+
       //현재 꺽쇠 스펙은 지원하지 않음
       xdescribe('꺽쇠 <> 포멧의 경우 지원하는지 확인한다.', function() {
         it('일반 꺽쇠', function() {

@@ -10,7 +10,7 @@
     .controller('JndMainCtrl', JndMainCtrl);
 
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
-                          currentSessionHelper, TopicInvitedFlagMap) {
+                          currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
 
     $scope.connectSetting = {
       isOpen: false,
@@ -44,8 +44,10 @@
      * @private
      */
     function _onJndConnectOpen(angularEvent, params) {
-      $scope.connectSetting.isOpen = true;
-      $scope.connectSetting.params = params || null;
+      JndUtil.safeApply($scope, function() {
+        $scope.connectSetting.isOpen = true;
+        $scope.connectSetting.params = params || null;
+      });
     }
 
     /**
@@ -53,8 +55,10 @@
      * @private
      */
     function _onJndConnectClose() {
-      $scope.connectSetting.isOpen = false;
-      $scope.connectSetting.params = null;
+      JndUtil.safeApply($scope, function() {
+        $scope.connectSetting.isOpen = false;
+        $scope.connectSetting.params = null;
+      });
     }
 
     /**

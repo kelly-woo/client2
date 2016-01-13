@@ -1039,11 +1039,11 @@ msgstr "選定工作看板"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-113"
-msgstr "任務卡(Card)"
+msgstr "選擇欲接收通知的情境..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-114"
-msgstr "選擇欲接收通知的情境..."
+msgstr "任務卡(Card)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-115"
@@ -1372,7 +1372,7 @@ msgstr "你已成功添加一項整合服務！"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
-msgstr "@jnd-connect-187"
+msgstr "若取消串連此帳戶，將會造成其他整合服務停用。你確定仍要繼續？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1524,11 +1524,11 @@ msgstr "將資料從你常使用的外部平台發送至JANDI"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr "使用JANDI Connect建立整合服務"
+msgstr "JANDI Connect整合服務"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr "使用JANDI Connect將所有外部應用程式及作業平台整合於一處"
+msgstr "使用JANDI Connect將所有外部平台的通知整合於一處"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
@@ -1540,7 +1540,7 @@ msgstr "時區"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
-msgstr ""
+msgstr "請選擇欲接收通知的議題或私訊，你仍可於設定完成後自由變更"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
@@ -1690,7 +1690,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-29"
-msgstr "沒有你想串連的平台？現在就告訴我們！"
+msgstr "希望JANDI Connect支援更多平台？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-3"
@@ -1698,7 +1698,7 @@ msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr "提出需求"
+msgstr "把你的需求告訴我們"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
@@ -1826,7 +1826,7 @@ msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr "透過共享日曆和行程提醒保持行事曆的井然有序"
+msgstr "串聯日曆與夥伴共享你的行程"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
@@ -1870,7 +1870,7 @@ msgstr "11:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-7"
-msgstr "{{integrationCount}}件已配置項目"
+msgstr "{{integrationCount}}件已串聯項目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-70"
@@ -1998,7 +1998,7 @@ msgstr "個人化設定"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-99"
-msgstr "更改通知上顯示的姓名和大頭照"
+msgstr "更改通知上顯示的名稱和圖片"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

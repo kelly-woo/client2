@@ -41,10 +41,7 @@
      * @private
      */
     function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-      if (JndConnect.isOpen()) {
-        JndConnect.historyBack();
-        event.preventDefault();
-      } else if (!NetInterceptor.isConnected()) {
+      if (!NetInterceptor.isConnected()) {
         event.preventDefault();
       } else if (_isStateChange(toState, toParams, fromState, fromParams)) {
         //console.info("==============================[stateChange]==============================");

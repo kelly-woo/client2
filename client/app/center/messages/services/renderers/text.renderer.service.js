@@ -84,7 +84,8 @@
       var connectPreview = _getConnectPreview(msg, index);
       var profileCursor;
 
-      if (_.isString(connectPreview) && connectPreview.length > 0) {
+      if (memberService.isConnectBot(msg.message.writerId)) {
+        // connect bot이 작성한 message이면 cursor를 default로 설정한다.
         profileCursor = '';
       } else {
         profileCursor = 'cursor_pointer';
