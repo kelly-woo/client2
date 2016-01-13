@@ -64,7 +64,13 @@
     function add(mapType, entity) {
       var _key = mapType === 'memberEntityId' ? entity.entityId : entity.id;
       if (!!_key) {
-        maps[mapType][_key] = entity;
+        if (maps[mapType][_key]) {
+          // maps가 가진 object를 그대로 view에 바인딩 되기 때문에 map에
+          // 설정된 값이 존재할 경우 참조가 끊어지지 않기 위해 확장한다.
+          _.extend(maps[mapType][_key], entity);
+        } else {
+          maps[mapType][_key] = entity;
+        }
       }
     }
 
