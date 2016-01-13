@@ -471,6 +471,10 @@ msgid "@common-invite-all"
 msgstr "Invite all new members to this topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr " members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "You have been removed from {{TopicName}}."
 
@@ -3220,9 +3224,6 @@ msgstr ""
 #~ msgstr ""
 #~ "This member has been temporarily disabled. Please contact the team "
 #~ "administrator for more information."
-
-#~ msgid "@common-joined"
-#~ msgstr " members"
 
 #~ msgid "@input-rename"
 #~ msgstr "Enter name to change"
