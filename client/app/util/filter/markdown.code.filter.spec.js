@@ -262,6 +262,14 @@
           expect(markdownString1).toEqual(expectString1);
         });
       });
+
+      describe('mention 이 있을때 mention 을 잘 보존하는지 테스트 한다', function() {
+        it('mention 만 존재할 경우우', function() {
+          var markdownString1 = $filter('<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>');
+          var expectString1 = '<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>';
+          expect(markdownString1).toEqual(expectString1);
+        });
+      });
     });
   });
 })();

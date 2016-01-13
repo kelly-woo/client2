@@ -99,7 +99,6 @@
         return '§§§anchorMarker' + (index - 1) + '§§§';
       });
       index = 0;
-
       parsedText = _parseBoldItalic(string);
       parsedText = _parseStrikeThrough(parsedText);
       parsedText = _parseLinks(parsedText);
@@ -109,8 +108,11 @@
         //선 수행된 url 파서로 인해 <a> 혹은 <img> 태그 안에 중첩되어 <a> 태그가 정의 된 경우, url parser 로 적용된 태그는 제거한다.
         //아래와 같은 경우를 말한다.
         //<a href="<a href="http://naver.com">http://naver.com</a>">네이버</a>
-        if (stra[1]) {
+
+        if (stra[1] && stra[5]) {
           parsedText = parsedText.replace(stra[0], stra[1] + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
+        } else if(stra[1]) {
+          parsedText = parsedText.replace(stra[0], stra[1] + anchorList[stra[4]] + (stra[5]||''));
         } else {
           parsedText = parsedText.replace(stra[0], anchorList[stra[4]] + (stra[5]||''));
         }
