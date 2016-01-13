@@ -284,20 +284,15 @@
 
     return function(content) {
       var hasPreview = false;
-      var hasImageUrl;
+      var hasOriginalUrl;
       var hasThumbnailUrl;
 
       if (content) {
+        hasOriginalUrl = !!content.fileUrl;
         hasThumbnailUrl = _hasThumbnailUrl(content.extraInfo);
 
-        // image file upload 후 thumbnail 생성이 비동기에서 동기방식으로 변경되면서 주석처리
-        //// extIsNewImage에 대한 설명은 'message.collection.service'의 '_addImageMsgData'를 참조한다.
-        //// extIsNewImage가 true일때 thumbnail url이 존재한다면 request할 url을 가진다.
-        //// extIsNewImage가 false일때 thumbnail url이 존재하거나 fileUrl이 존재한다면 request할 url을 가진다.
-        //hasImageUrl = !!(content.extIsNewImage ? hasThumbnailUrl : (hasThumbnailUrl || content.fileUrl));
-
         // image를 request할 url이 존재하고 file type이 image이고 integration file이 아닌 경우 preview를 가진다.
-        hasPreview = hasThumbnailUrl && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+        hasPreview = (hasOriginalUrl || hasThumbnailUrl) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
       }
 
       return hasPreview;
