@@ -1,3 +1,23 @@
+<a name="1.12.5"></a>
+## [1.12.5](https://github.com/tosslab/web_client/compare/v1.12.4...v1.12.5) (2016-01-13)
+
+
+### Bug Fixes
+
+* **center:** 잔여 버그 수정 ([e58cce7](https://github.com/tosslab/web_client/commit/e58cce7))
+* **markdown:** bold 일 경우 마크다운 파싱 오류 현상 수정 ([5283b71](https://github.com/tosslab/web_client/commit/5283b71))
+* **markdown:** mention 한개만 나오는 버그 수정 ([e6b5a8b](https://github.com/tosslab/web_client/commit/e6b5a8b))
+* **잔디 connect:** ESC 입력시 close 애니메이션 동작하지 않는 현상 수정 외 1건 ([86a84e0](https://github.com/tosslab/web_client/commit/86a84e0))
+* **잔디 connect:** ESC 입력시 close 애니메이션 동작하지 않는 현상 수정 외 1건 ([9b96eeb](https://github.com/tosslab/web_client/commit/9b96eeb))
+* **잔디 connect:** 설정 저장하기 L10N 추가 ([5b805f9](https://github.com/tosslab/web_client/commit/5b805f9))
+* **잔디connect:**  각 연동 서비스마다 100개 항목 이상 설정 시도 시 에러 메시지 발생 ([a9c07a8](https://github.com/tosslab/web_client/commit/a9c07a8))
+* **잔디connect:** integration 계정 연동 해지시, 실행 중인 Integration 이 없을 때 메시지 분기처리 ([b7d52be](https://github.com/tosslab/web_client/commit/b7d52be))
+* **잔디connect:** webhook 설정에서 언어 설정 표시하지 않음 ([d1866e3](https://github.com/tosslab/web_client/commit/d1866e3))
+* **잔디connect:** 기획과 협의하여 브라우저 back 버튼 클릭 시 기본동작 방해하는 코드 제거 ([e3dee3b](https://github.com/tosslab/web_client/commit/e3dee3b))
+* **잔디connect:** 마크다운 파서 "anchormarker" 표시됨 현상 수정 ([932d76c](https://github.com/tosslab/web_client/commit/932d76c))
+
+
+
 <a name="1.12.4"></a>
 ## [1.12.4](https://github.com/tosslab/web_client/compare/v1.12.3...v1.12.4) (2016-01-12)
 
