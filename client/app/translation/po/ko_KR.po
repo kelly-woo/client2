@@ -464,6 +464,10 @@ msgid "@common-invite-all"
 msgstr "새로 팀에 참여하는 모든 멤버를 이 토픽에 초대합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "명 참여중"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}에서 관리자에 의해 퇴장되었습니다."
 
@@ -3239,9 +3243,6 @@ msgstr "수요일"
 
 #~ msgid "@common-disabled-member-profile-msg"
 #~ msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."
-
-#~ msgid "@common-joined"
-#~ msgstr "명 참여중"
 
 #~ msgid "@input-rename"
 #~ msgstr "변경할 이름을 입력하세요"

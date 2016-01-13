@@ -456,6 +456,10 @@ msgid "@common-invite-all"
 msgstr "邀請所有新成員至此議題"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "你已被移除出{{TopicName}}"
 
@@ -3012,9 +3016,6 @@ msgstr "三"
 
 #~ msgid "@common-disabled-member-profile-msg"
 #~ msgstr "此成員權限已被暫時關閉。欲知更多細節，請聯絡團隊管理員。"
-
-#~ msgid "@common-joined"
-#~ msgstr "成員"
 
 #~ msgid "@input-rename"
 #~ msgstr "輸入修改的名字"
