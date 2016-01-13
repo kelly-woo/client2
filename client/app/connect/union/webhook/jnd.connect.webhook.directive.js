@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('jndConnectWebhook', jndConnectWebhook);
 
-  function jndConnectWebhook() {
+  function jndConnectWebhook($filter, JndUtil) {
     return {
       restrict: 'E',
       scope: {
@@ -31,15 +31,28 @@
        * @private
        */
       function _init() {
-
+        scope.isCollapsed = true;
       }
 
       /**
        * 안내 Guide 를 collapse 한다
        */
-      function toggleCollapseGuide() {
+      function toggleCollapseGuide(clickEvent) {
         var jqEl = el.find('._guide');
-        jqEl.slideToggle();
+        jqEl.slideToggle({
+          complete: _setCollapseText
+        });
+      }
+
+      /**
+       * collapsed 상태 text 노출을 위한 설정을 한다.
+       * @private
+       */
+      function _setCollapseText() {
+        var jqEl = el.find('._guide');
+        JndUtil.safeApply(scope, function() {
+          scope.isCollapsed = (jqEl.css('display') !== 'block');
+        });
       }
 
       /**

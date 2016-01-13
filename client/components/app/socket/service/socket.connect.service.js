@@ -18,17 +18,17 @@
       {
         name: CONNECT_CREATED,
         version: 1,
-        handler: _onConnectCreated
-      },
-      {
-        name: CONNECT_DELETED,
-        version: 1,
-        handler: _onConnectDeleted
+        handler: onConnectCreated
       },
       {
         name: CONNECT_UPDATED,
         version: 1,
-        handler: _onConnectUpdated
+        handler: onConnectUpdated
+      },
+      {
+        name: CONNECT_DELETED,
+        version: 1,
+        handler: onConnectDeleted
       }
     ];
 
@@ -44,37 +44,34 @@
 
     /**
      * connect created event handler
-     * @param socketEvent
-     * @private
+     * @param {object} socketEvent
      */
-    function _onConnectCreated(socketEvent) {
-      //var data = socketEvent.data;
-      //
-      //entityAPIservice.addBot(data.bot);
-      //
-      //jndPubSub.pub('webSocketConnect:connectCreated', socketEvent.data);
-    }
+    function onConnectCreated(socketEvent) {
+      var data = socketEvent.data;
 
-    /**
-     * connect deleted event handler
-     * @param socketEvent
-     * @private
-     */
-    function _onConnectDeleted(socketEvent) {
-      //jndPubSub.pub('webSocketConnect:connectDeleted', socketEvent.data);
+      entityAPIservice.addBot(data.bot);
+      jndPubSub.pub('webSocketConnect:connectCreated', data);
     }
 
     /**
      * connect updated event handler
-     * @param socketEvent
-     * @private
+     * @param {object} socketEvent
      */
-    function _onConnectUpdated(socketEvent) {
-      //var data = socketEvent.data;
-      //
-      //entityAPIservice.addBot(data.bot);
-      //
-      //jndPubSub.pub('webSocketConnect:connectUpdated', socketEvent.data);
+    function onConnectUpdated(socketEvent) {
+      var data = socketEvent.data;
+
+      entityAPIservice.updateBot(data.bot);
+      jndPubSub.pub('webSocketConnect:connectUpdated', data);
+    }
+
+    /**
+     * connect deleted event handler
+     * @param {object} socketEvent
+     */
+    function onConnectDeleted(socketEvent) {
+      var data = socketEvent.data;
+
+      jndPubSub.pub('webSocketConnect:connectDeleted', data);
     }
   }
 })();

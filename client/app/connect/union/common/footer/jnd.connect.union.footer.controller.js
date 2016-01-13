@@ -26,15 +26,15 @@
       },
       {
         text: _translate('@jnd-connect-105'),
-        value: 'zh-cn'
+        value: 'ja'
       },
       {
         text: _translate('@jnd-connect-106'),
-        value: 'zh-tw'
+        value: 'zh-cn'
       },
       {
         text: _translate('@jnd-connect-107'),
-        value: 'ja'
+        value: 'zh-tw'
       }
     ];
     $scope.changedFileUri = null;

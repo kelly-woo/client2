@@ -36,7 +36,6 @@
     that.openTeamMemberListModal = openTeamMemberListModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
-    that.openCurrentUserModal = openCurrentUserModal;
     that.openUserProfileModal = openUserProfileModal;
     that.openBotProfileModal = openBotProfileModal;
 
@@ -294,23 +293,6 @@
             inviteModalLock = false;
           });
       }
-    }
-
-    /**
-     * 현재 나의 프로필을 수정/확인 할 수 있는 모달창을 연다.
-     * @param $scope
-     */
-    function openCurrentUserModal($scope) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/members/current-user-profile/current.user.profile.html',
-        controller: 'ProfileSettingCtrl',
-        backdrop: 'static',
-        windowClass: 'current-member-profile',
-        autofocus: '#member-profile-name'
-      };
-
-      _modalOpener(modalOption);
     }
 
     /**
