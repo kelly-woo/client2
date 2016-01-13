@@ -34,6 +34,8 @@
         scope.onConnectDelete = onConnectDelete;
         scope.onConnectAddClick = onConnectAddClick;
 
+        _initConnectInfo();
+
         _attachEvents();
       }
 

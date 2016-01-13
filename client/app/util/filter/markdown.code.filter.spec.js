@@ -60,7 +60,10 @@
 
         var markdownString7 = $filter('중간 ~* 텍스트 *~');
         var expectString7 = '중간 ~<i> 텍스트 </i>~';
-        
+
+        var markdownString8 = $filter('오늘 **3**개의 일정이 있습니다.');
+        var expectString8 = '오늘 <b>3</b>개의 일정이 있습니다.';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);
@@ -68,6 +71,7 @@
         expect(markdownString5).toEqual(expectString5);
         expect(markdownString6).toEqual(expectString6);
         expect(markdownString7).toEqual(expectString7);
+        expect(markdownString8).toEqual(expectString8);
       });
     });
 
@@ -93,8 +97,8 @@
         var expectString6 = '중간 <i><b> 텍스트 </b></i>';
 
         var markdownString7 = $filter('중간 *~* 텍스트 *~*');
-        var expectString7 = '중간 <i>~<i> 텍스트 </i>~</i>';
-        
+        var expectString7 = '중간 <i>~</i> 텍스트 <i>~</i>';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);

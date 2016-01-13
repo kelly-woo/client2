@@ -14,7 +14,8 @@
       restrict: 'E',
       controller: 'JndConnectUnionFooterCtrl',
       scope: {
-        data: '=jndData'
+        data: '=jndData',
+        options: '=jndOptions'
       },
       link: link,
       replace: true,
@@ -29,6 +30,8 @@
        * @private
        */
       function _init() {
+        scope.options = scope.options || {};
+        scope.options.hasLang = _.isBoolean(scope.options.hasLang) ? scope.options.hasLang : true;
       }
     }
   }
