@@ -81,7 +81,7 @@
     $scope.isBannerShow = true;
 
     $scope.historyBack = historyBack;
-    $scope.close = close;
+    $scope.close = JndConnect.close;
     $scope.closeBanner = closeBanner;
 
     _init();
@@ -221,6 +221,7 @@
       $scope.$on('JndConnect:reloadList', _onReloadList);
       $scope.$on('JndConnect:backToMain', _onBackToMain);
       $scope.$on('JndConnect:historyBack', historyBack);
+      $scope.$on('JndConnect:fadeOut', _onFadeOut);
     }
 
     /**
@@ -307,13 +308,13 @@
     }
 
     /**
-     * 잔디 커넥트 닫기 버튼 클릭시 핸들러
+     * fade out 이벤트 핸들러
+     * @private
      */
-    function close() {
-      $scope.isClose = true;
-      $timeout(function() {
-        JndConnect.close();
-      }, 300);
+    function _onFadeOut() {
+      JndUtil.safeApply($scope, function() {
+        $scope.isClose = true;
+      });
     }
 
     /**
@@ -324,7 +325,7 @@
         if ($scope.current.union) {
           _resetCurrent();
         } else {
-          close();
+          JndConnect.close();
         }
       });
 

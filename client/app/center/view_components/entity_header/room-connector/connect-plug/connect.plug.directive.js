@@ -9,13 +9,12 @@
     .directive('connectPlug', connectPlug);
 
   /* @ngInject */
-  function connectPlug(EntityMapManager, memberService) {
+  function connectPlug(memberService) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
         data: '=jndDataModel',
-        onStatusChange: '&',
         onSetting: '&',
         onDelete: '&'
       },
@@ -31,46 +30,24 @@
        * @private
        */
       function _init() {
-        scope.connectId = scope.data.connectId;
-        scope.memberId = scope.data.memberId;
-        scope.botId = scope.data.botId;
-        scope.status = scope.data.status;
-        scope.unionName = scope.data.unionName;
-
-        scope.isActive = scope.status === 'enabled';
+        scope.isActive = scope.data.status === 'enabled';
 
         scope.isConnector = _isConnector();
         scope.isAllowUpdate = scope.isConnector || _isAdmin();
 
-        scope.onServiceToggle = onServiceToggle;
         scope.onSettingClick = onSettingClick;
         scope.onDeleteClick = onDeleteClick;
 
-        _setContent();
-
+        _attachEvents();
       }
 
       /**
-       * set content
+       * attach events
        * @private
        */
-      function _setContent() {
-        var member = EntityMapManager.get('member', scope.memberId) || {};
-        var bot = EntityMapManager.get('bot', scope.botId) || {};
-
-        scope.memberName = member.name || 'unknown';
-        scope.botProfileImage = bot.thumbnailUrl || 'https://assets.jandi.com/images/profile_80.png';
-        scope.botName = bot.name || 'unknown';
-      }
-
-      /**
-       * service toggle handler
-       * @param $value
-       */
-      function onServiceToggle(value) {
-        scope.onStatusChange({
-          $connectId: scope.connectId,
-          $status: value
+      function _attachEvents() {
+        scope.$watch('data.status', function(value) {
+          scope.isActive = value === 'enabled';
         });
       }
 
@@ -82,8 +59,8 @@
         event.stopPropagation();
 
         scope.onSetting({
-          $connectId: scope.connectId,
-          $unionName: scope.unionName
+          $connectId: scope.data.connectId,
+          $unionName: scope.data.unionName
         });
       }
 
@@ -94,7 +71,7 @@
       function onDeleteClick(value) {
         if (value) {
           scope.onDelete({
-            $connetId: scope.connectId,
+            $connectId: scope.data.connectId,
             $value: value
           });
         }
@@ -105,7 +82,7 @@
        * @private
        */
       function _isConnector() {
-        return memberService.getMemberId() === scope.memberId;
+        return memberService.getMemberId() === scope.data.memberId;
       }
 
       /**

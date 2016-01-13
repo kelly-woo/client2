@@ -82,33 +82,37 @@
      * @private
      */
     function _parseText(string) {
-      var marker = '§§§anchorMarker§§§';
-      var regxMarker = /(<(a|img).*?)?(§§§anchorMarker§§§)(.*?<\/a>)?/g;
+      var regxMarker = /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g;
       var anchorList = [];
       var parsedText;
       var index = 0;
-
+      var stra;
       /*
         anchor 에 _ 가 들어갔을 경우 bold italic parser 가 정상동작 하지 않기 때문에, marker 로 표시한 뒤
         다시 replace 하는 로직을 추가한다.
        */
       string = string.replace(_regx.anchor, function(matchText) {
+        index++;
         anchorList.push(matchText);
-        return marker;
+        return '§§§anchorMarker' + (index - 1) + '§§§';
       });
+      index = 0;
+
       parsedText = _parseBoldItalic(string);
       parsedText = _parseStrikeThrough(parsedText);
       parsedText = _parseLinks(parsedText);
-      parsedText = parsedText.replace(regxMarker, function(matchText, $1, $2, $3, $4) {
+
+      while ((stra = regxMarker.exec(parsedText)) !== null) {
+        regxMarker.lastIndex = 0;
         //선 수행된 url 파서로 인해 <a> 혹은 <img> 태그 안에 중첩되어 <a> 태그가 정의 된 경우, url parser 로 적용된 태그는 제거한다.
         //아래와 같은 경우를 말한다.
         //<a href="<a href="http://naver.com">http://naver.com</a>">네이버</a>
-        if ($1) {
-          return $1 + _getLinkUrlFromTag(anchorList[index++]) + ($4||'');
+        if (stra[1]) {
+          parsedText = parsedText.replace(stra[0], stra[1] + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
         } else {
-          return anchorList[index++] + ($4||'');
+          parsedText = parsedText.replace(stra[0], anchorList[stra[4]] + (stra[5]||''));
         }
-      });
+      }
       return parsedText;
     }
 
@@ -191,7 +195,7 @@
     }
 
     /**
-     * Tag 로 부터 url 을 반환한다.
+     * Tag 로 부터 url 을 반환한다. (IMG 지원시 활성화 필요)
      * @param {string} tagStr - 태그 스트링 ('<a href="http://jandi.com">잔디</a>' | '<img src="http://www.jandi.com/img.jpg">'
      * @returns {string} 'http://jandi.com' | 'http://www.jandi.com/img.jpg'
      * @private
@@ -199,6 +203,17 @@
     function _getLinkUrlFromTag(tagStr) {
       var stra = /(href|src)=(['"]{1})(.*?)\2/g.exec(tagStr);
       return stra ? stra[3] : tagStr;
+    }
+
+    /**
+     * Anchor Tag 의 text 를 반홚나다
+     * @param {string} tagStr - 태그 스트링 ('<a href="http://jandi.com">잔디</a>'
+     * @returns {string} 잔디
+     * @private
+     */
+    function _getTextFromAnchor(tagStr) {
+      var stra = /<a[^>]*?>(.*)<\s?\/a>/g.exec(tagStr);
+      return stra ? stra[1] : tagStr;
     }
   }
 })();

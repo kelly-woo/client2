@@ -99,7 +99,10 @@
       } else {
         $scope.isInitialized = true;
       }
-      _requestCalendarInfo();
+
+      // content 생성시 항상 calendar list를 request한다.
+      // request시 google calendar 계정의 유효성 여부를 server에서 확인하여 내려준다.
+      _requestCalendarList();
     }
 
     /**
@@ -107,7 +110,7 @@
      * @private
      */
     function _onAccountInfoChange() {
-      _requestCalendarInfo();
+      _requestCalendarList();
     }
 
     /**
@@ -294,12 +297,12 @@
      * @returns {*}
      * @private
      */
-    function _requestCalendarInfo() {
+    function _requestCalendarList() {
       _initCalendarList();
 
       JndConnectGoogleCalendar.getCalendarList()
-        .success(function(calendarInfo) {
-          _setCalendarInfo(calendarInfo);
+        .success(function(calendarList) {
+          _setList(calendarList);
           $scope.isCalendarListLoaded = true;
         })
         .error(function () {
@@ -319,31 +322,38 @@
     }
 
     /**
-     * set calendar list
-     * @param calendarInfo
+     * set list
+     * @param {array} calendarList
      * @private
      */
-    function _setCalendarInfo(calendarInfo) {
+    function _setList(calendarList) {
       JndUtil.safeApply($scope, function() {
         if (!$scope.isSettingMode) {
-          _setCalendarList(calendarInfo);
+          // 수정 모드가 아닐때 연동 calendar를 선택하기 위해 calendarList를 전달한다.
+          _setCalendarList(calendarList);
         }
 
+        // header에 계정 정보를 출력하기 위해 calendarList를 전달한다.
         JndConnectUnion.setHeaderAccountData($scope.data.header, {
-          accountList: calendarInfo,
+          accountList: calendarList,
           accountValue: $scope.data.googleId
         });
       });
     }
 
-    function _setCalendarList(calendarInfo) {
+    /**
+     * set calendar list
+     * @param {array} calendarList
+     * @private
+     */
+    function _setCalendarList(calendarList) {
       var data = $scope.data;
       var list = [];
 
       $scope.calendarMap = {};
       $scope.calendarMapKey = 0;
 
-      _.each(calendarInfo, function(googleAccount) {
+      _.each(calendarList, function(googleAccount) {
         var calendarList = [];
         var googleId = googleAccount.authenticationName;
 

@@ -23,7 +23,7 @@
       $scope.file.extWriter = $scope.writer = EntityMapManager.get('total', file.writerId);
 
       $scope.writerName = $scope.writer.name;
-      $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
+      $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
       $scope.createDate = $filter('getyyyyMMddformat')(file.createdAt);
       $scope.contentTitle = file.contentTitle;
 

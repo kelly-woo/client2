@@ -23,7 +23,7 @@
       $scope.writer = EntityMapManager.get('total', message.writerId);
 
       $scope.writerName = $scope.writer.name;
-      $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
+      $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
       $scope.createDate = $filter('getyyyyMMddformat')(message.createdAt);
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);

@@ -1,14 +1,15 @@
 <span class="panel-title-right-menu room-integration-connect"
       dropdown
-      auto-close="outsideClick"
-      is-open="isConnectBoxOpen">
+      auto-close="outsideClick">
   <div class="panel-title-right-item"
        tooltip="{{::'@jnd-connect-3' | translate}}"
        tooltip-placement="bottom"
        dropdown-toggle>
     <i class="icon-connect"></i>
-    <span class="panel-title-text">3</span>
-    <i class="icon-angle-down"></i>
+    <span class="connect-short-info" ng-show="hasConnectPlugs">
+      <span class="panel-title-text">{{connectCount}}</span>
+      <i class="icon-angle-down"></i>
+    </span>
   </div>
 
   <div class="dropdown-menu connect-wrapper" role="menu" ng-switch="isInitialized">
@@ -24,7 +25,6 @@
         <ul class="connect-plugs" ng-switch-when="true">
           <li ng-repeat="connectPlug in connectPlugs">
             <connect-plug jnd-data-model="connectPlug"
-                          on-status-change="onConnectStatusChange($connectId, $status)"
                           on-setting="onConnectSetting($connectId, $unionName)"
                           on-delete="onConnectDelete($connectId, $value)"></connect-plug>
           </li>
