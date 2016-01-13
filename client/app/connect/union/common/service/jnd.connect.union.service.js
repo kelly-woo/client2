@@ -117,7 +117,7 @@
       } else {
         promise = JndConnectUnionApi.create(name, data)
           .success(_onSuccessCreate)
-          .error(_onErrorCommon);
+          .error(_onErrorCreate);
       }
       return promise;
     }
@@ -225,6 +225,23 @@
         allowHtml: true
       });
       JndConnect.backToMain();
+    }
+
+    /**
+     * 생성 오류 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorCreate(err) {
+      //connect 100개 이상 추가시 오류
+      if (err.code === 40305) {
+        Dialog.error({
+          body: $filter('translate')('@jnd-connect-183'),
+          allowHtml: true
+        });
+      } else {
+        _onErrorCommon(err);
+      }
     }
   }
 })();
