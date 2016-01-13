@@ -6,8 +6,10 @@
        tooltip-placement="bottom"
        dropdown-toggle>
     <i class="icon-connect"></i>
-    <span class="panel-title-text">{{connectCount}}</span>
-    <i class="icon-angle-down"></i>
+    <span class="connect-short-info" ng-show="hasConnectPlugs">
+      <span class="panel-title-text">{{connectCount}}</span>
+      <i class="icon-angle-down"></i>
+    </span>
   </div>
 
   <div class="dropdown-menu connect-wrapper" role="menu" ng-switch="isInitialized">
