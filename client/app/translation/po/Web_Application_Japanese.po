@@ -237,7 +237,7 @@ msgstr "自動招待"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
-msgstr "ダイレクトメッセージ"
+msgstr "ダイレクト<br>メッセージ"
 
 #: client/app/modal/password/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -331,6 +331,10 @@ msgstr "ダウンロード"
 msgid "@common-duplicate-name-err"
 msgstr "このトピック名は既に使用されています"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
+msgstr "修正"
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
 #: client/app/modal/password/password.reset.request.html
@@ -360,7 +364,7 @@ msgstr "ファイル"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-file-list"
-msgstr "共有されたファイル"
+msgstr "共有された<br>ファイル"
 
 #: client/app/modal/files/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
@@ -461,6 +465,10 @@ msgid "@common-invite-all"
 msgstr "新しいメンバー全員をこのトピックに招待する"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "メンバー"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}の管理者からトピックから退出させられました。"
 
@@ -556,6 +564,14 @@ msgstr "原本が削除されました"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "リネーム"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr "１：１メッセージを送信する..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
+msgstr "メッセージの送信に成功しました。"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
@@ -1323,8 +1339,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
-"プロフィール画像と名前の変更が必要な場合修正できます。他のお気になる点はカス"
-"タマーサポートでお問い合わせください。"
+"プロフィール画像と名前の変更が必要な場合修正できます。他のお気になる点は <a "
+"href=\"https://jandi.zendesk.com/hc/ja/requests/new\" target=\"_blank\">カス"
+"タマーサポート</a>でお問い合わせください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1414,7 +1431,9 @@ msgstr "連動項目が正常に追加されました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
-msgstr "@jnd-connect-187"
+msgstr ""
+"このアカウントの連携を解除すると、このアカウントと連携している他の連携サービ"
+"スも動作しない可能性があります。連携を解除しますか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1543,22 +1562,24 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-215"
 msgstr ""
+"{{serviceName}}のアカウント連動が解除されました。既存の設定されていたJANDIコ"
+"ネクトの項目は削除されます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-216"
-msgstr ""
+msgstr "カレンダーを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-217"
-msgstr ""
+msgstr "Repositoryを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-218"
-msgstr ""
+msgstr "Boardを選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-219"
-msgstr ""
+msgstr "通知を受けようとするイベントを最小１件以上選択してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
@@ -1566,19 +1587,19 @@ msgstr "Webhookに対応する様々なサービスの通知をJANDIで確認で
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr ""
+msgstr "JANDIコネクトで連動したサービスがありません。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr ""
+msgstr "様々なサービスと連動し、更新情報をJANDIで確認してみましょう。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
-msgstr ""
+msgstr "{{connectCount}}件のサービスが連動されています。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-223"
-msgstr ""
+msgstr "タイム・ゾーン"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
@@ -1788,7 +1809,7 @@ msgstr "連動されたサービス"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr "新規トピックを作成する"
+msgstr "トピックを作成"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
@@ -2637,7 +2658,7 @@ msgstr "トピックの説明（選択）"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@topic-invite-private"
-msgstr "{{invitorName}さんが非公開トピックに招待しました。"
+msgstr "{{invitorName}}さんが非公開トピックに招待しました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@topic-invite-public"
@@ -3019,7 +3040,7 @@ msgstr "さんからダイレクトメッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
-msgstr " "
+msgstr " {{teamName}}に新規メッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
@@ -3099,9 +3120,6 @@ msgstr "水曜日"
 #~ msgstr ""
 #~ "このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わせ下さ"
 #~ "い"
-
-#~ msgid "@common-joined"
-#~ msgstr "メンバー"
 
 #~ msgid "@input-rename"
 #~ msgstr "名前を入力"

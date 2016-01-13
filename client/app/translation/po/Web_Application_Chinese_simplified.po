@@ -322,6 +322,10 @@ msgstr "下载"
 msgid "@common-duplicate-name-err"
 msgstr "这个议题名称已经被使用。请选择另外一个。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
+msgstr "提交"
+
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
 #: client/app/modal/password/password.reset.request.html
@@ -452,6 +456,10 @@ msgid "@common-invite-all"
 msgstr "邀请所有新成员至此议题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "你已被移除出{{TopicName}}"
 
@@ -545,6 +553,14 @@ msgstr "物件已被删除"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "重新命名"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr "传送私信..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
+msgstr "信息已成功寄出"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
@@ -1274,7 +1290,9 @@ msgstr "上述的范例格式将会显示信息如下"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-168"
 msgstr ""
-"你可自制聚合服务的名称和头像若有任何疑问，欢迎随时与JANDI用户关系团队联络"
+"你可自制聚合服务的名称和头像若有任何疑问，欢迎随时与 <a href=\"https://jandi."
+"zendesk.com/hc/zh-cn/requests/new\" target=\"_blank\">JANDI用户关系团队</a>联"
+"络"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-169"
@@ -1510,23 +1528,23 @@ msgstr "将数据从你常使用的外部平台发送至JANDI"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr ""
+msgstr "JANDI Connect聚合服务"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr ""
+msgstr "使用JANDI Connect将所有外部平台的通知聚合于一处"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
-msgstr ""
+msgstr "{{connectCount}}项聚合服务已串联"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-223"
-msgstr ""
+msgstr "时区 "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
-msgstr ""
+msgstr "请选择欲接收通知的议题或私信，你仍可于设置完成后自由变更"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
@@ -1677,7 +1695,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-29"
-msgstr "没有你想串连的服务？ 现在就告诉我们！"
+msgstr "希望JANDI Connect支持更多平台？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-3"
@@ -1685,7 +1703,7 @@ msgstr "JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr "提出需求"
+msgstr "把你的需求告诉我们"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
@@ -1813,7 +1831,7 @@ msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr "透过共享日历和日程提醒保持行事历的井然有序"
+msgstr "串联日历与伙伴共享你的日程"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
@@ -1857,7 +1875,7 @@ msgstr "11:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-7"
-msgstr "{{integrationCount}}件已配置项目"
+msgstr "{{integrationCount}}件已串联项目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-70"
@@ -1901,7 +1919,7 @@ msgstr "9:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-8"
-msgstr "添加整合"
+msgstr "添加聚合"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-80"
@@ -1985,7 +2003,7 @@ msgstr "个人化设置"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-99"
-msgstr "更改通知上显示的姓名和头像"
+msgstr "更改通知上显示的名称和图片"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

@@ -219,7 +219,7 @@ msgstr "Topics "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@comment-all-desc"
-msgstr "Show {{commentCount}} previous comment(s)"
+msgstr "Show all {{commentCount}} comment(s)"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -334,6 +334,10 @@ msgstr "Download"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
+msgstr "Edit"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -467,6 +471,10 @@ msgid "@common-invite-all"
 msgstr "Invite all new members to this topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr " members"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "You have been removed from {{TopicName}}."
 
@@ -560,6 +568,14 @@ msgstr "The starred item was deleted."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
 msgstr "Rename"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr "Send a message..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
+msgstr "Message sent successfully."
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
@@ -1203,7 +1219,7 @@ msgstr "Authenticate your {{serviceName}} account"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-145"
-msgstr "Setup Instruction"
+msgstr "Setup Instructions"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-146"
@@ -1414,7 +1430,9 @@ msgstr "Great! You've successfully added the integration."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
-msgstr "@187: (NOT IN USE) @141"
+msgstr ""
+"If you disconnect this account, it may disable other integrations. Are you "
+"sure you want to continue?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1508,7 +1526,7 @@ msgstr "not in use"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-207"
-msgstr "Loading...繁體中文"
+msgstr "Loading..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-208"
@@ -1570,27 +1588,27 @@ msgstr "Send data into JANDI from your favorite external services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
-msgstr "@jnd-connect-220"
+msgstr "Setup your integrations with JANDI Connect"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-221"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Integrate external apps and services using JANDI Connect to get all your "
+"notifications in one place"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-222"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr "{{connectCount}} integration(s) connected"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-223"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr "Time Zone"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-224"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Please select a topic or DM to receive integration messages. You change it "
+"after saving it."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1620,10 +1638,10 @@ msgstr "Send data into JANDI from your favorite external services"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b> is an online "
+"<b><a href=https://github.com  target=_blank >GitHub</a></b> is an online "
 "source code management platform for Git projects.<br/><br/>\n"
 "This integration will send notifications of commits, comments, pull "
-"requests, and other activity on GitHub Issues to a JANDI topic."
+"requests, and other activity on GitHub Issues to a JANDI topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1820,7 +1838,7 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
-"<b>Incoming Webhook</b> are a simple way to send messages from external "
+"<b>Incoming Webhooks</b> are a simple way to send messages from external "
 "services or apps of your choice into a JANDI topic. You can think of it as a "
 "customized integration."
 
@@ -1884,7 +1902,7 @@ msgstr "Connected Services"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-40"
-msgstr "Create New Topic"
+msgstr "New Topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-41"
@@ -3206,9 +3224,6 @@ msgstr ""
 #~ msgstr ""
 #~ "This member has been temporarily disabled. Please contact the team "
 #~ "administrator for more information."
-
-#~ msgid "@common-joined"
-#~ msgstr " members"
 
 #~ msgid "@input-rename"
 #~ msgstr "Enter name to change"
