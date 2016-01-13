@@ -60,7 +60,10 @@
 
         var markdownString7 = $filter('중간 ~* 텍스트 *~');
         var expectString7 = '중간 ~<i> 텍스트 </i>~';
-        
+
+        var markdownString8 = $filter('오늘 **3**개의 일정이 있습니다.');
+        var expectString8 = '오늘 <b>3</b>개의 일정이 있습니다.';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);
@@ -68,6 +71,7 @@
         expect(markdownString5).toEqual(expectString5);
         expect(markdownString6).toEqual(expectString6);
         expect(markdownString7).toEqual(expectString7);
+        expect(markdownString8).toEqual(expectString8);
       });
     });
 
@@ -93,8 +97,8 @@
         var expectString6 = '중간 <i><b> 텍스트 </b></i>';
 
         var markdownString7 = $filter('중간 *~* 텍스트 *~*');
-        var expectString7 = '중간 <i>~<i> 텍스트 </i>~</i>';
-        
+        var expectString7 = '중간 <i>~</i> 텍스트 <i>~</i>';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);
@@ -255,6 +259,14 @@
         it('복잡한 마크다운 2 - link 에 url 적용시', function() {
           var markdownString1 = $filter('일반 *기울임 **굵게 기울임 ~~그리고 <a href="http://www.jandi.com/test">취소선</a>[링크1](http://www.jandi.com/index.html)~~을 [링크2](http://www.jandi.com/index2.html) 해본다**텍스트의 끝*');
           var expectString1 = '일반 <i>기울임 <b>굵게 기울임 <del>그리고 <a href="http://www.jandi.com/test">취소선</a><a href="http://www.jandi.com/index.html" target="_blank" rel="nofollow">링크1</a></del>을 <a href="http://www.jandi.com/index2.html" target="_blank" rel="nofollow">링크2</a> 해본다</b>텍스트의 끝</i>';
+          expect(markdownString1).toEqual(expectString1);
+        });
+      });
+
+      describe('mention 이 있을때 mention 을 잘 보존하는지 테스트 한다', function() {
+        it('mention 만 존재할 경우우', function() {
+          var markdownString1 = $filter('<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>');
+          var expectString1 = '<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>';
           expect(markdownString1).toEqual(expectString1);
         });
       });
