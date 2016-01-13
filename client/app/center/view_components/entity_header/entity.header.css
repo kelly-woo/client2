@@ -36,7 +36,7 @@
   left: auto;
 }
 .panel-title-info {
-  max-width: calc(100% - 330px);
+  max-width: calc(100% - 324px);
 }
 
 .panel-title-info,
@@ -361,6 +361,7 @@
   padding-left: 28px;
 }
 
+/*
 @media (max-width: 1374px) {
   .rpanel-show .panel-title-info {
     max-width: 60%;
@@ -396,3 +397,4 @@
     max-width: 37%;
   }
 }
+*/
