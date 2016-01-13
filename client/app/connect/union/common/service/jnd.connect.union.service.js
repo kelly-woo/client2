@@ -24,6 +24,7 @@
     this.read = read;
     this.showLoading = showLoading;
     this.hideLoading = hideLoading;
+    this.handleCommonLoadError = handleCommonLoadError;
     this.setHeaderAccountData = setHeaderAccountData;
 
     function showLoading() {
@@ -90,8 +91,27 @@
      * @private
      */
     function _onErrorRead(options, err) {
+      handleCommonLoadError(options.current, err);
+    }
+
+    /**
+     *
+     * @param {object} current
+     * @param {object} err
+     */
+    function handleCommonLoadError(current, err) {
+      var body;
       JndConnect.backToMain();
-      _onErrorCommon(err);
+      if (err.code === 50001) {
+        body = $filter('translate')('@jnd-connect-215')
+          .replace('{{serviceName}}', JndUtil.pick(current, 'union', 'title'));
+        Dialog.alert({
+          allowHtml: true,
+          body: body
+        });
+      } else {
+        _onErrorCommon(err);
+      }
     }
 
     /**

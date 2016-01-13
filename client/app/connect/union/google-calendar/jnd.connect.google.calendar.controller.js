@@ -301,7 +301,8 @@
         .success(function(calendarInfo) {
           _setCalendarInfo(calendarInfo);
           $scope.isCalendarListLoaded = true;
-        });
+        })
+        .error(_.bind(JndConnectUnion.handleCommonLoadError, this, $scope.current));
     }
 
     /**
