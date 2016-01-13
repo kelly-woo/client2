@@ -1402,7 +1402,8 @@ msgstr "Branch force-Pushed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-183"
-msgstr "죄송합니다. 잔디 커넥트 항목을 더 이상 추가하실 수 없습니다."
+msgstr ""
+"죄송합니다. 각 서비스 별로 100개 이상의 커넥트 항목을 추가하실 수 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-184"
