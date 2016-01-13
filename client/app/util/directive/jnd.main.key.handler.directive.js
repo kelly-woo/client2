@@ -9,7 +9,7 @@
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
   function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
-                             JndLocalStorage, JndZoom) {
+                             JndLocalStorage, JndZoom, JndConnect) {
     return {
       restrict: 'A',
       link: link
@@ -175,6 +175,10 @@
           }
         },
         'none': {
+          'BACKSPACE': {
+            handler: _onBackspace,
+            isPreventDefault: false
+          },
           //중앙 input에 focus
           'ENTER': {
             handler: _setChatInputFocus,
@@ -199,9 +203,14 @@
 
       _init();
 
+      /**
+       * modal submit
+       * @private
+       */
       function _triggertModalSubmit() {
         $('._modalSubmit').trigger('click');
       }
+
       /**
        * zoom 을 초기화 한다
        * @private
@@ -260,6 +269,24 @@
           _currentZoomScale = MIN_ZOOM_SCALE;
         } else {
           _setZoom();
+        }
+      }
+
+      /**
+       * Back space 이벤트 핸들러
+       * @param keyEvent
+       * @private
+       */
+      function _onBackspace(keyEvent) {
+        var jqTarget;
+        //잔디 커넥트 세팅이 열려있을 경우 이벤트 기본 동작을 중지하고,
+        //커넥트의 history back 을 호출한다.
+        if (JndConnect.isOpen()) {
+          jqTarget = $(keyEvent.target);
+          if (!_isInput(jqTarget)) {
+            keyEvent.preventDefault();
+            JndConnect.historyBack();
+          }
         }
       }
 

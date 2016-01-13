@@ -45,6 +45,7 @@
   background-color: #ECECEC;
   color: #BBB;
   border-color: #CBCBCB;
+  cursor: not-allowed !important;
 }
 .item-disabled span{
   color: #CCC !important;

@@ -10,11 +10,13 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
-                           analyticsService) {
+  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
+                           analyticsService, jndKeyCode) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
+
+    var timerShowDmInputAuto;
 
     _init();
 
@@ -35,6 +37,7 @@
       $scope.onSubmitDoneClick = onSubmitDoneClick;
       $scope.onProfileChange = onProfileChange;
       $scope.postMessage = postMessage;
+      $scope.onDmKeydown = onDmKeydown;
 
       $scope.activeIndex = null;
       $scope.onProfileSelect = function(index) {
@@ -112,11 +115,21 @@
     }
 
     /**
+     * dm 입력란 keydown event handler
+     */
+    function onDmKeydown(event) {
+      //if (jndKeyCode.match('ENTER', event.keyCode) && !$scope.isSending) {
+      if (jndKeyCode.match('ENTER', event.keyCode)) {
+        $scope.setShowDmSubmit(false);
+      }
+    }
+
+    /**
      * submit done click
      */
     function onSubmitDoneClick() {
       if (_isEnableDM()) {
-        $scope.showSubmitDone = false;
+        $scope.setShowDmSubmit(false);
       }
     }
 
@@ -126,26 +139,28 @@
      * @private
      */
     function _isEnableDM() {
-      return $scope.showSubmitDone && !$scope.isSending
+      //return $scope.isShowDmSubmit && !$scope.isSending
+      return $scope.isShowDmSubmit;
     }
 
     /**
      * post message
      */
     function postMessage() {
-      if (!$scope.isSending) {
-        if ($scope.message.content) {
-          $scope.showSubmitDone = true;
-          $scope.isSending = true;
+      if ($scope.message.content) {
+        $scope.setShowDmSubmit(true);
+        //$scope.isSending = true;
 
-          messageAPIservice.postMessage('users', curUser.id, $scope.message.content)
-            .success(function() {
-              $scope.message.content = '';
-            })
-            .finally(function() {
-              $scope.isSending = false;
-            });
-        }
+        $timeout.cancel(timerShowDmInputAuto);
+        timerShowDmInputAuto = $timeout(function() {
+          $scope.setShowDmSubmit(false);
+        }, 2000);
+
+        messageAPIservice.postMessage('users', curUser.id, $scope.message.content)
+          .finally(function() {
+            $scope.message.content = '';
+            //$scope.isSending = false;
+          });
       }
     }
 
@@ -263,7 +278,7 @@
      */
     function _onMessageContentChange(value) {
       if (_isEnableDM() && value !== '') {
-        $scope.showSubmitDone = false;
+        $scope.setShowDmSubmit(false);
       }
     }
 

@@ -661,7 +661,7 @@
      */
     function isDefaultProfileImage(profileImage) {
       var regxExtention = /(\.[\w]{2,3})$/;
-      return !!profileImage && regxExtention.test(profileImage);
+      return !!profileImage && regxExtention.test(profileImage) && profileImage.indexOf('user_profile') > -1;
     }
   }
 })();
