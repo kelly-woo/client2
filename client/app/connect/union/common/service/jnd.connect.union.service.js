@@ -24,6 +24,7 @@
     this.read = read;
     this.showLoading = showLoading;
     this.hideLoading = hideLoading;
+    this.handleCommonLoadError = handleCommonLoadError;
     this.setHeaderAccountData = setHeaderAccountData;
 
     function showLoading() {
@@ -90,8 +91,27 @@
      * @private
      */
     function _onErrorRead(options, err) {
+      handleCommonLoadError(options.current, err);
+    }
+
+    /**
+     *
+     * @param {object} current
+     * @param {object} err
+     */
+    function handleCommonLoadError(current, err) {
+      var body;
       JndConnect.backToMain();
-      _onErrorCommon(err);
+      if (err.code === 50001) {
+        body = $filter('translate')('@jnd-connect-215')
+          .replace('{{serviceName}}', JndUtil.pick(current, 'union', 'title'));
+        Dialog.alert({
+          allowHtml: true,
+          body: body
+        });
+      } else {
+        _onErrorCommon(err);
+      }
     }
 
     /**
@@ -117,7 +137,7 @@
       } else {
         promise = JndConnectUnionApi.create(name, data)
           .success(_onSuccessCreate)
-          .error(_onErrorCommon);
+          .error(_onErrorCreate);
       }
       return promise;
     }
@@ -225,6 +245,23 @@
         allowHtml: true
       });
       JndConnect.backToMain();
+    }
+
+    /**
+     * 생성 오류 콜백
+     * @param {object} err
+     * @private
+     */
+    function _onErrorCreate(err) {
+      //connect 100개 이상 추가시 오류
+      if (err.code === 40305) {
+        Dialog.error({
+          body: $filter('translate')('@jnd-connect-183'),
+          allowHtml: true
+        });
+      } else {
+        _onErrorCommon(err);
+      }
     }
   }
 })();
