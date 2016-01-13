@@ -88,7 +88,7 @@
 
         if (!$scope.isUserType) {
           // DM이 아닐 경우에만 connect info를 갱신한다.
-          _updateConnectInfo();
+          //_updateConnectInfo();
         }
       }
     }
