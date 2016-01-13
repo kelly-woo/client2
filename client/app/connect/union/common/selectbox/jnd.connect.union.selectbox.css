@@ -102,6 +102,6 @@
   -ms-transform: rotate(-180deg) translateY(0px);
   -webkit-transform: rotate(-180deg) translateY(0px);
   -o-transform: rotate(-180deg) translateY(0px);
-  -moz-transform: rotate(-180deg) translateY(-1px);
+  -moz-transform: rotate(-180deg) translateY(0px);
   transform: rotate(-180deg) translateY(0px);
 }

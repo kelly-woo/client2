@@ -268,7 +268,7 @@
   font-size: 15px;
   color: #154a67;
   font-weight: 500;
-  margin-left: -2px;
+  /* margin-left: -2px; */
 }
 .panel-title-member__more .icon-angle-down,
 .panel-title-right-menu.room-integration-connect .icon-angle-down {
@@ -337,7 +337,7 @@
 
 .panel-title-right-menu.room-integration-connect {
   margin: 0;
-  margin-right: 2px;
+  margin-right: 5px;
   display: block;
   height: inherit;
   line-height: inherit;
@@ -358,7 +358,7 @@
   background-color: #d7e0e8;
 }
 .panel-title-right-menu.room-integration-connect .panel-title-right-item{
-  padding-left: 30px;
+  padding-left: 28px;
 }
 
 @media (max-width: 1374px) {
