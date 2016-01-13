@@ -464,6 +464,10 @@ msgid "@common-invite-all"
 msgstr "새로 팀에 참여하는 모든 멤버를 이 토픽에 초대합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "명 참여중"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}에서 관리자에 의해 퇴장되었습니다."
 
@@ -1027,15 +1031,15 @@ msgstr "English"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-105"
-msgstr "日本語 (일본어)"
+msgstr "日本語"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-106"
-msgstr "简体中文(중국어-번체)"
+msgstr "简体中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-107"
-msgstr "繁體中文(중국어-간체)"
+msgstr "繁體中文"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-108"
@@ -1402,7 +1406,8 @@ msgstr "Branch force-Pushed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-183"
-msgstr "죄송합니다. 잔디 커넥트 항목을 더 이상 추가하실 수 없습니다."
+msgstr ""
+"죄송합니다. 각 서비스 별로 100개 이상의 커넥트 항목을 추가하실 수 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-184"
@@ -3238,9 +3243,6 @@ msgstr "수요일"
 
 #~ msgid "@common-disabled-member-profile-msg"
 #~ msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."
-
-#~ msgid "@common-joined"
-#~ msgstr "명 참여중"
 
 #~ msgid "@input-rename"
 #~ msgstr "변경할 이름을 입력하세요"

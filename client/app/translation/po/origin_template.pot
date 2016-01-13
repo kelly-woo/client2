@@ -444,6 +444,10 @@ msgid "@common-invite-all"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr ""
 
