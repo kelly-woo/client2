@@ -123,8 +123,7 @@
      * @private
      */
     function _onErrorGetWebhookToken(err) {
-      JndConnect.backToMain();
-      JndUtil.alertUnknownError(err);
+      JndConnectUnion.handleCommonLoadError($scope.current, err);
     }
 
     /**

@@ -174,8 +174,7 @@
      * @private
      */
     function _onErrorGetBoards(err) {
-      JndConnect.backToMain();
-      JndUtil.alertUnknownError(err);
+      JndConnectUnion.handleCommonLoadError($scope.current, err);
     }
 
     /**
