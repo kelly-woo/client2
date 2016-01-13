@@ -62,8 +62,16 @@
        * account delete click handler
        */
       function onAccountDeleteClick(item) {
+        var body;
+
+        if (item.connectCount) {
+          body = translate('@jnd-connect-187');
+        } else {
+          body = translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount);
+        }
+
         Dialog.confirm({
-          body: translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount),
+          body: body,
           confirmButtonText: translate('@jnd-connect-188'),
           onClose: function (result) {
             if (result === 'okay') {

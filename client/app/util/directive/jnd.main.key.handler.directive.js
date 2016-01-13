@@ -38,7 +38,8 @@
         'shift-ctrl': {
           //잠금기능
           'CHAR_L': {
-            handler: _togglePrivacy
+            handler: _togglePrivacy,
+            extraCondition: JndConnect.isClose
           }
         },
         'shift-alt': {
@@ -53,18 +54,17 @@
           'CHAR_E': {
             handler: _toggleSticker
           },
-          //중앙 input에 focus
+          //modal submit
           'ENTER': {
             handler: _triggertModalSubmit,
-            extraCondition: function(keyEvent) {
-              return _isModalShown();
-            }
+            extraCondition: _isModalShown
           },
           //upload
           'CHAR_U': {
             handler: function() {
               jndPubSub.pub('hotkey-upload');
-            }
+            },
+            extraCondition: JndConnect.isClose
           },
           //토픽에 멤버 초대
           'CHAR_I': {
@@ -72,11 +72,13 @@
               if (currentSessionHelper.getCurrentEntityType() !== 'users') {
                 modalHelper.openTopicInviteModal(scope);
               }
-            }
+            },
+            extraCondition: JndConnect.isClose
           },
           //퀵 런처
           'CHAR_J': {
-            handler: _toggleQuickLauncher
+            handler: _toggleQuickLauncher,
+            extraCondition: JndConnect.isClose
           },
           //확대
           'PLUS': {
@@ -102,7 +104,8 @@
             extraCondition: HybridAppHelper.isHybridApp
           },
           'SLASH': {
-            handler: _showShortcutGuide
+            handler: _showShortcutGuide,
+            extraCondition: JndConnect.isClose
           }
         },
         'alt': {
@@ -134,7 +137,8 @@
           'CHAR_T': {
             handler: function() {
               modalHelper.openTeamChangeModal(scope);
-            }
+            },
+            extraCondition: JndConnect.isClose
           },
           //우측패널 토글
           '[': {
@@ -179,24 +183,30 @@
             handler: _onBackspace,
             isPreventDefault: false
           },
+          'ESC': {
+            handler: _onEsc,
+            isPreventDefault: false
+          },
           //중앙 input에 focus
           'ENTER': {
             handler: _setChatInputFocus,
             extraCondition: function(keyEvent) {
-              return !_isModalShown() && !_isInput($(keyEvent.target));
+              return !_isModalShown() && !_isInput($(keyEvent.target)) && JndConnect.isClose();
             }
           },
           //위로 스크롤
           'PAGE_UP': {
             handler: function() {
               jndPubSub.pub('hotkey-scroll-page-up');
-            }
+            },
+            extraCondition: JndConnect.isClose
           },
           //아래로 스크롤
           'PAGE_DOWN': {
             handler: function() {
               jndPubSub.pub('hotkey-scroll-page-down');
-            }
+            },
+            extraCondition: JndConnect.isClose
           }
         }
       };
@@ -274,7 +284,7 @@
 
       /**
        * Back space 이벤트 핸들러
-       * @param keyEvent
+       * @param {object} keyEvent
        * @private
        */
       function _onBackspace(keyEvent) {
@@ -286,6 +296,22 @@
           if (!_isInput(jqTarget)) {
             keyEvent.preventDefault();
             JndConnect.historyBack();
+          }
+        }
+      }
+
+      /**
+       * onEsc
+       * @param {object} keyEvent
+       * @private
+       */
+      function _onEsc(keyEvent) {
+        var jqTarget;
+        if (JndConnect.isOpen()) {
+          jqTarget = $(keyEvent.target);
+          if (!_isInput(jqTarget)) {
+            keyEvent.preventDefault();
+            JndConnect.close();
           }
         }
       }

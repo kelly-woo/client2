@@ -1595,9 +1595,10 @@ msgid "@jnd-connect-223"
 msgstr "시간대 설정"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-224"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr ""
+"연동 서비스 또는 메시지를 받을 토픽 또는 1:1 메시지를 선택할 수 있습니다. 연"
+"동 설정 이후에도 변경 가능합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy

@@ -6,13 +6,19 @@
     .service('entityHeader', entityHeader);
 
   /* @ngInject */
-  function entityHeader($http, memberService, config) {
+  function entityHeader($http, memberService, config, configuration) {
+    var that = this;
     var teamId = memberService.getTeamId();
 
-    this.leaveEntity = leaveEntity;
-    this.deleteEntity = deleteEntity;
-    this.toggleTopicNotification = toggleTopicNotification;
-    this.kickOut = kickOut;
+    _init();
+
+    function _init() {
+      that.leaveEntity = leaveEntity;
+      that.deleteEntity = deleteEntity;
+      that.toggleTopicNotification = toggleTopicNotification;
+      that.kickOut = kickOut;
+      that.getConnectInfo = getConnectInfo;
+    }
 
     /**
      * 멤버를 토픽에서 강퇴한다.
@@ -57,6 +63,18 @@
         data: {
           subscribe: toBeValue
         }
+      });
+    }
+
+    /**
+     * request connect info
+     * @param {string} roomId
+     * @returns {*}
+     */
+    function getConnectInfo(roomId) {
+      return $http({
+        method: 'GET',
+        url: configuration.api_connect_address + 'teams/' + teamId + '/rooms/' + roomId + '/connect'
       });
     }
   }

@@ -10,7 +10,14 @@
 
       <section class="service-setting introduction collapsed">
         <span class="setting-label" translate>@jnd-connect-145</span>
-        <span class="expand-button pull-right cursor_pointer" ng-click="toggleCollapseGuide();" translate>@jnd-connect-146</span>
+        <span class="expand-button pull-right cursor_pointer" ng-click="toggleCollapseGuide();">
+          <span ng-if="isCollapsed" translate>
+            @jnd-connect-146
+          </span>
+          <span ng-if="!isCollapsed" translate>
+            @jnd-connect-155
+          </span>
+        </span>
         <div class="setting-contents introduction _guide"
              ng-include="guideTemplateUrl">
         </div>
@@ -36,7 +43,9 @@
         </div>
       </section>
 
-      <jnd-connect-union-footer jnd-data="formData.footer"></jnd-connect-union-footer>
+      <jnd-connect-union-footer
+          jnd-data="formData.footer"
+          jnd-options="footerOptions"></jnd-connect-union-footer>
     </div>
     <jnd-connect-loading class="big" ng-if="isLoading"></jnd-connect-loading>
   </div>

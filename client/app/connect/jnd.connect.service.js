@@ -10,11 +10,12 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect(jndPubSub, configuration, Popup, modalHelper) {
+  function JndConnect($timeout, jndPubSub, configuration, Popup, modalHelper) {
     var _isBannerShow = true;
     var _isOpen = false;
 
     this.isOpen = isOpen;
+    this.isClose = isClose;
     this.open = open;
     this.close = close;
     this.modify = modify;
@@ -68,6 +69,14 @@
     }
 
     /**
+     * 커넥트 화면이 close 되어있는지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isClose() {
+      return !_isOpen;
+    }
+
+    /**
      * 커넥트 화면을 open 한다.
      * @param {object} [params=null] - 세팅 회면 진입 시 connectId 의 수정 페이지를 바로 노출할 경우 해당 변수를 전달해야 한다.
      *  @param  {string} params.unionName - union 이름
@@ -83,6 +92,18 @@
      */
     function close() {
       _isOpen = false;
+      jndPubSub.pub('JndConnect:fadeOut');
+      //300ms 의 fadeout 이후 close 이벤트를 발행한다.
+      $timeout(function() {
+        _close();
+      }, 300);
+    }
+
+    /**
+     * close 이벤트를 trigger 한다.
+     * @private
+     */
+    function _close() {
       jndPubSub.pub('JndConnect:close');
     }
 
