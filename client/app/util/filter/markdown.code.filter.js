@@ -1,5 +1,7 @@
 /**
  * @fileoverview 마크다운을 파싱한다
+ * @see 마크댜운 공식 정규식
+ * https://code.google.com/p/pagedown/source/browse/Markdown.Converter.js?r=e316af145b6c3c9721e89dc144d79025a754be0a
  * !!!important
  * 해당 소스의 수정시 반드시 markdown.code.filter.spec.js 의 karma 테스트 결과를 확인한다.
  */
@@ -18,8 +20,7 @@
       italic: /([\*]{1})([^\*]+?)\1/g,
       strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /\[(.+?)\]\(([^\)]+?)\)/g,
-      linkToken: /^(.*?\]\s+?)(\[)([^[]*$)/g,
+      links: /(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?((?:\([^)]*\)|[^()\s])*?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,
       marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
@@ -177,7 +178,6 @@
      */
     function _parseLinks(str, anchorList) {
       var stra;
-      var tokens;
       while ((stra = _regx.marker.exec(str)) !== null) {
         _regx.marker.lastIndex = 0;
         str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
@@ -185,12 +185,10 @@
 
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
-        tokens = _getLinkLastBracketTokens(stra[1]);
-        tokens[1] = tokens[1] ? '[' + tokens[1] : '';
         if (stra[0].substr(0, 1) === '!') {
-          str = str.replace(stra[0], tokens[1] + '<img src="' + stra[2] + '" style="max-width:100%" alt="' + tokens[3] + '" title="' + stra[1] + '" />\n');
+          str = str.replace(stra[0], '<img src="' + stra[4] + '" style="max-width:100%" alt="' + stra[2] + '" title="' + stra[1] + '" />\n');
         } else {
-          str = str.replace(stra[0], tokens[1] + '<a href="' + stra[2] + '" target="_blank" rel="nofollow">' + tokens[3] + '</a>');
+          str = str.replace(stra[0], '<a href="' + stra[4] + '" target="_blank" rel="nofollow">' + stra[2] + '</a>');
         }
       }
       _.forEach(anchorList, function(anchor, index) {
@@ -198,17 +196,6 @@
         str = str.replace(anchorText, _getAnchorMarker(index));
       });
       return str;
-    }
-
-    /**
-     * link 에서 text 를 좀 더 정교하게 뽑기 위한 메서드
-     * @param {string} str
-     * @returns {Array|{index: number, input: string}|*[]}
-     * @private
-     */
-    function _getLinkLastBracketTokens(str) {
-      var stra = _regx.linkToken.exec(str);
-      return stra || [str, '', '', str];
     }
 
     /**
