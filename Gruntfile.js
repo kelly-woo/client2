@@ -655,6 +655,23 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/tmp/'
         }]
       },
+      version: {
+        options: {
+          patterns: [
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: './config/version.json',
+          dest: '<%= yeoman.dist %>/public/'
+        }]
+      },
       local: {
         options: {
           patterns: [
@@ -907,6 +924,7 @@ module.exports = function (grunt) {
         'usemin',
         'replace:assets_js',
         'replace:assets_css',
+        'replace:version',
         'copy:assets_path',
         'clean:tmp'
       ]);
@@ -929,6 +947,7 @@ module.exports = function (grunt) {
       'usemin',
       'replace:assets_js',
       'replace:assets_css',
+      'replace:version',
       'copy:assets_path',
       'clean:tmp'
     ]);
