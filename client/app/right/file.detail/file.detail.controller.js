@@ -263,7 +263,7 @@
       if (_.isObject(target)) {
         target.extWriter = writer;
         target.extWriterName = $filter('getName')(writer);
-        target.extProfileImg = $filter('getSmallThumbnail')(writerId);
+        target.extProfileImg = memberService.getProfileImage(writerId),
         target.extIsDisabledMember = publicService.isDisabledMember(writer);
       }
     }
