@@ -9,7 +9,7 @@
     .directive('fileUploadModal', fileUploadModal);
 
   function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, EntityMapManager,
-                           entityAPIservice, MentionExtractor, analyticsService, jndPubSub) {
+                           entityAPIservice, MentionExtractor, analyticsService, jndPubSub, JndUtil) {
     return {
       restrict: 'A',
       link: link
@@ -29,6 +29,10 @@
        * @private
        */
       function _init() {
+        scope.data = {
+          comment: ''
+        };
+
         scope.upload = upload;
         scope.cancel = cancel;
 
@@ -53,7 +57,7 @@
             // file object convert
             convertFile: function(file) {
               if (file.comment) {
-                scope.comment = file.comment;
+                scope.data.comment = file.comment;
               }
 
               return scope.file = file;
@@ -76,7 +80,7 @@
                 share: scope.selectedEntityId,
 
                 // file upload시 comment 수정 가능함.
-                comment: scope.comment
+                comment: scope.data.comment
               };
 
               // upload modal title 갱신, fileInfo에 title 설정
@@ -104,11 +108,10 @@
 
               fileInfo.comment = el.find('#file_upload_comment').val().trim();
 
-
               _setMentions(fileInfo);
 
               // scope comment 초기화
-              scope.comment = '';
+              scope.data.comment = '';
 
               _setCurrentProgressBar(file);
             },
