@@ -101,6 +101,7 @@
 .bot-text .msg-item-header {
   padding: 0px;
   line-height: 25px;
+  margin-bottom: 4px;
 }
 .bot-text .msg-item-header__name {
   color: #333;
@@ -119,7 +120,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .bot-text .msg-item-float {
-  top:18px;
+  top:16px;
 }
 .bot-text .member-thumb {
   width: 34px;
@@ -127,7 +128,7 @@
 }
 .bot-text .msg-text-body {
   font-size: 15px;
-  line-height: 28px;
+  line-height: 22px;
   color:#757575;
 }
 .bot-text .attachment-content-wrapper {
