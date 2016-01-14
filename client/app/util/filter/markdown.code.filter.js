@@ -18,7 +18,8 @@
       italic: /([\*]{1})([^\*]+?)\1/g,
       strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /([^\]]\s?)\[(.+?)\]\(([^\)]+?)\)/g,
+      links: /\[(.+?)\]\(([^\)]+?)\)/g,
+      linkToken: /^(.*?\]\s+?)(\[)([^[]*$)/g,
       marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
@@ -176,7 +177,7 @@
      */
     function _parseLinks(str, anchorList) {
       var stra;
-
+      var tokens;
       while ((stra = _regx.marker.exec(str)) !== null) {
         _regx.marker.lastIndex = 0;
         str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
@@ -184,11 +185,12 @@
 
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
-        stra[1] = stra[1] || '';
+        tokens = _getLinkLastBracketTokens(stra[1]);
+        tokens[1] = tokens[1] ? '[' + tokens[1] : '';
         if (stra[0].substr(0, 1) === '!') {
-          str = str.replace(stra[0], stra[1] + '<img src="' + stra[3] + '" style="max-width:100%" alt="' + stra[2] + '" title="' + stra[1] + '" />\n');
+          str = str.replace(stra[0], tokens[1] + '<img src="' + stra[2] + '" style="max-width:100%" alt="' + tokens[3] + '" title="' + stra[1] + '" />\n');
         } else {
-          str = str.replace(stra[0], stra[1] + '<a href="' + stra[3] + '" target="_blank" rel="nofollow">' + stra[2] + '</a>');
+          str = str.replace(stra[0], tokens[1] + '<a href="' + stra[2] + '" target="_blank" rel="nofollow">' + tokens[3] + '</a>');
         }
       }
       _.forEach(anchorList, function(anchor, index) {
@@ -196,6 +198,17 @@
         str = str.replace(anchorText, _getAnchorMarker(index));
       });
       return str;
+    }
+
+    /**
+     * link 에서 text 를 좀 더 정교하게 뽑기 위한 메서드
+     * @param {string} str
+     * @returns {Array|{index: number, input: string}|*[]}
+     * @private
+     */
+    function _getLinkLastBracketTokens(str) {
+      var stra = _regx.linkToken.exec(str);
+      return stra || [str, '', '', str];
     }
 
     /**

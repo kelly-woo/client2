@@ -153,7 +153,7 @@
         var expectString7 = '링크<a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">#93: [DESIGN] company, main 페이지수정</a>가 종료되었습니다.';
 
         var markdownString8 = $filter('[tosslab/web_landing] [ted-jihoon-kim](https://github.com/ted-jihoon-kim)님의 풀 리퀘스트 [#93: [DESIGN] company, main 페이지수정](https://github.com/tosslab/web_landing/pull/93)가 종료되었습니다.');
-        var expectString8 = '[tosslab/web_landing] <a href="https://github.com/ted-jihoon-kim" target="_blank" rel="nofollow">ted-jihoon-kim님</a>의 풀 리퀘스트 <a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">[#93: [DESIGN] company, main 페이지수정]</a>가 종료되었습니다.';
+        var expectString8 = '[tosslab/web_landing] <a href="https://github.com/ted-jihoon-kim" target="_blank" rel="nofollow">ted-jihoon-kim</a>님의 풀 리퀘스트 <a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">#93: [DESIGN] company, main 페이지수정</a>가 종료되었습니다.';
 
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
