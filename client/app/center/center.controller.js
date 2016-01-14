@@ -765,15 +765,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.isPolling = true;
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
+      messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
+          .success(_onUpdateListSuccess)
+          .error(_onUpdateListError);
 
-      MessageQuery.set({
-        type: 'new',
-        linkId: MessageCollection.getLastLinkId()
-      });
 
-      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.updateMessages)
-        .success(_onUpdateListSuccess)
-        .error(_onUpdateListError);
+      // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
+      //$scope.promise = $timeout(updateList, updateInterval)
     }
   }
 
@@ -800,18 +798,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onUpdateListSuccess(response) {
     if (!_isDestroyed) {
       _isUpdateListLock = false;
-      globalLastLinkId = response.globalLastLinkId;
-      if (response.records.length) {
-        response.records = _.sortBy(response.records, 'id');
+
+      var updateInfo = response.updateInfo;
+      if (!_.isUndefined(updateInfo)) {
+
+        globalLastLinkId = response.lastLinkId;
+        updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
+
         MessageSendingCollection.clearSentMessages();
-        if (_isBottomReached() && _isChatPanelActive()) {
-          _scrollToBottom();
+
+        if (updateInfo.messageCount) {
+          if (_isBottomReached() && _isChatPanelActive()) {
+            _scrollToBottom();
+          }
+          // 업데이트 된 메세지 처리
+          _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
+          MessageCollection.updateUnreadCount();
+          lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+          //console.log('::_onUpdateListSuccess', lastMessageId);
+          _checkEntityMessageStatus();
         }
-        // 업데이트 된 메세지 처리
-        _updateMessages(response.records, hasMoreNewMessageToLoad());
-        MessageCollection.updateUnreadCount();
-        lastMessageId = response.records[response.records.length - 1].id;
-        _checkEntityMessageStatus();
       }
 
       if (_hasUpdate) {
