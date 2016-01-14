@@ -79,7 +79,7 @@
   border: 1px solid rgba(15,55,80,0.1);
   border-left-width: 0;
   border-right-width: 0;*/
-  padding:14px 18px 14px 78px;
+  padding:14px 18px 14px 67px;
   margin: -4px 0 5px;
 }
 .msg-item.bot-text.text-child {
@@ -102,13 +102,16 @@
   padding: 0px;
   line-height: 25px;
 }
+.bot-text .msg-item-header__name {
+  color: #333;
+}
 .bot-text .msg-item-float {
-  top:13px;
-  left: 16px;
+  top:18px;
+  left: 24px;
 }
 .bot-text .member-thumb {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
 }
 .bot-text .attachment-content-wrapper {
   padding: 12px 0 0 0;
