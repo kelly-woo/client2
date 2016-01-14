@@ -18,7 +18,7 @@
       italic: /([\*]{1})([^\*]+?)\1/g,
       strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /\[([^\(]+)\]\(([^\)]+?)\)/g,
+      links: /([^\]]\s?)\[(.+?)\]\(([^\)]+?)\)/g,
       marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
@@ -184,10 +184,11 @@
 
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
+        stra[1] = stra[1] || '';
         if (stra[0].substr(0, 1) === '!') {
-          str = str.replace(stra[0], '<img src="' + stra[2] + '" style="max-width:100%" alt="' + stra[1] + '" title="' + stra[1] + '" />\n');
+          str = str.replace(stra[0], stra[1] + '<img src="' + stra[3] + '" style="max-width:100%" alt="' + stra[2] + '" title="' + stra[1] + '" />\n');
         } else {
-          str = str.replace(stra[0], '<a href="' + stra[2] + '" target="_blank" rel="nofollow">' + stra[1] + '</a>');
+          str = str.replace(stra[0], stra[1] + '<a href="' + stra[3] + '" target="_blank" rel="nofollow">' + stra[2] + '</a>');
         }
       }
       _.forEach(anchorList, function(anchor, index) {
