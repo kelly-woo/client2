@@ -75,26 +75,35 @@
 }
 
 .msg-item.bot-text {
-  background-color: #FAFBFD;
+  /*background-color: #FAFBFD;
   border: 1px solid rgba(15,55,80,0.1);
   border-left-width: 0;
-  border-right-width: 0;
-  padding:18px 18px 18px 78px;
-  margin: 10px 0;
+  border-right-width: 0;*/
+  padding:14px 18px 14px 78px;
+  margin: -4px 0 5px;
 }
 .msg-item.bot-text.text-child {
+  
+  margin-top:-5px;
+}
+.msg-item.bot-text.text-child:before {
+  content: '';
+  position: absolute;
+  left: 72px;
+  right: 0;
+  top:0;
+  height: 0;
   border-top: 1px dashed #E1E5E8;
-  margin-top:-11px;
 }
 .msg-item.bot-text:hover {
-  background-color: #F5F7FA;
+  /* background-color: #F7F9FC; */
 }
 .bot-text .msg-item-header {
   padding: 0px;
   line-height: 25px;
 }
 .bot-text .msg-item-float {
-  top:18px;
+  top:13px;
   left: 16px;
 }
 .bot-text .member-thumb {
