@@ -86,8 +86,7 @@
      * @private
      */
     function _onErrorRepo(err) {
-      JndConnect.backToMain();
-      JndUtil.alertUnknownError(err);
+      JndConnectUnion.handleCommonLoadError($scope.current, err);
     }
 
     /**

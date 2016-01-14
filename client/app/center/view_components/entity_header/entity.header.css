@@ -248,7 +248,7 @@
 }
 
 .panel-title-member__more .icon-user,
-.panel-title-right-menu.room-integration-connect .panel-title-right-item > i {
+.panel-title-right-menu.room-integration-connect .panel-title-right-item i {
   font-size: 16px;
   color: #154a67;
 }
@@ -264,7 +264,7 @@
 }
 
 .panel-title-member__more .panel-title-member__count,
-.panel-title-right-menu.room-integration-connect .panel-title-right-item span {
+.panel-title-right-menu.room-integration-connect .panel-title-right-item span.panel-title-text {
   font-size: 15px;
   color: #154a67;
   font-weight: 500;

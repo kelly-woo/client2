@@ -790,23 +790,23 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
     } else if (target === 'debug') {
       return grunt.task.run([
+        'handlebars',
         'clean:server',
         'env:all',
         'concurrent:server',
         'injector',
-        'handlebars',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
     } else {
       var serveTasks = [
+        'handlebars',
         'replace:local',
         'clean:server',
         'env:all',
         'concurrent:server',
         'injector',
-        'handlebars',
         'wiredep',
         'autoprefixer',
         'express:dev',
@@ -941,12 +941,15 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('staging', [
+    'handlebars',
     'replace:staging'
   ]);
   grunt.registerTask('development', [
+    'handlebars',
     'replace:development'
   ]);
   grunt.registerTask('local', [
+    'handlebars',
     'replace:local'
   ]);
 

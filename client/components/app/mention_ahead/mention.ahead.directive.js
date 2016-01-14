@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout, $position) {
+  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService) {
 
     return {
       restrict: 'A',
@@ -31,60 +31,64 @@
         );
 
         return function(scope, el, attrs, ctrls) {
+          var currentEntity = currentSessionHelper.getCurrentEntity();
+
           var mentionCtrl;
           var jqMentionahead;
 
-          mentionCtrl = ctrls[0];
-          scope.eventCatcher = el;
-          jqMentionahead = mentionahead(scope, function (jqMentionahead) {
-            el.parent().append(jqMentionahead);
-          });
-
-          mentionCtrl
-            .init({
-              originScope: scope.$parent,
-              mentionModel: jqMentionahead.data('$ngModelController'),
-              jqEle: el,
-              attrs: attrs,
-              on: function() {
-                var LIVE_SEARCH_DELAY = 0;
-                var timerLiveSearch;
-
-                // text change event handling
-                function changeHandler(event) {
-                  var value = event.target.value;
-
-                  if (value !== mentionCtrl.getValue()) {
-                    mentionCtrl.setValue(value);
-                  }
-                }
-
-                // 실시간 mention 입력 확인
-                function liveSearchHandler(event) {
-                  $timeout.cancel(timerLiveSearch);
-                  timerLiveSearch = $timeout(function() {
-                    var jqPopup = jqMentionahead.next();
-                    var css;
-
-                    mentionCtrl.setMentionOnLive(event);
-                    mentionCtrl.showMentionahead();
-
-                    // mention ahead position
-                    css = $position.positionElements(jqMentionahead, jqPopup, 'top-left', false);
-                    jqPopup.css(css);
-                  }, LIVE_SEARCH_DELAY);
-                }
-
-                el
-                  .on('input', changeHandler)
-                  .on('click', function (event) {
-                    event.stopPropagation();
-                    liveSearchHandler(event);
-                  })
-                  .on('blur', mentionCtrl.clearMention)
-                  .on('keyup', liveSearchHandler);
-              }
+          if (!memberService.isMember(currentEntity.id)) {
+            mentionCtrl = ctrls[0];
+            scope.eventCatcher = el;
+            jqMentionahead = mentionahead(scope, function (jqMentionahead) {
+              el.parent().append(jqMentionahead);
             });
+
+            mentionCtrl
+              .init({
+                originScope: scope.$parent,
+                mentionModel: jqMentionahead.data('$ngModelController'),
+                jqEle: el,
+                attrs: attrs,
+                on: function() {
+                  var LIVE_SEARCH_DELAY = 0;
+                  var timerLiveSearch;
+
+                  // text change event handling
+                  function changeHandler(event) {
+                    var value = event.target.value;
+
+                    if (value !== mentionCtrl.getValue()) {
+                      mentionCtrl.setValue(value);
+                    }
+                  }
+
+                  // 실시간 mention 입력 확인
+                  function liveSearchHandler(event) {
+                    $timeout.cancel(timerLiveSearch);
+                    timerLiveSearch = $timeout(function() {
+                      var jqPopup = jqMentionahead.next();
+                      var css;
+
+                      mentionCtrl.setMentionOnLive(event);
+                      mentionCtrl.showMentionahead();
+
+                      // mention ahead position
+                      css = $position.positionElements(jqMentionahead, jqPopup, 'top-left', false);
+                      jqPopup.css(css);
+                    }, LIVE_SEARCH_DELAY);
+                  }
+
+                  el
+                    .on('input', changeHandler)
+                    .on('click', function (event) {
+                      event.stopPropagation();
+                      liveSearchHandler(event);
+                    })
+                    .on('blur', mentionCtrl.clearMention)
+                    .on('keyup', liveSearchHandler);
+                }
+              });
+          }
         }
       }
     };

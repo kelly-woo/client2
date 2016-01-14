@@ -130,7 +130,7 @@
             onSuccess: function(response, index, length) {
               _trackFileUploadInfo(response);
               _setProgressBarStyle('success', index, length);
-              _setThumbnailImage(response);
+              //_setThumbnailImage(response);
 
               $rootScope.curUpload.status = 'done';
             },

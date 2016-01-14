@@ -199,7 +199,7 @@
             type: 'room'
           });
 
-          _addJandiBot(mentionList);
+          //_addJandiBot(mentionList);
         }
       }
 
@@ -243,7 +243,7 @@
           return item.name.toLowerCase();
         }).value();
 
-        _addJandiBot(mentionList);
+        //_addJandiBot(mentionList);
       }
 
       return mentionList;

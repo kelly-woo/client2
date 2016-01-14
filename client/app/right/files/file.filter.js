@@ -238,21 +238,23 @@
     return function(content, size) {
       var url;
       var thumbnailType;
+      var extraInfo;
 
       if (content) {
         thumbnailType = sizeMap[size];
+        extraInfo = content.extraInfo;
 
-        if (content.extraInfo && content.extraInfo[thumbnailType.property]) {
-          // extraInfo가 존재하고 참조가능한 thumbnail url을 server에서 보장함
-
+        if (extraInfo && extraInfo[thumbnailType.property]) {
+            // thumbnail url
+            url = extraInfo[thumbnailType.property];
+        } else if (extraInfo && extraInfo.thumbnailUrl) {
           // thumbnail url
-          url = content.extraInfo[thumbnailType.property];
-        } else if (content.fileUrl) {
+          url = extraInfo.thumbnailUrl + '?size=' + thumbnailType.value;
+        } else {
+          // 원본 url
           // server에서 file size, dimention 제한 또는 특수한 상황으로 인해
           // extraInfo에 thumbnail url을 보장하지 못했을 경우
-
-          // 원본 url
-          url = content.fileUrl + '?size=' + thumbnailType.value;
+          url = content.fileUrl;
         }
       } else {
         url = '';
@@ -284,19 +286,15 @@
 
     return function(content) {
       var hasPreview = false;
-      var hasImageUrl;
+      var hasOriginalUrl;
       var hasThumbnailUrl;
 
       if (content) {
+        hasOriginalUrl = !!content.fileUrl;
         hasThumbnailUrl = _hasThumbnailUrl(content.extraInfo);
 
-        // extIsNewImage에 대한 설명은 'message.collection.service'의 '_addImageMsgData'를 참조한다.
-        // extIsNewImage가 true일때 thumbnail url이 존재한다면 request할 url을 가진다.
-        // extIsNewImage가 false일때 thumbnail url이 존재하거나 fileUrl이 존재한다면 request할 url을 가진다.
-        hasImageUrl = !!(content.extIsNewImage ? hasThumbnailUrl : (hasThumbnailUrl || content.fileUrl));
-
         // image를 request할 url이 존재하고 file type이 image이고 integration file이 아닌 경우 preview를 가진다.
-        hasPreview = hasImageUrl && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+        hasPreview = (hasOriginalUrl || hasThumbnailUrl) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
       }
 
       return hasPreview;

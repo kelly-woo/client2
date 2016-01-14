@@ -305,9 +305,7 @@
           _setList(calendarList);
           $scope.isCalendarListLoaded = true;
         })
-        .error(function () {
-          JndConnect.backToMain();
-        });
+        .error(_.bind(JndConnectUnion.handleCommonLoadError, this, $scope.current));
     }
 
     /**

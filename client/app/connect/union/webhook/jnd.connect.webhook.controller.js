@@ -10,7 +10,7 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnionApi, JndConnectUnion) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -23,6 +23,7 @@
     };
     $scope.requestData = {};
     $scope.guideTemplateUrl = TEMPLATE_BASE_PATH + $filter('camelToDot')($scope.current.union.name) + '.html';
+    $scope.footerOptions = {};
 
     _init();
 
@@ -33,6 +34,12 @@
     function _init() {
       $scope.formData.header.hasAccount = false;
       $scope.isUpdate = !!$scope.current.connectId;
+      //incoming 일 경우에는 language 설정 화면을 노출하지 않는다
+      if ($scope.current.union.name === 'incoming') {
+        $scope.footerOptions = {
+          hasLang: false
+        };
+      }
       _attachEvents();
       _initialRequest();
     }
@@ -123,8 +130,7 @@
      * @private
      */
     function _onErrorGetWebhookToken(err) {
-      JndConnect.backToMain();
-      JndUtil.alertUnknownError(err);
+      JndConnectUnion.handleCommonLoadError($scope.current, err);
     }
 
     /**

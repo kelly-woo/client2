@@ -34,6 +34,8 @@
         scope.onConnectDelete = onConnectDelete;
         scope.onConnectAddClick = onConnectAddClick;
 
+        _initConnectInfo();
+
         _attachEvents();
       }
 
@@ -244,7 +246,7 @@
           scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
           scope.connectButtonText = translate('@jnd-connect-8');
         } else {
-          scope.connectCount = 0;
+          scope.connectCount = '';
           scope.connectStatusDesciption = translate('@jnd-connect-220');
           scope.connectButtonText = translate('@jnd-connect-14');
         }
