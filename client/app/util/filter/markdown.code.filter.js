@@ -18,7 +18,8 @@
       italic: /([\*]{1})([^\*]+?)\1/g,
       strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /\[([^\[]+)\]\(([^\)]+?)\)/g
+      links: /\[([^\[]+)\]\(([^\)]+?)\)/g,
+      marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
 
@@ -84,7 +85,6 @@
      * @private
      */
     function _parseText(string) {
-      var regxMarker = /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g;
       var anchorList = [];
       var parsedText;
       var index = 0;
@@ -96,15 +96,15 @@
       string = string.replace(_regx.anchor, function(matchText) {
         index++;
         anchorList.push(matchText);
-        return '§§§anchorMarker' + (index - 1) + '§§§';
+        return _getAnchorMarker(index -1);
       });
       index = 0;
       parsedText = _parseBoldItalic(string);
       parsedText = _parseStrikeThrough(parsedText);
-      parsedText = _parseLinks(parsedText);
+      parsedText = _parseLinks(parsedText, anchorList);
 
-      while ((stra = regxMarker.exec(parsedText)) !== null) {
-        regxMarker.lastIndex = 0;
+      while ((stra = _regx.marker.exec(parsedText)) !== null) {
+        _regx.marker.lastIndex = 0;
         //선 수행된 url 파서로 인해 <a> 혹은 <img> 태그 안에 중첩되어 <a> 태그가 정의 된 경우, url parser 로 적용된 태그는 제거한다.
         //아래와 같은 경우를 말한다.
         //<a href="<a href="http://naver.com">http://naver.com</a>">네이버</a>
@@ -120,6 +120,9 @@
       return parsedText;
     }
 
+    function _getAnchorMarker(index) {
+      return '§§§anchorMarker' + index + '§§§';
+    }
     /**
      * bold, italic 파서
      * micromarkdown 에서 필요한 로직만 추출하여 활용 함.
@@ -166,13 +169,19 @@
 
     /**
      * link 형태의 마크다운을 파싱한다.
-     * @param str
-     * @returns {*}
+     * @param {string} str
+     * @param {array} anchorList
+     * @returns {string}
      * @private
      */
-    function _parseLinks(str) {
+    function _parseLinks(str, anchorList) {
       var stra;
-      str = $filter('htmlDecode')(str);
+
+      while ((stra = _regx.marker.exec(str)) !== null) {
+        _regx.marker.lastIndex = 0;
+        str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
+      }
+
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
         if (stra[0].substr(0, 1) === '!') {
@@ -181,6 +190,10 @@
           str = str.replace(stra[0], '<a href="' + stra[2] + '" target="_blank" rel="nofollow">' + stra[1] + '</a>');
         }
       }
+      _.forEach(anchorList, function(anchor, index) {
+        var anchorText = _getTextFromAnchor(anchor);
+        str = str.replace(anchorText, _getAnchorMarker(index));
+      });
       return str;
     }
 
