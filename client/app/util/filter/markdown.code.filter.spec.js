@@ -149,12 +149,17 @@
         var markdownString6 = $filter('새 카드 &quot;[<a href="http://google.com" target="_blank" rel="nofollow">google.com</a>](<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">https://www.trello.com/c/iOL2J7j1</a>)&quot; (이)가 &quot;[dkfslkf](<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">https://www.trello.com/b/VgAGh9hF</a>)&quot; 리스트에 추가되었습니다.');
         var expectString6 = '새 카드 &quot;<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">google.com</a>&quot; (이)가 &quot;<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">dkfslkf</a>&quot; 리스트에 추가되었습니다.';
 
+
+        var markdownString7 = $filter('링크[#93: [DESIGN] company, main 페이지수정](https://github.com/tosslab/web_landing/pull/93)가 종료되었습니다.');
+        var expectString7 = '링크<a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">#93: [DESIGN] company, main 페이지수정</a>가 종료되었습니다.';
+
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
         expect(markdownString3).toEqual(expectString3);
         expect(markdownString4).toEqual(expectString4);
         expect(markdownString5).toEqual(expectString5);
         expect(markdownString6).toEqual(expectString6);
+        expect(markdownString7).toEqual(expectString7);
       });
 
       //현재 꺽쇠 스펙은 지원하지 않음
