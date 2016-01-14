@@ -27,6 +27,7 @@
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
       isJoinedTopic: isJoinedTopic,
+      isDM: isDM,
 
       getMemberList: getMemberList,
       getUserList: getUserList,
@@ -289,6 +290,15 @@
     function isJoinedTopic(entity) {
       return  EntityMapManager.contains('joined', entity.id) ||
               EntityMapManager.contains('private', entity.id);
+    }
+
+    /**
+     * 조인되어있는 DM인지 알아본다.
+     * @param entity
+     * @returns {*|boolean|*}
+     */
+    function isDM(entity) {
+      return EntityMapManager.contains('memberEntityId', entity.id);
     }
 
     /**

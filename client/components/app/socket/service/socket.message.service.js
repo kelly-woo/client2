@@ -238,6 +238,8 @@
       jndPubSub.pub('updateChatList');
 
       if (data.messageType === 'file_share') {
+        _updateRight(data);
+
         // file_share일 경우
         if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
           // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.

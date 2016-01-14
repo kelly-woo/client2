@@ -50,20 +50,19 @@
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
-     * @param {string} value
+     * @param {string} filterText
      * @returns {*}
      */
-    function getMatches(list, value) {
+    function getMatches(list, filterText) {
       var matches;
 
-      value = value.toLowerCase();
-
+      filterText = filterText.toLowerCase();
       matches = _.chain(list)
-        .filter(function (item) {
-          return item.name.toLowerCase().indexOf(value) > -1;
+        .filter(function(item) {
+          return item.name.toLowerCase().indexOf(filterText) > -1
         })
-        .sortBy(function (item) {
-          return [!item.isStarred, item.name.toLowerCase()];
+        .sortBy(function(item) {
+          return [!item.isStarred, !memberService.isJandiBot(item.id), item.name.toLowerCase()];
         })
         .value();
 
@@ -116,12 +115,11 @@
       var enabledMemberList = [];
       var disabledMemberList = [];
       var memberList = currentSessionHelper.getCurrentTeamUserList();
-      var jandiBot;
+      var jandiBot = entityAPIservice.getJandiBot();
 
       if (memberList) {
         if (jandiBot) {
-          jandiBot = entityAPIservice.getJandiBot();
-          memberList = memberList.concat([jandiBot]);
+          enabledMemberList.push(jandiBot);
         }
 
         _.forEach(memberList, function(member) {

@@ -102,17 +102,16 @@
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
-     * @param {string} value
+     * @param {string} filterText
      * @returns {*}
      */
-    function getMatches(list, value) {
-      value = value.toLowerCase();
-
+    function getMatches(list, filterText) {
+      filterText = filterText.toLowerCase();
       return $scope.selectingMembers = _.chain(list)
-        .filter(function (item) {
-          return item.name.toLowerCase().indexOf(value) > -1 && item.selected === false;
+        .filter(function(item) {
+          return item.name.toLowerCase().indexOf(filterText) > -1 && item.selected === false;
         })
-        .sortBy(function (item) {
+        .sortBy(function(item) {
           return [!item.isStarred, item.name.toLowerCase()];
         })
         .value();
