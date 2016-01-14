@@ -4,7 +4,7 @@
 (function() {
   'use strict';
 
-  describe('mention.ahead.service', function () {
+  describe('jnd.util.service', function () {
     var JndUtil;
 
 

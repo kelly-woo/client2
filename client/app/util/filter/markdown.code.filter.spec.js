@@ -147,7 +147,13 @@
         var expectString5 = '중간 <a href="http://naver.com" target="_blank" rel="nofollow">링크1</a> 하하 <a href="http://google.com" target="_blank" rel="nofollow">링크2</a>';
 
         var markdownString6 = $filter('새 카드 &quot;[<a href="http://google.com" target="_blank" rel="nofollow">google.com</a>](<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">https://www.trello.com/c/iOL2J7j1</a>)&quot; (이)가 &quot;[dkfslkf](<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">https://www.trello.com/b/VgAGh9hF</a>)&quot; 리스트에 추가되었습니다.');
-        var expectString6 = '새 카드 "<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">google.com</a>" (이)가 "<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">dkfslkf</a>" 리스트에 추가되었습니다.';
+        var expectString6 = '새 카드 &quot;<a href="https://www.trello.com/c/iOL2J7j1" target="_blank" rel="nofollow">google.com</a>&quot; (이)가 &quot;<a href="https://www.trello.com/b/VgAGh9hF" target="_blank" rel="nofollow">dkfslkf</a>&quot; 리스트에 추가되었습니다.';
+
+        var markdownString7 = $filter('링크[#93: [DESIGN] company, main 페이지수정](https://github.com/tosslab/web_landing/pull/93)가 종료되었습니다.');
+        var expectString7 = '링크<a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">#93: [DESIGN] company, main 페이지수정</a>가 종료되었습니다.';
+
+        var markdownString8 = $filter('[tosslab/web_landing] [ted-jihoon-kim](https://github.com/ted-jihoon-kim)님의 풀 리퀘스트 [#93: [DESIGN] company, main 페이지수정](https://github.com/tosslab/web_landing/pull/93)가 종료되었습니다.');
+        var expectString8 = '[tosslab/web_landing] <a href="https://github.com/ted-jihoon-kim" target="_blank" rel="nofollow">ted-jihoon-kim</a>님의 풀 리퀘스트 <a href="https://github.com/tosslab/web_landing/pull/93" target="_blank" rel="nofollow">#93: [DESIGN] company, main 페이지수정</a>가 종료되었습니다.';
 
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
@@ -155,6 +161,8 @@
         expect(markdownString4).toEqual(expectString4);
         expect(markdownString5).toEqual(expectString5);
         expect(markdownString6).toEqual(expectString6);
+        expect(markdownString7).toEqual(expectString7);
+        expect(markdownString8).toEqual(expectString8);
       });
 
       //현재 꺽쇠 스펙은 지원하지 않음
@@ -179,12 +187,6 @@
           expect(markdownString1).toEqual(expectString1);
           expect(markdownString2).toEqual(expectString2);
         });
-      });
-
-      it('link 가 없는 경우에는 파싱이 되지 않아야 한다.', function() {
-        var markdownString1 = $filter('중간 [링크1]() 하하');
-        var expectString1 = '중간 [링크1]() 하하';
-        expect(markdownString1).toEqual(expectString1);
       });
 
       it('pre link parser 에 의해 선 파싱되었을 경우에도 정상 동작하는지 확인한다.', function() {
@@ -259,6 +261,14 @@
         it('복잡한 마크다운 2 - link 에 url 적용시', function() {
           var markdownString1 = $filter('일반 *기울임 **굵게 기울임 ~~그리고 <a href="http://www.jandi.com/test">취소선</a>[링크1](http://www.jandi.com/index.html)~~을 [링크2](http://www.jandi.com/index2.html) 해본다**텍스트의 끝*');
           var expectString1 = '일반 <i>기울임 <b>굵게 기울임 <del>그리고 <a href="http://www.jandi.com/test">취소선</a><a href="http://www.jandi.com/index.html" target="_blank" rel="nofollow">링크1</a></del>을 <a href="http://www.jandi.com/index2.html" target="_blank" rel="nofollow">링크2</a> 해본다</b>텍스트의 끝</i>';
+          expect(markdownString1).toEqual(expectString1);
+        });
+      });
+
+      describe('mention 이 있을때 mention 을 잘 보존하는지 테스트 한다', function() {
+        it('mention 만 존재할 경우우', function() {
+          var markdownString1 = $filter('<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>');
+          var expectString1 = '<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>';
           expect(markdownString1).toEqual(expectString1);
         });
       });

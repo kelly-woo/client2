@@ -190,7 +190,7 @@ msgstr ""
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
-msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。"
+msgstr "私訊的對話已按照最新訊息內容自動重新排序."
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
@@ -230,7 +230,7 @@ msgstr "自動邀請"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
-msgstr "直接傳訊"
+msgstr "私訊"
 
 #: client/app/modal/password/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -253,8 +253,7 @@ msgstr "離開"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
-"收到新的訊息或以手動方式重新打開它。 "
+"您確定您要離開這個對話？離開後對話將自動隱藏至您收到新的訊息或手動開啟對話"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -293,7 +292,7 @@ msgstr "部門"
 #: client/app/left/messages/messages.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
-msgstr "直接傳訊"
+msgstr "私訊"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
@@ -347,7 +346,7 @@ msgstr " 公開/私人"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "常見問題"
+msgstr "常見問題/提出建議"
 
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
@@ -454,6 +453,10 @@ msgstr "無法存取該檔案/訊息"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-invite-all"
 msgstr "邀請所有新成員至此議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr "成員"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
@@ -595,8 +598,7 @@ msgstr "已標示"
 
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
-msgstr ""
-"您所有直接傳訊的訊息現在是隱藏的。點擊以下按鍵以開始或重新打開一個對話。"
+msgstr "點擊開啟新的對話"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -759,7 +761,7 @@ msgstr "移除共享連結"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-desc"
-msgstr "若移除共享連結，存取至該檔案的權限將被撤銷。你確定要移除共享連結？"
+msgstr "ファイルのリンクを削除してよいですか？削除後もコメントは残ります"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-msg"
@@ -906,7 +908,7 @@ msgstr "按名字搜尋使用者"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
-msgstr "按照關鍵字搜尋您的訊息"
+msgstr "輸入關鍵字"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
@@ -1192,8 +1194,8 @@ msgstr "步驟一"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
 msgstr ""
-"進入JIRA帳戶後，點擊右上角工具鍵進入「JIRA ADMINISTRATION」選擇<b>「System」"
-"</b>"
+"進入JIRA帳戶後，點擊右上角工具鍵進入<b>「JIRA ADMINISTRATION」</b>選擇"
+"<b>「System」</b>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
@@ -1221,7 +1223,7 @@ msgstr "步驟四"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
-msgstr "設定寄發JANDI的通知項目，並於設定完成後點擊「Create」按鍵"
+msgstr "設定寄發JANDI的通知項目，並於設定完成後點擊<b>「Create」</b>按鍵"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
@@ -2051,7 +2053,9 @@ msgstr "你即將完成提及{{topicParticipantsCount}}位屬於{{topicName}}裡
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
-msgstr "還沒有人提到你"
+msgstr ""
+"你尚未被其他成員提及。欲提及其他成員？輸入\"@\"後成員名單跳出，選取成員完成提"
+"及。"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
@@ -2113,7 +2117,7 @@ msgstr "其它議題"
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
-msgstr "選擇一個成員以分享直接傳訊的訊息。"
+msgstr "成員列表"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
@@ -2659,9 +2663,9 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
-"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳訊，"
-"同時仍然保留訊息歷史直到對話重新啟動。"
+"私訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，私訊會自動出"
+"現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏私訊，同時仍然保留"
+"訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
@@ -2671,7 +2675,7 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不同？"
+msgstr "‘公開議題’、‘私人議題’及‘私訊’有什麽不同？"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
@@ -2710,7 +2714,7 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
-msgstr "現在點擊 \"+\" 開始一對一傳訊"
+msgstr "現在點擊 \"+\" 開始私訊"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_post"
@@ -2734,7 +2738,7 @@ msgstr "先試試和阿丹哥開啟對話"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_try"
-msgstr "接下來嘗試直接傳訊"
+msgstr "接下來嘗試私訊成員"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
@@ -2894,7 +2898,7 @@ msgstr "以下為未讀訊息"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "直接傳訊"
+msgstr "私訊"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
@@ -3012,9 +3016,6 @@ msgstr "周三"
 
 #~ msgid "@common-disabled-member-profile-msg"
 #~ msgstr "此成員權限已被暫時關閉。欲知更多細節，請聯絡團隊管理員。"
-
-#~ msgid "@common-joined"
-#~ msgstr "成員"
 
 #~ msgid "@input-rename"
 #~ msgstr "輸入修改的名字"
