@@ -1262,8 +1262,8 @@ msgstr "STEP 4"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
 msgstr ""
-"購読してほしいイベントを選択し、「Create」ボタンをクリックして設定を保存して"
-"ください。"
+"購読してほしいイベントを選択し、<b>「Create」</b>ボタンをクリックして設定を保"
+"存してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
@@ -2123,7 +2123,9 @@ msgstr ""
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
-msgstr "メンションされたことがありません"
+msgstr ""
+"チームメンバーからメンションされたけんがありません。メンションするには、メッ"
+"セージやコメントを入力する時「@」を入力してください"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
@@ -2343,7 +2345,7 @@ msgstr ""
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
-msgstr "1文字以上入力してください。"
+msgstr "1文字以上を入力してください。"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html

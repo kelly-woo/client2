@@ -845,7 +845,7 @@ msgstr "Insert the folder name"
 
 #: client/app/left/topics/topics.html
 msgid "@folder-item-already-exists"
-msgstr "The topic already exists in the folder."
+msgstr "That topic already exists within a folder."
 
 #: client/app/left/topics/topics.html
 msgid "@folder-name-taken"
@@ -875,11 +875,11 @@ msgstr ""
 
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-never-show"
-msgstr "Don't show it again"
+msgstr "Don't show again"
 
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
-msgstr "Sort the topic with folders!"
+msgstr "Organize your topics using folders!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@friday"
@@ -1232,7 +1232,8 @@ msgstr "STEP 1"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-148"
 msgstr ""
-"In your JIRA account, click on <b>System</b> in the JIRA Administration menu"
+"In your JIRA account, click on <b>System</b> in the <b>JIRA Administration</"
+"b> menu"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-149"
@@ -1263,8 +1264,8 @@ msgstr "STEP 4"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
 msgstr ""
-"Configure events you want to send to JANDI and click the Create button once "
-"you’re finished"
+"Configure events you want to send to JANDI and click the <b>Create</b> "
+"button once you’re finished"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
@@ -2215,7 +2216,9 @@ msgstr ""
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
-msgstr "No mentions"
+msgstr ""
+"You haven't been mentioned by other team members yet. To send a mention, "
+"type \"@\" while inputting a message or comment."
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
@@ -2709,7 +2712,7 @@ msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
-msgstr "Invite more"
+msgstr "Invite other members"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-send"
