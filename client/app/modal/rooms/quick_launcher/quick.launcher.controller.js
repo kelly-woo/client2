@@ -254,7 +254,6 @@
     function _getEnabledMembers(filterText) {
       var members = currentSessionHelper.getCurrentTeamUserList();
       var jandiBot = entityAPIservice.getJandiBot();
-      var enabledMembers = [];
 
       if (jandiBot) {
         members = members.concat([jandiBot]);
@@ -287,7 +286,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             count: channel.alarmCnt
           });
         }
@@ -300,7 +298,6 @@
             type: privategroup.type,
             id: privategroup.id,
             name: privategroup.name,
-            query: value,
             count: privategroup.alarmCnt
           });
         }
@@ -326,7 +323,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             isUnjoinedChannel: true
           });
         }
