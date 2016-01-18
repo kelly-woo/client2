@@ -1,3 +1,31 @@
+<a name="1.12.7"></a>
+## [1.12.7](https://github.com/tosslab/web_client/compare/v1.12.6...v1.12.7) (2016-01-18)
+
+
+### Bug Fixes
+
+* **center:** deprecated 된 message/update API 제거했던 내용 다시 사용하도록 롤백 ([3b24c3c](https://github.com/tosslab/web_client/commit/3b24c3c))
+* **client.app.connect:** connect  설정 페이지 읽기 전용 인풋필드 라인하이트 수정. ([9efe3ca](https://github.com/tosslab/web_client/commit/9efe3ca))
+* **client.app.connect:** connect 설정 페이지 셀렉트 버튼 아이콘에 브라우저별 트랜지션 코드 추가. ([117780e](https://github.com/tosslab/web_client/commit/117780e))
+* **css:** bot message style 수정. ([882569c](https://github.com/tosslab/web_client/commit/882569c))
+* **css:** entity header내 토픽명 최대 너비 미디어쿼리 삭제. ([1405104](https://github.com/tosslab/web_client/commit/1405104))
+* **css:** 잔디 connect 설정 페이지 / entity header 내 connect 관련 스타일 수정. ([ab0b545](https://github.com/tosslab/web_client/commit/ab0b545))
+* **html:** 인커밍 웹훅 curl 메시지 수정. ([96eb92d](https://github.com/tosslab/web_client/commit/96eb92d))
+* **markdown:** 링크 마크다운 뒤에 바로 문자가 올 경우 제대로 파싱되지 않는 현상 수정 ([addd849](https://github.com/tosslab/web_client/commit/addd849))
+* **markdown:** 링크 마크다운 로직 보강 ([2667232](https://github.com/tosslab/web_client/commit/2667232))
+* **markdown:** 링크 마크다운 로직 보강 ([6d037ba](https://github.com/tosslab/web_client/commit/6d037ba))
+* **markdown:** 링크 마크다운 로직 보강 ([44ab1e5](https://github.com/tosslab/web_client/commit/44ab1e5))
+* **markdown:** 링크 마크다운 로직 보강 ([e8eec20](https://github.com/tosslab/web_client/commit/e8eec20))
+* **style:**  bot 메시지 스타일 수정 (패딩, 컬러, 위치) ([966513f](https://github.com/tosslab/web_client/commit/966513f))
+* **style:** bot 메시지 레이블 추가 ([58e8328](https://github.com/tosslab/web_client/commit/58e8328))
+* **style:** 날짜 divider 스타일 / 커넥터 봇 메시지 / 봇 메시지 프로필 이미지 스타일 수정. ([0f9176b](https://github.com/tosslab/web_client/commit/0f9176b))
+* **style:** 날짜 divider 스타일 수정. ([dcc7af2](https://github.com/tosslab/web_client/commit/dcc7af2))
+* **style:** 봇메시지 헤더 , 프로필 스타일 수정. ([1336aff](https://github.com/tosslab/web_client/commit/1336aff))
+* **언어설정:** 언어설정 노출되지 않는 현상 수정 ([d26f604](https://github.com/tosslab/web_client/commit/d26f604))
+* **잔디connect:** Jandi bot 이 없을 경우 예외처리 추가 ([72ffe3c](https://github.com/tosslab/web_client/commit/72ffe3c))
+
+
+
 <a name="1.12.6"></a>
 ## [1.12.6](https://github.com/tosslab/web_client/compare/v1.12.5...v1.12.6) (2016-01-13)
 
