@@ -1587,7 +1587,7 @@ msgstr "아직 연동된 잔디 커넥트 항목이 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr "다양한 외부 서비스를 연동하여 변경 사항을 잔디에서 확인하세요."
+msgstr "다양한 외부 서비스를 연동하여 <br>변경 사항을 잔디에서 확인하세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
