@@ -15,18 +15,19 @@
 .mentionahead {
   position: absolute;
 
-  width: 100%;
+  width: calc(100% + 2px);
   max-height: 232px;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #fff;
-  border: solid #d7e0e8;
-  border-width: 2px 2px 0;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  border:1px solid rgba(0, 0, 0, .2);
+  border-bottom: 0;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  margin-top:-3px !important;
+  margin-top:-2px !important;
+  margin-left: -1px !important;
 }
 
 .mentionahead a.mention-item {
@@ -37,8 +38,8 @@
 }
 
 .mentionahead .active a.mention-item {
-  color: #fff;
-  background-color: #154a67;
+  color: #262626;
+  background-color: #E8F3F9;
 }
 
 .mentionahead li:last-child > a {
