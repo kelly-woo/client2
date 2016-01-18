@@ -72,6 +72,7 @@
   background-color: rgba(0,0,0,.32);
 }
 
+.profile-view-modal .bot-profile-image-backdrop > .icon-delete,
 .profile-view-modal .profile-image-backdrop > .icon-delete {
   position: absolute;
   color: #fff;

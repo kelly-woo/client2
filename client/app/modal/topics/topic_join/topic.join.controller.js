@@ -41,19 +41,21 @@
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
-     * @param {string} value
+     * @param {string} filterText
      * @returns {*}
      */
-    function getMatches(list, value) {
+    function getMatches(list, filterText) {
       var matches;
 
-      value = value.toLowerCase();
-
-      matches = _.chain(list).filter(function (item) {
-        return item.name.toLowerCase().indexOf(value) > -1;
-      }).sortBy(function (item) {
-        return item.name.toLowerCase();
-      }).value();
+      filterText = filterText.toLowerCase();
+      matches = _.chain(list)
+        .filter(function(item) {
+          return item.name.toLowerCase().indexOf(filterText) > -1;
+        })
+        .sortBy(function(item) {
+          return item.name.toLowerCase();
+        })
+        .value();
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;

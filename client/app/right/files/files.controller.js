@@ -8,7 +8,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, Router, entityheaderAPIservice,
+  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, Router, entityAPIservice,
                              fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
                              TopicFolderModel, jndPubSub) {
@@ -284,7 +284,6 @@
         });
       }
     }
-
     /**
      * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
      * @param data
@@ -292,7 +291,20 @@
      * @private
      */
     function _isFileStatusChangedOnCurrentFilter(data) {
-      return $scope.fileRequest.sharedEntityId === -1 || (data.room && data.room.id === $scope.fileRequest.sharedEntityId);
+      var result = false;
+      var joinedEntity;
+
+      if ($scope.fileRequest.sharedEntityId === -1) {
+        // 참여중인 모든 대화방
+        result = true;
+      } else if (data.room) {
+        joinedEntity = entityAPIservice.getJoinedEntity(data.room.id);
+        if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
+          result = true;
+        }
+      }
+
+      return result;
     }
 
     function _refreshFileList() {

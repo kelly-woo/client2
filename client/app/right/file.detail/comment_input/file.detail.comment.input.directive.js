@@ -198,7 +198,7 @@
        * @private
        */
       function _setProfileImage(member) {
-        scope.profileImage = $filter('getSmallThumbnail')(member);
+        scope.profileImage = memberService.getProfileImage(member.id);
       }
 
       /**

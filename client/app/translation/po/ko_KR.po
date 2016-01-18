@@ -773,9 +773,7 @@ msgstr "외부 공유용 링크 삭제"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-desc"
-msgstr ""
-"삭제 시 기존에 공유된 링크는 더 이상 사용할 수 없으며, 다시 링크를 생성할 경"
-"우에는 기존과는 다른 새로운 링크가 생성됩니다. 삭제하시겠습니까?"
+msgstr "이 파일 링크를 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-msg"
@@ -1256,8 +1254,8 @@ msgstr "STEP 4"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-154"
 msgstr ""
-"구독하고자 하는 이벤트들을 선택하신 뒤 Create 버튼을 눌러 설정을 저장해주세"
-"요."
+"구독하고자 하는 이벤트들을 선택하신 뒤 <b>Create</b> 버튼을 눌러 설정을 저장"
+"해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-155"
@@ -2244,7 +2242,9 @@ msgstr ""
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
-msgstr "아직 다른 팀 멤버로부터 받은 멘션이 없습니다."
+msgstr ""
+"다른 팀 멤버에게 받은 멘션이 없습니다. 메시지 입력창에서 \"@\"을 입력하여 멘"
+"션을 주고받을 수 있습니다."
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
@@ -2354,7 +2354,7 @@ msgstr "님이 참여했습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-left"
-msgstr "님이 떠났습니다"
+msgstr "님이 나갔습니다"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html

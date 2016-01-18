@@ -50,6 +50,7 @@
        * @private
        */
       function _setList() {
+        var jandiBot = entityAPIservice.getJandiBot();
         var list = _.union(
           EntityMapManager.toArray('joined'),
           EntityMapManager.toArray('private')
@@ -58,7 +59,10 @@
         list = _.filter(list, function(entity) {
           return _isTopic(entity);
         });
-        list.push(entityAPIservice.getJandiBot());
+
+        if (jandiBot) {
+          list.push(jandiBot);
+        }
         scope.list = TopicFolderModel.getNgOptions(list);
       }
 

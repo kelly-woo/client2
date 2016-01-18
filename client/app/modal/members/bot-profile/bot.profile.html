@@ -3,7 +3,9 @@
 <div class="modal-body profile-view-body">
   <div class="profile-image-wrapper">
     <div class="bot-profile-image-backdrop">
-      <div class="profile-condition">{{statusMessage}}</div>
+      <div class="profile-condition">
+        <div class="readonly">{{statusMessage}}</div>
+      </div>
       <i class="icon-delete cursor_pointer" ng-click="close()"></i>
     </div>
     <img class="bot-profile-image" src="assets/images/mrj-profile.png" />

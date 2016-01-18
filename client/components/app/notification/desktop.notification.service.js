@@ -406,7 +406,7 @@
           options = _getOptionsForMessage(data, isUser, writerEntity, roomEntity, message);
         }
 
-        options.icon = $filter('getSmallThumbnail')(writerEntity);
+        options.icon = memberService.getProfileImage(writerEntity.id, 'small');
 
         (notification = _createInstance(options)) && notification.show();
       }
@@ -629,7 +629,7 @@
       var isUser = roomEntity.type === 'users';
 
       if (_validateNotificationParams(socketEvent, writerEntity, roomEntity)) {
-        options.icon = $filter('getSmallThumbnail')(writerEntity);
+        options.icon = memberService.getProfileImage(writerEntity.id, 'small');
         message = decodeURIComponent(socketEvent.message);
 
         if (isShowNotificationContent) {

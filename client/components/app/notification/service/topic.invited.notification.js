@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TopicInvitedNotification(DesktopNotification, $filter, entityAPIservice, DesktopNotificationUtil,
-                                    memberService, EntityMapManager, accountService, desktopNotificationHelper, $state) {
+                                    memberService, desktopNotificationHelper, $state) {
     this.addNotification = addNotification;
 
     /**
@@ -20,12 +20,14 @@
     function addNotification(socketEvent) {
       var notification;
       var options;
+      var user;
 
       if (DesktopNotification.canSendNotification()) {
+        user = entityAPIservice.getEntityById('users', socketEvent.writer);
         options = {
           tag: 'tag',
           body: _getBody(socketEvent),
-          icon: $filter('getSmallThumbnail')(entityAPIservice.getEntityById('users', socketEvent.writer)),
+          icon: memberService.getProfileImage(user.id, 'small'),
           callback: _onNotificationClicked,
           data: socketEvent
         };

@@ -9,7 +9,7 @@
     .service('MemberItemRenderer', MemberItemRenderer);
 
   /* @ngInject */
-  function MemberItemRenderer($filter, publicService, memberService) {
+  function MemberItemRenderer($filter, memberService) {
     var _template;
 
     this.render = render;
@@ -23,16 +23,36 @@
     /**
      * topic item을 랜더링한다.
      * @param {object} data
+     * @param {string} filterText
      * @returns {*}
      */
-    function render(data) {
+    function render(data, filterText) {
+      data = _convertData(data);
+
       return _template({
+        html: {
+          userName: $filter('typeaheadHighlight')(data.name, filterText)
+        },
         profileImage: memberService.getProfileImage(data.id, 'small'),
-        userName: $filter('getName')(data),
         starClass: data.isStarred ? 'icon-star-on' : '',
-        isShowStar: !publicService.isDisabledMember(data) && data.id !== memberService.getMemberId(),
+        isShowStar: !data.isDeactive && data.id !== memberService.getMemberId(),
         itemHeight: 44
       });
+    }
+
+    /**
+     * render에서 사용가능한 data로 변환
+     * @param {object} data
+     * @returns {{id: *, name: *, isStarred: (*|boolean), isDeactive: isDeactivatedMember, query: *}}
+     * @private
+     */
+    function _convertData(data) {
+      return {
+        id: data.id,
+        name: data.name,
+        isStarred: data.isStarred,
+        isDeactive: memberService.isDeactivatedMember(data)
+      };
     }
   }
 })();

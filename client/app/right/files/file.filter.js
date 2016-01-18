@@ -238,21 +238,23 @@
     return function(content, size) {
       var url;
       var thumbnailType;
+      var extraInfo;
 
       if (content) {
         thumbnailType = sizeMap[size];
+        extraInfo = content.extraInfo;
 
-        if (content.extraInfo && content.extraInfo[thumbnailType.property]) {
-          // extraInfo가 존재하고 참조가능한 thumbnail url을 server에서 보장함
-
+        if (extraInfo && extraInfo[thumbnailType.property]) {
+            // thumbnail url
+            url = extraInfo[thumbnailType.property];
+        } else if (extraInfo && extraInfo.thumbnailUrl) {
           // thumbnail url
-          url = content.extraInfo[thumbnailType.property];
-        } else if (content.fileUrl) {
+          url = extraInfo.thumbnailUrl + '?size=' + thumbnailType.value;
+        } else {
+          // 원본 url
           // server에서 file size, dimention 제한 또는 특수한 상황으로 인해
           // extraInfo에 thumbnail url을 보장하지 못했을 경우
-
-          // 원본 url
-          url = content.fileUrl + '?size=' + thumbnailType.value;
+          url = content.fileUrl;
         }
       } else {
         url = '';

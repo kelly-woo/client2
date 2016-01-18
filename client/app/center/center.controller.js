@@ -40,7 +40,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 북마크로 스크롤을 해야할지 말아야 할지
   var _shouldUpdateScrollToBookmark = false;
 
-  var _isFromCache = false;
   var _isFromSearch = false;
 
   var isLogEnabled = true;
@@ -180,16 +179,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _searchJumpToMessageId();
     } else {
-      if (TopicMessageCache.contains(_getEntityId()) && false) {
-        // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-        _displayCache();
+      if (_lastReadMessageMarker) {
+        MessageQuery.setSearchLinkId(_lastReadMessageMarker);
+        _jumpToMessage();
       } else {
-        if (_lastReadMessageMarker) {
-          MessageQuery.setSearchLinkId(_lastReadMessageMarker);
-          _jumpToMessage();
-        } else {
-          loadMore();
-        }
+        loadMore();
       }
     }
   }
@@ -294,8 +288,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     firstMessageId = -1;
     lastMessageId = -1;
     loadedFirstMessageId = -1;
-
-    _isFromCache = false;
     _updateRetryCnt = 0;
     _resetUnreadCounters();
     _resetNewMsgHelpers();
@@ -336,53 +328,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _cancelHttpRequest();
 
     TextBuffer.set(entityId, $('#message-input').val());
-    // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-    //_updateCache();
-  }
-
-  /**
-   * 새로운 param을 만들어서 value 로 사용하고 현재 entity의 id(혹은 entityId, chat일 경우) 를 key로 사용하여 Cache를 업데이트한다.
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * @private
-   */
-  function _updateCache() {
-    var _listToBeCached = MessageCollection.getList();
-
-    if (_cachedListLength > 0 ) {
-      // 리스트 뒤에서부터 _cachedListLength만큼 가져온다.
-      _listToBeCached = _listToBeCached.slice(0 - _cachedListLength);
-    }
-
-    var param = {
-      list: _listToBeCached,
-      lastMessageId: lastMessageId,
-      globalLastLinkId: globalLastLinkId,
-      lastLinkId: MessageCollection.getLastLinkId(),
-      hasProcessed: true
-    };
-
-    //console.log('::storing', param);
-    //console.log(':::::::::::::::::::::::::::::::::::::::::::::::::::::::::')
-
-    TopicMessageCache.put(_getEntityId(), param);
-  }
-
-  /**
-   * 캐쉬를 업데이트해야하는 상황인가? 조건은
-   *   1. 현재 토픽의 마지막 메세지를 캐싀가 가지고 있지 않아야한다.
-   *   2. 현재 토픽의 마지막 메세지를 가지고 있어야 한다.
-   * 7/27/2015 시점에는 사용되지않는다.
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * @returns {*}
-   * @private
-   */
-  function _shouldUpdateCache() {
-    var _hasLastInCache = false;
-    if (TopicMessageCache.contains(_getEntityId())) {
-      var param = TopicMessageCache.get(_getEntityId());
-      _hasLastInCache = lastMessageId === param.lastMessageId;
-    }
-    return _hasLastMessage() && !_hasLastInCache;
   }
 
   /**
@@ -514,86 +459,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       return false;
     }
-  }
-
-  /**
-   * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * @private
-   */
-  function _displayCache() {
-    //console.log(_testCounter++, '::_displayCache');
-    var _cachedItem = TopicMessageCache.get(_getEntityId());
-
-    $scope.messages = [];
-    _isFromCache = true;
-
-    if (!_cachedItem.hasProcessed) {
-      MessageCollection.append(_cachedItem.list);
-      lastMessageId = MessageCollection.getLastLinkId();
-    } else {
-      MessageCollection.setList(_cachedItem.list);
-      lastMessageId = _cachedItem.lastMessageId;
-    }
-
-    globalLastLinkId = _cachedItem.globalLastLinkId || lastMessageId;
-
-    $scope.isInitialLoadingCompleted = true;
-
-    TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
-
-    _getUpdatedList();
-  }
-
-  /**
-   * 캐쉬된 이후로 업데이트된 것이 있는지 물어본다.
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * @private
-   */
-  function _getUpdatedList() {
-    //console.log(_testCounter++, '::_getUpdatedList');
-    deferredObject.updateList = $q.defer();
-    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId, deferredObject.updateList)
-      .success(_onUpdatedMessagesSuccess)
-      .error(function(err) {
-        console.log(err);
-        _setMessagesAfterCache();
-      });
-  }
-
-  /**
-   * 업데이트 api가 정상적으로 들어왔을 경우
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * @param {object} response - server로부터 들어온 정보
-   * @private
-   */
-  function _onUpdatedMessagesSuccess(response) {
-    //console.log(_testCounter++, '::_onUpdatedMessagesSuccess', response);
-
-    if (response.updateInfo.messageCount > 0) {
-      //console.log(_testCounter++, '::_update messages');
-
-      _shouldDisplayBookmarkFlag = true;
-      _shouldUpdateScrollToBookmark = true;
-
-      _onUpdateListSuccess(response);
-    } else {
-      //console.log(_testCounter++, '::no messages to update');
-      //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
-      updateMessageMarker();
-      _setMessagesAfterCache();
-    }
-  }
-
-  /**
-   * cache를 보여줄 때 더이상 messages list에 변화가 없을때 이 함수를 호출해서
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * ng-repeat을 시작하게끔한다.
-   * @private
-   */
-  function _setMessagesAfterCache() {
-    $scope.messages = MessageCollection.getList();
-    _updateUnreadBookmarkFlag();
   }
 
   /**
@@ -765,20 +630,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       _scrollToBottom();
     }
-    //console.log(_testCounter++, '::_onInitialLoad')
-    //
-    //if (_shouldDisplayBookmarkFlag) {
-    //  //console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-    //  $timeout(function() {
-    //  //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
-    //  _findMessageDomElementById('unread-bookmark', true);
-    //  });
-    //} else {
-    //  //console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
-    //  _scrollToBottom();
-    //}
-
-    _isFromCache = false;
 
     loadedFirstMessageId = MessageCollection.getFirstLinkId();
     loadedLastMessageId = MessageCollection.getLastLinkId();
@@ -915,14 +766,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
       messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
-        .success(_onUpdateListSuccess)
-        .error(_onUpdateListError);
+          .success(_onUpdateListSuccess)
+          .error(_onUpdateListError);
 
 
       // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
-      //$scope.promise = $timeout(updateList, updateInterval);
+      //$scope.promise = $timeout(updateList, updateInterval)
     }
   }
+
+
   function _onUpdateListError(response) {
     _isUpdateListLock = false;
     if (!_isDestroyed) {
@@ -936,6 +789,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
   }
+
   /**
    * 메세지 success 핸들러
    * @param {object} response 서버 응답
@@ -962,13 +816,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           MessageCollection.updateUnreadCount();
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
           //console.log('::_onUpdateListSuccess', lastMessageId);
-          jndPubSub.pub('onMessageDeleted');
           _checkEntityMessageStatus();
         }
-      }
-
-      if (_isFromCache) {
-        _setMessagesAfterCache();
       }
 
       if (_hasUpdate) {
@@ -1493,32 +1342,30 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onNewMessageArrived(angularEvent, msg) {
     //console.log('::_onNewMessageArrived');
-    if (!_isFromCache) {
-      // If message is from me -> I just wrote a message -> Just scroll to bottom.
-      if (centerService.isMessageFromMe(msg)) {
-        //_scrollToBottom(true);
-        //return;
-        _hasNewMessage = false;
+    // If message is from me -> I just wrote a message -> Just scroll to bottom.
+    if (centerService.isMessageFromMe(msg)) {
+      //_scrollToBottom(true);
+      //return;
+      _hasNewMessage = false;
+      return;
+    }
+
+    // Message is not from me -> Someone just wrote a message.
+    if (centerService.hasBottomReached()) {
+      //log('window with focus')
+      if (_isChatPanelActive()) {
+        _scrollToBottom(true);
         return;
       }
-
-      // Message is not from me -> Someone just wrote a message.
-      if (centerService.hasBottomReached()) {
-        //log('window with focus')
-        if (_isChatPanelActive()) {
-          _scrollToBottom(true);
-          return;
-        }
-      }
-      /*
-       rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
-       _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
-       */
-      if (_hasScroll()) {
-        _gotNewMessage();
-      } else {
-        entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
-      }
+    }
+    /*
+     rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
+     _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
+     */
+    if (_hasScroll()) {
+      _gotNewMessage();
+    } else {
+      entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
     }
   }
 
