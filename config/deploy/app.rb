@@ -20,9 +20,6 @@ set :branch, 'master'
 server '172.31.39.102', user: 'jandi', roles: 'client'
 server '172.31.39.103', user: 'jandi', roles: 'client'
 
-server '172.31.39.39', user: 'jandi', roles: 'client'
-server '172.31.39.40', user: 'jandi', roles: 'client'
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
