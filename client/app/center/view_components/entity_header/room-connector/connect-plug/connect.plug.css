@@ -3,7 +3,7 @@
   width: 100%;
   background-color: #FFF;
   border: 1px solid #D7DDE1;
-  padding: 8px 17px 8px 58px;
+  padding: 8px 17px 10px 58px;
   text-align: left;
   border-radius: 4px;
 }
@@ -36,8 +36,8 @@
 }
 
 .plug-body .plug-service {
-  margin-top: 2px;
-  margin-bottom:4px;
+  margin-top: 4px;
+  margin-bottom:2px;
   width: 100%;
   font-size: 14px;
   line-height: 16px;
