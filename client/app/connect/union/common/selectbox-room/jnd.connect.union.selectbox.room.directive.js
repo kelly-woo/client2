@@ -33,6 +33,8 @@
       function _init() {
         _setList();
         scope.model = scope.model || currentSessionHelper.getCurrentEntityId();
+        scope.selectedValue = scope.model;
+        scope.$watch('selectedValue', _onSelectedValueChange);
         scope.$on('topic-folder:update', _onUpdate);
       }
 
@@ -74,6 +76,21 @@
        */
       function _isTopic(entity) {
         return entity.type === 'privategroups' || entity.type === 'channels';
+      }
+
+      /**
+       * 선택된 값 변경시 콜백
+       * topic 이 아닐 경우 entityId 를 model 에 세팅한다.
+       * @param {number} newValue
+       * @private
+       */
+      function _onSelectedValueChange(newValue) {
+        var entity = EntityMapManager.get('total', newValue);
+        if (_isTopic(entity)) {
+          scope.model = newValue;
+        } else {
+          scope.model = entity.entityId;
+        }
       }
     }
   }
