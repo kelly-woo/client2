@@ -52,7 +52,9 @@
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
             JndUtil.safeApply(scope, function() {
-              _setImageData(evt.target.files[0]);
+              scope.isSelectedImage = true;
+              scope.croppedImage = null;
+              scope.files = evt.target.files;
             });
           })
           .trigger('click');
@@ -84,26 +86,6 @@
             jqMessageInput.focus();
             jqMessageSubmit.hide();
           }, 200);
-        }
-      }
-
-      /**
-       * image data 설정
-       * @param {object} file
-       * @private
-       */
-      function _setImageData(file) {
-        var fileReader;
-
-        if (file && window.FileReader && file.type.indexOf('image') > -1) {
-          fileReader = new FileReader();
-
-          scope.isSelectedImage = true;
-          fileReader.onload = function(event) {
-            scope.croppedImage = null;
-            scope.imageData = event.target.result;
-          };
-          fileReader.readAsDataURL(file);
         }
       }
 

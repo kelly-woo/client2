@@ -25,21 +25,11 @@
           $scope.isFileReaderAvailable = false;
           alert($filter('translate')('@ie9-profile-image-support'));
           return;
-        }
-        else {
-          if(window.FileReader && file.type.indexOf('image') > -1) {
-            $scope.isFileReaderAvailable = true;
-            var fileReader = new FileReader();
-
-            $scope.isProfilePicSelected = true;
-            fileReader.onload = function(e) {
-              $scope.$apply(function($scope) {
-                $scope.croppedProfilePic = '';
-                $scope.profilePic = e.target.result;
-              });
-            };
-            fileReader.readAsDataURL(files[0]);
-          }
+        } else {
+          $scope.isFileReaderAvailable = true;
+          $scope.isProfilePicSelected = true;
+          $scope.croppedProfilePic = '';
+          $scope.files = files;
         }
       }
     }
