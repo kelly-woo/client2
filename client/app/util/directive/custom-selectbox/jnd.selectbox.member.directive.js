@@ -266,7 +266,7 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(_getMembers(), function (entity) {
-              start = entity.name.toLowerCase().search(keyword);
+              start = entity.name.toLowerCase().indexOf(keyword);
               if (start !== -1) {
                 if (scope.isShowDisabled) {
                   entity.extSearchName = _highlight(entity.name, start, keyword.length);
