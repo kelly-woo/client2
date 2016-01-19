@@ -109,7 +109,7 @@
 
   <div class="file-detail-archive-status-container"  ng-if="isArchivedFile && !isInvalidRequest">
     <div class="file-detail-archive-status-container__inner" ng-click="backToPrevState()">
-      <img class="archived-file-icon-center" ng-src="assets/images/fileicon_archived.png"/>
+      <div class="archived-file-icon-center fileicon fileicon-archived"></div>
       <span translate>@file-delete-time-msg-pre</span>{{file.updateTime  | getyyyyMMddformat }}<span translate>@file-delete-time-msg-post</span>
     </div>
   </div>
@@ -118,7 +118,7 @@
   <div class="file-not-available-container" ng-if="isInvalidRequest">
     <div class="alert-msg-container cursor_pointer">
       <alert class="warning file-not-available-msg-container" ng-click="backToPrevState()">
-        <img class="archived-file-icon-center" ng-src="assets/images/fileicon_unshared.png" src="assets/images/fileicon_unshared.png">
+        <div class="archived-file-icon-center fileicon fileicon-unshared"></div>
         <span translate>@file-unshared-no-longer-accessible</span>
       </alert>
     </div>
