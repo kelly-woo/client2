@@ -356,12 +356,14 @@
 
     /**
      * server data 로 부터 UI 에 맞는 plug 데이터를 가공하여 반환한다.
-     * @param data
+     * @param {object} data
+     * @param {string} unionName
      * @returns {{user: *, room: *, isOn: boolean, raw: *}}
      * @private
      */
-    function _getPlug(data) {
+    function _getPlug(data, unionName) {
       return {
+        sourceName: JndConnect.getPlugSourceName(unionName, data),
         user: EntityMapManager.get('member', data.memberId),
         room: EntityMapManager.get('total', data.roomId),
         isOn: data.status === 'enabled',
@@ -380,7 +382,7 @@
       var item = union;
       item.plugs = [];
       _.forEach(list, function(data) {
-        item.plugs.push(_getPlug(data));
+        item.plugs.push(_getPlug(data, union.name));
       });
       return item;
     }

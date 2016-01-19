@@ -196,14 +196,13 @@
       function _addConnectPlug(name, connect) {
         var member = entityAPIservice.getEntityById('total', connect.memberId);
         var bot = entityAPIservice.getEntityById('total', connect.botId);
-
         if (member && bot) {
           scope.connectPlugs.push({
             botProfileImage: bot.thumbnailUrl,
             botName: bot.name,
             memberName: member.name,
             status: connect.status,
-
+            sourceName: JndConnect.getPlugSourceName(name, connect),
             unionName: name,
             connectId: connect.id,
             memberId: connect.memberId,

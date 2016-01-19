@@ -28,6 +28,7 @@
     this.openTopicCreateModal = openTopicCreateModal;
     this.isBannerShow = isBannerShow;
     this.setBannerStatus = setBannerStatus;
+    this.getPlugSourceName = getPlugSourceName;
 
     /**
      * banner 의 노출 상태를 반환한다.
@@ -163,6 +164,28 @@
       modalHelper.openTopicCreateModal({
         isEnterTopic: false
       });
+    }
+
+    /**
+     * plug 의 연동된 source 이름을 반환한다.
+     * @param {string} unionName
+     * @param {object} plugData
+     * @returns {*}
+     */
+    function getPlugSourceName(unionName, plugData) {
+      var sourceName;
+
+      switch (unionName) {
+        case 'googleCalendar':
+          sourceName = plugData['calendarSummary'];
+          break;
+        case 'github':
+          sourceName = plugData['hookRepoName'];
+          break;
+        default:
+          sourceName = '';
+      }
+      return sourceName;
     }
   }
 })();
