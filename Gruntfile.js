@@ -64,7 +64,9 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '.tmp/preload.tmp': ['client/**/*.{js,css}']
+          '.tmp/preload.tmp': [
+            'client/**/*.{js,css,html}'
+          ]
         }
       }
     },
@@ -621,7 +623,19 @@ module.exports = function (grunt) {
               replacement: function() {
                 var buffer = grunt.file.read('.tmp/preload.tmp');
                 var list = buffer.split('\n');
+                var map = {};
+                var i = 0;
+                var path;
                 list.pop();
+                for (; i < list.length; i++) {
+                  map[list[i]] = true;
+                }
+                list = [];
+
+                for (path in map) {
+                  list.push(path);
+                }
+
                 return JSON.stringify(list);
               }
             }
