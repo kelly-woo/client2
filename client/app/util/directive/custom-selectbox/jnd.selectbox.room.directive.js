@@ -372,6 +372,7 @@
        * @private
        */
       function _getAllEntities() {
+        var id;
         var allEntities = _.extend(
           EntityMapManager.getMap('joined'),
           EntityMapManager.getMap('private'),
@@ -384,7 +385,8 @@
         }
 
         allEntities = _.filter(allEntities, function(entity) {
-          return !memberService.isConnectBot(entity.id);
+          id = entity.id;
+          return !memberService.isConnectBot(id) && id !== memberService.getMemberId();
         });
 
         return allEntities;
