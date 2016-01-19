@@ -363,6 +363,10 @@ msgstr ""
 msgid "@common-file-type-all"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr ""
+
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -384,6 +384,10 @@ msgstr "ファイルの種類"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全ての種類"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "圧縮ファイル"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -2355,8 +2359,7 @@ msgstr "土曜日"
 msgid "@search-cond-reset"
 msgstr "検索条件を更新"
 
-#: client/app/right/files/files.html
-#: client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
