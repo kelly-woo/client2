@@ -234,14 +234,14 @@
             _.each(scope.list, function (item) {
               if (item.groupName) {
                 _.forEach(item.groupList, function (item) {
-                  start = item.text.toLowerCase().search(keyword);
+                  start = item.text.toLowerCase().indexOf(keyword);
                   if (start !== -1) {
                     item.extSearchName = _highlight(item.text, start, keyword.length);
                     result.push(item);
                   }
                 });
               } else {
-                start = item.text.toLowerCase().search(keyword);
+                start = item.text.toLowerCase().indexOf(keyword);
                 if (start !== -1) {
                   item.extSearchName = _highlight(item.text, start, keyword.length);
                   result.push(item);
