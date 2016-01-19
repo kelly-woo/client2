@@ -17,7 +17,7 @@
   var _imgList;
 
   /* @ngInject */
-  function config(configuration) {
+  function config(configuration, PRELOAD_LIST) {
     _isLocal = configuration.name === 'local';
     _path = configuration.path || '';
     _templateList = [
@@ -41,6 +41,7 @@
       '../assets/images/sticker/kiyomi_off.svg',
       '../assets/images/sticker/kiyomi_on.svg'
     ];
+    _imgList = _imgList.concat(PRELOAD_LIST);
   }
 
   /* @ngInject */
