@@ -298,11 +298,15 @@
         var disabledList = [];
         _.each(memberMap, function(member) {
           if (!_filterMap || (_filterMap && _filterMap[member.id])) {
-            if(currentMemberId !== member.id) {
+            if(currentMemberId !== member.id && !memberService.isConnectBot(member.id)) {
               if (publicService.isDisabledMember(member)) {
                 disabledList.push(member);
               } else {
-                enabledList.push(member)
+                if (memberService.isJandiBot(member.id)) {
+                  enabledList.unshift(member);
+                } else {
+                  enabledList.push(member);
+                }
               }
             }
           }
@@ -378,6 +382,11 @@
             return _filterMap[entity.id];
           });
         }
+
+        allEntities = _.filter(allEntities, function(entity) {
+          return !memberService.isConnectBot(entity.id);
+        });
+
         return allEntities;
       }
 

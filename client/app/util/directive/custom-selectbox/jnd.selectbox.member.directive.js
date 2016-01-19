@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxMember', jndSelectboxMember);
 
-  function jndSelectboxMember($filter, EntityMapManager, publicService, JndUtil, jndPubSub) {
+  function jndSelectboxMember($filter, EntityMapManager, publicService, JndUtil, jndPubSub, memberService) {
     return {
       restrict: 'AE',
       link: link,
@@ -208,10 +208,16 @@
         var enabledList = [];
         var disabledList = [];
         _.each(members, function(member) {
-          if (publicService.isDisabledMember(member)) {
-            disabledList.push(member);
-          } else {
-            enabledList.push(member)
+          if (!memberService.isConnectBot(member.id)) {
+            if (publicService.isDisabledMember(member)) {
+              disabledList.push(member);
+            } else {
+              if (memberService.isJandiBot(member.id)) {
+                enabledList.unshift(member);
+              } else {
+                enabledList.push(member);
+              }
+            }
           }
         });
         return {
