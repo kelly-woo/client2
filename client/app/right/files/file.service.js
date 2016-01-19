@@ -424,16 +424,19 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   }
 
   function generateFileTypeFilter() {
+    var translate = $filter('translate');
+
     var array = [
-      {viewValue: $filter('translate')('@common-file-type-all'), value: 'all'},
-      {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'},
-      {viewValue: $filter('translate')('@common-file-type-documents'), value: 'document'},
-      {viewValue: $filter('translate')('@common-file-type-presentations'), value: 'presentation'},
-      {viewValue: $filter('translate')('@common-file-type-spreadsheets'), value: 'spreadsheet'},
-      {viewValue: $filter('translate')('@common-file-type-pdf'), value: 'pdf'},
-      {viewValue: $filter('translate')('@common-file-type-images'), value: 'image'},
-      {viewValue: $filter('translate')('@common-file-type-video'), value: 'video'},
-      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'}
+      {viewValue: translate('@common-file-type-all'), value: 'all'},
+      {viewValue: translate('@common-file-type-google-docs'), value: 'googleDocs'},
+      {viewValue: translate('@common-file-type-documents'), value: 'document'},
+      {viewValue: translate('@common-file-type-presentations'), value: 'presentation'},
+      {viewValue: translate('@common-file-type-spreadsheets'), value: 'spreadsheet'},
+      {viewValue: translate('@common-file-type-pdf'), value: 'pdf'},
+      {viewValue: translate('@common-file-type-images'), value: 'image'},
+      {viewValue: translate('@common-file-type-video'), value: 'video'},
+      {viewValue: translate('@common-file-type-audio'), value: 'audio'},
+      {viewValue: translate('@common-file-type-archive'), value: 'archive'}
     ];
     return array;
   }
