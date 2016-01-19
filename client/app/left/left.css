@@ -421,7 +421,7 @@ last element of list
   min-height: 5px;
   height: 52px;
   overflow: hidden;
-  z-index : 522;
+  z-index : 526;
 }
 .lpanel-list-help-unread.ng-enter, .lpanel-list-help-unread.ng-leave {
   -webkit-transition:opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s;

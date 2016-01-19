@@ -1,9 +1,10 @@
-.room-integration-connect .connect-wrapper {
+.room-integration-connect .connect-wrapper.dropdown-menu {
   position: absolute;
   width: 392px;
   cursor: default;
   margin-top: 5px !important;
   overflow: hidden;
+  margin-right: 190px !important;
 }
 
 .room-integration-connect .connect-wrapper ul {
@@ -106,4 +107,9 @@
   left: 50%;
   margin-top: -12px;
   margin-left: -12px;
+}
+@media (max-width: 1240px) {
+  .room-integration-connect .connect-wrapper.dropdown-menu {
+    margin-right: 6px !important;
+  }
 }

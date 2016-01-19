@@ -255,9 +255,9 @@
 .panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-bell,
 .panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
   font-size: 18px;
-  top: 8px;
-  left: 6px;
-  position: absolute;
+  line-height: 24px;
+  display: inline-block;
+  vertical-align: top;
 }
 .panel-title-right-menu.room-integration-connect .panel-title-right-item > i.icon-connect {
   font-size: 20px;
@@ -344,7 +344,7 @@
   float: right;
   cursor: pointer;
   background-color: transparent;
-  position: relative;
+  position: static;
 }
 .panel-title-right-menu .panel-title-right-item {
   margin-top: 5px;
@@ -358,7 +358,10 @@
   background-color: #d7e0e8;
 }
 .panel-title-right-menu.room-integration-connect .panel-title-right-item{
-  padding-left: 28px;
+  padding-left: 6px;
+}
+.panel-title-right-menu.room-integration-connect .panel-title-right-item .connect-short-info {
+  line-height: 24px;
 }
 
 /*

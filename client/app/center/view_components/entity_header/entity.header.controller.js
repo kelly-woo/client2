@@ -49,8 +49,13 @@
      * @private
      */
     function _init() {
-      _initWithParam(_currentEntity);
-      _attachEventListeners();
+      //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
+      if (publicService.isInitDone()) {
+        _initWithParam(_currentEntity);
+        _attachEventListeners();
+      } else {
+        $scope.$on('dataInitDone', _init);
+      }
     }
 
     /**
@@ -86,10 +91,7 @@
         _checkIfDefaultTopic();
         _checkNotificationStatus();
 
-        if (!$scope.isUserType) {
-          // DM이 아닐 경우에만 connect info를 갱신한다.
-          _updateConnectInfo();
-        }
+        _updateConnectInfo();
       }
     }
 
@@ -124,6 +126,7 @@
 
         $scope.currentEntity = entity;
         $scope.isUserType = memberService.isMember(_currentEntity.id);
+        $scope.isAllowConnect = !$scope.isUserType || memberService.isJandiBot(_currentEntity.id);
         $scope.users = entityAPIservice.getUserList(entity);
       }
     }
@@ -408,11 +411,19 @@
      * @private
      */
     function _updateConnectInfo() {
+      var room;
+      var roomId;
+
       $scope.connectInfo = {};
-      entityHeader.getConnectInfo(_entityId)
-        .success(function(data) {
-          $scope.connectInfo = data;
-        });
+      if ($scope.isAllowConnect) {
+        if (room = entityAPIservice.getJoinedEntity(_entityId)) {
+          roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
+          entityHeader.getConnectInfo(roomId)
+            .success(function(data) {
+              $scope.connectInfo = data;
+            });
+        }
+      }
     }
   }
 })();
