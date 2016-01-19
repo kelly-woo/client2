@@ -11,14 +11,18 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   };
 
   var filterTypePreviewMap = {
-    pdf: '../assets/images/preview_pdf.png',
-    video:'../assets/images/preview_video.png',
     audio: '../assets/images/preview_audio.png',
+    video:'../assets/images/preview_video.png',
+    pdf: '../assets/images/preview_pdf.png',
+    hwp: '../assets/images/preview_hwp.png',
+    zip: '../assets/images/preview_zip.png',
     document: '../assets/images/preview_document.png',
     spreadsheet: '../assets/images/preview_spreadsheet.png',
     presentation: '../assets/images/preview_presentation.png',
-    googleDocs: '../assets/images/preview_google_docs.png',
+
+    google: '../assets/images/preview_google_docs.png',
     dropbox: '../assets/images/preview_dropbox.png',
+
     etc: '../assets/images/preview_other.png'
   };
 
