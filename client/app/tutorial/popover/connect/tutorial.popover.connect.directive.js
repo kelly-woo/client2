@@ -1,5 +1,5 @@
 /**
- * @fileoverview 폴더 튜토리얼 디렉티브
+ * @fileoverview 커넥트 튜토리얼 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
