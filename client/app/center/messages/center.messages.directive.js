@@ -53,6 +53,8 @@
         scope.$on('message:starred', _onStarred);
         scope.$on('message:unStarred', _onUnStarred);
 
+        scope.$on('webSocketConnect:connectUpdated', _onConnectUpdated);
+
         scope.$on('$destroy', _onDestroy);
 
         scope.$on('updateCenterForRelatedFile', _onFileUpdated);
@@ -215,9 +217,24 @@
        * @private
        */
       function _onUpdateMemberProfile(event, data) {
+        var id = data.member.id;
+
+        _refreshMsgByMemberId(id);
+      }
+
+      /**
+       * connect updated event handler
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onConnectUpdated(angularEvent, data) {
+        var id = data.bot.id;
+        _refreshMsgByMemberId(id);
+      }
+
+      function _refreshMsgByMemberId(id) {
         var list = MessageCollection.list;
-        var member = data.member;
-        var id = member.id;
 
         _.forEach(list, function(msg, index) {
           if (msg.extFromEntityId === id) {

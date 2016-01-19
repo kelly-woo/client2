@@ -10,11 +10,13 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
-                           analyticsService) {
-    var requestSetName;
-    var requestSetEmail;
-    var requestSetProfile;
+  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
+                           analyticsService, jndKeyCode) {
+    var isChangedName = false;
+    var isChangedEmail = false;
+    var isChangedProfile = false;
+
+    var timerShowDmInputAuto;
 
     _init();
 
@@ -35,6 +37,12 @@
       $scope.onSubmitDoneClick = onSubmitDoneClick;
       $scope.onProfileChange = onProfileChange;
       $scope.postMessage = postMessage;
+      $scope.onDmKeydown = onDmKeydown;
+
+      $scope.activeIndex = null;
+      $scope.onProfileSelect = function(index) {
+        $scope.activeIndex = index;
+      };
 
       _attachEvents();
 
@@ -50,6 +58,8 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
+
+      $scope.$on('$destroy', _onDestroy);
     }
 
     function _setCurrentUser(curUser) {
@@ -68,7 +78,15 @@
      * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.
      */
     function _onCurrentMemberChanged() {
-      _setCurrentUser(memberService.getMember());
+      if ($scope.isMyself) {
+        _setCurrentUser(memberService.getMember());
+      }
+    }
+
+    function _onDestroy() {
+      isChangedName && _changeProfileName();
+      isChangedEmail && _changeProfileEmail();
+      isChangedProfile && _changeProfileOtherInfo();
     }
 
     /**
@@ -97,32 +115,53 @@
     }
 
     /**
+     * dm 입력란 keydown event handler
+     */
+    function onDmKeydown(event) {
+      //if (jndKeyCode.match('ENTER', event.keyCode) && !$scope.isSending) {
+      if (jndKeyCode.match('ENTER', event.keyCode)) {
+        $scope.setShowDmSubmit(false);
+      }
+    }
+
+    /**
      * submit done click
      */
     function onSubmitDoneClick() {
       if (_isEnableDM()) {
-        $scope.showSubmitDone = false;
+        $scope.setShowDmSubmit(false);
       }
     }
 
+    /**
+     * dm 활성화 여부
+     * @returns {boolean}
+     * @private
+     */
     function _isEnableDM() {
-      return $scope.showSubmitDone && !$scope.isSending
+      //return $scope.isShowDmSubmit && !$scope.isSending
+      return $scope.isShowDmSubmit;
     }
 
     /**
      * post message
      */
     function postMessage() {
-      $scope.showSubmitDone = true;
-      $scope.isSending = true;
+      if ($scope.message.content) {
+        $scope.setShowDmSubmit(true);
+        //$scope.isSending = true;
 
-      messageAPIservice.postMessage('users', curUser.id, $scope.message.content)
-        .success(function() {
-          $scope.message.content = '';
-        })
-        .finally(function() {
-          $scope.isSending = false;
-        });
+        $timeout.cancel(timerShowDmInputAuto);
+        timerShowDmInputAuto = $timeout(function() {
+          $scope.setShowDmSubmit(false);
+        }, 2000);
+
+        messageAPIservice.postMessage('users', curUser.id, $scope.message.content)
+          .finally(function() {
+            $scope.message.content = '';
+            //$scope.isSending = false;
+          });
+      }
     }
 
     /**
@@ -239,35 +278,35 @@
      */
     function _onMessageContentChange(value) {
       if (_isEnableDM() && value !== '') {
-        $scope.showSubmitDone = false;
+        $scope.setShowDmSubmit(false);
       }
     }
 
     function onProfileChange(type, value) {
       switch(type) {
         case 'name':
+          isChangedName = true;
           $scope.curUser.name = value;
-          _changeProfileName();
           break;
         case 'email':
+          isChangedEmail = true;
           $scope.curUser.u_email = value;
-          _changeProfileEmail();
           break;
         case 'department':
+          isChangedProfile = true;
           $scope.curUser.u_extraData.department = value;
-          _changeProfileOtherInfo();
           break;
         case 'position':
+          isChangedProfile = true;
           $scope.curUser.u_extraData.position = value;
-          _changeProfileOtherInfo();
           break;
         case 'phoneNumber':
+          isChangedProfile = true;
           $scope.curUser.u_extraData.phoneNumber = value;
-          _changeProfileOtherInfo();
           break;
         case 'statusMessage':
+          isChangedProfile = true;
           $scope.curUser.u_statusMessage = value;
-          _changeProfileOtherInfo();
           break;
       }
     }
@@ -276,8 +315,7 @@
      * 현재 보고 있는 프로필의 이름을 바꾼다.
      */
     function _changeProfileName() {
-      requestSetName && requestSetName.abort();
-      requestSetName = memberService.setName(memberService.getName($scope.curUser))
+      memberService.setName(memberService.getName($scope.curUser))
         .error(function (err) {
           console.log(err);
         });
@@ -287,8 +325,7 @@
      * 현재 보고 있는 프로필의 이메일을 바꾼다.
      */
     function _changeProfileEmail() {
-      requestSetEmail && requestSetEmail.abort();
-      requestSetEmail = memberService.setEmail(memberService.getEmail($scope.curUser))
+      memberService.setEmail(memberService.getEmail($scope.curUser))
         .error(function (err) {
           console.log(err);
         });
@@ -299,8 +336,7 @@
      *   - 오늘의 기분, 전화번호, 부서, 그리고 직책
      */
     function _changeProfileOtherInfo() {
-      requestSetProfile && requestSetProfile.abort();
-      requestSetProfile = memberService.updateProfile($scope.curUser)
+      memberService.updateProfile($scope.curUser)
         .success(function() {
           // analytics
           analyticsService.mixpanelTrack( "Set Profile" );
@@ -315,7 +351,7 @@
           analyticsService.mixpanelPeople( "set", profile_data );
         })
         .error(function(err) {
-          console.error('updateUserProfile', err.code, err.msg);
+          console.error('updateUserProfile', arguments);
         });
     }
   }

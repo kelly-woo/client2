@@ -14,7 +14,9 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el) {
+      var timerHideDmSubmit;
+
       _init();
 
       /**
@@ -26,6 +28,9 @@
 
         scope.onImageCropDone = onImageCropDone;
         scope.onImageEditClick = onImageEditClick;
+        scope.onSubmitDoneClick = onSubmitDoneClick;
+
+        scope.setShowDmSubmit = setShowDmSubmit;
       }
 
       /**
@@ -51,6 +56,35 @@
             });
           })
           .trigger('click');
+      }
+
+      /**
+       * submit done click event handler
+       */
+      function onSubmitDoneClick() {
+        setShowDmSubmit(false);
+        _focusInput();
+      }
+
+      /**
+       * dm 입력란 상태 설정
+       * @param {boolean} value
+       */
+      function setShowDmSubmit(value) {
+        var jqMessageSubmit = el.find('.message-submit-bg');
+        var jqMessageInput = el.find('.form-control');
+
+        clearTimeout(timerHideDmSubmit);
+        scope.isShowDmSubmit = value;
+        if (value) {
+          jqMessageInput.blur();
+          jqMessageSubmit.show();
+        } else {
+          timerHideDmSubmit = setTimeout(function() {
+            jqMessageInput.focus();
+            jqMessageSubmit.hide();
+          }, 200);
+        }
       }
 
       /**
@@ -90,6 +124,16 @@
             //  });
             scope.hasUpdatedProfilePic = true;
           })
+      }
+
+      /**
+       * input에 focus
+       * @private
+       */
+      function _focusInput() {
+        var jqInput = el.find('.form-control');
+
+        jqInput.focus();
       }
     }
   }

@@ -105,14 +105,27 @@ article {
 
 }
 .msgs-group__divider {
-  background-color: #d7e0e8;
-  border-radius: 3px;
-  font-size: 12px;
-  color: #192d3e;
+  /*background-color: #d7e0e8;
+  border-radius: 3px;*/
+  font-size: 15px;
+  font-weight: 700;
+  color: #9DADB5;
   display: table;
   padding: 5px 12px;
-  margin: 10px 0 10px 66px;
+  margin: 14px 0 14px 55px;
+  background-color: #FFF;
 }
+.msgs-group__divider:before {
+  content: '';
+  position: absolute;
+  background-color:#D8DFE3;
+  height: 1px;
+  left: 22px;
+  right: 16px;
+  margin-top: 9px;
+  z-index: -1;
+}
+
 .msgs-group__divider-label {
   display: inline-block;
   padding-top: 4px;
@@ -124,6 +137,18 @@ article {
   margin-top: 8px;
   padding: 5px 15px 0 67px;
   display: block;
+}
+#unread-bookmark.msg-item {
+  margin-bottom: 10px;
+  margin-top: 8px;
+  padding-top: 0;
+}
+#unread-bookmark.msg-item .msg-unread-bookmark {
+  margin: 0;
+  line-height: 28px;
+}
+#unread-bookmark.msg-item .system-event-msg .msg-item-float {
+  top: -1px;
 }
 /*.msgs-group:last-of-type > .msg-item {*/
   /*margin-bottom: 0;*/
@@ -426,8 +451,18 @@ by ysyun 2015.2.25
   right: 0;
   bottom: 0;
   height: 54px;
+  z-index: 12;
+}
+.footer:after {
+  content: '';
+  position: absolute;
+  left: -30px;
+  right: -30px;
+  bottom: 0;
+  height: 54px;
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
+
 .footer #primary_file_button {
   border: none;
   border-radius: 0;
@@ -494,9 +529,12 @@ by ysyun 2015.2.25
 .system-event-msg {
   min-height: 15px;
   margin-bottom: 0px;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
+  top:6px;
 }
 .system-event-msg .msg-item-float img {
   background-image: none !important;

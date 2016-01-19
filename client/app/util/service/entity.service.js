@@ -27,6 +27,7 @@
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
       isJoinedTopic: isJoinedTopic,
+      isDM: isDM,
 
       getMemberList: getMemberList,
       getUserList: getUserList,
@@ -35,6 +36,9 @@
       getBotList: getBotList,
       getJandiBot: getJandiBot,
       isLeavedTopic: isLeavedTopic,
+
+      addBot: addBot,
+      updateBot: updateBot,
 
       createTotalData: createTotalData
     };
@@ -289,6 +293,15 @@
     }
 
     /**
+     * 조인되어있는 DM인지 알아본다.
+     * @param entity
+     * @returns {*|boolean|*}
+     */
+    function isDM(entity) {
+      return EntityMapManager.contains('memberEntityId', entity.id);
+    }
+
+    /**
      * entity의 type에따라 맞는 member array를 넘겨준다.
      * @param entity
      * @returns {array} memberList
@@ -493,11 +506,30 @@
       }
     }
 
+    /**
+     * add bot
+     * @param {object} bot
+     */
     function addBot(bot) {
       if (_.isObject(bot)) {
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);
+      }
+    }
+
+    /**
+     * update bot
+     * @param {object} bot
+     */
+    function updateBot(bot) {
+      var targetBot;
+      if (_.isObject(bot)) {
+        targetBot = getEntityById('total', bot.id);
+
+        targetBot.status = bot.status;
+        targetBot.name = bot.name;
+        targetBot.thumbnailUrl = bot.thumbnailUrl;
       }
     }
   }

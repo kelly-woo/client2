@@ -1,23 +1,40 @@
-<div class="expanding-input {{::inputClass}}" ng-class="{'guide-line': hasGuideLine}" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()">
-  <span ng-switch="hasList">
-    <span class="input-multi" ng-switch-when="true">
-      <select ng-model="input.text"
-              ng-change="onSelect()"
-              ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
-      </select>
-      <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">
-        <i class="icon-arrow-down" ng-switch-when="edit"></i>
+<div class="expanding-input" ng-class="{'guide-line': hasGuideLine()}" ng-mouseenter="onViewFocus()">
+  <div ng-switch="hasList">
+    <div class="input-multi" ng-switch-when="true" ng-init="onInputLoaded()">
+      <div class="text-view">
+        <div class="input-text-wrapper" style="display: block;" readonly
+             contenteditable="true"
+             ng-mouseenter="onViewFocus()"
+             ng-focus="onViewFocus()">
+          <div class="input-text" ng-bind="input.text"></div>
+        </div>
+        <select style="display: none"
+                ng-model="input.text"
+                ng-blur="onInputBlur()"
+                ng-change="onSelectOption()"
+                ng-options="item.id as item.id for item in list | filter : {status:'confirmed'} ">
+        </select>
       </div>
-    </span>
-    <span class="input-single" ng-switch-default>
-      <input type="text" ng-model="input.text" maxlength="{{::maxLength}}"
-             ng-focus="onFocus()"
-             ng-blur="onBlur()"
-             ng-keydown="onKeyDown($event)"/>
-      <div class="expanding-input-status {{::inputStatusClass}}" ng-switch="status" ng-mousedown="onMousedown()">
+    </div>
+    <div class="input-single" ng-switch-default ng-init="onInputLoaded()">
+      <div class="text-view">
+        <div class="input-text-wrapper" style="display: block;" readonly
+             contenteditable="true"
+             ng-mouseenter="onViewFocus()"
+             ng-focus="onViewFocus()">
+          <div class="input-text" ng-bind="input.text"></div>
+        </div>
+        <input style="display: none;" type="text" maxlength="{{::maxLength}}" placeholder="{{::placeholder}}"
+               jnd-input-model="input.text"
+               jnd-is-trim="on"
+               ng-blur="onInputBlur()"
+               jnd-on-change="onTextChange()"
+               ng-keydown="onKeyDown($event)"/>
+      </div>
+      <div class="expanding-input-status" ng-switch="status" ng-click="onMousedown()">
         <i class="icon-pencil-fill" ng-switch-when="edit"></i>
         <i class="icon-delete" ng-switch-when="cancel"></i>
       </div>
-    </span>
-  </span>
+    </div>
+  </div>
 </div>

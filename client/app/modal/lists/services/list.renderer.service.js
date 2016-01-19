@@ -14,30 +14,32 @@
 
     /**
      * member list를 랜더링한다.
-     * @param {string} type - renderer type
-     * @param {array} list - topic list
-     * @param {object} viewport
+     * @param {object} data
+     * @param {string} data.type - renderer type
+     * @param {array} data.list - topic list
+     * @param {string} data.filterText
+     * @param {object} data.viewport
      * @param {boolean} isUpdateList
      */
-    function render(type, list, viewport, isUpdateList) {
+    function render(data, isUpdateList) {
       var elements = [];
-      var itemRenderer = ItemRenderFactory.get(type);
+      var itemRenderer = ItemRenderFactory.get(data.type);
       var i;
       var len;
 
       var position;
 
       if (isUpdateList) {
-        viewport.updateList(list);
+        data.viewport.updateList(data.list);
       }
 
-      position = viewport.getPosition();
+      position = data.viewport.getPosition();
 
       for (i = position.beginIndex, len = position.endIndex; i <= len; ++i) {
-        elements.push(itemRenderer.render(list[i]));
+        elements.push(itemRenderer.render(data.list[i], data.filterText));
       }
 
-      viewport.render(position, elements);
+      data.viewport.render(position, elements);
     }
   }
 })();

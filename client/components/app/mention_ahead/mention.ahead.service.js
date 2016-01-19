@@ -187,6 +187,8 @@
         });
 
         if (entityId != null) {
+          _addJandiBot(mentionList);
+
           mentionList.unshift({
             // mention item 출력용 text
             name: that.MENTION_ALL_ITEM_TEXT,
@@ -198,8 +200,6 @@
             id: entityId,
             type: 'room'
           });
-
-          _addJandiBot(mentionList);
         }
       }
 
@@ -258,7 +258,7 @@
       var jandiBot = entityAPIservice.getJandiBot();
 
       if (jandiBot) {
-        mentionList.push({
+        mentionList.unshift({
           name: jandiBot.name,
           extViewName: '[@' + jandiBot.name + ']',
           extSearchName: jandiBot.name,

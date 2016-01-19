@@ -38,9 +38,7 @@
               <jnd-connect-union-selectbox list="notificationMinuteList"
                                            value="data.notificationBefore"></jnd-connect-union-selectbox>
               <label>
-                <div class="checkbox-description">
-                  <span>{{utcTimeOffsetDescription}}</span>
-                </div>
+                <div class="checkbox-description">{{::utcTimeOffsetDescription}}</div>
               </label>
             </div>
             <div class="checkbox-list-container">
@@ -55,16 +53,14 @@
               <jnd-connect-union-selectbox list="allDaynotificationHourList"
                                            value="data.allDayNotificationHour"></jnd-connect-union-selectbox>
               <label>
-                <div class="checkbox-description">
-                  <span>{{utcTimeOffsetDescription}}</span>
-                </div>
+                <div class="checkbox-description">{{::utcTimeOffsetDescription}}</div>
               </label>
             </div>
             <div class="clear"></div>
           </div>
         </section>
         <section class="service-setting select-nofification borderless-section jnd-column-5-width jnd-float-left second-column">
-          <span class="setting-label">일정 요약</span>
+          <span class="setting-label" translate>@jnd-connect-87</span>
           <div class="setting-contents">
             <span class="setting-description"></span>
             <div class="checkbox-list-container">
@@ -77,9 +73,7 @@
               <jnd-connect-union-selectbox list="dailyScheduleSummaryHourList"
                                            value="data.dailyScheduleSummary"></jnd-connect-union-selectbox>
               <label>
-                <div class="checkbox-description">
-                  <span>{{utcTimeOffset}}</span>
-                </div>
+                <div class="checkbox-description">{{::utcTimeOffset}}</div>
               </label>
             </div>
             <div class="checkbox-list-container">
@@ -94,9 +88,7 @@
               <jnd-connect-union-selectbox list="weeklyScheduleSummaryHourList"
                                            value="data.weeklyScheduleSummaryHour"></jnd-connect-union-selectbox>
               <label>
-                <div class="checkbox-description">
-                  <span translate="">{{utcTimeOffset}}</span>
-                </div>
+                <div class="checkbox-description">{{::utcTimeOffset}}</div>
               </label>
             </div>
             <div class="clear"></div>
@@ -106,7 +98,7 @@
           <span class="setting-label" translate>@jnd-connect-83</span>
           <div class="setting-contents">
             <span class="setting-description"></span>
-            <div class="checkbox-list-container text-only jnd-float-left">
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width">
               <input id="new_event_notification" type="checkbox" ng-model="data.newEventNotification">
               <label for="new_event_notification">
                 <div class="checkbox-description">
@@ -114,7 +106,7 @@
                 </div>
               </label>
             </div>
-            <div class="checkbox-list-container text-only jnd-float-left clear">
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width clear">
               <input id="updated_event_notification" type="checkbox" ng-model="data.updatedEventNotification">
               <label for="updated_event_notification">
                 <div class="checkbox-description">
@@ -122,7 +114,7 @@
                 </div>
               </label>
             </div>
-            <div class="checkbox-list-container text-only jnd-float-left clear">
+            <div class="checkbox-list-container text-only jnd-float-left jnd-column-5-width clear">
               <input id="cancelled_event_notification" type="checkbox" ng-model="data.cancelledEventNotification">
               <label for="cancelled_event_notification">
                 <div class="checkbox-description">

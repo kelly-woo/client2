@@ -36,7 +36,7 @@
         <span class="pull-right">//Body text (Required)</span>
       </div>
       <div class="code-line indent-1depth">
-        <span>connectColor: '#FAC11B'</span>
+        <span>connectColor: '#FAC11B',</span>
         <span class="pull-right">//Hex code color of attachment bar</span>
       </div>
       <div class="code-line indent-1depth">
@@ -69,10 +69,7 @@
         <span class="pull-right">//Image URL</span>
       </div>
       <div class="code-line indent-1depth">
-        <span>}</span>
-      </div>
-      <div class="code-line indent-1depth">
-        <span>]</span>
+        <span>}]</span>
       </div>
       <div class="code-line indent-0depth">
         <span>}</span>
@@ -82,7 +79,24 @@
 
     <span class="introduction-desc" translate>@jnd-connect-166</span>
     <div class="introduction-code-view long">
-      <div class="code-line indent-0depth"><span>curl -X POST https://webhookURL -d "{body: ''[PizzaHouse](http://url_to_text) You have a new Pizza order.'}"</span></div>
+      <div class="code-line indent-0depth">
+	    <span>curl \</span>
+      </div>
+      <div class="code-line indent-2depth">
+	    <span>-X POST <b>WebHookUrl</b> \</span>
+      </div>
+      <div class="code-line indent-2depth">
+	    <span>-H "Accept: application/vnd.tosslab.jandi-v2+json" \</span>
+      </div>
+      <div class="code-line indent-2depth">
+	    <span>-H "Content-Type: application/json" \</span>
+      </div>
+      <div class="code-line indent-2depth">
+	    <span>--data-binary '{"body":"[[PizzaHouse]](http://url_to_text) You have a new Pizza order.","connectColor":"#FAC11B","connectInfo":[{"title":"Topping","description":"Pepperoni"},</span>
+      </div>
+      <div class="code-line indent-0depth">
+	    <span>{"title":"Location","description":"Empire State Building, 5th Ave, New York","imageUrl":"Url_to_text"}]}'</span>
+      </div>
     </div>
     <span class="introduction-desc" translate>@jnd-connect-167</span>
     <img class="example" src="assets/images/jnd-connect-introduction-webhook-example.png" />

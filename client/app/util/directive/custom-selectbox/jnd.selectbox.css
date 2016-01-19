@@ -45,6 +45,7 @@
   background-color: #ECECEC;
   color: #BBB;
   border-color: #CBCBCB;
+  cursor: not-allowed !important;
 }
 .item-disabled span{
   color: #CCC !important;
@@ -63,7 +64,7 @@
   
   -webkit-transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
   -webkit-transition: -webkit-transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms; /* prefix for Safari */
-  -moz--transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
+  -ms-transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
   -o-transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
   -moz-transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;
   transition: transform cubic-bezier(0.250, 1.075, 0.480, 1.235) 350ms;

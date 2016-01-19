@@ -247,38 +247,27 @@
 
     /**
      * enabled member list를 전달한다.
-     * @param value -  filter 문자열
+     * @param {string} filterText -  filter 문자열
      * @returns {Array|{criteria, index, value}}
      * @private
      */
-    function _getEnabledMembers(value) {
+    function _getEnabledMembers(filterText) {
       var members = currentSessionHelper.getCurrentTeamUserList();
       var jandiBot = entityAPIservice.getJandiBot();
-
-      var enabledMembers = [];
 
       if (jandiBot) {
         members = members.concat([jandiBot]);
       }
 
-      _.forEach(members, function(member) {
-        if (member.name.toLowerCase().indexOf(value.toLowerCase()) > -1 && !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id) {
-        //if (memberService.getMemberId() !== member.id && member.name.indexOf(value) > -1) {
-          enabledMembers.push({
-            type: member.type,
-            id: member.id,
-            name: member.name,
-            status: member.status,
-            profileImage: memberService.getProfileImage(member.id),
-            query: value,
-            count: member.alarmCnt
-          });
-        }
-      });
-
-      return _.sortBy(enabledMembers, function (member) {
-        return member.name.toLowerCase();
-      });
+      return _.chain(members)
+        .filter(function(member) {
+          return member.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 &&
+            !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id;
+        })
+        .sortBy(function(member) {
+          return member.name.toLowerCase();
+        })
+        .value();
     }
 
     /**
@@ -297,7 +286,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             count: channel.alarmCnt
           });
         }
@@ -310,7 +298,6 @@
             type: privategroup.type,
             id: privategroup.id,
             name: privategroup.name,
-            query: value,
             count: privategroup.alarmCnt
           });
         }
@@ -336,7 +323,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             isUnjoinedChannel: true
           });
         }

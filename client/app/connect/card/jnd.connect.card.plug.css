@@ -3,7 +3,7 @@
   background-color: #FFF;
   border-top: 1px solid #E4E4E4;
   box-sizing: border-box;
-  padding: 10px 18px 12px 26px;
+  padding: 10px 18px 10px 96px;
   position: relative;
 }
 .connect-union-container .connect-union-plug-container .connect-union-plug-tool-container{
@@ -20,14 +20,26 @@
 .connect-union-plug-container > div {
   float: left;
 }
+.connect-union-plug-container > div:nth-child(2) {
+  max-width: calc(90% - 360px);
+}
 
 .connect-union-plug-icon {
   width:32px;
   height: 32px;
-  margin: 8px 38px 8px 0;
+  margin: 0;
   color: transparent;
   background: url('/assets/images/service-logo-jnd-connect-inactive.png');
   background-size: cover;
+  position: absolute;
+  left: 26px;
+  top:50%;
+  
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
 }
 .connect-union-plug-icon.active {
   background: url('/assets/images/service-logo-jnd-connect-active.png');
@@ -42,6 +54,9 @@
   font-weight: 600;
   padding-left: 24px;
   position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .connect-union-plug-title > i,
 .connect-union-plug-desc i {
@@ -54,12 +69,18 @@
 
 .connect-union-plug-tool-container {
   color: #B3B3B3;
-  display: inline;
-  vertical-align: middle;
   max-height: 48px;
   font-size: 15px;
-  line-height: 48px;
+  line-height: 30px;
   font-weight: 700;
+  
+  top: 50%;
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
+  
 }
 
 .connect-union-plug-tool-text {

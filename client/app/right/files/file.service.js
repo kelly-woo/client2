@@ -357,7 +357,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       } else {
         if( sharedEntity.type == 'privategroups' && entityAPIservice.isUser(sharedEntity, $rootScope.member) ||
           sharedEntity.type == 'channels' ||
-          sharedEntity.type == 'users' )  {
+          memberService.isMember(sharedEntity.id))  {
 
           sharedEntityArray.push(sharedEntity)
         }
