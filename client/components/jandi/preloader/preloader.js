@@ -23,24 +23,7 @@
     _templateList = [
       'app/disconnect/disconnect.html'
     ];
-    _imgList = [
-      '../assets/images/icon_loading.gif',
-      '../assets/images/icon_network_error.png',
-      '../assets/images/icon-disabled-members-alert.png',
-      // integration icons
-      '../assets/images/icon_google_drive.png',
-      '../assets/images/icon_dropbox.png',
-      // Sample notification icon
-      '../assets/images/jandi-logo-200x200.png',
-      // Favicons
-      '../assets/images/favicon/favicon.png',
-      '../assets/images/favicon/favicon_noti.png',
-      // sticker
-      '../assets/images/sticker/pangya_pangya_off.svg',
-      '../assets/images/sticker/pangya_pangya_on.svg',
-      '../assets/images/sticker/kiyomi_off.svg',
-      '../assets/images/sticker/kiyomi_on.svg'
-    ];
+    _imgList = [];
     _imgList = _imgList.concat(PRELOAD_LIST);
   }
 
