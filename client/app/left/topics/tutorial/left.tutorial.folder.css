@@ -7,6 +7,17 @@
   min-width: 296px;
   z-index: 505;
 }
+.jnd-connect.tutorial-popup.dropdown-menu {
+  padding: 0;
+  display: block;
+  position: absolute;
+  top: 13px;
+  left: 11px;
+  min-width: 400px;
+  z-index: 525;
+  text-align: center;
+  background-color: white;
+}
 .popup-left-arrow {
   position:absolute;
   left:-8px;
@@ -20,6 +31,18 @@
 	-webkit-transform:rotate(-45deg);
 	transform:rotate(-45deg);
 	z-index: -1;
+}
+.jnd-connect .popup-top-arrow {
+  position:absolute;
+  left: 23px;
+  top:-7px;
+  height: 14px;
+  width: 14px;
+  background-color: #38aaed;
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+  z-index: -1;
 }
 .tuto-img-container {
   border:1px solid #e2e2e2;
@@ -35,6 +58,16 @@
   top:-5px;
   position: relative;
 }
+.tuto-mp4-container {
+  background-color: #38aaed;
+  position: relative;
+  top: -3px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  padding-top: 10px;
+  border-bottom: 1px solid #d1d1d1;
+  height: 191px;
+}
 .dropdown-title {
   font-size: 15px;
   line-height: 22px;
@@ -45,6 +78,20 @@
   margin-bottom:6px;
   top:1px;
   word-break: break-all; /*fallback*/
+}
+.jnd-connect .dropdown-title {
+  display: block !important;
+  padding-top: 14px;
+  padding-bottom: 8px;
+  font-size: 18px;
+}
+.jnd-connect .jnd-connect-logo {
+  height: 17px;
+  width: 17px;
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: -2px;
 }
 .dropdown-title:lang(ko) {
   line-height: 23px;
@@ -63,12 +110,22 @@
   line-height: 21px;
   /*padding-left: 4px;*/
   padding-right: 4px;
+  color: #777777;
+  font-size: 14px;
+  line-height: 21px;
 }
 .tutorial-popup button.close {
   outline: 0;
   font-size: 13px !important;
   margin-top:6px;
   margin-left:10px;
+}
+.jnd-connect button.close {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  color: white;
+  font-size: 11px !important;
 }
 .tutorial-popup .green_badge {
   line-height: 11px;
@@ -80,12 +137,18 @@
   margin-top: 12px;
   padding: 4px;
   padding-top:14px;
+  padding-bottom: 14px;
   position:relative;
   border-top:1px solid rgba(0,0,0,0.1);
 }
-
+.jnd-connect .dont-show-again-container {
+    margin-top: 10px;
+    padding-top: 0;
+    border: none;
+}
 .tutorial-popup .dont-show-again-container label {
   font-weight: normal;
+  color: #777777;
 }
 
 .tutorial-popup .dont-show-again-container span:hover {
@@ -100,4 +163,7 @@
 }
 .tutorial-popup .dont-show-again-container span {
   margin-left:4px;
+}
+.dropdown-footer {
+  padding-bottom: 22px;
 }
