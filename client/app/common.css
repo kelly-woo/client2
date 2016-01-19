@@ -825,7 +825,11 @@ input[type="button"] {
   top: -5px;
   margin-left: calc(100% - 5px) !important;
 }
-
+.dropdown-menu .font-size-sub-menu {
+  position: absolute;
+  top: -5px;
+  margin-left: calc(100% - 5px) !important;
+}
 .right-align {
   left: auto;
   right: 10px;
@@ -845,7 +849,10 @@ input[type="button"] {
   cursor: pointer;
   padding: 0 1.5rem 0 3rem;
 }
-
+.dropdown-menu .font-size-sub-menu > li > .menu-item,
+.dropdown-menu .font-size-sub-menu > li > a {
+  padding: 0 1.5rem 0 1rem;
+}
 .grey_dropdown > li > a:empty,
 .green_dropdown > li > a:empty {
   display: none;

@@ -111,7 +111,37 @@
         </li>
 
         <li class="divider"></li>
+        <!-- Zoom In/Out -->
+        <li ng-if="isZoomEnable" role="presentation">
+          <div class="menu-item" role="menuitem" tabindex="-1">
+            <i class="fa fa-font"></i>
+            <span translate>@common-text-size</span>
+            <i class="icon-angle-right sub-menu-arrow"></i>
 
+            <ul class="dropdown-menu grey_dropdown sub-menu font-size-sub-menu">
+              <li class="">
+                <a role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
+                  <span translate>@common-zoom-in</span>
+                  <span class="shortcuts-label">Ctrl+(+)</span>
+                </a>
+              </li>
+
+              <li class="">
+                <a role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
+                  <span translate>@common-zoom-out</span>
+                  <span class="shortcuts-label">Ctrl+(-)</span>
+                </a>
+              </li>
+
+              <li class="" ng-click="zoomReset($event)">
+                <a role="menuitem" tabindex="-1" ng-click="">
+                  <span translate>@common-zoom-reset</span>
+                  <span class="shortcuts-label">Ctrl+0</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
         <!-- 이용 약관 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
