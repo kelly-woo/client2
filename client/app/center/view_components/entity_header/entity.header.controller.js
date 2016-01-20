@@ -19,6 +19,8 @@
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();
 
+    var requestConnectInfo;
+
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;
@@ -437,7 +439,9 @@
       if ($scope.isAllowConnect) {
         if (room = entityAPIservice.getJoinedEntity(_entityId)) {
           roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
-          entityHeader.getConnectInfo(roomId)
+
+          requestConnectInfo && requestConnectInfo.abort();
+          requestConnectInfo = entityHeader.getConnectInfo(roomId)
             .success(function(data) {
               $scope.connectInfo = data;
             });

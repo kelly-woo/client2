@@ -22,7 +22,7 @@
     };
 
     function link(scope) {
-      var clearWatch;
+      var removedConnectPlugs = [];
       var connectPlugMap;
 
       _init();
@@ -48,6 +48,7 @@
        */
       function _attachEvents() {
         scope.$watch('connectInfo', _onConnectInfoChange);
+        scope.$watch('connectPlugs.length', _setConnectContent);
 
         scope.$on('webSocketConnect:connectCreated', _onConnectCreated);
         scope.$on('webSocketConnect:connectUpdated', _onConnectUpdated);
@@ -70,7 +71,7 @@
        * @private
        */
       function _onConnectCreated(angularEvent, data) {
-        _addConnectPlug(data.connect.type, data.connect);
+        _setConnectPlug(data.connect.type, data.connect);
       }
 
       /**
@@ -181,7 +182,6 @@
        * @private
        */
       function _initConnectPlugs() {
-        clearWatch && clearWatch();
         scope.connectPlugs = [];
         connectPlugMap = {};
       }
@@ -193,8 +193,8 @@
        */
       function _setConnectInfo(connectInfo) {
         if (_.isEmpty(connectInfo)) {
-          _initConnectPlugs();
           scope.isInitialized = false;
+          _initConnectPlugs();
         } else {
           scope.isInitialized = true;
 
@@ -205,8 +205,6 @@
           });
 
           _setConnectContent();
-
-          clearWatch = scope.$watch('connectPlugs.length', _setConnectContent);
         }
       }
 
@@ -217,17 +215,23 @@
        * @private
        */
       function _setConnectPlug(name, connect) {
-        var member = entityAPIservice.getEntityById('total', connect.memberId);
-        var bot = entityAPIservice.getEntityById('total', connect.botId);
+        var member;
+        var bot;
         var connectPlug;
-  
-        if (member && bot) {
-          if (connectPlug = connectPlugMap[connect.id]) {
-            // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.
-            _updateConnectPlug(name, connect, bot, member, connectPlug);
-          } else {
-            // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
-            _addConnectPlug(name, connect, bot, member);
+
+        if (removedConnectPlugs.indexOf(connect.id) < 0) {
+          // 삭제되었던 connect plug가 아님
+          
+          member = entityAPIservice.getEntityById('total', connect.memberId);
+          bot = entityAPIservice.getEntityById('total', connect.botId);
+          if (member && bot) {
+            if (connectPlug = connectPlugMap[connect.id]) {
+              // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.
+              _updateConnectPlug(name, connect, bot, member, connectPlug);
+            } else {
+              // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
+              _addConnectPlug(name, connect, bot, member);
+            }
           }
         }
       }
@@ -283,6 +287,7 @@
         var index = _.findIndex(scope.connectPlugs, 'connectId', connectId);
 
         if (index > -1) {
+          removedConnectPlugs.push(connectId);
           scope.connectPlugs.splice(index, 1);
           delete connectPlugMap[connectId];
         }
@@ -293,17 +298,21 @@
        * @private
        */
       function _setConnectContent() {
-        var translate = $filter('translate');
-        scope.hasConnectPlugs = scope.connectPlugs.length > 0;
+        var translate;
 
-        if (scope.hasConnectPlugs) {
-          scope.connectCount = scope.connectPlugs.length;
-          scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
-          scope.connectButtonText = translate('@jnd-connect-8');
-        } else {
-          scope.connectCount = '';
-          scope.connectStatusDesciption = translate('@jnd-connect-220');
-          scope.connectButtonText = translate('@jnd-connect-14');
+        if (scope.isInitialized) {
+          translate = $filter('translate');
+          scope.hasConnectPlugs = scope.connectPlugs.length > 0;
+
+          if (scope.hasConnectPlugs) {
+            scope.connectCount = scope.connectPlugs.length;
+            scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
+            scope.connectButtonText = translate('@jnd-connect-8');
+          } else {
+            scope.connectCount = '';
+            scope.connectStatusDesciption = translate('@jnd-connect-220');
+            scope.connectButtonText = translate('@jnd-connect-14');
+          }
         }
       }
     }
