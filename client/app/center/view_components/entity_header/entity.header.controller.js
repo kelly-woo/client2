@@ -338,10 +338,10 @@
      * connector toggle
      * @param {boolean} $isOpen
      */
-    function onConnectorToggle($isOpen) {
-      if ($isOpen) {
-        _updateConnectInfo();
-      }
+    function onConnectorToggle() {
+      // connector가 toggle 될때마다 server로 request하여
+      // connect plugs를 갱신한다.
+      _updateConnectInfo();
     }
 
     /**

@@ -61,7 +61,7 @@
        * @private
        */
       function _onConnectInfoChange(connectInfo) {
-        _setConnectInfo(connectInfo);
+        _setConnect(connectInfo);
       }
 
       /**
@@ -178,33 +178,49 @@
       }
 
       /**
-       * init connect plugs
-       * @private
-       */
-      function _initConnectPlugs() {
-        scope.connectPlugs = [];
-        connectPlugMap = {};
-      }
-
-      /**
-       * request success
+       * connect 상태 및 plug item 설정
        * @param {object} connectInfo
        * @private
        */
-      function _setConnectInfo(connectInfo) {
+      function _setConnect(connectInfo) {
         if (_.isEmpty(connectInfo)) {
           scope.isInitialized = false;
+
           _initConnectPlugs();
         } else {
           scope.isInitialized = true;
 
+          _initConnectPlugs(connectInfo);
+          _setConnectContent();
+        }
+      }
+
+      /**
+       * init connect plugs
+       * @private
+       */
+      function _initConnectPlugs(connectInfo) {
+        var setList;
+
+        if (!connectInfo) {
+          scope.connectPlugs = [];
+          connectPlugMap = {};
+        } else {
+          setList = {};
           _.each(connectInfo, function(connects, name) {
             _.each(connects, function(connect) {
+              setList[connect.id] = true;
               _setConnectPlug(name, connect);
             });
           });
 
-          _setConnectContent();
+          _.each(scope.connectPlugs, function(connectPlug) {
+            if (setList[connectPlug.connectId] == null) {
+              // 현재 생성된 connect plug가 새로 설정될 connectInfo에
+              // 존재하지 않는다면 해당 connect plug를 삭제한다.
+              _removeConnectPlug(connectPlug.connectId);
+            }
+          });
         }
       }
 
