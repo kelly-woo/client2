@@ -29,7 +29,7 @@
     'opac-in': isReady,
     'scroll_blue': !browser.platform.isMac
   }">
-    <left-tutorial-folder></left-tutorial-folder>
+    <tutorial-popover-folder></tutorial-popover-folder>
     <current-user></current-user>
     
     <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
@@ -64,7 +64,7 @@
     <div ui-view="centerpanel"></div>
   </div>
   <!--<div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->
-
+  <tutorial-popover-connect></tutorial-popover-connect>
 </div>
 
 

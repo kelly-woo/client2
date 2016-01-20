@@ -102,6 +102,7 @@ module.exports = function (grunt) {
           //'!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.client %>/assets/videos/**/*',
           '<%= yeoman.client %>/{app,components}/**/*.hbs'
         ],
         options: {
@@ -412,6 +413,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
+            'assets/videos/**/*',
             'assets/images/**/*.{webp}',
             'assets/fonts/**/*',
             'index.html'
@@ -653,6 +655,23 @@ module.exports = function (grunt) {
           flatten: true,
           src: '<%= yeoman.dist %>/public/app/*.js',
           dest: '<%= yeoman.dist %>/tmp/'
+        }]
+      },
+      version: {
+        options: {
+          patterns: [
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: './config/version.json',
+          dest: '<%= yeoman.dist %>/public/'
         }]
       },
       local: {
@@ -907,6 +926,7 @@ module.exports = function (grunt) {
         'usemin',
         'replace:assets_js',
         'replace:assets_css',
+        'replace:version',
         'copy:assets_path',
         'clean:tmp'
       ]);
@@ -929,6 +949,7 @@ module.exports = function (grunt) {
       'usemin',
       'replace:assets_js',
       'replace:assets_css',
+      'replace:version',
       'copy:assets_path',
       'clean:tmp'
     ]);
