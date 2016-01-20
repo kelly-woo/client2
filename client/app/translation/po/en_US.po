@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -1628,14 +1628,17 @@ msgstr ""
 "after saving it."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-225"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Integrate Google Calendar, Trello, JIRA, GitHub or other services into JANDI "
+"and receive notifications as messages.You will use emails even less than "
+"before."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-226"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"You don't have permission to access JANDI Connect. Please contact your team "
+"admin ({{adminName}}) for further detail."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
