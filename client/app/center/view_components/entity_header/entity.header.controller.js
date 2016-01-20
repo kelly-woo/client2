@@ -38,6 +38,7 @@
     $scope.kickOut = kickOut;
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
+    $scope.onConnectorToggle = onConnectorToggle;
 
     $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
 
@@ -91,6 +92,7 @@
         _checkIfDefaultTopic();
         _checkNotificationStatus();
 
+        _initConnectInfo();
         _updateConnectInfo();
       }
     }
@@ -331,6 +333,16 @@
     }
 
     /**
+     * connector toggle
+     * @param {boolean} $isOpen
+     */
+    function onConnectorToggle($isOpen) {
+      if ($isOpen) {
+        _updateConnectInfo();
+      }
+    }
+
+    /**
      * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
      */
     function onTopicNotificationBellClicked() {
@@ -407,6 +419,14 @@
     }
 
     /**
+     * init connect info
+     * @private
+     */
+    function _initConnectInfo() {
+      $scope.connectInfo = {};
+    }
+
+    /**
      * update connect info
      * @private
      */
@@ -414,7 +434,6 @@
       var room;
       var roomId;
 
-      $scope.connectInfo = {};
       if ($scope.isAllowConnect) {
         if (room = entityAPIservice.getJoinedEntity(_entityId)) {
           roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
