@@ -8,7 +8,7 @@
   /* @ngInject */
   function JndConnectUnionNavCtrl($scope, JndConnect) {
 
-    $scope.backToMain = JndConnect.backToMain;
+    $scope.backToMain = _.bind(JndConnect.backToMain, null, true);
 
     _init();
 
