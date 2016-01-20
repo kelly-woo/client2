@@ -8,12 +8,12 @@
     .module('jandiApp')
     .directive('jndImageCrop', jndImageCrop);
 
-  function jndImageCrop() {
+  function jndImageCrop(JndUtil) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
-        imageData: '=',
+        files: '=',
         onImageCropDone: '&'
       },
       templateUrl : 'app/util/directive/image-crop/jnd.image.crop.html',
@@ -38,10 +38,37 @@
         scope.onCropCancel = onCropCancel;
         scope.onCropDone = onCropDone;
 
+        _initImageCrop();
         _setCropDimentions();
         jqModalBody.find('.crop-area').addClass('active');
 
         _attachEvents();
+      }
+
+      /**
+       * image crop 초기화
+       * @private
+       */
+      function _initImageCrop() {
+        var file = scope.files[0];
+        var orientation;
+
+        if (file) {
+          loadImage.parseMetaData(file, function(data) {
+            if (data.exif) {
+              orientation = data.exif.get('Orientation');
+            }
+
+            loadImage(scope.files[0], function(img) {
+              JndUtil.safeApply(scope, function() {
+                scope.imageData = img.toDataURL('image/jpeg');
+              });
+            }, {
+              canvas: true,
+              orientation: orientation
+            });
+          });
+        }
       }
 
       /**

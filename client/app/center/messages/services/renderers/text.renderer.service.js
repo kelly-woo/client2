@@ -160,22 +160,28 @@
         connectPreview = '';
 
         _.each(content.connectInfo, function(info) {
-          var hasTitle = !!info.title;
-          var hasDescription = !!info.description;
-          var hasImage = !!info.imageUrl;
+          var hasTitle;
+          var hasDescription;
+          var hasImage;
 
-          if (hasTitle || hasDescription || hasImage) {
-            connectPreview += _templateConnectPreview({
-              html: {
-                title: _getConnectText(info.title),
-                description: _getConnectText(info.description),
-                image: _getConnectImage(info.imageUrl)
-              },
-              hasTitle: hasTitle,
-              hasDescription: hasDescription,
-              hasImage: hasImage,
-              hasSubsets: false
-            });
+          if (_.isObject(info)) {
+            hasTitle = !!info.title;
+            hasDescription = !!info.description;
+            hasImage = !!info.imageUrl;
+
+            if (hasTitle || hasDescription || hasImage) {
+              connectPreview += _templateConnectPreview({
+                html: {
+                  title: _getConnectText(info.title),
+                  description: _getConnectText(info.description),
+                  image: _getConnectImage(info.imageUrl)
+                },
+                hasTitle: hasTitle,
+                hasDescription: hasDescription,
+                hasImage: hasImage,
+                hasSubsets: false
+              });
+            }
           }
         });
 

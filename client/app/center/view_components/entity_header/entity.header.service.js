@@ -6,7 +6,7 @@
     .service('entityHeader', entityHeader);
 
   /* @ngInject */
-  function entityHeader($http, memberService, config, configuration) {
+  function entityHeader($http, $q, memberService, config, configuration) {
     var that = this;
     var teamId = memberService.getTeamId();
 
@@ -72,10 +72,21 @@
      * @returns {*}
      */
     function getConnectInfo(roomId) {
-      return $http({
+      var abortDeferred = $q.defer();
+      var request = $http({
         method: 'GET',
-        url: configuration.api_connect_address + 'teams/' + teamId + '/rooms/' + roomId + '/connect'
+        url: configuration.api_connect_address + 'teams/' + teamId + '/rooms/' + roomId + '/connect',
+        timeout: abortDeferred.promise
       });
+
+      request.abort = function() {
+        abortDeferred.resolve();
+      };
+      request.finally(function() {
+        request.abort = angular.noop;
+      });
+
+      return request;
     }
   }
 })();
