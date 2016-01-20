@@ -220,6 +220,14 @@
 }
 .integration-service-container .second-column .connect-union-plug-tool-container {
   margin-right: 12px;
+  top:0;
+  line-height: 46px;
+  
+  -webkit-transform:translateY(0);
+  -moz-transform:translateY(0);
+  -o-transform:translateY(0);
+  -ms-transform:translateY(0);
+  transform:translateY(0);
 }
 .integration-service-container section.borderless-section {
   border-color: transparent;
