@@ -824,8 +824,16 @@ input[type="button"] {
   position: absolute;
   top: -5px;
   margin-left: calc(100% - 5px) !important;
+  min-width: auto;
 }
-
+.dropdown-menu .language-sub-menu li a {
+  padding: 0 1.8rem 0 2.65rem;
+}
+.dropdown-menu .language-sub-menu .flag {
+  margin-right: 0.35rem;
+  left: -0.3rem;
+  position: relative;
+}
 .right-align {
   left: auto;
   right: 10px;
