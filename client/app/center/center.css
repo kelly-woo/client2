@@ -531,6 +531,7 @@ by ysyun 2015.2.25
   margin-bottom: 0px;
   padding-top: 1px;
   padding-bottom:1px;
+  line-height: 24px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
