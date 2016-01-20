@@ -1,8 +1,8 @@
 .jnd-connect.tutorial-popup.dropdown-menu {
-  padding: 0;
+  padding: 10px;
   display: block;
   position: absolute;
-  top: 13px;
+  top: 10px;
   left: 11px;
   min-width: 400px;
   z-index: 525;
@@ -27,8 +27,7 @@
   position: absolute;
   right: 10px;
   top: 4px;
-  color: white;
-  font-size: 11px !important;
+  color: #154a67;
   z-index: 1;
 }
 .jnd-connect .dont-show-again-container {
@@ -42,7 +41,7 @@
   top:-7px;
   height: 14px;
   width: 14px;
-  background-color: #38aaed;
+  background-color: white;
   -ms-transform:rotate(-45deg);
   -webkit-transform:rotate(-45deg);
   transform:rotate(-45deg);

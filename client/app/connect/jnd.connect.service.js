@@ -10,7 +10,7 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect($timeout, jndPubSub, configuration, Popup, modalHelper) {
+  function JndConnect($timeout, jndPubSub, configuration, Popup, modalHelper, memberService) {
     var _isBannerShow = true;
     var _isOpen = false;
 
@@ -173,18 +173,21 @@
      * @returns {*}
      */
     function getPlugSourceName(unionName, plugData) {
-      var sourceName;
+      var sourceName = '';
 
-      switch (unionName) {
-        case 'googleCalendar':
-          sourceName = plugData['calendarSummary'];
-          break;
-        case 'github':
-          sourceName = plugData['hookRepoName'];
-          break;
-        default:
-          sourceName = '';
+      if (plugData.memberId === memberService.getMemberId()) {
+        switch (unionName) {
+          case 'googleCalendar':
+            sourceName = plugData['calendarSummary'];
+            break;
+          case 'github':
+            sourceName = plugData['hookRepoName'];
+            break;
+          default:
+            sourceName = '';
+        }
       }
+
       return sourceName;
     }
   }
