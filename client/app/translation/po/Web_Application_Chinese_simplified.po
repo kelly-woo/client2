@@ -211,6 +211,12 @@ msgstr "议题"
 msgid "@comment-all-desc"
 msgstr "显示{{commentCount}}则留言"
 
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "省略使用教学"
+
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr "现行成员"
@@ -367,6 +373,10 @@ msgstr "文件类别"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全部类别"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "压缩文件"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -653,11 +663,17 @@ msgstr "上传文件"
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "省略使用教学"
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr "放大"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr "缩小"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
+msgstr "原始尺寸"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
@@ -945,6 +961,10 @@ msgid "@integration-title-google-drive"
 msgstr "从Google云端硬盘上传"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成员邀请的链接已复制到剪贴簿"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
 
@@ -970,10 +990,6 @@ msgstr "邀请链接已关闭。"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "或者直接转发此链接"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成员邀请的链接已复制到剪贴簿"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1547,10 +1563,13 @@ msgstr "请选择欲接收通知的议题或私信，你仍可于设置完成后
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
+"串连Google日历、Trello、JIRA、GitHub和其他服务，并将其通知集中于JANDI。你将明"
+"显感受到JANDI Connect将信息汇整一处所带来的便利性和节省数种平台切换的琐碎时"
+"间。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
-msgstr ""
+msgstr "你无法使用JANDI Connect的服务，请联络团队管理({{adminName}})了解详情"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-227"
@@ -2607,98 +2626,6 @@ msgstr "开启电脑版的推拨通知"
 msgid "@turn-on-topic-alarm"
 msgstr "开启议题推播通知"
 
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "点击跳动的标记来查看一下吧！"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "知道了！"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定文"
-"件后，将点击右边的「ᵒᵒᵒ」即可。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾经"
-"分享在哪个议题下”的项目进行搜索。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可收"
-"纳搜索栏。"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "文件夹和搜索栏"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "送出信息及上传文件"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮和"
-"选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "跳过教学示范"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"私信是介于两位成员之间的私人、一对一的对话。当您收到一个新信息，私信对话窗会"
-"自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏私信，同时仍"
-"然保留信息历史直到对话重新启动。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的私"
-"人议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr "''公开议题'、'私人议题'及'私信'有什么不同？"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建议"
-"等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自己"
-"的，或则透过点击'☰浏览'加入其它现行的公开议题。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "继续 »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要的"
-"提示。"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "欢迎使用JANDI!"
-
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
 msgstr "太好了！ "
@@ -2893,6 +2820,98 @@ msgstr "想继续上次未完成的使用教学吗？"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "欢迎 {{username}}"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "点击跳动的标记来查看一下吧！"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定文"
+"件后，将点击右边的「ᵒᵒᵒ」即可。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾经"
+"分享在哪个议题下”的项目进行搜索。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可收"
+"纳搜索栏。"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "文件夹和搜索栏"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出信息及上传文件"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮和"
+"选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "跳过教学示范"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"私信是介于两位成员之间的私人、一对一的对话。当您收到一个新信息，私信对话窗会"
+"自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏私信，同时仍"
+"然保留信息历史直到对话重新启动。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的私"
+"人议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "''公开议题'、'私人议题'及'私信'有什么不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建议"
+"等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自己"
+"的，或则透过点击'☰浏览'加入其它现行的公开议题。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "继续 »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要的"
+"提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "欢迎使用JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@unread-bookmark-message"

@@ -357,6 +357,10 @@ msgstr ""
 msgid "@common-file-type-all"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr ""
+
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
@@ -642,6 +646,18 @@ msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
