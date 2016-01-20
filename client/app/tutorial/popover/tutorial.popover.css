@@ -28,12 +28,12 @@
   position: relative;
 }
 .tuto-mp4-container {
-  background-color: #38aaed;
+  background-color: white;
   position: relative;
   top: -3px;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-  padding-top: 10px;
+  padding-top: 20px;
   border-bottom: 1px solid #d1d1d1;
   height: 191px;
 }
@@ -72,7 +72,7 @@
 }
 .tutorial-popup button.close {
   outline: 0;
-  font-size: 13px !important;
+  font-size: 11px !important;
   margin-top:6px;
   margin-left:10px;
 }
@@ -86,10 +86,10 @@
 .tutorial-popup .dont-show-again-container {
   margin-top: 12px;
   padding: 4px;
-  padding-top:14px;
+  padding-top: 0px;
   padding-bottom: 14px;
   position:relative;
-  border-top:1px solid rgba(0,0,0,0.1);
+  /*border-top:1px solid rgba(0,0,0,0.1);*/
 }
 .tutorial-popup .dont-show-again-container label {
   font-weight: normal;
