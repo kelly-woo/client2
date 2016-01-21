@@ -1622,9 +1622,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
-"Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 외부 서비스를 잔디에 등록하"
-"여 변경사항을 메시지로 받아볼 수 있는 기능인 잔디 커넥트가 출시되었습니다.이"
-"제 더욱 더 이메일을 사용할 일이 없어집니다."
+"Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 <br>외부 서비스를 잔디에 등"
+"록하여 변경사항을 메시지로  <br>받아볼 수 있는 기능인 잔디 커넥트가 출시되었"
+"습니다. <br><br><b>이제 더욱 더 이메일을 사용할 일이 없어집니다.<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
