@@ -10,7 +10,7 @@
     .service('JndConnect', JndConnect);
 
 
-  function JndConnect($timeout, jndPubSub, configuration, Popup, modalHelper, memberService) {
+  function JndConnect(jndPubSub, configuration, Popup, modalHelper, memberService) {
     var _isBannerShow = true;
     var _isOpen = false;
 
@@ -18,6 +18,7 @@
     this.isClose = isClose;
     this.open = open;
     this.close = close;
+    this.doClose = doClose;
     this.modify = modify;
     this.reloadList = reloadList;
     this.backToMain = backToMain;
@@ -90,21 +91,18 @@
 
     /**
      * 커넥트 화면을 close 한다.
+     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
-    function close() {
-      _isOpen = false;
-      jndPubSub.pub('JndConnect:fadeOut');
-      //300ms 의 fadeout 이후 close 이벤트를 발행한다.
-      $timeout(function() {
-        _close();
-      }, 300);
+    function close(isShowConfirm) {
+      jndPubSub.pub('JndConnect:startClose', !!isShowConfirm);
     }
 
     /**
-     * close 이벤트를 trigger 한다.
+     * JndCtrl 에서 fade out 이 완료된 후 실제 close 를 수행한다.
      * @private
      */
-    function _close() {
+    function doClose() {
+      _isOpen = false;
       jndPubSub.pub('JndConnect:close');
     }
 
@@ -117,9 +115,10 @@
 
     /**
      * main 으로 되돌아온다.
+     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
-    function backToMain() {
-      jndPubSub.pub('JndConnect:backToMain');
+    function backToMain(isShowConfirm) {
+      jndPubSub.pub('JndConnect:backToMain', !!isShowConfirm);
     }
 
     /**
@@ -168,27 +167,26 @@
 
     /**
      * plug 의 연동된 source 이름을 반환한다.
-     * @param {string} unionName
      * @param {object} plugData
      * @returns {*}
      */
-    function getPlugSourceName(unionName, plugData) {
+    function getPlugSourceName(plugData) {
       var sourceName = '';
 
       if (plugData.memberId === memberService.getMemberId()) {
-        switch (unionName) {
+        switch (plugData.type) {
           case 'googleCalendar':
             sourceName = plugData['calendarSummary'];
             break;
           case 'github':
             sourceName = plugData['hookRepoName'];
             break;
-          default:
-            sourceName = '';
+          case 'trello':
+            sourceName = plugData['webhookTrelloBoardName'];
         }
       }
 
-      return sourceName;
+      return sourceName || '';
     }
   }
 })();

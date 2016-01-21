@@ -6,7 +6,8 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language) {
+  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language,
+                          Dialog) {
 
     var UNION_DATA = {
       '1': {
@@ -221,7 +222,7 @@
       $scope.$on('JndConnect:reloadList', _onReloadList);
       $scope.$on('JndConnect:backToMain', _onBackToMain);
       $scope.$on('JndConnect:historyBack', historyBack);
-      $scope.$on('JndConnect:fadeOut', _onFadeOut);
+      $scope.$on('JndConnect:startClose', _onStartClose);
     }
 
     /**
@@ -300,20 +301,75 @@
     }
 
     /**
-     * main list 로 돌아간다.
+     * back to main 이벤트 콜백
+     * @param {object} angularEvent
+     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      * @private
      */
-    function _onBackToMain() {
-      _resetCurrent();
+    function _onBackToMain(angularEvent, isShowConfirm) {
+      _backToMain(isShowConfirm);
+    }
+
+    /**
+     * main list 로 돌아간다.
+     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
+     * @private
+     */
+    function _backToMain(isShowConfirm) {
+      if (isShowConfirm && isEditing()) {
+        _confirmStopEditing(_resetCurrent);
+      } else {
+        _resetCurrent();
+      }
+    }
+
+    /**
+     * 편집 취소하고 나갈 것인지 여부 확인하는 confirm 창을 노출한다.
+     * @param {Function} okCallback - OK 버튼 클릭시 수행할 콜백
+     * @private
+     */
+    function _confirmStopEditing(okCallback) {
+      Dialog.confirm({
+        body: $filter('translate')('@jnd-connect-227'),
+        onClose: function (result) {
+          if (result === 'okay' && _.isFunction(okCallback)) {
+            okCallback();
+          }
+        }
+      });
+    }
+
+    /**
+     * 현재 connect 설정 편집 중인지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isEditing() {
+      return !!$scope.current.union && !$scope.current.isShowAuth;
     }
 
     /**
      * fade out 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {boolean} isShowConfirm
      * @private
      */
-    function _onFadeOut() {
+    function _onStartClose(angularEvent, isShowConfirm) {
+      if (isShowConfirm && isEditing()) {
+        _confirmStopEditing(_fadeOut);
+      } else {
+        _fadeOut();
+      }
+    }
+
+    /**
+     * connect 를 close 하기 전 fadeout 한다.
+     * @private
+     */
+    function _fadeOut() {
       JndUtil.safeApply($scope, function() {
         $scope.isClose = true;
+        //fade out 을 CSS 에서 제어하기 때문에 fade out animation 이 완료되는 시점(300ms)까지 대기한다.
+        $timeout(JndConnect.doClose, 300);
       });
     }
 
@@ -323,7 +379,7 @@
     function historyBack() {
       JndUtil.safeApply($scope, function() {
         if ($scope.current.union) {
-          _resetCurrent();
+          _backToMain(true);
         } else {
           JndConnect.close();
         }
@@ -357,13 +413,12 @@
     /**
      * server data 로 부터 UI 에 맞는 plug 데이터를 가공하여 반환한다.
      * @param {object} data
-     * @param {string} unionName
      * @returns {{user: *, room: *, isOn: boolean, raw: *}}
      * @private
      */
-    function _getPlug(data, unionName) {
+    function _getPlug(data) {
       return {
-        sourceName: JndConnect.getPlugSourceName(unionName, data),
+        sourceName: JndConnect.getPlugSourceName(data),
         user: EntityMapManager.get('member', data.memberId),
         room: EntityMapManager.get('total', data.roomId),
         isOn: data.status === 'enabled',
@@ -382,7 +437,7 @@
       var item = union;
       item.plugs = [];
       _.forEach(list, function(data) {
-        item.plugs.push(_getPlug(data, union.name));
+        item.plugs.push(_getPlug(data));
       });
       return item;
     }

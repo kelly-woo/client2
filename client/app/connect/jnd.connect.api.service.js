@@ -10,12 +10,13 @@
     .service('JndConnectApi', JndConnectApi);
 
 
-  function JndConnectApi($http, configuration, currentSessionHelper) {
+  function JndConnectApi($http, $filter, configuration, currentSessionHelper, JndConnect, Dialog) {
     var _apiUrl = configuration.api_connect_address;
 
     this.getList = getList;
     this.getAllAuth = getAllAuth;
     this.getConnectInfo = getConnectInfo;
+    this.handleError = handleError;
 
     /**
      * plug list 를 조회한다.
@@ -26,7 +27,7 @@
       return $http({
         method: 'GET',
         url: _apiUrl + 'teams/' + teamId + '/connect'
-      });
+      }).error(handleError);
     }
 
     /**
@@ -37,7 +38,7 @@
       return $http({
         method: 'GET',
         url: _apiUrl + 'authentication'
-      });
+      }).error(handleError);
     }
 
     /**
@@ -48,7 +49,27 @@
       return $http({
         method: 'GET',
         url: _apiUrl + 'connect'
-      });
+      }).error(handleError);
+    }
+
+    /**
+     *
+     * @param {object} err
+     * @param {number} status
+     */
+    function handleError(err, status) {
+      var adminEntity = currentSessionHelper.getCurrentTeamAdmin();
+      //권한 없는 경우
+      if (status === 403) {
+        Dialog.alert({
+          allowHtml: true,
+          body: $filter('translate')('@jnd-connect-226').replace('{{adminName}}', adminEntity.name)
+        });
+        JndConnect.backToMain();
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 })();

@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi, Dialog) {
+  function JndConnectTrelloCtrl($scope, $filter, JndConnectApi, JndConnectUnion, JndConnectTrelloApi, Dialog, JndUtil) {
     var _trelloBoardId = null;
     var EVENT_PAIR = {
       'showCardLabelCreated': 'showCardLabelDeleted',
@@ -109,6 +109,7 @@
      */
     function _onSave() {
       _setRequestData();
+
       var key;
       var invalidField = _getInvalidField();
 
@@ -169,12 +170,32 @@
     }
 
     /**
-     * board 조회 실패시 콜백
-     * @param {object} err
+     * trello board id 로 trello board data 를 조회한다.
+     * @param {number} boardId
+     * @returns {*}
      * @private
      */
-    function _onErrorGetBoards(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _getBoardData(boardId) {
+      var board;
+      _.forEach($scope.boards, function(item) {
+        if (item.value === boardId) {
+          board = item;
+          return false;
+        }
+      });
+      return board;
+    }
+
+    /**
+     * board 조회 실패시 콜백
+     * @param {object} err
+     * @param {number} status
+     * @private
+     */
+    function _onErrorGetBoards(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**
@@ -234,17 +255,19 @@
       var formData = $scope.formData;
       var hookEvent = formData.hookEvent;
       var footer = formData.footer;
+      var trelloBoardId = formData.trelloBoardId;
       var pairKey;
+
       _.each(hookEvent, function(value, key) {
         pairKey = EVENT_PAIR[key];
         if (EVENT_PAIR[key]) {
           hookEvent[pairKey] = value;
         }
       });
-
       _.extend($scope.requestData, footer, hookEvent, {
         roomId: formData.roomId,
-        trelloBoardId: formData.trelloBoardId
+        trelloBoardId: trelloBoardId,
+        trelloBoardName: JndUtil.pick(_getBoardData(trelloBoardId), 'text')
       });
     }
 

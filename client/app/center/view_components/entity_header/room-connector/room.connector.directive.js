@@ -243,7 +243,7 @@
           if (member && bot) {
             if (connectPlug = connectPlugMap[connect.id]) {
               // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.
-              _updateConnectPlug(name, connect, bot, member, connectPlug);
+              _updateConnectPlug(connect, bot, member, connectPlug);
             } else {
               // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
               _addConnectPlug(name, connect, bot, member);
@@ -254,19 +254,18 @@
 
       /**
        * update connect plug
-       * @param {string} name
        * @param {object} connect
        * @param {object} bot
        * @param {object} member
        * @param {object} target
        * @private
        */
-      function _updateConnectPlug(name, connect, bot, member, target) {
+      function _updateConnectPlug(connect, bot, member, target) {
         target.botProfileImage = bot.thumbnailUrl;
         target.botName = bot.name;
         target.memberName = member.name;
         target.status = connect.status;
-        target.sourceName = JndConnect.getPlugSourceName(name, connect);
+        target.sourceName = JndConnect.getPlugSourceName(connect);
       }
 
       /**
@@ -283,7 +282,7 @@
           botName: bot.name,
           memberName: member.name,
           status: connect.status,
-          sourceName: JndConnect.getPlugSourceName(name, connect),
+          sourceName: JndConnect.getPlugSourceName(connect),
           unionName: name,
           connectId: connect.id,
           memberId: connect.memberId,

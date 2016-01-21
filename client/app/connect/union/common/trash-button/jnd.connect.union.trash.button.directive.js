@@ -9,7 +9,7 @@
     .directive('jndConnectTrashButton', jndConnectTrashButton);
 
   /* @ngInject */
-  function jndConnectTrashButton($filter, Dialog, JndConnectUnionApi, JndUtil, JndConnectUnion, JndConnect) {
+  function jndConnectTrashButton($filter, Dialog, JndConnectUnionApi, JndUtil, JndConnectUnion, JndConnect, JndConnectApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -113,15 +113,18 @@
 
       /**
        * request error 콜백
-       * @param {object} response
+       * @param {object} err
+       * @param {number} status
        * @private
        */
-      function _onErrorCallback(response) {
-        JndConnect.hideLoading();
-        JndUtil.alertUnknownError(response);
-        scope.onErrorCallback({
-          $value: response
-        });
+      function _onErrorCallback(err, status) {
+        if (!JndConnectApi.handleError(err, status)) {
+          JndConnect.hideLoading();
+          JndUtil.alertUnknownError(response);
+          scope.onErrorCallback({
+            $value: response
+          });
+        }
       }
     }
   }

@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil,
-                                          JndConnectUnion) {
+                                          JndConnectUnion, JndConnectApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -65,9 +65,9 @@
         var body;
 
         if (item.connectCount) {
-          body = translate('@jnd-connect-187');
-        } else {
           body = translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount);
+        } else {
+          body = translate('@jnd-connect-187');
         }
 
         Dialog.confirm({
@@ -133,8 +133,20 @@
                 JndConnect.backToMain();
               }
             })
-            .error(JndUtil.alertUnknownError)
+            .error(_onErrorAccountDelete)
             .finally(_onDoneAccountDelete);
+        }
+      }
+
+      /**
+       * account delete 오류 콜백
+       * @param {object} err
+       * @param {number} status
+       * @private
+       */
+      function _onErrorAccountDelete(err, status) {
+        if (!JndConnectApi.handleError(err, status)) {
+          JndUtil.alertUnknownError(err, status);
         }
       }
 

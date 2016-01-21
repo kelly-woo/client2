@@ -1206,8 +1206,8 @@ msgstr "계정 추가하기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-141"
 msgstr ""
-"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
-"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+"외부 계정 연결을 해제하실 경우 모든 잔디 팀으로부터 {{numberOfConnects}}개의 "
+"잔디 커넥트 항목이 삭제됩니다. 계속하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-142"
@@ -1622,9 +1622,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
-"Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 외부 서비스를 잔디에 등록하"
-"여 변경사항을 메시지로 받아볼 수 있는 기능인 잔디 커넥트가 출시되었습니다.이"
-"제 더욱 더 이메일을 사용할 일이 없어집니다."
+"Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 <br>외부 서비스를 잔디에 등"
+"록하여 변경사항을 메시지로  <br>받아볼 수 있는 기능인 잔디 커넥트가 출시되었"
+"습니다. <br><br><b>이제 더욱 더 이메일을 사용할 일이 없어집니다.<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
@@ -1633,9 +1633,8 @@ msgstr ""
 "게 문의하세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-227"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr "설정사항을 저장하지 않고 나가시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy

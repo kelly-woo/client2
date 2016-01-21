@@ -301,7 +301,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
-
+    enabledMemberList.unshift(entityAPIservice.getJandiBot());
     return joinedChannelList.concat(enabledMemberList);
   }
 
