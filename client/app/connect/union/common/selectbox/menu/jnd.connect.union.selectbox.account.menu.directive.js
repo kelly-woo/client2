@@ -65,9 +65,9 @@
         var body;
 
         if (item.connectCount) {
-          body = translate('@jnd-connect-187');
-        } else {
           body = translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount);
+        } else {
+          body = translate('@jnd-connect-187');
         }
 
         Dialog.confirm({
