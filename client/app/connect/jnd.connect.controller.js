@@ -312,7 +312,7 @@
 
     /**
      * main list 로 돌아간다.
-     *
+     * @param {boolean} isShowConfirm
      * @private
      */
     function _backToMain(isShowConfirm) {
@@ -349,10 +349,12 @@
 
     /**
      * fade out 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {boolean} isShowConfirm
      * @private
      */
-    function _onStartClose() {
-      if (isEditing()) {
+    function _onStartClose(angularEvent, isShowConfirm) {
+      if (isShowConfirm && isEditing()) {
         _confirmStopEditing(_fadeOut);
       } else {
         _fadeOut();

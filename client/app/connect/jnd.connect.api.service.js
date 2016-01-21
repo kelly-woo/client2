@@ -65,7 +65,7 @@
           allowHtml: true,
           body: $filter('translate')('@jnd-connect-226').replace('{{adminName}}', adminEntity.name)
         });
-        JndConnect.close();
+        JndConnect.backToMain();
         return true;
       } else {
         return false;

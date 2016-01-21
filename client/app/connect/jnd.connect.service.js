@@ -91,9 +91,10 @@
 
     /**
      * 커넥트 화면을 close 한다.
+     * @param {boolean} [isShowConfirm=false] - confirm 을 skip 할지 여부
      */
-    function close() {
-      jndPubSub.pub('JndConnect:startClose');
+    function close(isShowConfirm) {
+      jndPubSub.pub('JndConnect:startClose', !!isShowConfirm);
     }
 
     /**
