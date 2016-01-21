@@ -31,7 +31,8 @@
   color: #888;
 }
 
-.quick-launcher-modal .unjoined-channel-label {
+.quick-launcher-modal .unjoined-status {
+  float: right;
   line-height: 32px;
 }
 
