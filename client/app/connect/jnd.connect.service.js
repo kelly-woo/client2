@@ -175,19 +175,19 @@
       var sourceName = '';
 
       if (plugData.memberId === memberService.getMemberId()) {
-        switch (unionName) {
+        switch (plugData.type) {
           case 'googleCalendar':
             sourceName = plugData['calendarSummary'];
             break;
           case 'github':
             sourceName = plugData['hookRepoName'];
             break;
-          default:
-            sourceName = '';
+          case 'trello':
+            sourceName = plugData['webhookTrelloBoardName'];
         }
       }
 
-      return sourceName;
+      return sourceName || '';
     }
   }
 })();
