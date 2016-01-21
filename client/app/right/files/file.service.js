@@ -292,7 +292,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   // No exception.
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
-
+    var jandiBot = entityAPIservice.getJandiBot();
     _.each(memberList, function(member, index) {
       if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
@@ -301,7 +301,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
-    enabledMemberList.unshift(entityAPIservice.getJandiBot());
+    if (jandiBot) {
+      enabledMemberList.unshift(entityAPIservice.getJandiBot());
+    }
     return joinedChannelList.concat(enabledMemberList);
   }
 
