@@ -303,7 +303,7 @@
     /**
      * back to main 이벤트 콜백
      * @param {object} angularEvent
-     * @param {boolean} isShowConfirm
+     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      * @private
      */
     function _onBackToMain(angularEvent, isShowConfirm) {
@@ -312,7 +312,7 @@
 
     /**
      * main list 로 돌아간다.
-     * @param {boolean} isShowConfirm
+     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      * @private
      */
     function _backToMain(isShowConfirm) {

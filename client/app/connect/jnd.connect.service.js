@@ -91,7 +91,7 @@
 
     /**
      * 커넥트 화면을 close 한다.
-     * @param {boolean} [isShowConfirm=false] - confirm 을 skip 할지 여부
+     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
     function close(isShowConfirm) {
       jndPubSub.pub('JndConnect:startClose', !!isShowConfirm);
@@ -115,7 +115,7 @@
 
     /**
      * main 으로 되돌아온다.
-     * @param {boolean} [isShowConfirm=false] - confirm 을 skip 할지 여부
+     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
     function backToMain(isShowConfirm) {
       jndPubSub.pub('JndConnect:backToMain', !!isShowConfirm);
