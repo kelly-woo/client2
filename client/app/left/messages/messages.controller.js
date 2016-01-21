@@ -42,6 +42,7 @@
       $scope.$on('updateBadgePosition', _setTotalAlarmCnt);
       $scope.$on('updateChatList', getMessageList);
       $scope.$watch('isMessageListCollapsed', _onCollapseStatusChanged);
+      getMessageList();
     }
 
     function openTeamMemberListModal() {
