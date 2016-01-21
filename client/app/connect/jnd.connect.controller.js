@@ -368,6 +368,7 @@
     function _fadeOut() {
       JndUtil.safeApply($scope, function() {
         $scope.isClose = true;
+        //fade out 을 CSS 에서 제어하기 때문에 fade out animation 이 완료되는 시점(300ms)까지 대기한다.
         $timeout(JndConnect.doClose, 300);
       });
     }
