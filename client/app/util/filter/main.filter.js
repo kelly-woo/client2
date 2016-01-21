@@ -157,19 +157,24 @@ app.filter('getUserEmail', ['memberService',
   }
 ]);
 
-app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config',
-  function($filter, memberService, config) {
+app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config', 'JndUtil',
+  function($filter, memberService, config, JndUtil) {
     return function(member) {
       var url;
+      var memberId;
       if (_.isObject(member)) {
-        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.smallThumbnailUrl || '';
+        memberId = member.id;
+        url = JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || '';
       } else {
+        memberId = member;
         url = memberService.getSmallThumbnailUrl(member);
       }
+      url = url || memberService.getProfileImage(memberId);
       return $filter('getFileUrl')(url);
     };
   }
 ]);
+
 app.filter('getMediumThumbnail', ['$filter', 'memberService', 'config',
   function($filter, memberService, config) {
     return function(member) {
