@@ -1641,9 +1641,8 @@ msgstr ""
 "admin ({{adminName}}) for further detail."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-227"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr "Are you sure you want to leave without saving your changes?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy

@@ -1573,7 +1573,7 @@ msgstr "你無法使用JANDI Connect的服務，請聯絡團隊管理({{adminNam
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-227"
-msgstr ""
+msgstr "更改尚未儲存，你確定要離開嗎？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-228"

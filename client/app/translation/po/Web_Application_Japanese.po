@@ -1638,7 +1638,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-227"
-msgstr ""
+msgstr "本当に変更事項を保存せずにキャンセルしますか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-228"
