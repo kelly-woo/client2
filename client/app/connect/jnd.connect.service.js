@@ -167,11 +167,10 @@
 
     /**
      * plug 의 연동된 source 이름을 반환한다.
-     * @param {string} unionName
      * @param {object} plugData
      * @returns {*}
      */
-    function getPlugSourceName(unionName, plugData) {
+    function getPlugSourceName(plugData) {
       var sourceName = '';
 
       if (plugData.memberId === memberService.getMemberId()) {
