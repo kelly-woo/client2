@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil,
-                                          JndConnectUnion) {
+                                          JndConnectUnion, JndConnectApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -133,8 +133,20 @@
                 JndConnect.backToMain();
               }
             })
-            .error(JndUtil.alertUnknownError)
+            .error(_onErrorAccountDelete)
             .finally(_onDoneAccountDelete);
+        }
+      }
+
+      /**
+       * account delete 오류 콜백
+       * @param {object} err
+       * @param {number} status
+       * @private
+       */
+      function _onErrorAccountDelete(err, status) {
+        if (!JndConnectApi.handleError(err, status)) {
+          JndUtil.alertUnknownError(err, status);
         }
       }
 

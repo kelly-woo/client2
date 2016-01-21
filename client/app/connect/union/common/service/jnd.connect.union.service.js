@@ -10,7 +10,8 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub,
+                           JndConnectApi) {
     var LANGUAGE_MAP = {
       ko: 'ko',
       ja: 'ja',
@@ -88,10 +89,13 @@
      *    @param {object} [options.header]  - 공통 header 데이터 object
      *    @param {object} [options.footer]  - 공통 footer 데이터 object
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorRead(options, err) {
-      handleCommonLoadError(options.current, err);
+    function _onErrorRead(options, err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        handleCommonLoadError(options.current, err);
+      }
     }
 
     /**
@@ -217,10 +221,14 @@
 
     /**
      * 오류 콜백
+     * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorCommon(response) {
-      JndUtil.alertUnknownError(response);
+    function _onErrorCommon(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndUtil.alertUnknownError(err);
+      }
     }
 
     /**
@@ -250,17 +258,20 @@
     /**
      * 생성 오류 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorCreate(err) {
-      //connect 100개 이상 추가시 오류
-      if (err.code === 40305) {
-        Dialog.error({
-          body: $filter('translate')('@jnd-connect-183'),
-          allowHtml: true
-        });
-      } else {
-        _onErrorCommon(err);
+    function _onErrorCreate(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        //connect 100개 이상 추가시 오류
+        if (err.code === 40305) {
+          Dialog.error({
+            body: $filter('translate')('@jnd-connect-183'),
+            allowHtml: true
+          });
+        } else {
+          _onErrorCommon(err);
+        }
       }
     }
   }

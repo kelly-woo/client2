@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi, Dialog) {
+  function JndConnectTrelloCtrl($scope, $filter, JndConnectApi, JndConnectUnion, JndConnectTrelloApi, Dialog) {
     var _trelloBoardId = null;
     var EVENT_PAIR = {
       'showCardLabelCreated': 'showCardLabelDeleted',
@@ -171,10 +171,13 @@
     /**
      * board 조회 실패시 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorGetBoards(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _onErrorGetBoards(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**

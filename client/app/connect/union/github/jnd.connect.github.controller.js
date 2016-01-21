@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnect, JndConnectGithubApi, JndUtil,
+  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectApi, JndConnectGithubApi, JndUtil,
                                 JndConnectUnion) {
     var _originalRepos;
     var _createdRoomId = null;
@@ -83,10 +83,13 @@
     /**
      * repository 보 조회 실패시 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorRepo(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _onErrorRepo(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**

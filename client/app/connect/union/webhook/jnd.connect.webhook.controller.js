@@ -10,7 +10,7 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion, JndConnectApi) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -127,10 +127,13 @@
     /**
      * 웹훅 토큰 조회 실패시 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorGetWebhookToken(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _onErrorGetWebhookToken(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**
