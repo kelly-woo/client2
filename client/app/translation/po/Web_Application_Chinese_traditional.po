@@ -1563,9 +1563,9 @@ msgstr "請選擇欲接收通知的議題或私訊，你仍可於設定完成後
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
-"串連Google日曆、Trello、JIRA、GitHub和其他服務，並將其通知集中於JANDI。你將明"
-"顯感受到JANDI Connect將資訊彙整一處所帶來的便利性和節省數種平台切換的瑣碎時"
-"間。"
+"串連Google日曆、Trello、JIRA、GitHub和其他服務，<br>並將其通知集中於JANDI。"
+"<br><br>你將明顯感受到JANDI Connect將資訊<br><br><b>彙整一處所帶來的便利性和"
+"節省數種平台切換的瑣碎時間。<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
