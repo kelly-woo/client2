@@ -1,30 +1,22 @@
-.topic-foldering.tutorial-popup.dropdown-menu {
-  display: block;
-  padding:18px !important;
-  padding-top:14px !important;
-  left:236px;
-  top:102px;
-  min-width: 296px;
-  z-index: 505;
-}
 .popup-left-arrow {
   position:absolute;
   left:-8px;
   top:20px;
   height: 14px;
-	width: 14px;
-	background-color:#fff;
-	border-left:1px solid #d1d1d1;
-	border-top:1px solid #d1d1d1;
-	-ms-transform:rotate(-45deg);
-	-webkit-transform:rotate(-45deg);
-	transform:rotate(-45deg);
-	z-index: -1;
+  width: 14px;
+  background-color:#fff;
+  border-left:1px solid #d1d1d1;
+  border-top:1px solid #d1d1d1;
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+  z-index: -1;
 }
+
 .tuto-img-container {
   border:1px solid #e2e2e2;
   width:200px;
-	height: 212px;
+  height: 212px;
   margin-top:12px;
   margin-bottom:14px;
   margin-left: 2px;
@@ -34,6 +26,16 @@
   left:-20px;
   top:-5px;
   position: relative;
+}
+.tuto-mp4-container {
+  background-color: white;
+  position: relative;
+  top: -3px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  padding-top: 20px;
+  border-bottom: 1px solid #d1d1d1;
+  height: 191px;
 }
 .dropdown-title {
   font-size: 15px;
@@ -46,6 +48,7 @@
   top:1px;
   word-break: break-all; /*fallback*/
 }
+
 .dropdown-title:lang(ko) {
   line-height: 23px;
   word-break: keep-all;
@@ -63,13 +66,17 @@
   line-height: 21px;
   /*padding-left: 4px;*/
   padding-right: 4px;
+  color: #777777;
+  font-size: 14px;
+  line-height: 21px;
 }
 .tutorial-popup button.close {
   outline: 0;
-  font-size: 13px !important;
+  font-size: 11px !important;
   margin-top:6px;
   margin-left:10px;
 }
+
 .tutorial-popup .green_badge {
   line-height: 11px;
   margin-right:4px;
@@ -79,13 +86,14 @@
 .tutorial-popup .dont-show-again-container {
   margin-top: 12px;
   padding: 4px;
-  padding-top:14px;
+  padding-top: 0px;
+  padding-bottom: 14px;
   position:relative;
-  border-top:1px solid rgba(0,0,0,0.1);
+  /*border-top:1px solid rgba(0,0,0,0.1);*/
 }
-
 .tutorial-popup .dont-show-again-container label {
   font-weight: normal;
+  color: #777777;
 }
 
 .tutorial-popup .dont-show-again-container span:hover {
@@ -100,4 +108,7 @@
 }
 .tutorial-popup .dont-show-again-container span {
   margin-left:4px;
+}
+.dropdown-footer {
+  padding-bottom: 22px;
 }

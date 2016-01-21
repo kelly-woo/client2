@@ -87,7 +87,8 @@
         name: data.name,
         status: data.status,
         profileImage: memberService.getProfileImage(data.id),
-        count: data.count
+        count: data.count,
+        isUnjoinedChannel: !!data.isUnjoinedChannel
       };
     }
   }

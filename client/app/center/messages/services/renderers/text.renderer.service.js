@@ -60,7 +60,7 @@
      */
     function _showMoreDropdown(jqTarget, msg) {
       var entityType = currentSessionHelper.getCurrentEntityType();
-      var showAnnouncement = (!RendererUtil.isSticker(msg) && entityType !== 'users');
+      var showAnnouncement = (!RendererUtil.isSticker(msg) && memberService.isUser(msg.message.writerId));
       jndPubSub.pub('show:center-item-dropdown', {
         target: jqTarget,
         msg: msg,
