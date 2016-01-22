@@ -314,9 +314,6 @@
      */
     function _initCalendarList() {
       $scope.isCalendarListLoaded = false;
-      $scope.data.calendarList = [
-        {text: '@불러오는 중', value: ''}
-      ];
     }
 
     /**

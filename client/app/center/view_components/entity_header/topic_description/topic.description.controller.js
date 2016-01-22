@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .controller('jndTooltipCtrl', jndTooltipCtrl);
+    .controller('TopicDescriptionCtrl', TopicDescriptionCtrl);
 
   /* @ngInject */
-  function jndTooltipCtrl($scope, $filter) {
+  function TopicDescriptionCtrl($scope, $filter) {
     _init();
 
     /**

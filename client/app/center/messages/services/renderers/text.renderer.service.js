@@ -9,7 +9,7 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil, memberService) {
+  function TextRenderer($filter, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil, memberService) {
     var _template;
     var _templateChild;
 
@@ -165,7 +165,6 @@
     function _getConnectPreview(msg, index) {
       var html = '';
       var content = msg.message.content;
-
       var connectPreview;
 
       //if (memberService.isConnectBot(msg.message.writerId) && MessageCollection.hasIntegrationPreview(index)) {
@@ -173,29 +172,7 @@
         connectPreview = '';
 
         _.each(content.connectInfo, function(info) {
-          var hasTitle;
-          var hasDescription;
-          var hasImage;
-
-          if (_.isObject(info)) {
-            hasTitle = !!info.title;
-            hasDescription = !!info.description;
-            hasImage = !!info.imageUrl;
-
-            if (hasTitle || hasDescription || hasImage) {
-              connectPreview += _templateConnectPreview({
-                html: {
-                  title: _getConnectText(info.title),
-                  description: _getConnectText(info.description),
-                  image: _getConnectImage(info.imageUrl)
-                },
-                hasTitle: hasTitle,
-                hasDescription: hasDescription,
-                hasImage: hasImage,
-                hasSubsets: false
-              });
-            }
-          }
+          connectPreview += _getConnectPreviewItem(info);
         });
 
         if (connectPreview) {
@@ -214,34 +191,48 @@
     }
 
     /**
-     * connect text를 전달한다.
-     * @param {string} fullText
+     * connect preview를 구성하는 개별 item 전달
+     * @param {object} info
      * @returns {string}
      * @private
      */
-    function _getConnectText(fullText) {
-      var regxAnchor = /\[(.*?)\]\((.*?)\)/g;
-      var match;
-      var beginIndex = 0;
-      var lastIndex;
-      var text = '';
+    function _getConnectPreviewItem(info) {
+      var markdown = $filter('markdown');
+      var result = '';
 
-      while (match = regxAnchor.exec(fullText)) {
-        lastIndex = regxAnchor.lastIndex;
+      var hasTitle;
+      var hasDescription;
+      var hasImage;
 
-        text = text + fullText.substring(beginIndex, lastIndex).replace(match[0], '<a href="' + match[2] + '" target="_blank">' + match[1] + '</a>');
+      if (_.isObject(info)) {
+        hasTitle = !!info.title;
+        hasDescription = !!info.description;
+        hasImage = !!info.imageUrl;
 
-        beginIndex = lastIndex;
+        if (hasTitle || hasDescription || hasImage) {
+          result = _templateConnectPreview({
+            html: {
+              title: markdown(info.title),
+              description: markdown(info.description),
+              image: _getConnectImage(info.imageUrl)
+            },
+            hasTitle: hasTitle,
+            hasDescription: hasDescription,
+            hasImage: hasImage,
+            hasSubsets: false
+          });
+        }
       }
 
-      if (!!text) {
-        text = text + fullText.substring(beginIndex, fullText.length);
-      }
-
-      return text || fullText;
+      return result;
     }
 
-
+    /**
+     * get connect image
+     * @param {string} imageUrl
+     * @returns {string}
+     * @private
+     */
     function _getConnectImage(imageUrl) {
       var html = '';
 

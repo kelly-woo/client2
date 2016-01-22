@@ -81,7 +81,7 @@
        * @private
        */
       function _onConnectUpdated(angularEvent, data) {
-        _updateConnectPlugs(function(connectPlug) {
+        _.each(scope.connectPlugs, function(connectPlug) {
           var bot;
           if (connectPlug.connectId === data.connect.id) {
             bot = entityAPIservice.getEntityById('total', data.bot.id);
@@ -110,22 +110,13 @@
        * @private
        */
       function _onMemberProfileUpdated(angularEvent, data) {
-        _updateConnectPlugs(function(connectPlug) {
+        _.each(scope.connectPlugs, function(connectPlug) {
           var member;
           if (connectPlug.memberId === data.member.id) {
             member = entityAPIservice.getEntityById('total', data.member.id);
             connectPlug.memberName = member.name;
           }
         });
-      }
-
-      /**
-       * update connect plugs
-       * @private
-       * @param {function} fn
-       */
-      function _updateConnectPlugs(fn) {
-        _.each(scope.connectPlugs, fn);
       }
 
       /**

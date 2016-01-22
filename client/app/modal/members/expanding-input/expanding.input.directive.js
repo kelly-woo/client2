@@ -82,7 +82,7 @@
 
       /**
        * 부모 scope의 activeIndex 값 변경 event handler
-       * @param value
+       * @param {string} value
        * @private
        */
       function _onActiveIndexChange(value) {
