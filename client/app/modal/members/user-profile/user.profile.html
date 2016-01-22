@@ -1,7 +1,7 @@
 <page-tracker page="topic/profile" title="Member Profile"></page-tracker>
 <!-- Modal: Mini Profile View -->
 <div class="modal-body profile-view-body" user-profile ng-switch="isSelectedImage">
-  <jnd-image-crop files="files"
+  <jnd-image-crop image-data="imageData"
                   on-image-crop-done="onImageCropDone($dataURI)"
                   ng-switch-when="true"></jnd-image-crop>
   <div ng-switch-default>
