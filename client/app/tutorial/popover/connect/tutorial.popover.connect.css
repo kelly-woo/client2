@@ -1,10 +1,10 @@
 .jnd-connect.tutorial-popup.dropdown-menu {
-  padding: 10px;
   display: block;
   position: absolute;
   top: 10px;
   left: 11px;
   min-width: 400px;
+  max-width: 400px;
   z-index: 525;
   text-align: center;
   background-color: white;
