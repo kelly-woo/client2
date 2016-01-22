@@ -1571,7 +1571,7 @@ msgstr "Loading..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-208"
-msgstr "Integration setting has been updatedSave Integration"
+msgstr "Integration setting has been updated"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-209"
