@@ -60,7 +60,7 @@
      */
     function _showMoreDropdown(jqTarget, msg) {
       var entityType = currentSessionHelper.getCurrentEntityType();
-      var showAnnouncement = (!RendererUtil.isSticker(msg) && memberService.isUser(msg.message.writerId));
+      var showAnnouncement = _isShowAnnouncement(msg, entityType);
       jndPubSub.pub('show:center-item-dropdown', {
         target: jqTarget,
         msg: msg,
@@ -68,6 +68,19 @@
         isMyMessage: RendererUtil.isMyMessage(msg),
         showAnnouncement: showAnnouncement
       });
+    }
+
+    /**
+     * 공지등록 버튼의 출력 여부
+     * @param {object} msg
+     * @param {string} entityType
+     * @returns {boolean|*|boolean|*}
+     * @private
+     */
+    function _isShowAnnouncement(msg, entityType) {
+      // message가 스티커가 아니며 message를 작성한 작성자가 반드시 user(bot이 아님)여야 하고
+      // 현재 center의 chat list가 channel(topic)인 경우 공지사항으로 등록 가능하다
+      return (!RendererUtil.isSticker(msg) && entityType === 'channels' && memberService.isUser(msg.message.writerId));
     }
 
     /**
