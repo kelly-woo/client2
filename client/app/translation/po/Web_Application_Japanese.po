@@ -1626,10 +1626,10 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
-"Googleカレンダー、Trello、JIRA、そしてGitHubのような＜br＞他サービスをJANDIに"
-"登録し更新事項をメッセージで受けることができる＜br＞機能のJANDIコネクトがリ"
-"リースされました。＜br＞＜br＞＜b＞これからはメールを使うことがさらになくなり"
-"ます。＜b＞＜br＞"
+"Googleカレンダー、Trello、JIRA、そしてGitHubのような <br>他サービスをJANDIに"
+"登録し更新事項をメッセージで受けることができる <br>機能のJANDIコネクトがリ"
+"リースされました。<br><br><b>これからはメールを使うことがさらになくなります。"
+"<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
