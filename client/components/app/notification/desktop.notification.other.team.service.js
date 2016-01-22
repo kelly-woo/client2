@@ -1,5 +1,5 @@
 /**
- * @fileoverview 다른 팀으로부터 소켓이 왔을 때, 날려주는 브라우져 노티를 설정한다.
+ * @fileoverview Sample Notification 생성하는 service
  */
 (function() {
   'use strict';
@@ -9,20 +9,21 @@
     .service('OtherTeamNotification', OtherTeamNotification);
 
   /* @ngInject */
-  function OtherTeamNotification(desktopNotificationHelper, accountService, configuration, DesktopNotificationUtil,
-                                 jndWebSocketCommon, HybridAppHelper,  $filter, DesktopNotification) {
-    this.addNotification = addNotification;
+  function OtherTeamNotification($filter, accountService, configuration, jndWebSocketCommon, HybridAppHelper,
+                                 DesktopNotificationUtil, DesktopNotification) {
+    var that = this;
+
+    that.show = show;
 
     /**
-     * 다른 팀으로부터 소켓이 왔을 때, 날려주는 브라우져 노티를 설정한다.
-     * @param socketEvent
+     * show other team notification
+     * @param {object} socketEvent
      */
-    function addNotification(socketEvent) {
+    function show(socketEvent) {
       var teamInfo;
       var teamName;
 
       var options;
-      var notification;
 
       if (_isGoodtoSendNotification(socketEvent)) {
         teamInfo = DesktopNotificationUtil.getTeamInfo(socketEvent.teamId);
@@ -33,11 +34,11 @@
             tag: 'tag',
             body: _getBody(teamName),
             icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
-            callback: _onClick,
+            onClick: _onClick,
             data: socketEvent
           };
 
-          (notification = _createInstance(options)) && notification.show();
+          DesktopNotification.show(options);
         }
       }
     }
@@ -49,14 +50,13 @@
      * @private
      */
     function _isGoodtoSendNotification(socketEvent) {
-      if (DesktopNotification.canSendNotification()) {
-        // 우선 시스템상에서 브라우져 노티가 켜져있어야 함
-        if (jndWebSocketCommon.shouldSendNotification(socketEvent)) {
-          // socket event가 나로부터 온게 아니어야 함.
-          return true;
-        }
+      var result = false;
+      if (DesktopNotificationUtil.canSendNotification() && jndWebSocketCommon.shouldSendNotification(socketEvent)) {
+        // 우선 시스템상에서 브라우져 노티가 켜져있고 socket event가 나로부터 온게 아니어야 함.
+        result = true;
       }
-      return false;
+
+      return result;
     }
 
     /**
@@ -71,14 +71,6 @@
         newWindow = window.open('', '_blank');
         newWindow.location.href = DesktopNotificationUtil.getNotificationUrl(param);
       }
-    }
-
-    /**
-     * Notification object 생성
-     * @param {object} options - object options
-     */
-    function _createInstance(options) {
-      return Object.create(desktopNotificationHelper.WebNotification).init(options);
     }
 
     /**

@@ -10,7 +10,7 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, modalHelper, DesktopNotification, $timeout) {
+  function NotificationCtrl($scope, $timeout, modalHelper, DesktopNotificationUtil, SampleNotification) {
 
     var NOTI_TURN_ON = '@setting-notification-turn-on';
     var NOTI_TURN_OFF = '@setting-notification-turn-off';
@@ -59,17 +59,17 @@
      * 모달이 불러졌을 때 실행되어야 하는 부분.
      */
     function init() {
-      DesktopNotification.log();
+      DesktopNotificationUtil.log();
 
       // 데스크탑 노티피케이션이 켜져있는가??
-      $scope.isDesktopNotificationOn = DesktopNotification.isNotificationOn();
+      $scope.isDesktopNotificationOn = DesktopNotificationUtil.isNotificationOn();
 
-      if (DesktopNotification.canSendNotification()) {
+      if (DesktopNotificationUtil.canSendNotification()) {
         // 노티피케이션을 날려도 되는 상태!
         _onNotificationGranted();
       } else {
         // 노티피케이션이 denied 거나 default 인 경우.
-        if (DesktopNotification.isNotificationPermissionDenied()) {
+        if (DesktopNotificationUtil.isNotificationPermissionDenied()) {
           // 노티피케이션이 완전히 블락되었음.
           // 이럴땐 사용자가 직접 브라우져 설정창에서 바꿔야 함.
           _onNotificationDenied();
@@ -79,7 +79,7 @@
         }
       }
 
-      $scope.isShowNotificationContent = DesktopNotification.getShowNotificationContentFlag();
+      $scope.isShowNotificationContent = DesktopNotificationUtil.getShowNotificationContentFlag();
 
       // view 를 바꾸기위해서 한다.
       $timeout(function() {
@@ -93,10 +93,10 @@
     function onNotificationButtonClicked() {
       if (!$scope.isDesktopNotificationOn) {
         // 노티피케이션이 꺼져있으므로 킨다.
-        DesktopNotification.turnOnDesktopNotification();
+        DesktopNotificationUtil.turnOnDesktopNotification();
       } else {
         // 브라우져 노티피케이션은 켜져있지만 유저가 끄거나 키길원한다.
-        DesktopNotification.toggleDesktopNotificationLocally();
+        DesktopNotificationUtil.toggleDesktopNotificationLocally();
       }
     }
 
@@ -104,7 +104,7 @@
      * 테스트용 데스크탑 노티피케이션을 보낸다.
      */
     function sendTestNotification() {
-      DesktopNotification.sendSampleNotification();
+      SampleNotification.show();
     }
 
     /**
@@ -137,7 +137,7 @@
      * 노티피케이션 메세지 내용을 보여주나 마나 하는 checkbox 의 값이 변했을 때 호출된다.
      */
     function onNotificationShowContentMessageChanged() {
-      DesktopNotification.setShowNotificationContent($scope.isShowNotificationContent);
+      DesktopNotificationUtil.setShowNotificationContent($scope.isShowNotificationContent);
     }
 
     /**
@@ -147,7 +147,7 @@
       if ($scope.isDesktopNotificationOn) {
         // 노티피케이션이 켜져있을 때만
         $scope.isShowNotificationContent = !$scope.isShowNotificationContent;
-        DesktopNotification.setShowNotificationContent($scope.isShowNotificationContent);
+        DesktopNotificationUtil.setShowNotificationContent($scope.isShowNotificationContent);
       }
     }
 

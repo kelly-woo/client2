@@ -1,37 +1,39 @@
 /**
- * @fileoverview topic 에 invite되었을 때 날려주는 노티피케이션을 만든다.
+ * @fileoverview Topic Invite Notification 생성하는 service
  */
 (function() {
   'use strict';
 
   angular
     .module('app.desktop.notification')
-    .service('TopicInvitedNotification', TopicInvitedNotification);
+    .service('TopicInviteNotification', TopicInviteNotification);
 
   /* @ngInject */
-  function TopicInvitedNotification(DesktopNotification, $filter, entityAPIservice, DesktopNotificationUtil,
-                                    memberService, desktopNotificationHelper, $state) {
-    this.addNotification = addNotification;
+  function TopicInviteNotification($state, $filter, entityAPIservice, DesktopNotificationUtil, DesktopNotification,
+                                   memberService) {
+    var that = this;
+
+    that.show = show;
 
     /**
-     * 노티피케이션 오브젝트를 만든다.
-     * @param {object} socketEvent - socket event parameter
+     * show topic invite notification
+     * @param socketEvent
      */
-    function addNotification(socketEvent) {
-      var notification;
+    function show(socketEvent) {
       var options;
       var user;
 
-      if (DesktopNotification.canSendNotification()) {
+      if (DesktopNotificationUtil.canSendNotification()) {
         user = entityAPIservice.getEntityById('users', socketEvent.writer);
         options = {
           tag: 'tag',
           body: _getBody(socketEvent),
           icon: memberService.getProfileImage(user.id, 'small'),
-          callback: _onNotificationClicked,
+          onClick: _onNotificationClicked,
           data: socketEvent
         };
-        (notification = _createInstance(options)) && notification.show();
+
+        DesktopNotification.show(options);
       }
     }
 
@@ -69,15 +71,6 @@
       var roomType = socketEvent.room.type;
 
       $state.go('archives', {entityType: roomType, entityId: roomId});
-
-    }
-
-    /**
-     * Notification object 생성
-     * @param {object} options - object options
-     */
-    function _createInstance(options) {
-      return Object.create(desktopNotificationHelper.WebNotification).init(options);
     }
   }
 })();

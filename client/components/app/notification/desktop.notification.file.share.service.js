@@ -1,44 +1,55 @@
 /**
- * Created by jihoonkim on 8. 25.2015.
+ * @fileoverview Sample Notification 생성하는 service
  */
 (function() {
   'use strict';
 
   angular
     .module('app.desktop.notification')
-    .service('FileShareDesktopNotification', FileShareDesktopNotification);
+    .service('FileShareNotification', FileShareNotification);
 
   /* @ngInject */
-  function FileShareDesktopNotification(DesktopNotification, desktopNotificationHelper, memberService,
-                                        entityAPIservice, $filter, $state, DesktopNotificationUtil) {
-    this.addNotification = addNotification;
+  function FileShareNotification($filter, $state, DesktopNotificationUtil, DesktopNotification, memberService,
+                                 entityAPIservice) {
+    var that = this;
 
-    function addNotification(socketEvent) {
-      var notification;
+    that.show = show;
+
+    /**
+     * show file share notification
+     * @param {object} socketEvent
+     */
+    function show(socketEvent) {
       var options;
       var user;
 
-      if (DesktopNotification.canSendNotification()) {
+      if (DesktopNotificationUtil.canSendNotification()) {
         user = entityAPIservice.getEntityById('users', socketEvent.writer);
         options = {
           tag: 'tag',
           body: _getBody(socketEvent),
           icon: memberService.getProfileImage(user.id, 'small'),
-          callback: _onNotificationClicked,
+          onClick: _onNotificationClicked,
           data: socketEvent
         };
 
-        (notification = _createInstance(options)) && notification.show();
+        DesktopNotification.show(options);
       }
     }
 
+    /**
+     * file share notification을 위한 내용이다.
+     * @param socketEvent
+     * @returns {*}
+     * @private
+     */
     function _getBody(socketEvent) {
       var _fileTitle = DesktopNotificationUtil.getFileTitleFormat(socketEvent.message);
       var _writer = entityAPIservice.getEntityById('users', socketEvent.writer);
       var _writerName = _writer.name;
       var _bodyMessage;
 
-      if (DesktopNotification.getShowNotificationContentFlag()) {
+      if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
         // content를 보여준다.
         _bodyMessage = DesktopNotificationUtil.getSenderContentFormat(_writerName, _fileTitle);
         //_bodyMessage = _writerName + ': ' + $filter('translate')('web-notification-body-file-share') + ': ' + _fileTitle;
@@ -56,7 +67,6 @@
 
     }
 
-
     /**
      * browser notification을 클릭했을 때 호출되는 함수이다.
      * @param socketEvent
@@ -68,15 +78,6 @@
       var _roomToGo = DesktopNotificationUtil.getRoomIdTogo(socketEvent);
 
       $state.go('messages.detail.files.redirect', {entityType: _roomType, itemId: _fileId,  entityId: _roomToGo});
-    }
-
-    /**
-     * Notification object 생성
-     *
-     * @param {object} options - object options
-     */
-    function _createInstance(options) {
-      return Object.create(desktopNotificationHelper.WebNotification).init(options);
     }
   }
 })();

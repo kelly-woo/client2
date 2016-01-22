@@ -6,7 +6,8 @@
     .service('DeskTopNotificationBanner', DeskTopNotificationBanner);
 
   /* @ngInject */
-  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService, Browser) {
+  function DeskTopNotificationBanner(DesktopNotificationUtil, $document, $compile, jndPubSub, $rootScope, publicService,
+                                     Browser) {
     var that = this;
 
     var _jqBanner;
@@ -108,7 +109,7 @@
      * @private
      */
     function _isPermissionDefault() {
-      var permission = DesktopNotification.getNotificationPermission();
+      var permission = DesktopNotificationUtil.getNotificationPermission();
       return !(permission === 'denied' || permission === 'granted');
     }
 
@@ -138,8 +139,8 @@
      * @returns {boolean}
      */
     function shouldAskLocalNotification() {
-      var isNotificationPermissionGranted = DesktopNotification.isNotificationPermissionGranted();
-      var isNotificationLocalFlagUp = DesktopNotification.isNotificationLocalFlagUp();
+      var isNotificationPermissionGranted = DesktopNotificationUtil.isNotificationPermissionGranted();
+      var isNotificationLocalFlagUp = DesktopNotificationUtil.isNotificationLocalFlagUp();
 
       return isNotificationPermissionGranted && !isNotificationLocalFlagUp;
     }
@@ -150,7 +151,7 @@
      * @private
      */
     function _isNeverAskMeFlagUp() {
-      return DesktopNotification.isNeverAskFlagUp();
+      return DesktopNotificationUtil.isNeverAskFlagUp();
     }
 
     /**

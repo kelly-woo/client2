@@ -6,7 +6,7 @@
     .controller('DesktopNotificationBannerCtrl', DesktopNotificationBannerCtrl);
 
   /* @ngInject */
-  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotification, modalHelper) {
+  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotificationUtil, modalHelper) {
     var isModalOpen = false;
 
     $scope.isInitialQuestion;
@@ -23,7 +23,7 @@
     _init();
 
     function _init() {
-      $scope.isInitialQuestion = !DesktopNotification.isNotificationOn();
+      $scope.isInitialQuestion = !DesktopNotificationUtil.isNotificationOn();
       _attachEvent();
     }
 
@@ -44,7 +44,7 @@
      * Notification.permission 을 묻는다.
      */
     function turnOnDesktopNotification() {
-      DesktopNotification.turnOnDesktopNotification();
+      DesktopNotificationUtil.turnOnDesktopNotification();
     }
 
     /**
@@ -58,7 +58,7 @@
      * 사용자가 'Never Ask Me'를 눌렀을 경우.
      */
     function neverAskMe() {
-      DesktopNotification.setNeverAskFlag();
+      DesktopNotificationUtil.setNeverAskFlag();
       DeskTopNotificationBanner.hideNotificationBanner();
     }
 
@@ -87,7 +87,7 @@
      * @private
      */
     function _shouldOpenNotificationSettingModal() {
-      return !DesktopNotification.isNotificationPermissionGranted() && !isModalOpen;
+      return !DesktopNotificationUtil.isNotificationPermissionGranted() && !isModalOpen;
     }
 
     /**
