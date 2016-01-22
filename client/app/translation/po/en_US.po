@@ -1630,9 +1630,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
-"Integrate Google Calendar, Trello, JIRA, GitHub <br>or other services into "
-"JANDI <br>and receive notifications as messages.<br><br><b>You will use "
-"emails even less than before.<b><br>"
+"Connect your Google Calendar, Trello, JIRA, GitHub, <br>and other services "
+"to JANDI<br> to get instant notifications all in one place. <br> "
+"<br><b>Reduce the clutter in your inbox and see efficiency at work<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
