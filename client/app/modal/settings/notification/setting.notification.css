@@ -1,110 +1,96 @@
 .notification-modal-body {
-  padding-top: 26px;
+  margin: 18px 20px 15px;
+  padding: 18px 0 15px;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
 }
 
-.notification-recommendation-msg {
-  margin-bottom: 20px;
-  line-height: 1.5;
+.notification-modal-body i {
+  margin-right: 4px;
 }
 
-.notification-switch {
-  border: 1px solid;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #f2fbff;
-  height: 40px;
-  line-height: 40px;
-  padding: 0px 12px;
-  font-size: 15px;
+.notification-modal-body .notification-role {
+  position: relative;
+  width: 300px;
+}
+
+.notification-role .notification-role-header {
+  padding-top: 5px;
+  font-size: 16px;
+  color: #333;
   font-weight: 600;
 }
 
-.notification-switch.to-on {
-  border-color: #00a6e9;
-  color: #00a6e9;
+.notification-role .notification-role-body {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #999;
+  line-height: 22px;
 }
 
-.notification-switch.to-off {
-  border-color: #ff0000;
-  color: #ff0000;
+.notification-role .notification-switch {
+  position: absolute;
+  top: 0;
+  left: 230px;
 }
 
-.notification-switch.to-on:hover {
-  background-color: #00abe6;
-  color: white;
+.notification-role .notification-image {
+  position: absolute;
+  top: 0;
+  left: 324px;
+  width: 236px;
 }
-
-.notification-switch.to-off:hover {
-  background-color: #F9E1E1;
-}
-
-.notification-switch:hover .notification-btn-text {
-}
-
-.separator {
-  margin: 20px 0;
+.notification-role .notification-image img {
   width: 100%;
-  height: 1px;
-  background-color: #d1d1d1;
+  height: auto;
 }
 
-.notification-detail-setting-container {
+.notification-modal-body .notification-setting {
+  margin-top: 8px;
 }
 
-.notification-detail-setting-container.is-disabled {
-  opacity: 0.4;
+.notification-setting .notification-target {
+  font-size: 14px;
+  color: #333;
 }
 
-.notification-test-button {
-  color: #555555;
+.notification-target > label {
+  line-height: 30px;
+}
 
+.notification-target > label > input,
+.notification-target > label > span {
+  margin-top: 0;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.notification-setting .notification-options {
+  width: 100%;
+  height: 200px;
+  padding: 15px;
+  background-color: #e9e9e9;
   border: 1px solid #e1e1e1;
   border-radius: 5px;
-
-  background-color: white;
-
-  text-align: center;
-
-  margin-bottom: 16px;
-
-  padding: 0 20px;
-
-  height: 40px;
-  line-height: 40px;
-
-  cursor: pointer;
-
-  display: table;
-}
-.custom_cursor {
-  cursor: pointer;
-}
-.is-disabled.custom_cursor,
-.notification-detail-setting-container.is-disabled .custom_cursor {
-  cursor: not-allowed;
-}
-.notification-detail-setting-container.is-enabled .notification-test-button:hover {
-  background-color: #f2fbff;
-  color: #00abe6;
 }
 
-.notification-show-content-checkbox {
-  margin: 0 !important;
+.notification-message-alert .message-alert-header,
+.notification-message-preview .message-preview-header {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  line-height: 24px;
 }
-
-.notification-show-content-text {
-  
-}
-.notification-show-content-text:hover {
-  text-decoration: underline;
-}
-
-.notification-denied-text {
-  text-align: center;
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border: 1px solid #faebcc;
-  padding-top: 11px;
+.notification-message-alert .message-alert-header i,
+.notification-message-preview .message-preview-header i {
   font-size: 15px;
-  height: 40px;
+  color: #666;
+}
+.notification-message-preview .message-preview-options > label {
+  padding-left: 20px;
+  display: block;
+}
+
+.btn-notification-sample {
+  float: left;
 }

@@ -7,50 +7,40 @@
 </div>
 
 <div class="modal-body notification-modal-body">
-
-  <!-- 노티피케이션을 키고 켜는 곳  -->
-  <div class="notification-switch-container">
-    <div class="notification-recommendation-msg" translate>@setting-notification-recommendation-msg</div>
-    <div class="notification-switch cursor_pointer" ng-click="onNotificationButtonClicked();" ng-if="!isNotificationDenied"
-         ng-class="{'to-on': shouldTurnOnNotification,
-                    'to-off': !shouldTurnOnNotification}">
-      <span class=""
-            ng-class="{ 'icon-bell-fill': shouldTurnOnNotification,
-                        'icon-bell-slash-fill': !shouldTurnOnNotification}"></span>
-
-      <span class="notification-btn-text">{{notificationBtnText | translate}}</span>
-
+  <div class="notification-role">
+    <div class="notification-role-header">바탕화면 알림</div>
+    <div class="notification-role-body">We strongly recommend you leave desktop notification on so you never miss an important message.</div>
+    <div class="notification-switch"><switch-button></switch-button></div>
+    <div class="notification-image"><img src="assets/images/app_notification_w.png"></div>
+  </div>
+  <div class="notification-setting">
+    <div class="notification-target">
+      <label>
+        <input type="checkbox" /><span>Receive direct msgs and @mentions only</span>
+      </label>
     </div>
-    <div class="notification-denied-text" ng-if="isNotificationDenied">
-      <span translate>@setting-notification-denied</span>
+    <div class="notification-options">
+      <div class="notification-message-preview col-sm-6">
+        <div class="message-preview-header"><i class="icon-chat"></i><span>메시지 내용 미리보기</span></div>
+        <div class="message-preview-options">
+          <label><input type="radio" name="preview-option" value="">모든 메시지</label>
+          <label><input type="radio" name="preview-option" value="">공개 토픽만</label>
+          <label><input type="radio" name="preview-option" value="">미리보기 하지 않음</label>
+        </div>
+      </div>
+      <div class="notification-message-alert col-sm-6">
+        <div class="message-alert-header"><i class="icon-volume-up"></i>알림 소리 켜기</div>
+        <div class="message-alert-options">
+          <div class="message-normal"></div>
+          <div class="message-mention"></div>
+          <div class="message-dm"></div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- 나는 선이다 -->
-  <div class="separator"></div>
-
-  <!-- 노티피케이션 세부 사항 -->
-  <div class="notification-detail-setting-container"
-        ng-class="{'is-disabled': shouldTurnOnNotification,
-                    'is-enabled': !shouldTurnOnNotification}">
-
-    <!-- 테스트 노티피케이션 보내기 버튼  -->
-    <div class="notification-test-button custom_cursor" ng-click="sendTestNotification();">
-      <span translate>@send-test-notification</span>
-    </div>
-
-    <!-- 노티피케이션 메세지 내용을 보여줄까 말까     -->
-    <div class="notification-show-content-setting-container custom_cursor">
-      <input type="checkbox" ng-model="isShowNotificationContent" ng-disabled="shouldTurnOnNotification"
-             class="notification-show-content-checkbox" ng-change="onNotificationShowContentMessageChanged();">
-      <span class="notification-show-content-text" ng-click="onNotificationShowContentMessageClicked();" translate>@setting-notification-show-content-msg</span>
-    </div>
-
-  </div>
-
 </div>
 
 <div class="modal-footer">
-  <!--<button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>@btn-close</span></button>-->
-  <a class="btn btn-ok _modalSubmit" ng-click="cancel();"><span translate>@common-done</span></a>
+  <button class="btn btn-cancel btn-notification-sample">테스트 메시지 받기</button>
+  <button class="btn btn-ok" translate>@common-done</button>
 </div>

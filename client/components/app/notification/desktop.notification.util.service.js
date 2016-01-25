@@ -79,6 +79,9 @@
 
     that.log = log;
 
+    /**
+     * init
+     */
     function init() {
       if (HybridAppHelper.isHybridApp()) {
         // hybrid 앱 일 경우
@@ -228,6 +231,10 @@
       _onNotificationSettingChanged();
     }
 
+    /**
+     * notification permission change trigger
+     * @private
+     */
     function _onNotificationSettingChanged() {
       jndPubSub.pub('onDesktopNotificationPermissionChanged', notificationPermission);
     }
@@ -582,6 +589,9 @@
         + $filter('translate')('@web-notification-body-messages-post');
     }
 
+    /**
+     * notification log
+     */
     function log() {
       logger.desktopNotificationSettingLogger(isNotificationSupported, notificationPermission, isNotificationOnLocally, shouldSendNotification(), isShowNotificationContent);
     }
