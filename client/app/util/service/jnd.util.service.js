@@ -36,13 +36,13 @@
     /**
      * 알수 없는 오류에 대한 alert 을 노출한다.
      * @param {object} response
+     * @param {number} status - http 상태 코드
      */
-    function alertUnknownError(response) {
+    function alertUnknownError(response, status) {
       var msg = $filter('translate')('@common-unknown-error');
       var body;
-
       response = _.extend({
-        code: -1,
+        code: status || -1,
         msg: 'Unknown error'
       }, response);
 
@@ -73,8 +73,8 @@
      *          }
      *      }
      *  };
-     *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
-     *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+     *  JndUtil.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  JndUtil.pick(obj, 'nested', 'nested', 'key2'); // undefined
      *
      *  var arr = ['a', 'b', 'c'];
      *  JndUtil.pick(arr, 1); // 'b'

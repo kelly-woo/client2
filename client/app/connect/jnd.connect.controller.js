@@ -214,7 +214,7 @@
           return false;
         }
         if (index === length - 1) {
-          JndUtil.alertUnknownError(result.data);
+          JndUtil.alertUnknownError(result.data, result.status);
         }
       });
       JndConnect.close();

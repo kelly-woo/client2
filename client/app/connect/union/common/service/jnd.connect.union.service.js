@@ -227,7 +227,7 @@
      */
     function _onErrorCommon(err, status) {
       if (!JndConnectApi.handleError(err, status)) {
-        JndUtil.alertUnknownError(err);
+        JndUtil.alertUnknownError(err, status);
       }
     }
 
