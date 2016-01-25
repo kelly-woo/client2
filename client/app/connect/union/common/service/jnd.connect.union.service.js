@@ -105,10 +105,12 @@
      */
     function handleCommonLoadError(current, err) {
       var body;
+      var serviceName = JndUtil.pick(current, 'union', 'title');
+
       JndConnect.backToMain();
       if (err.code === 50001) {
         body = $filter('translate')('@jnd-connect-215')
-          .replace('{{serviceName}}', JndUtil.pick(current, 'union', 'title'));
+          .replace('{{serviceName}}', serviceName);
         Dialog.alert({
           allowHtml: true,
           body: body
