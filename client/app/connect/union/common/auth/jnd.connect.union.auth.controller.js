@@ -6,8 +6,8 @@
     .controller('JndConnectUnionAuthCtrl', JndConnectUnionAuthCtrl);
 
   /* @ngInject */
-  function JndConnectUnionAuthCtrl($scope, $filter, JndConnect) {
-    $scope.getAuth = getAuth;
+  function JndConnectUnionAuthCtrl($scope, $filter, JndUtil, JndConnect) {
+    $scope.openAuthPopup = openAuthPopup;
     $scope.text = {};
     _init();
 
@@ -18,14 +18,44 @@
     function _init() {
       $scope.text.authBtn = $filter('translate')('@jnd-connect-144')
         .replace('{{serviceName}}', $scope.current.union.title);
-      $scope.$on('popupDone', function() {
-        $scope.current.union.hasAuth = true;
-        $scope.current.isShowAuth = false;
-      });
-
+      _attachEvents();
     }
 
-    function getAuth() {
+    /**
+     * event handler 를 attach 한다.
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('popupDone', _onSuccessAuth);
+      $scope.$on('webSocketConnect:authenticationCreated', _onAuthenticationCreated);
+    }
+
+    /**
+     * authentication 이 생성되었을 때 소캣 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
+    function _onAuthenticationCreated(angularEvent, data) {
+      var connectType = JndUtil.pick(data, 'authentication', 'connectType');
+      if (connectType  === $scope.current.union.name) {
+        _onSuccessAuth();
+      }
+    }
+
+    /**
+     * authentication 성공시 이벤트 핸들러
+     * @private
+     */
+    function _onSuccessAuth() {
+      $scope.current.union.hasAuth = true;
+      $scope.current.isShowAuth = false;
+    }
+
+    /**
+     * authentication 을 획득한다.
+     */
+    function openAuthPopup() {
       JndConnect.openAuthPopup($scope.current.union.name);
     }
   }
