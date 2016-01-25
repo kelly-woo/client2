@@ -311,7 +311,7 @@
           jqTarget = $(keyEvent.target);
           if (!_isInput(jqTarget)) {
             keyEvent.preventDefault();
-            JndConnect.close(true);
+            JndConnect.close();
           }
         }
       }

@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
-                                        JndConnectUnion, accountService, Dialog, JndConnect) {
+                                        JndConnectUnion, accountService, Dialog, JndConnectUnionFormData) {
     $scope.selectedRoom = '';
 
     _init();
@@ -47,6 +47,29 @@
       $scope.$on('accountMenuDirective:removeAccountDone', _onRemoveAccountDone);
       $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
       $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
+      $scope.$on('$destroy', JndConnectUnionFormData.clear);
+      $scope.$on('JndConnectUnionFormData:getCurrentFormData', _onGetCurrentFormData);
+    }
+
+    /**
+     * getCurrentFormData 이벤트 콜백
+     * @param {object} angularEvent
+     * @param {Function} callback - formData 를 인자로 넘겨줄 콜백 함수
+     * @private
+     */
+    function _onGetCurrentFormData(angularEvent, callback) {
+      callback($scope.data);
+    }
+
+    /**
+     * 변경 여부 파악을 위해 초기 formData 를 저장한다.
+     * @private
+     */
+    function _setOriginalFormData() {
+      //custom selectbox 에서 기본 값으로 세팅한 이후 저장하기 위해 setTimeout 을 수행한다.
+      setTimeout(function() {
+        JndConnectUnionFormData.set($scope.data);
+      });
     }
 
     /**
@@ -98,6 +121,7 @@
         _requestConnectInfo();
       } else {
         $scope.isInitialized = true;
+        _setOriginalFormData();
       }
 
       // content 생성시 항상 calendar list를 request한다.
@@ -284,8 +308,8 @@
         var data = $scope.data;
 
         _.extend(data, connectInfo);
-
         $scope.member = EntityMapManager.get('user', data.memberId);
+        _setOriginalFormData();
       })
       .finally(function() {
         $scope.isInitialized = true;
@@ -372,6 +396,15 @@
       });
 
       data.calendarList = list;
+
+      //원본 formData 추가 정보를 업데이트 한다.
+      //calendarMapKey 값의 경우 custom selectbox 에서 기본 선택이 완료된 이후 값이 세팅 되므로 timeout 을 이용한다.
+      setTimeout(function() {
+        JndConnectUnionFormData.extend({
+          calendarList: list,
+          calendarMapKey: $scope.data.calendarMapKey
+        });
+      });
     }
 
     /**

@@ -91,10 +91,9 @@
 
     /**
      * 커넥트 화면을 close 한다.
-     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
-    function close(isShowConfirm) {
-      jndPubSub.pub('JndConnect:startClose', !!isShowConfirm);
+    function close(isSkipConfirm) {
+      jndPubSub.pub('JndConnect:startClose', isSkipConfirm);
     }
 
     /**
@@ -115,17 +114,16 @@
 
     /**
      * main 으로 되돌아온다.
-     * @param {boolean} [isShowConfirm=false] - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
      */
-    function backToMain(isShowConfirm) {
-      jndPubSub.pub('JndConnect:backToMain', !!isShowConfirm);
+    function backToMain(isSkipConfirm) {
+      jndPubSub.pub('JndConnect:backToMain', isSkipConfirm);
     }
 
     /**
      * 이전 화면으로 이동한다.
      */
-    function historyBack() {
-      jndPubSub.pub('JndConnect:historyBack');
+    function historyBack(isSkipConfirm) {
+      jndPubSub.pub('JndConnect:historyBack', isSkipConfirm);
     }
 
     /**

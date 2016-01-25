@@ -67,7 +67,7 @@
           body: $filter('translate')('@jnd-connect-226').replace('{{adminName}}', adminEntity.name)
         });
         if (!isOnlyShowConfirm) {
-          JndConnect.backToMain();
+          JndConnect.backToMain(true);
         }
         return true;
       } else {

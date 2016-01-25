@@ -130,7 +130,7 @@
               });
 
               if (hasSingleItem) {
-                JndConnect.backToMain();
+                JndConnect.backToMain(true);
               }
             })
             .error(_onErrorAccountDelete)

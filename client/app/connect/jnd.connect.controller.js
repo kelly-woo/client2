@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language,
-                          Dialog) {
+                          Dialog, JndConnectUnionFormData) {
 
     var UNION_DATA = {
       '1': {
@@ -217,7 +217,7 @@
           JndUtil.alertUnknownError(result.data, result.status);
         }
       });
-      JndConnect.close();
+      JndConnect.close(true);
     }
     
     /**
@@ -311,20 +311,20 @@
     /**
      * back to main 이벤트 콜백
      * @param {object} angularEvent
-     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
+     * @param {boolean} isSkipConfirm - 편집 상황에서 나갈 경우 노출하는 confirm 을 노출하지 않을지 여부
      * @private
      */
-    function _onBackToMain(angularEvent, isShowConfirm) {
-      _backToMain(isShowConfirm);
+    function _onBackToMain(angularEvent, isSkipConfirm) {
+      _backToMain(isSkipConfirm);
     }
 
     /**
      * main list 로 돌아간다.
-     * @param {boolean} isShowConfirm - 편집 상황에서 나갈 경우 confirm 을 보여줄지 여부
+     * @param {boolean} [isSkipConfirm] - 편집 상황에서 나갈 경우 노출하는 confirm 을 노출하지 않을지 여부
      * @private
      */
-    function _backToMain(isShowConfirm) {
-      if (isShowConfirm && isEditing()) {
+    function _backToMain(isSkipConfirm) {
+      if (!isSkipConfirm && isEditing() && JndConnectUnionFormData.isChanged()) {
         _confirmStopEditing(_resetCurrent);
       } else {
         _resetCurrent();
@@ -358,11 +358,11 @@
     /**
      * fade out 이벤트 핸들러
      * @param {object} angularEvent
-     * @param {boolean} isShowConfirm
+     * @param {boolean} isSkipConfirm
      * @private
      */
-    function _onStartClose(angularEvent, isShowConfirm) {
-      if (isShowConfirm && isEditing()) {
+    function _onStartClose(angularEvent, isSkipConfirm) {
+      if (!isSkipConfirm && isEditing() && JndConnectUnionFormData.isChanged()) {
         _confirmStopEditing(_fadeOut);
       } else {
         _fadeOut();
@@ -384,12 +384,12 @@
     /**
      * 돌아가기 버튼 클릭시 핸들러
      */
-    function historyBack() {
+    function historyBack(angularEvent, isSkipConfirm) {
       JndUtil.safeApply($scope, function() {
         if ($scope.current.union) {
-          _backToMain(true);
+          _backToMain(isSkipConfirm);
         } else {
-          JndConnect.close();
+          JndConnect.close(isSkipConfirm);
         }
       });
 

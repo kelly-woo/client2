@@ -107,7 +107,7 @@
       var body;
       var serviceName = JndUtil.pick(current, 'union', 'title');
 
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
       if (err.code === 50001) {
         body = $filter('translate')('@jnd-connect-215')
           .replace('{{serviceName}}', serviceName);
@@ -242,7 +242,7 @@
         body: $filter('translate')('@jnd-connect-208'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
@@ -254,7 +254,7 @@
         body: $filter('translate')('@jnd-connect-186'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
