@@ -13,7 +13,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        files: '=',
+        imageData: '=',
         onImageCropDone: '&'
       },
       templateUrl : 'app/util/directive/image-crop/jnd.image.crop.html',
@@ -38,37 +38,10 @@
         scope.onCropCancel = onCropCancel;
         scope.onCropDone = onCropDone;
 
-        _initImageCrop();
         _setCropDimentions();
         jqModalBody.find('.crop-area').addClass('active');
 
         _attachEvents();
-      }
-
-      /**
-       * image crop 초기화
-       * @private
-       */
-      function _initImageCrop() {
-        var file = scope.files[0];
-        var orientation;
-
-        if (file) {
-          loadImage.parseMetaData(file, function(data) {
-            if (data.exif) {
-              orientation = data.exif.get('Orientation');
-            }
-
-            loadImage(scope.files[0], function(img) {
-              JndUtil.safeApply(scope, function() {
-                scope.imageData = img.toDataURL('image/jpeg');
-              });
-            }, {
-              canvas: true,
-              orientation: orientation
-            });
-          });
-        }
       }
 
       /**
@@ -149,7 +122,8 @@
           height: jqModalBody.height()
         };
 
-        jqModalBody.css({width: dimensions.width, height: dimensions.height});
+        // jqModalBody의 dimension가 page 전체를 덮지 않기 위해 가로, 세로에 -150 한다.
+        jqModalBody.css({width: dimensions.width - 150, height: dimensions.height - 150});
       }
 
       /**
@@ -158,8 +132,8 @@
        * @private
        */
       function _getWindowDimensions() {
-        var width = jqWindow.width() - 150;
-        var height = jqWindow.height() - 150;
+        var width = jqWindow.width();
+        var height = jqWindow.height();
 
         return {
           width: width < 0 ? 0 : width,

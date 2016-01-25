@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile(JndUtil, memberService) {
+  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog) {
     return {
       restrict: 'A',
       link: link
@@ -51,13 +51,29 @@
       function onImageEditClick() {
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
-            JndUtil.safeApply(scope, function() {
-              scope.isSelectedImage = true;
-              scope.croppedImage = null;
-              scope.files = evt.target.files;
-            });
+            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
+            promise.then(_resolveImageData);
           })
           .trigger('click');
+      }
+
+      /**
+       * resolve image data
+       * @param {object} img
+       * @private
+       */
+      function _resolveImageData(img) {
+        scope.croppedImage = null;
+        if (img) {
+          if (img.type === 'error') {
+            Dialog.warning({
+              'title': $filter('translate')('@common-unsupport-image')
+            });
+          } else {
+            scope.isSelectedImage = true;
+            scope.imageData = img.toDataURL('image/jpeg');
+          }
+        }
       }
 
       /**

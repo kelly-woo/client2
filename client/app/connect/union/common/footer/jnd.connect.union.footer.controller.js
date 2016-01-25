@@ -9,7 +9,7 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper) {
+  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
     var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
@@ -94,7 +94,35 @@
      */
     function onFileSelect($files) {
       if ($files && $files.length) {
-        modalHelper.openBotProfileSettingModal($scope, $files);
+        _getImageData($files).then(_resolveImageData);
+      }
+    }
+
+    /**
+     * get image data
+     * @param {object} files
+     * @returns {*}
+     * @private
+     */
+    function _getImageData(files) {
+      var file = files[0];
+      return fileAPIservice.getImageDataByFile(file);
+    }
+
+    /**
+     * resolve image data
+     * @param {object} img
+     * @private
+     */
+    function _resolveImageData(img) {
+      if (img) {
+        if (img.type === 'error') {
+          Dialog.warning({
+            'title': _translate('@common-unsupport-image')
+          });
+        } else {
+          modalHelper.openBotProfileSettingModal($scope, img.toDataURL('image/jpeg'));
+        }
       }
     }
   }

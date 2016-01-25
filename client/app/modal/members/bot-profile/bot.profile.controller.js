@@ -10,7 +10,10 @@
     .controller('BotProfileCtrl', BotProfileCtrl);
 
   /* @ngInject */
-  function BotProfileCtrl($scope, $filter, curBot, $state, modalHelper, JndConnect, memberService, messageAPIservice) {
+  function BotProfileCtrl($scope, $filter, $timeout, curBot, $state, modalHelper, JndConnect, memberService,
+                          messageAPIservice, jndKeyCode) {
+    var timerShowDmInputAuto;
+
     _init();
 
     function _init() {
@@ -18,6 +21,7 @@
       curBot.extProfileImage = memberService.getProfileImage(curBot.id, 'small');
 
       $scope.name = $filter('getName')($scope.curBot);
+
       $scope.botDescription = '잔디봇은 잔디를 사용하며 꼭 알아야 할 점이나 연동 서비스의 메시지를 전달해드립니다.';
       $scope.connectSettingText = '연동 서비스 설정하기';
       $scope.statusMessage = '안녕하세요? 잔디봇입니다.';
@@ -29,6 +33,8 @@
       $scope.close = close;
       $scope.onActionClick = onActionClick;
       $scope.onSubmitDoneClick = onSubmitDoneClick;
+      $scope.onDmKeydown = onDmKeydown;
+
       $scope.postMessage = postMessage;
 
       _attachEvents();
@@ -68,7 +74,17 @@
      */
     function onSubmitDoneClick() {
       if (_isEnableDM()) {
-        $scope.showSubmitDone = false;
+        $scope.isShowDmSubmit = false;
+      }
+    }
+
+    /**
+     * dm 입력란 keydown event handler
+     */
+    function onDmKeydown(event) {
+      //if (jndKeyCode.match('ENTER', event.keyCode) && !$scope.isSending) {
+      if (jndKeyCode.match('ENTER', event.keyCode)) {
+        $scope.setShowDmSubmit(false);
       }
     }
 
@@ -78,23 +94,26 @@
      * @private
      */
     function _isEnableDM() {
-      return $scope.showSubmitDone && !$scope.isSending
+      return $scope.isShowDmSubmit;
     }
 
     /**
      * post message
      */
     function postMessage() {
-      $scope.showSubmitDone = true;
-      $scope.isSending = true;
+      if ($scope.message.content) {
+        $scope.setShowDmSubmit(true);
 
-      messageAPIservice.postMessage('users', curBot.id, $scope.message.content)
-        .success(function() {
-          $scope.message.content = '';
-        })
-        .finally(function() {
-          $scope.isSending = false;
-        });
+        $timeout.cancel(timerShowDmInputAuto);
+        timerShowDmInputAuto = $timeout(function() {
+          $scope.setShowDmSubmit(false);
+        }, 2000);
+
+        messageAPIservice.postMessage('users', curBot.id, $scope.message.content)
+          .finally(function() {
+            $scope.message.content = '';
+          });
+      }
     }
 
     /**
@@ -127,7 +146,7 @@
      */
     function _onMessageContentChange(value) {
       if (_isEnableDM() && value !== '') {
-        $scope.showSubmitDone = false;
+        $scope.isShowDmSubmit = false;
       }
     }
   }
