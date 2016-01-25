@@ -21,7 +21,9 @@
   padding-left: 3px;
   padding-right: 3px;
 }
-
+.lpanel-list span.badge.left-panel_badge {
+  padding:3px 7px;
+}
 .lpanel-list__header .fa-comment {
   font-size: 11px;
 }
