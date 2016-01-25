@@ -207,8 +207,16 @@
      * 오류 발생했을 경우 오류 alert 을 노출하고 Connect 를 닫는다.
      * @private
      */
-    function _onErrorRequestAll(response) {
-      JndUtil.alertUnknownError(response);
+    function _onErrorRequestAll(results) {
+      var length = results.length;
+      _.forEach(results, function(result, index) {
+        if (JndConnectApi.handleError(result.data, result.status, true)) {
+          return false;
+        }
+        if (index === length - 1) {
+          JndUtil.alertUnknownError(result.data);
+        }
+      });
       JndConnect.close();
     }
     
