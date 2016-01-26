@@ -10,8 +10,8 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
-                           analyticsService, jndKeyCode) {
+  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, MemberProfile, memberService, messageAPIservice,
+                           analyticsService, jndKeyCode, jndPubSub) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -20,6 +20,10 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       _setCurrentUser(curUser);
 
@@ -199,9 +203,7 @@
      * @private
      */
     function _onFileListClick(userId) {
-      if ($state.current.name != 'messages.detail.files') {
-        $state.go('messages.detail.files');
-      }
+      MemberProfile.openFileList(userId);
 
       jndPubSub.pub('updateFileWriterId', userId);
     }
@@ -270,13 +272,7 @@
         return;
       }
 
-     // TODO: REFACTOR ROUTE.SERVICE
-      var routeParam = {
-        entityType: 'users',
-        entityId: userId
-      };
-
-      $state.go('archives', routeParam);
+      MemberProfile.goToDM(userId);
     }
 
     /**

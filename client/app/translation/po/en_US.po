@@ -1571,7 +1571,7 @@ msgstr "Loading..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-208"
-msgstr "Integration setting has been updatedSave Integration"
+msgstr "Integration setting has been updated"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-209"
@@ -1604,8 +1604,8 @@ msgstr "Not in use"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-215"
 msgstr ""
-"GitHub account authentication is not valid. Please authenticate again to "
-"continue."
+"Your account on {{serviceName}} was disconnected. Previous configurations "
+"for this integration will be removed."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-216"
