@@ -24,7 +24,7 @@
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;
-    $scope.isUserType;
+    $scope.isMember;
 
     $scope.onEntityTitleClicked = onEntityTitleClicked;
 
@@ -129,8 +129,12 @@
         _entityType = entity.type;
 
         $scope.currentEntity = entity;
-        $scope.isUserType = memberService.isMember(_currentEntity.id);
-        $scope.isAllowConnect = !$scope.isUserType || memberService.isJandiBot(_currentEntity.id);
+
+        $scope.isUser = memberService.isUser(_currentEntity.id);
+        $scope.isJandiBot = memberService.isJandiBot(_currentEntity.id);
+        $scope.isMember = $scope.isUser || $scope.isJandiBot;
+
+        $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
         $scope.users = entityAPIservice.getUserList(entity);
       }
     }
@@ -190,6 +194,8 @@
       } else {
         $scope.isDisabledEntity = false;
       }
+
+      $scope.isAllowUserable = !$scope.isDisabledEntity && !$scope.isJandiBot;
     }
 
     /**
@@ -435,9 +441,11 @@
     function _updateConnectInfo() {
       var room;
       var roomId;
+      var entityId;
 
       if ($scope.isAllowConnect) {
-        if (room = entityAPIservice.getJoinedEntity(_entityId)) {
+        entityId = $scope.isMember ? $scope.currentEntity.entityId : $scope.currentEntity.id;
+        if (room = entityAPIservice.getJoinedEntity(entityId)) {
           roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
 
           requestConnectInfo && requestConnectInfo.abort();

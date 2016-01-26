@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, MemberProfile, memberService, messageAPIservice,
-                           analyticsService, jndKeyCode) {
+                           analyticsService, jndKeyCode, jndPubSub) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -204,6 +204,8 @@
      */
     function _onFileListClick(userId) {
       MemberProfile.openFileList(userId);
+
+      jndPubSub.pub('updateFileWriterId', userId);
     }
 
     /**

@@ -85,11 +85,13 @@
        * @private
        */
       function _onSelectedValueChange(newValue) {
-        var entity = EntityMapManager.get('total', newValue);
-        if (_isTopic(entity)) {
-          scope.model = newValue;
-        } else {
-          scope.model = entity.entityId;
+        var entity = entityAPIservice.getJoinedEntity(newValue);
+        if (entity) {
+          if (_isTopic(entity)) {
+            scope.model = newValue;
+          } else {
+            scope.model = entity.entityId;
+          }
         }
       }
     }

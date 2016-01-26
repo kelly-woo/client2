@@ -22,6 +22,10 @@
     };
 
     function link(scope) {
+      // removedConnectPlugs가 존재하는 이유는 connect가 삭제 되었을때 즉각 UI에 반응하기 위함이다
+      // client에서 삭제 요청된 connect plug가 server에서 삭제 완료되지 않은 경우
+      // client에서 connect plug에 대한 정보 요청시 삭제 요청된 connect plug가 전달되기 때문에
+      // 따라 삭제된 connect plug를 관리하도록 한다.
       var removedConnectPlugs = [];
       var connectPlugMap;
 
@@ -71,7 +75,7 @@
        * @private
        */
       function _onConnectCreated(angularEvent, data) {
-        _setConnectPlug(data.connect.type, data.connect);
+        _setConnectPlug(data.connect.type, data.connect, true);
       }
 
       /**
@@ -194,10 +198,12 @@
         var setList;
 
         if (!connectInfo) {
-          scope.connectPlugs = [];
           connectPlugMap = {};
+          scope.connectPlugs = [];
+          removedConnectPlugs = [];
         } else {
           setList = {};
+
           _.each(connectInfo, function(connects, name) {
             _.each(connects, function(connect) {
               setList[connect.id] = true;
@@ -219,14 +225,16 @@
        * set connect plug
        * @param {string} name
        * @param {object} connect
+       * @param {boolean} force - remove connect plug를 확인하지 않고 강제설정 여부
        * @private
        */
-      function _setConnectPlug(name, connect) {
+      function _setConnectPlug(name, connect, force) {
         var member;
         var bot;
         var connectPlug;
+        var index;
 
-        if (removedConnectPlugs.indexOf(connect.id) < 0) {
+        if (force && removedConnectPlugs.indexOf(connect.id) < 0) {
           // 삭제되었던 connect plug가 아님
           
           member = entityAPIservice.getEntityById('total', connect.memberId);
@@ -239,6 +247,11 @@
               // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
               _addConnectPlug(name, connect, bot, member);
             }
+          }
+
+          index = removedConnectPlugs.indexOf(connect.id);
+          if (index > -1) {
+            removedConnectPlugs.splice(index, 1);
           }
         }
       }

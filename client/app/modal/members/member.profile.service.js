@@ -9,7 +9,7 @@
     .service('MemberProfile', MemberProfile);
 
   /* @ngInject */
-  function MemberProfile($state, jndPubSub) {
+  function MemberProfile($state) {
     var that = this;
 
     that.openFileList = openFileList;
@@ -17,14 +17,11 @@
 
     /**
      * 오른쪽 패널의 파일 리스트 열기
-     * @param {number} memberId
      */
-    function openFileList(memberId) {
+    function openFileList() {
       if ($state.current.name != 'messages.detail.files') {
         $state.go('messages.detail.files');
       }
-
-      jndPubSub.pub('updateFileWriterId', memberId);
     }
 
     /**
