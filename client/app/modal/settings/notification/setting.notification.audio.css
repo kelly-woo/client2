@@ -1,0 +1,39 @@
+.notification-audio-btn-group {
+  width: 100%;
+
+}
+
+.notification-audio-btn-group .btn {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  color: #424C53;
+}
+
+.notification-audio-btn-group .btn .icon {
+  position: absolute;
+  top: 8px;
+  right: 7px;
+}
+.notification-audio-btn-group .btn:focus:active {
+  color: #424C53;
+}
+
+.notification-audio-btn-group.open .btn {
+  background-color: #E7E7E8;
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
+  border-color: #BDC0C2;
+}
+
+.notification-audio-btn-group .dropdown-menu {
+  width: 100%;
+}
+
+
+
+
+
