@@ -31,9 +31,18 @@
       <div class="notification-message-alert col-sm-6">
         <div class="message-alert-header"><i class="icon-volume-up"></i>알림 소리 켜기</div>
         <div class="message-alert-options">
-          <div class="message-normal"></div>
-          <div class="message-mention"></div>
-          <div class="message-dm"></div>
+          <div class="message-normal">
+            <div>일반 메시지:</div>
+            <notification-audio-menu></notification-audio-menu>
+          </div>
+          <div class="message-mention">
+            <div>@멘션:</div>
+            <notification-audio-menu></notification-audio-menu>
+          </div>
+          <div class="message-dm">
+            <div>1:1 메시지:</div>
+            <notification-audio-menu></notification-audio-menu>
+          </div>
         </div>
       </div>
     </div>

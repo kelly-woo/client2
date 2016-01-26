@@ -74,6 +74,17 @@
   border-radius: 5px;
 }
 
+.notification-options .notification-message-alert,
+.notification-options .notification-message-preview {
+  padding: 0;
+  height: 100%;
+}
+
+.notification-options .notification-message-alert {
+  padding-left: 15px;
+  border-left: 1px solid #d1d1d1;
+}
+
 .notification-message-alert .message-alert-header,
 .notification-message-preview .message-preview-header {
   font-size: 14px;
@@ -86,9 +97,21 @@
   font-size: 15px;
   color: #666;
 }
-.notification-message-preview .message-preview-options > label {
+
+.notification-options .message-preview-options,
+.notification-options .message-alert-options {
+
+}
+
+.notification-message-preview .message-preview-options {
   padding-left: 20px;
+}
+.notification-message-preview .message-preview-options > label {
   display: block;
+}
+
+.notification-message-alert .message-alert-options {
+  padding-left: 20px;
 }
 
 .btn-notification-sample {
