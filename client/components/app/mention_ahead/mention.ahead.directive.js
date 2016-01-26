@@ -36,7 +36,7 @@
           var mentionCtrl;
           var jqMentionahead;
 
-          if (!memberService.isMember(currentEntity.id)) {
+          if (currentEntity && !memberService.isMember(currentEntity.id)) {
             mentionCtrl = ctrls[0];
             scope.eventCatcher = el;
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {

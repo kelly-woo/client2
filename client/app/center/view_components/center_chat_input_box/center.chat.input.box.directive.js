@@ -87,12 +87,15 @@
        */
       function _setMentionList() {
         var currentEntity = currentSessionHelper.getCurrentEntity();
-        var users = entityAPIservice.getUserList(currentEntity);
+        var users;
         var mentionMembers;
 
-        if (users) {
-          mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
-          jndPubSub.pub('mentionahead:message', mentionMembers);
+        if (currentEntity) {
+          users = entityAPIservice.getUserList(currentEntity);
+          if (users) {
+            mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
+            jndPubSub.pub('mentionahead:message', mentionMembers);
+          }
         }
       }
 
