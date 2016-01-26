@@ -18,7 +18,6 @@
      */
     function _init() {
       $scope.getMemberName = getMemberName;
-      $scope.getCreatedAt = getCreatedAt;
       $scope.onSuccessRemove = onSuccessRemove;
       $scope.isAllowAccountUpdate = isAllowAccountUpdate;
       $scope.isAllowAccountAdd = isAllowAccountAdd;
@@ -39,26 +38,6 @@
     function getMemberName(memberId) {
       var member = EntityMapManager.get('member', memberId || memberService.getMemberId());
       return _.isObject(member) && member.name;
-    }
-
-    /**
-     * get created date
-     * @param {string} createdAt
-     * @returns {*}
-     */
-    function getCreatedAt(createdAt) {
-      var date = createdAt || new Date();
-      var result;
-      var match;
-
-      if (date instanceof Date) {
-        result = dateFilter(date, 'yyyy-MM-dd');
-      } else {
-        match = regxCreatedAt.exec(date);
-        result = _.isArray(match) && match[1];
-      }
-
-      return result;
     }
 
     /**

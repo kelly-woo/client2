@@ -16,28 +16,8 @@
         'current': '=jndDataCurrent'
       },
       controller: 'JndConnectGoogleCalendarCtrl',
-      link: link,
       replace: true,
       templateUrl: 'app/connect/union/google-calendar/jnd.connect.google.calendar.html'
     };
-
-    function link(scope) {
-      _init();
-
-      /**
-       * 생성자
-       * @private
-       */
-      function _init() {
-        scope.onTopicCreateClick = onTopicCreateClick;
-      }
-
-      /**
-       * topic create click
-       */
-      function onTopicCreateClick() {
-        modalHelper.openTopicCreateModal();
-      }
-    }
   }
 })();

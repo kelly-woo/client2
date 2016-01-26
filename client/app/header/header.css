@@ -280,7 +280,7 @@
   margin-right: 40px;
 }
 
-.unjoined-channel-label,
+.unjoined-status-label,
 .shortcuts-label {
   padding: 2px 5px;
   background-color: rgba(15,60,85,0.085);

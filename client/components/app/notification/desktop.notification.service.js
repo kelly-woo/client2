@@ -42,7 +42,14 @@
      */
     function createNotification(options) {
       var title = options.title || $filter('translate')('@web-notification-title');
-      var notification = new Notification(title, {
+      var notification;
+
+      if (options.body) {
+        // markdown 제거한다.
+        options.body = $filter('stripMarkdown')(options.body);
+      }
+
+      notification = new Notification(title, {
         tag: options.tag,
         body: options.body,
         icon: options.icon

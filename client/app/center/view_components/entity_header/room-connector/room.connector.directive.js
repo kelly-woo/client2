@@ -14,14 +14,16 @@
       restrict: 'E',
       replace: true,
       scope: {
-        connectInfo: '='
+        connectInfo: '=',
+        onDropdownToggle: '&'
       },
       templateUrl : 'app/center/view_components/entity_header/room-connector/room.connector.html',
       link: link
     };
 
     function link(scope) {
-      var clearWatch;
+      var removedConnectPlugs = [];
+      var connectPlugMap;
 
       _init();
 
@@ -33,8 +35,9 @@
         scope.onConnectSetting = onConnectSetting;
         scope.onConnectDelete = onConnectDelete;
         scope.onConnectAddClick = onConnectAddClick;
+        scope.onToggle = onToggle;
 
-        _initConnectInfo();
+        _initConnectPlugs();
 
         _attachEvents();
       }
@@ -45,6 +48,7 @@
        */
       function _attachEvents() {
         scope.$watch('connectInfo', _onConnectInfoChange);
+        scope.$watch('connectPlugs.length', _setConnectContent);
 
         scope.$on('webSocketConnect:connectCreated', _onConnectCreated);
         scope.$on('webSocketConnect:connectUpdated', _onConnectUpdated);
@@ -57,7 +61,7 @@
        * @private
        */
       function _onConnectInfoChange(connectInfo) {
-        _setConnectInfo(connectInfo);
+        _setConnect(connectInfo);
       }
 
       /**
@@ -67,7 +71,7 @@
        * @private
        */
       function _onConnectCreated(angularEvent, data) {
-        _addConnectPlug(data.connect.type, data.connect);
+        _setConnectPlug(data.connect.type, data.connect);
       }
 
       /**
@@ -77,7 +81,7 @@
        * @private
        */
       function _onConnectUpdated(angularEvent, data) {
-        _updateConnectPlug(function(connectPlug) {
+        _.each(scope.connectPlugs, function(connectPlug) {
           var bot;
           if (connectPlug.connectId === data.connect.id) {
             bot = entityAPIservice.getEntityById('total', data.bot.id);
@@ -106,7 +110,7 @@
        * @private
        */
       function _onMemberProfileUpdated(angularEvent, data) {
-        _updateConnectPlug(function(connectPlug) {
+        _.each(scope.connectPlugs, function(connectPlug) {
           var member;
           if (connectPlug.memberId === data.member.id) {
             member = entityAPIservice.getEntityById('total', data.member.id);
@@ -143,6 +147,16 @@
       }
 
       /**
+       * dropdown menu toggle event handler
+       * @param {boolean} isOpen
+       */
+      function onToggle(isOpen) {
+        scope.onDropdownToggle({
+          $isOpen: isOpen
+        });
+      }
+
+      /**
        * open connect setting page
        * @private
        */
@@ -155,68 +169,120 @@
       }
 
       /**
-       * init connect info
-       * @private
-       */
-      function _initConnectInfo() {
-        clearWatch && clearWatch();
-        scope.connectPlugs = [];
-      }
-
-      /**
-       * request success
+       * connect 상태 및 plug item 설정
        * @param {object} connectInfo
        * @private
        */
-      function _setConnectInfo(connectInfo) {
+      function _setConnect(connectInfo) {
         if (_.isEmpty(connectInfo)) {
           scope.isInitialized = false;
 
-          _initConnectInfo();
+          _initConnectPlugs();
         } else {
           scope.isInitialized = true;
 
+          _initConnectPlugs(connectInfo);
+          _setConnectContent();
+        }
+      }
+
+      /**
+       * init connect plugs
+       * @private
+       */
+      function _initConnectPlugs(connectInfo) {
+        var setList;
+
+        if (!connectInfo) {
+          scope.connectPlugs = [];
+          connectPlugMap = {};
+        } else {
+          setList = {};
           _.each(connectInfo, function(connects, name) {
             _.each(connects, function(connect) {
-              _addConnectPlug(name, connect);
+              setList[connect.id] = true;
+              _setConnectPlug(name, connect);
             });
           });
 
-          _setConnectContent();
-
-          clearWatch = scope.$watch('connectPlugs.length', _setConnectContent);
-        }
-      }
-
-      /**
-       * add connect
-       * @param {object} connect
-       * @private
-       */
-      function _addConnectPlug(name, connect) {
-        var member = entityAPIservice.getEntityById('total', connect.memberId);
-        var bot = entityAPIservice.getEntityById('total', connect.botId);
-        if (member && bot) {
-          scope.connectPlugs.push({
-            botProfileImage: bot.thumbnailUrl,
-            botName: bot.name,
-            memberName: member.name,
-            status: connect.status,
-            sourceName: JndConnect.getPlugSourceName(name, connect),
-            unionName: name,
-            connectId: connect.id,
-            memberId: connect.memberId,
-            botId: connect.botId
+          _.each(scope.connectPlugs, function(connectPlug) {
+            if (setList[connectPlug.connectId] == null) {
+              // 현재 생성된 connect plug가 새로 설정될 connectInfo에
+              // 존재하지 않는다면 해당 connect plug를 삭제한다.
+              _removeConnectPlug(connectPlug.connectId);
+            }
           });
         }
       }
 
       /**
-       * update connect
+       * set connect plug
+       * @param {string} name
+       * @param {object} connect
        * @private
        */
-      function _updateConnectPlug(fn) {
-        _.each(scope.connectPlugs, fn);
+      function _setConnectPlug(name, connect) {
+        var member;
+        var bot;
+        var connectPlug;
+
+        if (removedConnectPlugs.indexOf(connect.id) < 0) {
+          // 삭제되었던 connect plug가 아님
+          
+          member = entityAPIservice.getEntityById('total', connect.memberId);
+          bot = entityAPIservice.getEntityById('total', connect.botId);
+          if (member && bot) {
+            if (connectPlug = connectPlugMap[connect.id]) {
+              // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.
+              _updateConnectPlug(name, connect, bot, member, connectPlug);
+            } else {
+              // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
+              _addConnectPlug(name, connect, bot, member);
+            }
+          }
+        }
+      }
+
+      /**
+       * update connect plug
+       * @param {string} name
+       * @param {object} connect
+       * @param {object} bot
+       * @param {object} member
+       * @param {object} target
+       * @private
+       */
+      function _updateConnectPlug(name, connect, bot, member, target) {
+        target.botProfileImage = bot.thumbnailUrl;
+        target.botName = bot.name;
+        target.memberName = member.name;
+        target.status = connect.status;
+        target.sourceName = JndConnect.getPlugSourceName(name, connect);
+      }
+
+      /**
+       * add connect plug
+       * @param {string} name
+       * @param {object} connect
+       * @param {object} bot
+       * @param {object} member
+       * @private
+       */
+      function _addConnectPlug(name, connect, bot, member) {
+        var connectPlug = {
+          botProfileImage: bot.thumbnailUrl,
+          botName: bot.name,
+          memberName: member.name,
+          status: connect.status,
+          sourceName: JndConnect.getPlugSourceName(name, connect),
+          unionName: name,
+          connectId: connect.id,
+          memberId: connect.memberId,
+          botId: connect.botId
+        };
+
+        scope.connectPlugs.push(connectPlug);
+        connectPlugMap[connectPlug.connectId] = connectPlug;
       }
 
       /**
@@ -228,7 +294,9 @@
         var index = _.findIndex(scope.connectPlugs, 'connectId', connectId);
 
         if (index > -1) {
+          removedConnectPlugs.push(connectId);
           scope.connectPlugs.splice(index, 1);
+          delete connectPlugMap[connectId];
         }
       }
 
@@ -237,17 +305,21 @@
        * @private
        */
       function _setConnectContent() {
-        var translate = $filter('translate');
-        scope.hasConnectPlugs = scope.connectPlugs.length > 0;
+        var translate;
 
-        if (scope.hasConnectPlugs) {
-          scope.connectCount = scope.connectPlugs.length;
-          scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
-          scope.connectButtonText = translate('@jnd-connect-8');
-        } else {
-          scope.connectCount = '';
-          scope.connectStatusDesciption = translate('@jnd-connect-220');
-          scope.connectButtonText = translate('@jnd-connect-14');
+        if (scope.isInitialized) {
+          translate = $filter('translate');
+          scope.hasConnectPlugs = scope.connectPlugs.length > 0;
+
+          if (scope.hasConnectPlugs) {
+            scope.connectCount = scope.connectPlugs.length;
+            scope.connectStatusDesciption = translate('@jnd-connect-222').replace('{{connectCount}}', scope.connectCount);
+            scope.connectButtonText = translate('@jnd-connect-8');
+          } else {
+            scope.connectCount = '';
+            scope.connectStatusDesciption = translate('@jnd-connect-220');
+            scope.connectButtonText = translate('@jnd-connect-14');
+          }
         }
       }
     }
