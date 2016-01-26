@@ -14,6 +14,8 @@
     var regexMap = Markdown.getRegexMap();
 
     return function(text) {
+      //TODO 각 markdown 정규식을 하나의 정규식으로 만든뒤 하나의 loop로 처리하도록 해야함. 그렇게 되면 markdown.code도 수정해야됨
+
       text = _stripBoldItalic(text);
       text =_stripStrikeThrough(text);
       text = _stripLink(text);
