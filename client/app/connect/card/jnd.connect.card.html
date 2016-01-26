@@ -1,6 +1,6 @@
 <div class="connect-union-container _card"
        ng-class="{
-       'open': union.isOpen
+       'open': union.plugs.length && union.isOpen
        }">
   <div class="connect-union-header">
     <img class="connect-union-icon" ng-src="{{::union.imageUrl}}"/>

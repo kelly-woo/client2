@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectApi, JndConnectGithubApi, JndUtil,
-                                JndConnectUnion) {
+                                JndConnectUnion, JndConnectUnionFormData) {
     var _originalRepos;
     var _createdRoomId = null;
     var _hookRepoId = null;
@@ -71,6 +71,7 @@
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
+        _setOriginalFormData();
       } else {
         JndConnectUnion.read({
           current: $scope.current,
@@ -115,6 +116,7 @@
         formData.hookEvent[eventName] = !_.isUndefined(formData.hookEvent[eventName]);
       });
       $scope.isInitialized = true;
+      _setOriginalFormData();
     }
 
     /**
@@ -128,8 +130,14 @@
       $scope.isRepoLoaded = true;
       $scope.isInitialized = true;
       $scope.formData.hookRepoId = _hookRepoId;
+
       JndConnectUnion.setHeaderAccountData($scope.formData.header, {
         accountList: [response]
+      });
+
+      //원본 formData 의 정보를 업데이트 한다.
+      JndConnectUnionFormData.extend({
+        hookRepoId: _hookRepoId
       });
     }
 
@@ -173,6 +181,29 @@
       $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
       $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+      $scope.$on('$destroy', JndConnectUnionFormData.clear);
+      $scope.$on('JndConnectUnionFormData:getCurrentFormData', _onGetCurrentFormData);
+    }
+
+    /**
+     * getCurrentFormData 이벤트 콜백
+     * @param {object} angularEvent
+     * @param {Function} callback - formData 를 인자로 넘겨줄 콜백 함수
+     * @private
+     */
+    function _onGetCurrentFormData(angularEvent, callback) {
+      callback($scope.formData);
+    }
+
+    /**
+     * 변경 여부 파악을 위해 초기 formData 를 저장한다.
+     * @private
+     */
+    function _setOriginalFormData() {
+      //custom selectbox 에서 기본 값으로 세팅한 이후 저장하기 위해 setTimeout 을 수행한다.
+      setTimeout(function() {
+        JndConnectUnionFormData.set($scope.formData);
+      });
     }
 
     /**

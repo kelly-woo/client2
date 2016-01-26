@@ -12,18 +12,15 @@
     .module('jandiApp')
     .filter('markdown', markdown);
 
-  function markdown($filter) {
+  function markdown(Markdown) {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /([\*]{3})([^\*]+?)\1/g,
-      bold: /([\*]{2})([^\*]+?)\1/g,
-      italic: /([\*]{1})([^\*]+?)\1/g,
-      strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?((?:\([^)]*\)|[^()\s])*?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,
       marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
+
+    _.extend(_regx, Markdown.getRegexMap());
 
     return function(text, allowList) {
       return convert(text, allowList);

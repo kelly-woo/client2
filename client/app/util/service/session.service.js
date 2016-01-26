@@ -97,7 +97,7 @@
     function setCurrentTeam(team) { currentTeam = team; }
 
     function _setCurrentTeamName(teamName) {
-      currentTeam.name = teamName;
+      currentTeam && (currentTeam.name = teamName);
     }
 
     function updateCurrentTeamName(teamName) {
@@ -109,7 +109,7 @@
     }
 
     function getDefaultTopicId() {
-      return currentTeam.t_defaultChannelId;
+      return currentTeam && currentTeam.t_defaultChannelId;
     }
     function getCurrentTeamUserList() { return currentTeamUserList; }
     function setCurrentTeamUserList(userList) { currentTeamUserList = userList; }
@@ -132,11 +132,11 @@
       return currentEntity;
     }
     function getCurrentEntityType() {
-      return currentEntity.type;
+      return currentEntity && currentEntity.type;
     }
 
     function getCurrentEntityId(isEntityId) {
-      return isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
+      return currentEntity && isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
     }
 
     function setSocketConnection() {

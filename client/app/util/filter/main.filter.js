@@ -157,6 +157,12 @@ app.filter('getUserEmail', ['memberService',
   }
 ]);
 
+app.filter('getProfileImage', function(memberService) {
+  return function(memberId, type) {
+    return memberService.getProfileImage(memberId, type);
+  };
+});
+
 app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config', 'JndUtil',
   function($filter, memberService, config, JndUtil) {
     return function(member) {

@@ -160,7 +160,7 @@
        */
       function _onErrorSetStatus(err, status) {
         if (!JndConnectApi.handleError(err, status)) {
-          JndUtil.alertUnknownError(err);
+          JndUtil.alertUnknownError(err, status);
           scope.onErrorCallback({
             $value: err
           });

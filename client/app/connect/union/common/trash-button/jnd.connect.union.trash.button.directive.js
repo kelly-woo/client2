@@ -120,9 +120,9 @@
       function _onErrorCallback(err, status) {
         if (!JndConnectApi.handleError(err, status)) {
           JndConnect.hideLoading();
-          JndUtil.alertUnknownError(response);
+          JndUtil.alertUnknownError(err, status);
           scope.onErrorCallback({
-            $value: response
+            $value: err
           });
         }
       }

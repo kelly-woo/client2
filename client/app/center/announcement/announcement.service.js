@@ -85,13 +85,13 @@
     function getActionOwner(announcement, entityId, actionType) {
       var memberEntity;
 
-      memberEntity = EntityMapManager.get('total', entityId);
-
-      return {
-        'profilePic': memberService.getProfileImage(memberEntity.id, 'small'),
-        'name': memberEntity.name,
-        'time': announcement[actionType]
-      };
+      if (memberEntity = EntityMapManager.get('total', entityId)) {
+        return {
+          'profilePic': memberService.getProfileImage(memberEntity.id, 'small'),
+          'name': memberEntity.name,
+          'time': announcement[actionType]
+        };
+      }
     }
 
     /**

@@ -105,10 +105,12 @@
      */
     function handleCommonLoadError(current, err) {
       var body;
-      JndConnect.backToMain();
+      var serviceName = JndUtil.pick(current, 'union', 'title');
+
+      JndConnect.backToMain(true);
       if (err.code === 50001) {
         body = $filter('translate')('@jnd-connect-215')
-          .replace('{{serviceName}}', JndUtil.pick(current, 'union', 'title'));
+          .replace('{{serviceName}}', serviceName);
         Dialog.alert({
           allowHtml: true,
           body: body
@@ -227,7 +229,7 @@
      */
     function _onErrorCommon(err, status) {
       if (!JndConnectApi.handleError(err, status)) {
-        JndUtil.alertUnknownError(err);
+        JndUtil.alertUnknownError(err, status);
       }
     }
 
@@ -240,7 +242,7 @@
         body: $filter('translate')('@jnd-connect-208'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
@@ -252,7 +254,7 @@
         body: $filter('translate')('@jnd-connect-186'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**

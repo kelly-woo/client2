@@ -56,8 +56,9 @@
      *
      * @param {object} err
      * @param {number} status
+     * @param {boolean} [isOnlyShowConfirm=false] confirm 만 보여주고 이후 처리는 하지 않을지 여부
      */
-    function handleError(err, status) {
+    function handleError(err, status, isOnlyShowConfirm) {
       var adminEntity = currentSessionHelper.getCurrentTeamAdmin();
       //권한 없는 경우
       if (status === 403) {
@@ -65,7 +66,9 @@
           allowHtml: true,
           body: $filter('translate')('@jnd-connect-226').replace('{{adminName}}', adminEntity.name)
         });
-        JndConnect.backToMain();
+        if (!isOnlyShowConfirm) {
+          JndConnect.backToMain(true);
+        }
         return true;
       } else {
         return false;

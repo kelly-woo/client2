@@ -339,6 +339,8 @@
         var share_target = "";
         var fileInfo = response.data.fileInfo;
         var topicType;
+        var file_meta;
+        var upload_data;
 
         switch (scope.selectedEntity.type) {
           case 'channels':
@@ -367,10 +369,8 @@
         } catch (e) {
         }
 
-
-        var file_meta = (response.data.fileInfo.type).split("/");
-
-        var upload_data = {
+        file_meta = (response.data.fileInfo.type).split("/");
+        upload_data = {
           "entity type"   : share_target,
           "category"      : file_meta[0],
           "extension"     : response.data.fileInfo.ext,
