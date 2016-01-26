@@ -121,7 +121,8 @@
         _requestConnectInfo();
       } else {
         $scope.isInitialized = true;
-        _setOriginalFormData();
+        //신규 생성일 경우, 항상 변경되었다고 간주하기 위하여 빈 object 를 설정한다.
+        JndConnectUnionFormData.set({});
       }
 
       // content 생성시 항상 calendar list를 request한다.
