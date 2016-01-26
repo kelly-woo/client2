@@ -137,7 +137,7 @@
 
       //원본 formData 의 정보를 업데이트 한다.
       JndConnectUnionFormData.extend({
-        hookRepoId: _hookRepoId
+        hookRepoId: _hookRepoId || ''
       });
     }
 
