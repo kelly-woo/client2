@@ -9,11 +9,12 @@
     .directive('roomConnector', roomConnector);
 
   /* @ngInject */
-  function roomConnector($filter, JndConnect, entityAPIservice) {
+  function roomConnector($filter, JndConnect, entityAPIservice, memberService) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
+        currentEntity: '=',
         connectInfo: '=',
         onDropdownToggle: '&'
       },
@@ -75,7 +76,9 @@
        * @private
        */
       function _onConnectCreated(angularEvent, data) {
-        _setConnectPlug(data.connect.type, data.connect, true);
+        if (_isCurrentEntityEvent(data.connect)) {
+          _setConnectPlug(data.connect.type, data.connect, true);
+        }
       }
 
       /**
@@ -85,16 +88,18 @@
        * @private
        */
       function _onConnectUpdated(angularEvent, data) {
-        _.each(scope.connectPlugs, function(connectPlug) {
-          var bot;
-          if (connectPlug.connectId === data.connect.id) {
-            bot = entityAPIservice.getEntityById('total', data.bot.id);
-            connectPlug.botName = bot.name;
-            connectPlug.botProfileImage = bot.thumbnailUrl;
+        if (_isCurrentEntityEvent(data.connect)) {
+          _.each(scope.connectPlugs, function (connectPlug) {
+            var bot;
+            if (connectPlug.connectId === data.connect.id) {
+              bot = entityAPIservice.getEntityById('total', data.bot.id);
+              connectPlug.botName = bot.name;
+              connectPlug.botProfileImage = bot.thumbnailUrl;
 
-            connectPlug.status = data.connect.status;
-          }
-        });
+              connectPlug.status = data.connect.status;
+            }
+          });
+        }
       }
 
       /**
@@ -104,7 +109,9 @@
        * @private
        */
       function _onConnectDeleted(angularEvent, data) {
-        _removeConnectPlug(data.connect.id);
+        if (_isCurrentEntityEvent(data.connect)) {
+          _removeConnectPlug(data.connect.id);
+        }
       }
 
       /**
@@ -234,7 +241,7 @@
         var connectPlug;
         var index;
 
-        if (force && removedConnectPlugs.indexOf(connect.id) < 0) {
+        if (force || removedConnectPlugs.indexOf(connect.id) < 0) {
           // 삭제되었던 connect plug가 아님
           
           member = entityAPIservice.getEntityById('total', connect.memberId);
@@ -334,6 +341,17 @@
             scope.connectButtonText = translate('@jnd-connect-14');
           }
         }
+      }
+
+      /**
+       * 현재 entity의 event인지 여부
+       * @param {object} connect
+       * @returns {boolean}
+       * @private
+       */
+      function _isCurrentEntityEvent(connect) {
+        var entityId = memberService.isMember(scope.currentEntity.id) ? scope.currentEntity.entityId : scope.currentEntity.id;
+        return entityId === connect.roomId;
       }
     }
   }

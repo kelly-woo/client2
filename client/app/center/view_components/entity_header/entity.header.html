@@ -166,6 +166,7 @@
 
   <room-connector ng-class="{'bot-room': isJandiBot}"
                   ng-show="isAllowConnect"
+                  current-entity="currentEntity"
                   connect-info="connectInfo"
                   on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
 </div>
