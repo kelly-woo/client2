@@ -234,7 +234,7 @@
         var connectPlug;
         var index;
 
-        if (force && removedConnectPlugs.indexOf(connect.id) < 0) {
+        if (force || removedConnectPlugs.indexOf(connect.id) < 0) {
           // 삭제되었던 connect plug가 아님
           
           member = entityAPIservice.getEntityById('total', connect.memberId);
