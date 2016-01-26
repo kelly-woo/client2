@@ -9,7 +9,8 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil) {
+  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
+                               NotificationStream) {
     var that = this;
 
     var NOTIFICATION_EXPIRE_TIME = 7000;
@@ -18,6 +19,8 @@
 
     that.config = config;
     that.show = show;
+
+    NotificationStream.createStream('', {preload: true});
 
     /**
      * config

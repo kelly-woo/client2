@@ -42,6 +42,9 @@
 
     // 노티피케이션이 아예 block 되어버렸는가? 노티피케이션 활성/비활성 버튼 자체가 의미없음
     $scope.isNotificationDenied = false;
-
+    
+    $scope.onSampleClick = function () {
+      SampleNotification.show();
+    };
   }
 })();

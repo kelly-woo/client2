@@ -6,12 +6,14 @@
   
   angular
     .module('jandiApp')
-    .service('SoundStream', SoundStream);
+    .service('NotificationSound', NotificationSound);
   
-  function SoundStream() {
+  function NotificationSound() {
     var AudioContext = window.AudioContext;
     function load() {
 
     }
+
+
   }
 })();

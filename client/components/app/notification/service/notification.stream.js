@@ -6,26 +6,16 @@
   
   angular
     .module('jandiApp')
-    .factory('Audio', Audio);
+    .factory('NotificationStream', NotificationStream);
   
-  function Audio() {
+  function NotificationStream(NotificationStreamHTML5) {
+    var that = this;
 
-    function play() {
+    that.createStream = createStream;
 
+    function createStream(options) {
+      return Object.create(NotificationStreamHTML5).init(options);
     }
-
-    function pause() {
-
-    }
-
-    function stop() {
-
-    }
-
-    function volume() {
-
-    }
-
   }
 })();
 /**
