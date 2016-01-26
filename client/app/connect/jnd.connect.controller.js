@@ -428,7 +428,7 @@
       return {
         sourceName: JndConnect.getPlugSourceName(data),
         user: EntityMapManager.get('member', data.memberId),
-        room: EntityMapManager.get('total', data.roomId),
+        room: EntityMapManager.get('total', data.roomId) || EntityMapManager.get('memberEntityId', data.roomId),
         isOn: data.status === 'enabled',
         raw: data
       }
