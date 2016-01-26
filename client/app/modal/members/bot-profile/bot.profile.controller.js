@@ -11,11 +11,15 @@
 
   /* @ngInject */
   function BotProfileCtrl($scope, $filter, $timeout, curBot, $state, modalHelper, JndConnect, memberService,
-                          messageAPIservice, jndKeyCode) {
+                          messageAPIservice, jndKeyCode, MemberProfile) {
     var timerShowDmInputAuto;
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.curBot = curBot;
       curBot.extProfileImage = memberService.getProfileImage(curBot.id, 'small');
@@ -64,6 +68,8 @@
         _goToDM(curBot.id);
       } else if (type === 'connectSetting') {
         _openConnectSetting();
+      } else if (type === 'file') {
+        _onFileListClick(curBot.id);
       }
 
       modalHelper.closeModal();
@@ -118,17 +124,11 @@
 
     /**
      * 1:1 대화로 옮긴다.
-     * @param userId {number} 1:1 대화를 할 상대의 아이디
+     * @param botId {number} 1:1 대화를 할 상대의 아이디
      * @private
      */
-    function _goToDM(userId) {
-      // TODO: REFACTOR ROUTE.SERVICE
-      var routeParam = {
-        entityType: 'users',
-        entityId: userId
-      };
-
-      $state.go('archives', routeParam);
+    function _goToDM(botId) {
+      MemberProfile.goToDM(botId);
     }
 
     /**
@@ -137,6 +137,15 @@
      */
     function _openConnectSetting() {
       JndConnect.open();
+    }
+
+    /**
+     * 해당 유저의 파일리스트를 연다.
+     * @param userId {number} 해당 유저의 아이디.
+     * @private
+     */
+    function _onFileListClick(userId) {
+      MemberProfile.openFileList(userId);
     }
 
     /**

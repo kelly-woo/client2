@@ -21,7 +21,7 @@
   </span>
 
   <!--  DESCRIPTION -->
-  <span class="panel-title-topic-description cursor_pointer" ng-if="!isUserType">
+  <span class="panel-title-topic-description cursor_pointer" ng-if="!isMember">
      <i class="icon-info-fill" topic-description></i>
   </span>
 
@@ -34,7 +34,7 @@
     </div>
 
     <!--  TOPICS  -->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isUserType">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isMember">
       <!--    INVITE  -->
       <li role="presentation" ng-if="!isDefaultTopic">
         <a role="menuitem" tabindex="-1" ng-click="openInviteModal();">
@@ -74,9 +74,9 @@
     </ul>
 
     <!--User-->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isUserType">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isMember">
       <!--    INVITE  -->
-      <li role="presentation" ng-if="!isDisabledEntity">
+      <li role="presentation" ng-if="isAllowUserable">
         <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
           <i class="icon-user-plus"></i><span translate>@dm-menu-invite</span>
         </a>
@@ -114,7 +114,7 @@
   </span>
 
   <!-- RIGHT MENU -->
-  <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isMember">
 
     <!--  JOINED MEMBER LIST  -->
     <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
@@ -151,7 +151,7 @@
   </span>
 
   <!-- TOPIC NOTIFICATION INDICATOR -->
-  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isMember">
     <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
       tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
       tooltip-class="panel-title-bell-tooltip">
@@ -164,7 +164,8 @@
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
 
-  <room-connector ng-show="isAllowConnect"
+  <room-connector ng-class="{'bot-room': isJandiBot}"
+                  ng-show="isAllowConnect"
                   connect-info="connectInfo"
                   on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
 </div>
