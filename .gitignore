@@ -11,6 +11,7 @@ tmp
 .idea
 atlassian-ide-plugin.xml
 client/components/config/common/config.js
+client/components/config/common/config.preload.js
 client/assets/javascripts/handlebars.templates.js
 config/environments/local.team.json
 markup/index.html
