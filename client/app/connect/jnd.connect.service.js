@@ -37,7 +37,7 @@
      * @returns {boolean}
      */
     function isActive() {
-      return true;
+      return false;
     }
 
     /**
