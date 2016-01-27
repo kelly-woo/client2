@@ -209,6 +209,9 @@
           scope.connectPlugs = [];
           removedConnectPlugs = [];
         } else {
+          scope.isOwner = entityAPIservice.isOwner(scope.currentEntity, memberService.getMemberId());
+          scope.isAdmin = memberService.isAdmin();
+
           setList = {};
 
           _.each(connectInfo, function(connects, name) {

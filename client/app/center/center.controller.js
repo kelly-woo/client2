@@ -508,6 +508,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
+          // messageAPIservice.getMessages 호출시 전달되는 entityId가 토픽일때는 토픽id이고 DM일때는 멤버id인 반면
+          // response 값의 entityId는 항상 룸id이기 때문에
+          centerService.setRoomId(response.entityId);
+
           firstMessageId = response.firstLinkId;
           lastMessageId = response.lastLinkId;
           globalLastLinkId = response.globalLastLinkId;
