@@ -4,7 +4,13 @@
   cursor: default;
   margin-top: 5px !important;
   overflow: hidden;
+}
+
+.room-integration-connect .connect-wrapper.dropdown-menu {
   margin-right: 190px !important;
+}
+.bot-room.room-integration-connect .connect-wrapper.dropdown-menu {
+  margin-right: 49px !important;
 }
 
 .room-integration-connect .connect-wrapper ul {
