@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
-                               NotificationStream) {
+                               NotificationAudio) {
     var that = this;
 
     var NOTIFICATION_EXPIRE_TIME = 7000;
@@ -20,8 +20,12 @@
     that.config = config;
     that.show = show;
 
-    NotificationStream.createStream('', {preload: true});
-
+    //setTimeout(function() {
+    //
+    //  noti.play('arise');
+    //  //noti.play('arise');
+    //  //noti.play('arise');
+    //}, 5000);
     /**
      * config
      */

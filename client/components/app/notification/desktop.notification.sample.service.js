@@ -9,15 +9,24 @@
     .service('SampleNotification', SampleNotification);
 
   /* @ngInject */
-  function SampleNotification($filter, configuration, DesktopNotification) {
+  function SampleNotification($filter, configuration, DesktopNotification, NotificationAudio) {
     var that = this;
 
     that.show = show;
+
+    var noti = NotificationAudio.getInstance([
+      'arise'
+    ], {
+      preload: true,
+      multiple: true
+    });
 
     /**
      * show sample notification
      */
     function show() {
+      noti.play('arise');
+
       DesktopNotification.show({
         tag: 'tag',
         body: $filter('translate')('@web-notification-sample-body-text'),
