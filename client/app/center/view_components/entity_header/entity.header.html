@@ -164,7 +164,8 @@
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
 
-  <room-connector ng-class="{'bot-room': isJandiBot}"
+  <room-connector ng-if="isConnectActive"
+                  ng-class="{'bot-room': isJandiBot}"
                   ng-show="isAllowConnect"
                   current-entity="currentEntity"
                   connect-info="connectInfo"

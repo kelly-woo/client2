@@ -6,24 +6,27 @@
 
   <div class="tuto-mp4-container">
     <button type="button" class="close" ng-click="close();"><i class="icon-delete"></i></button>
-    <video src="assets/videos/new-feature/jnd-connect.mp4" autoplay loop muted preload="auto" width="400">
+    <video src="assets/videos/new-feature/jnd-connect.mp4" autoplay loop muted preload="auto" width="398">
     </video>
   </div>
 
-  <span class="dropdown-title" translate>
-    <i class="jnd-connect-logo"></i>
-    JANDI Connect
-  </span>
+  <div class="tuto-text-container">
+    <span class="dropdown-title">
+      <i class="jnd-connect-logo"></i>
+      <span translate>@jnd-connect-3</span>
+    </span>
 
-  <span class="dropdown-contents" translate>@Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 외부<br/>서비스를 잔디에 등록하여 변경사항을 메시지로 받아볼 수 있는<br/>기능인 잔디 커넥트가 출시되었습니다.<br/><b>이제 더욱 더 이메일을 사용할 일이 없어집니다.</b></span>
+    <span class="dropdown-contents" ng-bind-html="'@jnd-connect-225'|translate">
 
-  <div class="dont-show-again-container">
-    <input type="checkbox" id="tutorial-connect-never-show" ng-model="isClose" ng-change="closeAndNeverShow()"/><label for="tutorial-connect-never-show"><span translate>@folder-tutorial-never-show</span></label>
+    </span>
+    <div class="dont-show-again-container">
+      <input type="checkbox" id="tutorial-connect-never-show" ng-model="isClose" ng-change="closeAndNeverShow()"/><label for="tutorial-connect-never-show"><span translate>@folder-tutorial-never-show</span></label>
+    </div>
   </div>
 
   <div class="dropdown-footer">
     <div class="btn btn-ok" ng-click="addConnect();" translate>
-      @잔디 커넥트 추가하기
+      @jnd-connect-8
     </div>
   </div>
 </div>

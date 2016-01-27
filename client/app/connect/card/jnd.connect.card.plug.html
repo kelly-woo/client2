@@ -19,7 +19,8 @@
         <i ng-class="{
             'icon-topic': plug.room.type === 'channels',
             'icon-lock': plug.room.type === 'privategroups',
-            'icon-user': plug.room.type === 'users'
+            'icon-user': plug.room.type === 'users',
+            'icon-jandi-bot': plug.room.type === 'bots' && plug.room.botType === 'jandi_bot'
            }"></i> <span>{{ ::plug.room.name }}</span>
       </span>
     </div>

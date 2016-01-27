@@ -16,7 +16,7 @@
     var _regx = {
       isCode: /^`{3,}/,
       anchor: /<a.*?<\/a>/g,
-      marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
+      marker: /(<(a|img)\s(?!mention-view).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
 
@@ -175,6 +175,7 @@
      */
     function _parseLinks(str, anchorList) {
       var stra;
+      var anchorText;
       while ((stra = _regx.marker.exec(str)) !== null) {
         _regx.marker.lastIndex = 0;
         str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
@@ -189,7 +190,7 @@
         }
       }
       _.forEach(anchorList, function(anchor, index) {
-        var anchorText = _getTextFromAnchor(anchor);
+        anchorText = _getTextFromAnchor(anchor);
         str = str.replace(anchorText, _getAnchorMarker(index));
       });
       return str;

@@ -22,10 +22,12 @@
      * @private
      */
     function _init() {
-      if (accountService.getAccount()) {
-        _setIsShown();
-      } else {
-        $scope.$on('accountLoaded', _setIsShown);
+      if (JndConnect.isActive()) {
+        if (accountService.getAccount()) {
+          _setIsShown();
+        } else {
+          $scope.$on('accountLoaded', _setIsShown);
+        }
       }
     }
 

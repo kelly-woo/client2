@@ -949,6 +949,7 @@
 .jnd-connect-service-container > div.open {
   border-color:#C9D2D6;
   box-shadow: 0 2px 7px rgba(0,0,0,0.1);
+  padding-bottom: 30px;
 }
 
 .jnd-connect-service-container > div.open .connect-union-header .connect-union-btn.white-button {
