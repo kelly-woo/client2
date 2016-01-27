@@ -124,7 +124,6 @@
      */
     function _onInitialRequestEnd() {
       $scope.isInitialized = true;
-      _setOriginalFormData();
     }
 
     /**
@@ -147,6 +146,8 @@
     function _onSuccessGetWebhookToken(response) {
       $scope.formData.webhookToken = response.webhookToken;
       $scope.formData.webhookUrl = response.webhookUrl;
+      //신규 생성일 경우, 항상 변경되었다고 간주하기 위하여 빈 object 를 설정한다.
+      JndConnectUnionFormData.set({});
     }
 
     /**

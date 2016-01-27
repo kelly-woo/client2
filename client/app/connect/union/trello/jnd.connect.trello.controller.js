@@ -184,7 +184,8 @@
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
-        _setOriginalFormData();
+        //신규 생성일 경우, 항상 변경되었다고 간주하기 위하여 빈 object 를 설정한다.
+        JndConnectUnionFormData.set({});
       } else {
         JndConnectUnion.read({
           current: $scope.current,
