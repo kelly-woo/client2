@@ -213,13 +213,15 @@
 
           _.each(connectInfo, function(connects, name) {
             _.each(connects, function(connect) {
-              setList[connect.id] = true;
-              _setConnectPlug(name, connect);
+              if (connect) {
+                setList[connect.id] = true;
+                _setConnectPlug(name, connect);
+              }
             });
           });
 
           _.each(scope.connectPlugs, function(connectPlug) {
-            if (setList[connectPlug.connectId] == null) {
+            if (connectPlug && setList[connectPlug.connectId] == null) {
               // 현재 생성된 connect plug가 새로 설정될 connectInfo에
               // 존재하지 않는다면 해당 connect plug를 삭제한다.
               _removeConnectPlug(connectPlug.connectId);
