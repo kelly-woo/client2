@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile(JndUtil, memberService) {
+  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog) {
     return {
       restrict: 'A',
       link: link
@@ -51,11 +51,29 @@
       function onImageEditClick() {
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
-            JndUtil.safeApply(scope, function() {
-              _setImageData(evt.target.files[0]);
-            });
+            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
+            promise.then(_resolveImageData);
           })
           .trigger('click');
+      }
+
+      /**
+       * resolve image data
+       * @param {object} img
+       * @private
+       */
+      function _resolveImageData(img) {
+        scope.croppedImage = null;
+        if (img) {
+          if (img.type === 'error') {
+            Dialog.warning({
+              'title': $filter('translate')('@common-unsupport-image')
+            });
+          } else {
+            scope.isSelectedImage = true;
+            scope.imageData = img.toDataURL('image/jpeg');
+          }
+        }
       }
 
       /**
@@ -84,26 +102,6 @@
             jqMessageInput.focus();
             jqMessageSubmit.hide();
           }, 200);
-        }
-      }
-
-      /**
-       * image data 설정
-       * @param {object} file
-       * @private
-       */
-      function _setImageData(file) {
-        var fileReader;
-
-        if (file && window.FileReader && file.type.indexOf('image') > -1) {
-          fileReader = new FileReader();
-
-          scope.isSelectedImage = true;
-          fileReader.onload = function(event) {
-            scope.croppedImage = null;
-            scope.imageData = event.target.result;
-          };
-          fileReader.readAsDataURL(file);
         }
       }
 

@@ -248,6 +248,10 @@ msgstr "メールを確認してください。"
 msgid "@common-comment"
 msgstr "コメント"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
+msgstr "JANDIコネクトを設定する"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr "インターネット接続が切断されました。再接続中..."
@@ -303,6 +307,10 @@ msgstr "部署"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
+msgstr "無効化"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
@@ -377,6 +385,10 @@ msgstr "ファイルの種類"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全ての種類"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "圧縮ファイル"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -658,6 +670,10 @@ msgstr "公開"
 msgid "@common-unknown-error"
 msgstr "予期しないエラーが発生しました。後でもう一度やり直してください。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr "サポートしていないファイル形式です。他の画像を選択してください。"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -665,6 +681,18 @@ msgstr "アップロード"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr "拡大"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr "縮小"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
+msgstr "デフォルト"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -862,6 +890,7 @@ msgstr "削除"
 msgid "@folder-rename"
 msgstr "変更する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -873,6 +902,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr "今後表示しない"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr "フォルダでトピックをまとめてみましょう！"
@@ -1003,6 +1033,16 @@ msgid "@invitation_success_copy_link"
 msgstr ""
 "あなたのチームへの招待リンクがコピーされました。チームに招待したい人に送りま"
 "しょう"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr "こんにちは、ミスターJと言います。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr ""
+"僕はJANDIの利用中必ず必要なメッセージや、JANDIコネクトのメッセージをお送りし"
+"ます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1604,18 +1644,26 @@ msgstr "タイム・ゾーン"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-224"
 msgstr ""
+"連動サービスまたはメッセージを受信するトピックや１：１メッセージが選択できま"
+"す。連動設定の以後にも更新できます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
+"Googleカレンダー、Trello、JIRA、そしてGitHubのような <br>他サービスをJANDIに"
+"登録し更新事項をメッセージで受けることができる <br>機能のJANDIコネクトがリ"
+"リースされました。<br><br><b>これからはメールを使うことがさらになくなります。"
+"<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
 msgstr ""
+"JANDIコネクト使用の権限がありません。詳細はチームの管理者({{adminName}})にお"
+"問い合わせください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-227"
-msgstr ""
+msgstr "本当に変更事項を保存せずにキャンセルしますか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-228"
@@ -2401,6 +2449,10 @@ msgid "@shortcut-confirm-modal"
 msgstr "各種の案内メッセージで「確認」ボタンを選択"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr "ファイル (Alt+F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-focus-input"
 msgstr "メッセージ入力ボックス"
 
@@ -2415,6 +2467,14 @@ msgstr "ジャンプ"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "画面ロック"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr "メンション (Alt+M)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
+msgstr "メッセージ検索 (Alt+G)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-new-line"
@@ -2459,6 +2519,10 @@ msgstr "スクロールアップ"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-show-sticker"
 msgstr "スタンプ"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
+msgstr "スター付き (Alt+S)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
@@ -3228,17 +3292,11 @@ msgstr "水曜日"
 #~ msgid "@btn-update-password"
 #~ msgstr "パスワードの更新"
 
-#~ msgid "@common-account-settings"
-#~ msgstr "アカウント設定"
-
 #~ msgid "@common-create-pg"
 #~ msgstr "新規プライベートグループを作成する"
 
 #~ msgid "@common-current-password"
 #~ msgstr "現在のパスワード"
-
-#~ msgid "@common-feature-not-supported-msg"
-#~ msgstr "この機能は現在開発中です。近日提供開始予定です"
 
 #~ msgid "@common-invalid-request"
 #~ msgstr "不適切なリクエスト"

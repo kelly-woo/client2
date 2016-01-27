@@ -87,16 +87,17 @@
     /**
      * 생성 API 실패시 핸들러
      * @param {object} response - response 데이터
+     * @param {number} status - http status
      * @private
      */
-    function _onCreateFailed(response) {
+    function _onCreateFailed(response, status) {
       if (response.code === 40008) {
         Dialog.alert({
           body: $filter('translate')('@folder-name-taken')
         });
       } else {
         //todo: general error
-        JndUtil.alertUnknownError(response);
+        JndUtil.alertUnknownError(response, status);
       }
       reload();
     }
@@ -192,17 +193,17 @@
     /**
      * 수정 API 오류 발생 시 핸들러
      * @param {Object} response
+     * @param {number} status - http status
      * @private
      */
-    function _onModifyError(response) {
+    function _onModifyError(response, status) {
       //중복된 이름 존재
       if (response.code === 40008) {
         Dialog.alert({
           body: $filter('translate')('@folder-name-taken')
         });
-        //alert($filter('translate')('@folder-name-taken'));
       } else {
-        JndUtil.alertUnknownError(response);
+        JndUtil.alertUnknownError(response, status);
       }
       reload();
     }
@@ -389,16 +390,17 @@
     /**
      * push 메서드 실패시 이벤트 핸들러
      * @param {object} response
+     * @param {number} status
      * @private
      */
-    function _onPushError(response) {
+    function _onPushError(response, status) {
       if (response) {
         if (response.code === 40016) {
           Dialog.alert({
             body: $filter('translate')('@folder-item-already-exists')
           });
         } else {
-          JndUtil.alertUnknownError(response);
+          JndUtil.alertUnknownError(response, status);
         }
       }
       reload();

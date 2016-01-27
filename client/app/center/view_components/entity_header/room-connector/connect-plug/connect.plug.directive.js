@@ -15,8 +15,8 @@
       replace: true,
       scope: {
         data: '=jndDataModel',
-        onSetting: '&',
-        onDelete: '&'
+        onSettingCallback: '&onSetting',
+        onDeleteCallback: '&onDelete'
       },
       templateUrl : 'app/center/view_components/entity_header/room-connector/connect-plug/connect.plug.html',
       link: link
@@ -58,7 +58,7 @@
       function onSettingClick(event) {
         event.stopPropagation();
 
-        scope.onSetting({
+        scope.onSettingCallback({
           $connectId: scope.data.connectId,
           $unionName: scope.data.unionName
         });
@@ -70,7 +70,7 @@
        */
       function onDeleteClick(value) {
         if (value) {
-          scope.onDelete({
+          scope.onDeleteCallback({
             $connectId: scope.data.connectId,
             $value: value
           });

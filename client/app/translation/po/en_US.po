@@ -251,6 +251,10 @@ msgstr "Please check your inbox. "
 msgid "@common-comment"
 msgstr "Comment"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
+msgstr "JANDI Connect Settings"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr "Searching for network..."
@@ -307,6 +311,10 @@ msgstr "Department"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
+msgstr "Disable"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
@@ -383,6 +391,10 @@ msgstr "File type"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "All"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "Compressed Files"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -661,6 +673,10 @@ msgstr "Public"
 msgid "@common-unknown-error"
 msgstr "Sorry! We encountered an unexpected error. Please try again."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr "This image type is not supported. Please choose another."
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
@@ -668,6 +684,18 @@ msgstr "Upload File"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr "Zoom In"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr "Zoom Out"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
+msgstr "Actual Size"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -865,6 +893,7 @@ msgstr "Delete"
 msgid "@folder-rename"
 msgstr "Rename"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -877,6 +906,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr "Don't show again"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr "Organize your topics using folders!"
@@ -1004,6 +1034,16 @@ msgid "@invitation_success_copy_link"
 msgstr ""
 "The team invitation link has been copied to your clipboard. Use it to invite "
 "others to your team."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr "Hello. I'm Mr. J."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr ""
+"I deliver messages from JANDI Connect and essential notifications from our "
+"customer experience team"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1531,7 +1571,7 @@ msgstr "Loading..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-208"
-msgstr "Integration setting has been updatedSave Integration"
+msgstr "Integration setting has been updated"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-209"
@@ -1564,8 +1604,8 @@ msgstr "Not in use"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-215"
 msgstr ""
-"GitHub account authentication is not valid. Please authenticate again to "
-"continue."
+"Your account on {{serviceName}} was disconnected. Previous configurations "
+"for this integration will be removed."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-216"
@@ -1612,19 +1652,21 @@ msgstr ""
 "after saving it."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-225"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"Connect your Google Calendar, Trello, JIRA, GitHub, <br>and other services "
+"to JANDI<br> to get instant notifications all in one place. <br> "
+"<br><b>Reduce the clutter in your inbox and see efficiency at work<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-226"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr ""
+"You don't have permission to access JANDI Connect. Please contact your team "
+"admin ({{adminName}}) for further detail."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-227"
-msgstr "Send data into JANDI from your favorite external services"
+msgstr "Are you sure you want to leave without saving your changes?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -2492,6 +2534,10 @@ msgid "@shortcut-confirm-modal"
 msgstr "Confirm (any open modal)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr "Files (Alt+F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-focus-input"
 msgstr "Go to message input box"
 
@@ -2506,6 +2552,14 @@ msgstr "Jump"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "Lock screen"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr "Mentions (Alt+M)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
+msgstr "Message search (Alt+G)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-new-line"
@@ -2550,6 +2604,10 @@ msgstr "Scroll up (center panel)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-show-sticker"
 msgstr "Choose a sticker"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
+msgstr "Stars (Alt+S)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
@@ -3321,18 +3379,11 @@ msgstr ""
 #~ msgid "@btn-update-password"
 #~ msgstr "Update Password"
 
-#~ msgid "@common-account-settings"
-#~ msgstr "Account Settings"
-
 #~ msgid "@common-create-pg"
 #~ msgstr "Create Private Topic"
 
 #~ msgid "@common-current-password"
 #~ msgstr "Password"
-
-#~ msgid "@common-feature-not-supported-msg"
-#~ msgstr ""
-#~ "This feature is currently in development and will be available soon."
 
 #~ msgid "@common-invalid-request"
 #~ msgstr "Invalid Request. "

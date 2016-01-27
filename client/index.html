@@ -81,7 +81,6 @@
   <link rel="stylesheet" href="app/left/topics/folder/topic.folder.css">
   <link rel="stylesheet" href="app/left/topics/topic/topic.css">
   <link rel="stylesheet" href="app/left/topics/topics.css">
-  <link rel="stylesheet" href="app/left/topics/tutorial/left.tutorial.folder.css">
   <link rel="stylesheet" href="app/loading/loading.center.css">
   <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
@@ -123,6 +122,9 @@
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
+  <link rel="stylesheet" href="app/tutorial/popover/connect/tutorial.popover.connect.css">
+  <link rel="stylesheet" href="app/tutorial/popover/folder/tutorial.popover.folder.folder.css">
+  <link rel="stylesheet" href="app/tutorial/popover/tutorial.popover.css">
   <link rel="stylesheet" href="app/tutorial/popup/tutorial.main.css">
   <link rel="stylesheet" href="app/tutorial/popup/view_components/center/tutorial.center.css">
   <link rel="stylesheet" href="app/tutorial/popup/view_components/completion/tutorial.completion.css">
@@ -201,7 +203,6 @@
     <jnd-tooltip></jnd-tooltip>
     <tutorial-welcome></tutorial-welcome>
     <jnd-connect ng-if="connectSetting.isOpen" jnd-data-params="connectSetting.params"></jnd-connect>
-  </div>
   <div ng-if="!isReady" class="full-screen z-index-top">
   </div>
   <guide-privacy></guide-privacy>
@@ -325,6 +326,7 @@
 <script src="app/util/filter/html.encode.filter.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
 <script src="app/util/filter/markdown.code.filter.js"></script>
+<script src="app/util/filter/markdown.strip.filter.js"></script>
 <script src="app/util/filter/mention.filter.js"></script>
 <script src="app/util/filter/mention.html.decode.filter.js"></script>
 <script src="app/util/filter/template.filter.js"></script>
@@ -348,6 +350,7 @@
 <script src="app/util/service/jnd.util.service.js"></script>
 <script src="app/util/service/jnd.zoom.service.js"></script>
 <script src="app/util/service/link.txt.service.js"></script>
+<script src="app/util/service/markdown.regx.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
 <script src="app/util/service/notification.service.helper.js"></script>
 <script src="app/util/service/notification.service.js"></script>
@@ -430,7 +433,6 @@
 <script src="app/connect/union/common/footer/jnd.connect.union.footer.directive.js"></script>
 <script src="app/connect/union/common/header/jnd.connect.union.header.controller.js"></script>
 <script src="app/connect/union/common/header/jnd.connect.union.header.directive.js"></script>
-<script src="app/connect/union/common/jnd.connect.dummy.service.js"></script>
 <script src="app/connect/union/common/nav/jnd.connect.union.nav.controller.js"></script>
 <script src="app/connect/union/common/nav/jnd.connect.union.nav.directive.js"></script>
 <script src="app/connect/union/common/selectbox-pending/jnd.connect.union.selectbox.pending.directive.js"></script>
@@ -439,6 +441,7 @@
 <script src="app/connect/union/common/selectbox/menu/jnd.connect.union.selectbox.account.menu.directive.js"></script>
 <script src="app/connect/union/common/selectbox/menu/jnd.connect.union.selectbox.default.menu.directive.js"></script>
 <script src="app/connect/union/common/service/jnd.connect.union.api.service.js"></script>
+<script src="app/connect/union/common/service/jnd.connect.union.form.data.service.js"></script>
 <script src="app/connect/union/common/service/jnd.connect.union.service.js"></script>
 <script src="app/connect/union/common/status-switch/jnd.connect.union.status.switch.directive.js"></script>
 <script src="app/connect/union/common/trash-button/jnd.connect.union.trash.button.directive.js"></script>
@@ -487,8 +490,6 @@
 <script src="app/left/topics/topic/topic.draggable.directive.js"></script>
 <script src="app/left/topics/topics.controller.js"></script>
 <script src="app/left/topics/topics.directive.js"></script>
-<script src="app/left/topics/tutorial/left.tutorial.folder.controller.js"></script>
-<script src="app/left/topics/tutorial/left.tutorial.folder.directive.js"></script>
 <script src="app/loading/loading.center.directive.js"></script>
 <script src="app/main/jnd.main.controller.js"></script>
 <script src="app/main/jnd.main.directive.js"></script>
@@ -510,7 +511,9 @@
 <script src="app/modal/lists/services/renderers/room.item.renderer.service.js"></script>
 <script src="app/modal/lists/services/renderers/topic.item.renderer.service.js"></script>
 <script src="app/modal/members/bot-profile/bot.profile.controller.js"></script>
+<script src="app/modal/members/bot-profile/bot.profile.directive.js"></script>
 <script src="app/modal/members/expanding-input/expanding.input.directive.js"></script>
+<script src="app/modal/members/member.profile.service.js"></script>
 <script src="app/modal/members/user-profile/user.profile.controller.js"></script>
 <script src="app/modal/members/user-profile/user.profile.directive.js"></script>
 <script src="app/modal/modal.service.js"></script>
@@ -574,6 +577,10 @@
 <script src="app/tpl/loading/loading.directive.js"></script>
 <script src="app/tpl/loading/loading.service.js"></script>
 <script src="app/translation/translation.js"></script>
+<script src="app/tutorial/popover/connect/tutorial.popover.connect.controller.js"></script>
+<script src="app/tutorial/popover/connect/tutorial.popover.connect.directive.js"></script>
+<script src="app/tutorial/popover/folder/tutorial.popover.folder.controller.js"></script>
+<script src="app/tutorial/popover/folder/tutorial.popover.folder.directive.js"></script>
 <script src="app/tutorial/popup/services/tutorial.account.service.js"></script>
 <script src="app/tutorial/popup/services/tutorial.api.service.js"></script>
 <script src="app/tutorial/popup/services/tutorial.data.service.js"></script>

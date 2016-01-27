@@ -39,7 +39,6 @@
      */
     function img(data) {
       var list = [];
-      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
 
       if (_.isObject(data) || _.isArray(data)) {
         list = data;
@@ -48,22 +47,33 @@
       }
 
       _.forEach(list, function(url) {
-        var img;
-        url = hasUrlInterceptor ? _urlInterceptor(url) : url;
-        if (!_imgMap[url]) {
-          img = new Image();
-          img.src = url;
-          $(img).css({
-            width: '1px',
-            height: '1px',
-            visibility: 'hidden'
-          });
-          _imgMap[url] = true;
-          _jqImgContainer.append(img);
-        }
+        setTimeout(_.bind(_appendImg, null, url), 100);
       });
 
       return that;
+    }
+
+    /**
+     * append image
+     * @param {string} url
+     * @private
+     */
+    function _appendImg(url) {
+      var img;
+      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
+
+      url = hasUrlInterceptor ? _urlInterceptor(url) : url;
+      if (!_imgMap[url]) {
+        img = new Image();
+        img.src = url;
+        $(img).css({
+          width: '1px',
+          height: '1px',
+          visibility: 'hidden'
+        });
+        _imgMap[url] = true;
+        _jqImgContainer.append(img);
+      }
     }
 
     /**

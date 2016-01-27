@@ -241,6 +241,10 @@ msgstr "請到您的電子郵件信箱收信。"
 msgid "@common-comment"
 msgstr "留言"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
+msgstr "JANDI Connect 設定"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr "連線中斷。重新連結中..."
@@ -293,6 +297,10 @@ msgstr "部門"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "私訊"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
+msgstr "關閉權限"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
@@ -367,6 +375,10 @@ msgstr "檔案類別"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全部類別"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "壓縮檔"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -645,6 +657,10 @@ msgstr "公開"
 msgid "@common-unknown-error"
 msgstr "抱歉！發生錯誤！請重試一次"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr "無法支援此類型圖檔，請選擇其他圖檔"
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
@@ -652,6 +668,18 @@ msgstr "上傳檔案"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr "放大"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr "縮小"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
+msgstr "原始尺寸"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -843,6 +871,7 @@ msgstr "刪除"
 msgid "@folder-rename"
 msgstr "重新命名"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -853,6 +882,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr "不再顯示"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr "使用資料夾打理你的議題列表"
@@ -974,6 +1004,15 @@ msgstr "或者直接轉發此連結"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation_success_copy_link"
 msgstr "成員邀請的連結已複製到剪貼簿"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr ""
+"身為JANDI最強使者，肩負傳遞JANDI Connect和平台訊息通知的任務，絕對使命必達！"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr "你好，我是Mr.J！"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1547,14 +1586,17 @@ msgstr "請選擇欲接收通知的議題或私訊，你仍可於設定完成後
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-225"
 msgstr ""
+"串連Google日曆、Trello、JIRA、GitHub和其他服務，<br>並將其通知集中於JANDI。"
+"<br><br>你將明顯感受到JANDI Connect將資訊<br><br><b>彙整一處所帶來的便利性和"
+"節省數種平台切換的瑣碎時間。<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
-msgstr ""
+msgstr "你無法使用JANDI Connect的服務，請聯絡團隊管理({{adminName}})瞭解詳情"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-227"
-msgstr ""
+msgstr "更改尚未儲存，你確定要離開嗎？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-228"
@@ -2322,6 +2364,10 @@ msgid "@shortcut-confirm-modal"
 msgstr "確認 (執行任何等待確認的指令)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr "檔案 (Alt+F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-focus-input"
 msgstr "跳至訊息欄"
 
@@ -2336,6 +2382,14 @@ msgstr "開啟快搜"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "鎖住螢幕"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr "提及 (Alt+M)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
+msgstr "訊息搜尋 (Alt+G)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-new-line"
@@ -2380,6 +2434,10 @@ msgstr "頁面向上滑 (中間面板)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-show-sticker"
 msgstr "開啟貼圖列表"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
+msgstr "已標示 (Alt+S)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
@@ -3106,17 +3164,11 @@ msgstr "周三"
 #~ msgid "@btn-update-password"
 #~ msgstr "更新密碼"
 
-#~ msgid "@common-account-settings"
-#~ msgstr "帳號設定"
-
 #~ msgid "@common-create-pg"
 #~ msgstr "建立私人議題"
 
 #~ msgid "@common-current-password"
 #~ msgstr "密碼"
-
-#~ msgid "@common-feature-not-supported-msg"
-#~ msgstr "這功能目前正在開發中并且即將推出。"
 
 #~ msgid "@common-invalid-request"
 #~ msgstr "請求無效"

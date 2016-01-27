@@ -230,6 +230,10 @@ msgstr ""
 msgid "@common-comment"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr ""
@@ -280,6 +284,10 @@ msgstr ""
 #: client/app/left/messages/messages.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
@@ -355,6 +363,10 @@ msgstr ""
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
 msgstr ""
 
 #: client/app/right/files/files.html
@@ -636,12 +648,28 @@ msgstr ""
 msgid "@common-unknown-error"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr ""
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
@@ -834,6 +862,7 @@ msgstr ""
 msgid "@folder-rename"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -842,6 +871,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr ""
@@ -957,6 +987,14 @@ msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2275,6 +2313,10 @@ msgid "@shortcut-confirm-modal"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-focus-input"
 msgstr ""
 
@@ -2288,6 +2330,14 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2332,6 +2382,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-show-sticker"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html

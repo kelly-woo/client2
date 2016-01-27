@@ -246,6 +246,10 @@ msgstr "메일함을 확인해 주세요."
 msgid "@common-comment"
 msgstr "댓글"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
+msgstr "잔디 커넥트 설정하기"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr "인터넷이 연결되어 있지 않습니다. 접속을 재시도 중입니다..."
@@ -299,6 +303,10 @@ msgstr "부서"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
+msgstr "차단"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
@@ -376,6 +384,10 @@ msgstr "파일 타입"
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "모든 타입"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
+msgstr "압축 파일"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
@@ -656,6 +668,10 @@ msgstr "공개"
 msgid "@common-unknown-error"
 msgstr "예상치 못한 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr "지원하지 않는 형식입니다. 다른 사진을 선택해주세요. "
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
@@ -663,6 +679,18 @@ msgstr "파일 업로드"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr "크게"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr "작게"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
+msgstr "기본 크기"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
@@ -855,6 +883,7 @@ msgstr "삭제하기"
 msgid "@folder-rename"
 msgstr "이름변경"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -866,6 +895,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr "다시 보지 않기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr "토픽을 폴더로 분류하세요!"
@@ -998,6 +1028,15 @@ msgid "@invitation_success_copy_link"
 msgstr ""
 "초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
 "내세요!"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr ""
+"저는 잔디 사용에 꼭 필요한 메시지나,<br>잔디 Connect 메시지를 전달합니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr "안녕하세요? Mr.J입니다. "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1190,8 +1229,8 @@ msgstr "계정 추가하기"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-141"
 msgstr ""
-"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
-"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+"외부 계정 연결을 해제하실 경우 모든 잔디 팀으로부터 {{numberOfConnects}}개의 "
+"잔디 커넥트 항목이 삭제됩니다. 계속하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-142"
@@ -1587,7 +1626,7 @@ msgstr "아직 연동된 잔디 커넥트 항목이 없습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-221"
-msgstr "다양한 외부 서비스를 연동하여 변경 사항을 잔디에서 확인하세요."
+msgstr "다양한 외부 서비스를 연동하여 <br>변경 사항을 잔디에서 확인하세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-222"
@@ -1604,19 +1643,21 @@ msgstr ""
 "동 설정 이후에도 변경 가능합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-225"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr ""
+"Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 <br>외부 서비스를 잔디에 등"
+"록하여 변경사항을 메시지로  <br>받아볼 수 있는 기능인 잔디 커넥트가 출시되었"
+"습니다. <br><br><b>이제 더욱 더 이메일을 사용할 일이 없어집니다.<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-226"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr ""
+"잔디 커넥트 사용 권한이 없습니다.  자세한 내용은 팀 관리자({{adminName}})에"
+"게 문의하세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-227"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr "설정사항을 저장하지 않고 나가시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -2516,6 +2557,10 @@ msgid "@shortcut-confirm-modal"
 msgstr "각종 안내 창에서 확인 버튼 누르기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr "파일 (Alt+F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-focus-input"
 msgstr "메시지 입력창으로 커서 즉시 이동"
 
@@ -2530,6 +2575,14 @@ msgstr "점프 (<b>J</b>ump)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-lock-screen"
 msgstr "전체 화면 흐림 처리하여 화면 가리기 (<b>L</b>ock)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr "멘션 (Alt+M)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
+msgstr "메시지 검색 (Alt+G)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-new-line"
@@ -2574,6 +2627,10 @@ msgstr "대화 스크롤 업"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-show-sticker"
 msgstr "스티커 (<b>E</b>moticon)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
+msgstr "즐겨찾기 (Alt+S)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-switch-teams"
@@ -3333,9 +3390,6 @@ msgstr "수요일"
 #~ msgid "@btn-update-password"
 #~ msgstr "비밀번호 변경하기"
 
-#~ msgid "@common-account-settings"
-#~ msgstr "계정 설정"
-
 #~ msgid "@common-create-pg"
 #~ msgstr "비공개 토픽 생성"
 
@@ -3344,9 +3398,6 @@ msgstr "수요일"
 
 #~ msgid "@common-desktop-noti"
 #~ msgstr "데스크탑 알림"
-
-#~ msgid "@common-feature-not-supported-msg"
-#~ msgstr "지금은 제공되지 않는 기능입니다."
 
 #~ msgid "@common-invalid-request"
 #~ msgstr "잘못된 접근입니다. "

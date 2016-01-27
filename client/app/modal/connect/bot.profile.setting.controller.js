@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('BotProfileSettingCtrl', BotProfileSettingCtrl);
 
-  function BotProfileSettingCtrl($scope, jndPubSub, modalHelper, files) {
+  function BotProfileSettingCtrl($scope, jndPubSub, modalHelper, imageData) {
     $scope.onImageCropDone = onImageCropDone;
 
     _init();
@@ -19,29 +19,7 @@
      * @private
      */
     function _init() {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        if (file.flashId) {
-          $scope.isFileReaderAvailable = false;
-          alert($filter('translate')('@ie9-profile-image-support'));
-          return;
-        }
-        else {
-          if(window.FileReader && file.type.indexOf('image') > -1) {
-            $scope.isFileReaderAvailable = true;
-            var fileReader = new FileReader();
-
-            $scope.isProfilePicSelected = true;
-            fileReader.onload = function(e) {
-              $scope.$apply(function($scope) {
-                $scope.croppedProfilePic = '';
-                $scope.profilePic = e.target.result;
-              });
-            };
-            fileReader.readAsDataURL(files[0]);
-          }
-        }
-      }
+      $scope.imageData = imageData;
     }
 
     /**

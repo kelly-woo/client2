@@ -60,5 +60,26 @@
         expect(JndUtil.pick(arr, 5)).toBeUndefined();
       });
     });
+
+    it('compareJSON()은 json객체가 같은지 비교한다.', function() {
+      var obj1 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
+        obj2 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
+        obj3 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
+        obj4 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"};
+
+      expect(JndUtil.compareJSON(obj1, obj2, obj3, obj4)).toBe(true);
+
+      var objA = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
+        objB = {url: "http://120.120.266.1/", st: 11, r_lt: 2, r_enc: "UTF-8", q_enc: "UTF-8"};
+
+      expect(JndUtil.compareJSON(objA, objB)).toBe(false);
+
+      var objC = {a: 100, b: [1,2,3], dt: {age: 12}},
+        objD = {a: 100, b: [1,2,3], dt: {age: 1222}},
+        objE = {a: 100, b: [1,2,3], dt: {age: 12}};
+
+      expect(JndUtil.compareJSON(objC, objD)).toBe(false);
+      expect(JndUtil.compareJSON(objC, objE)).toBe(true);
+    });
   });
 })();
