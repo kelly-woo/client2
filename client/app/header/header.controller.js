@@ -51,6 +51,8 @@
 
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
+      //커넥트 관련 요소를 활성화 할지 여부
+      $scope.isConnectActive = JndConnect.isActive();
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
 
