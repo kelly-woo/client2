@@ -48,6 +48,7 @@
        */
       function _attachEvents() {
         scope.$on('popupDone', _onPopupDone);
+        scope.$on('webSocketConnect:authenticationCreated', _onAuthenticationCreated);
       }
 
       /**
@@ -56,6 +57,21 @@
        */
       function _onPopupDone() {
         jndPubSub.pub('unionHeader:accountInfoChange');
+      }
+
+      /**
+       * authentication 이 생성되었을 때 소캣 이벤트 핸들러
+       * 맥, window 앱에서 popup 간 통신이 불가능 하기 때문에 소켓 이벤트 핸들러를 통해 제어한다.
+       *
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onAuthenticationCreated(angularEvent, data) {
+        var connectType = JndUtil.pick(data, 'authentication', 'connectType');
+        if (connectType === scope.unionName) {
+          _onPopupDone();
+        }
       }
 
       /**
