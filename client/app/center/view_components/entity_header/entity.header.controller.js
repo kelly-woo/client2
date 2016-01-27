@@ -12,7 +12,7 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog, JndUtil, EntityMapManager) {
+                            Dialog, JndUtil, JndConnect) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
@@ -21,6 +21,8 @@
 
     var requestConnectInfo;
 
+    //커넥트 관련 요소를 활성화 할지 여부
+    $scope.isConnectActive = JndConnect.isActive();
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;

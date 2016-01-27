@@ -30,6 +30,15 @@
     this.isBannerShow = isBannerShow;
     this.setBannerStatus = setBannerStatus;
     this.getPlugSourceName = getPlugSourceName;
+    this.isActive = isActive;
+
+    /**
+     * 커넥트 관련 요소를 활성화 할지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isActive() {
+      return true;
+    }
 
     /**
      * banner 의 노출 상태를 반환한다.
