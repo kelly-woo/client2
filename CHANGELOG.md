@@ -1,3 +1,15 @@
+<a name="1.12.9"></a>
+## [1.12.9](https://github.com/tosslab/web_client/compare/v1.12.8...v1.12.9) (2016-01-27)
+
+
+### Bug Fixes
+
+* **center:** 비공개 토픽에서 메시지에 "공지로 등록" 메뉴 노출되지 않는 현상 수정 ([97ea304](https://github.com/tosslab/web_client/commit/97ea304))
+* **잔디connect:** backend 이슈 해결하기 전까지 계정 추가하기 버튼 disable 처리 ([a194221](https://github.com/tosslab/web_client/commit/a194221))
+* **잔디connect:** 계정 추가 메뉴를 통해 계정 추가했을 경우 account list 를 갱신하는 로직에서도 소켓 이벤트를 통해 갱신할 수 있도록 추가 ([0d326f3](https://github.com/tosslab/web_client/commit/0d326f3))
+
+
+
 <a name="1.12.8"></a>
 ## [1.12.8](https://github.com/tosslab/web_client/compare/v1.12.7...v1.12.8) (2016-01-27)
 
