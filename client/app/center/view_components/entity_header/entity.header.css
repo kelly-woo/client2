@@ -169,6 +169,9 @@
   left: 0.5rem;
   width: 1.5rem;
 }
+.jandi-bot .header-title-member__dropdown__thumb {
+  top: 4px;
+}
 .panel-title-topic-description {
   position: relative;
   color: #366480;
