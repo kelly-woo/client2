@@ -14,7 +14,7 @@
   margin-top: 5px;
   border-radius: 25px;
 }
-.quick-launcher-modal .room-item img.room-type-image.jandi-bot {
+.quick-launcher-modal .room-item.jandi-bot img.room-type-image {
   margin-top: 0;
   border-radius: 0;
 }
