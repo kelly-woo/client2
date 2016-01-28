@@ -1,5 +1,5 @@
 /**
- * @fileoverview ctrl + shift + L 입력 시 사생활 보호 레이어 디렉티브
+ * @fileoverview 현재 zoom 값을 노출하는 layer 디렉티브
  */
 (function() {
   'use strict';
@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('guideZoom', guideZoom);
 
-  function guideZoom($filter, jndKeyCode, jndPubSub, Privacy, Browser) {
+  function guideZoom() {
     return {
       restrict: 'E',
       link: link,
@@ -18,8 +18,6 @@
     };
 
     function link(scope, el, attrs) {
-      //var _jqInput = el.find('input');
-      //var _jqMsgContainer = el.find('.blurred-msg-container');
       var _timer;
 
       _init();
@@ -31,7 +29,6 @@
       function _init() {
         _initializeElements();
         _attachEvents();
-        //_attachDomEvents();
       }
 
       /**
@@ -39,11 +36,6 @@
        * @private
        */
       function _initializeElements() {
-        //var msg = $filter('translate')('@common-privacy-lock-msg');
-        //if (Browser.platform.isMac) {
-        //  msg = msg.replace('Ctrl', 'Cmd');
-        //}
-        //el.find('._msg').html(msg);
         el.hide();
       }
 
@@ -52,10 +44,10 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('JndZoom:change', _onZoomChange);
+        scope.$on('JndZoom:zoom', _onZoom);
       }
 
-      function _onZoomChange(angularEvent, scale) {
+      function _onZoom(angularEvent, scale) {
         _show(scale);
       }
 

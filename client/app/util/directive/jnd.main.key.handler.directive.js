@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview key handler 디렉티브
  */
 (function() {
   'use strict';
@@ -9,22 +9,18 @@
     .directive('jndMainKeyHandler', jndMainKeyHandler);
 
   function jndMainKeyHandler($state, jndKeyCode, jndPubSub, currentSessionHelper, Privacy, modalHelper, HybridAppHelper,
-                             JndLocalStorage, JndZoom, JndConnect) {
+                             JndZoom, JndConnect) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope) {
-      var MAX_ZOOM_SCALE = 1.30;
-      var MIN_ZOOM_SCALE = 0.70;
-
       var _isActivated = false;
       var _jqBody = $('body');
       var _isLocked = false;
       var _lockTimer;
 
-      var _currentZoomScale = 1;
       var _rPanelMenuList = [
         'files',
         'messages',
@@ -82,25 +78,25 @@
           },
           //확대
           'PLUS': {
-            handler: _zoomIn,
+            handler: JndZoom.zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
           'NUM_PAD_PLUS': {
-            handler: _zoomIn,
+            handler: JndZoom.zoomIn,
             extraCondition: HybridAppHelper.isHybridApp
           },
           //축소
           'MINUS': {
-            handler: _zoomOut,
+            handler: JndZoom.zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
           'NUM_PAD_MINUS': {
-            handler: _zoomOut,
+            handler: JndZoom.zoomOut,
             extraCondition: HybridAppHelper.isHybridApp
           },
           //zoom reset
           'NUM_0': {
-            handler: _zoomReset,
+            handler: JndZoom.zoomReset,
             extraCondition: HybridAppHelper.isHybridApp
           },
           'SLASH': {
@@ -222,67 +218,6 @@
       }
 
       /**
-       * zoom 을 초기화 한다
-       * @private
-       */
-      function _zoomReset() {
-        _currentZoomScale = 1;
-        _setZoom();
-      }
-
-      /**
-       * zoom in
-       * @private
-       */
-      function _zoomIn() {
-        _currentZoomScale += 0.01;
-        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
-        if (_currentZoomScale > MAX_ZOOM_SCALE) {
-          _currentZoomScale = MAX_ZOOM_SCALE;
-        } else {
-          _setZoom();
-        }
-      }
-
-      /**
-       * zoom 을 설정한다
-       * @param {boolean} [isPreventEvent=false] 이벤트 트리거를 수행할 지 여부
-       * @private
-       */
-      function _setZoom(isPreventEvent) {
-        if (HybridAppHelper.isHybridApp()) {
-          _currentZoomScale = _.isNumber(_currentZoomScale) ? _currentZoomScale : 1;
-          if (_currentZoomScale < MIN_ZOOM_SCALE) {
-            _currentZoomScale = MIN_ZOOM_SCALE;
-          } else if (_currentZoomScale > MAX_ZOOM_SCALE) {
-            _currentZoomScale = MAX_ZOOM_SCALE;
-          } else {
-            JndLocalStorage.set(0, 'zoom', _currentZoomScale);
-            $('body').css({
-              'zoom': _currentZoomScale
-            });
-            if (!isPreventEvent) {
-              JndZoom.zoom(_currentZoomScale);
-            }
-          }
-        }
-      }
-
-      /**
-       * zoom out
-       * @private
-       */
-      function _zoomOut() {
-        _currentZoomScale -= 0.01;
-        _currentZoomScale = Math.round(_currentZoomScale * 100) / 100;
-        if (_currentZoomScale < MIN_ZOOM_SCALE) {
-          _currentZoomScale = MIN_ZOOM_SCALE;
-        } else {
-          _setZoom();
-        }
-      }
-
-      /**
        * Back space 이벤트 핸들러
        * @param {object} keyEvent
        * @private
@@ -395,21 +330,11 @@
       }
 
       /**
-       * zoom 상태를 초기화 한다
-       * @private
-       */
-      function _initializeZoom() {
-        _currentZoomScale = JndLocalStorage.get(0, 'zoom') || 1;
-        _currentZoomScale = parseFloat(_currentZoomScale) || 1;
-        _setZoom(true);
-      }
-
-      /**
        * on listeners
        * @private
        */
       function _attachEvents() {
-        scope.$on('dataInitDone', _initializeZoom);
+        scope.$on('dataInitDone', JndZoom.loadZoom);
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);
