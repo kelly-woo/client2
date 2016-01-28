@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -374,7 +374,7 @@ msgstr "Type"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "FAQ"
+msgstr "FAQ / Ask a question"
 
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
