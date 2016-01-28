@@ -128,7 +128,8 @@
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
         <li role="presentation" tabindex="-1"
             ng-class="{
-              'admin': ownerId === userId
+              'admin': ownerId === userId,
+              'has-kickout-icon': hasAuth && userId !== myId
             }"
             ng-repeat="userId in users track by $index">
           <a ng-click="openMemberModal(userId);">

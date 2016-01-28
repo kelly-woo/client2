@@ -139,16 +139,22 @@
 .header-title-member__dropdown > li:hover {
   background-color: #e8f3f9 !important;
 }
-.header-title-member__dropdown > li.admin:hover > a{
-  max-width:150px;
+.header-title-member__dropdown > li.admin > a {
+  max-width:170px;
 }
-.header-title-member__dropdown > li:hover .member-auth-label {
-  right: 40px;
+.header-title-member__dropdown > li.admin > a:lang(en) {
+  max-width:155px;
 }
-.header-title-member__dropdown > li.admin .kick-item-icon {
+.header-title-member__dropdown > li.admin > a:lang(ja) {
+  max-width:128px;
+}
+.header-title-member__dropdown > li.has-kickout-icon:hover .member-auth-label {
   display:none;
 }
-.header-title-member__dropdown > li.admin:hover .kick-item-icon {
+.header-title-member__dropdown > li.has-kickout-icon .kick-item-icon {
+  display:none;
+}
+.header-title-member__dropdown > li.has-kickout-icon:hover .kick-item-icon {
   display:block;
 }
 
