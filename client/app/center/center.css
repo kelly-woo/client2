@@ -804,3 +804,8 @@ by ysyun 2015.2.25
   height: 34px;
   border-radius: 50%;
 }
+.jandi-bot .member-thumb {
+  height: auto;
+  border-radius: 0;
+  margin-top: -8px;
+}
