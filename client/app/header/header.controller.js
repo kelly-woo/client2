@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
                       publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect) {
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -58,6 +58,11 @@
 
       // sign out
       $scope.onSignOutClick = publicService.signOut;
+
+      $scope.isZoomEnable = JndZoom.isZoomEnable();
+      $scope.zoomIn = zoomIn;
+      $scope.zoomOut = zoomOut;
+      $scope.zoomReset = zoomReset;
 
       $scope.onLanguageClick = onLanguageClick;
       $scope.toTeam = toTeam;
@@ -364,5 +369,33 @@
     function getQuickLauncherButtonTooltip() {
       return $filter('translate')(Browser.platform.isMac ? '@quick-launcher-tooltip-for-mac' : '@quick-launcher-tooltip-for-win');
     }
+
+    /**
+     * zoom in
+     * @param {Event} clickEvent
+     */
+    function zoomIn(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomIn();
+    }
+
+    /**
+     * zoom out
+     * @param {Event} clickEvent
+     */
+    function zoomOut(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomOut();
+    }
+
+    /**
+     * zoom reset
+     * @param {Event} clickEvent
+     */
+    function zoomReset(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomReset();
+    }
+
   }
 })();
