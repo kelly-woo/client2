@@ -266,6 +266,7 @@
           extViewName: '[@' + jandiBot.name + ']',
           extSearchName: jandiBot.name,
           extProfileImage: memberService.getProfileImage(jandiBot.id),
+          extIsJandiBot: true, 
           id: jandiBot.id,
           type: 'member'
         });

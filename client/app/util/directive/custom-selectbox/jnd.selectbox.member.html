@@ -60,10 +60,12 @@
           <span translate class="menulist-item-header">@selectbox-current-members</span>
           <ul class="menulist-item-members">
             <li class="topic-title menu-item _selectable"  ng-repeat="item in memberData.enabledList">
-              <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
-              <a>
-                <span>{{item.name}}</span>
-              </a>
+              <div ng-class="::{'jandi-bot': item.extIsJandiBot}">
+                <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
+                <a>
+                  <span>{{item.name}}</span>
+                </a>
+              </div>
             </li>
           </ul>
         </div>

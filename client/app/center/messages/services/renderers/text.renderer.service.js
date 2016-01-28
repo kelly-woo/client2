@@ -123,7 +123,7 @@
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
           profileCursor: profileCursor,
-          botText: memberService.isConnectBot(msg.message.writerId) ? 'bot-text' : ''
+          botText: _getMsgItemClass(msg)
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),
@@ -133,6 +133,25 @@
         isChild: isChild,
         msg: msg
       });
+    }
+
+    /**
+     * get msg item class
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
+    function _getMsgItemClass(msg) {
+      var result = [];
+      if (memberService.isConnectBot(msg.message.writerId)) {
+        result.push('bot-text');
+      }
+
+      if (memberService.isJandiBot(msg.message.writerId)) {
+        result.push('jandi-bot');
+      }
+
+      return result.join(' ');
     }
 
     /**

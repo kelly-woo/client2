@@ -57,6 +57,13 @@
   margin-right: 4px;
 }
 
+.mentionahead .jandi-bot .profile-img {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  height: auto;
+}
+
 .mentionahead .profile-text {
   font-size: 14px;
   text-overflow: ellipsis;

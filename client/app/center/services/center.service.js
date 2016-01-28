@@ -13,12 +13,13 @@
     .service('centerService', centerService);
 
   /* @ngInject */
-  function centerService(memberService, publicService, currentSessionHelper, EntityMapManager) {
+  function centerService(memberService, publicService, currentSessionHelper, EntityMapManager, jndPubSub) {
     var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
 
     var currentEntityId;
+    var currentRoomId;
 
     var HISTORY_LENGTH = 3;
     var historyQueue = [];
@@ -39,6 +40,8 @@
 
     this.setEntityId = setEntityId;
     this.getEntityId = getEntityId;
+    this.setRoomId = setRoomId;
+    this.getRoomId = getRoomId;
 
     this.isTextType = isTextType;
     this.isCommentType = isCommentType;
@@ -142,19 +145,34 @@
     }
 
     /**
-     * For New 1:1 chat entity, there is no entityId info stored locally.
-     * However, new entityId is given as 'entityId' attribute in response of 'loadmore' function.
-     *
-     * Save currentEntityId everytime 'loadmore' gets called.
-     *
-     * @param entityId {number} entityId of current entity
-     *
+     * set entity id
+     * @param {string} entityId
      */
     function setEntityId(entityId) {
       currentEntityId = entityId;
     }
     function getEntityId() {
       return currentEntityId;
+    }
+
+    /**
+     * For New 1:1 chat entity, there is no entityId info stored locally.
+     * However, new entityId is given as 'entityId' attribute in response of 'loadmore' function.
+     *
+     * Save currentEntityId everytime 'loadmore' gets called.
+     * @param {string} roomId
+     */
+    function setRoomId(roomId) {
+      currentRoomId = roomId;
+      jndPubSub.pub('centerService:roomIdChanged', roomId);
+    }
+
+    /**
+     * get room id
+     * @returns {*}
+     */
+    function getRoomId() {
+      return currentRoomId;
     }
 
     /**
