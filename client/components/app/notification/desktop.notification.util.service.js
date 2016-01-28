@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function DesktopNotificationUtil(logger, jndPubSub, localStorageHelper, accountService, HybridAppHelper,
-                                   configuration) {
+                                   configuration, NotificationAudio) {
     var that = this;
     var NOTIFICATION_PERMISSION = {
       granted: 'granted',
@@ -27,6 +27,8 @@
     var NOTIFICATION_LOCAL_STORAGE_KEY = 'local_notification_flag';
     var NOTIFICATION_NEVER_ASK_KEY = 'notification_never_ask_flag';
 
+    var NOTIFICATION_STORAGE_KEY = 'setting_notification';
+
     // Notification support 여부
     var isNotificationSupported;
 
@@ -38,6 +40,9 @@
 
     // 노티피케이션을 킬지 말지 알려주는 flag. 브라우져 내부에서만 가지고 있다.
     var isNotificationOnLocally;
+
+    // notification instance
+    var notificationAudio;
 
     that.init = init;
 
@@ -78,6 +83,11 @@
     that.getBodyWithoutMessage = getBodyWithoutMessage;
 
     that.log = log;
+
+    that.getNotificationAudio = getNotificationAudio;
+
+    that.getData = getData;
+    that.setData = setData;
 
     /**
      * init
@@ -127,6 +137,85 @@
     }
 
 
+
+
+    /**
+     * Notification content를 보여줄지 말지 결정하는 flag 를 local storage 에 저장한다.
+     * @private
+     */
+    function _storeShowNotificationContentFlag() {
+      localStorageHelper.set(NOTIFICATION_SHOW_CONTENT_FLAG_KEY, isShowNotificationContent);
+    }
+
+    /**
+     * local storage 로 부터 불러온다.
+     * 없으면 granted 인지 아닌지확인한다.
+     * @private
+     */
+    function _loadShowNotificationContentFlag() {
+      var localIsShowContentFlag = localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY);
+
+      if (localIsShowContentFlag === null) {
+        localIsShowContentFlag = shouldSendNotification();
+      } else {
+        localIsShowContentFlag = _getBoolean(localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY));
+      }
+
+      return isShowNotificationContent = localIsShowContentFlag;
+    }
+
+    /**
+     * isNotificationOnLocally 을 local storage 에 저장한다.
+     * @param {boolean} flag
+     * @private
+     */
+    function _storeLocalNotificationFlag(flag) {
+      isNotificationOnLocally = !!flag;
+      localStorageHelper.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
+    }
+
+    /**
+     * local storage 로 부터 isNotificationOnLocally 를 가져온다.
+     * @returns {*}
+     * @private
+     */
+    function _loadLocalNotificationFlag() {
+      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
+      return isNotificationOnLocally = value ? _getBoolean(value) : true;
+    }
+
+    /**
+     * local storage 에 never_ask 관련 flag 를 true 로 바꾼다.
+     */
+    function setNeverAskFlag() {
+      localStorageHelper.set(NOTIFICATION_NEVER_ASK_KEY, true);
+    }
+
+    /**
+     * local storage 에 never_ask 관련 flag 를 리턴한다.
+     * @private
+     */
+    function _getNeverAskFlag() {
+      return localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY);
+    }
+
+    /**
+     * local storage 에서 never ask flag 를 없앤다.
+     */
+    function _resetNeverAskFlag() {
+      localStorageHelper.remove(NOTIFICATION_NEVER_ASK_KEY)
+    }
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 현재 노티피케이션의 permission 상태를 리턴한다.
      * @returns {string} notificationPermission - Notification.permission 의 값
@@ -150,6 +239,14 @@
     function getShowNotificationContentFlag() {
       return isShowNotificationContent;
     }
+
+
+
+
+
+
+
+
 
     /**
      * Notification 이 켜져있는지 알 수 있는 함수이다.
@@ -286,51 +383,6 @@
     }
 
     /**
-     * Notification content를 보여줄지 말지 결정하는 flag 를 local storage 에 저장한다.
-     * @private
-     */
-    function _storeShowNotificationContentFlag() {
-      localStorageHelper.set(NOTIFICATION_SHOW_CONTENT_FLAG_KEY, isShowNotificationContent);
-    }
-
-    /**
-     * local storage 로 부터 불러온다.
-     * 없으면 granted 인지 아닌지확인한다.
-     * @private
-     */
-    function _loadShowNotificationContentFlag() {
-      var localIsShowContentFlag = localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY);
-
-      if (localIsShowContentFlag === null) {
-        localIsShowContentFlag = shouldSendNotification();
-      } else {
-        localIsShowContentFlag = _getBoolean(localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY));
-      }
-
-      isShowNotificationContent = localIsShowContentFlag;
-    }
-
-    /**
-     * isNotificationOnLocally 을 local storage 에 저장한다.
-     * @param {boolean} flag
-     * @private
-     */
-    function _storeLocalNotificationFlag(flag) {
-      isNotificationOnLocally = !!flag;
-      localStorageHelper.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
-    }
-
-    /**
-     * local storage 로 부터 isNotificationOnLocally 를 가져온다.
-     * @returns {*}
-     * @private
-     */
-    function _loadLocalNotificationFlag() {
-      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
-      isNotificationOnLocally = value ? _getBoolean(value) : true;
-    }
-
-    /**
      * 불리언 타입을 리턴한다.
      * @param {string} value - true 인지 아닌지 확인
      * @returns {boolean}
@@ -341,28 +393,6 @@
         return value === 'true';
       }
       return false;
-    }
-
-    /**
-     * local storage 에 never_ask 관련 flag 를 true 로 바꾼다.
-     */
-    function setNeverAskFlag() {
-      localStorageHelper.set(NOTIFICATION_NEVER_ASK_KEY, true);
-    }
-
-    /**
-     * local storage 에 never_ask 관련 flag 를 리턴한다.
-     * @private
-     */
-    function _getNeverAskFlag() {
-      return localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY);
-    }
-
-    /**
-     * local storage 에서 never ask flag 를 없앤다.
-     */
-    function _resetNeverAskFlag() {
-      localStorageHelper.remove(NOTIFICATION_NEVER_ASK_KEY)
     }
 
     /**
@@ -427,6 +457,14 @@
 
       return socketEvent.room.id;
     }
+
+
+
+
+
+
+
+
 
     /**
      * browser notification에서 사용되어질 file title에 대한 format에 맞춰 리턴한다.
@@ -594,6 +632,46 @@
      */
     function log() {
       logger.desktopNotificationSettingLogger(isNotificationSupported, notificationPermission, isNotificationOnLocally, shouldSendNotification(), isShowNotificationContent);
+    }
+
+    /**
+     * get notification audio
+     * @param {array} sounds
+     * @returns {*}
+     */
+    function getNotificationAudio(sounds, options) {
+      if (notificationAudio == null) {
+        notificationAudio = NotificationAudio.getInstance(sounds, options);
+      }
+
+      return notificationAudio;
+    }
+
+    function getData() {
+      var notificationData = localStorageHelper.get(NOTIFICATION_STORAGE_KEY);
+
+      if (notificationData == null) {
+        notificationData = {
+          // notification 사용여부, true | false
+          on: (_loadLocalNotificationFlag() || true) + '',
+          // notification을 사용하는 메시지 타입, dmNmention | false
+          type: 'false',
+          // notification에 content 노출 시킬지 여부, true | false | public_only
+          showContent: (_loadShowNotificationContentFlag() || true) + '',
+          // 일반 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+          soundNormal: 'off',
+          // 멘션 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+          soundMention: 'off',
+          // 1:1 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+          soundDM: 'off'
+        };
+      }
+
+      return notificationData;
+    }
+
+    function setData(value) {
+      localStorageHelper.set(NOTIFICATION_STORAGE_KEY, value);
     }
   }
 })();

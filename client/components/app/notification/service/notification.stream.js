@@ -50,7 +50,6 @@
       var audio = that.audio;
 
       if (that.options.multiple || !that.playing) {
-        console.log('play ::: ');
         that.playing = true;
 
         try {
@@ -58,8 +57,6 @@
         } catch (e) {}
 
         audio.play();
-      } else {
-        console.log('play :::  not');
       }
     }
 

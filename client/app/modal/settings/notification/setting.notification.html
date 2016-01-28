@@ -6,26 +6,32 @@
   </h3>
 </div>
 
-<div class="modal-body notification-modal-body">
+<div class="modal-body notification-modal-body" ng-class="{'notification-switch-disable': !isAllowSwitch}">
   <div class="notification-role">
     <div class="notification-role-header">바탕화면 알림</div>
     <div class="notification-role-body">We strongly recommend you leave desktop notification on so you never miss an important message.</div>
-    <div class="notification-switch"><switch-button></switch-button></div>
+    <div class="notification-switch">
+      <switch-button is-active="setting.on" toggle="onNotificationToggle($value)"></switch-button>
+    </div>
     <div class="notification-image"><img src="assets/images/app_notification_w.png"></div>
+    <div class="disable-dim"></div>
   </div>
-  <div class="notification-setting">
+  <div class="notification-setting" ng-class="{'notification-setting-disable': !isAllowSetting}">
     <div class="notification-target">
       <label>
-        <input type="checkbox" /><span>Receive direct msgs and @mentions only</span>
+        <input type="checkbox" ng-model="setting.type"
+                               ng-true-value="'dmNmention'"
+                               ng-false-value="'false'"/>
+        <span>Receive direct msgs and @mentions only</span>
       </label>
     </div>
     <div class="notification-options">
       <div class="notification-message-preview col-sm-6">
         <div class="message-preview-header"><i class="icon-chat"></i><span>메시지 내용 미리보기</span></div>
         <div class="message-preview-options">
-          <label><input type="radio" name="preview-option" value="">모든 메시지</label>
-          <label><input type="radio" name="preview-option" value="">공개 토픽만</label>
-          <label><input type="radio" name="preview-option" value="">미리보기 하지 않음</label>
+          <label><input type="radio" ng-model="setting.showContent" value="true">모든 메시지</label>
+          <label><input type="radio" ng-model="setting.showContent" value="public_only">공개 토픽만</label>
+          <label><input type="radio" ng-model="setting.showContent" value="false">미리보기 하지 않음</label>
         </div>
       </div>
       <div class="notification-message-alert col-sm-6">
@@ -33,23 +39,30 @@
         <div class="message-alert-options">
           <div class="message-normal message-audio">
             <div>일반 메시지:</div>
-            <notification-audio-menu></notification-audio-menu>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundNormal"
+                                     on-select="onSoundSelect('normal', $index)"></notification-audio-menu>
           </div>
           <div class="message-mention message-audio">
             <div>@멘션:</div>
-            <notification-audio-menu></notification-audio-menu>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundMention"
+                                     on-select="onSoundSelect('mention', $index)"></notification-audio-menu>
           </div>
           <div class="message-dm message-audio">
             <div>1:1 메시지:</div>
-            <notification-audio-menu></notification-audio-menu>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundDM"
+                                     on-select="onSoundSelect('dm', $index)"></notification-audio-menu>
           </div>
         </div>
       </div>
     </div>
+    <div class="disable-dim"></div>
   </div>
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-cancel btn-notification-sample" ng-click="onSampleClick()">테스트 메시지 받기</button>
+  <button class="btn btn-cancel btn-notification-sample" ng-class="{'disabled': !isAllowSetting}" ng-click="onSampleClick()">테스트 메시지 받기</button>
   <button class="btn btn-ok" translate>@common-done</button>
 </div>

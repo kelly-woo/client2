@@ -1,11 +1,15 @@
 <div class="btn-group notification-audio-btn-group" dropdown>
   <button type="button" class="btn" dropdown-toggle>
-    <span class="btn-text">Button dropdown</span><i class="icon icon-arrow-down"></i>
+    <span class="btn-text" ng-bind="selectedItemText"></span><i class="icon icon-arrow-down"></i>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li><a href="#">Separated link</a></li>
+    <li class="dropdown-menu-option"
+        ng-class="{active: isActive($index)}"
+        ng-repeat="item in list track by $index"
+        ng-mouseenter="onSelectActive($index)"
+        ng-mousedown="onSelectItem($index)">
+      <span class="option-text">{{::item.text}}</span>
+      <i class="option-sound icon-volume-up" ng-if="!item.nonSound"></i>
+    </li>
   </ul>
 </div>

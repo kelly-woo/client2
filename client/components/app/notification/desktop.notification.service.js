@@ -9,33 +9,22 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
-                               NotificationAudio) {
+  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil) {
     var that = this;
     var NOTIFICATION_EXPIRE_TIME = 7000;
     var isSupportNotification;
-    var notificationAudio;
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
-      notificationAudio = notificationAudio.getInstance([
-        'arise'
-      ], {
-        preload: true,
-        multiple: true
-      });
+      that.config = config;
+      that.show = show;
     }
 
-    that.config = config;
-    that.show = show;
-
-    //setTimeout(function() {
-    //
-    //  noti.play('arise');
-    //  //noti.play('arise');
-    //  //noti.play('arise');
-    //}, 5000);
     /**
      * config
      */
@@ -48,7 +37,12 @@
      * @param {options} options
      */
     function show(options) {
+      var notificationAudio;
+
       if (isSupportNotification && options) {
+        if (notificationAudio = DesktopNotificationUtil.getNotificationAudio()) {
+          notificationAudio.play('on_point');
+        }
         createNotification(options);
       }
     }

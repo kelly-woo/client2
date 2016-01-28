@@ -37,7 +37,9 @@
        */
       function onClick() {
         if (_.isFunction(scope.toggle)) {
-          scope.toggle(!scope.isActive);
+          scope.toggle({
+            $value: !scope.isActive
+          });
         }
       }
     }

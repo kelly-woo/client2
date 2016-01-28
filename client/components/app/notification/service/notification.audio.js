@@ -10,31 +10,40 @@
   
   function NotificationAudio(NotificationStream) {
     var that = this;
-    var options = {
-      path: '../assets/sounds/',
-      ext: 'mp3'
-    };
     var streams = {};
 
+    that.options = {
+      path: '../assets/sounds/',
+      ext: 'mp3',
+      preload: true,
+      multiple: true
+    };
     that.getInstance = getInstance;
-    that.destroy = destory;
+    that.destroy = destroy;
     that.play = play;
     that.stop = stop;
 
     function getInstance(sounds, options) {
       _.extend(that.options, options);
 
-      _load(sounds, options);
+      _load(sounds, that.options);
 
       return that;
     }
 
-    function destory() {
-      _.each(streams, function(stream) {
+    function destroy(sound) {
+      var stream;
+
+      if (stream = streams[sound]) {
         stream.destroy();
-        stream = null;
-      });
-      streams = {};
+        delete streams[sound];
+      } else {
+        _.each(streams, function(stream) {
+          stream.destroy();
+          stream = null;
+        });
+        streams = {};
+      }
     }
 
     function _load(sounds, options) {
@@ -44,7 +53,7 @@
     }
 
     function _getUrl(sound) {
-      return options.path + encodeURIComponent(sound) + '.' + options.ext + '?' + (new Date().valueOf());
+      return that.options.path + encodeURIComponent(sound) + '.' + that.options.ext + '?' + (new Date().valueOf());
     }
 
     function play(sound) {

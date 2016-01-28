@@ -33,7 +33,13 @@
   width: 100%;
 }
 
+.notification-audio-btn-group .dropdown-menu-option {
+  padding: 8px 10px;
+}
 
+.notification-audio-btn-group .option-sound {
+  float: right;
+}
 
 
 

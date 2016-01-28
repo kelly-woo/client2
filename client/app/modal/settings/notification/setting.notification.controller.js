@@ -10,7 +10,12 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, $timeout, modalHelper, DesktopNotificationUtil, SampleNotification) {
+  function NotificationCtrl($scope, $timeout, modalHelper, NotificationAudio, SampleNotification,
+                            DesktopNotificationUtil) {
+    var NOTI_TURN_ON = '@setting-notification-turn-on';
+    var NOTI_TURN_OFF = '@setting-notification-turn-off';
+
+    var notificationAudio;
 
     _init();
 
@@ -19,12 +24,54 @@
      * @private
      */
     function _init() {
+      $scope.setting = $scope.originSetting = DesktopNotificationUtil.getData();
+      $scope.setting.on = $scope.setting.on === 'true' ? true : false;
 
+      $scope.isAllowSwitch = !DesktopNotificationUtil.isNotificationPermissionDenied();
+      $scope.isAllowSetting = $scope.isAllowSwitch && true;
+
+      $scope.onNotificationToggle = onNotificationToggle;
+      $scope.onSoundSelect = onSoundSelect;
+
+      _createAlertSelectList();
     }
 
+    function _createAlertSelectList() {
+      $scope.alertSelectList = [
+        {text: 'Off', value: 'off', nonSound: true},
+        {text: 'Ari Pop', value: 'air_pop'},
+        {text: 'Arise', value: 'arise'},
+        {text: 'Chime Bell Ding', value: 'chime_bell_ding'},
+        {text: 'Chimey', value: 'chimey'},
+        {text: 'Mouse', value: 'mouse'},
+        {text: 'Nursery', value: 'nursery'},
+        {text: 'On Point', value: 'on_point'},
+        {text: 'Super', value: 'super'},
+        {text: 'Think Ping', value: 'think_ping'}
+      ];
+      notificationAudio = NotificationAudio.getInstance(_.pluck($scope.alertSelectList, 'value'));
+    }
 
-    var NOTI_TURN_ON = '@setting-notification-turn-on';
-    var NOTI_TURN_OFF = '@setting-notification-turn-off';
+    function onNotificationToggle(value) {
+      $scope.setting.on = value;
+      $scope.isAllowSetting = value;
+    }
+
+    function onSoundSelect(name, index) {
+      var value = $scope.alertSelectList[index].value;
+
+      switch (name) {
+        case 'normal':
+          $scope.setting.soundNormal = value;
+          break;
+        case 'mention':
+          $scope.setting.soundMention = value;
+          break;
+        case 'dm':
+          $scope.setting.soundDM = value;
+          break;
+      }
+    }
 
     /**
      * 모달을 닫는다.
