@@ -14,12 +14,6 @@
 
     that.show = show;
 
-    var noti = NotificationAudio.getInstance([
-      'arise'
-    ], {
-      preload: true,
-      multiple: true
-    });
 
     /**
      * show sample notification

@@ -12,10 +12,20 @@
   function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
                                NotificationAudio) {
     var that = this;
-
     var NOTIFICATION_EXPIRE_TIME = 7000;
-
     var isSupportNotification;
+    var notificationAudio;
+
+    _init();
+
+    function _init() {
+      notificationAudio = notificationAudio.getInstance([
+        'arise'
+      ], {
+        preload: true,
+        multiple: true
+      });
+    }
 
     that.config = config;
     that.show = show;

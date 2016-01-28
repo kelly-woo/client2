@@ -8,11 +8,11 @@
     .module('jandiApp')
     .service('NotificationAudio', NotificationAudio);
   
-  function NotificationAudio(AudioElementStream) {
+  function NotificationAudio(NotificationStream) {
     var that = this;
     var options = {
       path: '../assets/sounds/',
-      ext: 'wav'
+      ext: 'mp3'
     };
     var streams = {};
 
@@ -39,7 +39,7 @@
 
     function _load(sounds, options) {
       _.each(sounds, function(sound) {
-        streams[sound] = AudioElementStream.getInstance(_getUrl(sound), options);
+        streams[sound] = NotificationStream.getInstance(_getUrl(sound), options);
       });
     }
 
