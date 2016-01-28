@@ -784,6 +784,11 @@
 .modal-body .member-item.active {
   background-color: #f2fbff;
 }
+
+.modal-body .member-item.active .member-auth-label {
+  right: 30px;
+}
+
 .modal-body .member-item.active i {
   opacity: 1;
 }
@@ -815,6 +820,9 @@
 
 .modal-body .member-item.active {
   background-color: #f2fbff;
+}
+.modal-body .member-item.active.admin .member-name{
+  width: 300px;
 }
 
 .modal-body .room-item {

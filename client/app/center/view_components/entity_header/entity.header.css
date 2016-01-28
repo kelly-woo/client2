@@ -136,8 +136,20 @@
   padding-left: 3px;
 }
 
-.header-title-member__dropdown > li:hover > a {
+.header-title-member__dropdown > li:hover {
   background-color: #e8f3f9 !important;
+}
+.header-title-member__dropdown > li.admin:hover > a{
+  max-width:150px;
+}
+.header-title-member__dropdown > li:hover .member-auth-label {
+  right: 40px;
+}
+.header-title-member__dropdown > li.admin .kick-item-icon {
+  display:none;
+}
+.header-title-member__dropdown > li.admin:hover .kick-item-icon {
+  display:block;
 }
 
 .kick-item-icon {

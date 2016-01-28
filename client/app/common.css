@@ -1484,3 +1484,20 @@ input[type="radio"] {
   top:6px;
   left: -8px;
 }
+
+
+.member-auth-label {
+  line-height: 18px;
+  top: 5px;
+  right: 8px;
+  position: absolute;
+  background-color: rgba(15,60,85,0.105);
+  color: rgba(14,60,85,0.3);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
