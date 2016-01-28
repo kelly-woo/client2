@@ -1,4 +1,4 @@
-<div class="message-card" ng-click="onMessageCardClick($event)">
+<div class="message-card" ng-class="::{'jandi-bot': isJandiBot}" ng-click="onMessageCardClick($event)">
   <div class="message-card-header">
     <div class="message-profile">
       <img class="cursor_pointer" ng-src="{{::profileImage }}">

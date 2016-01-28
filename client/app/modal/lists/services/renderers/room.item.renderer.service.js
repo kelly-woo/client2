@@ -41,6 +41,7 @@
           unjoinedChannel: unjoinedChannelMsg
         },
         css: {
+          roomItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : '',
           unjoinedChannel: data.isUnjoinedChannel ? 'unjoined-channel-name' : ''
         },
         isUnjoinedChannel: data.isUnjoinedChannel,

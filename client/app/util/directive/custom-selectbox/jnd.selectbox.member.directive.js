@@ -30,6 +30,7 @@
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
       scope.toggleDisabled = toggleDisabled;
+
       _init();
 
       /**
@@ -133,6 +134,8 @@
         scope.selectedName = _getSelectedName();
       }
 
+
+
       /**
        * change 이벤트 핸들러
        * @param targetScope
@@ -214,6 +217,7 @@
             } else {
               if (memberService.isJandiBot(member.id)) {
                 enabledList.unshift(member);
+                member.extIsJandiBot = true;
               } else {
                 enabledList.push(member);
               }

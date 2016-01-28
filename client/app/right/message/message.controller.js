@@ -33,6 +33,8 @@
       $scope.hasStar = message.hasStar || false;
       $scope.isStarred = message.isStarred || false;
 
+      $scope.isJandiBot = memberService.isJandiBot($scope.writer.id);
+
       $scope.onMessageCardClick = onMessageCardClick;
     }
 

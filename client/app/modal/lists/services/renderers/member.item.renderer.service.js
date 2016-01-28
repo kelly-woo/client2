@@ -33,6 +33,9 @@
         html: {
           userName: $filter('typeaheadHighlight')(data.name, filterText)
         },
+        css: {
+          memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : ''
+        },
         profileImage: memberService.getProfileImage(data.id, 'small'),
         starClass: data.isStarred ? 'icon-star-on' : '',
         isShowStar: !data.isDeactive && data.id !== memberService.getMemberId(),
