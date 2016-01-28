@@ -84,7 +84,7 @@
                       event.stopPropagation();
                       liveSearchHandler(event);
                     })
-                    .on('blur', mentionCtrl.clearMention)
+                    //.on('blur', mentionCtrl.clearMention)
                     .on('keyup', liveSearchHandler);
                 }
               });
