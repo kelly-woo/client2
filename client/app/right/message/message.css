@@ -58,10 +58,10 @@
 .message-meta .message-start .comment-start:hover {
   text-decoration: none;
 }
-.message-meta .message-start .file-icon {
-  width: 8px;
-  margin-right: 2px;
-  margin-bottom: 3px;
+.message-meta .message-start .fileicon {
+  display: inline-block;
+  zoom: .4;
+  margin-right: 3px;
 }
 
 .message-card .message-profile img {

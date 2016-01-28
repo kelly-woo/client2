@@ -9,7 +9,7 @@
         <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
-        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="message.contentType !== 'text'">
+        <div class="fileicon fileicon-etc" ng-if="message.contentType !== 'text'"></div>
         <span class="{{message.contentType !== 'text' ? 'comment-start' : 'topic-start'}}" ng-if="!message.isSimple || message.contentType !== 'text'">{{::startPoint}}</span>
       </div>
     </div>
