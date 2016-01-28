@@ -1052,7 +1052,7 @@ msgstr "언어 설정"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-101"
-msgstr "연동 서비스로부터 수신되는 메시지에 사용될 언어를 선택합니다."
+msgstr "수신할 메시지의 언어를 선택합니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-102"
@@ -1096,7 +1096,7 @@ msgstr "생성자"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-111"
-msgstr "알림을 받고자 하는 Board를 선택해주세요"
+msgstr "알림을 받고자 하는 보드(Board)를 선택해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-112"
@@ -1200,7 +1200,7 @@ msgstr "체크리스트 아이템이 생성되었을 때"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-135"
-msgstr "체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 표시되었을 때"
+msgstr "체크리스트 아이템이 완료(Complete)/미완료(Incomplete)로 될 때"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-136"
@@ -1324,7 +1324,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-16"
-msgstr "GitHub Repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다"
+msgstr "GitHub Repository를 등록하여 변경사항을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-160"
@@ -1427,7 +1427,7 @@ msgstr "Issue Opened / Closed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-18"
-msgstr "JIRA 이슈들과 관련한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "JIRA 이슈 변동 사항을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-180"
@@ -1455,8 +1455,8 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-185"
 msgstr ""
-"이 잔디 커넥트 항목을 정말 삭제하시겠습니까? 연동 항목을 삭제하시더라도 과거"
-"에 수신한 메시지는 보존됩니다."
+"이 잔디 커넥트 항목을 정말 삭제하시겠습니까? 삭제하시더라도 과거에 수신한 메"
+"시지는 보존됩니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-186"
@@ -1465,8 +1465,8 @@ msgstr "잔디 커넥트 항목이 성공적으로 추가되었습니다."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-187"
 msgstr ""
-"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 연동 항목 또한 동작"
-"하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
+"이 계정의 연동을 해제하시면, 이 계정과 연동되어 있는 다른 커넥트 항목 또한 동"
+"작하지 않을 수 있습니다. 연동을 해제하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-188"
@@ -1527,7 +1527,7 @@ msgstr "잔디 커넥트 닫기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-20"
-msgstr "Trello 변동사항에 관련한 알림을 잔디에서 확인할 수 있습니다."
+msgstr "Trello 보드의 변동 사항을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-200"
@@ -1618,7 +1618,8 @@ msgstr "알림을 받고자 하는 이벤트를 최소 한 개 이상 선택해�
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-22"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+msgstr ""
+"웹훅(Webhook)을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-220"
@@ -1647,7 +1648,7 @@ msgid "@jnd-connect-225"
 msgstr ""
 "Google 캘린더, Trello, JIRA, 그리고 GitHub과 같은 <br>외부 서비스를 잔디에 등"
 "록하여 변경사항을 메시지로  <br>받아볼 수 있는 기능인 잔디 커넥트가 출시되었"
-"습니다. <br><br><b>이제 더욱 더 이메일을 사용할 일이 없어집니다.<b><br>"
+"습니다. <br><br><b>이제 더욱 더 메일함을 열어볼 일이 없어집니다.<b><br>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-226"
@@ -1674,8 +1675,8 @@ msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
 "롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+"GitHub을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull Request"
+"와 같은 다양한 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
@@ -1904,8 +1905,9 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-27"
 msgstr ""
-"<b>Incoming Webhook</b>은 Webhook을 지원하는 서비스를 잔디와 연결하여 외부 서"
-"비스의 변동 사항을 잔디 팀 내의 메시지로 수신할 수 있는 기능입니다."
+"<b>Incoming Webhook</b>은 잔디로 전송된 데이터를 잔디 내의 메시지로 수신할 "
+"수 있는 기능입니다.<br>약간의 노력으로 뉴스 기사를 잔디 메시지로 받아보는 등 "
+"다양한 기능을 구현하여 사용할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-28"
@@ -1923,11 +1925,11 @@ msgstr "잔디 커넥트"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr "서비스 연동 요청하기"
+msgstr "잔디 커넥트에 더 추가를 원하시는 서비스가 있으신가요?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
-msgstr "서비스 설정 화면으로"
+msgstr "잔디 커넥트 목록으로"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-32"
@@ -1947,7 +1949,7 @@ msgstr "인증된 계정"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-36"
-msgstr "알림을 받고자 하는 캘린더를 선택해주세요."
+msgstr "일정 알림 메시지를 받고자 하는 캘린더를 선택해주세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-37"
@@ -2051,7 +2053,7 @@ msgstr "1:00 AM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-6"
-msgstr "Google 캘린더에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다"
+msgstr "Google 캘린더에 등록된 일정에 대한 알림을 잔디에서 확인할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-60"
@@ -2151,7 +2153,7 @@ msgstr "11:00 PM"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-82"
-msgstr "에 알림 {{timezone}}"
+msgstr "에 일정에 대한 알림 메시지 수신 {{timezone}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-83"
@@ -2224,8 +2226,8 @@ msgstr "연동 서비스 프로필 설정"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-99"
 msgstr ""
-"팀 내에서 이 연동 항목이 메시지를 보낼 때의 프로필 이미지와 이름을 지정하실 "
-"수 있습니다. "
+"팀 내에서 이 커넥트 항목이 메시지를 보낼 때의<br>프로필 이미지와 이름을 지정"
+"하실 수 있습니다."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
