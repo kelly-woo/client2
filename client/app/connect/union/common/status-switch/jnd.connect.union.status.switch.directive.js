@@ -9,7 +9,7 @@
     .directive('jndConnectStatusSwitch', jndConnectStatusSwitch);
 
   /* @ngInject */
-  function jndConnectStatusSwitch($filter, Dialog, JndConnectUnionApi, JndUtil) {
+  function jndConnectStatusSwitch($filter, Dialog, JndConnectUnionApi, JndUtil, JndConnectApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -154,14 +154,17 @@
 
       /**
        * request error 콜백
-       * @param {object} response
+       * @param {object} err
+       * @param {number} status
        * @private
        */
-      function _onErrorSetStatus(response) {
-        JndUtil.alertUnknownError(response);
-        scope.onErrorCallback({
-          $value: response
-        });
+      function _onErrorSetStatus(err, status) {
+        if (!JndConnectApi.handleError(err, status)) {
+          JndUtil.alertUnknownError(err, status);
+          scope.onErrorCallback({
+            $value: err
+          });
+        }
       }
     }
   }

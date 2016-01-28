@@ -26,6 +26,8 @@
         <ul class="connect-plugs" ng-switch-when="true">
           <li ng-repeat="connectPlug in connectPlugs">
             <connect-plug jnd-data-model="connectPlug"
+                          is-admin="isAdmin"
+                          is-Owner="isOwner"
                           on-setting="onConnectSetting($connectId, $unionName)"
                           on-delete="onConnectDelete($connectId, $value)"></connect-plug>
           </li>

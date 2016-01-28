@@ -10,7 +10,8 @@
     .service('JndConnectUnion', JndConnectUnion);
 
 
-  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub) {
+  function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub,
+                           JndConnectApi) {
     var LANGUAGE_MAP = {
       ko: 'ko',
       ja: 'ja',
@@ -88,10 +89,13 @@
      *    @param {object} [options.header]  - 공통 header 데이터 object
      *    @param {object} [options.footer]  - 공통 footer 데이터 object
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorRead(options, err) {
-      handleCommonLoadError(options.current, err);
+    function _onErrorRead(options, err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        handleCommonLoadError(options.current, err);
+      }
     }
 
     /**
@@ -101,10 +105,12 @@
      */
     function handleCommonLoadError(current, err) {
       var body;
-      JndConnect.backToMain();
+      var serviceName = JndUtil.pick(current, 'union', 'title');
+
+      JndConnect.backToMain(true);
       if (err.code === 50001) {
         body = $filter('translate')('@jnd-connect-215')
-          .replace('{{serviceName}}', JndUtil.pick(current, 'union', 'title'));
+          .replace('{{serviceName}}', serviceName);
         Dialog.alert({
           allowHtml: true,
           body: body
@@ -217,10 +223,14 @@
 
     /**
      * 오류 콜백
+     * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorCommon(response) {
-      JndUtil.alertUnknownError(response);
+    function _onErrorCommon(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndUtil.alertUnknownError(err, status);
+      }
     }
 
     /**
@@ -232,7 +242,7 @@
         body: $filter('translate')('@jnd-connect-208'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
@@ -244,23 +254,26 @@
         body: $filter('translate')('@jnd-connect-186'),
         allowHtml: true
       });
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
      * 생성 오류 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorCreate(err) {
-      //connect 100개 이상 추가시 오류
-      if (err.code === 40305) {
-        Dialog.error({
-          body: $filter('translate')('@jnd-connect-183'),
-          allowHtml: true
-        });
-      } else {
-        _onErrorCommon(err);
+    function _onErrorCreate(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        //connect 100개 이상 추가시 오류
+        if (err.code === 40305) {
+          Dialog.error({
+            body: $filter('translate')('@jnd-connect-183'),
+            allowHtml: true
+          });
+        } else {
+          _onErrorCommon(err);
+        }
       }
     }
   }

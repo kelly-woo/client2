@@ -317,7 +317,9 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
+        getPhotoUrl(member) ||
+        getProfileImage(member.id);
     }
 
     /**

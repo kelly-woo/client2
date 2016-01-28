@@ -69,22 +69,41 @@
         // onTabSelect가 바로 수행되기 때문에 여기서 수행하지 않음
         //_initGetStarList();
       }
+
+      _attachEvents();
     }
 
-    // open right panel
-    $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
+    /**
+     * attach events
+     * @private
+     */
+    function _attachEvents() {
+      // EntityMap 완성
+      $scope.$on('dataInitDone', _onDataInitDone);
 
-    // star / unstar
-    $scope.$on('message:starred', _starred);
-    $scope.$on('message:unStarred', _unStarred);
+      // open right panel
+      $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
-    // create/delete comment
-    $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);
-    $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
+      // star / unstar
+      $scope.$on('message:starred', _starred);
+      $scope.$on('message:unStarred', _unStarred);
 
-    // delete message/file
-    $scope.$on('topicMessageDelete', _topicMessageDelete);
-    $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+      // create/delete comment
+      $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);
+      $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
+
+      // delete message/file
+      $scope.$on('topicMessageDelete', _topicMessageDelete);
+      $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+    }
+
+    /**
+     * entity map data 작성 완료 event handler
+     * @private
+     */
+    function _onDataInitDone() {
+      $scope.isDataInitDone = true;
+    }
 
     /**
      * open right panel event handler

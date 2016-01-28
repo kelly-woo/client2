@@ -6,7 +6,8 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndUtil, JndConnect, JndConnectUnion, JndConnectTrelloApi, Dialog) {
+  function JndConnectTrelloCtrl($scope, $filter, JndConnectApi, JndConnectUnion, JndConnectTrelloApi, Dialog, JndUtil,
+                                JndConnectUnionFormData) {
     var _trelloBoardId = null;
     var EVENT_PAIR = {
       'showCardLabelCreated': 'showCardLabelDeleted',
@@ -85,6 +86,29 @@
       $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
       $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+      $scope.$on('$destroy', JndConnectUnionFormData.clear);
+      $scope.$on('JndConnectUnionFormData:getCurrentFormData', _onGetCurrentFormData);
+    }
+
+    /**
+     * getCurrentFormData 이벤트 콜백
+     * @param {object} angularEvent
+     * @param {Function} callback - formData 를 인자로 넘겨줄 콜백 함수
+     * @private
+     */
+    function _onGetCurrentFormData(angularEvent, callback) {
+      callback($scope.formData);
+    }
+
+    /**
+     * 변경 여부 파악을 위해 초기 formData 를 저장한다.
+     * @private
+     */
+    function _setOriginalFormData() {
+      //custom selectbox 에서 기본 값으로 세팅한 이후 저장하기 위해 setTimeout 을 수행한다.
+      setTimeout(function() {
+        JndConnectUnionFormData.set($scope.formData);
+      });
     }
 
     /**
@@ -109,6 +133,7 @@
      */
     function _onSave() {
       _setRequestData();
+
       var key;
       var invalidField = _getInvalidField();
 
@@ -159,6 +184,8 @@
       //update 모드가 아닐 경우 바로 view 를 노출한다.
       if (!$scope.isUpdate) {
         $scope.isInitialized = true;
+        //신규 생성일 경우, 항상 변경되었다고 간주하기 위하여 빈 object 를 설정한다.
+        JndConnectUnionFormData.set({});
       } else {
         JndConnectUnion.read({
           current: $scope.current,
@@ -169,12 +196,32 @@
     }
 
     /**
-     * board 조회 실패시 콜백
-     * @param {object} err
+     * trello board id 로 trello board data 를 조회한다.
+     * @param {number} boardId
+     * @returns {*}
      * @private
      */
-    function _onErrorGetBoards(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _getBoardData(boardId) {
+      var board;
+      _.forEach($scope.boards, function(item) {
+        if (item.value === boardId) {
+          board = item;
+          return false;
+        }
+      });
+      return board;
+    }
+
+    /**
+     * board 조회 실패시 콜백
+     * @param {object} err
+     * @param {number} status
+     * @private
+     */
+    function _onErrorGetBoards(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**
@@ -202,6 +249,11 @@
       JndConnectUnion.setHeaderAccountData($scope.formData.header, {
         accountList: [response]
       });
+
+      //원본 formData 의 정보를 업데이트 한다.
+      JndConnectUnionFormData.extend({
+        trelloBoardId: _trelloBoardId || ''
+      });
     }
 
     /**
@@ -224,6 +276,7 @@
         formData.hookEvent[name] = !!response[name];
       });
       $scope.isInitialized = true;
+      _setOriginalFormData();
     }
 
     /**
@@ -234,17 +287,19 @@
       var formData = $scope.formData;
       var hookEvent = formData.hookEvent;
       var footer = formData.footer;
+      var trelloBoardId = formData.trelloBoardId;
       var pairKey;
+
       _.each(hookEvent, function(value, key) {
         pairKey = EVENT_PAIR[key];
         if (EVENT_PAIR[key]) {
           hookEvent[pairKey] = value;
         }
       });
-
       _.extend($scope.requestData, footer, hookEvent, {
         roomId: formData.roomId,
-        trelloBoardId: formData.trelloBoardId
+        trelloBoardId: trelloBoardId,
+        trelloBoardName: JndUtil.pick(_getBoardData(trelloBoardId), 'text')
       });
     }
 

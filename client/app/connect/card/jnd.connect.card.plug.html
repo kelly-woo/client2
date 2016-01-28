@@ -6,22 +6,23 @@
     plug icon
   </div>
   <div>
-    <div class="connect-union-plug-title">
-      <i class="icon-user"></i> <span>{{::plug.user.name}}</span>
+    <div ng-if="isAccessible" class="connect-union-plug-desc">
+      <span>
+        <i ng-class="{
+            'icon-topic': plug.room.type === 'channels',
+            'icon-lock': plug.room.type === 'privategroups',
+            'icon-user': plug.room.type === 'users',
+            'icon-jandi-bot': plug.room.type === 'bots' && plug.room.botType === 'jandi_bot'
+           }"></i> <span>{{ ::plug.room.name }}</span>
+      </span>
     </div>
     <div class="connect-union-plug-desc">
       <span>
         <i class="icon-info-fill"></i><span>{{::plug.sourceName}}</span>
       </span>
     </div>
-    <div ng-if="isAccessible" class="connect-union-plug-desc">
-      <span>
-        <i ng-class="{
-            'icon-topic': plug.room.type === 'channels',
-            'icon-lock': plug.room.type === 'privategroups',
-            'icon-user': plug.room.type === 'users'
-           }"></i> <span>{{ ::plug.room.name }}</span>
-      </span>
+    <div class="connect-union-plug-title">
+      <i class="icon-user"></i> <span>{{::plug.user.name}}</span>
     </div>
     <div ng-if="!isAccessible"
          ng-switch="plug.room.type"

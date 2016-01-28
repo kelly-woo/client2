@@ -13,6 +13,7 @@
     var CONNECT_CREATED = 'connect_created';
     var CONNECT_DELETED = 'connect_deleted';
     var CONNECT_UPDATED = 'connect_updated';
+    var AUTHENTICATION_CREATED = 'authentication_created';
 
     var events = [
       {
@@ -29,6 +30,11 @@
         name: CONNECT_DELETED,
         version: 1,
         handler: onConnectDeleted
+      },
+      {
+        name: AUTHENTICATION_CREATED,
+        version: 1,
+        handler: onAuthenticationCreated
       }
     ];
 
@@ -72,6 +78,16 @@
       var data = socketEvent.data;
 
       jndPubSub.pub('webSocketConnect:connectDeleted', data);
+    }
+
+    /**
+     * 계정 생성 성공 시 이벤트 핸들러
+     * @param {object} socketEvent
+     */
+    function onAuthenticationCreated(socketEvent) {
+      var data = socketEvent.data;
+
+      jndPubSub.pub('webSocketConnect:authenticationCreated', data);
     }
   }
 })();

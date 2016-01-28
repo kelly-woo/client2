@@ -80,7 +80,17 @@
     function _isShowAnnouncement(msg, entityType) {
       // message가 스티커가 아니며 message를 작성한 작성자가 반드시 user(bot이 아님)여야 하고
       // 현재 center의 chat list가 channel(topic)인 경우 공지사항으로 등록 가능하다
-      return (!RendererUtil.isSticker(msg) && entityType === 'channels' && memberService.isUser(msg.message.writerId));
+      return (!RendererUtil.isSticker(msg) && _isTopic(entityType) && memberService.isUser(msg.message.writerId));
+    }
+
+    /**
+     * 해당 entityType 이 topic 인지 여부를 반환한다.
+     * @param {string} entityType
+     * @returns {boolean}
+     * @private
+     */
+    function _isTopic(entityType) {
+      return entityType === 'channels' || entityType === 'privategroups';
     }
 
     /**
@@ -113,7 +123,7 @@
           star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg),
           profileCursor: profileCursor,
-          botText: memberService.isConnectBot(msg.message.writerId) ? 'bot-text' : ''
+          botText: _getMsgItemClass(msg)
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),
@@ -123,6 +133,25 @@
         isChild: isChild,
         msg: msg
       });
+    }
+
+    /**
+     * get msg item class
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
+    function _getMsgItemClass(msg) {
+      var result = [];
+      if (memberService.isConnectBot(msg.message.writerId)) {
+        result.push('bot-text');
+      }
+
+      if (memberService.isJandiBot(msg.message.writerId)) {
+        result.push('jandi-bot');
+      }
+
+      return result.join(' ');
     }
 
     /**

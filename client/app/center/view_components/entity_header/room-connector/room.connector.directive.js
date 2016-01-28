@@ -209,17 +209,22 @@
           scope.connectPlugs = [];
           removedConnectPlugs = [];
         } else {
+          scope.isOwner = entityAPIservice.isOwner(scope.currentEntity, memberService.getMemberId());
+          scope.isAdmin = memberService.isAdmin();
+
           setList = {};
 
           _.each(connectInfo, function(connects, name) {
             _.each(connects, function(connect) {
-              setList[connect.id] = true;
-              _setConnectPlug(name, connect);
+              if (connect) {
+                setList[connect.id] = true;
+                _setConnectPlug(name, connect);
+              }
             });
           });
 
           _.each(scope.connectPlugs, function(connectPlug) {
-            if (setList[connectPlug.connectId] == null) {
+            if (connectPlug && setList[connectPlug.connectId] == null) {
               // 현재 생성된 connect plug가 새로 설정될 connectInfo에
               // 존재하지 않는다면 해당 connect plug를 삭제한다.
               _removeConnectPlug(connectPlug.connectId);
@@ -249,7 +254,7 @@
           if (member && bot) {
             if (connectPlug = connectPlugMap[connect.id]) {
               // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.
-              _updateConnectPlug(name, connect, bot, member, connectPlug);
+              _updateConnectPlug(connect, bot, member, connectPlug);
             } else {
               // 이전에 설정된 connect plug가 존재하지 않는다면 connect plug를 추가한다.
               _addConnectPlug(name, connect, bot, member);
@@ -265,19 +270,18 @@
 
       /**
        * update connect plug
-       * @param {string} name
        * @param {object} connect
        * @param {object} bot
        * @param {object} member
        * @param {object} target
        * @private
        */
-      function _updateConnectPlug(name, connect, bot, member, target) {
+      function _updateConnectPlug(connect, bot, member, target) {
         target.botProfileImage = bot.thumbnailUrl;
         target.botName = bot.name;
         target.memberName = member.name;
         target.status = connect.status;
-        target.sourceName = JndConnect.getPlugSourceName(name, connect);
+        target.sourceName = JndConnect.getPlugSourceName(connect);
       }
 
       /**
@@ -294,7 +298,7 @@
           botName: bot.name,
           memberName: member.name,
           status: connect.status,
-          sourceName: JndConnect.getPlugSourceName(name, connect),
+          sourceName: JndConnect.getPlugSourceName(connect),
           unionName: name,
           connectId: connect.id,
           memberId: connect.memberId,

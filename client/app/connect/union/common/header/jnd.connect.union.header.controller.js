@@ -27,7 +27,7 @@
      * 삭제 성공시 콜백
      */
     function onSuccessRemove() {
-      JndConnect.backToMain();
+      JndConnect.backToMain(true);
     }
 
     /**
