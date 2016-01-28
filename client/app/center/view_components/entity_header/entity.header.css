@@ -297,6 +297,7 @@
 }
 .header-title-member__dropdown {
   max-height: 500px;
+  min-width: 210px;
   overflow-y: auto;
 }
 .panel-title-invite {
