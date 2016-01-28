@@ -10,8 +10,8 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, jndPubSub, memberService, messageAPIservice,
-                           analyticsService, jndKeyCode) {
+  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, MemberProfile, memberService, messageAPIservice,
+                           analyticsService, jndKeyCode, jndPubSub) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -20,6 +20,10 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       _setCurrentUser(curUser);
 
@@ -30,25 +34,23 @@
 
       $scope.message = {content:''};
 
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
-
-      $scope.close = close;
       $scope.onActionClick = onActionClick;
       $scope.onSubmitDoneClick = onSubmitDoneClick;
-      $scope.onProfileChange = onProfileChange;
-      $scope.postMessage = postMessage;
       $scope.onDmKeydown = onDmKeydown;
 
-      $scope.activeIndex = null;
-      $scope.onProfileSelect = function(index) {
-        $scope.activeIndex = index;
-      };
+      $scope.onProfileSelect = onProfileSelect;
+      $scope.onProfileChange = onProfileChange;
 
-      _attachEvents();
+      $scope.close = close;
+      $scope.postMessage = postMessage;
+
+      $scope.activeIndex = null;
 
       if ($scope.isMyself) {
         $scope.emails = $scope.account.emails;
       }
+
+      _attachEvents();
     }
 
     /**
@@ -59,9 +61,15 @@
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
 
+      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       $scope.$on('$destroy', _onDestroy);
     }
 
+    /**
+     * set current user
+     * @param {object} curUser
+     * @private
+     */
     function _setCurrentUser(curUser) {
       $scope.curUser = curUser;
 
@@ -83,6 +91,10 @@
       }
     }
 
+    /**
+     * scope destroy event handler
+     * @private
+     */
     function _onDestroy() {
       isChangedName && _changeProfileName();
       isChangedEmail && _changeProfileEmail();
@@ -131,6 +143,14 @@
       if (_isEnableDM()) {
         $scope.setShowDmSubmit(false);
       }
+    }
+
+    /**
+     * profile select event handler
+     * @param {string} index
+     */
+    function onProfileSelect(index) {
+      $scope.activeIndex = index;
     }
 
     /**
@@ -183,9 +203,7 @@
      * @private
      */
     function _onFileListClick(userId) {
-      if ($state.current.name != 'messages.detail.files') {
-        $state.go('messages.detail.files');
-      }
+      MemberProfile.openFileList(userId);
 
       jndPubSub.pub('updateFileWriterId', userId);
     }
@@ -254,13 +272,7 @@
         return;
       }
 
-     // TODO: REFACTOR ROUTE.SERVICE
-      var routeParam = {
-        entityType: 'users',
-        entityId: userId
-      };
-
-      $state.go('archives', routeParam);
+      MemberProfile.goToDM(userId);
     }
 
     /**
@@ -282,6 +294,11 @@
       }
     }
 
+    /**
+     * profile change event handler
+     * @param {string} type
+     * @param {string} value
+     */
     function onProfileChange(type, value) {
       switch(type) {
         case 'name':

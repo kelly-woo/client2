@@ -119,6 +119,10 @@
       var that = this;
       var options = that.options;
 
+      if (options.body) {
+        options.body = $filter('stripMarkdown')(options.body);
+      }
+
       return {
         tag: options.tag,
         // body message for notification

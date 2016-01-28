@@ -436,7 +436,7 @@
      */
     function _updateActionOwner(target, source) {
       _.extend(target, source);
-      target.profilePic = ($filter)('getSmallThumbnail')(source);
+      target.profilePic = memberService.getProfileImage(source.id, 'small');
     }
   }
 })();

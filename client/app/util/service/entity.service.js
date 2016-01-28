@@ -474,11 +474,11 @@
      */
     function _createEntityData(entities, callback) {
       var regxEntityType = /channel|privategroup|user|bot/i;
+      var match;
+      var type;
 
       _.each(entities, function(entity) {
-        var match = regxEntityType.exec(entity.type);
-        var type;
-
+        match = regxEntityType.exec(entity.type);
         if (match) {
           type = match[0].toLowerCase();
           _transDatas(entity, type);

@@ -1,9 +1,16 @@
-.room-integration-connect .connect-wrapper {
+.room-integration-connect .connect-wrapper.dropdown-menu {
   position: absolute;
   width: 392px;
   cursor: default;
   margin-top: 5px !important;
   overflow: hidden;
+}
+
+.room-integration-connect .connect-wrapper.dropdown-menu {
+  margin-right: 190px !important;
+}
+.bot-room.room-integration-connect .connect-wrapper.dropdown-menu {
+  margin-right: 49px !important;
 }
 
 .room-integration-connect .connect-wrapper ul {
@@ -56,14 +63,18 @@
 .connect-body .connect-empty{
   display: inline-block;
   margin-bottom: 15px;
-  padding: 24px 24px 0 24px;
+  padding: 20px 24px 0 24px;
   color: #114768;
   font-size: 15px;
   line-height: 22px;
   font-weight: 700;
   border-top: 1px solid #e1e1e1;
+  width: 95%;
 }
-
+.connect-body .connect-empty > span:lang(en) {
+  max-width: 300px;
+  display: inline-block;
+}
 
 .connect-body .connect-plugs {
   padding: 10px 10px;
@@ -106,4 +117,9 @@
   left: 50%;
   margin-top: -12px;
   margin-left: -12px;
+}
+@media (max-width: 1240px) {
+  .room-integration-connect .connect-wrapper.dropdown-menu {
+    margin-right: 6px !important;
+  }
 }

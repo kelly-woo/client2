@@ -21,7 +21,9 @@
   padding-left: 3px;
   padding-right: 3px;
 }
-
+.lpanel-list span.badge.left-panel_badge {
+  padding:3px 7px;
+}
 .lpanel-list__header .fa-comment {
   font-size: 11px;
 }
@@ -421,7 +423,7 @@ last element of list
   min-height: 5px;
   height: 52px;
   overflow: hidden;
-  z-index : 522;
+  z-index : 526;
 }
 .lpanel-list-help-unread.ng-enter, .lpanel-list-help-unread.ng-leave {
   -webkit-transition:opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s;

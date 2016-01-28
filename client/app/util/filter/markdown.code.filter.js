@@ -12,18 +12,15 @@
     .module('jandiApp')
     .filter('markdown', markdown);
 
-  function markdown($filter) {
+  function markdown(Markdown) {
     var _regx = {
       isCode: /^`{3,}/,
-      bolditalic: /([\*]{3})([^\*]+?)\1/g,
-      bold: /([\*]{2})([^\*]+?)\1/g,
-      italic: /([\*]{1})([^\*]+?)\1/g,
-      strikethrough: /([~]{2})([^~]+?)\1/g,
       anchor: /<a.*?<\/a>/g,
-      links: /(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?((?:\([^)]*\)|[^()\s])*?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,
-      marker: /(<(a|img).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
+      marker: /(<(a|img)\s(?!mention-view).*?)?(§§§anchorMarker(\d+)?§§§)(.*?<\/a>)?/g
       //links: /!?\[([^\]<>]+)\]\(<?([^ \)<>]+)( "[^\(\)\"]+")?>?\)/g  //TODO: IMG link 지원하게 될 경우 이 정규식을 사용해야 함.
     };
+
+    _.extend(_regx, Markdown.getRegexMap());
 
     return function(text, allowList) {
       return convert(text, allowList);
@@ -178,6 +175,7 @@
      */
     function _parseLinks(str, anchorList) {
       var stra;
+      var anchorText;
       while ((stra = _regx.marker.exec(str)) !== null) {
         _regx.marker.lastIndex = 0;
         str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
@@ -192,7 +190,7 @@
         }
       }
       _.forEach(anchorList, function(anchor, index) {
-        var anchorText = _getTextFromAnchor(anchor);
+        anchorText = _getTextFromAnchor(anchor);
         str = str.replace(anchorText, _getAnchorMarker(index));
       });
       return str;

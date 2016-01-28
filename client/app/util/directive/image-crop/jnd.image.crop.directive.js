@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndImageCrop', jndImageCrop);
 
-  function jndImageCrop() {
+  function jndImageCrop(JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -122,7 +122,8 @@
           height: jqModalBody.height()
         };
 
-        jqModalBody.css({width: dimensions.width, height: dimensions.height});
+        // jqModalBody의 dimension가 page 전체를 덮지 않기 위해 가로, 세로에 -150 한다.
+        jqModalBody.css({width: dimensions.width - 150, height: dimensions.height - 150});
       }
 
       /**
@@ -131,8 +132,8 @@
        * @private
        */
       function _getWindowDimensions() {
-        var width = jqWindow.width() - 150;
-        var height = jqWindow.height() - 150;
+        var width = jqWindow.width();
+        var height = jqWindow.height();
 
         return {
           width: width < 0 ? 0 : width,

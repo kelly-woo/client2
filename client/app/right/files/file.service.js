@@ -66,6 +66,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   this.getFilterTypePreviewMap = getFilterTypePreviewMap;
 
+  this.getImageDataByFile = getImageDataByFile;
+
   function _init() {
     Preloader.img(getFilterTypePreviewMap());
   }
@@ -296,7 +298,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   // No exception.
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
-
+    var jandiBot = entityAPIservice.getJandiBot();
     _.each(memberList, function(member, index) {
       if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
@@ -305,7 +307,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
-
+    if (jandiBot) {
+      enabledMemberList.unshift(entityAPIservice.getJandiBot());
+    }
     return joinedChannelList.concat(enabledMemberList);
   }
 
@@ -504,5 +508,32 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
    */
   function getFilterTypePreviewMap() {
     return filterTypePreviewMap;
+  }
+
+  /**
+   * get image data
+   * @param {object} file
+   * @returns {deferred.promise|{then, always}}
+   */
+  function getImageDataByFile(file) {
+    var deferred = $q.defer();
+    var orientation;
+
+    if (file) {
+      loadImage.parseMetaData(file, function(data) {
+        if (data.exif) {
+          orientation = data.exif.get('Orientation');
+        }
+
+        loadImage(file, function(img) {
+          deferred.resolve(img);
+        }, {
+          canvas: true,
+          orientation: orientation
+        });
+      });
+    }
+
+    return deferred.promise;
   }
 });

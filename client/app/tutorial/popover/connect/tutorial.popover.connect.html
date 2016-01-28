@@ -1,0 +1,32 @@
+<div ng-show="isShown && isVideoLoaded" class="opac-zero tutorial-popup jnd-connect dropdown-menu"
+     ng-class="{
+    'opac-in': isShown && isVideoLoaded
+    }">
+  <div class="popup-top-arrow"></div>
+
+  <div class="tuto-mp4-container">
+    <button type="button" class="close" ng-click="close();"><i class="icon-delete"></i></button>
+    <video src="assets/videos/new-feature/jnd-connect.mp4" autoplay loop muted preload="auto" width="398">
+    </video>
+  </div>
+
+  <div class="tuto-text-container">
+    <span class="dropdown-title">
+      <i class="jnd-connect-logo"></i>
+      <span translate>@jnd-connect-3</span>
+    </span>
+
+    <span class="dropdown-contents" ng-bind-html="'@jnd-connect-225'|translate">
+
+    </span>
+    <div class="dont-show-again-container">
+      <input type="checkbox" id="tutorial-connect-never-show" ng-model="isClose" ng-change="closeAndNeverShow()"/><label for="tutorial-connect-never-show"><span translate>@folder-tutorial-never-show</span></label>
+    </div>
+  </div>
+
+  <div class="dropdown-footer">
+    <div class="btn btn-ok" ng-click="addConnect();" translate>
+      @jnd-connect-8
+    </div>
+  </div>
+</div>

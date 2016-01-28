@@ -190,7 +190,7 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(scope.list, function (item) {
-              start = item.viewValue.toLowerCase().search(keyword);
+              start = item.viewValue.toLowerCase().indexOf(keyword);
               if (start !== -1) {
                 item.extSearchName = _highlight(item.viewValue, start, keyword.length);
                 result.push(item);

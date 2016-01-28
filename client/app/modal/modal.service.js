@@ -136,7 +136,7 @@
      * @param $scope
      * @param files
      */
-    function openBotProfileSettingModal($scope, files) {
+    function openBotProfileSettingModal($scope, imageData) {
       var modalOption = {
         scope: $scope,
         templateUrl: 'app/modal/connect/bot.profile.setting.html',
@@ -144,8 +144,8 @@
         size: 'lg',
         windowClass: 'profile-view-modal',
         resolve: {
-          files: function() {
-            return files;
+          imageData: function() {
+            return imageData;
           }
         }
       };

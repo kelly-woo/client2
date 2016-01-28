@@ -10,7 +10,8 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion) {
+  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion, JndConnectApi,
+                                 JndConnectUnionFormData) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
     $scope.isLoading = false;
@@ -52,6 +53,29 @@
       $scope.$on('JndConnectUnion:showLoading', _onShowLoading);
       $scope.$on('JndConnectUnion:hideLoading', _onHideLoading);
       $scope.$on('unionFooter:save', _onSave);
+      $scope.$on('$destroy', JndConnectUnionFormData.clear);
+      $scope.$on('JndConnectUnionFormData:getCurrentFormData', _onGetCurrentFormData);
+    }
+
+    /**
+     * getCurrentFormData 이벤트 콜백
+     * @param {object} angularEvent
+     * @param {Function} callback - formData 를 인자로 넘겨줄 콜백 함수
+     * @private
+     */
+    function _onGetCurrentFormData(angularEvent, callback) {
+      callback($scope.formData);
+    }
+
+    /**
+     * 변경 여부 파악을 위해 초기 formData 를 저장한다.
+     * @private
+     */
+    function _setOriginalFormData() {
+      //custom selectbox 에서 기본 값으로 세팅한 이후 저장하기 위해 setTimeout 을 수행한다.
+      setTimeout(function() {
+        JndConnectUnionFormData.set($scope.formData);
+      });
     }
 
     /**
@@ -122,15 +146,20 @@
     function _onSuccessGetWebhookToken(response) {
       $scope.formData.webhookToken = response.webhookToken;
       $scope.formData.webhookUrl = response.webhookUrl;
+      //신규 생성일 경우, 항상 변경되었다고 간주하기 위하여 빈 object 를 설정한다.
+      JndConnectUnionFormData.set({});
     }
 
     /**
      * 웹훅 토큰 조회 실패시 콜백
      * @param {object} err
+     * @param {number} status
      * @private
      */
-    function _onErrorGetWebhookToken(err) {
-      JndConnectUnion.handleCommonLoadError($scope.current, err);
+    function _onErrorGetWebhookToken(err, status) {
+      if (!JndConnectApi.handleError(err, status)) {
+        JndConnectUnion.handleCommonLoadError($scope.current, err);
+      }
     }
 
     /**

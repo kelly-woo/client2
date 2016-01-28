@@ -105,7 +105,9 @@
      * @private
      */
     function _joinRoom(room) {
-      $state.go('archives', {entityType: room.type, entityId: room.id});
+      var entityType = memberService.isBot(room.id) ? 'users' : room.type;
+
+      $state.go('archives', {entityType: entityType, entityId: room.id});
     }
 
     /**

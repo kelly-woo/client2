@@ -269,6 +269,13 @@
         it('mention 만 존재할 경우우', function() {
           var markdownString1 = $filter('<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>');
           var expectString1 = '<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>';
+
+          expect(markdownString1).toEqual(expectString1);
+        });
+        it('연속된 2개의 mention 이후 link 마크다운이 있을 경우', function() {
+          var markdownString1 = $filter('<a mention-view="307" mention-type="member" mention-active="on">@Support</a> <a mention-view="9179540" mention-type="member" mention-active="on">@Andrew Park</a> [LINK](<a href="https://www.jandi.com" target="_blank" rel="nofollow">https://www.jandi.com</a>)');
+          var expectString1 = '<a mention-view="307" mention-type="member" mention-active="on">@Support</a> <a mention-view="9179540" mention-type="member" mention-active="on">@Andrew Park</a> <a href="https://www.jandi.com" target="_blank" rel="nofollow">LINK</a>';
+
           expect(markdownString1).toEqual(expectString1);
         });
       });

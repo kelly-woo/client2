@@ -6,11 +6,11 @@
 
   angular
     .module('jandiApp')
-    .controller('LeftTutorialFolderCtrl', LeftTutorialFolderCtrl);
+    .controller('TutorialPopoverFolderCtrl', TutorialPopoverFolderCtrl);
 
-  function LeftTutorialFolderCtrl($scope, $timeout, accountService, AccountHasSeenService) {
+  function TutorialPopoverFolderCtrl($scope, $timeout, accountService, AccountHasSeenService) {
     $scope.isShown = false;
-
+    $scope.isClose = false;
     $scope.close = close;
     $scope.closeAndNeverShow = closeAndNeverShow;
 

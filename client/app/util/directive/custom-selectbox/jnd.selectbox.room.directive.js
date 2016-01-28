@@ -298,11 +298,15 @@
         var disabledList = [];
         _.each(memberMap, function(member) {
           if (!_filterMap || (_filterMap && _filterMap[member.id])) {
-            if(currentMemberId !== member.id) {
+            if(currentMemberId !== member.id && !memberService.isConnectBot(member.id)) {
               if (publicService.isDisabledMember(member)) {
                 disabledList.push(member);
               } else {
-                enabledList.push(member)
+                if (memberService.isJandiBot(member.id)) {
+                  enabledList.unshift(member);
+                } else {
+                  enabledList.push(member);
+                }
               }
             }
           }
@@ -343,7 +347,7 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(_getAllEntities(), function (entity) {
-              start = entity.name.toLowerCase().search(keyword);
+              start = entity.name.toLowerCase().indexOf(keyword);
               if (start !== -1) {
                 if (scope.isShowDisabled) {
                   entity.extSearchName = _highlight(entity.name, start, keyword.length);
@@ -368,6 +372,7 @@
        * @private
        */
       function _getAllEntities() {
+        var id;
         var allEntities = _.extend(
           EntityMapManager.getMap('joined'),
           EntityMapManager.getMap('private'),
@@ -378,6 +383,12 @@
             return _filterMap[entity.id];
           });
         }
+
+        allEntities = _.filter(allEntities, function(entity) {
+          id = entity.id;
+          return !memberService.isConnectBot(id) && id !== memberService.getMemberId();
+        });
+
         return allEntities;
       }
 

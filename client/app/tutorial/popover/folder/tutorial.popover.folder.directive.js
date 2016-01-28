@@ -7,15 +7,15 @@
 
   angular
     .module('jandiApp')
-    .directive('leftTutorialFolder', leftTutorialFolder);
+    .directive('tutorialPopoverFolder', tutorialPopoverFolder);
 
-  function leftTutorialFolder() {
+  function tutorialPopoverFolder() {
     return {
       link: link,
-      scope: true,
+      scope: {},
       restrict: 'E',
-      controller: 'LeftTutorialFolderCtrl',
-      templateUrl: 'app/left/topics/tutorial/left.tutorial.folder.html'
+      controller: 'TutorialPopoverFolderCtrl',
+      templateUrl: 'app/tutorial/popover/folder/tutorial.popover.folder.html'
     };
 
     function link(scope, el, attrs) {

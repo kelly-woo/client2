@@ -17,7 +17,8 @@
         공지   - NOTICE_XXX_XXX
      */
     var KEY_MAP = {
-      'GUIDE_TOPIC_FOLDER': 0
+      'GUIDE_TOPIC_FOLDER': 0,
+      'GUIDE_CONNECT': 1
     };
 
     this.get = get;
@@ -62,11 +63,13 @@
         _.forEach(flags, function(flag, i) {
           flags[i] = parseInt(flag, 10) === 1 ? '1' : '0';
         });
+        flagStr = flags.join(',');
+        account.hasSeenFlags = flagStr;
         $http({
           method: 'PUT',
           url: server_address + 'settings/hasSeenFlags',
           data: {
-            flags: flags.join(',')
+            flags: flagStr
           }
         });
       }

@@ -27,7 +27,11 @@
 .quick-launcher-modal .modal-body {
   padding: 0;
 }
-
+.quick-launcher-search-box.input-group {
+  border-bottom: 1px solid rgba(5, 40, 55, 0.12);
+  box-shadow: 0 1px 4px 0 rgba(0, 25, 45, 0.1);
+  z-index: 1;
+}
 .quick-launcher-modal .quick-launcher-search-box .input-group-addon{
   font-size: 22px;
   color: #333;
@@ -35,7 +39,7 @@
   padding-left: 19px;
   padding-right: 6px;
   border: none;
-  border-bottom: 1px solid #e1e1e1;
+  /*border-bottom: 1px solid #e1e1e1;*/
 }
 
 .quick-launcher-modal .quick-launcher-search-box .form-control{
@@ -44,7 +48,7 @@
   color: #333;
   background-color: rgba(255,255,255,0.95);
   border: none;
-  border-bottom: 1px solid #e1e1e1;
+  /*border-bottom: 1px solid #e1e1e1;*/
 }
 
 .quick-launcher-modal .quick-launcher-list {
@@ -106,7 +110,7 @@
 /* QUICK LAUNCHER BUTTONS */
 .quick-launcher-modal .quick-launcher-buttons {
   height: 48px;
-  border-top: 1px solid #e1e1e1;
+  border-top: 1px solid rgba(5, 40, 55, 0.12);
 }
 
 .quick-launcher-buttons button {
@@ -126,7 +130,7 @@
 }
 
 .quick-launcher-buttons .browse-topic-button {
-  border-right: 1px solid #e1e1e1;
+  border-right: 1px solid rgba(5, 40, 55, 0.12);
   color: #666;
 }
 

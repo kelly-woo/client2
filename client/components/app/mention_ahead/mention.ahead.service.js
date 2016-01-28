@@ -216,17 +216,20 @@
       var mentionList = [];
       var sharedEntities;
 
+      var entity;
+      var users;
+      var user;
+
       if (file) {
         sharedEntities = file.shareEntities;
 
         _.each(sharedEntities, function (sharedEntity) {
-          var entity = EntityMapManager.get('total', sharedEntity);
-          var users;
+          entity = EntityMapManager.get('total', sharedEntity);
 
           if (entity && /channels|privategroups/.test(entity.type)) {
             users = entityAPIservice.getUserList(entity);
             _.each(users, function (userId) {
-              var user = EntityMapManager.get('user', userId);
+              user = EntityMapManager.get('user', userId);
               if (user && currentMemberId !== user.id && user.status === 'enabled') {
                 user.extViewName = '[@' + user.name + ']';
                 user.extSearchName = user.name;
@@ -263,6 +266,7 @@
           extViewName: '[@' + jandiBot.name + ']',
           extSearchName: jandiBot.name,
           extProfileImage: memberService.getProfileImage(jandiBot.id),
+          extIsJandiBot: true, 
           id: jandiBot.id,
           type: 'member'
         });

@@ -1,0 +1,9 @@
+.topic-foldering.tutorial-popup.dropdown-menu {
+  display: block;
+  padding:18px !important;
+  padding-top:14px !important;
+  left:244px;
+  top:110px;
+  min-width: 296px;
+  z-index: 505;
+}

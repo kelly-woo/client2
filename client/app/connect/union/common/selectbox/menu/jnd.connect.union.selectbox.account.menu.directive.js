@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil,
-                                          JndConnectUnion) {
+                                          JndConnectUnion, JndConnectApi) {
     return {
       restrict: 'E',
       replace: true,
@@ -48,6 +48,7 @@
        */
       function _attachEvents() {
         scope.$on('popupDone', _onPopupDone);
+        scope.$on('webSocketConnect:authenticationCreated', _onAuthenticationCreated);
       }
 
       /**
@@ -59,15 +60,30 @@
       }
 
       /**
+       * authentication 이 생성되었을 때 소캣 이벤트 핸들러
+       * 맥, window 앱에서 popup 간 통신이 불가능 하기 때문에 소켓 이벤트 핸들러를 통해 제어한다.
+       *
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
+      function _onAuthenticationCreated(angularEvent, data) {
+        var connectType = JndUtil.pick(data, 'authentication', 'connectType');
+        if (connectType === scope.unionName) {
+          _onPopupDone();
+        }
+      }
+
+      /**
        * account delete click handler
        */
       function onAccountDeleteClick(item) {
         var body;
 
         if (item.connectCount) {
-          body = translate('@jnd-connect-187');
-        } else {
           body = translate('@jnd-connect-141').replace('{{numberOfConnects}}', item.connectCount);
+        } else {
+          body = translate('@jnd-connect-187');
         }
 
         Dialog.confirm({
@@ -130,11 +146,23 @@
               });
 
               if (hasSingleItem) {
-                JndConnect.backToMain();
+                JndConnect.backToMain(true);
               }
             })
-            .error(JndUtil.alertUnknownError)
+            .error(_onErrorAccountDelete)
             .finally(_onDoneAccountDelete);
+        }
+      }
+
+      /**
+       * account delete 오류 콜백
+       * @param {object} err
+       * @param {number} status
+       * @private
+       */
+      function _onErrorAccountDelete(err, status) {
+        if (!JndConnectApi.handleError(err, status)) {
+          JndUtil.alertUnknownError(err, status);
         }
       }
 
