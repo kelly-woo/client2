@@ -135,10 +135,9 @@
   cursor: pointer;
 }
 .archived-file-icon-center {
-  display: block;
-  width: 45px;
-  height: 55px;
-  margin: 10px auto;
+  margin: 17px auto;
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 .file-detail-disabled-member .file-detail-header__thumbnail,
