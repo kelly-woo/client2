@@ -30,7 +30,8 @@
         'pdf': 'fileicon-pdf',
         'image': 'fileicon-img',
         'video': 'fileicon-video',
-        'audio': 'fileicon-audio'
+        'audio': 'fileicon-audio',
+        'archive': 'fileicon-zip'
       };
 
       var _lastKeyword = '';
