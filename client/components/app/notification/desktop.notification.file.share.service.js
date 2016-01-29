@@ -73,11 +73,38 @@
      * @private
      */
     function _onNotificationClicked(socketEvent) {
-      var _roomType = DesktopNotificationUtil.getRoomTypeForRoute(socketEvent);
+      var _roomType = _getRoomTypeForRoute(socketEvent);
       var _fileId = socketEvent.file.id;
-      var _roomToGo = DesktopNotificationUtil.getRoomIdTogo(socketEvent);
+      var _roomToGo = _getRoomIdTogo(socketEvent);
 
       $state.go('messages.detail.files.redirect', {entityType: _roomType, itemId: _fileId,  entityId: _roomToGo});
+    }
+
+    /**
+     * route에 사용되어질 entityId를 리턴한다.
+     * @param {object} socketEvent - socket event paramter
+     * @returns {*}
+     * @private
+     */
+    function _getRoomIdTogo(socketEvent) {
+      if (DesktopNotificationUtil.isChatType(socketEvent)) {
+        return socketEvent.writer;
+      }
+
+      return socketEvent.room.id;
+    }
+
+    /**
+     * route에 사용되어질 entityType을 리턴한다.
+     * @param {object} socketEvent - socket event parameter
+     * @returns {string}
+     * @private
+     */
+    function _getRoomTypeForRoute(socketEvent) {
+      if (DesktopNotificationUtil.isChatType(socketEvent)) {
+        return 'users';
+      }
+      return socketEvent.room.type + 's';
     }
   }
 })();

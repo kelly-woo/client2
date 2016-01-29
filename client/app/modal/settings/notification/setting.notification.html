@@ -64,5 +64,6 @@
 
 <div class="modal-footer">
   <button class="btn btn-cancel btn-notification-sample" ng-class="{'disabled': !isAllowSetting}" ng-click="onSampleClick()">테스트 메시지 받기</button>
-  <button class="btn btn-ok" translate>@common-done</button>
+  <button class="btn btn-cancel" ng-click="onCancel()">취소</button>
+  <button class="btn btn-ok" ng-click="onSubmit()" translate>@common-done</button>
 </div>

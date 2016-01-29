@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('notificationAudioMenu', notificationAudioMenu);
 
-  function notificationAudioMenu() {
+  function notificationAudioMenu(DesktopNotificationUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -22,20 +22,28 @@
     };
 
     function link(scope) {
+      var notificationAudio = DesktopNotificationUtil.getNotificationAudio();
 
       _init();
 
       function _init() {
         _setSelectItem(_.findIndex(scope.list, {'value': scope.value}));
 
+        scope.isActive = isActive;
+
         scope.onSelectItem = onSelectItem;
         scope.onSelectActive = onSelectActive;
-        scope.isActive = isActive;
+        scope.onSoundClick = onSoundClick;
       }
 
+      function isActive(index) {
+        return scope.activeIndex === index;
+      }
 
       function onSelectItem(index) {
         _setSelectItem(index);
+        _playSound(index);
+
         scope.onSelectCallback({
           $index: index
         })
@@ -45,14 +53,21 @@
         scope.activeIndex = index;
       }
 
-      function isActive(index) {
-        return scope.activeIndex === index;
+      function onSoundClick(event) {
+        event.stopPropagation();
       }
 
       function _setSelectItem(index) {
         var item;
         if (item = scope.list[index]) {
           scope.selectedItemText = item.text;
+        }
+      }
+
+      function _playSound(index) {
+        var item;
+        if (item = scope.list[index]) {
+          notificationAudio.play(item.value);
         }
       }
     }

@@ -30,7 +30,7 @@
     var NOTIFICATION_STORAGE_KEY = 'setting_notification';
 
     // Notification support 여부
-    var isNotificationSupported;
+    var isNotificationSupported = 'Notification' in window;
 
     // 노티피케이션 permission 의 값
     var notificationPermission;
@@ -44,7 +44,7 @@
     // notification instance
     var notificationAudio;
 
-    that.init = init;
+    _init();
 
     that.getNotificationPermission = getNotificationPermission;
     that.isNotificationLocalFlagUp = isNotificationLocalFlagUp;
@@ -70,9 +70,6 @@
 
     that.isChatType = isChatType;
 
-    that.getRoomTypeForRoute = getRoomTypeForRoute;
-    that.getRoomIdTogo = getRoomIdTogo;
-
     that.getFileTitleFormat = getFileTitleFormat;
     that.getSenderContentFormat = getSenderContentFormat;
     that.getRoomFormat = getRoomFormat;
@@ -92,7 +89,7 @@
     /**
      * init
      */
-    function init() {
+    function _init() {
       if (HybridAppHelper.isHybridApp()) {
         // hybrid 앱 일 경우
         _initHybridSetting();
@@ -182,28 +179,6 @@
     function _loadLocalNotificationFlag() {
       var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
       return isNotificationOnLocally = value ? _getBoolean(value) : true;
-    }
-
-    /**
-     * local storage 에 never_ask 관련 flag 를 true 로 바꾼다.
-     */
-    function setNeverAskFlag() {
-      localStorageHelper.set(NOTIFICATION_NEVER_ASK_KEY, true);
-    }
-
-    /**
-     * local storage 에 never_ask 관련 flag 를 리턴한다.
-     * @private
-     */
-    function _getNeverAskFlag() {
-      return localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY);
-    }
-
-    /**
-     * local storage 에서 never ask flag 를 없앤다.
-     */
-    function _resetNeverAskFlag() {
-      localStorageHelper.remove(NOTIFICATION_NEVER_ASK_KEY)
     }
 
 
@@ -341,7 +316,7 @@
      * @private
      */
     function _onPermissionGranted() {
-      _resetNeverAskFlag();
+      localStorageHelper.remove(NOTIFICATION_NEVER_ASK_KEY);
       setShowNotificationContent(true);
       _storeLocalNotificationFlag(true);
     }
@@ -396,11 +371,18 @@
     }
 
     /**
+     * local storage 에 never_ask 관련 flag 를 true 로 바꾼다.
+     */
+    function setNeverAskFlag() {
+      localStorageHelper.set(NOTIFICATION_NEVER_ASK_KEY, true);
+    }
+
+    /**
      * never ask flag 가 true인지 아닌지 리턴한다.
      * @returns {boolean}
      */
     function isNeverAskFlagUp() {
-      return _getBoolean(_getNeverAskFlag());
+      return _getBoolean(localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY));
     }
 
     /**
@@ -432,32 +414,6 @@
     function isChatType(socketEvent) {
       return socketEvent.room.type === 'chat';
     }
-
-    /**
-     * route에 사용되어질 entityType을 리턴한다.
-     * @param {object} socketEvent - socket event parameter
-     * @returns {string}
-     */
-    function getRoomTypeForRoute(socketEvent) {
-      if (isChatType(socketEvent)) {
-        return 'users';
-      }
-      return socketEvent.room.type + 's';
-    }
-
-    /**
-     * route에 사용되어질 entityId를 리턴한다.
-     * @param {object} socketEvent - socket event paramter
-     * @returns {*}
-     */
-    function getRoomIdTogo(socketEvent) {
-      if (isChatType(socketEvent)) {
-        return socketEvent.writer;
-      }
-
-      return socketEvent.room.id;
-    }
-
 
 
 

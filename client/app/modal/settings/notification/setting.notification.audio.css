@@ -35,11 +35,21 @@
 
 .notification-audio-btn-group .dropdown-menu-option {
   padding: 8px 10px;
+  cursor: pointer;
 }
 
 .notification-audio-btn-group .option-sound {
   float: right;
+  padding: 3px 5px 0 5px;
+  margin-top: -3px;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+}
+.notification-audio-btn-group .option-sound:hover {
+  background-color: #d1d1d1;
 }
 
-
+.notification-audio-btn-group .option-sound i {
+  margin: 0;
+}
 

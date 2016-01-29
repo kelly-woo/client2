@@ -9,7 +9,9 @@
         ng-mouseenter="onSelectActive($index)"
         ng-mousedown="onSelectItem($index)">
       <span class="option-text">{{::item.text}}</span>
-      <i class="option-sound icon-volume-up" ng-if="!item.nonSound"></i>
+      <div class="option-sound"  ng-if="!item.nonSound" ng-click="onSoundClick($event)">
+        <i class="icon-volume-up"></i>
+      </div>
     </li>
   </ul>
 </div>

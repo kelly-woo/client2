@@ -28,17 +28,19 @@
       $scope.setting.on = $scope.setting.on === 'true' ? true : false;
 
       $scope.isAllowSwitch = !DesktopNotificationUtil.isNotificationPermissionDenied();
-      $scope.isAllowSetting = $scope.isAllowSwitch && true;
+      $scope.isAllowSetting = $scope.isAllowSwitch && $scope.setting.on;
 
       $scope.onNotificationToggle = onNotificationToggle;
       $scope.onSoundSelect = onSoundSelect;
+      $scope.onSubmit = onSubmit;
+      $scope.onCancel = onCancel;
+      $scope.onSampleClick = onSampleClick;
 
       _createAlertSelectList();
     }
 
     function _createAlertSelectList() {
-      $scope.alertSelectList = [
-        {text: 'Off', value: 'off', nonSound: true},
+      var sounds = [
         {text: 'Ari Pop', value: 'air_pop'},
         {text: 'Arise', value: 'arise'},
         {text: 'Chime Bell Ding', value: 'chime_bell_ding'},
@@ -49,12 +51,19 @@
         {text: 'Super', value: 'super'},
         {text: 'Think Ping', value: 'think_ping'}
       ];
-      notificationAudio = NotificationAudio.getInstance(_.pluck($scope.alertSelectList, 'value'));
+
+      notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
+
+      sounds.unshift({text: 'Off', value: 'off', nonSound: true});
+      $scope.alertSelectList = sounds;
     }
 
     function onNotificationToggle(value) {
       $scope.setting.on = value;
       $scope.isAllowSetting = value;
+      if (value) {
+        DesktopNotificationUtil.turnOnDesktopNotification();
+      }
     }
 
     function onSoundSelect(name, index) {
@@ -73,6 +82,19 @@
       }
     }
 
+    function onSubmit() {
+      DesktopNotificationUtil.setData($scope.setting);
+      modalHelper.closeModal();
+    }
+
+    function onCancel() {
+      modalHelper.closeModal();
+    }
+
+    function onSampleClick() {
+      SampleNotification.show();
+    }
+
     /**
      * 모달을 닫는다.
      */
@@ -89,9 +111,5 @@
 
     // 노티피케이션이 아예 block 되어버렸는가? 노티피케이션 활성/비활성 버튼 자체가 의미없음
     $scope.isNotificationDenied = false;
-    
-    $scope.onSampleClick = function () {
-      SampleNotification.show();
-    };
   }
 })();
