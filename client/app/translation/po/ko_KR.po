@@ -297,7 +297,7 @@ msgstr "삭제된 파일"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-deleted-member-profile-msg"
-msgstr "탈퇴한 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."
+msgstr "탈퇴한 멤버입니다. 궁금하신 사항은<br> 팀 관리자에게 문의하세요."
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
