@@ -32,9 +32,9 @@
         message = decodeURIComponent(message);
 
         if (isFileComment) {
-          options = _getOptionsForFileComment(data, writerEntity);
+          options = _getOptionsForFileComment(data, writerEntity, roomEntity);
         } else {
-          options = _getOptionsForMessage(data, isUser, writerEntity, roomEntity, message);
+          options = _getOptionsForMessage(data, writerEntity, roomEntity, isUser, message);
         }
 
         options.icon = memberService.getProfileImage(writerEntity.id, 'small');
@@ -47,12 +47,13 @@
      * options에 들어갈 정보들을 file comment case에 맞춰서 재설정한다.
      * @param {object} socketEvent - socket으로부터 받은 param과 동일
      * @param {object} writerEntity - 작성자 entity
+     * @param {object} roomEntity - 메세지가 작성된 방의 entity
      * @returns {{body: *, tag: *, data: {id: *, type: string}}}
      * @private
      */
-    function _getOptionsForFileComment(socketEvent, writerEntity) {
+    function _getOptionsForFileComment(socketEvent, writerEntity, roomEntity) {
       return {
-        body: _getBodyForFileComment(socketEvent, writerEntity),
+        body: _getBodyForFileComment(socketEvent, writerEntity, roomEntity),
         tag: socketEvent.file.id,
         data: _.extend(socketEvent, {
           id: socketEvent.file.id,
@@ -66,14 +67,14 @@
      * file에 comment가 달렸을 때 보여지는 notification이다.
      * @param {object} data - socket으로부터 들어온 object과 동일하다.
      * @param {object} writerEntity - comment를 작성한 사람의 엔티티
+     * @param {object} roomEntity - 메세지가 작성된 방의 entity
      * @returns {*}
      * @private
      */
-    function _getBodyForFileComment(data, writerEntity) {
-      var notificationData = DesktopNotificationUtil.getData();
+    function _getBodyForFileComment(data, writerEntity, roomEntity) {
       var body;
 
-      if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
+      if (DesktopNotificationUtil.isAllowShowContent(roomEntity.id)) {
         body = '<' + data.file.title + '> ' + writerEntity.name + ' : ' + data.message;
       } else {
         body = writerEntity.name
@@ -88,14 +89,14 @@
     /**
      * options에 들어갈 정보들을 message case에 맞춰서 재설정한다.
      * @param {object} socketEvent - socket으로부터 받은 param과 동일
-     * @param {boolean} isUser - 1:1 dm인지 아닌지 알려주는 flag
      * @param {object} writerEntity - 작성자 entity
      * @param {object} roomEntity - 메세지가 작성된 방의 entity
+     * @param {boolean} isUser - 1:1 dm인지 아닌지 알려주는 flag
      * @param {string} message - 작성된 message의 내용
      * @returns {{body: string, tag: *, data: {id: *, type: *}}}
      * @private
      */
-    function _getOptionsForMessage(socketEvent, isUser, writerEntity, roomEntity, message) {
+    function _getOptionsForMessage(socketEvent, writerEntity, roomEntity, isUser, message) {
       return {
         body: _getOptionsBody(isUser, writerEntity, roomEntity, message),
         tag: isUser ? writerEntity.id : roomEntity.id,
@@ -116,7 +117,7 @@
      * @private
      */
     function _getOptionsBody(isUser, writerEntity, roomEntity, message) {
-      return DesktopNotificationUtil.getShowNotificationContentFlag() ?
+      return DesktopNotificationUtil.isAllowShowContent(roomEntity.id) ?
         _getBodyWithMessage(isUser, writerEntity, roomEntity, message) :
         DesktopNotificationUtil.getBodyWithoutMessage(isUser, writerEntity, roomEntity);
     }

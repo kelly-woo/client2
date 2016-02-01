@@ -21,7 +21,6 @@
      * @param {object} roomEntity
      */
     function show(socketEvent, writerEntity, roomEntity) {
-      var notificationData = DesktopNotificationUtil.getData();
       var options = {};
       var message;
       var isUser = roomEntity.type === 'users';
@@ -31,7 +30,7 @@
         options.icon = memberService.getProfileImage(writerEntity.id, 'small');
         message = decodeURIComponent(socketEvent.message);
 
-        if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
+        if (DesktopNotificationUtil.isAllowShowContent(roomEntity.id)) {
           options.body = _getBodyForMentionWithMessage(writerEntity, roomEntity, message);
         } else {
           options.body = DesktopNotificationUtil.getBodyWithoutMessage(isUser, writerEntity, roomEntity);

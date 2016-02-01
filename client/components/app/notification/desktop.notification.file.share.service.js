@@ -18,8 +18,9 @@
     /**
      * show file share notification
      * @param {object} socketEvent
+     * @param {object} roomEntity - 메세지가 작성된 방의 entity
      */
-    function show(socketEvent) {
+    function show(socketEvent, roomEntity) {
       var options;
       var user;
 
@@ -27,7 +28,7 @@
         user = entityAPIservice.getEntityById('users', socketEvent.writer);
         options = {
           tag: 'tag',
-          body: _getBody(socketEvent),
+          body: _getBody(socketEvent, roomEntity),
           icon: memberService.getProfileImage(user.id, 'small'),
           onClick: _onNotificationClicked,
           data: socketEvent
@@ -40,15 +41,16 @@
     /**
      * file share notification을 위한 내용이다.
      * @param socketEvent
+     * @param {object} roomEntity - 메세지가 작성된 방의 entity
      * @returns {*}
      * @private
      */
-    function _getBody(socketEvent) {
+    function _getBody(socketEvent, roomEntity) {
       var fileTitle = DesktopNotificationUtil.getFileTitleFormat(socketEvent.message);
       var writer = entityAPIservice.getEntityById('users', socketEvent.writer);
       var bodyMessage;
 
-      if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
+      if (DesktopNotificationUtil.isAllowShowContent(roomEntity.id)) {
         // content를 보여준다.
         bodyMessage = DesktopNotificationUtil.getSenderContentFormat(writer.name, fileTitle);
         //bodyMessage = writerName + ': ' + $filter('translate')('web-notification-body-file-share') + ': ' + _fileTitle;

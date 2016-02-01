@@ -157,7 +157,7 @@
         _onDm(data);
       } else if (_shouldSendNotification(data)) {
         if (memberService.isTopicNotificationOn(room.id)) {
-          FileShareNotification.show(data);
+          FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
       }
     }
@@ -243,7 +243,7 @@
         // file_share일 경우
         if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
           // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.
-          FileShareNotification.show(data);
+          FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
       } else {
         _sendBrowserNotification(data);
