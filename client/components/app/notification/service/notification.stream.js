@@ -60,12 +60,6 @@
       }
     }
 
-    function stop() {
-      var that = this;
-      that.playing = false;
-      that.audio.pause();
-    }
-
     function _on() {
       var that = this;
       that.audio.addEventListener('ended', that._onEnded.bind(that), false);
@@ -81,8 +75,8 @@
     function _onEnded() {
       var that = this;
 
-      that.stop();
-      that.options.end && that.options.end();
+      that.playing = false;
+      that.audio.pause();
     }
 
     function _onCanPlayThrough() {
@@ -97,7 +91,6 @@
     Stream.destroy = destroy;
     Stream.load = load;
     Stream.play = play;
-    Stream.stop = stop;
 
     Stream._on = _on;
     Stream._off = _off;

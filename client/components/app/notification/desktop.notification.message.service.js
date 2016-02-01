@@ -70,18 +70,19 @@
      * @private
      */
     function _getBodyForFileComment(data, writerEntity) {
-      var _body;
+      var notificationData = DesktopNotificationUtil.getData();
+      var body;
 
       if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
-        _body = '<' + data.file.title + '> ' + writerEntity.name + ' : ' + data.message;
+        body = '<' + data.file.title + '> ' + writerEntity.name + ' : ' + data.message;
       } else {
-        _body = writerEntity.name
+        body = writerEntity.name
           + $filter('translate')('@web-notification-body-message-file-comment-mid')
           + '<'+data.file.title+'>'
           + $filter('translate')('@web-notification-body-message-file-comment-post');
       }
 
-      return _body;
+      return body;
     }
 
     /**

@@ -44,26 +44,25 @@
      * @private
      */
     function _getBody(socketEvent) {
-      var _fileTitle = DesktopNotificationUtil.getFileTitleFormat(socketEvent.message);
-      var _writer = entityAPIservice.getEntityById('users', socketEvent.writer);
-      var _writerName = _writer.name;
-      var _bodyMessage;
+      var fileTitle = DesktopNotificationUtil.getFileTitleFormat(socketEvent.message);
+      var writer = entityAPIservice.getEntityById('users', socketEvent.writer);
+      var bodyMessage;
 
       if (DesktopNotificationUtil.getShowNotificationContentFlag()) {
         // content를 보여준다.
-        _bodyMessage = DesktopNotificationUtil.getSenderContentFormat(_writerName, _fileTitle);
-        //_bodyMessage = _writerName + ': ' + $filter('translate')('web-notification-body-file-share') + ': ' + _fileTitle;
+        bodyMessage = DesktopNotificationUtil.getSenderContentFormat(writer.name, fileTitle);
+        //bodyMessage = writerName + ': ' + $filter('translate')('web-notification-body-file-share') + ': ' + _fileTitle;
 
         if (!DesktopNotificationUtil.isChatType(socketEvent)) {
           // 1:1 창이 아닐 경우 토픽이름을 추가한다.
-          _bodyMessage = DesktopNotificationUtil.getRoomFormat(entityAPIservice.getEntityById('total', socketEvent.room.id).name) + _bodyMessage;
+          bodyMessage = DesktopNotificationUtil.getRoomFormat(entityAPIservice.getEntityById('total', socketEvent.room.id).name) + bodyMessage;
         }
       } else {
         // content를 숨긴다.
-        _bodyMessage = $filter('translate')('@web-notification-file-share');
+        bodyMessage = $filter('translate')('@web-notification-file-share');
       }
 
-      return _bodyMessage;
+      return bodyMessage;
 
     }
 

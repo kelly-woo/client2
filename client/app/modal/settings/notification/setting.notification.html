@@ -21,7 +21,7 @@
       <label>
         <input type="checkbox" ng-model="setting.type"
                                ng-true-value="'dmNmention'"
-                               ng-false-value="'false'"/>
+                               ng-false-value="'all'"/>
         <span>Receive direct msgs and @mentions only</span>
       </label>
     </div>
@@ -29,9 +29,9 @@
       <div class="notification-message-preview col-sm-6">
         <div class="message-preview-header"><i class="icon-chat"></i><span>메시지 내용 미리보기</span></div>
         <div class="message-preview-options">
-          <label><input type="radio" ng-model="setting.showContent" value="true">모든 메시지</label>
+          <label><input type="radio" ng-model="setting.showContent" value="all">모든 메시지</label>
           <label><input type="radio" ng-model="setting.showContent" value="public_only">공개 토픽만</label>
-          <label><input type="radio" ng-model="setting.showContent" value="false">미리보기 하지 않음</label>
+          <label><input type="radio" ng-model="setting.showContent" value="none">미리보기 하지 않음</label>
         </div>
       </div>
       <div class="notification-message-alert col-sm-6">

@@ -25,7 +25,6 @@
      */
     function _init() {
       $scope.setting = $scope.originSetting = DesktopNotificationUtil.getData();
-      $scope.setting.on = $scope.setting.on === 'true' ? true : false;
 
       $scope.isAllowSwitch = !DesktopNotificationUtil.isNotificationPermissionDenied();
       $scope.isAllowSetting = $scope.isAllowSwitch && $scope.setting.on;

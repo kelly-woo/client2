@@ -38,6 +38,7 @@
      */
     function show(options) {
       var notificationAudio;
+      var notificationData = DesktopNotificationUtil.getData();
 
       if (isSupportNotification && options) {
         if (notificationAudio = DesktopNotificationUtil.getNotificationAudio()) {

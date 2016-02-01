@@ -21,9 +21,11 @@
      * @param {object} roomEntity
      */
     function show(socketEvent, writerEntity, roomEntity) {
+      var notificationData = DesktopNotificationUtil.getData();
       var options = {};
       var message;
       var isUser = roomEntity.type === 'users';
+
 
       if (DesktopNotificationUtil.validateNotificationParams(socketEvent, writerEntity, roomEntity)) {
         options.icon = memberService.getProfileImage(writerEntity.id, 'small');

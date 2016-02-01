@@ -28,6 +28,7 @@
     var NOTIFICATION_NEVER_ASK_KEY = 'notification_never_ask_flag';
 
     var NOTIFICATION_STORAGE_KEY = 'setting_notification';
+    var notificationData;
 
     // Notification support 여부
     var isNotificationSupported = 'Notification' in window;
@@ -604,29 +605,47 @@
     }
 
     function getData() {
-      var notificationData = localStorageHelper.get(NOTIFICATION_STORAGE_KEY);
-
       if (notificationData == null) {
-        notificationData = {
-          // notification 사용여부, true | false
-          on: (_loadLocalNotificationFlag() || true) + '',
-          // notification을 사용하는 메시지 타입, dmNmention | false
-          type: 'false',
-          // notification에 content 노출 시킬지 여부, true | false | public_only
-          showContent: (_loadShowNotificationContentFlag() || true) + '',
-          // 일반 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-          soundNormal: 'off',
-          // 멘션 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-          soundMention: 'off',
-          // 1:1 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-          soundDM: 'off'
-        };
+        // cache 되지 않음
+
+        notificationData = localStorageHelper.get(NOTIFICATION_STORAGE_KEY);
+        if (notificationData == null) {
+          // local storage에 존재하지 않음
+
+          notificationData = {
+            // notification 사용여부, true | false
+            on: _loadLocalNotificationFlag(),
+            // notification을 사용하는 메시지 타입, all | dmNmention
+            type: 'all',
+            // notification에 content 노출 시킬지 여부, all | none | public_only
+            showContent: _getOldSetShowContent() || 'all',
+            // 일반 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+            soundNormal: 'off',
+            // 멘션 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+            soundMention: 'off',
+            // 1:1 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
+            soundDM: 'off'
+          };
+        }
       }
 
       return notificationData;
     }
 
+    function _getOldSetShowContent() {
+      var isShowContent = _loadShowNotificationContentFlag();
+
+      if (isShowContent === true) {
+        isShowContent = 'all'
+      } else if (isShowContent === false) {
+        isShowContent = 'none';
+      }
+
+      return isShowContent;
+    }
+
     function setData(value) {
+      notificationData = value;
       localStorageHelper.set(NOTIFICATION_STORAGE_KEY, value);
     }
   }
