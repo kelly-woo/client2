@@ -58,16 +58,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.connect-union-plug-desc i.icon-jandi-bot {
-  background:url('/assets/images/Mr.J_left.png');
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  opacity: 0.5;
-  width: 16px;
-  height: 16px;
-  left: -1px;
-}
+
 .connect-union-plug-title > i,
 .connect-union-plug-desc i {
   position: absolute;
