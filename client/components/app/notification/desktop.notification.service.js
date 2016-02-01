@@ -442,12 +442,21 @@
      * @private
      */
     function _getOptionsForMessage(socketEvent, isUser, writerEntity, roomEntity, message) {
+      var roomId = roomEntity.id;
+      var roomType;
+
+      if (memberService.isBot(writerEntity.id)) {
+        roomType = 'users';
+      } else {
+        roomType = roomEntity.type;
+      }
+
       return {
         body: _getOptionsBody(isUser, writerEntity, roomEntity, message),
-        tag: isUser ? writerEntity.id : roomEntity.id,
+        tag: isUser ? writerEntity.id : roomId,
         data: _.extend(socketEvent, {
-          id: roomEntity.id,
-          type: roomEntity.type
+          id: roomId,
+          type: roomType
         })
       };
     }
