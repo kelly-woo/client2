@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-29"
-msgstr "잔디에 추가를 원하시는 서비스가 있으신가요?"
+msgstr "잔디 커넥트에 더 추가를 원하시는 서비스가 있으신가요?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-3"
@@ -1933,7 +1933,7 @@ msgstr "잔디 커넥트"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-30"
-msgstr "잔디 커넥트에 더 추가를 원하시는 서비스가 있으신가요?"
+msgstr "서비스 연동 요청하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-31"
