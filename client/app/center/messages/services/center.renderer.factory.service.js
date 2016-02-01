@@ -75,6 +75,7 @@
           renderer = DateDividerRenderer;
           break;
         case 'unreadBookmark':
+          console.log('unread bookmarker ::: ');
           renderer = UnreadBookmarkRenderer;
           break;
       }
