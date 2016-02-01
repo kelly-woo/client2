@@ -1,3 +1,14 @@
+<a name="1.13.2"></a>
+## [1.13.2](https://github.com/tosslab/web_client/compare/v1.13.1...v1.13.2) (2016-02-01)
+
+
+### Bug Fixes
+
+* **bot:** 잔디봇 DM일때 헤더에 잔디봇 아이콘 출력되지 않는 버그 수정 ([56311fb](https://github.com/tosslab/web_client/commit/56311fb))
+* **bot:** 잔디봇에 "여기까지 읽었습니다" 표현되지 않는 버그 수정 ([5f4610c](https://github.com/tosslab/web_client/commit/5f4610c))
+
+
+
 <a name="1.13.1"></a>
 ## [1.13.1](https://github.com/tosslab/web_client/compare/v1.13.0...v1.13.1) (2016-01-28)
 
