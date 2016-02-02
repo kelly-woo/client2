@@ -146,7 +146,7 @@
   max-width:155px;
 }
 .header-title-member__dropdown > li.admin > a:lang(ja) {
-  max-width:128px;
+  max-width:148px;
 }
 .header-title-member__dropdown > li.has-kickout-icon:hover .member-auth-label {
   display:none;
@@ -303,7 +303,7 @@
 }
 .header-title-member__dropdown {
   max-height: 500px;
-  min-width: 210px;
+  min-width: 230px;
   overflow-y: auto;
 }
 .panel-title-invite {
