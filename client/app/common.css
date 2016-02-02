@@ -631,13 +631,6 @@ input[type="button"] {
 .fileicon-etc-google-drive {
   background-position: 0px -62px;
 }
-.fileicon-zip {
-  background: url('../assets/images/fileicon_zip.png') no-repeat;
-  width: 26px;
-  height: 31px;
-  display: block;
-  margin: auto;
-}
 .fileicon-ppt {
   background-position: 0px 0px;
 }
@@ -674,8 +667,20 @@ input[type="button"] {
 .fileicon-presentation-google-drive {
   background-position: -104px -124px;
 }
+.fileicon-zip {
+  background-position: -26px -155px;
+}
+.fileicon-zip-dropbox {
+  background-position: -52px -155px;
+}
+.fileicon-zip-google-drive {
+  background-position: -78px -155px;
+}
 .fileicon-unshared {
   background-position: 0 -155px;
+}
+.fileicon-archived {
+  background-position: -104px -155px;
 }
 
 .icon-more-member {
