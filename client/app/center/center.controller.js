@@ -17,7 +17,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _updateRetryCnt = 0;
   var _isDestroyed = false;
   var _hasUpdate = false;
-  var _hasNewMessage = false;
 
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
@@ -878,16 +877,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //  Updating message marker for current entity.
   function updateMessageMarker() {
-    //console.log('::updateMessageMarker', lastMessageId);
-    deferredObject.updateMessageMarker = $q.defer();
-    messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId, deferredObject.updateMessageMarker)
-      .success(function(response) {
-        memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
-        //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
-      })
-      .error(function(response) {
-        log('message marker not updated for ' + $scope.currentEntity.id);
-      });
+    if (memberService.getLastReadMessageMarker(entityId) !== lastMessageId) {
+      deferredObject.updateMessageMarker = $q.defer();
+      messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId, deferredObject.updateMessageMarker)
+        .success(function(response) {
+          memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
+          MessageCollection.updateUnreadCount();
+          //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
+        })
+        .error(function(response) {
+          log('message marker not updated for ' + $scope.currentEntity.id);
+        });
+    }
   }
 
 
@@ -1345,28 +1346,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onNewMessageArrived(angularEvent, msg) {
-    //console.log('::_onNewMessageArrived');
-    // If message is from me -> I just wrote a message -> Just scroll to bottom.
-    if (centerService.isMessageFromMe(msg)) {
-      //_scrollToBottom(true);
-      //return;
-      _hasNewMessage = false;
-      return;
-    }
-
-    // Message is not from me -> Someone just wrote a message.
-    if (centerService.hasBottomReached()) {
-      //log('window with focus')
-      if (_isChatPanelActive()) {
-        _scrollToBottom(true);
-        return;
-      }
-    }
-    /*
-     rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
-     _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
-     */
-    if (_hasScroll()) {
+    if (centerService.isMessageFromMe(msg) ||
+      (_isChatPanelActive() && centerService.hasBottomReached())) {
+      _scrollToBottom(true);
+    } else if (!centerService.isMessageFromMe(msg) && _hasScroll()) {
       _gotNewMessage();
     } else {
       entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
