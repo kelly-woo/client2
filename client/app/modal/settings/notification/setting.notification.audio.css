@@ -40,16 +40,19 @@
 
 .notification-audio-btn-group .option-sound {
   float: right;
-  padding: 3px 5px 0 5px;
-  margin-top: -3px;
-  border: 1px solid #e1e1e1;
-  border-radius: 10px;
-}
-.notification-audio-btn-group .option-sound:hover {
-  background-color: #d1d1d1;
+  height: 32px;
+  margin-top: -.5em;
 }
 
 .notification-audio-btn-group .option-sound i {
-  margin: 0;
+  display: block;
+  padding: 5px 11px 5px 11px;
+  margin-top: 3px;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+}
+
+.notification-audio-btn-group .option-sound i:hover {
+  background-color: #d1d1d1;
 }
 

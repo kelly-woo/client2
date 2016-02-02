@@ -13,39 +13,50 @@
                                    configuration, NotificationAudio, entityAPIservice) {
     var that = this;
 
+    // Notification support 여부
+    var isNotificationSupported = 'Notification' in window;
+
     var NOTIFICATION_SHOW_CONTENT_FLAG_KEY = 'show_notification_content';
     var NOTIFICATION_LOCAL_STORAGE_KEY = 'local_notification_flag';
     var NOTIFICATION_NEVER_ASK_KEY = 'notification_never_ask_flag';
-
     var NOTIFICATION_STORAGE_KEY = 'setting_notification';
-    var notificationData;
 
-    // notification instance
     var notificationAudio;
+    var notificationData;
 
     _init();
 
-    that.isAllowShowContent = isAllowShowContent;
-
-    that.getNotificationAudio = getNotificationAudio;
-
-    that.getData = getData;
-    that.setData = setData;
-
-    that.getFileTitleFormat = getFileTitleFormat;
-    that.getSenderContentFormat = getSenderContentFormat;
-    that.getRoomFormat = getRoomFormat;
-    that.getTeamInfo = getTeamInfo;
-    that.getNotificationUrl = getNotificationUrl;
-    that.getBodyWithoutMessage = getBodyWithoutMessage;
-
-    that.validateNotificationParams = validateNotificationParams;
-    that.isChatType = isChatType;
-    that.log = log;
     /**
      * init
+     * @private
      */
     function _init() {
+      that.getPermission = getPermission;
+      that.requestPermission = requestPermission;
+      that.isPermissionGranted = isPermissionGranted;
+      that.isPermissionDenied = isPermissionDenied;
+
+      that.isAllowSendNotification = isAllowSendNotification;
+      that.isAllowShowContent = isAllowShowContent;
+      that.isAllowDMnMentionOnly = isAllowDMnMentionOnly;
+
+      that.getNotificationAudio = getNotificationAudio;
+      that.toggleSendNotification = toggleSendNotification;
+
+      that.getData = getData;
+      that.setData = setData;
+
+      that.getFileTitleFormat = getFileTitleFormat;
+      that.getSenderContentFormat = getSenderContentFormat;
+      that.getRoomFormat = getRoomFormat;
+      that.getTeamInfo = getTeamInfo;
+      that.getNotificationUrl = getNotificationUrl;
+      that.getBodyWithoutMessage = getBodyWithoutMessage;
+
+      that.validateNotificationParams = validateNotificationParams;
+      that.isChatType = isChatType;
+      that.log = log;
+
       if (HybridAppHelper.isHybridApp()) {
         // hybrid 앱 일 경우
         _initHybridSetting();
@@ -60,6 +71,7 @@
      */
     function _initSetting() {
       // load to notification data
+      getData();
     }
 
     /**
@@ -68,27 +80,62 @@
      */
     function _initHybridSetting() {
       // load to notification data
+      getData();
+
       /*
        _onPermissionGranted 에서 isShowNotificationContent, isNotificationOnLocally 값을 강제 true 로 설정하므로,
        해당 값을 localStorage 값으로 다시 설정 한다
        */
     }
 
+    /**
+     * browser에 선언된 notification permission 전달
+     * @returns {boolean|number}
+     */
+    function getPermission() {
+      return isNotificationSupported && Notification.permission;
+    }
 
-    function isAllowSendNotification() {
+    /**
+     * browser에 notification permission 변경 요청
+     */
+    function requestPermission() {
+      Notification.requestPermission(function (permission) {
+        if (permission === 'granted') {
+          setData('on', true);
+        } else {
+          setData('on', false);
+        }
+        jndPubSub.pub('onPermissionChanged');
+      });
+    }
 
+    /**
+     * notification permission이 허용되었는지 여부
+     * @returns {boolean}
+     */
+    function isPermissionGranted() {
+      return getPermission() === 'granted';
+    }
+
+    /**
+     * notification permission이 차단되었는지 여부
+     * @returns {boolean}
+     */
+    function isPermissionDenied() {
+      return getPermission() === 'denied';
     }
 
     /**
      * addNotification function 에서 필요한 validation 이다.
-     * 정확한 내용은 나도 잘 모른다.
+     * notification을 생성하기전 값 validation
      * @param {object} data - data
      * @param {object} writerEntity - writer entity
      * @param {object} roomEntity - room entity
      * @returns {*}
      */
     function validateNotificationParams(data, writerEntity,  roomEntity) {
-      return data && writerEntity && roomEntity && data.message && shouldSendNotification();
+      return data && writerEntity && roomEntity && data.message && isAllowSendNotification();
     }
 
     /**
@@ -104,7 +151,12 @@
       return notificationAudio;
     }
 
-    function getData() {
+    /**
+     * notification 관련 data 전달
+     * @param name
+     * @returns {*}
+     */
+    function getData(name) {
       if (notificationData == null) {
         // cache 되지 않음
 
@@ -113,11 +165,13 @@
           // local storage에 존재하지 않음
 
           notificationData = {
-            // notification 사용여부, true | false
-            on: _loadLocalNotificationFlag(),
-            // notification을 사용하는 메시지 타입, all | dmNmention
+            // 'notification 사용해 주세요' 더 이상 묻지 않기, true | [false]
+            naverAsk: _getOldSetNaverAsk() || false,
+            // notification 사용여부, true | [false]
+            on: _getOldSetLocalNotificationFlag() || false,
+            // notification을 사용하는 메시지 타입, [all] | dmNmention
             type: 'all',
-            // notification에 content 노출 시킬지 여부, all | none | public_only
+            // notification에 content 노출 시킬지 여부, [all] | none | public_only
             showContent: _getOldSetShowContent() || 'all',
             // 일반 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
             soundNormal: 'off',
@@ -129,27 +183,37 @@
         }
       }
 
-      notificationData.on = _getBoolean(notificationData.on);
-      return notificationData;
+      return _.isString(name) ? notificationData[name] : notificationData;
     }
 
-    function _getOldSetShowContent() {
-      var isShowContent = _loadShowNotificationContentFlag();
-
-      if (isShowContent === true) {
-        isShowContent = 'all'
-      } else if (isShowContent === false) {
-        isShowContent = 'none';
+    /**
+     * notification 관련 data 설정
+     * @param {string|object} name
+     * @param {string} value
+     */
+    function setData(name, value) {
+      if (_.isObject(name)) {
+        notificationData = name;
+        localStorageHelper.set(NOTIFICATION_STORAGE_KEY, notificationData);
+      } else {
+        notificationData[name] = value;
       }
-
-      return isShowContent;
     }
 
-    function setData(value) {
-      notificationData = value;
-      localStorageHelper.set(NOTIFICATION_STORAGE_KEY, value);
+    /**
+     * notification 사용을 허용하는지 여부
+     * @returns {boolean|*}
+     */
+    function isAllowSendNotification() {
+      // browser에 설정된 권한과 jandi app에서 설정여부 둘다 확인함
+      return isPermissionGranted() && getData('on');
     }
 
+    /**
+     * notification의 내용 보여주는것 허용하는지 여부
+     * @param {number} entityId
+     * @returns {*}
+     */
     function isAllowShowContent(entityId) {
       var data = getData();
       var result;
@@ -162,6 +226,13 @@
       }
 
       return result;
+    }
+
+    /**
+     * DM 과 mention만 notification 허용하는지 여부
+     */
+    function isAllowDMnMentionOnly() {
+      return getData('type') === 'dmNmention';
     }
 
     /**
@@ -183,22 +254,28 @@
      * @returns {boolean}
      */
     function isChatType(socketEvent) {
-      return socketEvent.room.type === 'chat';
+      return socketEvent.room.type === 'chat' || socketEvent.room.type === 'bot';
     }
 
-
     /**
-     * local storage 로 부터 isNotificationOnLocally 를 가져온다.
+     * 이전에 사용하던 content 노출 여부 값 전달
      * @returns {*}
      * @private
      */
-    function _loadLocalNotificationFlag() {
-      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
-      return value && _getBoolean(value);
+    function _getOldSetShowContent() {
+      var isShowContent = _loadShowNotificationContentFlag();
+
+      if (isShowContent === true) {
+        isShowContent = 'all';
+      } else if (isShowContent === false) {
+        isShowContent = 'none';
+      }
+
+      return isShowContent;
     }
 
     /**
-     * local storage 로 부터 불러온다.
+     * content 전달여부 값 전달
      * 없으면 granted 인지 아닌지확인한다.
      * @private
      */
@@ -207,12 +284,32 @@
       return value && _getBoolean(value);
     }
 
+    /**
+     * 이전에 사용하던 더 이상 묻지 않기 값 전달
+     * @returns {*|boolean}
+     * @private
+     */
+    function _getOldSetNaverAsk() {
+      var value = localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY);
+      return value && _getBoolean(value);
+    }
 
+    /**
+     * 이전에 사용하던 notification 사용여부(browser에서 허용한 것과 무관함) 전달
+     * @returns {*}
+     * @private
+     */
+    function _getOldSetLocalNotificationFlag() {
+      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
+      return value && _getBoolean(value);
+    }
 
-
-
-
-
+    /**
+     * notification 사용여부(browser에서 허용한 것과 무관함) 토글
+     */
+    function toggleSendNotification() {
+      setData('on', !getData('on'));
+    }
 
     /**
      * browser notification에서 사용되어질 file title에 대한 format에 맞춰 리턴한다.
@@ -376,9 +473,6 @@
     }
 
 
-    // Notification support 여부
-    var isNotificationSupported = 'Notification' in window;
-
     // 노티피케이션 permission 의 값
     var notificationPermission;
 
@@ -395,7 +489,7 @@
      * notification log
      */
     function log() {
-      logger.desktopNotificationSettingLogger(isNotificationSupported, notificationPermission, isNotificationOnLocally, shouldSendNotification(), isShowNotificationContent);
+      logger.desktopNotificationSettingLogger(isNotificationSupported, notificationPermission, isNotificationOnLocally, isAllowSendNotification(), isShowNotificationContent);
     }
   }
 })();

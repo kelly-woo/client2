@@ -146,3 +146,15 @@
   display: block;
   opacity: .3;
 }
+
+.notification-modal-body .notification-alert {
+  display: none;
+  padding: 7px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.notification-modal-body.notification-switch-disable .notification-alert {
+  display: block;
+}

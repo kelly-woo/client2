@@ -22,23 +22,24 @@
     function show(socketEvent) {
       var teamInfo;
       var teamName;
-
       var options;
 
-      if (_isGoodtoSendNotification(socketEvent)) {
-        teamInfo = DesktopNotificationUtil.getTeamInfo(socketEvent.teamId);
-        teamName = teamInfo.teamName;
+      if (!DesktopNotificationUtil.isAllowDMnMentionOnly()) {
+        if (_isGoodtoSendNotification(socketEvent)) {
+          teamInfo = DesktopNotificationUtil.getTeamInfo(socketEvent.teamId);
+          teamName = teamInfo.teamName;
 
-        if (!_.isUndefined(teamName)) {
-          options = {
-            tag: 'tag',
-            body: _getBody(teamName),
-            icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
-            onClick: _onClick,
-            data: socketEvent
-          };
+          if (!_.isUndefined(teamName)) {
+            options = {
+              tag: 'tag',
+              body: _getBody(teamName),
+              icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
+              onClick: _onClick,
+              data: socketEvent
+            };
 
-          DesktopNotification.show(options);
+            DesktopNotification.show(options);
+          }
         }
       }
     }
@@ -51,7 +52,7 @@
      */
     function _isGoodtoSendNotification(socketEvent) {
       var result = false;
-      if (DesktopNotificationUtil.canSendNotification() && jndWebSocketCommon.shouldSendNotification(socketEvent)) {
+      if (DesktopNotificationUtil.isAllowSendNotification() && jndWebSocketCommon.shouldSendNotification(socketEvent)) {
         // 우선 시스템상에서 브라우져 노티가 켜져있고 socket event가 나로부터 온게 아니어야 함.
         result = true;
       }

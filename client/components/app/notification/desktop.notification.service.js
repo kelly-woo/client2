@@ -38,10 +38,19 @@
      */
     function show(options) {
       var notificationAudio;
+      var notificationData;
 
       if (isSupportNotification && options) {
-        if (notificationAudio = DesktopNotificationUtil.getNotificationAudio()) {
-          notificationAudio.play('on_point');
+        notificationAudio = DesktopNotificationUtil.getNotificationAudio();
+        if (notificationAudio) {
+          if (!options.sound) {
+            // noti sound 값이 존재하지 않는다면 기본 sound를 사용한다.
+            if (notificationData = DesktopNotificationUtil.getData()) {
+              options.sound = notificationData.soundNormal
+            }
+          }
+
+          notificationAudio.play(options.sound);
         }
         createNotification(options);
       }

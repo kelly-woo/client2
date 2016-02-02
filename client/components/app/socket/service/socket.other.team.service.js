@@ -249,7 +249,7 @@
 
       timeoutCaller = $timeout(function() {
 
-        if (DesktopNotificationUtil.canSendNotification()) {
+        if (DesktopNotificationUtil.isAllowSendNotification()) {
           OtherTeamNotification.show(socketEvent);
         }
 

@@ -26,6 +26,10 @@
 
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         _setSelectItem(_.findIndex(scope.list, {'value': scope.value}));
 
@@ -36,10 +40,10 @@
         scope.onSoundClick = onSoundClick;
       }
 
-      function isActive(index) {
-        return scope.activeIndex === index;
-      }
-
+      /**
+       * 특정 item 선택 이벤트 핸들러
+       * @param {number} index
+       */
       function onSelectItem(index) {
         _setSelectItem(index);
         _playSound(index);
@@ -49,14 +53,37 @@
         })
       }
 
+      /**
+       * 특정 item active 상태 설정 이벤트 핸들러
+       * @param {number} index
+       */
       function onSelectActive(index) {
         scope.activeIndex = index;
       }
 
+      /**
+       * sound 듣기 클릭 이벤트 핸들러
+       * @param {object} event
+       */
       function onSoundClick(event) {
+        // dropdown menu 닫기 방지를 위한 버블링 cut
         event.stopPropagation();
       }
 
+      /**
+       * active 상태 인지 여부
+       * @param {number} index
+       * @returns {boolean}
+       */
+      function isActive(index) {
+        return scope.activeIndex === index;
+      }
+
+      /**
+       * 선택 아이템 설정
+       * @param {number} index
+       * @private
+       */
       function _setSelectItem(index) {
         var item;
         if (item = scope.list[index]) {
@@ -64,6 +91,11 @@
         }
       }
 
+      /**
+       * play sound
+       * @param {number} index
+       * @private
+       */
       function _playSound(index) {
         var item;
         if (item = scope.list[index]) {

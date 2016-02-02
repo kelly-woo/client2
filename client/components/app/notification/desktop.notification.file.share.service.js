@@ -21,20 +21,23 @@
      * @param {object} roomEntity - 메세지가 작성된 방의 entity
      */
     function show(socketEvent, roomEntity) {
+      var isUser = DesktopNotificationUtil.isChatType(socketEvent);
       var options;
       var user;
 
-      if (DesktopNotificationUtil.canSendNotification()) {
-        user = entityAPIservice.getEntityById('users', socketEvent.writer);
-        options = {
-          tag: 'tag',
-          body: _getBody(socketEvent, roomEntity),
-          icon: memberService.getProfileImage(user.id, 'small'),
-          onClick: _onNotificationClicked,
-          data: socketEvent
-        };
+      if (!DesktopNotificationUtil.isAllowDMnMentionOnly() || isUser) {
+        if (DesktopNotificationUtil.isAllowSendNotification()) {
+          user = entityAPIservice.getEntityById('users', socketEvent.writer);
+          options = {
+            tag: 'tag',
+            body: _getBody(socketEvent, roomEntity),
+            icon: memberService.getProfileImage(user.id, 'small'),
+            onClick: _onNotificationClicked,
+            data: socketEvent
+          };
 
-        DesktopNotification.show(options);
+          DesktopNotification.show(options);
+        }
       }
     }
 

@@ -23,17 +23,19 @@
       var options;
       var user;
 
-      if (DesktopNotificationUtil.canSendNotification()) {
-        user = entityAPIservice.getEntityById('users', socketEvent.writer);
-        options = {
-          tag: 'tag',
-          body: _getBody(socketEvent),
-          icon: memberService.getProfileImage(user.id, 'small'),
-          onClick: _onNotificationClicked,
-          data: socketEvent
-        };
+      if (!DesktopNotificationUtil.isAllowDMnMentionOnly()) {
+        if (DesktopNotificationUtil.isAllowSendNotification()) {
+          user = entityAPIservice.getEntityById('users', socketEvent.writer);
+          options = {
+            tag: 'tag',
+            body: _getBody(socketEvent),
+            icon: memberService.getProfileImage(user.id, 'small'),
+            onClick: _onNotificationClicked,
+            data: socketEvent
+          };
 
-        DesktopNotification.show(options);
+          DesktopNotification.show(options);
+        }
       }
     }
 

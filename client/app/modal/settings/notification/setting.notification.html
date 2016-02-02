@@ -1,19 +1,26 @@
 <page-tracker page="notifications" title="Notifications"></page-tracker>
 <div class="modal-header">
-  <button type="button" class="close" ng-click="cancel();"><i class="icon-delete"></i></button>
+  <button type="button" class="close" ng-click="onClose()"><i class="icon-delete"></i></button>
   <h3 class="modal-header__title">
-    <span translate>@web-notification</span>
+    <span>{{::'@web-notification'|translate}}</span>
   </h3>
 </div>
 
 <div class="modal-body notification-modal-body" ng-class="{'notification-switch-disable': !isAllowSwitch}">
+  <alert class="notification-alert" type="danger">
+    <i class="icon-warning"></i>
+    바탕화면 알림을 받지 않도록 설정하였습니다.
+    <a href="#">안내 페이지</a>에서 변경 방법을 확인하세요.
+  </alert>
   <div class="notification-role">
-    <div class="notification-role-header">바탕화면 알림</div>
-    <div class="notification-role-body">We strongly recommend you leave desktop notification on so you never miss an important message.</div>
+    <div class="notification-role-header">{{::'@setting-notification-desktop'|translate}}</div>
+    <div class="notification-role-body">{{::'@setting-notification-recommendation-msg'|translate}}</div>
     <div class="notification-switch">
       <switch-button is-active="setting.on" toggle="onNotificationToggle($value)"></switch-button>
     </div>
-    <div class="notification-image"><img src="assets/images/app_notification_w.png"></div>
+    <div class="notification-image">
+      <img ng-src="{{::notificationImage}}">
+    </div>
     <div class="disable-dim"></div>
   </div>
   <div class="notification-setting" ng-class="{'notification-setting-disable': !isAllowSetting}">
@@ -22,35 +29,45 @@
         <input type="checkbox" ng-model="setting.type"
                                ng-true-value="'dmNmention'"
                                ng-false-value="'all'"/>
-        <span>Receive direct msgs and @mentions only</span>
+        <span>{{::'@setting-notification-dm-n-mention'|translate}}</span>
       </label>
     </div>
     <div class="notification-options">
       <div class="notification-message-preview col-sm-6">
-        <div class="message-preview-header"><i class="icon-chat"></i><span>메시지 내용 미리보기</span></div>
+        <div class="message-preview-header"><i class="icon-chat"></i>
+          <span>{{::'@setting-notification-preview-content'|translate}}</span>
+        </div>
         <div class="message-preview-options">
-          <label><input type="radio" ng-model="setting.showContent" value="all">모든 메시지</label>
-          <label><input type="radio" ng-model="setting.showContent" value="public_only">공개 토픽만</label>
-          <label><input type="radio" ng-model="setting.showContent" value="none">미리보기 하지 않음</label>
+          <label><input type="radio" ng-model="setting.showContent" value="all">
+            {{::'@setting-notification-preview-all'|translate}}
+          </label>
+          <label><input type="radio" ng-model="setting.showContent" value="public_only">
+            {{::'@setting-notification-preview-public'|translate}}
+          </label>
+          <label><input type="radio" ng-model="setting.showContent" value="none">
+            {{::'@setting-notification-preview-none'|translate}}
+          </label>
         </div>
       </div>
       <div class="notification-message-alert col-sm-6">
-        <div class="message-alert-header"><i class="icon-volume-up"></i>알림 소리 켜기</div>
+        <div class="message-alert-header"><i class="icon-volume-up"></i>
+          {{::'@setting-notification-sounds'|translate}}
+        </div>
         <div class="message-alert-options">
           <div class="message-normal message-audio">
-            <div>일반 메시지:</div>
+            <div>{{::'@setting-notification-sounds-topic'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundNormal"
                                      on-select="onSoundSelect('normal', $index)"></notification-audio-menu>
           </div>
           <div class="message-mention message-audio">
-            <div>@멘션:</div>
+            <div>{{::'@setting-notification-sounds-mention'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundMention"
                                      on-select="onSoundSelect('mention', $index)"></notification-audio-menu>
           </div>
           <div class="message-dm message-audio">
-            <div>1:1 메시지:</div>
+            <div>{{::'@common-chat-dm'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundDM"
                                      on-select="onSoundSelect('dm', $index)"></notification-audio-menu>
@@ -63,7 +80,8 @@
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-cancel btn-notification-sample" ng-class="{'disabled': !isAllowSetting}" ng-click="onSampleClick()">테스트 메시지 받기</button>
-  <button class="btn btn-cancel" ng-click="onCancel()">취소</button>
-  <button class="btn btn-ok" ng-click="onSubmit()" translate>@common-done</button>
+  <button class="btn btn-cancel btn-notification-sample" ng-class="{'disabled': !isAllowSetting}" ng-click="onSampleClick()">
+    {{::'@send-test-notification'|translate}}
+  </button>
+  <button class="btn btn-ok" ng-click="onClose()">{{::'@common-done'|translate}}</button>
 </div>

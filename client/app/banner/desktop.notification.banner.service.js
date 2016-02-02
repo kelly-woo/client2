@@ -109,7 +109,7 @@
      * @private
      */
     function _isPermissionDefault() {
-      var permission = DesktopNotificationUtil.getNotificationPermission();
+      var permission = DesktopNotificationUtil.getPermission();
       return !(permission === 'denied' || permission === 'granted');
     }
 
@@ -139,10 +139,10 @@
      * @returns {boolean}
      */
     function shouldAskLocalNotification() {
-      var isNotificationPermissionGranted = DesktopNotificationUtil.isNotificationPermissionGranted();
-      var isNotificationLocalFlagUp = DesktopNotificationUtil.isNotificationLocalFlagUp();
+      var isPermissionGranted = DesktopNotificationUtil.isPermissionGranted();
+      var isNotificationLocalFlagUp = DesktopNotificationUtil.getData('on');
 
-      return isNotificationPermissionGranted && !isNotificationLocalFlagUp;
+      return isPermissionGranted && !isNotificationLocalFlagUp;
     }
 
     /**
@@ -151,7 +151,7 @@
      * @private
      */
     function _isNeverAskMeFlagUp() {
-      return DesktopNotificationUtil.isNeverAskFlagUp();
+      return DesktopNotificationUtil.getData('naverAsk');
     }
 
     /**

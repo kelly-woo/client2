@@ -118,7 +118,12 @@
         // badge count를 올리기 위함이요.
         jndPubSub.updateLeftPanel();
         data.room = room;
-        _sendBrowserNotification(data, true);
+
+        if (_hasMention(data)) {
+          _sendMentionNotification(data);
+        } else {
+          _sendBrowserNotification(data, true);
+        }
       }
     }
 

@@ -16,30 +16,38 @@
 
     /**
      * show message notification
-     * @param {object} data - message
+     * @param {object} socketEvent - message
      * @param {object} writerEntity - message 작성한 작성자의 entity
      * @param {object} roomEntity - message 전달한 room의 entity
      * @param {boolean} isFileComment
      */
-    function show(data, writerEntity, roomEntity, isFileComment) {
-      var isUser;
+    function show(socketEvent, writerEntity, roomEntity, isFileComment) {
+      var isUser = DesktopNotificationUtil.isChatType(socketEvent);
+      var notificationData;
       var options = {};
       var message;
 
-      if (DesktopNotificationUtil.validateNotificationParams(data, writerEntity, roomEntity)) {
-        isUser = roomEntity.type === 'users';
-        message = data.message;
-        message = decodeURIComponent(message);
+      if (!DesktopNotificationUtil.isAllowDMnMentionOnly() || isUser) {
+        if (DesktopNotificationUtil.validateNotificationParams(socketEvent, writerEntity, roomEntity)) {
+          message = socketEvent.message;
+          message = decodeURIComponent(message);
 
-        if (isFileComment) {
-          options = _getOptionsForFileComment(data, writerEntity, roomEntity);
-        } else {
-          options = _getOptionsForMessage(data, writerEntity, roomEntity, isUser, message);
+          if (isFileComment) {
+            options = _getOptionsForFileComment(socketEvent, writerEntity, roomEntity);
+          } else {
+            options = _getOptionsForMessage(socketEvent, writerEntity, roomEntity, isUser, message);
+          }
+
+          options.icon = memberService.getProfileImage(writerEntity.id, 'small');
+
+          if (isUser) {
+            if (notificationData = DesktopNotificationUtil.getData()) {
+              options.sound = notificationData.soundDM;
+            }
+          }
+
+          DesktopNotification.show(options);
         }
-
-        options.icon = memberService.getProfileImage(writerEntity.id, 'small');
-
-        DesktopNotification.show(options);
       }
     }
 
