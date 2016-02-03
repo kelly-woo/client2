@@ -121,6 +121,7 @@ module.exports = function (grunt) {
           '!{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= yeoman.client %>/assets/videos/**/*',
+          '<%= yeoman.client %>/assets/sounds/**/*',
           '<%= yeoman.client %>/{app,components}/**/*.hbs'
         ],
         options: {
@@ -432,6 +433,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'assets/videos/**/*',
+            'aseets/sounds/**/*',
             'assets/images/**/*.{webp}',
             'assets/fonts/**/*',
             'index.html'
