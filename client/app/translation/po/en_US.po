@@ -170,6 +170,14 @@ msgstr "Are you sure you want to delete this topic?"
 msgid "@ch-menu-invite"
 msgstr "Invite"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "Invite(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "Invite(Ctrl+I)"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
@@ -2533,7 +2541,7 @@ msgid "@setting-notification-permission-denied"
 msgstr ""
 "You have opted not to receive desktop notifications. You need to open your "
 "browser preferences to enable it. Check <a href=\"http://bit.ly/1RZu5g4\" "
-"target=\"_blank\">this article<a> to do so."
+"target=\"_blank\">this article</a> to do so."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"
@@ -3648,9 +3656,6 @@ msgstr ""
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
-
-#~ msgid "@ch-menu-invite-short"
-#~ msgstr "Invite members"
 
 #~ msgid "@ch-menu-leave-short"
 #~ msgstr "Leave"

@@ -168,6 +168,14 @@ msgstr "您確定要刪除這個議題？"
 msgid "@ch-menu-invite"
 msgstr "邀請成員至此議題"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "邀請成員至此議題(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "邀請成員至此議題(Ctrl+I)"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
@@ -2363,7 +2371,7 @@ msgstr "僅接收私訊和@提及通知"
 msgid "@setting-notification-permission-denied"
 msgstr ""
 "你已關閉電腦版的推播通知。欲重新開啟推播，請點擊此<a href=\"http://bit."
-"ly/1RZu5g4\" target=\"_blank\">文章<a>瀏覽開啟步驟。"
+"ly/1RZu5g4\" target=\"_blank\">文章</a>瀏覽開啟步驟。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"

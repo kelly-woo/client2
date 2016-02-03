@@ -169,6 +169,14 @@ msgstr "本当にこのトピックを削除しますか？"
 msgid "@ch-menu-invite"
 msgstr "このトピックに招待"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "このトピックに招待(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "このトピックに招待(Ctrl+I)"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
