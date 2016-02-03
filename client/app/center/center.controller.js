@@ -597,7 +597,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _hasLastMessage() {
-    return MessageCollection.getLastLinkId() == lastMessageId;
+    return MessageCollection.getLastLinkId() >= lastMessageId;
   }
 
   function _updateScroll() {
