@@ -161,6 +161,14 @@ msgstr ""
 msgid "@ch-menu-invite"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"

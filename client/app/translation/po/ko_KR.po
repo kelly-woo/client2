@@ -170,6 +170,14 @@ msgstr "이 토픽을 정말 삭제하시겠습니까?"
 msgid "@ch-menu-invite"
 msgstr "토픽에 멤버 초대하기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "토픽에 멤버 초대하기(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "토픽에 멤버 초대하기(Ctrl+I)"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
@@ -2556,7 +2564,7 @@ msgstr "1:1메시지와 @멘션만 받기"
 msgid "@setting-notification-permission-denied"
 msgstr ""
 "바탕화면 알림을 받지 않도록 설정하셨습니다. <a href=\"http://bit.ly/1P5iQPk"
-"\" target=\"_blank\">안내 페이지<a>에서 변경 방법을 확인하세요."
+"\" target=\"_blank\">안내 페이지</a>에서 변경 방법을 확인하세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"

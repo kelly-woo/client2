@@ -168,6 +168,14 @@ msgstr "您确定要删除这个议题？"
 msgid "@ch-menu-invite"
 msgstr "邀请成员至此议题"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "邀请成员至此议题(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "邀请成员至此议题(Ctrl+I)"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
