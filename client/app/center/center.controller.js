@@ -839,9 +839,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _updateMessages(messages, isSkipAppend) {
     var length = messages.length;
     var msg;
+    var firstLinkId = MessageCollection.getFirstLinkId();
     // Prevent duplicate messages in center panel.
     if (length) {
-      MessageCollection.update(messages, isSkipAppend);
+      if (firstMessageId === firstLinkId) {
+        MessageCollection.update(messages, isSkipAppend);
+        //DM 에서 가장 첫번째 글을 삭제할 경우 firstMessageId 가 변경되기 때문에, 아래 로직을 수행한다.
+        firstMessageId = MessageCollection.getFirstLinkId();
+      } else {
+        MessageCollection.update(messages, isSkipAppend);
+      }
     }
   }
 
