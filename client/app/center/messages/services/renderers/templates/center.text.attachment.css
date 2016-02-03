@@ -7,6 +7,7 @@
   display: table-cell;
   min-width: 4px;
   background-color: #d7e0e8;
+  border-radius: 2px;
 }
 .attachment-content-wrapper .attachment-content {
   display: table-cell;
