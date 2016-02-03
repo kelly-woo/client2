@@ -2598,7 +2598,7 @@ msgstr "알림 소리"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-sounds-mention"
-msgstr "@멘션바탕화면 알림 사용하기"
+msgstr "@멘션"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-sounds-topic"
