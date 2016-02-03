@@ -39,15 +39,21 @@
           <span>{{::'@setting-notification-preview-content'|translate}}</span>
         </div>
         <div class="message-preview-options">
-          <label><input type="radio" ng-model="setting.showContent" value="all" ng-disabled="!isAllowSetting">
-            {{::'@setting-notification-preview-all'|translate}}
-          </label>
-          <label><input type="radio" ng-model="setting.showContent" value="public_only" ng-disabled="!isAllowSetting">
-            {{::'@setting-notification-preview-public'|translate}}
-          </label>
-          <label><input type="radio" ng-model="setting.showContent" value="none" ng-disabled="!isAllowSetting">
-            {{::'@setting-notification-preview-none'|translate}}
-          </label>
+          <div>
+            <label><input type="radio" ng-model="setting.showContent" value="all" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-all'|translate}}
+            </label>
+          </div>
+          <div>
+            <label><input type="radio" ng-model="setting.showContent" value="public_only" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-public'|translate}}
+            </label>
+          </div>
+          <div>
+            <label><input type="radio" ng-model="setting.showContent" value="none" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-none'|translate}}
+            </label>
+          </div>
         </div>
       </div>
       <div class="notification-message-alert col-sm-6">
