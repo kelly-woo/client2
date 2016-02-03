@@ -433,7 +433,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'assets/videos/**/*',
-            'aseets/sounds/**/*',
+            'assets/sounds/**/*',
             'assets/images/**/*.{webp}',
             'assets/fonts/**/*',
             'index.html'
