@@ -538,12 +538,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           // auto focus to textarea - CURRENTLY NOT USED.
           _setChatInputFocus();
 
-          _checkEntityMessageStatus();
           if (_.isEmpty(messagesList)) {
             // 모든 과정이 끝난 후, 메시지가 없으면 그냥 보여준다.
             _showContents();
             onRepeatDone();
           }
+          _checkEntityMessageStatus();
         })
         .error(onHttpResponseError);
 
@@ -1346,8 +1346,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onNewMessageArrived(angularEvent, msg) {
-    if (centerService.isMessageFromMe(msg) ||
-      (_isChatPanelActive() && centerService.hasBottomReached())) {
+    if (centerService.isMessageFromMe(msg)) {
+      if (!_hasLastMessage()) {
+        _refreshCurrentTopic(true);
+      } else {
+        _scrollToBottom(true);
+      }
+    }
+    if (_isChatPanelActive() && centerService.hasBottomReached()) {
       _scrollToBottom(true);
     } else if (!centerService.isMessageFromMe(msg) && _hasScroll()) {
       _gotNewMessage();
