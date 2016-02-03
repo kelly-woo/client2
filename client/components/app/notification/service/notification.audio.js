@@ -20,7 +20,9 @@
       // stream 객체 생성 후 바로 stream data load 여부
       preload: true,
       // 하나의 stream이 끝나기 전에 stream 시작 가능 영부
-      multiple: true
+      multiple: true,
+      // cache 여부
+      cache: true
     };
 
     that.getInstance = getInstance;
@@ -103,7 +105,7 @@
      * @private
      */
     function _getUrl(sound) {
-      return that.options.path + encodeURIComponent(sound) + '.' + that.options.ext + '?' + (new Date().valueOf());
+      return that.options.path + encodeURIComponent(sound) + '.' + that.options.ext + (that.options.cache ? '' : '?' + (new Date().valueOf()));
     }
   }
 })();

@@ -9,7 +9,8 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil) {
+  function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
+                               entityAPIservice) {
     var that = this;
     var NOTIFICATION_EXPIRE_TIME = 7000;
     var isSupportNotification;
@@ -132,13 +133,25 @@
       // Decides what to do when notification click.
       // Takes user to topic/messages where notification came from.
       var targetEntity = options.data;
+      var entityId;
+      var entityType;
+      var jandiBot;
 
       if (!!targetEntity) {
-        if (targetEntity.type === 'file_comment') {
+        entityId = targetEntity.id;
+        entityType = targetEntity.type;
+
+        if (entityType === 'file_comment') {
           RouterHelper.setCommentToScroll(targetEntity.commentId);
-          $state.go('files', {itemId: targetEntity.id});
+          $state.go('files', {itemId: entityId});
         } else {
-          $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});
+          if (jandiBot = entityAPIservice.getJandiBot()) {
+            if (entityId === jandiBot.id) {
+              entityType = 'users';
+            }
+          }
+
+          $state.go('archives', {entityType: entityType, entityId: entityId});
         }
       }
     }

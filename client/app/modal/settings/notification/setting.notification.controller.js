@@ -12,9 +12,6 @@
   /* @ngInject */
   function NotificationCtrl($scope, $modalInstance, modalHelper, NotificationAudio, SampleNotification,
                             DesktopNotificationUtil, Browser, JndUtil) {
-    var NOTI_TURN_ON = '@setting-notification-turn-on';
-    var NOTI_TURN_OFF = '@setting-notification-turn-off';
-
     var notificationAudio;
     var recentSound;
 
