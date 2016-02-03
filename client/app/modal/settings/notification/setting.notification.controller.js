@@ -133,7 +133,9 @@
      * @private
      */
     function _onPermissionChanged() {
-      _setAllowSwitch();
+      JndUtil.safeApply($scope, function() {
+        _setAllowSwitch();
+      });
     }
 
     /**
