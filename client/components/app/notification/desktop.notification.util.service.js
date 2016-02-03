@@ -86,6 +86,8 @@
        _onPermissionGranted 에서 isShowNotificationContent, isNotificationOnLocally 값을 강제 true 로 설정하므로,
        해당 값을 localStorage 값으로 다시 설정 한다
        */
+      setData('on', true);
+      setData('showContent', 'all');
     }
 
     /**
@@ -93,7 +95,9 @@
      * @returns {boolean|number}
      */
     function getPermission() {
-      return isNotificationSupported && Notification.permission;
+      // 현재 window, mac app 에서 사용하는 notification은 app마다 다른 notification object를 사용하고 항상 허용된 상태로
+      // 보기때문에 window, mac app일 경우 'granted'를 전달한다.
+      return HybridAppHelper.isHybridApp() ? 'granted' : isNotificationSupported && Notification.permission;
     }
 
     /**
