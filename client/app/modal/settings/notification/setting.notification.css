@@ -12,6 +12,7 @@
 .notification-modal-body .notification-role {
   position: relative;
   width: 300px;
+  margin-bottom: 20px;
 }
 
 .notification-role .notification-role-header {
@@ -124,27 +125,10 @@
   font-weight: 400;
 }
 
-.btn-notification-sample {
+.btn.btn-notification-sample {
   float: left;
-}
-
-.notification-modal-body .disable-dim {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background-color: #fff;
-
-}
-.notification-switch-disable .disable-dim {
-  display: block;
-  opacity: .5;
-}
-.notification-setting-disable .disable-dim {
-  display: block;
-  opacity: .3;
+  color: #999;
 }
 
 .notification-modal-body .notification-alert {
@@ -157,4 +141,16 @@
 
 .notification-modal-body.notification-switch-disable .notification-alert {
   display: block;
+}
+
+.btn.btn-notification-sample[disabled],
+.notification-switch-disable .notification-role-header,
+.notification-switch-disable .notification-role-body,
+.notification-setting-disable .notification-target {
+  opacity: .5;
+}
+
+.notification-setting-disable .notification-message-preview,
+.notification-setting-disable .notification-message-alert {
+  opacity: .3;
 }

@@ -15,6 +15,7 @@
       replace: true,
       scope: {
         isActive: '=',
+        isDisabled: '=?',
         toggle: '&'
       },
       templateUrl : 'app/util/directive/switch-button/switch.button.html',
@@ -36,10 +37,12 @@
        * on click 이벤트 핸들러
        */
       function onClick() {
-        if (_.isFunction(scope.toggle)) {
-          scope.toggle({
-            $value: !scope.isActive
-          });
+        if (scope.isDisabled !== true) {
+          if (_.isFunction(scope.toggle)) {
+            scope.toggle({
+              $value: !scope.isActive
+            });
+          }
         }
       }
     }

@@ -17,14 +17,12 @@
     /**
      * show sample notification
      */
-    function show() {
-      var options = {
+    function show(options) {
+      DesktopNotification.show(_.extend({
         tag: 'tag',
         body: $filter('translate')('@web-notification-sample-body-text'),
         icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png'
-      };
-
-      DesktopNotification.show(options);
+      }, options));
     }
   }
 })();

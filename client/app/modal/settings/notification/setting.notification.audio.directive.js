@@ -15,6 +15,7 @@
       scope: {
         list: '=',
         value: '=',
+        isDisabled: '=',
         onSelectCallback: '&onSelect'
       },
       link: link,

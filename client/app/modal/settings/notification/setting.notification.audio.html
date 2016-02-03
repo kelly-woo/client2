@@ -1,5 +1,5 @@
-<div class="btn-group notification-audio-btn-group" dropdown>
-  <button type="button" class="btn" dropdown-toggle>
+<div class="btn-group notification-audio-btn-group" dropdown ng-disabled="isDisabled">
+  <button type="button" class="btn" ng-disabled="isDisabled" dropdown-toggle>
     <span class="btn-text" ng-bind="selectedItemText"></span><i class="icon icon-arrow-down"></i>
   </button>
   <ul class="dropdown-menu" role="menu">

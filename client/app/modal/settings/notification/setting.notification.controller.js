@@ -16,6 +16,7 @@
     var NOTI_TURN_OFF = '@setting-notification-turn-off';
 
     var notificationAudio;
+    var recentSound;
 
     _init();
 
@@ -111,6 +112,7 @@
           $scope.setting.soundDM = value;
           break;
       }
+      recentSound = value;
     }
 
     /**
@@ -124,7 +126,9 @@
      * 샘플 노티 보내기 이벤트 핸들러
      */
     function onSampleClick() {
-      SampleNotification.show();
+      SampleNotification.show({
+        sound: recentSound
+      });
     }
 
     /**

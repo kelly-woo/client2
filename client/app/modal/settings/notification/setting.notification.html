@@ -6,29 +6,30 @@
   </h3>
 </div>
 
-<div class="modal-body notification-modal-body" ng-class="{'notification-switch-disable': !isAllowSwitch}">
+<div class="modal-body notification-modal-body" ng-class="{'notification-switch-disable non-selectable': !isAllowSwitch}">
   <alert class="notification-alert" type="danger">
     <i class="icon-warning"></i>
-    바탕화면 알림을 받지 않도록 설정하였습니다.
-    <a href="#">안내 페이지</a>에서 변경 방법을 확인하세요.
+    {{::'@setting-notification-permission-denied'|translate}}
   </alert>
   <div class="notification-role">
     <div class="notification-role-header">{{::'@setting-notification-desktop'|translate}}</div>
     <div class="notification-role-body">{{::'@setting-notification-recommendation-msg'|translate}}</div>
     <div class="notification-switch">
-      <switch-button is-active="setting.on" toggle="onNotificationToggle($value)"></switch-button>
+      <switch-button is-active="setting.on"
+                     toggle="onNotificationToggle($value)"
+                     is-disabled="!isAllowSwitch"></switch-button>
     </div>
     <div class="notification-image">
       <img ng-src="{{::notificationImage}}">
     </div>
-    <div class="disable-dim"></div>
   </div>
-  <div class="notification-setting" ng-class="{'notification-setting-disable': !isAllowSetting}">
+  <div class="notification-setting" ng-class="{'notification-setting-disable non-selectable': !isAllowSetting}">
     <div class="notification-target">
       <label>
         <input type="checkbox" ng-model="setting.type"
                                ng-true-value="'dmNmention'"
-                               ng-false-value="'all'"/>
+                               ng-false-value="'all'"
+                               ng-disabled="!isAllowSetting"/>
         <span>{{::'@setting-notification-dm-n-mention'|translate}}</span>
       </label>
     </div>
@@ -38,13 +39,13 @@
           <span>{{::'@setting-notification-preview-content'|translate}}</span>
         </div>
         <div class="message-preview-options">
-          <label><input type="radio" ng-model="setting.showContent" value="all">
+          <label><input type="radio" ng-model="setting.showContent" value="all" ng-disabled="!isAllowSetting">
             {{::'@setting-notification-preview-all'|translate}}
           </label>
-          <label><input type="radio" ng-model="setting.showContent" value="public_only">
+          <label><input type="radio" ng-model="setting.showContent" value="public_only" ng-disabled="!isAllowSetting">
             {{::'@setting-notification-preview-public'|translate}}
           </label>
-          <label><input type="radio" ng-model="setting.showContent" value="none">
+          <label><input type="radio" ng-model="setting.showContent" value="none" ng-disabled="!isAllowSetting">
             {{::'@setting-notification-preview-none'|translate}}
           </label>
         </div>
@@ -58,29 +59,31 @@
             <div>{{::'@setting-notification-sounds-topic'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundNormal"
+                                     is-disabled="!isAllowSetting"
                                      on-select="onSoundSelect('normal', $index)"></notification-audio-menu>
           </div>
           <div class="message-mention message-audio">
             <div>{{::'@setting-notification-sounds-mention'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundMention"
+                                     is-disabled="!isAllowSetting"
                                      on-select="onSoundSelect('mention', $index)"></notification-audio-menu>
           </div>
           <div class="message-dm message-audio">
             <div>{{::'@common-chat-dm'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundDM"
+                                     is-disabled="!isAllowSetting"
                                      on-select="onSoundSelect('dm', $index)"></notification-audio-menu>
           </div>
         </div>
       </div>
     </div>
-    <div class="disable-dim"></div>
   </div>
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-cancel btn-notification-sample" ng-class="{'disabled': !isAllowSetting}" ng-click="onSampleClick()">
+  <button class="btn btn-cancel btn-notification-sample" ng-disabled="!isAllowSetting" ng-click="onSampleClick()">
     {{::'@send-test-notification'|translate}}
   </button>
   <button class="btn btn-ok" ng-click="onClose()">{{::'@common-done'|translate}}</button>

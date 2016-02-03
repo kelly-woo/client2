@@ -22,6 +22,7 @@
      */
     function show(socketEvent, roomEntity) {
       var isUser = DesktopNotificationUtil.isChatType(socketEvent);
+      var notificationData;
       var options;
       var user;
 
@@ -35,6 +36,12 @@
             onClick: _onNotificationClicked,
             data: socketEvent
           };
+
+          if (isUser) {
+            if (notificationData = DesktopNotificationUtil.getData()) {
+              options.sound = notificationData.soundDM;
+            }
+          }
 
           DesktopNotification.show(options);
         }
