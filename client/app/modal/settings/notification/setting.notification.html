@@ -23,7 +23,9 @@
       <img ng-src="{{::notificationImage}}">
     </div>
   </div>
-  <div class="notification-setting" ng-class="{'notification-setting-disable non-selectable': !isAllowSetting}">
+  <div class="notification-setting"
+       ng-class="{'notification-setting-disable non-selectable': !isAllowSetting,
+                  'init-setting-disable': !isInitAllowSetting}">
     <div class="notification-target">
       <label>
         <input type="checkbox" ng-model="setting.type"
@@ -61,11 +63,11 @@
           {{::'@setting-notification-sounds'|translate}}
         </div>
         <div class="message-alert-options">
-          <div class="message-normal message-audio">
+          <div class="message-normal message-audio" ng-class="{'message-normal-disabled':isDMnMentionOnly}">
             <div>{{::'@setting-notification-sounds-topic'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
                                      value="setting.soundNormal"
-                                     is-disabled="!isAllowSetting"
+                                     is-disabled="!isAllowSetting || isDMnMentionOnly"
                                      on-select="onSoundSelect('normal', $index)"></notification-audio-menu>
           </div>
           <div class="message-mention message-audio">

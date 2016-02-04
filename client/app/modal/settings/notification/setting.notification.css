@@ -48,7 +48,13 @@
 
 .notification-modal-body .notification-setting {
   position: relative;
+  max-height: 1000px;
   margin-top: 8px;
+  -webkit-transition: max-height .3s;
+  -moz-transition: max-height .3s;
+  -ms-transition: max-height .3s;
+  -o-transition: max-height .3s;
+  transition: max-height .3s;
 }
 
 .notification-setting .notification-target {
@@ -150,7 +156,16 @@
   opacity: .5;
 }
 
+.notification-modal-body .notification-setting.init-setting-disable {
+  display: none;
+}
+.notification-modal-body .notification-setting.notification-setting-disable {
+  max-height: 0;
+  overflow: hidden;
+}
+
 .notification-setting-disable .notification-message-preview,
-.notification-setting-disable .notification-message-alert {
+.notification-setting-disable .notification-message-alert,
+.notification-message-alert .message-normal-disabled .btn {
   opacity: .3;
 }

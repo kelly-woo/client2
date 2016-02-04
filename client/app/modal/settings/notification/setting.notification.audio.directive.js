@@ -38,7 +38,7 @@
 
         scope.onSelectItem = onSelectItem;
         scope.onSelectActive = onSelectActive;
-        scope.onSoundClick = onSoundClick;
+        scope.onSoundPlay = onSoundPlay;
       }
 
       /**
@@ -63,12 +63,16 @@
       }
 
       /**
-       * sound 듣기 클릭 이벤트 핸들러
+       * sound 듣기 이벤트 핸들러
        * @param {object} event
+       * @param {number} index
        */
-      function onSoundClick(event) {
+      function onSoundPlay(event, index) {
         // dropdown menu 닫기 방지를 위한 버블링 cut
         event.stopPropagation();
+        if (event.type === 'mousedown') {
+          _playSound(index);
+        }
       }
 
       /**

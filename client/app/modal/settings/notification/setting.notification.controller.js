@@ -10,7 +10,7 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, $modalInstance, modalHelper, NotificationAudio, SampleNotification,
+  function NotificationCtrl($scope, $modalInstance, $filter, modalHelper, NotificationAudio, SampleNotification,
                             DesktopNotificationUtil, Browser, JndUtil) {
     var notificationAudio;
     var recentSound;
@@ -23,7 +23,7 @@
      */
     function _init() {
       _setAllowSwitch();
-      $scope.isAllowSetting = $scope.isAllowSwitch && DesktopNotificationUtil.isAllowSendNotification();
+      $scope.isAllowSetting = $scope.isInitAllowSetting =$scope.isAllowSwitch && DesktopNotificationUtil.isAllowSendNotification();
 
       $scope.setting = DesktopNotificationUtil.getData();
       $scope.setting.on = $scope.isAllowSetting;
@@ -45,6 +45,7 @@
      */
     function _attachEvents() {
       $scope.$watch('setting.on', _onSettingOnChange);
+      $scope.$watch('setting.type', _onSettingTypeChange);
       $scope.$watch('setting.showContent', _onSettingShowContentChange);
 
       $scope.$on('onPermissionChanged', _onPermissionChanged);
@@ -58,6 +59,14 @@
      */
     function _onSettingOnChange() {
       $scope.isAllowSetting = !DesktopNotificationUtil.isPermissionDenied() && $scope.setting.on;
+    }
+
+    /**
+     * notification 사용 형태 변경 이벤트 핸들러
+     * @private
+     */
+    function _onSettingTypeChange(value) {
+      $scope.isDMnMentionOnly = value === 'dmNmention';
     }
 
     /**
@@ -84,6 +93,9 @@
     function onNotificationToggle(value) {
       $scope.setting.on = value;
       $scope.isAllowSetting = value;
+
+      //
+      $scope.isInitAllowSetting = true;
 
       if (value) {
         DesktopNotificationUtil.requestPermission();
@@ -143,16 +155,17 @@
      * @private
      */
     function _createAlertSelectList() {
+      var translate = $filter('translate');
       var sounds = [
-        {text: 'Ari Pop', value: 'air_pop'},
-        {text: 'Arise', value: 'arise'},
-        {text: 'Chime Bell Ding', value: 'chime_bell_ding'},
-        {text: 'Chimey', value: 'chimey'},
-        {text: 'Mouse', value: 'mouse'},
-        {text: 'Nursery', value: 'nursery'},
-        {text: 'On Point', value: 'on_point'},
-        {text: 'Super', value: 'super'},
-        {text: 'Think Ping', value: 'think_ping'}
+        {text: translate('@sounds-pop'), value: 'air_pop'},
+        {text: translate('@sounds-arise'), value: 'arise'},
+        {text: translate('@sounds-ding'), value: 'chime_bell_ding'},
+        {text: translate('@sounds-chime'), value: 'chimey'},
+        {text: translate('@sounds-mouse'), value: 'mouse'},
+        {text: translate('@sounds-nursery'), value: 'nursery'},
+        {text: translate('@sounds-point'), value: 'on_point'},
+        {text: translate('@sounds-super'), value: 'super'},
+        {text: translate('@sounds-marimba'), value: 'think_ping'}
       ];
 
       notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
