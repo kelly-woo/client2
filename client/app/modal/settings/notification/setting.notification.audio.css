@@ -45,14 +45,15 @@
 
 .notification-audio-btn-group .option-sound i {
   display: block;
-  padding: 5px 11px 5px 11px;
+  padding: 5px 10px 5px 10px;
   margin-top: 3px;
   line-height: 13px;
-  border: 1px solid #e1e1e1;
-  border-radius: 10px;
+  border-radius: 15px;
+  background-color: rgba(21,74,103,.1);
+  color: #154a67;
 }
 
 .notification-audio-btn-group .option-sound i:hover {
-  background-color: #d1d1d1;
+  background-color: rgba(21,74,103,.24);
 }
 

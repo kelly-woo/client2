@@ -41,17 +41,17 @@
           <span>{{::'@setting-notification-preview-content'|translate}}</span>
         </div>
         <div class="message-preview-options">
-          <div>
+          <div class="notification-message-preview-content">
             <label><input type="radio" ng-model="setting.showContent" value="all" ng-disabled="!isAllowSetting">
               {{::'@setting-notification-preview-all'|translate}}
             </label>
           </div>
-          <div>
+          <div class="notification-message-preview-content">
             <label><input type="radio" ng-model="setting.showContent" value="public_only" ng-disabled="!isAllowSetting">
               {{::'@setting-notification-preview-public'|translate}}
             </label>
           </div>
-          <div>
+          <div class="notification-message-preview-content">
             <label><input type="radio" ng-model="setting.showContent" value="none" ng-disabled="!isAllowSetting">
               {{::'@setting-notification-preview-none'|translate}}
             </label>
