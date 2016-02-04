@@ -1,12 +1,13 @@
 .notification-modal-body {
   margin: 18px 20px 15px;
-  padding: 18px 0 15px;
+  padding: 15px 0 15px;
   border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
 }
 
 .notification-modal-body i {
-  margin-right: 4px;
+  margin-right: 2px;
+  vertical-align: text-bottom;
 }
 
 .notification-modal-body .notification-role {
@@ -23,9 +24,9 @@
 }
 
 .notification-role .notification-role-body {
-  margin-top: 15px;
+  margin-top: 18px;
   font-size: 14px;
-  color: #999;
+  color: #777;
   line-height: 22px;
 }
 
@@ -44,6 +45,8 @@
 .notification-role .notification-image img {
   width: 100%;
   height: auto;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
 }
 
 .notification-modal-body .notification-setting {
@@ -70,16 +73,18 @@
 .notification-target > label > input,
 .notification-target > label > span {
   margin-top: 0;
-  margin-right: 5px;
+  margin-right: 2px;
   vertical-align: middle;
+  font-weight: normal !important;
 }
 
 .notification-setting .notification-options {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   background-color: #e9e9e9;
   border: 1px solid #e1e1e1;
   border-radius: 5px;
+  margin-top: 7px;
 }
 
 .notification-options .notification-message-alert,
@@ -117,15 +122,20 @@
 .notification-message-preview .message-preview-options > label {
   display: inline-block;
 }
+.notification-message-preview-content > label {
+  font-weight: normal !important;
+  margin-top: 5px;
+}
 
 .notification-message-alert .message-alert-options {
   padding-left: 20px;
 }
 .notification-options .message-audio {
   margin-bottom: 10px;
+  margin-top: 11px;
 }
 .notification-options .message-audio > div:first-child {
-  margin-bottom: 4px;
+  margin-bottom: 7px;
   font-size: 14px;
   color: #333;
   font-weight: 400;
@@ -134,7 +144,10 @@
 .btn.btn-notification-sample {
   float: left;
   background-color: #fff;
-  color: #999;
+  color: #575757;
+}
+.btn.btn-notification-sample:hover {
+  background-color: #f2f2f2;
 }
 
 .notification-modal-body .notification-alert {
@@ -167,5 +180,5 @@
 .notification-setting-disable .notification-message-preview,
 .notification-setting-disable .notification-message-alert,
 .notification-message-alert .message-normal-disabled .btn {
-  opacity: .3;
+  opacity: .4;
 }
