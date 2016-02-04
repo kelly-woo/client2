@@ -32,6 +32,7 @@
       $scope.onSoundSelect = onSoundSelect;
       $scope.onClose = onClose;
       $scope.onSampleClick = onSampleClick;
+      $scope.onAlertOptionsMouseDown = onAlertOptionsMouseDown;
 
       _createAlertSelectList();
       _setNotificationImage();
@@ -94,8 +95,11 @@
       $scope.setting.on = value;
       $scope.isAllowSetting = value;
 
-      //
+      // 초기 설정 변경이 가능한지 여부. modal이 열리자 마자 translate 되지 않기 위해 사용한다.
       $scope.isInitAllowSetting = true;
+
+      // notification on/off switch 선택시 자연스러운 translate 처리하기 위해 사용한다.
+      $scope.isSettingSwitch = true;
 
       if (value) {
         DesktopNotificationUtil.requestPermission();
@@ -138,6 +142,13 @@
       SampleNotification.show({
         sound: recentSound
       });
+    }
+
+    /**
+     * alert options 영역 mouse down 이벤트 핸들러
+     */
+    function onAlertOptionsMouseDown() {
+      $scope.isSettingSwitch = false;
     }
 
     /**

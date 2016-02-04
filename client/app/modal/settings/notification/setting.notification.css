@@ -51,14 +51,18 @@
 
 .notification-modal-body .notification-setting {
   position: relative;
-  height: 293px;
+  height: 310px;
   margin-top: 8px;
-  overflow: hidden;
+  overflow: visible;
   -webkit-transition: height .3s;
   -moz-transition: height .3s;
   -ms-transition: height .3s;
   -o-transition: height .3s;
   transition: height .3s;
+}
+
+.notification-modal-body .notification-setting.is-setting-switch {
+  overflow: hidden;
 }
 
 .notification-setting .notification-target {
@@ -68,6 +72,7 @@
 
 .notification-target > label {
   line-height: 30px;
+  margin-bottom: 0;
 }
 
 .notification-target > label > input,
@@ -80,6 +85,7 @@
 
 .notification-setting .notification-options {
   width: 100%;
+  height: calc(100% - 41px);
   padding: 12px;
   background-color: #e9e9e9;
   border: 1px solid #e1e1e1;
@@ -90,7 +96,6 @@
 .notification-options .notification-message-alert,
 .notification-options .notification-message-preview {
   padding: 0;
-  height: 100%;
 }
 
 .notification-options .notification-message-alert {
@@ -182,3 +187,14 @@
 .notification-message-alert .message-normal-disabled .btn {
   opacity: .4;
 }
+
+@media (max-width: 767px) {
+  .notification-modal-body .notification-setting {
+    height: 420px;
+  }
+  .notification-message-alert.col-sm-6 {
+    padding: 0;
+    border: none;
+  }
+}
+

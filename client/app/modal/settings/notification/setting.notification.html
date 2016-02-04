@@ -25,7 +25,8 @@
   </div>
   <div class="notification-setting"
        ng-class="{'notification-setting-disable non-selectable': !isAllowSetting,
-                  'init-setting-disable': !isInitAllowSetting}">
+                  'init-setting-disable': !isInitAllowSetting,
+                  'is-setting-switch': isSettingSwitch}">
     <div class="notification-target">
       <label>
         <input type="checkbox" ng-model="setting.type"
@@ -62,7 +63,7 @@
         <div class="message-alert-header"><i class="icon-volume-up"></i>
           {{::'@setting-notification-sounds'|translate}}
         </div>
-        <div class="message-alert-options">
+        <div class="message-alert-options" ng-mousedown="onAlertOptionsMouseDown()">
           <div class="message-normal message-audio" ng-class="{'message-normal-disabled':isDMnMentionOnly}">
             <div>{{::'@setting-notification-sounds-topic'|translate}}:</div>
             <notification-audio-menu list="alertSelectList"
