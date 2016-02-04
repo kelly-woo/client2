@@ -10,8 +10,8 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, $modalInstance, $filter, modalHelper, NotificationAudio, SampleNotification,
-                            DesktopNotificationUtil, Browser, JndUtil) {
+  function NotificationCtrl($scope, $modalInstance, $filter, $timeout, modalHelper, NotificationAudio,
+                            SampleNotification, DesktopNotificationUtil, Browser, JndUtil) {
     var notificationAudio;
     var recentSound;
 
@@ -36,6 +36,11 @@
 
       _createAlertSelectList();
       _setNotificationImage();
+
+      $timeout(function() {
+        // 초기 설정 변경이 가능한지 여부. modal이 열리자 마자 translate 되지 않기 위해 사용한다.
+        $scope.isInitAllowSetting = true;
+      }, 0);
 
       _attachEvents();
     }
@@ -94,9 +99,6 @@
     function onNotificationToggle(value) {
       $scope.setting.on = value;
       $scope.isAllowSetting = value;
-
-      // 초기 설정 변경이 가능한지 여부. modal이 열리자 마자 translate 되지 않기 위해 사용한다.
-      $scope.isInitAllowSetting = true;
 
       // notification on/off switch 선택시 자연스러운 translate 처리하기 위해 사용한다.
       $scope.isSettingSwitch = true;
