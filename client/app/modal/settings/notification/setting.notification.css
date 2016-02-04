@@ -146,6 +146,9 @@
   background-color: #fff;
   color: #575757;
 }
+.btn.btn-notification-sample:hover {
+  background-color: #f2f2f2;
+}
 
 .notification-modal-body .notification-alert {
   display: none;
