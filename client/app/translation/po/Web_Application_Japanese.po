@@ -2626,6 +2626,42 @@ msgstr "文字縮小"
 msgid "@shortcut-zoom-reset"
 msgstr "文字サイズをデフォルトに戻す"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@soudns-arise"
+msgstr "階段"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-chime"
+msgstr "チャイム"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-ding"
+msgstr "ガラス"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-marimba"
+msgstr "エレクトリック"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-mouse"
+msgstr "チューチュー"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-nursery"
+msgstr "トリイトン"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-point"
+msgstr "ポイント"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-pop"
+msgstr "バブル"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-super"
+msgstr "スーバー"
+
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
