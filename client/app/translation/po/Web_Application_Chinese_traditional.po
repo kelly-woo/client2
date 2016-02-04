@@ -2541,6 +2541,42 @@ msgstr "縮小頁面"
 msgid "@shortcut-zoom-reset"
 msgstr "重置頁面大小"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@soudns-arise"
+msgstr "雙音"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-chime"
+msgstr "風鈴"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-ding"
+msgstr "單音"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-marimba"
+msgstr "馬林巴琴"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-mouse"
+msgstr "叮聲"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-nursery"
+msgstr "三全音"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-point"
+msgstr "竹筒"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-pop"
+msgstr "爆米花"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-super"
+msgstr "木琴"
+
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"

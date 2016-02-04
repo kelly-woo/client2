@@ -2585,8 +2585,8 @@ msgstr "공개 토픽만"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
-"바탕화면 알림을 사용하지 않으시면 팀원들의 중요한 메시지를 놓치실 수 있습니"
-"다. "
+"바탕화면 알림을 사용하시면 다른 작업 중에도 메시지를 놓치지 않고 받아보실 수 "
+"있습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
@@ -2735,6 +2735,42 @@ msgstr "글자 크기 축소"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
 msgstr "글자 크기 기본값으로 복원"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@soudns-arise"
+msgstr "기타 이중음"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-chime"
+msgstr "딩동"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-ding"
+msgstr "트라이앵글"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-marimba"
+msgstr "마림바 단음"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-mouse"
+msgstr "짧은 알림"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-nursery"
+msgstr "마림바 삼중음"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-point"
+msgstr "마림바 이중음"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-pop"
+msgstr "버블팝"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-super"
+msgstr "실로폰 이중음"
 
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html

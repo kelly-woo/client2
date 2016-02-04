@@ -2713,6 +2713,42 @@ msgstr "Zoom out (text)"
 msgid "@shortcut-zoom-reset"
 msgstr "Reset zoom (text)"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@soudns-arise"
+msgstr "Arise"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-chime"
+msgstr "Chime"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-ding"
+msgstr "Ding"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-marimba"
+msgstr "Marimba"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-mouse"
+msgstr "Mouse"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-nursery"
+msgstr "Nursery"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-point"
+msgstr "Point"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-pop"
+msgstr "Pop"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-super"
+msgstr "Super"
+
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
