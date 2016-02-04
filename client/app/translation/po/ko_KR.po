@@ -2585,8 +2585,8 @@ msgstr "공개 토픽만"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
-"바탕화면 알림을 사용하지 않으시면 팀원들의 중요한 메시지를 놓치실 수 있습니"
-"다. "
+"바탕화면 알림을 사용하시면 다른 작업 중에도 메시지를 놓치지 않고 받아보실 수 "
+"있습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
