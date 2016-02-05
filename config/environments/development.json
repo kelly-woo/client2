@@ -15,7 +15,7 @@
   "base_url"               : ".jandi.io",
   "assets_url"             : "https://www.jandi.io/app/",
   "base_protocol"          : "https://",
-  "landing_address"        : "https://www.jandi.io/landing/#/",
+  "landing_address"        : "https://www.jandi.io/landing/",
   "main_address"           : "https://www.jandi.io/main/#/",
   "external_share_address" : "https://www.jandi.io/file/",
   "app_store_address"      : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
