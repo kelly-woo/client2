@@ -129,7 +129,12 @@
       </div>
 
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
-        <li role="presentation" tabindex="-1" ng-repeat="userId in users track by $index">
+        <li role="presentation" tabindex="-1"
+            ng-class="{
+              'admin': ownerId === userId,
+              'has-kickout-icon': hasAuth && userId !== myId
+            }"
+            ng-repeat="userId in users track by $index">
           <a ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
               <span class="overflow-ellipsis">{{userId | getName}}</span>
@@ -138,6 +143,7 @@
               ng-click="kickOut(userId);">
           	<i class="icon-sign-out"></i>
           </span>
+          <span ng-if="ownerId === userId" class="member-auth-label" translate>@common-topic-admin</span>
         </li>
       </ul>
     </span>
