@@ -6,7 +6,7 @@
     .controller('DesktopNotificationBannerCtrl', DesktopNotificationBannerCtrl);
 
   /* @ngInject */
-  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotification, modalHelper) {
+  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotificationUtil, modalHelper) {
     var isModalOpen = false;
 
     $scope.isInitialQuestion;
@@ -17,13 +17,10 @@
     $scope.askMeLater = askMeLater;
     $scope.neverAskMe = neverAskMe;
 
-    $scope.$on('onDesktopNotificationPermissionChanged', _onDesktopNotificationPermissionChanged);
-    $scope.$on('$destroy', _onDestroy);
-
     _init();
 
     function _init() {
-      $scope.isInitialQuestion = !DesktopNotification.isNotificationOn();
+      $scope.isInitialQuestion = !DesktopNotificationUtil.isPermissionGranted();
       _attachEvent();
     }
 
@@ -44,7 +41,7 @@
      * Notification.permission 을 묻는다.
      */
     function turnOnDesktopNotification() {
-      DesktopNotification.turnOnDesktopNotification();
+      DesktopNotificationUtil.requestPermission();
     }
 
     /**
@@ -58,18 +55,16 @@
      * 사용자가 'Never Ask Me'를 눌렀을 경우.
      */
     function neverAskMe() {
-      DesktopNotification.setNeverAskFlag();
+      DesktopNotificationUtil.setData('naverAsk', true);
       DeskTopNotificationBanner.hideNotificationBanner();
     }
 
     /**
      * Notification.permission 이 바뀌면 호출된다.
      * 현재 배너를 숨겨야할지 말지 물어본다.
-     * @param {object} event - 이벤트 객체
-     * @param {string} permission - 새로이 변한 permission 정보
      * @private
      */
-    function _onDesktopNotificationPermissionChanged(event, permission) {
+    function _onDesktopNotificationPermissionChanged() {
       DeskTopNotificationBanner.shouldHideNotificationBanner();
 
       if (!$scope.isInitialQuestion) {
@@ -87,7 +82,7 @@
      * @private
      */
     function _shouldOpenNotificationSettingModal() {
-      return !DesktopNotification.isNotificationPermissionGranted() && !isModalOpen;
+      return !DesktopNotificationUtil.isPermissionGranted() && !isModalOpen;
     }
 
     /**
@@ -111,6 +106,9 @@
      * @private
      */
     function _attachEvent() {
+      $scope.$on('onPermissionChanged', _onDesktopNotificationPermissionChanged);
+      $scope.$on('$destroy', _onDestroy);
+
       $(window).on('resize', _onResize);
     }
 

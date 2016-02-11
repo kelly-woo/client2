@@ -6,8 +6,8 @@
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice, TopicInvitedNotification,
-                               memberService, currentSessionHelper, DesktopNotification, FileShareDesktopNotification) {
+  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, memberService, currentSessionHelper,
+                               MessageNotification, MentionNotification, FileShareNotification, TopicInviteNotification) {
 
     var MESSAGE = 'message';
 
@@ -118,7 +118,12 @@
         // badge count를 올리기 위함이요.
         jndPubSub.updateLeftPanel();
         data.room = room;
-        _sendBrowserNotification(data, true);
+
+        if (_hasMention(data)) {
+          _sendMentionNotification(data);
+        } else {
+          _sendBrowserNotification(data, true);
+        }
       }
     }
 
@@ -157,7 +162,7 @@
         _onDm(data);
       } else if (_shouldSendNotification(data)) {
         if (memberService.isTopicNotificationOn(room.id)) {
-          FileShareDesktopNotification.addNotification(data);
+          FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
       }
     }
@@ -187,7 +192,7 @@
     function _onTopicInvited(socketEvent) {
       if (jndWebSocketCommon.hasMyId(socketEvent.inviter)) {
         if (_shouldSendNotification(socketEvent)) {
-          TopicInvitedNotification.addNotification(socketEvent);
+          TopicInviteNotification.show(socketEvent);
         }
       }
 
@@ -243,7 +248,7 @@
         // file_share일 경우
         if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
           // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.
-          FileShareDesktopNotification.addNotification(data);
+          FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
       } else {
         _sendBrowserNotification(data);
@@ -357,7 +362,7 @@
      */
     function _sendBrowserNotification(data, isFileComment) {
       if (_shouldSendNotification(data)) {
-        DesktopNotification.addNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room), !!isFileComment);
+        MessageNotification.show(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room), !!isFileComment);
       }
     }
 
@@ -368,7 +373,7 @@
      */
     function _sendMentionNotification(data) {
       if (_shouldSendNotification(data)) {
-        DesktopNotification.sendMentionNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
+        MentionNotification.show(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
       }
     }
 

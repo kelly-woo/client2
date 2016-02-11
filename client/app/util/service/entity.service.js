@@ -26,6 +26,8 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
+      isPublicTopic: isPublicTopic,
+      isPrivateTopic: isPrivateTopic,
       isJoinedTopic: isJoinedTopic,
       isDM: isDM,
 
@@ -290,6 +292,14 @@
         source.type = source.type.toLowerCase() + 's';
       }
       _.extend(target, source);
+    }
+
+    function isPublicTopic(entityId) {
+      return EntityMapManager.contains('joined', entityId);
+    }
+
+    function isPrivateTopic(entityId) {
+      return EntityMapManager.contains('private', entityId);
     }
 
     /**
