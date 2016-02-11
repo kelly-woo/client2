@@ -787,8 +787,6 @@
 
 .modal-body .member-auth-label {
   top: 10px;
-}
-.modal-body .member-item.active .member-auth-label {
   right: 30px;
 }
 
@@ -818,14 +816,11 @@
 .modal-body .member-item .member-name {
   line-height: 25px;
   margin-left: 7px;
-  width: 300px;
+  width: 280px;
 }
 
 .modal-body .member-item.active {
   background-color: #f2fbff;
-}
-.modal-body .member-item.active.admin .member-name{
-  width: 280px;
 }
 
 .modal-body .room-item {
