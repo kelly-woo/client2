@@ -173,6 +173,7 @@
      */
     function _checkOwnership() {
       $scope.myId = memberService.getMemberId();
+      $scope.ownerId = entityAPIservice.getOwnerId(_currentEntity);
       $scope.isOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
       $scope.isAdmin = memberService.isAdmin();
       $scope.hasAuth = $scope.isOwner || $scope.isAdmin;

@@ -784,6 +784,12 @@
 .modal-body .member-item.active {
   background-color: #f2fbff;
 }
+
+.modal-body .member-auth-label {
+  top: 10px;
+  right: 30px;
+}
+
 .modal-body .member-item.active i {
   opacity: 1;
 }
@@ -810,7 +816,7 @@
 .modal-body .member-item .member-name {
   line-height: 25px;
   margin-left: 7px;
-  width: 350px;
+  width: 280px;
 }
 
 .modal-body .member-item.active {
