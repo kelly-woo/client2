@@ -12,11 +12,15 @@
     var that = this;
     var streams = {};
 
+    that.support = {};
+    that.support.audio = 'Audio' in window;
+    that.support.ext = _getSupportedExt();
+
     that.options = {
       // sounds path
       path: '../assets/sounds/',
       // sound ext
-      ext: 'mp3',
+      ext: that.support.ext,
       // stream 객체 생성 후 바로 stream data load 여부
       preload: true,
       // 하나의 stream이 끝나기 전에 stream 시작 가능 영부
@@ -84,9 +88,11 @@
      * @private
      */
     function _load(sounds, options) {
-      _.each(sounds, function(sound) {
-        streams[sound] = NotificationStream.getInstance(_getUrl(sound), options);
-      });
+      if (that.support.audio) {
+        _.each(sounds, function(sound) {
+          streams[sound] = NotificationStream.getInstance(_getUrl(sound), options);
+        });
+      }
     }
 
     /**
@@ -106,6 +112,28 @@
      */
     function _getUrl(sound) {
       return that.options.path + encodeURIComponent(sound) + '.' + that.options.ext + (that.options.cache ? '' : '?' + (new Date().valueOf()));
+    }
+
+    /**
+     * 지원하는 확장자 전달
+     * @returns {*}
+     * @private
+     */
+    function _getSupportedExt() {
+      var audio;
+      var ext;
+
+      if (that.support.audio) {
+        audio = new Audio();
+
+        if (audio.canPlayType('audio/mpeg')) {
+          ext = 'mp3';
+        } else if (audio.canPlayType('audio/ogg')) {
+          ext = 'ogg';
+        }
+      }
+
+      return ext;
     }
   }
 })();

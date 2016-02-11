@@ -57,37 +57,7 @@
       that.isChatType = isChatType;
       that.log = log;
 
-      if (HybridAppHelper.isHybridApp()) {
-        // hybrid 앱 일 경우
-        _initHybridSetting();
-      } else {
-        _initSetting();
-      }
-    }
-
-    /**
-     * 웹일 경우 첫 설정 펑션
-     * @private
-     */
-    function _initSetting() {
-      // load to notification data
       getData();
-    }
-
-    /**
-     * hybrid 앱일 경우 우선 첫 설정을 'granted'로 한다.
-     * @private
-     */
-    function _initHybridSetting() {
-      // load to notification data
-      getData();
-
-      /*
-       _onPermissionGranted 에서 isShowNotificationContent, isNotificationOnLocally 값을 강제 true 로 설정하므로,
-       해당 값을 localStorage 값으로 다시 설정 한다
-       */
-      setData('on', true);
-      setData('showContent', 'all');
     }
 
     /**
@@ -184,6 +154,13 @@
             // 1:1 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
             soundDM: 'off'
           };
+
+          if (HybridAppHelper.isHybridApp()) {
+            // window, mac app일 경우 초기값을 web app과 다르게 설정한다.
+
+            notificationData.on = true;
+            notificationData.showContent = 'all';
+          }
         }
       }
 

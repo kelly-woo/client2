@@ -171,14 +171,14 @@
       var translate = $filter('translate');
       var sounds = [
         {text: translate('@sounds-pop'), value: 'air_pop'},
-        {text: translate('@sounds-arise'), value: 'arise'},
         {text: translate('@sounds-ding'), value: 'chime_bell_ding'},
         {text: translate('@sounds-chime'), value: 'chimey'},
         {text: translate('@sounds-mouse'), value: 'mouse'},
         {text: translate('@sounds-nursery'), value: 'nursery'},
         {text: translate('@sounds-point'), value: 'on_point'},
+        {text: translate('@sounds-marimba'), value: 'think_ping'},
         {text: translate('@sounds-super'), value: 'super'},
-        {text: translate('@sounds-marimba'), value: 'think_ping'}
+        {text: translate('@sounds-arise'), value: 'arise'}
       ];
 
       notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
