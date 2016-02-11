@@ -787,8 +787,6 @@
 
 .modal-body .member-auth-label {
   top: 10px;
-}
-.modal-body .member-item.active .member-auth-label {
   right: 30px;
 }
 
