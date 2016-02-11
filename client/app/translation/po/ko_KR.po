@@ -543,6 +543,10 @@ msgid "@common-new-message"
 msgstr "새 메시지"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-off"
+msgstr "꺼짐"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-open-new-window"
 msgstr "새 창에서 링크 열기"
 
