@@ -11,10 +11,8 @@
                           HybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
-    $scope.goToSignIn = goToSignIn;
 
     jndWebSocket.disconnect();
-
 
     (function(){
       // Handling users with token info in localstorage.
@@ -38,6 +36,7 @@
 
       if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
         publicService.hideTransitionLoading();
+        publicService.redirectToSignIn();
       } else {
         // Auto sign-in using cookie.
         accountService.getAccountInfo()
@@ -58,24 +57,10 @@
             storageAPIservice.removeSession();
             storageAPIservice.removeCookie();
             jndPubSub.hideLoading();
+            publicService.redirectToSignIn();
           });
       }
     })();
-
-    /**
-     * language 설정에 맞추어 sign in 페이지로 이동한다.
-     */
-    function goToSignIn() {
-      var languageMap = {
-        'en': 'en',
-        'ko': 'kr',
-        'zh-cn': 'zh-cn',
-        'zh-tw': 'zh-tw',
-        'ja': 'jp'
-      };
-      var lang = language.getCurrentLanguage().serverLang || 'en';
-      location.href = $scope.configuration.landing_address + languageMap[lang] + '/register';
-    }
 
     function getCurrentMember(memberId) {
       var account = accountService.getAccount();
