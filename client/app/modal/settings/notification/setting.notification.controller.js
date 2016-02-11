@@ -183,7 +183,7 @@
 
       notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
 
-      sounds.unshift({text: 'Off', value: 'off', nonSound: true});
+      sounds.unshift({text: translate('@common-off'), value: 'off', nonSound: true});
       $scope.alertSelectList = sounds;
     }
 
