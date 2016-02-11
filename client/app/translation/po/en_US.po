@@ -549,6 +549,10 @@ msgid "@common-new-message"
 msgstr "New Message"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-off"
+msgstr "Off"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-open-new-window"
 msgstr "Open in a new window"
 

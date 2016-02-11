@@ -533,6 +533,10 @@ msgid "@common-new-message"
 msgstr "新訊息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-off"
+msgstr "關閉"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-open-new-window"
 msgstr "在新視窗中開啟"
 

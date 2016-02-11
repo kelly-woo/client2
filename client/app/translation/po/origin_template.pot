@@ -522,6 +522,10 @@ msgid "@common-new-message"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-off"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-open-new-window"
 msgstr ""
 
