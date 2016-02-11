@@ -85,7 +85,7 @@
 
           // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
           entity = EntityMapManager.get('total', _getOtherMemberId(message.roomName));
-          startPoint = entity ? entity.name || 'unknown room';
+          startPoint = entity ? entity.name : 'unknown room';
         } else {
           startPoint = message.roomName || 'unknown topic';
         }
