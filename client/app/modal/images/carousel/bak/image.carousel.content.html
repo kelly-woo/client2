@@ -1,0 +1,22 @@
+<div class="image-item">
+  <div class="image-container">
+  </div>
+  <div class="image-item-footer">
+    <div class="info">
+      <div class="info-1">
+        <span class="user-name">{{::userName}}</span>
+        <span class="upload-date">{{::uploadDate}}</span>
+      </div>
+      <div class="info-2">
+        <div class="title">
+          <a ng-click="fileDetail(messageId, userName)"><span>{{::fileTitle}}</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="options non-selectable">
+      <div class="actions">
+        <a class="downdload" href="{{::downloadUrl}}"><i class="fa fa-download"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
