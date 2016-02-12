@@ -35,7 +35,7 @@
              ng-if="!comment.extIsSticker"
              ng-class="{'show-inline-block': comment.isStarred}">
           <a class="link-dark cursor_pointer">
-            <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="comment.isStarred" star-view-id="{{ comment.id }}"></i>
+            <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="comment.isStarred" star-view-id="comment.id"></i>
           </a>
         </div>
       </div>
