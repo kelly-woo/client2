@@ -24,8 +24,8 @@
     </div>
   </div>
   <div class="notification-setting"
+       ng-hide="!isAllowSetting"
        ng-class="{'notification-setting-disable non-selectable': !isAllowSetting,
-                  'init-setting-disable': !isInitAllowSetting,
                   'is-setting-switch': isSettingSwitch}">
     <div class="notification-target">
       <label>
