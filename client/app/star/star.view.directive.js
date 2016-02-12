@@ -29,6 +29,7 @@
       restrict: 'A',
       scope: {
         isStarred: '=starView',
+        starViewId: '=',
         teamId: '@',
         eventBubble: '@'
       },
@@ -37,8 +38,6 @@
 
     function link(scope, el, attrs) {
       var _hasStopPropagation;
-
-      var id = attrs.starViewId;
       var type = attrs.starViewType || 'message';
 
       _init();
@@ -94,9 +93,9 @@
        */
       function _onClick(clickEvent) {
         if (type === 'message') {
-          scope.isStarred ? StarAPIService.unStar(id, scope.teamId) : StarAPIService.star(id, scope.teamId);
+          scope.isStarred ? StarAPIService.unStar(scope.starViewId, scope.teamId) : StarAPIService.star(scope.starViewId, scope.teamId);
         } else if (type === 'member') {
-          scope.isStarred ? entityheaderAPIservice.removeStarEntity(id) : entityheaderAPIservice.setStarEntity(id);
+          scope.isStarred ? entityheaderAPIservice.removeStarEntity(scope.starViewId) : entityheaderAPIservice.setStarEntity(scope.starViewId);
         }
 
         scope.isStarred = !scope.isStarred;
@@ -138,9 +137,9 @@
       function _isMyId(param) {
         var result = false;
         if (type === 'message') {
-          result = parseInt(id, 10) === parseInt(param.messageId, 10);
+          result = parseInt(scope.starViewId, 10) === parseInt(param.messageId, 10);
         } else if (type === 'member' && param.member) {
-          result = parseInt(id, 10) === parseInt(param.member.id, 10);
+          result = parseInt(scope.starViewId, 10) === parseInt(param.member.id, 10);
         }
 
         return result && parseInt(scope.teamId, 10) === parseInt(param.teamId, 10);
