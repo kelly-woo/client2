@@ -174,9 +174,6 @@
   opacity: .5;
 }
 
-.notification-modal-body .notification-setting.init-setting-disable {
-  display: none;
-}
 .notification-modal-body .notification-setting.notification-setting-disable {
   height: 0;
   overflow: hidden;

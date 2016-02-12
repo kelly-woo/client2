@@ -23,7 +23,7 @@
      */
     function _init() {
       _setAllowSwitch();
-      $scope.isAllowSetting = $scope.isInitAllowSetting =$scope.isAllowSwitch && DesktopNotificationUtil.isAllowSendNotification();
+      $scope.isAllowSetting = $scope.isAllowSwitch && DesktopNotificationUtil.isAllowSendNotification();
 
       $scope.setting = DesktopNotificationUtil.getData();
       $scope.setting.on = $scope.isAllowSetting;
@@ -36,11 +36,6 @@
 
       _createAlertSelectList();
       _setNotificationImage();
-
-      $timeout(function() {
-        // 초기 설정 변경이 가능한지 여부. modal이 열리자 마자 translate 되지 않기 위해 사용한다.
-        $scope.isInitAllowSetting = true;
-      }, 0);
 
       _attachEvents();
     }
