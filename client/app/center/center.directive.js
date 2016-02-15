@@ -118,10 +118,16 @@
         }
 
         if (scope.isInitialLoadingCompleted) {
-          if (direction === 'new' && scrollDiff < 2000) {
-            if (scope.loadNewMessages()) {
-              jndPubSub.pub('hide:center-file-dropdown');
-              jndPubSub.pub('hide:center-item-dropdown');
+          if (direction === 'new') {
+            if (scrollDiff < 2000) {
+              if (scope.loadNewMessages()) {
+                jndPubSub.pub('hide:center-file-dropdown');
+                jndPubSub.pub('hide:center-item-dropdown');
+              }
+            } else if (scrollDiff < 5) {
+              // browser zoom 이 설정되어 있을 경우 scrollDiff 값 0 이상으로 오차가 발생하기 때문에
+              // 5 이하 이면 최 하단으로 scroll 된 것으로 간주한다.
+              scope.updateMessageMarker();
             }
           } else if (direction === 'old' && scrollTop < 2000) {
             if (scope.loadOldMessages()) {
