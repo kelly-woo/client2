@@ -158,7 +158,7 @@
      */
     function _onErrorGetWebhookToken(err, status) {
       if (!JndConnectApi.handleError(err, status)) {
-        JndConnectUnion.handleCommonLoadError($scope.current, err);
+        JndConnectUnion.handleCommonLoadError($scope.current, err, status);
       }
     }
 
