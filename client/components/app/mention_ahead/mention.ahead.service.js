@@ -78,23 +78,24 @@
     function getMentionAllForText(fullText, mentionMap, entityId) {
       var regxMention = new RegExp(rStrContSearchTextMentionMarkDown, 'g');
       var msg = '';
-      var preStr;
+      var str;
       var match;
       var mentions = [];
       var data;
       var beginIndex = 0;
-      var lastIndex;
+      var lastIndex = 0;
       var offset = 0;
 
       // 입력값 trim
       fullText && (fullText = fullText.trim());
 
       while(match = regxMention.exec(fullText)) {
-        if (mentionMap[match[0]]) {
-          lastIndex = regxMention.lastIndex;
+        beginIndex = lastIndex;
+        lastIndex = regxMention.lastIndex;
 
-          preStr = fullText.substring(beginIndex, lastIndex).replace(match[0] , match[1]);
-          msg = msg + preStr;
+        if (mentionMap[match[0]]) {
+          str = fullText.substring(beginIndex, lastIndex).replace(match[0] , match[1]);
+          msg = msg + str;
 
           beginIndex = lastIndex;
           data = {
@@ -116,6 +117,8 @@
           }
 
           mentions.push(data);
+        } else {
+          msg = msg + fullText.substring(beginIndex, lastIndex);
         }
       }
 
@@ -266,7 +269,7 @@
           extViewName: '[@' + jandiBot.name + ']',
           extSearchName: jandiBot.name,
           extProfileImage: memberService.getProfileImage(jandiBot.id),
-          extIsJandiBot: true, 
+          extIsJandiBot: true,
           id: jandiBot.id,
           type: 'member'
         });
