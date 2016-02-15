@@ -1,15 +1,16 @@
 <div class="image-item">
   <div class="image-container">
+
   </div>
   <div class="image-item-footer">
     <div class="info">
       <div class="info-1">
-        <span class="user-name">{{::userName}}</span>
+        <span class="user-name">{{::item.userName}}</span>
         <span class="upload-date">{{::uploadDate}}</span>
       </div>
       <div class="info-2">
         <div class="title">
-          <a ng-click="fileDetail(messageId, userName)"><span>{{::fileTitle}}</span></a>
+          <a ng-click="fileDetail()"><span>{{::item.fileTitle}}</span></a>
         </div>
       </div>
     </div>
