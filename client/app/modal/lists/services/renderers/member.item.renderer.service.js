@@ -9,7 +9,7 @@
     .service('MemberItemRenderer', MemberItemRenderer);
 
   /* @ngInject */
-  function MemberItemRenderer($filter, memberService) {
+  function MemberItemRenderer($filter, memberService, currentSessionHelper) {
     var _template;
 
     this.render = render;
@@ -28,18 +28,24 @@
      */
     function render(data, filterText) {
       data = _convertData(data);
+      var isAdmin = _isAdmin(data.id);
 
       return _template({
+        text: {
+          admin: $filter('translate')('@common-team-admin')
+        },
         html: {
           userName: $filter('typeaheadHighlight')(data.name, filterText)
         },
         css: {
+          admin: isAdmin ? 'admin' : '',
           memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : ''
         },
         profileImage: memberService.getProfileImage(data.id, 'small'),
         starClass: data.isStarred ? 'icon-star-on' : '',
         isShowStar: !data.isDeactive && data.id !== memberService.getMemberId(),
-        itemHeight: 44
+        itemHeight: 44,
+        isAdmin: isAdmin
       });
     }
 
@@ -56,6 +62,17 @@
         isStarred: data.isStarred,
         isDeactive: memberService.isDeactivatedMember(data)
       };
+    }
+
+    /**
+     * 해당 member 가 admin 인지 여부를 반환한다.
+     * @param {number} memberId
+     * @returns {boolean}
+     * @private
+     */
+    function _isAdmin(memberId) {
+      var admin = currentSessionHelper.getCurrentTeamAdmin();
+      return memberId === admin.id;
     }
   }
 })();

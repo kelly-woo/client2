@@ -36,6 +36,7 @@
       getBotList: getBotList,
       getJandiBot: getJandiBot,
       isLeavedTopic: isLeavedTopic,
+      getOwnerId: getOwnerId,
 
       addBot: addBot,
       updateBot: updateBot,
@@ -255,6 +256,15 @@
      */
     function isOwner(entity, memberId) {
       return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
+    }
+
+    /**
+     * 토픽(혹은 dm)의 생성자 id 를 반환한다
+     * @param {object} entity
+     * @returns {*}
+     */
+    function getOwnerId(entity) {
+      return (entity.ch_creatorId || entity.pg_creatorId);
     }
 
     /**
