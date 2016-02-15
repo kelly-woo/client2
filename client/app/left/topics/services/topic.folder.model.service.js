@@ -21,7 +21,7 @@
     var FOLDER_NAME = $filter('translate')('@folder-new');
     var _folderData = {};
     var _folderList = [];
-
+    var _deferred;
     this.create = create;
     this.push = push;
     this.remove = remove;
@@ -276,16 +276,53 @@
      * @returns {Promise}
      */
     function load() {
-      return $q.all([
-        TopicFolderAPI.getFolders().then(function(result) {
-          _raw.folderList = result.data;
-          _raw.folderMap = _.indexBy(_raw.folderList, 'id');
-        }),
-        TopicFolderAPI.getEntities().then(function(result) {
-          _raw.entityList = result.data;
-          _raw.entityMap = _.indexBy(_raw.entityList, 'id');
-        })
-      ]);
+      _deferred = $q.defer();
+      var promises = [];
+      promises.push(TopicFolderAPI.getFolders());
+      promises.push(TopicFolderAPI.getEntities());
+
+      return $q.all(promises)
+        .then(_onSuccessLoad, _onErrorLoad);
+    }
+
+    /**
+     * load fail 시 이벤트 핸들러
+     * @private
+     */
+    function _onErrorLoad(results) {
+      return _deferred;
+    }
+
+    /**
+     * load 성공시 이벤트 핸들러
+     * @param {Array} results
+     * @returns {*}
+     * @private
+     */
+    function _onSuccessLoad(results) {
+      _onSuccessGetFolders(results[0].data);
+      _onSuccessGetEntities(results[1].data);
+      return _deferred;
+    }
+
+    /**
+     * folder 정보 조회 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessGetFolders(response) {
+      _raw.folderList = response;
+      _raw.folderMap = _.indexBy(_raw.folderList, 'id');
+    }
+
+    /**
+     * entity 정보 조회 성공 콜백
+     * @param response
+     * @private
+     */
+    function _onSuccessGetEntities(response) {
+      _raw.entityList = response;
+      _raw.entityMap = _.indexBy(_raw.entityList, 'id');
     }
 
     /**
@@ -311,7 +348,7 @@
     function reload() {
       return load().then(function() {
         update();
-      });
+      }, null);
     }
 
     /**
