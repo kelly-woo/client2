@@ -10,6 +10,7 @@
 
   function imageCarousel($rootScope, $compile, $timeout, JndUtil, jndKeyCode, ImageCarousel) {
     var imageCarouselItemTpl = '<image-carousel-item></image-carousel-item>';
+
     return {
       restrict: 'A',
       link: link
@@ -274,23 +275,25 @@
             timerImageLoad = null;
           }
 
-          timerImageLoad = $timeout(function() {
-            var prevLoadedItem;
+          timerImageLoad = $timeout((function(type, index, offset) {
+            return function() {
+              var prevLoadedItem;
 
-            // 이전 image item이 출력되어 있다면 숨김
-            while(prevLoadedItem = prevLoadedItems.pop()) {
-              if (prevLoadedItem != null && scope.imageMap[prevLoadedItem].jqElement) {
-                scope.imageMap[prevLoadedItem].jqElement.hide().children('.image-item-footer').css('opacity', 0);
+              // 이전 image item이 출력되어 있다면 숨김
+              while(prevLoadedItem = prevLoadedItems.pop()) {
+                if (prevLoadedItem != null && scope.imageMap[prevLoadedItem].jqElement) {
+                  scope.imageMap[prevLoadedItem].jqElement.hide().children('.image-item-footer').css('opacity', 0);
+                }
               }
-            }
 
-            // image item을 출력함
-            _show(scope.pivot);
-          }, timerImageLoad == null ? 0 : 500);
+              // image item을 출력함
+              _show(scope.pivot);
+
+              _setMoreStatus(type, index, offset);
+            };
+          }(type, index, offset)) , timerImageLoad == null ? 0 : 500);
           prevLoadedItems.push(currentMessageId);
         }
-
-        _setMoreStatus(type, index, offset);
       }
 
       /**
@@ -307,12 +310,7 @@
           lockerMore = true;
 
           scope.getList(type, scope.pivot, function() {
-            var messageId = scope.pivot.messageId;
-            var index = scope.imageList.indexOf(messageId);
-
-            if (index === 0 || index === scope.imageList.length - 1) {
-              _setButtonStatus();
-            }
+            _setButtonStatus();
 
             // getList transaction end
             lockerMore = false;
