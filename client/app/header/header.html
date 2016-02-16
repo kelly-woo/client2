@@ -191,25 +191,26 @@
     <ul>
       <li>
         <a class="info-tool file-tool" ng-class="{active: toolbar.files}" ng-click="openRightPanel('files')"
-            tooltip="{{::'@common-files' | translate}}" tooltip-placement="bottom">
+            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom">
           <i class="icon-file"></i>
         </a>
       </li>
       <li>
         <a class="info-tool message-tool" ng-class="{active: toolbar.messages}" ng-click="openRightPanel('messages')"
-          tooltip="{{::'@common-message-search' | translate}}" tooltip-placement="bottom">
+          tooltip="{{::'@shortcut-messages' | translate}}" tooltip-placement="bottom">
           <i class="icon-chat"></i>
         </a>
       </li>
       <li>
         <a class="info-tool star-tool" ng-class="{active: toolbar.stars}" ng-click="openRightPanel('stars')"
-          tooltip="{{::'@common-star' | translate}}" tooltip-placement="bottom">
+          tooltip="{{::'@shortcut-stars' | translate}}" tooltip-placement="bottom">
           <i class="icon-star-off"></i>
         </a>
       </li>
       <li>
         <a class="info-tool mention-tool" ng-class="{active: toolbar.mentions}" ng-click="openRightPanel('mentions');"
-            tooltip="{{::'@common-mention' | translate}}" tooltip-placement="bottom">
+           tooltip="{{::'@shortcut-mentions' | translate}}" tooltip-placement="bottom"
+           tooltip-class="tooltip-right-menu-mention">
           <i class="icon-at"></i>
         </a>
       </li>
