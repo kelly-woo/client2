@@ -6,6 +6,14 @@
   bottom: 0;
   top: 78px;
 }
+.rpanel-body.star-list .search-result-summary-ing > span {
+  display: inline-block;
+}
+.rpanel-body.star-list .search-result-summary-ing .three-quarters-loader {
+  position: absolute;
+  top:39px;
+  left:-38px;
+}
 
 .star-list .nav-tabs > li {
   width: 50%;

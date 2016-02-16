@@ -9,3 +9,12 @@
 .rpanel .rpanel-body.mention-list .mention {
   line-height: 24px;
 }
+
+.rpanel-body.mention-list .search-result-summary-ing > span {
+  display: inline-block;
+}
+.rpanel-body.mention-list .search-result-summary-ing .three-quarters-loader {
+  position: absolute;
+  top:39px;
+  left:-38px;
+}
