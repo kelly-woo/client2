@@ -99,6 +99,8 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $stateParams, 
 
     response.refresh_token = refreshToken;
     storageAPIservice.setTokenCookie(response);
+
+    //현 시점에 $state 에 저장된 정보가 없기 때문에 hash 정보 변경 이벤트를 강제로 발생하여 routing 로직이 재실행 되도록 한다.
     window.location.hash = '';
     window.location.hash = hash;
   }
