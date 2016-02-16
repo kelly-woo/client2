@@ -47,11 +47,7 @@
      * @private
      */
     function putNewMarker(memberId, lastLinkId, localLastMessageId) {
-
       if (lastLinkId < 0) return;
-      if (memberId === memberService.getMemberId()) return;
-
-
       if (lastLinkId > localLastMessageId) {
         //console.log('was going to put a marker but current market is way to ahead.')
         markerOffset++;
