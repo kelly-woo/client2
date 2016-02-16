@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('imageCarouselItem', imageCarouselItem);
 
-  function imageCarouselItem($state, $filter, modalHelper, ImageCarousel) {
+  function imageCarouselItem($state, $filter, modalHelper, ImageCarousel, Loading) {
     return {
       restrict: 'E',
       replace: true,
@@ -21,6 +21,7 @@
 
     function link(scope, el) {
       var jqImageContainer = el.find('.image-container');
+      var jqLoading = Loading.getElement();
 
       _init();
 
@@ -30,11 +31,18 @@
        */
       function _init() {
         var item = scope.item;
-        var imageDimension = ImageCarousel.setPosition(el, item);
+        var imageDimension;
 
-        // 원본 이미지를 불러오기에 시간이 오래 걸리므로 우선 섬네일 이미지를 로드한다
-        _thumbnailLoad(item, imageDimension);
-        _imageLoad(item, imageDimension);
+        if (ImageCarousel.hasDimension(item)) {
+          imageDimension = ImageCarousel.setPosition(el, item);
+
+          // 원본 이미지를 불러오기에 시간이 오래 걸리므로 우선 섬네일 이미지를 로드한다
+          _thumbnailLoad(item, imageDimension);
+          _imageLoad(item, imageDimension);
+        } else {
+          _showLoading();
+          _imageLoad(item);
+        }
 
         scope.uploadDate = $filter('getyyyyMMddformat')(item.uploadDate);
         scope.downloadUrl = $filter('downloadFile')(false, item.fileTitle, item.fileUrl).downloadUrl;
@@ -70,9 +78,9 @@
 
           jqThumbnailImage.css({
             width: imageDimension.width,
-            height: imageDimension.height,
+            height: imageDimension.height
           })
-          .attr('src', imageItem.extraInfo.thumbnailUrl + '?size=640');
+          .attr('src', imageItem.extraInfo.thumbnailUrl + '?size=' + ImageCarousel.THUMBNAIL_IMAGE_SIZE);
 
           jqImageContainer.append(jqThumbnailImage);
         }
@@ -84,27 +92,35 @@
        * @private
        */
       function _imageLoad(imageItem, imageDimension) {
-        var fullFileUrl = $filter('getFileUrl')(imageItem.fileUrl);
-        var imageOptions = {
-          maxWidth: '100%',
-          orientation: imageItem.extraInfo && imageItem.extraInfo.orientation
-        };
-
-        loadImage(fullFileUrl, function(img) {
-          if (img.type === 'error') {
+        ImageCarousel.getImageElement(imageItem)
+          .then(function(img) {
+            setOriginalImage($(img), imageDimension);
+          }, function() {
             setNoImagePreview(el);
-          } else {
-            // img position 설정하고 출력
-            ImageCarousel.setPosition(el, scope.item, img);
+          })
+          .finally(function (){
+            _hideLoading();
+          });
+      }
 
-            jqImageContainer.empty().append(img);
-            $(img).css({
-              maxWidth: imageDimension.width,
-              maxHeight: imageDimension.height
-            })
-              .addClass('original-image-item');
-          }
-        }, imageOptions);
+      /**
+       * set original image
+       * @param {object} jqImg - original image element
+       * @param {object} imageDimension
+       */
+      function setOriginalImage(jqImg, imageDimension) {
+        jqImg.addClass('original-image-item');
+
+        if (!_.isObject(imageDimension)) {
+          // img position 설정하고 출력
+          imageDimension = ImageCarousel.setPosition(el, scope.item, jqImg);
+        }
+
+        jqImageContainer.empty().append(jqImg);
+        jqImg.css({
+          maxWidth: imageDimension.width,
+          maxHeight: imageDimension.height
+        });
       }
 
       /**
@@ -118,6 +134,24 @@
 
         jqImageItem.addClass('no-image-carousel').prepend(jqImg[0]);
         jqImg.css('opacity', 1);
+      }
+
+      /**
+       * show loading
+       * @private
+       */
+      function _showLoading() {
+        el.addClass('loading');
+        el.append(jqLoading);
+      }
+
+      /**
+       * hide loading
+       * @private
+       */
+      function _hideLoading() {
+        el.removeClass('loading');
+        jqLoading.remove();
       }
     }
   }

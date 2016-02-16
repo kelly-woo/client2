@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel() {
+  function ImageCarousel($q, $filter) {
     var that = this;
 
     // image item의 최소 크기
@@ -18,7 +18,100 @@
 
     var jqWindow = $(window);
 
+    that.THUMBNAIL_IMAGE_SIZE = 640;
+
+    that.preloadThumbnail = preloadThumbnail;
+    that.getImageElement = getImageElement;
     that.setPosition = setPosition;
+    that.hasDimension = hasDimension;
+
+    /**
+     * preload thumbnail
+     * @param {object} imageItem
+     */
+    function preloadThumbnail(imageItem) {
+      if (imageItem.extraInfo) {
+        $("<img />").attr("src", imageItem.extraInfo.thumbnailUrl + '?size=' + that.THUMBNAIL_IMAGE_SIZE);
+      }
+    }
+
+    /**
+     * get image element
+     * @param {object} imageItem
+     * @returns {deferred.promise|{then, always}}
+     */
+    function getImageElement(imageItem) {
+      var deferred = $q.defer();
+      var imageUrl = $filter('getFileUrl')(imageItem.fileUrl);
+      var imageOptions = {
+        maxWidth: '100%'
+      };
+
+      if (hasDimension(imageItem)) {
+        imageOptions.orientation = imageItem.extraInfo && imageItem.extraInfo.orientation;
+        _getImageHttpRequest(deferred, imageUrl, imageOptions);
+      } else {
+        _getImageBlobRequest(deferred, imageUrl, imageOptions);
+      }
+
+      return deferred.promise;
+    }
+
+    /**
+     * get image for http
+     * @param {object} deferred
+     * @param {string} imageUrl
+     * @param {object} imageOptions
+     * @private
+     */
+    function _getImageHttpRequest(deferred, imageUrl, imageOptions) {
+      loadImage(imageUrl, function(img) {
+        if (img.type === 'error') {
+          deferred.reject();
+        } else {
+          deferred.resolve(img);
+        }
+      }, imageOptions);
+    }
+
+    /**
+     * get image for blob
+     * @param {object} deferred
+     * @param {string} imageUrl
+     * @param {object} imageOptions
+     * @private
+     */
+    function _getImageBlobRequest(deferred, imageUrl, imageOptions) {
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('GET', imageUrl, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function() {
+        var that = this;
+        var blob = that.response;
+
+        if (that.status === 200) {
+          // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
+          loadImage.parseMetaData(blob, function(data) {
+            // 필요한 정보가 있을 경우
+            if (!!data.exif) {
+              imageOptions.orientation = data.exif.get('Orientation');
+            }
+
+            loadImage(blob, function(img) {
+              if (img.type === 'error') {
+                deferred.reject();
+              } else {
+                deferred.resolve(img);
+              }
+            });
+          });
+        } else {
+          deferred.reject();
+        }
+      };
+      xhr.send();
+    }
 
     /**
      * image element의 position 설정
@@ -117,7 +210,7 @@
       var height;
       var temp;
 
-      if (_hasDimension(imageItem)) {
+      if (hasDimension(imageItem)) {
         width = parseInt(imageItem.extraInfo.width, 10);
         height = parseInt(imageItem.extraInfo.height, 10);
 
@@ -150,7 +243,7 @@
      * @returns {boolean}
      * @private
      */
-    function _hasDimension(imageItem) {
+    function hasDimension(imageItem) {
       return !!(imageItem && imageItem.extraInfo && imageItem.extraInfo.width && imageItem.extraInfo.height);
     }
   }

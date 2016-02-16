@@ -9,7 +9,7 @@
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, modalHelper, EntityMapManager, data) {
+  function imageCarouselCtrl($scope, modalHelper, EntityMapManager, ImageCarousel, data) {
 
     _init();
 
@@ -143,14 +143,18 @@
      * image list에 추가 image item 추가
      * @param {string} messageId - 현재 출력중인 image item의 index
      * @param {string} type - get할 방향을 old 또는 new, both
-     * @param {array} data - server로 부터 전달받은 image list
+     * @param {object} imageItem
      * @private
      */
-    function pushImage(type, data) {
-      if ($scope.imageMap[data.messageId] == null) {
+    function pushImage(type, imageItem) {
+      if ($scope.imageMap[imageItem.messageId] == null) {
+
+        // carousel에 이미지 추가 하면서 navigation시 바로 thumbnail 이미지가 출력되도록 thumbnail을 preload 한다.
+        ImageCarousel.preloadThumbnail(imageItem);
+
         // type에 따라 image list에 추가되는 방향이 다름
-        type === 'prev' ? $scope.imageList.unshift(data.messageId) : $scope.imageList.push(data.messageId);
-        $scope.imageMap[data.messageId] = data;
+        type === 'prev' ? $scope.imageList.unshift(imageItem.messageId) : $scope.imageList.push(imageItem.messageId);
+        $scope.imageMap[imageItem.messageId] = imageItem;
       }
     }
   }
