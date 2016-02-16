@@ -5,9 +5,9 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
-  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil, EntityMapManager) {
+  analyticsService, tutorialService, currentSessionHelper, fileObjectService, jndWebSocket, jndPubSub, modalHelper,
+  UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q, NotificationManager,
+  topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil, EntityMapManager) {
 
   /**
    * @namespace
@@ -667,8 +667,6 @@ app.controller('leftPanelController1', function(
       modalHelper.openTopicJoinModal($scope);
     } else if (selector == 'channel') {
       modalHelper.openTopicCreateModal($scope);
-    } else if (selector == 'file') {
-      modalHelper.openFileUploadModal($scope, options);
     } else if (selector == 'topic') {
       modalHelper.openTopicCreateModal($scope);
     }
@@ -830,90 +828,6 @@ app.controller('leftPanelController1', function(
     }
   };
 
-
-
-  /*********************************************************************
-   *
-   *  FILE related controller
-   *
-   *********************************************************************/
-  $scope.$on('onFileSelect', function(event, files){
-    $scope.onFileSelect(files);
-  });
-
-  $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
-
-  // Callback function from file finder(navigation) for uploading a file.
-  $scope.onFileSelect = function($files, options) {
-    var currentEntity = currentSessionHelper.getCurrentEntity();
-    var fileUploader;
-    var jqMessageInput;
-    var messageInputValue;
-
-    if ($rootScope.fileUploader) {
-      fileUploader = $rootScope.fileUploader;
-
-      if (fileUploader.currentEntity.id !== currentEntity.id) {
-        // 다른 topic에서 upload를 시도함
-        $rootScope.fileUploader.clear();
-        $scope.onFileUploadAbortClick();
-
-        fileAPIservice.clearUploader();
-        $rootScope.curUpload = {};
-
-        fileUploader = undefined;
-      }
-    }
-
-    fileAPIservice.cancelClearCurUpload();
-
-    fileUploader = fileUploader || FilesUpload.createInstance();
-    fileUploader.currentEntity = currentEntity;
-
-    if (options == null) {
-      jqMessageInput = $('#message-input');
-      messageInputValue = jqMessageInput.val();
-      jqMessageInput.val('').trigger('change');
-
-      options = {
-        createFileObject: function(file) {
-          file.comment = messageInputValue;
-          return file;
-        }
-      };
-    }
-
-    fileUploader
-      .setFiles($files, options)
-      .then(function() {
-        if (fileUploader.fileLength() > 0) {
-          $rootScope.fileUploader = fileUploader;
-          $scope.openModal('file', {
-            fileUploader: fileUploader,
-            onEnd: function () {
-              fileAPIservice.clearUploader();
-              fileAPIservice.clearCurUpload();
-            }
-          });
-        }
-      });
-  };
-
-  $scope.onFileUploadAbortClick = function() {
-    if (angular.isUndefined($rootScope.fileQueue)) return;
-    $rootScope.fileQueue.abort('abort');
-    $rootScope.curUpload.progress = 0;
-    $rootScope.curUpload.isAborted = true;
-  };
-
-  $scope.onFileIconCloseClick = function() {
-    $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
-      function() {
-        $rootScope.curUpload = {};
-      }
-    )
-  };
-
   /*********************************************************************
    *
    *  Tutorial related controller
@@ -1022,23 +936,7 @@ app.controller('leftPanelController1', function(
     }
   }
 
-  /**
-   * 모든 file upload를 취소한다.
-   * @private
-   */
-  function _fileUploadAllClear() {
-    var currentEntity = currentSessionHelper.getCurrentEntity();
 
-    if ($rootScope.fileUploader) {
-      if ($rootScope.fileUploader.currentEntity.id === currentEntity.id) {
-        $rootScope.fileUploader.clear();
-        $scope.onFileUploadAbortClick();
-
-        fileAPIservice.clearUploader();
-        fileAPIservice.clearCurUpload();
-      }
-    }
-  }
 
   /**
    * upcate center chat

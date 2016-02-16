@@ -1,4 +1,6 @@
 .dnd-over-container	{
+  z-index:99999;
+  display: none;
   position: absolute;
   top:0;
   bottom:0;
