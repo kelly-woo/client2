@@ -6,15 +6,15 @@
 
   <!-- hide 된 announcement  -->
   <div class="announcement-horn jnd-text-center pull-right jnd-cursor-pointer"
-       ng-if="isAnnouncementHided();"
+       ng-if="displayStatus.hide"
        ng-click="toggleAnnouncementStatus();">
     <i class="icon-bullhorn"></i>
   </div>
 
 
   <div class="announcement-container common-announcement-size-padding"
-       ng-if="!isAnnouncementHided();"
-       ng-class="{'minimized': isAnnouncmentMinimized()}"
+       ng-if="!displayStatus.hide"
+       ng-class="{'minimized': displayStatus.minimized}"
        ng-click="onAnnouncementBodyClicked($event);">
 
 
@@ -22,8 +22,8 @@
     <div class="announcement-arrow-container jnd-cursor-pointer"
          ng-click="onAnnouncementArrowClicked();">
       <i class="announcement-minimize__arrow"
-         ng-class="{'icon-arrow-up': !isAnnouncmentMinimized(),
-                      'icon-arrow-down': isAnnouncmentMinimized()}"></i>
+         ng-class="{'icon-arrow-up': !displayStatus.minimized,
+                      'icon-arrow-down': displayStatus.minimized}"></i>
     </div>
 
     <!-- profile picture thumbnail  -->
@@ -54,11 +54,11 @@
         <div class="announcement-body">
 
           <p class="keep announcement-body__content"
-             ng-class="{'overflow-ellipsis': isAnnouncmentMinimized()}"
+             ng-class="{'overflow-ellipsis': displayStatus.minimized}"
              ng-bind-html="announcementBody"></p>
 
           <div class="announcement-creator jnd-text-right"
-               ng-if="!isAnnouncmentMinimized()">
+               ng-if="!displayStatus.minimized">
             By
             <span class="announcement-creator__name jnd-cursor-pointer"
                   ng-click="onAnnouncementCreatorClicked();">
@@ -75,7 +75,7 @@
 
     <!-- announcement 옵션들 -->
     <div class="announcement-option-container common-announcement-size-padding"
-         ng-if="!isAnnouncmentMinimized() && !isAnnouncementHided();">
+         ng-if="!displayStatus.minimized && !displayStatus.hide">
 
       <!-- 최소화하기 -->
       <div class="announcement-hide-container announcement-option pull-right jnd-cursor-pointer"
