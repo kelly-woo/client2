@@ -2,7 +2,7 @@
   width: inherit;
   overflow: visible;
   position: relative;
-
+  cursor: default;
 }
 
 .lpanel-user .lpanel-user__team {
@@ -43,6 +43,7 @@
 .lpanel-user__user {
   height: 53px;
   position: relative;
+  cursor: pointer;
 }
 
 .lpanel-user__avatar {
@@ -52,7 +53,7 @@
   float: left;
   width: 37px;
   height: 37px;
-  margin-right: 9px;
+  margin-right: 6px;
 }
 
 .lpanel-user__container {
@@ -64,11 +65,13 @@
 }
 .lpanel-user__position {
   font-size: 12px;
+  padding-left: 3px;
   width: 100%;
 }
 .lpanel-user__name {
   font-size: 14px;
   font-weight: 500;
+  padding-left: 3px;
   width: 100%;
 }
 

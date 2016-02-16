@@ -145,7 +145,8 @@
             dataType: 'jsonp',
             data: {
               access_token: accessToken,
-              active: isActive
+              active: isActive,
+              version: configuration.version
             },
             success: _onSuccessNotify
           });
@@ -200,9 +201,9 @@
         var version = ['0', '0', '0'];
         if (_.isString(versionStr)) {
           versionArr = versionStr.split('.');
-          version[0] = _getNumber(versionArr[0]) || version[0];
-          version[1] = _getNumber(versionArr[1]) || version[1];
-          version[2] = _getNumber(versionArr[2]) || version[2];
+          version[0] = _getNumber(versionArr[0]) || parseInt(version[0], 10);
+          version[1] = _getNumber(versionArr[1]) || parseInt(version[1], 10);
+          version[2] = _getNumber(versionArr[2]) || parseInt(version[2], 10);
         }
         return version;
       }
@@ -220,7 +221,7 @@
             version = version.substring(0, index) || '0';
           }
         }
-        return version;
+        return parseInt(version, 10);
       }
 
       /**

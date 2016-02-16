@@ -10,8 +10,8 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper, EntityMapManager) {
+  function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
+                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -22,6 +22,12 @@
     var lastMessageReadMarkerMap = {};
 
     var currentMember;
+
+    var thumbnailUrlMap = {
+      small: getSmallThumbnailUrl,
+      medium: getMediumThumbnailUrl,
+      large: getLargeThumbnailUrl
+    };
 
     var service = {
       updateCurrentMember: updateCurrentMember,
@@ -55,6 +61,7 @@
       getMediumThumbnailUrl: getMediumThumbnailUrl,
       getLargeThumbnailUrl: getLargeThumbnailUrl,
       getPhotoUrl: getPhotoUrl,
+      getProfileImage: getProfileImage,
 
       getNameById: getNameById,
 
@@ -77,9 +84,16 @@
       isActiveMember: isActiveMember,
       isDeactivatedMember: isDeactivatedMember,
       isDisabled: isDisabled,
-      isDeleted: isDeleted
-    };
+      isDeleted: isDeleted,
 
+      isMember: isMember,
+      isUser: isUser,
+      isBot: isBot,
+      isJandiBot: isJandiBot,
+      isConnectBot: isConnectBot,
+
+      isDefaultProfileImage: isDefaultProfileImage
+    };
 
     return service;
 
@@ -112,8 +126,8 @@
      * @param {object} member 업데이트 할 멤버
      * @returns {*}
      */
-    function updateProfile(member) {
-      return $http({
+    function updateProfile(member, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/profile',
         data: {
@@ -122,8 +136,9 @@
           department      :   member.u_extraData.department,
           position        :   member.u_extraData.position
         }
-      });
+      };
 
+      return $http(_.extend(requestConfig, options));
     }
 
     /**
@@ -209,14 +224,15 @@
      * @param {string} name 새로 지정할 이름
      * @returns {*}
      */
-    function setName(name) {
-      return $http({
+    function setName(name, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/name',
         data: {
           name: name
         }
-      });
+      };
+      return $http(_.extend(requestConfig, options));
     }
 
     /**
@@ -233,14 +249,15 @@
      * @param {string} email 새로 지정할 이메일
      * @returns {*}
      */
-    function setEmail(email) {
-      return $http({
+    function setEmail(email, options) {
+      var requestConfig = {
         method: 'PUT',
         url: $rootScope.server_address + 'members/' + this.getMemberId() + '/email',
         data: {
           email: email
         }
-      });
+      };
+      return $http(_.extend(requestConfig, options));
     }
 
     /**
@@ -300,7 +317,9 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
+        getPhotoUrl(member) ||
+        getProfileImage(member.id);
     }
 
     /**
@@ -312,7 +331,7 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.mediumThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -324,7 +343,7 @@
       if (_isNumber(member)) {
         member = EntityMapManager.get('total', member);
       }
-      return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
+      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -333,7 +352,28 @@
      * @returns {string} url - profile photo url
      */
     function getPhotoUrl(member) {
-      return member.u_photoUrl;
+      return JndUtil.pick(member, 'u_photoUrl');
+    }
+
+    /**
+     * member의 프로필 사진 주소를 리턴한다.
+     * @param {number} memberId
+     * @param {string} [size]
+     */
+    function getProfileImage(memberId, size) {
+      var member = EntityMapManager.get('member', memberId);
+      var profileImage;
+
+      if (member) {
+        if (isUser(member.id)) {
+          size = size || 'small';
+          profileImage = thumbnailUrlMap[size](member);
+        } else if (isBot(member.id)) {
+          profileImage = member.thumbnailUrl;
+        }
+      }
+
+      return profileImage;
     }
 
     /**
@@ -567,6 +607,63 @@
      */
     function isDeleted(member) {
       return member && member.status === 'deleted';
+    }
+
+    /**
+     * member 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isMember(memberId) {
+      return EntityMapManager.contains('member', memberId);
+    }
+
+    /**
+     * user 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isUser(memberId) {
+      return EntityMapManager.contains('user', memberId);
+    }
+
+    /**
+     * bot 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isBot(memberId) {
+      return EntityMapManager.contains('bot', memberId);
+    }
+
+    /**
+     * bot 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isJandiBot(memberId) {
+      var bot = EntityMapManager.get('bot', memberId);
+      return isBot(memberId) && bot && bot.botType === 'jandi_bot';
+    }
+
+    /**
+     * connect bot 인지 여부
+     * @param {number} memberId
+     * @returns {*|boolean|*}
+     */
+    function isConnectBot(memberId) {
+      var bot = EntityMapManager.get('bot', memberId);
+      return isBot(memberId) && bot && bot.botType === 'connect_bot';
+    }
+
+    /**
+     * default profile 인지 여부
+     * @param {string} user
+     * @returns {boolean}
+     */
+    function isDefaultProfileImage(profileImage) {
+      var regxExtention = /(\.[\w]{2,3})$/;
+      return !!profileImage && regxExtention.test(profileImage) && profileImage.indexOf('user_profile') > -1;
     }
   }
 })();

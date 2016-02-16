@@ -14,6 +14,10 @@
   margin-top: 5px;
   border-radius: 25px;
 }
+.quick-launcher-modal .room-item.jandi-bot img.room-type-image {
+  margin-top: 0;
+  border-radius: 0;
+}
 .quick-launcher-modal .room-item i.room-type-image {
   display: inline-block;
   vertical-align: middle;
@@ -31,15 +35,9 @@
   color: #888;
 }
 
-.quick-launcher-modal .unjoined-channel-label {
-  margin-left: 6px;
+.quick-launcher-modal .unjoined-status {
+  float: right;
   line-height: 32px;
-  padding: 2px 5px;
-  background-color: #eee;
-  color: #a7a7a7;
-  border-radius: 3px;
-  font-size: 13px;
-  font-weight: 600;
 }
 
 .quick-launcher-modal .room-item .badge {

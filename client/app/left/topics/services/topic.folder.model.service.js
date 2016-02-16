@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil) {
+                            JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil, TopicInvitedFlagMap) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -21,7 +21,7 @@
     var FOLDER_NAME = $filter('translate')('@folder-new');
     var _folderData = {};
     var _folderList = [];
-
+    var _deferred;
     this.create = create;
     this.push = push;
     this.remove = remove;
@@ -87,16 +87,17 @@
     /**
      * 생성 API 실패시 핸들러
      * @param {object} response - response 데이터
+     * @param {number} status - http status
      * @private
      */
-    function _onCreateFailed(response) {
+    function _onCreateFailed(response, status) {
       if (response.code === 40008) {
         Dialog.alert({
           body: $filter('translate')('@folder-name-taken')
         });
       } else {
         //todo: general error
-        JndUtil.alertUnknownError(response);
+        JndUtil.alertUnknownError(response, status);
       }
       reload();
     }
@@ -192,17 +193,17 @@
     /**
      * 수정 API 오류 발생 시 핸들러
      * @param {Object} response
+     * @param {number} status - http status
      * @private
      */
-    function _onModifyError(response) {
+    function _onModifyError(response, status) {
       //중복된 이름 존재
       if (response.code === 40008) {
         Dialog.alert({
           body: $filter('translate')('@folder-name-taken')
         });
-        //alert($filter('translate')('@folder-name-taken'));
       } else {
-        JndUtil.alertUnknownError(response);
+        JndUtil.alertUnknownError(response, status);
       }
       reload();
     }
@@ -224,6 +225,7 @@
             tempEntity.extIsCurrent = (+tempEntity.id === +(currentEntity && currentEntity.id));
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
+            tempEntity.extHasInvitedFlag = TopicInvitedFlagMap.isInvited(entity.roomId);
             entityList.push(tempEntity);
           }
         }
@@ -274,16 +276,53 @@
      * @returns {Promise}
      */
     function load() {
-      return $q.all([
-        TopicFolderAPI.getFolders().then(function(result) {
-          _raw.folderList = result.data;
-          _raw.folderMap = _.indexBy(_raw.folderList, 'id');
-        }),
-        TopicFolderAPI.getEntities().then(function(result) {
-          _raw.entityList = result.data;
-          _raw.entityMap = _.indexBy(_raw.entityList, 'id');
-        })
-      ]);
+      _deferred = $q.defer();
+      var promises = [];
+      promises.push(TopicFolderAPI.getFolders());
+      promises.push(TopicFolderAPI.getEntities());
+
+      return $q.all(promises)
+        .then(_onSuccessLoad, _onErrorLoad);
+    }
+
+    /**
+     * load fail 시 이벤트 핸들러
+     * @private
+     */
+    function _onErrorLoad(results) {
+      return _deferred;
+    }
+
+    /**
+     * load 성공시 이벤트 핸들러
+     * @param {Array} results
+     * @returns {*}
+     * @private
+     */
+    function _onSuccessLoad(results) {
+      _onSuccessGetFolders(results[0].data);
+      _onSuccessGetEntities(results[1].data);
+      return _deferred;
+    }
+
+    /**
+     * folder 정보 조회 성공 콜백
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessGetFolders(response) {
+      _raw.folderList = response;
+      _raw.folderMap = _.indexBy(_raw.folderList, 'id');
+    }
+
+    /**
+     * entity 정보 조회 성공 콜백
+     * @param response
+     * @private
+     */
+    function _onSuccessGetEntities(response) {
+      _raw.entityList = response;
+      _raw.entityMap = _.indexBy(_raw.entityList, 'id');
     }
 
     /**
@@ -309,7 +348,7 @@
     function reload() {
       return load().then(function() {
         update();
-      });
+      }, null);
     }
 
     /**
@@ -388,16 +427,17 @@
     /**
      * push 메서드 실패시 이벤트 핸들러
      * @param {object} response
+     * @param {number} status
      * @private
      */
-    function _onPushError(response) {
+    function _onPushError(response, status) {
       if (response) {
         if (response.code === 40016) {
           Dialog.alert({
             body: $filter('translate')('@folder-item-already-exists')
           });
         } else {
-          JndUtil.alertUnknownError(response);
+          JndUtil.alertUnknownError(response, status);
         }
       }
       reload();

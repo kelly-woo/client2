@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('jndSelectboxRoom', jndSelectboxRoom);
 
-  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil) {
+  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil, jndPubSub,
+                            memberService) {
     return {
       restrict: 'AE',
       link: link,
@@ -28,6 +29,7 @@
     function link(scope, el, attrs) {
       var _lastKeyword = '';
       var _filterMap;
+      var TOGGLE_DISABLE_SCROLL_DURATION = 500;
       scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
@@ -46,6 +48,15 @@
         _initializeData();
         _attachEvents();
         _attachDomEvents();
+      }
+
+      /**
+       * 필터를 reset 한다.
+       * @private
+       */
+      function _resetFilter() {
+        _initializeFilter();
+        _initializeData();
       }
 
       /**
@@ -71,6 +82,7 @@
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch('selectedValue', _setSelectedName);
+        scope.$watch('list', _resetFilter)
       }
 
       /**
@@ -94,7 +106,9 @@
        * @private
        */
       function _setSelectedName() {
-        scope.selectedName = _getSelectedName();
+        JndUtil.safeApply(scope, function() {
+          scope.selectedName = _getSelectedName();
+        });
       }
 
       /**
@@ -116,10 +130,38 @@
        * @private
        */
       function _getSelectedName() {
-        var selectedEntity = _.find(_getAllEntities(), function(entity) {
-          return entity.id === scope.selectedValue;
-        });
-        return selectedEntity ? selectedEntity.name : $filter('translate')('@option-all-rooms');
+        var name;
+        var entityList;
+        var selectedEntity;
+        if (scope.selectedValue) {
+          selectedEntity = _.find(_getAllEntities(), function(entity) {
+            if (_filterMap) {
+              return _filterMap[entity.id] && entity.id === scope.selectedValue;
+            } else {
+              return entity.id === scope.selectedValue;
+            }
+          });
+        }
+        if (selectedEntity) {
+          name = selectedEntity.name;
+        } else {
+          if (scope.hasAll) {
+            name = $filter('translate')('@option-all-rooms');
+          } else {
+            _.forEach(scope.folderData.folderList, function(folder) {
+              entityList = $filter('orderBy')(folder.entityList, ['isStarred', '-name'], true);
+              _.forEach(entityList, function (entity) {
+                name = entity.name;
+                scope.selectedValue = entity.id;
+                return false;
+              });
+              if (name) {
+                return false;
+              }
+            });
+          }
+        }
+        return name;
       }
 
       /**
@@ -201,7 +243,35 @@
        * 차단 사용자 노출 여부를 toggle 한다
        */
       function toggleDisabled() {
-        scope.isShowDisabled = !scope.isShowDisabled;
+        var jqDisabledList = el.find('.menulist-item-block');
+        if (scope.isShowDisabled) {
+          jqDisabledList.stop().slideUp(TOGGLE_DISABLE_SCROLL_DURATION, function() {
+            JndUtil.safeApply(scope, function() {
+              scope.isShowDisabled = !scope.isShowDisabled;
+            });
+          });
+        } else {
+          scope.isShowDisabled = true;
+          setTimeout(_scrollToDisable, 50);
+        }
+      }
+
+      /**
+       * disable list 를 슬라이드 하여 노출한다
+       * @private
+       */
+      function _scrollToDisable() {
+        var memberData = _getMemberData();
+        var jqDisabledBtn = el.find('.toggle-menulist');
+        var jqContainer = el.find('._container');
+        var scrollTop = jqContainer.scrollTop();
+        var currentOffsetTop = jqDisabledBtn.offset().top;
+        var offsetTop = jqContainer.offset().top;
+        jqContainer.stop().animate({
+          scrollTop: scrollTop + (currentOffsetTop - offsetTop)
+        }, TOGGLE_DISABLE_SCROLL_DURATION, 'swing', function() {
+          jndPubSub.pub('custom-focus:focus-value', memberData.disabledList[0].id)
+        });
       }
 
       /**
@@ -222,15 +292,22 @@
        * @private
        */
       function _getMemberData() {
+        var currentMemberId = memberService.getMemberId();
         var memberMap = EntityMapManager.getMap('member');
         var enabledList = [];
         var disabledList = [];
         _.each(memberMap, function(member) {
           if (!_filterMap || (_filterMap && _filterMap[member.id])) {
-            if (publicService.isDisabledMember(member)) {
-              disabledList.push(member);
-            } else {
-              enabledList.push(member)
+            if(currentMemberId !== member.id && !memberService.isConnectBot(member.id)) {
+              if (publicService.isDisabledMember(member)) {
+                disabledList.push(member);
+              } else {
+                if (memberService.isJandiBot(member.id)) {
+                  enabledList.unshift(member);
+                } else {
+                  enabledList.push(member);
+                }
+              }
             }
           }
         });
@@ -270,10 +347,18 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(_getAllEntities(), function (entity) {
-              start = entity.name.toLowerCase().search(keyword);
+              start = entity.name.toLowerCase().indexOf(keyword);
               if (start !== -1) {
-                entity.extSearchName = _highlight(entity.name, start, keyword.length);
-                result.push(entity);
+                if (scope.isShowDisabled) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  if (publicService.isDisabledMember(entity)) {
+                    entity.extSearchName = '<del>' + entity.extSearchName + '</del>';
+                  }
+                  result.push(entity);
+                } else if (!publicService.isDisabledMember(entity)) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  result.push(entity);
+                }
               }
             });
           }
@@ -287,6 +372,7 @@
        * @private
        */
       function _getAllEntities() {
+        var id;
         var allEntities = _.extend(
           EntityMapManager.getMap('joined'),
           EntityMapManager.getMap('private'),
@@ -297,6 +383,12 @@
             return _filterMap[entity.id];
           });
         }
+
+        allEntities = _.filter(allEntities, function(entity) {
+          id = entity.id;
+          return !memberService.isConnectBot(id) && id !== memberService.getMemberId();
+        });
+
         return allEntities;
       }
 

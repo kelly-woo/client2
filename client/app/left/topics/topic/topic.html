@@ -3,18 +3,18 @@
      data-ng-click="onStarClick(currentRoom.type, currentRoom.id);
                           $event.preventDefault(); $event.stopPropagation();"></i>
 
-    <span class="inline-overflow-ellipsis left-panel__name"
+    <span class="inline-overflow-ellipsis left-panel__name private-effect"
           ng-class="{'has-unread-msg': currentRoom.alarmCnt > 0, 'with-bell': isNotificationOff}"
           ng-mouseenter="onTooltipShow($event, currentRoom.name)"
           ng-mouseleave="onTooltipHide($event)"
           tooltip="{{tooltip}}"
           tooltip-placement="right-center-topic-title"
-          tooltip-append-to-body="true"
-          tooltip-trigger="show">
+          tooltip-append-to-body="true">
 
         {{currentRoom.name}}
     </span>
 
+  <i class="noti-indicator"></i>
   <i class="icon-lock topic-setting-icon" ng-if="currentRoom.type=='privategroups'"></i>
   <i class="off-topic-notification-indicator icon-bell-slash topic-setting-icon" ng-if="isNotificationOff"></i>
 

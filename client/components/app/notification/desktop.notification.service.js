@@ -97,9 +97,24 @@
      * @private
      */
     function _initHybridSetting() {
+      var isNotificationOnLocallyFlag;
+      var isShowNotificationContentFlag;
+
+      _loadLocalNotificationFlag();
+      _loadShowNotificationContentFlag();
+
       notificationPermission = 'granted';
-      _onNotificationSettingChanged();
+      isShowNotificationContentFlag = isShowNotificationContent;
+      isNotificationOnLocallyFlag = isNotificationOnLocally;
+
       _onPermissionGranted();
+      /*
+        _onPermissionGranted 에서 isShowNotificationContent, isNotificationOnLocally 값을 강제 true 로 설정하므로,
+        해당 값을 localStorage 값으로 다시 설정 한다
+       */
+      _storeLocalNotificationFlag(isNotificationOnLocallyFlag);
+      setShowNotificationContent(isShowNotificationContentFlag);
+      _onNotificationSettingChanged();
     }
 
     /**
@@ -182,8 +197,7 @@
      * @private
      */
     function _setDesktopNotificationLocally(newNotificationLocalValue) {
-      isNotificationOnLocally = newNotificationLocalValue;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(newNotificationLocalValue);
     }
 
     /**
@@ -231,8 +245,7 @@
     function _onPermissionGranted() {
       _resetNeverAskFlag();
       setShowNotificationContent(true);
-      isNotificationOnLocally = true;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(true);
     }
 
     /**
@@ -241,8 +254,7 @@
      */
     function _onPermissionDenied() {
       setShowNotificationContent(false);
-      isNotificationOnLocally = false;
-      _storeLocalNotificationFlag();
+      _storeLocalNotificationFlag(false);
     }
 
     /**
@@ -299,9 +311,11 @@
 
     /**
      * isNotificationOnLocally 을 local storage 에 저장한다.
+     * @param {boolean} flag
      * @private
      */
-    function _storeLocalNotificationFlag() {
+    function _storeLocalNotificationFlag(flag) {
+      isNotificationOnLocally = !!flag;
       localStorageHelper.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
     }
 
@@ -311,7 +325,8 @@
      * @private
      */
     function _loadLocalNotificationFlag() {
-      isNotificationOnLocally = _getBoolean(localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY));
+      var value = localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY);
+      isNotificationOnLocally = value ? _getBoolean(value) : true;
     }
 
     /**
@@ -391,7 +406,7 @@
           options = _getOptionsForMessage(data, isUser, writerEntity, roomEntity, message);
         }
 
-        options.icon = $filter('getSmallThumbnail')(writerEntity);
+        options.icon = memberService.getProfileImage(writerEntity.id, 'small');
 
         (notification = _createInstance(options)) && notification.show();
       }
@@ -614,7 +629,7 @@
       var isUser = roomEntity.type === 'users';
 
       if (_validateNotificationParams(socketEvent, writerEntity, roomEntity)) {
-        options.icon = $filter('getSmallThumbnail')(writerEntity);
+        options.icon = memberService.getProfileImage(writerEntity.id, 'small');
         message = decodeURIComponent(socketEvent.message);
 
         if (isShowNotificationContent) {

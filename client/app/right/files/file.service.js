@@ -2,15 +2,34 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, configuration,
-                                       memberService, entityAPIservice, storageAPIservice) {
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, $q, configuration,
+                                       memberService, entityAPIservice, storageAPIservice, Preloader) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
     'dropbox': true
   };
+
+  var filterTypePreviewMap = {
+    audio: '../assets/images/preview_audio.png',
+    video:'../assets/images/preview_video.png',
+    pdf: '../assets/images/preview_pdf.png',
+    hwp: '../assets/images/preview_hwp.png',
+    zip: '../assets/images/preview_zip.png',
+    document: '../assets/images/preview_document.png',
+    spreadsheet: '../assets/images/preview_spreadsheet.png',
+    presentation: '../assets/images/preview_presentation.png',
+
+    google: '../assets/images/preview_google_docs.png',
+    dropbox: '../assets/images/preview_dropbox.png',
+
+    etc: '../assets/images/preview_other.png'
+  };
+
   var fileDetail;
   var _timerClearCurUpload;
+
+  _init();
 
   this.upload = upload;
   this.abort = abort;
@@ -44,6 +63,14 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.dataURItoBlob = dataURItoBlob;
 
   this.broadcastCommentFocus = broadcastCommentFocus;
+
+  this.getFilterTypePreviewMap = getFilterTypePreviewMap;
+
+  this.getImageDataByFile = getImageDataByFile;
+
+  function _init() {
+    Preloader.img(getFilterTypePreviewMap());
+  }
 
   function upload(files, fileInfo, supportHTML, uploadType) {
     var url;
@@ -104,14 +131,30 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     });
   }
 
+  /**
+   * requset file detail
+   * @param {number|string} fileId
+   * @returns {*}
+   */
   function getFileDetail(fileId) {
-    return $http({
+    var abortDeferred = $q.defer();
+    var request = $http({
       method  : 'GET',
       url     : $rootScope.server_address + 'messages/' + fileId,
       params  : {
         teamId: memberService.getTeamId()
-      }
+      },
+      timeout: abortDeferred.promise
     });
+
+    request.abort = function() {
+      abortDeferred.resolve();
+    };
+    request.finally(function() {
+      request.abort = angular.noop;
+    });
+
+    return request;
   }
 
   /**
@@ -255,7 +298,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   // No exception.
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
-
+    var jandiBot = entityAPIservice.getJandiBot();
     _.each(memberList, function(member, index) {
       if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
@@ -264,7 +307,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
-
+    if (jandiBot) {
+      enabledMemberList.unshift(entityAPIservice.getJandiBot());
+    }
     return joinedChannelList.concat(enabledMemberList);
   }
 
@@ -318,9 +363,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         // If I don't have it in my 'totalEntities', it means entity is 'archived'.
         // Just return from here;
       } else {
-        if( sharedEntity.type == 'privategroups' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
+        if( sharedEntity.type == 'privategroups' && entityAPIservice.isUser(sharedEntity, $rootScope.member) ||
           sharedEntity.type == 'channels' ||
-          sharedEntity.type == 'users' )  {
+          memberService.isMember(sharedEntity.id))  {
 
           sharedEntityArray.push(sharedEntity)
         }
@@ -383,16 +428,19 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   }
 
   function generateFileTypeFilter() {
+    var translate = $filter('translate');
+
     var array = [
-      {viewValue: $filter('translate')('@common-file-type-all'), value: 'all'},
-      {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'},
-      {viewValue: $filter('translate')('@common-file-type-documents'), value: 'document'},
-      {viewValue: $filter('translate')('@common-file-type-presentations'), value: 'presentation'},
-      {viewValue: $filter('translate')('@common-file-type-spreadsheets'), value: 'spreadsheet'},
-      {viewValue: $filter('translate')('@common-file-type-pdf'), value: 'pdf'},
-      {viewValue: $filter('translate')('@common-file-type-images'), value: 'image'},
-      {viewValue: $filter('translate')('@common-file-type-video'), value: 'video'},
-      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'}
+      {viewValue: translate('@common-file-type-all'), value: 'all'},
+      {viewValue: translate('@common-file-type-google-docs'), value: 'googleDocs'},
+      {viewValue: translate('@common-file-type-documents'), value: 'document'},
+      {viewValue: translate('@common-file-type-presentations'), value: 'presentation'},
+      {viewValue: translate('@common-file-type-spreadsheets'), value: 'spreadsheet'},
+      {viewValue: translate('@common-file-type-pdf'), value: 'pdf'},
+      {viewValue: translate('@common-file-type-images'), value: 'image'},
+      {viewValue: translate('@common-file-type-video'), value: 'video'},
+      {viewValue: translate('@common-file-type-audio'), value: 'audio'},
+      {viewValue: translate('@common-file-type-archive'), value: 'archive'}
     ];
     return array;
   }
@@ -453,4 +501,39 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       fileDetail = value;
     }
   });
+
+  /**
+   * filter type preview map을 전달한다.
+   * @returns {*}
+   */
+  function getFilterTypePreviewMap() {
+    return filterTypePreviewMap;
+  }
+
+  /**
+   * get image data
+   * @param {object} file
+   * @returns {deferred.promise|{then, always}}
+   */
+  function getImageDataByFile(file) {
+    var deferred = $q.defer();
+    var orientation;
+
+    if (file) {
+      loadImage.parseMetaData(file, function(data) {
+        if (data.exif) {
+          orientation = data.exif.get('Orientation');
+        }
+
+        loadImage(file, function(img) {
+          deferred.resolve(img);
+        }, {
+          canvas: true,
+          orientation: orientation
+        });
+      });
+    }
+
+    return deferred.promise;
+  }
 });

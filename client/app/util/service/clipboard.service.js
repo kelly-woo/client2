@@ -68,8 +68,13 @@
        */
       _flashClip: function(text) {
         var that = this;
-        var client = new ZeroClipboard(that.ele);
+        var client;
 
+        ZeroClipboard.config({
+          swfPath:'../bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+        });
+
+        client = new ZeroClipboard(that.ele);
         client.on('ready', function(event) {
             client.on('copy', function(event) {
                 var text;

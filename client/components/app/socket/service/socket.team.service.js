@@ -22,6 +22,7 @@
 
     var TEAM_DELETED = 'team_deleted';
     var TEAM_LEFT = 'team_left';
+    var TEAM_UPDATED = 'team_updated';
 
     var events = [
       //{
@@ -34,19 +35,28 @@
       //},
       {
         name: TEAM_NAME_UPDATED,
+        version: 1,
         handler: _onTeamNameUpdated
       },
       {
         name: TEAM_DOMAIN_UPDATED,
+        version: 1,
         handler: _onTeamDomainUpdated
       },
       {
         name: TEAM_DELETED,
+        version: 1,
         handler: _onTeamDeleted
       },
       {
         name: TEAM_LEFT,
+        version: 1,
         handler: _onTeamLeft
+      },
+      {
+        name: TEAM_UPDATED,
+        version: 1,
+        handler: _onTeamUpdated
       }
     ];
 
@@ -158,6 +168,15 @@
         // 내가 현재 팀을 나갔을 경우
         publicService.redirectToMain();
       }
+    }
+
+    /**
+     * 현재 팀 정보가 변경되었을 경우
+     * @param {object} socketEvent - socket event param
+     * @private
+     */
+    function _onTeamUpdated(socketEvent) {
+      jndPubSub.pub('jndWebSocketTeam:teamUpdated', socketEvent);
     }
   }
 })();

@@ -1,0 +1,62 @@
+.integration-list-container {
+  /*display: none;*/
+
+  padding-top: 4px;
+  padding-bottom: 4px;
+  min-height: 100%;
+  background-color: #FFF;
+}
+
+.active-service {
+  width: 100%;
+  position: relative;
+  margin-bottom: 4px;
+
+}
+.active-service.collapsed .icon-angle-up {
+  -webkit-transform:rotate(180deg);
+  -moz-transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -ms-transform:rotate(180deg);
+  transform:rotate(180deg);
+}
+
+.service-title {
+  padding: 11px 12px 11px 44px;
+  position: relative;
+}
+.service-title .icon-angle-up {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 12px;
+  color: #B0B0B0;
+
+  -webkit-transition: -webkit-transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz--transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -o-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  -moz-transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+  transition: transform cubic-bezier(0.25,1.075,.48,1.235) 350ms, color ease-in-out 200ms;
+}
+.service-title:hover {
+  background-color: #F1F4F8;
+}
+.service-title:hover .icon-angle-up {
+  color: #555;
+}
+
+.icon-service-logo {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  display: block;
+  top: 5px;
+  left: 10px;
+}
+
+.active-service-name {
+  font-weight: 700;
+  font-size: 13px;
+  color:#6E6E6E;
+  line-height: 1;
+}

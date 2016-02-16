@@ -24,6 +24,7 @@
     };
 
     function link(scope, el, attrs) {
+      var jqStickerPanel = el.find('.sticker_panel');
       var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
 
@@ -41,7 +42,7 @@
 
         scope.onToggled = onToggled;
 
-         _setStickerPanelSize();
+        _setStickerPanelSize();
         _attachDomEvents();
       }
 
@@ -91,9 +92,20 @@
        */
       function onToggled(isOpen) {
         if (isOpen) {
+          jqStickerPanel.addClass('open');
+          setTimeout(function() {
+            jqStickerPanel.addClass('vivid');
+          }, 30);
+
           scope.select();
-          jqStickerPanelBtn.attr('tabIndex', -1)
+          jqStickerPanelBtn.attr('tabIndex', -1);
         } else {
+          jqStickerPanel.removeClass('vivid');
+          jqStickerPanel.one('transitionend', function() {
+            jqStickerPanel.removeClass('open');
+          });
+
+          scope.resetRecentStickers();
           jqStickerPanelBtn.removeAttr('tabIndex');
         }
       }

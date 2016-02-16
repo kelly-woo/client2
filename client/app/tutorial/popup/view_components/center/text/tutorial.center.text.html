@@ -15,7 +15,7 @@
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <img ng-if="msg.contentType === 'sticker'"  class="sticker size_5" src="{{ msg.content }}"/>
+        <img ng-if="msg.contentType === 'sticker'"  class="sticker size_5" ng-src="{{ msg.content }}"/>
         <span ng-if="msg.contentType === 'text'" class="keep msg-text-body" ng-bind-html="(msg.content) || ''"></span>
         <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
         <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>

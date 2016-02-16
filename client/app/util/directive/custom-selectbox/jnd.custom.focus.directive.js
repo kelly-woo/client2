@@ -44,6 +44,7 @@
      function _attachEvents() {
        scope.$on('custom-focus:blur', _blur);
        scope.$on('custom-focus:focus', _onFocus);
+       scope.$on('custom-focus:focus-value', _onFocusByValue);
        scope.$on('custom-focus:focus-next', _focusNext);
        scope.$on('custom-focus:focus-prev', _focusPrev);
      }
@@ -130,12 +131,36 @@
       * @private
       */
      function _initialSelect() {
+       var jqTarget;
        if (scope.selectedValue) {
-         _focusByValue(scope.selectedValue);
-       } else {
-         _focus();
+         jqTarget = _getTargetByValue(scope.selectedValue);
        }
+
+       _focus(jqTarget);
+       _toScrollTop();
+
        _select(_jqCurrent, true);
+     }
+
+     /**
+      * value 값으로 해당 element 를 반환한다
+      * @param {number|string} value
+      * @returns {*}
+      * @private
+      */
+     function _getTargetByValue(value) {
+       var jqList = el.find('._selectable');
+       var jqEl;
+       var jqTarget = jqList.eq(0);
+
+       _.forEach(jqList, function (el, index) {
+         jqEl = angular.element(el);
+         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
+           jqTarget = jqEl;
+           return false;
+         }
+       });
+       return jqTarget;
      }
 
      /**
@@ -182,6 +207,16 @@
       */
      function _onFocus(angularEvent, jqTarget) {
        _focus(jqTarget);
+     }
+
+     /**
+      * value 값을 이용하여 focus 한다
+      * @param {object} angularEvent
+      * @param {number|string} value
+      * @private
+      */
+     function _onFocusByValue(angularEvent, value) {
+       _focus(_getTargetByValue(value));
      }
 
      /**
@@ -266,27 +301,6 @@
      }
 
      /**
-      * 인자로 받은 value 에 해당하는 엘리먼트에 focus 처리한다
-      * @param {string|number} value
-      * @private
-      */
-     function _focusByValue(value) {
-       var jqList = el.find('._selectable');
-       var jqEl;
-       var jqTarget = jqList.eq(0);
-
-       _.forEach(jqList, function (el, index) {
-         jqEl = angular.element(el);
-         if (jqEl.scope().item && jqEl.scope().item[scope.key] == value) {
-           jqTarget = jqEl;
-           return false;
-         }
-       });
-
-       _focus(jqTarget);
-     }
-
-     /**
       * scroll 위치를 조정한다
       * @private
       */
@@ -295,6 +309,23 @@
        var scrollTop = jqContainer.scrollTop();
        if (jqContainer.length) {
          jqContainer.scrollTop(scrollTop + _getDifference());
+       }
+     }
+
+     /**
+      * 최 상단 scroll 로 돌아가도록 수정
+      * @param {object} jqTarget
+      * @private
+      */
+     function _toScrollTop(jqTarget) {
+       jqTarget = jqTarget || _jqCurrent;
+       var jqContainer = jqTarget.closest('._container');
+       var scrollTop = jqContainer.scrollTop();
+       var currentOffset = jqTarget.offset();
+       var offset = jqContainer.offset();
+       var difference = currentOffset.top - offset.top;
+       if (jqContainer.length) {
+         jqContainer.scrollTop(scrollTop + difference);
        }
      }
 

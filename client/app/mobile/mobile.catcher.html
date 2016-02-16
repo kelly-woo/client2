@@ -1,16 +1,7 @@
-
-<div class="mobile-catcher">
-    <img class="signin-mobile-background-img" ng-src="assets/images/ld-main-mobile.png"/>
-
+<div class="mobile-view">
+    <img class="signin-mobile-bg-img" ng-src="assets/images/header-signature-mobile.svg"/>
 
     <div id="download">
-        <span class="download-title" translate>@common-has-jandi-app</span>
-        <button class="btn bt_next btn-ok" data-ng-click="toMobileApplication()">
-            <span translate>@common-start-using-mobile</span>
-        </button>
-
-        <hr>
-
         <h1>
             <span translate>@landing-footer-app-download</span>
         </h1>
@@ -52,6 +43,14 @@
                 <img class="google_badge" ng-if="preferences.language == ('zh_TW')" src="assets/images/badge_android_tw.svg" alt="Get it on Google Play">
             </a>
         </div>
+
+        <img class="signin-mobile-line" ng-src="assets/images/gm_line.svg"/>
+
+        <span class="download-title" translate>@common-has-jandi-app</span>
+        <button class="btn bt_next btn-ok" data-ng-click="toMobileApplication()">
+            <span translate>@common-start-using-mobile</span>
+        </button>
+
     </div>
 
 </div>

@@ -11,8 +11,8 @@
     .service('modalHelper', modalWindowHelper);
 
   /* @ngInject */
-  function modalWindowHelper($rootScope, $modal, $filter, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser) {
+  function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil) {
 
     var that = this;
 
@@ -36,8 +36,8 @@
     that.openTeamMemberListModal = openTeamMemberListModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
-    that.openCurrentMemberModal = openCurrentMemberModal;
-    that.openMemberProfileModal = openMemberProfileModal;
+    that.openUserProfileModal = openUserProfileModal;
+    that.openBotProfileModal = openBotProfileModal;
 
     that.openImageCarouselModal = openImageCarouselModal;
     that.openFullScreenImageModal = openFullScreenImageModal;
@@ -50,7 +50,8 @@
     that.openPrivacyModal = openPrivacyModal;
 
     that.openQuickLauncherModal = openQuickLauncherModal;
-
+    that.openShortcutModal = openShortcutModal;
+    that.openBotProfileSettingModal = openBotProfileSettingModal;
     that.closeModal = closeModal;
 
     /**
@@ -81,8 +82,10 @@
       var modalOption;
       var selectOptions;
 
-      selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-      selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
+      selectOptions = fileAPIservice.getShareOptions(
+        $rootScope.joinedEntities,
+        currentSessionHelper.getCurrentTeamUserList()
+      );
 
       if (!selectOptions.length) {
         Dialog.warning({
@@ -103,9 +106,9 @@
             }
           }
         }
-      };
+      }
       _modalOpener(modalOption);
-      _safeApply($scope);
+      //_safeApply($scope);
     }
 
     /**
@@ -127,6 +130,28 @@
       };
       _modalOpener(modalOption);
     }
+
+    /**
+     *
+     * @param $scope
+     * @param files
+     */
+    function openBotProfileSettingModal($scope, imageData) {
+      var modalOption = {
+        scope: $scope,
+        templateUrl: 'app/modal/connect/bot.profile.setting.html',
+        controller: 'BotProfileSettingCtrl',
+        size: 'lg',
+        windowClass: 'profile-view-modal',
+        resolve: {
+          imageData: function() {
+            return imageData;
+          }
+        }
+      };
+      _modalOpener(modalOption);
+    }
+
     /**
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
@@ -139,7 +164,11 @@
         autofocus: '#topic-create-name',
         resolve: {
           topicName: function () {
-            return (options && options.topicName) || '';
+            return JndUtil.pick(options, 'topicName') || '';
+          },
+          isEnterTopic: function() {
+            var isEnterTopic = JndUtil.pick(options, 'isEnterTopic');
+            return _.isBoolean(isEnterTopic) ? isEnterTopic : true;
           }
         }
       };
@@ -267,35 +296,38 @@
     }
 
     /**
-     * 현재 나의 프로필을 수정/확인 할 수 있는 모달창을 연다.
-     * @param $scope
-     */
-    function openCurrentMemberModal($scope) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/members/current_member_profile/current.member.profile.html',
-        controller: 'ProfileSettingCtrl',
-        backdrop: 'static',
-        windowClass: 'current-member-profile',
-        autofocus: '#member-profile-name'
-      };
-
-      _modalOpener(modalOption);
-    }
-
-    /**
-     * 멤버의 간단한 프로필을 보는 모달창을 연다.
+     * user의 간단한 프로필을 보는 모달창을 연다.
      * @param $scope {scope}
      * @param member {object} member entity to be shown
      */
-    function openMemberProfileModal($scope, member) {
+    function openUserProfileModal($scope, member) {
       var modalOption = {
         scope: $scope.$new(),
-        templateUrl: 'app/modal/members/member_profile/member.profile.view.html',
-        controller: 'ProfileViewCtrl',
+        templateUrl: 'app/modal/members/user-profile/user.profile.html',
+        controller: 'UserProfileCtrl',
         windowClass: 'profile-view-modal',
         resolve: {
           curUser: function getCurUser(){ return member; }
+        }
+      };
+
+      _modalOpener(modalOption);
+      _safeApply($scope);
+    }
+
+    /**
+     * bot의 간단한 프로필을 보는 모달창을 연다.
+     * @param $scope {scope}
+     * @param member {object} member entity to be shown
+     */
+    function openBotProfileModal($scope, bot) {
+      var modalOption = {
+        scope: $scope.$new(),
+        templateUrl: 'app/modal/members/bot-profile/bot.profile.html',
+        controller: 'BotProfileCtrl',
+        windowClass: 'profile-view-modal',
+        resolve: {
+          curBot: function getCurUser(){ return bot; }
         }
       };
 
@@ -347,6 +379,21 @@
             return fileUrl;
           }
         }
+      };
+
+      _modalOpener(modalOption);
+    }
+
+    /**
+     * keyboard shortcut 모달을 open 한다
+     * @param $scope
+     */
+    function openShortcutModal($scope) {
+      var modalOption = {
+        scope: $scope,
+        controller: 'ModalShortcutCtrl',
+        templateUrl: 'app/modal/shortcut/modal.shortcut.html',
+        windowClass: 'keyboard-shortcut-modal'
       };
 
       _modalOpener(modalOption);
@@ -431,6 +478,7 @@
 
       if (NetInterceptor.isConnected()) {
         modal = $modal.open(options);
+
         _modalRendered(modal, options);
 
         return modal;

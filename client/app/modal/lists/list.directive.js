@@ -162,8 +162,12 @@
        */
       function _onSetActiveIndex(event, index) {
         setActiveIndex(index);
-
-        ListRenderer.render(itemType, matches, viewport);
+        ListRenderer.render({
+          type: itemType,
+          list: matches,
+          viewport: viewport,
+          filterText: jqFilter.val()
+        });
       }
 
       /**
@@ -195,14 +199,24 @@
 
             activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
             _focusItem(activeIndex);
-            ListRenderer.render(itemType, matches, viewport);
+            ListRenderer.render({
+              type: itemType,
+              list: matches,
+              viewport: viewport,
+              filterText: jqFilter.val()
+            });
           } else if (jndKeyCode.match('DOWN_ARROW', which)) {
             event.preventDefault();
 
             activeIndex = ((activeIndex + 1) % matches.length);
             _focusItem(activeIndex);
-            ListRenderer.render(itemType, matches, viewport);
-          } else if (jndKeyCode.match('ENTER', which)) {
+            ListRenderer.render({
+              type: itemType,
+              list: matches,
+              viewport: viewport,
+              filterText: jqFilter.val()
+            });
+          } else if (!event.metaKey && !event.ctrlKey && jndKeyCode.match('ENTER', which)) {
             event.preventDefault();
 
             _select();
@@ -250,7 +264,12 @@
        * @private
        */
       function _onScroll() {
-        ListRenderer.render(itemType, matches, viewport);
+        ListRenderer.render({
+          type: itemType,
+          list: matches,
+          viewport: viewport,
+          filterText: jqFilter.val()
+        });
       }
 
       /**
@@ -297,12 +316,17 @@
 
       /**
        * topic list를 갱신한다.
-       * @param {array} value
+       * @param {string} filterText
        * @private
        */
-      function _updateList(value) {
-        matches = getMatches(scope.$eval(list), value);
-        ListRenderer.render(itemType, matches, viewport, true);
+      function _updateList(filterText) {
+        matches = getMatches(scope.$eval(list), filterText);
+        ListRenderer.render({
+          type: itemType,
+          list: matches,
+          viewport: viewport,
+          filterText: filterText
+        }, true);
       }
     }
   }

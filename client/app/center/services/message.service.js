@@ -109,7 +109,7 @@
         params  : {
           teamId  : memberService.getTeamId()
         },
-        timeout : canceller.promise,
+        timeout : canceller && canceller.promise,
         version: 3
       });
     }
@@ -214,7 +214,7 @@
     }
 
     //  Updates message marker to 'lastLinkId' for 'entitiyId'
-    function updateMessageMarker(entityId, entityType, lastLinkId) {
+    function updateMessageMarker(entityId, entityType, lastLinkId, canceller) {
       entityType = _getParamEntityType(entityType, true);
 
       var data = {
@@ -229,8 +229,8 @@
         data    : data,
         params  : {
           entityId    : entityId
-        }
-
+        },
+        timeout : canceller.promise
       });
     }
 
@@ -239,11 +239,12 @@
      * @param roomId
      * @returns {*}
      */
-    function getRoomInformation(roomId) {
+    function getRoomInformation(roomId, canceller) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       return $http({
         method: 'GET',
-        url: server_address + 'teams/' + teamId + '/rooms/' + roomId
+        url: server_address + 'teams/' + teamId + '/rooms/' + roomId,
+        timeout : canceller.promise
       });
     }
 

@@ -54,11 +54,12 @@
                         id="file_upload_comment"
                         name="file_upload_comment"
                         rows="3"
-                        ng-model="comment"
+                        ng-model="data.comment"
                         ng-maxlength="256"
                         maxlength="256"
+                        autofocus
                         mentionahead
-                        mentionahead-data="setMemberListForMention($mentionScope, $mentionCtrl)"
+                        mentionahead-type="upload"
                         style="resize:none;">
               </textarea>
             </div>
@@ -68,7 +69,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>@btn-cancel</span></button>
-      <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
+      <input class="btn btn-ok _modalSubmit" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
     </div>
   </form>
 </div>

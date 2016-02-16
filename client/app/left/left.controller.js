@@ -30,6 +30,9 @@ app.controller('leftPanelController1', function(
 
   var _hasToUpdate = false;
 
+  // center chat timer
+  var timerUpdateCenterChat;
+
   $scope.entityId = $state.params.entityId;
 
   //todo: refactoring 시 main view 의 property로 로 분리해야 함.
@@ -82,14 +85,6 @@ app.controller('leftPanelController1', function(
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
-  });
-
-  /**
-   * language 변경 event handling
-   */
-  $scope.$on('changedLanguage', function() {
-    //  Setting prefix for each entity.
-    setEntityPrefix();
   });
 
   $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
@@ -467,19 +462,13 @@ app.controller('leftPanelController1', function(
     $scope.joinEntityCount  = response.joinEntityCount;
     $scope.joinEntities     = response.joinEntities;
 
-    //  Setting prefix for each entity.
-    setEntityPrefix();
-
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joinedData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
-
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
-    var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
-
-    _.extend($scope, generalData, joinedData);
+    var generalData = entityAPIservice.createTotalData(response);
+    _.extend($scope, generalData);
 
     //$scope.memberList           = generalData.memberList;
     //$scope.memberMap           = generalData.memberMap;
@@ -491,27 +480,14 @@ app.controller('leftPanelController1', function(
     $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
     ////////////    END OF PARSING      ////////////
 
-    $rootScope.totalChannelList     = $scope.totalChannelList;
     $rootScope.joinedChannelList    = $scope.joinedChannelList;
-    $rootScope.joinedChannelMap     = $scope.joinedChannelMap;
     $rootScope.privateGroupList     = $scope.privateGroupList;
-    $rootScope.privateGroupMap      = $scope.privateGroupMap;
-    $rootScope.memberList           = $scope.memberList;
-    $rootScope.memberMap            = $scope.memberMap;
     $rootScope.totalEntities        = $scope.totalEntities;
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
-    $rootScope.totalUserMap  = $scope.totalUserMap;
-    $rootScope.totalTopicMap  = $scope.totalTopicMap;
-
     currentSessionHelper.setCurrentTeam(response.team);
-    currentSessionHelper.setCurrentTeamMemberList($scope.memberList);
-
-    //  When there is unread messages on left Panel.
-    if (response.alarmInfoCount != 0) {
-      leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
-    }
+    currentSessionHelper.setCurrentTeamUserList(EntityMapManager.toArray('user'));
 
     // generating starred list.
     if (memberService.getStarredEntities().length > 0) {
@@ -525,12 +501,20 @@ app.controller('leftPanelController1', function(
 
     entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
 
+    //  When there is unread messages on left Panel.
+    if (response.alarmInfoCount != 0) {
+      leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+    }
+
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
     TopicFolderModel.update();
     $rootScope.$broadcast('onInitLeftListDone');
+
+    // 전체 entity 갱신시 chat list를 갱신하므로 반드시 수정되어야 함
+    _updateCenterChat();
   }
 
 
@@ -581,13 +565,6 @@ app.controller('leftPanelController1', function(
    */
   function _checkSocketStatus() {
     jndWebSocket.checkSocketConnection();
-  }
-
-  /**
-   * 각 엔티티의 prefix 를 설정해준다.
-   */
-  function setEntityPrefix() {
-    leftpanelAPIservice.setEntityPrefix($scope);
   }
 
   //  When there is anything to update, call this function and below function will handle properly.
@@ -679,14 +656,11 @@ app.controller('leftPanelController1', function(
   /**
    *
    */
-  $rootScope.$on('updateLeftPanelCaller', function() {
+  $scope.$on('updateLeftPanelCaller', function() {
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
-
-  $scope.$on('leftOnMemberListChange', function() {
-    $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
-  });
+  $scope.$on('connected', updateLeftPanelCaller);
 
   $scope.openModal = function(selector, options) {
     if (selector == 'join') {
@@ -700,19 +674,23 @@ app.controller('leftPanelController1', function(
     }
   };
 
-  $rootScope.$on('onUserClick', function(event, user) {
-    $scope.onUserClick(user);
+  $scope.$on('onMemberClick', function(event, user) {
+    $scope.onMemberClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
   //  center and header are calling.
-  $scope.onUserClick = function(user) {
-    if (angular.isNumber(user)) {
-      user = EntityMapManager.get('total', user);
+  $scope.onMemberClick = function(member) {
+    if (angular.isNumber(member)) {
+      member = EntityMapManager.get('total', member);
+    } else {
+      member = EntityMapManager.get('total', member.id);
     }
-    else {
-      user = EntityMapManager.get('total', user.id);
+
+    if (memberService.isUser(member.id)) {
+      modalHelper.openUserProfileModal($scope, member);
+    } else if (memberService.isJandiBot(member.id)) {
+      modalHelper.openBotProfileModal($scope, member);
     }
-    modalHelper.openMemberProfileModal($scope, user);
   };
 
   // based on uesr.u_starredEntities, populating starred look-up list.
@@ -747,6 +725,10 @@ app.controller('leftPanelController1', function(
     if (currentEntity.id === entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
+      if (memberService.isBot(entityId)) {
+        entityType = 'users';
+      }
+
       $state.go('archives', {entityType: entityType, entityId: entityId});
     }
   }
@@ -1056,5 +1038,16 @@ app.controller('leftPanelController1', function(
         fileAPIservice.clearCurUpload();
       }
     }
+  }
+
+  /**
+   * upcate center chat
+   * @private
+   */
+  function _updateCenterChat() {
+    $timeout.cancel(timerUpdateCenterChat);
+    timerUpdateCenterChat = $timeout(function() {
+      jndPubSub.pub('updateChatList');
+    }, 50);
   }
 });

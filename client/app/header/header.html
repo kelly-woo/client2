@@ -28,6 +28,13 @@
           </a>
         </li>
 
+        <li ng-if="isConnectActive"
+            class="" role="presentation">
+          <a data-ng-click="showConnect();" role="menuitem" tabindex="-1">
+            <i class="icon-connect-circle"></i>
+            <span translate>@jnd-connect-3</span>
+          </a>
+        </li>
         <li class="divider"></li>
 
         <!-- 팀 변경 -->
@@ -68,20 +75,8 @@
         <i class="icon-angle-down"></i>
       </span>
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-        <li role="presentation">
-          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-            <i class="icon-info-fill"></i>
-            <span translate>@common-faq</span>
-          </a>
-        </li>
 
-        <li role="presentation">
-          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
-            <i class="icon-help-fill"></i>
-            <span translate>@common-show-tutorial</span>
-          </a>
-        </li>
-
+        <!-- 언어 설정 -->
         <li role="presentation">
           <div class="menu-item" role="menuitem" tabindex="-1">
             <i class="icon-global"></i>
@@ -91,7 +86,7 @@
             <ul class="dropdown-menu grey_dropdown sub-menu language-sub-menu">
               <li class=""  role="presentation" ng-repeat="language in languageList" ng-click="onLanguageClick(language.value);">
                 <a role="menuitem" tabindex="-1">
-                  <img class="flag flag-{{language.value}}" src="assets/images/blank.gif" alt="" ng-class="{}">
+                  <img class="flag flag-{{language.value}}" src="assets/images/blank.gif">
                   <span> {{ language.text }}</span>
                 </a>
               </li>
@@ -99,8 +94,56 @@
           </div>
         </li>
 
-        <li class="divider"></li>
+        <!-- 튜토리얼 보기 -->
+        <li role="presentation">
+          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
+            <i class="icon-help-fill"></i>
+            <span translate>@common-show-tutorial</span>
+          </a>
+        </li>
 
+        <!-- 단축키 보기 -->
+        <li class="open-shortcut" role="presentation">
+          <a data-ng-click="openModal('shortcut');" role="menuitem" tabindex="-1">
+            <i class="fa fa-keyboard-o"></i>
+            <span class="shortcut-menu" translate>@shortcut-open-shortcut</span>
+            <span class="shortcuts-label">Ctrl+/</span>
+          </a>
+        </li>
+
+        <li class="divider"></li>
+        <!-- Zoom In/Out -->
+        <li ng-if="isZoomEnable" role="presentation">
+          <div class="menu-item" role="menuitem" tabindex="-1">
+            <i class="fa fa-font"></i>
+            <span translate>@common-text-size</span>
+            <i class="icon-angle-right sub-menu-arrow"></i>
+
+            <ul class="dropdown-menu grey_dropdown sub-menu font-size-sub-menu">
+              <li class="">
+                <a role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
+                  <span translate>@common-zoom-in</span>
+                  <span class="shortcuts-label">Ctrl+(+)</span>
+                </a>
+              </li>
+
+              <li class="">
+                <a role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
+                  <span translate>@common-zoom-out</span>
+                  <span class="shortcuts-label">Ctrl+(-)</span>
+                </a>
+              </li>
+
+              <li class="" ng-click="zoomReset($event)">
+                <a role="menuitem" tabindex="-1" ng-click="">
+                  <span translate>@common-zoom-reset</span>
+                  <span class="shortcuts-label">Ctrl+0</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <!-- 이용 약관 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
             <i class="icon-folder-fill"></i>
@@ -108,12 +151,32 @@
           </a>
         </li>
 
+        <!-- 개인정보취급방침 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
             <i class="icon-lock"></i>
             <span translate>@common-privacy-policy</span>
           </a>
         </li>
+
+        <li class="divider"></li>
+
+        <!-- FAQ -->
+        <li role="presentation">
+          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
+            <i class="icon-info-fill"></i>
+            <span translate>@common-faq</span>
+          </a>
+        </li>
+
+        <!-- 문의하기 -->
+        <!--<li class="" role="presentation">-->
+          <!--<a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">-->
+            <!--<i class="icon-mail"></i>-->
+            <!--<span translate>@문의하기</span>-->
+          <!--</a>-->
+        <!--</li>-->
+
       </ul>
     </div>
 

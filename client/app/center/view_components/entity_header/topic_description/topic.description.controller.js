@@ -7,23 +7,61 @@
 
   angular
     .module('jandiApp')
-    .controller('jndTooltipCtrl', jndTooltipCtrl);
+    .controller('TopicDescriptionCtrl', TopicDescriptionCtrl);
 
   /* @ngInject */
-  function jndTooltipCtrl($scope, $filter) {
+  function TopicDescriptionCtrl($scope, $filter) {
+    _init();
 
-    _setCurrentEntity();
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _attachEvents();
+    }
 
-    $scope.$on('onCurrentEntityChanged', _setCurrentEntity);
-    $scope.$on('topicUpdated', function(event, topic) {
-        if (topic.id === $scope.currentEntity.id) {
-          _setCurrentEntity();
-        }
-    });
+    /**
+     * attach events
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('topicUpdated', _onTopicUpdated);
 
-    function _setCurrentEntity() {
-      if (!!$scope.currentEntity.description) {
-        $scope.topicDescription = $scope.currentEntity.description;
+      $scope.$watch('currentEntity', _onCurrentEntityChanged);
+    }
+
+    /**
+     * 토픽 정보 갱신 event handler
+     * @param {object} angularEvent
+     * @param {object} topic
+     * @private
+     */
+    function _onTopicUpdated(angularEvent, topic) {
+      if (topic.id === $scope.currentEntity.id) {
+        _updateTopicDescription(topic);
+      }
+    }
+
+    /**
+     * topic header controller에서 currentEntity 변경 event handler
+     * @param {object} currentEntity
+     * @private
+     */
+    function _onCurrentEntityChanged(currentEntity) {
+      if (_.isObject(currentEntity)) {
+        _updateTopicDescription(currentEntity);
+      }
+    }
+
+    /**
+     * 토픽 설명 갱신
+     * @param {object} currentEntity
+     * @private
+     */
+    function _updateTopicDescription(currentEntity) {
+      if (!!currentEntity.description) {
+        $scope.topicDescription = currentEntity.description;
       } else {
         $scope.topicDescription = $filter('translate')('@no-topic-description');
       }

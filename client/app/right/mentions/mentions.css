@@ -6,3 +6,6 @@
   bottom: 0;
   top: 35px;
 }
+.rpanel .rpanel-body.mention-list .mention {
+  line-height: 24px;
+}

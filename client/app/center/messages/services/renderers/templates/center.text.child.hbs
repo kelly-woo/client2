@@ -1,4 +1,4 @@
-<div class="msg-item text text-child">
+<div class="msg-item text text-child {{css.botText}}">
   <div class="text-msg-item-container">
     <div class="msg-item-body">
       <!-- TEXT -->
@@ -23,12 +23,13 @@
         {{/if}}
         <!--Star -->
         {{#if hasStar}}
-          <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
+          <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star _star-{{msg.message.id}} {{css.star}}">
             <i class="icon-star-on"></i>
           </span>
         {{/if}}
       </div>
     </div>
   </div>
-  {{{html.linkPreview}}}
+  {{{ html.connectPreview }}}
+  {{{ html.linkPreview }}}
 </div>

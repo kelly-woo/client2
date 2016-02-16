@@ -1,4 +1,18 @@
-/* opac layer over image thumbnail  */
+.msg-item.comment-all {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.msg-item.comment-all .comment-all-desc {
+  font-size: 14px;
+  color: #999;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.msg-item.comment-all:hover .comment-all-desc {
+  color: #575757;
+}
+
 .msg-comment .small-thumbnail-overlay{
   position: absolute;
   top: 0;
@@ -7,4 +21,27 @@
   left: 0;
   background-color: black;
   opacity: .5;
+}
+
+.comment-title .icon-file {
+  position: absolute;
+  font-size: 25px;
+  color: #d1dae7;
+  left: 28px;
+  top: 12px;
+}
+
+/* hover시 extra menu css */
+.comment-title .msg-file {
+  position: relative;
+}
+.msg-item:hover.comment-title .msg-file .msg-item__action,
+.msg-item:hover.comment-title .continue-comment-body .msg-item__action {
+  display: none;
+}
+.msg-item.comment-title .msg-file:hover .msg-item__action {
+  display: inline-block;
+}
+.msg-item.comment-title .continue-comment-body:hover .msg-item__action {
+  display: inline-block;
 }

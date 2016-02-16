@@ -1,0 +1,5 @@
+<span class="jnd-connect-status-switch-wrapper">
+  <span class="connect-union-plug-tool-text" ng-class="{'connect-enabled': isActive}"
+        ng-if="!isNonStatusText">{{statusText}}</span>
+  <switch-button is-active="isActive" toggle="onToggle($value)"></switch-button>
+</span>

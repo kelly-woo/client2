@@ -17,14 +17,17 @@
     var events = [
       {
         name: MESSAGE,
+        version: 1,
         handler: _onMessage
       },
       {
         name: MESSAGE_STARRED,
+        version: 1,
         handler: _onMessageStarred
       },
       {
         name: MESSAGE_UNSTARRED,
+        version: 1,
         handler: _onMessageUnStarred
       }
     ];
@@ -44,7 +47,7 @@
       var data = socketEvent.data;
 
       if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('starred', data);
+        jndPubSub.pub('message:starred', data);
       }
     }
 
@@ -56,7 +59,7 @@
     function _onMessageUnStarred(socketEvent) {
       var data = socketEvent.data;
       if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('unStarred', data);
+        jndPubSub.pub('message:unStarred', data);
       }
     }
 
@@ -104,16 +107,16 @@
     function _onFileComment(data) {
       var room;
 
-      if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
+      _.forEach(data.rooms, function(room) {
         if (jndWebSocketCommon.isCurrentEntity(room)) {
           // 현재 해당 room을 보고 있는경우
-
           jndPubSub.updateCenterPanel();
         }
+      });
 
+      if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         // badge count를 올리기 위함이요.
         jndPubSub.updateLeftPanel();
-
         data.room = room;
         _sendBrowserNotification(data, true);
       }
@@ -235,6 +238,8 @@
       jndPubSub.pub('updateChatList');
 
       if (data.messageType === 'file_share') {
+        _updateRight(data);
+
         // file_share일 경우
         if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
           // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.

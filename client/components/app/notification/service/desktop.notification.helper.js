@@ -9,8 +9,8 @@
     .service('desktopNotificationHelper', desktopNotificationHelper);
 
   /* @ngInject */
-  function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil) {
-    var NOTIFICATION_EXPIRE_TIME = 10000;
+  function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil, jndPubSub) {
+    var NOTIFICATION_EXPIRE_TIME = 7000;
 
     /**
      * WebAPI Notification class
@@ -82,7 +82,6 @@
        */
       function onNotificationClick() {
         var fn;
-
         if (_.isFunction(that.options.callback)) {
           fn = that.options.callback;
 
@@ -105,11 +104,11 @@
               $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});
             }
           }
-
         }
 
         window.focus();
         options.onClick && options.onClick();
+        jndPubSub.pub('notification-click');
       }
     }
 
@@ -119,6 +118,10 @@
     function _createOptions() {
       var that = this;
       var options = that.options;
+
+      if (options.body) {
+        options.body = $filter('stripMarkdown')(options.body);
+      }
 
       return {
         tag: options.tag,

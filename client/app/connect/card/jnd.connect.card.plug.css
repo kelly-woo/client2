@@ -1,0 +1,125 @@
+.connect-union-plug-container {
+  width: 100%;
+  background-color: #FFF;
+  border-top: 1px solid #E4E4E4;
+  box-sizing: border-box;
+  padding: 10px 18px 10px 96px;
+  position: relative;
+}
+.connect-union-container .connect-union-plug-container .connect-union-plug-tool-container{
+  margin-right:18px;
+}
+.connect-union-plug-container:last-child {
+  clear: both;
+}
+.connect-union-plug-container:hover {
+  background:rgba(100, 130, 145, 0.05);
+  cursor: default;
+}
+
+.connect-union-plug-container > div {
+  float: left;
+}
+.connect-union-plug-container > div:nth-child(2) {
+  max-width: calc(90% - 360px);
+}
+
+.connect-union-plug-icon {
+  width:32px;
+  height: 32px;
+  margin: 0;
+  color: transparent;
+  background: url('/assets/images/service-logo-jnd-connect-inactive.png');
+  background-size: cover;
+  position: absolute;
+  left: 26px;
+  top:50%;
+  
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
+}
+.connect-union-plug-icon.active {
+  background: url('/assets/images/service-logo-jnd-connect-active.png');
+  background-size: cover;
+}
+
+.connect-union-plug-title,
+.connect-union-plug-desc {
+  color: #505050;
+  font-size: 15px;
+  line-height: 23px;
+  font-weight: 600;
+  padding-left: 24px;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.connect-union-plug-desc i.icon-jandi-bot {
+  background:url('/assets/images/Mr.J_left.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.5;
+  width: 16px;
+  height: 16px;
+  left: -1px;
+}
+.connect-union-plug-title > i,
+.connect-union-plug-desc i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  font-size: 15px;
+  color:#B0B0B0;
+}
+
+.connect-union-plug-tool-container {
+  color: #B3B3B3;
+  max-height: 48px;
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: 700;
+  
+  top: 50%;
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
+  
+}
+
+.connect-union-plug-tool-text {
+  vertical-align: middle;
+}
+.connect-union-plug-tool-container.on .connect-union-plug-tool-text {
+  color: #13A4EB;
+}
+.connect-union-plug-tool-text.connect-enabled {
+  color: #13A4EB;
+}
+
+.connect-union-plug-tool-container .opt-button {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  color: #999;
+  font-size: 16px;
+  border-radius: 50%;
+  padding: 5px 5px;
+  line-height: 24px;
+  min-width: 34px;
+  display: inline-block;
+  margin-left: -2px;
+}
+.connect-union-plug-tool-container .opt-button:hover {
+  background-color:rgba(0, 0, 0, 0.06);
+  color: #6F787D;
+}
+.connect-union-plug-tool-container .jnd-connect-status-switch-wrapper {
+  margin-right: 4px;
+}

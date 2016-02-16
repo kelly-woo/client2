@@ -1,0 +1,186 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="close()">
+    <i class="icon-delete"></i>
+  </button>
+  <h3 class="modal-header__title">
+    <!-- translate:  -->
+    <span>Keyboard Shortcuts</span>
+  </h3>
+</div>
+
+<div class="modal-body">
+
+
+  <section class="shortcut-list">
+    <h3 class="modal-body__column-title" jnd-html-translate>@shortcut-title-basic</h3>
+    <ul>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-open-shortcut</span>
+        <span class="pull-right keystyle">/</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-jump</span>
+        <span class="pull-right keystyle">J</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-switch-teams</span>
+        <span class="pull-right keystyle">T</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-invite-topic</span>
+        <span class="pull-right keystyle">I</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+
+    <h3 class="modal-body__column-title" jnd-html-translate>@shortcut-title-message</h3>
+    <ul>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-focus-input</span>
+        <span class="pull-right keystyle">Enter</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-show-sticker</span>
+        <span class="pull-right keystyle">E</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel upload-shortcut" jnd-html-translate>@shortcut-upload</span>
+        <span class="pull-right keystyle">U</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shorcut-new-line</span>
+        <span class="pull-right keystyle">Enter</span>
+        <span class="pull-right keystyle">Shift</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+
+    <h3 class="modal-body__column-title" jnd-html-translate>@shortcut-title-view</h3>
+    <ul>
+      <li ng-if="isHybridApp">
+        <span class="keylabel" jnd-html-translate>@shortcut-zoom-in</span>
+        <span class="pull-right keystyle">+</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+
+      <li ng-if="isHybridApp">
+        <span class="keylabel" jnd-html-translate>@shortcut-zoom-out</span>
+        <span class="pull-right keystyle">-</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+
+      <li ng-if="isHybridApp">
+        <span class="keylabel" jnd-html-translate>@shortcut-zoom-reset</span>
+        <span class="pull-right keystyle">0</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-scroll-up</span>
+        <span class="pull-right keystyle">PgUp</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-scroll-down</span>
+        <span class="pull-right keystyle">PgDn</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+
+  </section>
+
+  <section class="shortcut-list">
+
+    <h3 class="modal-body__column-title" jnd-html-translate>@shortcut-title-rpanel</h3>
+    <ul>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-toggle-rpanel</span>
+        <span class="pull-right keystyle">[</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-file</span>
+        <span class="pull-right keystyle">F</span>
+        <span class="pull-right keystyle">Alt</span>
+        <span class="pull-right divider">or</span>
+        <span class="pull-right keystyle">1</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-message</span>
+        <span class="pull-right keystyle">G</span>
+        <span class="pull-right keystyle">Alt</span>
+        <span class="pull-right divider">or</span>
+        <span class="pull-right keystyle">2</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-stars</span>
+        <span class="pull-right keystyle">S</span>
+        <span class="pull-right keystyle">Alt</span>
+        <span class="pull-right divider">or</span>
+        <span class="pull-right keystyle">3</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-mentions</span>
+        <span class="pull-right keystyle">M</span>
+        <span class="pull-right keystyle">Alt</span>
+        <span class="pull-right divider">or</span>
+        <span class="pull-right keystyle">4</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-prev</span>
+        <span class="pull-right keystyle">,</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-rpanel-next</span>
+        <span class="pull-right keystyle">.</span>
+        <span class="pull-right keystyle">Alt</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+
+    <h3 class="modal-body__column-title" jnd-html-translate>@shortcut-title-advanced</h3>
+    <ul>
+      <li>
+        <span class="keylabel" jnd-html-translate>@shortcut-lock-screen</span>
+        <span class="pull-right keystyle">L</span>
+        <span class="pull-right keystyle">Shift</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+      <li>
+        <span class="keylabel confirm-shortcut" jnd-html-translate>@shortcut-confirm-modal</span>
+        <span class="pull-right keystyle">Enter</span>
+        <span class="pull-right keystyle">{{::ctrlKey}}</span>
+        <div class="clear" style="clear: both;"></div>
+      </li>
+    </ul>
+
+  </section>
+  <div class="clear" style="clear: both;"></div>
+
+</div>

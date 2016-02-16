@@ -1,6 +1,9 @@
-<div class="member-item cursor_pointer" style="height: {{itemHeight}}px;">
+<div class="member-item cursor_pointer {{css.memberItem}} {{css.admin}}" style="height: {{itemHeight}}px;">
   <img class="member-profile-image" src="{{profileImage}}"/>
-  <span class="member-name inline-overflow-ellipsis">{{userName}}</span>
+  <span class="member-name inline-overflow-ellipsis">{{{html.userName}}}</span>
+  {{#if isAdmin}}
+    <span class="member-auth-label">{{text.admin}}</span>
+  {{/if}}
   {{#if isShowStar}}
     <i class="icon-star-off right-star opac-zero {{starClass}}"></i>
   {{/if}}

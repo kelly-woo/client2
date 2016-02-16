@@ -1,3 +1,425 @@
+<a name="1.13.0"></a>
+# [1.13.0](https://github.com/tosslab/web_client/compare/v1.12.9...v1.13.0) (2016-01-28)
+
+
+
+
+<a name="1.12.9"></a>
+## [1.12.9](https://github.com/tosslab/web_client/compare/v1.12.8...v1.12.9) (2016-01-27)
+
+
+### Bug Fixes
+
+* **center:** 비공개 토픽에서 메시지에 "공지로 등록" 메뉴 노출되지 않는 현상 수정 ([97ea304](https://github.com/tosslab/web_client/commit/97ea304))
+* **잔디connect:** backend 이슈 해결하기 전까지 계정 추가하기 버튼 disable 처리 ([a194221](https://github.com/tosslab/web_client/commit/a194221))
+* **잔디connect:** 계정 추가 메뉴를 통해 계정 추가했을 경우 account list 를 갱신하는 로직에서도 소켓 이벤트를 통해 갱신할 수 있도록 추가 ([0d326f3](https://github.com/tosslab/web_client/commit/0d326f3))
+
+
+
+<a name="1.12.8"></a>
+## [1.12.8](https://github.com/tosslab/web_client/compare/v1.12.7...v1.12.8) (2016-01-27)
+
+
+### Bug Fixes
+
+* **css:** jump modal 내 border color 및 shadow 추가. ([7131e61](https://github.com/tosslab/web_client/commit/7131e61))
+* **css:** left 패널에서 badge의 padding 값이 잘못 보여지던 문제 수정. ([612f3de](https://github.com/tosslab/web_client/commit/612f3de))
+* **css:** 봇 메시지 attachment 영역 패딩 값 수정. ([5544628](https://github.com/tosslab/web_client/commit/5544628))
+* **css:** 좌측 패널 언리드 배지 z-index 수정. (레프트 패널 헤더보다 올라오도록) ([c132300](https://github.com/tosslab/web_client/commit/c132300))
+* **custom-selectbox:** connect bot 은 리스트에 나오지 않도록 수정 ([04a6e52](https://github.com/tosslab/web_client/commit/04a6e52))
+* **custom-selectbox:** 멤버 custom selectbox 에 Mr.J 노출하도록 수정 ([95cc1d8](https://github.com/tosslab/web_client/commit/95cc1d8))
+* **custom-selectbox:** 잔디 bot이 존재하지 않을 경우 예외처리 추가 ([e5669df](https://github.com/tosslab/web_client/commit/e5669df))
+* **custom-selectbox:** 커스텀 셀렉트 박스의 '공유된 곳' 필터에 자신의 이름이 표시되는 현상 수정 ([fee3967](https://github.com/tosslab/web_client/commit/fee3967))
+* **custom-selectbox:** 특수 문자 검색 가능하도록 수정 ([4e3ea10](https://github.com/tosslab/web_client/commit/4e3ea10))
+* **html:** 잔디 connect 웹훅 인스트럭션 내용 수정. ([f6168d5](https://github.com/tosslab/web_client/commit/f6168d5))
+* **main:** 로딩 화면에서 freeze 되는 현상 수정 ([c86cab0](https://github.com/tosslab/web_client/commit/c86cab0))
+* **markdown:** 복수의 멘션과 링크 마크다운이 이어질 때, 멘션이 적용되지 않음 현상 수정 ([3c1796f](https://github.com/tosslab/web_client/commit/3c1796f))
+* **markdown:** 커넥트 최초 설정( 연동항목 추가로 진입 ) 시, 설정 사항 조정한 부분이 없더라도 화면을 나가려고 시도할 경우 해당 CONFIRM 출력 ([dbe8a22](https://github.com/tosslab/web_client/commit/dbe8a22))
+* **preload:** preload 범위에 html 파일 추가 ([0bcad51](https://github.com/tosslab/web_client/commit/0bcad51))
+* **preloader:** 저사항 컴퓨터에서 preload 로 인해 느려지는 현상 수정 ([837722f](https://github.com/tosslab/web_client/commit/837722f))
+* **socket:** authentication_created 이벤트를 team 이벤트로 간주하도록 수정 ([85a66ad](https://github.com/tosslab/web_client/commit/85a66ad))
+* **잔디connect:** MR. J 에 connect 추가 시 오류 수정 ([0226c43](https://github.com/tosslab/web_client/commit/0226c43))
+* **잔디connect:** Revoke 이후 50001 오류 노출 시 confirm 창에 노출할 serviceName 이 undefined 로 노출되는 현상 수정 ([fdb19bb](https://github.com/tosslab/web_client/commit/fdb19bb))
+* **잔디connect:** selectbox 에서 잔디 bot 선택시 entityId 를 반환하도록 수정 ([09369ee](https://github.com/tosslab/web_client/commit/09369ee))
+* **잔디connect:** 변경 사항 검출 로직 오류 수정 ([356bf16](https://github.com/tosslab/web_client/commit/356bf16))
+* **잔디connect:** 본인이 만든 connect일 경우에만 source 노출하도록 수정 ([6c6cd79](https://github.com/tosslab/web_client/commit/6c6cd79))
+* **잔디connect:** 삭제 버튼 클릭 이후 잘못된 변수 참조하는 오류 수정 ([7f896cb](https://github.com/tosslab/web_client/commit/7f896cb))
+* **잔디connect:** 설정 상세 페이지에서 변경사항 없을 경우 CONFIRM 출력하지 않기 ([636e090](https://github.com/tosslab/web_client/commit/636e090))
+* **잔디connect:** 설정 화면 진입 시 권한 없음 (403) 오류 코드에 대한 처리 ([40a89c3](https://github.com/tosslab/web_client/commit/40a89c3))
+* **잔디connect:** 연동 해제시 메시지 l10n 기준으로 변경 ([6023d5f](https://github.com/tosslab/web_client/commit/6023d5f))
+* **잔디connect:** 잔디 커넥트 닫기 버튼 클릭 시 confirm 모달 노출되지 않는 현상 수정 ([4326764](https://github.com/tosslab/web_client/commit/4326764))
+* **잔디connect:** 튜토리얼 popover 노출 조건에 video 가 로드 완료 되었는지 여부 판단하도록 추가 ([9d8bcf7](https://github.com/tosslab/web_client/commit/9d8bcf7))
+* **잔디connect:** 트렐로 bot 프로필 변경사항 저장되지 않는 현상 수정 ([429cee8](https://github.com/tosslab/web_client/commit/429cee8))
+
+
+
+<a name="1.12.7"></a>
+## [1.12.7](https://github.com/tosslab/web_client/compare/v1.12.6...v1.12.7) (2016-01-18)
+
+
+### Bug Fixes
+
+* **center:** deprecated 된 message/update API 제거했던 내용 다시 사용하도록 롤백 ([3b24c3c](https://github.com/tosslab/web_client/commit/3b24c3c))
+* **client.app.connect:** connect  설정 페이지 읽기 전용 인풋필드 라인하이트 수정. ([9efe3ca](https://github.com/tosslab/web_client/commit/9efe3ca))
+* **client.app.connect:** connect 설정 페이지 셀렉트 버튼 아이콘에 브라우저별 트랜지션 코드 추가. ([117780e](https://github.com/tosslab/web_client/commit/117780e))
+* **css:** bot message style 수정. ([882569c](https://github.com/tosslab/web_client/commit/882569c))
+* **css:** entity header내 토픽명 최대 너비 미디어쿼리 삭제. ([1405104](https://github.com/tosslab/web_client/commit/1405104))
+* **css:** 잔디 connect 설정 페이지 / entity header 내 connect 관련 스타일 수정. ([ab0b545](https://github.com/tosslab/web_client/commit/ab0b545))
+* **html:** 인커밍 웹훅 curl 메시지 수정. ([96eb92d](https://github.com/tosslab/web_client/commit/96eb92d))
+* **markdown:** 링크 마크다운 뒤에 바로 문자가 올 경우 제대로 파싱되지 않는 현상 수정 ([addd849](https://github.com/tosslab/web_client/commit/addd849))
+* **markdown:** 링크 마크다운 로직 보강 ([2667232](https://github.com/tosslab/web_client/commit/2667232))
+* **markdown:** 링크 마크다운 로직 보강 ([6d037ba](https://github.com/tosslab/web_client/commit/6d037ba))
+* **markdown:** 링크 마크다운 로직 보강 ([44ab1e5](https://github.com/tosslab/web_client/commit/44ab1e5))
+* **markdown:** 링크 마크다운 로직 보강 ([e8eec20](https://github.com/tosslab/web_client/commit/e8eec20))
+* **style:**  bot 메시지 스타일 수정 (패딩, 컬러, 위치) ([966513f](https://github.com/tosslab/web_client/commit/966513f))
+* **style:** bot 메시지 레이블 추가 ([58e8328](https://github.com/tosslab/web_client/commit/58e8328))
+* **style:** 날짜 divider 스타일 / 커넥터 봇 메시지 / 봇 메시지 프로필 이미지 스타일 수정. ([0f9176b](https://github.com/tosslab/web_client/commit/0f9176b))
+* **style:** 날짜 divider 스타일 수정. ([dcc7af2](https://github.com/tosslab/web_client/commit/dcc7af2))
+* **style:** 봇메시지 헤더 , 프로필 스타일 수정. ([1336aff](https://github.com/tosslab/web_client/commit/1336aff))
+* **언어설정:** 언어설정 노출되지 않는 현상 수정 ([d26f604](https://github.com/tosslab/web_client/commit/d26f604))
+* **잔디connect:** Jandi bot 이 없을 경우 예외처리 추가 ([72ffe3c](https://github.com/tosslab/web_client/commit/72ffe3c))
+
+
+
+<a name="1.12.6"></a>
+## [1.12.6](https://github.com/tosslab/web_client/compare/v1.12.5...v1.12.6) (2016-01-13)
+
+
+
+
+<a name="1.12.5"></a>
+## [1.12.5](https://github.com/tosslab/web_client/compare/v1.12.4...v1.12.5) (2016-01-13)
+
+
+### Bug Fixes
+
+* **center:** 잔여 버그 수정 ([e58cce7](https://github.com/tosslab/web_client/commit/e58cce7))
+* **markdown:** bold 일 경우 마크다운 파싱 오류 현상 수정 ([5283b71](https://github.com/tosslab/web_client/commit/5283b71))
+* **markdown:** mention 한개만 나오는 버그 수정 ([e6b5a8b](https://github.com/tosslab/web_client/commit/e6b5a8b))
+* **잔디 connect:** ESC 입력시 close 애니메이션 동작하지 않는 현상 수정 외 1건 ([86a84e0](https://github.com/tosslab/web_client/commit/86a84e0))
+* **잔디 connect:** ESC 입력시 close 애니메이션 동작하지 않는 현상 수정 외 1건 ([9b96eeb](https://github.com/tosslab/web_client/commit/9b96eeb))
+* **잔디 connect:** 설정 저장하기 L10N 추가 ([5b805f9](https://github.com/tosslab/web_client/commit/5b805f9))
+* **잔디connect:**  각 연동 서비스마다 100개 항목 이상 설정 시도 시 에러 메시지 발생 ([a9c07a8](https://github.com/tosslab/web_client/commit/a9c07a8))
+* **잔디connect:** integration 계정 연동 해지시, 실행 중인 Integration 이 없을 때 메시지 분기처리 ([b7d52be](https://github.com/tosslab/web_client/commit/b7d52be))
+* **잔디connect:** webhook 설정에서 언어 설정 표시하지 않음 ([d1866e3](https://github.com/tosslab/web_client/commit/d1866e3))
+* **잔디connect:** 기획과 협의하여 브라우저 back 버튼 클릭 시 기본동작 방해하는 코드 제거 ([e3dee3b](https://github.com/tosslab/web_client/commit/e3dee3b))
+* **잔디connect:** 마크다운 파서 "anchormarker" 표시됨 현상 수정 ([932d76c](https://github.com/tosslab/web_client/commit/932d76c))
+
+
+
+<a name="1.12.4"></a>
+## [1.12.4](https://github.com/tosslab/web_client/compare/v1.12.3...v1.12.4) (2016-01-12)
+
+
+
+
+<a name="1.12.3"></a>
+## [1.12.3](https://github.com/tosslab/web_client/compare/v1.12.2...v1.12.3) (2016-01-12)
+
+
+### Bug Fixes
+
+* **client.app. connect.union.common.selectbox.menu:** 멀티 계정일때 계정추가 상단에 디바이더 추가. ([6d9b68a](https://github.com/tosslab/web_client/commit/6d9b68a))
+* **client.app.center:** bot 텍스트 메시지 스타일 수정. ([79e2d76](https://github.com/tosslab/web_client/commit/79e2d76))
+* **client.app.center.view_components.entity_header:** 센터 패널 토픽 타이틀 최대 너비 수정. ([683b0f2](https://github.com/tosslab/web_client/commit/683b0f2))
+* **client.app.connect:** connect 계정 이름 최대 너비 추가. ([8b122e6](https://github.com/tosslab/web_client/commit/8b122e6))
+* **client.app.connect:** connect 새 토픽 생성 버 언어별 최대 너비 수정(en) ([eb5cbf4](https://github.com/tosslab/web_client/commit/eb5cbf4))
+* **client.app.connect:** connect 서베이 버튼 최대너비, 설정페이지 버튼 레이블 미디어쿼리 삭제. ([c5a48c2](https://github.com/tosslab/web_client/commit/c5a48c2))
+* **client.app.connect:** connect 설정 페이지 언어별 최대 너비 수정(en) ([2ec0ba1](https://github.com/tosslab/web_client/commit/2ec0ba1))
+* **client.app.connect:** connect 설정 페이지 언어별 최대 너비 수정. ([cccafd5](https://github.com/tosslab/web_client/commit/cccafd5))
+* **client.app.connect:** connect 언어별 최대 너비 수정(en / ja) ([25406a5](https://github.com/tosslab/web_client/commit/25406a5))
+* **client.app.connect:** connect 인증 페이지 디폴트 아이콘 수정. ([77c0c40](https://github.com/tosslab/web_client/commit/77c0c40))
+* **client.app.connect:** connect 인증 페이지 스타일 & 마크업 수정 ([ffc59df](https://github.com/tosslab/web_client/commit/ffc59df))
+* **client.app.connect.union.google-calendar:** 구글 캘린더 설정 페이지 체크박스 컨테이너에 클래스 추가. ([9fc50bb](https://github.com/tosslab/web_client/commit/9fc50bb))
+* **connect:** 잔디 connect 토픽헤더 , 아이콘 관련 스타일 수정 ([0987170](https://github.com/tosslab/web_client/commit/0987170))
+* **css & image:** 로딩휠 관련 내용 롤 ([f010d3d](https://github.com/tosslab/web_client/commit/f010d3d))
+* **custom-selectbox:** disabled item 추가 ([afbb33e](https://github.com/tosslab/web_client/commit/afbb33e))
+* **custom-selectbox:** filter 에서 걸러진 item 도 선택되는 현상 수정 ([446e53f](https://github.com/tosslab/web_client/commit/446e53f))
+* **custom-selectbox:** 이름 노출 부분에 safeApply 추가 ([72cef14](https://github.com/tosslab/web_client/commit/72cef14))
+* **custom-selectbox:** 커스텀 셀렉트박스 default select 오류 수정 ([e7ea3a5](https://github.com/tosslab/web_client/commit/e7ea3a5))
+* **file-detail:** src --> ng-src 로 변경 ([6c69190](https://github.com/tosslab/web_client/commit/6c69190))
+* **interceptor:** 401 오류의 경우 reject 를 수행하지 않도록 처리 ([6caf3e3](https://github.com/tosslab/web_client/commit/6caf3e3))
+* **markdown:** link parser 에서 [링크](<http://domain.com>) 지원되지 않는 오류 수정 ([c1f258b](https://github.com/tosslab/web_client/commit/c1f258b))
+* **markdown:** ~가 *와 혼합되어 있을 때 제대로 파싱 안되는 현상 수정 ([f5645bc](https://github.com/tosslab/web_client/commit/f5645bc))
+* **markdown:** 띄어쓰기 구분하는 로직 제거 및 _ 마크다운 제거 ([bc43bca](https://github.com/tosslab/web_client/commit/bc43bca))
+* **markdown:** 마크다운 파서 규칙 통일 ([2d893c8](https://github.com/tosslab/web_client/commit/2d893c8))
+* **markdown:** 마크다운 파서 규칙 통일 ([6e04801](https://github.com/tosslab/web_client/commit/6e04801))
+* **module:** Popup 에서 get parameter 를 encode 하지 않는 버그 수정 ([79eab7b](https://github.com/tosslab/web_client/commit/79eab7b))
+* **popup:** popup service 에서 location replace 시 data 에 해당하는 정보를 가져오지 못하는 오류 수정 ([8e539b8](https://github.com/tosslab/web_client/commit/8e539b8))
+* **router:** build 할 경우 router 정상동작 하지 않는 오류 수정 ([2c3505a](https://github.com/tosslab/web_client/commit/2c3505a))
+* **잔디connect:** DM 리스트 에 integration bot이 표시됨. ([46ee2e5](https://github.com/tosslab/web_client/commit/46ee2e5))
+* **잔디connect:** auth 화면에서 서비스 하단 설명 박스 주석처리 ([e64e8e9](https://github.com/tosslab/web_client/commit/e64e8e9))
+* **잔디connect:** room 공통  selectbox 에서 디폴트로 현재 토픽을 노출하도록 수정 ([eb553f1](https://github.com/tosslab/web_client/commit/eb553f1))
+* **잔디connect:** selected item 이 존재하지 않을 경우 잘못된 default item 을 설정하는 현상 수정 ([aeaf267](https://github.com/tosslab/web_client/commit/aeaf267))
+* **잔디connect:** validation 및 default 설정값 오류 수정 ([d2677ca](https://github.com/tosslab/web_client/commit/d2677ca))
+* **잔디connect:** 스타일 수정 ([742afc3](https://github.com/tosslab/web_client/commit/742afc3))
+* **잔디connect:** 커넥트 뒤로가기 방식 개선 ([7a178f8](https://github.com/tosslab/web_client/commit/7a178f8))
+* **잔디connect:** 커넥트 뒤로가기 방식 개선 ([980da64](https://github.com/tosslab/web_client/commit/980da64))
+* **잔디connect:** 토스트 메시지 자동으로 사라지도록 수정 ([e6662c1](https://github.com/tosslab/web_client/commit/e6662c1))
+* **잔디connect-Github:** 접근할 수 없는 repository 추가 ([c7b8d75](https://github.com/tosslab/web_client/commit/c7b8d75))
+
+
+
+<a name="1.12.2"></a>
+## [1.12.2](https://github.com/tosslab/web_client/compare/v1.12.1...v1.12.2) (2015-12-24)
+
+
+
+
+<a name="1.12.1"></a>
+## [1.12.1](https://github.com/tosslab/web_client/compare/v1.12.0...v1.12.1) (2015-12-23)
+
+
+### Bug Fixes
+
+* **default-topic-id:** 서버로부터 전송받은 defaultTopicId 가 존재하지 않는 entity 일 경우(데이터 오류) 자신이 가입한 토픽 Map 중 가장 첫번째  ([fd8479d](https://github.com/tosslab/web_client/commit/fd8479d))
+
+
+
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/tosslab/web_client/compare/v1.11.0...v1.12.0) (2015-12-16)
+
+
+### Bug Fixes
+
+* **app:** 한글일 경우 font-familyd에 돋움 추가 ([47f4912](https://github.com/tosslab/web_client/commit/47f4912))
+* **app:** 한글일 경우 영문 font-family 2개 추가 ([a533f10](https://github.com/tosslab/web_client/commit/a533f10))
+* **app.notification:** _loadLocalNotificationFlag 의 기본값을 true 로 설정하도록 수정 ([aa3a6e2](https://github.com/tosslab/web_client/commit/aa3a6e2))
+* **app.notification:** app 일 경우 notification 설정 값 저장되지 않는 현상 해결 ([da8d695](https://github.com/tosslab/web_client/commit/da8d695))
+* **app.notification:** 앱의 경우 내용 보여주기 관련된 값에 대해서도 재설정 하는 로직 추가 ([42b6f27](https://github.com/tosslab/web_client/commit/42b6f27))
+* **center:** center에 출력되는 thumbnail size를 medium -> large ([d449eb3](https://github.com/tosslab/web_client/commit/d449eb3))
+* **center:** 댓글 뷰도 메세지 뷰와 마찬가지로 작성자 합치기 적용하도록 수정 ([fddffd2](https://github.com/tosslab/web_client/commit/fddffd2))
+* **center:** 원본이미지 보기를 제공하는 file만 "이미지 보기"버튼 출력 하도록 수정 ([ea11ed0](https://github.com/tosslab/web_client/commit/ea11ed0))
+* **center:** 코멘트 타이틀에 표현 되는 코멘트의 총 수가 잘못 표시되는 버그 수정 ([c2353dc](https://github.com/tosslab/web_client/commit/c2353dc))
+* **center:** 파일 뷰 버그 수정 ([ab9cee1](https://github.com/tosslab/web_client/commit/ab9cee1))
+* **center:** 파일 뷰 버그 수정 ([a1a3dad](https://github.com/tosslab/web_client/commit/a1a3dad))
+* **dropdown:** 드롭다운 오버랩 되는 현상 수정 ([35bce9d](https://github.com/tosslab/web_client/commit/35bce9d))
+* **lang:** request후 reponse data가 lang 값 설정값과 sync 되지 않는 버그 수정 ([bbc2629](https://github.com/tosslab/web_client/commit/bbc2629))
+* **left:** 토픽명 길 때 툴팁 없어짐 현상 수정 ([fa00420](https://github.com/tosslab/web_client/commit/fa00420))
+* **modal:** 로그아웃 > 로그인 > 프로필 모달 출력 후 닫히지 않는 버그 수정 ([62617cb](https://github.com/tosslab/web_client/commit/62617cb))
+* **modal:** 백드랍 사라지지 않는 현상에 대한 방어코드 추가 ([47d49ce](https://github.com/tosslab/web_client/commit/47d49ce))
+* **modal:** 점프 모달에서 뱃지카운트가 있는 DM이 최상단에 노출 되도록 수정 ([0549ff7](https://github.com/tosslab/web_client/commit/0549ff7))
+* **noti:** 노티 유지시간 10초에서 7초로 변경 ([b92fdb0](https://github.com/tosslab/web_client/commit/b92fdb0))
+* **right:** server의 버전이 올라가있고 client의 버전이 낮은 경우 client에서 한번도 이미지 요청 하지 않았다가 최초 요청시 네임이 변경된 이 ([aa9b814](https://github.com/tosslab/web_client/commit/aa9b814))
+* **right:** 코멘트 입력란에 프로필 동작하지 않는 버그 수정 ([1f19bbf](https://github.com/tosslab/web_client/commit/1f19bbf))
+* **right:** 파일탭 진입 상태로 토픽 이동시 검색 필터 변경되지 않는 현상 수정 ([f0a788d](https://github.com/tosslab/web_client/commit/f0a788d))
+* **right:** 필터타입 이미지 프리뷰 클릭시 원본 이미지 보도록 수정 ([20a0a52](https://github.com/tosslab/web_client/commit/20a0a52))
+* **shortcut:** shortcut 모달 reference 오류 수정 ([cd3162b](https://github.com/tosslab/web_client/commit/cd3162b))
+* **shortcut:** 단축키 안내 메뉴에 불필요한 테스트용 text 제거 ([f82625f](https://github.com/tosslab/web_client/commit/f82625f))
+* **src:** src 를 ng-src 로 변경함 ([baa1e14](https://github.com/tosslab/web_client/commit/baa1e14))
+* **sticker:** 메세지 입력시 sticker 예외처리 ([867cddc](https://github.com/tosslab/web_client/commit/867cddc))
+* **sticker:** 선택된 sticker와 입력된 sticker의 사이즈 126px로 수정 ([d69355c](https://github.com/tosslab/web_client/commit/d69355c))
+* **sticker:** 스티커 아이콘의 z-index 삭제 & 스티커 입력시 블링크 현상 수정 ([d5c2d82](https://github.com/tosslab/web_client/commit/d5c2d82))
+* **version:** 버전정보 노출 로직 수정 ([bd765bb](https://github.com/tosslab/web_client/commit/bd765bb))
+* **zoom:** window, mac app 일 경우에만 zoom 기능 동작하도록 수정 ([17fd041](https://github.com/tosslab/web_client/commit/17fd041))
+* **zoom:** zoom 이 최대 확대된 이후 특정 값에서 줄어들지 않는 현상 수정 ([8103d0c](https://github.com/tosslab/web_client/commit/8103d0c))
+* **zoom:** 가장 처음 로드 시 zoom 레이어 노출되지 않도록 수정 ([a9d9e48](https://github.com/tosslab/web_client/commit/a9d9e48))
+* **zoom:** 소숫점 버림하였기 때문에 특정값 이상 올라가거나 내려가지 않는 오류 수정 ([bd7d2a5](https://github.com/tosslab/web_client/commit/bd7d2a5))
+* **zoom:** 키패드의 + - 도 인식하도록 수정 ([87f1b50](https://github.com/tosslab/web_client/commit/87f1b50))
+* **핫키:** center 혹은 file comment input 인지 여부에 따라 Ctrl + E 입력 시 sticker 노출 위치 변경 ([9826b3e](https://github.com/tosslab/web_client/commit/9826b3e))
+* **핫키:** 변경된 키셋 적용 ([c576eae](https://github.com/tosslab/web_client/commit/c576eae))
+
+### Features
+
+* **center:** 코멘트 & 이미지 노출 방식 개선 ([dfc2738](https://github.com/tosslab/web_client/commit/dfc2738))
+* **right:** 필터타입 이미지 프리뷰 일때 hover tab 추가 ([b1b4920](https://github.com/tosslab/web_client/commit/b1b4920))
+* **sticker:** 대만용 sticker 출력하도록 추가 ([316bc31](https://github.com/tosslab/web_client/commit/316bc31))
+
+
+
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/tosslab/web_client/compare/v1.10.0...v1.11.0) (2015-12-02)
+
+
+### Bug Fixes
+
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([19ff767](https://github.com/tosslab/web_client/commit/19ff767))
+* **badge:** DM 에서  Focused 상태에, 메시지 주고 받을 때, Unread badge count 노출되는 현상 수정 ([2bfd575](https://github.com/tosslab/web_client/commit/2bfd575))
+* **badge:** Unfocused 상태의 뱃지카운트가 댓글 등록될때 초기화되는 현상 수정 ([31d4994](https://github.com/tosslab/web_client/commit/31d4994))
+* **custom-selectbox:** 커스텀 셀렉트 박스의 '공유된 곳' 필터에 자신의 이름이 표시되는 현상 수정 ([45c728c](https://github.com/tosslab/web_client/commit/45c728c))
+* **Custom-Selectbox:** 커스텀 셀랙트 박스에서 차단된 멤버 검색되지 않도록 수정 ([e247380](https://github.com/tosslab/web_client/commit/e247380))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([6f9aeb8](https://github.com/tosslab/web_client/commit/6f9aeb8))
+* **Custom-Selectbox:** 커스텀 셀렉트박스에서 차단 멤버 toggle trigger 클릭 시 차단멤버 노출하도록 수정 ([071d822](https://github.com/tosslab/web_client/commit/071d822))
+* **zoom:** zoom 이 최대 확대된 이후 특정 값에서 줄어들지 않는 현상 수정 ([d18c553](https://github.com/tosslab/web_client/commit/d18c553))
+* **파일공유:** 파일을 이미 공유된 토픽에 재공유 할 수 있도록 수정 ([96040c3](https://github.com/tosslab/web_client/commit/96040c3))
+* **핫키:** 팀 초대 모달에서 cmd+enter 조건 오류 수정 ([9b49780](https://github.com/tosslab/web_client/commit/9b49780))
+
+
+
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.19...v1.10.0) (2015-11-25)
+
+
+### Bug Fixes
+
+* **left:** reconnect 시 update left panel 호출하도록 수정 ([eaec055](https://github.com/tosslab/web_client/commit/eaec055))
+* **socket:** member 정보 업데이트하는 socket 이벤트 로직 보강 ([9a01ca3](https://github.com/tosslab/web_client/commit/9a01ca3))
+
+
+
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/tosslab/web_client/compare/v1.9.2...v1.9.3) (2015-11-20)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.9.1...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.15...v1.9.3) (2015-11-20)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.9.1...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.14...v1.9.2) (2015-11-20)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.9.0...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/tosslab/web_client/compare/v1.10.0-alpha.8...v1.9.1) (2015-11-19)
+
+
+
+
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.8...v1.9.0) (2015-11-18)
+
+
+### Bug Fixes
+
+* **center:**  파일 > cog 버튼으로> "댓글남기기" 불가 한 현상 수정 ([2f54f3d](https://github.com/tosslab/web_client/commit/2f54f3d))
+
+
+
+<a name="1.8.5"></a>
+## [1.8.5](https://github.com/tosslab/web_client/compare/v1.8.4...v1.8.5) (2015-11-18)
+
+
+### Bug Fixes
+
+* **left-토픽 헤더:** 토픽 헤더에 on over 이벤트 발생 시 뱃지가 존재할 경우 버튼 숨기는 로직 추가 ([a12e350](https://github.com/tosslab/web_client/commit/a12e350))
+* **modal:** Dialog modal open시 항상 focus가도록 하는 option 추가 ([382e797](https://github.com/tosslab/web_client/commit/382e797))
+* **modal:** modal이 닫혀도 dom element가 사라지지 않는 버그 수정 ([baa4e7d](https://github.com/tosslab/web_client/commit/baa4e7d))
+* **right:** right panel 열림과 search entity 변경이 같이 이루어 졌을때 request 두번 하는 버그 수정 ([95c934a](https://github.com/tosslab/web_client/commit/95c934a))
+* **sticker:** sticker list 변경이 view에 바로 반영되도록 수정 ([3f07bc7](https://github.com/tosslab/web_client/commit/3f07bc7))
+* **sticker:** sticker 조작시 깜빡이는 버그 수정 ([5c52085](https://github.com/tosslab/web_client/commit/5c52085))
+
+
+
+<a name="1.8.0-alpha.9"></a>
+# [1.8.0-alpha.9](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.8...v1.8.0-alpha.9) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.8"></a>
+# [1.8.0-alpha.8](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.7...v1.8.0-alpha.8) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.7"></a>
+# [1.8.0-alpha.7](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.6...v1.8.0-alpha.7) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.6"></a>
+# [1.8.0-alpha.6](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.5...v1.8.0-alpha.6) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.5"></a>
+# [1.8.0-alpha.5](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.4...v1.8.0-alpha.5) (2015-11-11)
+
+
+
+
+<a name="1.8.0-alpha.4"></a>
+# [1.8.0-alpha.4](https://github.com/tosslab/web_client/compare/v1.8.0-alpha.2...v1.8.0-alpha.4) (2015-11-11)
+
+
+
+
+<a name="1.8.5"></a>
+## [1.8.5](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.7...v1.8.5) (2015-11-18)
+
+
+### Bug Fixes
+
+* **right:** 파일 상세에서 이미지 클릭했을때 carousel 출력되도록 수정 ([e329ffc](https://github.com/tosslab/web_client/commit/e329ffc))
+
+
+
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+
+
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/tosslab/web_client/compare/v1.8.3...v1.8.4) (2015-11-13)
+
+
+### Bug Fixes
+
+* **modal:** 팀 초대 모달 링크복사 수정 ([254e2e8](https://github.com/tosslab/web_client/commit/254e2e8))
+
+
+
+<a name="1.8.3"></a>
+## [1.8.3](https://github.com/tosslab/web_client/compare/v1.8.2...v1.8.3) (2015-11-13)
+
+
+
+
+<a name="1.8.2"></a>
+## [1.8.2](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.3...v1.8.2) (2015-11-12)
+
+
+
+
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/tosslab/web_client/compare/v1.9.0-alpha.0...v1.8.1) (2015-11-12)
+
+
+### Bug Fixes
+
+* **socket:** 파일 공유 시 자신이 2번째 공유한 방에서 center panel 업데이트 되지 않는 현상 수정 ([e0cee03](https://github.com/tosslab/web_client/commit/e0cee03))
+
+
+
 <a name="1.9.0-alpha.0"></a>
 # [1.9.0-alpha.0](https://github.com/tosslab/web_client/compare/v1.8.1-alpha.0...v1.9.0-alpha.0) (2015-11-11)
 

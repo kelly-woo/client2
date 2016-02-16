@@ -10,7 +10,6 @@
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                            entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
-    var members;
     var msg1;
     var msg2;
 
@@ -61,18 +60,15 @@
      * set member list
      */
     function generateMemberList() {
-      var prevAvailableMemberMap;
-
-      prevAvailableMemberMap = $scope.availableMemberMap;
-
-      members = entityAPIservice.getMemberList($scope.currentEntity);
+      var prevAvailableMemberMap = $scope.availableMemberMap;
+      var users = entityAPIservice.getUserList($scope.currentEntity);
 
       $scope.availableMemberMap = {};
 
       // 활성 member list
       $scope.activeMembers = [];
 
-      $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+      $scope.availableMemberList = _.reject(currentSessionHelper.getCurrentTeamUserList(), function(user) {
         var isActiveMember = memberService.isActiveMember(user);
 
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
@@ -85,7 +81,7 @@
 
         $scope.availableMemberMap[user.id] = user;
 
-        return members.indexOf(user.id) > -1 || !isActiveMember;
+        return users.indexOf(user.id) > -1 || !isActiveMember;
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
@@ -106,17 +102,16 @@
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
-     * @param {string} value
+     * @param {string} filterText
      * @returns {*}
      */
-    function getMatches(list, value) {
-      value = value.toLowerCase();
-
+    function getMatches(list, filterText) {
+      filterText = filterText.toLowerCase();
       return $scope.selectingMembers = _.chain(list)
-        .filter(function (item) {
-          return item.name.toLowerCase().indexOf(value) > -1 && item.selected === false;
+        .filter(function(item) {
+          return item.name.toLowerCase().indexOf(filterText) > -1 && item.selected === false;
         })
-        .sortBy(function (item) {
+        .sortBy(function(item) {
           return [!item.isStarred, item.name.toLowerCase()];
         })
         .value();

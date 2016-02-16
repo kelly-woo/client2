@@ -41,6 +41,8 @@
   display: block;
   margin: auto;
   margin-bottom: 15px;
+  width: 100px;
+  height: 80px;
 }
 .rpanel-alert-msg-container__text {
   margin-top: 16px;

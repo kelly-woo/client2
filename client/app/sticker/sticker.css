@@ -1,17 +1,18 @@
-.open .sticker_panel {
-  opacity: 1;
-  visibility: visible;
-}
-
 .sticker_panel {
   bottom: 30px !important;
   padding-top:0px !important;
   padding-bottom:0px !important;
-  display: block;
   opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity .12s ease, visibility .12s ease;
-  transition: opacity .12s ease, visibility .12s ease;
+  display: none;
+  -webkit-transition: opacity .15s ease;
+  transition: opacity .15s ease;
+}
+
+.sticker_panel.open {
+  display: block;
+}
+.sticker_panel.vivid {
+  opacity: 1;
 }
 
 .sticker_panel:focus {
@@ -22,7 +23,6 @@
   right: 10px;
   bottom: 8px;
   width:16px;
-  z-index: 1000;
 }
 .sticker_panel_wrap.shift{
   right: 20px;
@@ -47,7 +47,7 @@
   position: absolute;
   top: .63em;
   left: 5px;
-  height: 1.5px;
+  height: .1em;
   width: .47em;
   background-color: #fff;
   display: inline-block;
@@ -70,10 +70,12 @@
   top: .57em;
   left: 4px;
   width: .58em;
-  height: 4px;
+  height: .23em;
   background-color: #fff;
   display: inline-block;
   border-top: 1px solid rgba(0, 0, 0, .8);
+ border-bottom-right-radius: 12px 8px;
+ border-bottom-left-radius: 12px 8px;
 }
 .sticker_panel_wrap .sticker_panel_btn.on > .lip {
   border-color: #00abe6;
@@ -87,14 +89,14 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.sticker_panel_contents.empty {
-  display: table-cell;
+
+.sticker_panel_contents .sticker_empty {
   background: #f1f4f8;
   color: #154a67;
-  vertical-align: middle;
   text-align: center;
+  padding-top: 91px;
+  height: 100%;
 }
-
 .sticker_panel_empty_icon {
   font-size: 46px;
   opacity: 0.3;
@@ -104,6 +106,7 @@
   font-size: 14px;
   opacity: 0.5;
 }
+
 .sticker_panel_ul {
   list-style-type: none;
   padding: 7px;
@@ -144,6 +147,7 @@
   border-right: 1px solid #d7e0e8;
   width: 35px;
   text-align: center;
+  cursor: pointer;
 }
 .sticker_panel_tab li.on {
   background-color: white;
@@ -174,7 +178,7 @@ sticker-layer {
 }
 .sticker_layer {
   z-index:2;
-  height: 150px;
+  height: 138px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   position:relative;
@@ -199,8 +203,8 @@ img.sticker {
 }
 
 img.sticker.size_5 {
-  width: 145px;
-  height: 145px;
+  width: 126px;
+  height: 126px;
 }
 img.sticker.size_1 {
   width: 65px;

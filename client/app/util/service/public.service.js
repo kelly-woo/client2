@@ -24,6 +24,7 @@
       getBrowserInfo: getBrowserInfo,
       redirectTo: redirectTo,
       redirectToMain: redirectToMain,
+      redirectToSignIn: redirectToSignIn,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
@@ -40,16 +41,33 @@
 
     return service;
 
+    /**
+     * 공통 sign-in 페이지로 redirect 한다.
+     */
+    function redirectToSignIn() {
+      var languageMap = {
+        'en': 'en',
+        'ko': 'kr',
+        'zh-cn': 'zh-cn',
+        'zh-tw': 'zh-tw',
+        'ja': 'jp'
+      };
+      var lang = language.getCurrentLanguage().serverLang || 'en';
+      location.href = configuration.landing_address + languageMap[lang] + '/signin/?redirectUrl=' + location.href;
+    }
+
     function getInviteOptions(joinedChannelList, privateGroupList, inviteeId) {
       var list = [];
 
-      angular.forEach(joinedChannelList, function(entity, index) {
-        if (!_.contains(entity.ch_members, inviteeId))
+      angular.forEach(joinedChannelList, function(entity) {
+        var users = entityAPIservice.getUserList(entity);
+        if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 
-      angular.forEach(privateGroupList, function(entity, index) {
-        if (!_.contains(entity.pg_members, inviteeId))
+      angular.forEach(privateGroupList, function(entity) {
+        var users = entityAPIservice.getUserList(entity);
+        if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 
@@ -176,20 +194,16 @@
      * @param isBannerUp
      */
     function adjustBodyWrapperHeight(isBannerUp) {
-      var bodyWrapperHeight;
-
       var jqBodyWrapper = $('.body-wrapper');
       var jqBody = $('.body');
 
-      var BANNER_HEIGHT = 40;
-      var HEADER_HEIGHT = 40;
-
-      var heightOffset = isBannerUp ? BANNER_HEIGHT : 0;
-
-      bodyWrapperHeight = $(window).height() - heightOffset;
-
-      jqBodyWrapper.height(bodyWrapperHeight);
-      jqBody.height(bodyWrapperHeight - HEADER_HEIGHT);
+      if (isBannerUp) {
+        jqBodyWrapper.addClass('has-banner');
+        jqBody.addClass('has-banner');
+      } else {
+        jqBodyWrapper.removeClass('has-banner');
+        jqBody.removeClass('has-banner');
+      }
     }
 
     function hideTransitionLoading() {

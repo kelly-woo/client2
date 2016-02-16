@@ -10,7 +10,7 @@
 
   <div class="invite-disalbed ng-hide" ng-show="::inviteDisabled">
     <div class="modal-body">
-      <img src="{{::disabledImage}}">
+      <img ng-src="{{::disabledImage}}">
       <div class="disabled-desc">
         <span ng-if="::isAdmin">
           <span translate>@invitation-disabled-amdin-prefix</span>
@@ -26,10 +26,10 @@
     <div class="modal-body">
       <div class="invite-work ng-hide" ng-show="!isInviteDone">
         <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" active="isInviteDone" ></div>
-        <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn" ng-click="send();"></button>
+        <button id="team-invite-btn" class="send-invite invite-btn cursor_pointer btn-ok btn _modalSubmit" ng-click="send();"></button>
       </div>
       <div class="invite-done ng-hide" ng-show="isInviteDone">
-        <img src="{{::doneImage}}">
+        <img ng-src="{{::doneImage}}">
         <span>{{inviteResultDesc}}</span>
         <span class="invite-more">
           <span class="cursor_pointer" ng-click="inviteMore()" translate>@team-invite-more</span>

@@ -15,13 +15,13 @@
   <!--    TITLE   -->
   <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
         ng-click="onEntityTitleClicked();">
-    <span class="inline-overflow-ellipsis panel-title-info__name">
+    <span class="inline-overflow-ellipsis panel-title-info__name private-effect">
       {{currentEntity | getName}}
     </span>
   </span>
 
   <!--  DESCRIPTION -->
-  <span class="panel-title-topic-description cursor_pointer" ng-if="!isUserType">
+  <span class="panel-title-topic-description cursor_pointer" ng-if="!isMember">
      <i class="icon-info-fill" topic-description></i>
   </span>
 
@@ -34,7 +34,7 @@
     </div>
 
     <!--  TOPICS  -->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isUserType">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isMember">
       <!--    INVITE  -->
       <li role="presentation" ng-if="!isDefaultTopic">
         <a role="menuitem" tabindex="-1" ng-click="openInviteModal();">
@@ -74,9 +74,9 @@
     </ul>
 
     <!--User-->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isUserType">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isMember">
       <!--    INVITE  -->
-      <li role="presentation" ng-if="!isDisabledEntity">
+      <li role="presentation" ng-if="isAllowUserable">
         <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
           <i class="icon-user-plus"></i><span translate>@dm-menu-invite</span>
         </a>
@@ -114,7 +114,7 @@
   </span>
 
   <!-- RIGHT MENU -->
-  <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isMember">
 
     <!--  JOINED MEMBER LIST  -->
     <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
@@ -125,8 +125,13 @@
         <i class="icon-angle-down"></i>
       </div>
 
-      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
-        <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
+      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
+        <li role="presentation" tabindex="-1"
+            ng-class="{
+              'admin': ownerId === userId,
+              'has-kickout-icon': hasAuth && userId !== myId
+            }"
+            ng-repeat="userId in users track by $index">
           <a ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
               <span class="overflow-ellipsis">{{userId | getName}}</span>
@@ -135,6 +140,7 @@
               ng-click="kickOut(userId);">
           	<i class="icon-sign-out"></i>
           </span>
+          <span ng-if="ownerId === userId" class="member-auth-label" translate>@common-topic-admin</span>
         </li>
       </ul>
     </span>
@@ -148,11 +154,10 @@
           tooltip-class="panel-title-invite-tooltip"
           ng-click="openInviteModal();">
     </span>
-
   </span>
 
   <!-- TOPIC NOTIFICATION INDICATOR -->
-  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isMember">
     <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
       tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
       tooltip-class="panel-title-bell-tooltip">
@@ -164,6 +169,13 @@
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
+
+  <room-connector ng-if="isConnectActive"
+                  ng-class="{'bot-room': isJandiBot}"
+                  ng-show="isAllowConnect"
+                  current-entity="currentEntity"
+                  connect-info="connectInfo"
+                  on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
 </div>
 
 <div ng-if='!isConnected' class="panel-title-container non-selectable center-panel-disabled-member">

@@ -48,6 +48,9 @@
   color: #00a4e6;
   text-decoration: underline;
 }
+.message-meta .message-start .topic-start:hover {
+  color: #00709E;
+}
 .message-meta .message-start .comment-start {
   font-size: 12px;
   font-weight: 700;
@@ -55,10 +58,10 @@
 .message-meta .message-start .comment-start:hover {
   text-decoration: none;
 }
-.message-meta .message-start .file-icon {
-  width: 8px;
-  margin-right: 2px;
-  margin-bottom: 3px;
+.message-meta .message-start .fileicon {
+  display: inline-block;
+  zoom: .4;
+  margin-right: 3px;
 }
 
 .message-card .message-profile img {
@@ -66,9 +69,14 @@
   height: 28px;
   border-radius: 50%;
 }
-
+.message-card.jandi-bot .message-profile img {
+  height: auto;
+  border-radius: 0;
+  margin-top: -7px;
+}
 .message-card .message-card-body {
   font-size: 16px;
+  line-height: 1.5em;
 }
 .message-card .message-card-body.message-simple {
   margin-left: 36px;

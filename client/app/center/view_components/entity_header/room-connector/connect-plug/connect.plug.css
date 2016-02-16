@@ -1,0 +1,87 @@
+.connect-body .connect-plug {
+  position: relative;
+  width: 100%;
+  background-color: #FFF;
+  border: 1px solid #D7DDE1;
+  padding: 8px 17px 10px 58px;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.connect-plug .plug-service-image {
+  left: 12px;
+  top: 50%;
+  
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
+  
+  margin:0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+.connect-plug .plug-body {
+  width: 164px;
+  font-weight: 700;
+  color: #6E6E6E;
+}
+.connect-plug .plug-body.plug-body-half {
+  width: 180px;
+}
+.connect-plug .plug-body.plug-body-full {
+  width: 100%;
+}
+
+.plug-body .plug-service {
+  margin-top: 4px;
+  margin-bottom:2px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 16px;
+}
+.plug-body .plug-source-name {
+  line-height: 20px;
+  padding-left: 18px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.plug-body .plug-source-name i.icon-info-fill {
+  left: 0;
+  top: 3px;
+  font-size: 14px;
+}
+.plug-body .plug-user {
+  margin-top: 0;
+  width: 100%;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  padding-left: 18px;
+}
+.plug-body .plug-user i.icon-user {
+  left: 0;
+  top: 3px;
+  font-size: 14px;
+}
+
+.connect-plug .plug-menu {
+  right: 14px;
+}
+
+.plug-menu > i {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 32px;
+  cursor: pointer;
+}
+
+.plug-menu .switch-button {
+  width: 44px;
+  height: 24px;
+}

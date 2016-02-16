@@ -72,7 +72,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
-      <input class="btn btn-ok send-invite" ng-class="{'disabled': inviteUsers.length === 0}" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
+      <input class="btn btn-ok send-invite _modalSubmit" ng-class="{'disabled': inviteUsers.length === 0}" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
     </div>
   </div>
 </div>

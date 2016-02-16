@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="infinite-scroll-bottom-list">
-    <message message-data="record" message-type="messageType" ng-repeat="record in records"></message>
+    <message message-data="record" message-type="messageType" class="private-effect" ng-repeat="record in records"></message>
   </div>
   <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
   <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">

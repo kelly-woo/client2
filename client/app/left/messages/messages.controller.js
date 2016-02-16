@@ -10,14 +10,11 @@
 
   /* @ngInject */
   function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, currentSessionHelper,
-                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, Dialog, JndUtil) {
+                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, Dialog, JndUtil, centerService) {
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
     $scope.messageListLoadingStatus = 'okay';
-
-    // no longer used in this controller. ready to remove?
-    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
     $scope.messageList;
     $scope.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
@@ -43,9 +40,9 @@
       _setTotalAlarmCnt();
       // Must keep watching memberList in 'leftController' in order to keep member's starred status.
       $scope.$on('updateBadgePosition', _setTotalAlarmCnt);
-      $scope.$watch('memberList', getMessageList);
       $scope.$on('updateChatList', getMessageList);
       $scope.$watch('isMessageListCollapsed', _onCollapseStatusChanged);
+      getMessageList();
     }
 
     function openTeamMemberListModal() {
@@ -125,7 +122,6 @@
 
     function _generateMessageList(messages) {
       var messageList = [];
-      var _currentEntity;
 
       EntityMapManager.reset('memberEntityId');
       messages = _.uniq(messages, 'entityId');
@@ -136,20 +132,10 @@
 
         if (!angular.isUndefined(entity)) {
           if (message.unread > 0) {
-            // Number of unread message can be greater than 0 even I'm currently viewing an entity that just sent a message to me.
-            // In this case, message list still needs to be updated because entity may not be on the list.
-            // However, I don't need to update/increment badge count for current entity.
-            // Thus, update badge count for entities that I'm not viewing.
-            // 원래는 위와 같은 이유로 현재 보고 있지 않는 엔티티에 대해서만 badge 를 update했지만,
-            // 백앤드에 내가 작성한 메세지에 대해서는 unread를 증가시ㅣ지 않는 방향으로 가기로 함.
-            // 그래서 모든 엔티티에 대해서 badge를 update해도 됨.
-
-            entityAPIservice.updateBadgeValue(entity, message.unread);
-
-            //_currentEntity = currentSessionHelper.getCurrentEntity();
-            //if (message.companionId != _currentEntity.id) {
-
-            //}
+            //현재 activate DM 이 아닌곳에 한해서 unread count 를 업데이트 한다.
+            if (!_isActiveCurrentDm(entity)) {
+              entityAPIservice.updateBadgeValue(entity, message.unread);
+            }
           }
 
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
@@ -160,6 +146,19 @@
       });
       _setTotalAlarmCnt();
       return messageList;
+    }
+
+    /**
+     * 현재 active 상태인 DM 인지 여부를 확인한다.
+     * @returns {*|Object|boolean}
+     * @private
+     */
+    function _isActiveCurrentDm(entity) {
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+      return currentEntity &&
+        (currentEntity.id === entity.id) &&
+        centerService.hasBottomReached() &&
+        !currentSessionHelper.isBrowserHidden();
     }
 
     function onMessageLeaveClick(entityId) {

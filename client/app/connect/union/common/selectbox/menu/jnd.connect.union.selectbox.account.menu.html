@@ -1,0 +1,17 @@
+<div class="account-menu">
+  <ul class="dropdown-list">
+    <li class="account-item" role="presentation" tabindex="-1" ng-repeat="item in list track by $index"
+        ng-class="{active: isActive($index)}"
+        ng-mouseenter="selectActive($index)"
+        ng-click="selectItem($index)">
+      <i class="icon-user"></i>
+      <span class="account-name inline-overflow-ellipsis">{{item.text}}</span>
+      <i class="icon-remove-circle" ng-click="onAccountDeleteClick(item)"></i>
+    </li>
+  </ul>
+  <div class="divider" ng-if="false && permission.allowAccountAdd"></div>
+  <div class="account-add" ng-if="false && permission.allowAccountAdd" ng-click="onAccountAddClick()">
+    <i class="icon-user-plus"></i>
+    <span class="account-add-text" translate>@jnd-connect-140</span>
+  </div>
+</div>

@@ -5,7 +5,8 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($filter, integrationService, fileAPIservice, ImagePaste, Browser) {
+  function centerChatInputBox($state, $filter, $timeout, integrationService, fileAPIservice, ImagePaste, Browser,
+                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -35,6 +36,8 @@
         }
       };
 
+      var entityId = $state.params.entityId;
+
       _init();
 
       /**
@@ -48,6 +51,8 @@
         if (Browser.chrome) {
           _setImagePaste();
         }
+
+        _setMentionList();
       }
 
       /**
@@ -55,6 +60,8 @@
        * @private
        */
       function _attachEvents() {
+        scope.$on('hotkey-upload', _onHotkeyUpload);
+        scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
 
@@ -64,6 +71,36 @@
        */
       function _attachDomEvents() {
         jqMenu.on('click', 'li', _onMenuItemClick);
+      }
+
+      /**
+       * current entity changed event handler
+       * @private
+       */
+      function _onCurrentEntityChanged() {
+        _setMentionList();
+      }
+
+      /**
+       * mention 가능한 member 설정한다.
+       * @private
+       */
+      function _setMentionList() {
+        var currentEntity = currentSessionHelper.getCurrentEntity();
+        var users;
+        var mentionMembers;
+
+        if (currentEntity) {
+          users = entityAPIservice.getUserList(currentEntity);
+          if (users) {
+            mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
+            jndPubSub.pub('mentionahead:message', mentionMembers);
+          }
+        }
+      }
+
+      function _onHotkeyUpload() {
+        uploadMap['computer']();
       }
 
       /**

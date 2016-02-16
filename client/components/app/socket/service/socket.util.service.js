@@ -50,7 +50,11 @@
         // dm일 경우
         if (room.extWriterId) {
           // 방에 작성자 정보가 있을 경우
-          return room.extWriterId === currentEntity.id || isActionFromMe(room.extWriterId);
+          if (memberService.isJandiBot(currentEntity.id)) {
+            return roomId === currentEntity.entityId;
+          } else {
+            return room.extWriterId === currentEntity.id || isActionFromMe(room.extWriterId);
+          }
         } else {
           return roomId === currentEntity.entityId;
         }
@@ -282,6 +286,8 @@
         _teamId = socketEvent.data.teamId;
       } else if (socketEvent.data && socketEvent.data.message && socketEvent.data.message.teamId) {
         _teamId = socketEvent.data.message.teamId;
+      } else if (socketEvent.data && socketEvent.data.bot && socketEvent.data.bot.teamId) {
+        _teamId = socketEvent.data.bot.teamId;
       }
 
       return _teamId;

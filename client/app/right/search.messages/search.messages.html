@@ -71,7 +71,7 @@
     </div>
 
     <div class="rpanel-message-list infinite-scroll-bottom-list">
-      <message-search-card ng-repeat="message in messageList"></message-search-card>
+      <message-search-card class="private-effect" ng-repeat="message in messageList"></message-search-card>
 
       <div class="file-list__item loading" ng-if="isSearching && messageList.length > 0">
         <div class="loading_container_background scroll_loading_container_background"></div>

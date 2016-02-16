@@ -11,15 +11,18 @@
 
   /* @ngInject */
   function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter,
-                           AnalyticsHelper, modalHelper, jndPubSub, Dialog, topicName) {
+                           AnalyticsHelper, modalHelper, jndPubSub, Dialog, topicName, isEnterTopic) {
 
     _init();
 
     function _init() {
-      $scope.topicName = topicName || '';
-      $scope.topicDescription = '';
-      $scope.entityType = 'public';
+      $scope.form = {
+        topicName: topicName || '',
+        topicDescription: '',
+        isAutoJoin: false
+      };
 
+      $scope.entityType = 'public';
       $scope.nameMaxLength = 60;
       $scope.descMaxLength = 300;
 
@@ -40,19 +43,23 @@
       if (!$scope.isLoading && !form.$invalid) {
         _entityType = $scope.entityType === 'private' ? 'privateGroup' : 'channel';
         _body = {
-          name: $scope.topicName
+          name: $scope.form.topicName,
+          autoJoin:  $scope.form.isAutoJoin
         };
 
-        if (!!$scope.topicDescription) {
-          _body.description = $scope.topicDescription;
+        if (!!$scope.form.topicDescription) {
+          _body.description = $scope.form.topicDescription;
         }
 
         jndPubSub.showLoading();
 
         entityheaderAPIservice.createEntity(_entityType, _body)
           .success(function(response) {
+            jndPubSub.pub('topicCreateCtrl:created', response.id);
 
-            $state.go('archives', {entityType:_entityType + 's', entityId:response.id});
+            if (isEnterTopic) {
+              $state.go('archives', {entityType:_entityType + 's', entityId:response.id});
+            }
 
             modalHelper.closeModal();
 

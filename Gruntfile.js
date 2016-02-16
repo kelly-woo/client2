@@ -52,6 +52,24 @@ module.exports = function (grunt) {
         }
       }
     },
+    concat: {
+      preload: {
+        options: {
+          separator: "",
+          nonull: true,
+          process: function(src, filepath) {
+            var regx = /[\.\/]*assets\/.*?\.(png|jpg|jpeg|gif|webp|svg)/g;
+            var results = src.match(regx) || [];
+            return results.length ? results.join('\n') + '\n': '';
+          }
+        },
+        files: {
+          '.tmp/preload.tmp': [
+            'client/**/*.{js,css,html}'
+          ]
+        }
+      }
+    },
     open: {
       server: {
         url: 'http://local.jandi.io:<%= express.options.port %>'
@@ -102,6 +120,7 @@ module.exports = function (grunt) {
           //'!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,assets,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.client %>/assets/videos/**/*',
           '<%= yeoman.client %>/{app,components}/**/*.hbs'
         ],
         options: {
@@ -412,6 +431,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
+            'assets/videos/**/*',
             'assets/images/**/*.{webp}',
             'assets/fonts/**/*',
             'index.html'
@@ -595,6 +615,39 @@ module.exports = function (grunt) {
 
     // replace
     replace: {
+      preload: {
+        options: {
+          patterns: [
+            {
+              match: /\'@@config\.preload\'/g,
+              replacement: function() {
+                var buffer = grunt.file.read('.tmp/preload.tmp');
+                var list = buffer.split('\n');
+                var map = {};
+                var i = 0;
+                var path;
+                list.pop();
+                for (; i < list.length; i++) {
+                  map[list[i]] = true;
+                }
+                list = [];
+
+                for (path in map) {
+                  list.push(path);
+                }
+
+                return JSON.stringify(list);
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['./config/config.preload.js'],
+          dest: '<%= yeoman.client %>/components/config/common/'
+        }]
+      },
       markup: {
         options: {
           patterns: [
@@ -623,9 +676,9 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: /(\.\.\/)+assets/g,
+              match: /[\.\/]*assets\//g,
               replacement: function() {
-                return '../assets';
+                return '../assets/';
               }
             }
           ]
@@ -641,9 +694,9 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: /(\.\.\/)+assets/g,
+              match: /[\.\/]*assets\//g,
               replacement: function() {
-                return 'assets';
+                return 'assets/';
               }
             }
           ]
@@ -653,6 +706,23 @@ module.exports = function (grunt) {
           flatten: true,
           src: '<%= yeoman.dist %>/public/app/*.js',
           dest: '<%= yeoman.dist %>/tmp/'
+        }]
+      },
+      version: {
+        options: {
+          patterns: [
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: './config/version.json',
+          dest: '<%= yeoman.dist %>/public/'
         }]
       },
       local: {
@@ -753,13 +823,13 @@ module.exports = function (grunt) {
       options: {
         files: ['package.json'],
         updateConfigs: [],
-        commit: false,
+        commit: true,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json', 'CHANGELOG.md', 'README.md'],
+        commitFiles: ['package.json', 'CHANGELOG.md', 'README.md', 'CHANGELOG-ALPHA.md'],
         createTag: false, //tobe true
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
-        push: false,
+        push: true,
         pushTo: 'origin',
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false,
@@ -790,23 +860,25 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
     } else if (target === 'debug') {
       return grunt.task.run([
+        'handlebars',
+        'preload',
         'clean:server',
         'env:all',
         'concurrent:server',
         'injector',
-        'handlebars',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
     } else {
       var serveTasks = [
+        'handlebars',
+        'preload',
         'replace:local',
         'clean:server',
         'env:all',
         'concurrent:server',
         'injector',
-        'handlebars',
         'wiredep',
         'autoprefixer',
         'express:dev',
@@ -907,6 +979,7 @@ module.exports = function (grunt) {
         'usemin',
         'replace:assets_js',
         'replace:assets_css',
+        'replace:version',
         'copy:assets_path',
         'clean:tmp'
       ]);
@@ -929,6 +1002,7 @@ module.exports = function (grunt) {
       'usemin',
       'replace:assets_js',
       'replace:assets_css',
+      'replace:version',
       'copy:assets_path',
       'clean:tmp'
     ]);
@@ -941,12 +1015,18 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('staging', [
+    'handlebars',
+    'preload',
     'replace:staging'
   ]);
   grunt.registerTask('development', [
+    'handlebars',
+    'preload',
     'replace:development'
   ]);
   grunt.registerTask('local', [
+    'handlebars',
+    'preload',
     'replace:local'
   ]);
 
@@ -997,8 +1077,19 @@ module.exports = function (grunt) {
     }
     grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
-    grunt.config.set('bump.options.createTag', true);
-    grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
+    grunt.config.set('bump.options.commitMessage', 'Alpha v%VERSION%');
+
+    //grunt.config.set('bump.options.createTag', true);
+    //grunt.config.set('conventionalChangelog.release.src', 'CHANGELOG-ALPHA.md');
+    //grunt.task.run(['bump:' + target + ':bump-only', 'package-update', 'conventionalChangelog', 'bump::commit-only']);
+    grunt.task.run(['bump:' + target]);
+  });
+  grunt.registerTask('preload', function(target) {
+    grunt.task.run([
+      'concat:preload',
+      'replace:preload',
+      'clean:server'
+    ]);
   });
 
   /**

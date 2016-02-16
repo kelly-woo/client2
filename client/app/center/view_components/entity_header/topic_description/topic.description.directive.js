@@ -13,7 +13,7 @@
   function topicDescription($document) {
     return {
       restrict: 'EA',
-      controller: 'jndTooltipCtrl',
+      controller: 'TopicDescriptionCtrl',
       templateUrl: 'app/center/view_components/entity_header/topic_description/topic.description.html',
       link: link
     };

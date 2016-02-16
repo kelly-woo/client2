@@ -19,18 +19,22 @@
     var events = [
       {
         name: MEMBER_STARRED,
+        version: 1,
         handler: _onMemberStarred
       },
       {
         name: MEMBER_UNSTARRED,
+        version: 1,
         handler: _onMemberUnStarred
       },
       {
         name: MEMBER_PROFILE_UPDATED,
+        version: 1,
         handler: _onMemberProfileUpdated
       },
       {
         name: MEMBER_PRESENCE_UPDATED,
+        version: 1,
         handler: _onMemberPresenceUpdated
       }
     ];
@@ -43,10 +47,12 @@
 
     function _onMemberStarred(socketEvent) {
       jndWebSocketCommon.updateLeft();
+      jndPubSub.pub('member:starred', socketEvent);
     }
 
     function _onMemberUnStarred(socketEvent) {
       jndWebSocketCommon.updateLeft();
+      jndPubSub.pub('member:unStarred', socketEvent);
     }
 
     function _onMemberProfileUpdated(socketEvent) {
@@ -74,7 +80,12 @@
      * @private
      */
     function _replaceMemberEntityInMemberList(member) {
-      entityAPIservice.extend(EntityMapManager.get('member', member.id), member);
+      var entity = EntityMapManager.get('member', member.id);
+      if (!entity) {
+        entity = member;
+        EntityMapManager.set('member', member.id, member);
+      }
+      entityAPIservice.extend(entity, member);
 
       if (EntityMapManager.contains('memberEntityId', member.entityId)) {
         entityAPIservice.extend(EntityMapManager.get('memberEntityId', member.id), member);

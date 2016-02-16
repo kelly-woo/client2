@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxMember', jndSelectboxMember);
 
-  function jndSelectboxMember($filter, EntityMapManager, publicService, JndUtil) {
+  function jndSelectboxMember($filter, EntityMapManager, publicService, JndUtil, jndPubSub, memberService) {
     return {
       restrict: 'AE',
       link: link,
@@ -24,11 +24,13 @@
 
     function link(scope, el, attrs) {
       var _lastKeyword = '';
+      var TOGGLE_DISABLE_SCROLL_DURATION = 500;
       scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
       scope.onChange = onChange;
       scope.toggleDisabled = toggleDisabled;
+
       _init();
 
       /**
@@ -73,7 +75,9 @@
        * @private
        */
       function _setSelectedName() {
-        scope.selectedName = _getSelectedName();
+        JndUtil.safeApply(scope, function() {
+          scope.selectedName = _getSelectedName();
+        });
       }
 
       /**
@@ -130,6 +134,8 @@
         scope.selectedName = _getSelectedName();
       }
 
+
+
       /**
        * change 이벤트 핸들러
        * @param targetScope
@@ -152,7 +158,35 @@
        * 차단 사용자 노출 여부를 toggle 한다
        */
       function toggleDisabled() {
-        scope.isShowDisabled = !scope.isShowDisabled;
+        var jqDisabledList = el.find('.menulist-item-block');
+        if (scope.isShowDisabled) {
+          jqDisabledList.stop().slideUp(TOGGLE_DISABLE_SCROLL_DURATION, function() {
+            JndUtil.safeApply(scope, function() {
+              scope.isShowDisabled = !scope.isShowDisabled;
+            });
+          });
+        } else {
+          scope.isShowDisabled = true;
+          setTimeout(_scrollToDisable, 50);
+        }
+      }
+
+      /**
+       * disable list 를 슬라이드 하여 노출한다
+       * @private
+       */
+      function _scrollToDisable() {
+        var memberData = _getMemberData();
+        var jqDisabledBtn = el.find('.toggle-menulist');
+        var jqContainer = el.find('._container');
+        var scrollTop = jqContainer.scrollTop();
+        var currentOffsetTop = jqDisabledBtn.offset().top;
+        var offsetTop = jqContainer.offset().top;
+        jqContainer.stop().animate({
+          scrollTop: scrollTop + (currentOffsetTop - offsetTop)
+        }, TOGGLE_DISABLE_SCROLL_DURATION, 'swing', function() {
+          jndPubSub.pub('custom-focus:focus-value', memberData.disabledList[0].id)
+        });
       }
 
       /**
@@ -177,10 +211,17 @@
         var enabledList = [];
         var disabledList = [];
         _.each(members, function(member) {
-          if (publicService.isDisabledMember(member)) {
-            disabledList.push(member);
-          } else {
-            enabledList.push(member)
+          if (!memberService.isConnectBot(member.id)) {
+            if (publicService.isDisabledMember(member)) {
+              disabledList.push(member);
+            } else {
+              if (memberService.isJandiBot(member.id)) {
+                enabledList.unshift(member);
+                member.extIsJandiBot = true;
+              } else {
+                enabledList.push(member);
+              }
+            }
           }
         });
         return {
@@ -229,10 +270,18 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(_getMembers(), function (entity) {
-              start = entity.name.toLowerCase().search(keyword);
+              start = entity.name.toLowerCase().indexOf(keyword);
               if (start !== -1) {
-                entity.extSearchName = _highlight(entity.name, start, keyword.length);
-                result.push(entity);
+                if (scope.isShowDisabled) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  if (publicService.isDisabledMember(entity)) {
+                    entity.extSearchName = '<del>' + entity.extSearchName + '</del>';
+                  }
+                  result.push(entity);
+                } else if (!publicService.isDisabledMember(entity)) {
+                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                  result.push(entity);
+                }
               }
             });
           }

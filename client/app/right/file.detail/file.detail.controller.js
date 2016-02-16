@@ -1,922 +1,538 @@
-'use strict';
+/**
+ * @fileoverview file detail controller
+ */
+(function() {
+  'use strict';
 
-var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('fileDetailCtrl', FileDetailCtrl);
 
-app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
-                                           fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog,
-                                           centerService, JndMessageStorage) {
-  var _sticker;
-  var _stickerType;
-  var fileId;
-  var _commentIdToScroll;
-  var timerGetFileDetail;
-  var _unsharedForMe;
+  /* @ngInject */
+  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
+                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker) {
+    var fileId;
+    var requestFileDetail;
 
-  //file detail에서 integraiton preview로 들어갈 image map
-  var noPreviewAvailableImage;
-
-  _init();
-
-  /**
-   * 초기화 메서드
-   * @private
-   */
-  function _init() {
-    var activeMenu;
-
-    if (/redirect/.test($state.current.name)) {
-      // 왼쪽 상단에 표시되는 back to list해야되는 target
-      if ($state.params.tail != null) {
-        RouterHelper.setRightPanelTail($state.params.tail);
-      }
-
-      $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files') + '.item', $state.params);
-    } else {
-      if (activeMenu = Router.getActiveRightTabName($state.current)) {
-        RouterHelper.setRightPanelTail(activeMenu);
-      }
-
-      _stickerType = 'file';
-      fileId = $state.params.itemId;
-
-      if (!_.isUndefined(fileId)) {
-        $scope.initialLoaded = false;
-        $scope.file_detail = null;
-        $scope.file_comments = [];
-        $scope.glued = false;
-        $scope.isPostingComment = false;
-        $scope.hasFileAPIError = false;
-        $scope.isLoadingImage = true;
-        $scope.tail = 'file';
-
-
-        // configuration for message loading
-        $scope.fileLoadStatus = {
-          loading: false
-        };
-
-        $scope.deleteComment = deleteComment;
-        $scope.postComment = postComment;
-        $scope.onClickDownload = onClickDownload;
-        $scope.onClickShare = onClickShare;
-        $scope.onClickUnshare = onClickUnshare;
-        $scope.onClickSharedEntity = onClickSharedEntity;
-        $scope.onFileDeleteClick = onFileDeleteClick;
-        $scope.isDisabledMember = isDisabledMember;
-        $scope.backToFileList = backToFileList;
-        $scope.onUserClick = onUserClick;
-        $scope.onCommentFocusClick = onCommentFocusClick;
-        $scope.onKeyUp = onKeyUp;
-        $scope.onStarClick = onStarClick;
-        $scope.starComment = starComment;
-        $scope.getCreateTime = getCreateTime;
-        $scope.watchFileDetail = watchFileDetail;
-
-        _initListeners();
-        $scope.isPostingComment = false;
-
-        getFileDetail();
-
-        if (RouterHelper.hasCommentToScroll()) {
-          _commentIdToScroll = RouterHelper.getCommentIdToScroll();
-          RouterHelper.resetCommentIdToScroll();
-        }
-
-        if (centerService.isScrollBottom()) {
-          jndPubSub.pub('center:scrollToBottom');
-        }
-      }
-    }
-  }
-
-  /**
-   * listener 초기화
-   * @private
-   */
-  function _initListeners() {
-    $scope.$on('$destroy', _onDestroy);
-
-    $scope.$on('window:unload', _onWindowUnload);
-
-    $scope.$on('updateRightFileDetailPanel', _init);
-    $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
-    $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
-    $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
-    $scope.$on('updateFileDetailPanel', _onFileChanged);
-    $scope.$on('setCommentFocus', _focusInput);
-
-    $scope.$on('fileShared', _fileShared);
-    $scope.$on('fileUnshared', _fileUnshared);
-
-    $scope.$on('topicInvite', _onTopicInvite);
-    $scope.$on('topicLeave', _onTopicLeave);
-
-    $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
-      _sticker = item;
-      _focusInput();
-    });
+    _init();
 
     /**
-     * 공유 된 topic 변경 event handler
+     * init
+     * @private
      */
-    $scope.$on('onChangeShared', function(event, data) {
-      var shareEntities = $scope.file_detail.shareEntities;
+    function _init() {
+      if (_isRedirectFileDetail()) {
+        _setRightPanelTail(true);
 
-      if (_isFileDetailActive() && data && shareEntities.length === 1 &&
-          ((data.event === "topic_deleted" && shareEntities[0] === data.topic.id) || (data.type === 'delete' && shareEntities[0] === data.id))) {
-        // archived file 이고 event type이 'topic_deleted' 또는 shared 'delete' 일때
-        // 마지막으로 shared topic이 삭제되는 것이라면 topic을 가지지 않은 것으로 표기함
-        $scope.hasTopic = false;
+        $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files') + '.item', $state.params);
       } else {
-        getFileDetail();
-      }
-    });
+        _setRightPanelTail(false);
 
-    // share된 곳이 없는 file일 경우에도 file_detail 갱신 하도록 함.
-    $scope.$on('rightFileDetailOnFileCommentCreated', function (event, param) {
+        if (fileId = $state.params.itemId) {
+          $scope.hasInitialLoaded = false;
+
+          // comment 작성 되지 않은 모음
+          $scope.errorComments = [];
+
+          $scope.onMemberClick = onMemberClick;
+          $scope.postComment = postComment;
+          $scope.setMentionsGetter = setMentionsGetter;
+          $scope.backToPrevState = backToPrevState;
+
+          _setFileDetail();
+
+          _attachEvents();
+        }
+      }
+    }
+
+    /**
+     * attach events
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('fileDetail:updateFile', _onUpdateFile);
+      $scope.$on('fileDetail:updateComments', _onUpdateComments);
+
+      $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
+      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+    }
+
+    /**
+     * file 갱신 event handler
+     * @private
+     */
+    function _onUpdateFile() {
+      _requestFileDetail('file');
+    }
+
+    /**
+     * comments 갱신 event handler
+     * @private
+     */
+    function _onUpdateComments() {
+      _requestFileDetail('comment');
+    }
+
+    /**
+     * file detail을 설정한다.
+     * @private
+     */
+    function _setFileDetail() {
+      var fileDetail = fileAPIservice.dualFileDetail;
+
+      if (fileDetail) {
+        // request하지 않아도 출력할 file object가 이미 존재함
+        _onSuccessFileDetail(fileDetail);
+      } else {
+       _requestFileDetail();
+      }
+    }
+
+    /**
+     * request file detail
+     * @param {string} updateType
+     * @private
+     */
+    function _requestFileDetail(updateType) {
       if (_isFileDetailActive()) {
-        if (param.file.id === parseInt(fileId, 10)) {
-          _onFileChanged(event, param);
-        }
+        requestFileDetail && requestFileDetail.abort();
+        requestFileDetail = fileAPIservice.getFileDetail(fileId)
+          .success(function(response) {
+            _onSuccessFileDetail(response, updateType);
+          })
+          .error(_onErrorFileDetail)
       }
-    });
-  }
-
-  /**
-   * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
-   * @private
-   */
-  function _onDestroy() {
-    _saveCommentInput();
-  }
-
-  /**
-   * window unload event handler
-   * @private
-   */
-  function _onWindowUnload() {
-    _saveCommentInput();
-  }
-
-  /**
-   * updateMemberProfile 이벤트 발생시 이벤트 핸들러
-   * @param {object} event
-   * @param {{event: object, member: object}} data
-   * @private
-   */
-  function _onUpdateMemberProfile(event, data) {
-    var list = $scope.file_comments;
-    var member = data.member;
-    var id = member.id;
-
-    _.forEach(list, function(comment) {
-      if (comment.writerId === id) {
-        _addExtraData(comment, comment.writerId);
-      }
-    });
-    if ($scope.file_detail && $scope.file_detail.writerId === id) {
-      _addExtraData($scope.file_detail, $scope.file_detail.writerId);
     }
-  }
 
-  /**
-   * file 상세정보를 조회한다.
-   * @returns {*}
-   */
-  function getFileDetail() {
-    var deferred = $q.defer();
-    if (!$scope.fileLoadStatus.loading) {
-      $scope.fileLoadStatus.loading = true;
-      $timeout.cancel(timerGetFileDetail);
-      timerGetFileDetail = $timeout(function () {
-        var fileDetail = fileAPIservice.dualFileDetail;
+    /**
+     * success file detail
+     * @param {object} response
+     * @param {string} updateType
+     * @private
+     */
+    function _onSuccessFileDetail(response, updateType) {
+      var messageDetails;
+      var fileDetail;
 
-        if (fileDetail) {
-          // 미리 조회된 file detail object가 존재한다면 fileApi로 request 안 보내고
-          // 저장된 file detail을 그대로 사용함
+      if (response) {
+        messageDetails = response.messageDetails;
+        updateType = updateType ? updateType : 'all';
 
-          _onSuccessFileDetail(fileDetail);
-          deferred.resolve();
+        fileDetail = _getFileDetailData(messageDetails, updateType);
+
+        if (updateType === 'file') {
+          _setFile(fileDetail.file);
+        } else if (updateType === 'comment') {
+          _setComments(fileDetail.comments);
         } else {
-          fileAPIservice.getFileDetail(fileId)
-            .success(_onSuccessFileDetail)
-            .error(_onErrorFileDetail)
-            .finally(function() {
-              deferred.resolve();
-            });
+          _setFile(fileDetail.file);
+          _setComments(fileDetail.comments);
+        }
+      }
+
+      $scope.hasInitialLoaded = true;
+    }
+
+    /**
+     * file과 comments를 분류하여 전달한다.
+     * @param {array} messageDetails
+     * @param {string} updateType
+     * @returns {{file: *, comments: Array}}
+     * @private
+     */
+    function _getFileDetailData(messageDetails, updateType) {
+      var file;
+      var comments = [];
+
+      _.each(messageDetails, function(item) {
+        if (updateType === 'all' || item.contentType.indexOf(updateType) > -1) {
+          if (item.contentType === 'file') {
+            // file
+
+            file = item;
+            _setExtraData(item, item.writerId);
+            $scope.isArchivedFile = _isArchivedFile(item);
+          } else if (!_isArchivedFile(item)) {
+            // etc
+
+            _pushComment(item, comments);
+          }
+        }
+      });
+
+      return {
+        file: file,
+        comments: comments
+      };
+    }
+
+    /**
+     * 삭제 상태인지 확인한다.
+     * @param {object} file
+     * @returns {boolean}
+     * @private
+     */
+    function _isArchivedFile(file) {
+      return file.status == 'archived';
+    }
+
+    /**
+     * file 설정한다.
+     * @param {object} file
+     * @private
+     */
+    function _setFile(file) {
+      $scope.file = file;
+
+      // integrate file 여부
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl);
+
+      // 외부 파일공유 되었는지 여부
+      $scope.isExternalShared = file.content.externalShared;
+      // 관리자 인지 여부
+      $scope.isAdmin = memberService.isAdmin();
+
+      _setFileDownLoad();
+    }
+
+    /**
+     * comments 설정한다.
+     * @param {array} comments
+     * @private
+     */
+    function _setComments(comments) {
+      comments = _.sortBy(comments, 'createTime');
+      _setCreateTime(comments);
+      $scope.comments = comments;
+    }
+
+    /**
+     * comments에 comment를 추가한다.
+     * @param {object} item
+     * @param {array} comments
+     * @private
+     */
+    function _pushComment(item, comments) {
+      var type = item.contentType;
+
+      if (type === 'comment' || type === 'comment_sticker') {
+        if (item.content && item.content.body) {
+          item.content.body = _getSafeBody(item);
         }
 
-        $scope.fileLoadStatus.loading = false;
-        $('.file-detail-body').addClass('opac_in');
-      }, timerGetFileDetail == null ? 0 : 800);
-    } else {
-      deferred.reject();
+        item.extIsSticker = type === 'comment_sticker';
+        _setExtraData(item, item.writerId);
+
+        comments.push(item);
+      }
     }
-    return deferred.promise;
-  }
 
-  /**
-   * comment 를 posting 한다.
-   */
-  function postComment() {
-    var jqCommentInput = $('#file-detail-comment-input');
-    var msg = jqCommentInput.val().trim();
-    var content;
-    var mentions;
+    /**
+     * safeBody 를 반환한다.
+     * @param {object} item
+     * @returns {*}
+     * @private
+     */
+    function _getSafeBody(item) {
+      var body = item.content.body;
 
-    if (!$scope.isPostingComment) {
-      if (msg || _sticker) {
-        _hideSticker();
+      if (_.isObject(body)) {
+        body = body.valueOf();
+      }
 
-        $scope.isPostingComment = true;
+      if (item.mentions && item.mentions.length > 0) {
+        body = $filter('mention')(body, item.mentions);
+        body = $filter('parseAnchor')(body);
+        body = $filter('mentionHtmlDecode')(body);
+      } else {
+        body = $filter('parseAnchor')(body);
+      }
+      body = $filter('markdown')(body);
+      return body;
+    }
 
+    /**
+     * message에 추가 데이터를 가공하여 설정한다.
+     * @param {object} target - 덧붙일 대상 message
+     * @param {number|string} writerId - 작성자 ID
+     * @private
+     */
+    function _setExtraData(target, writerId) {
+      var writer = entityAPIservice.getEntityById('user', writerId);
+      if (_.isObject(target)) {
+        target.extWriter = writer;
+        target.extWriterName = $filter('getName')(writer);
+        target.extProfileImg = memberService.getProfileImage(writerId),
+        target.extIsDisabledMember = publicService.isDisabledMember(writer);
+      }
+    }
+
+    /**
+     * error file detail
+     * @private
+     */
+    function _onErrorFileDetail(data, status) {
+      if (status === 403) {
+        // permission error(비공개 file에 접근했다가 까임)
+
+        $scope.hasInitialLoaded = $scope.isInvalidRequest = true;
+        $state.go('messages.detail.files.item', $state.params);
+      }
+    }
+
+    /**
+     * file detail을 출력하는 하도록 redirect 해야하는지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isRedirectFileDetail() {
+      return /redirect/.test($state.current.name);
+    }
+
+    /**
+     * file detail에서 뒤로가야할 상태를 설정한다.
+     * @param {boolean} isRedirect
+     * @private
+     */
+    function _setRightPanelTail(isRedirect) {
+      var activeMenu;
+
+      if (isRedirect) {
+        // 왼쪽 상단에 표시되는 back to list해야되는 target
+        if ($state.params.tail != null) {
+          RouterHelper.setRightPanelTail($state.params.tail);
+        }
+      } else if (activeMenu = Router.getActiveRightTabName($state.current)) {
+        RouterHelper.setRightPanelTail(activeMenu);
+      }
+    }
+
+    /**
+     * user image click event handler
+     * @param {object} user
+     */
+    function onMemberClick(member) {
+      if (_.isNumber(member)) {
+        member = EntityMapManager.get('member', member);
+      }
+      jndPubSub.pub('onMemberClick', member);
+    }
+
+    /**
+     * comment가 작성된 날짜를 전달한다.
+     * @param {number} index - current index
+     * @param {object} comment - current comment
+     * @returns {string} comment 작성 날짜
+     */
+    function _setCreateTime(comments) {
+      var prevComment;
+
+      _.each(comments, function(comment, index) {
+        var createTime;
+
+        comment.extCreateTime = new Date(comment.createTime);
+        prevComment = comments[index -1];
+
+        if (!prevComment ||
+          prevComment.extCreateTime.getYear() !== comment.extCreateTime.getYear() ||
+          prevComment.extCreateTime.getMonth() !== comment.extCreateTime.getMonth() ||
+          prevComment.extCreateTime.getDate() !== comment.extCreateTime.getDate()) {
+          createTime = $filter('getyyyyMMddformat')(comment.createTime);
+        } else {
+          createTime = $filter('date')(comment.createTime, 'h:mm a');
+        }
+
+        comment.extCreateTimeView = createTime;
+      });
+    }
+
+    /**
+     * updateMemberProfile event handler
+     * @param {object} angularEvent
+     * @param {{event: object, member: object}} data
+     * @private
+     */
+    function _onUpdateMemberProfile(angularEvent, data) {
+      var file = $scope.file;
+      var comments = $scope.comments;
+      var id = data.member.id;
+
+      if (file && file.writerId === id) {
+        _setExtraData(file, id);
+      }
+
+      _.forEach(comments, function(comment) {
+        if (comment.writerId === id) {
+          _setExtraData(comment, id);
+        }
+      });
+    }
+
+    /**
+     * file 삭제 event handler
+     * @param angularEvent
+     * @param param
+     * @private
+     */
+    function _onRightFileDetailOnFileDeleted(angularEvent, param) {
+      var deletedFileId = param.file.id;
+
+      if (fileId == deletedFileId) {
+        _setFileDetail();
+      }
+
+      // file 삭제 된다면 comment input 삭제
+      JndMessageStorage.removeCommentInput(deletedFileId);
+    }
+
+    /**
+     * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
+     * @returns {boolean} true - file deatil tab 을 보고 있을 경우
+     * @private
+     */
+    function _isFileDetailActive() {
+      return fileId && $state.params.itemId != null && $state.params.itemId !== '';
+    }
+
+    /**
+     * comment 입력이 끝나 post 중이고 comments 갱신 중인 comment를 추가한다.
+     * @param {object} data
+     * @returns {{sticker: *, comment: *}}
+     * @private
+     */
+    function _addSendingComment(data) {
+      var comments = $scope.comments;
+      var sendingComment;
+      var sendingSticker;
+      var sticker;
+      var comment;
+
+      // sticker와 comment가 같이 존재한다면 sticker가 먼저 입력되도록 한다.
+
+      if (sticker = data.sticker) {
+        sendingSticker = _getSendingComment('comment_sticker', sticker);
+        _pushComment(sendingSticker, comments);
+      }
+
+      if (comment = data.comment) {
+        sendingComment = _getSendingComment('comment', comment);
+        _pushComment(sendingComment, comments);
+      }
+
+      // comments에 추가함
+      _setComments(comments);
+
+      return {
+        sticker: sendingSticker,
+        comment: sendingComment
+      };
+    }
+
+    /**
+     * post 중인 comment를 전달한다.
+     * @param {string} type
+     * @param {object} value
+     * @returns {{writerId: *, contentType: *, createTime: Date, isSendingComment: boolean}}
+     * @private
+     */
+    function _getSendingComment(type, value) {
+      var currentMember = memberService.getMember();
+      var sendingComment = {
+        writerId: currentMember.id,
+        contentType: type,
+        createTime: new Date(),
+        isSendingComment: true
+      };
+
+      if (type === 'comment') {
+        sendingComment.content = {body: value};
+      } else if (type === 'comment_sticker') {
+        sendingComment.content = {url: Sticker.getRetinaStickerUrl(value.url)};
+        sendingComment.originSticker = value;
+      }
+
+      return sendingComment;
+    }
+
+    /**
+     * comment를 post 한다.
+     * @param {string} comment
+     * @param {object} sticker
+     * @returns {deferred.promise|{then, always}}
+     */
+    function postComment(comment, sticker) {
+      var deferred = $q.defer();
+      var fileId = $scope.file.id;
+      var content;
+      var mentions;
+
+      var result;
+
+      if (comment || sticker) {
         if ($scope.getMentions) {
           if (content = $scope.getMentions()) {
-            msg = content.msg;
+            comment = content.msg;
             mentions = content.mentions;
           }
         }
 
-        fileAPIservice.postComment(fileId, msg, _sticker, mentions)
-          .success(function() {
-            $scope.glued = true;
+        requestFileDetail && requestFileDetail.abort();
+
+        result = _addSendingComment({comment: comment, sticker: sticker});
+        fileAPIservice.postComment(fileId, comment, sticker, mentions)
+          .error(function() {
+            result.comment && _setErrorComments(result.comment);
+            result.sticker && _setErrorComments(result.sticker);
+          })
+          .finally(function() {
             JndMessageStorage.removeCommentInput(fileId);
-
-            $timeout(function() {
-              jqCommentInput.val('').focus()[0].removeAttribute('style');
-            });
-          })
-          .error(function(err) {
-          })
-          .finally(function () {
-            $scope.isPostingComment = false;
-          });
-      } else if (msg === '') {
-        $timeout(function() {
-          jqCommentInput.val('').focus()[0].removeAttribute('style');
-        });
-      }
-    }
-  }
-
-  /**
-   * comment 를 삭제한다.
-   * @param {number} commentId 코멘트 ID
-   * @param {boolean} [isSticker=false] sticker 삭제인지 여부
-   */
-  function deleteComment(commentId, isSticker) {
-    if (isSticker) {
-      fileAPIservice.deleteSticker(commentId)
-        .success(_onSuccessDelete)
-        .error(function(err) {
-          _onErrorDelete(err, 'fileAPIservice.deleteSticker');
-        });
-    } else {
-      fileAPIservice.deleteComment(fileId, commentId)
-        .success(_onSuccessDelete)
-        .error(function(err) {
-          _onErrorDelete(err, 'fileAPIservice.deleteComment');
-        });
-    }
-  }
-
-  /**
-   * keyDown 핸들러
-   * @param keyUpEvent
-   */
-  function onKeyUp(keyUpEvent) {
-    if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
-      _hideSticker();
-    }
-  }
-
-  /**
-   * user 이미지 클릭시 이벤트 핸들러
-   * @param {object} user
-   */
-  function onUserClick(user) {
-    if (_.isNumber(user)) {
-      user = EntityMapManager.get('member', user);
-    }
-    $scope.$emit('onUserClick', user);
-  }
-
-  /**
-   * 댓글 남기기 클릭 시 이벤트 핸들러
-   */
-  function onCommentFocusClick() {
-    _focusInput();
-  }
-
-  /**
-   * download 클릭시 이벤트 핸들러
-   * @param {object} file
-   */
-  function onClickDownload(file) {
-    // analytics
-    var file_meta = (file.content.type).split("/");
-    var download_data = {
-      "category": file_meta[0],
-      "extension": file.content.ext,
-      "mime type": file.content.type,
-      "size": file.content.size
-    };
-    analyticsService.mixpanelTrack("File Download", download_data);
-  }
-
-  /**
-   * 공유 클릭시 이벤트 핸들러
-   * @param file
-   */
-  function onClickShare(file) {
-    modalHelper.openFileShareModal($scope, file);
-  }
-
-  /**
-   * 공유 해제 클릭시 이벤트 핸들러
-   * @param {object} message
-   * @param {object} entity
-   */
-  function onClickUnshare(message, entity) {
-    fileAPIservice.unShareEntity(message.id, entity.id)
-      .success(function() {
-        // 곧 지워짐.
-        var share_target = "";
-        switch (entity.type) {
-          case 'channel':
-            share_target = "topic";
-            break;
-          case 'privateGroup':
-            share_target = "private group";
-            break;
-          case 'user':
-            share_target = "direct message";
-            break;
-          default:
-            share_target = "invalid";
-            break;
-        }
-        var file_meta = (message.content.type).split("/");
-        var share_data = {
-          "entity type": share_target,
-          "category": file_meta[0],
-          "extension": message.content.ext,
-          "mime type": message.content.type,
-          "size": message.content.size
-        };
-        analyticsService.mixpanelTrack( "File Unshare", share_data );
-        //
-
-        var property = {};
-        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-        try {
-          //analytics
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
-            'RESPONSE_SUCCESS': true,
-            'FILE_ID': message.id,
-            'TOPIC_ID': entity.id
-          });
-        } catch (e) {
-        }
-
-        _unsharedForMe = true;
-      })
-      .error(function(err) {
-        alert(err.msg);
-      });
-  }
-
-  /**
-   * file shared event handler
-   * @param {object} $event
-   * @param {object} data
-   * @private
-   */
-  function _fileShared($event, data) {
-    if (data.file.id == fileId) {
-      getFileDetail();
-    }
-  }
-
-  /**
-   * file unshared event handler
-   * @param {object} $event
-   * @param {object} data
-   * @private
-   */
-  function _fileUnshared($event, data) {
-    var promise;
-
-    if (data.file.id == fileId) {
-      promise = getFileDetail();
-
-      promise.finally(function() {
-        if (_unsharedForMe) {
-
-          // unshared된 다음 바로 list가 갱신되지 않기때문에 unshared되고 file detail이 새로 생성된 다음 dialog.success를 호출함
-          Dialog.success({
-            title: $filter('translate')('@success-file-unshare').replace('{{filename}}', $scope.file_detail.content.title)
-          });
-        }
-        _unsharedForMe = false;
-      });
-    }
-  }
-
-  /**
-   * topic invite event handler
-   * @param {object} event
-   * @param {object} data
-   * @private
-   */
-  function _onTopicInvite(event, data) {
-    _addMentionMember(data);
-
-    $scope.$apply(function() {
-      getFileDetail();
-    });
-  }
-
-  /**
-   * topic leave event handler
-   * @param {object} event
-   * @param {object} data
-   * @private
-   */
-  function _onTopicLeave(event, data) {
-    _removeMentionMember(data);
-
-    $scope.$apply(function() {
-      getFileDetail();
-    });
-  }
-
-  /**
-   * add mention member
-   * @param {object} data
-   * @private
-   */
-  function _addMentionMember(data) {
-    var room = EntityMapManager.get('total', data.room.id);
-    var members = data.inviter;
-    var joinMembers;
-
-    if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-      _.each(members, function(member) {
-        joinMembers.indexOf(member) < 0 && joinMembers.push(member);
-      });
-    }
-  }
-
-  /**
-   * remove mention member
-   * @param {object} data
-   * @private
-   */
-  function _removeMentionMember(data) {
-    var room = EntityMapManager.get('total', data.room.id);
-    var member = data.writer;
-    var joinMembers;
-    var index;
-
-    if (room && (joinMembers = entityAPIservice.getMemberList(room))) {
-      if (index = joinMembers.indexOf(member)) {
-        index > -1 && joinMembers.splice(index, 1);
-      }
-    }
-  }
-
-  /**
-   * shared entity 클릭시 이벤트 핸들러
-   * @param {string} entityId
-   */
-  function onClickSharedEntity(entityId, entityType) {
-    if (entityType === 'users') {
-      $state.go('archives', {entityType: entityType, entityId: entityId});
-    } else {
-      var targetEntity = EntityMapManager.get('total', entityId);
-
-      if (entityAPIservice.isJoinedTopic(targetEntity)) {
-        // joined topic.
-        $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-      } else {
-        // Join topic first and go!
-        entityheaderAPIservice.joinChannel(entityId)
-          .success(function(response) {
-            //analyticsService.mixpanelTrack( "topic Join" );
-            //$rootScope.$emit('updateLeftPanelCaller');
-            $state.go('archives', {entityType: 'channels',  entityId: entityId });
-          })
-          .error(function(err) {
-            alert(err.msg);
+            deferred.resolve();
           });
       }
+
+      return deferred.promise;
     }
-  }
 
-  /**
-   * file 삭제 클릭시 이벤트 핸들러
-   * @param fileId
-   */
-  function onFileDeleteClick(fileInfo) {
-    Dialog.confirm({
-      body: $filter('translate')('@file-delete-confirm-msg'),
-      onClose: function(result) {
-        var fileId;
+    /**
+     * comment 작성 error handler
+     * @param {object} comment
+     * @private
+     */
+    function _setErrorComments(comment) {
+      var index = $scope.comments.indexOf(comment);
 
-        if (result === 'okay') {
-          fileId = fileInfo;
-
-          fileAPIservice.deleteFile(fileId)
-            .success(function(response) {
-              getFileDetail();
-              try {
-                //analytics
-                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-                  'RESPONSE_SUCCESS': true,
-                  'FILE_ID': fileId
-                });
-              } catch (e) {
-              }
-
-              Dialog.success({
-                title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
-              });
-
-              $rootScope.$broadcast('onFileDeleted', fileId);
-            })
-            .error(function(err) {
-              console.log(err);
-              try {
-                //analytics
-                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-                  'RESPONSE_SUCCESS': false,
-                  'ERROR_CODE': err.code
-                });
-              } catch (e) {
-              }
-            });
-        }
+      if (index > -1) {
+        $scope.comments.splice(index, 1);
       }
-    });
-  }
-
-  /**
-   * 비활성 사용자인지 여부 반환
-   * @param {object} member
-   * @returns {*}
-   */
-  function isDisabledMember(member) {
-    if (_.isNumber(member)) {
-      member = EntityMapManager.get('member', member);
-    }
-    return publicService.isDisabledMember(member);
-  }
-
-  function _onRightFileDetailOnFileDeleted(event, param) {
-    var deletedFileId = param.file.id;
-    JndMessageStorage.removeCommentInput(deletedFileId);
-
-    _onFileChanged(event, param);
-  }
-
-  /**
-   * file 정보 변경시 이벤트 핸들러
-   * @param {object} event angular 이벤트
-   * @param {object} param
-   * @private
-   */
-  function _onFileChanged(event, param) {
-    if (_isFileDetailActive()) {
-      var deletedFileId = param.file.id;
-      if (parseInt(fileId, 10) === deletedFileId) {
-        getFileDetail();
-      }
-    }
-  }
-
-  /**
-   * comment input 에 focus 한다.
-   * @private
-   */
-  function _focusInput() {
-    $('#file-detail-comment-input').focus();
-  }
-
-  /**
-   * 스티커 레이어를 숨긴다.
-   * @private
-   */
-  function _hideSticker() {
-    jndPubSub.pub('deselectSticker:' + _stickerType);
-  }
-
-  /**
-   * safeBody 를 반환한다.
-   * @param {object} item
-   * @returns {*}
-   * @private
-   */
-  function _getSafeBody(item) {
-    var body = item.content.body;
-
-    if (_.isObject(body)) {
-      body = body.valueOf();
+      $scope.errorComments.push(comment);
     }
 
-    if (item.mentions && item.mentions.length > 0) {
-      body = $filter('mention')(body, item.mentions);
-      body = $filter('parseAnchor')(body);
-      body = $filter('mentionHtmlDecode')(body);
-    } else {
-      body = $filter('parseAnchor')(body);
-    }
-    body = $filter('markdown')(body);
-    return body;
-  }
-
-  /**
-   * File Detail API 오류 핸들러
-   * @private
-   */
-  function _onErrorFileDetail() {
-    $scope.initialLoaded = $scope.hasFileAPIError = true;
-    $state.go('messages.detail.files.item', $state.params);
-  }
-
-  /**
-   * File Detail API 성공 핸들러
-   * @param {object} response
-   * @private
-   */
-  function _onSuccessFileDetail(response) {
-    var messageDetails = response && response.messageDetails;
-    var i = messageDetails && messageDetails.length - 1 || 0;
-    var item;
-
-    // 일단 polling이 없으니 업데이트가 있을때마다 새로 갱신
-    $scope.file_comments = [];
-
-    //데이터가 시간 역순으로 정렬되어 있으므로, 뒤에서부터 순회한다.
-    for (; i >= 0; i--) {
-      item = messageDetails[i];
-      _setFileDetail(item);
+    /**
+     * mention getter 설정한다.
+     * @param {function} getter
+     */
+    function setMentionsGetter(getter) {
+      $scope.getMentions = getter;
     }
 
-    if ($scope.file_detail) {
-      // isStarred
-      $scope.isStarred = $scope.file_detail.isStarred;
-
-      // file icon
-      $scope.fileIcon = $filter('fileIcon')($scope.file_detail.content);
-
-      // writer
-      $scope.file_detail.extWriter = EntityMapManager.get('member', $scope.file_detail.writerId);
-
-      // integrate file
-      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
-
-      $scope.isFileOwner = $filter('isFileWriter')($scope.file_detail);
-      $scope.isAdmin = memberService.isAdmin();
-      $scope.isExternalShared = $scope.file_detail.content.externalShared;
-
-      _setFileDownLoad($scope.file_detail);
-
-      $('#file-detail-comment-input').val(JndMessageStorage.getCommentInput($scope.file_detail.id));
+    /**
+     * Redirect user back to prev state.
+     */
+    function backToPrevState() {
+      $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
     }
 
-    if (!$scope.initialLoaded) {
-      $scope.initialLoaded = true;
+    /**
+     * file download 값을 설정한다.
+     * @private
+     */
+    function _setFileDownLoad() {
+      var file = $scope.file;
+      var value = $filter('downloadFile')($scope.isIntegrateFile, file.content.name, file.content.fileUrl);
+
+      $scope.downloadUrl = value.downloadUrl;
+      $scope.originalUrl = value.originalUrl;
     }
   }
-
-  /**
-   * file download 설정
-   * @param {object} fileDetail
-   * @private
-   */
-  function _setFileDownLoad(fileDetail) {
-    var value;
-
-    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(fileDetail.content.serverUrl);
-    value = $filter('downloadFile')($scope.isIntegrateFile, fileDetail.content.name, fileDetail.content.fileUrl);
-
-    $scope.downloadUrl = value.downloadUrl;
-    $scope.originalUrl = value.originalUrl;
-  }
-
-  /**
-   * $scope 에 전달받은 data 를 토데로 file 상세 정보를 설정한다.
-   * @param {object} item 전달받은 데이터
-   * @private
-   */
-  function _setFileDetail(item) {
-    if (item.contentType === 'file') {
-      // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-      $scope.file_detail = item;
-      _addExtraData($scope.file_detail, item.writerId);
-
-      _setShared();
-
-      $scope.isFileArchived = _isFileArchived($scope.file_detail);
-    } else if (!_isFileArchived(item)) {
-      _appendFileComment(item);
-    }
-  }
-
-  /**
-   * Object에 추가 데이터를 가공하여 덧붙인다.
-   * @param {object} target - 덧붙일 대상 object
-   * @param {number|string} writerId - 작성자 ID
-   * @private
-   */
-  function _addExtraData(target, writerId) {
-    var writer = entityAPIservice.getEntityById('user', writerId);
-    if (_.isObject(target)) {
-      target.extWriter = writer;
-      target.extWriterName = $filter('getName')(writer);
-      target.extProfileImg = $filter('getSmallThumbnail')(writerId);
-    }
-  }
-  /**
-   * file comment 를 포멧에 맞춰 가공 후 추가한다.
-   * @param {object} item
-   * @private
-   */
-  function _appendFileComment(item) {
-    var contentType = item.contentType;
-    if (contentType === 'comment' || contentType === 'comment_sticker') {
-      if (item.content && item.content.body) {
-        item.content.body = _getSafeBody(item);
-      }
-      item.isSticker = (contentType === 'comment_sticker');
-      _addExtraData(item, item.writerId);
-      $scope.file_comments.push(item);
-    }
-  }
-
-  /**
-   * 삭제 상태인지 확인한다.
-   * @param {object} file
-   * @returns {boolean}
-   * @private
-   */
-  function _isFileArchived(file) {
-    return file.status == 'archived';
-  }
-
-  /**
-   * 삭제 성공시 이벤트 핸들러
-   * @private
-   */
-  function _onSuccessDelete() {
-    var promise;
-
-    $scope.glued = true;
-
-    promise = getFileDetail();
-    promise.finally(function() {
-      Dialog.success({
-        title: $filter('translate')('@message-deleted')
-      });
-    })
-  }
-
-  /**
-   * 삭제 실패시 이벤트 핸들러
-   * @param {object} err
-   * @param {string} referrer
-   * @private
-   */
-  function _onErrorDelete(err, referrer) {
-    $state.go('error', {code: err.code, msg: err.msg, referrer: referrer});
-  }
-
-  /**
-   * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
-   * @returns {boolean} true - file deatil tab 을 보고 있을 경우
-   * @private
-   */
-  function _isFileDetailActive() {
-    // file detail을 보고 있지 않는 경우에는 무시
-    return fileId && $state.params.itemId != null && $state.params.itemId !== '';
-  }
-
-  /**
-   * Redirect user back to file list.
-   */
-  function backToFileList() {
-    $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
-  }
-
-  /**
-   * comment가 작성된 날짜 get
-   * @param {number} index - current index
-   * @param {object} comment - current comment
-   * @returns {string} comment 작성 날짜
-   */
-  function getCreateTime(index, comment) {
-    var fileComments = $scope.file_comments;
-    var prevComment;
-    var createTime;
-
-    comment.exCreateTime = new Date(comment.createTime);
-    prevComment = fileComments[index - 1];
-    if (!prevComment ||
-      prevComment.exCreateTime.getYear() !== comment.exCreateTime.getYear() ||
-      prevComment.exCreateTime.getMonth() !== comment.exCreateTime.getMonth() ||
-      prevComment.exCreateTime.getDate() !== comment.exCreateTime.getDate()) {
-      createTime = $filter('getyyyyMMddformat')(comment.createTime);
-    } else {
-      createTime = $filter('date')(comment.createTime, 'h:mm a');
-    }
-
-    return createTime;
-  }
-
-  /**
-   * file_detail이 변경되면 mentionList 갱신
-   * @param {object} $mentionScope
-   */
-  function watchFileDetail($mentionScope, $mentionCtrl) {
-    var currentMemberId = memberService.getMemberId();
-
-    // file_detail 변경시 마다 mention list 변경
-    $scope.$watch('file_detail', function(value) {
-      var sharedEntities;
-      var entity;
-      var members;
-      var member;
-      var i;
-      var iLen;
-      var j;
-      var jLen
-
-      var mentionList = [];
-
-      if (value) {
-        sharedEntities = value.shareEntities;
-        for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
-          entity = EntityMapManager.get('total', sharedEntities[i]);
-          if (entity && /channels|privategroups/.test(entity.type)) {
-            members = entityAPIservice.getMemberList(entity);
-            if (members) {
-              for (j = 0, jLen = members.length; j < jLen; j++) {
-                member = EntityMapManager.get('total', members[j]);
-                if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                  member.extViewName = '[@' + member.name + ']';
-                  member.extSearchName = member.name;
-                  mentionList.push(member);
-                }
-              }
-            }
-          }
-        }
-
-        $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy(function (item) {
-          return item.name.toLowerCase();
-        }).value());
-      }
-    });
-  }
-
-  /**
-   * star click trigger
-   */
-  function onStarClick() {
-    $timeout(function() {
-      $('.file-detail').find('.star-btn').trigger('click');
-    });
-  }
-
-  /**
-   * comment 를 즐겨찾기함
-   */
-  function starComment(event) {
-    $timeout(function() {
-      $(event.target).parents('.comment-item-header__action').find('.comment-star i').trigger('click');
-    });
-  }
-
-  /**
-   * file이 공유된 topic명 설정
-   */
-  function _setShared() {
-    $scope.file_detail.extShared = fileAPIservice.updateShared($scope.file_detail);
-    $scope.hasTopic = !!$scope.file_detail.extShared.length;
-  }
-
-  /**
-   * comment input 저장
-   * @private
-   */
-  function _saveCommentInput() {
-    var fileDetail = $scope.file_detail;
-
-    if (fileDetail) {
-      JndMessageStorage.setCommentInput(fileDetail.id, $('#file-detail-comment-input').val());
-    }
-  }
-});
+})();

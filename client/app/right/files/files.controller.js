@@ -8,7 +8,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
+  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, Router, entityAPIservice,
                              fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
                              TopicFolderModel, jndPubSub) {
@@ -21,7 +21,7 @@
     var fileIdMap = {};
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
     var _isActivated;
-
+    var _timerSearch;
     _init();
 
     function _init() {
@@ -52,7 +52,6 @@
 
       $scope.onClickShare = onClickShare;
       $scope.onClickUnshare = onClickUnshare;
-      $scope.onClickSharedEntity = onClickSharedEntity;
 
       $scope.isFiltered = isFilterred;
       $scope.isFileSearchQueryDefault = isFileSearchQueryDefault;
@@ -92,7 +91,7 @@
     $scope.$on('rPanelResetQuery', _onResetQuery);
 
     //  From profileViewerCtrl
-    $rootScope.$on('updateFileWriterId', function(event, userId) {
+    $scope.$on('updateFileWriterId', function(event, userId) {
       var entity = EntityMapManager.get('total', userId);
 
       _initSharedByFilter(entity);
@@ -104,7 +103,7 @@
     /**
      * When file type filter has been changed.
      */
-    $rootScope.$on('updateFileTypeQuery', function(event, type) {
+    $scope.$on('updateFileTypeQuery', function(event, type) {
       _onUpdateFileTypeQuery(type);
     });
 
@@ -193,12 +192,14 @@
     /**
      * open right panel event handler
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    $scope.$on('rightPanelStatusChange', function($event, data) {
       if (data.type === 'files') {
         _isActivated = true;
 
-        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나 최초 load가 수행되지 않았다면 file list 갱신함
-        if ((data.toUrl !== data.fromUrl) && (data.fromTitle !== 'FILE DETAIL' || !initialLoadDone)) {
+        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나
+        // 최초 load가 수행되지 않았다면 file list 갱신함
+        if ((data.toUrl !== data.fromUrl) &&
+          (!initialLoadDone || data.fromTitle !== 'FILE DETAIL')) {
           _resetSearchStatusKeyword();
           _refreshFileList();
         }
@@ -283,7 +284,6 @@
         });
       }
     }
-
     /**
      * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
      * @param data
@@ -291,13 +291,33 @@
      * @private
      */
     function _isFileStatusChangedOnCurrentFilter(data) {
-      return $scope.fileRequest.sharedEntityId === -1 || (data.room && data.room.id === $scope.fileRequest.sharedEntityId);
+      var result = false;
+      var joinedEntity;
+
+      if ($scope.fileRequest.sharedEntityId === -1) {
+        // 참여중인 모든 대화방
+        result = true;
+      } else if (data.room) {
+        joinedEntity = entityAPIservice.getJoinedEntity(data.room.id);
+        if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
+          result = true;
+        }
+      }
+
+      return result;
     }
 
     function _refreshFileList() {
       if (_isFileTabActive() && $scope.isConnected) {
-        preLoadingSetup();
-        getFileList();
+        /*
+          rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+         중복 호출을 방지하기 위하여 timeout 을 사용한다
+         */
+        $timeout.cancel(_timerSearch);
+        _timerSearch = $timeout(function() {
+          preLoadingSetup();
+          getFileList();
+        }, 100);
       }
     }
 
@@ -333,10 +353,9 @@
      * @private
      */
     function _generateShareOptions() {
-      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
-      //if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
-      //  $('._chatRoomOptions').change();
-      //}
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+      );
     }
 
     /**
@@ -381,7 +400,7 @@
      * @private
      */
     function _addToSharedByOption(member) {
-      $scope.selectOptionsUsers = fileAPIservice.getShareOptions($scope.memberList);
+      $scope.selectOptionsUsers = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
     }
 
     /**
@@ -627,30 +646,6 @@
         .error(function(err) {
           alert(err.msg);
         });
-    }
-
-    /**
-     * shared event handler
-     * @param {number} entityId
-     */
-    function onClickSharedEntity(entityId) {
-      var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-      if (fileAPIservice.isMember(targetEntity, $scope.member)) {
-        // topic에 member이면
-
-        $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
-      } else {
-        entityheaderAPIservice.joinChannel(targetEntity.id)
-          .success(function(response) {
-            $rootScope.$emit('updateLeftPanelCaller');
-            $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
-            analyticsService.mixpanelTrack( "topic Join" );
-
-          })
-          .error(function(err) {
-            alert(err.msg);
-          });
-      }
     }
 
     /**

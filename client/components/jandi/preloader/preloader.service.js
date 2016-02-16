@@ -34,36 +34,46 @@
 
     /**
      * image template 을 preload 한다.
-     * @param {String|Array} data - preload 할 image url. 복수개의 경우 array 를 넘긴다.
+     * @param {String|Array|object} data - preload 할 image url. 복수개의 경우 array|object 를 넘긴다.
      * @return {Preloader}
      */
     function img(data) {
       var list = [];
-      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
 
-      if (!_.isArray(data)) {
-        list.push(data);
-      } else {
+      if (_.isObject(data) || _.isArray(data)) {
         list = data;
+      } else {
+        list.push(data);
       }
 
       _.forEach(list, function(url) {
-        var img;
-        url = hasUrlInterceptor ? _urlInterceptor(url) : url;
-        if (!_imgMap[url]) {
-          img = new Image();
-          img.src = url;
-          $(img).css({
-            width: '1px',
-            height: '1px',
-            visibility: 'hidden'
-          });
-          _imgMap[url] = true;
-          _jqImgContainer.append(img);
-        }
+        setTimeout(_.bind(_appendImg, null, url), 100);
       });
 
       return that;
+    }
+
+    /**
+     * append image
+     * @param {string} url
+     * @private
+     */
+    function _appendImg(url) {
+      var img;
+      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
+
+      url = hasUrlInterceptor ? _urlInterceptor(url) : url;
+      if (!_imgMap[url]) {
+        img = new Image();
+        img.src = url;
+        $(img).css({
+          width: '1px',
+          height: '1px',
+          visibility: 'hidden'
+        });
+        _imgMap[url] = true;
+        _jqImgContainer.append(img);
+      }
     }
 
     /**

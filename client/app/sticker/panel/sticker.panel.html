@@ -10,9 +10,8 @@
   <!-- 스티커 패널 -->
   <div class="sticker_panel dropdown-menu dropdown-menu-right" dropdown-menu>
     <!-- 스티커 리스트-->
-    <div class="sticker_panel_contents"
-         ng-class="{ 'empty': !list.length }">
-      <div ng-if="!list.length">
+    <div class="sticker_panel_contents" ng-switch="isRecentEmpty">
+      <div class="sticker_empty" ng-switch-when="true">
         <div class="sticker_panel_empty_icon">
           <i class="icon-sticker"></i>
         </div>
@@ -20,13 +19,13 @@
           Recent Stickers
         </div>
       </div>
-      <ul ng-if="list.length" class="sticker_panel_ul">
+      <ul class="sticker_panel_ul" ng-switch-default >
         <li class="sticker_panel_li cursor_pointer"
             ng-repeat="item in list"
             ng-class="{'active': isActiveSticer($index)}"
             ng-mouseenter="selectActiveSticker($index)"
             ng-mousedown="selectSticker()">
-          <img class="sticker size_1" src="{{::item.url}}"/>
+          <img class="sticker size_1" ng-src="{{::item.url}}"/>
         </li>
       </ul>
     </div>

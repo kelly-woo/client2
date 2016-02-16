@@ -12,17 +12,21 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog, JndUtil, EntityMapManager) {
+                            Dialog, JndUtil, JndConnect) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();
 
+    var requestConnectInfo;
+
+    //커넥트 관련 요소를 활성화 할지 여부
+    $scope.isConnectActive = JndConnect.isActive();
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;
-    $scope.isUserType;
+    $scope.isMember;
 
     $scope.onEntityTitleClicked = onEntityTitleClicked;
 
@@ -38,6 +42,7 @@
     $scope.kickOut = kickOut;
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
+    $scope.onConnectorToggle = onConnectorToggle;
 
     $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
 
@@ -49,8 +54,13 @@
      * @private
      */
     function _init() {
-      _initWithParam(_currentEntity);
-      _attachEventListeners();
+      //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
+      if (publicService.isInitDone()) {
+        _initWithParam(_currentEntity);
+        _attachEventListeners();
+      } else {
+        $scope.$on('dataInitDone', _init);
+      }
     }
 
     /**
@@ -80,37 +90,14 @@
     function _initWithParam(param) {
       if (!!param) {
         _checkCurrentEntity(param);
-        _filterDeactivateMembers();
         _checkDisabledMember();
 
         _checkOwnership();
         _checkIfDefaultTopic();
         _checkNotificationStatus();
-      }
-    }
 
-    /**
-     * currentEntity 로 부터 deactivate member 를 제거한다.
-     * @param {object} currentEntity
-     * @returns {object} deactive member 를 제거한 entity
-     * @private
-     */
-    function _filterDeactivateMembers() {
-      var members = _currentEntity && _currentEntity.members || [];
-      var totalEntities = $rootScope.totalEntities;
-      var member;
-      var entity;
-      var i;
-
-      if (members && members.length) {
-        for (i = 0; i < members.length; i++) {
-          member = members[i];
-          entity = EntityMapManager.get('total', member);
-          if (!entity || !entity.name) {
-            members.splice(i, 1);
-            i -= 1;
-          }
-        }
+        _initConnectInfo();
+        _updateConnectInfo();
       }
     }
 
@@ -138,12 +125,19 @@
     function _setCurrentEntity(entity) {
       if (!!entity) {
         entity.members = entityAPIservice.getMemberList(entity);
+
         _currentEntity = entity;
         _entityId = entity.id;
         _entityType = entity.type;
-        $scope.currentEntity = entity;
-        $scope.isUserType = _currentEntity.type === 'users';
 
+        $scope.currentEntity = entity;
+
+        $scope.isUser = memberService.isUser(_currentEntity.id);
+        $scope.isJandiBot = memberService.isJandiBot(_currentEntity.id);
+        $scope.isMember = $scope.isUser || $scope.isJandiBot;
+
+        $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
+        $scope.users = entityAPIservice.getUserList(entity);
       }
     }
 
@@ -166,10 +160,11 @@
     /**
      * 강퇴 실패시 이벤트 핸들러
      * @param {object} response
+     * @param {number} status
      * @private
      */
-    function _onKickOutFailed(response) {
-      JndUtil.alertUnknownError(response);
+    function _onKickOutFailed(response, status) {
+      JndUtil.alertUnknownError(response, status);
     }
 
     /**
@@ -178,6 +173,7 @@
      */
     function _checkOwnership() {
       $scope.myId = memberService.getMemberId();
+      $scope.ownerId = entityAPIservice.getOwnerId(_currentEntity);
       $scope.isOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
       $scope.isAdmin = memberService.isAdmin();
       $scope.hasAuth = $scope.isOwner || $scope.isAdmin;
@@ -202,6 +198,8 @@
       } else {
         $scope.isDisabledEntity = false;
       }
+
+      $scope.isAllowUserable = !$scope.isDisabledEntity && !$scope.isJandiBot;
     }
 
     /**
@@ -347,6 +345,16 @@
     }
 
     /**
+     * connector toggle
+     * @param {boolean} $isOpen
+     */
+    function onConnectorToggle() {
+      // connector가 toggle 될때마다 server로 request하여 connect plugs를 갱신한다.
+      // 항상 갱신하는 이유는 entity header에 노출되는 count를 항상 갱신해야 하기 때문이다.
+      _updateConnectInfo();
+    }
+
+    /**
      * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
      */
     function onTopicNotificationBellClicked() {
@@ -358,7 +366,7 @@
      * @param memberId
      */
     function openMemberModal(memberId) {
-      jndPubSub.pub('onUserClick', memberId || _currentEntity);
+      jndPubSub.pub('onMemberClick', memberId || _currentEntity);
     }
 
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
@@ -420,6 +428,67 @@
      */
     function _onTopicLeft(event, data) {
       _onTopicDeleted(event, data);
+    }
+
+    /**
+     * init connect info
+     * @private
+     */
+    function _initConnectInfo() {
+      $scope.connectInfo = {};
+    }
+
+    /**
+     * update connect info
+     * @private
+     */
+    function _updateConnectInfo() {
+      var room;
+      var roomId;
+      var entityId;
+
+      if ($scope.isAllowConnect) {
+        entityId = $scope.isMember ? $scope.currentEntity.entityId : $scope.currentEntity.id;
+
+        if (entityId) {
+          // currentEntity에서 entityId 또는 id를 전달 받을 수 있는경우
+
+          if (room = entityAPIservice.getJoinedEntity(entityId)) {
+            roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
+
+            requestConnectInfo && requestConnectInfo.abort();
+            requestConnectInfo = entityHeader.getConnectInfo(roomId)
+              .success(function(data) {
+                $scope.connectInfo = data;
+              });
+          }
+        } else {
+          // currentEntity.entityId를 전달 못받을 수도 있다. 예를들어, DM의 경우 currentEntity 는 member object에서 room 정보를
+          // 포함하는 확장된 값을 사용하는데 사용자가 상대방과 DM에서 메세지를 주고 받다가 DM리스트에서 삭제한 경우 currentEntity는
+          // member object로서의 역활만 가능하다. 그러므로 DM에 해당하는 entityId를 알 수 있는 시점에 connect 정보를 요청해야 한다.
+          // center.controller에 messageAPIservice.getMessages 호출한 응답값으로 entityId를 알 수 있으므로 여기에 해당 처리의
+          // 코드를 작성한다.
+
+          _attachEntityIdChange();
+        }
+      }
+    }
+
+    /**
+     * attach entityId change event handler
+     * DM이고 해당 DM의 roomId를 entityMap에서 읽을 수 없을때 사용함
+     * @private
+     */
+    function _attachEntityIdChange() {
+      var entityIdChanged;
+      entityIdChanged = $scope.$on('centerService:roomIdChanged', function (angularEvent, entityId) {
+        requestConnectInfo && requestConnectInfo.abort();
+        requestConnectInfo = entityHeader.getConnectInfo(entityId)
+          .success(function(data) {
+            $scope.connectInfo = data;
+            entityIdChanged();
+          });
+      });
     }
   }
 })();

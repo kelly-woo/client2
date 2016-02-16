@@ -14,6 +14,9 @@
                         storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor, jndWebSocketCommon,
                         jndWebSocketServiceHelper, logger, jndWebSocketEmitter, jndWebSocketOtherTeamManager) {
 
+    //emit 소켓 버전
+    var VERSION = 1;
+
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -150,7 +153,10 @@
 
         _.forEach(eventsList, function(obj) {
           socket.on(obj.name, _onSocketEvent);
-          handlers[obj.name] = obj.handler;
+          handlers[obj.name] = {
+            version: obj.version,
+            fn: obj.handler
+          };
         });
       });
     }
@@ -161,9 +167,13 @@
      * @private
      */
     function _onSocketEvent(socketEvent) {
+      var handler;
       logger.socketEventLogger(socketEvent.event, socketEvent);
       if (_isCurrentTeamEvent(socketEvent)) {
-        handlers[socketEvent.event](socketEvent);
+        handler = handlers[socketEvent.event];
+        if (socketEvent.version === handler.version) {
+          handler.fn(socketEvent);
+        }
       } else {
         jndWebSocketOtherTeamManager.onSocketEvent(socketEvent);
       }
@@ -178,14 +188,17 @@
     function _isCurrentTeamEvent(socketEvent) {
       var currentTeamId = currentSessionHelper.getCurrentTeam().id;
       var teamId = jndWebSocketCommon.getTeamId(socketEvent);
+      // 현재는 link_preview_image socket event에 teamId 정보가 없음.
+      // 테스트용으로 우선 true를 리턴하게 함. - Jihoon
+      /*
+       TODO: authentication_created 는 Team 에 종속적이지 않은 이벤트이나, 현재 구조에서
+      */
+      var currentTeamEventMap = {
+        'link_preview_image': true,
+        'authentication_created': true
+      };
 
-      if (socketEvent.event === 'link_preview_image') {
-        // 현재는 link_preview_image socket event에 teamId 정보가 없음.
-        // 테스트용으로 우선 true를 리턴하게 함.
-        return true;
-      }
-
-      return teamId > -1 && currentTeamId === teamId;
+      return !!currentTeamEventMap[socketEvent.event] || teamId > -1 && currentTeamId === teamId;
     }
 
     /**
@@ -276,6 +289,8 @@
      * @param data {object} object to be attached along with socket event
      */
     function _emit(eventName, data) {
+      //emit 이벤트에 version 정보를 inject 한다.
+      data = _.extend({}, data, {version: VERSION});
       socket.emit(eventName, data);
       jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }

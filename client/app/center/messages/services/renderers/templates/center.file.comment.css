@@ -15,3 +15,8 @@
 .fileicon.unshared {
   background-position: 0 -155px;
 }
+
+.msg-item .msg-item-header .continue-comment-body .msg-item-header__name,
+.msg-item .msg-item-header .continue-comment-body .comment-content {
+  vertical-align: middle;
+}

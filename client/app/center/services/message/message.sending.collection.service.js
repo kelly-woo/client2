@@ -10,7 +10,7 @@
     .service('MessageSendingCollection', MessageSendingCollection);
 
   /* @ngInject */
-  function MessageSendingCollection($rootScope, MessageCollection) {
+  function MessageSendingCollection($rootScope, MessageCollection, Sticker) {
     var that = this;
     var _sendingKey = 0;
     var _payloads = {};
@@ -205,9 +205,15 @@
     }
 
     function _getPayload(content, sticker, mentions) {
+      sticker = _.clone(sticker);
+
+      if (sticker) {
+        sticker.url = Sticker.getRetinaStickerUrl(sticker.url);
+      }
+      
       return {
         content: content,
-        sticker: _.clone(sticker),
+        sticker: sticker,
         mentions: mentions
       };
     }

@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
                       publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -31,6 +31,9 @@
       },
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
+      },
+      'shortcut': function() {
+        modalHelper.openShortcutModal($scope);
       }
     };
 
@@ -48,11 +51,18 @@
 
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
+      //커넥트 관련 요소를 활성화 할지 여부
+      $scope.isConnectActive = JndConnect.isActive();
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
 
       // sign out
       $scope.onSignOutClick = publicService.signOut;
+
+      $scope.isZoomEnable = JndZoom.isZoomEnable();
+      $scope.zoomIn = zoomIn;
+      $scope.zoomOut = zoomOut;
+      $scope.zoomReset = zoomReset;
 
       $scope.onLanguageClick = onLanguageClick;
       $scope.toTeam = toTeam;
@@ -63,9 +73,10 @@
       $scope.onShowTutorialClick = onShowTutorialClick;
       $scope.onTutorialPulseClick = onTutorialPulseClick;
       $scope.openRightPanel = openRightPanel;
+      $scope.showConnect = showConnect;
 
       $scope.openQuickLauncher = openQuickLauncher;
-      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip()
+      $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
       $scope.toolbar = {
         files: false,
@@ -83,6 +94,31 @@
     }
 
     /**
+     * 우측 패널 open 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {string} type
+     * @private
+     */
+    function _onHotkeyOpenRight(angularEvent, type) {
+      openRightPanel(type);
+    }
+
+    /**
+     * 우측패널 닫기 이벤트 핸들러
+     * @private
+     */
+    function _onHotKeyCloseRight() {
+      _closeRightPanel();
+    }
+
+    /**
+     * connect 메뉴를 노출한다.
+     */
+    function showConnect(data) {
+      JndConnect.open(data);
+    }
+
+    /**
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
      */
@@ -90,6 +126,8 @@
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         stateParams = toParams;
       });
+      $scope.$on('hotkey-open-right', _onHotkeyOpenRight);
+      $scope.$on('hotkey-close-right', _onHotKeyCloseRight);
 
       // header icon의 active event handler
       $scope.$on('onActiveHeaderTab', function($event, type) {
@@ -102,7 +140,7 @@
       });
 
       // right panel의 open event handler
-      $scope.$on('onRightPanel', function($event, data) {
+      $scope.$on('rightPanelStatusChange', function($event, data) {
         $rootScope.isOpenRightPanel = true;
 
         _setTabStatus(currentRightPanel, false);
@@ -117,7 +155,6 @@
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
 
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
-      $scope.$on('center:toggleSticker', _onToggleSticker);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -146,7 +183,9 @@
           } catch (e) {
           }
 
-          accountService.setAccountLanguage(response.lang);
+          // server에서 response 값 전달시 account api 호출시 전달한 lang값을 설정한 row를 
+          // 조회 하지 못하는 케이스가 발생하므로 account api 호출시 사용한 data를 그대로 사용한다.
+          accountService.setAccountLanguage(lang);
 
           publicService.setLanguageConfig(accountService.getAccountLanguage());
 
@@ -324,19 +363,39 @@
     }
 
     /**
-     * on toggle sticker
-     * @private
-     */
-    function _onToggleSticker() {
-      modalHelper.closeModal();
-    }
-
-    /**
      * quick launcher button의 tooltip을 os에 맞게 전달한다.
      * @returns {*}
      */
     function getQuickLauncherButtonTooltip() {
       return $filter('translate')(Browser.platform.isMac ? '@quick-launcher-tooltip-for-mac' : '@quick-launcher-tooltip-for-win');
     }
+
+    /**
+     * zoom in
+     * @param {Event} clickEvent
+     */
+    function zoomIn(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomIn();
+    }
+
+    /**
+     * zoom out
+     * @param {Event} clickEvent
+     */
+    function zoomOut(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomOut();
+    }
+
+    /**
+     * zoom reset
+     * @param {Event} clickEvent
+     */
+    function zoomReset(clickEvent) {
+      clickEvent.stopPropagation();
+      JndZoom.zoomReset();
+    }
+
   }
 })();

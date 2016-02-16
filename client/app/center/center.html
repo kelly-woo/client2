@@ -1,4 +1,4 @@
-<div jnd-main-key-handler center-event-handler>
+<div class="private-effect" center-event-handler>
   <page-tracker ng-if="entityType === 'channels'" page="topic/public" title="Public Topic"></page-tracker>
   <page-tracker ng-if="entityType === 'privategroups'" page="topic/private" title="Private Topic"></page-tracker>
   <page-tracker ng-if="entityType === 'users'" page="directmessage" title="Direct Messages"></page-tracker>
@@ -12,8 +12,8 @@
     <span translate>@success-file-unshare</span>
     <span translate>@success-file-delete</span>
   </div>
-  
-  
+
+
   <div class="file-upload-progress-container" ng-if="curUpload.status != null"
        ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
                   'file-upload-done': curUpload.status == 'done'}">

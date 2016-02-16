@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper,
-                              memberService, modalHelper, jndPubSub) {
+                              memberService, entityAPIservice, modalHelper, jndPubSub) {
     var DISABLED_MEMBER_STATUS = 'disabled';
 
     _init();
@@ -50,20 +50,19 @@
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
-     * @param {string} value
+     * @param {string} filterText
      * @returns {*}
      */
-    function getMatches(list, value) {
+    function getMatches(list, filterText) {
       var matches;
 
-      value = value.toLowerCase();
-
+      filterText = filterText.toLowerCase();
       matches = _.chain(list)
-        .filter(function (item) {
-          return item.name.toLowerCase().indexOf(value) > -1;
+        .filter(function(item) {
+          return item.name.toLowerCase().indexOf(filterText) > -1
         })
-        .sortBy(function (item) {
-          return [!item.isStarred, item.name.toLowerCase()];
+        .sortBy(function(item) {
+          return [!item.isStarred, !memberService.isJandiBot(item.id), item.name.toLowerCase()];
         })
         .value();
 
@@ -105,7 +104,7 @@
       } else {
         // open profile modal
 
-        modalHelper.openCurrentMemberModal();
+        modalHelper.openUserProfileModal($scope, member);
       }
     }
 
@@ -115,21 +114,29 @@
     function generateMemberList() {
       var enabledMemberList = [];
       var disabledMemberList = [];
+      var memberList = currentSessionHelper.getCurrentTeamUserList();
+      var jandiBot = entityAPIservice.getJandiBot();
 
-      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
-        if (memberService.isDeactivatedMember(member)) {
-          disabledMemberList.push(member);
-        } else {
-          if (memberService.getMemberId() !== member.id) {
-            enabledMemberList.push(member);
-          }
+      if (memberList) {
+        if (jandiBot) {
+          enabledMemberList.push(jandiBot);
         }
-      });
 
-      $scope.hasMember = currentSessionHelper.getCurrentTeamMemberCount() > 0;
-      $scope.enabledMemberList = enabledMemberList;
-      $scope.disabledMemberList = disabledMemberList;
-      $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+        _.forEach(memberList, function(member) {
+          if (memberService.isDeactivatedMember(member)) {
+            disabledMemberList.push(member);
+          } else {
+            if (memberService.getMemberId() !== member.id) {
+              enabledMemberList.push(member);
+            }
+          }
+        });
+
+        $scope.hasUser = currentSessionHelper.getCurrentTeamUserCount() > 0;
+        $scope.enabledMemberList = enabledMemberList;
+        $scope.disabledMemberList = disabledMemberList;
+        $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+      }
     }
 
     /**

@@ -9,7 +9,7 @@
     .service('TopicItemRenderer', TopicItemRenderer);
 
   /* @ngInject */
-  function TopicItemRenderer($filter) {
+  function TopicItemRenderer($filter, entityAPIservice) {
     var _template;
 
     this.render = render;
@@ -23,18 +23,39 @@
     /**
      * topic item을 랜더링한다.
      * @param {object} data
+     * @param {string} filterText
      * @returns {*}
      */
-    function render(data) {
+    function render(data, filterText) {
+      data = _convertData(data);
+
       return _template({
-        topicName: $filter('getName')(data),
+        html: {
+          topicName: $filter('typeaheadHighlight')(data.name, filterText)
+        },
+        createTime: data.createTime,
+        topicDescription: data.topicDescription,
+        creatorName: data.creatorName,
+        userCount: data.userCount,
+        commonJoinedMessage: $filter('translate')('@common-joined'),
+        itemHeight: !!data.topicDescription ? 130 : 77
+      });
+    }
+
+    /**
+     * render에서 사용가능한 data로 변환
+     * @param {object} data
+     * @returns {{type: *, id: *, name: *, status: status, profileImage: *, count: (string|number|*)}}
+     * @private
+     */
+    function _convertData(data) {
+      return {
+        name: data.name,
         createTime: $filter('getyyyyMMddformat')(data.ch_createTime),
         topicDescription: data.description,
         creatorName: $filter('getName')(data.ch_creatorId),
-        memberCount: data.ch_members.length,
-        commonJoinedMessage: $filter('translate')('@common-joined'),
-        itemHeight: !!data.description ? 130 : 77
-      });
+        userCount: entityAPIservice.getUserList(data).length
+      };
     }
   }
 })();

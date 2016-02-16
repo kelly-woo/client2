@@ -27,7 +27,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     });
   };
 
-
   leftpanelAPI.toSignin = function() {
     currentSessionHelper.clear();
     storageAPIservice.removeLocal();
@@ -42,111 +41,16 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     }
   };
 
-  leftpanelAPI.getJoinedChannelData = function(array) {
-    var joinedChannelList = [];
-    var privateGroupList = [];
-
-    EntityMapManager.reset('private');
-    EntityMapManager.reset('joined');
-
-    angular.forEach(array, function(entity, index) {
-      var type = entity.type;
-      if (type == "channels") {
-        joinedChannelList.push(entity);
-        EntityMapManager.add('joined', entity);
-      } else if (type == "privategroups") {
-        privateGroupList.push(entity);
-        EntityMapManager.add('private', entity);
-      }
-    });
-
-    return {
-      joinedChannelList: joinedChannelList,
-      privateGroupList: privateGroupList
-    };
-  };
-
   leftpanelAPI.getDefaultChannel = function(input) {
-    return input.team.t_defaultChannelId;
-  };
-
-  leftpanelAPI.getGeneralData = function(totalEntities, joinedEntities, currentUserId) {
-    var memberList = [];
-    var totalChannelList = [];
-    var unJoinedChannelList = [];
-
-    EntityMapManager.reset('member');
-
-    angular.forEach(totalEntities, function(entity, index) {
-      var entityId = entity.id;
-      var entityType = entity.type;
-
-      if (entityType == "users") {
-        entity.selected = false;
-        memberList.push(entity);
-        EntityMapManager.add('member', entity);
-      } else if (entityType == "channels") {
-        var found = false;
-        _.each(joinedEntities, function(element, index, list) {
-          if (!found && element.id == entityId) found = true;
-        });
-
-        if (!found) {
-          unJoinedChannelList.push(entity);
-        }
-
-        totalChannelList.push(entity);
-
-      }
-    });
-
-
-    return {
-      memberList: memberList,
-      totalChannelList: totalChannelList,
-      unJoinedChannelList: unJoinedChannelList
-    };
-  };
-
-  // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
-  //  Initialize correct prefix for 'channel' and 'user'.
-
-  // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
-  leftpanelAPI.setEntityPrefix = function($scope) {
-    EntityMapManager.reset('total');
-
-    _.each($scope.totalEntities, function(entity) {
-      entity.isStarred = !!entity.isStarred;
-
-      if (entity.type === 'channel' || entity.type === 'channels') {
-        entity.type = 'channels';
-        entity.typeCategory = $filter('translate')('@common-topics');
-      } else if (entity.type === 'user' || entity.type === 'users') {
-        entity.type = 'users';
-        entity.typeCategory = $filter('translate')('@user');
-      } else {
-        entity.type = 'privategroups';
-        entity.typeCategory = $filter('translate')('@common-topics');
-      }
-
-      EntityMapManager.add('total', entity);
-    });
-
-    _.each($scope.joinEntities, function(entity) {
-      entity.isStarred = !!entity.isStarred;
-      if (entity.type === 'channel' || entity.type === 'channels') {
-        entity.type = 'channels';
-        entity.typeCategory = $filter('translate')('@common-topics');
-      } else if (entity.type === 'user' || entity.type === 'users') {
-        entity.type = 'users';
-        entity.typeCategory = $filter('translate')('@user');
-      } else {
-        entity.type = 'privategroups';
-        entity.typeCategory = $filter('translate')('@common-topics');
-      }
-
-      EntityMapManager.add('total', entity);
-    });
+    var defaultChannelId = input.team.t_defaultChannelId;
+    var joindEntityMap = EntityMapManager.getMap('joined');
+    if (!EntityMapManager.get('joined', defaultChannelId)) {
+      _.each(joindEntityMap, function(entity) {
+        defaultChannelId = entity.id;
+        return false;
+      });
+    }
+    return defaultChannelId;
   };
 
   leftpanelAPI.getMessages = function() {

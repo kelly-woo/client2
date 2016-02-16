@@ -56,8 +56,12 @@
      * @private
      */
     function _show(angularEvent, item) {
+      var url = item.url;
       currentItem = item;
-      $scope.fileUrl = item.url;
+
+      if (_.isString(url)) {
+        $scope.fileUrl = Sticker.getRetinaStickerUrl(url);
+      }
     }
   }
 

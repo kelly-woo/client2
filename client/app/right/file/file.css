@@ -19,6 +19,8 @@
 .file-card .file-image .icon-wrapper {
   background-color: #f2f2f2;
   padding: 15px;
+  border-radius: 3px;
+  border: 1px solid #e1e1e1;
 }
 
 .file-card .file-card-body {
@@ -135,8 +137,9 @@
   float: none;
 }
 .msg-file-body__img__background {
-  border: 1px solid #e1e1e1;
   background-color: #f1f4f8;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.08);
 }
 
  /* LOADING BAR */

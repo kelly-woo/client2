@@ -1,5 +1,5 @@
 <div class="rpanel-body star-list">
-  <tabset>
+  <tabset ng-if="isDataInitDone">
     <!--  ALL TAB  -->
     <tab active="tabs.all.active" heading="{{tabs.all.name}}" select="onTabSelect('all');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
@@ -13,7 +13,7 @@
               </div>
             </div>
           </div>
-          <div ng-repeat="item in tabs.all.list track by item.message.id">
+          <div class="private-effect" ng-repeat="item in tabs.all.list track by item.message.id">
             <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
             <file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></file>
           </div>
@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-          <div ng-repeat="file in tabs.files.list track by file.message.id">
+          <div class="private-effect" ng-repeat="file in tabs.files.list track by file.message.id">
             <file file-data="file" file-type="fileType"></file>
           </div>
           <div class="file-list__item loading" ng-if="tabs.files.isScrollLoading && tabs.files.list.length > 0">

@@ -2,8 +2,8 @@
   <!--    HEADER  -->
   <div class="lpanel-list__header cursor_pointer" ng-click="onMessageHeaderClick($event);"
      ng-class="{'collapsed': isMessageListCollapsed}">
-    <i class="lpanel-collapse-arrow" ng-class="{'icon-angle-down': !isMessageListCollapsed,
-                                                'icon-angle-right': isMessageListCollapsed}"></i>
+    <i class="lpanel-collapse-arrow" ng-class="{'icon-arrow-up-fill': !isMessageListCollapsed,
+                                                'icon-arrow-down-fill': isMessageListCollapsed}"></i>
     <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
 
     <div class="lpanel-list-option pull-right" ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();"
@@ -39,7 +39,7 @@
           <i class="icon-star-off left-star" ng-class="{'icon-star-on': userEntity.isStarred}"
              data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
-          <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
+          <span class="inline-overflow-ellipsis left-panel__name private-effect" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
           <badge content="{{userEntity.alarmCnt}}" group="user" key="{{userEntity.id}}" entity="{{userEntity}}"></badge>
           <!--<span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>-->
           <span class="left-panel_leave pull-right"

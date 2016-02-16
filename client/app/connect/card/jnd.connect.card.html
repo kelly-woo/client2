@@ -1,0 +1,42 @@
+<div class="connect-union-container _card"
+       ng-class="{
+       'open': union.plugs.length && union.isOpen
+       }">
+  <div class="connect-union-header">
+    <img class="connect-union-icon" ng-src="{{::union.imageUrl}}"/>
+    <div class="connect-union-contents">
+      <div class="connect-union-title jnd-cursor-pointer">
+        {{::union.title}}
+        
+        <div class="connect-union-tooltip">
+	      <i class="icon-info-fill"></i>
+	      <div class="description-container">
+          <div class="description-arrow-left"></div>
+          <div class="description-content-container">
+          <div class="topic-description__description keep selectable ng-binding">
+            <span ng-bind-html="::union.popover">
+            </span>
+          </div>
+          <span class="connect-union-btn btn-ok primary jnd-cursor-pointer" ng-click="addPlug()" translate>@jnd-connect-14</span>
+        </div>
+		  </div>
+		  
+        </div>
+      </div>
+      
+      <div class="connect-union-desc">
+        {{::union.desc}}
+      </div>
+      
+    </div>
+    <div class="connect-union-float-right">
+	  <span class="connect-union-btn btn-ok primary pull-right jnd-cursor-pointer" ng-click="addPlug()" translate>@jnd-connect-8</span>
+      <span ng-if="union.plugs.length" class="connect-union-btn white-button pull-right jnd-cursor-pointer" ng-click="toggleCollapse();">{{text.connected}}</span>
+    </div>
+  </div>
+  <div class="connect-union-body" ng-style="{
+    'display': style.display
+  }">
+    <jnd-connect-card-plug ng-repeat="plug in union.plugs"></jnd-connect-card-plug>
+  </div>
+</div>

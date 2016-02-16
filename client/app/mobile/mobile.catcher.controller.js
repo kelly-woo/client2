@@ -11,7 +11,7 @@
     function _init() {
       if(angular.isUndefined($rootScope.mobileStatus))
         $state.go('signin');
-
+      $('.body').removeClass('full-screen');
       $('.mobile-catcher').height($(window).height())
 
       $('.signin-mobile-background-img').bind('load', function() {

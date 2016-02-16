@@ -1,8 +1,10 @@
-<div class="room-item cursor_pointer" style="height: {{itemHeight}}px;">
+<div class="room-item cursor_pointer {{css.roomItem}}" style="height: {{itemHeight}}px;">
   {{{html.roomTypeImage}}}
   <span class="room-name inline-overflow-ellipsis pull-left {{css.unjoinedChannel}}">{{{html.content}}}</span>
   {{#if isUnjoinedChannel}}
-    <span class="unjoined-channel-label">{{html.unjoinedChannel}}</span>
+  <div class="unjoined-status">
+    <span class="unjoined-status-label">{{html.unjoinedChannel}}</span>
+  </div>
   {{/if}}
   {{#if hasCount}}
     <span class="badge red_badge pull-right">{{count}}</span>

@@ -63,39 +63,6 @@
     }
   });
 
-
-
-  /*
-   * map 함수 특정 namespace에 포함되어 util로 사용 가능해야함..
-   */
-  function createMap(tempMap) {
-    var map,
-      value,
-      e,
-      i, len;
-
-    map = {};
-    for (e in tempMap) {
-      value = tempMap[e];
-      if (angular.isArray(value)) {
-        for (i = 0, len = value.length; i < len; ++i) {
-          map[value[i]] = e;
-        }
-      } else {
-        map[value] = e;
-      }
-    }
-
-    return map;
-  }
-
-  var integrationType = {
-    'Google Doc': 'application/vnd.google-apps.document',
-    'Google Spreadsheet': 'application/vnd.google-apps.spreadsheet',
-    'Google Presentation': 'application/vnd.google-apps.presentation',
-    'Google Form': 'application/vnd.google-apps.form',
-    'Google Drawing': 'application/vnd.google-apps.drawing'
-  };
   // filter에서 integration service인지 판단하는 map
   var integrationMap = {
     google: 'google-drive',
@@ -106,24 +73,27 @@
    * file을 표현하는 text를 get
    */
   app.filter('fileType', function($filter) {
-    var fileTypeMap = {
-      txt: ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-      excel: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-      ppt: ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
-    };
     var fileTypeTranMap = {
-      txt: '@common-file-type-documents',
-      excel: '@common-file-type-spreadsheets',
-      ppt: '@common-file-type-presentations',
-      'document': '@common-file-type-google-documents',
-      'spreadsheet': '@common-file-type-google-spreadsheets',
-      'presentation': '@common-file-type-google-presentations'
+      document: '@common-file-type-documents',
+      spreadsheet: '@common-file-type-spreadsheets',
+      presentation: '@common-file-type-presentations',
+      gdocument: '@common-file-type-google-documents',
+      gspreadsheet: '@common-file-type-google-spreadsheets',
+      gpresentation: '@common-file-type-google-presentations'
     };
-    fileTypeMap = createMap(fileTypeMap);
 
     return function(file) {
-      var fileTypeTran;
-      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.type] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
+      var fileType;
+
+      if (file) {
+        if (fileType = fileTypeTranMap[file.icon]) {
+          fileType = $filter('translate')(fileType);
+        } else {
+          fileType = file.ext;
+        }
+      }
+
+      return fileType || '';
     };
   });
 
@@ -133,47 +103,33 @@
    * class name을 만듬
    */
   app.filter('fileIcon', function() {
-    // 'application/postscript'는 .ai 파일을 위함.
     var fileIconImageMap = {
-      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/vnd.adobe.photoshop', 'application/postscript'],
-      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-t msvideo',
-        'video/mpeg', 'video/x-ms-wma'],
-      'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
-      'pdf': ['application/pdf'],
-      'zip': ['application/zip'],
-      'hwp': ['application/x-hwp'],
-      'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-      'excel': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-      'ppt': ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
-      'document': 'application/vnd.google-apps.document',
-      'spreadsheet': 'application/vnd.google-apps.spreadsheet',
-      'presentation': 'application/vnd.google-apps.presentation'
+      audio: 'audio',
+      image: 'img',
+      video: 'video',
+      pdf: 'pdf',
+      hwp: 'hwp',
+      zip: 'zip',
+      document: 'txt',
+      spreadsheet: 'excel',
+      presentation: 'ppt',
+      gdocument: 'document',
+      gspreadsheet: 'spreadsheet',
+      gpresentation: 'presentation'
     };
-
-    // just in case, 혹시나 몰라서 코멘트로
-    //'video': ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/x-ms-asf', 'application/x-troff-msvideo', 'video/avi', 'video/msvideo', 'video/x-msvideo',
-    //  'video/mpeg', 'video/x-ms-wma'],
-    //  'audio': ['audio/mp3', 'audio/mpeg', 'audio/basic', 'audio/x-au', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wmv', 'audio/x-flac', 'audio/x-ms-wma'],
-
-    var regxVideo = /video\//i;
-    var regxAudio = /audio\//i;
-
-    fileIconImageMap = createMap(fileIconImageMap);
 
     return function(content) {
       var fileIcon;
       var integration;
-      var contentType = content.type;
 
-      if (regxAudio.exec(contentType)) {
-        // audio type
-        fileIcon = 'audio';
-      } else if (regxVideo.exec(contentType)) {
-        fileIcon = 'video';
-      } else {
-        fileIcon = fileIconImageMap[contentType] || 'etc';
+      if (content) {
+        fileIcon = fileIconImageMap[content.icon];
+        if (integration = integrationMap[content.serverUrl]) {
+          fileIcon = fileIcon + '-' + integration;
+        }
       }
-      return content ? fileIcon + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
+
+      return fileIcon || 'etc';
     };
   });
 
@@ -203,16 +159,25 @@
    * integration file의 경우 확장자를 표시하지 않음
    */
   app.filter('fileTitle', function() {
-    var nonExtMap = createMap(integrationType);
+    var nonExtMap = {
+      'application/vnd.google-apps.document': 'gdocument',
+      'application/vnd.google-apps.spreadsheet': 'gspreadsheet',
+      'application/vnd.google-apps.presentation': 'gpresentation',
+      'application/vnd.google-apps.form': 'gform',
+      'application/vnd.google-apps.drawing': 'gdrawing'
+    };
 
     return function(content) {
       var title
 
-      if (content == null) {
-        return 'unshared file';
+      if (content) {
+        title = content.title || content.name;
+        if (integrationMap[content.serverUrl] && !nonExtMap[content.type]) {
+          title = title.substring(0, title.lastIndexOf('.'));
+        }
       }
-      title = content.title || content.name;
-      return content ? integrationMap[content.serverUrl] && !nonExtMap[content.type] ? title.substring(0, title.lastIndexOf('.')) : title : '';
+
+      return title || 'unshared file';
     };
   });
 
@@ -221,27 +186,39 @@
    */
   app.filter('getPreview', function($filter) {
     var sizeMap = {
-      small: 'smallThumbnailUrl',
-      medium: 'mediumThumbnailUrl',
-      large: 'largeThumbnailUrl'
+      small: {
+        value: 80,
+        property: 'smallThumbnailUrl'
+      },
+      medium: {
+        value: 360,
+        property: 'mediumThumbnailUrl'
+      },
+      large: {
+        value: 640,
+        property: 'largeThumbnailUrl'
+      }
     };
+
     return function(content, size) {
       var url;
       var thumbnailType;
+      var extraInfo;
 
       if (content) {
-        thumbnailType = sizeMap[size] || sizeMap.medium;
+        thumbnailType = sizeMap[size];
+        extraInfo = content.extraInfo;
 
-        if (content.extraInfo && content.extraInfo[thumbnailType]) {
-          // extraInfo가 존재하고 참조가능한 thumbnail url을 server에서 보장함
-
+        if (extraInfo && extraInfo[thumbnailType.property]) {
           // thumbnail url
-          url = content.extraInfo[thumbnailType];
-        } else if (content.fileUrl) {
+          url = extraInfo[thumbnailType.property];
+        } else if (extraInfo && extraInfo.thumbnailUrl) {
+          // thumbnail url
+          url = extraInfo.thumbnailUrl + '?size=' + thumbnailType.value;
+        } else {
+          // 원본 url
           // server에서 file size, dimention 제한 또는 특수한 상황으로 인해
           // extraInfo에 thumbnail url을 보장하지 못했을 경우
-
-          // 원본 url
           url = content.fileUrl;
         }
       } else {
@@ -265,24 +242,24 @@
      * @private
      */
     function _hasThumbnailUrl(extraInfo) {
-      return !!(extraInfo && extraInfo.smallThumbnailUrl && extraInfo.mediumThumbnailUrl && extraInfo.largeThumbnailUrl);
+      return !!(extraInfo &&
+      extraInfo.smallThumbnailUrl &&
+      extraInfo.mediumThumbnailUrl &&
+      extraInfo.largeThumbnailUrl &&
+      extraInfo.thumbnailUrl);
     }
 
     return function(content) {
       var hasPreview = false;
-      var hasImageUrl;
+      var hasOriginalUrl;
       var hasThumbnailUrl;
 
       if (content) {
+        hasOriginalUrl = !!content.fileUrl;
         hasThumbnailUrl = _hasThumbnailUrl(content.extraInfo);
 
-        // extIsNewImage에 대한 설명은 'message.collection.service'의 '_addImageMsgData'를 참조한다.
-        // extIsNewImage가 true일때 thumbnail url이 존재한다면 request할 url을 가진다.
-        // extIsNewImage가 false일때 thumbnail url이 존재하거나 fileUrl이 존재한다면 request할 url을 가진다.
-        hasImageUrl = !!(content.extIsNewImage ? hasThumbnailUrl : (hasThumbnailUrl || content.fileUrl));
-
         // image를 request할 url이 존재하고 file type이 image이고 integration file이 아닌 경우 preview를 가진다.
-        hasPreview = hasImageUrl && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+        hasPreview = (hasOriginalUrl || hasThumbnailUrl) && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
       }
 
       return hasPreview;
@@ -294,8 +271,10 @@
    */
   app.filter('mustPreview', function($filter) {
     var rImage = /image/i;
+
     return function(content) {
-      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType) && !integrationMap[content.serverUrl]);
+      return !!(content && $filter('validPreviewSize')(content) && rImage.test(content.filterType)
+      && !integrationMap[content.serverUrl] && content.extraInfo && $filter('validPreviewDemention')(content.extraInfo));
     };
   });
 
@@ -310,45 +289,40 @@
   });
 
   /**
+   * preview 생성 가능한 dimention인지 여부
+   */
+  app.filter('validPreviewDemention', function() {
+    var MAX_IMAGE_DIMENTION = 8192;
+    return function(dimention) {
+      return dimention.width < MAX_IMAGE_DIMENTION && dimention.height < MAX_IMAGE_DIMENTION;
+    };
+  });
+
+  /**
    * filter type의 preview
    */
-  app.filter('getFilterTypePreview', function($filter) {
-    var filterTypePreviewMap = {
-      pdf: '../assets/images/preview_pdf.png',
-      video:'../assets/images/preview_video.png',
-      audio: '../assets/images/preview_audio.png',
-      document: '../assets/images/preview_document.png',
-      spreadsheet: '../assets/images/preview_spreadsheet.png',
-      presentation: '../assets/images/preview_presentation.png',
-      googleDocs: '../assets/images/preview_google_docs.png',
-      dropbox: '../assets/images/preview_dropbox.png',
-      etc: '../assets/images/preview_other.png'
-    };
+  app.filter('getFilterTypePreview', function(fileAPIservice) {
+    var filterTypePreviewMap = fileAPIservice.getFilterTypePreviewMap();
 
     // 이미지 타입의 프리뷰가 보여져야하지만 etc로 분류되서 no_preview_available이 보여지는 extention의 모음.
     var noPreviewButImageType = {psd: true, ai: true};
-
     var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 
     return function(content) {
-      if (content.filterType && content.filterType === 'document') {
-        // filterType 이 워드/한글 일 경우
-        if (content.type === 'application/x-hwp') {
-          // 한글 파일일 경우
-          return '../assets/images/preview_hwp.png';
-        }
-      }
+      var filterTypePreview;
+
       if (content.filterType === 'etc') {
+        // filterType이 etc중 예외처리
         if (noPreviewButImageType[content.ext]) {
-          // TODO: filterType이 'etc'이지만 이미지용 filterTypePreview가 보여줘야 된다면 여기서 설정하면 됨
-          return noPreviewAvailableImage;
-        } else if (content.ext === 'txt') {
-          return filterTypePreviewMap['document'];
+          filterTypePreview = noPreviewAvailableImage;
         }
-
       }
 
-      return filterTypePreviewMap[content.filterType] || filterTypePreviewMap[content.serverUrl] || noPreviewAvailableImage;
+      if (filterTypePreview == null) {
+        filterTypePreview = filterTypePreviewMap[content.serverUrl] || filterTypePreviewMap[content.icon] || noPreviewAvailableImage;
+      }
+
+      return filterTypePreview;
     };
   });
 

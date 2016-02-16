@@ -60,10 +60,10 @@
        */
       function _onShow(angularEvent, data) {
         var msg = data.msg;
-        var content = msg.message.content;
-        var fileUrl = content.fileUrl;
+        var content;
+        var fileUrl;
 
-        var urlObj = $filter('downloadFile')(data.isIntegrateFile, content.title, fileUrl);
+        var urlObj;
 
         _onHide();
 
@@ -75,12 +75,22 @@
 
         scope.isAdmin = memberService.isAdmin();
 
-        scope.hasProtocol = _regxHTTP.test(fileUrl);
+        scope.getExternalShare = getExternalShare;
+        scope.setExternalShare = setExternalShare;
+
+        scope.message = msg.feedback ? msg.feedback : msg.message;
+        scope.fileId = scope.message.id;
+
+        content = scope.message.content;
+        fileUrl = content.fileUrl;
+
+        scope.isExternalShared = content.externalShared;
+
+        urlObj = $filter('downloadFile')(data.isIntegrateFile, content.title, fileUrl);
         scope.downloadUrl = urlObj.downloadUrl;
         scope.originalUrl = urlObj.originalUrl;
 
-        scope.isExternalShared = content.externalShared;
-        scope.fileId = msg.message.id;
+        scope.hasProtocol = _regxHTTP.test(fileUrl);
 
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.
@@ -124,8 +134,8 @@
         var offset = target.offset();
         var parentOffset = _jqTarget.parent().offset();
         // 조금 더 아름답게 노출하기 위해 왼쪽에서 보정값 20을 더하고 위에서 보정값 3을 뺀다.
-        //var left = offset.left + target.outerWidth() - _jqTarget.outerWidth() - parentOffset.left + 20;
-        var left = offset.left - parentOffset.left;
+        var left = offset.left + target.outerWidth() - _jqTarget.outerWidth() - parentOffset.left + 4;
+        //var left = offset.left - parentOffset.left;
         var top = offset.top - _jqTarget.outerHeight() + $('#msgs-container').scrollTop() - parentOffset.top - 3;
 
         top = top < 0 ? 0 : top;
@@ -153,6 +163,7 @@
        */
       function _attachDomEvents() {
         $(window).on('click', _onHide);
+        $(window).on('resize', _onHide);
       }
 
       /**
@@ -161,6 +172,23 @@
        */
       function _detachDomEvents() {
         $(window).off('click', _onHide);
+        $(window).off('resize', _onHide);
+      }
+
+      /**
+       * external share 전달한다.
+       * @returns {string}
+       */
+      function getExternalShare() {
+        return scope.isExternalShared;
+      }
+
+      /**
+       * external share 설정한다.
+       * @param {boolean} isExternalShared
+       */
+      function setExternalShare(isExternalShared) {
+        scope.isExternalShared = isExternalShared;
       }
     }
   }

@@ -59,7 +59,7 @@
     function send() {
       var emails;
 
-      if (!$scope.isLoading) {
+      if (!$scope.isLoading && !$scope.inviteDisabled && $scope.emails.length) {
         $scope.isLoading = true;
 
         emails = $scope.emails;
@@ -69,7 +69,7 @@
             var successCount = 0;
             var failCount = 0;
 
-            _.forEach(response, function(value) {
+            _.forEach(response, function (value) {
               if (value.success) {
                 // eamil 전송 성공
 
@@ -87,13 +87,14 @@
 
             // analytics
             if (successCount > 0) {
-              analyticsService.mixpanelTrack( "User Invite", { "count": successCount } );
-              analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": successCount } );
+              analyticsService.mixpanelTrack("User Invite", {"count": successCount});
+              analyticsService.mixpanelPeople("increment", {"key": "invite", "value": successCount});
             }
           })
           .finally(function () {
             $scope.isLoading = false;
           });
+
       }
     }
 

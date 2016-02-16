@@ -1,4 +1,4 @@
-<div class="message-card" ng-click="onMessageCardClick($event)">
+<div class="message-card" ng-class="::{'jandi-bot': isJandiBot}" ng-click="onMessageCardClick($event)">
   <div class="message-card-header">
     <div class="message-profile">
       <img class="cursor_pointer" ng-src="{{::profileImage }}">
@@ -9,7 +9,7 @@
         <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
-        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="message.contentType !== 'text'">
+        <div class="fileicon fileicon-etc" ng-if="message.contentType !== 'text'"></div>
         <span class="{{message.contentType !== 'text' ? 'comment-start' : 'topic-start'}}" ng-if="!message.isSimple || message.contentType !== 'text'">{{::startPoint}}</span>
       </div>
     </div>
@@ -17,6 +17,6 @@
   <div class="message-card-body keep" compile="content || ''"></div>
   <div class="message-star" ng-class="{'show': isStarred}" ng-show="hasStar"
        tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
-    <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" message-id="{{message.id}}"></i>
+    <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="{{message.id}}"></i>
   </div>
 </div>

@@ -71,7 +71,7 @@
     /**
      * right panel이 on 되었다는 event handling
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    $scope.$on('rightPanelStatusChange', function($event, data) {
       var tab;
 
       if (tab = $scope.tabs[data.type]) {
@@ -83,7 +83,7 @@
             $timeout(function() {
               jndPubSub.pub('resetRPanelSearchStatusKeyword');
               jndPubSub.pub('rPanelSearchFocus');
-            });
+            }, 100);
           }
         }
       }

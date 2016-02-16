@@ -111,6 +111,14 @@ msgstr ""
 msgid "@btn-edit"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-file-detail"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@btn-image-expand"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
@@ -187,6 +195,10 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@comment-all-desc"
+msgstr ""
+
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 #: client/app/tutorial/welcome/tutorial.welcome.html
@@ -207,6 +219,10 @@ msgstr ""
 msgid "@common-api-error-msg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-auto-join"
+msgstr ""
+
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
 msgstr ""
@@ -218,6 +234,10 @@ msgstr ""
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
 msgid "@common-comment"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-connect-setting"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
@@ -272,6 +292,10 @@ msgstr ""
 msgid "@common-direct-messages"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-disable"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr ""
@@ -297,6 +321,10 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-duplicate-name-err"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-edit"
 msgstr ""
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
@@ -341,6 +369,10 @@ msgstr ""
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-file-type-archive"
 msgstr ""
 
 #: client/app/right/files/files.html
@@ -426,6 +458,14 @@ msgid "@common-invalid-access"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-invite-all"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-joined"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
 msgstr ""
 
@@ -493,6 +533,10 @@ msgstr ""
 msgid "@common-position"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-privacy-lock-msg"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -515,6 +559,14 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-rename"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send-dm-success"
 msgstr ""
 
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -570,13 +622,25 @@ msgstr ""
 msgid "@common-team"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-team-admin"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-text-size"
+msgstr ""
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-topic-admin"
 msgstr ""
 
 #: client/app/left/topics/topics.html
@@ -598,12 +662,28 @@ msgstr ""
 msgid "@common-unknown-error"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-unsupport-image"
+msgstr ""
+
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-in"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-out"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-zoom-reset"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
@@ -790,6 +870,7 @@ msgstr ""
 msgid "@folder-rename"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-content"
 msgstr ""
@@ -798,6 +879,7 @@ msgstr ""
 msgid "@folder-tutorial-never-show"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
 msgstr ""
@@ -913,6 +995,1014 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-role"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-1"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-10"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-100"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-101"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-102"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-103"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-104"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-105"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-106"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-107"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-108"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-109"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-11"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-110"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-111"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-112"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-113"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-114"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-115"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-116"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-117"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-118"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-119"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-12"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-120"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-121"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-122"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-123"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-124"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-125"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-126"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-127"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-128"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-129"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-13"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-130"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-131"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-132"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-133"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-134"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-135"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-136"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-137"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-138"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-139"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-14"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-140"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-141"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-142"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-143"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-144"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-145"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-146"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-147"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-148"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-149"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-15"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-150"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-151"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-152"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-153"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-154"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-155"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-156"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-157"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-158"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-159"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-16"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-160"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-161"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-162"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-163"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-164"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-165"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-166"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-167"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-168"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-169"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-17"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-170"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-171"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-172"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-173"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-174"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-175"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-176"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-177"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-178"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-179"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-18"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-180"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-181"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-182"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-183"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-184"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-185"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-186"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-187"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-188"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-189"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-19"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-190"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-191"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-192"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-193"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-194"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-195"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-196"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-197"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-198"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-199"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-2"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-20"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-200"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-201"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-202"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-203"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-204"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-205"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-206"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-207"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-208"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-209"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-21"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-210"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-211"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-212"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-213"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-214"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-215"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-216"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-217"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-218"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-219"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-22"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-220"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-221"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-222"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-223"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-224"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-225"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-226"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-227"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-228"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-229"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-23"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-230"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-231"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-232"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-233"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-234"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-235"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-236"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-237"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-238"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-239"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-24"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-240"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-241"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-242"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-243"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-244"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-245"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-246"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-247"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-248"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-249"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-25"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-250"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-26"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-27"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-28"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-29"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-3"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-30"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-31"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-32"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-33"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-34"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-35"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-36"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-37"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-38"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-39"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-4"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-40"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-41"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-42"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-43"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-44"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-45"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-46"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-47"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-48"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-49"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-5"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-50"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-51"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-52"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-53"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-54"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-55"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-56"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-57"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-58"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-59"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-6"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-60"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-61"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-62"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-63"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-64"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-65"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-66"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-67"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-68"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-69"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-7"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-70"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-71"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-72"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-73"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-74"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-75"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-76"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-77"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-78"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-79"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-8"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-80"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-81"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-82"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-83"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-84"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-85"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-86"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-87"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-88"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-89"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-9"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-90"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-91"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-92"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-93"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-94"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-95"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-96"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-97"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-98"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jnd-connect-99"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -1226,6 +2316,130 @@ msgstr ""
 msgid "@setting-notification-turn-on"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-confirm-modal"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-files"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-focus-input"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-invite-topic"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-jump"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-lock-screen"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-mentions"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-messages"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-new-line"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-open-shortcut"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-file"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-mentions"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-message"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-next"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-prev"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-rpanel-stars"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-down"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-scroll-up"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-show-sticker"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-stars"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-switch-teams"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-advanced"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-basic"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-message"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-rpanel"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-title-view"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-toggle-rpanel"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-upload"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-in"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-out"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@shortcut-zoom-reset"
+msgstr ""
+
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -1367,6 +2581,14 @@ msgstr ""
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-private"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-invite-public"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html

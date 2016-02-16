@@ -98,23 +98,7 @@
           bodyClass: 'normal-body external-share-body',
           confirmButtonText: translate('@common-open-new-window'),
           cancelButtonText: translate('@btn-close'),
-          onDialogLoad: function(el) {
-            var jqInput = el.find('input');
-            jqInput.on('focus', _select)
-              .on('blur', _focus)
-              .on('click', _select);
-            _focus();
-
-            function _focus() {
-              jqInput.focus();
-            }
-
-            function _select() {
-              setTimeout(function() {
-                jqInput.select();
-              });
-            }
-          },
+          absoluteFocus: '.external-share-uri',
           onClose: function(type) {
             type === 'okay' && window.open(externalShareUri, '_blank');
           }

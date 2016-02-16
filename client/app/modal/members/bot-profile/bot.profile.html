@@ -1,0 +1,46 @@
+<page-tracker page="topic/profile" title="Member Profile"></page-tracker>
+<!-- Modal: Mini Profile View -->
+<div class="modal-body profile-view-body" bot-profile>
+  <div class="profile-image-wrapper">
+    <div class="bot-profile-image-backdrop">
+      <div class="profile-condition">
+        <div class="readonly" translate>@jandi-bot-status</div>
+      </div>
+      <i class="icon-delete cursor_pointer" ng-click="close()"></i>
+    </div>
+    <img class="bot-profile-image" src="assets/images/mrj-profile.png" />
+  </div>
+  <i class="user-star cursor_pointer" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"
+     star-view="isStarred" star-view-type="member" star-view-id="{{curBot.id}}"></i>
+  <div class="bot-profile-text">
+    <div class="profile-name">{{name}}</div>
+    <div class="profile-description" translate>@jandi-bot-role</div>
+    <span class="profile-connect-setting cursor_pointer" ng-click="onActionClick('connectSetting')"
+          translate>@common-connect-setting</span>
+  </div>
+  <div class="profile-actions">
+    <div class="action-buttons">
+      <span class="action-email disabled">
+        <i class="icon-mail"></i><span translate>@common-send-mail</span>
+      </span>
+      <span class="action-file" ng-click="onActionClick('file')">
+        <i class="icon-file"></i><span translate>@common-file-list</span>
+      </span>
+      <span class="action-dm" ng-click="onActionClick('directMessage')">
+        <i class="icon-chat"></i><span translate>@common-chat-dm</span>
+      </span>
+    </div>
+    <div class="action-direct-message"
+         ng-class="{'show-submit-done': isShowDmSubmit}">
+      <input class="form-control" type="text" placeholder="{{::'@common-send-dm' | translate}}" autofocus
+             ng-model="message.content"
+             message-submit="postMessage()"
+             ng-keydown="onDmKeydown($event)">
+      <div class="message-submit-bg" style="display: none;"
+           ng-click="onSubmitDoneClick()">
+        <i class="icon-check"></i>
+        <span translate>@common-send-dm-success</span>
+      </div>
+    </div>
+  </div>
+</div>

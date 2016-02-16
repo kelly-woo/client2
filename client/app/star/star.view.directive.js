@@ -24,12 +24,11 @@
 
 
    */
-  function starView(StarAPIService, memberService) {
+  function starView(StarAPIService, memberService, entityheaderAPIservice) {
     return {
       restrict: 'A',
       scope: {
         isStarred: '=starView',
-        messageId: '@',
         teamId: '@',
         eventBubble: '@'
       },
@@ -38,6 +37,9 @@
 
     function link(scope, el, attrs) {
       var _hasStopPropagation;
+
+      var id = attrs.starViewId;
+      var type = attrs.starViewType || 'message';
 
       _init();
 
@@ -64,8 +66,8 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('starred', _onStarred);
-        scope.$on('unStarred', _onUnStarred);
+        scope.$on(type + ':starred', _onStarred);
+        scope.$on(type + ':unStarred', _onUnStarred);
         scope.$on('$destroy', _onDestroy);
       }
 
@@ -91,13 +93,13 @@
        * @private
        */
       function _onClick(clickEvent) {
-        if (scope.isStarred) {
-          StarAPIService.unStar(scope.messageId, scope.teamId);
-        } else {
-          StarAPIService.star(scope.messageId, scope.teamId);
+        if (type === 'message') {
+          scope.isStarred ? StarAPIService.unStar(id, scope.teamId) : StarAPIService.star(id, scope.teamId);
+        } else if (type === 'member') {
+          scope.isStarred ? entityheaderAPIservice.removeStarEntity(id) : entityheaderAPIservice.setStarEntity(id);
         }
-        scope.isStarred = !scope.isStarred;
 
+        scope.isStarred = !scope.isStarred;
         if (_hasStopPropagation) {
           clickEvent.stopPropagation();
         }
@@ -107,8 +109,6 @@
        * socket 에서 starred 이벤트 발생시
        * @param {Object} event - angular 이벤트
        * @param {Object} param
-       *     @param {Number|String} param.teamId - team id
-       *     @param {Number|String} param.messageId - message id
        * @private
        */
       function _onStarred(event, param) {
@@ -121,8 +121,6 @@
        * socket 에서 un-starred 이벤트 발생시
        * @param {Object} event - angular 이벤트
        * @param {Object} param
-       *     @param {Number|String} param.teamId - team id
-       *     @param {Number|String} param.messageId - message id
        * @private
        */
       function _onUnStarred(event, param) {
@@ -134,14 +132,18 @@
       /**
        * 현재 directive 에 해당하는 id 인지 여부를 반환한다.
        * @param {Object} param
-       * @param {Number|String} param.teamId - team id
-       * @param {Number|String} param.messageId - message id
        * @returns {boolean}
        * @private
        */
       function _isMyId(param) {
-        return (parseInt(scope.messageId, 10) === parseInt(param.messageId, 10) &&
-        parseInt(scope.teamId, 10) === parseInt(param.teamId, 10));
+        var result = false;
+        if (type === 'message') {
+          result = parseInt(id, 10) === parseInt(param.messageId, 10);
+        } else if (type === 'member' && param.member) {
+          result = parseInt(id, 10) === parseInt(param.member.id, 10);
+        }
+
+        return result && parseInt(scope.teamId, 10) === parseInt(param.teamId, 10);
       }
 
       /**

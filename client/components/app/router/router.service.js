@@ -6,7 +6,8 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor, storageAPIservice, jndPubSub) {
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
+                  NetInterceptor, storageAPIservice, jndPubSub, JndConnect) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;
@@ -42,9 +43,7 @@
     function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
       if (!NetInterceptor.isConnected()) {
         event.preventDefault();
-      }
-
-      if (_isStateChange(toState, toParams, fromState, fromParams) && NetInterceptor.isConnected()) {
+      } else if (_isStateChange(toState, toParams, fromState, fromParams)) {
         //console.info("==============================[stateChange]==============================");
         //console.info("   from    ", fromState.name, ' / ', fromParams);
         //console.info("    to     ", toState.name, ' / ',toParams);
@@ -158,7 +157,7 @@
           case 'messages.detail.messages':
           case 'messages.detail.stars':
           case 'messages.detail.mentions':
-            jndPubSub.pub('onRightPanel', {
+            jndPubSub.pub('rightPanelStatusChange', {
               type: getActiveRightTabName(toState),
               toUrl: toState.url,
               toTitle: toState.title,

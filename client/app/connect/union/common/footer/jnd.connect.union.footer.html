@@ -1,0 +1,49 @@
+<div>
+  <section class="service-setting select-profile">
+    <span class="setting-label" translate>@jnd-connect-98</span>
+    <div class="setting-contents">
+      <span class="setting-description" translate>@jnd-connect-99</span>
+      <div class="change-profile">
+
+        <img ng-if="!changedFileUri" ng-src="{{ data.botThumbnailFile }}" class="bot-profile"/>
+        <img ng-if="changedFileUri" ng-src="{{ changedFileUri }}" class="bot-profile"/>
+        <span class="overlay-label">Edit</span>
+        <div class="bot-profile-mask"></div>
+        <input type="file"
+               class="bot-profile-upload-btn cursor_pointer"
+               ng-file-select="onFileSelect($files);"
+               accept="image/*">
+      </div>
+
+      <input maxlength="60"
+             jnd-input-model="inputBotName"
+             jnd-is-trim="on"
+             class="setting-input form-control"
+             placeholder="{{::data.defaultBotName}}">
+
+      <div class="clear"></div>
+    </div>
+  </section>
+  
+  <!-- Added 'language select' section here-->
+  <section ng-if="hasLang" class="service-setting select-lang">
+	<span class="setting-label" translate>@jnd-connect-100</span>
+    <div class="setting-contents">
+      <span class="setting-description" translate>@jnd-connect-101</span>
+
+      <jnd-connect-union-selectbox class="pull-right"
+                                   list="langList"
+                                   value="data.lang"></jnd-connect-union-selectbox>
+	  <!--<div class="custom-select-box-btn white-button pull-right" ng-class="" ng-click="">-->
+        <!--<i class="fa custom-selectbox-arrow icon-angle-down"></i>-->
+        <!--<span class="">한국어</span>-->
+      <!--</div>-->
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+  <!-- Added 'language select' section ENDS -->
+          
+  <input type="submit" class="btn comment-btn save-button" ng-click="save()" value="{{'@jnd-connect-108'|translate}}" />
+</div>

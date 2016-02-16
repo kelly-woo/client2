@@ -36,6 +36,7 @@
     this.getSystemMessageCount = getSystemMessageCount;
 
     this.hasLinkPreview = hasLinkPreview;
+    this.hasConnectPreview = hasConnectPreview;
 
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
@@ -311,6 +312,15 @@
     }
 
     /**
+     * integration message에 대한 preview가 존재하는지 여부를 반환한다.
+     * @param index
+     * @returns {boolean}
+     */
+    function hasConnectPreview(index) {
+      return !_.isEmpty(that.list[index].message.content.connectInfo);
+    }
+
+    /**
      * 새로운 날짜의 시작인지 여부를 반환한다.
      * @param {number} index
      * @returns {boolean}
@@ -367,13 +377,15 @@
      */
     function manipulateMessage(msg) {
       var fromEntityId = msg.fromEntity;
-      var writer = entityAPIservice.getEntityById('user', fromEntityId);
+      var writer = EntityMapManager.get('member', fromEntityId);
 
-      msg.extFromEntityId = fromEntityId;
-      msg.extWriter = writer;
-      msg.extWriterName = $filter('getName')(writer);
-      msg.exProfileImg = $filter('getSmallThumbnail')(writer);
-      msg.extTime = $filter('gethmmaFormat')(msg.time);
+      if (writer) {
+        msg.extFromEntityId = fromEntityId;
+        msg.extWriter = writer;
+        msg.extWriterName = $filter('getName')(writer);
+        msg.exProfileImg = memberService.getProfileImage(writer.id, 'small');
+        msg.extTime = $filter('gethmmaFormat')(msg.time);
+      }
     }
 
     function _isSending(msg) {
@@ -443,23 +455,6 @@
     }
 
     /**
-     * image message data를 추가한다.
-     * @param {object} msg
-     * @private
-     */
-    function _addImageMsgData(msg) {
-      if (msg && msg.message && msg.message.content) {
-
-        // extIsNewImage flag를 추가한 이유는 서버에서 특수한 경우에 장애가 발생하여 extraInfo가 생성되지 않는 경우와
-        // image upload 직후 thumbnail을 생성하기전 extraInfo가 존재하지 않는 경우를 구분하기 위함이다. 전자의 경우는
-        // 의도하지 않은 장애 발생으로 extraInfo가 생성되지 않아 원본 이미지를 바로 요청해야 하고, 후자의 경우는
-        // 앞으로 'file_image' socket event가 발생하여 extraInfo의 생성여부를 전달해 줄것으로 기대하기 때문에 extraInfo
-        // 가 현재는 존재 하지 않더라도 바로 원본 이미지 요청 하는것을 막아야 한다.
-        msg.message.content.extIsNewImage = true;
-      }
-    }
-
-    /**
      * user message 를 업데이트 한다.
      * @param {object} msg 업데이트할 메세지
      * @private
@@ -486,7 +481,6 @@
           break;
         // file shared
         case 'shared':
-          _addImageMsgData(msg);
           isAppend = true;
           break;
         // file unshared
@@ -687,7 +681,7 @@
       if (centerService.isChat()) {
         globalUnreadCount = 1;
       } else {
-        globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity()) - 1;
       }
       globalUnreadCount = globalUnreadCount - markerOffset;
 

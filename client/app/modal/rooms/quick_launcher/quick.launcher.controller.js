@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function QuickLauncherCtrl($rootScope, $scope, $state, UnreadBadge, EntityMapManager, centerService, memberService,
-                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, accountService) {
+                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, entityAPIservice) {
     _init();
 
     /**
@@ -105,7 +105,9 @@
      * @private
      */
     function _joinRoom(room) {
-      $state.go('archives', {entityType: room.type, entityId: room.id});
+      var entityType = memberService.isBot(room.id) ? 'users' : room.type;
+
+      $state.go('archives', {entityType: entityType, entityId: room.id});
     }
 
     /**
@@ -150,15 +152,53 @@
               name: entity.name,
               count: entity.alarmCnt
             };
-            entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+
+            if (memberService.isMember(entity.id)) {
+              room.profileImage = memberService.getProfileImage(entity.id);
+              room.priority = 1;
+            } else {
+              room.priority = 2;
+            }
+
             rooms.push(room);
           }
         }
       }
 
-      return _.sortBy(rooms, function (room) {
-        return room.name.toLowerCase();
+      return rooms.sort(function (value1, value2) {
+        var result = _comparePriority(value1, value2);
+        return result === 0 ? _compareName(value1, value2) : result;
       });
+    }
+
+    /**
+     * compare priority
+     * @param {object} value1
+     * @param {object} value2
+     * @returns {number}
+     * @private
+     */
+    function _comparePriority(value1, value2) {
+      var result = 0;
+
+      if (value1.priority > value2.priority) {
+        result = 1;
+      } else if (value1.priority < value2.priority) {
+        result = -1;
+      }
+
+      return result;
+    }
+
+    /**
+     * compare name
+     * @param {object} value1
+     * @param {object} value2
+     * @returns {boolean}
+     * @private
+     */
+    function _compareName(value1, value2) {
+      return value1.name.toLowerCase() > value2.name.toLowerCase();
     }
 
     /**
@@ -180,7 +220,10 @@
             id: entity.id,
             name: entity.name
           };
-          entity.type === 'users' && (room.profileImage = memberService.getSmallThumbnailUrl(entity));
+
+          if (memberService.isMember(entity.id)) {
+            room.profileImage = memberService.getProfileImage(entity.id);
+          }
           rooms.push(room);
         }
       }
@@ -206,31 +249,27 @@
 
     /**
      * enabled member list를 전달한다.
-     * @param value -  filter 문자열
+     * @param {string} filterText -  filter 문자열
      * @returns {Array|{criteria, index, value}}
      * @private
      */
-    function _getEnabledMembers(value) {
-      var members = [];
+    function _getEnabledMembers(filterText) {
+      var members = currentSessionHelper.getCurrentTeamUserList();
+      var jandiBot = entityAPIservice.getJandiBot();
 
-      _.forEach(currentSessionHelper.getCurrentTeamMemberList(), function(member) {
-        if (member.name.toLowerCase().indexOf(value.toLowerCase()) > -1 && !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id) {
-        //if (memberService.getMemberId() !== member.id && member.name.indexOf(value) > -1) {
-          members.push({
-            type: member.type,
-            id: member.id,
-            name: member.name,
-            status: member.status,
-            profileImage: memberService.getSmallThumbnailUrl(member),
-            query: value,
-            count: member.alarmCnt
-          });
-        }
-      });
+      if (jandiBot) {
+        members = members.concat([jandiBot]);
+      }
 
-      return _.sortBy(members, function (member) {
-        return member.name.toLowerCase();
-      });
+      return _.chain(members)
+        .filter(function(member) {
+          return member.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 &&
+            !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id;
+        })
+        .sortBy(function(member) {
+          return member.name.toLowerCase();
+        })
+        .value();
     }
 
     /**
@@ -249,7 +288,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             count: channel.alarmCnt
           });
         }
@@ -262,7 +300,6 @@
             type: privategroup.type,
             id: privategroup.id,
             name: privategroup.name,
-            query: value,
             count: privategroup.alarmCnt
           });
         }
@@ -288,7 +325,6 @@
             type: channel.type,
             id: channel.id,
             name: channel.name,
-            query: value,
             isUnjoinedChannel: true
           });
         }

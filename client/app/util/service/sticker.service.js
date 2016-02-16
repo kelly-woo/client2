@@ -10,14 +10,27 @@
     .service('Sticker', Sticker);
 
   /* @ngInject */
-  function Sticker($http, $q, configuration, memberService, Preloader) {
+  function Sticker($http, $q, configuration, memberService, Preloader, accountService) {
     var that = this;
-
     var server_address = configuration.server_address;
+    var accountLanguage = accountService.getAccountLanguage();
 
     var cache = {};
     var pending = {};
-    var stickerIds = ['recent', 100, 101];
+    var stickerGroups = [
+      {
+        className: 'recent',
+        id: 'recent'
+      },
+      {
+        className: 'kiyomi',
+        id: /tw/i.test(accountLanguage) ? 102 : 101
+      },
+      {
+        className: 'pangya',
+        id: 100
+      }
+    ];
 
     _init();
 
@@ -26,12 +39,23 @@
      * @private
      */
     function _init() {
-      // request stickers
-      _.each(stickerIds, function(id) {
-        getStickers(id);
-      });
+      _preload();
 
       that.getStickers = getStickers;
+      that.getStickerGroups = getStickerGroups;
+      that.getRetinaStickerUrl = getRetinaStickerUrl;
+    }
+
+    /**
+     * 사용할 sticker group을 preload한다.
+     */
+    function _preload() {
+      // request stickers
+      _.each(stickerGroups, function(stickerGroup) {
+        var id = stickerGroup.id;
+
+        getStickers(id);
+      });
     }
 
     /**
@@ -117,6 +141,23 @@
         method  : 'GET',
         url     : server_address + 'stickers/groups/' + groupId
       });
+    }
+  
+    /**
+     * get sticker groups
+     * @returns {*[]}
+     */
+    function getStickerGroups() {
+      return stickerGroups;
+    }
+    
+    /**
+     * get retina sticker url
+     * @param {string} url
+     * @returns {*}
+     */
+    function getRetinaStickerUrl(url) {
+      return url.replace(/\?size=[\d]+$/, '');
     }
   }
 })();

@@ -1,6 +1,6 @@
-<div class="lpanel-user cursor_pointer" dropdown>
+<div class="lpanel-user" dropdown>
   <div class="lpanel-user__team overflow-ellipsis">
-    <span class="team-name">{{team|getName}}</span>
+    <span class="team-name private-effect white">{{team|getName}}</span>
     <jnd-version></jnd-version>
   </div>
 
@@ -10,9 +10,9 @@
     <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
 
     <div class="lpanel-user__container">
-      <span class="lpanel-user__name inline-overflow-ellipsis">{{ member | getName}}</span>
+      <span class="lpanel-user__name inline-overflow-ellipsis private-effect">{{ member | getName}}</span>
       <br>
-      <span class="lpanel-user__position inline-overflow-ellipsis">{{ member | getUserPosition }}</span>
+      <span class="lpanel-user__position inline-overflow-ellipsis private-effect">{{ member | getUserPosition }}</span>
     </div>
 
   </div>

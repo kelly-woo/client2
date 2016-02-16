@@ -1,0 +1,63 @@
+<div class="connect-union-plug-container">
+  <div class="connect-union-plug-icon"
+       ng-class="{
+        'active': plug.isOn
+       }">
+    plug icon
+  </div>
+  <div>
+    <div ng-if="isAccessible" class="connect-union-plug-desc">
+      <span>
+        <i ng-class="{
+            'icon-topic': plug.room.type === 'channels',
+            'icon-lock': plug.room.type === 'privategroups',
+            'icon-user': plug.room.type === 'users',
+            'icon-jandi-bot': plug.room.type === 'bots' && plug.room.botType === 'jandi_bot'
+           }"></i> <span>{{ ::plug.room.name }}</span>
+      </span>
+    </div>
+    <div class="connect-union-plug-desc">
+      <span>
+        <i class="icon-info-fill"></i><span>{{::plug.sourceName}}</span>
+      </span>
+    </div>
+    <div class="connect-union-plug-title">
+      <i class="icon-user"></i> <span>{{::plug.user.name}}</span>
+    </div>
+    <div ng-if="!isAccessible"
+         ng-switch="plug.room.type"
+         class="connect-union-plug-desc">
+      <span ng-switch-when="channels">
+        <i class="icon-topic"></i> <span>{{ ::plug.room.name }}</span>
+      </span>
+      <span ng-switch-default>
+        <i class="icon-lock"></i> <span translate>@jnd-connect-13</span>
+      </span>
+    </div>
+  </div>
+  <div class="connect-union-float-right connect-union-plug-tool-container"
+    ng-class="{
+      'on': plug.isOn
+    }">
+	<span class="date-info shortcuts-label">{{plug.raw.createdAt|connectCreateDate}}</span>
+    <jnd-connect-status-switch connect-id="plug.raw.id"
+                   union-name="union.name"
+                   on-success-callback="onSuccessSwitch()"
+                   on-error-callback="onErrorSwitch($value)"
+                   is-active="plug.isOn"></jnd-connect-status-switch>
+
+    
+    <span class="opt-button jnd-cursor-pointer"
+          ng-class="{
+            'disabled': !isAccessible
+          }"
+          ng-click="modify();"><i class="icon-pencil"></i></span>
+    <jnd-connect-trash-button connect-id="plug.raw.id"
+                              union-name="union.name"
+                              on-success-callback="onSuccessRemove()"
+                              on-fail-callback="onErrorRemove($value)"
+    ></jnd-connect-trash-button>
+    <!--<span class="opt-button jnd-cursor-pointer" ng-click="remove();"><i class="icon-trash"></i></span>-->
+  </div>
+  <div class="clear" style="clear: both;float: none;"></div>
+</div>

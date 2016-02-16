@@ -9,16 +9,21 @@
     .service('RoomItemRenderer', RoomItemRenderer);
 
   /* @ngInject */
-  function RoomItemRenderer($filter) {
-    var _template;
+  function RoomItemRenderer($filter, memberService) {
+    var that = this;
     var unjoinedChannelMsg = $filter('translate')('@quick-launcher-unjoin-topic');
-
-    this.render = render;
+    var _template;
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       _template = Handlebars.templates['modal.room.list.item'];
+
+      that.render = render;
     }
 
     /**
@@ -26,14 +31,17 @@
      * @param {object} data
      * @returns {*}
      */
-    function render(data) {
+    function render(data, filterText) {
+      data = _convertData(data);
+
       return _template({
         html: {
           roomTypeImage: _getRoomTypeImage(data),
-          content: _getContent(data),
+          content: $filter('typeaheadHighlight')(data.name, filterText),
           unjoinedChannel: unjoinedChannelMsg
         },
         css: {
+          roomItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : '',
           unjoinedChannel: data.isUnjoinedChannel ? 'unjoined-channel-name' : ''
         },
         isUnjoinedChannel: data.isUnjoinedChannel,
@@ -53,6 +61,7 @@
       var roomTypeImage;
       switch(data.type) {
         case 'users':
+        case 'bots':
           roomTypeImage = '<img class="room-type-image" src="' + data.profileImage + '" />';
           break;
         case 'channels':
@@ -67,13 +76,21 @@
     }
 
     /**
-     * room content를 전달한다.
+     * render에서 사용가능한 data로 변환
      * @param {object} data
-     * @returns {*}
+     * @returns {{type: *, id: *, name: *, status: status, profileImage: *, count: (string|number|*)}}
      * @private
      */
-    function _getContent(data) {
-      return data.name;
+    function _convertData(data) {
+      return {
+        type: data.type,
+        id: data.id,
+        name: data.name,
+        status: data.status,
+        profileImage: memberService.getProfileImage(data.id),
+        count: data.count || data.alarmCnt,
+        isUnjoinedChannel: !!data.isUnjoinedChannel
+      };
     }
   }
 })();

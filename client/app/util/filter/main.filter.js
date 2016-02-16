@@ -157,19 +157,30 @@ app.filter('getUserEmail', ['memberService',
   }
 ]);
 
-app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config',
-  function($filter, memberService, config) {
+app.filter('getProfileImage', function(memberService) {
+  return function(memberId, type) {
+    return memberService.getProfileImage(memberId, type);
+  };
+});
+
+app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config', 'JndUtil',
+  function($filter, memberService, config, JndUtil) {
     return function(member) {
       var url;
+      var memberId;
       if (_.isObject(member)) {
-        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.smallThumbnailUrl || '';
+        memberId = member.id;
+        url = JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || '';
       } else {
+        memberId = member;
         url = memberService.getSmallThumbnailUrl(member);
       }
+      url = url || memberService.getProfileImage(memberId);
       return $filter('getFileUrl')(url);
     };
   }
 ]);
+
 app.filter('getMediumThumbnail', ['$filter', 'memberService', 'config',
   function($filter, memberService, config) {
     return function(member) {
@@ -273,4 +284,15 @@ app.filter('getFileUrl', ['config',
           return hasProtocol ? url : config.file_address + url;
         };
     }
+]);
+
+/**
+ * control key 에 해당하는 text 를 반환한다.
+ */
+app.filter('ctrlKey', ['Browser',
+  function(Browser) {
+    return function() {
+      return Browser.platform.isMac ? 'Cmd' : 'Ctrl';
+    };
+  }
 ]);

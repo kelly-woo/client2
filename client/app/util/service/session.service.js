@@ -13,7 +13,7 @@
   /* @ngInject */
   function currentSessionHelper($state) {
     var currentTeam;
-    var currentTeamMemberList;
+    var currentTeamUserList;
     var currentEntity;
     var currentTeamAdmin;
 
@@ -34,10 +34,10 @@
     this.isDefaultTopic = isDefaultTopic;
     this.getDefaultTopicId = getDefaultTopicId;
 
-    this.getCurrentTeamMemberList = getCurrentTeamMemberList;
-    this.setCurrentTeamMemberList = setCurrentTeamMemberList;
+    this.getCurrentTeamUserList = getCurrentTeamUserList;
+    this.setCurrentTeamUserList = setCurrentTeamUserList;
 
-    this.getCurrentTeamMemberCount = getCurrentTeamMemberCount;
+    this.getCurrentTeamUserCount = getCurrentTeamUserCount;
 
     this.setCurrentEntity = setCurrentEntity;
     this.getCurrentEntity = getCurrentEntity;
@@ -77,7 +77,7 @@
      */
     function clear() {
       currentTeam = null;
-      currentTeamMemberList = null;
+      currentTeamUserList = null;
       currentEntity = null;
       currentTeamAdmin = null;
       _hasBrowserFocus = true;
@@ -97,7 +97,7 @@
     function setCurrentTeam(team) { currentTeam = team; }
 
     function _setCurrentTeamName(teamName) {
-      currentTeam.name = teamName;
+      currentTeam && (currentTeam.name = teamName);
     }
 
     function updateCurrentTeamName(teamName) {
@@ -109,14 +109,14 @@
     }
 
     function getDefaultTopicId() {
-      return currentTeam.t_defaultChannelId;
+      return currentTeam && currentTeam.t_defaultChannelId;
     }
-    function getCurrentTeamMemberList() { return currentTeamMemberList; }
-    function setCurrentTeamMemberList(memberList) { currentTeamMemberList = memberList; }
+    function getCurrentTeamUserList() { return currentTeamUserList; }
+    function setCurrentTeamUserList(userList) { currentTeamUserList = userList; }
 
-    function getCurrentTeamMemberCount() {
+    function getCurrentTeamUserCount() {
       var activeMemberCount = 0;
-      _.forEach(currentTeamMemberList, function(member, index) {
+      _.forEach(currentTeamUserList, function(member, index) {
         if (member.status == 'enabled') activeMemberCount++;
       });
 
@@ -132,11 +132,11 @@
       return currentEntity;
     }
     function getCurrentEntityType() {
-      return currentEntity.type;
+      return currentEntity && currentEntity.type;
     }
 
     function getCurrentEntityId(isEntityId) {
-      return isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
+      return currentEntity && isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
     }
 
     function setSocketConnection() {

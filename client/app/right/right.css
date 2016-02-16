@@ -4,7 +4,7 @@
   top: 42px;
   right: 0;
   bottom: 0;
-  z-index: 30;
+  z-index: 300;
 }
 
 .rpanel .tooltip-inner {
@@ -84,11 +84,9 @@
   word-wrap: break-word;
   text-decoration: underline;
   margin-right: 2px;
-
 }
-
-.file-item-meta .glyphicon {
-  font-size: .7rem;
+.file-item-meta__shared:hover {
+  color: #00709E;
 }
 
 .scroll_loading_container_background {
@@ -197,9 +195,13 @@
   display: block;
   color: #154a67;
   font-size: 14px;
-  margin-top: 10px;
-  margin-left: 13px;
+  margin-top: 11px;
+  margin-left: 15px;
   cursor: pointer;
+}
+.rpanel-header .icon-long-arrow-left {
+  font-size: 18px;
+  margin-top: 9px;
 }
 .rpanel-header span {
   display: inline-block;
@@ -240,6 +242,8 @@
 .search-result-container .rpanel-list-empty__img,
 .search-result-container .star-empty__img {
   margin-bottom: 20px;
+  width: 100px;
+  height: 80px;
 }
 
 .rpanel-body.star-list .search-result-container,

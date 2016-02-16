@@ -16,11 +16,20 @@
     // join한 public topic (id-entity) pair
     var _joinedTopicMap = {};
 
+    // unjoin한 public topic (id-entity) pair
+    var _unjoinedTopicMap = {};
+
     // join한 private topic (id-entity) pair
     var _privateTopicMap = {};
 
-    // 모든 member (id-entity) pair
+    // 모든 member(user + bot) (id-entity) pair
     var _memberMap = {};
+
+    // 모든 user (id-entity) pair
+    var _userMap = {};
+
+    // 모든 bot (id-entity) pair
+    var _botMap = {};
 
     // 모든 member with entityId (entityId-entity) pair
     var _memberEntityIdMap = {};
@@ -28,8 +37,11 @@
     var maps = {
       'total': _totalEntityMap,
       'joined': _joinedTopicMap,
+      'unjoined': _unjoinedTopicMap,
       'private': _privateTopicMap,
       'member': _memberMap,
+      'user': _userMap,
+      'bot': _botMap,
       'memberEntityId': _memberEntityIdMap
     };
 
@@ -40,7 +52,9 @@
     this.getMap = getMap;
     this.contains = contains;
     this.reset = reset;
+    this.resetAll = resetAll;
     this.create = create;
+    this.toArray = toArray;
 
     /**
      * entity 를 mapType에 해당하 맵에 entity의 id(or entityId)를 이용해서 넣어준다.
@@ -50,7 +64,13 @@
     function add(mapType, entity) {
       var _key = mapType === 'memberEntityId' ? entity.entityId : entity.id;
       if (!!_key) {
-        maps[mapType][_key] = entity;
+        if (maps[mapType][_key]) {
+          // maps가 가진 object를 그대로 view에 바인딩 되기 때문에 map에
+          // 설정된 값이 존재할 경우 참조가 끊어지지 않기 위해 확장한다.
+          _.extend(maps[mapType][_key], entity);
+        } else {
+          maps[mapType][_key] = entity;
+        }
       }
     }
 
@@ -102,9 +122,28 @@
       maps[mapType] = {};
     }
 
+    /**
+     * 모든 map을 초기화한다.
+     */
+    function resetAll() {
+      var e;
+      for (e in maps) {
+        maps.hasOwnProperty(e) && (maps[e] = {});
+      }
+    }
+
     function create(type) {
       maps[type] = {};
       return maps[type];
+    }
+
+    /**
+     * 특정 entity map의 object를 array로 변환하여 전달한다.
+     * @param mapType
+     * @returns {Array}
+     */
+    function toArray(mapType) {
+      return _.values(maps[mapType]);
     }
   }
 })();

@@ -18,7 +18,7 @@
     vm.onSignOutClick = onSignOutClick;
 
     function onCurrentMemberContainerClick() {
-      modalHelper.openCurrentMemberModal(vm);
+      modalHelper.openUserProfileModal(vm, memberService.getMember());
     }
 
     function onSignOutClick() {

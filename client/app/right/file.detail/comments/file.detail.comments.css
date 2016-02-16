@@ -1,0 +1,89 @@
+.rpanel-detail-body-comment {
+  background-color: white;
+  padding: 12px;
+}
+
+.archived-file-detail .rpanel-detail-body-comment {
+  padding: 8px;
+}
+
+.comment-item {
+  position: relative;
+  font-size: 14px;
+  color: #333;
+  padding: 5px 10px 5px 38px;
+  margin: 0 0 8px;
+}
+
+.error-comment-item .comment-item-body,
+.sending-comment-item .comment-item-body {
+  color: #c1c1c1;
+}
+
+.comment-item__thumbnail {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.comment-item-header {
+  line-height: 14px;
+  margin-bottom: 5px;
+}
+
+.comment-item-header > span {
+  margin-right: 3px;
+}
+
+.comment-item-header__name {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-item-header__created {
+  color: #999;
+  font-size: 12px;
+}
+
+.comment-item .comment-item-action {
+  display: none;
+}
+
+.comment-item:hover .comment-item-action {
+  display: inline-block;
+}
+
+.comment-item-action.comment-item-action-more {
+  padding-right: 3px;
+}
+
+.comment-item-header__action .comment-item-action > a {
+  text-decoration: none;
+}
+
+.comment-item-dropdown {
+  top: 22px;
+  right: 9px;
+  left: auto;
+}
+
+.comment-item-body {
+  position: relative;
+  line-height: 14px;
+  padding-right: 32px;
+}
+
+.comment-item__profile {
+  width: 40px;
+  height: 40px;
+}
+
+.comment-item-float {
+  float: left;
+  margin: 0 0 0 -50px;
+}
+
+.comment-item-body .comment {
+  margin: 0;
+  line-height: 20px;
+}

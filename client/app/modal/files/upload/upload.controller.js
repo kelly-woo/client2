@@ -8,7 +8,8 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
-                               fileUploadOptions, ImagesHelper, memberService, entityAPIservice, EntityMapManager) {
+                               fileUploadOptions, ImagesHelper, memberService, entityAPIservice, EntityMapManager,
+                               jndPubSub) {
     _init();
 
     /**
@@ -20,21 +21,23 @@
       $scope.selectedEntityId = $scope.selectedEntity.id;
       $scope.isLoading = false;
 
-      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+      );
 
       $scope.fileUploadOptions = fileUploadOptions;
-      $scope.setMemberListForMention = setMemberListForMention;
       $modalInstance.result.then(_clearFileUploader, _clearFileUploader);
 
-      _on();
+      _attachEvent();
     }
 
     /**
      * on listeners
      * @private
      */
-    function _on() {
+    function _attachEvent() {
       $scope.$watch('dataUrl', _onDataUrlChange);
+      $scope.$watch('selectedEntityId', _onSelectedEntityIdChange);
     }
 
     /**
@@ -49,34 +52,32 @@
     }
 
     /**
-     * mention 입력을 위한 member list를 설정한다.
-     * @param {object} $mentionScope
-     * @param {object} $mentionCtrl
+     * 공유 entityid 변경 핸들러
+     * @private
      */
-    function setMemberListForMention($mentionScope, $mentionCtrl) {
+    function _onSelectedEntityIdChange(entityId) {
       var currentMemberId = memberService.getMemberId();
+      var mentionList = [];
+      var users;
+      var entity = $scope.selectedEntity = EntityMapManager.get('total', entityId);
 
-      $scope.$watch('selectedEntityId', function(entityId) {
-        var mentionList = [];
-        var members;
-        var entity = $scope.selectedEntity = EntityMapManager.get('total', entityId);
+      if (entity && /channels|privategroups/.test(entity.type)) {
+        users = entityAPIservice.getUserList(entity);
+        _.forEach(users, function(userId) {
+          var user = EntityMapManager.get('user', userId);
+          if (user && currentMemberId !== user.id && user.status === 'enabled') {
+            user.extViewName = '[@' + user.name + ']';
+            user.extSearchName = user.name;
+            mentionList.push(user);
+          }
+        });
+      }
 
-        if (entity && /channels|privategroups/.test(entity.type)) {
-          members = entityAPIservice.getMemberList(entity);
-          _.forEach(members, function(memberId) {
-            var member = EntityMapManager.get('total', memberId);
-            if (member && currentMemberId !== member.id && member.status === 'enabled') {
-              member.extViewName = '[@' + member.name + ']';
-              member.extSearchName = member.name;
-              mentionList.push(member);
-            }
-          });
-        }
+      mentionList = _.chain(mentionList).uniq('id').sortBy(function (item) {
+        return item.name.toLowerCase();
+      }).value();
 
-        $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy(function (item) {
-          return item.name.toLowerCase();
-        }).value());
-      });
+      jndPubSub.pub('mentionahead:upload', mentionList);
     }
 
     /**

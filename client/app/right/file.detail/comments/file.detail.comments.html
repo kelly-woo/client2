@@ -1,0 +1,89 @@
+<div class="rpanel-detail-body-comment">
+  <div class="comment-item"
+       ng-class="{'sending-comment-item': comment.isSendingComment}" ng-repeat="comment in comments" id="{{comment.id}}"
+       ng-class="{'file-detail-disabled-member': comment.extIsDisabledMember}">
+    <div class="comment-item__thumbnail">
+      <img class="user-profile user-thumb-sm cursor_pointer"
+           ng-src="{{ comment.extProfileImg }}"
+           ng-click="onMemberClick(comment.extWriter);"/>
+    </div>
+    <div class="comment-item-header">
+      <span class="comment-item-header__name" ng-click="onMemberClick(comment.extWriter)">{{comment.extWriterName}}</span>
+      <span class="comment-item-header__created">{{comment.extCreateTimeView}}</span>
+      <div class="comment-item-header__action pull-right" ng-if="!comment.isSendingComment">
+        <div class="comment-item-action comment-item-action-more" dropdown ng-if="hasOwnComment(comment)">
+          <a href="#" class="link-dark" dropdown-toggle>
+            <i class="icon-cog"></i>
+          </a>
+          <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+            <li class="cursor_pointer"
+                ng-if="!comment.extIsSticker">
+              <a ng-click="starComment($event)">
+                <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
+                <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
+              </a>
+            </li>
+            <li class="cursor_pointer">
+              <a ng-click="deleteComment(comment)">
+                <i class="icon-trash"></i>
+                <span translate>@btn-delete</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="comment-item-action comment-star"
+             ng-if="!comment.extIsSticker"
+             ng-class="{'show-inline-block': comment.isStarred}">
+          <a class="link-dark cursor_pointer">
+            <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="comment.isStarred" star-view-id="{{ comment.id }}"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="comment-item-body">
+      <img class="sticker size_5" ng-if="::comment.extIsSticker" ng-src="{{ comment.content.url }}"/>
+      <span class="comment selectable keep" ng-if="::!comment.extIsSticker" compile="comment.content.body"></span>
+    </div>
+  </div>
+
+  <div class="error-comment-item comment-item" ng-repeat="comment in errorComments"
+       ng-class="{'file-detail-disabled-member': comment.extIsDisabledMember}">
+    <div class="comment-item__thumbnail">
+      <img class="user-profile user-thumb-sm cursor_pointer"
+           ng-src="{{ comment.extProfileImg }}" />
+    </div>
+    <div class="comment-item-header">
+      <span class="comment-item-header__name" ng-click="onMemberClick(comment.extWriter)">{{comment.extWriterName}}</span>
+      <span class="comment-item-header__created">{{comment.extCreateTimeView}}</span>
+      <div class="comment-item-header__action pull-right">
+        <div class="comment-item-action comment-item-action-more" dropdown ng-if="hasOwnComment(comment)">
+          <a href="#" class="link-dark" dropdown-toggle>
+            <i class="icon-cog"></i>
+          </a>
+          <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+            <li class="cursor_pointer">
+              <a ng-click="deleteSendingComment($index)">
+                <i class="icon-trash"></i>
+                <span translate>@btn-delete</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="comment-item-body">
+      <span ng-if="::comment.extIsSticker">
+        <img class="sticker size_5" ng-src="{{ comment.content.url }}"/>
+        <span class="msg-item-header__retry cursor_pointer" ng-click="retry($index, comment)">
+          <i class="icon-refresh"></i> Retry
+        </span>
+      </span>
+      <span ng-if="::!comment.extIsSticker">
+        <span class="comment selectable keep" compile="comment.content.body"></span>
+        <span class="msg-item-header__retry cursor_pointer" ng-click="retry($index, comment)">
+          <i class="icon-refresh"></i> Retry
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

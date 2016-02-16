@@ -23,7 +23,7 @@
       $scope.writer = EntityMapManager.get('total', message.writerId);
 
       $scope.writerName = $scope.writer.name;
-      $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
+      $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
       $scope.createDate = $filter('getyyyyMMddformat')(message.createdAt);
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);
@@ -32,6 +32,8 @@
       $scope.isDisabledMember = isDisabledMember;
       $scope.hasStar = message.hasStar || false;
       $scope.isStarred = message.isStarred || false;
+
+      $scope.isJandiBot = memberService.isJandiBot($scope.writer.id);
 
       $scope.onMessageCardClick = onMessageCardClick;
     }
@@ -104,7 +106,7 @@
         // open user profile
 
         event.stopPropagation();
-        jndPubSub.pub('onUserClick', $scope.writer);
+        jndPubSub.pub('onMemberClick', $scope.writer);
       } else if (!message.preventRedirect) {
         if (message.type !== 'message') {
           // message type이 'message'라면 상위 scope에서 event handling함

@@ -1,0 +1,15 @@
+<div class="crop-area">
+  <div class="croping-image">
+    <img-crop image="imageData"
+              result-image="croppedImageData"
+              on-change="onCroppedImageChange($dataURI);"></img-crop>
+  </div>
+  <div class="crop-actions">
+    <button type="button" class="btn btn-cancel" ng-click="onCropCancel()">
+      <span translate>@btn-cancel</span>
+    </button>
+    <button type="button" class="new_channel_btn btn btn-ok" ng-click="onCropDone()">
+      <span translate>@btn-change</span>
+    </button>
+  </div>
+</div>

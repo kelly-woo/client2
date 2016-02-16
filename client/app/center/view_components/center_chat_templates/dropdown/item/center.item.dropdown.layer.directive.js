@@ -141,6 +141,7 @@
        */
       function _attachDomEvents() {
         $(window).on('click', _onHide);
+        $(window).on('resize', _onHide);
       }
 
       /**
@@ -149,6 +150,7 @@
        */
       function _detachDomEvents() {
         $(window).off('click', _onHide);
+        $(window).off('resize', _onHide);
       }
     }
   }

@@ -37,7 +37,8 @@
 .help-description .description-container {
   text-align: left;
   box-shadow: 0 0 0px rgba(0,0,0,0) !important;
-  border: 1px solid #d1d1d1;
+  border: 1px solid rgba(51, 51, 51, 0.24);
+  background-color: rgba(255,255,255,0.9);
   top:21px;
   width:260px;
 }
@@ -91,3 +92,12 @@
   margin-left: 3px;
 }
 
+@media (max-width:900px) {
+  .help-description .description-container {
+	left: -210px;
+  }
+  .help-description .description-container .description-arrow-up {
+	left: auto;
+    right: 38px;
+  }
+}

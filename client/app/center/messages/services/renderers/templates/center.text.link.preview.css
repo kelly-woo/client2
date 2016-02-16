@@ -1,0 +1,85 @@
+.attachment-content-wrapper .neighbor {
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attachment-content-wrapper .social-image {
+  position: relative;
+  display: table-cell;
+  float: left;
+  margin-right: 12px;
+
+  width: 110px;
+  height: 110px;
+
+  cursor: pointer;
+  outline: 1px solid #e1e1e1;
+  background-color: #000;
+}
+.attachment-content-wrapper .loading.social-image {
+  background-color: transparent;
+}
+
+.attachment-content-wrapper .social-image>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.attachment-content-wrapper .social-image img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  max-width: 110px;
+  max-height: 110px;
+}
+
+.attachment-content-wrapper .social-body {
+  position: relative;
+  display: table-cell;
+  color: #333;
+}
+
+.attachment-content-wrapper .social-body.has-image {
+  height: 110px;
+}
+
+.social-body a {
+  text-decoration: none;
+  color: #333;
+}
+
+.social-body .social-title {
+  font-size: 16px;
+  line-height: 22px;
+  max-height: 42px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.social-body .social-desc {
+  font-size: 13px;
+  line-height: 18px;
+  max-height: 36px;
+}
+.social-body .social-desc.has-domain {
+  margin-bottom: 25px;
+}
+
+.social-body .social-domain {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  font-size: 12px;
+  color: #999;
+  overflow: hidden;
+}

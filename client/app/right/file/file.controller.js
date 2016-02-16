@@ -23,7 +23,7 @@
       $scope.file.extWriter = $scope.writer = EntityMapManager.get('total', file.writerId);
 
       $scope.writerName = $scope.writer.name;
-      $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
+      $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
       $scope.createDate = $filter('getyyyyMMddformat')(file.createdAt);
       $scope.contentTitle = file.contentTitle;
 
@@ -31,6 +31,8 @@
       if (file.content) {
         $scope.isExternalShared = file.content.externalShared;
       }
+      $scope.getExternalShare = getExternalShare;
+      $scope.setExternalShare = setExternalShare;
 
       $scope.onFileCardClick = onFileCardClick;
 
@@ -181,12 +183,34 @@
      */
     function _createdThumbnailImage($event, socketData) {
       var message = socketData.data.message;
+      var thumbnailUrl;
+
       if ($scope.file.id === message.id) {
+        thumbnailUrl = message.content.extraInfo.smallThumbnailUrl ?
+          message.content.extraInfo.smallThumbnailUrl :
+          message.content.extraInfo.thumbnailUrl + '?size=80';
+
         $scope.$apply(function() {
           $scope.file.hasPreview = true;
-          $scope.file.imageUrl = $filter('getFileUrl')(message.content.extraInfo.smallThumbnailUrl);
+          $scope.file.imageUrl = $filter('getFileUrl')(thumbnailUrl);
         });
       }
+    }
+
+    /**
+     * external share 전달한다.
+     * @returns {string}
+     */
+    function getExternalShare() {
+      return $scope.isExternalShared;
+    }
+
+    /**
+     * external share 설정한다.
+     * @param {boolean} isExternalShared
+     */
+    function setExternalShare(isExternalShared) {
+      $scope.isExternalShared = isExternalShared;
     }
   }
 })();

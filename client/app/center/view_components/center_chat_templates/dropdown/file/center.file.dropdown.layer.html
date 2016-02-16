@@ -1,6 +1,6 @@
-<ul class="dropdown-menu grey_dropdown center-file-dropdown-layer" role="menu">
+<ul class="dropdown-menu grey_dropdown center-file-dropdown-layer non-selectable" role="menu">
   <!--  SHARE -->
-  <li class="cursor_pointer" ng-click="onShareClick(msg.message);">
+  <li class="cursor_pointer" ng-click="onShareClick(message);">
     <a class="share-file">
       <i class="icon-share-right"></i>
       <span translate>@btn-share</span>
@@ -10,7 +10,7 @@
   <!--    DOWNLOAD    -->
   <li class="cursor_pointer" ng-if="!isIntegrateFile">
     <a class="cursor_pointer"
-       download-tracker="{{track(msg.message)}}"
+       download-tracker="{{track(message)}}"
        href="{{downloadUrl}}">
       <i class="icon-download"></i>
       <span translate>@common-download</span>
@@ -19,7 +19,7 @@
 
   <!-- COMMENT  -->
   <li class="cursor_pointer">
-    <a class="focus-comment-file" ng-click="setCommentFocus(msg.message);">
+    <a class="focus-comment-file" ng-click="setCommentFocus(message);">
       <i class="icon-comment"></i>
       <span translate>@btn-comment</span>
     </a>
@@ -37,16 +37,19 @@
 
   <!-- STAR  -->
   <li class="cursor_pointer">
-    <a class="star-file" star-view="isStarred" message-id="{{fileId}}">
+    <a class="star-file" star-view="isStarred" star-view-id="{{fileId}}">
       <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
       <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
     </a>
   </li>
 
   <!-- EXTERNAL SHARE  -->
-  <li class="cursor_pointer">
-    <a class="external-share-file" file-id="{{fileId}}" external-share-view="isExternalShared"
-       external-shared="msg.message.content.externalShared">
+  <li class="cursor_pointer" ng-if="!isIntegrateFile">
+    <a class="external-share-file" file-id="{{fileId}}"
+       external-share-view
+       external-share-get="getExternalShare()"
+       external-share-set="setExternalShare($value)"
+       external-shared="message.content.externalShared">
       <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
       <span><span ng-if="isExternalShared" translate>@external-share-remove</span><span ng-if="!isExternalShared" translate>@external-share-create</span></span>
     </a>

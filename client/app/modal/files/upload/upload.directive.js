@@ -9,7 +9,7 @@
     .directive('fileUploadModal', fileUploadModal);
 
   function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, EntityMapManager,
-                           entityAPIservice, MentionExtractor, analyticsService) {
+                           entityAPIservice, MentionExtractor, analyticsService, jndPubSub, JndUtil) {
     return {
       restrict: 'A',
       link: link
@@ -29,6 +29,10 @@
        * @private
        */
       function _init() {
+        scope.data = {
+          comment: ''
+        };
+
         scope.upload = upload;
         scope.cancel = cancel;
 
@@ -53,7 +57,7 @@
             // file object convert
             convertFile: function(file) {
               if (file.comment) {
-                scope.comment = file.comment;
+                scope.data.comment = file.comment;
               }
 
               return scope.file = file;
@@ -76,7 +80,7 @@
                 share: scope.selectedEntityId,
 
                 // file upload시 comment 수정 가능함.
-                comment: scope.comment
+                comment: scope.data.comment
               };
 
               // upload modal title 갱신, fileInfo에 title 설정
@@ -104,11 +108,10 @@
 
               fileInfo.comment = el.find('#file_upload_comment').val().trim();
 
-
               _setMentions(fileInfo);
 
               // scope comment 초기화
-              scope.comment = '';
+              scope.data.comment = '';
 
               _setCurrentProgressBar(file);
             },
@@ -128,53 +131,11 @@
             },
             // 하나의 file upload 완료
             onSuccess: function(response, index, length) {
+              _trackFileUploadInfo(response);
               _setProgressBarStyle('success', index, length);
+              //_setThumbnailImage(response);
+
               $rootScope.curUpload.status = 'done';
-
-              // analytics
-              var share_target = "";
-              var fileInfo = response.data.fileInfo;
-              var topicType;
-
-              switch (scope.selectedEntity.type) {
-                case 'channels':
-                  topicType = 'public';
-                  share_target = "topic";
-                  break;
-                case 'privategroups':
-                  topicType = 'private';
-                  share_target = "private group";
-                  break;
-                case 'users':
-                  topicType = 'users';
-                  share_target = "direct message";
-                  break;
-                default:
-                  topicType = 'invalid';
-                  share_target = "invalid";
-                  break;
-              }
-              try {
-                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, {
-                  'RESPONSE_SUCCESS': true,
-                  'TOPIC_ID': scope.selectedEntity.id,
-                  'FILE_ID': response.data.messageId
-                });
-              } catch (e) {
-              }
-
-
-              var file_meta = (response.data.fileInfo.type).split("/");
-
-              var upload_data = {
-                "entity type"   : share_target,
-                "category"      : file_meta[0],
-                "extension"     : response.data.fileInfo.ext,
-                "mime type"     : response.data.fileInfo.type,
-                "size"          : response.data.fileInfo.size
-              };
-
-              analyticsService.mixpanelTrack( "File Upload", upload_data );
             },
             // 하나의 file upload error
             onError: function(err, index, length) {
@@ -298,17 +259,17 @@
        */
       function _setMentions(fileInfo) {
         var room;
-        var members;
+        var users;
         var mentionList;
         var mentionMap;
         var mention;
 
         //if (room = EntityMapManager.get('total', fileInfo.roomId)) {
         if (room = EntityMapManager.get('total', fileInfo.share)) {
-          members = entityAPIservice.getMemberList(room);
+          users = entityAPIservice.getUserList(room);
 
-          if (members && members.length > 0) {
-            mentionList = MentionExtractor.getMentionList(members, $state.params.entityId);
+          if (users && users.length > 0) {
+            mentionList = MentionExtractor.getMentionListForTopic(users, $state.params.entityId);
             mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
             //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
             if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
@@ -331,6 +292,93 @@
        */
       function cancel() {
         fileUploader.upload(false);
+      }
+
+      /**
+       * thumbnail image 설정
+       * @param response
+       * @private
+       */
+      function _setThumbnailImage(response) {
+        var data = response.data;
+        var fileInfo = data.fileInfo;
+        var thumbnailUrl;
+
+        if (thumbnailUrl = fileInfo.thumbnailUrl) {
+          // Todo
+          // fileAPIservice.upload후 thumbnail image 생성이 비동기 방식에서 동기 방식으로 전환됨에 따라.
+          // 기존에 thumbnail image를 출력하기 위해 사용하던 'file_image' socket event가 deprecation 되고
+          // fileAPIservice.upload의 response에서 'file_image' socket event이 전달하던 data를 사용하도록 변경되었다.
+          // 아래의 코드는 기존에 'file_image' socket event가 들어오던 코드에 대응하기 위해 작성 되었으며,
+          // web_client가 배포되고 그다음 backend에서 수정된 내용을 배포한 후에는 'createThumbnailImage'로
+          // 전달하는 data format 변경과 'file_image' 관련된 코드 삭제가 이루어져야 한다.
+          jndPubSub.pub('createdThumbnailImage', {
+            data: {
+              message: {
+                id: data.messageId,
+                content: {
+                  extraInfo: {
+                    width: fileInfo.width,
+                    height: fileInfo.height,
+                    orientation: fileInfo.orientation,
+                    thumbnailUrl: thumbnailUrl
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      /**
+       * file upload 정보 분석자에 전달
+       * @private
+       */
+      function _trackFileUploadInfo(response) {
+        // analytics
+        var share_target = "";
+        var fileInfo = response.data.fileInfo;
+        var topicType;
+        var file_meta;
+        var upload_data;
+
+        switch (scope.selectedEntity.type) {
+          case 'channels':
+            topicType = 'public';
+            share_target = "topic";
+            break;
+          case 'privategroups':
+            topicType = 'private';
+            share_target = "private group";
+            break;
+          case 'users':
+            topicType = 'users';
+            share_target = "direct message";
+            break;
+          default:
+            topicType = 'invalid';
+            share_target = "invalid";
+            break;
+        }
+        try {
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, {
+            'RESPONSE_SUCCESS': true,
+            'TOPIC_ID': scope.selectedEntity.id,
+            'FILE_ID': response.data.messageId
+          });
+        } catch (e) {
+        }
+
+        file_meta = (response.data.fileInfo.type).split("/");
+        upload_data = {
+          "entity type"   : share_target,
+          "category"      : file_meta[0],
+          "extension"     : response.data.fileInfo.ext,
+          "mime type"     : response.data.fileInfo.type,
+          "size"          : response.data.fileInfo.size
+        };
+
+        analyticsService.mixpanelTrack( "File Upload", upload_data );
       }
     }
   }

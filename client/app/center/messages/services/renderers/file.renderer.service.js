@@ -9,8 +9,9 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, RendererUtil, Loading, centerService, EntityMapManager,
-                        memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper, publicService) {
+  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil,
+                        centerService, memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper,
+                        publicService) {
     var _template = '';
 
     this.render = render;
@@ -51,6 +52,40 @@
         _onClickFileExpand(msg, jqTarget);
       } else if (jqTarget.closest('._fileToggle').length) {
         _onClickFileToggle(msg, jqTarget);
+      } else if (jqTarget.closest('._fileDetailComment').length) {
+        _onClickFileDetail(msg, true);
+      } else if (jqTarget.closest('._fileDetail').length) {
+        _onClickFileDetail(msg);
+      }
+    }
+
+    /**
+     * file detail
+     * @param {object} msg
+     * @param {boolean} [isFocusCommentInput=false]
+     * @private
+     */
+    function _onClickFileDetail(msg, isFocusCommentInput) {
+      var contentType = msg.message.contentType;
+      var userName = $filter('getName')(msg.message.writerId);
+      var itemId = msg.message.id;
+
+      if ($state.params.itemId != itemId) {
+        if (msg.feedback && contentType !== 'file') {
+          userName = $filter('getName')(msg.feedback.writerId);
+          itemId = msg.feedback.id;
+        }
+
+        if (isFocusCommentInput) {
+          $rootScope.setFileDetailCommentFocus = true;
+        }
+
+        $state.go('files', {
+          userName: userName,
+          itemId: itemId
+        });
+      } else if (isFocusCommentInput) {
+        fileAPIservice.broadcastCommentFocus();
       }
     }
 
@@ -62,17 +97,17 @@
      */
     function _onClickFileToggle(msg, jqTarget) {
       var jqMsg = $('#' + msg.id);
-      var jqThumb = jqMsg.find('._fileMediumThumb');
+      var jqToggleTarget = jqMsg.find('._fileToggleTarget');
       var jqToogle = jqMsg.find('._fileToggle');
-      var isHide = jqThumb.css('display') === 'none';
+      var isHide = jqToggleTarget.css('display') === 'none';
       var isScrollBottom = centerService.isScrollBottom();
 
       if (isHide) {
-        jqThumb.show();
-        jqToogle.addClass('icon-angle-down').removeClass('icon-angle-right');
+        jqToggleTarget.show();
+        jqToogle.addClass('icon-arrow-up-fill').removeClass('icon-arrow-down-fill');
       } else {
-        jqThumb.hide();
-        jqToogle.addClass('icon-angle-right').removeClass('icon-angle-down');
+        jqToggleTarget.hide();
+        jqToogle.addClass('icon-arrow-down-fill').removeClass('icon-arrow-up-fill');
       }
 
       if (isScrollBottom) {
@@ -88,12 +123,13 @@
      * @private
      */
     function _onClickFileExpand(msg, jqTarget) {
-      var message = msg.message;
+      var message;
       var content;
       var currentEntity;
 
       if (!jqTarget.hasClass('no-image-preview')) {
-        content = _getFeedbackContent(msg);
+        message = RendererUtil.getFeedbackMessage(msg);
+        content = message.content;
         currentEntity = currentSessionHelper.getCurrentEntity();
 
         modalHelper.openImageCarouselModal({
@@ -135,7 +171,7 @@
       jndPubSub.pub('show:center-file-dropdown', {
         target: jqTarget,
         msg: msg,
-        isIntegrateFile: _isIntegrateFile(msg)
+        isIntegrateFile: RendererUtil.isIntegrateFile(msg)
       });
     }
 
@@ -147,73 +183,67 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
-      
-      var isArchived = (msg.message.status === 'archived');
+
       var icon = $filter('fileIcon')(content);
-  
+
+      var isArchived = (msg.message.status === 'archived');
       var isUnshared = publicService.isFileUnshared(msg);
+
       var hasPermission = publicService.hasFilePermission(msg);
       var isMustPreview = $filter('mustPreview')(content);
 
-      return _template({
-        html: {
-          loading: Loading.getTemplate()
-        },
+      var feedback = RendererUtil.getFeedbackMessage(msg);
+
+      var data = {
         css: {
           unshared: isUnshared ? 'unshared' : '',
-          imageUnshared: (isMustPreview && isUnshared) ? 'image-unshare' : '',
-          wrapper: isArchived ? ' archived-file': '',
-          star: RendererUtil.getStarCssClass(msg),
+          archived: isArchived ? 'archived' : '',
+          wrapper: isArchived ? '': '',
+          star: RendererUtil.getStarCssClass(msg.message),
           disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         attrs: {
-          download: _getFileDownloadAttrs(msg)
+          download: RendererUtil.getFileDownloadAttrs(msg)
         },
         file: {
-          unshared: isUnshared,
+          id: msg.message.id,
+          isUnshared: isUnshared,
           hasPermission: hasPermission,
           icon: icon,
-          isImageIcon: icon === 'img',
+          hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: $filter('hasPreview')(content),
-          imageUrl: $filter('getPreview')(content, 'medium'),
+          imageUrl: $filter('getPreview')(content, 'large'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
           size: $filter('bytes')(content.size),
+          isIntegrateFile: RendererUtil.isIntegrateFile(msg),
+          commentCount: RendererUtil.getCommentCount(msg),
           isFileOwner: _isFileOwner(msg),
           ownerName: $filter('getName')(msg.message.writerId),
-          isIntegrateFile: _isIntegrateFile(msg)
+          time: $filter('getyyyyMMddformat')(feedback.createTime)
         },
         isArchived: isArchived,
         msg: msg
-      });
+      };
+
+      if (isMustPreview && content.extraInfo) {
+        _setExtraInfo(data.file, content.extraInfo);
+      }
+
+      return _template(data);
     }
 
     /**
-     * file download 에 랜더링 할 attribute 문자열을 반환한다.
-     * @param {object} msg
-     * @returns {string}
+     * set extraInfo
+     * @param {object} file
+     * @param {object} extraInfo
      * @private
      */
-    function _getFileDownloadAttrs(msg) {
-      var fileUrl = msg.message.content.fileUrl;
-      var attrList = [];
-      var urlObj = $filter('downloadFile')(_isIntegrateFile(msg), msg.message.content.title, fileUrl);
-
-      attrList.push('download="' + msg.message.content.title + '"');
-      attrList.push('href="' + urlObj.downloadUrl + '"');
-
-      return attrList.join(' ');
-    }
-
-    /**
-     * msg 에서 feedback(comment) 정보를 담고있는 데이터를 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _getFeedbackContent(msg) {
-      return centerService.isCommentType(msg.message.contentType) ? msg.feedback.content : msg.message.content;
+    function _setExtraInfo(file, extraInfo) {
+      file.width = extraInfo.width;
+      file.height = extraInfo.height;
+      file.orientation = extraInfo.orientation;
     }
 
     /**
@@ -224,17 +254,6 @@
      */
     function _isFileOwner(msg) {
       return msg.message.writerId === memberService.getMemberId();
-    }
-
-    /**
-     * integrate file 인지 여부를 반환한다.
-     * @param {object} msg
-     * @returns {*}
-     * @private
-     */
-    function _isIntegrateFile(msg) {
-      var content = _getFeedbackContent(msg);
-      return fileAPIservice.isIntegrateFile(content.serverUrl);
     }
   }
 })();
