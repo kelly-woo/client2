@@ -266,7 +266,7 @@
       });
 
       describe('mention 이 있을때 mention 을 잘 보존하는지 테스트 한다', function() {
-        it('mention 만 존재할 경우우', function() {
+        it('mention 만 존재할 경우', function() {
           var markdownString1 = $filter('<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>');
           var expectString1 = '<a mention-view="11151636" mention-type="member" mention-active="on">@DennisDennisDennisDennisDennis</a> <a mention-view="283" mention-type="member" mention-active="on">@Jane</a>';
 
@@ -276,6 +276,11 @@
           var markdownString1 = $filter('<a mention-view="307" mention-type="member" mention-active="on">@Support</a> <a mention-view="9179540" mention-type="member" mention-active="on">@Andrew Park</a> [LINK](<a href="https://www.jandi.com" target="_blank" rel="nofollow">https://www.jandi.com</a>)');
           var expectString1 = '<a mention-view="307" mention-type="member" mention-active="on">@Support</a> <a mention-view="9179540" mention-type="member" mention-active="on">@Andrew Park</a> <a href="https://www.jandi.com" target="_blank" rel="nofollow">LINK</a>';
 
+          expect(markdownString1).toEqual(expectString1);
+        });
+        it('동일한 멘션이 여러 개 존재할 경우', function() {
+          var markdownString1 = $filter('<a mention-view="11538562" mention-type="member" mention-active="on">@Mr. J</a> qwerqwreiqwreqw [@Mr. J] qwerqwer] <a mention-view="11538562" mention-type="member" mention-active="on">@Mr. J</a>');
+          var expectString1 = '<a mention-view="11538562" mention-type="member" mention-active="on">@Mr. J</a> qwerqwreiqwreqw [@Mr. J] qwerqwer] <a mention-view="11538562" mention-type="member" mention-active="on">@Mr. J</a>';
           expect(markdownString1).toEqual(expectString1);
         });
       });
