@@ -65,13 +65,12 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $stateParams, 
    */
   authAPI.requestAccessTokenWithRefreshToken = function() {
     var refreshToken = storageAPIservice.getRefreshToken();
-    var accessToken = storageAPIservice.getAccessTokenCookie();
 
     if (!_isRefreshTokenLock) {
       _isRefreshTokenLock = true;
       if (!refreshToken) {
         publicService.signOut();
-      } else if (!accessToken) {
+      } else {
         $http({
           method  : "POST",
           url     : $rootScope.server_address + 'token',
