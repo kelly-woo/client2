@@ -313,10 +313,25 @@
     function toggleAnnouncementStatus() {
       _setHasOwnEventHandler();
       var isCurrentTopicAnnouncementOpen = !memberService.isAnnouncementOpen(_topicId);
+
+      //화면에 선 적용을 위해 수행한다.
+      _applyAnnouncementStatus(isCurrentTopicAnnouncementOpen);
+
       AnnouncementData.toggleAnnouncementStatus(myId, _topicId, isCurrentTopicAnnouncementOpen)
         .error(function(err) {
-          console.log(err)
-        })
+          //통신 실패 시 원복한다.
+          _applyAnnouncementStatus(!isCurrentTopicAnnouncementOpen);
+        });
+    }
+
+    /**
+     * 공지 사항의 display 상태를 반영한다.
+     * @param isOpen
+     * @private
+     */
+    function _applyAnnouncementStatus(isOpen) {
+      memberService.updateAnnouncementStatus(_topicId, isOpen);
+      _getAnnouncementStatus();
     }
 
     /**
@@ -379,6 +394,7 @@
             break;
           case ANNOUNCEMENT_STATUS_UPDATED:
           default:
+            _applyAnnouncementStatus(data.status);
             memberService.updateAnnouncementStatus(_topicId, data.status);
             _getAnnouncementStatus();
             break;
