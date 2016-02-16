@@ -10,6 +10,7 @@
 
   function imageCarousel($rootScope, $compile, $timeout, JndUtil, jndKeyCode, ImageCarousel) {
     var imageCarouselItemTpl = '<image-carousel-item></image-carousel-item>';
+
     return {
       restrict: 'A',
       link: link
