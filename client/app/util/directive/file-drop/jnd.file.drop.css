@@ -1,0 +1,129 @@
+.dnd-over-container	{
+  z-index:99999;
+  display: none;
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-color:rgba(21,74,103,0.75);
+}
+
+.dragover-popup {
+  position: absolute;
+  width: 520px;
+  height: 180px;
+  margin:0 auto;
+  top:50%;
+  left: calc(50% - 260px);
+  
+  -webkit-transform: translateY(-50%);
+  -webkit-transform: -webkit-translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform:translateY(-50%);
+  
+  background-color: #FFF;
+  border-radius: 4px;
+  padding:20px;
+  padding-left: 172px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.15);
+}
+
+.dragover-popup .file-empty__img {
+  position: absolute;
+  top: 50%;
+  left: 42px;
+  display: block;
+  -webkit-transform: translateY(-50%);
+  -webkit-transform: -webkit-translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform:translateY(-50%);
+}
+
+.dragover-popup span {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -webkit-transform: -webkit-translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform:translateY(-50%);
+
+}
+.dragover-popup .icon-upload {
+  font-size: 25px;
+  font-weight: 700;
+  color:#FFF;
+  position: absolute;
+  top:8px;
+  left: 10px;
+}
+.dragover-popup	.upload-noti {
+  background-color: #ff5336;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  bottom: 48px;
+  left: 106px;
+}
+
+.animate-circle {
+  -webkit-animation-name: scaler;
+  -webkit-animation-duration: .85s;
+  -webkit-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -webkit-animation-iteration-count: infinite;
+  
+  -moz-animation-name: scaler;
+  -moz-animation-duration: .85s;
+  -moz-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -moz-animation-iteration-count: infinite;
+
+  -o-animation-name: scaler;
+  -o-animation-duration: .85s;
+  -o-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -o-animation-iteration-count: infinite;
+  
+  -ms-animation-name: scaler;
+  -ms-animation-duration: .85s;
+  -ms-animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  -ms-animation-iteration-count: infinite;
+  
+  animation-name: scaler;
+  animation-duration: .85s;
+  animation-timing-function:cubic-bezier(0.455, 0.365, 0.260, 0.855); 
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes scaler {
+  0% { transform: scale(0.85); }
+  50% { transform: scale(1); }
+  100% { transform: scale(0.85); }
+  
+  0% { -webkit-transform: scale(0.85); }
+  50% { -webkit-transform: scale(1); }
+  100% { -webkit-transform: scale(0.85); }
+}
+
+@-ms-keyframes scaler {
+  0% { -ms-transform: scale(0.85); }
+  50% { -ms-transform: scale(1); }
+  100% { -ms-transform: scale(0.85); }
+}
+
+@-moz-keyframes scaler {
+  0% { -moz-transform: scale(0.85); }
+  50% { -moz-transform: scale(1); }
+  100% { -moz-transform: scale(0.85); }
+}
+@keyframes scaler {
+  0% { transform: scale(0.85); }
+  50% { transform: scale(1); }
+  100% { transform: scale(0.85); }
+}
