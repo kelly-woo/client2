@@ -1,11 +1,16 @@
 .client-spinner {
   width:120px;
   height:120px;
-  margin-top:25%;
   margin-left:50%;
-  top:-30px;
   left:-60px;
-  position: relative;
+  top:50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  
+  position: absolute;
 }
 .spinner-logo {
   background-image: url('../../../assets/images/jnd-logo-only.png');
