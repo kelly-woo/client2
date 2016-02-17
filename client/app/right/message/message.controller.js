@@ -12,6 +12,8 @@
   function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
                        currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog,
                        publicService) {
+    var UNKNOWN_ROOM = 'unknown room';
+
     _init();
 
     // First function to be called.
@@ -77,15 +79,17 @@
      */
     function _getMessageStartPoint(message) {
       var startPoint;
+      var entity;
 
       if (message.contentType === 'text') {
         // type이 text라면 topic 명으로 설정함
         if (message.roomType === 'chat') {
-          // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
 
-          startPoint = EntityMapManager.get('total', message.roomName.split(':')[1]).name;
+          // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
+          entity = EntityMapManager.get('total', _getOtherMemberId(message.roomName));
+          startPoint = entity ? entity.name : UNKNOWN_ROOM;
         } else {
-          startPoint = message.roomName || 'unknown topic';
+          startPoint = message.roomName || UNKNOWN_ROOM;
         }
       } else {
         // type이 text가 아니라면 file 명으로 설정함
@@ -134,12 +138,10 @@
 
         if (message.roomType === 'chat') {
           _goTo(function() {
-            var members = message.roomName.split(':');
-
             // DM 이라면 나를 제외한 한명의 id가 id로 사용됨
             _goToTopic({
               type: 'user',
-              id: members[0] == memberService.getMemberId() ? members[1] : members[0],
+              id: _getOtherMemberId(message.roomName),
               linkId: message.linkId
             });
           });
@@ -233,6 +235,17 @@
      */
     function _isProfileImage(event) {
       return /img/i.test(event.target.nodeName);
+    }
+
+    /**
+     * 나를 제외한 다른 멤버 id 전달
+     * @param {string} members
+     * @returns {*}
+     * @private
+     */
+    function _getOtherMemberId(members) {
+      members = members.split(':');
+      return members[0] == memberService.getMemberId() ? members[1] : members[0]
     }
   }
 })();
