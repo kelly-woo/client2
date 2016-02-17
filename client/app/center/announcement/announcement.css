@@ -1,19 +1,24 @@
 .common-announcement-size-padding {
-  padding-right: 12px;
-  padding-left: 12px;
+  
 }
 
 .center-announcement-container {
   position: relative;
   z-index: 13;
-  margin: 10px 15px 10px 10px;
+  margin: 0;
   max-height: 50%;
-  /*min-height: 132px;*/
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.10);
+}
+.center-announcement-container:hover {
+  /*cursor: pointer;*/
 }
 
 .center-announcement-container.center-announcement-container-hide {
   position: absolute;
-  right: 0;
+  right: 18px;
+  top: 40px;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  border-radius: 50%;
 }
 
 .rpanel-show .scroll-gray .center-announcement-container {
@@ -52,32 +57,55 @@
   /*background-color: rgba(215, 224, 232, 0.3);*/
 }
 .announcement-container {
-  background-color: rgba(215, 224, 232, 0.9);
-
-  border: 1px solid #f1f4f8;
-  border-radius: 10px;
-
-  padding-top: 12px;
-
-  position: relative;
-  /*min-height: 92px;*/
+  background-color: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #D9DDE0;
+  padding: 18px 18px 0 18px;
+  overflow-y: auto;
+  
+  max-height: 240px;
+  
+  -webkit-transition: background ease-in-out 150ms;
+  -moz-transition: background ease-in-out 150ms;
+  -o-transition: background ease-in-out 150ms;
+  -ms-transition: background ease-in-out 150ms;
+  transition: background ease-in-out 150ms;
 }
 .announcement-container:hover {
-  background-color: rgba(215, 224, 231, 1);
+  background-color: rgba(255, 255, 255, 1);
+  
 }
 
 .announcement-container.minimized {
-  padding-bottom: 8px;
-  /*min-height: ;*/
+  height: 72px;
+  overflow-y: hidden;
+  padding-bottom: 12px;
 }
 .announcement-arrow-container {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 22px;
+  bottom: 16px;
+  color: #6E90A5;
+  font-size: 14px;
+  font-weight: 700;
+  
+  display: none;
+  
+  opacity: 0.6;
+  
+  -webkit-transition:opacity ease-in-out 150ms;
+  -moz-transition:opacity ease-in-out 150ms;
+  -o-transition:opacity ease-in-out 150ms;
+  -ms-transition:opacity ease-in-out 150ms;
+  transition:opacity ease-in-out 150ms;
+}
+
+.announcement-arrow-container:hover {
+  opacity: 1;
 }
 .announcement-minimize__arrow {
-  color: #154a67;
-  font-size: 18px;
+  color: #6E90A5;
+  font-size: 11px;
+  margin-right: 2px;
 }
 
 .announcement-inner {
@@ -86,69 +114,83 @@
 }
 
 .announcement-owner__thumbnail {
-  width: 36px;
-  height: 36px;
-  border-radius: 36px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   overflow: hidden;
-  margin-left: -1px;
+  margin-left: 4px;
+  background-color: #F1F4F8;
 }
-
+.announcement-owner__time {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+}
 .announcement-wrapper {
-  padding-left: 44px;
-  padding-bottom: 40px;
+  padding-left: 50px;
 }
 .minimized .announcement-wrapper {
   padding-bottom: 0;
+  height: 40px;
 }
 .announcement-header {
   font-size: 12px;
   color: #154a67;
   padding-bottom: 2px;
+  margin-top: -2px;
 }
 .announcement-header .icon-clock{
   padding-left: 4px;
 }
 
-.minimized .announcement-body {
+
+
+.minimized .announcement-body,
+.minimized .announcement-body__content {
   margin-bottom: 0;
 }
+.minimized .announcement-arrow-container {
+  display: block;	
+}
+
 .announcement-body-wrapper {
-  overflow-y: auto;
-  padding-right: 35px;
+  padding-right: 80px;
 }
 
 .announcement-body__content {
-  font-size: 16px;
-  color: #333333;
-  line-height: 24px;
-  margin: 0;
+  font-size: 15px;
+  color: #808080;
+  line-height: 20px;
+  margin: 1px 0 16px;
 }
 .announcement-creator {
   margin: 10px 0;
   font-size: 12px;
-  color: #999999;
+  display: inline;
 }
 .announcement-creator__name {
   font-weight: 700;
 }
+
+
 .announcement-option-container {
-  height: 40px;
-  line-height: 40px;
-
-  border-top: 1px solid white;
-
-  color: #154a67;
-
-  position: absolute;
-  bottom: 0;
-  left:0;
-  right: 0;
-
-  padding-right: 18px;
+  height: 48px;
+  color: #6E90A5;
+  
+  background-color: #FFF;
+  border-bottom: 1px solid #D9DDE0;
+  border-top: 1px solid #E4E6E7;
+  margin-top: -1px;
+  position: relative;
+  padding: 14px 24px;
 }
+
 .announcement-option {
-  margin-left: 30px;
-  color: #3A687F;
+  margin-left: 20px;
+  display: inline-block;
+  position: relative;
+  bottom: 0;
+  right: 0;
 }
 .announcement-option:hover {
   color: #154a67;
