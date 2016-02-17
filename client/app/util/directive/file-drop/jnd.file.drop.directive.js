@@ -74,7 +74,7 @@
           _isShowing = false;
           if (!_isHiding) {
             _isHiding = true;
-            _jqDragArea.stop().fadeOut(300, function() {
+            _jqDragArea.stop().fadeOut(150, function() {
               _isHiding = false;
             });
           }
