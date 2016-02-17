@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -182,6 +182,12 @@ msgstr "このトピックに招待(Ctrl+I)"
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr "このトピックから退出"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-leave-private-confirm"
+msgstr ""
+"プライベートトピックから退出すると、そのプライベートトピックのメンバーに改"
+"めて招待されない限り再び参加することはできません。本当に退出しますか？"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
@@ -2411,7 +2417,8 @@ msgstr "土曜日"
 msgid "@search-cond-reset"
 msgstr "検索条件を更新"
 
-#: client/app/right/files/files.html client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html
+#: client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
@@ -3568,12 +3575,6 @@ msgstr "水曜日"
 
 #~ msgid "@input-invite-email"
 #~ msgstr "招待するメールアドレスを入力"
-
-#~ msgid "@ch-menu-leave-private-confirm"
-#~ msgstr ""
-#~ "プライベートトピックから退出すると、そのプライベートトピックのメンバー"
-#~ "に改めて招待されない限り再び参加することはできません。本当に退出します"
-#~ "か？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "ファイルがありません"

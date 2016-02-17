@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -182,6 +182,12 @@ msgstr "토픽에 멤버 초대하기(Ctrl+I)"
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr "토픽 나가기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-leave-private-confirm"
+msgstr ""
+"비공개 토픽을 나가시면 초대를 받지 않는한 다시 참여하실 수 없습니다. 나가시"
+"겠습니까?"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
@@ -3679,11 +3685,6 @@ msgstr "수요일"
 
 #~ msgid "@common-file-type-google-spreadsheet"
 #~ msgstr "구글 프레젠테이션"
-
-#~ msgid "@ch-menu-leave-private-confirm"
-#~ msgstr ""
-#~ "비공개 토픽을 나가시면 초대를 받지 않는한 다시 참여하실 수 없습니다. 나가"
-#~ "시겠습니까?"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "업로드된 파일이 없습니다"
