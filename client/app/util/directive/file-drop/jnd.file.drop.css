@@ -6,13 +6,22 @@
   bottom:0;
   left:0;
   right:0;
-  background-color:rgba(21,74,103,0.75);
+  background-color:rgba(21,74,103,0.7);
 }
-
+.dnd-over-container:before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top:12px;
+  bottom: 12px;
+  right: 12px;
+  border: 3px dashed rgba(235, 245, 250, 0.3);
+  border-radius: 13px;
+}
 .dragover-popup {
   position: absolute;
   width: 520px;
-  height: 180px;
+  height: 152px;
   margin:0 auto;
   top:50%;
   left: calc(50% - 260px);
@@ -27,7 +36,7 @@
   background-color: #FFF;
   border-radius: 4px;
   padding:20px;
-  padding-left: 172px;
+  padding-left: 170px;
   box-sizing: border-box;
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.15);
 }
@@ -48,12 +57,16 @@
 .dragover-popup span {
   position: absolute;
   top: 50%;
+  font-size: 16px;
+  line-height: 22px;
+  color: #909090;
   -webkit-transform: translateY(-50%);
   -webkit-transform: -webkit-translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform:translateY(-50%);
+  width: calc(100% - 100px);
 
 }
 .dragover-popup .icon-upload {
@@ -70,7 +83,7 @@
   width: 45px;
   height: 45px;
   position: absolute;
-  bottom: 48px;
+  bottom: 28px;
   left: 106px;
 }
 
