@@ -1,8 +1,8 @@
-.rpanel-body .search-result-summary-ing > span {
+.rpanel-body .search-result-container .search-result-summary-ing > span {
   display: inline-block;
 }
 
-.rpanel-body .search-result-summary-ing .three-quarters-loader {
+.rpanel-body .search-result-container .search-result-summary-ing .three-quarters-loader {
   position: absolute;
   top:39px;
   left:-38px;
