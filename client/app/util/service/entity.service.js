@@ -44,6 +44,8 @@
       createTotalData: createTotalData
     };
 
+    var _jandiBot;
+
     return service;
 
     /**
@@ -367,17 +369,16 @@
      * jandi bot을 전달한다.
      */
     function getJandiBot() {
-      var botList = getBotList();
-      var jandiBot;
+      return _jandiBot;
+    }
 
-      _.each(botList, function(bot) {
-        if (bot.botType === 'jandi_bot') {
-          jandiBot = bot;
-          return false;
-        }
-      });
-
-      return jandiBot;
+    /**
+     * set jandi bot
+     * @param {object} bot
+     * @private
+     */
+    function _setJandiBot(bot) {
+      _jandiBot = bot;
     }
 
     /**
@@ -522,6 +523,10 @@
      */
     function addBot(bot) {
       if (_.isObject(bot)) {
+        if (bot.botType === 'jandi_bot') {
+          _setJandiBot(bot);
+        }
+
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);

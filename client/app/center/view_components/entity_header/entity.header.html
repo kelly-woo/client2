@@ -7,9 +7,12 @@
 
   <!--    PREFIX ICON -->
   <span class="prefix" ng-click="onPrefixIconClicked();">
-    <i ng-if="currentEntity.type === 'channels'" class="icon-topic"></i>
-    <i ng-if="currentEntity.type === 'privategroups'" class="icon-lock"></i>
-    <i ng-if="currentEntity.type === 'users'" class="icon-user"></i>
+    <i ng-class="{
+            'icon-topic': currentEntity.type === 'channels',
+            'icon-lock': currentEntity.type === 'privategroups',
+            'icon-user': currentEntity.type === 'users',
+            'icon-jandi-bot': currentEntity.type == 'bots' && currentEntity.botType == 'jandi_bot'
+           }"></i>
   </span>
 
   <!--    TITLE   -->
