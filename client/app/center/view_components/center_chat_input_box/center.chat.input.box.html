@@ -1,62 +1,40 @@
 <div class="footer">
-  <!-- has-new-msg-banner-container moved under input-container-top-contents -->
-  <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
-       data-ng-click="onTutorialPulseClick($event);"
-       data-ng-if="!tutorialStatus.chatTutorial">
-  </div>
-  <div id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;" ng-class="{'disabled': msgLoadStatus.loading || isDisabledMember(currentEntity)}" dropdown dropdown-toggle="true">
-    <i class="icon-upload-fill"></i>
-    <div id="file-upload-menu" class="dropdown-menu" style="top: -102px;">
-      <ul>
-        <li class="computer"><i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span></li>
-        <li class="google-drive"><i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span></li>
-        <li class="dropbox"><i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span></li>
-      </ul>
+  <div class="file-upload-wrapper non-selectable" dropdown>
+    <div class="icon-upload-button cursor_pointer" dropdown-toggle>
+      <i class="icon-upload"></i>
     </div>
+    <ul class="file-upload-menu dropdown-menu" id="file-upload-menu" role="menu">
+      <li class="file-upload-description">
+        Attach File
+      </li>
+      <li class="file-upload-type computer">
+        <i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span>
+      </li>
+      <li class="file-upload-type google-drive">
+        <i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span>
+      </li>
+      <li class="file-upload-type dropbox">
+        <i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span>
+      </li>
+    </ul>
   </div>
-
-  <div id="messages-input-container">
-	<!-- input-container-mask is white-colored gradient mask layer that over msgs area -->
-    <div class="input-container-mask"></div>
-    <!-- input-container-top-contents contains has-new-msg-banner-container & scroll-to-bottom-container -->
-    <div class="input-container-top-contents">
-      <div class="has-new-msg-banner-container cursor_pointer" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
-        <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
-        <i class="icon-delete pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
-  	  </div>
-      <div class="scroll-to-bottom-container cursor_pointer"
-         ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
-         ng-click="onScrollToBottomIconClicked();"
-         tooltip="{{::'@go-to-latest-message-msg' | translate}}"
-         tooltip-placement="left">
-        <i class="icon-arrow-down scroll-to-bottom-icon"></i>
-      </div>
-    </div>
-	  <sticker-layer name="chat"></sticker-layer>
-    <div class="message-input-wrap">
+  <div class="message-input-wrapper">
+    <div class="message-input-body">
       <form id="message-form">
-        <textarea id="message-input"
-                  class=""
-                  ng-class="{ 'post-loading': isPosting,
-                                'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
-                  message-submit="postMessage()"
-                  ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
-                  maxlength=""
-                  placeholder="{{::'@placeholder-input-message' | translate }}"
-                  jnd-elastic="message"
-                  jnd-elastic-on-change="onMessageInputChange($event)"
-                  mentionahead
-                  mentionahead-type="message"></textarea>
+        <textarea id="message-input"></textarea>
       </form>
     </div>
-    <sticker-panel name="chat" max-columns="4"></sticker-panel>
-  </div>
+    <div class="message-input-footer">
+      <div class="message-input-buttons">
+        <sticker-panel name="chat" max-columns="4"></sticker-panel>
+        <i class="icon-at"></i>
+      </div>
+      <div class="message-input-description">
 
-  <div class="markdown-guide-content fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
-    <span class="markdown-guide-bold" translate>@markdown-bold</span>
-    <span class="markdown-guide-italics" translate>@markdown-italics</span>
-    <span class="markdown-guide-bold-italics" translate>@markdown-bold-italics</span>
-    <span class="markdown-guide-strikethrough" translate>@markdown-strikethrough</span>
-    <span class="markdown-guide-code" translate>@markdown-code</span>
+      </div>
+      <div class="message-input-submit">
+
+      </div>
+    </div>
   </div>
 </div>

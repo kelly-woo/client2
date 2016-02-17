@@ -450,7 +450,8 @@ by ysyun 2015.2.25
   left: 0;
   right: 0;
   bottom: 0;
-  height: 54px;
+  /*height: 54px;*/
+  border-top: 1px solid #e1e1e1;
   z-index: 12;
 }
 .footer:after {
@@ -459,7 +460,7 @@ by ysyun 2015.2.25
   left: -30px;
   right: -30px;
   bottom: 0;
-  height: 54px;
+  /*height: 54px;*/
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
 
@@ -546,12 +547,6 @@ by ysyun 2015.2.25
 
 .js-fileapi-wrapper > div {
   height: 0 !important;
-}
-
-#chatTutorial {
-  position: fixed;
-  bottom: 30px;
-  left: 260px;
 }
 
 /*.msgs {*/

@@ -3,7 +3,7 @@
 
   angular
     .module('jandiApp')
-    .directive('centerChatInputBox', centerChatInputBox);
+    .directive('centerChatInputBox2', centerChatInputBox);
 
   function centerChatInputBox($state, $filter, $timeout, integrationService, fileAPIservice, ImagePaste, Browser,
                               jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
