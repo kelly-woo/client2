@@ -1,3 +1,37 @@
+<a name="1.14.1"></a>
+## [1.14.1](https://github.com/tosslab/web_client/compare/v1.14.0...v1.14.1) (2016-02-11)
+
+
+
+
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/tosslab/web_client/compare/v1.13.2...v1.14.0) (2016-02-11)
+
+
+### Bug Fixes
+
+* **hotkey:** 토픽 URL 로 진입시, 로딩 휠 지속 표시됨 현상 해결 ([02212eb](https://github.com/tosslab/web_client/commit/02212eb))
+* **marker:** 팀 관리자 표시와 즐겨찾기 요소가 겹처 표시 되지 않도록 수정 ([695548e](https://github.com/tosslab/web_client/commit/695548e))
+
+
+
+<a name="1.13.2"></a>
+## [1.13.2](https://github.com/tosslab/web_client/compare/v1.13.1...v1.13.2) (2016-02-01)
+
+
+### Bug Fixes
+
+* **bot:** 잔디봇 DM일때 헤더에 잔디봇 아이콘 출력되지 않는 버그 수정 ([56311fb](https://github.com/tosslab/web_client/commit/56311fb))
+* **bot:** 잔디봇에 "여기까지 읽었습니다" 표현되지 않는 버그 수정 ([5f4610c](https://github.com/tosslab/web_client/commit/5f4610c))
+
+
+
+<a name="1.13.1"></a>
+## [1.13.1](https://github.com/tosslab/web_client/compare/v1.13.0...v1.13.1) (2016-01-28)
+
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/tosslab/web_client/compare/v1.12.9...v1.13.0) (2016-01-28)
 

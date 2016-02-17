@@ -1491,21 +1491,6 @@ input[type="radio"] {
   left: -8px;
 }
 
-/********************************************
-                 jandi bot icon
-********************************************/
-i.icon-jandi-bot {
-  display: inline-block;
-  background:url('../assets/images/Mr.J_left.png');
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  opacity: 0.5;
-  width: 16px;
-  height: 16px;
-  left: -1px;
-}
-
 .member-auth-label {
   line-height: 18px;
   top: 7px;
@@ -1520,4 +1505,19 @@ i.icon-jandi-bot {
   margin-left: 10px;
   font-size: 13px;
   font-weight: 600;
+}
+
+/********************************************
+                 jandi bot icon
+********************************************/
+i.icon-jandi-bot {
+  display: inline-block;
+  background:url('../assets/images/Mr.J_left.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.5;
+  width: 16px;
+  height: 16px;
+  left: -1px;
 }

@@ -20,8 +20,8 @@ set :branch, 'master'
 server '172.31.39.102', user: 'jandi', roles: 'client'
 server '172.31.39.103', user: 'jandi', roles: 'client'
 
-server '172.31.39.245', user: 'jandi', roles: 'client'
-server '172.31.39.246', user: 'jandi', roles: 'client'
+#server '172.31.39.245', user: 'jandi', roles: 'client'
+#server '172.31.39.246', user: 'jandi', roles: 'client'
 
 # Custom SSH Options
 # ==================
