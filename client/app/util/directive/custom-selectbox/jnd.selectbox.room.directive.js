@@ -373,7 +373,7 @@
        */
       function _getAllEntities() {
         var id;
-        var allEntities = _.extend(
+        var allEntities = _.extend({},
           EntityMapManager.getMap('joined'),
           EntityMapManager.getMap('private'),
           EntityMapManager.getMap('member')

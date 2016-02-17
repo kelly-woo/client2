@@ -9,7 +9,7 @@
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
   function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper,
-                                        entityAPIservice) {
+                                        entityAPIservice, JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -63,9 +63,11 @@
           return _isTopic(entity);
         });
 
-        if (jandiBot) {
+        //entityId 가 존재할 경우에만 jandiBot 을 노출한다.
+        if (JndUtil.pick(jandiBot, 'entityId')) {
           list.push(jandiBot);
         }
+
         scope.list = TopicFolderModel.getNgOptions(list);
       }
 
@@ -86,11 +88,12 @@
        * @private
        */
       function _onSelectedValueChange(newValue) {
-        var entity = entityAPIservice.getJoinedEntity(newValue);
+        var entity = entityAPIservice.getJoinedEntity(newValue) || EntityMapManager.get('member', newValue);
+
         if (entity) {
           if (_isTopic(entity)) {
             scope.model = newValue;
-          } else {
+          } else if (entity.entityId) {
             scope.model = entity.entityId;
           }
         }
