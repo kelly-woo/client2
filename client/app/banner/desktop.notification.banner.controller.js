@@ -21,8 +21,20 @@
 
     function _init() {
       $scope.isInitialQuestion = !DesktopNotificationUtil.isPermissionGranted();
-      _attachEvent();
+      _attachEvents();
     }
+
+    /**
+     * attach events
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('onPermissionChanged', _onDesktopNotificationPermissionChanged);
+      $scope.$on('$destroy', _onDestroy);
+
+      $(window).on('resize', _onResize);
+    }
+
 
     /**
      * x 아이콘이 클릭되었을 때.
@@ -98,25 +110,14 @@
      * @private
      */
     function _onDestroy() {
-      _detachEvent();
+      _detachEvents();
     }
 
     /**
-     * 윈도우에 이벤트를 붙힌다!
+     * detach events
      * @private
      */
-    function _attachEvent() {
-      $scope.$on('onPermissionChanged', _onDesktopNotificationPermissionChanged);
-      $scope.$on('$destroy', _onDestroy);
-
-      $(window).on('resize', _onResize);
-    }
-
-    /**
-     * 윈도우에 이벤트를 뺀다!
-     * @private
-     */
-    function _detachEvent() {
+    function _detachEvents() {
       $(window).off('resize', _onResize);
     }
   }
