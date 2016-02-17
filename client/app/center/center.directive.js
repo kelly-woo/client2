@@ -3,79 +3,9 @@
 
   angular
     .module('jandiApp')
-    .directive('dragdownArea', dragdown)
-    .directive('lastDetector', lastDetector)
     .directive('whenScrolled', whenScrolled)
     .directive('unreadCounter', unreadCounter)
     .directive('disabledMemberDetector', disabledMemberDetector);
-
-  // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
-  // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
-  function dragdown($rootScope, $compile) {
-    var dndTemplate = '<div class="dnd-over-content">' +
-      '<span class="dnd-over-msg">' +
-        '<span translate>@dnd-file-upload-msg</span>' +
-      '</span>' +
-      '<div class="dnd-over-border"></div>' +
-      '<div class="dnd-over-area"></div>' +
-      '</div>';
-
-    return {
-      restrict: 'A',
-      link: link
-    };
-
-    function link(scope, element) {
-      var dndContent = $compile(dndTemplate)($rootScope.$new(true));
-
-      element.on('dragover', function() {
-        element.addClass('dnd-over');
-      });
-
-      dndContent
-        .appendTo(element[0])
-        .on('dragleave', function() {
-          element.removeClass('dnd-over');
-        })
-        .on('drop', function() {
-          element.removeClass('dnd-over');
-        });
-    }
-  }
-
-  function lastDetector() {
-    //var counter = 0;
-    //var counterFlag = false;
-    //return {
-    //  restrict: 'A',
-    //  link: link
-    //};
-    //
-    //function link (scope, element, attrs, ctrl) {
-    //  if (scope.isPolling) {
-    //    //console.log('polling');
-    //    counter++;
-    //    return;
-    //  }
-    //  // Switched to new topic.  Reset flag and counter.
-    //  if (scope.loadMoreCounter == 1) {
-    //    if (counterFlag) {
-    //      counter = 0;
-    //      counterFlag = false;
-    //    }
-    //  }
-    //  counter++;
-    //  if (counter == scope.messages.length) {
-    //    //console.log(counter == scope.messages.length)
-    //    //If it's initial loading, set 'counterFlag' to true.
-    //    if (scope.loadMoreCounter == 1) {
-    //      counterFlag = true;
-    //    }
-    //
-    //    scope.onLastMessageRendered();
-    //  }
-    //}
-  }
 
   function whenScrolled(jndPubSub) {
     return {
@@ -118,10 +48,16 @@
         }
 
         if (scope.isInitialLoadingCompleted) {
-          if (direction === 'new' && scrollDiff < 2000) {
-            if (scope.loadNewMessages()) {
-              jndPubSub.pub('hide:center-file-dropdown');
-              jndPubSub.pub('hide:center-item-dropdown');
+          if (direction === 'new') {
+            if (scrollDiff < 2000) {
+              if (scope.loadNewMessages()) {
+                jndPubSub.pub('hide:center-file-dropdown');
+                jndPubSub.pub('hide:center-item-dropdown');
+              }
+            } else if (scrollDiff < 5) {
+              // browser zoom 이 설정되어 있을 경우 scrollDiff 값 0 이상으로 오차가 발생하기 때문에
+              // 5 이하 이면 최 하단으로 scroll 된 것으로 간주한다.
+              scope.updateMessageMarker();
             }
           } else if (direction === 'old' && scrollTop < 2000) {
             if (scope.loadOldMessages()) {

@@ -31,13 +31,12 @@
         );
 
         return function(scope, el, attrs, ctrls) {
-          var currentEntity = currentSessionHelper.getCurrentEntity();
           var mentionaheadType = attrs.mentionaheadType;
 
           var mentionCtrl;
           var jqMentionahead;
 
-          if (currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id))) {
+          if (_isMentionaheadAvailable(mentionaheadType)) {
             // center에 사용되는 mention ahead이 아니거나 center가 dm이 아닐경우에만 mention ahead를 사용한다.
 
             mentionCtrl = ctrls[0];
@@ -92,6 +91,17 @@
                 }
               });
           }
+        }
+
+        /**
+         * mention ahead avaliable
+         * @param {string} mentionaheadType
+         * @returns {*|boolean}
+         * @private
+         */
+        function _isMentionaheadAvailable(mentionaheadType) {
+          var currentEntity = currentSessionHelper.getCurrentEntity();
+          return currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id));
         }
       }
     };

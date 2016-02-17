@@ -113,6 +113,7 @@
   <link rel="stylesheet" href="app/right/file.detail/title/file.detail.title.css">
   <link rel="stylesheet" href="app/right/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
+  <link rel="stylesheet" href="app/right/loading/right.panel.loading.css">
   <link rel="stylesheet" href="app/right/mentions/mentions.css">
   <link rel="stylesheet" href="app/right/message/message.css">
   <link rel="stylesheet" href="app/right/right.css">
@@ -153,6 +154,7 @@
   <link rel="stylesheet" href="app/util/css/jandi-icon.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
   <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
+  <link rel="stylesheet" href="app/util/directive/file-drop/jnd.file.drop.css">
   <link rel="stylesheet" href="app/util/directive/image-crop/jnd.image.crop.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
@@ -175,7 +177,7 @@
 <![endif]-->
 <div class="content-wrapper opac-in-fast">
   <background></background>
-  <div class="body-wrapper full-screen">
+  <div class="body-wrapper full-screen" jnd-file-drop ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
@@ -305,6 +307,8 @@
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.file.directive.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.member.directive.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.room.directive.js"></script>
+<script src="app/util/directive/file-drop/jnd.file.drop.controller.js"></script>
+<script src="app/util/directive/file-drop/jnd.file.drop.directive.js"></script>
 <script src="app/util/directive/image-crop/jnd.image.crop.directive.js"></script>
 <script src="app/util/directive/jnd.code.prettify.directive.js"></script>
 <script src="app/util/directive/jnd.elastic.directive.js"></script>
@@ -548,6 +552,7 @@
 <script src="app/right/files/file.service.js"></script>
 <script src="app/right/files/files.controller.js"></script>
 <script src="app/right/files/files.directive.js"></script>
+<script src="app/right/loading/right.panel.loading.directive.js"></script>
 <script src="app/right/mentions/mentions.controller.js"></script>
 <script src="app/right/mentions/mentions.directive.js"></script>
 <script src="app/right/mentions/mentions.service.js"></script>

@@ -94,16 +94,17 @@
      */
     function _onErrorRead(options, err, status) {
       if (!JndConnectApi.handleError(err, status)) {
-        handleCommonLoadError(options.current, err);
+        handleCommonLoadError(options.current, err, status);
       }
     }
 
     /**
-     *
+     * Loading 시 일반적인 오류 처리
      * @param {object} current
      * @param {object} err
+     * @param {number} status - http status
      */
-    function handleCommonLoadError(current, err) {
+    function handleCommonLoadError(current, err, status) {
       var body;
       var serviceName = JndUtil.pick(current, 'union', 'title');
 
@@ -116,7 +117,7 @@
           body: body
         });
       } else {
-        _onErrorCommon(err);
+        _onErrorCommon(err, status);
       }
     }
 
@@ -272,7 +273,7 @@
             allowHtml: true
           });
         } else {
-          _onErrorCommon(err);
+          _onErrorCommon(err, status);
         }
       }
     }

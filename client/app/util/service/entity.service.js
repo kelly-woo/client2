@@ -46,7 +46,7 @@
       createTotalData: createTotalData
     };
 
-    var jandiBot;
+    var _jandiBot;
 
     return service;
 
@@ -379,7 +379,7 @@
      * jandi bot을 전달한다.
      */
     function getJandiBot() {
-      return jandiBot;
+      return _jandiBot;
     }
 
     /**
@@ -388,7 +388,7 @@
      * @private
      */
     function _setJandiBot(bot) {
-      jandiBot = bot;
+      _jandiBot = bot;
     }
 
     /**
