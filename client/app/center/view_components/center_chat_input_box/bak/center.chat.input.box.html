@@ -16,23 +16,23 @@
   </div>
 
   <div id="messages-input-container">
-	<!-- input-container-mask is white-colored gradient mask layer that over msgs area -->
+    <!-- input-container-mask is white-colored gradient mask layer that over msgs area -->
     <div class="input-container-mask"></div>
     <!-- input-container-top-contents contains has-new-msg-banner-container & scroll-to-bottom-container -->
     <div class="input-container-top-contents">
       <div class="has-new-msg-banner-container cursor_pointer" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
         <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
         <i class="icon-delete pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
-  	  </div>
+      </div>
       <div class="scroll-to-bottom-container cursor_pointer"
-         ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
-         ng-click="onScrollToBottomIconClicked();"
-         tooltip="{{::'@go-to-latest-message-msg' | translate}}"
-         tooltip-placement="left">
+           ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
+           ng-click="onScrollToBottomIconClicked();"
+           tooltip="{{::'@go-to-latest-message-msg' | translate}}"
+           tooltip-placement="left">
         <i class="icon-arrow-down scroll-to-bottom-icon"></i>
       </div>
     </div>
-	  <sticker-layer name="chat"></sticker-layer>
+    <sticker-layer name="chat"></sticker-layer>
     <div class="message-input-wrap">
       <form id="message-form">
         <textarea id="message-input"
