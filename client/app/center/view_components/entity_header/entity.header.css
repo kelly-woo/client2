@@ -112,6 +112,9 @@
   width: 100%;
   font-weight: 700;
 }
+.panel-title-container i.icon-jandi-bot {
+  background-position: 1px 3px;
+}
 .header-title-info__more {
   color:#9e9ea6;
   -webkit-transitionDISABLED:color .15s ease-out;
