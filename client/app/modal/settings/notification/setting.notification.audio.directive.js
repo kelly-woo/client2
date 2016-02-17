@@ -1,5 +1,5 @@
 /**
- * @fileoverview quick launcher modal directive
+ * @fileoverview notification audio menu directive
  */
 (function() {
   'use strict';
