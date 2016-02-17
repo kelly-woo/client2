@@ -26,6 +26,8 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
+      isPublicTopic: isPublicTopic,
+      isPrivateTopic: isPrivateTopic,
       isJoinedTopic: isJoinedTopic,
       isDM: isDM,
 
@@ -43,6 +45,8 @@
 
       createTotalData: createTotalData
     };
+
+    var jandiBot;
 
     return service;
 
@@ -292,6 +296,14 @@
       _.extend(target, source);
     }
 
+    function isPublicTopic(entityId) {
+      return EntityMapManager.contains('joined', entityId);
+    }
+
+    function isPrivateTopic(entityId) {
+      return EntityMapManager.contains('private', entityId);
+    }
+
     /**
      * 조인되어있는 토픽(공개/비공개)인지 알아본다.
      * @param {object} entity - 알아보고 싶은 토픽
@@ -367,17 +379,16 @@
      * jandi bot을 전달한다.
      */
     function getJandiBot() {
-      var botList = getBotList();
-      var jandiBot;
-
-      _.each(botList, function(bot) {
-        if (bot.botType === 'jandi_bot') {
-          jandiBot = bot;
-          return false;
-        }
-      });
-
       return jandiBot;
+    }
+
+    /**
+     * set jandi bot
+     * @param {object} bot
+     * @private
+     */
+    function _setJandiBot(bot) {
+      jandiBot = bot;
     }
 
     /**
@@ -522,6 +533,10 @@
      */
     function addBot(bot) {
       if (_.isObject(bot)) {
+        if (bot.botType === 'jandi_bot') {
+          _setJandiBot(bot);
+        }
+
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);

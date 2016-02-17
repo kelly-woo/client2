@@ -24,6 +24,7 @@
       getBrowserInfo: getBrowserInfo,
       redirectTo: redirectTo,
       redirectToMain: redirectToMain,
+      redirectToSignIn: redirectToSignIn,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
@@ -39,6 +40,21 @@
     };
 
     return service;
+
+    /**
+     * 공통 sign-in 페이지로 redirect 한다.
+     */
+    function redirectToSignIn() {
+      var languageMap = {
+        'en': 'en',
+        'ko': 'kr',
+        'zh-cn': 'zh-cn',
+        'zh-tw': 'zh-tw',
+        'ja': 'jp'
+      };
+      var lang = language.getCurrentLanguage().serverLang || 'en';
+      location.href = configuration.landing_address + languageMap[lang] + '/signin/?redirectUrl=' + location.href;
+    }
 
     function getInviteOptions(joinedChannelList, privateGroupList, inviteeId) {
       var list = [];

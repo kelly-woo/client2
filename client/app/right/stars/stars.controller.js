@@ -78,9 +78,6 @@
      * @private
      */
     function _attachEvents() {
-      // EntityMap 완성
-      $scope.$on('dataInitDone', _onDataInitDone);
-
       // open right panel
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
@@ -95,14 +92,6 @@
       // delete message/file
       $scope.$on('topicMessageDelete', _topicMessageDelete);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
-    }
-
-    /**
-     * entity map data 작성 완료 event handler
-     * @private
-     */
-    function _onDataInitDone() {
-      $scope.isDataInitDone = true;
     }
 
     /**

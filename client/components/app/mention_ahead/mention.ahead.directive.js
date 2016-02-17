@@ -32,11 +32,14 @@
 
         return function(scope, el, attrs, ctrls) {
           var currentEntity = currentSessionHelper.getCurrentEntity();
+          var mentionaheadType = attrs.mentionaheadType;
 
           var mentionCtrl;
           var jqMentionahead;
 
-          if (currentEntity && !memberService.isMember(currentEntity.id)) {
+          if (currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id))) {
+            // center에 사용되는 mention ahead이 아니거나 center가 dm이 아닐경우에만 mention ahead를 사용한다.
+
             mentionCtrl = ctrls[0];
             scope.eventCatcher = el;
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {

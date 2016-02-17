@@ -561,7 +561,7 @@
       // initLastReadMessageMarker를 통해 전달되는 markers의 DM data중 user들은 memberId로 전달되고, jandi bot은 roomId로
       // 전달되기 때문에 getLastReadMessageMarker에 전달된 entityId(memberId)값이 jandi bot일 경우에는 roomId로 변환하여
       // lastMessageReadMarkerMap에 할당된 값을 전달하여야 한다.
-      if (jandiBot.id == entityId) {
+      if (jandiBot && jandiBot.id == entityId) {
         entityId = jandiBot.entityId;
       }
 
