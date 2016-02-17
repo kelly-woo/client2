@@ -244,7 +244,9 @@
      * @private
      */
     function hasDimension(imageItem) {
-      return !!(imageItem && imageItem.extraInfo && imageItem.extraInfo.width && imageItem.extraInfo.height);
+      return !!(imageItem && imageItem.extraInfo
+        && imageItem.extraInfo.width && imageItem.extraInfo.height
+        && imageItem.extraInfo.thumbnailUrl);
     }
   }
 }());
