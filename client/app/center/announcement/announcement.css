@@ -152,9 +152,12 @@
 .minimized .announcement-arrow-container {
   display: block;	
 }
+.minimized .announcement-body-wrapper {
+  padding-right: 80px;
+}
 
 .announcement-body-wrapper {
-  padding-right: 80px;
+  padding-right: 20px;
 }
 
 .announcement-body__content {
@@ -183,6 +186,8 @@
   margin-top: -1px;
   position: relative;
   padding: 14px 24px;
+  
+  box-shadow: 0 -1px 15px 5px #FFF;
 }
 
 .announcement-option {
