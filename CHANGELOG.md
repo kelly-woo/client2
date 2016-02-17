@@ -1,3 +1,20 @@
+<a name="1.15.0"></a>
+# [1.15.0](https://github.com/tosslab/web_client/compare/v1.14.1...v1.15.0) (2016-02-17)
+
+
+### Bug Fixes
+
+* **DM:**  최초 DM의 메시지 삭제 시 로딩휠 지속되는 현상 수정 ([ee866b3](https://github.com/tosslab/web_client/commit/ee866b3))
+* **connect:** Mr. J 에 Incoming Webhook connect 연동 시 Invalid room error 발생 하는 현상 해결 ([0056dc5](https://github.com/tosslab/web_client/commit/0056dc5))
+* **file:** 삭제된 파일에 등록된 댓글을 삭제할 수 있도록 변경 ([0a70bf8](https://github.com/tosslab/web_client/commit/0a70bf8))
+* **hotkey:** cmd + e 입력 시 center panel 에서만 스티커 토글 되도록 수정 ([a303fe0](https://github.com/tosslab/web_client/commit/a303fe0))
+* **mention:** center가 DM일때 우측 패널 진입시 멘션동작 하지 않는 버그 수정 ([68ad9da](https://github.com/tosslab/web_client/commit/68ad9da))
+* **notification:** 파이어폭스에서 알림 설정 오픈시 잔상남는 버그 수정 ([67fc668](https://github.com/tosslab/web_client/commit/67fc668))
+* **star:** star tab이 간헐적으로 아무것도 출력하지 않는 버그 수정 ([9f7ca19](https://github.com/tosslab/web_client/commit/9f7ca19))
+* **star:** 즐겨찾기 뷰에서,DM의 starred item의 위치가 상대방을 출력하도록 수정 ([14fc2ab](https://github.com/tosslab/web_client/commit/14fc2ab))
+
+
+
 <a name="1.14.1"></a>
 ## [1.14.1](https://github.com/tosslab/web_client/compare/v1.14.0...v1.14.1) (2016-02-11)
 
