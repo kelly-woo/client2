@@ -29,6 +29,8 @@
       var DELAY = 100;
       var _timer = null;
       var _jqDragArea;
+      var _isHiding = false;
+      var _isShowing = false;
 
       _init();
 
@@ -67,8 +69,15 @@
        * @private
        */
       function _hide() {
+        clearTimeout(_timer);
         _timer = setTimeout(function() {
-          _jqDragArea.hide()
+          _isShowing = false;
+          if (!_isHiding) {
+            _isHiding = true;
+            _jqDragArea.stop().fadeOut(300, function() {
+              _isHiding = false;
+            });
+          }
         }, DELAY);
       }
 
@@ -78,7 +87,18 @@
        */
       function _show() {
         clearTimeout(_timer);
-        _jqDragArea.show();
+
+        if (_isHiding) {
+          _jqDragArea.stop();
+          _isHiding = false;
+        }
+
+        if (!_isShowing) {
+          _isShowing = true;
+          _jqDragArea.fadeIn(300, function() {
+            _isShowing = false;
+          });
+        }
       }
     }
   }
