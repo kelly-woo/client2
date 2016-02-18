@@ -89,7 +89,7 @@
                   el
                     .on('input', changeHandler)
                     .on('click', function (event) {
-                      event.stopPropagation();
+                      //event.stopPropagation();
                       liveSearchHandler(event);
                     })
                     .on('blur', mentionCtrl.clearMention)
