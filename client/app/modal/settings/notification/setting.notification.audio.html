@@ -1,0 +1,20 @@
+<div class="btn-group notification-audio-btn-group" dropdown ng-disabled="isDisabled">
+  <button type="button" class="btn" ng-disabled="isDisabled" dropdown-toggle>
+    <span class="btn-text" ng-bind="selectedItemText"></span><i class="icon icon-arrow-down"></i>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-menu-option"
+        ng-class="{active: isActive($index)}"
+        ng-repeat="item in list track by $index"
+        ng-mouseenter="onSelectActive($index)"
+        ng-mousedown="onSelectItem($index)">
+      <span class="option-text">{{::item.text}}</span>
+      <div class="option-sound"
+           ng-if="!item.nonSound"
+           ng-mousedown="onSoundPlay($event, $index)"
+           ng-click="onSoundPlay($event, $index)">
+        <i class="icon-volume-up"></i>
+      </div>
+    </li>
+  </ul>
+</div>

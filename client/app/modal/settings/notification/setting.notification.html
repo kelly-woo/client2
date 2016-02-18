@@ -1,56 +1,99 @@
 <page-tracker page="notifications" title="Notifications"></page-tracker>
 <div class="modal-header">
-  <button type="button" class="close" ng-click="cancel();"><i class="icon-delete"></i></button>
+  <button type="button" class="close" ng-click="onClose()"><i class="icon-delete"></i></button>
   <h3 class="modal-header__title">
-    <span translate>@web-notification</span>
+    <span>{{::'@web-notification'|translate}}</span>
   </h3>
 </div>
 
-<div class="modal-body notification-modal-body">
-
-  <!-- 노티피케이션을 키고 켜는 곳  -->
-  <div class="notification-switch-container">
-    <div class="notification-recommendation-msg" translate>@setting-notification-recommendation-msg</div>
-    <div class="notification-switch cursor_pointer" ng-click="onNotificationButtonClicked();" ng-if="!isNotificationDenied"
-         ng-class="{'to-on': shouldTurnOnNotification,
-                    'to-off': !shouldTurnOnNotification}">
-      <span class=""
-            ng-class="{ 'icon-bell-fill': shouldTurnOnNotification,
-                        'icon-bell-slash-fill': !shouldTurnOnNotification}"></span>
-
-      <span class="notification-btn-text">{{notificationBtnText | translate}}</span>
-
+<div class="modal-body notification-modal-body" ng-class="{'notification-switch-disable non-selectable': !isAllowSwitch}">
+  <alert class="notification-alert" type="danger">
+    <i class="icon-warning"></i>
+    <span translate>@setting-notification-permission-denied</span>
+  </alert>
+  <div class="notification-role">
+    <div class="notification-role-header">{{::'@setting-notification-desktop'|translate}}</div>
+    <div class="notification-role-body">{{::'@setting-notification-recommendation-msg'|translate}}</div>
+    <div class="notification-switch">
+      <switch-button is-active="setting.on"
+                     toggle="onNotificationToggle($value)"
+                     is-disabled="!isAllowSwitch"></switch-button>
     </div>
-    <div class="notification-denied-text" ng-if="isNotificationDenied">
-      <span translate>@setting-notification-denied</span>
+    <div class="notification-image">
+      <img ng-src="{{::notificationImage}}">
     </div>
   </div>
-
-  <!-- 나는 선이다 -->
-  <div class="separator"></div>
-
-  <!-- 노티피케이션 세부 사항 -->
-  <div class="notification-detail-setting-container"
-        ng-class="{'is-disabled': shouldTurnOnNotification,
-                    'is-enabled': !shouldTurnOnNotification}">
-
-    <!-- 테스트 노티피케이션 보내기 버튼  -->
-    <div class="notification-test-button custom_cursor" ng-click="sendTestNotification();">
-      <span translate>@send-test-notification</span>
+  <div class="notification-setting"
+       ng-hide="!isAllowSetting"
+       ng-class="{'notification-setting-disable non-selectable': !isAllowSetting,
+                  'is-setting-switch': isSettingSwitch}">
+    <div class="notification-target">
+      <label>
+        <input type="checkbox" ng-model="setting.type"
+                               ng-true-value="'dmNmention'"
+                               ng-false-value="'all'"
+                               ng-disabled="!isAllowSetting"/>
+        <span>{{::'@setting-notification-dm-n-mention'|translate}}</span>
+      </label>
     </div>
-
-    <!-- 노티피케이션 메세지 내용을 보여줄까 말까     -->
-    <div class="notification-show-content-setting-container custom_cursor">
-      <input type="checkbox" ng-model="isShowNotificationContent" ng-disabled="shouldTurnOnNotification"
-             class="notification-show-content-checkbox" ng-change="onNotificationShowContentMessageChanged();">
-      <span class="notification-show-content-text" ng-click="onNotificationShowContentMessageClicked();" translate>@setting-notification-show-content-msg</span>
+    <div class="notification-options">
+      <div class="notification-message-preview col-sm-6">
+        <div class="message-preview-header"><i class="icon-chat"></i>
+          <span>{{::'@setting-notification-preview-content'|translate}}</span>
+        </div>
+        <div class="message-preview-options">
+          <div class="notification-message-preview-content">
+            <label><input type="radio" ng-model="setting.showContent" value="all" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-all'|translate}}
+            </label>
+          </div>
+          <div class="notification-message-preview-content">
+            <label><input type="radio" ng-model="setting.showContent" value="public_only" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-public'|translate}}
+            </label>
+          </div>
+          <div class="notification-message-preview-content">
+            <label><input type="radio" ng-model="setting.showContent" value="none" ng-disabled="!isAllowSetting">
+              {{::'@setting-notification-preview-none'|translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="notification-message-alert col-sm-6">
+        <div class="message-alert-header"><i class="icon-volume-up"></i>
+          {{::'@setting-notification-sounds'|translate}}
+        </div>
+        <div class="message-alert-options" ng-mousedown="onAlertOptionsMouseDown()">
+          <div class="message-normal message-audio" ng-class="{'message-normal-disabled':isDMnMentionOnly}">
+            <div>{{::'@setting-notification-sounds-topic'|translate}}:</div>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundNormal"
+                                     is-disabled="!isAllowSetting || isDMnMentionOnly"
+                                     on-select="onSoundSelect('normal', $index)"></notification-audio-menu>
+          </div>
+          <div class="message-mention message-audio">
+            <div>{{::'@setting-notification-sounds-mention'|translate}}:</div>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundMention"
+                                     is-disabled="!isAllowSetting"
+                                     on-select="onSoundSelect('mention', $index)"></notification-audio-menu>
+          </div>
+          <div class="message-dm message-audio">
+            <div>{{::'@common-chat-dm'|translate}}:</div>
+            <notification-audio-menu list="alertSelectList"
+                                     value="setting.soundDM"
+                                     is-disabled="!isAllowSetting"
+                                     on-select="onSoundSelect('dm', $index)"></notification-audio-menu>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
-
 </div>
 
 <div class="modal-footer">
-  <!--<button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>@btn-close</span></button>-->
-  <a class="btn btn-ok _modalSubmit" ng-click="cancel();"><span translate>@common-done</span></a>
+  <button class="btn btn-cancel btn-notification-sample" ng-disabled="!isAllowSetting" ng-click="onSampleClick()">
+    {{::'@send-test-notification'|translate}}
+  </button>
+  <button class="btn btn-ok" ng-click="onClose()">{{::'@common-done'|translate}}</button>
 </div>

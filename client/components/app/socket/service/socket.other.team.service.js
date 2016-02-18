@@ -10,7 +10,8 @@
 
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
-                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotification) {
+                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper,
+                                        DesktopNotificationUtil) {
     var VERSION = 1;
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
@@ -248,8 +249,8 @@
 
       timeoutCaller = $timeout(function() {
 
-        if (DesktopNotification.canSendNotification()) {
-          OtherTeamNotification.addNotification(socketEvent);
+        if (DesktopNotificationUtil.isAllowSendNotification()) {
+          OtherTeamNotification.show(socketEvent);
         }
 
         _afterNotificationSent(teamId, socketEvent);
