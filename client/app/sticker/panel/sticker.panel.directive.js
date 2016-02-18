@@ -31,6 +31,8 @@
       var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
 
+      var timerTransitionend;
+
       _init();
 
       /**
@@ -100,6 +102,8 @@
       function onToggled(isOpen) {
         if (isOpen) {
           jqStickerPanel.addClass('open');
+          jqStickerPanel.off('transitionend:stickerPanel');
+
           setTimeout(function() {
             jqStickerPanel.addClass('vivid');
           }, 30);
@@ -108,7 +112,7 @@
           jqStickerPanelBtn.attr('tabIndex', -1);
         } else {
           jqStickerPanel.removeClass('vivid');
-          jqStickerPanel.one('transitionend', function() {
+          jqStickerPanel.one('transitionend:stickerPanel', function() {
             jqStickerPanel.removeClass('open');
           });
 

@@ -1,19 +1,19 @@
 <div class="footer center-chat-input-container">
   <div class="file-upload-wrapper non-selectable" dropdown>
-    <div class="icon-upload-button cursor_pointer" dropdown-toggle>
+    <div class="dropdown dropdown-toggle icon-upload-button cursor_pointer" dropdown-toggle>
       <i class="icon-upload"></i>
     </div>
     <ul class="file-upload-menu dropdown-menu" id="file-upload-menu" role="menu">
       <li class="file-upload-description">
         Attach File
       </li>
-      <li class="file-upload-type computer cursor_pointer">
+      <li class="file-upload-type computer cursor_pointer" role="computer">
         <i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span>
       </li>
-      <li class="file-upload-type google-drive cursor_pointer">
+      <li class="file-upload-type google-drive cursor_pointer" role="google-drive">
         <i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span>
       </li>
-      <li class="file-upload-type dropbox cursor_pointer">
+      <li class="file-upload-type dropbox cursor_pointer" role="dropbox">
         <i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span>
       </li>
     </ul>
@@ -37,9 +37,9 @@
 
     <div class="message-input-body">
       <form id="message-form">
-        <textarea ng-class="{ 'post-loading': isPosting,
+        <textarea id="message-input"
+                  ng-class="{ 'post-loading': isPosting,
                                 'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
-                  id="message-input"
                   message-submit="postMessage()"
                   ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   placeholder="{{::'@placeholder-input-message' | translate }}"
@@ -53,11 +53,10 @@
     <div class="message-input-footer">
       <div class="message-input-buttons">
         <sticker-panel name="chat" max-columns="4" dropdown-parent=".input-container-over"></sticker-panel>
-        <mention-ahead></mention-ahead>
         <i class="icon-at cursor_pointer" ng-click="onMentionIconClick()"></i>
       </div>
       <button class="message-input-submit btn btn-ok" ng-class="{'active': hasTextMessage}">전송</button>
-      <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': hasTextMessage}">
+      <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
         <span class="markdown-guide-bold" translate>@markdown-bold</span>
         <span class="markdown-guide-italics" translate>@markdown-italics</span>
         <span class="markdown-guide-bold-italics" translate>@markdown-bold-italics</span>

@@ -16,6 +16,18 @@
       link: link
     };
     function link(scope, el, attrs) {
+      var copyStyle = [
+        'fontFamily',
+        'fontSize',
+        'fontWeight',
+        'fontStyle',
+        'letterSpacing',
+        'lineHeight',
+        'textTransform',
+        'wordSpacing',
+        'textIndent'
+      ];
+
       var _jqMirror;
       var _resizeTimer;
       var _height;
@@ -47,6 +59,7 @@
        * @private
        */
       function _attachEvents() {
+        scope.$on('jndElastic:resetStyle:' + _name, _onResetStyle);
         scope.$on('$destroy', _onDestroy);
       }
 
@@ -59,6 +72,14 @@
       }
 
       /**
+       * reset style
+       * @private
+       */
+      function _onResetStyle() {
+        _setMirrorStyle();
+      }
+
+      /**
        * 높이를 계산할 mirror 엘리먼트를 생성한다.
        * @private
        */
@@ -68,25 +89,12 @@
           '-moz-box-sizing: content-box; box-sizing: content-box;' +
           'min-height: 0 !important; height: 0 !important; padding: 0;' + +
             'word-wrap: break-word; border: 0;';
-        var copyStyle = [
-          'fontFamily',
-          'fontSize',
-          'fontWeight',
-          'fontStyle',
-          'letterSpacing',
-          'lineHeight',
-          'textTransform',
-          'wordSpacing',
-          'textIndent'
-        ];
+
         _defaultHeight = el.css('height') || el.height();
         _jqMirror = $('<textarea tabindex="-1" ' +
           'style="' + mirrorInitStyle + '"/>');
 
-        console.log(el.parents());
-        _.forEach(copyStyle, function (value) {
-          _jqMirror.css(value, el.css(value));
-        });
+        $timeout(_setMirrorStyle);
 
         _maxHeight = parseInt(el.css('maxHeight'), 10);
         _minHeight = parseInt(el.css('minHeight'), 10);
@@ -148,6 +156,16 @@
           _height = height;
           jndPubSub.pub('elasticResize:' + _name);
         }
+      }
+
+      /**
+       * set mirror style
+       * @private
+       */
+      function _setMirrorStyle() {
+        _.forEach(copyStyle, function (value) {
+          _jqMirror.css(value, el.css(value));
+        });
       }
 
       /**

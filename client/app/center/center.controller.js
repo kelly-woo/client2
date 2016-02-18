@@ -148,13 +148,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
-      _initializeListeners();
+      _initializeLazyListeners();
       _reset();
       _initializeView();
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
       $scope.$on('dataInitDone', _init);
+      _initializeListeners();
     }
   }
 
@@ -220,10 +221,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * scope listener 를 초기화한다.
+   * scope listener를 초기화한다.
    * @private
    */
   function _initializeListeners() {
+    $scope.$on('elasticResize:message', _onElasticResize);
+  }
+
+  /**
+   * 'dataInitDone'이 발생한 후에 scope listener 를 초기화한다.
+   * @private
+   */
+  function _initializeLazyListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
@@ -231,7 +240,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
 
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
-    $scope.$on('elasticResize:message', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
     $scope.$on('centerUpdateChatList', updateList);
@@ -1524,14 +1532,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onElasticResize() {
     var jqCenterChatInput = $('.center-chat-input-container');
-    var jqCenterPanel = $('#cpanel');
     var jqMessages = $('#msgs-container');
 
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
-    jqMessages.height(jqCenterPanel.height() - jqMessages.position().top - jqCenterChatInput.height());
+
+    jqMessages.css('bottom', jqCenterChatInput.height());
   }
 
   /**
@@ -1705,10 +1713,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @param {object} event
    */
   function onMessageInputChange(event) {
+    var message;
     if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
       _hideSticker();
     } else if (_.isString(event.target.value)) {
-      $scope.hasTextMessage = _.trim(event.target.value).length > 1;
+      message = _.trim(event.target.value).length;
+      $scope.hasTextMessage = message > 0;
+      $scope.showMarkdownGuide = message > 1;
     }
   }
 });

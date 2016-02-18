@@ -124,10 +124,10 @@
        * @private
        */
       function _onMenuItemClick(event) {
-        var className = this.className;
+        var role = this.getAttribute('role');
         var fn;
 
-        if (fn = uploadMap[className]) {
+        if (fn = uploadMap[role]) {
           fn(event);
         }
       }
