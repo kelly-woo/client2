@@ -12,20 +12,11 @@
   </div>
 
 
-  <div class="announcement-container common-announcement-size-padding"
+  <div class="announcement-container"
        ng-if="!displayStatus.hide"
        ng-class="{'minimized': displayStatus.minimized}"
        ng-click="onAnnouncementBodyClicked($event);">
 
-
-    <!-- announcement 오른쪽 위 화살표 -->
-    <div class="announcement-arrow-container jnd-cursor-pointer"
-         ng-click="onAnnouncementArrowClicked();">
-      <i class="announcement-minimize__arrow"
-         ng-class="{'icon-arrow-up-fill': !displayStatus.minimized,
-                      'icon-arrow-down-fill': displayStatus.minimized}"></i>
-      <span>더보기</span>
-    </div>
 
     <!-- profile picture thumbnail  -->
     <div class="announcement-owner__thumbnail pull-left jnd-cursor-pointer"
@@ -58,6 +49,15 @@
              ng-class="{'overflow-ellipsis': displayStatus.minimized}"
              ng-bind-html="announcementBody"></p>
         </div>
+        
+        <!-- announcement 오른쪽 위 화살표 -->
+		<div class="announcement-arrow-container announcement-option jnd-cursor-pointer"
+         	 ng-click="onAnnouncementArrowClicked();">
+		  <i class="announcement-minimize__arrow"
+		  	 ng-class="{'icon-arrow-up-fill': !displayStatus.minimized,
+                      'icon-arrow-down-fill': displayStatus.minimized}"></i>
+		  <span>더보기</span>
+    	</div>
 
       </div>
 
@@ -68,18 +68,22 @@
   </div>
   
   <!-- announcement 옵션들 -->
-  <div class="announcement-option-container common-announcement-size-padding"
+  <div class="announcement-option-container"
        ng-if="!displayStatus.minimized && !displayStatus.hide">
     
     <div class="announcement-creator"
                ng-if="!displayStatus.minimized">
-            By
+            <i class="icon-bullhorn-fill"></i>
+            by
             <span class="announcement-creator__name jnd-cursor-pointer"
                   ng-click="onAnnouncementCreatorClicked();">
               {{announcementCreator.name}}
             </span>
+            
+            <span class="announcement-creted__time">
             -
             {{announcementCreator.time | getyyyyMMddformat}}
+            </span>
     </div>
     
     <!-- announcement 오른쪽 위 화살표 -->
