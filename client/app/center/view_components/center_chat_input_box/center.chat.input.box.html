@@ -1,7 +1,7 @@
 <div class="footer center-chat-input-container">
   
   <!-- ng-if="curUpload.status != null" -->
-  <div class="file-upload-progress-container"
+  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
        ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
                   'file-upload-done': curUpload.status == 'done'}">
 	
