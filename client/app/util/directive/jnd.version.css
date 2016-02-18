@@ -1,5 +1,7 @@
 .jnd-version {
-  font-size:12px;
+  font-size:19px;
+  font-weight: bold;
   vertical-align: bottom;
-  padding-left:30px;
+  position: absolute;
+  left:320px;
 }
