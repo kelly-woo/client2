@@ -182,8 +182,9 @@
   left: 0;
   font-size: 14px;
 }
-.announcement-creator__name {
+.announcement-creted__time {
   font-weight: 700;
+  margin-right: 2px;
 }
 
 /* 펼쳐보기 옵션 버튼 */

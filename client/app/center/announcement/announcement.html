@@ -78,16 +78,15 @@
     <div class="announcement-creator"
                ng-if="!displayStatus.minimized">
             <i class="icon-bullhorn-fill"></i>
+            <span class="announcement-creted__time">
+            {{announcementCreator.time | getyyyyMMddformat}}
+            </span>
             by
             <span class="announcement-creator__name jnd-cursor-pointer"
                   ng-click="onAnnouncementCreatorClicked();">
               {{announcementCreator.name}}
             </span>
             
-            <span class="announcement-creted__time">
-            -
-            {{announcementCreator.time | getyyyyMMddformat}}
-            </span>
     </div>
     
     <!-- announcement 오른쪽 위 화살표 -->
