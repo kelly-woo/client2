@@ -1,24 +1,87 @@
 <div class="footer center-chat-input-container">
-  <div class="file-upload-wrapper non-selectable" dropdown>
-    <div class="icon-upload-button cursor_pointer" dropdown-toggle>
-      <i class="icon-upload"></i>
+  
+  <!-- ng-if="curUpload.status != null" -->
+  <div class="file-upload-progress-container"
+       ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
+                  'file-upload-done': curUpload.status == 'done'}">
+	
+	<!--    progress file index  -->
+    
+    <div class="index-wrapper">
+      <span class="file-upload-progress-file-index">
+        {{curUpload.cFileIndex}} of {{curUpload.lFileIndex}}
+      </span>
     </div>
-    <ul class="file-upload-menu dropdown-menu" id="file-upload-menu" role="menu">
-      <li class="file-upload-description">
-        Attach File
-      </li>
-      <li class="file-upload-type computer cursor_pointer">
-        <i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span>
-      </li>
-      <li class="file-upload-type google-drive cursor_pointer">
-        <i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span>
-      </li>
-      <li class="file-upload-type dropbox cursor_pointer">
-        <i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span>
-      </li>
-    </ul>
+    
+    <div class="uploading-wrapper">
+      <div class="fileicon-container">
+	    <i class="icon-file"></i>
+      </div>
+      
+      <!-- 파일 네임, 프로그레스바, 업로드 정보, 취소 버튼을 포함하는 컨테이너 -->
+      <div class="progress-container">
+	    <!--    file title  -->
+        <span class="file-upload-progress-title">{{curUpload.title}}</span>
+        <!--    progress in percentile  -->
+        <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+        
+        
+        
+	    <!-- progress-bar -->
+	    <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
+	    
+      </div>
+      
+      <!-- 취소버튼, 업로드 완료 메시지를 포함하는 컨테이너 -->
+      <div class="button-wrapper">
+	    <!--    'cancel'    -->
+	    <span class="file-upload-progress-abort cursor_pointer"
+	          ng-click="onFileUploadAbortClick();"
+	          data-ng-if="curUpload.status=='uploading'">
+	      Cancel
+	    </span>
+	    
+	    <!--    'done'      -->
+        <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+        <!--    'aborted'       -->
+        <span translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
+        <!--    'error'     -->
+        <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+        <!--    'uploading'     -->
+        <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+        
+	    <!--    'x' icon    
+	    <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'">
+	      <i class="icon-delete"></i>
+	    </span> -->
+	    
+      </div>
+      
+    </div>
+    
   </div>
+  
   <div class="message-input-wrapper">
+	<div class="file-upload-wrapper non-selectable" dropdown>
+      <div class="icon-upload-button cursor_pointer" dropdown-toggle>
+        <i class="icon-upload"></i>
+      </div>
+      <ul class="file-upload-menu dropdown-menu" id="file-upload-menu" role="menu">
+        <li class="file-upload-description">
+          Attach File
+        </li>
+        <li class="file-upload-type computer cursor_pointer">
+          <i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span>
+        </li>
+        <li class="file-upload-type google-drive cursor_pointer">
+          <i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span>
+        </li>
+        <li class="file-upload-type dropbox cursor_pointer">
+          <i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span>
+        </li>
+      </ul>
+    </div>
+    
     <div class="input-container-over cursor_pointer">
       <div class="has-new-msg-banner-container" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
         <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
