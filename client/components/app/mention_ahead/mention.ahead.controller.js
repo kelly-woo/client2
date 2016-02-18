@@ -61,6 +61,7 @@
       var type = options.attrs.mentionaheadType;
 
       $scope.$on('mentionahead:' + type, _onMentionMembersUpdate);
+      $scope.$on('mentionahead:show:' + type, _onShowMentionahead);
     }
 
     /**
@@ -71,6 +72,39 @@
      */
     function _onMentionMembersUpdate(angularEvent, mentionMembers) {
       _setMentions(mentionMembers);
+    }
+
+    /**
+     * show mention ahead
+     * @private
+     */
+    function _onShowMentionahead() {
+      var selection = _getSelection();
+      var value = $scope.jqEle.val();
+      var prefixValue = value.substring(0, selection.begin);
+      var mentionWord = '@';
+      var suffixValue = value.substring(selection.end);
+      var count = 0;
+
+      // prefix value의 마지막 값이 mention word가 아니라면 해당 selection에 mention word를 추가한다.
+      if (!/([\s]@$)|(^@$)/.test(prefixValue)) {
+        if (prefixValue !== '' && !/\s$/.test(prefixValue)) {
+          mentionWord = ' ' + mentionWord;
+          count += 2;
+        } else {
+          count++;
+        }
+
+        if (suffixValue !== '' && !/^\s/.test(suffixValue)) {
+          mentionWord = mentionWord + ' ';
+        }
+
+        value = prefixValue + mentionWord + suffixValue;
+      }
+
+      $scope.jqEle.val(value).focus();
+      _setSelection(selection.begin + count);
+      $scope.jqEle.trigger('input').trigger('keyup');
     }
 
     /**

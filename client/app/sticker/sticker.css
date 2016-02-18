@@ -1,5 +1,6 @@
 .sticker_panel {
-  bottom: 30px !important;
+  top: -312px;
+  left: 0;
   padding-top:0px !important;
   padding-bottom:0px !important;
   opacity: 0;
@@ -173,21 +174,15 @@
   height: 20px;
 }
 
-sticker-layer {
-  position: relative;
-}
 .sticker_layer {
-  z-index:2;
-  height: 138px;
-  width: 100%;
+  position: absolute;
+  top: -144px;
+  right: 0;
+  left: 0;
   background-color: rgba(255, 255, 255, 0.9);
-  position:relative;
-  border: solid #d7e0e8;
-  border-width: 2px 2px 0 2px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding-left: 20px;
-  padding-bottom: 10px;
+  border: 2px solid #d7e0e8;
+  padding: 0 0 10px 20px;
+  z-index: 2;
 }
 .sticker_layer img {
 

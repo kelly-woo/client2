@@ -54,7 +54,7 @@ article {
   top: 35px;
   left: 0;
   right: 0;
-  bottom: 55px;
+  bottom: 122px;
   overflow-x: hidden;
   overflow-y: auto;
   min-width: 260px;
@@ -731,40 +731,6 @@ by ysyun 2015.2.25
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg:lang(ja) {
     width: auto;
   }
-}
-
-/********************************************
-
-            SCROLL TO BOTTOM
-
-********************************************/
-.scroll-to-bottom-container {
-  z-index:22;
-  position: absolute;
-  right: 9px;
-  bottom: 10px;
-  width: 34px;
-  height: 34px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(208, 236, 237, 0.9);
-  border-radius: 10px;
-  padding: 6px 6px 6px 7px;
-}
-.scroll-to-bottom-container ~ div {
-  margin-top:0px !important;
-  margin-left: -4px !important;
-}
-.scroll-to-bottom-container ~ div > .tooltip-inner {
-  word-break:keep-all !important;
-  white-space:nowrap !important;
-  text-align: right !important;
-}
-.scroll-to-bottom-container:active {
-  
-}
-.scroll-to-bottom-icon {
-  font-size: 18px;
-  color: #00abe6;
 }
 
 .icon-sending-indicator {

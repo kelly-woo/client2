@@ -1523,12 +1523,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onElasticResize() {
-    var jqInput = $('#message-input');
+    var jqCenterChatInput = $('.center-chat-input-container');
+    var jqCenterPanel = $('#cpanel');
+    var jqMessages = $('#msgs-container');
+
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
-    $('#center-input-margin').height(jqInput.height() - 28);
+    jqMessages.height(jqCenterPanel.height() - jqMessages.position().top - jqCenterChatInput.height());
   }
 
   /**
@@ -1705,7 +1708,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
       _hideSticker();
     } else if (_.isString(event.target.value)) {
-      $scope.showMarkdownGuide = event.target.value.length > 1;
+      $scope.hasTextMessage = _.trim(event.target.value).length > 1;
     }
   }
 });

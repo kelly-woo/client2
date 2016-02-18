@@ -31,6 +31,7 @@
         );
 
         return function(scope, el, attrs, ctrls) {
+          var mentionaheadDropdownParent = attrs.mentionaheadDropdownParent;
           var mentionaheadType = attrs.mentionaheadType;
 
           var mentionCtrl;
@@ -42,7 +43,12 @@
             mentionCtrl = ctrls[0];
             scope.eventCatcher = el;
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {
-              el.parent().append(jqMentionahead);
+              if (_.isString(mentionaheadDropdownParent)) {
+                // set dropdown menu parent
+                $(mentionaheadDropdownParent).append(jqMentionahead);
+              } else {
+                el.parent().append(jqMentionahead);
+              }
             });
 
             mentionCtrl
@@ -91,17 +97,17 @@
                 }
               });
           }
-        }
 
-        /**
-         * mention ahead avaliable
-         * @param {string} mentionaheadType
-         * @returns {*|boolean}
-         * @private
-         */
-        function _isMentionaheadAvailable(mentionaheadType) {
-          var currentEntity = currentSessionHelper.getCurrentEntity();
-          return currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id));
+          /**
+           * mention ahead avaliable
+           * @param {string} mentionaheadType
+           * @returns {*|boolean}
+           * @private
+           */
+          function _isMentionaheadAvailable(mentionaheadType) {
+            var currentEntity = currentSessionHelper.getCurrentEntity();
+            return currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id));
+          }
         }
       }
     };

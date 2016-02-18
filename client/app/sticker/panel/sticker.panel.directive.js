@@ -24,6 +24,9 @@
     };
 
     function link(scope, el, attrs) {
+      // dropdown parent dom element
+      var dropdownParent = attrs.dropdownParent;
+
       var jqStickerPanel = el.find('.sticker_panel');
       var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
@@ -44,6 +47,10 @@
 
         _setStickerPanelSize();
         _attachDomEvents();
+
+        if (_.isString(dropdownParent)) {
+          _setDropdownParent(dropdownParent);
+        }
       }
 
       /**
@@ -154,6 +161,15 @@
             jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
           }
         }
+      }
+
+      /**
+       * set dropdown parent
+       * @param {string} dropdownParent
+       * @private
+       */
+      function _setDropdownParent(dropdownParent) {
+        $(dropdownParent).append(jqStickerPanel);
       }
     }
   }

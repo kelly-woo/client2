@@ -83,6 +83,7 @@
         _jqMirror = $('<textarea tabindex="-1" ' +
           'style="' + mirrorInitStyle + '"/>');
 
+        console.log(el.parents());
         _.forEach(copyStyle, function (value) {
           _jqMirror.css(value, el.css(value));
         });
@@ -128,13 +129,20 @@
         _jqMirror.val(el.val() || ' ');
 
         height = _jqMirror[0].scrollHeight;
-        if (_maxHeight !== 0 && _maxHeight < height) {
-          height = _maxHeight;
-        } else if (_minHeight !== 0 && _minHeight > height) {
 
-        } else if (height < _defaultHeight) {
+        if (_maxHeight !== 0 && _.isNumber(_maxHeight)) {
+          if (_maxHeight < height) {
+            height = _maxHeight;
+            el.css('overflowY', 'auto');
+          } else {
+            el.css('overflowY', 'hidden');
+          }
+        }
+
+        if (height < _defaultHeight) {
           height = _defaultHeight;
         }
+
         if (_height !== height) {
           el.height(height + _paddingVertical);
           _height = height;

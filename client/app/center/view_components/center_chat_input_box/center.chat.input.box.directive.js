@@ -45,6 +45,8 @@
        * @private
        */
       function _init() {
+        scope.onMentionIconClick = onMentionIconClick;
+
         _attachEvents();
         _attachDomEvents();
 
@@ -128,6 +130,13 @@
         if (fn = uploadMap[className]) {
           fn(event);
         }
+      }
+
+      /**
+       * mention icon click event handler
+       */
+      function onMentionIconClick() {
+        jndPubSub.pub('mentionahead:show:message');
       }
 
       /**
