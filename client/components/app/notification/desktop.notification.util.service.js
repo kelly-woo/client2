@@ -13,6 +13,36 @@
                                    configuration, NotificationAudio, entityAPIservice) {
     var that = this;
 
+    that.NAVER_ASK = {
+      TRUE: true,
+      FALSE: false
+    };
+    that.ON = {
+      TRUE: 'true',
+      FALSE: false
+    };
+    that.TYPE = {
+      ALL: 'all',
+      DM_AND_MENTION: 'dmNmention'
+    };
+    that.SHOW_CONTENT = {
+      ALL: 'all',
+      NONE: 'none',
+      PUBLIC_ONLY: 'public_only'
+    };
+    that.SOUNDS = {
+      OFF: 'off',
+      AIR_POP: 'air_pop',
+      CHIME_BELL_DING: 'chime_bell_ding',
+      CHIMEY: 'chimey',
+      MOUSE: 'mouse',
+      NURSERY: 'nursery',
+      ON_POINT: 'on_point',
+      THINK_PING: 'think_ping',
+      SUPER: 'super',
+      ARISE: 'arise'
+    };
+
     // Notification support 여부
     var isNotificationSupported = 'Notification' in window;
 
@@ -76,9 +106,9 @@
     function requestPermission() {
       Notification.requestPermission(function (permission) {
         if (permission === 'granted') {
-          setData('on', true);
+          setData('on', that.ON.TRUE);
         } else {
-          setData('on', false);
+          setData('on', that.ON.FALSE);
         }
         jndPubSub.pub('onPermissionChanged');
       });
@@ -140,26 +170,26 @@
 
           notificationData = {
             // 'notification 사용해 주세요' 더 이상 묻지 않기, true | [false]
-            naverAsk: _getOldSetNaverAsk() || false,
+            naverAsk: _getOldSetNaverAsk() || that.NAVER_ASK.FALSE,
             // notification 사용여부, true | [false]
-            on: _getOldSetLocalNotificationFlag() || false,
+            on: _getOldSetLocalNotificationFlag() || that.ON.FALSE,
             // notification을 사용하는 메시지 타입, [all] | dmNmention
-            type: 'all',
+            type: that.TYPE.ALL,
             // notification에 content 노출 시킬지 여부, [all] | none | public_only
-            showContent: _getOldSetShowContent() || 'all',
+            showContent: _getOldSetShowContent() || that.SHOW_CONTENT.ALL,
             // 일반 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-            soundNormal: 'off',
+            soundNormal: that.SOUNDS.OFF,
             // 멘션 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-            soundMention: 'off',
+            soundMention: that.SOUNDS.OFF,
             // 1:1 메시지에 사용할 알림 값, asstes/sounds/{{$1}}.mp3
-            soundDM: 'off'
+            soundDM: that.SOUNDS.OFF
           };
 
           if (HybridAppHelper.isHybridApp()) {
             // window, mac app일 경우 초기값을 web app과 다르게 설정한다.
 
-            notificationData.on = true;
-            notificationData.showContent = 'all';
+            notificationData.on = that.ON.TRUE;
+            notificationData.showContent = that.SHOW_CONTENT.ALL;
           }
         }
       }
@@ -199,8 +229,8 @@
       var data = getData();
       var result;
 
-      if (data.showContent === 'all' ||
-        (data.showContent === 'public_only' && entityAPIservice.isPublicTopic(entityId))) {
+      if (data.showContent === that.SHOW_CONTENT.ALL ||
+        (data.showContent === that.SHOW_CONTENT.PUBLIC_ONLY && entityAPIservice.isPublicTopic(entityId))) {
         result = true;
       } else {
         result = false;
@@ -213,7 +243,7 @@
      * DM 과 mention만 notification 허용하는지 여부
      */
     function isAllowDMnMentionOnly() {
-      return getData('type') === 'dmNmention';
+      return getData('type') === that.TYPE.DM_AND_MENTION;
     }
 
     /**
@@ -247,9 +277,9 @@
       var isShowContent = _loadShowNotificationContentFlag();
 
       if (isShowContent === true) {
-        isShowContent = 'all';
+        isShowContent = that.SHOW_CONTENT.ALL;
       } else if (isShowContent === false) {
-        isShowContent = 'none';
+        isShowContent = that.SHOW_CONTENT.NONE;
       }
 
       return isShowContent;

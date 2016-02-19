@@ -10,7 +10,7 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, $modalInstance, $filter, $timeout, modalHelper, NotificationAudio,
+  function NotificationCtrl($scope, $modalInstance, $filter, modalHelper, NotificationAudio,
                             SampleNotification, DesktopNotificationUtil, Browser, JndUtil) {
     var notificationAudio;
     var recentSound;
@@ -67,7 +67,7 @@
      * @private
      */
     function _onSettingTypeChange(value) {
-      $scope.isDMnMentionOnly = value === 'dmNmention';
+      $scope.isDMnMentionOnly = value === DesktopNotificationUtil.TYPE.DM_AND_MENTION;
     }
 
     /**
@@ -165,20 +165,20 @@
     function _createAlertSelectList() {
       var translate = $filter('translate');
       var sounds = [
-        {text: translate('@sounds-pop'), value: 'air_pop'},
-        {text: translate('@sounds-ding'), value: 'chime_bell_ding'},
-        {text: translate('@sounds-chime'), value: 'chimey'},
-        {text: translate('@sounds-mouse'), value: 'mouse'},
-        {text: translate('@sounds-nursery'), value: 'nursery'},
-        {text: translate('@sounds-point'), value: 'on_point'},
-        {text: translate('@sounds-marimba'), value: 'think_ping'},
-        {text: translate('@sounds-super'), value: 'super'},
-        {text: translate('@sounds-arise'), value: 'arise'}
+        {text: translate('@sounds-pop'), value: DesktopNotificationUtil.SOUNDS.AIR_POP},
+        {text: translate('@sounds-ding'), value: DesktopNotificationUtil.SOUNDS.CHIME_BELL_DING},
+        {text: translate('@sounds-chime'), value: DesktopNotificationUtil.SOUNDS.CHIMEY},
+        {text: translate('@sounds-mouse'), value: DesktopNotificationUtil.SOUNDS.MOUSE},
+        {text: translate('@sounds-nursery'), value: DesktopNotificationUtil.SOUNDS.NURSERY},
+        {text: translate('@sounds-point'), value: DesktopNotificationUtil.SOUNDS.ON_POINT},
+        {text: translate('@sounds-marimba'), value: DesktopNotificationUtil.SOUNDS.THINK_PING},
+        {text: translate('@sounds-super'), value: DesktopNotificationUtil.SOUNDS.SUPER},
+        {text: translate('@sounds-arise'), value: DesktopNotificationUtil.SOUNDS.ARISE}
       ];
 
       notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
 
-      sounds.unshift({text: translate('@common-off'), value: 'off', nonSound: true});
+      sounds.unshift({text: translate('@common-off'), value: DesktopNotificationUtil.SOUNDS.OFF, nonSound: true});
       $scope.alertSelectList = sounds;
     }
 
