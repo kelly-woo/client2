@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MentionaheadCtrl($scope, $state, $filter, entityAPIservice, currentSessionHelper,
-                            MentionExtractor, Dialog) {
+                            MentionExtractor, Dialog, jndPubSub, JndUtil) {
     var that = this;
 
     var entityId = $state.params.entityId;
@@ -44,7 +44,7 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
-      _attachEvents(options);
+      _attachEvents();
 
       // message를 submit하는 method
       if (options.attrs.messageSubmit) {
@@ -54,14 +54,11 @@
 
     /**
      * attach events
-     * @param {object} options
      * @private
      */
-    function _attachEvents(options) {
-      var type = options.attrs.mentionaheadType;
-
-      $scope.$on('mentionahead:' + type, _onMentionMembersUpdate);
-      $scope.$on('mentionahead:show:' + type, _onShowMentionahead);
+    function _attachEvents() {
+      $scope.$on('mentionahead:' + $scope.type, _onMentionMembersUpdate);
+      $scope.$on('mentionahead:show:' + $scope.type, _onShowMentionahead);
     }
 
     /**
@@ -186,6 +183,7 @@
 
       if (mention) {
         $model.$setViewValue(mention.match[2]);
+        jndPubSub.pub('mentionahead:showed:' + $scope.type);
       } else {
         // mention이 존재하지 않는다면 mentionahead를 출력하지 않음
         clearMention();
@@ -197,6 +195,7 @@
      */
     function clearMention() {
       $model.$setViewValue(null);
+      jndPubSub.pub('mentionahead:hid:' + $scope.type);
     }
 
     /**

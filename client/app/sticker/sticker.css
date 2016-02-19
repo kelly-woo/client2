@@ -176,12 +176,12 @@
 
 .sticker_layer {
   position: absolute;
-  top: -144px;
+  top: -148px;
   right: 0;
+  height: 140px;
   left: 0;
   background-color: rgba(255, 255, 255, 0.9);
   border: 2px solid #d7e0e8;
-  padding: 0 0 10px 20px;
   z-index: 2;
 }
 .sticker_layer img {

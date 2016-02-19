@@ -10,10 +10,7 @@
     .module('jandiApp')
     .directive('stickerPanel', stickerPanel);
 
-  function stickerPanel($position, jndKeyCode) {
-    var DEFAULT_WIDTH = 355;
-    var DEFAULT_HEIGHT = 300;
-
+  function stickerPanel($position, $timeout, jndKeyCode) {
     return {
       restrict: 'E',
       replace: true,
@@ -31,8 +28,6 @@
       var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
 
-      var timerTransitionend;
-
       _init();
 
       /**
@@ -47,7 +42,6 @@
 
         scope.onToggled = onToggled;
 
-        _setStickerPanelSize();
         _attachDomEvents();
 
         if (_.isString(dropdownParent)) {
@@ -121,26 +115,11 @@
         }
       }
 
-
-
       /**
        * create sticker event handler
        */
       function onCreateSticker() {
         jqStickerPanelBtn.focus();
-      }
-
-      /**
-       * set sticker panel size
-       * @private
-       */
-      function _setStickerPanelSize() {
-        var width = attrs.width || DEFAULT_WIDTH;
-        var height = attrs.height || DEFAULT_HEIGHT;
-        height -= el.find('.sticker_panel_tab').height();
-
-        el.find('.sticker_panel').width(width);
-        el.find('.sticker_panel_contents').width(width).height(height);
       }
 
       /**

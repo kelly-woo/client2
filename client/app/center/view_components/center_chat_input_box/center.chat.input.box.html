@@ -95,15 +95,16 @@
                   jnd-elastic-on-change="onMessageInputChange($event)"
                   mentionahead
                   mentionahead-type="message"
-                  mentionahead-dropdown-parent=".input-container-over"></textarea>
+                  mentionahead-dropdown-parent=".message-input-wrapper .input-container-over"></textarea>
       </form>
     </div>
+
     <div class="message-input-footer">
       <div class="message-input-buttons">
-        <sticker-panel name="chat" max-columns="4" dropdown-parent=".input-container-over"></sticker-panel>
-        <i class="icon-at cursor_pointer" ng-click="onMentionIconClick()"></i>
+        <sticker-panel name="chat" max-columns="4" dropdown-parent=".message-input-wrapper .input-container-over"></sticker-panel>
+        <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
       </div>
-      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasTextMessage}">전송</button>
+      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}">전송</button>
       <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
         <span class="markdown-guide-bold" translate>@markdown-bold</span>
         <span class="markdown-guide-italics" translate>@markdown-italics</span>

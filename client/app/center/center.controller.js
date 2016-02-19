@@ -1520,6 +1520,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onChangeSticker(event, item) {
     _sticker = item;
+    $scope.hasMessage = !!_sticker;
     setTimeout(_setChatInputFocus);
   }
 
@@ -1718,7 +1719,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _hideSticker();
     } else if (_.isString(event.target.value)) {
       message = _.trim(event.target.value).length;
-      $scope.hasTextMessage = message > 0;
+      $scope.hasMessage = message > 0 || !!_sticker;
       $scope.showMarkdownGuide = message > 1;
     }
   }

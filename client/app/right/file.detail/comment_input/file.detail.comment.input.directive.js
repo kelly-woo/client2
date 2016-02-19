@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, MentionExtractor, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, JndUtil, MentionExtractor, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -42,6 +42,8 @@
       function _init() {
         scope.createComment = createComment;
         scope.onKeyUp = onKeyUp;
+        scope.onCommentInputChange = onCommentInputChange;
+        scope.onMentionIconClick = onMentionIconClick;
         scope.member = memberService.getMember();
 
         _initComment();
@@ -69,6 +71,9 @@
 
         scope.$on('room:memberAdded', _onMemberUpdate);
         scope.$on('room:memberDeleted', _onMemberUpdate);
+
+        scope.$on('mentionahead:showed:comment', _onMentionaheadShowed);
+        scope.$on('mentionahead:hid:comment', _onMentionaheadHid);
 
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
@@ -110,6 +115,24 @@
         }
       }
 
+      function onMentionIconClick() {
+        jndPubSub.pub('mentionahead:show:comment');
+      }
+
+      /**
+       * message input change event handler
+       * @param {object} event
+       */
+      function onCommentInputChange(event) {
+        var message;
+        if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
+          _hideSticker();
+        } else if (_.isString(event.target.value)) {
+          message = _.trim(event.target.value).length;
+          scope.hasMessage = message > 0 || !!sticker;
+        }
+      }
+
       /**
        * focus input event handler
        * @private
@@ -136,6 +159,8 @@
         if (sticker = item) {
           setTimeout(_focusInput);
         }
+
+        scope.hasMessage = !!sticker;
       }
 
       /**
@@ -176,6 +201,22 @@
        */
       function _onMemberUpdate() {
         jndPubSub.pub('fileDetail:updateFile');
+      }
+
+      /**
+       * mentionahead showed event handler
+       * @private
+       */
+      function _onMentionaheadShowed() {
+        scope.isMentionaheadShow = true;
+      }
+
+      /**
+       * mentionahead hid event handler
+       * @private
+       */
+      function _onMentionaheadHid() {
+        scope.isMentionaheadShow = false;
       }
 
       /**

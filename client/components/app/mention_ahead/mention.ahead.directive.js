@@ -42,6 +42,8 @@
 
             mentionCtrl = ctrls[0];
             scope.eventCatcher = el;
+            scope.type = mentionaheadType;
+
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {
               if (_.isString(mentionaheadDropdownParent)) {
                 // set dropdown menu parent
