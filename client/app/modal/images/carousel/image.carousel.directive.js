@@ -17,19 +17,19 @@
     };
 
     function link(scope, el) {
-      var jqWindow = $(window);
-      var jqModal;
-      var jqImageList;
+      var _jqWindow = $(window);
+      var _jqModal;
+      var _jqImageList;
 
-      var jqPrevBtn;
-      var jqNextBtn;
+      var _jqPrevBtn;
+      var _jqNextBtn;
 
-      var prevLoadedItems = [];
+      var _prevLoadedItems = [];
 
-      var timerResize;
-      var timerImageLoad;
+      var _timerResize;
+      var _timerImageLoad;
 
-      var lockerMore;
+      var _lockerMore;
 
       _init();
 
@@ -39,12 +39,14 @@
        */
       function _init() {
         $timeout(function() {
-          jqModal = $('.image-carousel-modal').focus();
+          // dom rendering이 완료된 후 _jqModal, _jqImageList, _jqPrevBtn, _jqNextBtn 돔을 선택하기 위함
 
-          jqImageList = el.find('.image-list');
+          _jqModal = $('.image-carousel-modal').focus();
 
-          jqPrevBtn = el.find('#viewer_prev_btn');
-          jqNextBtn = el.find('#viewer_next_btn');
+          _jqImageList = el.find('.image-list');
+
+          _jqPrevBtn = el.find('#viewer_prev_btn');
+          _jqNextBtn = el.find('#viewer_next_btn');
 
           // 최초 image item 추가
           scope.pushImage('init', scope.pivot);
@@ -57,25 +59,48 @@
 
           // 최초 image item 출력
           _show(scope.pivot);
-          _attachEvents();
+
+          _attachScopeEvents();
+          _attachDOMEvents();
         });
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
+        scope.$on('$destroy', _onDestroy);
+      }
+
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDOMEvents() {
         // window reisze event handling
-        jqWindow.on('resize.imageCarousel', _onWindowResize);
-        jqModal
+        _jqWindow.on('resize.imageCarousel', _onWindowResize);
+        _jqModal
           .on('keydown.imageCarousel', _onKeyDown)
           .on('click.imageCarousel', 'button', _onNavButtonClick)
           .on('click.imageCarousel', '.viewer-body', _onViewBodyClick)
           .on('mouseleave.imageCarousel', '.image-item', _onMouseLeave)
           .on('mousemove.imageCarousel', '.image-item', _onMouseMove);
+      }
 
-        scope.$on('$destroy', _onDestroy);
+      /**
+       * detach dom events
+       * @private
+       */
+      function _detachDOMEvents() {
+        // window reisze event handling
+        _jqWindow.off('resize.imageCarousel');
+        _jqModal
+          .off('keydown.imageCarousel')
+          .off('click.imageCarousel')
+          .off('click.imageCarousel')
+          .off('mouseleave.imageCarousel')
+          .off('mousemove.imageCarousel');
       }
 
       /**
@@ -83,22 +108,23 @@
        * @private
        */
       function _onWindowResize() {
-        $timeout.cancel(timerResize);
-        timerResize = $timeout(function() {
+        $timeout.cancel(_timerResize);
+        _timerResize = $timeout(function() {
           resetPosition();
         }, 50);
       }
 
       /**
        * key down event handler
-       * @param {object} event
+       * @param {object} evt
        * @private
        */
-      function _onKeyDown(event) {
-        var keyCode = event.keyCode;
+      function _onKeyDown(evt) {
+        var keyCode = evt.keyCode;
 
-        event.preventDefault();
-        event.stopPropagation();
+        // image carousel에서 발생한 key down 이벤트 처리가 parents 전달되어 다른 component에 영향을 미치지 않도록 방지
+        evt.preventDefault();
+        evt.stopPropagation();
 
         if (jndKeyCode.match('ESC', keyCode)) {
           JndUtil.safeApply(scope, function() {
@@ -113,25 +139,26 @@
 
       /**
        * nav button click event handler
-       * @param {object} event
+       * @param {object} evt
        * @private
        */
-      function _onNavButtonClick(event) {
-        var currentTarget = event.currentTarget;
-        event.stopPropagation();
+      function _onNavButtonClick(evt) {
+        var currentTarget = evt.currentTarget;
+        evt.stopPropagation();
 
         currentTarget.className.indexOf('prev') > -1 ? _navigation('prev') : _navigation('next');
       }
 
       /**
-       * view body click event handler
-       * @param {object} event
+       * view body click evt handler
+       * @param {object} evt
        * @private
        */
-      function _onViewBodyClick(event) {
-        event.stopPropagation();
+      function _onViewBodyClick(evt) {
+        // image carousel에서 발생한 click 이벤트 처리가 parents 전달되어 modal 닫힘
+        evt.stopPropagation();
 
-        if (event.currentTarget === event.target) {
+        if (evt.currentTarget === evt.target) {
           JndUtil.safeApply(scope, function () {
             scope.close();
           });
@@ -140,26 +167,26 @@
 
       /**
        * mouse leave event handler
-       * @param {object}event
+       * @param {object} evt
        * @private
        */
-      function _onMouseLeave(event) {
-        event.stopPropagation();
+      function _onMouseLeave(evt) {
+        evt.stopPropagation();
 
         // 하단에 file 정보를 숨김
-        $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
+        $(evt.currentTarget).children('.image-item-footer').css('opacity', 0);
       }
 
       /**
        * mouse move event handler
-       * @param event
+       * @param {object} evt
        * @private
        */
-      function _onMouseMove(event) {
-        event.stopPropagation();
+      function _onMouseMove(evt) {
+        evt.stopPropagation();
 
         // 하단에 file 정보를 출력
-        $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
+        $(evt.currentTarget).children('.image-item-footer').css('opacity', 1);
       }
 
       /**
@@ -167,14 +194,7 @@
        * @private
        */
       function _onDestroy() {
-        // window reisze event handling
-        jqWindow.off('resize.imageCarousel');
-        jqModal
-          .off('keydown.imageCarousel')
-          .off('click.imageCarousel')
-          .off('click.imageCarousel')
-          .off('mouseleave.imageCarousel')
-          .off('mousemove.imageCarousel');
+        _detachDOMEvents();
       }
 
       /**
@@ -183,7 +203,7 @@
       function resetPosition() {
         var jqImageItem;
 
-        if (scope.pivot && scope.pivot.messageId != null &&
+        if (scope.pivot &&
           (jqImageItem = scope.imageMap[scope.pivot.messageId].jqElement)) {
           ImageCarousel.setPosition(jqImageItem, scope.pivot);
         }
@@ -196,8 +216,8 @@
       function _setButtonStatus() {
         var pivotIndex = scope.imageList.indexOf(scope.pivot.messageId);
 
-        scope.imageList[pivotIndex - 1] != null ? jqPrevBtn.addClass('has-prev') : jqPrevBtn.removeClass('has-prev');
-        scope.imageList[pivotIndex + 1] != null ? jqNextBtn.addClass('has-next') : jqNextBtn.removeClass('has-next');
+        scope.imageList[pivotIndex - 1] == null ? _jqPrevBtn.removeClass('has-prev') : _jqPrevBtn.addClass('has-prev');
+        scope.imageList[pivotIndex + 1] == null ? _jqNextBtn.removeClass('has-next') : _jqNextBtn.addClass('has-next');
       }
 
       /**
@@ -236,7 +256,7 @@
 
         $imageCarouselItem = $compile(imageCarouselItemEl)($scope);
 
-        jqImageList.append($imageCarouselItem);
+        _jqImageList.append($imageCarouselItem);
 
         // jqImageItem cashing
         imageItem.jqElement = $imageCarouselItem;
@@ -254,10 +274,10 @@
 
         if (type === 'prev') {
           offset = -1;
-          jqPrevBtn.focus();
+          _jqPrevBtn.focus();
         } else {
           offset = 1;
-          jqNextBtn.focus();
+          _jqNextBtn.focus();
         }
 
         // 다음 출력 해야할 image item의 index를 얻음
@@ -270,17 +290,17 @@
 
           // image list에서 이동시 마다 _load를 호출하여
           // image를 출력하는 canvas element 생성을 방지하기 위해서 timeout 사용
-          if (timerImageLoad != null) {
-            $timeout.cancel(timerImageLoad);
-            timerImageLoad = null;
+          if (_timerImageLoad != null) {
+            $timeout.cancel(_timerImageLoad);
+            _timerImageLoad = null;
           }
 
-          timerImageLoad = $timeout((function(type, index, offset) {
+          _timerImageLoad = $timeout((function(type, index, offset) {
             return function() {
               var prevLoadedItem;
 
               // 이전 image item이 출력되어 있다면 숨김
-              while(prevLoadedItem = prevLoadedItems.pop()) {
+              while(prevLoadedItem = _prevLoadedItems.pop()) {
                 if (prevLoadedItem != null && scope.imageMap[prevLoadedItem].jqElement) {
                   scope.imageMap[prevLoadedItem].jqElement.hide().children('.image-item-footer').css('opacity', 0);
                 }
@@ -291,8 +311,8 @@
 
               _setMoreStatus(type, index, offset);
             };
-          }(type, index, offset)) , timerImageLoad == null ? 0 : 500);
-          prevLoadedItems.push(currentMessageId);
+          }(type, index, offset)) , _timerImageLoad == null ? 0 : 500);
+          _prevLoadedItems.push(currentMessageId);
         }
       }
 
@@ -305,15 +325,15 @@
        */
       function _setMoreStatus(type, index, offset) {
         // getList를 호출하여 server에서 image list를 얻어와야 하는지 여부 확인
-        if (_isMore(index, offset) && !lockerMore) {
+        if (_isMore(index, offset) && !_lockerMore) {
           // getList transaction begin
-          lockerMore = true;
+          _lockerMore = true;
 
           scope.getList(type, scope.pivot, function() {
             _setButtonStatus();
 
             // getList transaction end
-            lockerMore = false;
+            _lockerMore = false;
           });
         }
 

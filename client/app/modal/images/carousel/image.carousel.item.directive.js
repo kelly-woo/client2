@@ -20,8 +20,8 @@
     };
 
     function link(scope, el) {
-      var jqImageContainer = el.find('.image-container');
-      var jqLoading = Loading.getElement();
+      var _jqImageContainer = el.find('.image-container');
+      var _jqLoading = Loading.getElement();
 
       _init();
 
@@ -37,26 +37,26 @@
           imageDimension = ImageCarousel.setPosition(el, item);
 
           // 원본 이미지를 불러오기에 시간이 오래 걸리므로 우선 섬네일 이미지를 로드한다
-          _thumbnailLoad(item, imageDimension);
-          _imageLoad(item, imageDimension);
+          _loadThumbnail(item, imageDimension);
+          _loadImage(item, imageDimension);
         } else {
           _showLoading();
-          _imageLoad(item);
+          _loadImage(item);
         }
 
         scope.uploadDate = $filter('getyyyyMMddformat')(item.uploadDate);
         scope.downloadUrl = $filter('downloadFile')(false, item.fileTitle, item.fileUrl).downloadUrl;
 
-        scope.fileDetail = fileDetail;
+        scope.openFileDetail = openFileDetail;
       }
 
       /**
-       * fileDetail 수행
+       * open fileDetail
        * @param {string} messageId
        * @param {string} userName
        * @private
        */
-      function fileDetail() {
+      function openFileDetail() {
         // ImageCarousel 닫고 fileDetail 열기
         modalHelper.closeModal();
 
@@ -71,7 +71,7 @@
        * @param {object} imageDimension
        * @private
        */
-      function _thumbnailLoad(imageItem, imageDimension) {
+      function _loadThumbnail(imageItem, imageDimension) {
         var jqThumbnailImage;
         if (imageItem.extraInfo) {
           jqThumbnailImage = $('<img class="thumbnail-image-item">');
@@ -82,7 +82,7 @@
           })
           .attr('src', imageItem.extraInfo.thumbnailUrl + '?size=' + ImageCarousel.THUMBNAIL_IMAGE_SIZE);
 
-          jqImageContainer.append(jqThumbnailImage);
+          _jqImageContainer.append(jqThumbnailImage);
         }
       }
 
@@ -91,7 +91,7 @@
        * @param {object} imageItem
        * @private
        */
-      function _imageLoad(imageItem, imageDimension) {
+      function _loadImage(imageItem, imageDimension) {
         ImageCarousel.getImageElement(imageItem)
           .then(function(img) {
             setOriginalImage($(img), imageDimension);
@@ -116,7 +116,7 @@
           imageDimension = ImageCarousel.setPosition(el, scope.item, jqImg);
         }
 
-        jqImageContainer.empty().append(jqImg);
+        _jqImageContainer.empty().append(jqImg);
         jqImg.css({
           maxWidth: imageDimension.width,
           maxHeight: imageDimension.height
@@ -142,7 +142,7 @@
        */
       function _showLoading() {
         el.addClass('loading');
-        el.append(jqLoading);
+        el.append(_jqLoading);
       }
 
       /**
@@ -151,7 +151,7 @@
        */
       function _hideLoading() {
         el.removeClass('loading');
-        jqLoading.remove();
+        _jqLoading.remove();
       }
     }
   }
