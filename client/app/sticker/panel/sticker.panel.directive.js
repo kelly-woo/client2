@@ -102,7 +102,7 @@
       function onToggled(isOpen) {
         if (isOpen) {
           jqStickerPanel.addClass('open');
-          jqStickerPanel.off('transitionend:stickerPanel');
+          jqStickerPanel.off('transitionend.stickerPanel');
 
           setTimeout(function() {
             jqStickerPanel.addClass('vivid');
@@ -112,7 +112,7 @@
           jqStickerPanelBtn.attr('tabIndex', -1);
         } else {
           jqStickerPanel.removeClass('vivid');
-          jqStickerPanel.one('transitionend:stickerPanel', function() {
+          jqStickerPanel.one('transitionend.stickerPanel', function() {
             jqStickerPanel.removeClass('open');
           });
 
@@ -120,6 +120,8 @@
           jqStickerPanelBtn.removeAttr('tabIndex');
         }
       }
+
+
 
       /**
        * create sticker event handler

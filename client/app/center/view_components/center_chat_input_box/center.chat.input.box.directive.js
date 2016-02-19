@@ -18,9 +18,9 @@
     };
 
     function link(scope, el) {
-      var jqMenu = el.find('#file-upload-menu');
-      var jqMessageInput = el.find('#message-input');
-      var uploadMap = {
+      var _jqMenu = el.find('#file-upload-menu');
+      var _jqMessageInput = el.find('#message-input');
+      var _uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
             .on('change', function(evt) {
@@ -36,7 +36,7 @@
         }
       };
 
-      var entityId = $state.params.entityId;
+      var _entityId = $state.params._entityId;
 
       _init();
 
@@ -47,7 +47,7 @@
       function _init() {
         scope.onMentionIconClick = onMentionIconClick;
 
-        _attachEvents();
+        _attachScopeEvents();
         _attachDomEvents();
 
         if (Browser.chrome) {
@@ -58,10 +58,10 @@
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('hotkey-upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
@@ -72,7 +72,7 @@
        * @private
        */
       function _attachDomEvents() {
-        jqMenu.on('click', 'li', _onMenuItemClick);
+        _jqMenu.on('click', 'li', _onMenuItemClick);
       }
 
       /**
@@ -95,14 +95,14 @@
         if (currentEntity) {
           users = entityAPIservice.getUserList(currentEntity);
           if (users) {
-            mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
+            mentionMembers = MentionExtractor.getMentionListForTopic(users, _entityId);
             jndPubSub.pub('mentionahead:message', mentionMembers);
           }
         }
       }
 
       function _onHotkeyUpload() {
-        uploadMap['computer']();
+        _uploadMap['computer']();
       }
 
       /**
@@ -113,7 +113,7 @@
       function _onChangeLoading(loading) {
         if (loading === false && !scope.isDisabledMember(scope.currentEntity)) {
           setTimeout(function() {
-            jqMessageInput.focus();
+            _jqMessageInput.focus();
           });
         }
       }
@@ -127,7 +127,7 @@
         var role = this.getAttribute('role');
         var fn;
 
-        if (fn = uploadMap[role]) {
+        if (fn = _uploadMap[role]) {
           fn(event);
         }
       }
@@ -144,18 +144,18 @@
        * @private
        */
       function _setImagePaste() {
-        ImagePaste.createInstance(jqMessageInput, {
+        ImagePaste.createInstance(_jqMessageInput, {
           // content data 되기 직전 event handler
           onContentLoading: function() {
             scope.isLoading = true;
           },
           // content load 된 후 event handler
           onContentLoad: function(type, data) {
-            var comment = jqMessageInput.val();
-            jqMessageInput.val('').trigger('change');
+            var comment = _jqMessageInput.val();
+            _jqMessageInput.val('').trigger('change');
 
             if (type === 'text') {
-              jqMessageInput.val(data).trigger('change');
+              _jqMessageInput.val(data).trigger('change');
             } else if (type === 'image') {
               scope.onFileSelect([data], {
                 createFileObject: function(data) {
