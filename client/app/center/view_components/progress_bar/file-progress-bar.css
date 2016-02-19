@@ -1,0 +1,143 @@
+/********************************************
+
+            File Progress bar
+
+********************************************/
+.file-upload-progress-container {
+  position: relative;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 58px;
+  background-color: white;
+  padding: 6px 10px 0 58px;
+
+  -webkit-transition: all ease-in-out 0.3s 0.3s;
+  -moz-transition: all ease-in-out 0.3s 0.3s;
+  -ms-transition: all ease-in-out 0.3s 0.3s;
+  -o-transition: all ease-in-out 0.3s 0.3s;
+  transition: all ease-in-out 0.3s 0.3s;
+}
+.file-upload-progress-abort,
+.file-upload-progress-icon-cancel {
+  opacity: 0.8;
+}
+.file-upload-progress-container.file-upload-done {
+  height: 0;
+  padding-top:0;
+  padding-bottom: 0;
+  
+  -webkit-transition: all ease-in-out 0.3s 0.3s;
+  -moz-transition: all ease-in-out 0.3s 0.3s;
+  -ms-transition: all ease-in-out 0.3s 0.3s;
+  -o-transition: all ease-in-out 0.3s 0.3s;
+  transition: all ease-in-out 0.3s 0.3s;
+}
+
+.file-upload-progress-abort:hover,
+.file-upload-progress-icon-cancel:hover {
+  opacity: 1;
+}
+.jandi-file-upload-progress-bar {
+  height: 6px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  float: none;
+  clear: both;
+  top:6px;
+  border-radius: 6px;
+  z-index: 0;
+  box-shadow: 0px 0px 0px 0 transparent;
+}
+.jandi-file-upload-progress-bar .progress-bar {
+  background-color: #10B5ED;
+  box-shadow: 0px 0px 0px 0 transparent;
+  border-radius: 6px;
+  background-size: 24px 24px;
+}
+.jandi-file-upload-progress-bar .progress-bar {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+.jandi-file-upload-progress-bar .progress-bar.animation-progress-bar {
+  -webkit-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
+}
+
+.isAborted .jandi-file-upload-progress-bar {
+  background-color: rgba(225, 129, 16, 0.8);
+}
+.isAborted .jandi-file-upload-progress-bar .progress-bar  {
+  background-color: rgba(225, 129, 16, 0.8);
+}
+.file-upload-done .progress-bar{
+  -webkit-animation: none !important;
+  animation: none !important;
+  background-image: none;
+}
+.index-wrapper {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  width: 48px;
+  height: 52px;
+  color: #B4B4B4;
+  line-height: 52px;
+  text-align: center;
+  font-size: 14px;
+}
+.uploading-wrapper {
+  position: relative;
+  width: 100%;
+  background-color: #FFF;
+  height: 52px;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.uploading-wrapper > div {
+  float: left;
+  height: 100%;
+  line-height: 52px;
+  text-align: center;
+}
+.uploading-wrapper .fileicon-container {
+  width: 40px;
+  
+  background-color:#FBFCFC;
+  border-right: 1px solid #E2E2E2;
+  color: #9EA8AE;
+  
+  font-size: 19px;
+}
+.uploading-wrapper .progress-container {
+  width: calc(100% - 140px);
+  padding: 6px 6px 6px 14px;
+}
+.uploading-wrapper .button-wrapper {
+  width: 100px;
+  font-size: 15px;
+  color: #969696;
+}
+.uploading-wrapper .progress-container > span {
+  color: #333;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+}
+.uploading-wrapper .file-upload-progress-title {
+  float: left;
+}
+.uploading-wrapper span.file-upload-progress-completion-percent {
+  float: right;
+  text-align: right;
+  color: #C8C8C8;
+}
+.file-upload-done .uploading-wrapper span.file-upload-progress-completion-percent {
+  color: #10B5ED;
+}
