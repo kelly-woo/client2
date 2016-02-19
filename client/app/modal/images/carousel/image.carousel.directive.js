@@ -227,9 +227,9 @@
        * @private
        */
       function _show(imageItem) {
-        var jqImageItem;
+        var jqImageItem = imageItem.jqElement;
 
-        if (jqImageItem = imageItem.jqElement) {
+        if (jqImageItem) {
           // 이미 생성된 image item element가 존재한다면 바로 출력
           jqImageItem.show();
           ImageCarousel.setPosition(jqImageItem, imageItem);
