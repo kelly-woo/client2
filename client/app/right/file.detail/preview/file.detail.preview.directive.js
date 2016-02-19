@@ -109,6 +109,7 @@
             uploadDate: fileDetail.createTime,
             fileTitle: fileDetail.content.title,
             fileUrl: fileDetail.content.fileUrl,
+            extraInfo: fileDetail.content.extraInfo,
             // single
             isSingle: true
           });

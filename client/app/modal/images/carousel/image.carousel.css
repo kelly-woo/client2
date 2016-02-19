@@ -175,13 +175,17 @@
   vertical-align: middle;
 }
 .viewer-body .image-item img,
-.viewer-body .image-item canvas{
-  opacity: 0;
+.viewer-body .image-item canvas {
+  opacity: 1;
   -webkit-transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
   -ms-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
+}
+.viewer-body .image-item canvas {
+  width: 100%;
+  height: auto;
 }
 .viewer-body .image-item .vertical-image {
   position: absolute;
