@@ -12,6 +12,8 @@
   function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
                        currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog,
                        publicService) {
+    var UNKNOWN_ROOM = 'unknown room';
+
     _init();
 
     // First function to be called.
@@ -85,9 +87,9 @@
 
           // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
           entity = EntityMapManager.get('total', _getOtherMemberId(message.roomName));
-          startPoint = entity ? entity.name : 'unknown room';
+          startPoint = entity ? entity.name : UNKNOWN_ROOM;
         } else {
-          startPoint = message.roomName || 'unknown topic';
+          startPoint = message.roomName || UNKNOWN_ROOM;
         }
       } else {
         // type이 text가 아니라면 file 명으로 설정함
