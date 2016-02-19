@@ -53,6 +53,7 @@
     that.openShortcutModal = openShortcutModal;
     that.openBotProfileSettingModal = openBotProfileSettingModal;
     that.closeModal = closeModal;
+    that.dismissModal = dismissModal
 
     /**
      * file 을 upload 하는 모달창을 연다.
@@ -403,8 +404,7 @@
       var modalOption = {
         scope: $scope,
         controller: 'NotificationCtrl',
-        templateUrl: 'app/modal/settings/notification/setting.notification.html',
-        backdrop: 'static'
+        templateUrl: 'app/modal/settings/notification/setting.notification.html'
       };
 
       _modalOpener(modalOption);
@@ -486,10 +486,21 @@
     }
 
     /**
-     * 모달을 별 이유없이 닫는다.
+     * 모달의 결과값을 전달하며 닫음
+     * @private {string} result
+     * @returns {*}
      */
-    function closeModal() {
-      return modal && modal.close();
+    function closeModal(result) {
+      return modal && modal.close(result);
+    }
+
+    /**
+     * 모달의 취소사유를 전달하며 닫음
+     * @private {string} reason
+     * @returns {*}
+     */
+    function dismissModal(reason) {
+      return modal && modal.dismiss(reason);
     }
 
     /**

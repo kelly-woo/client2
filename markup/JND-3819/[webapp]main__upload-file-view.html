@@ -1,0 +1,139 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+
+  <title data-ng-bind="'Welcome to JANDI'"></title>
+  <link type="image/icon" rel="shortcut icon">
+
+  <meta name="description" content="JANDI Web application">
+  <meta name="keywords" content="JANDI, 잔디">
+  <meta name="author" content="TossLab">
+  <meta name="viewport" content="width=device-width">
+
+  <!-- build:css(client) app/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../../client/bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../client/bower_components/angular-xeditable/dist/css/xeditable.css" />
+  <link rel="stylesheet" href="../../client/bower_components/angular-toastr/dist/angular-toastr.css" />
+  <link rel="stylesheet" href="../../client/bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="../../client/bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css({.tmp,client}) app/app.css -->
+  <link rel="stylesheet" href="../../client/app/app.css">
+  <!-- injector:css -->
+  <link rel="stylesheet" href="../../client/app/app.css">
+  <link rel="stylesheet" href="../../client/app/banner/desktop.notification.banner.css">
+  <link rel="stylesheet" href="../../client/app/center/announcement/announcement.css">
+  <link rel="stylesheet" href="../../client/app/util/directive/custom-selectbox/jnd.selectbox.css">
+  <link rel="stylesheet" href="../../client/app/center/center.css">
+  <link rel="stylesheet" href="../../client/app/center/center_chat_input_box/center.chat.input.box.css">
+  <link rel="stylesheet" href="../../client/app/center/help_messages/help.messages.css">
+  <link rel="stylesheet" href="../../client/app/center/messages/services/renderers/templates/center.file.comment.css">
+  <link rel="stylesheet" href="../../client/app/center/messages/services/renderers/templates/center.file.css">
+  <link rel="stylesheet" href="../../client/app/center/messages/services/renderers/templates/center.text.css">
+  <link rel="stylesheet" href="../../client/app/center/messages/services/renderers/templates/center.unread.bookmark.css">
+  <link rel="stylesheet" href="../../client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.css">
+  <link rel="stylesheet" href="../../client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.css">
+  <link rel="stylesheet" href="../../client/app/center/view_components/center_chat_templates/text-sending/text.sending.css">
+  <link rel="stylesheet" href="../../client/app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="../../client/app/center/view_components/entity_header/topic_description/topic.description.css">
+  <link rel="stylesheet" href="../../client/app/disconnect/disconnect.css">
+  <link rel="stylesheet" href="../../client/app/header/header.css">
+  <link rel="stylesheet" href="../../client/app/left/left.css">
+  <link rel="stylesheet" href="../../client/app/left/member/member.css">
+  <link rel="stylesheet" href="../../client/app/left/messages/messages.css">
+  <link rel="stylesheet" href="../../client/app/left/topics/dropdown/left.folder.dropdown.layer.css">
+  <link rel="stylesheet" href="../../client/app/left/topics/folder/topic.folder.css">
+  <link rel="stylesheet" href="../../client/app/left/topics/topic/topic.css">
+  <link rel="stylesheet" href="../../client/app/left/topics/topics.css">
+  <link rel="stylesheet" href="../../client/app/left/topics/tutorial/left.tutorial.folder.css">
+  <link rel="stylesheet" href="../../client/app/loading/loading.center.css">
+  <link rel="stylesheet" href="../../client/app/main.css">
+  <link rel="stylesheet" href="../../client/app/mention/mention.view.css">
+  <link rel="stylesheet" href="../../client/app/mobile/mobile.catcher.css">
+  <link rel="stylesheet" href="../../client/app/modal/files/integration/integration.css">
+  <link rel="stylesheet" href="../../client/app/modal/files/share/share.css">
+  <link rel="stylesheet" href="../../client/app/modal/images/carousel/image.carousel.css">
+  <link rel="stylesheet" href="../../client/app/modal/images/full_image/full.screen.image.css">
+  <link rel="stylesheet" href="../../client/app/modal/modal.css">
+  <link rel="stylesheet" href="../../client/app/modal/settings/notification/setting.notification.css">
+  <link rel="stylesheet" href="../../client/app/modal/teams/team_change/team.change.css">
+  <link rel="stylesheet" href="../../client/app/modal/teams/team_invite/team.invite.css">
+  <link rel="stylesheet" href="../../client/app/modal/teams/team_member_list/team.member.list.css">
+  <link rel="stylesheet" href="../../client/app/modal/terms/terms.css">
+  <link rel="stylesheet" href="../../client/app/modal/topics/topic_create/topic.create.css">
+  <link rel="stylesheet" href="../../client/app/modal/topics/topic_invite/topic.invite.css">
+  <link rel="stylesheet" href="../../client/app/modal/topics/topic_join/topic.join.css">
+  <link rel="stylesheet" href="../../client/app/right/file.detail/file.detail.css">
+  <link rel="stylesheet" href="../../client/app/right/file/file.css">
+  <link rel="stylesheet" href="../../client/app/right/files/files.css">
+  <link rel="stylesheet" href="../../client/app/right/mentions/mentions.css">
+  <link rel="stylesheet" href="../../client/app/right/message/message.css">
+  <link rel="stylesheet" href="../../client/app/right/right.css">
+  <link rel="stylesheet" href="../../client/app/right/rpanel_search/rpanel.search.css">
+  <link rel="stylesheet" href="../../client/app/right/search.messages/search.message/search.message.css">
+  <link rel="stylesheet" href="../../client/app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="../../client/app/right/stars/stars.css">
+  <link rel="stylesheet" href="../../client/app/signin/signin.css">
+  <link rel="stylesheet" href="../../client/app/sticker/sticker.css">
+  <link rel="stylesheet" href="../../client/app/tpl/503/503.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/tutorial.main.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/center/tutorial.center.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/completion/tutorial.completion.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/entity_header/tutorial.entity.header.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/left/tutorial.left.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/profile/tutorial.profile.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/purse/tutorial.purse.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/team/tutorial.team.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/top/tutorial.top.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/popup/view_components/tutor/tutorial.tutor.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/tutorial.css">
+  <link rel="stylesheet" href="../../client/app/tutorial/welcome/tutorial.welcome.css">
+  <link rel="stylesheet" href="../../client/app/util/css/jandi-common.css">
+  <link rel="stylesheet" href="../../client/app/util/css/jandi-icon.css">
+  <link rel="stylesheet" href="../../client/app/util/css/spinners.css">
+  <link rel="stylesheet" href="../../client/app/util/directive/jnd.tooltip.css">
+  <link rel="stylesheet" href="../../client/components/app/mention_ahead/mention.ahead.css">
+  <link rel="stylesheet" href="../../client/components/jandi/dialog/dialog.css">
+  <link rel="stylesheet" href="../../client/components/jandi/dialog/modal/modal.css">
+  <link rel="stylesheet" href="../../client/components/jandi/dialog/toast/toast.css">
+  <!-- endinjector -->
+  <!-- endbuild -->
+  <link rel="stylesheet" href="center-file-upload.css">
+
+</head>
+
+<body>
+
+<div class="dnd-over-container" style="display: block;">
+	<div class="dragover-popup">
+		<img class="file-empty__img" src="../../client/assets/images/file-empty.png">
+		<span>파일을 드래그 & 드롭하여 업로드 하세요.</span>
+		<div class="animate-circle upload-noti">
+			<i class="icon-upload"></i>
+		</div>
+	</div>
+</div>
+
+
+</body>	
+
+</HTML>

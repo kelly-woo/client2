@@ -94,6 +94,7 @@
   <link rel="stylesheet" href="app/modal/members/member.profile.css">
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.audio.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
   <link rel="stylesheet" href="app/modal/shortcut/modal.shortcut.css">
   <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
@@ -154,6 +155,7 @@
   <link rel="stylesheet" href="app/util/css/jandi-icon.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
   <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
+  <link rel="stylesheet" href="app/util/directive/file-drop/jnd.file.drop.css">
   <link rel="stylesheet" href="app/util/directive/image-crop/jnd.image.crop.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
@@ -176,7 +178,7 @@
 <![endif]-->
 <div class="content-wrapper opac-in-fast">
   <background></background>
-  <div class="body-wrapper full-screen">
+  <div class="body-wrapper full-screen" jnd-file-drop ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
@@ -306,6 +308,8 @@
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.file.directive.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.member.directive.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.room.directive.js"></script>
+<script src="app/util/directive/file-drop/jnd.file.drop.controller.js"></script>
+<script src="app/util/directive/file-drop/jnd.file.drop.directive.js"></script>
 <script src="app/util/directive/image-crop/jnd.image.crop.directive.js"></script>
 <script src="app/util/directive/jnd.code.prettify.directive.js"></script>
 <script src="app/util/directive/jnd.elastic.directive.js"></script>
@@ -503,6 +507,8 @@
 <script src="app/modal/files/upload/upload.controller.js"></script>
 <script src="app/modal/files/upload/upload.directive.js"></script>
 <script src="app/modal/images/carousel/image.carousel.controller.js"></script>
+<script src="app/modal/images/carousel/image.carousel.directive.js"></script>
+<script src="app/modal/images/carousel/image.carousel.item.directive.js"></script>
 <script src="app/modal/images/carousel/image.carousel.service.js"></script>
 <script src="app/modal/images/full_image/full.screen.image.controller.js"></script>
 <script src="app/modal/lists/list.directive.js"></script>
@@ -522,6 +528,7 @@
 <script src="app/modal/password/password.reset.request.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
+<script src="app/modal/settings/notification/setting.notification.audio.directive.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
 <script src="app/modal/shortcut/modal.shortcut.controller.js"></script>
 <script src="app/modal/teams/team_change/team.change.controller.js"></script>
@@ -659,12 +666,16 @@
 <script src="components/app/mention_ahead/mention.ahead.service.js"></script>
 <script src="components/app/net/net.auth.service.js"></script>
 <script src="components/app/net/net.service.js"></script>
+<script src="components/app/notification/desktop.notification.file.share.service.js"></script>
+<script src="components/app/notification/desktop.notification.mention.service.js"></script>
+<script src="components/app/notification/desktop.notification.message.service.js"></script>
+<script src="components/app/notification/desktop.notification.other.team.service.js"></script>
+<script src="components/app/notification/desktop.notification.sample.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
-<script src="components/app/notification/service/desktop.notification.helper.js"></script>
-<script src="components/app/notification/service/file.share.notification.js"></script>
-<script src="components/app/notification/service/notification.util.service.js"></script>
-<script src="components/app/notification/service/other.team.notification.js"></script>
-<script src="components/app/notification/service/topic.invited.notification.js"></script>
+<script src="components/app/notification/desktop.notification.topic.invite.service.js"></script>
+<script src="components/app/notification/desktop.notification.util.service.js"></script>
+<script src="components/app/notification/service/notification.audio.js"></script>
+<script src="components/app/notification/service/notification.stream.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/router/router.helper.js"></script>
 <script src="components/app/router/router.service.js"></script>

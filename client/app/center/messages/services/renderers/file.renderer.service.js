@@ -144,6 +144,7 @@
           uploadDate: msg.time,
           fileTitle: content.title,
           fileUrl: content.fileUrl,
+          extraInfo: content.extraInfo,
           // single file
           isSingle: msg.status === 'unshared'
         });

@@ -1,3 +1,54 @@
+<a name="1.15.0"></a>
+# [1.15.0](https://github.com/tosslab/web_client/compare/v1.14.1...v1.15.0) (2016-02-17)
+
+
+### Bug Fixes
+
+* **DM:**  최초 DM의 메시지 삭제 시 로딩휠 지속되는 현상 수정 ([ee866b3](https://github.com/tosslab/web_client/commit/ee866b3))
+* **connect:** Mr. J 에 Incoming Webhook connect 연동 시 Invalid room error 발생 하는 현상 해결 ([0056dc5](https://github.com/tosslab/web_client/commit/0056dc5))
+* **file:** 삭제된 파일에 등록된 댓글을 삭제할 수 있도록 변경 ([0a70bf8](https://github.com/tosslab/web_client/commit/0a70bf8))
+* **hotkey:** cmd + e 입력 시 center panel 에서만 스티커 토글 되도록 수정 ([a303fe0](https://github.com/tosslab/web_client/commit/a303fe0))
+* **mention:** center가 DM일때 우측 패널 진입시 멘션동작 하지 않는 버그 수정 ([68ad9da](https://github.com/tosslab/web_client/commit/68ad9da))
+* **notification:** 파이어폭스에서 알림 설정 오픈시 잔상남는 버그 수정 ([67fc668](https://github.com/tosslab/web_client/commit/67fc668))
+* **star:** star tab이 간헐적으로 아무것도 출력하지 않는 버그 수정 ([9f7ca19](https://github.com/tosslab/web_client/commit/9f7ca19))
+* **star:** 즐겨찾기 뷰에서,DM의 starred item의 위치가 상대방을 출력하도록 수정 ([14fc2ab](https://github.com/tosslab/web_client/commit/14fc2ab))
+
+
+
+<a name="1.14.1"></a>
+## [1.14.1](https://github.com/tosslab/web_client/compare/v1.14.0...v1.14.1) (2016-02-11)
+
+
+
+
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/tosslab/web_client/compare/v1.13.2...v1.14.0) (2016-02-11)
+
+
+### Bug Fixes
+
+* **hotkey:** 토픽 URL 로 진입시, 로딩 휠 지속 표시됨 현상 해결 ([02212eb](https://github.com/tosslab/web_client/commit/02212eb))
+* **marker:** 팀 관리자 표시와 즐겨찾기 요소가 겹처 표시 되지 않도록 수정 ([695548e](https://github.com/tosslab/web_client/commit/695548e))
+
+
+
+<a name="1.13.2"></a>
+## [1.13.2](https://github.com/tosslab/web_client/compare/v1.13.1...v1.13.2) (2016-02-01)
+
+
+### Bug Fixes
+
+* **bot:** 잔디봇 DM일때 헤더에 잔디봇 아이콘 출력되지 않는 버그 수정 ([56311fb](https://github.com/tosslab/web_client/commit/56311fb))
+* **bot:** 잔디봇에 "여기까지 읽었습니다" 표현되지 않는 버그 수정 ([5f4610c](https://github.com/tosslab/web_client/commit/5f4610c))
+
+
+
+<a name="1.13.1"></a>
+## [1.13.1](https://github.com/tosslab/web_client/compare/v1.13.0...v1.13.1) (2016-01-28)
+
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/tosslab/web_client/compare/v1.12.9...v1.13.0) (2016-01-28)
 

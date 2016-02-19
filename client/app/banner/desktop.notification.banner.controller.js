@@ -6,7 +6,7 @@
     .controller('DesktopNotificationBannerCtrl', DesktopNotificationBannerCtrl);
 
   /* @ngInject */
-  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotification, modalHelper) {
+  function DesktopNotificationBannerCtrl($scope, DeskTopNotificationBanner, DesktopNotificationUtil, modalHelper) {
     var isModalOpen = false;
 
     $scope.isInitialQuestion;
@@ -17,15 +17,24 @@
     $scope.askMeLater = askMeLater;
     $scope.neverAskMe = neverAskMe;
 
-    $scope.$on('onDesktopNotificationPermissionChanged', _onDesktopNotificationPermissionChanged);
-    $scope.$on('$destroy', _onDestroy);
-
     _init();
 
     function _init() {
-      $scope.isInitialQuestion = !DesktopNotification.isNotificationOn();
-      _attachEvent();
+      $scope.isInitialQuestion = !DesktopNotificationUtil.isPermissionGranted();
+      _attachEvents();
     }
+
+    /**
+     * attach events
+     * @private
+     */
+    function _attachEvents() {
+      $scope.$on('onPermissionChanged', _onDesktopNotificationPermissionChanged);
+      $scope.$on('$destroy', _onDestroy);
+
+      $(window).on('resize', _onResize);
+    }
+
 
     /**
      * x 아이콘이 클릭되었을 때.
@@ -44,7 +53,7 @@
      * Notification.permission 을 묻는다.
      */
     function turnOnDesktopNotification() {
-      DesktopNotification.turnOnDesktopNotification();
+      DesktopNotificationUtil.requestPermission();
     }
 
     /**
@@ -58,18 +67,16 @@
      * 사용자가 'Never Ask Me'를 눌렀을 경우.
      */
     function neverAskMe() {
-      DesktopNotification.setNeverAskFlag();
+      DesktopNotificationUtil.setData('naverAsk', DesktopNotificationUtil.NAVER_ASK.TRUE);
       DeskTopNotificationBanner.hideNotificationBanner();
     }
 
     /**
      * Notification.permission 이 바뀌면 호출된다.
      * 현재 배너를 숨겨야할지 말지 물어본다.
-     * @param {object} event - 이벤트 객체
-     * @param {string} permission - 새로이 변한 permission 정보
      * @private
      */
-    function _onDesktopNotificationPermissionChanged(event, permission) {
+    function _onDesktopNotificationPermissionChanged() {
       DeskTopNotificationBanner.shouldHideNotificationBanner();
 
       if (!$scope.isInitialQuestion) {
@@ -87,7 +94,7 @@
      * @private
      */
     function _shouldOpenNotificationSettingModal() {
-      return !DesktopNotification.isNotificationPermissionGranted() && !isModalOpen;
+      return !DesktopNotificationUtil.isPermissionGranted() && !isModalOpen;
     }
 
     /**
@@ -103,22 +110,14 @@
      * @private
      */
     function _onDestroy() {
-      _detachEvent();
+      _detachEvents();
     }
 
     /**
-     * 윈도우에 이벤트를 붙힌다!
+     * detach events
      * @private
      */
-    function _attachEvent() {
-      $(window).on('resize', _onResize);
-    }
-
-    /**
-     * 윈도우에 이벤트를 뺀다!
-     * @private
-     */
-    function _detachEvent() {
+    function _detachEvents() {
       $(window).off('resize', _onResize);
     }
   }

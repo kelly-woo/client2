@@ -9,8 +9,8 @@
       <i class="icon-remove-circle" ng-click="onAccountDeleteClick(item)"></i>
     </li>
   </ul>
-  <div class="divider" ng-if="false && permission.allowAccountAdd"></div>
-  <div class="account-add" ng-if="false && permission.allowAccountAdd" ng-click="onAccountAddClick()">
+  <div class="divider" ng-if="permission.allowAccountAdd"></div>
+  <div class="account-add" ng-if="permission.allowAccountAdd" ng-click="onAccountAddClick()">
     <i class="icon-user-plus"></i>
     <span class="account-add-text" translate>@jnd-connect-140</span>
   </div>

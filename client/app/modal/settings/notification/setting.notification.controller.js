@@ -10,151 +10,191 @@
     .controller('NotificationCtrl', NotificationCtrl);
 
   /* @ngInject */
-  function NotificationCtrl($scope, modalHelper, DesktopNotification, $timeout) {
+  function NotificationCtrl($scope, $modalInstance, $filter, modalHelper, NotificationAudio,
+                            SampleNotification, DesktopNotificationUtil, Browser, JndUtil) {
+    var notificationAudio;
+    var recentSound;
 
-    var NOTI_TURN_ON = '@setting-notification-turn-on';
-    var NOTI_TURN_OFF = '@setting-notification-turn-off';
-
-    /**
-     * 모달을 닫는다.
-     */
-    $scope.cancel = modalHelper.closeModal;
-
-    // 노티피케이션은 켜져있는가?
-    $scope.isDesktopNotificationOn = false;
-
-    // 노티피케이션에서 메세지를 보여줘야하는가?
-    $scope.isShowNotificationContent;
-
-    // 데스크탑 노티피케이션을 켜야하는가?
-    $scope.shouldTurnOnNotification = true;
-
-    // 노티피케이션이 아예 block 되어버렸는가?
-    $scope.isNotificationDenied = false;
-
-    $scope.onNotificationButtonClicked = onNotificationButtonClicked;
-
-    $scope.sendTestNotification = sendTestNotification;
-
-    $scope.onNotificationShowContentMessageChanged = onNotificationShowContentMessageChanged;
-    $scope.onNotificationShowContentMessageClicked = onNotificationShowContentMessageClicked;
-
-    (function() {
-      init();
-    })();
-
-    $scope.$on('onDesktopNotificationPermissionChanged', _onDesktopNotificationPermissionChanged);
+    _init();
 
     /**
-     * Desktop notification permission 이 변했을 때 호출된다.
-     * @param {object} event - angular 에서 던져주는 $broadcast event
-     * @param {string} permission - 새로이 바뀐 Notification.permission 의 값
+     * init
      * @private
      */
-    function _onDesktopNotificationPermissionChanged(event, permission) {
-      init();
+    function _init() {
+      _setAllowSwitch();
+      $scope.isAllowSetting = $scope.isAllowSwitch && DesktopNotificationUtil.isAllowSendNotification();
+
+      $scope.setting = DesktopNotificationUtil.getData();
+      $scope.setting.on = $scope.isAllowSetting;
+
+      $scope.onNotificationToggle = onNotificationToggle;
+      $scope.onSoundSelect = onSoundSelect;
+      $scope.onClose = onClose;
+      $scope.onSampleClick = onSampleClick;
+      $scope.onAlertOptionsMouseDown = onAlertOptionsMouseDown;
+
+      _createAlertSelectList();
+      _setNotificationImage();
+
+      _attachEvents();
     }
 
     /**
-     * 모달이 불러졌을 때 실행되어야 하는 부분.
-     */
-    function init() {
-      DesktopNotification.log();
-
-      // 데스크탑 노티피케이션이 켜져있는가??
-      $scope.isDesktopNotificationOn = DesktopNotification.isNotificationOn();
-
-      if (DesktopNotification.canSendNotification()) {
-        // 노티피케이션을 날려도 되는 상태!
-        _onNotificationGranted();
-      } else {
-        // 노티피케이션이 denied 거나 default 인 경우.
-        if (DesktopNotification.isNotificationPermissionDenied()) {
-          // 노티피케이션이 완전히 블락되었음.
-          // 이럴땐 사용자가 직접 브라우져 설정창에서 바꿔야 함.
-          _onNotificationDenied();
-        } else {
-          // 그냥 default 인 경우.
-          _onNotificationDefault();
-        }
-      }
-
-      $scope.isShowNotificationContent = DesktopNotification.getShowNotificationContentFlag();
-
-      // view 를 바꾸기위해서 한다.
-      $timeout(function() {
-        $scope.notificationBtnText = $scope.shouldTurnOnNotification ? NOTI_TURN_ON : NOTI_TURN_OFF;
-      }, 10);
-    }
-
-    /**
-     * 데스크탑 노티피케이션을 키고 끈다.
-     */
-    function onNotificationButtonClicked() {
-      if (!$scope.isDesktopNotificationOn) {
-        // 노티피케이션이 꺼져있으므로 킨다.
-        DesktopNotification.turnOnDesktopNotification();
-      } else {
-        // 브라우져 노티피케이션은 켜져있지만 유저가 끄거나 키길원한다.
-        DesktopNotification.toggleDesktopNotificationLocally();
-      }
-    }
-
-    /**
-     * 테스트용 데스크탑 노티피케이션을 보낸다.
-     */
-    function sendTestNotification() {
-      DesktopNotification.sendSampleNotification();
-    }
-
-    /**
-     * 노티피케이션이 'granted' (allow) 되었을 때 호출된다.
+     * attach events
      * @private
      */
-    function _onNotificationGranted() {
-      $scope.shouldTurnOnNotification = false;
+    function _attachEvents() {
+      $scope.$watch('setting.on', _onSettingOnChange);
+      $scope.$watch('setting.type', _onSettingTypeChange);
+      $scope.$watch('setting.showContent', _onSettingShowContentChange);
+
+      $scope.$on('onPermissionChanged', _onPermissionChanged);
+
+      $modalInstance.result.finally(_onModalClose);
     }
 
     /**
-     * 노티피케이션이 'denied' (block) 되었을 때 호출된다.
-     @private
+     * notification 사용여부 값 변경 이벤트 핸들러
+     * @private
      */
-    function _onNotificationDenied() {
-      $scope.shouldTurnOnNotification = true;
-      $scope.isNotificationDenied = true;
+    function _onSettingOnChange() {
+      $scope.isAllowSetting = !DesktopNotificationUtil.isPermissionDenied() && $scope.setting.on;
     }
 
     /**
-     * 노티피케이션이 'default' (알람창에서 그냥 x 누름) 되었을 때 호출된다.
-     @private
+     * notification 사용 형태 변경 이벤트 핸들러
+     * @private
      */
-    function _onNotificationDefault() {
-      $scope.shouldTurnOnNotification = true;
-
+    function _onSettingTypeChange(value) {
+      $scope.isDMnMentionOnly = value === DesktopNotificationUtil.TYPE.DM_AND_MENTION;
     }
 
     /**
-     * 노티피케이션 메세지 내용을 보여주나 마나 하는 checkbox 의 값이 변했을 때 호출된다.
+     * notification의 content 노출여부 변경 이벤트 핸들러
+     * @param value
+     * @private
      */
-    function onNotificationShowContentMessageChanged() {
-      DesktopNotification.setShowNotificationContent($scope.isShowNotificationContent);
+    function _onSettingShowContentChange(value) {
+      DesktopNotificationUtil.setData('showContent', value);
     }
 
     /**
-     * 노티피케이션 메세지 내용을 보여주나 마나 하는 checkbox 의 값이 변했을 때 호출된다.
+     * 모달 닫힘 이벤트 핸들러
+     * @private
      */
-    function onNotificationShowContentMessageClicked() {
-      if ($scope.isDesktopNotificationOn) {
-        // 노티피케이션이 켜져있을 때만
-        $scope.isShowNotificationContent = !$scope.isShowNotificationContent;
-        DesktopNotification.setShowNotificationContent($scope.isShowNotificationContent);
+    function _onModalClose() {
+      DesktopNotificationUtil.setData($scope.setting);
+    }
+
+    /**
+     * notification를 스위치 버튼 토글 이벤트 핸들러
+     * @param {boolean} value
+     */
+    function onNotificationToggle(value) {
+      $scope.setting.on = value;
+      $scope.isAllowSetting = value;
+
+      // notification on/off switch 선택시 자연스러운 translate 처리하기 위해 사용한다.
+      $scope.isSettingSwitch = true;
+
+      if (value) {
+        DesktopNotificationUtil.requestPermission();
       }
     }
 
-    $scope.toggleNotificationStatus = function() {
-      $scope.isDesktopNotificationOn = !$scope.isDesktopNotificationOn;
-      $scope.notificationBtnText = $scope.isDesktopNotificationOn ? '@setting-notification-turn-off' : '@setting-notification-turn-on';
-      $scope.shouldTurnOnNotification = !$scope.isDesktopNotificationOn;
+    /**
+     * 메세지별 사운드 선택 이벤트 핸들러
+     * @param {string} name
+     * @param {number} index
+     */
+    function onSoundSelect(name, index) {
+      var value = $scope.alertSelectList[index].value;
+
+      switch (name) {
+        case 'normal':
+          $scope.setting.soundNormal = value;
+          break;
+        case 'mention':
+          $scope.setting.soundMention = value;
+          break;
+        case 'dm':
+          $scope.setting.soundDM = value;
+          break;
+      }
+      recentSound = value;
+    }
+
+    /**
+     * 닫기 이벤트 핸들러
+     */
+    function onClose() {
+      modalHelper.closeModal();
+    }
+
+    /**
+     * 샘플 노티 보내기 이벤트 핸들러
+     */
+    function onSampleClick() {
+      SampleNotification.show({
+        sound: recentSound
+      });
+    }
+
+    /**
+     * alert options 영역 mouse down 이벤트 핸들러
+     */
+    function onAlertOptionsMouseDown() {
+      $scope.isSettingSwitch = false;
+    }
+
+    /**
+     * browser의 노티 퍼미션 변경 이벤트 핸들러
+     * @private
+     */
+    function _onPermissionChanged() {
+      JndUtil.safeApply($scope, function() {
+        _setAllowSwitch();
+      });
+    }
+
+    /**
+     * alert 목록 생성
+     * @private
+     */
+    function _createAlertSelectList() {
+      var translate = $filter('translate');
+      var sounds = [
+        {text: translate('@sounds-pop'), value: DesktopNotificationUtil.SOUNDS.AIR_POP},
+        {text: translate('@sounds-ding'), value: DesktopNotificationUtil.SOUNDS.CHIME_BELL_DING},
+        {text: translate('@sounds-chime'), value: DesktopNotificationUtil.SOUNDS.CHIMEY},
+        {text: translate('@sounds-mouse'), value: DesktopNotificationUtil.SOUNDS.MOUSE},
+        {text: translate('@sounds-nursery'), value: DesktopNotificationUtil.SOUNDS.NURSERY},
+        {text: translate('@sounds-point'), value: DesktopNotificationUtil.SOUNDS.ON_POINT},
+        {text: translate('@sounds-marimba'), value: DesktopNotificationUtil.SOUNDS.THINK_PING},
+        {text: translate('@sounds-super'), value: DesktopNotificationUtil.SOUNDS.SUPER},
+        {text: translate('@sounds-arise'), value: DesktopNotificationUtil.SOUNDS.ARISE}
+      ];
+
+      notificationAudio = NotificationAudio.getInstance(_.pluck(sounds, 'value'));
+
+      sounds.unshift({text: translate('@common-off'), value: DesktopNotificationUtil.SOUNDS.OFF, nonSound: true});
+      $scope.alertSelectList = sounds;
+    }
+
+    /**
+     * browser에 설정된 permission값을 해당 controller에 설정함
+     * @private
+     */
+    function _setAllowSwitch() {
+      $scope.isAllowSwitch = !DesktopNotificationUtil.isPermissionDenied();
+    }
+
+    function _setNotificationImage() {
+      var isWin = JndUtil.pick(Browser, 'platform', 'isWin');
+      $scope.notificationImage = isWin ?
+        'assets/images/app_notification_w.png' :
+        'assets/images/app_notification_m.png';
     }
   }
 })();

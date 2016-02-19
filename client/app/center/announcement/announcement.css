@@ -5,7 +5,7 @@
 
 .center-announcement-container {
   position: relative;
-  z-index: 10;
+  z-index: 13;
   margin: 10px 15px 10px 10px;
   max-height: 50%;
   /*min-height: 132px;*/

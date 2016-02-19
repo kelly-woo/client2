@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -169,6 +169,14 @@ msgstr "Are you sure you want to delete this topic?"
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-invite"
 msgstr "Invite"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-mac"
+msgstr "Invite(Cmd+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@ch-menu-invite-for-win"
+msgstr "Invite(Ctrl+I)"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
@@ -541,6 +549,10 @@ msgid "@common-new-message"
 msgstr "New Message"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-off"
+msgstr "Off"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-open-new-window"
 msgstr "Open in a new window"
 
@@ -841,8 +853,8 @@ msgstr "Unshare"
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
-"Are you sure you want to delete this file? Please note this will not delete "
-"the associated comments."
+"Are you sure you want to delete this file? <br>Please note this will not "
+"delete the associated comments."
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
@@ -2520,6 +2532,37 @@ msgstr "Send me a test message"
 msgid "@setting-notification-denied"
 msgstr "Desktop Notifications are currently disabled."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-desktop"
+msgstr "Desktop Notifications"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-dm-n-mention"
+msgstr "Receive direct messages and @mentions only"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-permission-denied"
+msgstr ""
+"You have opted not to receive desktop notifications. You need to open your "
+"browser preferences to enable it. Check <a href=\"http://bit.ly/1RZu5g4\" "
+"target=\"_blank\">this article</a> to do so."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-preview-all"
+msgstr "All messages"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-preview-content"
+msgstr "Preview Message Contents"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-preview-none"
+msgstr "No preview"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-preview-public"
+msgstr "Public topics only"
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
@@ -2529,6 +2572,18 @@ msgstr ""
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
 msgstr "Show message content in desktop notifications"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-sounds"
+msgstr "Notification sounds"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-sounds-mention"
+msgstr "@mentions"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-sounds-topic"
+msgstr "Topic messages"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-turn-off"
@@ -2661,6 +2716,42 @@ msgstr "Zoom out (text)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
 msgstr "Reset zoom (text)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-arise"
+msgstr "Arise"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-chime"
+msgstr "Chime"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-ding"
+msgstr "Ding"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-marimba"
+msgstr "Marimba"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-mouse"
+msgstr "Mouse"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-nursery"
+msgstr "Nursery"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-point"
+msgstr "Point"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-pop"
+msgstr "Pop"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sounds-super"
+msgstr "Super"
 
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -3261,6 +3352,9 @@ msgstr "JANDI Message Received"
 msgid "@wednesday"
 msgstr ""
 
+#~ msgid "@soudns-arise"
+#~ msgstr "Arise"
+
 #~ msgid "@shorcut-new-line"
 #~ msgstr "Multiline"
 
@@ -3605,9 +3699,6 @@ msgstr ""
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
-
-#~ msgid "@ch-menu-invite-short"
-#~ msgstr "Invite members"
 
 #~ msgid "@ch-menu-leave-short"
 #~ msgstr "Leave"

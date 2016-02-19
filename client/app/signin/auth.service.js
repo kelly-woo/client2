@@ -100,8 +100,16 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $stateParams, 
     storageAPIservice.setTokenCookie(response);
 
     //현 시점에 $state 에 저장된 정보가 없기 때문에 hash 정보 변경 이벤트를 강제로 발생하여 routing 로직이 재실행 되도록 한다.
-    window.location.hash = '';
-    window.location.hash = hash;
+    if (!hash || hash !== '#/') {
+      window.location.hash = '#/';
+      //angular ui router 에서 hash change 이벤트 핸들러 수행 후 hash 값을 원본으로 변경하기 위해 setTimeout 을 사용한다.
+      setTimeout(function() {
+        window.location.hash = hash;
+      });
+    } else {
+      //hash 값이 없다면 default topic 으로 이동해야 하는 경우 이므로 messages.home 으로 routing 한다.
+      $state.go('messages.home');
+    }
   }
 
 
