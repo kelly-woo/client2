@@ -37,6 +37,7 @@
       };
 
       var _entityId = $state.params._entityId;
+      var _timerElasticResize;
 
       _init();
 
@@ -68,15 +69,7 @@
         scope.$on('mentionahead:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
-        //scope.$watch('curUpload.status', function(value) {
-        //  console.log('cur upload status ::: ', value);
-        //  //if (value == null) {
-        //  setTimeout(function () {
-        //    jndPubSub.pub('elasticResize:message');
-        //  }, 500);
-        //
-        //  //}
-        //});
+        scope.$watch('curUpload.status', _onCurUploadStatusChange);
       }
 
       /**
@@ -143,6 +136,22 @@
           setTimeout(function() {
             _jqMessageInput.focus();
           });
+        }
+      }
+
+      /**
+       * cur upload status change event handler
+       * @param {undefined|string} newValue
+       * @param {undefined|string} oldValue
+       * @private
+       */
+      function _onCurUploadStatusChange(newValue, oldValue) {
+        if (newValue == null || oldValue != null) {
+          clearTimeout(_timerElasticResize);
+          _timerElasticResize = setTimeout(function() {
+            console.log('elastic resize ::: message');
+            jndPubSub.pub('elasticResize:message');
+          }, 5000);
         }
       }
 

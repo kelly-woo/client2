@@ -127,7 +127,7 @@
        * @param {number} index
        */
       function autoScroll(index) {
-        var jqItem = el.find('.sticker_panel_ul').children().eq(index);
+        var jqItem = jqStickerPanel.find('.sticker_panel_ul').children().eq(index);
         var itemPosition;
         var contPosition;
         var scrollTop;
