@@ -5,7 +5,7 @@
 ********************************************/
 /*html { min-width: 960px; }*/
 
-.user-thumb-sm  { width: 28px; height: 28px; border-radius: 50%; }
+.user-thumb-sm  { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #e1e1e1;}
 .user-thumb     { width: 34px; height: 34px; border-radius: 50%; }
 .user-thumb-lg  { width: 72px; height: 72px; border-radius: 50%; }
 .user-profile   { display: inline-block; background-size: 100%; background-repeat: no-repeat; }

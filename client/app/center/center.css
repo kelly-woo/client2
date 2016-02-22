@@ -800,9 +800,10 @@ by ysyun 2015.2.25
 
 .member-thumb,
 .user-thumb {
-  width: 34px;
-  height: 34px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
+  border: 1px solid #e1e1e1;
 }
 .jandi-bot .member-thumb {
   height: auto;
