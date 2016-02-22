@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, MentionExtractor, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, JndUtil, MentionExtractor, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -25,7 +25,8 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el) {
+      var jqFileDetail = $('.file-detail');
       var jqCommentInput = $('#file-detail-comment-input');
 
       var stickerType = 'file';
@@ -41,21 +42,23 @@
        */
       function _init() {
         scope.createComment = createComment;
-        scope.onKeyUp = onKeyUp;
+        scope.onCommentInputChange = onCommentInputChange;
+        scope.onMentionIconClick = onMentionIconClick;
         scope.member = memberService.getMember();
 
         _initComment();
 
         _setProfileImage(scope.member);
 
-        _attachEvents();
+        _attachScopeEvents();
+        _attachDomEvents();
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$on('window:unload', _onWindowUnload);
 
@@ -70,10 +73,26 @@
         scope.$on('room:memberAdded', _onMemberUpdate);
         scope.$on('room:memberDeleted', _onMemberUpdate);
 
+        scope.$on('mentionahead:showed:comment', _onMentionaheadShowed);
+        scope.$on('mentionahead:hid:comment', _onMentionaheadHid);
+
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('keydown', _onKeyDown);
+      }
+
+      /**
+       * mention change event handler
+       * @param {string} value
+       * @private
+       */
       function _onGetMentionChange(value) {
         scope.setMentionsGetter({
           $getter: value
@@ -101,12 +120,23 @@
       }
 
       /**
-       * keyDown event handler
-       * @param keyUpEvent
+       * mention icon click
        */
-      function onKeyUp(keyUpEvent) {
-        if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
+      function onMentionIconClick() {
+        jndPubSub.pub('mentionahead:show:comment');
+      }
+
+      /**
+       * message input change event handler
+       * @param {object} event
+       */
+      function onCommentInputChange(event) {
+        var message;
+        if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
           _hideSticker();
+        } else if (_.isString(event.target.value)) {
+          message = _.trim(event.target.value).length;
+          scope.hasMessage = message > 0 || !!sticker;
         }
       }
 
@@ -136,6 +166,8 @@
         if (sticker = item) {
           setTimeout(_focusInput);
         }
+
+        scope.hasMessage = !!sticker;
       }
 
       /**
@@ -176,6 +208,23 @@
        */
       function _onMemberUpdate() {
         jndPubSub.pub('fileDetail:updateFile');
+      }
+
+      /**
+       * mentionahead showed event handler
+       * @private
+       */
+      function _onMentionaheadShowed() {
+        _hideSticker();
+        scope.isMentionaheadShow = true;
+      }
+
+      /**
+       * mentionahead hid event handler
+       * @private
+       */
+      function _onMentionaheadHid() {
+        scope.isMentionaheadShow = false;
       }
 
       /**
@@ -236,14 +285,40 @@
        * @private
        */
       function _onElasticResize() {
-        var jqFileDetail = $('.file-detail');
-
         clearTimeout(timerScrollBottom);
-        if (jqFileDetail[0] && jqFileDetail.height() + jqFileDetail.scrollTop() >= jqFileDetail[0].scrollHeight) {
+        if (_isScrollOver()) {
           timerScrollBottom = setTimeout(function() {
-            jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
+            _fixScrollBottom();
           }, 100);
         }
+      }
+
+      /**
+       * key down event handler
+       * @private
+       */
+      function _onKeyDown() {
+        if (_isScrollOver()) {
+          _fixScrollBottom();
+        }
+      }
+
+      /**
+       * is scroll over
+       * @returns {boolean}
+       * @private
+       */
+      function _isScrollOver() {
+        return el.height() + el.offset().top <= jqFileDetail.scrollTop() + jqFileDetail[0].scrollHeight;
+      }
+
+      /**
+       * 스크롤 바텀 고정함
+       * @returns {*}
+       * @private
+       */
+      function _fixScrollBottom() {
+        return jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
       }
 
       /**

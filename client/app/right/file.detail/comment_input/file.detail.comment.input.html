@@ -1,27 +1,40 @@
-<div class="comment-input-box" ng-show="hasInitialLoaded && file">
+<div class="comment-input-wrapper" ng-show="hasInitialLoaded && file">
   <div class="comment-item__thumbnail">
     <img class="user-profile user-thumb-sm cursor_pointer"
          ng-src="{{profileImage}}"
          ng-click="onMemberClick(member);"/>
   </div>
-  <form id="comment-form" ng-submit="createComment()">
+
+  <div class="input-container-over cursor_pointer">
     <sticker-layer name="file"></sticker-layer>
-    <div class="comment-textarea-wrap">
-      <textarea id="file-detail-comment-input"
-                class="comment-input"
+  </div>
+
+  <div class="comment-input-body">
+    <form id="comment-form" ng-submit="createComment()">
+      <div class="comment-textarea-wrap">
+      <textarea class="comment-input"
+                id="file-detail-comment-input"
+                placeholder="{{::'@placeholder-input-message' | translate }}"
                 message-submit="createComment()"
-                autocorrect="off"
-                autocomplete="off"
-                spellcheck="true"
                 jnd-elastic="comment"
-                ng-keyup="onKeyUp($event)"
+                jnd-elastic-on-change="onCommentInputChange($event)"
                 mentionahead
-                mentionahead-type="comment"></textarea>
-      <sticker-panel name="file" width="265" height="245" max-columns="3"></sticker-panel>
+                mentionahead-type="comment"
+                mentionahead-dropdown-parent=".comment-input-wrapper .input-container-over"></textarea>
+      </div>
+    </form>
+  </div>
+
+  <div class="comment-input-footer">
+    <div class="comment-input-buttons">
+      <sticker-panel name="file" max-columns="3" dropdown-parent=".comment-input-wrapper .input-container-over"></sticker-panel>
+      <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
     </div>
-    <span class="comment-input__tip pull-left">
+    <button class="comment-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()" translate>
+      전송
+    </button>
+    <div class="comment-input-description">
       <span translate>@msg-help-multiline</span>
-    </span>
-    <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
-  </form>
+    </div>
+  </div>
 </div>

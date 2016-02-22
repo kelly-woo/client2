@@ -10,10 +10,7 @@
     .module('jandiApp')
     .directive('stickerPanel', stickerPanel);
 
-  function stickerPanel($position, jndKeyCode) {
-    var DEFAULT_WIDTH = 355;
-    var DEFAULT_HEIGHT = 300;
-
+  function stickerPanel($position, $timeout, jndKeyCode) {
     return {
       restrict: 'E',
       replace: true,
@@ -24,6 +21,9 @@
     };
 
     function link(scope, el, attrs) {
+      // dropdown parent dom element
+      var dropdownParent = attrs.dropdownParent;
+
       var jqStickerPanel = el.find('.sticker_panel');
       var jqStickerPanelBtn = el.find('.sticker_panel_btn');
       var jqStickerPanelContents = el.find('.sticker_panel_contents');
@@ -42,8 +42,11 @@
 
         scope.onToggled = onToggled;
 
-        _setStickerPanelSize();
         _attachDomEvents();
+
+        if (_.isString(dropdownParent)) {
+          _setDropdownParent(dropdownParent);
+        }
       }
 
       /**
@@ -93,6 +96,8 @@
       function onToggled(isOpen) {
         if (isOpen) {
           jqStickerPanel.addClass('open');
+          jqStickerPanel.off('transitionend.stickerPanel');
+
           setTimeout(function() {
             jqStickerPanel.addClass('vivid');
           }, 30);
@@ -101,7 +106,7 @@
           jqStickerPanelBtn.attr('tabIndex', -1);
         } else {
           jqStickerPanel.removeClass('vivid');
-          jqStickerPanel.one('transitionend', function() {
+          jqStickerPanel.one('transitionend.stickerPanel', function() {
             jqStickerPanel.removeClass('open');
           });
 
@@ -118,24 +123,11 @@
       }
 
       /**
-       * set sticker panel size
-       * @private
-       */
-      function _setStickerPanelSize() {
-        var width = attrs.width || DEFAULT_WIDTH;
-        var height = attrs.height || DEFAULT_HEIGHT;
-        height -= el.find('.sticker_panel_tab').height();
-
-        el.find('.sticker_panel').width(width);
-        el.find('.sticker_panel_contents').width(width).height(height);
-      }
-
-      /**
        * 특정 item이 list에서 보이도록 scroll 설정
        * @param {number} index
        */
       function autoScroll(index) {
-        var jqItem = el.find('.sticker_panel_ul').children().eq(index);
+        var jqItem = jqStickerPanel.find('.sticker_panel_ul').children().eq(index);
         var itemPosition;
         var contPosition;
         var scrollTop;
@@ -154,6 +146,15 @@
             jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
           }
         }
+      }
+
+      /**
+       * set dropdown parent
+       * @param {string} dropdownParent
+       * @private
+       */
+      function _setDropdownParent(dropdownParent) {
+        $(dropdownParent).append(jqStickerPanel);
       }
     }
   }

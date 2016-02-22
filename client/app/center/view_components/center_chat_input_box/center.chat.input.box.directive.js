@@ -18,9 +18,10 @@
     };
 
     function link(scope, el) {
-      var jqMenu = el.find('#file-upload-menu');
-      var jqMessageInput = el.find('#message-input');
-      var uploadMap = {
+      var _jqMenu = el.find('#file-upload-menu');
+      var _jqMessageInput = el.find('#message-input');
+      var _jqProgress = el.find('.file-upload-progress-container');
+      var _uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
             .on('change', function(evt) {
@@ -35,8 +36,8 @@
           integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
-
-      var entityId = $state.params.entityId;
+      var _entityId = $state.params._entityId;
+      var _progressHeight;
 
       _init();
 
@@ -45,7 +46,9 @@
        * @private
        */
       function _init() {
-        _attachEvents();
+        scope.onMentionIconClick = onMentionIconClick;
+
+        _attachScopeEvents();
         _attachDomEvents();
 
         if (Browser.chrome) {
@@ -56,12 +59,15 @@
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('hotkey-upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
+        scope.$on('mentionahead:showed:message', _onMentionaheadShowed);
+        scope.$on('mentionahead:hid:message', _onMentionaheadHid);
+
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
 
@@ -70,7 +76,8 @@
        * @private
        */
       function _attachDomEvents() {
-        jqMenu.on('click', 'li', _onMenuItemClick);
+        _jqMenu.on('click', 'li', _onMenuItemClick);
+        _jqProgress.on('transitionend', _onTransitionEnd);
       }
 
       /**
@@ -79,6 +86,22 @@
        */
       function _onCurrentEntityChanged() {
         _setMentionList();
+      }
+
+      /**
+       * mentionahead showed
+       * @private
+       */
+      function _onMentionaheadShowed() {
+        scope.isMentionaheadShow = true;
+      }
+
+      /**
+       * mentionahead hid
+       * @private
+       */
+      function _onMentionaheadHid() {
+        scope.isMentionaheadShow = false;
       }
 
       /**
@@ -93,14 +116,14 @@
         if (currentEntity) {
           users = entityAPIservice.getUserList(currentEntity);
           if (users) {
-            mentionMembers = MentionExtractor.getMentionListForTopic(users, entityId);
+            mentionMembers = MentionExtractor.getMentionListForTopic(users, _entityId);
             jndPubSub.pub('mentionahead:message', mentionMembers);
           }
         }
       }
 
       function _onHotkeyUpload() {
-        uploadMap['computer']();
+        _uploadMap['computer']();
       }
 
       /**
@@ -111,7 +134,7 @@
       function _onChangeLoading(loading) {
         if (loading === false && !scope.isDisabledMember(scope.currentEntity)) {
           setTimeout(function() {
-            jqMessageInput.focus();
+            _jqMessageInput.focus();
           });
         }
       }
@@ -122,12 +145,31 @@
        * @private
        */
       function _onMenuItemClick(event) {
-        var className = this.className;
+        var role = this.getAttribute('role');
         var fn;
 
-        if (fn = uploadMap[className]) {
+        if (fn = _uploadMap[role]) {
           fn(event);
         }
+      }
+
+      /**
+       * transitionend event handler
+       * @private
+       */
+      function _onTransitionEnd() {
+        var progressHeight = _jqProgress.height();
+        if (_progressHeight != progressHeight) {
+          jndPubSub.pub('elasticResize:message');
+        }
+        _progressHeight = progressHeight;
+      }
+
+      /**
+       * mention icon click event handler
+       */
+      function onMentionIconClick() {
+        jndPubSub.pub('mentionahead:show:message');
       }
 
       /**
@@ -135,18 +177,18 @@
        * @private
        */
       function _setImagePaste() {
-        ImagePaste.createInstance(jqMessageInput, {
+        ImagePaste.createInstance(_jqMessageInput, {
           // content data 되기 직전 event handler
           onContentLoading: function() {
             scope.isLoading = true;
           },
           // content load 된 후 event handler
           onContentLoad: function(type, data) {
-            var comment = jqMessageInput.val();
-            jqMessageInput.val('').trigger('change');
+            var comment = _jqMessageInput.val();
+            _jqMessageInput.val('').trigger('change');
 
             if (type === 'text') {
-              jqMessageInput.val(data).trigger('change');
+              _jqMessageInput.val(data).trigger('change');
             } else if (type === 'image') {
               scope.onFileSelect([data], {
                 createFileObject: function(data) {

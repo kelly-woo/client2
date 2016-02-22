@@ -54,12 +54,14 @@ article {
   top: 35px;
   left: 0;
   right: 0;
-  bottom: 55px;
+  bottom: 103px;
   overflow-x: hidden;
   overflow-y: auto;
   min-width: 260px;
   padding-bottom: 0;
   z-index: 9;
+  -webkit-transition: bottom ease-out .05s;
+  transition: bottom ease-out .05s;
 }
 
 .rpanel-show .scroll-gray .msgs {
@@ -450,7 +452,8 @@ by ysyun 2015.2.25
   left: 0;
   right: 0;
   bottom: 0;
-  height: 54px;
+  /*height: 54px;*/
+  border-top: 1px solid #e1e1e1;
   z-index: 12;
 }
 .footer:after {
@@ -459,16 +462,8 @@ by ysyun 2015.2.25
   left: -30px;
   right: -30px;
   bottom: 0;
-  height: 54px;
+  /*height: 54px;*/
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
-}
-
-.footer #primary_file_button {
-  border: none;
-  border-radius: 0;
-  background: #d7e0e8;
-  color: #154a67;
-  z-index: 24;
 }
 
 .post-loading {
@@ -556,12 +551,6 @@ by ysyun 2015.2.25
   height: 0 !important;
 }
 
-#chatTutorial {
-  position: fixed;
-  bottom: 30px;
-  left: 260px;
-}
-
 /*.msgs {*/
 /*border: 5px solid transparent;*/
 /*border-bottom: 0 !important;*/
@@ -619,75 +608,6 @@ by ysyun 2015.2.25
   background-color: rgba(21, 74, 103, 0.8);
 }
 
-/********************************************
-
-            File Progress bar
-
-********************************************/
-.file-upload-progress-container {
-  position: absolute;
-  top: 35px;
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  z-index: 20;
-  font-size: 16px;
-  color: white;
-  padding: 0 13px 0 18px;
-
-  -webkit-transition: opacity 0.3s;
-  -moz-transition: opacity 0.3s;
-  -ms-transition: opacity 0.3s;
-  -o-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-}
-.file-upload-progress-abort,
-.file-upload-progress-icon-cancel {
-  opacity: 0.8;
-}
-
-.file-upload-progress-abort:hover,
-.file-upload-progress-icon-cancel:hover {
-  opacity: 1;
-}
-.jandi-file-upload-progress-bar {
-  height: 30px;
-  margin: 0;
-  background-color: rgba(94, 94, 94, 0.8);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: -1;
-  border-radius: 0;
-}
-.jandi-file-upload-progress-bar .progress-bar {
-  background-color: rgba(0, 170, 232, 1);
-}
-.jandi-file-upload-progress-bar .progress-bar {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-.jandi-file-upload-progress-bar .progress-bar.animation-progress-bar {
-  -webkit-transition: width .6s ease;
-  -o-transition: width .6s ease;
-  transition: width .6s ease;
-}
-
-.isAborted .jandi-file-upload-progress-bar {
-  background-color: rgba(225, 129, 16, 0.8);
-}
-.isAborted .jandi-file-upload-progress-bar .progress-bar  {
-  background-color: rgba(225, 129, 16, 0.8);
-}
-.file-upload-done .progress-bar{
-  -webkit-animation: none !important;
-  animation: none !important;
-  background-image: none;
-}
 
 /********************************************
 
@@ -744,40 +664,6 @@ by ysyun 2015.2.25
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg:lang(ja) {
     width: auto;
   }
-}
-
-/********************************************
-
-            SCROLL TO BOTTOM
-
-********************************************/
-.scroll-to-bottom-container {
-  z-index:22;
-  position: absolute;
-  right: 9px;
-  bottom: 10px;
-  width: 34px;
-  height: 34px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(208, 236, 237, 0.9);
-  border-radius: 10px;
-  padding: 6px 6px 6px 7px;
-}
-.scroll-to-bottom-container ~ div {
-  margin-top:0px !important;
-  margin-left: -4px !important;
-}
-.scroll-to-bottom-container ~ div > .tooltip-inner {
-  word-break:keep-all !important;
-  white-space:nowrap !important;
-  text-align: right !important;
-}
-.scroll-to-bottom-container:active {
-  
-}
-.scroll-to-bottom-icon {
-  font-size: 18px;
-  color: #00abe6;
 }
 
 .icon-sending-indicator {
