@@ -44,15 +44,19 @@
         _setLastLinkId(socketEvent);
 
         if (_isRoomMarkerUpdatedByMe(socketEvent)) {
+          //타팀의 marker 변경시
           _updateOtherTeamUnreadAlert();
         } else if (_isRoomSubscriptionUpdated(socketEvent)) {
+          //타팀의 모든 알림 설정 변경 시
           _onRoomSubscriptionUpdated(socketEvent);
         } else if (_shouldUpdateBadgeCountOnly(socketEvent)) {
+          //뱃지 카운트 변경 발생하는 모든 소켓 이벤트
           _updateBadgeCountOnly(socketEvent);
         } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
           // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
           _notificationSender(socketEvent);
         }
+        //todo: team domain 변경 및 team name 변경에 대한 소켓 이벤트 필요.
       }
     }
 
@@ -450,6 +454,7 @@
      */
     function _isNewMessage(socketEvent) {
       if (socketEvent.event === MESSAGE) {
+        //일반 메시지 혹은 스티커는 messageType === undefined 이다
         if (socketEvent.messageType === MESSAGE_TYPE_FILE_COMMENT || socketEvent.messageType === MESSAGE_TYPE_FILE_SHARE || _.isUndefined(socketEvent.messageType)) {
           return true;
         }
@@ -462,6 +467,7 @@
      * @private
      */
     function _updateOtherTeamUnreadAlert() {
+      console.log('####update other team unread');
       accountService.updateCurrentAccount();
     }
 

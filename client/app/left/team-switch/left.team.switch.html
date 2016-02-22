@@ -1,0 +1,15 @@
+<div class="team-switch-container" ng-show="teamList.length">
+  <!-- icon-->
+  <i class="team-switch icon-switch jnd-cursor-pointer _button"></i>
+  <!-- team list -->
+  <ul class="team-list _list">
+    <li class="team jnd-cursor-pointer"
+        ng-click="go(team)"
+        ng-if="currentTeamId !== team.teamId"
+        ng-repeat="team in teamList | orderBy: ['-extHasUnread', 'name'] track by team.teamId">
+      <span class=""></span>
+      <span class="">{{team.name}}</span>
+      <span ng-if="team.unread" class="badge red_badge team-switch-badge">{{team.unread}}</span>
+    </li>
+  </ul>
+</div>
