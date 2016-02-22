@@ -140,6 +140,10 @@
 }
 .uploading-wrapper .file-upload-progress-title {
   float: left;
+  max-width: calc(100% - 48px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .uploading-wrapper span.file-upload-progress-completion-percent {
   float: right;
