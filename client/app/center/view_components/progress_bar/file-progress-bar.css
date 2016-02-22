@@ -147,9 +147,13 @@
   color: #C8C8C8;
 }
 
+
 .isAborted .file-upload-progress-msg.aborted,
 .isAborted .file-upload-progress-msg.error {
   color: rgb(232, 95, 24);
+}
+.isAborted span.file-upload-progress-completion-percent {
+  display: none;
 }
 
 .file-upload-done .uploading-wrapper span.file-upload-progress-completion-percent,
@@ -164,6 +168,9 @@
   color: #A3A9AD;
   font-weight: 700;
   line-height: 50px;
+}
+.file-upload-progress-msg:lang(ja) {
+  font-size: 13px;
 }
 .file-upload-progress-abort:hover,
 .file-upload-progress-icon-cancel:hover {
