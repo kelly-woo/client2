@@ -68,6 +68,15 @@
         scope.$on('mentionahead:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
+        //scope.$watch('curUpload.status', function(value) {
+        //  console.log('cur upload status ::: ', value);
+        //  //if (value == null) {
+        //  setTimeout(function () {
+        //    jndPubSub.pub('elasticResize:message');
+        //  }, 500);
+        //
+        //  //}
+        //});
       }
 
       /**

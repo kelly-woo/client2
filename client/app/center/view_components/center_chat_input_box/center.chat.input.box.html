@@ -13,8 +13,7 @@
     <i class="has-new-msg-alert-container-close icon-delete pull-right"
        ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
   </div>
-    
-  <!-- ng-if="curUpload.status != null" -->
+
   <div class="file-upload-progress-container"
        ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
                   'file-upload-done': curUpload.status == 'done',
@@ -43,7 +42,7 @@
         <!--    'cancel'    -->
         <span class="file-upload-progress-abort cursor_pointer"
               ng-click="onFileUploadAbortClick();"
-              data-ng-if="curUpload.status=='uploading'">
+              ng-if="curUpload.status=='uploading'">
           Cancel
         </span>
         <!-- 'finishing...' : 업로드 프로그레스가 100이고, 업로드 상태가 'done'이 아닐 경우, finishing... 텍스트를 노출하여 캔슬을 막도록 한다. -->
