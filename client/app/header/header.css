@@ -233,6 +233,16 @@
   left: 4px;
 }
 
+.tooltip-right-menu-mention {
+  left: auto !important;
+  right: -5px;
+}
+
+.tooltip-right-menu-mention > .tooltip-arrow {
+  left: auto !important;
+  right: 10px;
+}
+
 @media (max-width: 825px) {
   .header-navbar .header-navbar__title {
     display: none;
