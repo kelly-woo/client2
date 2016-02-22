@@ -1,13 +1,13 @@
 .comment-input-wrapper {
   position: relative;
-  margin: 0 12px 15px 38px;
+  margin: 0 12px 15px 40px;
   background-color: white;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
 }
 
 .comment-input-wrapper .comment-item__thumbnail {
-  left: -33px;
+  left: -36px;
 }
 
 .comment-textarea-wrap {
