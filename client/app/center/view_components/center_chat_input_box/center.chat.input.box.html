@@ -50,7 +50,10 @@
         <!--    'aborted'       -->
         <span class="file-upload-progress-msg aborted" translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
         <!--    'error'     -->
-        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">
+          <!--@common-api-error-msg-->
+          Error
+        </span>
         
         <!--    'uploading' 
         <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
