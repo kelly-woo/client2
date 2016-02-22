@@ -15,9 +15,10 @@
   </div>
     
   <!-- ng-if="curUpload.status != null" -->
-  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
+  <div class="file-upload-progress-container"
        ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
-                  'file-upload-done': curUpload.status == 'done'}">
+                  'file-upload-done': curUpload.status == 'done',
+                  'file-upload-progress': curUpload.status != null}">
     <!--    progress file index  -->
     <div class="index-wrapper">
       <span class="file-upload-progress-file-index">
