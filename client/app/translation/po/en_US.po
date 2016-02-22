@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -187,7 +187,7 @@ msgstr "Leave"
 msgid "@ch-menu-leave-private-confirm"
 msgstr ""
 "If you leave this private topic, you will only be able to rejoin if you "
-"receive another invitation. Are you sure you want to leave?"
+"receive another invitation.<br> Are you sure you want to leave?"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
