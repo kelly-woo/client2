@@ -46,13 +46,15 @@
           Cancel
         </span>
         <!--    'done'      -->
-        <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+        <span class="file-upload-progress-msg done" translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
         <!--    'aborted'       -->
-        <span translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
+        <span class="file-upload-progress-msg aborted" translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
         <!--    'error'     -->
-        <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
-        <!--    'uploading'     -->
+        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+        
+        <!--    'uploading' 
         <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+        -->
         <!--    'x' icon    
         <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'">
           <i class="icon-delete"></i>
