@@ -4,10 +4,17 @@
   top: 10px;
   z-index:600;
 }
+.team-switch-container i{
+  font-size: 16px;
+  opacity: 0.7;
+}
+.team-switch-container i:hover{
+  opacity: 1;
+}
 
 .team-switch-container ul {
   background: #366480;
-  max-height: 100px;
+  max-height: 285px;
   overflow: auto;
   position: absolute;
   display: none;
@@ -15,21 +22,24 @@
   right: -12px;
   width: 240px;
   /*border: 1px solid black;*/
-  padding: 0 12px 0 12px;
+  padding: 4px 0 5px 0;
   margin: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .team-switch-container li {
-  height: 30px;
-  padding-top:5px;
+  height: 34px;
   vertical-align: bottom;
+  padding: 9px 12px 0 15px;
 }
 .team-switch-container ul li {
   list-style: none;
   display: block;
 }
 .team-switch-container ul li:hover {
-  background: #30617d;
+  background: #2D576F;
 }
 .team-switch-container ul li .badge {
   float: right;
