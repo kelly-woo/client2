@@ -25,7 +25,8 @@
       link: link
     };
 
-    function link(scope) {
+    function link(scope, el) {
+      var jqFileDetail = $('.file-detail');
       var jqCommentInput = $('#file-detail-comment-input');
 
       var stickerType = 'file';
@@ -41,7 +42,6 @@
        */
       function _init() {
         scope.createComment = createComment;
-        scope.onKeyUp = onKeyUp;
         scope.onCommentInputChange = onCommentInputChange;
         scope.onMentionIconClick = onMentionIconClick;
         scope.member = memberService.getMember();
@@ -50,14 +50,15 @@
 
         _setProfileImage(scope.member);
 
-        _attachEvents();
+        _attachScopeEvents();
+        _attachDomEvents();
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$on('window:unload', _onWindowUnload);
 
@@ -79,6 +80,19 @@
         scope.$watch('getMentions', _onGetMentionChange);
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('keydown', _onKeyDown);
+      }
+
+      /**
+       * mention change event handler
+       * @param {string} value
+       * @private
+       */
       function _onGetMentionChange(value) {
         scope.setMentionsGetter({
           $getter: value
@@ -106,15 +120,8 @@
       }
 
       /**
-       * keyDown event handler
-       * @param keyUpEvent
+       * mention icon click
        */
-      function onKeyUp(keyUpEvent) {
-        if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
-          _hideSticker();
-        }
-      }
-
       function onMentionIconClick() {
         jndPubSub.pub('mentionahead:show:comment');
       }
@@ -208,6 +215,7 @@
        * @private
        */
       function _onMentionaheadShowed() {
+        _hideSticker();
         scope.isMentionaheadShow = true;
       }
 
@@ -277,14 +285,40 @@
        * @private
        */
       function _onElasticResize() {
-        var jqFileDetail = $('.file-detail');
-
         clearTimeout(timerScrollBottom);
-        if (jqFileDetail[0] && jqFileDetail.height() + jqFileDetail.scrollTop() >= jqFileDetail[0].scrollHeight) {
+        if (_isScrollOver()) {
           timerScrollBottom = setTimeout(function() {
-            jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
+            _fixScrollBottom();
           }, 100);
         }
+      }
+
+      /**
+       * key down event handler
+       * @private
+       */
+      function _onKeyDown() {
+        if (_isScrollOver()) {
+          _fixScrollBottom();
+        }
+      }
+
+      /**
+       * is scroll over
+       * @returns {boolean}
+       * @private
+       */
+      function _isScrollOver() {
+        return el.height() + el.offset().top <= jqFileDetail.scrollTop() + jqFileDetail[0].scrollHeight;
+      }
+
+      /**
+       * 스크롤 바텀 고정함
+       * @returns {*}
+       * @private
+       */
+      function _fixScrollBottom() {
+        return jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
       }
 
       /**
