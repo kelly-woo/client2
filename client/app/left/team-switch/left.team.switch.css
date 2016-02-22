@@ -1,0 +1,42 @@
+.team-switch-container {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  z-index:600;
+}
+
+.team-switch-container ul {
+  background: #366480;
+  max-height: 100px;
+  overflow: auto;
+  position: absolute;
+  display: none;
+  top: 25px;
+  right: -12px;
+  width: 240px;
+  /*border: 1px solid black;*/
+  padding: 0 12px 0 12px;
+  margin: 0;
+}
+
+.team-switch-container li {
+  height: 30px;
+  padding-top:5px;
+  vertical-align: bottom;
+}
+.team-switch-container ul li {
+  list-style: none;
+  display: block;
+}
+.team-switch-container ul li:hover {
+  background: #30617d;
+}
+.team-switch-container ul li .badge {
+  float: right;
+}
+.team-switch-badge {
+  color: white;
+  max-width: 100px;
+  min-width: 26px;
+  padding: 3px 7px;
+}
