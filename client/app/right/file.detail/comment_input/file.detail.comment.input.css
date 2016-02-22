@@ -49,32 +49,6 @@
   font-size: .8rem;
 }
 
-
-/*.comment-btn {*/
-  /*position: absolute;*/
-  /*right: 0;*/
-  /*background: #00abe6;*/
-  /*color: #ffffff;*/
-  /*bottom: 0;*/
-  /*letter-spacing: 0.01em;*/
-/*}*/
-
-/*.comment-btn:hover{*/
-  /*background-color: #26688C;*/
-  /*color: white;*/
-/*}*/
-
-/*.comment-input-footer .comment-input-buttons {*/
-  /*float: left;*/
-  /*padding-top: 7px;*/
-  /*padding-left: 5px;*/
-/*}*/
-
-/*.comment-input-footer .comment-input-buttons > *{*/
-  /*float: left;*/
-  /*padding-left: 10px;*/
-/*}*/
-
 /* sticker panel */
 .comment-input-wrapper .input-container-over .sticker_panel {
   top: -247px;

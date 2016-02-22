@@ -1,6 +1,7 @@
 .msg-item.comment-all {
   padding-top: 0;
-  margin-top: 0;
+  margin-top: -3px;
+  max-height: 33px;
 }
 
 .msg-item.comment-all .comment-all-desc {
