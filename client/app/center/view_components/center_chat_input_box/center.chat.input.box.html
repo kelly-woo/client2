@@ -1,4 +1,19 @@
 <div class="footer center-chat-input-container">
+  
+  <!-- scroll to bottom container & new msg banner positioned directly under footer container -->
+  <div class="scroll-to-bottom-container cursor_pointer"
+       ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
+       ng-click="onScrollToBottomIconClicked();"
+       tooltip="{{::'@go-to-latest-message-msg' | translate}}"
+       tooltip-placement="left">
+    <i class="icon-arrow-down scroll-to-bottom-icon cursor_pointer"></i>
+  </div>
+  <div class="has-new-msg-banner-container" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
+    <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
+    <i class="has-new-msg-alert-container-close icon-delete pull-right"
+       ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
+  </div>
+    
   <!-- ng-if="curUpload.status != null" -->
   <div class="file-upload-progress-container" ng-if="curUpload.status != null"
        ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
@@ -30,14 +45,23 @@
               data-ng-if="curUpload.status=='uploading'">
           Cancel
         </span>
+        <!-- 'finishing...' : 업로드 프로그레스가 100이고, 업로드 상태가 'done'이 아닐 경우, finishing... 텍스트를 노출하여 캔슬을 막도록 한다. -->
+        <span class="file-upload-progress-msg finishing" style="display: none;">
+          Finishing...
+        </span>
         <!--    'done'      -->
-        <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+        <span class="file-upload-progress-msg done" translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
         <!--    'aborted'       -->
-        <span translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
+        <span class="file-upload-progress-msg aborted" translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
         <!--    'error'     -->
-        <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
-        <!--    'uploading'     -->
+        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">
+          <!--@common-api-error-msg-->
+          Error
+        </span>
+        
+        <!--    'uploading' 
         <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+        -->
         <!--    'x' icon    
         <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'">
           <i class="icon-delete"></i>
@@ -68,18 +92,6 @@
     </div>
     
     <div class="input-container-over cursor_pointer">
-      <div class="has-new-msg-banner-container" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
-        <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
-        <i class="has-new-msg-alert-container-close icon-delete pull-right"
-           ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
-      </div>
-      <div class="scroll-to-bottom-container cursor_pointer"
-           ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
-           ng-click="onScrollToBottomIconClicked();"
-           tooltip="{{::'@go-to-latest-message-msg' | translate}}"
-           tooltip-placement="left">
-        <i class="icon-arrow-down scroll-to-bottom-icon cursor_pointer"></i>
-      </div>
       <sticker-layer name="chat"></sticker-layer>
     </div>
 
