@@ -82,6 +82,13 @@
        * @private
        */
       function _toggle() {
+        var jqList = el.find('._list');
+        var jqButton = el.find('._button');
+        if (jqList.css('display') === 'block') {
+          jqButton.removeClass('open');
+        } else {
+          jqButton.addClass('open');
+        }
         el.find('._list').slideToggle();
       }
 
