@@ -65,22 +65,9 @@
         scope.$on('hotkey-upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
         scope.$on('mentionahead:showed:message', _onMentionaheadShowed);
-
         scope.$on('mentionahead:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
-      }
-
-      /**
-       *
-       * @private
-       */
-      function _onMentionaheadShowed() {
-        scope.isMentionaheadShow = true;
-      }
-
-      function _onMentionaheadHid() {
-        scope.isMentionaheadShow = false;
       }
 
       /**
@@ -97,6 +84,22 @@
        */
       function _onCurrentEntityChanged() {
         _setMentionList();
+      }
+
+      /**
+       * mentionahead showed event handler
+       * @private
+       */
+      function _onMentionaheadShowed() {
+        scope.isMentionaheadShow = true;
+      }
+
+      /**
+       * mentionahead hid event handler
+       * @private
+       */
+      function _onMentionaheadHid() {
+        scope.isMentionaheadShow = false;
       }
 
       /**
