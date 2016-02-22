@@ -87,7 +87,7 @@
       }
 
       /**
-       * mentionahead showed event handler
+       * mentionahead showed
        * @private
        */
       function _onMentionaheadShowed() {
@@ -95,7 +95,7 @@
       }
 
       /**
-       * mentionahead hid event handler
+       * mentionahead hid
        * @private
        */
       function _onMentionaheadHid() {

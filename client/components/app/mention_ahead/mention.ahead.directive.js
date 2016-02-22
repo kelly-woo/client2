@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService) {
+  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService, jndKeyCode) {
 
     return {
       restrict: 'A',
@@ -67,6 +67,10 @@
                   function changeHandler(event) {
                     var value = event.target.value;
 
+                    if (!_isOpenMentionaheadMenu()) {
+                      mentionCtrl.clearMention();
+                    }
+
                     if (value !== mentionCtrl.getValue()) {
                       mentionCtrl.setValue(value);
                     }
@@ -80,7 +84,9 @@
                       var css;
 
                       mentionCtrl.setMentionOnLive(event);
-                      mentionCtrl.showMentionahead();
+                      if (_isOpenMentionaheadMenu()) {
+                        mentionCtrl.showMentionahead();
+                      }
 
                       // mention ahead position
                       css = $position.positionElements(jqMentionahead, jqPopup, 'top-left', false);
@@ -90,10 +96,7 @@
 
                   el
                     .on('input', changeHandler)
-                    .on('click', function (event) {
-                      //event.stopPropagation();
-                      liveSearchHandler(event);
-                    })
+                    .on('click', liveSearchHandler)
                     .on('blur', mentionCtrl.clearMention)
                     .on('keyup', liveSearchHandler);
                 }
@@ -109,6 +112,15 @@
           function _isMentionaheadAvailable(mentionaheadType) {
             var currentEntity = currentSessionHelper.getCurrentEntity();
             return currentEntity && (mentionaheadType !== 'message' || !memberService.isMember(currentEntity.id));
+          }
+
+          /**
+           * mentionahead menu가 열려 있는지 여부
+           * @returns {boolean}
+           * @private
+           */
+          function _isOpenMentionaheadMenu() {
+            return jqMentionahead.attr('aria-expanded') === 'true'
           }
         }
       }

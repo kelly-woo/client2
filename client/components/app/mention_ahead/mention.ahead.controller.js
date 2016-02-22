@@ -153,8 +153,13 @@
     function setMentionOnLive(event) {
       var value = getValue();
       var selectionBegin = _getSelection().begin;
+      var mention = $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
 
-      $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
+      if (mention) {
+        $model.$setViewValue(mention.match[2]);
+      } else {
+        clearMention();
+      }
     }
 
     /**
@@ -179,15 +184,7 @@
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      var mention = $scope.mention;
-
-      if (mention) {
-        $model.$setViewValue(mention.match[2]);
-        jndPubSub.pub('mentionahead:showed:' + $scope.type);
-      } else {
-        // mention이 존재하지 않는다면 mentionahead를 출력하지 않음
-        clearMention();
-      }
+      jndPubSub.pub('mentionahead:showed:' + $scope.type);
     }
 
     /**
