@@ -1,10 +1,5 @@
 <div class="footer">
   <!-- has-new-msg-banner-container moved under input-container-top-contents -->
-  <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
-       data-ng-click="onTutorialPulseClick($event);"
-       data-ng-if="!tutorialStatus.chatTutorial">
-  </div>
-
   <div id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;" ng-class="{'disabled': msgLoadStatus.loading || isDisabledMember(currentEntity)}" dropdown dropdown-toggle="true">
     <i class="icon-upload-fill"></i>
     <div id="file-upload-menu" class="dropdown-menu" style="top: -102px;">

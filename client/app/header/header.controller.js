@@ -260,11 +260,11 @@
      */
     function onShowTutorialClick() {
       //@fixme: remove old tutorial logic
-      if (HybridAppHelper.isPcApp()) {
-        jndPubSub.pub('initTutorialStatus');
-      } else {
-        jndPubSub.pub('tutorial:open');
-      }
+      //if (HybridAppHelper.isPcApp()) {
+      //  jndPubSub.pub('initTutorialStatus');
+      //} else {
+      //  jndPubSub.pub('tutorial:open');
+      //}
     }
 
     /**
