@@ -38,7 +38,6 @@
 
       $scope.close = close;
       $scope.getList = getList;
-      $scope.pushImages = pushImages;
       $scope.pushImage = pushImage;
     }
 
@@ -53,7 +52,7 @@
      * server로 부터 image list를 get
      * @param {string} type - get할 방향을 old 또는 new, both 중 설정
      * @param {object} data
-     * @param {function} success
+     * @param {function} fn
      * @private
      */
     function getList(type, data, fn) {
@@ -76,11 +75,9 @@
           count: count
         })
         .success(function(response) {
-          var messageId = data.messageId;
-
           response.records != null && (response = response.records);
           if (response) {
-            pushImages(type, response, messageId);
+            _pushImages(type, response, data.messageId);
           }
 
           fn && fn();
@@ -95,10 +92,10 @@
      * server로 부터 전달받은 image list를 image carousel에서 관리하는 image list에 추가
      * @param {string} type - get할 방향을 old 또는 new, both
      * @param {array} records - server로 부터 전달받은 image list
-     * * @param {string} messageId - 현재 출력중인 image item의 index
+     * @param {string} messageId - 현재 출력중인 image item의 index
      * @private
      */
-    function pushImages(type, records, messageId) {
+    function _pushImages(type, records, messageId) {
       var record;
       var imageItem;
       var i;
@@ -147,7 +144,7 @@
      * @private
      */
     function pushImage(type, imageItem) {
-      if ($scope.imageMap[imageItem.messageId] == null) {
+      if ($scope.imageMap[imageItem.messageId] == null && _.isNumber(imageItem.messageId)) {
 
         // carousel에 이미지 추가 하면서 navigation시 바로 thumbnail 이미지가 출력되도록 thumbnail을 preload 한다.
         ImageCarousel.preloadThumbnail(imageItem);

@@ -67,7 +67,7 @@
      * 사용자가 'Never Ask Me'를 눌렀을 경우.
      */
     function neverAskMe() {
-      DesktopNotificationUtil.setData('naverAsk', true);
+      DesktopNotificationUtil.setData('naverAsk', DesktopNotificationUtil.NAVER_ASK.TRUE);
       DeskTopNotificationBanner.hideNotificationBanner();
     }
 

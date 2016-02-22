@@ -16,7 +16,7 @@
     var MIN_WIDTH = 400;
     var MIN_HEIGHT = 400;
 
-    var jqWindow = $(window);
+    var _jqWindow = $(window);
 
     that.THUMBNAIL_IMAGE_SIZE = 640;
 
@@ -128,8 +128,8 @@
       var margin = 56;
       var ratio;
 
-      var maxWidth = jqWindow.width() - margin * 2;
-      var maxHeight = jqWindow.height() - margin * 2;
+      var maxWidth = _jqWindow.width() - margin * 2;
+      var maxHeight = _jqWindow.height() - margin * 2;
       var imageWidth;
       var imageHeight;
 

@@ -58,7 +58,9 @@
       function _onSuccessLoadTemplate(template) {
         _jqDragArea = $compile(template)($rootScope.$new(true));
 
-        el.on('dragover',_show);
+        el.on('dragover',_show)
+          .on('dragleave',_hide)
+          .on('drop', _hide);
         _jqDragArea.appendTo(el[0])
           .on('dragleave',_hide)
           .on('drop', _hide);
