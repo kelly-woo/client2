@@ -45,6 +45,10 @@
               data-ng-if="curUpload.status=='uploading'">
           Cancel
         </span>
+        <!-- 'finishing...' : 업로드 프로그레스가 100이고, 업로드 상태가 'done'이 아닐 경우, finishing... 텍스트를 노출하여 캔슬을 막도록 한다. -->
+        <span class="file-upload-progress-msg finishing" style="display: none;">
+          Finishing...
+        </span>
         <!--    'done'      -->
         <span class="file-upload-progress-msg done" translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
         <!--    'aborted'       -->
