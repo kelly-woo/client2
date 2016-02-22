@@ -14,8 +14,8 @@
 
 .team-switch-container ul {
   background: #366480;
-  max-height: 285px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: absolute;
   display: none;
   top: 25px;
@@ -32,7 +32,7 @@
 .team-switch-container li {
   height: 34px;
   vertical-align: bottom;
-  padding: 9px 12px 0 15px;
+  padding: 9px 10px 0 15px;
 }
 .team-switch-container ul li {
   list-style: none;
