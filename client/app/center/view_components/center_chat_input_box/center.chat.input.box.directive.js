@@ -20,6 +20,7 @@
     function link(scope, el) {
       var _jqMenu = el.find('#file-upload-menu');
       var _jqMessageInput = el.find('#message-input');
+      var _jqProgress = el.find('.file-upload-progress-container');
       var _uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
@@ -35,9 +36,8 @@
           integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
-
       var _entityId = $state.params._entityId;
-      var _timerElasticResize;
+      var _progressHeight;
 
       _init();
 
@@ -69,7 +69,6 @@
         scope.$on('mentionahead:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
-        scope.$watch('curUpload.status', _onCurUploadStatusChange);
       }
 
       /**
@@ -78,6 +77,7 @@
        */
       function _attachDomEvents() {
         _jqMenu.on('click', 'li', _onMenuItemClick);
+        _jqProgress.on('transitionend', _onTransitionEnd);
       }
 
       /**
@@ -140,22 +140,6 @@
       }
 
       /**
-       * cur upload status change event handler
-       * @param {undefined|string} newValue
-       * @param {undefined|string} oldValue
-       * @private
-       */
-      function _onCurUploadStatusChange(newValue, oldValue) {
-        if (newValue == null || oldValue != null) {
-          clearTimeout(_timerElasticResize);
-          _timerElasticResize = setTimeout(function() {
-            console.log('elastic resize ::: message');
-            jndPubSub.pub('elasticResize:message');
-          }, 5000);
-        }
-      }
-
-      /**
        * menu item click event handler
        * @param {object} event
        * @private
@@ -167,6 +151,18 @@
         if (fn = _uploadMap[role]) {
           fn(event);
         }
+      }
+
+      /**
+       * transitionend event handler
+       * @private
+       */
+      function _onTransitionEnd() {
+        var progressHeight = _jqProgress.height();
+        if (_progressHeight != progressHeight) {
+          jndPubSub.pub('elasticResize:message');
+        }
+        _progressHeight = progressHeight;
       }
 
       /**

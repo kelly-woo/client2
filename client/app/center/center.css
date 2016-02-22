@@ -60,6 +60,8 @@ article {
   min-width: 260px;
   padding-bottom: 0;
   z-index: 9;
+  -webkit-transition: bottom ease-out .05s;
+  transition: bottom ease-out .05s;
 }
 
 .rpanel-show .scroll-gray .msgs {

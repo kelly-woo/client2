@@ -1534,13 +1534,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onElasticResize() {
     var jqCenterChatInput = $('.center-chat-input-container');
     var jqMessages = $('#msgs-container');
+    var isBottomReached;
 
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
-      _scrollToBottom();
+      isBottomReached = true;
     }
 
     jqMessages.css('bottom', jqCenterChatInput.height());
+    if (isBottomReached) {
+      setTimeout(_scrollToBottom, 100);
+    }
   }
 
   /**
