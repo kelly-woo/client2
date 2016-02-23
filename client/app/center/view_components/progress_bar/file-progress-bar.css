@@ -6,26 +6,26 @@
 .file-upload-progress-container {
   position: relative;
   padding: 0 10px 0 58px;
-  
+
   overflow: hidden;
   top: 0;
-  height: 3px;
   width: 100%;
-  opacity: 0;
+  height: 3px;
   z-index: 26;
 
-  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.35s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.05s;
-  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.35s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.05s;
+  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s;
+  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s;
 }
 
 .file-upload-progress-container.file-upload-progress {
   height: 60px;
-  opacity: 1 !important;
 
-  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s 0.2s;
-  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s 0.2s;
+  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s;
+  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s;
 }
-
+.file-upload-progress-container.file-upload-finally {
+  hiehgt: 3px;
+}
 
 /* when upload process is done, progress bar will fade-out and message input wrapper will be resizing */
 /*.file-upload-progress-container,
@@ -46,14 +46,14 @@
   margin: 0;
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
-  
+
   width: calc(100% - 30px);
   left: 14px;
   bottom:12px;
 
   border-radius: 6px;
   z-index: 0;
-  
+
   -webkit-box-shadow: 0px 0px 0px 0 transparent;
   box-shadow: 0px 0px 0px 0 transparent;
 }
@@ -67,17 +67,17 @@
 .file-upload-progress-container.file-upload-progress.isAborted .jandi-file-upload-progress-bar .progress-bar.animation-progress-bar {
   opacity: 0;
   width: 0;
-  
+
   -webkit-transition: width 0s ease;
   -o-transition: width 0s ease;
   transition: width 0s ease;
-  
+
 }
 .file-upload-progress-container.file-upload-progress .jandi-file-upload-progress-bar .progress-bar.animation-progress-bar {
   background-color: #10B5ED;
   width: 0;
   opacity: 1;
-  
+
   -webkit-transition: width .6s ease;
   -o-transition: width .6s ease;
   transition: width .6s ease;
@@ -133,11 +133,11 @@
 }
 .uploading-wrapper .fileicon-container {
   width: 40px;
-  
+
   background-color:#FBFCFC;
   border-right: 1px solid #E2E2E2;
   color: #9EA8AE;
-  
+
   font-size: 19px;
 }
 .uploading-wrapper .progress-container {
@@ -177,7 +177,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  
+
   -webkit-box-shadow: -5px 0 5px 3px #FFF;
   box-shadow: -5px 0 5px 3px #FFF;
 }

@@ -398,7 +398,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function clearCurUpload() {
     // hide progress bar
     _timerClearCurUpload = $timeout(function () {
-      $('.file-upload-progress-container').css('opacity', 0);
+      $rootScope.curUpload && ($rootScope.curUpload.isComplete = true);
       // opacity 0된 후 clear upload info
       $timeout(function () {
         $rootScope.curUpload = {};
