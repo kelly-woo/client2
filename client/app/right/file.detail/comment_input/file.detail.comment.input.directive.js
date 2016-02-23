@@ -117,6 +117,7 @@
         } else if (comment === '') {
           _clearWithFocus();
         }
+        scope.hasMessage = false;
       }
 
       /**

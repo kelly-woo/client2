@@ -30,25 +30,29 @@
 }
 .sticker_panel_wrap .sticker_panel_btn {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   line-height: 23px;
   display: block;
-  opacity: 0.3;
-  font-size: 18px;
+  opacity: 0.4;
+  font-size: 17px;
   color: black;
   text-decoration: none;
 }
+.sticker_panel_wrap .sticker_panel_btn:hover {
+  opacity: .8;
+  color: #00abe6;
+}
 .sticker_panel_wrap .sticker_panel_btn.on {
   color: #00abe6;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .sticker_panel_wrap .sticker_panel_btn > .mouse {
   position: absolute;
-  top: .63em;
-  left: 5px;
-  height: .1em;
+  top: .7em;
+  left: 4.5px;
+  height: .13em;
   width: .47em;
   background-color: #fff;
   display: inline-block;
@@ -60,6 +64,11 @@
   -webkit-transition: height .12s linear;
   transition: height .12s linear;
 }
+.sticker_panel_wrap .sticker_panel_btn:hover > .mouse {
+  height: 3.5px;
+  border-color: #00abe6;
+  border-bottom: 1px solid #00abe6;
+}
 .sticker_panel_wrap .sticker_panel_btn.on > .mouse {
   height: 3.5px;
   border-color: #00abe6;
@@ -68,15 +77,18 @@
 
 .sticker_panel_wrap .sticker_panel_btn > .lip {
   position: absolute;
-  top: .57em;
-  left: 4px;
-  width: .58em;
+  top: .7em;
+  left: 4.5px;
+  width: .45em;
   height: .23em;
   background-color: #fff;
   display: inline-block;
   border-top: 1px solid rgba(0, 0, 0, .8);
  border-bottom-right-radius: 12px 8px;
  border-bottom-left-radius: 12px 8px;
+}
+.sticker_panel_wrap .sticker_panel_btn:hover > .lip {
+  border-color: #00abe6;
 }
 .sticker_panel_wrap .sticker_panel_btn.on > .lip {
   border-color: #00abe6;
@@ -181,8 +193,11 @@
   height: 140px;
   left: 0;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #d7e0e8;
+  border: 1px solid #d7e0e8;
   z-index: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 5px 10px;
 }
 .sticker_layer img {
 
