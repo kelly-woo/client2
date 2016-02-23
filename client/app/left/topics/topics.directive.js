@@ -42,7 +42,7 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('topic-update-lock', _onLock);
+        scope.$on('TopicUpdateLock:change', _onLockChange);
         scope.$on('topic-folder:update', _onFolderUpdate);
         scope.$on('updateBadgePosition', _setButtonDisplayStatus);
 
@@ -104,7 +104,7 @@
        * @param {boolean} isLocked
        * @private
        */
-      function _onLock(angularEvent, isLocked) {
+      function _onLockChange(angularEvent, isLocked) {
         _isLocked = isLocked;
         if (!_isLocked && _hasToUpdate) {
           _updateFolderData(TopicFolderModel.getFolderData());
