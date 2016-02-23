@@ -68,6 +68,9 @@
       </div>
     </div>
     <div class="modal-footer">
+      <label class="straight-upload-button cursor_pointer">
+        <input type="checkbox" name="straight-upload" value="true">{{::'@upload-all'|translate}}
+      </label>
       <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>@btn-cancel</span></button>
       <input class="btn btn-ok _modalSubmit" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
     </div>

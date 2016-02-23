@@ -1,0 +1,10 @@
+.straight-upload-button {
+  float: left;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.straight-upload-button input {
+  margin-top: 0px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
