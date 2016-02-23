@@ -362,7 +362,7 @@
   border-color: #86b0c6 !important;
 }
 .message-input-wrapper.post-loading {
-  background-color: #f2f2f2 !important;
+  background-color: #ECEFF3 !important;
 }
 .message-input-wrapper.disabled-member-input {
   background-color: #ededed !important;
