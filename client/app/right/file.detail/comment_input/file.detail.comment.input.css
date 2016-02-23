@@ -1,13 +1,13 @@
 .comment-input-wrapper {
   position: relative;
-  margin: 0 12px 15px 40px;
+  margin: 0 12px 15px 49px;
   background-color: white;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
 }
 
 .comment-input-wrapper .comment-item__thumbnail {
-  left: -36px;
+  left: -38px;
 }
 
 .comment-textarea-wrap {
@@ -51,7 +51,7 @@
 
 /* sticker panel */
 .comment-input-wrapper .input-container-over .sticker_panel {
-  top: -247px;
+  top: -254px;
   width: 265px;
 }
 .comment-input-wrapper .input-container-over .sticker_panel_contents {
@@ -60,5 +60,6 @@
 }
 .comment-input-wrapper .input-container-over .sticker_layer {
   top: -140px;
+  width: 100.5%;
 }
 
