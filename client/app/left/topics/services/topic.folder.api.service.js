@@ -26,25 +26,32 @@
     /**
      * folder 정보를 조회한다.
      * @param {string} [teamId] teamId. 생략시 memberService 로부터 조회한다.
+     * @param {object} [deferred]
+     * @param {string} [trackingCode] - 오류 현상 파악을 위해 임시로 트레킹 코드를 추가한다.
      * @returns {*}
      */
-    function getFolders(teamId) {
+    function getFolders(teamId, deferred, trackingCode) {
       teamId = teamId || memberService.getTeamId();
+      console.log(trackingCode);
       return $http({
         method: 'GET',
-        url: server_address + 'teams/' + teamId + '/folders'
+        url: server_address + 'teams/' + teamId + '/folders?trackingCode=' + trackingCode,
+        timeout: !!deferred ? deferred.promise : ''
       });
     }
 
     /**
      * entities 와 폴더의 연결 정보를 조회한다.
      * @param {string} [teamId] teamId. 생략시 memberService 로부터 조회한다.
+     * @param {object} [deferred]
+     * @param {string} [trackingCode] - 오류 현상 파악을 위해 임시로 트레킹 코드를 추가한다.
      */
-    function getEntities(teamId) {
+    function getEntities(teamId, deferred, trackingCode) {
       teamId = teamId || memberService.getTeamId();
       return $http({
         method: 'GET',
-        url: server_address + 'teams/' + teamId + '/folders/items'
+        url: server_address + 'teams/' + teamId + '/folders/items?trackingCode=' + trackingCode,
+        timeout: !!deferred ? deferred.promise : ''
       });
     }
 

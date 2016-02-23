@@ -357,7 +357,7 @@ app.controller('leftPanelController1', function(
     $scope.onTutorialPulseClick($event);
   });
 
-  $scope.$on('topic-update-lock', _onUpdateLock);
+  $scope.$on('TopicUpdateLock:change', _onTopicUpdateLockChange);
   $scope.$on('updateLeftBadgeCount', onUpdateLeftBadgeCount);
   /**
    * Tutorial 상태를 초기화 한다.
@@ -613,7 +613,7 @@ app.controller('leftPanelController1', function(
     }
 
     _getLeftListDeferredObject = $q.defer();
-    TopicFolderModel.load().then(function() {
+    TopicFolderModel.load('getLeftLists').then(function() {
       leftpanelAPIservice.getLists(_getLeftListDeferredObject)
         .success(function (data) {
           if (!TopicUpdateLock.isLocked()) {
@@ -646,7 +646,13 @@ app.controller('leftPanelController1', function(
     }
   }
 
-  function _onUpdateLock(angularEvent, isLock) {
+  /**
+   * topic update lock 변경시 이벤트 핸들러
+   * @param {object} angularEvent
+   * @param {boolean} isLock
+   * @private
+   */
+  function _onTopicUpdateLockChange(angularEvent, isLock) {
     if (!isLock && _hasToUpdate) {
       updateLeftPanelCaller();
     }
@@ -656,10 +662,7 @@ app.controller('leftPanelController1', function(
   /**
    *
    */
-  $scope.$on('updateLeftPanelCaller', function() {
-    //console.info("[enter] updateLeftPanelCaller");
-    $scope.updateLeftPanelCaller();
-  });
+  $scope.$on('updateLeftPanelCaller', updateLeftPanelCaller);
   $scope.$on('connected', updateLeftPanelCaller);
 
   $scope.openModal = function(selector, options) {
