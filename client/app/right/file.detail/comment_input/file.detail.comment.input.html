@@ -1,4 +1,4 @@
-<div class="comment-input-wrapper" ng-show="hasInitialLoaded && file">
+<div class="message-input-wrapper" ng-show="hasInitialLoaded && file">
   <div class="comment-item__thumbnail">
     <img class="user-profile user-thumb-sm cursor_pointer"
          ng-src="{{profileImage}}"
@@ -24,15 +24,15 @@
     </form>
   </div>
 
-  <div class="comment-input-footer">
-    <div class="comment-input-buttons">
-      <sticker-panel name="file" max-columns="3" dropdown-parent=".comment-input-wrapper .input-container-over"></sticker-panel>
+  <div class="message-input-footer">
+    <div class="message-input-buttons">
+      <sticker-panel name="file" max-columns="3" dropdown-parent=".file-detail .input-container-over"></sticker-panel>
       <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
     </div>
-    <button class="comment-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()" translate>
+    <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()" translate>
       전송
     </button>
-    <div class="comment-input-description">
+    <div class="message-input-description">
       <span translate>@msg-help-multiline</span>
     </div>
   </div>

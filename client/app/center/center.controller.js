@@ -897,7 +897,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-
   /**
    * hide sticker
    * @private
@@ -937,9 +936,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
       post(msg, _sticker, mentions);
     }
+
     $scope.message.content = "";
+    $scope.hasMessage = false;
+
     jqInput.val('');
     _hideSticker();
+    _setChatInputFocus();
   }
 
   function post(msg, sticker, mentions) {
