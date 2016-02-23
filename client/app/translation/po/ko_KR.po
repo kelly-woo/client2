@@ -609,6 +609,10 @@ msgid "@common-rename"
 msgstr "이름 변경"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send"
+msgstr "전송"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
 msgstr "1:1 메시지 전송하기..."
 
@@ -694,6 +698,10 @@ msgstr "토픽 관리자"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "토픽"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-try-again"
+msgstr "다시 시도해주세요."
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
@@ -892,10 +900,6 @@ msgstr "내 컴퓨터"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "드롭박스"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@file-upload-fail"
-msgstr "다시 시도해주세요."
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
@@ -2345,6 +2349,10 @@ msgstr "삭제"
 msgid "@message-deleted"
 msgstr "메시지가 삭제되었습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@message-mention"
+msgstr "메시지 입력 또는 @멘션"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "알림을 사용하지 않으시면 중요한 메시지를 놓치실 수 있습니다. "
@@ -3423,6 +3431,9 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@file-upload-fail"
+#~ msgstr "다시 시도해주세요."
 
 #~ msgid "@soudns-arise"
 #~ msgstr "기타 이중음"

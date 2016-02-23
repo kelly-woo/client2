@@ -584,6 +584,10 @@ msgid "@common-rename"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
 msgstr ""
 
@@ -668,6 +672,10 @@ msgstr ""
 #: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-try-again"
 msgstr ""
 
 #: client/app/modal/topics/topic_create/topic.create.html
@@ -865,10 +873,6 @@ msgstr ""
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@file-upload-fail"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
@@ -2099,6 +2103,10 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@message-deleted"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@message-mention"
 msgstr ""
 
 #: client/app/banner/desktop.notification.banner.html
