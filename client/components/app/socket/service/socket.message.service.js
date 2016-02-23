@@ -106,6 +106,7 @@
      */
     function _onFileComment(data) {
       var room;
+      var map = {};
 
       _.forEach(data.rooms, function(room) {
         if (jndWebSocketCommon.isCurrentEntity(room)) {
@@ -116,7 +117,14 @@
 
       if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         // badge count를 올리기 위함이요.
-        jndPubSub.updateLeftPanel();
+        _.forEach(data.rooms, function(room) {
+          //server 의 잘못된 데이터로 인해 rooms 배열에 같은 room 이 2개 이상 포함되는 경우가 있으므로, 중복을 제거한다.
+          if (!map[room.id]) {
+            map[room.id] = true;
+            jndWebSocketCommon.increaseBadgeCount(room.id);
+          }
+        });
+
         data.room = room;
 
         if (_hasMention(data)) {
@@ -164,6 +172,7 @@
         if (memberService.isTopicNotificationOn(room.id)) {
           FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
+        jndWebSocketCommon.increaseBadgeCount(room.id);
       }
     }
 
@@ -177,8 +186,6 @@
       // 현재 토픽이라면 센터를 업데이트하고 아니라면 왼쪽을 업데이트한다
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
-      } else {
-        jndPubSub.updateLeftPanel();
       }
 
       _updateRight(data);
@@ -209,7 +216,8 @@
         jndPubSub.updateCenterPanel();
       }
 
-      // 뱃지를 업데이트하기 위함이요.
+      // 뱃지를 업데이트하기 위함.
+      // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
       jndPubSub.updateLeftPanel();
 
       jndPubSub.pub('topicMessageDelete', data);
