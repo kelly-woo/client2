@@ -5,33 +5,26 @@
 ********************************************/
 .file-upload-progress-container {
   position: relative;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-  height: 0;
   padding: 0 10px 0 58px;
+  
+  overflow: hidden;
+  top: 0;
+  height: 3px;
+  width: 100%;
   opacity: 0;
   height: 0;
-  padding: 0 10px 0 58px;
   z-index: 26;
 
-  -webkit-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.25s, opacity ease-in-out 0.15s;
-  -moz-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.25s, opacity ease-in-out 0.15s;
-  -ms-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.25s, opacity ease-in-out 0.15s;
-  -o-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.25s, opacity ease-in-out 0.15s;
-  transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.25s, opacity ease-in-out 0.15s;
+  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.35s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.05s;
+  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.35s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.05s;
 }
 
 .file-upload-progress-container.file-upload-progress {
-  height: 58px;
+  height: 60px;
   opacity: 1 !important;
-  padding: 6px 10px 0 58px;
 
-  -webkit-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s;
-  -moz-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s;
-  -ms-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.3s;
-  -o-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.3s;
-  transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.3s;
+  -webkit-transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s 0.2s;
+  transition: height cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.2s, opacity cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.15s 0.2s;
 }
 
 
@@ -45,9 +38,6 @@
 
 .file-upload-progress-container.isAborted {
   -webkit-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.45s 1.3s, opacity ease-in-out 0.3s 1.0s;
-  -moz-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.45s 1.3s, opacity ease-in-out 0.3s 1.0s;
-  -ms-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.45s 1.3s, opacity ease-in-out 0.3s 1.0s;
-  -o-transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.45s 1.3s, opacity ease-in-out 0.3s 1.0s;
   transition: all cubic-bezier(0.650, 0.065, 0.250, 0.925) 0.45s 1.3s, opacity ease-in-out 0.3s 1.0s;
 }
 */
@@ -58,7 +48,7 @@
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
   
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   left: 14px;
   bottom:12px;
 
@@ -129,6 +119,7 @@
 .uploading-wrapper {
   position: relative;
   width: 100%;
+  margin-top: 8px;
   background-color: #FFF;
   height: 52px;
   border: 1px solid rgba(45,65,70,0.15);
@@ -164,11 +155,13 @@
   color: #333;
   font-weight: 700;
   font-size: 15px;
-  line-height: 20px;
+  line-height: 22px;
 }
 .uploading-wrapper .file-upload-progress-title {
-  float: left;
-  max-width: calc(100% - 48px);
+  position: absolute;
+  left:16px;
+  width: calc(100% - 84px);
+  text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -176,7 +169,7 @@
 .uploading-wrapper span.file-upload-progress-completion-percent,
 .uploading-wrapper span.file-upload-progress-msg {
   position: absolute;
-  right: 8px;
+  right: 18px;
   text-align: right;
   color: #C8C8C8;
   background-color: #FFF;
