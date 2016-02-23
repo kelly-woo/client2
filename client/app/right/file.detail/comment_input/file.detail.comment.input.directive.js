@@ -44,6 +44,9 @@
         scope.createComment = createComment;
         scope.onCommentInputChange = onCommentInputChange;
         scope.onMentionIconClick = onMentionIconClick;
+        scope.onMessageInputFocus = onMessageInputFocus;
+        scope.onMessageInputBlur = onMessageInputBlur;
+
         scope.member = memberService.getMember();
 
         _initComment();
@@ -125,6 +128,20 @@
        */
       function onMentionIconClick() {
         jndPubSub.pub('mentionahead:show:comment');
+      }
+
+      /**
+       * on message input focus
+       */
+      function onMessageInputFocus() {
+        scope.isMessageInputFocus = true;
+      }
+
+      /**
+       * on message input blur
+       */
+      function onMessageInputBlur() {
+        scope.isMessageInputFocus = false;
       }
 
       /**
