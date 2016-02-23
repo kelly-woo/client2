@@ -46,12 +46,7 @@
 }
 
 .topic-folder.has-folder .topic-folder-area ul li {
-	padding-left:10px;
-	-webkit-transition: background 0.2s, border 0.2s;
-  -moz-transition: background 0.2s, border 0.2s;
-  -ms-transition: background 0.2s, border 0.2s;
-  -o-transition: background 0.2s, border 0.2s;
-  transition: background 0.2s, border 0.2s;
+  padding-left:10px;
 }
 
 .topic-folder.has-folder .topic-folder-area ul li:hover {

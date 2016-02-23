@@ -373,7 +373,7 @@ last element of list
 
 .lpanel-list ul li:hover .icon-star-off {
   opacity: 1;
-  transition: opacity 0.3s ease-in-out;
+  /* transition: opacity 0.3s ease-in-out;*/
 
 }
 .lpanel-list ul li a .icon-star-on {

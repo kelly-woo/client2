@@ -39,6 +39,7 @@
     function onFileDeleteClick() {
       Dialog.confirm({
         body: $filter('translate')('@file-delete-confirm-msg'),
+        allowHtml: true,
         onClose: function(result) {
           var fileId;
 
