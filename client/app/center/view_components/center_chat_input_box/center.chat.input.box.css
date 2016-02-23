@@ -218,9 +218,9 @@
 
 .message-input-footer .message-input-description {
   position: absolute;
-  top: 17px;
+  top: 15px;
   right: 70px;
-  margin-left: 75px;
+  margin-left: 60px;
   overflow: hidden;
   max-height: 14px;
   line-height: 14px;
