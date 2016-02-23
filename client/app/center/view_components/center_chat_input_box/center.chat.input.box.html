@@ -122,7 +122,7 @@
         <sticker-panel name="chat" max-columns="4" dropdown-parent=".message-input-wrapper .input-container-over"></sticker-panel>
         <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
       </div>
-      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}">전송</button>
+      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="postMessage()">전송</button>
       <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
         <span class="markdown-guide-bold" translate>@markdown-bold</span>
         <span class="markdown-guide-italics" translate>@markdown-italics</span>
