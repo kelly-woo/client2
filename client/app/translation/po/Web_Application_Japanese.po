@@ -611,6 +611,10 @@ msgid "@common-rename"
 msgstr "リネーム"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send"
+msgstr "送信"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
 msgstr "１：１メッセージを送信する..."
 
@@ -696,6 +700,10 @@ msgstr "トピックの管理者"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "トピック"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-try-again"
+msgstr "正しいパスワードを入力してください"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
@@ -899,10 +907,6 @@ msgstr "マイコンピューター"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "Dropboxからインポート"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@file-upload-fail"
-msgstr "正しいパスワードを入力してください"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
@@ -2231,6 +2235,10 @@ msgstr "削除する"
 msgid "@message-deleted"
 msgstr "このメッセージは削除されました"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@message-mention"
+msgstr "ここにメッセージㅡを記入（他のメンバーをメンションするには@を記入）"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "重要なメッセージを見落とすかもしれません"
@@ -3305,6 +3313,9 @@ msgstr "JANDI 新着メッセージ通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "水曜日"
+
+#~ msgid "@file-upload-fail"
+#~ msgstr "正しいパスワードを入力してください"
 
 #~ msgid "@soudns-arise"
 #~ msgstr "階段"
