@@ -17,11 +17,11 @@
   line-height: 26px;
   -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
-
+  box-shadow: 0 0 0 1px #bfbfbf;
+  border-radius: 50%;
+  
   background-color: #f9f9f9;
   color: #7b7b7b;
-  
-  box-shadow: 0 0 0 1px #bfbfbf;
 }
 
 .file-upload-wrapper .icon-upload-button:hover {
@@ -68,7 +68,6 @@
   border-radius: 50%;
   color: #7b7b7b;
 }
-
 
 .file-upload-wrapper .file-upload-menu {
   top: -136px;
@@ -356,9 +355,8 @@
   height: 266px;
 }
 .center-chat-input-container .message-input-wrapper .input-container-over .sticker_layer {
-  top: -147px;
+  top: -150px;
 }
-
 
 .message-input-wrapper.focus {
   border-color: #86b0c6 !important;
