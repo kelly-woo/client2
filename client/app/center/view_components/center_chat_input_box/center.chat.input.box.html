@@ -119,7 +119,7 @@
            ng-disabled="isDM"></i>
       </div>
       <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="postMessage()">
-        @common-send
+        {{::'@common-send'|translate}}
       </button>
       <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
         <span class="markdown-guide-bold" translate>@markdown-bold</span>

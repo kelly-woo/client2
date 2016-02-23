@@ -31,8 +31,8 @@
       <sticker-panel name="file" max-columns="3" dropdown-parent=".file-detail .input-container-over"></sticker-panel>
       <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
     </div>
-    <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()" translate>
-      @common-send
+    <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()">
+      {{::'@common-send'|translate}}
     </button>
     <div class="message-input-description">
       <span translate>@msg-help-multiline</span>
