@@ -6,7 +6,7 @@
     .service('jndWebSocketCommon', jndWebSocketCommon);
 
   /* @ngInject */
-  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice,
+  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityMapManager,
                               logger, memberService, accountService) {
 
     var _chatEntity = 'chat';
@@ -29,6 +29,7 @@
     this.getTeamId = getTeamId;
 
     this.getNotificationRoom = getNotificationRoom;
+    this.increaseBadgeCount = increaseBadgeCount;
 
     function updateLeft() {
       jndPubSub.updateLeftPanel();
@@ -60,6 +61,19 @@
         }
       } else {
         return roomId === currentEntity.id;
+      }
+    }
+
+    /**
+     * badge count 를 증가시킨다.
+     * @param {number} roomId
+     * @param {number} [count=1]
+     */
+    function increaseBadgeCount(roomId, count) {
+      var entity = EntityMapManager.get('total', roomId) || EntityMapManager.get('memberEntityId', roomId);
+
+      if (!isCurrentEntity(entity)) {
+        entityAPIservice.increaseBadgeCount(entity.id, count);
       }
     }
 
