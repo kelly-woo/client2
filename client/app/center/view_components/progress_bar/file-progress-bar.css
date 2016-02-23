@@ -56,12 +56,16 @@
   height: 6px;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.1);
-  position: relative;
-  float: none;
-  clear: both;
-  top:6px;
+  position: absolute;
+  
+  width: calc(100% - 20px);
+  left: 14px;
+  bottom:12px;
+
   border-radius: 6px;
   z-index: 0;
+  
+  -webkit-box-shadow: 0px 0px 0px 0 transparent;
   box-shadow: 0px 0px 0px 0 transparent;
 }
 .jandi-file-upload-progress-bar .progress-bar {
@@ -127,7 +131,7 @@
   width: 100%;
   background-color: #FFF;
   height: 52px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid rgba(45,65,70,0.15);
   border-radius: 4px;
   overflow: hidden;
 }
