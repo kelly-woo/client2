@@ -22,7 +22,7 @@
     function lock() {
       if (!_isLock) {
         _isLock = true;
-        jndPubSub.pub('topic-update-lock', _isLock);
+        jndPubSub.pub('TopicUpdateLock:change', _isLock);
       }
     }
 
@@ -32,7 +32,7 @@
     function unlock() {
       if (_isLock) {
         _isLock = false;
-        jndPubSub.pub('topic-update-lock', _isLock);
+        jndPubSub.pub('TopicUpdateLock:change', _isLock);
       }
     }
 
