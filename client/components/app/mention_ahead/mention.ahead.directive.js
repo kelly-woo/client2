@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService, jndKeyCode) {
+  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService) {
 
     return {
       restrict: 'A',
@@ -31,7 +31,6 @@
         );
 
         return function(scope, el, attrs, ctrls) {
-          var mentionaheadDropdownParent = attrs.mentionaheadDropdownParent;
           var mentionaheadType = attrs.mentionaheadType;
 
           var mentionCtrl;
@@ -45,12 +44,7 @@
             scope.type = mentionaheadType;
 
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {
-              if (_.isString(mentionaheadDropdownParent)) {
-                // set dropdown menu parent
-                $(mentionaheadDropdownParent).append(jqMentionahead);
-              } else {
-                el.parent().append(jqMentionahead);
-              }
+              el.parent().append(jqMentionahead);
             });
 
             mentionCtrl

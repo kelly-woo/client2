@@ -331,7 +331,7 @@
 
 /* sticker panel */
 .message-input-wrapper .input-container-over .sticker_panel {
-  top: -312px;
+  top: -303px;
   width: 355px;
 }
 .message-input-wrapper .input-container-over .sticker_panel_contents {
@@ -339,5 +339,5 @@
   height: 266px;
 }
 .message-input-wrapper .input-container-over .sticker_layer {
-  top: -146px;
+  top: -139px;
 }

@@ -148,14 +148,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //entity 리스트 load 가 완료되지 않았다면 dataInitDone 이벤트를 기다린다
     if (publicService.isInitDone()) {
-      _initializeLazyListeners();
+      _initializeListeners();
       _reset();
       _initializeView();
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
       $scope.$on('dataInitDone', _init);
-      _initializeListeners();
     }
   }
 
@@ -221,24 +220,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * scope listener를 초기화한다.
+   *  scope listener를 초기화한다.
    * @private
    */
   function _initializeListeners() {
-    $scope.$on('elasticResize:message', _onElasticResize);
-  }
-
-  /**
-   * 'dataInitDone'이 발생한 후에 scope listener 를 초기화한다.
-   * @private
-   */
-  function _initializeLazyListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
-
+    $scope.$on('elasticResize:message', _onElasticResize);
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
@@ -777,8 +768,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
       messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
-          .success(_onUpdateListSuccess)
-          .error(_onUpdateListError);
+        .success(_onUpdateListSuccess)
+        .error(_onUpdateListError);
 
 
       // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
@@ -1335,7 +1326,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     /*
      users 의 경우 messages.controller.js 의 _generateMessageList 에서
      badge count 를 업데이트 해주기 때문에 user 가 아닐 경우만 badge count increase 함함
-    */
+     */
 
     if (currentSessionHelper.getCurrentEntityType() !== 'users') {
       entityAPIservice.updateBadgeValue($scope.currentEntity, -1);

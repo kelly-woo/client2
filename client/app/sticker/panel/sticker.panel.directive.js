@@ -45,7 +45,7 @@
         _attachDomEvents();
 
         if (_.isString(dropdownParent)) {
-          _setDropdownParent(dropdownParent);
+          $timeout(_setDropdownParent);
         }
       }
 
@@ -153,7 +153,7 @@
        * @param {string} dropdownParent
        * @private
        */
-      function _setDropdownParent(dropdownParent) {
+      function _setDropdownParent() {
         $(dropdownParent).append(jqStickerPanel);
       }
     }
