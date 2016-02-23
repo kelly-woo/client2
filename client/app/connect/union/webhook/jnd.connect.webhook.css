@@ -1,0 +1,25 @@
+.introduction-code-view > table {
+  float: left;
+  width: 100%;
+  display: block;
+}
+.introduction-code-view > table > tbody,
+.introduction-code-view > table > tbody > tr,
+.introduction-code-view > table > tbody > tr > td {
+  display: block;
+}
+.introduction-code-view > table:last-child {
+  width: 30%;
+  position: absolute;
+  right: 18px;
+}
+.introduction-code-view > table:last-child > * {
+  color: #AEAEAE !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+
+  text-align: right;
+}
