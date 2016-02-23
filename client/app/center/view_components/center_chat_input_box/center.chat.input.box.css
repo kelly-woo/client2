@@ -201,6 +201,7 @@
 .message-input-footer .message-input-submit:hover,
 .message-input-footer .message-input-submit:focus {
   background-color: #b4b4b4;
+  outline: 0;
 }
 
 .message-input-footer .message-input-submit.active {
