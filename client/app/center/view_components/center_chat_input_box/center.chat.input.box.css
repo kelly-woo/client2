@@ -19,6 +19,7 @@
 
   background-color: #f9f9f9;
   color: #7b7b7b;
+  border-radius: 50%;
 }
 
 .file-upload-wrapper .icon-upload-button:hover {
@@ -341,5 +342,5 @@
   height: 266px;
 }
 .center-chat-input-container .message-input-wrapper .input-container-over .sticker_layer {
-  top: -147px;
+  top: -150px;
 }
