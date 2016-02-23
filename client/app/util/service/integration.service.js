@@ -21,7 +21,7 @@
 
         // file upload object
         that.filesUpload = FilesUpload.createInstance({
-          sequence: true,
+          straight: true,
           uploadType: 'integration',
           supportFileAPI: true,
           convertFileInfo: function(file) {
@@ -120,7 +120,7 @@
         var that = this;
 
         that.filesUpload.setFileObject(files);
-
+        that.filesUpload.resetProgressIndex();
         that.filesUpload.upload();
       },
       /**
