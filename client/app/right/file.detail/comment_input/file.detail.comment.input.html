@@ -1,4 +1,4 @@
-<div class="message-input-wrapper" ng-show="hasInitialLoaded && file">
+<div class="message-input-wrapper" ng-class="{'focus': isMessageInputFocus}" ng-show="hasInitialLoaded && file">
   <div class="comment-item__thumbnail">
     <img class="user-profile user-thumb-sm cursor_pointer"
          ng-src="{{profileImage}}"
@@ -14,7 +14,9 @@
       <div class="comment-textarea-wrap">
       <textarea class="comment-input"
                 id="file-detail-comment-input"
-                placeholder="{{::'@placeholder-input-message' | translate }}"
+                placeholder="{{::'@message-mention' | translate }}"
+                ng-focus="onMessageInputFocus()"
+                ng-blur="onMessageInputBlur()"
                 message-submit="createComment()"
                 jnd-elastic="comment"
                 jnd-elastic-on-change="onCommentInputChange($event)"
@@ -29,8 +31,8 @@
       <sticker-panel name="file" max-columns="3" dropdown-parent=".file-detail .input-container-over"></sticker-panel>
       <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
     </div>
-    <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()" translate>
-      전송
+    <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()">
+      {{::'@common-send'|translate}}
     </button>
     <div class="message-input-description">
       <span translate>@msg-help-multiline</span>

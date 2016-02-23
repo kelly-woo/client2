@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($state, $filter, $timeout, integrationService, fileAPIservice, ImagePaste, Browser,
+  function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
                               jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
     var multiple = true;    // multiple upload 여부
 
@@ -36,7 +36,7 @@
           integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
-      var _entityId = $state.params._entityId;
+      var _entityId = $state.params.entityId;
       var _progressHeight;
 
       _init();
@@ -46,7 +46,10 @@
        * @private
        */
       function _init() {
+        scope.isDM = memberService.isMember(_entityId);
         scope.onMentionIconClick = onMentionIconClick;
+        scope.onMessageInputFocus = onMessageInputFocus;
+        scope.onMessageInputBlur = onMessageInputBlur;
 
         _attachScopeEvents();
         _attachDomEvents();
@@ -170,6 +173,20 @@
        */
       function onMentionIconClick() {
         jndPubSub.pub('mentionahead:show:message');
+      }
+
+      /**
+       * on message input focus
+       */
+      function onMessageInputFocus() {
+        scope.isMessageInputFocus = true;
+      }
+
+      /**
+       * on message input blur
+       */
+      function onMessageInputBlur() {
+        scope.isMessageInputFocus = false;
       }
 
       /**

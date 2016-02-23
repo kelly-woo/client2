@@ -12,11 +12,14 @@
   height: 30px;
   font-size: 18px;
   text-align: center;
+  border-radius: 50%;
   vertical-align: middle;
   line-height: 26px;
   -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
-
+  box-shadow: 0 0 0 1px #bfbfbf;
+  border-radius: 50%;
+  
   background-color: #f9f9f9;
   color: #7b7b7b;
 }
@@ -24,40 +27,46 @@
 .file-upload-wrapper .icon-upload-button:hover {
   background-color: #fff;
   color: #00abe6;
+  box-shadow: 0 0 0 1px #00abe6;
+}
+
+.file-upload-wrapper.open .icon-upload-button {
+  box-shadow: 0 0 0 1px #bfbfbf;
 }
 
 .file-upload-wrapper .icon-upload-button::before {
   content: '';
   position: absolute;
   border-radius: 50%;
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  z-index: -1;
+  
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  
+  -webkit-transition: all .15s ease-out;
+  transition: all .15s ease-out;
 }
 
 .file-upload-wrapper .icon-upload-button:hover::before {
-  top: -1px;
-  right: -1px;
-  bottom: -1px;
-  left: -1px;
-  border: 2px solid #00abe6;
+  -webkit-transform: scale(1.15);
+  transform: scale(1.15);
+  background-color: #00abe6;
 }
+
 
 .file-upload-wrapper .icon-upload-button::before,
 .file-upload-wrapper.open .icon-upload-button::before {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border: 1px solid #bfbfbf;
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 
 .file-upload-wrapper.open .icon-upload-button {
   background-color: #dedede;
   border-radius: 50%;
   color: #7b7b7b;
-}
-.file-upload-wrapper.open .icon-upload-button::before {
-  border: 1px solid #bfbfbf;
 }
 
 .file-upload-wrapper .file-upload-menu {
@@ -116,7 +125,7 @@
   vertical-align: middle;
   border: 0;
   outline: 0;
-  background:white;
+  background: transparent;
   color:#3d3c40;
   overflow-y: auto;
   resize: none !important;
@@ -164,9 +173,13 @@
   margin-top: 2px;
 }
 
-.message-input-footer .message-input-buttons .icon-at:hover {
+.message-input-footer .message-input-buttons .icon-at:not([disabled]):hover {
   opacity: 0.8;
   color: #00abe6;
+}
+
+.message-input-footer .message-input-buttons .icon-at[disabled] {
+  opacity: 0.2;
 }
 
 .message-input-footer .message-input-buttons .icon-at.open {
@@ -191,6 +204,7 @@
 .message-input-footer .message-input-submit:hover,
 .message-input-footer .message-input-submit:focus {
   background-color: #b4b4b4;
+  outline: 0;
 }
 
 .message-input-footer .message-input-submit.active {
@@ -207,9 +221,9 @@
 
 .message-input-footer .message-input-description {
   position: absolute;
-  top: 17px;
+  top: 15px;
   right: 70px;
-  margin-left: 75px;
+  margin-left: 60px;
   overflow: hidden;
   max-height: 14px;
   line-height: 14px;
@@ -341,5 +355,16 @@
   height: 266px;
 }
 .center-chat-input-container .message-input-wrapper .input-container-over .sticker_layer {
-  top: -147px;
+  top: -150px;
+}
+
+.message-input-wrapper.focus {
+  border-color: #86b0c6 !important;
+}
+.message-input-wrapper.post-loading {
+  background-color: #ECEFF3 !important;
+}
+.message-input-wrapper.disabled-member-input {
+  background-color: #ededed !important;
+  color: #999 !important;
 }

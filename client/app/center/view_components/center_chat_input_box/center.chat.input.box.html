@@ -1,5 +1,4 @@
 <div class="footer center-chat-input-container">
-  
   <!-- scroll to bottom container & new msg banner positioned directly under footer container -->
   <div class="scroll-to-bottom-container cursor_pointer"
        ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)"
@@ -35,17 +34,12 @@
         <span class="file-upload-progress-title">{{curUpload.title}}</span>
         <!--    progress in percentile  -->
         <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
-        
         <!--    'done'      -->
         <span class="file-upload-progress-msg done" translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
         <!--    'aborted'       -->
         <span class="file-upload-progress-msg aborted" translate ng-if="curUpload.status == 'abort'">@common-file-upload-abort-msg</span>
         <!--    'error'     -->
-        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">
-          <!--@common-api-error-msg-->
-          Error
-        </span>
-        
+        <span class="file-upload-progress-msg error" translate ng-if="curUpload.status == 'error'">@common-try-again</span>
         <!-- progress-bar -->
         <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
       </div>
@@ -66,18 +60,17 @@
           <!--<i class="icon-delete"></i>-->
           Close
         </span>
-        
-        
         <!--    'uploading' 
         <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
         -->
-        
-        
       </div>
     </div>
   </div>
   
-  <div class="message-input-wrapper">
+  <div class="message-input-wrapper"
+       ng-class="{'post-loading': isPosting,
+                  'disabled-member-input': isDisabledMember(currentEntity),
+                  'focus': isMessageInputFocus}">
     <div class="file-upload-wrapper non-selectable" dropdown>
       <div class="dropdown dropdown-toggle icon-upload-button cursor_pointer" dropdown-toggle>
         <i class="icon-upload"></i>
@@ -105,9 +98,9 @@
     <div class="message-input-body">
       <form id="message-form">
         <textarea id="message-input"
-                  ng-class="{ 'post-loading': isPosting,
-                                'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
                   message-submit="postMessage()"
+                  ng-focus="onMessageInputFocus()"
+                  ng-blur="onMessageInputBlur()"
                   ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   placeholder="{{::'@placeholder-input-message' | translate }}"
                   jnd-elastic="message"
@@ -120,9 +113,14 @@
     <div class="message-input-footer">
       <div class="message-input-buttons">
         <sticker-panel name="chat" max-columns="4" dropdown-parent=".center-chat-input-container .input-container-over"></sticker-panel>
-        <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadShow}" ng-click="onMentionIconClick()"></i>
+        <i class="icon-at cursor_pointer"
+           ng-class="{'open': isMentionaheadShow}"
+           ng-click="onMentionIconClick()"
+           ng-disabled="isDM"></i>
       </div>
-      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="postMessage()">전송</button>
+      <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="postMessage()">
+        {{::'@common-send'|translate}}
+      </button>
       <div class="message-input-description fade opac-zero" ng-class="{'opac-in-fast': showMarkdownGuide}">
         <span class="markdown-guide-bold" translate>@markdown-bold</span>
         <span class="markdown-guide-italics" translate>@markdown-italics</span>

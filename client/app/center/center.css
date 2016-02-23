@@ -464,9 +464,6 @@ by ysyun 2015.2.25
   box-shadow: 0 -25px 15px -15px #fff; /* 우측 스크롤바를 덮는 화이트 그라디언트 스타일 추가 */
 }
 
-.post-loading {
-  background-color: #f2f2f2 !important;
-}
 .editable-wrap {
   width: 100%;
   position: relative;
@@ -640,13 +637,6 @@ by ysyun 2015.2.25
   text-decoration: line-through;
   opacity: 0.4 !important;
 }
-.center-panel-disabled-member-input {
-  background-color: #EDEDED !important;
-  color: #999999 !important;
-}
-.center-panel-disabled-member-input:hover {
-
-}
 
 @media (max-width: 960px) {
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
@@ -693,4 +683,5 @@ by ysyun 2015.2.25
   height: auto;
   border-radius: 0;
   margin-top: -8px;
+  border-width: 0;
 }
