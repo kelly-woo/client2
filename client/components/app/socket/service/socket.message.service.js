@@ -101,7 +101,7 @@
      * message -> file_comment event handler.
      * 코멘트가 달린 파일이 공유된 방중에 현재 보고있는 엔티티가 있다면 center만 업데이트한다.
      * right panel update는 file_comment_created 에서.
-     * @param data
+     * @param {object} data
      * @private
      */
     function _onFileComment(data) {
@@ -117,13 +117,18 @@
 
       if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         // badge count를 올리기 위함이요.
-        _.forEach(data.rooms, function(room) {
-          //server 의 잘못된 데이터로 인해 rooms 배열에 같은 room 이 2개 이상 포함되는 경우가 있으므로, 중복을 제거한다.
-          if (!map[room.id]) {
-            map[room.id] = true;
-            jndWebSocketCommon.increaseBadgeCount(room.id);
-          }
-        });
+        if (jndWebSocketCommon.isActionFromMe(data.writer)) {
+          //내 comment 일 경우 해당 파일이 공유된 타 토픽의 unread marker 를 갱신해야 하므로 leftSideMenu 를 호출한다.
+          jndPubSub.updateLeftPanel();
+        } else {
+          _.forEach(data.rooms, function(room) {
+            //server 의 잘못된 데이터로 인해 rooms 배열에 같은 room 이 2개 이상 포함되는 경우가 있으므로, 중복을 제거한다.
+            if (!map[room.id]) {
+              map[room.id] = true;
+              jndWebSocketCommon.increaseBadgeCount(room.id);
+            }
+          });
+        }
 
         data.room = room;
 
@@ -172,7 +177,12 @@
         if (memberService.isTopicNotificationOn(room.id)) {
           FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
-        jndWebSocketCommon.increaseBadgeCount(room.id);
+        //내가 share 했을 경우 공유한 토픽의 marker 위치를 업데이트 해야하기 때문에 부득이하게 leftSideMenu 를 콜한다.
+        if (jndWebSocketCommon.isActionFromMe(data.writer)) {
+          jndPubSub.updateLeftPanel();
+        } else {
+          jndWebSocketCommon.increaseBadgeCount(room.id);
+        }
       }
     }
 
