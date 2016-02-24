@@ -72,13 +72,10 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
             controller: 'leftPanelController1',
             resolve: {
               leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
-                return leftpanelAPIservice.getLists()
-                  .error(function (err) {
-                    publicService.signOut();
-                  });
+                return leftpanelAPIservice.getLists().error(publicService.signOut);
               },
               topicFolder: function(publicService, TopicFolderModel) {
-                return TopicFolderModel.load();
+                return TopicFolderModel.load('initialize').then(null, publicService.signOut);
               }
             }
           },

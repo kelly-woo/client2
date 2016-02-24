@@ -1,5 +1,10 @@
 .jnd-version {
-  font-size:12px;
+  font-size:14px;
   vertical-align: bottom;
-  padding-left:30px;
+  position: absolute;
+  left: 320px;
+  font-style: italic;
+  text-decoration: underline;
+  opacity: 0.6;
+  font-weight: 600;
 }

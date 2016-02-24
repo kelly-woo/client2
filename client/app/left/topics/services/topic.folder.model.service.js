@@ -1,6 +1,9 @@
 /**
  * @fileoverview 토픽 폴더 모델. data model 과 api 의 다리 역할을 한다.
  * @author Young Park <young.park@tosslab.com>
+ * @todo:
+ * load() 가 반복적으로 호출되는 오류 현상 해결 이후
+ * load(), reload() 메서드와 topic.folder.api.service.js 의 trackingCode 제거
  */
 
 (function() {
@@ -99,7 +102,7 @@
         //todo: general error
         JndUtil.alertUnknownError(response, status);
       }
-      reload();
+      reload('createFailed');
     }
 
     /**
@@ -109,7 +112,7 @@
      * @private
      */
     function _onCreateSuccess(isRename, response) {
-      reload().then(function() {
+      reload('createSuccess').then(function() {
         if (isRename) {
           $timeout(function () {
             jndPubSub.pub('topic-folder:rename', response.folderId);
@@ -127,7 +130,7 @@
       TopicFolderAPI.remove(memberService.getTeamId(), folderId)
         .error(function() {
           //todo: 삭제 실패
-          reload();
+          reload('removeFailed');
         });
     }
 
@@ -205,7 +208,7 @@
       } else {
         JndUtil.alertUnknownError(response, status);
       }
-      reload();
+      reload('modifyError');
     }
 
     /**
@@ -273,13 +276,18 @@
 
     /**
      * folder 관련 정보를 모두 조회한다.
+     * @param {string} [trackingCode] - 오류 현상 파악을 위해 임시로 트레킹 코드를 추가한다.
      * @returns {Promise}
      */
-    function load() {
+    function load(trackingCode) {
+      if (_deferred) {
+        _deferred.resolve();
+      }
       _deferred = $q.defer();
       var promises = [];
-      promises.push(TopicFolderAPI.getFolders());
-      promises.push(TopicFolderAPI.getEntities());
+      var teamId = memberService.getTeamId();
+      promises.push(TopicFolderAPI.getFolders(teamId, _deferred, trackingCode));
+      promises.push(TopicFolderAPI.getEntities(teamId, _deferred, trackingCode));
 
       return $q.all(promises)
         .then(_onSuccessLoad, _onErrorLoad);
@@ -290,7 +298,7 @@
      * @private
      */
     function _onErrorLoad(results) {
-      return _deferred;
+      return $q.reject('load error');
     }
 
     /**
@@ -343,10 +351,11 @@
 
     /**
      * folder 관련 정보를 조회하고 view 에 반영한다.
+     * @param {string} trackingCode 임시 트레킹 코드
      * @returns {*}
      */
-    function reload() {
-      return load().then(function() {
+    function reload(trackingCode) {
+      return load('reload:' + trackingCode).then(function() {
         update();
       }, null);
     }
@@ -440,7 +449,7 @@
           JndUtil.alertUnknownError(response, status);
         }
       }
-      reload();
+      reload('pushError');
     }
   }
 })();
