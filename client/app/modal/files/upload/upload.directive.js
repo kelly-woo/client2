@@ -84,8 +84,9 @@
               };
 
               // upload modal title 갱신, fileInfo에 title 설정
+              fileInfo.title = file.name;
               $timeout(function() {
-                $('#file_upload_title').val(fileInfo.title = file.name);
+                $('#file_upload_title').val(file.name);
               }, 100);
 
               // upload modal currentEntity 갱신
@@ -284,7 +285,9 @@
        * file upload
        */
       function upload() {
-        fileUploader.upload(true);
+        fileUploader.upload(true, {
+          straight: !!scope.isStraightUpload
+        });
       }
 
       /**

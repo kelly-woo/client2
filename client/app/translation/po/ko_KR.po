@@ -3336,9 +3336,8 @@ msgid "@unread-bookmark-message"
 msgstr "여기까지 읽었습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "업로드"
+msgstr "댓글 작성 없이 모든 파일 업로드"
 
 #: client/app/left/left.html
 msgid "@user"
