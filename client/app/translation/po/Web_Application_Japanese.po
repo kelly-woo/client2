@@ -3217,9 +3217,8 @@ msgid "@unread-bookmark-message"
 msgstr "ここから未読メッセージ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "アップロード"
+msgstr "コメント投稿せずに、全てアップロード"
 
 #: client/app/left/left.html
 msgid "@user"
