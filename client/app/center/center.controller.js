@@ -241,6 +241,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
     $scope.$on('center:scrollToBottom', _centerScrollToBottom);
+    $scope.$on('headerCtrl:rightPanelToggle', _onRightPanelToggle);
 
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
@@ -1391,6 +1392,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottomWithAnimate(duration);
     } else {
       _scrollToBottom(true);
+    }
+  }
+
+  /**
+   * right panel toggle event handler
+   * @param {object} $event
+   * @param {boolean} isOpen
+   * @private
+   */
+  function _onRightPanelToggle($event, isOpen) {
+    if (isOpen && $scope.isInitialLoadingCompleted && _isBottomReached()) {
+      _scrollToBottomWithAnimate(1000);
     }
   }
 

@@ -90,7 +90,7 @@
         $scope.toolbar[currentRightPanel] = true;
       }
 
-      _attachLEventListeners();
+      _attachEvents();
     }
 
     /**
@@ -122,7 +122,7 @@
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
      */
-    function _attachLEventListeners() {
+    function _attachEvents() {
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         stateParams = toParams;
       });
@@ -153,8 +153,9 @@
       });
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
-
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
+
+      $scope.$watch('isOpenRightPanel', _onRightPanelToggle);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -359,6 +360,17 @@
         $timeout(function() {
           openQuickLauncher();
         }, 50);
+      }
+    }
+
+    /**
+     *
+     * @param {boolean} isOpen
+     * @private
+     */
+    function _onRightPanelToggle(newIsOpen, oldIsOpen) {
+      if (newIsOpen !== oldIsOpen) {
+        jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
     }
 
