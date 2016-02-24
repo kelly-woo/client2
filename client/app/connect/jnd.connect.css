@@ -711,11 +711,9 @@
 
 .integration-service-container .save-button {
   position: relative;
-  margin: 32px auto 8px;
+  margin: 32px auto 8px !important;
   display: block;
 }
-
-
 
 .white-button {
   float: left;
@@ -1115,7 +1113,6 @@
 .introduction-code-view .code-line.indent-1depth,
 .introduction-code-view .code-line.indent-2depth {
   padding-right: 16px;
-  width: 846px;
   min-width: 100%;
 }
 .indent-0depth {
