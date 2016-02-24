@@ -1,7 +1,11 @@
 <div>
   <!--    HEADER  -->
   <div class="lpanel-list__header topic-header cursor_pointer" ng-click="onTopicHeaderClick($event);"
-       ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}">
+       ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}"
+       tutorial-tooltip="@토픽을 생성하세요."
+       tutorial-tooltip-placement="bottom"
+       tutorial-tooltip-name="topic"
+       tutorial-tooltip-class="tutorial-tooltip-topic">
 
     <i class="fa lpanel-collapse-arrow" ng-class="{'icon-arrow-up-fill': !leftListCollapseStatus.isTopicsCollapsed,
                                                   'icon-arrow-down-fill': leftListCollapseStatus.isTopicsCollapsed}"></i>
@@ -10,12 +14,12 @@
 
 
     <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
-         tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+         tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
       <i class="icon-plus"></i>
     </div>
 
     <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
-         tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+         tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
       <i class="icon-reorder"></i>
     </div>
     <span class="left-header-badge">

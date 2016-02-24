@@ -1,0 +1,45 @@
+.tutorial-tooltip {
+  z-index: 500;
+}
+.tutorial-tooltip .tooltip-inner {
+  padding: 8px 10px;
+  height: 34px;
+  min-width:50px;
+  border: 1px solid #008dbe;
+  background-color: #00abe6;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+.tutorial-tooltip.bottom .tooltip-arrow {
+  border-bottom-color:#008dbe !important;
+}
+.tutorial-tooltip.top .tooltip-arrow {
+  border-top-color:#008dbe !important;
+}
+
+.tutorial-tooltip i.icon-delete {
+  margin-top:5px;
+  margin-left:8px;
+  float: right;
+  font-size:10px;
+  color: #FFFFFF;
+}
+.tutorial-tooltip-topic {
+  left: auto !important;
+  right: 3px;
+}
+.tutorial-tooltip-topic .tooltip-arrow {
+  left: auto !important;
+  right: 15px;
+}
+.tutorial-tooltip-sticker {
+  top: auto !important;
+  bottom: 35px;
+}
+.tutorial-tooltip-upload {
+  top: auto !important;
+  bottom: 95px;
+}

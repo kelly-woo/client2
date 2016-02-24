@@ -192,7 +192,12 @@
     <ul>
       <li>
         <a class="info-tool file-tool" ng-class="{active: toolbar.files}" ng-click="openRightPanel('files')"
-            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom">
+            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom"
+           tutorial-tooltip="@파일 탭을 열어보세요."
+           tutorial-tooltip-placement="bottom"
+           tutorial-tooltip-append-to-body="true"
+           tutorial-tooltip-name="filetab"
+           tutorial-tooltip-class="tutorial-tooltip-filetab">
           <i class="icon-file"></i>
         </a>
       </li>

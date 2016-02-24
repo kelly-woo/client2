@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
-                     fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading) {
+                     fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading, TutorialTooltip) {
 
     _init();
 
@@ -54,6 +54,7 @@
 
         $scope.$on('createdThumbnailImage', _createdThumbnailImage);
       }
+      TutorialTooltip.hide('filetab');
     }
 
     /**

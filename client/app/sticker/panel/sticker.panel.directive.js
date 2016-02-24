@@ -10,7 +10,7 @@
     .module('jandiApp')
     .directive('stickerPanel', stickerPanel);
 
-  function stickerPanel($position, $timeout, jndKeyCode) {
+  function stickerPanel($position, $timeout, jndKeyCode, TutorialTooltip) {
     return {
       restrict: 'E',
       replace: true,
@@ -104,6 +104,10 @@
 
           scope.select();
           _jqStickerPanelBtn.attr('tabIndex', -1);
+
+          if (isOpen && scope.name === 'chat') {
+            TutorialTooltip.hide('sticker');
+          }
         } else {
           _jqStickerPanel.removeClass('vivid');
           _jqStickerPanel.one('transitionend.stickerPanel', function() {

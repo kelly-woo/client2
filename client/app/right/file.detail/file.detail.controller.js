@@ -10,7 +10,8 @@
 
   /* @ngInject */
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
-                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker) {
+                           EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker,
+                          TutorialTooltip) {
     var fileId;
     var requestFileDetail;
 
@@ -44,6 +45,7 @@
           _attachEvents();
         }
       }
+      TutorialTooltip.hide('filetab');
     }
 
     /**

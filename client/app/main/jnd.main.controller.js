@@ -10,7 +10,7 @@
     .controller('JndMainCtrl', JndMainCtrl);
 
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
-                          currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
+                          currentSessionHelper, TopicInvitedFlagMap, JndUtil, TutorialTooltip, accountService) {
 
     $scope.connectSetting = {
       isOpen: false,
@@ -25,6 +25,28 @@
      * @private
      */
     function _init() {
+      if (accountService.getAccount()) {
+        _showTutorial();
+      } else {
+        $scope.$on('accountLoaded', _showTutorial);
+      }
+      _attachEvents();
+    }
+
+    /**
+     * tutorial 을 노출한다.
+     * @private
+     */
+    function _showTutorial() {
+      //TODO: tutorial tooltip 이 아닌 tutorial welcome 을 노출해야 함
+      TutorialTooltip.show();
+    }
+
+    /**
+     * 이벤트 핸들러를 바인딩 한다.
+     * @private
+     */
+    function _attachEvents() {
       $scope.$on('kickedOut', _onKickedOut);
       $scope.$on('topicInvite', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
@@ -33,7 +55,6 @@
       $scope.$on('JndConnect:open', _onJndConnectOpen);
       $scope.$on('JndConnect:close', _onJndConnectClose);
     }
-
 
     /**
      * connect setting show 이벤트 핸들러

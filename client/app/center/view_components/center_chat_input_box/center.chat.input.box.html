@@ -72,7 +72,12 @@
                   'disabled-member-input': isDisabledMember(currentEntity),
                   'focus': isMessageInputFocus}">
     <div class="file-upload-wrapper non-selectable" dropdown>
-      <div class="dropdown dropdown-toggle icon-upload-button cursor_pointer" dropdown-toggle>
+      <div class="dropdown dropdown-toggle icon-upload-button cursor_pointer" dropdown-toggle
+           tutorial-tooltip="@파일을 올려보세요"
+           tutorial-tooltip-placement="top"
+           tutorial-tooltip-append-to-body="true"
+           tutorial-tooltip-name="upload"
+           tutorial-tooltip-class="tutorial-tooltip-upload">
         <i class="icon-upload"></i>
       </div>
       <ul class="file-upload-menu dropdown-menu" id="file-upload-menu" role="menu">
@@ -112,7 +117,12 @@
 
     <div class="message-input-footer">
       <div class="message-input-buttons">
-        <sticker-panel name="chat" max-columns="4" dropdown-parent=".center-chat-input-container .input-container-over"></sticker-panel>
+        <sticker-panel name="chat" max-columns="4" dropdown-parent=".center-chat-input-container .input-container-over"
+                       tutorial-tooltip="@스티커를 보내세요"
+                       tutorial-tooltip-placement="top"
+                       tutorial-tooltip-append-to-body="true"
+                       tutorial-tooltip-name="sticker"
+                       tutorial-tooltip-class="tutorial-tooltip-sticker"></sticker-panel>
         <i class="icon-at cursor_pointer"
            ng-class="{'open': isMentionaheadShow}"
            ng-click="onMentionIconClick()"

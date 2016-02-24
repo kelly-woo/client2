@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil, TutorialTooltip) {
 
     var that = this;
 
@@ -175,6 +175,7 @@
       };
       _.extend(modalOption, options);
       _modalOpener(modalOption);
+      TutorialTooltip.hide('topic');
     }
 
     /**

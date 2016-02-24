@@ -1,0 +1,29 @@
+.tutorial-modal-container {
+  display: block;
+  z-index: 610;
+  position:fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tutorial-modal-dim {
+  display: block;
+  z-index: 611;
+  position:absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: .5;
+}
+.tutorial-modal {
+  z-index: 612;
+  position:absolute;
+  background: #FFFFFF;
+  width: 400px;
+  height: 440px;
+  left: calc(50% - 200px);
+  top: calc(50% - 220px);
+}
