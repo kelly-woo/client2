@@ -26,13 +26,13 @@
     };
 
     function link(scope, el) {
-      var jqFileDetail = $('.file-detail');
-      var jqCommentInput = $('#file-detail-comment-input');
+      var _jqFileDetail = $('.file-detail');
+      var _jqCommentInput = $('#file-detail-comment-input');
 
-      var stickerType = 'file';
-      var sticker;
+      var _stickerType = 'file';
+      var _sticker;
 
-      var timerScrollBottom;
+      var _timerScrollBottom;
 
       _init();
 
@@ -66,7 +66,7 @@
         scope.$on('window:unload', _onWindowUnload);
 
         scope.$on('setCommentFocus', _onFocusInput);
-        scope.$on('onChangeSticker:' + stickerType, _onChangeSticker);
+        scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
         scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
@@ -106,16 +106,16 @@
        * comment 를 posting 한다.
        */
       function createComment() {
-        var comment = jqCommentInput.val().trim();
+        var comment = _jqCommentInput.val().trim();
 
-        if (comment || sticker) {
+        if (comment || _sticker) {
           _hideSticker();
 
           _clearWithFocus();
 
           scope.postComment({
             $comment: comment,
-            $sticker: sticker
+            $sticker: _sticker
           });
         } else if (comment === '') {
           _clearWithFocus();
@@ -154,7 +154,7 @@
           _hideSticker();
         } else if (_.isString(event.target.value)) {
           message = _.trim(event.target.value).length;
-          scope.hasMessage = message > 0 || !!sticker;
+          scope.hasMessage = message > 0 || !!_sticker;
         }
       }
 
@@ -171,7 +171,7 @@
        * @private
        */
       function _focusInput() {
-        jqCommentInput.focus();
+        _jqCommentInput.focus();
       }
 
       /**
@@ -181,11 +181,11 @@
        * @private
        */
       function _onChangeSticker(angularEvent, item) {
-        if (sticker = item) {
+        if (_sticker = item) {
           setTimeout(_focusInput);
         }
 
-        scope.hasMessage = !!sticker;
+        scope.hasMessage = !!_sticker;
       }
 
       /**
@@ -193,7 +193,7 @@
        * @private
        */
       function _hideSticker() {
-        jndPubSub.pub('deselectSticker:' + stickerType);
+        jndPubSub.pub('deselectSticker:' + _stickerType);
       }
 
       /**
@@ -217,7 +217,7 @@
        * @private
        */
       function _saveCommentInput() {
-        scope.file && JndMessageStorage.setCommentInput(scope.file.id, jqCommentInput.val());
+        scope.file && JndMessageStorage.setCommentInput(scope.file.id, _jqCommentInput.val());
       }
 
       /**
@@ -303,9 +303,9 @@
        * @private
        */
       function _onElasticResize() {
-        clearTimeout(timerScrollBottom);
+        clearTimeout(_timerScrollBottom);
         if (_isScrollOver()) {
-          timerScrollBottom = setTimeout(function() {
+          _timerScrollBottom = setTimeout(function() {
             _fixScrollBottom();
           }, 100);
         }
@@ -327,7 +327,7 @@
        * @private
        */
       function _isScrollOver() {
-        return el.height() + el.offset().top <= jqFileDetail.scrollTop() + jqFileDetail[0].scrollHeight;
+        return el.height() + el.offset().top <= _jqFileDetail.scrollTop() + _jqFileDetail[0].scrollHeight;
       }
 
       /**
@@ -336,7 +336,7 @@
        * @private
        */
       function _fixScrollBottom() {
-        return jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
+        return _jqFileDetail.scrollTop(_jqFileDetail[0].scrollHeight);
       }
 
       /**
@@ -345,7 +345,7 @@
        */
       function _clearWithFocus() {
         setTimeout(function() {
-          jqCommentInput.val('').focus()[0].removeAttribute('style');
+          _jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
       }
 
