@@ -22,11 +22,11 @@
 
     function link(scope, el, attrs) {
       // dropdown parent dom element
-      var dropdownParent = attrs.dropdownParent;
+      var _dropdownParent = attrs.dropdownParent;
 
-      var jqStickerPanel = el.find('.sticker_panel');
-      var jqStickerPanelBtn = el.find('.sticker_panel_btn');
-      var jqStickerPanelContents = el.find('.sticker_panel_contents');
+      var _jqStickerPanel = el.find('.sticker_panel');
+      var _jqStickerPanelBtn = el.find('.sticker_panel_btn');
+      var _jqStickerPanelContents = el.find('.sticker_panel_contents');
 
       _init();
 
@@ -35,7 +35,7 @@
        * @private
        */
       function _init() {
-        jqStickerPanelBtn.focus();
+        _jqStickerPanelBtn.focus();
 
         scope.onCreateSticker = onCreateSticker;
         scope.autoScroll = autoScroll;
@@ -44,7 +44,7 @@
 
         _attachDomEvents();
 
-        if (_.isString(dropdownParent)) {
+        if (_.isString(_dropdownParent)) {
           $timeout(_setDropdownParent);
         }
       }
@@ -54,7 +54,7 @@
        * @private
        */
       function _attachDomEvents() {
-        jqStickerPanelBtn.on('keydown', _onKeyDown);
+        _jqStickerPanelBtn.on('keydown', _onKeyDown);
       }
 
       /**
@@ -95,23 +95,23 @@
        */
       function onToggled(isOpen) {
         if (isOpen) {
-          jqStickerPanel.addClass('open');
-          jqStickerPanel.off('transitionend.stickerPanel');
+          _jqStickerPanel.addClass('open');
+          _jqStickerPanel.off('transitionend.stickerPanel');
 
           setTimeout(function() {
-            jqStickerPanel.addClass('vivid');
+            _jqStickerPanel.addClass('vivid');
           }, 30);
 
           scope.select();
-          jqStickerPanelBtn.attr('tabIndex', -1);
+          _jqStickerPanelBtn.attr('tabIndex', -1);
         } else {
-          jqStickerPanel.removeClass('vivid');
-          jqStickerPanel.one('transitionend.stickerPanel', function() {
-            jqStickerPanel.removeClass('open');
+          _jqStickerPanel.removeClass('vivid');
+          _jqStickerPanel.one('transitionend.stickerPanel', function() {
+            _jqStickerPanel.removeClass('open');
           });
 
           scope.resetRecentStickers();
-          jqStickerPanelBtn.removeAttr('tabIndex');
+          _jqStickerPanelBtn.removeAttr('tabIndex');
         }
       }
 
@@ -119,7 +119,7 @@
        * create sticker event handler
        */
       function onCreateSticker() {
-        jqStickerPanelBtn.focus();
+        _jqStickerPanelBtn.focus();
       }
 
       /**
@@ -127,34 +127,33 @@
        * @param {number} index
        */
       function autoScroll(index) {
-        var jqItem = jqStickerPanel.find('.sticker_panel_ul').children().eq(index);
+        var jqItem = _jqStickerPanel.find('.sticker_panel_ul').children().eq(index);
         var itemPosition;
         var contPosition;
         var scrollTop;
         var compare;
 
         if (jqItem[0]) {
-          scrollTop = jqStickerPanelContents.scrollTop();
+          scrollTop = _jqStickerPanelContents.scrollTop();
 
           itemPosition = $position.offset(jqItem);
-          contPosition = $position.offset(jqStickerPanelContents);
+          contPosition = $position.offset(_jqStickerPanelContents);
 
           compare = itemPosition.top - contPosition.top;
           if (compare < 0) {
-            jqStickerPanelContents.scrollTop(scrollTop + compare);
+            _jqStickerPanelContents.scrollTop(scrollTop + compare);
           } else if (compare + itemPosition.height > contPosition.height) {
-            jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+            _jqStickerPanelContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
           }
         }
       }
 
       /**
        * set dropdown parent
-       * @param {string} dropdownParent
        * @private
        */
       function _setDropdownParent() {
-        $(dropdownParent).append(jqStickerPanel);
+        $(_dropdownParent).append(_jqStickerPanel);
       }
     }
   }

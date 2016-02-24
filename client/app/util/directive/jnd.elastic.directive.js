@@ -16,7 +16,7 @@
       link: link
     };
     function link(scope, el, attrs) {
-      var copyStyle = [
+      var _copyStyle = [
         'fontFamily',
         'fontSize',
         'fontWeight',
@@ -163,7 +163,7 @@
        * @private
        */
       function _setMirrorStyle() {
-        _.forEach(copyStyle, function (value) {
+        _.forEach(_copyStyle, function (value) {
           _jqMirror.css(value, el.css(value));
         });
       }

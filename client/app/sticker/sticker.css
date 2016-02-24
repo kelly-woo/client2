@@ -19,12 +19,6 @@
 .sticker_panel:focus {
   outline: 0;
 }
-.sticker_panel_wrap {
-  /*position: absolute;*/
-  /*right: 10px;*/
-  /*bottom: 8px;*/
-  /*width:16px;*/
-}
 .sticker_panel_wrap.shift{
   right: 20px;
 }
