@@ -467,7 +467,6 @@
      * @private
      */
     function _updateOtherTeamUnreadAlert() {
-      console.log('####update other team unread');
       accountService.updateCurrentAccount();
     }
 
