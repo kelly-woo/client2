@@ -8,8 +8,8 @@
 
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
-                      publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
+                      publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
+                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -284,20 +284,9 @@
       if ($scope.toolbar[type] && currentRightPanel === type) {
         _closeRightPanel();
       } else {
-        _autoScroll();
         _setTabStatus(currentRightPanel, false);
 
         $state.go('messages.detail.' + type);
-      }
-    }
-
-    /**
-     * right panel의 scoll을 bottom으로 이동함.
-     * @private
-     */
-    function _autoScroll() {
-      if (centerService.isScrollBottom()) {
-        jndPubSub.pub('center:scrollToBottom');
       }
     }
 
