@@ -195,7 +195,7 @@
         }(that._file)));
         that.options.onConfirmEnd(0, that.fileLength());
 
-        if (that._fileUploadQueue.length === 1 && that._fileUploadLock === false) {
+        if (!that._fileUploadLock) {
           // 더 이상 upload 중인 작업이 없으므로 바로 shift한다.
           that._fileUploadQueueShift();
         }

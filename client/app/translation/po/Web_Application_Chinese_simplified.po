@@ -3109,9 +3109,8 @@ msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "上传"
+msgstr "直接上传所有文件"
 
 #: client/app/left/left.html
 msgid "@user"
