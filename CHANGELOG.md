@@ -1,3 +1,28 @@
+<a name="1.16.0"></a>
+# [1.16.0](https://github.com/tosslab/web_client/compare/v1.15.0...v1.16.0) (2016-02-24)
+
+
+### Bug Fixes
+
+* **DM:** IO 에서 메시지 전송시 화면 갱신함. ([2bc3453](https://github.com/tosslab/web_client/commit/2bc3453))
+* **auth:** 401 오류 시 로딩 화면 지속되는 현상 다시 수정 ([c219e62](https://github.com/tosslab/web_client/commit/c219e62))
+* **auth:** access_token 이 만료된 시점에 url hash 값 붙이지 않고 진입한 경우 로딩 화면에서 멈추는 현상 해결 ([218ebdc](https://github.com/tosslab/web_client/commit/218ebdc))
+* **auth:** access_token 이 만료된 시점에 url hash 값 붙이지 않고 진입한 경우 로딩 화면에서 멈추는 현상 해결 ([fd44404](https://github.com/tosslab/web_client/commit/fd44404))
+* **auth:** refresh token 으로 갱신 시도 시 오류 발생하여 진입이 멈추는 현상 수정 ([5cfc099](https://github.com/tosslab/web_client/commit/5cfc099))
+* **center:** unread marker 오류 및 파일 업로드 시 최신 메시지로 이동되지 않는 현상 수정 ([64106fc](https://github.com/tosslab/web_client/commit/64106fc))
+* **center:** 검색으로 아주 오래전 메시지로 이동 후 본인이 파일 업로드 시 가장 최신 메시지로 이동하지 않던 오류 수정 ([42dfd5f](https://github.com/tosslab/web_client/commit/42dfd5f))
+* **file-upload:** 잔디 Drag&Drop화면 유지되는 오류 수정 ([094b694](https://github.com/tosslab/web_client/commit/094b694))
+* **left:** topic folder 조회 API 요청 전 이전에 요청하던 request 가 존재할 경우 cancel 하는 로직 추가 ([825c69e](https://github.com/tosslab/web_client/commit/825c69e))
+* **loading:** 오른쪽 패널에 즐겨찾기와 멘션에서 리스트 로딩시 로딩바 추가 ([f257a35](https://github.com/tosslab/web_client/commit/f257a35))
+* **marker:** member 초대 후 입력된 메시지의 unread count 가 토픽 재 진입 시 사라지는 현상 수정 ([7b87d16](https://github.com/tosslab/web_client/commit/7b87d16))
+* **mention:** 사용자가 입력한 메세지에서 올바른 mention data를 전달하지 않는 버그 수정 ([dd1ff36](https://github.com/tosslab/web_client/commit/dd1ff36))
+* **star:** 센터 > 파일 > 더보기를 통한 즐겨찾기 동작안하는 버그 수정 ([6d6db20](https://github.com/tosslab/web_client/commit/6d6db20))
+* **tab:** mentions & stars 로딩휠 style 수정 ([c94ca83](https://github.com/tosslab/web_client/commit/c94ca83))
+* **tab:** mentions & stars 로딩휠 style 수정 ([b102549](https://github.com/tosslab/web_client/commit/b102549))
+* **공지사항:** 공지사항 최소화 되지 않는 현상 수정 ([9b3fcea](https://github.com/tosslab/web_client/commit/9b3fcea))
+
+
+
 <a name="1.15.0"></a>
 # [1.15.0](https://github.com/tosslab/web_client/compare/v1.14.1...v1.15.0) (2016-02-17)
 
