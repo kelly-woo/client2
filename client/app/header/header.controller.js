@@ -8,8 +8,8 @@
 
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
-                      publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
+                      publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
+                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -90,7 +90,7 @@
         $scope.toolbar[currentRightPanel] = true;
       }
 
-      _attachLEventListeners();
+      _attachEvents();
     }
 
     /**
@@ -122,7 +122,7 @@
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
      */
-    function _attachLEventListeners() {
+    function _attachEvents() {
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         stateParams = toParams;
       });
@@ -153,8 +153,9 @@
       });
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
-
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
+
+      $scope.$watch('isOpenRightPanel', _onRightPanelToggle);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -283,20 +284,9 @@
       if ($scope.toolbar[type] && currentRightPanel === type) {
         _closeRightPanel();
       } else {
-        _autoScroll();
         _setTabStatus(currentRightPanel, false);
 
         $state.go('messages.detail.' + type);
-      }
-    }
-
-    /**
-     * right panel의 scoll을 bottom으로 이동함.
-     * @private
-     */
-    function _autoScroll() {
-      if (centerService.isScrollBottom()) {
-        jndPubSub.pub('center:scrollToBottom');
       }
     }
 
@@ -359,6 +349,17 @@
         $timeout(function() {
           openQuickLauncher();
         }, 50);
+      }
+    }
+
+    /**
+     *
+     * @param {boolean} isOpen
+     * @private
+     */
+    function _onRightPanelToggle(newIsOpen, oldIsOpen) {
+      if (newIsOpen !== oldIsOpen) {
+        jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
     }
 
