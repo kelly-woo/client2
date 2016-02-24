@@ -599,6 +599,10 @@ msgid "@common-rename"
 msgstr "重新命名"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send"
+msgstr "送出"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
 msgstr "传送私信..."
 
@@ -683,6 +687,10 @@ msgstr "议题管理员"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-try-again"
+msgstr "请重试一次"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
@@ -880,10 +888,6 @@ msgstr "我的计算机"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "Dropbox"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@file-upload-fail"
-msgstr "请重试一次"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
@@ -2156,6 +2160,10 @@ msgstr "删除"
 msgid "@message-deleted"
 msgstr "信息已删除"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@message-mention"
+msgstr "在此输入信息 (输入@可提及成员)"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "若关闭推播通知，将不再显示通知提示和内容摘要"
@@ -3101,9 +3109,8 @@ msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "上传"
+msgstr "直接上传所有文件"
 
 #: client/app/left/left.html
 msgid "@user"
@@ -3196,6 +3203,9 @@ msgstr "JANDI 新信息"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "星期三"
+
+#~ msgid "@file-upload-fail"
+#~ msgstr "请重试一次"
 
 #~ msgid "@soudns-arise"
 #~ msgstr "双音"

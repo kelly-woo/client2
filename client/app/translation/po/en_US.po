@@ -615,6 +615,10 @@ msgid "@common-rename"
 msgstr "Rename"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-send"
+msgstr "Send"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-send-dm"
 msgstr "Send a message..."
 
@@ -699,6 +703,10 @@ msgstr "Topic admin"
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "Topics"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-try-again"
+msgstr "Please try again"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
@@ -902,10 +910,6 @@ msgstr "My Computer"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "Dropbox"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@file-upload-fail"
-msgstr "Please try again"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
@@ -2319,6 +2323,10 @@ msgstr "Delete"
 msgid "@message-deleted"
 msgstr "The message has been deleted."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@message-mention"
+msgstr "Enter your message (type @ to mention a member directly)"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "You may miss important messages if you turn off notifications."
@@ -3310,9 +3318,8 @@ msgid "@unread-bookmark-message"
 msgstr "Unread messages below"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "Upload"
+msgstr "Upload all without leaving a comment"
 
 #: client/app/left/left.html
 msgid "@user"
@@ -3405,6 +3412,9 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#~ msgid "@file-upload-fail"
+#~ msgstr "Please try again"
 
 #~ msgid "@soudns-arise"
 #~ msgstr "Arise"
