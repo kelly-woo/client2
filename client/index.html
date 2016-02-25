@@ -193,7 +193,7 @@
       <div class="file"
            ui-view="detailpanel"
            ng-class="{'opac_in extend': hasOpenFileDetailLocation,
-                      'hidden': !hasOpenFileDetailLocation,
+                      'hidden': hasHiddenFileDetailLocation,
                       'scroll_gray': !browser.platform.isMac}">
       </div>
       <div class="rpanel__background">
