@@ -11,10 +11,10 @@
 
   /* @ngInject */
   function run($rootScope, Router) {
+    $rootScope.$on('$stateChangeStart', Router.onStateChangeStart);
     $rootScope.$on("$routeChangeError", Router.onRouteChangeError);
     $rootScope.$on('$stateNotFound', Router.onStateNotFound);
     $rootScope.$on('$locationChangeSuccess', Router.onLocationChangeSuccess);
-    $rootScope.$on('$stateChangeStart', Router.onStateChangeStart);
   }
 
   /* @ngInject */
