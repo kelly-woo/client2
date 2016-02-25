@@ -54,10 +54,11 @@
                         id="file_upload_comment"
                         name="file_upload_comment"
                         autofocus
+                        ng-model="data.comment"
                         jnd-elastic="comment:modal"
                         jnd-elastic-on-change="onCommentInputChange($event)"
                         mentionahead
-                        mentionahead-type="upload">{{::data.comment}}</textarea>
+                        mentionahead-type="upload"></textarea>
             </div>
           </div>
         </div>
