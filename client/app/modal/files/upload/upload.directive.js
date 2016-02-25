@@ -261,11 +261,10 @@
        */
       function _setMentions(fileInfo) {
         var mentionList = MentionExtractor.getMentionListForTopic($state.params.entityId);
-        var mentionMap;
-        var mention;
+        var mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
+        var mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share);
 
-        mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-        if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
+        if (mention) {
           fileInfo.comment = mention.msg;
           fileInfo.mentions = mention.mentions;
         }
