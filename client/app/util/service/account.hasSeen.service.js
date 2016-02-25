@@ -18,7 +18,10 @@
      */
     var KEY_MAP = {
       'GUIDE_TOPIC_FOLDER': 0,
-      'GUIDE_CONNECT': 1
+      'GUIDE_CONNECT': 1,
+      'TUTORIAL_VER3_STEP1': 2,
+      'TUTORIAL_VER3_STEP2': 3,
+      'TUTORIAL_VER3_STEP3': 4
     };
 
     this.get = get;

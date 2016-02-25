@@ -128,11 +128,11 @@
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
-  <link rel="stylesheet" href="app/tutorial/modal/tutorial.modal.welcome.css">
   <link rel="stylesheet" href="app/tutorial/popover/connect/tutorial.popover.connect.css">
   <link rel="stylesheet" href="app/tutorial/popover/folder/tutorial.popover.folder.folder.css">
   <link rel="stylesheet" href="app/tutorial/popover/tutorial.popover.css">
   <link rel="stylesheet" href="app/tutorial/tooltip/tutorial.tooltip.css">
+  <link rel="stylesheet" href="app/tutorial/welcome/tutorial.welcome.css">
   <link rel="stylesheet" href="app/util/css/jandi-common.css">
   <link rel="stylesheet" href="app/util/css/jandi-icon.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
@@ -186,7 +186,7 @@
         </div>
       </div>
     </div>
-    <tutorial-modal-welcome></tutorial-modal-welcome>
+    <tutorial-welcome></tutorial-welcome>
     <jnd-tooltip></jnd-tooltip>
     <jnd-connect ng-if="connectSetting.isOpen" jnd-data-params="connectSetting.params"></jnd-connect>
   <div ng-if="!isReady" class="full-screen z-index-top">
@@ -572,15 +572,15 @@
 <script src="app/tpl/loading/loading.directive.js"></script>
 <script src="app/tpl/loading/loading.service.js"></script>
 <script src="app/translation/translation.js"></script>
-<script src="app/tutorial/modal/tutorial.modal.welcome.controller.js"></script>
-<script src="app/tutorial/modal/tutorial.modal.welcome.directive.js"></script>
 <script src="app/tutorial/popover/connect/tutorial.popover.connect.controller.js"></script>
 <script src="app/tutorial/popover/connect/tutorial.popover.connect.directive.js"></script>
 <script src="app/tutorial/popover/folder/tutorial.popover.folder.controller.js"></script>
 <script src="app/tutorial/popover/folder/tutorial.popover.folder.directive.js"></script>
 <script src="app/tutorial/tooltip/tutorial.tooltip.controller.js"></script>
 <script src="app/tutorial/tooltip/tutorial.tooltip.directive.js"></script>
-<script src="app/tutorial/tooltip/tutorial.tooltip.service.js"></script>
+<script src="app/tutorial/tutorial.service.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.controller.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.directive.js"></script>
 <script src="components/app/active_notifier/active.notifier.directive.js"></script>
 <script src="components/app/analytics/analyticsv1.service.js"></script>
 <script src="components/app/analytics/directives/buttonTrakcer.directive.js"></script>

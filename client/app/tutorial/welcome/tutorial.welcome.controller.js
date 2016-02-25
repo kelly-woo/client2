@@ -6,26 +6,26 @@
 
   angular
     .module('jandiApp')
-    .controller('TutorialModalWelcomeCtrl', TutorialModalWelcomeCtrl);
+    .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  function TutorialModalWelcomeCtrl($scope, jndPubSub) {
+  function TutorialWelcomeCtrl($scope, $filter, Tutorial) {
+    var _translate = $filter('translate');
+    var _isComplete = false;
+
     $scope.isShow = true;
-    $scope.curStep = -1;
+    $scope.curStep = 0;
     $scope.stepList = [
       {
         imgUrl: '',
-        title: '스텝-1',
-        content: '스텝1 내용'
+        content: _translate('@tutorial-welcome-1')
       },
       {
         imgUrl: '',
-        title: '스텝2',
-        content: '스텝2 내용'
+        content: _translate('@tutorial-welcome-2')
       },
       {
         imgUrl: '',
-        title: '스텝3',
-        content: '스텝3 내용'
+        content: _translate('@tutorial-welcome-3')
       }
     ];
 
@@ -38,13 +38,24 @@
      * @private
      */
     function _init() {
+      $scope.$on('Tutorial:showWelcome', _show);
+    }
+
+    /**
+     * welcome 모달을 노출한다.
+     * @private
+     */
+    function _show() {
+      if (!_isComplete) {
+        $scope.isShow = true;
+      }
     }
 
     /**
      * 다음 스텝으로 진행한다.
      */
     function prev() {
-      if ($scope.curStep > -1) {
+      if ($scope.curStep > 0) {
         $scope.curStep--;
       }
     }
@@ -53,7 +64,7 @@
      * 이전 스텝으로 진행한다.
      */
     function next() {
-      if ($scope.curStep === $scope.stepList.length -1) {
+      if ($scope.curStep >= $scope.stepList.length -1) {
         _complete();
       } else {
         $scope.curStep++;
@@ -66,7 +77,8 @@
      */
     function _complete() {
       $scope.isShow = false;
-      jndPubSub.pub('TutorialModalWelcomeCtrl:complete');
+      _isComplete = true;
+      Tutorial.showTooltip();
     }
   }
 })();

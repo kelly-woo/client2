@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 웰컴 모달 디렉티브
+ * @fileoverview 튜토리얼 가장 첫번째 노출하게 될 웰컴 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,15 +7,15 @@
 
   angular
     .module('jandiApp')
-    .directive('tutorialModalWelcome', tutorialModalWelcome);
+    .directive('tutorialWelcome', tutorialWelcome);
 
-  function tutorialModalWelcome(JndUtil, jndPubSub) {
+  function tutorialWelcome() {
     return {
       link: link,
       scope: {},
       restrict: 'E',
-      controller: 'TutorialModalWelcomeCtrl',
-      templateUrl: 'app/tutorial/modal/tutorial.modal.welcome.html'
+      controller: 'TutorialWelcomeCtrl',
+      templateUrl: 'app/tutorial/welcome/tutorial.welcome.html'
     };
 
     function link(scope, el, attrs) {

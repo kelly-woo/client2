@@ -1,4 +1,4 @@
-.tutorial-modal-container {
+.tutorial-welcome-container {
   display: block;
   z-index: 610;
   position:fixed;
@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
 }
-.tutorial-modal-dim {
+.tutorial-welcome-dim {
   display: block;
   z-index: 611;
   position:absolute;
@@ -18,7 +18,7 @@
   background-color: #000;
   opacity: .5;
 }
-.tutorial-modal {
+.tutorial-welcome {
   z-index: 612;
   position:absolute;
   background: #FFFFFF;
@@ -26,4 +26,15 @@
   height: 440px;
   left: calc(50% - 200px);
   top: calc(50% - 220px);
+}
+
+.tutorial-welcome-content {
+
+}
+.tutorial-welcome-img {
+
+}
+.tutorial-welcome-footer {
+  width: 100%;
+  bottom: 0;
 }

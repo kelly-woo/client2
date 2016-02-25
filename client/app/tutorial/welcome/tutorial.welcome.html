@@ -1,0 +1,30 @@
+<div ng-if="isShow"
+     class="tutorial-welcome-container">
+  <div class="tutorial-welcome-dim">
+  </div>
+  <div class="tutorial-welcome">
+    <div class="tutorial-welcome-content">
+      {{stepList[curStep].content}}
+    </div>
+    <div class="tutorial-welcome-img">
+      <img ng-src="stepList[curStep].imgUrl" />
+    </div>
+    <div class="tutorial-welcome-footer">
+      <span ng-if='curStep !== 0'
+            class="jnd-cursor-pointer jnd-float-left"
+            ng-click="prev();">
+            이전
+          </span>
+          <span ng-if='curStep < stepList.length - 1'
+                class="jnd-cursor-pointer jnd-float-right"
+                ng-click="next();">
+            다음
+          </span>
+          <span ng-if='curStep === stepList.length - 1'
+                class="jnd-cursor-pointer jnd-float-right"
+                ng-click="next();">
+            완료
+          </span>
+    </div>
+  </div>
+</div>

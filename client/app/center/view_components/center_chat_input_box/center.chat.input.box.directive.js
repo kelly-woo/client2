@@ -6,7 +6,7 @@
     .directive('centerChatInputBox', centerChatInputBox);
 
   function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
-                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor, TutorialTooltip) {
+                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor, Tutorial) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -90,7 +90,7 @@
        * @private
        */
       function _onClickUpload() {
-        TutorialTooltip.hide('upload');
+        Tutorial.hideTooltip('upload');
       }
 
       /**
@@ -141,7 +141,7 @@
        */
       function _onHotkeyUpload() {
         _uploadMap['computer']();
-        TutorialTooltip.hide('upload');
+        Tutorial.hideTooltip('upload');
       }
 
       /**

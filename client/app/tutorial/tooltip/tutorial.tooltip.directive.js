@@ -61,8 +61,8 @@
        */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
-        scope.$on('TutorialTooltip:show', _show);
-        scope.$on('TutorialTooltip:close', _onClose);
+        scope.$on('Tutorial:showTooltip', _show);
+        scope.$on('Tutorial:hideTooltip', _onClose);
       }
 
       /**
@@ -88,7 +88,7 @@
       }
 
       /**
-       * TutorialTooltip 서비스의 close 이벤트 핸들러
+       * Tutorial 서비스의 close 이벤트 핸들러
        * @param {object} angularEvent
        * @param {string} tooltipName
        * @private
@@ -118,6 +118,11 @@
 
         jqParent.append(_jqTooltip);
         _setPosition();
+
+        //fade in 효과를 주기 위해 timeout 을 사용한다.
+        setTimeout(function() {
+          _jqTooltip.addClass('fade in');
+        });
       }
 
       /**
