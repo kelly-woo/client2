@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('fileUploadModal', fileUploadModal);
 
-  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, EntityMapManager,
-                           entityAPIservice, MentionExtractor, analyticsService, jndPubSub, JndUtil) {
+  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, MentionExtractor,
+                           analyticsService, jndPubSub) {
     return {
       restrict: 'A',
       link: link
@@ -35,6 +35,7 @@
 
         scope.upload = upload;
         scope.cancel = cancel;
+        scope.onCommentInputChange = onCommentInputChange;
 
         _setFilUploader();
       }
@@ -259,25 +260,14 @@
        * @private
        */
       function _setMentions(fileInfo) {
-        var room;
-        var users;
-        var mentionList;
+        var mentionList = MentionExtractor.getMentionListForTopic($state.params.entityId);
         var mentionMap;
         var mention;
 
-        //if (room = EntityMapManager.get('total', fileInfo.roomId)) {
-        if (room = EntityMapManager.get('total', fileInfo.share)) {
-          users = entityAPIservice.getUserList(room);
-
-          if (users && users.length > 0) {
-            mentionList = MentionExtractor.getMentionListForTopic(users, $state.params.entityId);
-            mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-            //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
-            if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
-              fileInfo.comment = mention.msg;
-              fileInfo.mentions = mention.mentions;
-            }
-          }
+        mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
+        if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
+          fileInfo.comment = mention.msg;
+          fileInfo.mentions = mention.mentions;
         }
       }
 
@@ -382,6 +372,14 @@
         };
 
         analyticsService.mixpanelTrack( "File Upload", upload_data );
+      }
+
+      /**
+       * comment input change
+       * @param {object} $event
+       */
+      function onCommentInputChange($event) {
+        scope.data.comment = _.trim($event.target.value);
       }
     }
   }
