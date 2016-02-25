@@ -276,9 +276,15 @@
         $scope.data = {
           hasNotificationBefore: true,
           notificationBefore: '15m',
+          hasAllDayNotification: true,
+          allDayNotificationHour: 9,
           hasDailyScheduleSummary: true,
           dailyScheduleSummary: 9,
+          hasWeeklyScheduleSummary: true,
+          weeklyScheduleSummaryHour: 9,
           newEventNotification: true,
+          updatedEventNotification: true,
+          cancelledEventNotification: true,
           header: JndConnectUnion.getDefaultHeader($scope.current),
           footer: JndConnectUnion.getDefaultFooter($scope.current)
         };
