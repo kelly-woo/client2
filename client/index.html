@@ -186,17 +186,18 @@
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
     <div class="rpanel non-selectable"
-         ng-class="{ 'shadow': $state.includes('**.files.**') || $state.includes('**.stars.**') || $state.includes('**.mentions.**') || isOpenRightPanel}"
-         ng-show="$state.includes('**.files.**') || $state.includes('**.stars.**') || $state.includes('**.mentions.**') || isOpenRightPanel">
-      <div class="files" ui-view="rightpanel" ng-class="{
-        'scroll_gray': !browser.platform.isMac,
-        'opacOut_hidden': !isOpenRightPanel,
-        'opac_in extend': isOpenRightPanel
-      }"></div>
-      <div class="file" ui-view="detailpanel"
-           ng-class="{'hidden': !$state.includes('messages.detail.files.item') && !$state.includes('messages.detail.stars.item') && !$state.includes('messages.detail.mentions.item'),
-                      'scroll_gray': !browser.platform.isMac,
-                      'opac_in extend': $state.includes('**.files.item') || $state.includes('**.stars.item') || $state.includes('**.mentions.item')}">
+         ng-class="{'shadow':hasRightPanelLocation}"
+         ng-show="hasRightPanelLocation">
+      <div class="files"
+           ui-view="rightpanel"
+           ng-class="{'opac_in extend': hasRightPanelLocation,
+                      'opacOut_hidden': !hasRightPanelLocation,
+                      'scroll_gray': !browser.platform.isMac}"></div>
+      <div class="file"
+           ui-view="detailpanel"
+           ng-class="{'opac_in extend': hasOpenFileDetailLocation,
+                      'hidden': !hasOpenFileDetailLocation,
+                      'scroll_gray': !browser.platform.isMac}">
       </div>
       <div class="rpanel__background">
         <div class="rpanel__background-header"></div>

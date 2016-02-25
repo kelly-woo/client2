@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
-                  NetInterceptor, storageAPIservice, jndPubSub, JndConnect) {
+                  NetInterceptor, storageAPIservice, jndPubSub) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;
@@ -15,6 +15,7 @@
     this.onLocationChangeSuccess = onLocationChangeSuccess;
 
     this.getActiveRightTabName = getActiveRightTabName;
+    this.setRightPanelStatus = setRightPanelStatus;
 
     function onRouteChangeError(event, current, previous, rejection) {
       $state.go('messages.home');
@@ -29,6 +30,8 @@
     }
 
     function onLocationChangeSuccess(event) {
+      setRightPanelStatus();
+
       entityAPIservice.setLastEntityState();
     }
 
@@ -177,6 +180,22 @@
           _setCurrentEntityWithTypeAndId(toParams.entityType, toParams.entityId);
         }
       }
+    }
+
+    /**
+     * set right panel status
+     */
+    function setRightPanelStatus() {
+      // 오른쪽 패널이 열려야 하는 로케이션을 가졌는지 여부
+      $rootScope.hasRightPanelLocation = $state.includes('**.files.**') ||
+        $state.includes('messages.detail.messages') ||
+        $state.includes('**.stars.**') ||
+        $state.includes('**.mentions.**');
+
+      // 오른쪽 패널의 파일 상세가 열려야 하는 로케이션을 가졌는지 여부
+      $rootScope.hasOpenFileDetailLocation = $state.includes('**.files.item') ||
+        $state.includes('**.stars.item') ||
+        $state.includes('**.mentions.item');
     }
 
     /**

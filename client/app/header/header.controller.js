@@ -47,7 +47,7 @@
     _init();
 
     function _init() {
-      $rootScope.isOpenRightPanel = _getIsOpenRightPanel();
+      _initRightPanelStatus();
 
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
@@ -118,6 +118,10 @@
       JndConnect.open(data);
     }
 
+    function _initRightPanelStatus() {
+      Router.setRightPanelStatus();
+    }
+
     /**
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
@@ -141,8 +145,6 @@
 
       // right panel의 open event handler
       $scope.$on('rightPanelStatusChange', function($event, data) {
-        $rootScope.isOpenRightPanel = true;
-
         _setTabStatus(currentRightPanel, false);
         _setTabStatus(data.type, true);
       });
@@ -155,7 +157,7 @@
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
 
-      $scope.$watch('isOpenRightPanel', _onRightPanelToggle);
+      $scope.$watch('hasRightPanelLocation', _onChangeRightPanelLocation);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -306,20 +308,9 @@
      * @private
      */
     function _closeRightPanel() {
-      $rootScope.isOpenRightPanel = false;
-
       $scope.toolbar[currentRightPanel] = false;
       currentRightPanel = null;
       $state.go('messages.detail');
-    }
-
-    /**
-     * right panel open 여부를 전달함.
-     * @returns {boolean}
-     * @private
-     */
-    function _getIsOpenRightPanel() {
-      return /files|messages|stars|mentions/.test($state.current.url);
     }
 
     /**
@@ -353,11 +344,11 @@
     }
 
     /**
-     *
+     * change right panel location
      * @param {boolean} isOpen
      * @private
      */
-    function _onRightPanelToggle(newIsOpen, oldIsOpen) {
+    function _onChangeRightPanelLocation(newIsOpen, oldIsOpen) {
       if (newIsOpen !== oldIsOpen) {
         jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
