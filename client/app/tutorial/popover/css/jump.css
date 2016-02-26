@@ -1,0 +1,13 @@
+.tutorial-jump {
+  top: 45px;
+  left: 150px;
+}
+
+.tutorial-jump video {
+  height: 201px;
+  width: 398px;
+}
+
+.tutorial-jump .tutorial-popover-arrow.top {
+  left: 110px;
+}

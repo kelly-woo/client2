@@ -1,0 +1,15 @@
+.tutorial-msg-search {
+  left: auto;
+  top: 40px;
+  right: 63px;
+}
+
+.tutorial-msg-search video {
+  height: 201px;
+  width: 398px;
+}
+
+.tutorial-msg-search .tutorial-popover-arrow.top {
+  left: auto;
+  right: 30px
+}

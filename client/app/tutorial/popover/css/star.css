@@ -1,0 +1,13 @@
+.tutorial-star {
+  left: auto;
+  top: 40px;
+  right: 25px;
+}
+.tutorial-star .tutorial-popover-arrow.top {
+  left: auto;
+  right: 30px
+}
+.tutorial-star video {
+  height: 201px;
+  width: 398px;
+}

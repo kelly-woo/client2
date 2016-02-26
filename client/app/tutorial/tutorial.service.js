@@ -8,11 +8,20 @@
     .module('jandiApp')
     .service('Tutorial', Tutorial);
 
-  function Tutorial($rootScope, jndPubSub, accountService) {
+  function Tutorial($rootScope, jndPubSub, accountService, AccountHasSeen) {
+    var _isInit = false;
     var _scope = $rootScope.$new(true);
+
+    this.showWelcome = showWelcome;
+    this.hideWelcome = hideWelcome;
 
     this.hideTooltip = hideTooltip;
     this.showTooltip = showTooltip;
+
+    this.showPopover = showPopover;
+    this.hidePopover = hidePopover;
+
+    this.complete = complete;
 
     _init();
 
@@ -33,9 +42,38 @@
      * @private
      */
     function _initWelcome() {
-      if (true) {
-        jndPubSub.pub('Tutorial:showWelcome');
+      if (!_isInit) {
+        //기존 사용자면 welcome 은 생략한다
+        //if (_isOldUser()) {
+        //  AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+        //} else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
+        //  showWelcome();
+        //}
+        showWelcome();
+        _isInit = true;
       }
+    }
+
+    /**
+     * tutorial 을 이미 시청한 기존 사용자인지 여부를 반환한다.
+     * @private
+     */
+    function _isOldUser() {
+      return AccountHasSeen.get('GUIDE_TOPIC_FOLDER') && AccountHasSeen.get('GUIDE_CONNECT') ;
+    }
+
+    /**
+     * 튜토리얼 welcome 을 노출한다.
+     */
+    function showWelcome() {
+      jndPubSub.pub('Tutorial:showWelcome');
+    }
+
+    /**
+     * 튜토리얼 welcome 을 감춘다.
+     */
+    function hideWelcome() {
+      jndPubSub.pub('Tutorial:hideWelcome');
     }
 
     /**
@@ -53,10 +91,25 @@
       jndPubSub.pub('Tutorial:hideTooltip', tooltipName);
     }
 
-    function start() {
+    /**
+     * popover 를 노출한다.
+     */
+    function showPopover() {
+      jndPubSub.pub('Tutorial:showPopover');
     }
 
-    function finish() {
+    /**
+     * popover 를 감춘다.
+     */
+    function hidePopover() {
+      jndPubSub.pub('Tutorial:hidePopover');
+    }
+
+    /**
+     * 튜토리얼이 완료되었다.
+     */
+    function complete() {
+      jndPubSub.pub('Tutorial:complete');
     }
   }
 })();

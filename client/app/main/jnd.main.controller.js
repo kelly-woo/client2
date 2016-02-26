@@ -12,6 +12,11 @@
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
 
+    $scope.tutorial = {
+      isShowWelcome: false,
+      isShowPopover: false
+    };
+
     $scope.connectSetting = {
       isOpen: false,
       params: null
@@ -40,8 +45,45 @@
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
       $scope.$on('JndConnect:close', _onJndConnectClose);
+
+      $scope.$on('Tutorial:showWelcome', _onShowTutorialWelcome);
+      $scope.$on('Tutorial:hideWelcome', _onHideTutorialWelcome);
+
+      $scope.$on('Tutorial:showPopover', _onShowTutorialPopover);
+      $scope.$on('Tutorial:hidePopover', _onHideTutorialPopover);
     }
 
+    /**
+     * Welcome 튜토리얼 Show 이벤트 핸들러
+     * @private
+     */
+    function _onShowTutorialWelcome() {
+      $scope.tutorial.isShowWelcome = true;
+    }
+
+    /**
+     * Welcome 튜토리얼 Hide 이벤트 핸들러
+     * @private
+     */
+    function _onHideTutorialWelcome() {
+      $scope.tutorial.isShowWelcome = false;
+    }
+
+    /**
+     * Popover 튜토리얼 Show 이벤트 핸들러
+     * @private
+     */
+    function _onShowTutorialPopover() {
+      $scope.tutorial.isShowPopover = true;
+    }
+
+    /**
+     * Popover 튜토리얼 Hide 이벤트 핸들러
+     * @private
+     */
+    function _onHideTutorialPopover() {
+      $scope.tutorial.isShowPopover = false;
+    }
     /**
      * connect setting show 이벤트 핸들러
      * @param {object} angularEvent

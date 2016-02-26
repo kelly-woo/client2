@@ -8,11 +8,9 @@
     .module('jandiApp')
     .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  function TutorialWelcomeCtrl($scope, $filter, Tutorial) {
+  function TutorialWelcomeCtrl($scope, $filter, Tutorial, AccountHasSeen) {
     var _translate = $filter('translate');
-    var _isComplete = false;
 
-    $scope.isShow = true;
     $scope.curStep = 0;
     $scope.stepList = [
       {
@@ -38,17 +36,6 @@
      * @private
      */
     function _init() {
-      $scope.$on('Tutorial:showWelcome', _show);
-    }
-
-    /**
-     * welcome 모달을 노출한다.
-     * @private
-     */
-    function _show() {
-      if (!_isComplete) {
-        $scope.isShow = true;
-      }
     }
 
     /**
@@ -76,8 +63,8 @@
      * @private
      */
     function _complete() {
-      $scope.isShow = false;
-      _isComplete = true;
+      AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+      Tutorial.hideWelcome();
       Tutorial.showTooltip();
     }
   }

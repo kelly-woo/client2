@@ -1,0 +1,11 @@
+.tutorial-connect {
+  left: 5px;
+  top: 40px;
+}
+.tutorial-connect video {
+  height: 201px;
+  width: 398px;
+}
+.tutorial-connect .tutorial-popover-arrow.top {
+  left: 10px;
+}
