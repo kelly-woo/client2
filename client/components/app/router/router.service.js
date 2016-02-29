@@ -188,25 +188,11 @@
      * set right panel status
      */
     function setRightPanelStatus() {
+      // 오른쪽 패널이 열려야 하는지 여부
       $rootScope.isOpenRightPanel = RightPanel.isOpen();
-      //console.log('==================================::: 2================');
-      //// 오른쪽 패널이 열려야 하는 로케이션을 가졌는지 여부
-      //$rootScope.isRightPanelOpen = $state.includes('**.files.**') ||
-      //  $state.includes('messages.detail.messages') ||
-      //  $state.includes('**.stars.**') ||
-      //  $state.includes('**.mentions.**');
 
-      // 오른쪽 패널의 파일 상세가 열려야 하는 로케이션을 가졌는지 여부
+      // 오른쪽 패널의 파일 상세가 열려야 하는지 여부
       $rootScope.isOpenFileDetail = RightPanel.isOpenFileDetail();
-
-      //$rootScope.hasHiddenFileDetailLocation = !$state.includes('messages.detail.files.item') &&
-      //  !$state.includes('messages.detail.stars.item') &&
-      //  !$state.includes('messages.detail.mentions.item');
-      //
-      //console.log('has right panel location ::: ', $rootScope.hasRightPanelLocation);
-      //console.log('has open file detail location ::: ', $rootScope.hasOpenFileDetailLocation);
-      //console.log('has hidden file detail location ::: ', $rootScope.hasHiddenFileDetailLocation);
-      //console.log('state current ::: ', $state.current);
     }
 
     /**
