@@ -228,21 +228,26 @@
      */
     function onSelect($item) {
       var currentEntity;
+      var count;
       var msg;
 
       if ($item.name === MentionExtractor.MENTION_ALL_ITEM_TEXT) {
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
-        msg = $filter('translate')('@mention-all-toast');
+        count = +entityAPIservice.getUserLength(currentEntity) - 1;
 
-        msg = msg
-          .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
-          .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getUserLength(currentEntity), 10) - 1);
+        if (count > 0) {
+          msg = $filter('translate')('@mention-all-toast');
 
-        Dialog.warning({
-          title: msg
-        });
+          msg = msg
+            .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
+            .replace('{{topicParticipantsCount}}', count);
+
+          Dialog.warning({
+            title: msg
+          });
+        }
 
         _onSelect($item);
       } else {

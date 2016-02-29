@@ -222,6 +222,7 @@
     function leaveCurrentEntity() {
       if (_entityType === 'privategroups') {
         Dialog.confirm({
+          allowHtml: true,
           body: $filter('translate')('@ch-menu-leave-private-confirm'),
           onClose: function(result) {
             result === 'okay' && _leaveCurrentEntity();

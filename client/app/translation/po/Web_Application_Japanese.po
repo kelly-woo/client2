@@ -1398,7 +1398,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-162"
-msgstr ""
+msgstr "この機能を使用するにはHTTP POST requestを下記のURLまで送ってください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
