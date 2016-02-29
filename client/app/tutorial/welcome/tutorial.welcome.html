@@ -6,7 +6,7 @@
       {{stepList[curStep].content}}
     </div>
     <div class="tutorial-welcome-img">
-      <img ng-src="stepList[curStep].imgUrl" />
+      <img ng-src="{{stepList[curStep].imgUrl}}" />
     </div>
     <div class="tutorial-welcome-footer">
       <span ng-if='curStep !== 0'
