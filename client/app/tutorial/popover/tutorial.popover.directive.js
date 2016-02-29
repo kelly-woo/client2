@@ -37,7 +37,7 @@
             wrap: 'tutorial-star',
             arrow: 'top'
           },
-          src: 'assets/videos/new-feature/jnd-connect.mp4',
+          src: 'assets/videos/popover-star.mp4',
           title: _translate('@tutorial-modal2-title'),
           content: _translate('@tutorial-modal2-content')
         },
@@ -46,7 +46,7 @@
             wrap: 'tutorial-mention',
             arrow: 'bottom'
           },
-          src: 'assets/images/new-feature/topic_foldering.gif',
+          src: 'assets/videos/popover-mention.mp4',
           title: _translate('@tutorial-modal3-title'),
           content: _translate('@tutorial-modal3-content')
         },
@@ -55,7 +55,7 @@
             wrap: 'tutorial-msg-search',
             arrow: 'top'
           },
-          src: 'assets/videos/new-feature/jnd-connect.mp4',
+          src: 'assets/videos/popover-msg-search.mp4',
           title: _translate('@tutorial-modal4-title'),
           content: _translate('@tutorial-modal4-content')
         },
@@ -64,7 +64,7 @@
             wrap: 'tutorial-jump',
             arrow: 'top'
           },
-          src: 'assets/images/new-feature/topic_foldering.gif',
+          src: 'assets/images/new-feature/popover_jump.gif',
           title: _translate('@tutorial-modal5-title'),
           content: _translate('@tutorial-modal5-content')
         },
@@ -73,7 +73,7 @@
             wrap: 'tutorial-hotkey',
             arrow: 'top'
           },
-          src: 'assets/videos/new-feature/jnd-connect.mp4',
+          src: 'assets/images/new-feature/popover_shortcut.gif',
           title: _translate('@tutorial-modal6-title'),
           content: _translate('@tutorial-modal6-content')
         },
@@ -82,7 +82,7 @@
             wrap: 'tutorial-connect',
             arrow: 'top'
           },
-          src: 'assets/images/new-feature/topic_foldering.gif',
+          src: 'assets/videos/new-feature/jnd-connect.mp4',
           title: _translate('@tutorial-modal7-title'),
           content: _translate('@tutorial-modal7-content')
         },
@@ -91,7 +91,7 @@
             wrap: 'tutorial-connect tutorial-complete',
             arrow: 'top'
           },
-          src: 'assets/images/new-feature/topic_foldering.gif',
+          src: 'assets/images/center/help-create-a-new-team.gif',
           title: _translate('@tutorial-modal8-title'),
           content: _translate('@tutorial-modal8-content')
         }

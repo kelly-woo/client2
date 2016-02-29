@@ -2,16 +2,16 @@
   z-index: 700;
 }
 .tutorial-tooltip .tooltip-inner {
-  padding: 3px 12px;
-  height: 28px;
+  padding: 3px 12px 4px 12px;
   min-width: 50px;
   border: 1px solid #008dbe;
   background-color: #00abe6;
   border-radius: 3px;
-  text-align: center;
+  text-align: left;
   font-weight: bold;
   font-size: 14px;
   color: #FFFFFF;
+  display: inline-flex;
 }
 .tutorial-tooltip.bottom .tooltip-arrow {
   width: 10px;
@@ -63,7 +63,7 @@
 .tutorial-tooltip-upload {
   top: auto !important;
   bottom: 93px;
-  left: 180px !important;
+  left: 194px !important;
 }
 .tutorial-tooltip-filetab {
   top: 36px !important;

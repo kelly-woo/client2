@@ -8,6 +8,7 @@
   right: 30px
 }
 .tutorial-star video {
-  height: 201px;
-  width: 398px;
+  width: 300px;
+  margin: 5px 15px 10px 15px;
+  border: 1px solid #e1e1e1;
 }

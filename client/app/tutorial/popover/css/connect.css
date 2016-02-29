@@ -3,8 +3,9 @@
   top: 40px;
 }
 .tutorial-connect video {
-  height: 201px;
-  width: 398px;
+   width: 360px !important;
+   border-bottom: 1px solid #e1e1e1 !important;
+   margin-bottom: 15px !important;
 }
 .tutorial-connect .tutorial-popover-arrow.top {
   left: 10px;
