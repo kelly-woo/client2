@@ -3318,9 +3318,8 @@ msgid "@unread-bookmark-message"
 msgstr "Unread messages below"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "Upload"
+msgstr "Upload all without leaving a comment"
 
 #: client/app/left/left.html
 msgid "@user"
