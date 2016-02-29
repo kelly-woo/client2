@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $state, $filter, $timeout, jndPubSub, Router) {
+  function rPanelCtrl($scope, $state, $filter, $timeout, jndPubSub, RightPanel) {
     _init();
 
     /**
@@ -18,38 +18,15 @@
      * @private
      */
     function _init() {
-      var activeTabName;
-
       $scope.isSearchQueryEmpty = true;
 
       $scope.showLoading = showLoading;
       $scope.hideLoading = hideLoading;
       $scope.closeRightPanel = closeRightPanel;
 
-      $scope.tabs = {
-        files: {
-          name: $filter('translate')('@common-files'),
-          active: false
-        },
-        messages: {
-          name: $filter('translate')('@common-message'),
-          active: false
-        },
-        stars: {
-          name: $filter('translate')('@common-star'),
-          active: false
-        },
-        mentions: {
-          name: $filter('translate')('@common-mention'),
-          active: false
-        }
-      };
-
+      $scope.tabs = RightPanel.getTabStatus();
+      $scope.activeTabName = RightPanel.getActiveTab().name;
       $scope.isLoading = false;
-      if (activeTabName = Router.getActiveRightTabName($state.current)) {
-        $scope.tabs[activeTabName].active = true;
-        $scope.activeTabName = $scope.tabs[activeTabName].name;
-      }
     }
 
     $scope.$on('connected', _init);
@@ -77,7 +54,7 @@
       if (tab = $scope.tabs[data.type]) {
         if (data.toUrl !== data.fromUrl) {
           tab.active = true;
-          $scope.activeTabName = tab.name;
+          $scope.activeTabName = RightPanel.getActiveTab().name;
 
           if (data.fromTitle !== 'FILE DETAIL') {
             $timeout(function() {

@@ -7,17 +7,16 @@
 
   /* @ngInject */
   function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
-                  NetInterceptor, storageAPIservice, jndPubSub) {
-
+                  NetInterceptor, storageAPIservice, jndPubSub, RightPanel) {
     this.onStateChangeStart = onStateChangeStart;
-    this.onRouteChangeError = onRouteChangeError;
+    this.onStateChangeSuccess = onStateChangeSuccess;
     this.onStateNotFound = onStateNotFound;
-    this.onLocationChangeSuccess = onLocationChangeSuccess;
 
-    this.getActiveRightTabName = getActiveRightTabName;
+    this.onRouteChangeError = onRouteChangeError;
+
     this.setRightPanelStatus = setRightPanelStatus;
 
-    function onRouteChangeError(event, current, previous, rejection) {
+    function onRouteChangeError() {
       $state.go('messages.home');
     }
 
@@ -27,12 +26,6 @@
       console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
       console.info("   options", unfoundState.options); // {inherit:false} + default options
       console.info("===========================================================================");
-    }
-
-    function onLocationChangeSuccess(event) {
-      setRightPanelStatus();
-
-      entityAPIservice.setLastEntityState();
     }
 
     /**
@@ -161,7 +154,7 @@
           case 'messages.detail.stars':
           case 'messages.detail.mentions':
             jndPubSub.pub('rightPanelStatusChange', {
-              type: getActiveRightTabName(toState),
+              type: RightPanel.getStateName(toState),
               toUrl: toState.url,
               toTitle: toState.title,
               fromUrl: fromState.url,
@@ -183,19 +176,37 @@
     }
 
     /**
+     * ui-router의 $stateChangeSuccess 이벤트 발생시 핸들러
+     */
+    function onStateChangeSuccess() {
+      setRightPanelStatus();
+
+      entityAPIservice.setLastEntityState();
+    }
+
+    /**
      * set right panel status
      */
     function setRightPanelStatus() {
-      // 오른쪽 패널이 열려야 하는 로케이션을 가졌는지 여부
-      $rootScope.hasRightPanelLocation = $state.includes('**.files.**') ||
-        $state.includes('messages.detail.messages') ||
-        $state.includes('**.stars.**') ||
-        $state.includes('**.mentions.**');
+      $rootScope.isOpenRightPanel = RightPanel.isOpen();
+      //console.log('==================================::: 2================');
+      //// 오른쪽 패널이 열려야 하는 로케이션을 가졌는지 여부
+      //$rootScope.isRightPanelOpen = $state.includes('**.files.**') ||
+      //  $state.includes('messages.detail.messages') ||
+      //  $state.includes('**.stars.**') ||
+      //  $state.includes('**.mentions.**');
 
       // 오른쪽 패널의 파일 상세가 열려야 하는 로케이션을 가졌는지 여부
-      $rootScope.hasOpenFileDetailLocation = $state.includes('**.files.item') ||
-        $state.includes('**.stars.item') ||
-        $state.includes('**.mentions.item');
+      $rootScope.isOpenFileDetail = RightPanel.isOpenFileDetail();
+
+      //$rootScope.hasHiddenFileDetailLocation = !$state.includes('messages.detail.files.item') &&
+      //  !$state.includes('messages.detail.stars.item') &&
+      //  !$state.includes('messages.detail.mentions.item');
+      //
+      //console.log('has right panel location ::: ', $rootScope.hasRightPanelLocation);
+      //console.log('has open file detail location ::: ', $rootScope.hasOpenFileDetailLocation);
+      //console.log('has hidden file detail location ::: ', $rootScope.hasHiddenFileDetailLocation);
+      //console.log('state current ::: ', $state.current);
     }
 
     /**
@@ -230,16 +241,6 @@
      */
     function _setCurrentEntityWithTypeAndId(entityType, entityId) {
       entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
-    }
-
-    /**
-     * state로 active 되야할 right panel의 tab name을 전달함.
-     * @param {object} currentState
-     * @returns {Array|{index: number, input: string}|*}
-     */
-    function getActiveRightTabName(currentState) {
-      var match = /messages.detail.([a-z]+)/i.exec(currentState.name);
-      return match && match[1];
     }
   }
 })();

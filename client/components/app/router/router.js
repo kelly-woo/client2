@@ -11,10 +11,13 @@
 
   /* @ngInject */
   function run($rootScope, Router) {
+    // angular ui-router events
     $rootScope.$on('$stateChangeStart', Router.onStateChangeStart);
-    $rootScope.$on("$routeChangeError", Router.onRouteChangeError);
+    $rootScope.$on('$stateChangeSuccess', Router.onStateChangeSuccess);
     $rootScope.$on('$stateNotFound', Router.onStateNotFound);
-    $rootScope.$on('$locationChangeSuccess', Router.onLocationChangeSuccess);
+
+    // angular $route events
+    $rootScope.$on("$routeChangeError", Router.onRouteChangeError);
   }
 
   /* @ngInject */
