@@ -78,6 +78,7 @@
       $scope.openQuickLauncher = openQuickLauncher;
       $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
+      RightPanel.initTabs();
       $scope.toolbar = RightPanel.getTabStatus();
 
       _attachEvents();
@@ -352,7 +353,8 @@
      */
     function _onChangeRightPanel(newIsOpen, oldIsOpen) {
       if (newIsOpen === false) {
-
+        // right panel이 열리지 않은 상태이므로 4개 텝 모두 닫는다.
+        RightPanel.closeTabs();
       }
 
       if (newIsOpen !== oldIsOpen) {
