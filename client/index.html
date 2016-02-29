@@ -183,17 +183,17 @@
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
     <div class="rpanel non-selectable"
-         ng-class="{'shadow':hasRightPanelLocation}"
-         ng-show="hasRightPanelLocation">
+         ng-class="{'shadow':isOpenRightPanel}"
+         ng-show="isOpenRightPanel">
       <div class="files"
            ui-view="rightpanel"
-           ng-class="{'opac_in extend': hasRightPanelLocation,
-                      'opacOut_hidden': !hasRightPanelLocation,
+           ng-class="{'opac_in extend': isOpenRightPanel,
+                      'opacOut_hidden': !isOpenRightPanel,
                       'scroll_gray': !browser.platform.isMac}"></div>
       <div class="file"
            ui-view="detailpanel"
-           ng-class="{'opac_in extend': hasOpenFileDetailLocation,
-                      'hidden': !hasOpenFileDetailLocation,
+           ng-class="{'opac_in extend': isOpenFileDetail,
+                      'hidden': !isOpenFileDetail,
                       'scroll_gray': !browser.platform.isMac}">
       </div>
       <div class="rpanel__background">
@@ -568,6 +568,7 @@
 <script src="app/right/message/message.service.js"></script>
 <script src="app/right/right.controller.js"></script>
 <script src="app/right/right.directvie.js"></script>
+<script src="app/right/right.service.js"></script>
 <script src="app/right/rpanel_search/rpanel.search.controller.js"></script>
 <script src="app/right/rpanel_search/rpanel.search.directive.js"></script>
 <script src="app/right/search.messages/search.message/search.message.controller.js"></script>

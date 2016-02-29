@@ -11,15 +11,11 @@
   /* @ngInject */
   function RouterHelper() {
     var _scrollToCommentId;
-    var rightPanelTail;
 
     this.setCommentToScroll = setCommentToScroll;
     this.getCommentIdToScroll = getCommentIdToScroll;
     this.hasCommentToScroll = hasCommentToScroll;
     this.resetCommentIdToScroll = resetCommentIdToScroll;
-
-    this.getRightPanelTail = getRightPanelTail;
-    this.setRightPanelTail = setRightPanelTail;
 
     function setCommentToScroll(commentId) {
       _scrollToCommentId = commentId;
@@ -36,22 +32,6 @@
 
     function resetCommentIdToScroll() {
       _scrollToCommentId = -1;
-    }
-
-    /**
-     * right panel back tail 전달
-     * @returns {*}
-     */
-    function getRightPanelTail() {
-      return rightPanelTail;
-    }
-
-    /**
-     * * right panel back tail 설정
-     * @param value
-     */
-    function setRightPanelTail(value) {
-      rightPanelTail = value;
     }
   }
 })();

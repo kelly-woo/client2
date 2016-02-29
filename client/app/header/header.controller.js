@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
                       publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
-                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
+                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom, RightPanel) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -78,17 +78,7 @@
       $scope.openQuickLauncher = openQuickLauncher;
       $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
-      $scope.toolbar = {
-        files: false,
-        messages: false,
-        stars: false,
-        mentions: false
-      };
-
-      if (currentRightPanel = Router.getActiveRightTabName($state.current)) {
-        // active된 right panel에 따라 header icon 활성화 여부를 설정한다.
-        $scope.toolbar[currentRightPanel] = true;
-      }
+      $scope.toolbar = RightPanel.getTabStatus();
 
       _attachEvents();
     }
@@ -157,7 +147,7 @@
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
 
-      $scope.$watch('hasRightPanelLocation', _onChangeRightPanelLocation);
+      $scope.$watch('isOpenRightPanel', _onChangeRightPanel);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -283,12 +273,16 @@
      * @param {string} type - open tab type
      */
     function openRightPanel(type) {
-      if ($scope.toolbar[type] && currentRightPanel === type) {
-        _closeRightPanel();
-      } else {
-        _setTabStatus(currentRightPanel, false);
+      var tab = $scope.toolbar[type];
 
-        $state.go('messages.detail.' + type);
+      if (tab) {
+        if (tab.isActive && currentRightPanel === type) {
+          _closeRightPanel();
+        } else {
+          _setTabStatus(currentRightPanel, false);
+
+          $state.go('messages.detail.' + type);
+        }
       }
     }
 
@@ -299,8 +293,12 @@
      * @private
      */
     function _setTabStatus(type, value) {
-      $scope.toolbar[type] = value;
-      currentRightPanel = type;
+      var tab = $scope.toolbar[type];
+
+      if (tab) {
+        tab.isActive = value;
+        currentRightPanel = type;
+      }
     }
 
     /**
@@ -308,9 +306,13 @@
      * @private
      */
     function _closeRightPanel() {
-      $scope.toolbar[currentRightPanel] = false;
-      currentRightPanel = null;
-      $state.go('messages.detail');
+      var tab = $scope.toolbar[currentRightPanel];
+
+      if (tab) {
+        tab.isActive = false;
+        currentRightPanel = null;
+        $state.go('messages.detail');
+      }
     }
 
     /**
@@ -344,11 +346,15 @@
     }
 
     /**
-     * change right panel location
+     * change right panel
      * @param {boolean} isOpen
      * @private
      */
-    function _onChangeRightPanelLocation(newIsOpen, oldIsOpen) {
+    function _onChangeRightPanel(newIsOpen, oldIsOpen) {
+      if (newIsOpen === false) {
+
+      }
+
       if (newIsOpen !== oldIsOpen) {
         jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
