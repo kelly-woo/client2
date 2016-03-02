@@ -3019,15 +3019,17 @@ msgstr "チュートリアルをスキップする"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-1"
-msgstr "コラボレーションすること、難しいでしょう？"
+msgstr "コラボレーションすること、<br>難しいでしょう？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "JANDIではみんなが楽しくお仕事できると思っています。"
+msgstr ""
+"<strong>JANDI</strong>ではみんなが楽しく<br>お仕事できると思っています。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr "JANDI - コミュニケーションをシンプルに。今すぐはじめる"
+msgstr ""
+"<strong>JANDI</strong> - コミュニケーションを<br>シンプルに。今すぐはじめる"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"

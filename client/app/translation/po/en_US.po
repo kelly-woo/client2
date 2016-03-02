@@ -3103,16 +3103,18 @@ msgstr "Skip tutorial"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-1"
 msgstr ""
-"Frustrated with all the different apps you use to communicate in the "
+"Frustrated with all the different<br>apps you use to communicate<br>in the "
 "workplace?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "Simplify your life now with JANDI!"
+msgstr "Simplify your life now<br>with <strong>JANDI!</strong>"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr "JANDI - making work simpler, more productive, and more enjoyable."
+msgstr ""
+"<strong>JANDI</strong> - making work simpler,<br>more productive,<br>and "
+"more enjoyable."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
