@@ -13,19 +13,19 @@
     var _that = this;
     var _tabs = {
       files: {
-        name: $filter('translate')('@common-files'),
+        l10n: '@common-file',
         isActive: false
       },
       messages: {
-        name: $filter('translate')('@common-message'),
+        l10n: '@common-message',
         isActive: false
       },
       stars: {
-        name: $filter('translate')('@common-star'),
+        l10n: '@common-star',
         isActive: false
       },
       mentions: {
-        name: $filter('translate')('@common-mention'),
+        l10n: '@common-mention',
         isActive: false
       }
     };
@@ -110,7 +110,7 @@
      * @returns {Object|*}
      */
     function getActiveTab() {
-      return _.pick(_tabs, function(tab) {
+      return _.find(_tabs, function(tab) {
         return tab.isActive === true;
       });
     }
