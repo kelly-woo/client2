@@ -15,15 +15,15 @@
     $scope.stepList = [
       {
         imgUrl: '../../../assets/images/tutorial/welcome_01.png',
-        content: _translate('@tutorial-welcome-1')
+        content: _translate('@tutorial-slide-1')
       },
       {
         imgUrl: '../../../assets/images/tutorial/welcome_02.png',
-        content: _translate('@tutorial-welcome-2')
+        content: _translate('@tutorial-slide-2')
       },
       {
         imgUrl: '../../../assets/images/tutorial/welcome_03.png',
-        content: _translate('@tutorial-welcome-3')
+        content: _translate('@tutorial-slide-3')
       }
     ];
 

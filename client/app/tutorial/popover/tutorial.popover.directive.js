@@ -22,7 +22,8 @@
       var DELAY = 300;
       var _timer;
       var _translate = $filter('translate');
-      var _stepList = [
+
+      scope.stepList = [
         {
           className: {
             wrap: 'tutorial-folder',
@@ -92,8 +93,8 @@
             arrow: 'top'
           },
           src: 'assets/images/center/help-create-a-new-team.gif',
-          title: _translate('@tutorial-modal8-title'),
-          content: _translate('@tutorial-modal8-content')
+          title: _translate('@tutorial-congratulations'),
+          content: _translate('@tutorial-congratulations_content')
         }
       ];
 
@@ -145,7 +146,7 @@
 
       function _setCurStep() {
         JndUtil.safeApply(scope, function() {
-          var curStep = scope.curStep = _stepList[scope.curStepIdx];
+          var curStep = scope.curStep = scope.stepList[scope.curStepIdx];
           _setProgress();
           if (!_isImage(curStep.src)) {
             scope.isVideo = true;
@@ -158,7 +159,7 @@
       }
 
       function _setProgress() {
-        scope.progress = Math.round((scope.curStepIdx / (_stepList.length - 1)) * 100);
+        scope.progress = Math.round((scope.curStepIdx / (scope.stepList.length - 1)) * 100);
       }
 
       function _attachVideoLoad() {
@@ -197,11 +198,11 @@
         }
       }
       function _isLastStep() {
-        return scope.curStepIdx === _stepList.length - 2;
+        return scope.curStepIdx === scope.stepList.length - 2;
       }
 
       function _isCompleted() {
-        return scope.curStepIdx >= _stepList.length -1;
+        return scope.curStepIdx >= scope.stepList.length -1;
       }
 
       /**
