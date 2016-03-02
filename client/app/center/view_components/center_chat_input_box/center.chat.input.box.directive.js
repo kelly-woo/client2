@@ -6,7 +6,7 @@
     .directive('centerChatInputBox', centerChatInputBox);
 
   function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
-                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
+                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor, Tutorial) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -21,6 +21,7 @@
       var _jqMenu = el.find('#file-upload-menu');
       var _jqMessageInput = el.find('#message-input');
       var _jqProgress = el.find('.file-upload-progress-container');
+      var _jqUploadBtn = el.find('.icon-upload-button');
       var _uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
@@ -66,7 +67,7 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$on('hotkey-upload', _onHotkeyUpload);
+        scope.$on('jndMainKeyHandler:upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
         scope.$on('mentionahead:showed:message', _onMentionaheadShowed);
         scope.$on('mentionahead:hid:message', _onMentionaheadHid);
@@ -81,6 +82,15 @@
       function _attachDomEvents() {
         _jqMenu.on('click', 'li', _onMenuItemClick);
         _jqProgress.on('transitionend', _onTransitionEnd);
+        _jqUploadBtn.on('click', _onClickUpload);
+      }
+
+      /**
+       * upload 버튼 클릭 이벤트 핸들러
+       * @private
+       */
+      function _onClickUpload() {
+        Tutorial.hideTooltip('upload');
       }
 
       /**
@@ -117,8 +127,13 @@
         jndPubSub.pub('mentionahead:message', mentionMembers);
       }
 
+      /**
+       * hotkey 로 업로드 시
+       * @private
+       */
       function _onHotkeyUpload() {
         _uploadMap['computer']();
+        Tutorial.hideTooltip('upload');
       }
 
       /**

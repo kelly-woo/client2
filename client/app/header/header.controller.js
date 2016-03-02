@@ -9,7 +9,8 @@
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
                       publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
-                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom, RightPanel) {
+                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom, RightPanel, Tutorial,
+                      AccountHasSeen) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -80,8 +81,30 @@
 
       RightPanel.initTabs();
       $scope.toolbar = RightPanel.getTabStatus();
+      $scope.isCompleteTutorial = true;
 
+      _initTutorialBlink();
       _attachEvents();
+    }
+
+    /**
+     * tutorial blink 표시를 초기화 한다.
+     * @private
+     */
+    function _initTutorialBlink() {
+      if (accountService.getAccount()) {
+        _setTutorialBlink();
+      } else {
+        $scope.$on('accountLoaded', _setTutorialBlink);
+      }
+    }
+
+    /**
+     * tutorial blink 상태를 업데이트 한다.
+     * @private
+     */
+    function _setTutorialBlink() {
+      $scope.isCompleteTutorial = AccountHasSeen.get('TUTORIAL_VER3_POPOVER');
     }
 
     /**
@@ -147,11 +170,20 @@
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
+      $scope.$on('Tutorial:complete', _onTutorialComplete);
 
       $scope.$watch('isOpenRightPanel', _onChangeRightPanel);
     }
 
     $scope.onLanguageClick = onLanguageClick;
+
+    /**
+     * tutorial 완료 이벤트 핸들러
+     * @private
+     */
+    function _onTutorialComplete() {
+      $scope.isCompleteTutorial = true;
+    }
 
     /**
      * change language event handler
@@ -253,12 +285,7 @@
      * click show tutorial
      */
     function onShowTutorialClick() {
-      //@fixme: remove old tutorial logic
-      if (HybridAppHelper.isPcApp()) {
-        jndPubSub.pub('initTutorialStatus');
-      } else {
-        jndPubSub.pub('tutorial:open');
-      }
+      Tutorial.showPopover();
     }
 
     /**

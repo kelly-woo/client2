@@ -11,12 +11,11 @@
 
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, EntityMapManager,
-                         currentSessionHelper, $state, analyticsService, tutorialService, language, entityAPIservice,
+                         currentSessionHelper, $state, analyticsService, language, entityAPIservice,
                          HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
     var service = {
       getInviteOptions: getInviteOptions,
-      openTutorialModal: openTutorialModal,
       closeModal: closeModal,
       setLanguageConfig: setLanguageConfig,
       setDebugMode: setDebugMode,
@@ -72,29 +71,6 @@
       }, list);
 
       return $filter('orderBy')(list, 'name');
-    }
-
-    function openTutorialModal(tutorialId) {
-      var modal;
-
-      switch (tutorialId) {
-        case 'welcomeTutorial':
-          modal = tutorialService.openWelcomeModal();
-          break;
-        case 'topicTutorial':
-          modal = tutorialService.openTopicModal();
-          break;
-        case 'chatTutorial' :
-          modal = tutorialService.openChatModal();
-          break;
-        case 'fileTutorial' :
-          modal = tutorialService.openFileModal();
-          break;
-        default :
-          break;
-      }
-
-      return modal;
     }
 
     function closeModal(modalInstance) {
