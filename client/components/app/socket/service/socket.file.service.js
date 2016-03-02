@@ -128,7 +128,8 @@
      * @private
      */
     function _onFileCommentDeleted(data) {
-      // badge count update 하기 위함이로소.
+      // badge count update 하기 위함.
+      // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
       jndPubSub.updateLeftPanel();
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);

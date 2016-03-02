@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, $filter, MentionExtractor, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, JndUtil, MentionExtractor, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -25,13 +25,14 @@
       link: link
     };
 
-    function link(scope) {
-      var jqCommentInput = $('#file-detail-comment-input');
+    function link(scope, el) {
+      var _jqFileDetail = $('.file-detail');
+      var _jqCommentInput = $('#file-detail-comment-input');
 
-      var stickerType = 'file';
-      var sticker;
+      var _stickerType = 'file';
+      var _sticker;
 
-      var timerScrollBottom;
+      var _timerScrollBottom;
 
       _init();
 
@@ -41,26 +42,31 @@
        */
       function _init() {
         scope.createComment = createComment;
-        scope.onKeyUp = onKeyUp;
+        scope.onCommentInputChange = onCommentInputChange;
+        scope.onMentionIconClick = onMentionIconClick;
+        scope.onMessageInputFocus = onMessageInputFocus;
+        scope.onMessageInputBlur = onMessageInputBlur;
+
         scope.member = memberService.getMember();
 
         _initComment();
 
         _setProfileImage(scope.member);
 
-        _attachEvents();
+        _attachScopeEvents();
+        _attachDomEvents();
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$on('window:unload', _onWindowUnload);
 
         scope.$on('setCommentFocus', _onFocusInput);
-        scope.$on('onChangeSticker:' + stickerType, _onChangeSticker);
+        scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
         scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
@@ -70,10 +76,26 @@
         scope.$on('room:memberAdded', _onMemberUpdate);
         scope.$on('room:memberDeleted', _onMemberUpdate);
 
+        scope.$on('MentionaheadCtrl:showed:comment', _onMentionaheadShowed);
+        scope.$on('MentionaheadCtrl:hid:comment', _onMentionaheadHid);
+
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('keydown', _onKeyDown);
+      }
+
+      /**
+       * mention change event handler
+       * @param {string} value
+       * @private
+       */
       function _onGetMentionChange(value) {
         scope.setMentionsGetter({
           $getter: value
@@ -84,29 +106,55 @@
        * comment 를 posting 한다.
        */
       function createComment() {
-        var comment = jqCommentInput.val().trim();
+        var comment = _jqCommentInput.val().trim();
 
-        if (comment || sticker) {
+        if (comment || _sticker) {
           _hideSticker();
 
           _clearWithFocus();
 
           scope.postComment({
             $comment: comment,
-            $sticker: sticker
+            $sticker: _sticker
           });
         } else if (comment === '') {
           _clearWithFocus();
         }
+        scope.hasMessage = false;
       }
 
       /**
-       * keyDown event handler
-       * @param keyUpEvent
+       * mention icon click
        */
-      function onKeyUp(keyUpEvent) {
-        if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
+      function onMentionIconClick() {
+        MentionExtractor.show('comment');
+      }
+
+      /**
+       * on message input focus
+       */
+      function onMessageInputFocus() {
+        scope.isMessageInputFocus = true;
+      }
+
+      /**
+       * on message input blur
+       */
+      function onMessageInputBlur() {
+        scope.isMessageInputFocus = false;
+      }
+
+      /**
+       * message input change event handler
+       * @param {object} event
+       */
+      function onCommentInputChange(event) {
+        var message;
+        if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
           _hideSticker();
+        } else if (_.isString(event.target.value)) {
+          message = _.trim(event.target.value).length;
+          scope.hasMessage = message > 0 || !!_sticker;
         }
       }
 
@@ -123,7 +171,7 @@
        * @private
        */
       function _focusInput() {
-        jqCommentInput.focus();
+        _jqCommentInput.focus();
       }
 
       /**
@@ -133,9 +181,11 @@
        * @private
        */
       function _onChangeSticker(angularEvent, item) {
-        if (sticker = item) {
+        if (_sticker = item) {
           setTimeout(_focusInput);
         }
+
+        scope.hasMessage = !!_sticker;
       }
 
       /**
@@ -143,7 +193,7 @@
        * @private
        */
       function _hideSticker() {
-        jndPubSub.pub('deselectSticker:' + stickerType);
+        jndPubSub.pub('deselectSticker:' + _stickerType);
       }
 
       /**
@@ -167,7 +217,7 @@
        * @private
        */
       function _saveCommentInput() {
-        scope.file && JndMessageStorage.setCommentInput(scope.file.id, jqCommentInput.val());
+        scope.file && JndMessageStorage.setCommentInput(scope.file.id, _jqCommentInput.val());
       }
 
       /**
@@ -176,6 +226,23 @@
        */
       function _onMemberUpdate() {
         jndPubSub.pub('fileDetail:updateFile');
+      }
+
+      /**
+       * mentionahead showed event handler
+       * @private
+       */
+      function _onMentionaheadShowed() {
+        _hideSticker();
+        scope.isMentionaheadShow = true;
+      }
+
+      /**
+       * mentionahead hid event handler
+       * @private
+       */
+      function _onMentionaheadHid() {
+        scope.isMentionaheadShow = false;
       }
 
       /**
@@ -236,14 +303,40 @@
        * @private
        */
       function _onElasticResize() {
-        var jqFileDetail = $('.file-detail');
-
-        clearTimeout(timerScrollBottom);
-        if (jqFileDetail[0] && jqFileDetail.height() + jqFileDetail.scrollTop() >= jqFileDetail[0].scrollHeight) {
-          timerScrollBottom = setTimeout(function() {
-            jqFileDetail.scrollTop(jqFileDetail[0].scrollHeight);
+        clearTimeout(_timerScrollBottom);
+        if (_isScrollOver()) {
+          _timerScrollBottom = setTimeout(function() {
+            _fixScrollBottom();
           }, 100);
         }
+      }
+
+      /**
+       * key down event handler
+       * @private
+       */
+      function _onKeyDown() {
+        if (_isScrollOver()) {
+          _fixScrollBottom();
+        }
+      }
+
+      /**
+       * is scroll over
+       * @returns {boolean}
+       * @private
+       */
+      function _isScrollOver() {
+        return el.height() + el.offset().top <= _jqFileDetail.scrollTop() + _jqFileDetail[0].scrollHeight;
+      }
+
+      /**
+       * 스크롤 바텀 고정함
+       * @returns {*}
+       * @private
+       */
+      function _fixScrollBottom() {
+        return _jqFileDetail.scrollTop(_jqFileDetail[0].scrollHeight);
       }
 
       /**
@@ -252,7 +345,7 @@
        */
       function _clearWithFocus() {
         setTimeout(function() {
-          jqCommentInput.val('').focus()[0].removeAttribute('style');
+          _jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
       }
 
@@ -272,7 +365,7 @@
        */
       function _setMentionMembers(file) {
         var mentionList = MentionExtractor.getMentionListForFile(file);
-        jndPubSub.pub('mentionahead:comment', mentionList);
+        jndPubSub.pub('MentionaheadCtrl:comment', mentionList);
       }
     }
   }
