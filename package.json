@@ -1,6 +1,6 @@
 {
   "name": "jandiApp",
-  "version": "1.17.0-alpha.0",
+  "version": "1.18.0-alpha.0",
   "main": "server/app.js",
   "repository": {
     "type": "git",

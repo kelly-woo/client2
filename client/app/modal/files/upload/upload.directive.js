@@ -16,6 +16,8 @@
     };
 
     function link(scope, el) {
+      var _jqFileUploadTitle = $('#file_upload_title');
+
       var PUBLIC_FILE = 744;    // PUBLIC_FILE code
 
       var fileUploadOptions = scope.fileUploadOptions;
@@ -85,9 +87,8 @@
               };
 
               // upload modal title 갱신, fileInfo에 title 설정
-              $timeout(function() {
-                $('#file_upload_title').val(fileInfo.title = file.name);
-              }, 100);
+              fileInfo.title = file.name;
+              _jqFileUploadTitle.val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
@@ -273,7 +274,9 @@
        * file upload
        */
       function upload() {
-        fileUploader.upload(true);
+        fileUploader.upload(true, {
+          straight: !!scope.isStraightUpload
+        });
       }
 
       /**

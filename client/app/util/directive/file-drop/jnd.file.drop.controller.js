@@ -21,7 +21,7 @@
     .controller('JndFileDropCtrl', JndFileDropCtrl);
 
   /* @ngInject */
-  function JndFileDropCtrl($scope, $rootScope, currentSessionHelper, fileAPIservice, FilesUpload, modalHelper) {
+  function JndFileDropCtrl($scope, $rootScope, currentSessionHelper, fileAPIservice, FilesUploadCreator, modalHelper) {
     $scope.onFileSelect = onFileSelect;
     $scope.onFileUploadAbortClick = onFileUploadAbortClick;
     $scope.onFileIconCloseClick = onFileIconCloseClick;
@@ -72,7 +72,7 @@
 
       fileAPIservice.cancelClearCurUpload();
 
-      fileUploader = fileUploader || FilesUpload.createInstance();
+      fileUploader = fileUploader || FilesUploadCreator.createInstance();
       fileUploader.currentEntity = currentEntity;
 
       if (options == null) {
@@ -136,11 +136,7 @@
      * 업로드 close 버튼 클릭시 이벤트 핸들러
      */
     function onFileIconCloseClick() {
-      $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
-        function() {
-          $rootScope.curUpload = {};
-        }
-      );
+      $rootScope.curUpload = {};
     }
   }
 })();

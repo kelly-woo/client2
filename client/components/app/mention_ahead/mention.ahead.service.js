@@ -9,7 +9,8 @@
     .service('MentionExtractor', MentionExtractor);
 
   /* @ngInject */
-  function MentionExtractor($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice) {
+  function MentionExtractor($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
+                            jndPubSub) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
@@ -19,12 +20,23 @@
     that.MENTION_ALL = 'all';
     that.MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
 
+    that.show = show;
+
     that.getMentionOnCursor = getMentionOnCursor;
     that.getMentionAllForText = getMentionAllForText;
     that.getSingleMentionItems = getSingleMentionItems;
     that.getMentionListForTopic = getMentionListForTopic;
     that.getMentionListForFile = getMentionListForFile;
     that.getMentionListForUploading = getMentionListForUploading;
+
+    /**
+     * show mentionahead
+     * @param {string} type
+     */
+    function show(type) {
+      type = type || 'message';
+      jndPubSub.pub('Mentionahead:show:' + type);
+    }
 
     /**
      * cursor 기준으로 mention data를 찾아 전달함.

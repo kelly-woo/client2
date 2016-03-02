@@ -43,6 +43,9 @@
       addBot: addBot,
       updateBot: updateBot,
 
+      increaseBadgeCount: increaseBadgeCount,
+      decreaseBadgeCount: decreaseBadgeCount,
+
       createTotalData: createTotalData
     };
 
@@ -163,6 +166,49 @@
       }
     }
 
+    /**
+     * entity
+     * @param {object} entity
+     * @returns {*}
+     * @private
+     */
+    function _getEntity(entity) {
+      if (_.isNumber(entity)) {
+        entity = EntityMapManager.get('total', entity) || EntityMapManager.get('memberEntityId', entity);
+      }
+      return entity;
+    }
+
+    /**
+     * entity 의 badge count 를 증가한다.
+     * @param {object} entity
+     * @param {number} [count=1]
+     */
+    function increaseBadgeCount(entity, count) {
+      entity = _getEntity(entity);
+      count = count || 1;
+
+      var alarmCnt = entity.alarmCnt || 0;
+
+      updateBadgeValue(entity, alarmCnt + count);
+    }
+
+    /**
+     * entity 의 badge count 를 감소한다.
+     * @param {object} entity
+     * @param {number} [count=1]
+     */
+    function decreaseBadgeCount(entity, count) {
+      entity = _getEntity(entity);
+      count = count || 1;
+
+      var alarmCnt = (entity.alarmCnt || 0) - count;
+      if (alarmCnt < 0) {
+        alarmCnt = 0;
+      }
+      updateBadgeValue(entity, alarmCnt);
+    }
+
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     // 'alarmCount' is -1, it means to increment.
     function updateBadgeValue (entity, alarmCount) {
@@ -180,7 +226,7 @@
         list = currentSessionHelper.getCurrentTeamUserList();
       }
 
-      this.setBadgeValue(list, entity, alarmCount);
+      setBadgeValue(list, entity, alarmCount);
 
       NotificationManager.set(entity, alarmCount);
       jndPubSub.pub('badgeCountChange', {

@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MentionaheadCtrl($scope, $state, $filter, entityAPIservice, currentSessionHelper,
-                            MentionExtractor, Dialog) {
+                            MentionExtractor, Dialog, jndPubSub, JndUtil) {
     var that = this;
 
     var entityId = $state.params.entityId;
@@ -44,7 +44,7 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
-      _attachEvents(options);
+      _attachEvents();
 
       // message를 submit하는 method
       if (options.attrs.messageSubmit) {
@@ -54,13 +54,11 @@
 
     /**
      * attach events
-     * @param {object} options
      * @private
      */
-    function _attachEvents(options) {
-      var type = options.attrs.mentionaheadType;
-
-      $scope.$on('mentionahead:' + type, _onMentionMembersUpdate);
+    function _attachEvents() {
+      $scope.$on('MentionaheadCtrl:' + $scope.type, _onMentionMembersUpdate);
+      $scope.$on('Mentionahead:show:' + $scope.type, _onShowMentionahead);
     }
 
     /**
@@ -71,6 +69,39 @@
      */
     function _onMentionMembersUpdate(angularEvent, mentionMembers) {
       _setMentions(mentionMembers);
+    }
+
+    /**
+     * show mention ahead
+     * @private
+     */
+    function _onShowMentionahead() {
+      var selection = _getSelection();
+      var value = $scope.jqEle.val();
+      var prefixValue = value.substring(0, selection.begin);
+      var mentionWord = '@';
+      var suffixValue = value.substring(selection.end);
+      var count = 0;
+
+      // prefix value의 마지막 값이 mention word가 아니라면 해당 selection에 mention word를 추가한다.
+      if (!/([\s]@$)|(^@$)/.test(prefixValue)) {
+        if (prefixValue !== '' && !/\s$/.test(prefixValue)) {
+          mentionWord = ' ' + mentionWord;
+          count += 2;
+        } else {
+          count++;
+        }
+
+        if (suffixValue !== '' && !/^\s/.test(suffixValue)) {
+          mentionWord = mentionWord + ' ';
+        }
+
+        value = prefixValue + mentionWord + suffixValue;
+      }
+
+      $scope.jqEle.val(value).focus();
+      _setSelection(selection.begin + count);
+      $scope.jqEle.trigger('input').trigger('keyup');
     }
 
     /**
@@ -122,8 +153,13 @@
     function setMentionOnLive(event) {
       var value = getValue();
       var selectionBegin = _getSelection().begin;
+      var mention = $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
 
-      $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
+      if (mention) {
+        $model.$setViewValue(mention.match[2]);
+      } else {
+        clearMention();
+      }
     }
 
     /**
@@ -148,14 +184,7 @@
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      var mention = $scope.mention;
-
-      if (mention) {
-        $model.$setViewValue(mention.match[2]);
-      } else {
-        // mention이 존재하지 않는다면 mentionahead를 출력하지 않음
-        clearMention();
-      }
+      jndPubSub.pub('MentionaheadCtrl:showed:' + $scope.type);
     }
 
     /**
@@ -163,6 +192,7 @@
      */
     function clearMention() {
       $model.$setViewValue(null);
+      jndPubSub.pub('MentionaheadCtrl:hid:' + $scope.type);
     }
 
     /**
@@ -198,21 +228,26 @@
      */
     function onSelect($item) {
       var currentEntity;
+      var count;
       var msg;
 
       if ($item.name === MentionExtractor.MENTION_ALL_ITEM_TEXT) {
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
-        msg = $filter('translate')('@mention-all-toast');
+        count = +entityAPIservice.getUserLength(currentEntity) - 1;
 
-        msg = msg
-          .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
-          .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getUserLength(currentEntity), 10) - 1);
+        if (count > 0) {
+          msg = $filter('translate')('@mention-all-toast');
 
-        Dialog.warning({
-          title: msg
-        });
+          msg = msg
+            .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
+            .replace('{{topicParticipantsCount}}', count);
+
+          Dialog.warning({
+            title: msg
+          });
+        }
 
         _onSelect($item);
       } else {
