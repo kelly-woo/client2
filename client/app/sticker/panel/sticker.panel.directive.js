@@ -45,6 +45,8 @@
         _attachDomEvents();
 
         if (_.isString(_dropdownParent)) {
+          // sticker panel의 parent element 변경시 해당 element를 dom에서 찾을수 있도록
+          // 보장하기 위해 $timeout을 수행한다.
           $timeout(_setDropdownParent);
         }
       }
