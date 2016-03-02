@@ -25,7 +25,7 @@
       $scope.closeRightPanel = closeRightPanel;
 
       $scope.tabs = RightPanel.getTabStatus();
-      $scope.activeTabName = RightPanel.getActiveTab().name;
+      $scope.activeTabName = _getActiveTabName();
       $scope.isLoading = false;
     }
 
@@ -53,8 +53,8 @@
 
       if (tab = $scope.tabs[data.type]) {
         if (data.toUrl !== data.fromUrl) {
-          tab.active = true;
-          $scope.activeTabName = RightPanel.getActiveTab().name;
+          tab.isActive = true;
+          $scope.activeTabName = _getActiveTabName();
 
           if (data.fromTitle !== 'FILE DETAIL') {
             $timeout(function() {
@@ -94,6 +94,15 @@
      */
     function closeRightPanel() {
       jndPubSub.pub('closeRightPanel');
+    }
+
+    /**
+     * l10n 반영된 tab명을 전달함.
+     * @returns {*}
+     * @private
+     */
+    function _getActiveTabName() {
+      return $filter('translate')(RightPanel.getActiveTab().l10n);
     }
   }
 })();
