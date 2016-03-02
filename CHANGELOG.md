@@ -1,3 +1,25 @@
+<a name="1.17.0"></a>
+# [1.17.0](https://github.com/tosslab/web_client/compare/v1.16.0...v1.17.0) (2016-03-02)
+
+
+### Bug Fixes
+
+* **connect:** 커넥트 웹훅 설정 방법 안내 레이아웃 깨지는 현상 수정 ([263d0bf](https://github.com/tosslab/web_client/commit/263d0bf))
+* **css:** 마크다운 안내 텍스트 위치, 마진 수정. ([5d887cf](https://github.com/tosslab/web_client/commit/5d887cf))
+* **css:** 메시지 전송버튼 아웃라인 삭제. ([bf901e9](https://github.com/tosslab/web_client/commit/bf901e9))
+* **css:** 봇메시지, mr. j일 때 프로필이미지 보더 삭제. ([fc180f7](https://github.com/tosslab/web_client/commit/fc180f7))
+* **dialog:** 언어설정 영문일 때, 파일 삭제시 br태그 삽입돼있음 ([1f227fa](https://github.com/tosslab/web_client/commit/1f227fa))
+* **integration:** 설정 저장 버튼 회색을 파란색으로 변경 ([f604f7c](https://github.com/tosslab/web_client/commit/f604f7c))
+* **left:** topic folder 조회 API 요청 전 이전에 요청하던 request 가 존재할 경우 cancel 하는 로직 추가 ([ffab1a6](https://github.com/tosslab/web_client/commit/ffab1a6))
+* **markdown:** 동일 멘션이 여러개 존재할 경우 잘못된 위치에 링크를 생성하는 현상 해결 ([4d2a4b9](https://github.com/tosslab/web_client/commit/4d2a4b9))
+* **team:** 가입한 팀이 1개 팀일 경우 전환 아이콘 노출하지 않음 ([1e21ef4](https://github.com/tosslab/web_client/commit/1e21ef4))
+
+### Features
+
+* **incoming-webhook:**  설정 예제에 실제 webhook url 이 노출되도록 변경 ([a64b515](https://github.com/tosslab/web_client/commit/a64b515))
+
+
+
 <a name="1.16.0"></a>
 # [1.16.0](https://github.com/tosslab/web_client/compare/v1.15.0...v1.16.0) (2016-02-24)
 
