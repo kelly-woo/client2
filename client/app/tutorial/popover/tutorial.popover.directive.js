@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('tutorialPopover', tutorialPopover);
 
-  function tutorialPopover($filter, $timeout, JndUtil, Tutorial, AccountHasSeen) {
+  function tutorialPopover($filter, $timeout, JndUtil, Tutorial, AccountHasSeen, currentSessionHelper) {
     return {
       link: link,
       scope: {},
@@ -93,8 +93,9 @@
             arrow: 'top'
           },
           src: 'assets/images/center/help-create-a-new-team.gif',
-          title: _translate('@tutorial-congratulations'),
-          content: _translate('@tutorial-congratulations_content')
+          title: _translate('@tutorial_congratulations'),
+          content: _translate('@tutorial_congratulations_content').replace('{{teamName}}',
+            currentSessionHelper.getCurrentTeam().name)
         }
       ];
 
