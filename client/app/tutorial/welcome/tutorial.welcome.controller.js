@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 Welcome 모달 컨트롤러
+ * @fileoverview 튜토리얼 중 가장 첫번째 노출하게 될 웰컴 디렉티브
  */
 (function() {
   'use strict';
@@ -8,10 +8,11 @@
     .module('jandiApp')
     .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  function TutorialWelcomeCtrl($scope, $filter, Tutorial, AccountHasSeen) {
+  function TutorialWelcomeCtrl($scope, $filter, $timeout, Tutorial, AccountHasSeen) {
     var _translate = $filter('translate');
 
     $scope.curStep = 0;
+    $scope.isComplete = true;
     $scope.stepList = [
       {
         imgUrl: '../../../assets/images/tutorial/welcome_01.png',
@@ -36,6 +37,10 @@
      * @private
      */
     function _init() {
+      //isComplete 값 변경에 대한 fade 효과를 주기 위해 $timeout 을 사용한다.
+      $timeout(function() {
+        $scope.isComplete = false;
+      });
     }
 
     /**
@@ -64,8 +69,12 @@
      */
     function _complete() {
       AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
-      Tutorial.hideWelcome();
-      Tutorial.showTooltip();
+      $scope.isComplete = true;
+      //isComplete 값 변경에 대한 fade 효과를 주기 위해 $timeout 을 사용한다.
+      $timeout(function() {
+        Tutorial.hideWelcome();
+        Tutorial.showTooltip();
+      }, 100);
     }
   }
 })();

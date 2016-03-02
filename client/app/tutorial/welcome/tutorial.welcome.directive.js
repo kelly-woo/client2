@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가장 첫번째 노출하게 될 웰컴 디렉티브
+ * @fileoverview 튜토리얼 중 가장 첫번째 노출하게 될 웰컴 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -14,6 +14,7 @@
       link: link,
       scope: {},
       restrict: 'E',
+      replace: true,
       controller: 'TutorialWelcomeCtrl',
       templateUrl: 'app/tutorial/welcome/tutorial.welcome.html'
     };

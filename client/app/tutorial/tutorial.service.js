@@ -44,12 +44,12 @@
     function _initWelcome() {
       if (!_isInit) {
         //기존 사용자면 welcome 은 생략한다
-        //if (_isOldUser()) {
-        //  AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
-        //} else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
-        //  showWelcome();
-        //}
-        showWelcome();
+        if (_isOldUser()) {
+          AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+        } else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
+          //초기 진입 시 모든 랜더링 동작을 완료한 이후 welcome 모달을 fade in 효과로 노출하기 위해 1초의 딜레이를 할당한다.
+          setTimeout(showWelcome, 1000);
+        }
         _isInit = true;
       }
     }
