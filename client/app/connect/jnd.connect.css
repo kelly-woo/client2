@@ -1113,7 +1113,6 @@
 .introduction-code-view .code-line.indent-1depth,
 .introduction-code-view .code-line.indent-2depth {
   padding-right: 16px;
-  width: 846px;
   min-width: 100%;
 }
 .indent-0depth {

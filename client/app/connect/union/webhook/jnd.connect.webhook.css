@@ -8,12 +8,12 @@
 .introduction-code-view > table > tbody > tr > td {
   display: block;
 }
-.introduction-code-view > table:last-child {
+.introduction-code-view > table.pull-right {
   width: 30%;
   position: absolute;
   right: 18px;
 }
-.introduction-code-view > table:last-child > * {
+.introduction-code-view > table.pull-right > * {
   color: #AEAEAE !important;
   -webkit-user-select: none;
   -moz-user-select: none;
