@@ -9,8 +9,10 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $timeout, $state, entityheaderAPIservice, analyticsService,
+  function TopicJoinCtrl($scope, $timeout, $state, $filter, entityheaderAPIservice, analyticsService,
                          jndPubSub, memberService, modalHelper, EntityMapManager) {
+    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
+
     _init();
 
     /**
@@ -45,17 +47,7 @@
      * @returns {*}
      */
     function getMatches(list, filterText) {
-      var matches;
-
-      filterText = filterText.toLowerCase();
-      matches = _.chain(list)
-        .filter(function(item) {
-          return item.name.toLowerCase().indexOf(filterText) > -1;
-        })
-        .sortBy(function(item) {
-          return item.name.toLowerCase();
-        })
-        .value();
+      var matches = _prefixMatchFirstFilter(list, filterText.toLowerCase(), 'name');
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;

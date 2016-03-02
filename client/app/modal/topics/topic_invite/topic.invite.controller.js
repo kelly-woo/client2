@@ -10,6 +10,8 @@
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                            entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
+    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
+
     var msg1;
     var msg2;
 
@@ -106,15 +108,11 @@
      * @returns {*}
      */
     function getMatches(list, filterText) {
-      filterText = filterText.toLowerCase();
-      return $scope.selectingMembers = _.chain(list)
-        .filter(function(item) {
-          return item.name.toLowerCase().indexOf(filterText) > -1 && item.selected === false;
-        })
-        .sortBy(function(item) {
-          return [!item.isStarred, item.name.toLowerCase()];
-        })
-        .value();
+      return $scope.selecingMembers = _prefixMatchFirstFilter(list, filterText.toLowerCase(), 'name', {
+        sortBy: function(item, desc) {
+          return [!item.isStarred].concat(desc);
+        }
+      });
     }
 
     /**
