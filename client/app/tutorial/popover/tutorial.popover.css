@@ -2,7 +2,7 @@
   position: absolute;
   min-width: 260px;
   max-width: 400px;
-  z-index: 625;
+  z-index: 701;
   text-align: center;
   background-color: #fff;
   padding: 0;
@@ -20,7 +20,7 @@
   right: 10px;
   top: 4px;
   color: #154a67;
-  z-index: 1;
+  z-index: 702;
   outline: 0;
   font-size: 11px;
   margin-top: 6px;
