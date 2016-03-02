@@ -1398,7 +1398,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-162"
-msgstr ""
+msgstr "この機能を使用するにはHTTP POST requestを下記のURLまで送ってください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-163"
@@ -3217,9 +3217,8 @@ msgid "@unread-bookmark-message"
 msgstr "ここから未読メッセージ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@upload-all"
-msgstr "アップロード"
+msgstr "コメント投稿せずに、全てアップロード"
 
 #: client/app/left/left.html
 msgid "@user"
