@@ -63,9 +63,23 @@
 .tutorial-tooltip-upload {
   top: auto !important;
   bottom: 93px;
-  left: 180px !important;
+  left: 103px !important;
+}
+.tutorial-tooltip-upload:lang(zh-cn),
+.tutorial-tooltip-upload:lang(zh-tw) {
+  left: 133px !important;
+}
+.tutorial-tooltip-upload .tooltip-arrow {
+  left: 162px !important;
+}
+.tutorial-tooltip-upload .tooltip-arrow:lang(zh-cn),
+.tutorial-tooltip-upload .tooltip-arrow:lang(zh-tw) {
+  left: 132px !important;
 }
 .tutorial-tooltip-filetab {
   left: auto !important;
   right: 60px !important;
+}
+.tutorial-tooltip-filetab .tooltip-arrow {
+  left: 115px !important;
 }
