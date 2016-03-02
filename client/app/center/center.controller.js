@@ -220,7 +220,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * scope listener 를 초기화한다.
+   *  scope listener를 초기화한다.
    * @private
    */
   function _initializeListeners() {
@@ -229,9 +229,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
-
-    $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('elasticResize:message', _onElasticResize);
+    $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
     $scope.$on('centerUpdateChatList', updateList);
@@ -770,8 +769,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
       messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
-          .success(_onUpdateListSuccess)
-          .error(_onUpdateListError);
+        .success(_onUpdateListSuccess)
+        .error(_onUpdateListError);
 
 
       // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
@@ -899,7 +898,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-
   /**
    * hide sticker
    * @private
@@ -939,9 +937,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
       post(msg, _sticker, mentions);
     }
+
     $scope.message.content = "";
+    $scope.hasMessage = false;
+
     jqInput.val('');
     _hideSticker();
+    _setChatInputFocus();
   }
 
   function post(msg, sticker, mentions) {
@@ -1328,7 +1330,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     /*
      users 의 경우 messages.controller.js 의 _generateMessageList 에서
      badge count 를 업데이트 해주기 때문에 user 가 아닐 경우만 badge count increase 함함
-    */
+     */
 
     if (currentSessionHelper.getCurrentEntityType() !== 'users') {
       entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
@@ -1525,6 +1527,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onChangeSticker(event, item) {
     _sticker = item;
+    $scope.hasMessage = !!_sticker;
     setTimeout(_setChatInputFocus);
   }
 
@@ -1536,12 +1539,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onElasticResize() {
-    var jqInput = $('#message-input');
+    var jqCenterChatInput = $('.center-chat-input-container');
+    var jqMessages = $('#msgs-container');
+    var isBottomReached;
+
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
-      _scrollToBottom();
+      isBottomReached = true;
     }
-    $('#center-input-margin').height(jqInput.height() - 28);
+
+    jqMessages.css('bottom', jqCenterChatInput.height());
+    if (isBottomReached) {
+      setTimeout(_scrollToBottom, 100);
+    }
   }
 
   /**
@@ -1715,10 +1725,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @param {object} event
    */
   function onMessageInputChange(event) {
+    var message;
     if (event.type === 'keyup' && jndKeyCode.match('ESC', event.keyCode)) {
       _hideSticker();
     } else if (_.isString(event.target.value)) {
-      $scope.showMarkdownGuide = event.target.value.length > 1;
+      message = _.trim(event.target.value).length;
+      $scope.hasMessage = message > 0 || !!_sticker;
+      $scope.showMarkdownGuide = message > 1;
     }
   }
 });

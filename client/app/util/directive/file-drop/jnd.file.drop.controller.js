@@ -136,11 +136,7 @@
      * 업로드 close 버튼 클릭시 이벤트 핸들러
      */
     function onFileIconCloseClick() {
-      $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
-        function() {
-          $rootScope.curUpload = {};
-        }
-      );
+      $rootScope.curUpload = {};
     }
   }
 })();

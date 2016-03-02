@@ -13,6 +13,7 @@
   function stickerLayer() {
     return {
       restrict: 'E',
+      replace: true,
       scope: false,
       controller: 'StickerLayerCtrl',
       link: link,

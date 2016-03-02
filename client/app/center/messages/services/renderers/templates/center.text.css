@@ -125,6 +125,7 @@
 .bot-text .member-thumb {
   width: 34px;
   height: 34px;
+  border-width: 0;
 }
 .bot-text .msg-text-body {
   font-size: 15px;

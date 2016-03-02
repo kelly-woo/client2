@@ -8,6 +8,7 @@
 .msg-item .continue-comment-body {
   position: relative;
   padding-top: 2px;
+  padding-bottom: 2px;
   padding-left: 36px;
   display: inline-block;
   width: 100%;
@@ -43,21 +44,22 @@
 .comment-guide .guide-line-bg {
   position: absolute;
   width: 28px;
-  height: 33px;
+  height: 40px;
   background-color: #fff;
 }
 
 .comment-guide .comment-writer {
   position: relative;
-  width: 26px;
-  height: 26px;
-  margin-top: 2px;
+  width: 28px;
+  height: 28px;
+  margin-top: 7px;
+  border: 1px solid #e1e1e1;
 }
 
 .continue-comment-body .comment-content {
-  padding-top: 2px;
-  padding-bottom: 1px;
-  line-height: 1.5rem;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  line-height: 20px;
   min-height: 33px;
 }
 
