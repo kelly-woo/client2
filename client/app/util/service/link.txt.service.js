@@ -209,9 +209,12 @@
 
     txt.regexen.invalidShortDomain = regexSupplant(/^#{validDomainName}#{validCCTLD}$/i);
     txt.regexen.validSpecialShortDomain = regexSupplant(/^#{validDomainName}#{validSpecialCCTLD}$/i);
-
     txt.regexen.validUrlPrecedingChars = regexSupplant(/(?:[^A-Za-z0-9@＠$#＃#{invalid_chars_group}]|^)/);
-    txt.regexen.validDomain = regexSupplant(/(?:#{validSubdomain}*#{validDomainName}(?:#{validGTLD}|#{validCCTLD}|#{validPunycode}))/);
+
+    txt.regexen.validHexFF = /(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
+    txt.regexen.validIPv4 = regexSupplant(/(?:(?:(?!0)#{validHexFF})\.#{validHexFF}\.#{validHexFF}\.#{validHexFF})/);
+
+    txt.regexen.validDomain = regexSupplant(/(?:#{validSubdomain}*#{validDomainName}(?:#{validGTLD}|#{validCCTLD}|#{validPunycode})|#{validIPv4})/);
     txt.regexen.validPortNumber = /[0-9]+/;
     txt.regexen.validUrlPath = regexSupplant(/(?:\/(?:(?:[a-zA-Z0-9#{validGeneralUrlPathChars};\?:@&=#~.+!*'\(\),-_])|(?:%[a-fA-F0-9]{2}))*)?(?:\b)/);
 
