@@ -44,12 +44,11 @@
     function _initWelcome() {
       if (!_isInit) {
         //기존 사용자면 welcome 은 생략한다
-        //if (_isOldUser()) {
-        //  AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
-        //} else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
-        //  showWelcome();
-        //}
-        showWelcome();
+        if (_isOldUser()) {
+          AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+        } else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
+          showWelcome();
+        }
         _isInit = true;
       }
     }

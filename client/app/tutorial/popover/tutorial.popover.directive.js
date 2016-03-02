@@ -1,5 +1,5 @@
 /**
- * @fileoverview 커넥트 튜토리얼 디렉티브
+ * @fileoverview 팝 오버 형태의 tutorial 디렉티브
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -116,12 +116,31 @@
        */
       function _init() {
         _resetProperties();
-        _attachVideoLoad();
+        _attachDomEvents();
         _start();
       }
 
       /**
-       * video load 핸들러
+       * scope 의 값을 초기화 한다.
+       * @private
+       */
+      function _resetProperties() {
+        scope.isLoaded = false;
+        scope.curStepIdx = 0;
+        scope.curStep = null;
+        scope.isVideo = false;
+      }
+
+      /**
+       * dom 이벤트를 바인딩 한다.
+       * @private
+       */
+      function _attachDomEvents() {
+        el.find('video').on('loadeddata', _onVideoLoad);
+      }
+
+      /**
+       * video load 이벤트 핸들러
        * @private
        */
       function _onVideoLoad() {
@@ -130,6 +149,10 @@
         });
       }
 
+      /**
+       * popover tutorial 을 시작한다.
+       * @private
+       */
       function _start() {
         _resetProperties();
         scope.curStepIdx = 0;
@@ -137,13 +160,10 @@
         $timeout(_setCurStep, 100);
       }
 
-      function _resetProperties() {
-        scope.isLoaded = false;
-        scope.curStepIdx = 0;
-        scope.curStep = null;
-        scope.isVideo = false;
-      }
-
+      /**
+       * 현재 step 을 설정한다.
+       * @private
+       */
       function _setCurStep() {
         JndUtil.safeApply(scope, function() {
           var curStep = scope.curStep = scope.stepList[scope.curStepIdx];
@@ -158,33 +178,29 @@
         });
       }
 
-      function _setProgress() {
-        scope.progress = Math.round((scope.curStepIdx / (scope.stepList.length - 1)) * 100);
+      /**
+       * popover 를 닫는다.
+       */
+      function close() {
+        _animateHide();
+        //fade out 효과 이후에 popover 를 감추기 위해 timeout 을 이용한다.
+        _timer = $timeout(Tutorial.hidePopover, DELAY);
       }
 
-      function _attachVideoLoad() {
-        el.find('video').on('loadeddata', _onVideoLoad);
-      }
-
-      function _isImage(src) {
-        return /.+\.gif$/.test(src)
-      }
-
+      /**
+       * 다음 단계로 넘어간다.
+       */
       function next() {
         _animateHide();
+        //fade out 효과 이후에 popover 를 감추기 위해 timeout 을 이용한다.
         $timeout.cancel(_timer);
         _timer = $timeout(_next, DELAY);
       }
 
-      function close() {
-        _animateHide();
-        _timer = $timeout(Tutorial.hidePopover, DELAY);
-      }
-
-      function _animateHide() {
-        scope.isLoaded = false;
-      }
-
+      /**
+       * 실제 다음 단계로 넘어간다.
+       * @private
+       */
       function _next() {
         if (_isCompleted()) {
           Tutorial.hidePopover();
@@ -197,25 +213,49 @@
           _setCurStep();
         }
       }
+
+      /**
+       * progress bar 의 진행률을 설정한다.
+       * @private
+       */
+      function _setProgress() {
+        scope.progress = Math.round((scope.curStepIdx / (scope.stepList.length - 1)) * 100);
+      }
+
+      /**
+       * file 확장자가 이미지인지 여부를 반환한다.
+       * @param {string} src
+       * @returns {boolean}
+       * @private
+       */
+      function _isImage(src) {
+        return /.+\.gif$/.test(src)
+      }
+
+      /**
+       * fade out 애니메이션을 적용하여 popover 를 감춘다.
+       * @private
+       */
+      function _animateHide() {
+        scope.isLoaded = false;
+      }
+
+      /**
+       * 마지막 단계인지 여부를 반환한다.
+       * @returns {boolean}
+       * @private
+       */
       function _isLastStep() {
         return scope.curStepIdx === scope.stepList.length - 2;
       }
 
-      function _isCompleted() {
-        return scope.curStepIdx >= scope.stepList.length -1;
-      }
-
       /**
-       * 튜토리얼 완료
+       * tutorial 을 완료 하였는지 여부를 반환한다.
+       * @returns {boolean}
        * @private
        */
-      function _complete() {
-        AccountHasSeen.set('TUTORIAL_VER3_POPOVER', true);
-        Tutorial.complete();
-
-        AccountHasSeen.set('TUTORIAL_VER3_POPOVER', true);
-        Tutorial.complete();
-        Tutorial.hidePopover();
+      function _isCompleted() {
+        return scope.curStepIdx >= scope.stepList.length -1;
       }
     }
   }

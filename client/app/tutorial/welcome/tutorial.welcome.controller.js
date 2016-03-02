@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 Welcome 모달 컨트롤러
+ * @fileoverview 튜토리얼 중 가장 첫번째 노출하게 될 웰컴 디렉티브
  */
 (function() {
   'use strict';
