@@ -63,6 +63,7 @@
         scope.$on('$destroy', _onDestroy);
         scope.$on('Tutorial:showTooltip', _show);
         scope.$on('Tutorial:hideTooltip', _onClose);
+        scope.$on('onNotificationBannerDisappear', _recalculatePosition);
       }
 
       /**
