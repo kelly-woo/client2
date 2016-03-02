@@ -57,7 +57,7 @@
     function _onSelectedEntityIdChange(entityId) {
       var mentionList = MentionExtractor.getMentionListForUploading(entityId);
 
-      jndPubSub.pub('mentionahead:upload', mentionList);
+      jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
     }
 
     /**

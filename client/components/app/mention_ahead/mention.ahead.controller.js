@@ -57,8 +57,8 @@
      * @private
      */
     function _attachEvents() {
-      $scope.$on('mentionahead:' + $scope.type, _onMentionMembersUpdate);
-      $scope.$on('mentionahead:show:' + $scope.type, _onShowMentionahead);
+      $scope.$on('MentionaheadCtrl:' + $scope.type, _onMentionMembersUpdate);
+      $scope.$on('Mentionahead:show:' + $scope.type, _onShowMentionahead);
     }
 
     /**
@@ -184,7 +184,7 @@
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      jndPubSub.pub('mentionahead:showed:' + $scope.type);
+      jndPubSub.pub('MentionaheadCtrl:showed:' + $scope.type);
     }
 
     /**
@@ -192,7 +192,7 @@
      */
     function clearMention() {
       $model.$setViewValue(null);
-      jndPubSub.pub('mentionahead:hid:' + $scope.type);
+      jndPubSub.pub('MentionaheadCtrl:hid:' + $scope.type);
     }
 
     /**

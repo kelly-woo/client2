@@ -102,7 +102,14 @@
      * @private
      */
     function _getActiveTabName() {
-      return $filter('translate')(RightPanel.getActiveTab().l10n);
+      var activeTab  = RightPanel.getActiveTab();
+      var name;
+
+      if (activeTab) {
+        name = $filter('translate')(activeTab.l10n);
+      }
+
+      return name;
     }
   }
 })();
