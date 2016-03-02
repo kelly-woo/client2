@@ -42,19 +42,16 @@ msgid "@alert-no-result"
 msgstr "No matches"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-fold"
-msgstr "Hide"
+msgstr "Fold"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-hide"
 msgstr "Hide"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-more"
-msgstr "Announce"
+msgstr "More"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@announcement-create"
@@ -3014,6 +3011,76 @@ msgstr "Your file drawer and search panel"
 msgid "@tutorial-message-file-title"
 msgstr "Sending messages and uploading files"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-content"
+msgstr ""
+"Have trouble managing too many topics? Try grouping them into folders! Drag "
+"and drop a topic onto another topic to create a new folder, and drag a topic "
+"into an existing folder to place it in the folder"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-title"
+msgstr "Organize your topics using folders!"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-content"
+msgstr "Star important messages and files to create an instant to-do list"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-title"
+msgstr "Starred Items"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-content"
+msgstr ""
+"Want to ensure the recipient doesn't miss your message? Type \"@\" followed "
+"by your team members' names to address your message directly at them. They "
+"will receive push notifications even if topic alerts have been turned off"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-title"
+msgstr "Mentions"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-content"
+msgstr ""
+"Filter by the sender or topic to narrow down your search results and locate "
+"your message more quickly"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-title"
+msgstr "Search all the messages sent in this team"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-content"
+msgstr ""
+"Search through topics and 1:1 messages and jump directly to the conversation "
+"with Jump (Ctrl+J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-title"
+msgstr "Jump instantly from one conversation to another"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-content"
+msgstr ""
+"Always on your desktop? Work more efficiently using keyboard shortcuts to "
+"quickly upload a file (Ctrl+U) or invite a member to a topic (Ctrl+I)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-title"
+msgstr "Shortcuts"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-content"
+msgstr ""
+"Integrate Google Calendar, Trello, JIRA, GitHub or other services into JANDI "
+"and receive notifications as messages"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-title"
+msgstr "JANDI Connect"
+
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
@@ -3026,32 +3093,42 @@ msgid "@tutorial-skip"
 msgstr "Skip tutorial"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-1"
 msgstr ""
-"All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
-"share, or comment on a file. "
+"Frustrated with all the different apps you use to communicate in the "
+"workplace?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-2"
-msgstr ""
-"To find an older file, search by keyword(s) and use our flexible filters to "
-"sort by file type, uploader, or conversation in which it was shared. You can "
-"also click over to the Messages tab to search through your conversation "
-"history and jump back to specific points in the discussion for more context. "
+msgstr "Simplify your life now with JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-3"
-msgstr ""
-"Toggle the view by using the Search and Close buttons to open and minimize "
-"the right panel."
+msgstr "JANDI - making work simpler, more productive, and more enjoyable."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
 msgstr "TIPS"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-1"
+msgstr ""
+"Create a topic - a dedicated space for your project teams, departments, and "
+"other groups"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-2"
+msgstr "Upload files directly into the conversation"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-3"
+msgstr "Send stickers to express your ideas in a more lively manner"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-4"
+msgstr ""
+"Open the right panel to search for your files, starred items, mentions and "
+"more"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"

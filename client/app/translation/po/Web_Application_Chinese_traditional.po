@@ -42,19 +42,16 @@ msgid "@alert-no-result"
 msgstr "找不到符合條件的內容"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-fold"
 msgstr "最小化"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-hide"
-msgstr "最小化"
+msgstr "隱藏"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-more"
-msgstr "發布公告"
+msgstr "展開"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@announcement-create"
@@ -2835,6 +2832,67 @@ msgstr "檔案庫和搜尋欄"
 msgid "@tutorial-message-file-title"
 msgstr "送出訊息及上傳檔案"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-content"
+msgstr ""
+"使用議題資料夾歸納冗長的議題列表！拖拉議題放置於另一個議題，即可建立新的資料"
+"夾；另外，將議題拖拉至現有資料夾中，即完成歸納"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-title"
+msgstr "使用資料夾管理議題"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-content"
+msgstr "標示重要檔案或代辦項目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-title"
+msgstr "標示項目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-content"
+msgstr "輸入\"@\"提醒成員新任務或注意事項，同時瀏覽所有自己曾被提及的對話"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-title"
+msgstr "成員提及"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-content"
+msgstr "進階搜尋幫助你縮小搜尋範圍"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-title"
+msgstr "搜尋歷史訊息"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-content"
+msgstr "使用快搜(Ctrl+J)快速切換議題或對話成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-title"
+msgstr "迅速切換討論視窗"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-content"
+msgstr ""
+"成為專業的JANDI哲人，使用快捷鍵快速執行如多檔案上傳(Ctrl+U)等重複的動作"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-title"
+msgstr "快捷鍵"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-content"
+msgstr ""
+"串聯你的Google日曆、Trello、JIRA、GitHub及其他第三方平台，並將所有通知連結到"
+"JANDI"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-title"
+msgstr "JANDI Connect"
+
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
@@ -2846,29 +2904,38 @@ msgid "@tutorial-skip"
 msgstr "跳過教學示範"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-1"
 msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
-"後，將點擊右邊的「ᵒᵒᵒ」即可。"
+"一下社群媒體、一下私人通訊軟體，頁面跳來跳去，訊息檔案散落四處，工作變得好"
+"累？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-2"
-msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾經"
-"分享在哪個議題下”的項目進行搜尋。"
+msgstr "儘管無法獲得輕鬆的工作，但我們可以選擇輕鬆工作！"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-3"
-msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
-"納搜尋欄。"
+msgstr "現在就開啟JANDI，開始輕鬆工作！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
 msgstr "TIPS"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-1"
+msgstr "建立議題為你的專案/團隊/任務打造討論空間"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-2"
+msgstr "上傳檔案至討論區"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-3"
+msgstr "使用貼圖緩和嚴肅的工作氣氛"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-4"
+msgstr "開啟右視窗瀏覽所有檔案、標示項目和其他功能"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
