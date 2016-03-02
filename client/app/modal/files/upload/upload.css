@@ -1,0 +1,18 @@
+.upload-comment-textarea .comment-input {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 400px;
+}
+
+.straight-upload-button {
+  float: left;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: normal;
+}
+.straight-upload-button input {
+  margin-top: -1px;
+  margin-right: 5px;
+  vertical-align: middle;
+}

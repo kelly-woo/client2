@@ -137,7 +137,7 @@
         $scope.isMember = $scope.isUser || $scope.isJandiBot;
 
         $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
-        $scope.users = entityAPIservice.getUserList(entity);
+        $scope.users = _getUsers(entity);
       }
     }
 
@@ -222,6 +222,7 @@
     function leaveCurrentEntity() {
       if (_entityType === 'privategroups') {
         Dialog.confirm({
+          allowHtml: true,
           body: $filter('translate')('@ch-menu-leave-private-confirm'),
           onClose: function(result) {
             result === 'okay' && _leaveCurrentEntity();
@@ -489,6 +490,33 @@
             entityIdChanged();
           });
       });
+    }
+
+    /**
+     * get users
+     * @param {object} entity
+     * @returns {Array}
+     * @private
+     */
+    function _getUsers(entity) {
+      var users = [];
+      var usersId = entityAPIservice.getUserList(entity);
+
+      if (_.isArray(usersId)) {
+        _.each(usersId, function(userId) {
+          users.push({
+            id: userId,
+            thumbnail: memberService.getProfileImage(userId),
+            name: memberService.getNameById(userId)
+          });
+        });
+
+        users = _.sortBy(users, function (user) {
+          return user.name.toLowerCase();
+        });
+      }
+
+      return users;
     }
   }
 })();
