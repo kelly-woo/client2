@@ -16,6 +16,8 @@
     };
 
     function link(scope, el) {
+      var _jqFileUploadTitle = $('#file_upload_title');
+
       var PUBLIC_FILE = 744;    // PUBLIC_FILE code
 
       var fileUploadOptions = scope.fileUploadOptions;
@@ -85,9 +87,7 @@
 
               // upload modal title 갱신, fileInfo에 title 설정
               fileInfo.title = file.name;
-              $timeout(function() {
-                $('#file_upload_title').val(file.name);
-              }, 100);
+              _jqFileUploadTitle.val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
