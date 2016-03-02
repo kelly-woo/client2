@@ -77,7 +77,7 @@
         return item.name.toLowerCase();
       }).value();
 
-      jndPubSub.pub('mentionahead:upload', mentionList);
+      jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
     }
 
     /**

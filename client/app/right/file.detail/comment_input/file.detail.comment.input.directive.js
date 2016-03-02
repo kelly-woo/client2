@@ -76,8 +76,8 @@
         scope.$on('room:memberAdded', _onMemberUpdate);
         scope.$on('room:memberDeleted', _onMemberUpdate);
 
-        scope.$on('mentionahead:showed:comment', _onMentionaheadShowed);
-        scope.$on('mentionahead:hid:comment', _onMentionaheadHid);
+        scope.$on('MentionaheadCtrl:showed:comment', _onMentionaheadShowed);
+        scope.$on('MentionaheadCtrl:hid:comment', _onMentionaheadHid);
 
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
@@ -127,7 +127,7 @@
        * mention icon click
        */
       function onMentionIconClick() {
-        jndPubSub.pub('mentionahead:show:comment');
+        MentionExtractor.show('comment');
       }
 
       /**
@@ -365,7 +365,7 @@
        */
       function _setMentionMembers(file) {
         var mentionList = MentionExtractor.getMentionListForFile(file);
-        jndPubSub.pub('mentionahead:comment', mentionList);
+        jndPubSub.pub('MentionaheadCtrl:comment', mentionList);
       }
     }
   }

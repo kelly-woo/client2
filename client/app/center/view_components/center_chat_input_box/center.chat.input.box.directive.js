@@ -68,8 +68,8 @@
       function _attachScopeEvents() {
         scope.$on('hotkey-upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-        scope.$on('mentionahead:showed:message', _onMentionaheadShowed);
-        scope.$on('mentionahead:hid:message', _onMentionaheadHid);
+        scope.$on('MentionaheadCtrl:showed:message', _onMentionaheadShowed);
+        scope.$on('MentionaheadCtrl:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
@@ -120,7 +120,7 @@
           users = entityAPIservice.getUserList(currentEntity);
           if (users) {
             mentionMembers = MentionExtractor.getMentionListForTopic(users, _entityId);
-            jndPubSub.pub('mentionahead:message', mentionMembers);
+            jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
           }
         }
       }
@@ -136,6 +136,9 @@
        */
       function _onChangeLoading(loading) {
         if (loading === false && !scope.isDisabledMember(scope.currentEntity)) {
+
+          // loading status 변경된 직후에도 element가 아직 disabled 상태이므로
+          // setTimeout에 두어 focus 수행가능한 상태에서 수행하도록 한다.
           setTimeout(function() {
             _jqMessageInput.focus();
           });
@@ -148,7 +151,7 @@
        * @private
        */
       function _onMenuItemClick(event) {
-        var role = this.getAttribute('role');
+        var role = event.delegateTarget.getAttribute('role');
         var fn;
 
         if (fn = _uploadMap[role]) {
@@ -172,7 +175,7 @@
        * mention icon click event handler
        */
       function onMentionIconClick() {
-        jndPubSub.pub('mentionahead:show:message');
+        MentionExtractor.show('message');
       }
 
       /**
