@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .service('AccountHasSeenService', AccountHasSeenService);
+    .service('AccountHasSeen', AccountHasSeen);
 
   /* @ngInject */
-  function AccountHasSeenService($http, configuration, accountService) {
+  function AccountHasSeen($http, configuration, accountService) {
     /*
       naming 규칙:
         가이드  - GUIDE_XXX_XXX
@@ -18,7 +18,9 @@
      */
     var KEY_MAP = {
       'GUIDE_TOPIC_FOLDER': 0,
-      'GUIDE_CONNECT': 1
+      'GUIDE_CONNECT': 1,
+      'TUTORIAL_VER3_WELCOME': 2,
+      'TUTORIAL_VER3_POPOVER': 3
     };
 
     this.get = get;

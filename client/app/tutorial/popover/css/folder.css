@@ -1,0 +1,8 @@
+.tutorial-folder {
+  top: 120px;
+  left: 250px;
+}
+
+.tutorial-folder .tutorial-popover-arrow.left {
+  top:20px;
+}

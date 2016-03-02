@@ -127,6 +127,17 @@
   min-width: 200px;
 }
 
+.header-navbar__dropdown .dot {
+  position: absolute;
+  right: 12px;
+  top: 11px;
+  width: 10px;
+  height: 10px;
+  background-color: #e63939;
+  border: 2px solid #ffffff;
+  border-radius: 100%;
+}
+
 .header-navbar__signup.btn {
   float:right;
   min-height:40px;

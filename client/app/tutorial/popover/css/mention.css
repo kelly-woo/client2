@@ -1,0 +1,13 @@
+.tutorial-mention {
+  top: auto !important;
+  bottom: 45px;
+  left: 135px;
+}
+.tutorial-mention video{
+  width: 300px;
+  margin: 5px 15px 10px 15px;
+  border: 1px solid #e1e1e1;
+}
+.tutorial-mention .tutorial-popover-arrow.bottom {
+  left: 200px;
+}

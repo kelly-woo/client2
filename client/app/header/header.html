@@ -99,6 +99,7 @@
           <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
             <i class="icon-help-fill"></i>
             <span translate>@common-show-tutorial</span>
+            <div ng-if="!isCompleteTutorial" class="dot blink"></div>
           </a>
         </li>
 
@@ -192,7 +193,12 @@
     <ul>
       <li>
         <a class="info-tool file-tool" ng-class="{active: toolbar.files.isActive}" ng-click="openRightPanel('files')"
-            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom">
+           tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom"
+           tutorial-tooltip="{{::'@tutorial-tooltip-4'|translate}}"
+           tutorial-tooltip-placement="bottom"
+           tutorial-tooltip-append-to-body="true"
+           tutorial-tooltip-name="filetab"
+           tutorial-tooltip-class="tutorial-tooltip-filetab">
           <i class="icon-file"></i>
         </a>
       </li>
