@@ -2,6 +2,7 @@
   <div class="tutorial-welcome-dim">
   </div>
   <div class="tutorial-welcome">
+    <div class="divider"></div>
     <div class="tutorial-welcome-content">
       {{stepList[curStep].content}}
     </div>
@@ -12,12 +13,14 @@
       <span ng-if='curStep !== 0'
             class="jnd-cursor-pointer jnd-float-left"
             ng-click="prev();">
+            <i class="icon-angle-double-left"></i>
             이전
           </span>
           <span ng-if='curStep < stepList.length - 1'
                 class="jnd-cursor-pointer jnd-float-right"
                 ng-click="next();">
             다음
+            <i class="icon-angle-double-right"></i>
           </span>
           <span ng-if='curStep === stepList.length - 1'
                 class="jnd-cursor-pointer jnd-float-right"

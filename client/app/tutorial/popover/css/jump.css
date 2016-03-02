@@ -3,9 +3,10 @@
   left: 150px;
 }
 
-.tutorial-jump video {
-  height: 201px;
-  width: 398px;
+.tutorial-jump img {
+  width: 260px !important;
+  margin: 15px 10px 10px 20px !important;
+  border: none !important;
 }
 
 .tutorial-jump .tutorial-popover-arrow.top {

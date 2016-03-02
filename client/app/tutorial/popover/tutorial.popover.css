@@ -1,6 +1,6 @@
 .tutorial-popover {
   position: absolute;
-  min-width: 400px;
+  min-width: 260px;
   max-width: 400px;
   z-index: 625;
   text-align: center;
@@ -31,13 +31,16 @@
   background-color: white;
   position: relative;
   top: -3px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-  padding-top: 31px;
-  border-bottom: 1px solid #d1d1d1;
+  margin-top: 31px;
 }
 .tutorial-popover-image-container {
-
+  text-align: center;
+  margin: 15px auto 10px auto;
+}
+.tutorial-popover-image-container img {
+  width: 260px;
+  margin: 10px;
+  border: 1px solid #e1e1e1;
 }
 .tutorial-popover-arrow {
   position:absolute;
@@ -75,6 +78,7 @@
 }
 
 .tutorial-popover-title {
+  max-width: 260px;
   font-size: 15px;
   line-height: 22px;
   font-weight: 700;
@@ -84,6 +88,7 @@
   margin-bottom:6px;
   top:1px;
   word-break: break-all; /*fallback*/
+  margin: 0 auto 10px auto;
 }
 
 .tutorial-popover-title:lang(ko) {
@@ -100,11 +105,13 @@
   word-break: keep-all;
 }
 .tutorial-popover-content {
+  max-width: 260px;
   line-height: 21px;
-  /*padding-left: 4px;*/
-  padding-right: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
   color: #777777;
   font-size: 14px;
+  margin: 0 auto 10px auto;
 }
 .tutorial-popover-progress-container {
   position:relative;
@@ -116,7 +123,7 @@
   margin: 0;
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: 5px;
+  top: 6px;
   left: 30px;
   width: calc(100% - 100px);
   border-radius: 6px;

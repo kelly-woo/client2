@@ -14,15 +14,15 @@
     $scope.curStep = 0;
     $scope.stepList = [
       {
-        imgUrl: '',
+        imgUrl: '../../../assets/images/tutorial/welcome_01.png',
         content: _translate('@tutorial-welcome-1')
       },
       {
-        imgUrl: '',
+        imgUrl: '../../../assets/images/tutorial/welcome_02.png',
         content: _translate('@tutorial-welcome-2')
       },
       {
-        imgUrl: '',
+        imgUrl: '../../../assets/images/tutorial/welcome_03.png',
         content: _translate('@tutorial-welcome-3')
       }
     ];
