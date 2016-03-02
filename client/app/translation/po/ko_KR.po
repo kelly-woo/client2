@@ -3126,15 +3126,15 @@ msgstr "더 이상 보지 않기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-1"
-msgstr "함께 일하는 것, 쉽지 않죠?"
+msgstr "함께 일하는 것,<br>쉽지 않죠?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "잔디는 모두가 더 즐겁게 일할 수 있다고 생각합니다.    "
+msgstr "잔디는 모두가 더 즐겁게<br>일할 수 있다고 생각합니다.    "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr "개인과 팀 모두가 만족하는 잔디, 지금 시작하세요."
+msgstr "개인과 팀 모두가 만족하는 <strong>잔디</strong>,<br>지금 시작하세요."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
@@ -3142,15 +3142,15 @@ msgstr "TIPS"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-tooltip-1"
-msgstr "잔디의 단체대화방, \"토픽\"을 생성해보세요."
+msgstr "잔디의 단체대화방,<br>\"토픽\"을 생성해보세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-tooltip-2"
-msgstr "대화중에 파일을 바로 올려보세요."
+msgstr "대화중에 파일을<br>바로 올려보세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-tooltip-3"
-msgstr "잔디만의 귀여운 스티커를 보내보세요."
+msgstr "잔디만의 귀여운 스티커를<br>보내보세요."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-tooltip-4"
