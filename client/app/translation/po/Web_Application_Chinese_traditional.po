@@ -466,6 +466,10 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-get-started"
+msgstr "如何開始"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
@@ -645,6 +649,10 @@ msgstr "已標示"
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr "點擊開啟新的對話"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-start-using-jandi"
+msgstr "開啓JANDI"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
