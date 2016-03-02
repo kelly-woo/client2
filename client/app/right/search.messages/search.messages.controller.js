@@ -9,7 +9,7 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, $timeout, $filter, $state, Router, fileAPIservice,
+  function rPanelMessageTabCtrl($scope, $rootScope, $timeout, $filter, $state, RightPanel, fileAPIservice,
                                 messageAPIservice, AnalyticsHelper, TopicFolderModel, jndPubSub,
                                 currentSessionHelper) {
     var DEFAULT_PAGE = 1;
@@ -40,7 +40,7 @@
       $scope.updateMessageLocationFilter = updateMessageLocationFilter;
       $scope.updateMessageWriterFilter = updateMessageWriterFilter;
 
-      if (Router.getActiveRightTabName($state.current) === 'messages') {
+      if (RightPanel.getStateName($state.current) === 'messages') {
         _isActivated = true;
       }
 

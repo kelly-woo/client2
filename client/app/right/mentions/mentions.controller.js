@@ -9,7 +9,7 @@
     .controller('RightPanelMentionsTabCtrl', RightPanelMentionsTabCtrl);
 
   /* @ngInject */
-  function RightPanelMentionsTabCtrl($scope, $state, Router, MentionsAPI) {
+  function RightPanelMentionsTabCtrl($scope, $state, RightPanel, MentionsAPI) {
     var mentionListData = {
       messageId: null
     };
@@ -23,7 +23,7 @@
       $scope.messageType = 'mention';
 
       _initMentionListData();
-      if (Router.getActiveRightTabName($state.current) === 'mentions') {
+      if (RightPanel.getStateName($state.current) === 'mentions') {
         isActivated = true;
 
         _initGetMentionList();

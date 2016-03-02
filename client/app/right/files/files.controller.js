@@ -8,7 +8,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, Router, entityAPIservice,
+  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
                              fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
                              TopicFolderModel, jndPubSub) {
@@ -62,7 +62,7 @@
 
       $scope.isConnected = true;
 
-      if (Router.getActiveRightTabName($state.current) === 'files') {
+      if (RightPanel.getStateName($state.current) === 'files') {
         _isActivated = true;
       }
 

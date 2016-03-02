@@ -9,7 +9,7 @@
     .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, Router, StarAPIService, fileAPIservice) {
+  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService, fileAPIservice) {
     var starListData = {
       messageId: null
     };
@@ -63,7 +63,7 @@
 
       _initStarListData($scope.activeTabName);
 
-      if (Router.getActiveRightTabName($state.current) === 'stars') {
+      if (RightPanel.getStateName($state.current) === 'stars') {
         isActivated = true;
 
         // onTabSelect가 바로 수행되기 때문에 여기서 수행하지 않음
