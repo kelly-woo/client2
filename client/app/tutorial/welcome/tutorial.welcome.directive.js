@@ -14,6 +14,7 @@
       link: link,
       scope: {},
       restrict: 'E',
+      replace: true,
       controller: 'TutorialWelcomeCtrl',
       templateUrl: 'app/tutorial/welcome/tutorial.welcome.html'
     };
