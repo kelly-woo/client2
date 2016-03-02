@@ -3,13 +3,13 @@
 
   angular
       .module('jandiApp')
-      .factory('FilesUpload', FilesUpload);
+      .factory('FilesUploadCreator', FilesUploadCreator);
 
   /**
    * File upload service
    */
   /* @ngInject */
-  function FilesUpload($rootScope, fileAPIservice, fileObjectService) {
+  function FilesUploadCreator($rootScope, fileAPIservice, fileObjectService) {
     /**
      * fileAPIservice를 사용하여 file을 upload 함.
      * confirm 그리고 sequence type upload를 제공하기 위해 service로 구현함.
