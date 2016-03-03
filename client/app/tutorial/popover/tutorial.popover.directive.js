@@ -40,6 +40,7 @@
             arrow: 'top'
           },
           src: 'assets/videos/tutorial/popover/star.mp4',
+          imgSrc: 'assets/images/tutorial/popover/star.gif',
           title: _translate('@tutorial-modal2-title'),
           content: _translate('@tutorial-modal2-content')
         },
@@ -49,6 +50,7 @@
             arrow: 'bottom'
           },
           src: 'assets/videos/tutorial/popover/mention.mp4',
+          imgSrc: 'assets/images/tutorial/popover/mention.gif',
           title: _translate('@tutorial-modal3-title'),
           content: _translate('@tutorial-modal3-content')
         },
@@ -58,6 +60,7 @@
             arrow: 'top'
           },
           src: 'assets/videos/tutorial/popover/msg-search.mp4',
+          imgSrc: 'assets/images/tutorial/popover/msg-search.gif',
           title: _translate('@tutorial-modal4-title'),
           content: _translate('@tutorial-modal4-content')
         },
@@ -85,6 +88,7 @@
             arrow: 'top'
           },
           src: 'assets/videos/tutorial/popover/connect.mp4',
+          imgSrc: 'assets/images/tutorial/popover/connect.gif',
           title: _translate('@tutorial-modal7-title'),
           content: _translate('@tutorial-modal7-content')
         },
@@ -127,13 +131,13 @@
 
       /**
        * 윈도우 앱에서 mp4 를 재생 하지 못하므로, image 스냅샷으로 리소스를 대체한다.
-       * TODO: mp4 재생 가능한 Electron 윈도우 앱 런칭 완료 이후 해당 로직 제거해야 함.
+       * TODO: mp4 재생 가능한 Electron 윈도우 앱 런칭 완료 이후 해당 로직 및 imgSrc 프로퍼티 제거해야 함.
        * @private
        */
       function _initSteps() {
-        if (HybridAppHelper.isPcApp()) {
+        if (!HybridAppHelper.isPcApp()) {
           _.forEach(scope.stepList, function(step) {
-            step.src = step.src.replace('videos', 'images').replace('mp4', 'gif');
+            step.src = step.imgSrc || step.src;
           });
         }
       }
@@ -175,14 +179,15 @@
        * @private
        */
       function _attachDomEvents() {
-        el.find('video').on('loadeddata', _onVideoLoad);
+        el.find('video').on('loadeddata', _onLoad);
+        el.find('img').on('load', _onLoad);
       }
 
       /**
        * video load 이벤트 핸들러
        * @private
        */
-      function _onVideoLoad() {
+      function _onLoad() {
         JndUtil.safeApply(scope, function() {
           scope.isLoaded = true;
         });
@@ -207,13 +212,8 @@
         JndUtil.safeApply(scope, function() {
           var curStep = scope.curStep = scope.stepList[scope.curStepIdx];
           _setProgress();
-          if (!_isImage(curStep.src)) {
-            scope.isVideo = true;
-            scope.isLoaded = false;
-          } else {
-            scope.isVideo = false;
-            scope.isLoaded = true;
-          }
+          scope.isLoaded = false;
+          scope.isVideo = !_isImage(curStep.src);
         });
       }
 
