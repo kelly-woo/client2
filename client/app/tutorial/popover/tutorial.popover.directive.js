@@ -135,7 +135,7 @@
        * @private
        */
       function _initSteps() {
-        if (!HybridAppHelper.isPcApp()) {
+        if (HybridAppHelper.isPcApp()) {
           _.forEach(scope.stepList, function(step) {
             step.src = step.imgSrc || step.src;
           });
