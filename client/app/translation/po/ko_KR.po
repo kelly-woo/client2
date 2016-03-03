@@ -3047,8 +3047,8 @@ msgstr "메시지 입력과 파일 업로드 "
 msgid "@tutorial-modal1-content"
 msgstr ""
 "많아지는 업무 만큼 늘어나기만 하는 토픽 수가 곤란하셨나요? 이제 토픽을 폴더"
-"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 드래그&드롭 하"
-"여 간단하게 폴더를 만들어보세요!"
+"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 <br>드래그&드"
+"롭 하여 간단하게<br> 폴더를 만들어보세요!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal1-title"
@@ -3058,7 +3058,7 @@ msgstr "관련 토픽을 모아 폴더로 분류하세요"
 msgid "@tutorial-modal2-content"
 msgstr ""
 "중요하거나 나중에 꼭 다시 봐야하는 메시지 또는 파일은 별 모양 아이콘을 클릭하"
-"여 즐겨찾기를 해두실 수 있습니다."
+"여 즐겨찾기를<br>해두실 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-title"
@@ -3068,7 +3068,7 @@ msgstr "즐겨찾기 기능으로 중요한 메시지나 파일을 보관하세�
 msgid "@tutorial-modal3-content"
 msgstr ""
 "\"@\"을 입력한 뒤 멤버를 선택하면 토픽 알림이 꺼져있을 때에도 알림을 받을 수 "
-"있습니다. 자신이 언급된 메시지는 오른쪽 목록에서 모아서 볼 수도 있습니다."
+"있습니다. 자신이 언급된 메시지는 오른쪽 목록에서 모아서<br>볼 수도 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-title"
@@ -3078,7 +3078,7 @@ msgstr "@멘션 기능으로 특정 멤버를 지목하세요"
 msgid "@tutorial-modal4-content"
 msgstr ""
 "특정 단어가 포함된 메시지를 모든 대화방을 대상으로 검색할 수 있을 뿐 아니라, "
-"작성자나 대화방을 제한하여 검색할 수도 있습니다."
+"작성자나 대화방을 제한하여<br>검색할 수도 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal4-title"
@@ -3087,8 +3087,8 @@ msgstr "모든 대화방의 메시지를 한꺼번에 검색하세요"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-content"
 msgstr ""
-"Jump 기능(Cmd+J)을 통해 멤버 이름 또는 토픽을 검색해 손쉽게 대화방을 이동할 "
-"수 있습니다."
+"Jump 기능(Ctrl+J)을 통해 멤버 이름<br>또는 토픽을 검색해 손쉽게 대화방을<br>"
+"이동할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-title"
@@ -3107,8 +3107,8 @@ msgstr "강력한 잔디의 단축키를 사용해보세요"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal7-content"
 msgstr ""
-"Google 캘린더, Trello, GitHub, JIRA 등의 외부 서비스에 대한 변동 사항을 잔디"
-"로 알림 받으실 수 있습니다."
+"Google 캘린더, Trello, GitHub, JIRA 등의 외부 서비스에 대한 변동 사항을<br>잔"
+"디로 알림 받으실 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal7-title"
@@ -3210,7 +3210,7 @@ msgstr "축하합니다!"
 msgid "@tutorial_congratulations_content"
 msgstr ""
 "튜토리얼을 모두 마치셨습니다. 이제 {{teamName}} 팀에서 다른 멤버들과 함께 잔"
-"디를 통해 협업하세요."
+"디를<br>통해 협업하세요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
