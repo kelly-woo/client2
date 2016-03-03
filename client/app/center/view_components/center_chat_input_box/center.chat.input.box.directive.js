@@ -158,7 +158,7 @@
        * @private
        */
       function _onMenuItemClick(event) {
-        var role = event.delegateTarget.getAttribute('role');
+        var role = $(event.target).closest('li').attr('role');
         var fn;
 
         if (fn = _uploadMap[role]) {
