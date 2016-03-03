@@ -1,0 +1,14 @@
+.tutorial-hotkey {
+  top: 40px;
+  left: 100px;
+}
+
+.tutorial-hotkey img {
+  width: 100px !important;
+  margin: 15px 10px 5px 20px !important;
+  border: none !important;
+}
+
+.tutorial-hotkey .tutorial-popover-arrow.top {
+  left: 75px;
+}
