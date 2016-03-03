@@ -93,9 +93,10 @@
             arrow: 'top'
           },
           src: 'assets/images/center/help-create-a-new-team.gif',
-          title: _translate('@tutorial_congratulations'),
+          title: _translate('@tutorial_congratulations').replace('{{username}}',
+            memberService.getName(memberService.getMember())),
           content: _translate('@tutorial_congratulations_content').replace('{{teamName}}',
-            currentSessionHelper.getCurrentTeam().name).replace('{{username}}', memberService.getName())
+            currentSessionHelper.getCurrentTeam().name)
         }
       ];
 
