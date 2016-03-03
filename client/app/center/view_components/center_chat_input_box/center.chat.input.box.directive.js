@@ -112,7 +112,7 @@
        * @private
        */
       function _setMentionList() {
-        var mentionMembers = Mentionahead.getMentionListForTopic(entityId);
+        var mentionMembers = Mentionahead.getMentionListForTopic(_entityId);
 
         jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
       }
