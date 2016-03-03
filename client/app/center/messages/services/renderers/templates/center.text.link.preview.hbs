@@ -8,8 +8,8 @@
 
 {{#if msg.message.linkPreview.extThumbnail.hasSuccess}}
 <div class="social-image">
-  <a href="{{msg.message.linkPreview.linkUrl}}" target="_blank">
-    <img src="{{msg.message.linkPreview.imageUrl}}"/>
+  <a href="{{html.linkUrl}}" target="_blank">
+    <img src="{{html.imageUrl}}"/>
   </a>
 </div>
 {{/if}}
@@ -23,8 +23,8 @@
 
 {{#if msg.message.linkPreview.title}}
   <div class="social-title neighbor">
-    <a href="{{msg.message.linkPreview.linkUrl}}" target="_blank">
-      <span>{{msg.message.linkPreview.title}}</span>
+    <a href="{{html.linkUrl}}" target="_blank">
+      <span>{{html.title}}</span>
     </a>
   </div>
 {{/if}}
@@ -35,15 +35,15 @@
   {{else}}
   <div class="social-desc neighbor">
   {{/if}}
-    <a href="{{msg.message.linkPreview.linkUrl}}" target="_blank">
-      <span>{{msg.message.linkPreview.description}}</span>
+    <a href="{{html.linkUrl}}" target="_blank">
+      <span>{{html.description}}</span>
     </a>
   </div> <!-- end of social-desc  -->
 {{/if}}
 
 {{#if msg.message.linkPreview.domain}}
   <div class="social-domain">
-    <span>{{msg.message.linkPreview.domain}}</span>
+    <span>{{html.domain}}</span>
   </div>
 {{/if}}
 </div> <!-- end of social-body -->
