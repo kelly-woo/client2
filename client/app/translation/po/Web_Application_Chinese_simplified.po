@@ -2785,7 +2785,7 @@ msgstr "搜寻历史信息"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-content"
-msgstr "使用快搜(Ctrl+J)快速切换议题或对话成员"
+msgstr "使用快搜(Ctrl/Cmd+J)快速切换议题或对话成员"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-title"
@@ -2794,7 +2794,7 @@ msgstr "迅速切换讨论窗口"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-content"
 msgstr ""
-"成为专业的JANDI哲人，使用快捷按键快速执行如多文档上传(Ctrl+U)等重复的动作"
+"成为专业的JANDI哲人，使用快捷按键快速执行如多文档上传(Ctrl/Cmd+U)等重复的动作"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-title"
@@ -2831,7 +2831,7 @@ msgstr "尽管无法获得轻松的工作，但我们可以选择轻松工作！
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr "现在就开启JANDI，开始轻松工作！"
+msgstr "現在就開啟<strong>JANDI</strong>，開始輕鬆工作！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"

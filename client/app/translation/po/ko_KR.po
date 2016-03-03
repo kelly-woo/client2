@@ -2838,8 +2838,8 @@ msgstr "메시지 입력과 파일 업로드 "
 msgid "@tutorial-modal1-content"
 msgstr ""
 "많아지는 업무 만큼 늘어나기만 하는 토픽 수가 곤란하셨나요? 이제 토픽을 폴더"
-"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 <br>드래그&드"
-"롭 하여 간단하게<br> 폴더를 만들어보세요!"
+"로 분류하여 관리할 수 있습니다.<br>지금 한 토픽을 다른 토픽 위에 드래그&드롭 "
+"하여 간단하게<br> 폴더를 만들어보세요!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal1-title"
@@ -2849,17 +2849,18 @@ msgstr "관련 토픽을 모아 폴더로 분류하세요"
 msgid "@tutorial-modal2-content"
 msgstr ""
 "중요하거나 나중에 꼭 다시 봐야하는 메시지 또는 파일은 별 모양 아이콘을 클릭하"
-"여 즐겨찾기를<br>해두실 수 있습니다."
+"여<br>즐겨찾기를 해두실 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-title"
-msgstr "즐겨찾기 기능으로 중요한 메시지나 파일을 보관하세요"
+msgstr "즐겨찾기 기능으로<br>중요한 메시지나 파일을 보관하세요"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-content"
 msgstr ""
-"\"@\"을 입력한 뒤 멤버를 선택하면 토픽 알림이 꺼져있을 때에도 알림을 받을 수 "
-"있습니다. 자신이 언급된 메시지는 오른쪽 목록에서 모아서<br>볼 수도 있습니다."
+"\"@\"을 입력한 뒤 멤버를 선택하면<br>토픽 알림이 꺼져있을 때에도<br>알림을 받"
+"을 수 있습니다.<br>자신이 언급된 메시지는<br>오른쪽 목록에서 모아서<br>볼 수"
+"도 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-title"
@@ -2873,13 +2874,13 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal4-title"
-msgstr "모든 대화방의 메시지를 한꺼번에 검색하세요"
+msgstr "모든 대화방의 메시지를<br>한꺼번에 검색하세요"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-content"
 msgstr ""
-"Jump 기능(Ctrl+J)을 통해 멤버 이름<br>또는 토픽을 검색해 손쉽게 대화방을<br>"
-"이동할 수 있습니다."
+"Jump 기능(Ctrl/Cmd+J)을 통해<br>멤버 이름 또는 토픽을 검색하여<br>손쉽게 대화"
+"방을 이동할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-title"
@@ -2888,8 +2889,8 @@ msgstr "Jump 기능으로 빠르게 대화를 이동하세요"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-content"
 msgstr ""
-"파일 업로드(Ctrl+U)나 토픽에 멤버 초대(Ctrl+I)와 같은 반복 작업은 단축키를 이"
-"용하세요. Ctrl+/ 만 입력하시면 단축키 목록을 볼 수 있습니다."
+"파일 업로드나 토픽에 멤버 초대와 같은<br>반복 작업은 단축키를 이용하세요."
+"<br>Ctrl(맥의 경우 Cmd)+/ 만 입력하시면<br>단축키 목록을 볼 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-title"
@@ -2921,11 +2922,12 @@ msgstr "함께 일하는 것,<br>쉽지 않죠?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "잔디는 모두가 더 즐겁게<br>일할 수 있다고 생각합니다.    "
+msgstr ""
+"<strong>잔디</strong>는 모두가 더 즐겁게<br>일할 수 있다고 생각합니다.    "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr "개인과 팀 모두가 만족하는 <strong>잔디</strong>,<br>지금 시작하세요."
+msgstr "개인과 팀 모두가 만족하는 <strong>잔디</strong>, 지금 시작하세요."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"

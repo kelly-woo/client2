@@ -668,7 +668,7 @@ msgstr "Click to start a new conversation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-start-using-jandi"
-msgstr "LAUNCH JANDI"
+msgstr "DONE"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -729,7 +729,7 @@ msgstr "Sorry! We encountered an unexpected error. Please try again."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-unsupport-image"
-msgstr "This image type is not supported. Please choose another."
+msgstr "This image type is not supported. Please choose another image."
 
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
@@ -2854,7 +2854,10 @@ msgstr "Topic Folders"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-content"
-msgstr "Star important messages and files to create an instant to-do list"
+msgstr ""
+"Having trouble with too many topics? Organize them using folders! Drag and "
+"drop a topic onto another to create a new folder,<br>and drag a topic into "
+"an existing folder<br>to move it"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-title"
@@ -2864,8 +2867,8 @@ msgstr "Starred Items"
 msgid "@tutorial-modal3-content"
 msgstr ""
 "Make sure important messages aren't missed. Type \"@\" followed by your team "
-"members' names to direct messages to them. Those mentioned will receive push "
-"notifications even if their topic alerts are off"
+"members' names to direct messages to them.<br>Those mentioned will receive "
+"push notifications<br>even if their topic alerts are off"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-title"
@@ -2874,7 +2877,7 @@ msgstr "@ Mentions"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal4-content"
 msgstr ""
-"You can search through your entire message history here. Locate what you "
+"You can search through your entire message history here.<br>Locate what you "
 "need more quickly by filtering your search results by sender or topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2885,7 +2888,7 @@ msgstr "Message Search"
 msgid "@tutorial-modal5-content"
 msgstr ""
 "Search through topics and direct messages, and Jump directly to your "
-"conversation of choice (Ctrl+J)"
+"conversation of choice<br>(Ctrl/Cmd+J)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-title"
@@ -2895,7 +2898,7 @@ msgstr "Jump Between Conversations"
 msgid "@tutorial-modal6-content"
 msgstr ""
 "Always at your desk? Work more efficiently using shortcuts to quickly upload "
-"files (Ctrl+U), invite members to topics (Ctrl+I), and more"
+"files (Ctrl/Cmd+U), invite members to topics (Ctrl/Cmd+I),<br>and more"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-title"
@@ -2924,19 +2927,15 @@ msgstr "Skip tutorial"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-1"
-msgstr ""
-"Frustrated with all the different<br>apps you use to communicate<br>in the "
-"workplace?"
+msgstr "Frustrated by the way your team communicates at work?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "Simplify your life now<br>with <strong>JANDI!</strong>"
+msgstr "Make it simpler, more productive, and more enjoyable now!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
-msgstr ""
-"<strong>JANDI</strong> - making work simpler,<br>more productive,<br>and "
-"more enjoyable."
+msgstr "<strong>JANDI</strong><br>Work Better Together"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
