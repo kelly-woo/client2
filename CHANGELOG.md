@@ -1,3 +1,13 @@
+<a name="1.17.2"></a>
+## [1.17.2](https://github.com/tosslab/web_client/compare/v1.17.1...v1.17.2) (2016-03-03)
+
+
+### Bug Fixes
+
+* **preload:** preload 완료 시 preload 된 image element 제거하는 로직 제거 ([7dec194](https://github.com/tosslab/web_client/commit/7dec194))
+
+
+
 <a name="1.17.1"></a>
 ## [1.17.1](https://github.com/tosslab/web_client/compare/v1.17.0...v1.17.1) (2016-03-03)
 
