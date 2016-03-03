@@ -1622,55 +1622,7 @@ msgid "@jnd-connect-227"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-228"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-229"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-230"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-231"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-232"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-233"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-234"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-235"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-236"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-237"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-238"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-239"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -1678,51 +1630,7 @@ msgid "@jnd-connect-24"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-240"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-241"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-242"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-243"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-244"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-245"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-246"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-247"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-248"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-249"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-250"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
