@@ -101,7 +101,8 @@
           title: _translate('@tutorial_congratulations').replace('{{username}}',
             memberService.getName(memberService.getMember())),
           content: _translate('@tutorial_congratulations_content').replace('{{teamName}}',
-            currentSessionHelper.getCurrentTeam().name)
+            currentSessionHelper.getCurrentTeam().name).replace('{{username}}',
+              memberService.getName(memberService.getMember()))
         }
       ];
 
