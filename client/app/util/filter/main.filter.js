@@ -314,7 +314,7 @@ app.filter('prefixMatchFirstList', function() {
     var filter = options && options.filter;
     var sortBy = options && options.sortBy;
 
-    list = _.chain(list);
+    list = _(list);
 
     if (filter !== false) {
       list = list.filter(function(item) {
@@ -329,6 +329,6 @@ app.filter('prefixMatchFirstList', function() {
       var prefixMatch = value.indexOf(filterText) === 0 ? -1 : 1;
 
       return sortBy ? sortBy(item, [prefixMatch, value]) : [prefixMatch, value];
-    }).value();
+    });
   };
 });

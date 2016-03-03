@@ -298,10 +298,6 @@
       if (!matches.length) {
         // 입력값에 match 되는 item이 존재하지 않는다면 mention clear
         clearMention();
-      } else {
-        $filter('prefixMatchFirstList')(matches, getValue(), 'extSearchName', {
-          filter: false
-        });
       }
     }
 
