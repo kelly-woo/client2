@@ -38,7 +38,7 @@
             wrap: 'tutorial-star',
             arrow: 'top'
           },
-          src: 'assets/videos/popover-star.mp4',
+          src: 'assets/videos/popover-star.gif',
           title: _translate('@tutorial-modal2-title'),
           content: _translate('@tutorial-modal2-content')
         },
@@ -47,7 +47,7 @@
             wrap: 'tutorial-mention',
             arrow: 'bottom'
           },
-          src: 'assets/videos/popover-mention.mp4',
+          src: 'assets/videos/popover-mention.gif',
           title: _translate('@tutorial-modal3-title'),
           content: _translate('@tutorial-modal3-content')
         },
@@ -56,7 +56,7 @@
             wrap: 'tutorial-msg-search',
             arrow: 'top'
           },
-          src: 'assets/videos/popover-msg-search.mp4',
+          src: 'assets/videos/popover-msg-search.gif',
           title: _translate('@tutorial-modal4-title'),
           content: _translate('@tutorial-modal4-content')
         },
@@ -83,7 +83,7 @@
             wrap: 'tutorial-connect',
             arrow: 'top'
           },
-          src: 'assets/videos/new-feature/jnd-connect.mp4',
+          src: 'assets/videos/new-feature/jnd-connect.gif',
           title: _translate('@tutorial-modal7-title'),
           content: _translate('@tutorial-modal7-content')
         },
