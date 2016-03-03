@@ -126,7 +126,7 @@
     }
 
     /**
-     * right panel back tail 전달
+     * 오른쪽 패널에서 뒤로가기 기능 사용하여 직전 state를 전달함.
      * @returns {*}
      */
     function getTail() {
@@ -134,7 +134,7 @@
     }
 
     /**
-     * * right panel back tail 설정
+     * 오른쪽 패널에서 뒤로가기 기능 사용시 전달할 직전 state를 저장함.
      * @param value
      */
     function setTail(value) {

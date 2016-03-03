@@ -81,6 +81,7 @@
 
       RightPanel.initTabs();
       $scope.toolbar = RightPanel.getTabStatus();
+      currentRightPanel = RightPanel.getStateName($state.current);
       $scope.isCompleteTutorial = true;
 
       _initTutorialBlink();
@@ -132,6 +133,10 @@
       JndConnect.open(data);
     }
 
+    /**
+     * 최초 로딩시 오른족 패널의 상태 초기값 설정함
+     * @private
+     */
     function _initRightPanelStatus() {
       Router.setRightPanelStatus();
     }
@@ -172,7 +177,7 @@
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
       $scope.$on('Tutorial:complete', _onTutorialComplete);
 
-      $scope.$watch('isOpenRightPanel', _onChangeRightPanel);
+      $scope.$on('Router:openRightPanel', _onRightPanelOpen);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -375,17 +380,14 @@
 
     /**
      * change right panel
+     * @param {object} $event
      * @param {boolean} isOpen
      * @private
      */
-    function _onChangeRightPanel(newIsOpen, oldIsOpen) {
-      if (newIsOpen === false) {
+    function _onRightPanelOpen($event, isOpen) {
+      if (isOpen === false) {
         // right panel이 열리지 않은 상태이므로 4개 텝 모두 닫는다.
         RightPanel.closeTabs();
-      }
-
-      if (newIsOpen !== oldIsOpen) {
-        jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
     }
 

@@ -240,7 +240,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
     $scope.$on('center:scrollToBottom', _centerScrollToBottom);
-    $scope.$on('headerCtrl:rightPanelToggle', _onRightPanelToggle);
+    $scope.$on('Router:openRightPanel', _onRightPanelOpen);
 
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
@@ -1403,7 +1403,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @param {boolean} isOpen
    * @private
    */
-  function _onRightPanelToggle($event, isOpen) {
+  function _onRightPanelOpen($event, isOpen) {
     if (isOpen && $scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottomWithAnimate(1000);
     }

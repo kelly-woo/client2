@@ -123,7 +123,7 @@
        */
       function _setMentionList() {
         var mentionMembers = MentionExtractor.getMentionListForTopic(_entityId);
-  
+
         jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
       }
 
