@@ -2931,7 +2931,7 @@ msgstr "Frustrated by the way your team communicates at work?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-2"
-msgstr "Make it simpler, more productive, and more enjoyable now!"
+msgstr "Make it simpler,<br>more productive,<br>and more enjoyable now!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-slide-3"
