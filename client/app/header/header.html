@@ -69,7 +69,7 @@
 
     <!-- Help -->
     <div class="header-navbar-settings" dropdown>
-
+      <div ng-if="!isCompleteTutorial" class="dot blink"></div>
       <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="icon-help"></i>
         <i class="icon-angle-down"></i>
@@ -99,6 +99,7 @@
           <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
             <i class="icon-help-fill"></i>
             <span translate>@common-show-tutorial</span>
+            <div ng-if="!isCompleteTutorial" class="dot blink"></div>
           </a>
         </li>
 
@@ -191,25 +192,30 @@
   <div class="info-tools header-toolbar pull-right">
     <ul>
       <li>
-        <a class="info-tool file-tool" ng-class="{active: toolbar.files}" ng-click="openRightPanel('files')"
-            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom">
+        <a class="info-tool file-tool" ng-class="{active: toolbar.files.isActive}" ng-click="openRightPanel('files')"
+           tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom"
+           tutorial-tooltip="{{::'@tutorial-tooltip-4'|translate}}"
+           tutorial-tooltip-placement="bottom"
+           tutorial-tooltip-append-to-body="true"
+           tutorial-tooltip-name="filetab"
+           tutorial-tooltip-class="tutorial-tooltip-filetab">
           <i class="icon-file"></i>
         </a>
       </li>
       <li>
-        <a class="info-tool message-tool" ng-class="{active: toolbar.messages}" ng-click="openRightPanel('messages')"
+        <a class="info-tool message-tool" ng-class="{active: toolbar.messages.isActive}" ng-click="openRightPanel('messages')"
           tooltip="{{::'@shortcut-messages' | translate}}" tooltip-placement="bottom">
           <i class="icon-chat"></i>
         </a>
       </li>
       <li>
-        <a class="info-tool star-tool" ng-class="{active: toolbar.stars}" ng-click="openRightPanel('stars')"
+        <a class="info-tool star-tool" ng-class="{active: toolbar.stars.isActive}" ng-click="openRightPanel('stars')"
           tooltip="{{::'@shortcut-stars' | translate}}" tooltip-placement="bottom">
           <i class="icon-star-off"></i>
         </a>
       </li>
       <li>
-        <a class="info-tool mention-tool" ng-class="{active: toolbar.mentions}" ng-click="openRightPanel('mentions');"
+        <a class="info-tool mention-tool" ng-class="{active: toolbar.mentions.isActive}" ng-click="openRightPanel('mentions');"
            tooltip="{{::'@shortcut-mentions' | translate}}" tooltip-placement="bottom"
            tooltip-class="tooltip-right-menu-mention">
           <i class="icon-at"></i>

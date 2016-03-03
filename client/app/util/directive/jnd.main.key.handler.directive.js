@@ -58,7 +58,7 @@
           //upload
           'CHAR_U': {
             handler: function() {
-              jndPubSub.pub('hotkey-upload');
+              jndPubSub.pub('jndMainKeyHandler:upload');
             },
             extraCondition: JndConnect.isClose
           },

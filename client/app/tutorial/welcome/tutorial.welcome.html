@@ -1,44 +1,34 @@
-<div ng-show="isReady && !isComplete" id='tutorial_welcome' ng-class="{'opac-in-fast': !isComplete}">
-  <div class="tutorial_dimm tutorial_welcome_dimm"></div>
-  <div class="tutorial_welcome_wrap">
-    <div class="tutorial_welcome_header">
-      <img src="../../assets/images/tutorial/icon/tutorial-welcome.png" />
+<div class="tutorial-welcome-container opac-zero fade"
+     ng-class="{'in': !isComplete,
+                'out': isComplete}">
+  <div class="tutorial-welcome-dim">
+  </div>
+  <div class="tutorial-welcome">
+    <div class="divider"></div>
+    <div class="tutorial-welcome-content" ng-bind-html="stepList[curStep].content">
     </div>
-    <!-- visit first time -->
-    <div ng-if="!isOpened">
-      <div class="tutorial_welcome_body">
-        <div class="tutorial_welcome_title">
-          {{ title }}
-        </div>
-        <div class="tutorial_welcome_content">
-          <span translate>@tutorial_team_intro</span>
-        </div>
-      </div>
-      <div class="tutorial_welcome_footer">
-        <span class="btn btn-ok tutorial_welcome_btn" ng-click="onClickStart()" translate>@tutorial_get_started</span>
-      </div>
+    <div class="tutorial-welcome-img">
+      <img ng-src="{{stepList[curStep].imgUrl}}" />
     </div>
-    <!-- user skipped the tutorial last time -->
-    <div ng-if="isOpened">
-      <div class="tutorial_welcome_body">
-        <div class="tutorial_welcome_title">
-          <span translate>@tutorial_welcome_again_title</span>
-        </div>
-        <div class="tutorial_welcome_content">
-          <span translate>@tutorial_welcome_again_content</span>
-        </div>
-      </div>
-      <div class="tutorial_welcome_footer">
-        <span class="btn btn-ok tutorial_welcome_btn" ng-click="onClickContinue()">
-          <span translate>@tutorial_welcome_again_continue</span>
-        </span>
-        <span class="btn btn-ok tutorial_welcome_btn tutorial_welcome_dark" ng-click="onClickStart()">
-          <span translate>@tutorial_welcome_again_new_start</span>
-        </span>
-        <span class="tutorial_welcome_skip cursor_pointer" ng-click="onClickSkip($event)">
-          <span translate>@common_skip_all</span>
-        </span>
-      </div>
+    <div class="tutorial-welcome-footer">
+      <span ng-if='curStep !== 0'
+            class="jnd-cursor-pointer jnd-float-left"
+            ng-click="prev();">
+            <i class="icon-angle-double-left"></i>
+            <span translate>@jnd-connect-1</span>
+          </span>
+          <span ng-if='curStep < stepList.length - 1'
+                class="jnd-cursor-pointer jnd-float-right"
+                ng-click="next();">
+            <span translate>@btn-next</span>
+            <i class="icon-angle-double-right"></i>
+          </span>
+          <span ng-if='curStep === stepList.length - 1'
+                class="jnd-cursor-pointer jnd-float-right"
+                ng-click="next();"
+                translate>
+            @common-get-started
+          </span>
     </div>
   </div>
 </div>

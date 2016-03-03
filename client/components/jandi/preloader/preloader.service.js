@@ -70,10 +70,16 @@
           width: '1px',
           height: '1px',
           visibility: 'hidden'
-        });
+        }).on('load', _onComplete)
+          .on('error', _onComplete);
+
         _imgMap[url] = true;
         _jqImgContainer.append(img);
       }
+    }
+
+    function _onComplete(domEvemt) {
+      $(domEvemt.target).remove();
     }
 
     /**

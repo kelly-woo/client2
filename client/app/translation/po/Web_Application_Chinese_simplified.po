@@ -42,19 +42,16 @@ msgid "@alert-no-result"
 msgstr "找不到符合条件的内容"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-fold"
 msgstr "最小化"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-hide"
-msgstr "最小化"
+msgstr "隐藏"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-more"
-msgstr "发布公告"
+msgstr "展开"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@announcement-create"
@@ -469,6 +466,10 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上传中..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-get-started"
+msgstr "如何开始"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已经在您的行动装置上有JANDI的应用程式了吗？"
@@ -648,6 +649,10 @@ msgstr "已标示"
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr "点击开启新的对话"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-start-using-jandi"
+msgstr "开启JANDI"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -1534,19 +1539,19 @@ msgstr "离开议题后，先前串联的聚合服务将被删除。 你确定�
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-202"
-msgstr ""
+msgstr "你想串联哪个平台？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-203"
-msgstr ""
+msgstr "你欲获得上述选择的串联平台中的哪种功能？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-204"
-msgstr ""
+msgstr "(例如：欲在JANDI里收取特定成员传送的电邮)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-205"
-msgstr ""
+msgstr "感谢你的反馈"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-206"
@@ -1648,60 +1653,12 @@ msgid "@jnd-connect-227"
 msgstr "更改尚未储存，你确定要离开吗？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-228"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-229"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >Github</a></b>是一个在线代码管"
 "理平台，用于存放使用Git版本控制的软件代码和项目。<br/><br/>\n"
 "串联GitHub后，你将会于设定接收的议题内收取所有关于评论、代码合并请求和其他动"
 "作的通知。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-230"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-231"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-232"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-233"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-234"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-235"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-236"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-237"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-238"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-239"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
@@ -1712,56 +1669,12 @@ msgstr ""
 "收的议题内。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-240"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-241"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-242"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-243"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-244"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-245"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-246"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-247"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-248"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-249"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
 "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>是一"
 "个项目管理与事务追踪系统，将问题设定为项目，方便团队进行管理和追踪。<br/><br/"
 ">\n"
 " 串联JIRA后，你将会于设定接收的议题内收取所有问题的更新通知。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-250"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
@@ -2836,6 +2749,67 @@ msgstr "文件夹和搜索栏"
 msgid "@tutorial-message-file-title"
 msgstr "送出信息及上传文件"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-content"
+msgstr ""
+"使用议题文件夹归纳冗长的议题列表！\r拖拉议题放置于另一个议题，即可建立新的文"
+"件夹；另外，将议题拖拉至现有文件夹中，即完成归纳"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-title"
+msgstr "使用文件夹管理议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-content"
+msgstr "标示重要文档或代办项目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-title"
+msgstr "标示项目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-content"
+msgstr "输入\"@\"提醒成员新任务或注意事项，同时浏览所有自己曾被提及的对话"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-title"
+msgstr "成员提及"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-content"
+msgstr "进阶搜索帮助你缩小寻找范围"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-title"
+msgstr "搜寻历史信息"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-content"
+msgstr "使用快搜(Ctrl/Cmd+J)快速切换议题或对话成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-title"
+msgstr "迅速切换讨论窗口"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-content"
+msgstr ""
+"成为专业的JANDI哲人，使用快捷按键快速执行如多文档上传(Ctrl/Cmd+U)等重复的动作"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-title"
+msgstr "快捷按键"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-content"
+msgstr ""
+"聚合你的Google日历、Trello、JIRA、GitHub及其他第三方服务，并将所有通知链接到"
+"JANDI"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-title"
+msgstr "JANDI Connect"
+
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
@@ -2847,29 +2821,37 @@ msgid "@tutorial-skip"
 msgstr "跳过教学示范"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-1"
 msgstr ""
-"所有分享过的文件都在文件夹里。想分享、留言、下载或删除等动作，只需要在选定文"
-"件后，将点击右边的「ᵒᵒᵒ」即可。"
+"一下社群、一下私人通信软件，页面跳来跳去，信息文件散落四处，工作变得繁杂？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-2"
-msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾经"
-"分享在哪个议题下”的项目进行搜索。"
+msgstr "尽管无法获得轻松的工作，但我们可以选择轻松工作！"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-3"
-msgstr ""
-"收放搜索栏好简单！点击右上角的「搜索」开启关键词搜索功能；点击「关闭」即可收"
-"纳搜索栏。"
+msgstr "現在就開啟<strong>JANDI</strong>，開始輕鬆工作！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
 msgstr "TIPS"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-1"
+msgstr "建立议题为你的项目/团队/任务打造讨论空间"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-2"
+msgstr "上传文件至讨论区"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-3"
+msgstr "使用贴图缓和拘谨的工作气氛"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-4"
+msgstr "开启右窗口浏览所有文件、标示项目和其他功能"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
@@ -3143,7 +3125,6 @@ msgid "@web-notification-body-message-file-comment-post"
 msgstr " 文件添加新评论"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr "有从"
 

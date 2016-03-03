@@ -94,7 +94,7 @@
         _jqMirror = $('<textarea tabindex="-1" ' +
           'style="' + mirrorInitStyle + '"/>');
 
-        $timeout(_setMirrorStyle);
+        _setMirrorStyle();
 
         _maxHeight = parseInt(el.css('maxHeight'), 10);
         _minHeight = parseInt(el.css('minHeight'), 10);

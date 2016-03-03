@@ -11,9 +11,7 @@
       </div>
     </aside>
     <div ng-if="!isReady" class="cpanel"
-         ng-class="{
-         'rpanel-show': isOpenRightPanel
-        }">
+         ng-class="{'rpanel-show': isOpenRightPanel}">
       <div class="msgs__loading initial">
         <div class="dummy_initial_wrap">
           <span ng-if='!browser.msie' class="three-quarters-loader jnd-three-quarters-loader"></span>
@@ -25,16 +23,11 @@
     </div>
   </div>
 
-  <aside class="lpanel non-selectable opac-zero" ng-class="{
-    'opac-in': isReady,
-    'scroll_blue': !browser.platform.isMac
-  }">
-    <tutorial-popover-folder></tutorial-popover-folder>
+  <aside class="lpanel non-selectable opac-zero"
+         ng-class="{'opac-in': isReady,
+                    'scroll_blue': !browser.platform.isMac}">
     <current-user></current-user>
-    
-    <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
-         data-ng-if="!tutorialStatus.topicTutorial"></div>
-         
+
     <!-- LIST CONTAINER -->
     <div class="lpanel-list" id="lpanel-list-container">
 
@@ -54,17 +47,13 @@
     <left-folder-dropdown-layer></left-folder-dropdown-layer>
   </aside>
   <div class="cpanel opac-zero" id="cpanel"
-       ng-class="{
-       'scroll_gray': !browser.platform.isMac,
-       'rpanel-show': $state.includes('**.files.**') || $state.includes('**.stars.**') || $state.includes('**.mentions.**') || isOpenRightPanel,
-       'opac-in': isReady
-       }">
+       ng-class="{'scroll_gray': !browser.platform.isMac,
+                  'rpanel-show': isOpenRightPanel,
+                  'opac-in': isReady}">
     <entity-header></entity-header>
     <div loading-center="isCenterLoading"></div>
     <div ui-view="centerpanel"></div>
   </div>
-  <!--<div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->
-  <tutorial-popover-connect></tutorial-popover-connect>
 </div>
 
 

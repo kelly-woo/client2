@@ -8,8 +8,9 @@
 
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
-                      publicService, centerService, language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom) {
+                      publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
+                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom, RightPanel, Tutorial,
+                      AccountHasSeen) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -47,7 +48,7 @@
     _init();
 
     function _init() {
-      $rootScope.isOpenRightPanel = _getIsOpenRightPanel();
+      _initRightPanelStatus();
 
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
@@ -78,19 +79,32 @@
       $scope.openQuickLauncher = openQuickLauncher;
       $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
-      $scope.toolbar = {
-        files: false,
-        messages: false,
-        stars: false,
-        mentions: false
-      };
+      RightPanel.initTabs();
+      $scope.toolbar = RightPanel.getTabStatus();
+      $scope.isCompleteTutorial = true;
 
-      if (currentRightPanel = Router.getActiveRightTabName($state.current)) {
-        // active된 right panel에 따라 header icon 활성화 여부를 설정한다.
-        $scope.toolbar[currentRightPanel] = true;
+      _initTutorialBlink();
+      _attachEvents();
+    }
+
+    /**
+     * tutorial blink 표시를 초기화 한다.
+     * @private
+     */
+    function _initTutorialBlink() {
+      if (accountService.getAccount()) {
+        _setTutorialBlink();
+      } else {
+        $scope.$on('accountLoaded', _setTutorialBlink);
       }
+    }
 
-      _attachLEventListeners();
+    /**
+     * tutorial blink 상태를 업데이트 한다.
+     * @private
+     */
+    function _setTutorialBlink() {
+      $scope.isCompleteTutorial = AccountHasSeen.get('TUTORIAL_VER3_POPOVER');
     }
 
     /**
@@ -118,11 +132,15 @@
       JndConnect.open(data);
     }
 
+    function _initRightPanelStatus() {
+      Router.setRightPanelStatus();
+    }
+
     /**
      * 현재 스코프가 들어야할 이벤트들을 추가한다.
      * @private
      */
-    function _attachLEventListeners() {
+    function _attachEvents() {
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         stateParams = toParams;
       });
@@ -141,8 +159,6 @@
 
       // right panel의 open event handler
       $scope.$on('rightPanelStatusChange', function($event, data) {
-        $rootScope.isOpenRightPanel = true;
-
         _setTabStatus(currentRightPanel, false);
         _setTabStatus(data.type, true);
       });
@@ -153,11 +169,21 @@
       });
 
       $scope.$on('updateTeamBadgeCount', updateTeamBadge);
-
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
+      $scope.$on('Tutorial:complete', _onTutorialComplete);
+
+      $scope.$watch('isOpenRightPanel', _onChangeRightPanel);
     }
 
     $scope.onLanguageClick = onLanguageClick;
+
+    /**
+     * tutorial 완료 이벤트 핸들러
+     * @private
+     */
+    function _onTutorialComplete() {
+      $scope.isCompleteTutorial = true;
+    }
 
     /**
      * change language event handler
@@ -259,12 +285,7 @@
      * click show tutorial
      */
     function onShowTutorialClick() {
-      //@fixme: remove old tutorial logic
-      if (HybridAppHelper.isPcApp()) {
-        jndPubSub.pub('initTutorialStatus');
-      } else {
-        jndPubSub.pub('tutorial:open');
-      }
+      Tutorial.showPopover();
     }
 
     /**
@@ -280,23 +301,16 @@
      * @param {string} type - open tab type
      */
     function openRightPanel(type) {
-      if ($scope.toolbar[type] && currentRightPanel === type) {
-        _closeRightPanel();
-      } else {
-        _autoScroll();
-        _setTabStatus(currentRightPanel, false);
+      var tab = $scope.toolbar[type];
 
-        $state.go('messages.detail.' + type);
-      }
-    }
+      if (tab) {
+        if (tab.isActive && currentRightPanel === type) {
+          _closeRightPanel();
+        } else {
+          _setTabStatus(currentRightPanel, false);
 
-    /**
-     * right panel의 scoll을 bottom으로 이동함.
-     * @private
-     */
-    function _autoScroll() {
-      if (centerService.isScrollBottom()) {
-        jndPubSub.pub('center:scrollToBottom');
+          $state.go('messages.detail.' + type);
+        }
       }
     }
 
@@ -307,8 +321,12 @@
      * @private
      */
     function _setTabStatus(type, value) {
-      $scope.toolbar[type] = value;
-      currentRightPanel = type;
+      var tab = $scope.toolbar[type];
+
+      if (tab) {
+        tab.isActive = value;
+        currentRightPanel = type;
+      }
     }
 
     /**
@@ -316,20 +334,13 @@
      * @private
      */
     function _closeRightPanel() {
-      $rootScope.isOpenRightPanel = false;
+      var tab = $scope.toolbar[currentRightPanel];
 
-      $scope.toolbar[currentRightPanel] = false;
-      currentRightPanel = null;
-      $state.go('messages.detail');
-    }
-
-    /**
-     * right panel open 여부를 전달함.
-     * @returns {boolean}
-     * @private
-     */
-    function _getIsOpenRightPanel() {
-      return /files|messages|stars|mentions/.test($state.current.url);
+      if (tab) {
+        tab.isActive = false;
+        currentRightPanel = null;
+        $state.go('messages.detail');
+      }
     }
 
     /**
@@ -359,6 +370,22 @@
         $timeout(function() {
           openQuickLauncher();
         }, 50);
+      }
+    }
+
+    /**
+     * change right panel
+     * @param {boolean} isOpen
+     * @private
+     */
+    function _onChangeRightPanel(newIsOpen, oldIsOpen) {
+      if (newIsOpen === false) {
+        // right panel이 열리지 않은 상태이므로 4개 텝 모두 닫는다.
+        RightPanel.closeTabs();
+      }
+
+      if (newIsOpen !== oldIsOpen) {
+        jndPubSub.pub('headerCtrl:rightPanelToggle', newIsOpen);
       }
     }
 
