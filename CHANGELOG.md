@@ -1,3 +1,60 @@
+<a name="1.17.1"></a>
+## [1.17.1](https://github.com/tosslab/web_client/compare/v1.17.0...v1.17.1) (2016-03-03)
+
+
+### Bug Fixes
+
+* **center:** input box 의 upload 동작 불가 현상 수정 ([2d5bd26](https://github.com/tosslab/web_client/commit/2d5bd26))
+* **center:** message 가 archive 일 때 badge count 업데이트 하지 않도록 수정 ([9fbbe8c](https://github.com/tosslab/web_client/commit/9fbbe8c))
+* **html:** remove comma ([204ea7b](https://github.com/tosslab/web_client/commit/204ea7b))
+* **scroll:** 파일 클릭하여 우측 패널 열릴때 스크롤 올라가는 버그 수정 ([fa12402](https://github.com/tosslab/web_client/commit/fa12402))
+* **socket:** 자신의 댓글에 대해 뱃지 카운트 증가하는 오류 및 unread marker 오류 수정 ([e2d4a1c](https://github.com/tosslab/web_client/commit/e2d4a1c))
+* **tutorial:** build 시 이미지 rev가 되지 않는 현상 수정 ([0426a89](https://github.com/tosslab/web_client/commit/0426a89))
+* **tutorial:** 상단 배너 노출 상태에 따라 tooltip 위치 조정하도록 수정 ([4d07aaf](https://github.com/tosslab/web_client/commit/4d07aaf))
+* **tutorial:** 튜토리얼 z-index 조정 ([29272c5](https://github.com/tosslab/web_client/commit/29272c5))
+* **xxs:** 링크 프리뷰와 커넥트 프리뷰에 입력되는 테그 제거하도록 추가 ([e6d0344](https://github.com/tosslab/web_client/commit/e6d0344))
+* **튜토리얼:** content 에도 username 치환 구문 추가 ([dc8dba8](https://github.com/tosslab/web_client/commit/dc8dba8))
+* **튜토리얼:** pcapp 조건 수정 ([84f94c2](https://github.com/tosslab/web_client/commit/84f94c2))
+* **튜토리얼:** 영문 congratulations 에 username 노출하도록 수정 ([0b9415a](https://github.com/tosslab/web_client/commit/0b9415a))
+* **튜토리얼:** 웰컴 모달에 fade 효과 추가 ([e9c6d59](https://github.com/tosslab/web_client/commit/e9c6d59))
+* **튜토리얼:** 윈도우 앱의 경우 이미지 스냅샷 리소르를 사용하도록 수정 ([eebd069](https://github.com/tosslab/web_client/commit/eebd069))
+* **튜토리얼:** 튜토리얼 ? 드롭다운 메뉴의 dot indicator 위치 어긋남 수정 ([2bd4149](https://github.com/tosslab/web_client/commit/2bd4149))
+* **튜토리얼:** 튜토리얼 ? 메뉴에 dot indicator 추가 ([03c3526](https://github.com/tosslab/web_client/commit/03c3526))
+
+### Features
+
+* **dialog:** 비공개 토픽 나가기 confirm 에서 html tag 허용하도록 수정 ([558b7b8](https://github.com/tosslab/web_client/commit/558b7b8))
+* **link:** 메시지 링크 생성시 IPv4도 링크 생성 규칙에 추가 ([bf230a8](https://github.com/tosslab/web_client/commit/bf230a8))
+* **mention:** 토픽 멤버가 0명일때 '@all'시 Dialog 출력하지 않도록 수정 ([c004884](https://github.com/tosslab/web_client/commit/c004884))
+* **튜토리얼:** 비디오 preload 추가 ([0f94b63](https://github.com/tosslab/web_client/commit/0f94b63))
+* **튜토리얼v3:** step1 웰컴 모달 기본 스타일 및 동작 완료 ([adba232](https://github.com/tosslab/web_client/commit/adba232))
+* **튜토리얼v3:** step2 툴팁 완료 ([b8b0321](https://github.com/tosslab/web_client/commit/b8b0321))
+* **튜토리얼v3:** step2, 3 동작 완료 ([6898a0e](https://github.com/tosslab/web_client/commit/6898a0e))
+
+
+
+<a name="1.17.0"></a>
+# [1.17.0](https://github.com/tosslab/web_client/compare/v1.16.0...v1.17.0) (2016-03-02)
+
+
+### Bug Fixes
+
+* **connect:** 커넥트 웹훅 설정 방법 안내 레이아웃 깨지는 현상 수정 ([263d0bf](https://github.com/tosslab/web_client/commit/263d0bf))
+* **css:** 마크다운 안내 텍스트 위치, 마진 수정. ([5d887cf](https://github.com/tosslab/web_client/commit/5d887cf))
+* **css:** 메시지 전송버튼 아웃라인 삭제. ([bf901e9](https://github.com/tosslab/web_client/commit/bf901e9))
+* **css:** 봇메시지, mr. j일 때 프로필이미지 보더 삭제. ([fc180f7](https://github.com/tosslab/web_client/commit/fc180f7))
+* **dialog:** 언어설정 영문일 때, 파일 삭제시 br태그 삽입돼있음 ([1f227fa](https://github.com/tosslab/web_client/commit/1f227fa))
+* **integration:** 설정 저장 버튼 회색을 파란색으로 변경 ([f604f7c](https://github.com/tosslab/web_client/commit/f604f7c))
+* **left:** topic folder 조회 API 요청 전 이전에 요청하던 request 가 존재할 경우 cancel 하는 로직 추가 ([ffab1a6](https://github.com/tosslab/web_client/commit/ffab1a6))
+* **markdown:** 동일 멘션이 여러개 존재할 경우 잘못된 위치에 링크를 생성하는 현상 해결 ([4d2a4b9](https://github.com/tosslab/web_client/commit/4d2a4b9))
+* **team:** 가입한 팀이 1개 팀일 경우 전환 아이콘 노출하지 않음 ([1e21ef4](https://github.com/tosslab/web_client/commit/1e21ef4))
+
+### Features
+
+* **incoming-webhook:**  설정 예제에 실제 webhook url 이 노출되도록 변경 ([a64b515](https://github.com/tosslab/web_client/commit/a64b515))
+
+
+
 <a name="1.16.0"></a>
 # [1.16.0](https://github.com/tosslab/web_client/compare/v1.15.0...v1.16.0) (2016-02-24)
 
