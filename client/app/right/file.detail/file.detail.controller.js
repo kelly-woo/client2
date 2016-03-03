@@ -9,7 +9,7 @@
     .controller('fileDetailCtrl', FileDetailCtrl);
 
   /* @ngInject */
-  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, Router, RouterHelper, entityAPIservice,
+  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, RightPanel, RouterHelper, entityAPIservice,
                            EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker) {
     var fileId;
     var requestFileDetail;
@@ -24,7 +24,7 @@
       if (_isRedirectFileDetail()) {
         _setRightPanelTail(true);
 
-        $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files') + '.item', $state.params);
+        $state.go('messages.detail.' + (RightPanel.getTail() || 'files') + '.item', $state.params);
       } else {
         _setRightPanelTail(false);
 
@@ -301,10 +301,10 @@
       if (isRedirect) {
         // 왼쪽 상단에 표시되는 back to list해야되는 target
         if ($state.params.tail != null) {
-          RouterHelper.setRightPanelTail($state.params.tail);
+          RightPanel.setTail($state.params.tail);
         }
-      } else if (activeMenu = Router.getActiveRightTabName($state.current)) {
-        RouterHelper.setRightPanelTail(activeMenu);
+      } else if (activeMenu = RightPanel.getStateName($state.current)) {
+        RightPanel.setTail(activeMenu);
       }
     }
 
@@ -520,7 +520,7 @@
      * Redirect user back to prev state.
      */
     function backToPrevState() {
-      $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
+      $state.go('messages.detail.' + (RightPanel.getTail() || 'files'));
     }
 
     /**
