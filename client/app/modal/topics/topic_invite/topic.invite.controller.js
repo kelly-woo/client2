@@ -10,8 +10,6 @@
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                            entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
-    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
-
     var msg1;
     var msg2;
 
@@ -108,10 +106,11 @@
      * @returns {*}
      */
     function getMatches(list, filterText) {
-      return $scope.selecingMembers = _prefixMatchFirstFilter(list, filterText.toLowerCase(), 'name', {
-        sortBy: function(item, desc) {
-          return [!item.isStarred].concat(desc);
-        }
+      filterText = filterText.toLowerCase();
+
+      list = $filter('matchItems')(list, 'name', filterText);
+      return $scope.selecingMembers = $filter('orderPrefixFirstBy')(list, 'name', filterText, function(item, desc) {
+        return [!item.isStarred].concat(desc);
       });
     }
 

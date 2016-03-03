@@ -12,8 +12,6 @@
   function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityMapManager, centerService,
                              memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
                              entityAPIservice) {
-    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
-
     _init();
 
     /**
@@ -264,11 +262,13 @@
         members = members.concat([jandiBot]);
       }
 
-      return _prefixMatchFirstFilter(members, filterText.toLowerCase(), 'name', {
-        filter: function(item) {
-          return !memberService.isDeactivatedMember(item) && memberService.getMemberId() !== item.id;
-        }
+      filterText = filterText.toLowerCase();
+
+      members = $filter('matchItems')(members, 'name', filterText, function(item) {
+        return !memberService.isDeactivatedMember(item) && memberService.getMemberId() !== item.id
       });
+
+      return $filter('orderPrefixFirstBy')(members, 'name', filterText);
     }
 
     /**
@@ -304,9 +304,7 @@
         }
       });
 
-      return _prefixMatchFirstFilter(rooms, value.toLowerCase(), 'name', {
-        filter: false
-      });
+      return $filter('orderPrefixFirstBy')(rooms, 'name', value.toLowerCase());
     }
 
     /**
@@ -329,9 +327,7 @@
         }
       });
 
-      return _prefixMatchFirstFilter(channels, value.toLowerCase(), 'name', {
-        filter: false
-      });
+      return $filter('orderPrefixFirstBy')(channels, 'name', value.toLowerCase());
     }
 
     /**

@@ -11,8 +11,6 @@
   /* @ngInject */
   function TopicJoinCtrl($scope, $timeout, $state, $filter, entityheaderAPIservice, analyticsService,
                          jndPubSub, memberService, modalHelper, EntityMapManager) {
-    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
-
     _init();
 
     /**
@@ -47,7 +45,12 @@
      * @returns {*}
      */
     function getMatches(list, filterText) {
-      var matches = _prefixMatchFirstFilter(list, filterText.toLowerCase(), 'name');
+      var matches;
+
+      filterText = filterText.toLowerCase();
+
+      matches = $filter('matchItems')(list, 'name', filterText);
+      matches = $filter('orderPrefixFirstBy')(matches, 'name', filterText);
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;

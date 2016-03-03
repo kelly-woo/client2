@@ -11,8 +11,6 @@
   /* @ngInject */
   function TeamMemberListCtrl($scope, $modalInstance, $state, $filter, $timeout, currentSessionHelper,
                               memberService, entityAPIservice, modalHelper, jndPubSub) {
-    var _prefixMatchFirstFilter = $filter('prefixMatchFirstList');
-
     _init();
 
     function _init() {
@@ -54,10 +52,13 @@
      * @returns {*}
      */
     function getMatches(list, filterText) {
-      var matches = _prefixMatchFirstFilter(list, filterText.toLowerCase(), 'name', {
-        sortBy: function(item, desc) {
-          return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(desc);
-        }
+      var matches;
+
+      filterText = filterText.toLowerCase();
+
+      matches = $filter('matchItems')(list, 'name', filterText);
+      matches = $filter('orderPrefixFirstBy')(matches, 'name', filterText, function (item, orderBy) {
+        return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(orderBy);
       });
 
       if ($scope.enabledMemberList === list) {

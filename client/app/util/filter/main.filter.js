@@ -297,38 +297,37 @@ app.filter('ctrlKey', ['Browser',
   }
 ]);
 
-/**
- * 필터된 목록을 전달함.
- * 단, 목록의 정렬 기준은 접두사가 일치하는 아이템을 우선으로 한다.
- */
-app.filter('prefixMatchFirstList', function() {
+app.filter('matchItems', function() {
   /**
+   * 필터된 목록을 전달함.
    * @param {array} list
-   * @param {string} filterText
-   * @param {string} filterProperty
-   * @param {object} [options]
-   * @param {boolean|function} [options.filter] - filter시 사용자 임의 로직을 추가하거나, false이면 filter를 수행하지 않음.
-   * @param {function} [options.sortBy] - sortBy시 사용자 임의 로직을 수행함
+   * @param {string} property
+   * @param {string} text
+   * @param {function} [callback] - filter시 사용자 임의 로직을 수행함
    */
-  return function(list, filterText, filterProperty, options) {
-    var filter = options && options.filter;
-    var sortBy = options && options.sortBy;
+  return function(list, property, text, callback) {
+    return _.filter(list, function(item) {
+      var value = (item[property] || '').toLowerCase();
 
-    list = _(list);
+      return (!callback || callback(item)) && value.indexOf(text) > -1;
+    });
+  };
+});
 
-    if (filter !== false) {
-      list = list.filter(function(item) {
-        var value = (item[filterProperty] || '').toLowerCase();
+app.filter('orderPrefixFirstBy', function() {
+  /**
+   * 접두사가 일치하는 아이템을 우선으로 목록을 정렬함.
+   * @param {array} list
+   * @param {string} property
+   * @param {string} text
+   * @param {function} [callback] - sortBy시 사용자 임의 로직을 수행함
+   */
+  return function(list, property, text, callback) {
+    return _.sortBy(list, function(item) {
+      var value = (item[property] || '').toLowerCase();
+      var isPrefixMatch = value.indexOf(text) === 0 ? -1 : 1;
 
-        return (!filter || filter(item)) &&  value.indexOf(filterText) > -1;
-      });
-    }
-
-    return list.sortBy(function(item) {
-      var value = (item[filterProperty] || '').toLowerCase();
-      var prefixMatch = value.indexOf(filterText) === 0 ? -1 : 1;
-
-      return sortBy ? sortBy(item, [prefixMatch, value]) : [prefixMatch, value];
+      return callback ? callback(item, [isPrefixMatch, value]) : [isPrefixMatch, value];
     });
   };
 });
