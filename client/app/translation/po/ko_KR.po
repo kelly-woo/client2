@@ -2838,29 +2838,31 @@ msgstr "메시지 입력과 파일 업로드 "
 msgid "@tutorial-modal1-content"
 msgstr ""
 "많아지는 업무 만큼 늘어나기만 하는 토픽 수가 곤란하셨나요? 이제 토픽을 폴더"
-"로 분류하여 관리할 수 있습니다.<br>지금 한 토픽을 다른 토픽 위에 드래그&드롭 "
-"하여 간단하게<br> 폴더를 만들어보세요!"
+"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 드래그&드롭 하"
+"여 간단하게 폴더를 만들어보세요!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal1-title"
-msgstr "관련 토픽을 모아 폴더로 분류하세요"
+msgstr ""
+"많아지는 업무 만큼 늘어나기만 하는 토픽 수가 곤란하셨나요? 이제 토픽을 폴더"
+"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 드래그&드롭 하"
+"여 간단하게 폴더를 만들어보세요!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-content"
 msgstr ""
 "중요하거나 나중에 꼭 다시 봐야하는 메시지 또는 파일은 별 모양 아이콘을 클릭하"
-"여<br>즐겨찾기를 해두실 수 있습니다."
+"여 즐겨찾기를 해두실 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-title"
-msgstr "즐겨찾기 기능으로<br>중요한 메시지나 파일을 보관하세요"
+msgstr "즐겨찾기 기능으로 중요한 메시지나 파일을 보관하세요"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-content"
 msgstr ""
-"\"@\"을 입력한 뒤 멤버를 선택하면<br>토픽 알림이 꺼져있을 때에도<br>알림을 받"
-"을 수 있습니다.<br>자신이 언급된 메시지는<br>오른쪽 목록에서 모아서<br>볼 수"
-"도 있습니다."
+"\"@\"을 입력한 뒤 멤버를 선택하면 토픽 알림이 꺼져있을 때에도 알림을 받을 수 "
+"있습니다. 자신이 언급된 메시지는 오른쪽 목록에서 모아서 볼 수도 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal3-title"
@@ -2870,11 +2872,11 @@ msgstr "@멘션 기능으로 특정 멤버를 지목하세요"
 msgid "@tutorial-modal4-content"
 msgstr ""
 "특정 단어가 포함된 메시지를 모든 대화방을 대상으로 검색할 수 있을 뿐 아니라, "
-"작성자나 대화방을 제한하여<br>검색할 수도 있습니다."
+"작성자나 대화방을 제한하여 검색할 수도 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal4-title"
-msgstr "모든 대화방의 메시지를<br>한꺼번에 검색하세요"
+msgstr "모든 대화방의 메시지를 한꺼번에 검색하세요"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-content"
@@ -2889,8 +2891,8 @@ msgstr "Jump 기능으로 빠르게 대화를 이동하세요"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-content"
 msgstr ""
-"파일 업로드나 토픽에 멤버 초대와 같은<br>반복 작업은 단축키를 이용하세요."
-"<br>Ctrl(맥의 경우 Cmd)+/ 만 입력하시면<br>단축키 목록을 볼 수 있습니다."
+"파일 업로드나 토픽에 멤버 초대와 같은 반복 작업은 단축키를 이용하세요. "
+"Ctrl(맥의 경우 Cmd)+/ 만 입력하시면 단축키 목록을 볼 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-title"
@@ -2899,8 +2901,8 @@ msgstr "강력한 잔디의 단축키를 사용해보세요"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal7-content"
 msgstr ""
-"Google 캘린더, Trello, GitHub, JIRA 등의 외부 서비스에 대한 변동 사항을<br>잔"
-"디로 알림 받으실 수 있습니다."
+"Google 캘린더, Trello, GitHub, JIRA 등의 외부 서비스에 대한 변동 사항을 잔디"
+"로 알림 받으실 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal7-title"
