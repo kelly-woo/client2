@@ -78,8 +78,13 @@
       }
     }
 
+    /**
+     * load 완료 시 콜백
+     * @param {object} domEvemt
+     * @private
+     */
     function _onComplete(domEvemt) {
-      $(domEvemt.target).remove();
+      //$(domEvemt.target).css('display', 'none');
     }
 
     /**
