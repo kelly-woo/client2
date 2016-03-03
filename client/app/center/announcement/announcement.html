@@ -60,7 +60,7 @@
 		  <i class="announcement-minimize__arrow"
 		  	 ng-class="{'icon-arrow-up-fill': !displayStatus.minimized,
                       'icon-arrow-down-fill': displayStatus.minimized}"></i>
-		  <span>더보기</span>
+		  <span translate>@announce-more</span>
     	</div>
 
       </div>
@@ -95,7 +95,7 @@
       <i class="announcement-minimize__arrow"
          ng-class="{'icon-arrow-up-fill': !displayStatus.minimized,
                       'icon-arrow-down-fill': displayStatus.minimized}"></i>
-      <span>접어두기</span>
+      <span translate>@announce-fold</span>
     </div>
     
     <!-- 삭제하기 -->
@@ -112,7 +112,7 @@
          ng-click="toggleAnnouncementStatus();">
       <i class="icon-minimize maximized-announcement__icon"></i>
       <span class="maximized-announcement-icon__text" translate>
-        @announcement-hide
+        @announce-hide
       </span>
     </div>
 
