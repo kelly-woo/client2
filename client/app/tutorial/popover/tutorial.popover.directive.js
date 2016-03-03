@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('tutorialPopover', tutorialPopover);
 
-  function tutorialPopover($filter, $timeout, JndUtil, Tutorial, AccountHasSeen, currentSessionHelper) {
+  function tutorialPopover($filter, $timeout, JndUtil, Tutorial, AccountHasSeen, currentSessionHelper, memberService) {
     return {
       link: link,
       scope: {},
@@ -19,7 +19,7 @@
     };
 
     function link(scope, el, attrs) {
-      var DELAY = 300;
+      var DELAY = 400;
       var _timer;
       var _translate = $filter('translate');
 
@@ -95,7 +95,7 @@
           src: 'assets/images/center/help-create-a-new-team.gif',
           title: _translate('@tutorial_congratulations'),
           content: _translate('@tutorial_congratulations_content').replace('{{teamName}}',
-            currentSessionHelper.getCurrentTeam().name)
+            currentSessionHelper.getCurrentTeam().name).replace('{{username}}', memberService.getName())
         }
       ];
 
@@ -108,7 +108,6 @@
       scope.curStep = null;
       scope.progress = 0;
 
-
       _init();
 
       /**
@@ -116,9 +115,32 @@
        * @private
        */
       function _init() {
+        _preloadVideo();
         _resetProperties();
         _attachDomEvents();
         _start();
+
+      }
+
+      /**
+       * 튜토리얼 비디오 리소스를 preload 한다.
+       * @private
+       */
+      function _preloadVideo() {
+        _.forEach(scope.stepList, function(step) {
+          var jqEl;
+          if (!_isImage(step.src)) {
+            jqEl = $('<video></video>');
+            jqEl[0].muted = true;
+            jqEl[0].autoplay = true;
+            jqEl.attr({
+              src: step.src
+            }).css({
+              display: 'none'
+            });
+            el.append(jqEl);
+          }
+        });
       }
 
       /**
