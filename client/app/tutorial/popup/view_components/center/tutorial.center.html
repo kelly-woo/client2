@@ -1,7 +1,0 @@
-<div class="tutorial_center_wrap">
-  <div ng-repeat="msg in messages">
-    <tutorial-center-date ng-if="msg.contentType === 'date'"></tutorial-center-date>
-    <tutorial-center-text ng-if="msg.contentType === 'text' || msg.contentType === 'sticker'"></tutorial-center-text>
-    <tutorial-center-file ng-if="msg.contentType === 'file'"></tutorial-center-file>
-  </div>
-</div>

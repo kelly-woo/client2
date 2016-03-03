@@ -704,13 +704,6 @@ input[type="button"] {
   min-height: 40px;
 }
 
-.tutorial-clicker {
-  width: 50px;
-  height: 50px;
-  background: url('../assets/images/tutorial-click-icon.png') no-repeat;
-  cursor: pointer;
-  z-index: 1041;
-}
 
 .file-item-meta__comments {
   padding-right: 2px;

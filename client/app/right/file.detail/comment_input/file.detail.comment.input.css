@@ -34,8 +34,8 @@
   box-shadow:none;
   outline:0;
   min-height:80px;
-  padding: 9px 9px 0 9px;
-  overflow-y: hidden !important;
+  padding:9px 0 9px 8px;
+  overflow-y: hidden;
   resize: none !important;
   margin-top:0px;
   -webkit-transition: height .06s linear;
@@ -66,4 +66,3 @@
   top: -140px;
   width: 100.5%;
 }
-

@@ -1,117 +1,115 @@
+/**
+ * @fileoverview 튜토리얼 툴팁 서비스
+ */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .service('tutorialService', tutorialService);
+    .service('Tutorial', Tutorial);
 
-  tutorialService.$inject = ['$modal', '$http', 'configuration'];
+  function Tutorial($rootScope, jndPubSub, accountService, AccountHasSeen) {
+    var _isInit = false;
+    var _scope = $rootScope.$new(true);
 
-  function tutorialService($modal, $http, configuration) {
+    this.showWelcome = showWelcome;
+    this.hideWelcome = hideWelcome;
 
-    var api_address = configuration.api_address + 'inner-api/';
+    this.hideTooltip = hideTooltip;
+    this.showTooltip = showTooltip;
 
-    this.openWelcomeModal = openWelcomeModal;
-    this.openTopicModal = openTopicModal;
-    this.openChatModal = openChatModal;
-    this.openFileModal = openFileModal;
-    this.openChangeLogModal = openChangeLogModal;
-    this.openRightChangeLogModal = openRightChangeLogModal;
+    this.showPopover = showPopover;
+    this.hidePopover = hidePopover;
 
-    this.setTutoredAtTime = setTutoredAtTime;
+    this.complete = complete;
 
-    function openWelcomeModal() {
-      return $modal.open({
-        templateUrl: 'app/tutorial/tutorial.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial',
-        backdropClass: 'welcome-tutorial-backdrop',
-        backdrop: 'static',
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 0;
-          }
-        }
-      });
-    }
-    function openTopicModal() {
-      return $modal.open({
-        templateUrl: 'app/tutorial/tutorial.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
-        backdrop: false,
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 1;
-          }
-        }
-      });
-    }
-    function openChatModal() {
-      return $modal.open({
-        templateUrl: 'app/tutorial/tutorial.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial chat-tutorial',
-        backdrop: false,
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 2;
-          }
-        }
-      });
-    }
-    function openFileModal() {
-      return $modal.open({
-        templateUrl: 'app/tutorial/tutorial.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial file-tutorial',
-        backdrop: false,
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 3;
-          }
-        }
-      });
-    }
-    function openChangeLogModal() {
-      return $modal.open({
-        templateUrl: 'app/modal/change_log/changeLog.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
-        backdrop: false,
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 1;
-          }
-        }
-      });
+    _init();
+
+    /**
+     * 초기화 메서드
+     * @private
+     */
+    function _init() {
+      if (accountService.getAccount()) {
+        _initWelcome();
+      } else {
+        _scope.$on('accountLoaded', _initWelcome);
+      }
     }
 
-    function openRightChangeLogModal() {
-      return $modal.open({
-        templateUrl: 'app/modal/change_log/changeLog.msg.search.html',
-        controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial file-tutorial tutorial-animation',
-        backdrop: false,
-        keyboard: false,
-        resolve: {
-          curState: function getCurrentTutorial() {
-            return 3;
-          }
+    /**
+     * welcome 을 보여줄지 상태를 결정한다.
+     * @private
+     */
+    function _initWelcome() {
+      if (!_isInit) {
+        //기존 사용자면 welcome 은 생략한다
+        if (_isOldUser()) {
+          AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+        } else if (!AccountHasSeen.get('TUTORIAL_VER3_WELCOME')) {
+          //초기 진입 시 모든 랜더링 동작을 완료한 이후 welcome 모달을 fade in 효과로 노출하기 위해 1초의 딜레이를 할당한다.
+          setTimeout(showWelcome, 1000);
         }
-      });
+        _isInit = true;
+      }
     }
 
-    function setTutoredAtTime() {
-      return $http({
-        method: 'PUT',
-        url: api_address + 'settings/tutoredAt'
-      });
+    /**
+     * tutorial 을 이미 시청한 기존 사용자인지 여부를 반환한다.
+     * @private
+     */
+    function _isOldUser() {
+      return AccountHasSeen.get('GUIDE_TOPIC_FOLDER') && AccountHasSeen.get('GUIDE_CONNECT') ;
+    }
+
+    /**
+     * 튜토리얼 welcome 을 노출한다.
+     */
+    function showWelcome() {
+      jndPubSub.pub('Tutorial:showWelcome');
+    }
+
+    /**
+     * 튜토리얼 welcome 을 감춘다.
+     */
+    function hideWelcome() {
+      jndPubSub.pub('Tutorial:hideWelcome');
+    }
+
+    /**
+     * 모든 툴팁을 노출한다.
+     */
+    function showTooltip() {
+      jndPubSub.pub('Tutorial:showTooltip');
+    }
+
+    /**
+     * tooltipName 에 해당하는 tooltip 을 감춘다.
+     * @param {string} tooltipName
+     */
+    function hideTooltip(tooltipName) {
+      jndPubSub.pub('Tutorial:hideTooltip', tooltipName);
+    }
+
+    /**
+     * popover 를 노출한다.
+     */
+    function showPopover() {
+      jndPubSub.pub('Tutorial:showPopover');
+    }
+
+    /**
+     * popover 를 감춘다.
+     */
+    function hidePopover() {
+      jndPubSub.pub('Tutorial:hidePopover');
+    }
+
+    /**
+     * 튜토리얼이 완료되었다.
+     */
+    function complete() {
+      jndPubSub.pub('Tutorial:complete');
     }
   }
 })();

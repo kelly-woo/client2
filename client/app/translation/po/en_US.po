@@ -42,19 +42,16 @@ msgid "@alert-no-result"
 msgstr "No matches"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-fold"
-msgstr "Hide"
+msgstr "Fold"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-hide"
 msgstr "Hide"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@announce-more"
-msgstr "Announce"
+msgstr "More"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@announcement-create"
@@ -485,6 +482,10 @@ msgstr "Finished"
 msgid "@common-file-upload-progress-msg"
 msgstr "Uploading..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-get-started"
+msgstr "Get Started"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "Already have the JANDI app for mobile?"
@@ -665,6 +666,10 @@ msgstr "Stars"
 msgid "@common-start-new-message"
 msgstr "Click to start a new conversation"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-start-using-jandi"
+msgstr "DONE"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
 msgstr "Launch the JANDI app"
@@ -724,7 +729,7 @@ msgstr "Sorry! We encountered an unexpected error. Please try again."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-unsupport-image"
-msgstr "This image type is not supported. Please choose another."
+msgstr "This image type is not supported. Please choose another image."
 
 #: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
@@ -1091,8 +1096,8 @@ msgstr "Hello. I'm Mr. J."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jandi-bot-status"
 msgstr ""
-"I deliver messages from JANDI Connect and essential notifications from our "
-"customer experience team"
+"I deliver messages from JANDI Connect and notifications from our customer "
+"experience team that you shouldn't miss. "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -1719,102 +1724,12 @@ msgid "@jnd-connect-227"
 msgstr "Are you sure you want to leave without saving your changes?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-228"
-msgstr "Send data into JANDI from your favorite external services"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-229"
-msgstr "Send data into JANDI from your favorite external services"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >GitHub</a></b> is an online "
 "source code management platform for Git projects.<br/><br/>\n"
 "This integration will send notifications of commits, comments, pull "
 "requests, and other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-230"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-231"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-232"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-233"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-234"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-235"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-236"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-237"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-238"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-239"
-msgstr ""
-"GitHub is an online source code management platform for Git projects.This "
-"integration will send notifications of commits, comments, pull requests, and "
-"other activity on GitHub Issues to a JANDI topic"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
@@ -1825,100 +1740,12 @@ msgstr ""
 "any updates, and daily and weekly summary reports."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-240"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-241"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-242"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-243"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-244"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-245"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-246"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-247"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-248"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-249"
-msgstr ""
-"Google Calendar provides a shared calendar for your team.This integration "
-"will send reminders of scheduled events, notifications of any updates, and "
-"daily and weekly summary reports."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
 "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b> is "
 "an issue tracking platform that allows teams to capture and organize issues, "
 "and assign and monitor workflow. <br/><br/>\n"
 "This integration will send notifications of any updates to JIRA issues."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-250"
-msgstr ""
-"JIRA is an issue tracking platform that allows teams to capture and organize "
-"issues, and assign and monitor workflow. This integration will send "
-"notifications of any updates to JIRA issues."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
@@ -3014,6 +2841,76 @@ msgstr "Your file drawer and search panel"
 msgid "@tutorial-message-file-title"
 msgstr "Sending messages and uploading files"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-content"
+msgstr ""
+"Having trouble with too many topics? Organize them using folders! Drag and "
+"drop a topic onto another to create a new folder, and drag a topic into an "
+"existing folder to move it"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal1-title"
+msgstr "Topic Folders"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-content"
+msgstr "Star important messages and files to create an instant to-do list"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal2-title"
+msgstr "Starred Items"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-content"
+msgstr ""
+"Make sure important messages aren't missed. Type \"@\" followed by your team "
+"members' names to direct messages to them. Those mentioned will receive push "
+"notifications even if their topic alerts are off"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal3-title"
+msgstr "@ Mentions"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-content"
+msgstr ""
+"You can search through your entire message history here. Locate what you "
+"need more quickly by filtering your search results by sender or topic"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal4-title"
+msgstr "Message Search"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-content"
+msgstr ""
+"Search through topics and direct messages, and Jump directly to your "
+"conversation of choice<br>(Ctrl/Cmd+J)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal5-title"
+msgstr "Jump Between Conversations"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-content"
+msgstr ""
+"Always at your desk? Work more efficiently using shortcuts to quickly upload "
+"files (Ctrl/Cmd+U), invite members to topics (Ctrl/Cmd+I), and more"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal6-title"
+msgstr "Keyboard Shortcuts"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-content"
+msgstr ""
+"Integrate third party apps such as Google Calendar, Trello, JIRA, GitHub, "
+"and more to receive all your important notifications in one place"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-modal7-title"
+msgstr "JANDI Connect"
+
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
@@ -3026,32 +2923,40 @@ msgid "@tutorial-skip"
 msgstr "Skip tutorial"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-1"
-msgstr ""
-"All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
-"share, or comment on a file. "
+msgstr "Frustrated by the way your team communicates at work?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-2"
-msgstr ""
-"To find an older file, search by keyword(s) and use our flexible filters to "
-"sort by file type, uploader, or conversation in which it was shared. You can "
-"also click over to the Messages tab to search through your conversation "
-"history and jump back to specific points in the discussion for more context. "
+msgstr "Make it simpler,<br>more productive,<br>and more enjoyable now!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@tutorial-slide-3"
-msgstr ""
-"Toggle the view by using the Search and Close buttons to open and minimize "
-"the right panel."
+msgstr "<strong>JANDI</strong><br>Work Better Together"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
 msgstr "TIPS"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-1"
+msgstr ""
+"Create a topic - a dedicated space for your project teams, departments, and "
+"other groups"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-2"
+msgstr "Upload files directly into the conversation"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-3"
+msgstr "Send stickers to express your ideas in a more lively manner"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial-tooltip-4"
+msgstr ""
+"Open the right panel to search for your files, starred items, mentions and "
+"more"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
@@ -3103,7 +3008,7 @@ msgstr "Awesome!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations"
-msgstr "CONGRATULATIONS {{username}}!"
+msgstr "Congratulations, {{username}}!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
@@ -3352,9 +3257,8 @@ msgid "@web-notification-body-message-file-comment-post"
 msgstr "."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
-msgstr "from "
+msgstr "from"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
@@ -3412,6 +3316,161 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#, fuzzy
+#~ msgid "@jnd-connect-228"
+#~ msgstr "Send data into JANDI from your favorite external services"
+
+#, fuzzy
+#~ msgid "@jnd-connect-229"
+#~ msgstr "Send data into JANDI from your favorite external services"
+
+#, fuzzy
+#~ msgid "@jnd-connect-230"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-231"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-232"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-233"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-234"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-235"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-236"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-237"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-238"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-239"
+#~ msgstr ""
+#~ "GitHub is an online source code management platform for Git projects.This "
+#~ "integration will send notifications of commits, comments, pull requests, "
+#~ "and other activity on GitHub Issues to a JANDI topic"
+
+#, fuzzy
+#~ msgid "@jnd-connect-240"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-241"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-242"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-243"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-244"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-245"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-246"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-247"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-248"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-249"
+#~ msgstr ""
+#~ "Google Calendar provides a shared calendar for your team.This integration "
+#~ "will send reminders of scheduled events, notifications of any updates, "
+#~ "and daily and weekly summary reports."
+
+#, fuzzy
+#~ msgid "@jnd-connect-250"
+#~ msgstr ""
+#~ "JIRA is an issue tracking platform that allows teams to capture and "
+#~ "organize issues, and assign and monitor workflow. This integration will "
+#~ "send notifications of any updates to JIRA issues."
 
 #~ msgid "@file-upload-fail"
 #~ msgstr "Please try again"

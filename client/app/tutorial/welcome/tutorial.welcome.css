@@ -1,76 +1,72 @@
-.tutorial_welcome_dimm {
-  background: #000000;
-  opacity: 0.6;
+.tutorial-welcome-container {
+  display: block;
+  z-index: 610;
+  position:fixed;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
-  z-index: 710;
+  bottom: 0;
+  left: 0;
 }
-
-.tutorial_welcome_wrap {
+.tutorial-welcome-dim {
+  display: block;
+  z-index: 611;
+  position:absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: .5;
+}
+.tutorial-welcome {
+  z-index: 612;
   position:absolute;
   background: #FFFFFF;
-  border: 0;
-  border-radius: 5px;
-  width: 550px;
-  top: 50%;
-  left: 50%;
-  margin-left: -275px;
-  margin-top: -250px;
+  width: 400px;
+  height: 500px;
+  left: calc(50% - 200px);
+  top: calc(50% - 250px);
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.45);
+}
+.tutorial-welcome .divider {
+  content: '';
+  position: relative;
+  display: block;
+  margin: 66px auto 18px auto;
+  width: 26px;
+  height: 2px;
+  background-color: #d1d1d1;
+}
+
+.tutorial-welcome-content {
+  max-width: 400px;
+  height: 70px;
   text-align: center;
-  z-index: 720;
-  padding-left: 40px;
-  padding-right: 40px;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 34px;
+  padding: 0 20px 0 20px;
 }
-.tutorial_welcome_wrap div {
-  text-align: center;
+.tutorial-welcome-img {
+  
 }
-
-.tutorial_welcome_header {
-  margin-top: 30px;
+.tutorial-welcome-img img{
+  width: 400px;
+  margin-top: 45px;
+  margin-bottom: 40px;
 }
-.tutorial_welcome_body {
-  margin-top: 25px;
+.tutorial-welcome-footer {
   width: 100%;
+  bottom: 0;
+  padding: 20px;
+  color: #00abe6;
+  font-weight: 700;
+  font-size: 15px;
 }
-
-.tutorial_welcome_title {
-  font-size: 20px;
-  color: #333333;
-  font-weight: bold;
+.tutorial-welcome-footer .icon-angle-double-right{
+  margin-left: -5px;
 }
-
-.tutorial_welcome_content {
-  margin-top: 25px;
-  font-size: 18px;
-  line-height: 20px;
-}
-
-.tutorial_welcome_footer {
-  margin-top: 20px;
-  margin-bottom: 15px;
-}
-.tutorial_welcome_btn {
-  width: 100%;
-  font-size: 18px;
-  margin-top: 10px;
-  padding-top: 10px;
-  height: 46px;
-}
-.tutorial_welcome_btn:hover {
-  background-color: #1AB9F0;
-}
-.tutorial_welcome_dark {
-  background: #154a67;
-}
-.tutorial_welcome_dark:hover {
-  background: #366480;
-}
-.tutorial_welcome_skip {
-  display: inline-block;
-  margin-top: 15px;
-  text-decoration: underline;
-  color: #00a4e6;
-  font-size: 12px;
+.tutorial-welcome-footer .icon-angle-double-left{
+  margin-right: -5px;
 }

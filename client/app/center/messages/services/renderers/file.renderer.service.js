@@ -100,7 +100,6 @@
       var jqToggleTarget = jqMsg.find('._fileToggleTarget');
       var jqToogle = jqMsg.find('._fileToggle');
       var isHide = jqToggleTarget.css('display') === 'none';
-      var isScrollBottom = centerService.isScrollBottom();
 
       if (isHide) {
         jqToggleTarget.show();
@@ -108,11 +107,6 @@
       } else {
         jqToggleTarget.hide();
         jqToogle.addClass('icon-arrow-down-fill').removeClass('icon-arrow-up-fill');
-      }
-
-      if (isScrollBottom) {
-        // image 접기/펼치기 전 scroll이 bottom에 있었다면 scroll bottom 고정
-        jndPubSub.pub('center:scrollToBottom');
       }
     }
 

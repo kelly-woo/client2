@@ -1,0 +1,7 @@
+.tutorial-complete {
+}
+.tutorial-complete img{
+	width: 240px !important;
+	border: none !important;
+	margin: 20px 20px 10px 20px !important;
+}

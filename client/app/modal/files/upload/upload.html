@@ -50,18 +50,15 @@
           </label>
           <div class="col-sm-9">
             <div class="upload-comment-textarea">
-              <textarea class="form-control"
+              <textarea class="comment-input"
                         id="file_upload_comment"
                         name="file_upload_comment"
-                        rows="3"
-                        ng-model="data.comment"
-                        ng-maxlength="256"
-                        maxlength="256"
                         autofocus
+                        ng-model="data.comment"
+                        jnd-elastic="comment:modal"
+                        jnd-elastic-on-change="onCommentInputChange($event)"
                         mentionahead
-                        mentionahead-type="upload"
-                        style="resize:none;">
-              </textarea>
+                        mentionahead-type="upload"></textarea>
             </div>
           </div>
         </div>

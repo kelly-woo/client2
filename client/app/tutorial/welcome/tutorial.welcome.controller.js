@@ -1,6 +1,5 @@
 /**
- * @fileoverview center 튜토리얼 모달 컨트롤러
- * @author Young Park <young.park@tosslab.com>
+ * @fileoverview 튜토리얼 중 가장 첫번째 노출하게 될 웰컴 디렉티브
  */
 (function() {
   'use strict';
@@ -9,126 +8,73 @@
     .module('jandiApp')
     .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  function TutorialWelcomeCtrl($scope, $filter, accountService, TutorialAPI, Popup, HybridAppHelper) {
-    var _isAccountLoaded = false;
-    $scope.isComplete = true;
-    $scope.completedStep = -1;
-    $scope.onClickStart = onClickStart;
-    $scope.onClickContinue = onClickContinue;
-    $scope.onClickSkip = onClickSkip;
-    $scope.hide = hide;
+  function TutorialWelcomeCtrl($scope, $filter, $timeout, Tutorial, AccountHasSeen) {
+    var _translate = $filter('translate');
 
+    $scope.curStep = 0;
+    $scope.isComplete = true;
+    $scope.stepList = [
+      {
+        imgUrl: '../../../assets/images/tutorial/welcome_01.png',
+        content: _translate('@tutorial-slide-1')
+      },
+      {
+        imgUrl: '../../../assets/images/tutorial/welcome_02.png',
+        content: _translate('@tutorial-slide-2')
+      },
+      {
+        imgUrl: '../../../assets/images/tutorial/welcome_03.png',
+        content: _translate('@tutorial-slide-3')
+      }
+    ];
+
+    $scope.prev = prev;
+    $scope.next = next;
     _init();
 
     /**
-     * initialize
+     * 생성자
      * @private
      */
     function _init() {
-      if (!HybridAppHelper.isPcApp()) {
-        _attachEvents();
-      }
-    }
-
-    /**
-     * tutorial start click 시
-     */
-    function onClickStart() {
-      _openTutorial();
-    }
-
-    /**
-     * tutorial skip click 시
-     */
-    function onClickSkip(clickEvent) {
-      TutorialAPI.set($scope.completedStep,  true);
-      hide();
-    }
-
-    /**
-     * hide 한다.
-     */
-    function hide() {
-      var tutorial = Popup.get('tutorial');
-      if (tutorial) {
-        Popup.close(tutorial);
-      }
-      $scope.isComplete = true;
-    }
-
-    /**
-     * continue 클릭시
-     */
-    function onClickContinue() {
-      var startStep = $scope.completedStep + 1;
-      startStep = startStep < 0 ? 0 : startStep;
-      _openTutorial(startStep);
-    }
-
-    /**
-     * tutorial 을 open 한다.
-     * @param {string| number} step
-     * @private
-     */
-    function _openTutorial(step) {
-      step = step || 0;
-      var token = location.href.split('/#/');
-      var url = token[0] + '/#/tutorial';
-
-      Popup.open(url, {
-        name: 'tutorial',
-        data: {
-          start: step
-        },
-        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768'
+      //isComplete 값 변경에 대한 fade 효과를 주기 위해 $timeout 을 사용한다.
+      $timeout(function() {
+        $scope.isComplete = false;
       });
     }
 
     /**
-     * attachEvents
-     * @private
+     * 다음 스텝으로 진행한다.
      */
-    function _attachEvents() {
-      $scope.$on('tutorial:hide', hide);
-      $scope.$on('accountLoaded', _onAccountLoaded);
-      $scope.$on('tutorial:open', _onTutorialOpen);
-      $scope.$on('$destroy', _onDestroy);
-    }
-
-    /**
-     * tutorial open 이벤트 핸들러
-     * @param {object} event
-     * @param {string|number} step
-     * @private
-     */
-    function _onTutorialOpen(event, step) {
-      _openTutorial(step);
-    }
-
-    /**
-     * account load 이벤트 핸들러
-     * @private
-     */
-    function _onAccountLoaded() {
-      if (!_isAccountLoaded) {
-        var account = accountService.getAccount();
-        $scope.title = $filter('translate')('@tutorial_welcome_title').replace('{{username}}', account.name);
-        $scope.isComplete = account.tutorialConfirm;
-        $scope.isOpened = account.tutorialOpened;
-        //@fixme: remove isComplete = false; for test
-        //$scope.isComplete = false;
-        $scope.completedStep = account.tutorialStep;
-        _isAccountLoaded = true;
+    function prev() {
+      if ($scope.curStep > 0) {
+        $scope.curStep--;
       }
     }
 
+    /**
+     * 이전 스텝으로 진행한다.
+     */
+    function next() {
+      if ($scope.curStep >= $scope.stepList.length -1) {
+        _complete();
+      } else {
+        $scope.curStep++;
+      }
+    }
 
     /**
-     * 소멸자
+     * 모달의 스텝을 모두 완료한다.
      * @private
      */
-    function _onDestroy() {
-      hide();
+    function _complete() {
+      AccountHasSeen.set('TUTORIAL_VER3_WELCOME', true);
+      $scope.isComplete = true;
+      //isComplete 값 변경에 대한 fade 효과를 주기 위해 $timeout 을 사용한다.
+      $timeout(function() {
+        Tutorial.hideWelcome();
+        Tutorial.showTooltip();
+      }, 100);
     }
   }
 })();

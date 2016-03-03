@@ -8,8 +8,7 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
-                               fileUploadOptions, ImagesHelper, memberService, entityAPIservice, EntityMapManager,
-                               jndPubSub) {
+                               fileUploadOptions, ImagesHelper, MentionExtractor, jndPubSub) {
     _init();
 
     /**
@@ -56,28 +55,9 @@
      * @private
      */
     function _onSelectedEntityIdChange(entityId) {
-      var currentMemberId = memberService.getMemberId();
-      var mentionList = [];
-      var users;
-      var entity = $scope.selectedEntity = EntityMapManager.get('total', entityId);
+      var mentionList = MentionExtractor.getMentionListForUploading(entityId);
 
-      if (entity && /channels|privategroups/.test(entity.type)) {
-        users = entityAPIservice.getUserList(entity);
-        _.forEach(users, function(userId) {
-          var user = EntityMapManager.get('user', userId);
-          if (user && currentMemberId !== user.id && user.status === 'enabled') {
-            user.extViewName = '[@' + user.name + ']';
-            user.extSearchName = user.name;
-            mentionList.push(user);
-          }
-        });
-      }
-
-      mentionList = _.chain(mentionList).uniq('id').sortBy(function (item) {
-        return item.name.toLowerCase();
-      }).value();
-
-      jndPubSub.pub('mentionahead:upload', mentionList);
+      jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
     }
 
     /**

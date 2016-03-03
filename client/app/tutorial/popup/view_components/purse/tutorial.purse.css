@@ -1,8 +1,0 @@
-.tutorial_purse {
-  position: absolute;
-  animation: pulse 1s infinite;
-  -webkit-animation: pulse 1s infinite;
-}
-.tutorial_purse.hide {
-  display: none;
-}

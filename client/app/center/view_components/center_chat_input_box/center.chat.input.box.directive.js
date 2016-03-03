@@ -6,7 +6,7 @@
     .directive('centerChatInputBox', centerChatInputBox);
 
   function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
-                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
+                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor, Tutorial) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -21,6 +21,7 @@
       var _jqMenu = el.find('#file-upload-menu');
       var _jqMessageInput = el.find('#message-input');
       var _jqProgress = el.find('.file-upload-progress-container');
+      var _jqUploadBtn = el.find('.icon-upload-button');
       var _uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
@@ -66,10 +67,10 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$on('hotkey-upload', _onHotkeyUpload);
+        scope.$on('jndMainKeyHandler:upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-        scope.$on('mentionahead:showed:message', _onMentionaheadShowed);
-        scope.$on('mentionahead:hid:message', _onMentionaheadHid);
+        scope.$on('MentionaheadCtrl:showed:message', _onMentionaheadShowed);
+        scope.$on('MentionaheadCtrl:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
@@ -81,6 +82,15 @@
       function _attachDomEvents() {
         _jqMenu.on('click', 'li', _onMenuItemClick);
         _jqProgress.on('transitionend', _onTransitionEnd);
+        _jqUploadBtn.on('click', _onClickUpload);
+      }
+
+      /**
+       * upload 버튼 클릭 이벤트 핸들러
+       * @private
+       */
+      function _onClickUpload() {
+        Tutorial.hideTooltip('upload');
       }
 
       /**
@@ -112,21 +122,18 @@
        * @private
        */
       function _setMentionList() {
-        var currentEntity = currentSessionHelper.getCurrentEntity();
-        var users;
-        var mentionMembers;
+        var mentionMembers = MentionExtractor.getMentionListForTopic(_entityId);
 
-        if (currentEntity) {
-          users = entityAPIservice.getUserList(currentEntity);
-          if (users) {
-            mentionMembers = MentionExtractor.getMentionListForTopic(users, _entityId);
-            jndPubSub.pub('mentionahead:message', mentionMembers);
-          }
-        }
+        jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
       }
 
+      /**
+       * hotkey 로 업로드 시
+       * @private
+       */
       function _onHotkeyUpload() {
         _uploadMap['computer']();
+        Tutorial.hideTooltip('upload');
       }
 
       /**
@@ -136,6 +143,9 @@
        */
       function _onChangeLoading(loading) {
         if (loading === false && !scope.isDisabledMember(scope.currentEntity)) {
+
+          // loading status 변경된 직후에도 element가 아직 disabled 상태이므로
+          // setTimeout에 두어 focus 수행가능한 상태에서 수행하도록 한다.
           setTimeout(function() {
             _jqMessageInput.focus();
           });
@@ -148,7 +158,7 @@
        * @private
        */
       function _onMenuItemClick(event) {
-        var role = this.getAttribute('role');
+        var role = $(event.target).closest('li').attr('role');
         var fn;
 
         if (fn = _uploadMap[role]) {
@@ -172,7 +182,7 @@
        * mention icon click event handler
        */
       function onMentionIconClick() {
-        jndPubSub.pub('mentionahead:show:message');
+        MentionExtractor.show('message');
       }
 
       /**

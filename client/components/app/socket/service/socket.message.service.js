@@ -101,11 +101,12 @@
      * message -> file_comment event handler.
      * 코멘트가 달린 파일이 공유된 방중에 현재 보고있는 엔티티가 있다면 center만 업데이트한다.
      * right panel update는 file_comment_created 에서.
-     * @param data
+     * @param {object} data
      * @private
      */
     function _onFileComment(data) {
       var room;
+      var map = {};
 
       _.forEach(data.rooms, function(room) {
         if (jndWebSocketCommon.isCurrentEntity(room)) {
@@ -116,7 +117,19 @@
 
       if (room = jndWebSocketCommon.getNotificationRoom(data.rooms)) {
         // badge count를 올리기 위함이요.
-        jndPubSub.updateLeftPanel();
+        if (jndWebSocketCommon.isActionFromMe(data.writer)) {
+          //내 comment 일 경우 해당 파일이 공유된 타 토픽의 unread marker 를 갱신해야 하므로 leftSideMenu 를 호출한다.
+          jndPubSub.updateLeftPanel();
+        } else {
+          _.forEach(data.rooms, function(room) {
+            //server 의 잘못된 데이터로 인해 rooms 배열에 같은 room 이 2개 이상 포함되는 경우가 있으므로, 중복을 제거한다.
+            if (!map[room.id]) {
+              map[room.id] = true;
+              jndWebSocketCommon.increaseBadgeCount(room.id);
+            }
+          });
+        }
+
         data.room = room;
 
         if (_hasMention(data)) {
@@ -164,6 +177,12 @@
         if (memberService.isTopicNotificationOn(room.id)) {
           FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
         }
+        //내가 share 했을 경우 공유한 토픽의 marker 위치를 업데이트 해야하기 때문에 부득이하게 leftSideMenu 를 콜한다.
+        if (jndWebSocketCommon.isActionFromMe(data.writer)) {
+          jndPubSub.updateLeftPanel();
+        } else {
+          jndWebSocketCommon.increaseBadgeCount(room.id);
+        }
       }
     }
 
@@ -177,8 +196,6 @@
       // 현재 토픽이라면 센터를 업데이트하고 아니라면 왼쪽을 업데이트한다
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
-      } else {
-        jndPubSub.updateLeftPanel();
       }
 
       _updateRight(data);
@@ -209,7 +226,8 @@
         jndPubSub.updateCenterPanel();
       }
 
-      // 뱃지를 업데이트하기 위함이요.
+      // 뱃지를 업데이트하기 위함.
+      // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
       jndPubSub.updateLeftPanel();
 
       jndPubSub.pub('topicMessageDelete', data);

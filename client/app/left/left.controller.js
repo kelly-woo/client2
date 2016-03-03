@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
-  analyticsService, tutorialService, currentSessionHelper, fileObjectService, jndWebSocket, jndPubSub, modalHelper,
+  analyticsService, currentSessionHelper, fileObjectService, jndWebSocket, jndPubSub, modalHelper,
   UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q, NotificationManager,
   topicFolder, TopicFolderModel, TopicUpdateLock, JndUtil, EntityMapManager) {
 
@@ -327,51 +327,8 @@ app.controller('leftPanelController1', function(
     $rootScope.toDefault = false;
   }
 
-  /**
-   * @namespace
-   * @property {boolean} topicTutorial - topic 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
-   * @property {boolean} chatTutorial - chat 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
-   * @property {boolean} fileTutorial - file 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
-   * @property {number} count - 봐야 할 tutorial 의 갯수
-   *
-   * TODO: 튜토리얼 관련 서비스를 만드시오! 거기서 관리하시오! $rootScope에서 나가시오! left controller 에서도 나가시오!
-   */
-  $rootScope.tutorialStatus = {
-    topicTutorial   : true,
-    chatTutorial    : true,
-    fileTutorial    : true,
-    count           : 3
-  };
-
-  /**
-   * Tutorial 상태를 초기화 한다.
-   */
-  $scope.$on('initTutorialStatus', function() {
-    $scope.initTutorialStatus();
-  });
-
-  /**
-   * 각 tutorial 의 반짝이는 동그라미가 클릭되었을 경우 반응한다.
-   */
-  $scope.$on('onTutorialPulseClick', function(event, $event) {
-    $scope.onTutorialPulseClick($event);
-  });
-
   $scope.$on('TopicUpdateLock:change', _onTopicUpdateLockChange);
   $scope.$on('updateLeftBadgeCount', onUpdateLeftBadgeCount);
-  /**
-   * Tutorial 상태를 초기화 한다.
-   */
-  $scope.initTutorialStatus = function() {
-    // user hasn't seen tutorial yet.
-    $scope.tutorialStatus.topicTutorial = false;
-    $scope.tutorialStatus.chatTutorial  = false;
-    $scope.tutorialStatus.fileTutorial  = false;
-    $scope.tutorialStatus.count         = 3;
-
-    openTutorialModal('welcomeTutorial');
-  };
-
   // left panel controller 에 들어오면 항상 호출되어야 한다.
   jndPubSub.pub('hideDefaultBackground');
   initLeftList();
@@ -414,8 +371,6 @@ app.controller('leftPanelController1', function(
 
           publicService.setLanguageConfig(response.lang);
 
-          _checkUpdateMessageStatus();
-
           analyticsService.accountIdentifyMixpanel(response);
           analyticsService.accountMixpanelTrack("Sign In");
 
@@ -449,12 +404,7 @@ app.controller('leftPanelController1', function(
 
           leftpanelAPIservice.toSignin();
         })
-    } else {
-      // Still check whether user needs to see tutorial or not.
-      _checkUpdateMessageStatus();
     }
-
-
 
     $scope.totalEntityCount = response.entityCount;
     $scope.totalEntities    = response.entities;
@@ -830,96 +780,6 @@ app.controller('leftPanelController1', function(
       target.addClass('rotate-90');
     }
   };
-
-  /*********************************************************************
-   *
-   *  Tutorial related controller
-   *
-   *********************************************************************/
-  function _checkUpdateMessageStatus() {
-    if(!accountService.hasSeenTutorial()) {
-      //@fixme: remove old tutorial logic
-      //$scope.initTutorialStatus();
-      if (HybridAppHelper.isPcApp()) {
-        jndPubSub.pub('initTutorialStatus');
-      }
-    }
-    else if(accountService.hasChangeLog()) {
-      _openChangeLogPopUp();
-    }
-  }
-
-  function _openChangeLogPopUp() {
-    var modal = tutorialService.openRightChangeLogModal();
-
-    modal.result.then(function (reason) {
-      _updateChangeLogTime();
-    });
-  }
-  $scope.onTutorialPulseClick = function($event) {
-    var TutorialId = $event.target.id;
-    setTutorialStatus(TutorialId);
-    openTutorialModal(TutorialId);
-  };
-
-  function setTutorialStatus(tutorialId) {
-    switch(tutorialId){
-      case 'topicTutorial':
-        $scope.tutorialStatus.topicTutorial = true;
-        $scope.tutorialStatus.count -= 1;
-
-        $('#topicTutorial').removeClass('pulse');
-        break;
-      case 'chatTutorial' :
-        $scope.tutorialStatus.chatTutorial = true;
-        $scope.tutorialStatus.count -= 1;
-
-        $('#chatTutorial').removeClass('pulse');
-        break;
-      case 'fileTutorial' :
-        $scope.tutorialStatus.fileTutorial = true;
-        $scope.tutorialStatus.count -= 1;
-
-        $('#fileTutorial').removeClass('pulse');
-        break;
-      default :
-
-        $('#topicTutorial').removeClass('pulse');
-        $('#chatTutorial').removeClass('pulse');
-        $('#fileTutorial').removeClass('pulse');
-
-        $scope.tutorialStatus.topicTutorial = true;
-        $scope.tutorialStatus.chatTutorial = true;
-        $scope.tutorialStatus.fileTutorial = true;
-
-        _updateChangeLogTime();
-
-        break;
-    }
-  }
-  function _updateChangeLogTime() {
-    tutorialService.setTutoredAtTime()
-      .success(function(response) {
-
-        //accountService.setAccount(response);
-        accountService.updateAccountTutoredTime(response.tutoredAt);
-      })
-      .error(function(err) {
-
-      })
-      .finally(function() {
-
-      });
-  }
-  function openTutorialModal(tutorialId) {
-    var modal = publicService.openTutorialModal(tutorialId);
-
-    modal.result.then(function (reason) {
-      if (reason === 'skip' || $scope.tutorialStatus.count == 0) {
-        setTutorialStatus();
-      }
-    });
-  }
 
   response && currentTeamAdmin(response);
 

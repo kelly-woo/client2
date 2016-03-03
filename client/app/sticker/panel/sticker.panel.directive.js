@@ -10,7 +10,7 @@
     .module('jandiApp')
     .directive('stickerPanel', stickerPanel);
 
-  function stickerPanel($position, $timeout, jndKeyCode) {
+  function stickerPanel($position, $timeout, jndKeyCode, Tutorial) {
     return {
       restrict: 'E',
       replace: true,
@@ -45,6 +45,8 @@
         _attachDomEvents();
 
         if (_.isString(_dropdownParent)) {
+          // sticker panel의 parent element 변경시 해당 element를 dom에서 찾을수 있도록
+          // 보장하기 위해 $timeout을 수행한다.
           $timeout(_setDropdownParent);
         }
       }
@@ -104,6 +106,10 @@
 
           scope.select();
           _jqStickerPanelBtn.attr('tabIndex', -1);
+
+          if (isOpen && scope.name === 'chat') {
+            Tutorial.hideTooltip('sticker');
+          }
         } else {
           _jqStickerPanel.removeClass('vivid');
           _jqStickerPanel.one('transitionend.stickerPanel', function() {

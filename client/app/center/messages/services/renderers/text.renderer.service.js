@@ -10,6 +10,8 @@
 
   /* @ngInject */
   function TextRenderer($filter, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil, memberService) {
+    var _encodeHTML = $filter('htmlEncode');
+
     var _template;
     var _templateChild;
 
@@ -174,7 +176,17 @@
           };
         }
 
-        linkPreview = _templateLinkPreview({msg: msg});
+        linkPreview = _templateLinkPreview({
+          html: {
+            title: _encodeHTML(msg.message.linkPreview.title),
+            description: _encodeHTML(msg.message.linkPreview.description),
+            domain: _encodeHTML(msg.message.linkPreview.domain),
+            imageUrl: _getSafeUrl(msg.message.linkPreview.imageUrl),
+            linkUrl: _getSafeUrl(msg.message.linkPreview.linkUrl)
+          },
+          msg: msg
+        });
+
         html = _templateAttachment({
           html: {
             content: linkPreview
@@ -241,8 +253,8 @@
         if (hasTitle || hasDescription || hasImage) {
           result = _templateConnectPreview({
             html: {
-              title: markdown(info.title),
-              description: markdown(info.description),
+              title: _encodeHTML(markdown(info.title)),
+              description: _encodeHTML(markdown(info.description)),
               image: _getConnectImage(info.imageUrl)
             },
             hasTitle: hasTitle,
@@ -264,12 +276,23 @@
      */
     function _getConnectImage(imageUrl) {
       var html = '';
+      var url;
 
       if (imageUrl != null) {
-        html = '<a href="' + imageUrl + '" target="_blank">' + imageUrl + '</a>';
+        html = '<a href="' + _getSafeUrl(imageUrl) + '" target="_blank">' + _encodeHTML(imageUrl) + '</a>';
       }
 
       return html;
+    }
+
+    /**
+     * get safe url
+     * @param {string} url
+     * @returns {*}
+     * @private
+     */
+    function _getSafeUrl(url) {
+      return /[\\<>"]/.test(url) ? encodeURIComponent(url) : url;
     }
   }
 })();
