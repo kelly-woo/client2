@@ -5,8 +5,7 @@
   </div>
   <div class="tutorial-welcome">
     <div class="divider"></div>
-    <div class="tutorial-welcome-content">
-      {{stepList[curStep].content}}
+    <div class="tutorial-welcome-content" ng-bind-html="stepList[curStep].content">
     </div>
     <div class="tutorial-welcome-img">
       <img ng-src="{{stepList[curStep].imgUrl}}" />
