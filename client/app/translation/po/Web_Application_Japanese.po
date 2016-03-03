@@ -2942,13 +2942,13 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal1-title"
-msgstr "フォルダで関連トピックを分類してください。"
+msgstr "フォルダで関連トピックを<br>分類してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-content"
 msgstr ""
-"重要なメッセージまたはファイルは星アイコンをクリックし、スター付きすることが"
-"できます。"
+"重要なメッセージまたはファイルは星アイコンをクリックし、<br>スター付きするこ"
+"とができます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal2-title"
@@ -2969,21 +2969,21 @@ msgstr "メンション"
 msgid "@tutorial-modal4-content"
 msgstr ""
 "特定の言葉が含まれたメッセージをすべての会話を対象に検索でき、作成者および会"
-"話トピックに制限し検索できます。"
+"話トピックに制限し<br>検索できます。`"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal4-title"
-msgstr "全てのメッセージを検索してください。"
+msgstr "全てのメッセージを<br>検索してください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-content"
 msgstr ""
-"Jump機能(Cmd+J)でメンバーの名前またはトピック名を検索して、便利に会話間に移動"
-"できます。"
+"Jump機能(Cmd+J)でメンバーの名前またはトピック名を検索して、<br>便利に会話間に"
+"移動できます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal5-title"
-msgstr "Jump機能で速く会話間に移動してください"
+msgstr "Jump機能で速く会話間に<br>移動してください"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tutorial-modal6-content"
