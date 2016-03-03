@@ -3005,7 +3005,8 @@ msgstr "おめでとう！"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations"
-msgstr "おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+msgstr ""
+"おめでとうございます{{username}}さん！<br>チュートリアルを完了しました。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"

@@ -3011,7 +3011,7 @@ msgstr "Awesome!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations"
-msgstr "CONGRATULATIONS {{username}}!"
+msgstr "Congratulations, {{username}}!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"

@@ -3002,8 +3002,8 @@ msgstr "축하합니다!"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
 msgstr ""
-"튜토리얼을 모두 마치셨습니다. 이제 {{teamName}} 팀에서 다른 멤버들과 함께 잔"
-"디를<br>통해 협업하세요."
+"{{username}}님은 잔디의 주요 기능을 확인하셨습니다.<br>이제 {{teamName}} 팀에"
+"서<br>잔디를 통해  협업하세요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
