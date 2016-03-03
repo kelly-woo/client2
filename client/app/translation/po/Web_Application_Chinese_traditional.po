@@ -1539,19 +1539,19 @@ msgstr "離開議題後，先前串聯的整合服務將被刪除。你確定要
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-202"
-msgstr ""
+msgstr "你想串聯哪個平台？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-203"
-msgstr ""
+msgstr "你欲獲得上述選擇的串聯平台中的哪種功能？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-204"
-msgstr ""
+msgstr "(例如：欲在JANDI裡收取特定成員傳送的電郵)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-205"
-msgstr ""
+msgstr "感謝你的反饋"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-206"
@@ -1653,60 +1653,12 @@ msgid "@jnd-connect-227"
 msgstr "更改尚未儲存，你確定要離開嗎？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-228"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-229"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >Github</a></b>是一個線上代碼管"
 "理平台，用於存放使用Git版本控制的軟體代碼和內容專案。<br/><br/>\n"
 "串聯GitHub後，你將會於設定接收的議題內收取所有關於留言、代碼拉取請求和其他動"
 "作的通知。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-230"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-231"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-232"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-233"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-234"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-235"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-236"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-237"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-238"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-239"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
@@ -1717,55 +1669,11 @@ msgstr ""
 "收的議題內。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-240"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-241"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-242"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-243"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-244"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-245"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-246"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-247"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-248"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-249"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
 "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>是一"
 "個問題追蹤管理系統，將問題設定為專案，方便團隊進行管理和追蹤。<br/><br/>\n"
 "串聯JIRA後，你將會於設定接收的議題內收取所有問題的更新通知。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-250"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
@@ -3216,7 +3124,6 @@ msgid "@web-notification-body-message-file-comment-post"
 msgstr " 檔案留下新留言"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr "有從"
 

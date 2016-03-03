@@ -1715,112 +1715,12 @@ msgid "@jnd-connect-227"
 msgstr "설정사항을 저장하지 않고 나가시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-228"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-229"
-msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
 "롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
 "GitHub을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull Request"
 "와 같은 다양한 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-230"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-231"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-232"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-233"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-234"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-235"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-236"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-237"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-238"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-239"
-msgstr ""
-"<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨트"
-"롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/>\n"
-"Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
-"Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
@@ -1832,116 +1732,7 @@ msgstr ""
 "팀 내에서 메시지로 받을 수 있습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-240"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-241"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-242"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-243"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-244"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-245"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-246"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-247"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-248"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-249"
-msgstr ""
-"<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></b>"
-"는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다.<br /"
-"><br />\n"
-"Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 잔"
-"디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
-msgstr ""
-"<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>는 "
-"Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
-"JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황을 "
-"잔디 팀 내에서 메시지로 받을 수 있습니다."
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@jnd-connect-250"
 msgstr ""
 "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>는 "
 "Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
@@ -3510,6 +3301,202 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#, fuzzy
+#~ msgid "@jnd-connect-228"
+#~ msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-229"
+#~ msgstr "웹훅을 지원하는 여러 서비스의 알림을 잔디에서 확인할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-230"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-231"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-232"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-233"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-234"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-235"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-236"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-237"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-238"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-239"
+#~ msgstr ""
+#~ "<b><a href=https://github.com  target=_blank >Github</a></b>은 Git 버전 컨"
+#~ "트롤 시스템에 기반한 오픈소스 프로젝트를 위한 소셜 저장소입니다.<br/><br/"
+#~ ">\n"
+#~ "Github을 잔디와 연동하게 되면, Github 브랜치의 Commit, Comments, Pull "
+#~ "Request 등의 변동 사항을 팀 내에서 메시지로 수신할 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-240"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-241"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-242"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-243"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-244"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-245"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-246"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-247"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-248"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-249"
+#~ msgstr ""
+#~ "<b><a href=https://calendar.google.com  target=_blank>Google 캘린더</a></"
+#~ "b>는 일정을 관리하고 공유할 뿐 아니라 알림도 받을 수 있는 서비스입니다."
+#~ "<br /><br />\n"
+#~ "Google Calendar를 잔디와 연동하게 되면, 일정에 대한 알림 또는 일정 요약을 "
+#~ "잔디 팀 내에서 메시지로 받을 수 있습니다."
+
+#, fuzzy
+#~ msgid "@jnd-connect-250"
+#~ msgstr ""
+#~ "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>"
+#~ "는 Atlassian사의 프로젝트 매니지먼트 툴입니다.<br /><br />\n"
+#~ "JIRA를 잔디와 연동하게 되면, 각 JIRA 이슈들의 상태 변경이나 업데이트 현황"
+#~ "을 잔디 팀 내에서 메시지로 받을 수 있습니다."
 
 #~ msgid "@file-upload-fail"
 #~ msgstr "다시 시도해주세요."

@@ -1720,14 +1720,6 @@ msgid "@jnd-connect-227"
 msgstr "本当に変更事項を保存せずにキャンセルしますか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-228"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-229"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-23"
 msgstr ""
 "<b><a href=https://github.com  target=_blank >GitHub</a></b>はGitバージョン管"
@@ -1735,46 +1727,6 @@ msgstr ""
 "す。<br/><br/>\n"
 "GitHubをJANDIと連動すると、GitHubブランチのCommit、Comments、Pull Requestなど"
 "の更新事項をJANDIチーム内でメッセージで送信することができます。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-230"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-231"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-232"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-233"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-234"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-235"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-236"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-237"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-238"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-239"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-24"
@@ -1786,56 +1738,12 @@ msgstr ""
 "の更新事項をJANDIチーム内でメッセージで送信することができます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-240"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-241"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-242"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-243"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-244"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-245"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-246"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-247"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-248"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-249"
-msgstr ""
-
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-25"
 msgstr ""
 "<b><a href=https://atlassian.com/software/jira target=_blank>JIRA</a></b>は"
 "Atlassian社のプロジェクト管理ツールです。<br/><br/>\n"
 " JIRAをJANDIと連動すると、各JIRA課題の状態更新やアップデート状況をJANDIチーム"
 "内でメッセージで受信できます。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jnd-connect-250"
-msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-26"
@@ -3335,9 +3243,8 @@ msgid "@web-notification-body-message-file-comment-post"
 msgstr "にコメントしました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-message-file-comment-pre"
-msgstr " "
+msgstr " from"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
@@ -3377,9 +3284,8 @@ msgid "@web-notification-body-topic-post"
 msgstr "に投稿しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-topic-pre"
-msgstr " "
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
