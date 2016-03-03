@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
-                               fileUploadOptions, ImagesHelper, MentionExtractor, jndPubSub) {
+                               fileUploadOptions, ImagesHelper, Mentionahead, jndPubSub) {
     _init();
 
     /**
@@ -55,7 +55,7 @@
      * @private
      */
     function _onSelectedEntityIdChange(entityId) {
-      var mentionList = MentionExtractor.getMentionListForUploading(entityId);
+      var mentionList = Mentionahead.getMentionListForUploading(entityId);
 
       jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
     }

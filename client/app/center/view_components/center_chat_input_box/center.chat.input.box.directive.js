@@ -6,7 +6,7 @@
     .directive('centerChatInputBox', centerChatInputBox);
 
   function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
-                              jndPubSub, currentSessionHelper, entityAPIservice, MentionExtractor) {
+                              jndPubSub, currentSessionHelper, entityAPIservice, Mentionahead) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -112,7 +112,7 @@
        * @private
        */
       function _setMentionList() {
-        var mentionMembers = MentionExtractor.getMentionListForTopic(entityId);
+        var mentionMembers = Mentionahead.getMentionListForTopic(entityId);
 
         jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
       }
@@ -167,7 +167,7 @@
        * mention icon click event handler
        */
       function onMentionIconClick() {
-        MentionExtractor.show('message');
+        Mentionahead.show('message');
       }
 
       /**

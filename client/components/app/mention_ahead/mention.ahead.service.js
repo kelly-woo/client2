@@ -6,11 +6,11 @@
 
   angular
     .module('app.mention')
-    .service('MentionExtractor', MentionExtractor);
+    .service('Mentionahead', Mentionahead);
 
   /* @ngInject */
-  function MentionExtractor($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
-                            jndPubSub) {
+  function Mentionahead($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
+                        jndPubSub) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
