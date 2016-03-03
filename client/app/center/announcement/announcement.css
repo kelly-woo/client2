@@ -269,7 +269,9 @@
   padding-right: 80px;
   padding-bottom: 0;
 }
-
+.minimized .announcement-body-wrapper:lang(ja) {
+  padding-right: 100px;
+}
 .announcement-container.ng-leave {
   display: none;
 }
