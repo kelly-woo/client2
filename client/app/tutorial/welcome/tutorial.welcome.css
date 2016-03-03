@@ -64,7 +64,9 @@
   font-weight: 700;
   font-size: 15px;
 }
-.tutorial-welcome-footer i{
+.tutorial-welcome-footer .icon-angle-double-right{
   margin-left: -5px;
+}
+.tutorial-welcome-footer .icon-angle-double-left{
   margin-right: -5px;
 }
