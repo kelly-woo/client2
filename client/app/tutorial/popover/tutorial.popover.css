@@ -112,6 +112,7 @@
   color: #777777;
   font-size: 14px;
   margin: 0 auto 10px auto;
+  text-align: left;
 }
 .tutorial-popover-progress-container {
   position:relative;
