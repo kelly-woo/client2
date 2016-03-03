@@ -5,12 +5,12 @@
   'use strict';
 
   xdescribe('mention.ahead.service', function() {
-    var MentionExtractor;
+    var Mentionahead;
 
 
     beforeEach(module('jandiApp'));
-    beforeEach(inject(function(_MentionExtractor_) {
-      MentionExtractor = _MentionExtractor_;
+    beforeEach(inject(function(_Mentionahead_) {
+      Mentionahead = _Mentionaheadr_;
     }));
 
     describe('mention 입력 판별자 확인', function() {
@@ -20,7 +20,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@',
           sufStr: '',
@@ -38,7 +38,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark',
           sufStr: '',
@@ -57,7 +57,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@850912',
           sufStr: '',
@@ -75,7 +75,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@`!@#$%^&*()_+~-=[];\',.{}|:"<>?',
           sufStr: '',
@@ -93,7 +93,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark @park',
           sufStr: '',
@@ -112,7 +112,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark park',
           sufStr: '',
@@ -130,7 +130,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@박현진',
           sufStr: '',
@@ -148,7 +148,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@박 현진',
           sufStr: '',
@@ -166,7 +166,7 @@
         var mention;
         var mentionExpect;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
         mentionExpect = {
           preStr: '@mark(박 현진)',
           sufStr: '',
@@ -183,7 +183,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -194,7 +194,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -204,7 +204,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -214,7 +214,7 @@
         var begin = fullText.length;
         var mention;
 
-        mention = MentionExtractor.getMentionOnCursor({}, fullText, begin);
+        mention = Mentionahead.getMentionOnCursor({}, fullText, begin);
 
         expect(mention).toEqual(undefined);
       });
@@ -233,7 +233,7 @@
         var mentions;
         var mentionsExpect;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap, 1);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap, 1);
         mentionsExpect = {
           msg: '@park',
           mentions: [
@@ -250,7 +250,7 @@
         var mentions;
         var mentionsExpect;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap, entityId);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap, entityId);
         mentionsExpect = {
           msg: '@all',
           mentions: [
@@ -266,7 +266,7 @@
         var mentions;
         var mentionsExpect;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap);
         mentionsExpect = {
           msg:  'qweqwe @park qweqwe',
           mentions: [
@@ -282,7 +282,7 @@
         var mentions;
         var mentionsExpect;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap);
         mentionsExpect = {
           msg: '@park',
           mentions: [{offset: 0, length: 5, id: 1, type: 'member'}]
@@ -296,7 +296,7 @@
         var mentions;
         var mentionsExpect;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap);
         mentionsExpect = {
           msg: 'qweqwe @park \r\n@hyun qweqwe @jin qweqwe',
           mentions: [
@@ -313,7 +313,7 @@
         var fullText = '[@kram]';
         var mentions;
 
-        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap);
+        mentions = Mentionahead.getMentionAllForText(fullText, mentionsMap);
 
         expect(mentions).toEqual(undefined);
       });

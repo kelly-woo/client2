@@ -9,10 +9,8 @@
     .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper,
+  function TeamMemberListCtrl($scope, $modalInstance, $state, $filter, $timeout, currentSessionHelper,
                               memberService, entityAPIservice, modalHelper, jndPubSub) {
-    var DISABLED_MEMBER_STATUS = 'disabled';
-
     _init();
 
     function _init() {
@@ -57,14 +55,11 @@
       var matches;
 
       filterText = filterText.toLowerCase();
-      matches = _.chain(list)
-        .filter(function(item) {
-          return item.name.toLowerCase().indexOf(filterText) > -1
-        })
-        .sortBy(function(item) {
-          return [!item.isStarred, !memberService.isJandiBot(item.id), item.name.toLowerCase()];
-        })
-        .value();
+
+      matches = $filter('matchItems')(list, 'name', filterText);
+      matches = $filter('orderPrefixFirstBy')(matches, 'name', filterText, function (item, orderBy) {
+        return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(orderBy);
+      });
 
       if ($scope.enabledMemberList === list) {
         $scope.enableMembersLength = matches.length;

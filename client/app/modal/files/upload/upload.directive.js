@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('fileUploadModal', fileUploadModal);
 
-  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, MentionExtractor,
+  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, Mentionahead,
                            analyticsService, jndPubSub) {
     return {
       restrict: 'A',
@@ -260,9 +260,9 @@
        * @private
        */
       function _setMentions(fileInfo) {
-        var mentionList = MentionExtractor.getMentionListForTopic($state.params.entityId);
-        var mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-        var mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share);
+        var mentionList = Mentionahead.getMentionListForTopic($state.params.entityId);
+        var mentionMap = Mentionahead.getSingleMentionItems(mentionList);
+        var mention = Mentionahead.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share);
 
         if (mention) {
           fileInfo.comment = mention.msg;

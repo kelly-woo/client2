@@ -296,3 +296,38 @@ app.filter('ctrlKey', ['Browser',
     };
   }
 ]);
+
+app.filter('matchItems', function() {
+  /**
+   * 필터된 목록을 전달함.
+   * @param {array} list
+   * @param {string} property
+   * @param {string} text
+   * @param {function} [callback] - filter시 사용자 임의 로직을 수행함
+   */
+  return function(list, property, text, callback) {
+    return _.filter(list, function(item) {
+      var value = (item[property] || '').toLowerCase();
+
+      return (!callback || callback(item)) && value.indexOf(text) > -1;
+    });
+  };
+});
+
+app.filter('orderPrefixFirstBy', function() {
+  /**
+   * 접두사가 일치하는 아이템을 우선으로 목록을 정렬함.
+   * @param {array} list
+   * @param {string} property
+   * @param {string} text
+   * @param {function} [callback] - sortBy시 사용자 임의 로직을 수행함
+   */
+  return function(list, property, text, callback) {
+    return _.sortBy(list, function(item) {
+      var value = (item[property] || '').toLowerCase();
+      var isPrefixMatch = value.indexOf(text) === 0 ? -1 : 1;
+
+      return callback ? callback(item, [isPrefixMatch, value]) : [isPrefixMatch, value];
+    });
+  };
+});
