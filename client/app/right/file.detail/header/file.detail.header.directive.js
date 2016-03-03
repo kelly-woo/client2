@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function fileDetailHeader($state, $filter, modalHelper, fileAPIservice, analyticsService, jndPubSub, Dialog,
-                            AnalyticsHelper, RouterHelper) {
+                            AnalyticsHelper, RightPanel) {
     return {
       restrict: 'E',
       replace: true,
@@ -163,7 +163,7 @@
        * Redirect user back to file list.
        */
       function backToFileList() {
-        $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
+        $state.go('messages.detail.' + (RightPanel.getTail() || 'files'));
       }
 
       /**

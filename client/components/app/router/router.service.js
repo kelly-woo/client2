@@ -7,16 +7,16 @@
 
   /* @ngInject */
   function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
-                  NetInterceptor, storageAPIservice, jndPubSub, JndConnect) {
-
+                  NetInterceptor, storageAPIservice, jndPubSub, RightPanel) {
     this.onStateChangeStart = onStateChangeStart;
-    this.onRouteChangeError = onRouteChangeError;
+    this.onStateChangeSuccess = onStateChangeSuccess;
     this.onStateNotFound = onStateNotFound;
-    this.onLocationChangeSuccess = onLocationChangeSuccess;
 
-    this.getActiveRightTabName = getActiveRightTabName;
+    this.onRouteChangeError = onRouteChangeError;
 
-    function onRouteChangeError(event, current, previous, rejection) {
+    this.setRightPanelStatus = setRightPanelStatus;
+
+    function onRouteChangeError() {
       $state.go('messages.home');
     }
 
@@ -26,10 +26,6 @@
       console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
       console.info("   options", unfoundState.options); // {inherit:false} + default options
       console.info("===========================================================================");
-    }
-
-    function onLocationChangeSuccess(event) {
-      entityAPIservice.setLastEntityState();
     }
 
     /**
@@ -158,7 +154,7 @@
           case 'messages.detail.stars':
           case 'messages.detail.mentions':
             jndPubSub.pub('rightPanelStatusChange', {
-              type: getActiveRightTabName(toState),
+              type: RightPanel.getStateName(toState),
               toUrl: toState.url,
               toTitle: toState.title,
               fromUrl: fromState.url,
@@ -177,6 +173,27 @@
           _setCurrentEntityWithTypeAndId(toParams.entityType, toParams.entityId);
         }
       }
+    }
+
+    /**
+     * ui-router의 $stateChangeSuccess 이벤트 발생시 핸들러
+     */
+    function onStateChangeSuccess() {
+      setRightPanelStatus();
+
+      entityAPIservice.setLastEntityState();
+    }
+
+    /**
+     * set right panel status
+     */
+    function setRightPanelStatus() {
+      // 오른쪽 패널이 열려야 하는지 여부
+      $rootScope.isOpenRightPanel = RightPanel.isOpen();
+      jndPubSub.pub('Router:openRightPanel', $rootScope.isOpenRightPanel);
+
+      // 오른쪽 패널의 파일 상세가 열려야 하는지 여부
+      $rootScope.isOpenFileDetail = RightPanel.isOpenFileDetail();
     }
 
     /**
@@ -211,16 +228,6 @@
      */
     function _setCurrentEntityWithTypeAndId(entityType, entityId) {
       entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
-    }
-
-    /**
-     * state로 active 되야할 right panel의 tab name을 전달함.
-     * @param {object} currentState
-     * @returns {Array|{index: number, input: string}|*}
-     */
-    function getActiveRightTabName(currentState) {
-      var match = /messages.detail.([a-z]+)/i.exec(currentState.name);
-      return match && match[1];
     }
   }
 })();
