@@ -253,8 +253,8 @@
         if (hasTitle || hasDescription || hasImage) {
           result = _templateConnectPreview({
             html: {
-              title: _encodeHTML(markdown(info.title)),
-              description: _encodeHTML(markdown(info.description)),
+              title: markdown(_encodeHTML(info.title)),
+              description: markdown(_encodeHTML(info.description)),
               image: _getConnectImage(info.imageUrl)
             },
             hasTitle: hasTitle,
