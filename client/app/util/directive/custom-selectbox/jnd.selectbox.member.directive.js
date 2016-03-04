@@ -285,7 +285,7 @@
               }
             });
           }
-          scope.searchList = result;
+          scope.searchList = $filter('orderByQueryIndex')(result, 'name', keyword);
         }
       }
 
