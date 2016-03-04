@@ -264,11 +264,11 @@
 
       filterText = filterText.toLowerCase();
 
-      members = $filter('matchItems')(members, 'name', filterText, function(item) {
+      members = $filter('getMatchedList')(members, 'name', filterText, function(item) {
         return !memberService.isDeactivatedMember(item) && memberService.getMemberId() !== item.id
       });
 
-      return $filter('orderPrefixFirstBy')(members, 'name', filterText);
+      return $filter('orderByQueryIndex')(members, 'name', filterText);
     }
 
     /**
@@ -304,7 +304,7 @@
         }
       });
 
-      return $filter('orderPrefixFirstBy')(rooms, 'name', value.toLowerCase());
+      return $filter('orderByQueryIndex')(rooms, 'name', value.toLowerCase());
     }
 
     /**
@@ -327,7 +327,7 @@
         }
       });
 
-      return $filter('orderPrefixFirstBy')(channels, 'name', value.toLowerCase());
+      return $filter('orderByQueryIndex')(channels, 'name', value.toLowerCase());
     }
 
     /**

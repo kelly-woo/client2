@@ -22,8 +22,8 @@
         mentionahead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
           'jandi-typeahead="mention.name for mention in mentionList' +
-                           ' | matchItems: \'extSearchName\':mention.match[2]' +
-                           ' | orderPrefixFirstBy: \'extSearchName\':mention.match[2]:mentionOrderBy" ' +
+                           ' | getMatchedList: \'extSearchName\':mention.match[2]' +
+                           ' | orderByQueryIndex: \'extSearchName\':mention.match[2]:mentionOrderBy" ' +
           'jandi-typeahead-prevent-default-placement="true" ' +
           'jandi-typeahead-on-select="onSelect($item)" ' +
           'jandi-typeahead-on-matches="onMatches($matches)" ' +
