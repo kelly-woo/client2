@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxFile', jndSelectboxFile);
 
-  function jndSelectboxFile(JndUtil) {
+  function jndSelectboxFile($filter, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -197,7 +197,7 @@
               }
             });
           }
-          scope.searchList = result;
+          scope.searchList = $filter('orderByQueryIndex')(result, 'viewValue', keyword);
         }
       }
 

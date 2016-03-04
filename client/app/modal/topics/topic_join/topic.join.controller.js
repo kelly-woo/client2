@@ -49,8 +49,8 @@
 
       filterText = filterText.toLowerCase();
 
-      matches = $filter('matchItems')(list, 'name', filterText);
-      matches = $filter('orderPrefixFirstBy')(matches, 'name', filterText);
+      matches = $filter('getMatchedList')(list, 'name', filterText);
+      matches = $filter('orderByQueryIndex')(matches, 'name', filterText);
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;

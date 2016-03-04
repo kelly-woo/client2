@@ -108,8 +108,8 @@
     function getMatches(list, filterText) {
       filterText = filterText.toLowerCase();
 
-      list = $filter('matchItems')(list, 'name', filterText);
-      return $scope.selecingMembers = $filter('orderPrefixFirstBy')(list, 'name', filterText, function(item, desc) {
+      list = $filter('getMatchedList')(list, 'name', filterText);
+      return $scope.selecingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
     }

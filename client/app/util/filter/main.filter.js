@@ -297,35 +297,35 @@ app.filter('ctrlKey', ['Browser',
   }
 ]);
 
-app.filter('matchItems', function() {
+app.filter('getMatchedList', function() {
   /**
    * 필터된 목록을 전달함.
    * @param {array} list
    * @param {string} property
-   * @param {string} text
+   * @param {string} query
    * @param {function} [callback] - filter시 사용자 임의 로직을 수행함
    */
-  return function(list, property, text, callback) {
+  return function(list, property, query, callback) {
     return _.filter(list, function(item) {
       var value = (item[property] || '').toLowerCase();
 
-      return (!callback || callback(item)) && value.indexOf(text) > -1;
+      return (!callback || callback(item)) && value.indexOf(query) > -1;
     });
   };
 });
 
-app.filter('orderPrefixFirstBy', function() {
+app.filter('orderByQueryIndex', function() {
   /**
    * 접두사가 일치하는 아이템을 우선으로 목록을 정렬함.
    * @param {array} list
    * @param {string} property
-   * @param {string} text
+   * @param {string} query
    * @param {function} [callback] - sortBy시 사용자 임의 로직을 수행함
    */
-  return function(list, property, text, callback) {
+  return function(list, property, query, callback) {
     return _.sortBy(list, function(item) {
       var value = (item[property] || '').toLowerCase();
-      var isPrefixMatch = value.indexOf(text) === 0 ? -1 : 1;
+      var isPrefixMatch = value.indexOf(query) === 0 ? -1 : 1;
 
       return callback ? callback(item, [isPrefixMatch, value]) : [isPrefixMatch, value];
     });

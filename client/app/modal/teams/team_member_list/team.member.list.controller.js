@@ -56,8 +56,8 @@
 
       filterText = filterText.toLowerCase();
 
-      matches = $filter('matchItems')(list, 'name', filterText);
-      matches = $filter('orderPrefixFirstBy')(matches, 'name', filterText, function (item, orderBy) {
+      matches = $filter('getMatchedList')(list, 'name', filterText);
+      matches = $filter('orderByQueryIndex')(matches, 'name', filterText, function (item, orderBy) {
         return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(orderBy);
       });
 
