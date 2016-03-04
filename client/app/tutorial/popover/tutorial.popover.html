@@ -1,0 +1,36 @@
+<div class="tutorial-popover opac-zero fade {{curStep.className.wrap}}"
+     ng-class="{
+      'in': isLoaded,
+      'out': !isLoaded
+    }">
+  <div class="tutorial-popover-arrow {{curStep.className.arrow}}"></div>
+
+  <button type="button" class="close" ng-click="close();"><i class="icon-delete"></i></button>
+
+  <div ng-show="isVideo" class="tutorial-popover-video-container">
+    <video src="{{curStep.src}}" autoplay loop muted preload="auto">
+    </video>
+  </div>
+
+  <div ng-show="!isVideo" class="tutorial-popover-image-container">
+    <img ng-src="{{curStep.src}}">
+  </div>
+
+  <div class="tutorial-popover-text-container">
+    <div class="tutorial-popover-title" ng-bind-html="curStep.title">
+    </div>
+
+    <div class="tutorial-popover-content" ng-bind-html="curStep.content">
+    </div>
+  </div>
+  <div class="tutorial-popover-progress-container">
+    <progressbar class="progress-striped active tutorial-popover-progress-bar" max="100" value="progress"></progressbar>
+    <div class="tutorial-popover-percent">{{progress}}%</div>
+  </div>
+  <div class="tutorial-popover-footer">
+    <div class="btn btn-ok" ng-click="next();">
+      <span ng-if="curStepIdx < stepList.length -1" translate>@tutorial-done</span>
+      <span ng-if="curStepIdx === stepList.length -1" translate>@common-start-using-jandi</span>
+    </div>
+  </div>
+</div>

@@ -70,10 +70,21 @@
           width: '1px',
           height: '1px',
           visibility: 'hidden'
-        });
+        }).on('load', _onComplete)
+          .on('error', _onComplete);
+
         _imgMap[url] = true;
         _jqImgContainer.append(img);
       }
+    }
+
+    /**
+     * load 완료 시 콜백
+     * @param {object} domEvemt
+     * @private
+     */
+    function _onComplete(domEvemt) {
+      //$(domEvemt.target).css('display', 'none');
     }
 
     /**

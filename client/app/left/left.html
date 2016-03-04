@@ -26,12 +26,8 @@
   <aside class="lpanel non-selectable opac-zero"
          ng-class="{'opac-in': isReady,
                     'scroll_blue': !browser.platform.isMac}">
-    <tutorial-popover-folder></tutorial-popover-folder>
     <current-user></current-user>
-    
-    <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
-         data-ng-if="!tutorialStatus.topicTutorial"></div>
-         
+
     <!-- LIST CONTAINER -->
     <div class="lpanel-list" id="lpanel-list-container">
 
@@ -58,8 +54,6 @@
     <div loading-center="isCenterLoading"></div>
     <div ui-view="centerpanel"></div>
   </div>
-  <!--<div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->
-  <tutorial-popover-connect></tutorial-popover-connect>
 </div>
 
 
