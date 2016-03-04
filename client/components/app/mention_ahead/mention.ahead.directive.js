@@ -23,7 +23,7 @@
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
           'jandi-typeahead="mention.name for mention in mentionList' +
                            ' | matchItems: \'extSearchName\':mention.match[2]' +
-                           ' | orderPrefixFirstBy: \'extSearchName\':mention.match[2]:customOrderBy" ' +
+                           ' | orderPrefixFirstBy: \'extSearchName\':mention.match[2]:mentionOrderBy" ' +
           'jandi-typeahead-prevent-default-placement="true" ' +
           'jandi-typeahead-on-select="onSelect($item)" ' +
           'jandi-typeahead-on-matches="onMatches($matches)" ' +
@@ -45,7 +45,7 @@
             scope.eventCatcher = el;
             scope.type = mentionaheadType;
 
-            scope.customOrderBy = customOrderBy;
+            scope.mentionOrderBy = mentionOrderBy;
 
             jqMentionahead = mentionahead(scope, function (jqMentionahead) {
               el.parent().append(jqMentionahead);
@@ -125,7 +125,13 @@
             return jqMentionahead.attr('aria-expanded') === 'true'
           }
 
-          function customOrderBy(item, desc) {
+          /**
+           * mention order by
+           * @param {object} item
+           * @param {array} desc
+           * @returns {Array.<*>}
+           */
+          function mentionOrderBy(item, desc) {
             // mention all이 첫번째로 그리고 jandibot이 두번째로 오도록 한다.
             return [!item.extIsMentionAll, !item.extIsJandiBot].concat(desc);
           }
