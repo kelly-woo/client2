@@ -31,13 +31,13 @@
     $scope.onEntityTitleClicked = onEntityTitleClicked;
 
     $scope.openInviteModal = modalHelper.openTopicInviteModal;
-    $scope.openRenameModal = modalHelper.openTopicRenameModal;
     $scope.inviteUserToChannel = modalHelper.openTopicInviteFromDmModal;
 
     $scope.onLeaveClicked = leaveCurrentEntity;
     $scope.onDeleteClicked = deleteCurrentEntity;
     $scope.onCurrentChatLeave = leaveCurrentChat;
 
+    $scope.onUpdateTopicInfoClick = onUpdateTopicInfoClick;
     $scope.onFileListClick = onFileListClick;
     $scope.kickOut = kickOut;
     $scope.openMemberModal =  openMemberModal;
@@ -149,9 +149,33 @@
       Dialog.confirm({
         body: $filter('translate')('@confirm-kickout'),
         onClose: function(result) {
+          var isTopicOwner = entityAPIservice.isOwner(_currentEntity, userId);
+
           if (result === 'okay') {
-            entityHeader.kickOut(_entityId ,userId)
-              .error(_onKickOutFailed);
+            if (isTopicOwner) {
+              Dialog.confirm({
+                title: $filter('translate')('@topic-admin-transfer-kickout-confirm-1'),
+                body: $filter('translate')('@topic-admin-transfer-kickout-confirm-2'),
+                onClose: function(result) {
+                  var topicRenameModal;
+
+                  if (result === 'okay') {
+                    topicRenameModal = modalHelper.openTopicRenameModal($scope);
+
+                    topicRenameModal.result.finally(function() {
+                      entityHeader.kickOut(_entityId ,userId)
+                        .error(_onKickOutFailed);
+                    });
+                  } else {
+                    entityHeader.kickOut(_entityId ,userId)
+                      .error(_onKickOutFailed);
+                  }
+                }
+              });
+            } else {
+              entityHeader.kickOut(_entityId ,userId)
+                .error(_onKickOutFailed);
+            }
           }
         }
       });
@@ -234,18 +258,26 @@
     }
 
     /**
-     * 현재 entity(topic)을 떠나는 api를 호출한다.
+     * entity 떠날때 관리자라면 관리자 이양 confrim 출력함.
      * @private
      */
     function _leaveCurrentEntity() {
       var isTopicOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
 
       if (isTopicOwner) {
+        // 토픽 관리자가 토픽을 스스로 나가게 된다면 토픽 관리자를 이양하라고 가이드 하는 confirm창을 띄우게된다.
+
         Dialog.confirm({
           title: '@topic-admin-transfer-adminleave-confirm',
           onClose: function(result) {
+            var topicRenameModal;
+
             if (result === 'okay') {
-              $scope.openRenameModal($scope);
+              topicRenameModal = modalHelper.openTopicRenameModal($scope);
+
+              topicRenameModal.result.finally(function() {
+                _requestLeaveEntity();
+              });
             } else {
               _requestLeaveEntity();
             }
@@ -256,6 +288,10 @@
       }
     }
 
+    /**
+     * request leave entity
+     * @private
+     */
     function _requestLeaveEntity() {
       entityHeader.leaveEntity(_entityType, _entityId)
         .success(function(response) {
@@ -284,6 +320,15 @@
           }
           alert(error.msg);
         });
+    }
+
+    /**
+     * update topic info click
+     */
+    function onUpdateTopicInfoClick() {
+      modalHelper.openTopicRenameModal($scope, {
+        enableTransferConfirm: true
+      });
     }
 
     /**

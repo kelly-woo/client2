@@ -240,14 +240,14 @@
         size: 'lg',
         autofocus: '#topic-rename-name',
         resolve: {
-          data: function() {
+          options: function() {
             // 토픽으로 초대 가능한 member의 수
             // 현재 channel의 유저가 가진 team의 갯수
             return data;
           }
         }
       };
-      _modalOpener(modalOption);
+      return _modalOpener(modalOption);
     }
 
     /**

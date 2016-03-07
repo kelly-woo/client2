@@ -11,7 +11,7 @@
   /* @ngInject */
   function TopicRenameCtrl($scope, $q, $filter, entityheaderAPIservice, analyticsService, AnalyticsHelper, modalHelper,
                            currentSessionHelper, jndPubSub, Dialog, entityAPIservice, JndSelectBoxMember,
-                           memberService) {
+                           memberService, options) {
     var duplicate_name_error = 40008;
 
     var _translate = $filter('translate');
@@ -46,8 +46,6 @@
         isAutoJoin: !!_currentEntity.autoJoin
       };
       $scope.originForm = _.extend({}, $scope.form);
-
-
     }
 
     /**
@@ -67,7 +65,6 @@
       var deferred;
       var promise;
       var data;
-      var user;
 
       if (!form.$invalid) {
         deferred = $q.defer();
@@ -76,21 +73,16 @@
         data = _createRenameData();
 
         if (data.adminId != null) {
-          user = entityAPIservice.getEntityById('users', data.adminId);
-          Dialog.confirm({
-            title: _translate('@topic-admin-transfer-confirm'),
-            body: user && user.name,
-            onClose: function(result) {
-              if (result === 'okay') {
-                jndPubSub.showLoading();
-                _requestEntityAdmin(deferred, data);
+          if (options && options.enableTransferConfirm) {
+            _showTransferConfirm(deferred, data);
+          } else {
+            jndPubSub.showLoading();
 
-                if (_hasChangeTopicInfo(data)) {
-                  _requestEntityInfo(deferred, data);
-                }
-              }
+            _requestEntityAdmin(deferred, data);
+            if (_hasChangeTopicInfo(data)) {
+              _requestEntityInfo(deferred, data);
             }
-          });
+          }
         } else if (_hasChangeTopicInfo(data)) {
           jndPubSub.showLoading();
           _requestEntityInfo(deferred, data);
@@ -102,6 +94,25 @@
           jndPubSub.hideLoading();
         });
       }
+    }
+
+    function _showTransferConfirm(deferred, data) {
+      var user = entityAPIservice.getEntityById('users', data.adminId);
+
+      Dialog.confirm({
+        title: _translate('@topic-admin-transfer-confirm'),
+        body: user && user.name,
+        onClose: function(result) {
+          if (result === 'okay') {
+            jndPubSub.showLoading();
+            _requestEntityAdmin(deferred, data);
+
+            if (_hasChangeTopicInfo(data)) {
+              _requestEntityInfo(deferred, data);
+            }
+          }
+        }
+      });
     }
 
     function _hasChangeTopicInfo(data) {
