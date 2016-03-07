@@ -111,11 +111,11 @@
 
     /**
      * 'topic_joined' EVENT HANDLER
-     * @param {object} data - socket event parameter
+     * @param {object} socketEvent - socket event object
      * @private
      */
-    function _onTopicJoined(data) {
-      _updateLeftPanel(data);
+    function _onTopicJoined(socketEvent) {
+      jndWebSocketCommon.addUser(socketEvent);
     }
 
     /**
