@@ -6,11 +6,11 @@
 
   angular
     .module('app.mention')
-    .service('MentionExtractor', MentionExtractor);
+    .service('Mentionahead', Mentionahead);
 
   /* @ngInject */
-  function MentionExtractor($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
-                            jndPubSub) {
+  function Mentionahead($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
+                        jndPubSub) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
@@ -177,10 +177,6 @@
     function getMentionListForTopic(entityId) {
       var mentionList = _getMentionList(entityId);
 
-      mentionList = _.sortBy(mentionList, function (item) {
-        return item.name.toLowerCase();
-      });
-
       _addJandiBot(mentionList);
 
       mentionList.unshift({
@@ -191,6 +187,7 @@
         // mention search text
         extSearchName: 'all',
         extProfileImage: configuration.assets_url + 'assets/images/mention_profile_all.png',
+        extIsMentionAll: true,
         id: entityId,
         type: 'room'
       });
@@ -215,7 +212,7 @@
           mentionList = _getMentionList(sharedEntity, mentionList);
         });
 
-        mentionList = _getUniqNSortMentionList(mentionList);
+        mentionList = _getUniqList(mentionList);
 
         _addJandiBot(mentionList);
       }
@@ -232,7 +229,7 @@
     function getMentionListForUploading(entityId) {
       var mentionList = _getMentionList(entityId);
 
-      mentionList = _getUniqNSortMentionList(mentionList);
+      mentionList = _getUniqList(mentionList);
 
       _addJandiBot(mentionList);
 
@@ -271,15 +268,13 @@
     }
 
     /**
-     * uniq, sort 처리된 mention list 전달
+     * uniq 처리된 mention list 전달
      * @param {array} mentionList
      * @returns {*}
      * @private
      */
-    function _getUniqNSortMentionList(mentionList) {
-      return _.chain(mentionList).uniq('id').sortBy(function (item) {
-        return item.name.toLowerCase();
-      }).value();
+    function _getUniqList(mentionList) {
+      return _.uniq(mentionList, 'id');
     }
 
     /**

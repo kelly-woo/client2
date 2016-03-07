@@ -9,7 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, JndUtil, MentionExtractor, memberService, jndKeyCode,
+  function fileDetailCommentInput($rootScope, JndUtil, Mentionahead, memberService, jndKeyCode,
                                   jndPubSub, JndMessageStorage) {
     return {
       restrict: 'E',
@@ -127,7 +127,7 @@
        * mention icon click
        */
       function onMentionIconClick() {
-        MentionExtractor.show('comment');
+        Mentionahead.show('comment');
       }
 
       /**
@@ -364,7 +364,7 @@
        * @private
        */
       function _setMentionMembers(file) {
-        var mentionList = MentionExtractor.getMentionListForFile(file);
+        var mentionList = Mentionahead.getMentionListForFile(file);
         jndPubSub.pub('MentionaheadCtrl:comment', mentionList);
       }
     }

@@ -107,14 +107,11 @@
      */
     function getMatches(list, filterText) {
       filterText = filterText.toLowerCase();
-      return $scope.selectingMembers = _.chain(list)
-        .filter(function(item) {
-          return item.name.toLowerCase().indexOf(filterText) > -1 && item.selected === false;
-        })
-        .sortBy(function(item) {
-          return [!item.isStarred, item.name.toLowerCase()];
-        })
-        .value();
+
+      list = $filter('getMatchedList')(list, 'name', filterText);
+      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
+        return [!item.isStarred].concat(desc);
+      });
     }
 
     /**

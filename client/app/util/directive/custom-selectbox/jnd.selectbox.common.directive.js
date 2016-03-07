@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxCommon', jndSelectboxCommon);
 
-  function jndSelectboxCommon(JndUtil) {
+  function jndSelectboxCommon($filter, JndUtil) {
     return {
       restrict: 'AE',
       link: link,
@@ -249,7 +249,7 @@
               }
             });
           }
-          scope.searchList = result;
+          scope.searchList = $filter('orderByQueryIndex')(result, 'text', keyword);
         }
       }
 

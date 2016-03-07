@@ -275,22 +275,24 @@
           if (keyword) {
             keyword = keyword.toLowerCase();
             _.each(_getMembers(), function (entity) {
-              start = entity.name.toLowerCase().indexOf(keyword);
-              if (start !== -1) {
-                if (scope.isShowDisabled) {
-                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
-                  if (publicService.isDisabledMember(entity)) {
-                    entity.extSearchName = '<del>' + entity.extSearchName + '</del>';
+              if (!memberService.isConnectBot(entity.id)) {
+                start = entity.name.toLowerCase().indexOf(keyword);
+                if (start !== -1) {
+                  if (scope.isShowDisabled) {
+                    entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                    if (publicService.isDisabledMember(entity)) {
+                      entity.extSearchName = '<del>' + entity.extSearchName + '</del>';
+                    }
+                    result.push(entity);
+                  } else if (!publicService.isDisabledMember(entity)) {
+                    entity.extSearchName = _highlight(entity.name, start, keyword.length);
+                    result.push(entity);
                   }
-                  result.push(entity);
-                } else if (!publicService.isDisabledMember(entity)) {
-                  entity.extSearchName = _highlight(entity.name, start, keyword.length);
-                  result.push(entity);
                 }
               }
             });
           }
-          scope.searchList = result;
+          scope.searchList = $filter('orderByQueryIndex')(result, 'name', keyword);
         }
       }
 
