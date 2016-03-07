@@ -109,7 +109,7 @@
       filterText = filterText.toLowerCase();
 
       list = $filter('getMatchedList')(list, 'name', filterText);
-      return $scope.selecingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
+      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
     }
