@@ -9,7 +9,7 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $timeout, $state, entityheaderAPIservice, analyticsService,
+  function TopicJoinCtrl($scope, $timeout, $state, $filter, entityheaderAPIservice, analyticsService,
                          jndPubSub, memberService, modalHelper, EntityMapManager) {
     _init();
 
@@ -48,14 +48,9 @@
       var matches;
 
       filterText = filterText.toLowerCase();
-      matches = _.chain(list)
-        .filter(function(item) {
-          return item.name.toLowerCase().indexOf(filterText) > -1;
-        })
-        .sortBy(function(item) {
-          return item.name.toLowerCase();
-        })
-        .value();
+
+      matches = $filter('getMatchedList')(list, 'name', filterText);
+      matches = $filter('orderByQueryIndex')(matches, 'name', filterText);
 
       if ($scope.unJoinedChannelList === list) {
         $scope.joinableLength = matches.length;
