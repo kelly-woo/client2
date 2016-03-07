@@ -30,7 +30,7 @@
     </div>
     
     <!--  TOPIC AUTO INVITE  -->
-    <div ng-if="hasAutoJoin" class="form-horizontal">
+    <div ng-if="allowAutoJoin" class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-3 auto-invite-title">
           <span translate>@common-auto-join</span>
@@ -70,6 +70,18 @@
       </div>
     </div>
 
+    <div class="form-horizontal topic-admin-tran" ng-show="showAdminTrans">
+      <div class="form-group">
+        <label class="control-label col-sm-3">
+          <span>{{::'@common-topic-admin' | translate}}</span>
+        </label>
+        <div class="col-sm-9">
+          <jnd-selectbox-member jnd-data-model="form.adminId"
+                                jnd-data-list="selectOptionsUsers"
+                                is-allow-all-member="false"></jnd-selectbox-member>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-cancel" ng-click="cancel()"><span>{{ ::'@btn-cancel' | translate }}</span></button>

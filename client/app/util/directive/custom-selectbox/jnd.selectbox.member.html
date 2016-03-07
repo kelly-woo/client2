@@ -48,7 +48,7 @@
     <!--일반 리스트-->
     <div ng-if="!searchKeyword" class="custom-select-box__menulist _container">
 
-      <a class="select-all _selectable">
+      <a class="select-all _selectable" ng-if="isAllowAllMember">
         <i class="icon-users"></i>
         <span translate>@option-all-members</span>
       </a>

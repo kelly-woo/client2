@@ -238,6 +238,25 @@
      * @private
      */
     function _leaveCurrentEntity() {
+      var isTopicOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
+
+      if (isTopicOwner) {
+        Dialog.confirm({
+          title: '@topic-admin-transfer-adminleave-confirm',
+          onClose: function(result) {
+            if (result === 'okay') {
+              $scope.openRenameModal($scope);
+            } else {
+              _requestLeaveEntity();
+            }
+          }
+        });
+      } else {
+        _requestLeaveEntity();
+      }
+    }
+
+    function _requestLeaveEntity() {
       entityHeader.leaveEntity(_entityType, _entityId)
         .success(function(response) {
           // analytics
@@ -264,7 +283,7 @@
           } catch (e) {
           }
           alert(error.msg);
-        })
+        });
     }
 
     /**
