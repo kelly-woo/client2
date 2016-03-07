@@ -131,7 +131,8 @@ module.exports = function(config) {
       dir: 'coverage/',
       file: 'coverage.xml'
     },
-    captureTimeout: 120000,
+    captureTimeout: 30000,
+    browserNoActivityTimeout: 30000,
     colors: true
   });
 };
