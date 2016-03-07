@@ -973,7 +973,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function (response) {
             markerService.updateMarker(memberId, response.linkId);
-            MessageSendingCollection.sent(payload, true);
+            JndUtil.safeApply($scope, function() {
+              MessageSendingCollection.sent(payload, true);
+            });
             try {
               //analytics
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
