@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MentionaheadCtrl($scope, $state, $filter, entityAPIservice, currentSessionHelper,
-                            MentionExtractor, Dialog, jndPubSub, JndUtil) {
+                            Mentionahead, Dialog, jndPubSub, JndUtil) {
     var that = this;
 
     var entityId = $state.params.entityId;
@@ -113,7 +113,7 @@
       $scope.mentionList = mentionList;
 
       // 중복 user name에 대한 처리
-      $scope._mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
+      $scope._mentionMap = Mentionahead.getSingleMentionItems(mentionList);
 
       if (!$scope.hasOn && mentionList.length > 0) {
         // mention ahead에 출력할 item이 존재하고 event listener가 연결되지 않았다면 연결함
@@ -153,7 +153,7 @@
     function setMentionOnLive(event) {
       var value = getValue();
       var selectionBegin = _getSelection().begin;
-      var mention = $scope.mention = MentionExtractor.getMentionOnCursor(event, value, selectionBegin);
+      var mention = $scope.mention = Mentionahead.getMentionOnCursor(event, value, selectionBegin);
 
       if (mention) {
         $model.$setViewValue(mention.match[2]);
@@ -169,7 +169,7 @@
     function getMentions() {
       var value = getValue();
 
-      return MentionExtractor.getMentionAllForText(value, $scope._mentionMap, entityId);
+      return Mentionahead.getMentionAllForText(value, $scope._mentionMap, entityId);
     }
 
     /**
@@ -231,7 +231,7 @@
       var count;
       var msg;
 
-      if ($item.name === MentionExtractor.MENTION_ALL_ITEM_TEXT) {
+      if ($item.name === Mentionahead.MENTION_ALL_ITEM_TEXT) {
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();

@@ -9,8 +9,9 @@
     .controller('QuickLauncherCtrl', QuickLauncherCtrl);
 
   /* @ngInject */
-  function QuickLauncherCtrl($rootScope, $scope, $state, UnreadBadge, EntityMapManager, centerService, memberService,
-                              currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper, entityAPIservice) {
+  function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityMapManager, centerService,
+                             memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
+                             entityAPIservice) {
     _init();
 
     /**
@@ -261,15 +262,13 @@
         members = members.concat([jandiBot]);
       }
 
-      return _.chain(members)
-        .filter(function(member) {
-          return member.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 &&
-            !memberService.isDeactivatedMember(member) && memberService.getMemberId() !== member.id;
-        })
-        .sortBy(function(member) {
-          return member.name.toLowerCase();
-        })
-        .value();
+      filterText = filterText.toLowerCase();
+
+      members = $filter('getMatchedList')(members, 'name', filterText, function(item) {
+        return !memberService.isDeactivatedMember(item) && memberService.getMemberId() !== item.id
+      });
+
+      return $filter('orderByQueryIndex')(members, 'name', filterText);
     }
 
     /**
@@ -305,9 +304,7 @@
         }
       });
 
-      return _.sortBy(rooms, function (room) {
-        return room.name.toLowerCase();
-      });
+      return $filter('orderByQueryIndex')(rooms, 'name', value.toLowerCase());
     }
 
     /**
@@ -330,9 +327,7 @@
         }
       });
 
-      return _.sortBy(channels, function (channel) {
-        return channel.name.toLowerCase();
-      });
+      return $filter('orderByQueryIndex')(channels, 'name', value.toLowerCase());
     }
 
     /**
