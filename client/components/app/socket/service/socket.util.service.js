@@ -44,7 +44,7 @@
      * @private
      */
     function isCurrentEntity(room) {
-      var roomId = room.id;
+      var roomId = +room.id;
       var currentEntity = currentSessionHelper.getCurrentEntity();
 
       if (isChatType(room)) {
