@@ -115,7 +115,11 @@
      * @private
      */
     function _onTopicJoined(socketEvent) {
+      //message 소켓 이벤트 중 messageType 이 topic_join 이벤트 발생 시 member 정보가 없을 수 있기 때문에
+      //leftSideMenu request 수행 전 선 적용 한다.
+      //현재 상황에서는 초대 받았을 때 좌측 토픽 리스트를 업데이트 해야하기 때문에 leftSideMenu 를 반드시 호출해야 한다.
       jndWebSocketCommon.addUser(socketEvent);
+      _updateLeftPanel(socketEvent);
     }
 
     /**
