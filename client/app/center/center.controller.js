@@ -911,6 +911,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onConnected() {
+    _initMarkers();
     if (MessageSendingCollection.queue.length) {
       _requestPostMessages(true);
     } else {
@@ -962,6 +963,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _requestPostMessages(isForce) {
     var queue = MessageSendingCollection.queue;
     var payload;
+    var memberId = memberService.getMemberId();
     if (isForce || (NetInterceptor.isConnected() && !$scope.isPosting)) {
       if (queue.length) {
         $scope.isPosting = true;
@@ -969,8 +971,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         deferredObject.postMessage = $q.defer();
         messageAPIservice.postMessage(entityType, entityId,
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
-          .success(function () {
-            MessageSendingCollection.sent(payload, true);
+          .success(function (response) {
+            markerService.updateMarker(memberId, response.linkId);
+            JndUtil.safeApply($scope, function() {
+              MessageSendingCollection.sent(payload, true);
+            });
             try {
               //analytics
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
@@ -1422,7 +1427,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initMarkers(markers) {
     //console.log('start initializing markers', markers);
-
+    markerService.init();
     markerService.resetMarkerOffset();
     _.forEach(markers, function(marker) {
       markerService.putNewMarker(marker.memberId, marker.lastLinkId, MessageCollection.getLastLinkId());
