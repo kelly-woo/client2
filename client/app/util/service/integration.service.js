@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService,
-                              accountService, storageAPIservice, analyticsService, FilesUploadCreator,
+                              accountService, storageAPIservice, analyticsService, FilesUploadFactory,
                               currentSessionHelper) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
@@ -21,7 +21,7 @@
         var that = this;
 
         // file upload object
-        that.filesUpload = FilesUploadCreator.createInstance({
+        that.filesUpload = FilesUploadFactory.createInstance({
           straight: true,
           uploadType: 'integration',
           supportFileAPI: true,
