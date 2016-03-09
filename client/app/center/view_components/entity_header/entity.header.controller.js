@@ -144,52 +144,6 @@
     }
 
     /**
-     * 사용자를 kickout 한다.
-     * @param {number} userId
-     */
-    function kickOut(userId) {
-      Dialog.confirm({
-        body: $filter('translate')('@confirm-kickout'),
-        onClose: function(result) {
-          var isTopicOwner = entityAPIservice.isOwner(_currentEntity, userId);
-
-          if (result === 'okay') {
-            if (isTopicOwner) {
-              Dialog.confirm({
-                title: $filter('translate')('@topic-admin-transfer-kickout-confirm-1'),
-                body: $filter('translate')('@topic-admin-transfer-kickout-confirm-2'),
-                onClose: function(result) {
-                  if (result === 'okay') {
-                    modalHelper.openTopicRenameModal($scope, {
-                      topicAdminId: userId,
-                      onChangeTopicAdmin: function() {
-                        entityHeader.kickOut(_entityId ,userId)
-                          .error(_onKickOutFailed);
-                      }
-                    });
-                  }
-                }
-              });
-            } else {
-              entityHeader.kickOut(_entityId ,userId)
-                .error(_onKickOutFailed);
-            }
-          }
-        }
-      });
-    }
-
-    /**
-     * 강퇴 실패시 이벤트 핸들러
-     * @param {object} response
-     * @param {number} status
-     * @private
-     */
-    function _onKickOutFailed(response, status) {
-      JndUtil.alertUnknownError(response, status);
-    }
-
-    /**
      * Check ownership of current entity whether I'm an owner of current entity or not.
      * Set updated value to $scope.isOwner variable.
      */
@@ -247,41 +201,122 @@
           allowHtml: true,
           body: $filter('translate')('@ch-menu-leave-private-confirm'),
           onClose: function(result) {
-            result === 'okay' && _leaveCurrentEntity();
+            result === 'okay' && _setLeaveCurrentEntity();
           }
         });
       } else {
-        _leaveCurrentEntity();
+        _setLeaveCurrentEntity();
       }
     }
 
     /**
-     * entity 떠날때 관리자라면 관리자 이양 confrim 출력함.
+     * 현재 토픽을 떠나도록 설정함.
      * @private
      */
-    function _leaveCurrentEntity() {
+    function _setLeaveCurrentEntity() {
       var isTopicOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
+      var userLength = $scope.users ? $scope.users.length : 0;
 
-      if (isTopicOwner) {
+      if (isTopicOwner && userLength > 1) {
         // 토픽 관리자가 토픽을 스스로 나가게 된다면 토픽 관리자를 이양하라고 가이드 하는 confirm창을 띄우게된다.
 
-        Dialog.confirm({
-          title: '@topic-admin-transfer-adminleave-confirm',
-          onClose: function(result) {
-            if (result === 'okay') {
-              modalHelper.openTopicRenameModal($scope, {
-                onChangeTopicAdmin: function() {
-                  _requestLeaveEntity();
-                }
-              });
-            } else {
-              _requestLeaveEntity();
-            }
-          }
-        });
+        _showLeaveCurrentEntityConfirm();
       } else {
         _requestLeaveEntity();
       }
+    }
+
+    /**
+     * 관리자 이양 confrim 출력함.
+     * @private
+     */
+    function _showLeaveCurrentEntityConfirm() {
+      Dialog.confirm({
+        title: '@topic-admin-transfer-adminleave-confirm',
+        onClose: function(result) {
+          if (result === 'okay') {
+            modalHelper.openTopicRenameModal($scope, {
+              onChangeTopicAdmin: function() {
+
+                // topic admin 변경이 완료된 후 토픽을 떠나도록 요청한다.
+                _requestLeaveEntity();
+              }
+            });
+          }
+        }
+      });
+    }
+
+    /**
+     * 사용자를 kickout 한다.
+     * @param {number} userId
+     */
+    function kickOut(userId) {
+      Dialog.confirm({
+        body: $filter('translate')('@confirm-kickout'),
+        onClose: function(result) {
+          if (result === 'okay') {
+            _setKickOutUser(userId);
+          }
+        }
+      });
+    }
+
+    /**
+     * 퇴장시킬 사용자를 설정함.
+     * @param {number} userId
+     * @private
+     */
+    function _setKickOutUser(userId) {
+      var isTopicOwner = entityAPIservice.isOwner(_currentEntity, userId);
+
+      if (isTopicOwner) {
+        _showKicOutUserConfirm(userId)
+      } else {
+        _requestKickOut(userId);
+      }
+    }
+
+    /**
+     * 퇴장시킬 사용자에 대해 confrim 출력함.
+     * @param {number} userId
+     * @private
+     */
+    function _showKicOutUserConfirm(userId) {
+      Dialog.confirm({
+        title: $filter('translate')('@topic-admin-transfer-kickout-confirm-1'),
+        body: $filter('translate')('@topic-admin-transfer-kickout-confirm-2'),
+        onClose: function(result) {
+          if (result === 'okay') {
+            modalHelper.openTopicRenameModal($scope, {
+              topicAdminId: userId,
+              onChangeTopicAdmin: function() {
+                _requestKickOut(userId);
+              }
+            });
+          }
+        }
+      });
+    }
+
+    /**
+     * 퇴장 요청함
+     * @param {number} userId
+     * @private
+     */
+    function _requestKickOut(userId) {
+      entityHeader.kickOut(_entityId ,userId)
+        .error(_onKickOutFailed);
+    }
+
+    /**
+     * 강퇴 실패시 이벤트 핸들러
+     * @param {object} response
+     * @param {number} status
+     * @private
+     */
+    function _onKickOutFailed(response, status) {
+      JndUtil.alertUnknownError(response, status);
     }
 
     /**
@@ -290,32 +325,48 @@
      */
     function _requestLeaveEntity() {
       entityHeader.leaveEntity(_entityType, _entityId)
-        .success(function(response) {
-          // analytics
-          var entity_type = analyticsService.getEntityType(_entityType);
-
-          try {
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
-              'RESPONSE_SUCCESS': true,
-              'TOPIC_ID': parseInt(_entityId, 10)
-            });
-          } catch (e) {
-          }
-          analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+        .success(function() {
+          _successLeaveEntityAnalytics();
 
           TopicMessageCache.remove(_entityId);
           publicService.goToDefaultTopic();
         })
         .error(function(error) {
-          try {
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
-              'RESPONSE_SUCCESS': true,
-              'ERROR_CODE': error.code
-            });
-          } catch (e) {
-          }
-          alert(error.msg);
+          _errorLeaveEntityAnalytics(error);
         });
+    }
+
+    /**
+     * success leave entity analytics
+     * @private
+     */
+    function _successLeaveEntityAnalytics() {
+      // analytics
+      var entity_type = analyticsService.getEntityType(_entityType);
+
+      try {
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
+          'RESPONSE_SUCCESS': true,
+          'TOPIC_ID': parseInt(_entityId, 10)
+        });
+      } catch (e) {
+      }
+      analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+    }
+
+    /**
+     * error leave entity analytics
+     * @param {object} error
+     * @private
+     */
+    function _errorLeaveEntityAnalytics(error) {
+      try {
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, {
+          'RESPONSE_SUCCESS': true,
+          'ERROR_CODE': error.code
+        });
+      } catch (e) {
+      }
     }
 
     /**

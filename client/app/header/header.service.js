@@ -60,7 +60,11 @@
       return $http({
         method: 'PUT',
         url: $rootScope.server_address + entityType + '/' + entityId,
-        data: data,
+        data: {
+          name: data.name,
+          autoJoin: data.autoJoin,
+          description: data.description
+        },
         params: {
           teamId: memberService.getTeamId()
         },

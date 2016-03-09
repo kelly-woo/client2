@@ -39,7 +39,7 @@
 
       $scope.allowAutoJoin = _allowAutoJoin();
 
-      $scope.isTopicOwner = entityAPIservice.isOwner(_currentEntity, _topicAdminId || memberService.getMemberId());
+      $scope.isTopicOwner = entityAPIservice.isOwner(_currentEntity, _getMemberId());
       $scope.selectOptionsUsers = JndSelectBoxMember.getActiveUserListByRoomId(_entityId);
       $scope.showAdminTrans = $scope.isTopicOwner && $scope.selectOptionsUsers.length > 0;
 
@@ -192,32 +192,22 @@
     }
 
     /**
-     * 토픽의 name, description, autoJoin이 변경되었는지 여부.
-     * @returns {boolean}
-     * @private
-     */
-    function _isChangeTopicInfo() {
-      return $scope.form.topicName !== $scope.originForm.topicName ||
-        $scope.form.topicDescription !== $scope.originForm.topicDescription ||
-        $scope.form.isAutoJoin !== $scope.originForm.isAutoJoin;
-    }
-
-    /**
-     * 토픽의 admin이 변경되었는지 여부
-     * @returns {boolean}
-     * @private
-     */
-    function _isChangeTopicAdmin() {
-      return $scope.form.adminId !== $scope.originForm.adminId;
-    }
-
-    /**
      * 자동 초대 기능을 지원하는지 여부를 반환한다
      * @returns {boolean}
      * @private
      */
     function _allowAutoJoin() {
       return _currentEntity.type !== 'privategroups' && _currentEntity.id !== currentSessionHelper.getDefaultTopicId();
+    }
+
+    /**
+     * member id를 전달함.
+     * @returns {*|boolean|*|.params.memberId|param.memberId|d.memberId|a.y.memberId|*}
+     * @private
+     */
+    function _getMemberId() {
+      // modal open시 전달된 옵션값이 존재하지 않는다면 현재 사용자의 값을 전달한다.
+      return _topicAdminId || memberService.getMemberId();
     }
 
     /**
@@ -268,6 +258,26 @@
      */
     function _isChanged() {
       return _isChangeTopicInfo() || _isChangeTopicAdmin();
+    }
+
+    /**
+     * 토픽의 name, description, autoJoin이 변경되었는지 여부.
+     * @returns {boolean}
+     * @private
+     */
+    function _isChangeTopicInfo() {
+      return $scope.form.topicName !== $scope.originForm.topicName ||
+        $scope.form.topicDescription !== $scope.originForm.topicDescription ||
+        $scope.form.isAutoJoin !== $scope.originForm.isAutoJoin;
+    }
+
+    /**
+     * 토픽의 admin이 변경되었는지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isChangeTopicAdmin() {
+      return $scope.form.adminId !== $scope.originForm.adminId;
     }
 
     /**
