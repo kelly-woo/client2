@@ -20,6 +20,10 @@
     var _entityType = _currentEntity.type;
     var _entityId = _currentEntity.id;
 
+    var _isEnableTransferConfirm = options && options.enableTransferConfirm;
+    var _onChangeTopicAdminCallback = options && options.onChangeTopicAdmin;
+    var _topicAdminId = options && options.topicAdminId;
+
     _init();
 
     /**
@@ -35,7 +39,7 @@
 
       $scope.allowAutoJoin = _allowAutoJoin();
 
-      $scope.isTopicOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
+      $scope.isTopicOwner = entityAPIservice.isOwner(_currentEntity, _topicAdminId || memberService.getMemberId());
       $scope.selectOptionsUsers = JndSelectBoxMember.getActiveUserListByRoomId(_entityId);
       $scope.showAdminTrans = $scope.isTopicOwner && $scope.selectOptionsUsers.length > 0;
 
@@ -72,31 +76,39 @@
 
         data = _createRenameData();
 
-        if (data.adminId != null) {
-          if (options && options.enableTransferConfirm) {
-            _showTransferConfirm(deferred, data);
-          } else {
-            jndPubSub.showLoading();
+        if (_isChangeTopicAdmin()) {
+          if (_isEnableTransferConfirm) {
+            // 토픽 정보 변경시 확인창을 출력하도록 한다
 
-            _requestEntityAdmin(deferred, data);
-            if (_hasChangeTopicInfo(data)) {
-              _requestEntityInfo(deferred, data);
-            }
+            _showAdminTransferConfirm(deferred, data);
+          } else {
+            _updateTopic(deferred, data);
           }
-        } else if (_hasChangeTopicInfo(data)) {
-          jndPubSub.showLoading();
-          _requestEntityInfo(deferred, data);
+        } else if (_isChangeTopicInfo()) {
+          // 토픽의 name, description, autoJoin만 변경한다(관리자 제외).
+
+          _updateTopicInfo(deferred, data);
         }
 
         promise.then(function() {
+          // 변경이 이상없이 완료 되었으므로 modal을 닫는다.
+
           $scope.cancel();
         }).finally(function() {
+          // 변경 요청이 끝났을때 로딩 창을 닫는다.
+
           jndPubSub.hideLoading();
         });
       }
     }
 
-    function _showTransferConfirm(deferred, data) {
+    /**
+     * 관리자 변경하기를 확인하는 창을 출력함.
+     * @param {object} deferred
+     * @param {object} data
+     * @private
+     */
+    function _showAdminTransferConfirm(deferred, data) {
       var user = entityAPIservice.getEntityById('users', data.adminId);
 
       Dialog.confirm({
@@ -104,22 +116,47 @@
         body: user && user.name,
         onClose: function(result) {
           if (result === 'okay') {
-            jndPubSub.showLoading();
-            _requestEntityAdmin(deferred, data);
-
-            if (_hasChangeTopicInfo(data)) {
-              _requestEntityInfo(deferred, data);
-            }
+            _updateTopic(deferred, data);
           }
         }
       });
     }
 
-    function _hasChangeTopicInfo(data) {
-      return data.name != null || data.description != null || data.autoJoin != null;
+    /**
+     * 토픽의 name, description, autoJoin, admin을 갱신함.
+     * @param {object} deferred
+     * @param {object} data
+     * @private
+     */
+    function _updateTopic(deferred, data) {
+      jndPubSub.showLoading();
+
+      _requestTopicAdmin(deferred, data);
+      if (_isChangeTopicInfo()) {
+        _requestTopicRename(deferred, data);
+      }
     }
 
-    function _requestEntityInfo(deferred, data) {
+    /**
+     * 토픽의 name, description, autoJoin을 갱신함.
+     * @param {object} deferred
+     * @param {object} data
+     * @private
+     */
+    function _updateTopicInfo(deferred, data) {
+      jndPubSub.showLoading();
+
+      _requestTopicRename(deferred, data);
+    }
+
+    /**
+     * 토픽의 name, description, autJoin을 갱신하도록 요청함.
+     * @param {object} deferred
+     * @param {object} data
+     * @returns {*}
+     * @private
+     */
+    function _requestTopicRename(deferred, data) {
       return entityheaderAPIservice.renameEntity(_entityType, _entityId, data)
         .success(function() {
           _successAnalytics();
@@ -134,15 +171,44 @@
         });
     }
 
-    function _requestEntityAdmin(deferred, data) {
+    /**
+     * 토픽의 admin을 갱신하도록 요청함.
+     * @param {object} deferred
+     * @param {object} data
+     * @returns {*}
+     * @private
+     */
+    function _requestTopicAdmin(deferred, data) {
       return entityheaderAPIservice.transferTopicAdmin(_entityId, data)
         .success(function() {
+          _onChangeTopicAdminCallback && _onChangeTopicAdminCallback();
+
           Dialog.success({title: _translate('@topic-admin-transfer-toast')});
           deferred.resolve();
         })
         .error(function() {
           deferred.reject();
         });
+    }
+
+    /**
+     * 토픽의 name, description, autoJoin이 변경되었는지 여부.
+     * @returns {boolean}
+     * @private
+     */
+    function _isChangeTopicInfo() {
+      return $scope.form.topicName !== $scope.originForm.topicName ||
+        $scope.form.topicDescription !== $scope.originForm.topicDescription ||
+        $scope.form.isAutoJoin !== $scope.originForm.isAutoJoin;
+    }
+
+    /**
+     * 토픽의 admin이 변경되었는지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isChangeTopicAdmin() {
+      return $scope.form.adminId !== $scope.originForm.adminId;
     }
 
     /**
@@ -201,10 +267,7 @@
      * @private
      */
     function _isChanged() {
-      return $scope.form.topicName !== $scope.originForm.topicName ||
-        $scope.form.topicDescription !== $scope.originForm.topicDescription ||
-        $scope.form.adminId !== $scope.originForm.adminId ||
-        $scope.form.isAutoJoin !== $scope.originForm.isAutoJoin;
+      return _isChangeTopicInfo() || _isChangeTopicAdmin();
     }
 
     /**

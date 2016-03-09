@@ -72,7 +72,9 @@
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
+      $scope.$on('topicUpdated', _onTopicUpdated);
       $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
+
 
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         if (_currentEntity !== param) {
@@ -157,18 +159,14 @@
                 title: $filter('translate')('@topic-admin-transfer-kickout-confirm-1'),
                 body: $filter('translate')('@topic-admin-transfer-kickout-confirm-2'),
                 onClose: function(result) {
-                  var topicRenameModal;
-
                   if (result === 'okay') {
-                    topicRenameModal = modalHelper.openTopicRenameModal($scope);
-
-                    topicRenameModal.result.finally(function() {
-                      entityHeader.kickOut(_entityId ,userId)
-                        .error(_onKickOutFailed);
+                    modalHelper.openTopicRenameModal($scope, {
+                      topicAdminId: userId,
+                      onChangeTopicAdmin: function() {
+                        entityHeader.kickOut(_entityId ,userId)
+                          .error(_onKickOutFailed);
+                      }
                     });
-                  } else {
-                    entityHeader.kickOut(_entityId ,userId)
-                      .error(_onKickOutFailed);
                   }
                 }
               });
@@ -270,13 +268,11 @@
         Dialog.confirm({
           title: '@topic-admin-transfer-adminleave-confirm',
           onClose: function(result) {
-            var topicRenameModal;
-
             if (result === 'okay') {
-              topicRenameModal = modalHelper.openTopicRenameModal($scope);
-
-              topicRenameModal.result.finally(function() {
-                _requestLeaveEntity();
+              modalHelper.openTopicRenameModal($scope, {
+                onChangeTopicAdmin: function() {
+                  _requestLeaveEntity();
+                }
               });
             } else {
               _requestLeaveEntity();
@@ -493,6 +489,18 @@
      */
     function _onTopicLeft(event, data) {
       _onTopicDeleted(event, data);
+    }
+
+    /**
+     * 토픽 정보가 갱신된 경우
+     * @param {object} $event
+     * @param {object} topic
+     * @private
+     */
+    function _onTopicUpdated($event, topic) {
+      if (topic.id === $scope.currentEntity.id) {
+        _checkOwnership();
+      }
     }
 
     /**
