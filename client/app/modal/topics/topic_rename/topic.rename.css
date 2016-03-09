@@ -1,0 +1,19 @@
+.topic-admin-transfer {
+  margin-top: 10px;
+}
+
+.topic-admin-transfer .custom-select-box-btn {
+  border-radius: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  height: auto;
+}
+
+.topic-admin-transfer  .custom-select-box-btn > .icon-angle-down {
+  top: 9px;
+}
+
+.modal-dialog .topic-admin-transfer .custom-select-box-btn {
+  margin-top: 0;
+  margin-bottom: 0;
+}
