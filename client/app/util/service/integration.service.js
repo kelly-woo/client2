@@ -568,7 +568,7 @@
     /**
      * 파일 공유할 id를 전달함.
      * @param {object} scope - center controller의 scope
-     * @returns {*}
+     * @returns {number}
      * @private
      */
     function _getFileShareId(scope) {
@@ -577,6 +577,7 @@
 
     /**
      * file upload success analytics
+     * @param {object} response
      * @private
      */
     function _successAnalytics(response) {
