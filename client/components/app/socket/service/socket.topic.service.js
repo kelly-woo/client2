@@ -119,6 +119,7 @@
       //leftSideMenu request 실행 이전에 소켓 이벤트에 포함된 join 한 member 데이터 추가/업데이트를 먼저 수행한다.
       jndWebSocketCommon.addUser(socketEvent);
       //현재 상황에서는 초대 받았을 때 좌측 토픽 리스트를 함께 업데이트 해야하기 때문에 leftSideMenu 를 반드시 호출해야 한다.
+      //TODO: http://its.tosslab.com/browse/BD-270 이슈 해결 뒤 아래 로직 제거 검토
       _updateLeftPanel(socketEvent);
     }
 
