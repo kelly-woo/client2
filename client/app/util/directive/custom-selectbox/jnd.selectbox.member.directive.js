@@ -25,6 +25,7 @@
     function link(scope, el, attrs) {
       var _lastKeyword = '';
       var TOGGLE_DISABLE_SCROLL_DURATION = 500;
+
       scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
@@ -40,6 +41,10 @@
       function _init() {
         scope.isShown = false;
         scope.searchKeyword = '';
+
+        // 모든 멤버 허용 여부
+        scope.isAllowAllMember = scope.$eval(attrs.isAllowAllMember) !== false;
+
         _initializeData();
         _attachEvents();
         _attachDomEvents();

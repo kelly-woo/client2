@@ -232,15 +232,22 @@
      * topic 의 이름을 rename 할 수 있는 모달창을 연다.
      * @param $scope
      */
-    function openTopicRenameModal($scope) {
+    function openTopicRenameModal($scope, data) {
       var modalOption = {
         scope: $scope,
         templateUrl: 'app/modal/topics/topic_rename/topic.rename.html',
         controller: 'TopicRenameCtrl',
         size: 'lg',
-        autofocus: '#topic-rename-name'
+        autofocus: '#topic-rename-name',
+        resolve: {
+          options: function() {
+            // 토픽으로 초대 가능한 member의 수
+            // 현재 channel의 유저가 가진 team의 갯수
+            return data;
+          }
+        }
       };
-      _modalOpener(modalOption);
+      return _modalOpener(modalOption);
     }
 
     /**
