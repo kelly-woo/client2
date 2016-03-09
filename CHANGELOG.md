@@ -1,3 +1,23 @@
+<a name="1.17.4"></a>
+## [1.17.4](https://github.com/tosslab/web_client/compare/v1.17.3...v1.17.4) (2016-03-09)
+
+
+### Bug Fixes
+
+* **css:** center 영역 최소너비 & 파일 star 버튼 위치 & 파일카드 너비 수정. ([e2f0e9a](https://github.com/tosslab/web_client/commit/e2f0e9a))
+* **css:** 공지사항 최소화 상태일 때 더보기 버튼과 본문이 겹치는 이슈 수정. ([ed9f05f](https://github.com/tosslab/web_client/commit/ed9f05f))
+* **css:** 시스템 메시지 스타일 수정. ([8f58e50](https://github.com/tosslab/web_client/commit/8f58e50))
+* **css:** 파일카드 바깥으로 file name 빠져나오는 이슈 수정 (IE 대응) ([394fd1f](https://github.com/tosslab/web_client/commit/394fd1f))
+* **topicMember:** 토픽에 참여한 멤버명을 내림차순으로 정렬하여 출력하도록 수정 ([46ccc54](https://github.com/tosslab/web_client/commit/46ccc54))
+
+### Features
+
+* **GC:** GC 설정 추가시 기본값 변경 ([10fe685](https://github.com/tosslab/web_client/commit/10fe685))
+* **uploadComment:** 업로드 시 코멘트 입력 제한 풀기 & 텍스트 컨테이너 개선 ([43e21e6](https://github.com/tosslab/web_client/commit/43e21e6))
+* **공지사항:** 디자인 개선 사항 l10n 적용 ([0aaac9c](https://github.com/tosslab/web_client/commit/0aaac9c))
+
+
+
 <a name="1.17.3"></a>
 ## [1.17.3](https://github.com/tosslab/web_client/compare/v1.17.2...v1.17.3) (2016-03-03)
 
