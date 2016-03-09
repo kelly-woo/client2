@@ -13,7 +13,7 @@
     var _groups;
 
     var MAX_COLUMN = parseInt($attrs.maxColumns, 10);
-    var _activeGroupIndex = 1;
+    var _activeGroupIndex = 0;
 
     var _recentStickers;
 
@@ -267,7 +267,9 @@
      * @private
      */
     function _setNextGroup(next) {
-      select(_getNextGroup(next), next < 0);
+      JndUtil.safeApply($scope, function() {
+        select(_getNextGroup(next), next < 0);
+      });
     }
 
     /**
