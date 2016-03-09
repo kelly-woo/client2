@@ -150,12 +150,19 @@
       var length = that.list.length;
       var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
       var appendList = [];
+      var markerId;
       messageList = beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
         if (lastId < msg.id) {
           msg = getFormattedMessage(msg);
           that.list.push(msg);
           appendList.push(msg);
+
+          //작성자의 marker 정보를 업데이트 한다
+          markerId = markerService.getLastLinkIdOfMemberId(msg.extWriter.id);
+          if (markerId && (markerId < msg.id)) {
+            markerService.updateMarker(msg.extWriter.id, msg.id);
+          }
         }
       });
       _setLinkId(appendList);
@@ -680,12 +687,12 @@
       var currentUnread;
 
       if (centerService.isChat()) {
-        globalUnreadCount = 1;
+        globalUnreadCount = 2;
       } else {
-        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity()) - 1;
+        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
       }
-      globalUnreadCount = globalUnreadCount - markerOffset;
 
+      globalUnreadCount = globalUnreadCount - markerOffset;
       _.forEachRight(list, function(message, index) {
         currentUnread = message.unreadCount;
 

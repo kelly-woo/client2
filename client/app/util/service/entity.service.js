@@ -41,6 +41,7 @@
       getOwnerId: getOwnerId,
 
       addBot: addBot,
+      addUser: addUser,
       updateBot: updateBot,
 
       increaseBadgeCount: increaseBadgeCount,
@@ -511,15 +512,13 @@
 
       _createEntityData(totalEntities, function(entity, type) {
         if (type === 'channel' && !EntityMapManager.contains('joined', entity.id)) {
-          EntityMapManager.add('unjoined', entity);
-
           unJoinedChannelList.push(entity);
-        } else if (type === 'user') {
-          EntityMapManager.add('user', entity);
-          EntityMapManager.add('member', entity);
-        }
 
-        EntityMapManager.add('total', entity);
+          EntityMapManager.add('unjoined', entity);
+          EntityMapManager.add('total', entity);
+        } else if (type === 'user') {
+          addUser(entity);
+        }
       });
 
       _createEntityData(bots, function(bot) {
@@ -586,6 +585,18 @@
         EntityMapManager.add('bot', bot);
         EntityMapManager.add('member', bot);
         EntityMapManager.add('total', bot);
+      }
+    }
+
+    /**
+     * add user
+     * @param {object} user
+     */
+    function addUser(user) {
+      if (_.isObject(user)) {
+        EntityMapManager.add('user', user);
+        EntityMapManager.add('member', user);
+        EntityMapManager.add('total', user);
       }
     }
 

@@ -111,11 +111,16 @@
 
     /**
      * 'topic_joined' EVENT HANDLER
-     * @param {object} data - socket event parameter
+     * @param {object} socketEvent - socket event object
      * @private
      */
-    function _onTopicJoined(data) {
-      _updateLeftPanel(data);
+    function _onTopicJoined(socketEvent) {
+      //message 소켓 이벤트 중 messageType 이 topic_join인 소켓 이벤트 발생 시점에 join 한 member 정보가 없을 수 있기 때문에
+      //leftSideMenu request 실행 이전에 소켓 이벤트에 포함된 join 한 member 데이터 추가/업데이트를 먼저 수행한다.
+      jndWebSocketCommon.addUser(socketEvent);
+      //현재 상황에서는 초대 받았을 때 좌측 토픽 리스트를 함께 업데이트 해야하기 때문에 leftSideMenu 를 반드시 호출해야 한다.
+      //TODO: http://its.tosslab.com/browse/BD-270 이슈 해결 뒤 아래 로직 제거 검토
+      _updateLeftPanel(socketEvent);
     }
 
     /**
