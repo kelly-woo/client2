@@ -17,12 +17,33 @@
     _that.getActiveMemberList = getActiveMemberList;
 
     /**
-     * 활성화된 사용자 목록을 전달함.
+     * 활성화된 user 목록을 전달함.
      * @param {boolean} [withoutMe=false] - 나를 제외한 사용자 목록을 전달할지 여부
      * @returns {*}
      */
     function getActiveUserList(withoutMe) {
       return _getActiveUserList({
+        withoutMe: withoutMe
+      });
+    }
+
+    /**
+     * 특정 토픽의 활성화된 user 목록을 전달함.
+     * @param roomId
+     * @param withoutMe
+     * @returns {*}
+     */
+    function getActiveUserListByRoomId(roomId, withoutMe) {
+      var entity = entityAPIservice.getEntityById('total', roomId);
+      var userIds = entityAPIservice.getUserList(entity);
+      var list = [];
+
+      _.each(userIds, function(userId) {
+        list.push(entityAPIservice.getEntityById('users', userId));
+      });
+
+      return _getActiveUserList({
+        userList: list,
         withoutMe: withoutMe
       });
     }
@@ -43,21 +64,6 @@
       }
 
       return activeUserList;
-    }
-
-    function getActiveUserListByRoomId(roomId, withoutMe) {
-      var entity = entityAPIservice.getEntityById('total', roomId);
-      var userIds = entityAPIservice.getUserList(entity);
-      var list = [];
-
-      _.each(userIds, function(userId) {
-        list.push(entityAPIservice.getEntityById('users', userId));
-      });
-
-      return _getActiveUserList({
-        userList: list,
-        withoutMe: withoutMe
-      });
     }
 
     /**

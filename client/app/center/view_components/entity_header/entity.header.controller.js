@@ -15,6 +15,7 @@
                             Dialog, JndUtil, JndConnect) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
+    var _translate = $filter('translate');
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();
@@ -46,7 +47,6 @@
 
     $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
 
-
     _init();
 
     /**
@@ -72,9 +72,9 @@
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
-      $scope.$on('topicUpdated', _onTopicUpdated);
       $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
 
+      $scope.$on('webSocketTopic:topicUpdated', _onTopicUpdated);
 
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         if (_currentEntity !== param) {
@@ -186,9 +186,9 @@
       $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
 
       if ($scope.isTopicNotificationOn) {
-        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-off-topic-alarm');
+        $scope.topicNotificationBellTooltipMsg = _translate('@turn-off-topic-alarm');
       } else {
-        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-on-topic-alarm');
+        $scope.topicNotificationBellTooltipMsg = _translate('@turn-on-topic-alarm');
       }
     }
 
@@ -199,7 +199,7 @@
       if (_entityType === 'privategroups') {
         Dialog.confirm({
           allowHtml: true,
-          body: $filter('translate')('@ch-menu-leave-private-confirm'),
+          body: _translate('@ch-menu-leave-private-confirm'),
           onClose: function(result) {
             result === 'okay' && _setLeaveCurrentEntity();
           }
@@ -214,11 +214,11 @@
      * @private
      */
     function _setLeaveCurrentEntity() {
-      var isTopicOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
+      var isTopicAdmin = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
       var userLength = $scope.users ? $scope.users.length : 0;
 
-      if (isTopicOwner && userLength > 1) {
-        // 토픽 관리자가 토픽을 스스로 나가게 된다면 토픽 관리자를 이양하라고 가이드 하는 confirm창을 띄우게된다.
+      if (isTopicAdmin && userLength > 1) {
+        // 토픽 관리자가 토픽을 스스로 나갈때 관리자 권한을 이양할 사용자가 존재한다면 confirm창을 띄우게된다.
 
         _showLeaveCurrentEntityConfirm();
       } else {
@@ -252,11 +252,14 @@
      * @param {number} userId
      */
     function kickOut(userId) {
+      var isTopicAdmin = entityAPIservice.isOwner(_currentEntity, userId);
+
       Dialog.confirm({
-        body: $filter('translate')('@confirm-kickout'),
+        title: _translate('@confirm-kickout'),
+        body: isTopicAdmin ? _translate('@topic-admin-transfer-kickout-confirm') : undefined,
         onClose: function(result) {
           if (result === 'okay') {
-            _setKickOutUser(userId);
+            _setKickOutUser(isTopicAdmin, userId);
           }
         }
       });
@@ -264,39 +267,21 @@
 
     /**
      * 퇴장시킬 사용자를 설정함.
+     * @param {boolean} isTopicAdmin
      * @param {number} userId
      * @private
      */
-    function _setKickOutUser(userId) {
-      var isTopicOwner = entityAPIservice.isOwner(_currentEntity, userId);
-
-      if (isTopicOwner) {
-        _showKicOutUserConfirm(userId)
+    function _setKickOutUser(isTopicAdmin, userId) {
+      if (isTopicAdmin) {
+        modalHelper.openTopicRenameModal($scope, {
+          topicAdminId: userId,
+          onChangeTopicAdmin: function() {
+            _requestKickOut(userId);
+          }
+        });
       } else {
         _requestKickOut(userId);
       }
-    }
-
-    /**
-     * 퇴장시킬 사용자에 대해 confrim 출력함.
-     * @param {number} userId
-     * @private
-     */
-    function _showKicOutUserConfirm(userId) {
-      Dialog.confirm({
-        title: $filter('translate')('@topic-admin-transfer-kickout-confirm-1'),
-        body: $filter('translate')('@topic-admin-transfer-kickout-confirm-2'),
-        onClose: function(result) {
-          if (result === 'okay') {
-            modalHelper.openTopicRenameModal($scope, {
-              topicAdminId: userId,
-              onChangeTopicAdmin: function() {
-                _requestKickOut(userId);
-              }
-            });
-          }
-        }
-      });
     }
 
     /**
@@ -383,7 +368,7 @@
      */
     function deleteCurrentEntity() {
       Dialog.confirm({
-        body: $filter('translate')('@ch-menu-delete-confirm'),
+        body: _translate('@ch-menu-delete-confirm'),
         onClose: function(result) {
           if (result === 'okay') {
             entityHeader.deleteEntity(_entityType, _entityId)
