@@ -143,7 +143,8 @@
 }
 
 .file-uploaded-extra {
-  margin-right: 20px;
+  margin-right: -10px;
+  width: 30px;
 }
 
 .preview-container .no-image-preview {
@@ -180,7 +181,7 @@
 
 .preview-card {
   position: relative;
-  width: 430px;
+  width: 400px;
   min-height: 60px;
   border: 1px solid #e1e1e1;
   background-color: #f1f4f8;
@@ -238,6 +239,7 @@
   width: 100%;
   padding: 0 15px 10px 15px;
   line-height: 18px;
+  word-break: break-all;
 }
 
 .info-group-bottom .info-title {
@@ -251,6 +253,7 @@
 .info-group-bottom .info-type {
   color: #666;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 /* unshared image preview & filter type preview */

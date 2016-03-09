@@ -8,14 +8,16 @@
     .module('jandiApp')
     .directive('fileUploadModal', fileUploadModal);
 
-  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, EntityMapManager,
-                           entityAPIservice, MentionExtractor, analyticsService, jndPubSub, JndUtil) {
+  function fileUploadModal($rootScope, $timeout, $state, modalHelper, AnalyticsHelper, MentionExtractor,
+                           analyticsService, jndPubSub) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, el) {
+      var _jqFileUploadTitle = $('#file_upload_title');
+
       var PUBLIC_FILE = 744;    // PUBLIC_FILE code
 
       var fileUploadOptions = scope.fileUploadOptions;
@@ -35,6 +37,7 @@
 
         scope.upload = upload;
         scope.cancel = cancel;
+        scope.onCommentInputChange = onCommentInputChange;
 
         _setFilUploader();
       }
@@ -85,9 +88,7 @@
 
               // upload modal title 갱신, fileInfo에 title 설정
               fileInfo.title = file.name;
-              $timeout(function() {
-                $('#file_upload_title').val(file.name);
-              }, 100);
+              _jqFileUploadTitle.val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
@@ -259,25 +260,13 @@
        * @private
        */
       function _setMentions(fileInfo) {
-        var room;
-        var users;
-        var mentionList;
-        var mentionMap;
-        var mention;
+        var mentionList = MentionExtractor.getMentionListForTopic($state.params.entityId);
+        var mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
+        var mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share);
 
-        //if (room = EntityMapManager.get('total', fileInfo.roomId)) {
-        if (room = EntityMapManager.get('total', fileInfo.share)) {
-          users = entityAPIservice.getUserList(room);
-
-          if (users && users.length > 0) {
-            mentionList = MentionExtractor.getMentionListForTopic(users, $state.params.entityId);
-            mentionMap = MentionExtractor.getSingleMentionItems(mentionList);
-            //if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.roomId)) {
-            if (mention = MentionExtractor.getMentionAllForText(fileInfo.comment, mentionMap, fileInfo.share)) {
-              fileInfo.comment = mention.msg;
-              fileInfo.mentions = mention.mentions;
-            }
-          }
+        if (mention) {
+          fileInfo.comment = mention.msg;
+          fileInfo.mentions = mention.mentions;
         }
       }
 
@@ -382,6 +371,14 @@
         };
 
         analyticsService.mixpanelTrack( "File Upload", upload_data );
+      }
+
+      /**
+       * comment input change
+       * @param {object} $event
+       */
+      function onCommentInputChange($event) {
+        scope.data.comment = _.trim($event.target.value);
       }
     }
   }

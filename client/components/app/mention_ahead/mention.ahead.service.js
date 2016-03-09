@@ -27,6 +27,7 @@
     that.getSingleMentionItems = getSingleMentionItems;
     that.getMentionListForTopic = getMentionListForTopic;
     that.getMentionListForFile = getMentionListForFile;
+    that.getMentionListForUploading = getMentionListForUploading;
 
     /**
      * show mentionahead
@@ -173,50 +174,26 @@
      * @param {number} entityId
      * @returns {Array}
      */
-    function getMentionListForTopic(users, entityId) {
-      var currentMemberId = memberService.getMemberId();
-      var mentionList = [];
-      var user;
-      var i;
-      var len;
+    function getMentionListForTopic(entityId) {
+      var mentionList = _getMentionList(entityId);
 
-      if (users) {
-        // 현재 topic의 users
+      mentionList = _.sortBy(mentionList, function (item) {
+        return item.name.toLowerCase();
+      });
 
-        for (i = 0, len = users.length; i < len; i++) {
-          user = EntityMapManager.get('member', users[i]);
-          if (user && currentMemberId !== user.id && user.status === 'enabled') {
-            // mention 입력시 text 입력 화면에 보여지게 될 text
-            user.extViewName = '[@' + user.name + ']';
+      _addJandiBot(mentionList);
 
-            // user 검색시 사용될 text
-            user.extSearchName = user.name;
-            user.extProfileImage = memberService.getProfileImage(user.id);
-
-            mentionList.push(user);
-          }
-        }
-
-        mentionList = _.sortBy(mentionList, function (item) {
-          return item.name.toLowerCase();
-        });
-
-        if (entityId != null) {
-          _addJandiBot(mentionList);
-
-          mentionList.unshift({
-            // mention item 출력용 text
-            name: that.MENTION_ALL_ITEM_TEXT,
-            // mention target에 출력용 text
-            extViewName : '[@' + that.MENTION_ALL + ']',
-            // mention search text
-            extSearchName: 'all',
-            extProfileImage: configuration.assets_url + 'assets/images/mention_profile_all.png',
-            id: entityId,
-            type: 'room'
-          });
-        }
-      }
+      mentionList.unshift({
+        // mention item 출력용 text
+        name: that.MENTION_ALL_ITEM_TEXT,
+        // mention target에 출력용 text
+        extViewName : '[@' + that.MENTION_ALL + ']',
+        // mention search text
+        extSearchName: 'all',
+        extProfileImage: configuration.assets_url + 'assets/images/mention_profile_all.png',
+        id: entityId,
+        type: 'room'
+      });
 
       return mentionList;
     }
@@ -227,44 +204,82 @@
      * @returns {Array}
      */
     function getMentionListForFile(file) {
-      var currentMemberId = memberService.getMemberId();
       var mentionList = [];
       var sharedEntities;
-
-      var entity;
-      var users;
-      var user;
 
       if (file) {
         sharedEntities = file.shareEntities;
 
+        // 공유된 room 마다 mention 가능한 member를 설정함
         _.each(sharedEntities, function (sharedEntity) {
-          entity = EntityMapManager.get('total', sharedEntity);
-
-          if (entity && /channels|privategroups/.test(entity.type)) {
-            users = entityAPIservice.getUserList(entity);
-            _.each(users, function (userId) {
-              user = EntityMapManager.get('user', userId);
-              if (user && currentMemberId !== user.id && user.status === 'enabled') {
-                user.extViewName = '[@' + user.name + ']';
-                user.extSearchName = user.name;
-                user.extProfileImage = memberService.getProfileImage(user.id);
-
-                mentionList.push(user);
-              }
-            });
-          }
+          mentionList = _getMentionList(sharedEntity, mentionList);
         });
 
-        // 공유된 room 마다 mention 가능한 member를 설정함
-        mentionList = _.chain(mentionList).uniq('id').sortBy(function (item) {
-          return item.name.toLowerCase();
-        }).value();
+        mentionList = _getUniqNSortMentionList(mentionList);
 
         _addJandiBot(mentionList);
       }
 
       return mentionList;
+    }
+
+    /**
+     * 업로드할 파일에 대해 mention 가능한 list를 전달
+     * @param {number} entityId
+     * @returns {*}
+     * @private
+     */
+    function getMentionListForUploading(entityId) {
+      var mentionList = _getMentionList(entityId);
+
+      mentionList = _getUniqNSortMentionList(mentionList);
+
+      _addJandiBot(mentionList);
+
+      return mentionList;
+    }
+
+    /**
+     * mention list 전달
+     * @param {number} entityId
+     * @param {array} mentionList
+     * @returns {*|Array}
+     * @private
+     */
+    function _getMentionList(entityId, mentionList) {
+      var entity = EntityMapManager.get('total', entityId);
+      var currentMemberId = memberService.getMemberId();
+      var users;
+      var user;
+
+      mentionList = mentionList || [];
+      if (entity && /channels|privategroups/.test(entity.type)) {
+        users = entityAPIservice.getUserList(entity);
+        _.each(users, function (userId) {
+          user = EntityMapManager.get('member', userId);
+          if (user && currentMemberId !== user.id && user.status === 'enabled') {
+            user.extViewName = '[@' + user.name + ']';
+            user.extSearchName = user.name;
+            user.extProfileImage = memberService.getProfileImage(user.id);
+
+            mentionList.push(user);
+          }
+        });
+      }
+
+      return mentionList;
+    }
+
+    /**
+     * uniq, sort 처리된 mention list 전달
+     * @param {array} mentionList
+     * @returns {*}
+     * @private
+     */
+    function _getUniqNSortMentionList(mentionList) {
+      return _.chain(mentionList).uniq('id').sortBy(function (item) {
+        return item.name.toLowerCase();
+      }).value();
     }
 
     /**

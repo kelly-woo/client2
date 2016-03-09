@@ -190,6 +190,7 @@
     function setRightPanelStatus() {
       // 오른쪽 패널이 열려야 하는지 여부
       $rootScope.isOpenRightPanel = RightPanel.isOpen();
+      jndPubSub.pub('Router:openRightPanel', $rootScope.isOpenRightPanel);
 
       // 오른쪽 패널의 파일 상세가 열려야 하는지 여부
       $rootScope.isOpenFileDetail = RightPanel.isOpenFileDetail();

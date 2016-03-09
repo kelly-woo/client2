@@ -32,7 +32,7 @@ article {
   left: 240px;
   right: 0;
   bottom: 0;
-  min-width: 400px;
+  min-width: 520px;
 }
 .cpanel .panel-title-container {
   z-index: 28;
@@ -520,6 +520,7 @@ by ysyun 2015.2.25
   height: 1px;
   background-color: #ededed;
   vertical-align: middle;
+  border: 0;
 }
 
 .system-event-msg .msg-item-header {

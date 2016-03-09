@@ -3,13 +3,13 @@
 
   angular
       .module('jandiApp')
-      .factory('FilesUpload', FilesUpload);
+      .factory('FilesUploadCreator', FilesUploadCreator);
 
   /**
    * File upload service
    */
   /* @ngInject */
-  function FilesUpload($rootScope, fileAPIservice, fileObjectService) {
+  function FilesUploadCreator($rootScope, fileAPIservice, fileObjectService) {
     /**
      * fileAPIservice를 사용하여 file을 upload 함.
      * confirm 그리고 sequence type upload를 제공하기 위해 service로 구현함.
@@ -107,6 +107,8 @@
       /**
        * FileObject로 wrapping된 file object의 upload를 수행함.
        * @param {boolean} confirm - confirm upload시 현재 file의 upload 여부
+       * @param {object} [options]
+       * @param {boolean} [options.straight] - upload 방법을 straight로 설정함.
        */
       upload: function(confirm, options) {
         var that = this;
@@ -176,6 +178,14 @@
       _uploadStraight: function(currentIndex) {
         var that = this;
 
+        // TODO: file upload service에서 제공하는 메소드 해당
+        // upload방법으로 confirm과 straight 방법을 제공한다. confirm 방법은 fileUploadQueue를 사용하여 upload가 진행되고
+        // straight 방법은 fileUploadQueue와 invoke function으로 upload가 진행되므로 upload 진행상태 처리가 서로 다르다.
+        // straight 방법도 fileUploadQueue 만을 사용하여 upload가 진행되도록 변경하여야 한다.
+        // TODO: file upload component에 대한 해당
+        // center에 존재하는 file upload에 대한 view를 특정 scope로 분리가 이루어져야 하며, file upload service는 factory가 아닌
+        // 항상 존재하는 service의 형태로 제공되어 file upload만 수행하고 현재 처리하는 내용 대부분은 directive와 controller에서
+        // 담당해야 한다.
         that._fileUploadQueue.push((function(file) {
           return function () {
             var currentIndex = that._it.currentIndex();
