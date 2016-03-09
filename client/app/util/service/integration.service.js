@@ -118,17 +118,15 @@
        */
       _updateFileObject: function(file) {
         var that = this;
-        var currentEntity = currentSessionHelper.getCurrentEntity();
 
         file.isPrivateFile = false;
-        file.currentEntity = currentEntity;
 
         if (file.isPrivateFile) {   // privategroups
           file.permission = that.PRIVATE_FILE;
           file.share = '';
         } else {                        // channel
           file.permission = that.PUBLIC_FILE;
-          file.share = file.currentEntity.id;
+          file.share = _getFileShareId(that.options.scope);
         }
       },
       /**
@@ -565,6 +563,16 @@
           dropboxIntegration && dropboxIntegration.open($scope);
         }
       }
+    }
+
+    /**
+     * 파일 공유할 id를 전달함.
+     * @param {object} scope - center controller의 scope
+     * @returns {*}
+     * @private
+     */
+    function _getFileShareId(scope) {
+      return scope.entityId != null ? scope.entityId : currentSessionHelper.getCurrentEntity().id;
     }
 
     /**
