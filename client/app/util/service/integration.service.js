@@ -7,7 +7,8 @@
 
   /* @ngInject */
   function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService,
-                              accountService, storageAPIservice, analyticsService, FilesUploadCreator) {
+                              accountService, storageAPIservice, analyticsService, FilesUploadCreator,
+                              currentSessionHelper) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -31,36 +32,7 @@
           },
           onSuccess: function(response) {
             $rootScope.curUpload.status = 'done';
-            // console.log("file upload success ::: ", index, length, file.name);
-
-            // analytics
-            var share_target = "";
-            switch (that.options.scope.currentEntity.type) {
-              case 'channel':
-                share_target = "topic";
-                break;
-              case 'privateGroup':
-                share_target = "private group";
-                break;
-              case 'user':
-                share_target = "direct message";
-                break;
-              default:
-                share_target = "invalid";
-                break;
-            }
-
-            var file_meta = (response.data.fileInfo.type).split("/");
-
-            var upload_data = {
-              "entity type"   : share_target,
-              "category"      : file_meta[0],
-              "extension"     : response.data.fileInfo.ext,
-              "mime type"     : response.data.fileInfo.type,
-              "size"          : response.data.fileInfo.size
-            };
-
-            analyticsService.mixpanelTrack( "File Upload", upload_data );
+            _successAnalytics(response);
           },
           onError: function() {
             that._uploadErrorHandler($rootScope);
@@ -83,7 +55,11 @@
 
         return that;
       },
-      open: function() {},
+      open: function(scope) {
+        var that = this;
+
+        that.options.scope = scope;
+      },
       /**
        * addEventListeners
        */
@@ -142,9 +118,10 @@
        */
       _updateFileObject: function(file) {
         var that = this;
+        var currentEntity = currentSessionHelper.getCurrentEntity();
 
         file.isPrivateFile = false;
-        file.currentEntity = that.options.scope.currentEntity;
+        file.currentEntity = currentEntity;
 
         if (file.isPrivateFile) {   // privategroups
           file.permission = that.PRIVATE_FILE;
@@ -239,9 +216,7 @@
         var that = this;
         var token;
 
-        Integration.open.call(that);
-
-        that.options.scope = scope;
+        Integration.open.call(that, scope);
 
         if (token = gapi.auth.getToken()) {
           that._showPicker();
@@ -300,7 +275,6 @@
       _pickerCallback: function(data) {
         var that = this;
 
-        // console.log('data ::: ', data);
         if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
           // Get metadata of file
           // var file = data[google.picker.Response.DOCUMENTS][0],
@@ -430,11 +404,9 @@
        * choose object 생성시 options 수정 가능함.
        */
       open: function(scope) {
-        Integration.open.call(this);
-
         var that = this;
 
-        that.options.scope = scope;
+        Integration.open.call(that, scope);
 
         if (that.cInterface === 'alert') {
           that._openIntegrationModal();
@@ -593,6 +565,43 @@
           dropboxIntegration && dropboxIntegration.open($scope);
         }
       }
+    }
+
+    /**
+     * file upload success analytics
+     * @private
+     */
+    function _successAnalytics(response) {
+      // analytics
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+      var share_target = "";
+
+      switch (currentEntity.type) {
+        case 'channel':
+          share_target = "topic";
+          break;
+        case 'privateGroup':
+          share_target = "private group";
+          break;
+        case 'user':
+          share_target = "direct message";
+          break;
+        default:
+          share_target = "invalid";
+          break;
+      }
+
+      var file_meta = (response.data.fileInfo.type).split("/");
+
+      var upload_data = {
+        "entity type"   : share_target,
+        "category"      : file_meta[0],
+        "extension"     : response.data.fileInfo.ext,
+        "mime type"     : response.data.fileInfo.type,
+        "size"          : response.data.fileInfo.size
+      };
+
+      analyticsService.mixpanelTrack("File Upload", upload_data);
     }
 
     return {
