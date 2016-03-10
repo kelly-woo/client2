@@ -2403,8 +2403,9 @@ msgstr "1:1メッセージと@メンションのみ受ける"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
 msgstr ""
-"デスクトップ通知をオフに設定しました。<a href=\"http://bit.ly/1RZu5g4\" "
-"target=\"_blank\">ご案内ページ</a>から変更方法をご確認ください。"
+"デスクトップ通知をオフに設定しました。<a href=\"https://jandi.zendesk.com/hc/"
+"en-us/articles/207464763\" target=\"_blank\">ご案内ページ</a>から変更方法をご"
+"確認ください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"

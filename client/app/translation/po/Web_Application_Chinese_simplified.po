@@ -10,6 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Bookmarks: -1,71,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -357,7 +358,7 @@ msgstr "这个议题名称已经被使用。请选择另外一个。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-edit"
-msgstr "提交"
+msgstr "编辑"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -2321,8 +2322,9 @@ msgstr "仅接收私信和@提及通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
 msgstr ""
-"你已关闭电脑版的推播通知。 欲重启推播，请点击此<a href=\"http://bit."
-"ly/1RZu5g4\" target=\"_blank\">文章</a>浏览开启步骤。"
+"你已关闭电脑版的推播通知。 欲重启推播，请点击此<a href=\"https://jandi."
+"zendesk.com/hc/zh-cn/articles/208379643\" target=\"_blank\">文章</a>浏览开启"
+"步骤。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"

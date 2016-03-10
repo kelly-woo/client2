@@ -2404,8 +2404,8 @@ msgstr "Receive direct messages and @mentions only"
 msgid "@setting-notification-permission-denied"
 msgstr ""
 "You have opted not to receive desktop notifications. You need to open your "
-"browser preferences to enable it. Check <a href=\"http://bit.ly/1RZu5g4\" "
-"target=\"_blank\">this article</a> to do so."
+"browser preferences to enable it. Check <a href=\"https://jandi.zendesk.com/"
+"hc/en-us/articles/207464763\" target=\"_blank\">this article</a> to do so."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"
