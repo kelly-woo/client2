@@ -3,6 +3,10 @@
   margin-bottom: 0;
 }
 
+.modal-dialog .topic-admin-transfer .custom-select-box.active {
+  top: 38px;
+}
+
 .topic-admin-transfer {
   margin-top: 10px;
 }
@@ -15,7 +19,8 @@
 }
 
 .topic-admin-transfer  .custom-select-box-btn > .icon-angle-down {
-  top: 9px;
+  top: 7px;
+  font-size: 16px;
 }
 
 .topic-admin-transfer .control-label {
@@ -28,9 +33,24 @@
   top: auto;
   right: auto;
 }
+
 .topic-admin-transfer .description-container {
   left: -125px;
 }
+
 .topic-admin-transfer .description-arrow-up {
   left: 124px;
+}
+
+/* 커스텀 셀렉트 박스에서 선택한 아이템의 이미지 프로필 */
+.topic-admin-transfer .custom-select-box-btn .profile-image {
+  display: block;
+  width: 25px;
+  margin-left: 8px;
+  border-radius: 25px;
+  float: left;
+}
+
+.topic-admin-transfer .custom-select-box-btn span {
+  line-height: 25px;
 }
