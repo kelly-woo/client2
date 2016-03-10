@@ -37,7 +37,6 @@
 
         scope.upload = upload;
         scope.cancel = cancel;
-        scope.onCommentInputChange = onCommentInputChange;
 
         _setFilUploader();
       }
@@ -60,7 +59,7 @@
             // file object convert
             convertFile: function(file) {
               if (file.comment) {
-                scope.data.comment = file.comment;
+                scope.data.comment = _.trim(file.comment) === '' ? '' : file.comment;
               }
 
               return scope.file = file;
@@ -371,14 +370,6 @@
         };
 
         analyticsService.mixpanelTrack( "File Upload", upload_data );
-      }
-
-      /**
-       * comment input change
-       * @param {object} $event
-       */
-      function onCommentInputChange($event) {
-        scope.data.comment = _.trim($event.target.value);
       }
     }
   }
