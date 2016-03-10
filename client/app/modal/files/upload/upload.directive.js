@@ -59,7 +59,7 @@
             // file object convert
             convertFile: function(file) {
               if (file.comment) {
-                scope.data.comment = _.trim(file.comment) === '' ? '' : file.comment;
+                scope.data.comment = _.trim(file.comment);
               }
 
               return scope.file = file;
