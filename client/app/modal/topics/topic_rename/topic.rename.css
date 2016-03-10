@@ -1,3 +1,8 @@
+.modal-dialog .topic-admin-transfer .custom-select-box-btn {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .topic-admin-transfer {
   margin-top: 10px;
 }
@@ -13,7 +18,19 @@
   top: 9px;
 }
 
-.modal-dialog .topic-admin-transfer .custom-select-box-btn {
-  margin-top: 0;
-  margin-bottom: 0;
+.topic-admin-transfer .control-label {
+  width: 25%;
+  padding-right: 0;
+}
+
+.topic-admin-transfer .help-description {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+.topic-admin-transfer .description-container {
+  left: -125px;
+}
+.topic-admin-transfer .description-arrow-up {
+  left: 124px;
 }
