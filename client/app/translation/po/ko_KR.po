@@ -2750,6 +2750,36 @@ msgid "@to-account-home"
 msgstr "잔디 메인으로"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr ""
+"회원님은 이 토픽의 관리자입니다. <br>토픽에서 나가기 전에 다음 토픽 관리자를 "
+"지정하실 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr "이 멤버를 토픽 관리자로 지정하시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-1"
+msgstr "정말 이 멤버를 내보내시겠습니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-2"
+msgstr ""
+"이 멤버는 이 토픽의 관리자입니다. <br>다음 관리자를 지정한 후 토픽에서 내보"
+"낼 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr "토픽 관리자를 변경했습니다"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+"토픽 관리자는 다음과 같은 권한이 있습니다.- 토픽 이름 또는 설명 변경- 토픽 삭"
+"제- 참여중인 멤버 내보내기- 잔디 커넥트 항목 정지/삭제"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description"
 msgstr "토픽 설명"
@@ -3753,9 +3783,6 @@ msgstr "수요일"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "팀 이름 변경"
-
-#~ msgid "@setting-team-name-confirm"
-#~ msgstr "정말 팀 이름을 변경하시겠습니까?"
 
 #~ msgid "@setting-team-name-msg"
 #~ msgstr "팀 이름은 각종 제목들과 브라우저의 탭에 표시됩니다."

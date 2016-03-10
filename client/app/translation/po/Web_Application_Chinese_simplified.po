@@ -2668,6 +2668,32 @@ msgid "@to-account-home"
 msgstr "回到账号首页"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr "你可于离开议题前转移管理权限"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr "你确定将议题管理权限转移至此成员？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-1"
+msgstr "你确定将此成员剔除议题？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-2"
+msgstr "此成员为议题管理员，需先将权限转移至其他成员才可剔除此成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr "议题管理权限已成功转移"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+"议题管理员权限为下：- 更改议题名称和信息- 删除议题- 剔除议题成员- 暂停/删除"
+"JANDI Connect聚合项目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description"
 msgstr "议题内容"
@@ -3423,9 +3449,6 @@ msgstr "星期三"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改团队名称"
-
-#~ msgid "@setting-team-name-confirm"
-#~ msgstr "您确定您要更改您团队的名称？"
 
 #~ msgid "@setting-team-name-msg"
 #~ msgstr "您的团队名称会显示在不同的标题和浏览器标签上。"

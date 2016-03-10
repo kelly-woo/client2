@@ -2667,6 +2667,32 @@ msgid "@to-account-home"
 msgstr "回到帳號首頁"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr "你可於離開議題前轉移管理權限"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr "你確定將議題管理權限轉移至此成員？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-1"
+msgstr "你確定將此成員剔除議題？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-2"
+msgstr "此成員為議題管理員，需先將權限轉移至其他成員才可剔除此成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr "議題管理權限已成功轉移"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+"議題管理員權限為下：- 更改議題名稱和資訊- 刪除議題- 剔除議題成員- 暫停/刪除"
+"JANDI Connect整合項目"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description"
 msgstr "議題內容"
@@ -3422,9 +3448,6 @@ msgstr "三"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改團隊名稱"
-
-#~ msgid "@setting-team-name-confirm"
-#~ msgstr "您確定您要更改您團隊的名稱？"
 
 #~ msgid "@setting-team-name-msg"
 #~ msgstr "您的團隊名稱會顯示在不同的標題和瀏覽器標籤上。"
