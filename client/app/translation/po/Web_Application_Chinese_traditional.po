@@ -357,7 +357,7 @@ msgstr "這個議題名稱已經被使用。請選擇另外一個。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-edit"
-msgstr "提交"
+msgstr "編輯"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -2320,8 +2320,9 @@ msgstr "僅接收私訊和@提及通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
 msgstr ""
-"你已關閉電腦版的推播通知。欲重新開啟推播，請點擊此<a href=\"http://bit."
-"ly/1RZu5g4\" target=\"_blank\">文章</a>瀏覽開啟步驟。"
+"你已關閉電腦版的推播通知。欲重新開啟推播，請點擊此<a href=\"https://jandi."
+"zendesk.com/hc/zh-tw/articles/208026056\" target=\"_blank\">文章</a>瀏覽開啟"
+"步驟。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"
@@ -2665,6 +2666,32 @@ msgstr "周四"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
 msgstr "回到帳號首頁"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr "你可於離開議題前轉移管理權限"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr "你確定將議題管理權限轉移至此成員？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-1"
+msgstr "你確定將此成員剔除議題？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-2"
+msgstr "此成員為議題管理員，需先將權限轉移至其他成員才可剔除此成員"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr "議題管理權限已成功轉移"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+"議題管理員權限為下：- 更改議題名稱和資訊- 刪除議題- 剔除議題成員- 暫停/刪除"
+"JANDI Connect整合項目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
@@ -3422,9 +3449,6 @@ msgstr "周三"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改團隊名稱"
-
-#~ msgid "@setting-team-name-confirm"
-#~ msgstr "您確定您要更改您團隊的名稱？"
 
 #~ msgid "@setting-team-name-msg"
 #~ msgstr "您的團隊名稱會顯示在不同的標題和瀏覽器標籤上。"

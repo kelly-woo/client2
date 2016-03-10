@@ -2606,6 +2606,30 @@ msgid "@to-account-home"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-1"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm-2"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description"
 msgstr ""
