@@ -74,6 +74,18 @@
       <div class="form-group">
         <label class="control-label col-sm-3">
           <span>{{::'@common-topic-admin' | translate}}</span>
+          <span class="help-description cursor_pointer">
+            <i class="fa fa-info-circle">
+              <div class="description-container">
+                <div class="description-arrow-up"></div>
+                <div class="description-content-container">
+                  <div class="help-description__description">
+                    <span translate>@topic-admin-transfer-tooltip</span>
+                  </div>
+                </div>
+              </div>
+            </i>
+          </span>
         </label>
         <div class="col-sm-9">
           <jnd-selectbox-member jnd-data-model="form.adminId"
