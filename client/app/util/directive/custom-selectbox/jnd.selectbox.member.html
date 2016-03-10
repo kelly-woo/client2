@@ -6,6 +6,7 @@
        }"
        ng-click="toggleShow($event);">
     <i class="fa custom-selectbox-arrow icon-angle-down"></i>
+    <img class="profile-image" ng-if="isShowProfileImage" ng-src="{{selectedImageUrl}}"/>
     <span>{{selectedName}}</span>
   </div>
   <div ng-if="isShown"
