@@ -232,7 +232,7 @@
      */
     function _showLeaveCurrentEntityConfirm() {
       Dialog.confirm({
-        title: '@topic-admin-transfer-adminleave-confirm',
+        title: _translate('@topic-admin-transfer-adminleave-confirm'),
         onClose: function(result) {
           if (result === 'okay') {
             modalHelper.openTopicRenameModal($scope, {
