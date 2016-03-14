@@ -42,7 +42,6 @@
       getOwnerId: getOwnerId,
 
       addBot: addBot,
-      addUser: addUser,
       updateBot: updateBot,
 
       increaseBadgeCount: increaseBadgeCount,

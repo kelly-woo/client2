@@ -352,8 +352,7 @@
       if (user && !memberService.isUser(user.id)) {
         // user의 값이 존재하지 않음을 확인하여 기존에 존재하던 user의 값이 안 덮어씌어 지도록 한다.
         // 기존에 존재하던 user의 값은 즐겨찾기, 마지막은 읽은 메세지등 여러 data를 가지고 있다.
-
-        entityAPIservice.addUser(user);
+        UserList.add(user);
       }
     }
   }
