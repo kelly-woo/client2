@@ -132,9 +132,8 @@
           //팀전환
           'CHAR_T': {
             handler: function() {
-              modalHelper.openTeamChangeModal(scope);
-            },
-            extraCondition: JndConnect.isClose
+              jndPubSub.pub('jndMainKeyHandler:teamSwitchToggle');
+            }
           },
           //우측패널 토글
           '[': {

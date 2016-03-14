@@ -32,7 +32,6 @@
     that.openTopicJoinModal = openTopicJoinModal;
     that.openTopicRenameModal = openTopicRenameModal;
 
-    that.openTeamChangeModal = openTeamChangeModal;
     that.openTeamMemberListModal = openTeamMemberListModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
@@ -239,20 +238,6 @@
         controller: 'TopicRenameCtrl',
         size: 'lg',
         autofocus: '#topic-rename-name'
-      };
-      _modalOpener(modalOption);
-    }
-
-    /**
-     * 팀 변환을 위한 현재 사용자가 가입되어있는 팀 리스트를 보여주는 모달창을 연다.
-     * @param $scope
-     */
-    function openTeamChangeModal($scope) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/teams/team_change/team.change.html',
-        controller: 'TeamChangeController',
-        size: 'lg'
       };
       _modalOpener(modalOption);
     }
