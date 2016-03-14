@@ -42,6 +42,7 @@
       getOwnerId: getOwnerId,
 
       addBot: addBot,
+      addUser: addUser,
       updateBot: updateBot,
 
       increaseBadgeCount: increaseBadgeCount,
@@ -562,9 +563,6 @@
           _setJandiBot(bot);
         }
         BotList.add(bot);
-        //EntityMapManager.add('bot', bot);
-        //EntityMapManager.add('member', bot);
-        //EntityMapManager.add('total', bot);
       }
     }
 

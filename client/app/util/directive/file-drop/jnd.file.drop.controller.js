@@ -21,7 +21,7 @@
     .controller('JndFileDropCtrl', JndFileDropCtrl);
 
   /* @ngInject */
-  function JndFileDropCtrl($scope, $rootScope, currentSessionHelper, fileAPIservice, FilesUploadCreator, modalHelper) {
+  function JndFileDropCtrl($scope, $rootScope, currentSessionHelper, fileAPIservice, FilesUploadFactory, modalHelper) {
     $scope.onFileSelect = onFileSelect;
     $scope.onFileUploadAbortClick = onFileUploadAbortClick;
     $scope.onFileIconCloseClick = onFileIconCloseClick;
@@ -72,7 +72,7 @@
 
       fileAPIservice.cancelClearCurUpload();
 
-      fileUploader = fileUploader || FilesUploadCreator.createInstance();
+      fileUploader = fileUploader || FilesUploadFactory.createInstance();
       fileUploader.currentEntity = currentEntity;
 
       if (options == null) {
