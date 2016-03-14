@@ -298,7 +298,7 @@ app.filter('ctrlKey', ['Browser',
 ]);
 
 /**
- * unread badge count filter
+ * 읽지 않은 badge count에 대한 filter
  */
 app.filter('unreadBadgeCount', function() {
   return function(count) {
