@@ -169,10 +169,12 @@
 
       /**
        * 콜렉션의 결과 값을 반환한다.
+       * @param {boolean} [isRaw=false] - 원본 리스트를 반환한다. 원본 리스트를 반환할 경우,
+       *                                map 데이터와 정합성이 깨질 수 있으므로 특별한 경우일 경우에만 옵션을 설정하도록 한다.
        * @returns {Array}
        */
-      function toJSON() {
-        return _data.list;
+      function toJSON(isRaw) {
+        return isRaw ? _data.list : _.clone(_data.list);
       }
 
       /**

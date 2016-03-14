@@ -32,6 +32,18 @@
       that.get = _collection.get;
       that.remove = _collection.remove;
       that.toJSON= _collection.toJSON;
+
+      that.getEnabledList = getEnabledList;
+    }
+
+    /**
+     * 상태가 enable 인 사용자 list 를 반환한다.
+     * @returns {Array}
+     */
+    function getEnabledList() {
+      return _.filter(that.toJSON(true), function(user) {
+        return user.status == 'enabled';
+      });
     }
   }
 })();

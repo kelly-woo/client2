@@ -11,9 +11,8 @@
     .service('currentSessionHelper', currentSessionHelper);
 
   /* @ngInject */
-  function currentSessionHelper($state) {
+  function currentSessionHelper($state, UserList) {
     var currentTeam;
-    var currentTeamUserList;
     var currentEntity;
     var currentTeamAdmin;
 
@@ -35,7 +34,6 @@
     this.getDefaultTopicId = getDefaultTopicId;
 
     this.getCurrentTeamUserList = getCurrentTeamUserList;
-    this.setCurrentTeamUserList = setCurrentTeamUserList;
 
     this.getCurrentTeamUserCount = getCurrentTeamUserCount;
 
@@ -77,7 +75,6 @@
      */
     function clear() {
       currentTeam = null;
-      currentTeamUserList = null;
       currentEntity = null;
       currentTeamAdmin = null;
       _hasBrowserFocus = true;
@@ -111,17 +108,17 @@
     function getDefaultTopicId() {
       return currentTeam && currentTeam.t_defaultChannelId;
     }
-    function getCurrentTeamUserList() { return currentTeamUserList; }
-    function setCurrentTeamUserList(userList) { currentTeamUserList = userList; }
+
+    /**
+     * 현재 팀의 User 리스트를 반환한다.
+     * @returns {*}
+     */
+    function getCurrentTeamUserList() {
+      return UserList.toJSON();
+    }
 
     function getCurrentTeamUserCount() {
-      var activeMemberCount = 0;
-      _.forEach(currentTeamUserList, function(member, index) {
-        if (member.status == 'enabled') activeMemberCount++;
-      });
-
-      //console.log(activeMemberCount)
-      return activeMemberCount;
+      return UserList.getEnabledList().length;
     }
 
     function setCurrentEntity(entity) {

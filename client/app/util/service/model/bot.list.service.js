@@ -10,7 +10,7 @@
     .service('BotList', BotList);
 
   /* @ngInject */
-  function BotList(Collection) {
+  function BotList(Collection, JndUtil) {
     var _jandiBot;
     var _collection;
     var that = this;
@@ -36,6 +36,8 @@
       that.setList = setList;
       that.add = add;
       that.getJandiBot = getJandiBot;
+      that.isJandiBot = isJandiBot;
+      that.isConnectBot = isConnectBot;
     }
 
     /**
@@ -55,6 +57,26 @@
      */
     function getJandiBot() {
       return _jandiBot;
+    }
+
+    /**
+     * jandi bot 인지 여부를 반환한다.
+     * @param {number|string} id
+     * @returns {boolean}
+     */
+    function isJandiBot(id) {
+      var bot = that.get(id);
+      return JndUtil.pick(bot, 'botType') === 'jandi_bot';
+    }
+
+    /**
+     * connect bot 인지 여부를 반환한다.
+     * @param {number|string} id
+     * @returns {boolean}
+     */
+    function isConnectBot(id) {
+      var bot = that.get(id);
+      return JndUtil.pick(bot, 'botType') === 'connect_bot';
     }
 
     /**

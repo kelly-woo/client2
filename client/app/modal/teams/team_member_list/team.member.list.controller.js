@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TeamMemberListCtrl($scope, $modalInstance, $state, $filter, $timeout, currentSessionHelper,
-                              memberService, entityAPIservice, modalHelper, jndPubSub) {
+                              memberService, modalHelper, jndPubSub, UserList, BotList) {
     _init();
 
     function _init() {
@@ -109,8 +109,8 @@
     function generateMemberList() {
       var enabledMemberList = [];
       var disabledMemberList = [];
-      var memberList = currentSessionHelper.getCurrentTeamUserList();
-      var jandiBot = entityAPIservice.getJandiBot();
+      var memberList = UserList.toJSON();
+      var jandiBot = BotList.getJandiBot();
 
       if (memberList) {
         if (jandiBot) {

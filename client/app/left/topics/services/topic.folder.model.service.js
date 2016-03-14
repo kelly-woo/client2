@@ -13,7 +13,7 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
+  function TopicFolderModel($q, $filter, $timeout, memberService, jndPubSub, TopicFolderAPI, RoomTopicList,
                             JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil, TopicInvitedFlagMap) {
     var _raw = {
       folderList: [],
@@ -223,7 +223,7 @@
 
       _.forEach(_raw.entityList, function(entity) {
         if (entity.folderId === folderId) {
-          tempEntity = EntityMapManager.get('total', entity.roomId);
+          tempEntity = RoomTopicList.get(entity.roomId, true);
           if (tempEntity) {
             tempEntity.extIsCurrent = (+tempEntity.id === +(currentEntity && currentEntity.id));
             tempEntity.extFolderId = folderId;

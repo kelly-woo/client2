@@ -437,7 +437,6 @@ app.controller('leftPanelController1', function(
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
     currentSessionHelper.setCurrentTeam(response.team);
-    currentSessionHelper.setCurrentTeamUserList(EntityMapManager.toArray('user'));
 
     // generating starred list.
     if (memberService.getStarredEntities().length > 0) {

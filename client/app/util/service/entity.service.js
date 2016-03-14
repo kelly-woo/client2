@@ -412,19 +412,17 @@
 
     /**
      * bot list를 전달한다.
-     * @param {object} entity
      * @returns {Array}
      */
     function getBotList() {
-      //return _getMemberList('bot', entity);
-      return EntityMapManager.toArray('bot');
+      return BotList.toJSON();
     }
 
     /**
      * jandi bot을 전달한다.
      */
     function getJandiBot() {
-      return _jandiBot;
+      return BotList.getJandiBot();
     }
 
     /**

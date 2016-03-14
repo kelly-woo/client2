@@ -651,8 +651,7 @@
      * @returns {*|boolean|*}
      */
     function isJandiBot(memberId) {
-      var bot = EntityMapManager.get('bot', memberId);
-      return isBot(memberId) && bot && bot.botType === 'jandi_bot';
+      return BotList.isJandiBot(memberId);
     }
 
     /**
@@ -661,8 +660,7 @@
      * @returns {*|boolean|*}
      */
     function isConnectBot(memberId) {
-      var bot = EntityMapManager.get('bot', memberId);
-      return isBot(memberId) && bot && bot.botType === 'connect_bot';
+      return BotList.isConnectBot(memberId);
     }
 
     /**

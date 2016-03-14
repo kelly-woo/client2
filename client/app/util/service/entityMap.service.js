@@ -92,8 +92,7 @@
      */
     function get(mapType, key) {
       key = parseInt(key, 10);
-      EntityHandler.get(key);
-      //return !!maps[mapType] && maps[mapType][key];
+      return EntityHandler.get(key);
     }
 
     /**
