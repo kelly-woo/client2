@@ -21,9 +21,32 @@
     this.get = get;
     this.toJSON= toJSON;
 
+    this.isPrivate = isPrivate;
+    this.isPublic = isPublic;
+
     _init();
 
+    /**
+     * id 에 해당하는 room 이 비공개인지 여부를 반환한다.
+     * @param {number|string} id
+     * @returns {boolean}
+     */
+    function isPrivate(id) {
+      var topic = get(id);
+      //@fixme: indexOf 대신 일치 연산자로 문자열 비교 필요
+      return !!(topic && topic.type.indexOf('private') !== -1);
+    }
 
+    /**
+     * id 에 해당하는 room 이 공개인지 여부를 반환한다.
+     * @param {number|string} id
+     * @returns {boolean}
+     */
+    function isPublic(id) {
+      var topic = get(id);
+      //@fixme: indexOf 대신 일치 연산자로 문자열 비교 필요
+      return !!(topic && topic.type.indexOf('channel') !== -1);
+    }
     /**
      * 초기화 메서드
      * @private
@@ -78,10 +101,17 @@
     /**
      * id 에 해당하는 데이터를 반환한다.
      * @param {number|string} id
+     * @param {boolean} [isJoin] - 대상 콜렉션이 사용자가 join 한 방에 대한 콜렉션인지 여부. 설정하지 않을 시 전체 리스트를 대상으로 한다.
      * @returns {*}
      */
-    function get(id) {
-      return _collectionMap.join.get(id) || _collectionMap.unjoin.get(id);
+    function get(id, isJoin) {
+      var list;
+      if (_.isBoolean(isJoin)) {
+        list = _getCollection(isJoin).get(id);
+      } else {
+        list = _collectionMap.join.get(id) || _collectionMap.unjoin.get(id);
+      }
+      return list;
     }
 
     /**
@@ -99,13 +129,13 @@
      * @returns {Array}
      */
     function toJSON(isJoin) {
-      var collection;
+      var list;
       if (_.isBoolean(isJoin)) {
-        collection = _getCollection(isJoin).toJSON();
+        list = _getCollection(isJoin).toJSON();
       } else {
-        collection = _collectionMap.join.toJSON().concat(_collectionMap.unjoin.toJSON());
+        list = _collectionMap.join.toJSON().concat(_collectionMap.unjoin.toJSON());
       }
-      return collection;
+      return list;
     }
   }
 })();

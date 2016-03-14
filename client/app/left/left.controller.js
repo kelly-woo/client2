@@ -467,48 +467,6 @@ app.controller('leftPanelController1', function(
     _updateCenterChat();
   }
 
-
-  /**
-   * 첫 진입시 읽지않은 메세지가 있는 토픽에 한해 메세지를 먼저 받아온다.
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   */
-  //_getCachedMessaged();
-
-  /**
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * 읽지않은 메세지가 있는 토픽에한해서 메세지를 우선적으로 가져온다.
-   * @private
-   */
-  function _getCachedMessaged() {
-    leftpanelAPIservice.getMessages()
-      .success(_onGetMessagesSuccess)
-      .error(function() {
-      });
-  }
-
-  /**
-   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-   * 서버로부터 받은 데이터를 TopicMessageCache에 저장한다.
-   * @param {object} response - 서버로부터 받은 데이타
-   * @private
-   */
-  function _onGetMessagesSuccess(response) {
-    _.each(response, function(unreadTopic) {
-      if (unreadTopic.entityId === 11162232) {
-        console.log(unreadTopic.messages)
-      }
-      var _param = {
-        list: unreadTopic.messages,
-        lastLinkId: unreadTopic.lastLinkId,
-        unreadCount: unreadTopic.unreadCount,
-        hasProcessed: false
-      };
-
-      TopicMessageCache.put(unreadTopic.entityId, _param);
-      memberService.setLastReadMessageMarker(unreadTopic.entityId, unreadTopic.lastLinkId);
-    });
-  }
-
   /**
    * Socket connection을 다시 한 번 체크한다.
    * @private

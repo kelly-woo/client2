@@ -7,7 +7,8 @@
 
   /* @ngInject */
   function entityAPIservice($rootScope, $filter, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
-                            currentSessionHelper, HybridAppHelper, NotificationManager) {
+                            currentSessionHelper, HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList,
+                            RoomTopicList, RoomChatDmList) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityById: getEntityById,
@@ -26,8 +27,8 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
-      isPublicTopic: isPublicTopic,
-      isPrivateTopic: isPrivateTopic,
+      isPublicTopic: RoomTopicList.isPublic,
+      isPrivateTopic: RoomTopicList.isPrivate,
       isJoinedTopic: isJoinedTopic,
       isDM: isDM,
 
@@ -83,18 +84,17 @@
       switch (entityType) {
         case 'privategroup':
         case 'privategroups':
-          entity = EntityMapManager.get('private', entityId);
+        case 'channel':
+        case 'channels':
+          entity = RoomTopicList.get(entityId);
           break;
         case 'user':
         case 'users':
-          entity = EntityMapManager.get('member', entityId);
-          break;
-        case 'channel':
-        case 'channels':
-          entity = EntityMapManager.get('joined', entityId);
+          entity = UserList.get(entityId);
           break;
         default:
-          entity = EntityMapManager.get('total', entityId);
+          entity = EntityHandler.get(entityId);
+
           break;
       }
 
@@ -107,7 +107,7 @@
      * @returns {*|Object}
      */
     function getJoinedEntity(entityId) {
-      return EntityMapManager.get('joined', entityId) || EntityMapManager.get('private', entityId) || EntityMapManager.get('memberEntityId', entityId);
+      return EntityHandler.get(entityId);
     }
 
     /**
@@ -342,22 +342,13 @@
       _.extend(target, source);
     }
 
-    function isPublicTopic(entityId) {
-      return EntityMapManager.contains('joined', entityId);
-    }
-
-    function isPrivateTopic(entityId) {
-      return EntityMapManager.contains('private', entityId);
-    }
-
     /**
      * 조인되어있는 토픽(공개/비공개)인지 알아본다.
      * @param {object} entity - 알아보고 싶은 토픽
      * @returns {boolean}
      */
     function isJoinedTopic(entity) {
-      return  EntityMapManager.contains('joined', entity.id) ||
-              EntityMapManager.contains('private', entity.id);
+      return !!RoomTopicList.get(entity.id, true);
     }
 
     /**
@@ -366,7 +357,7 @@
      * @returns {*|boolean|*}
      */
     function isDM(entity) {
-      return EntityMapManager.contains('memberEntityId', entity.id);
+      return !!RoomChatDmList.get(entity.id);
     }
 
     /**
@@ -384,7 +375,15 @@
      * @returns {Array}
      */
     function getUserList(entity) {
-      return _getMemberList('user', entity);
+      var list = [];
+      var memberList = getMemberList(entity);
+      _.forEach(memberList, function(memberId) {
+        if (UserList.get(memberId)) {
+          list.push(memberId);
+        }
+      });
+
+      return list;
     }
 
     /**
@@ -438,26 +437,6 @@
     }
 
     /**
-     * type에 맞는 member list를 전달한다.
-     * @param {string} type
-     * @param {object} entity
-     * @returns {Array}
-     * @private
-     */
-    function _getMemberList(type, entity) {
-      var members = getMemberList(entity);
-      var list = [];
-
-      _.each(members, function(member) {
-        if (EntityMapManager.contains(type, member)) {
-          list.push(member);
-        }
-      });
-
-      return list;
-    }
-
-    /**
      * topic에 포함되지 않은 member인지 여부
      * @param {object} topic
      * @param {number} memberId
@@ -485,6 +464,8 @@
      * @returns {{joinedChannelList: Array, privateGroupList: Array, unJoinedChannelList: Array}}
      */
     function createTotalData(response) {
+      EntityHandler.parseLeftSideMenuData(response);
+
       var totalEntities = response.entities;
       var joinedEntities = response.joinEntities;
       var bots = response.bots;
@@ -493,38 +474,38 @@
       var privateGroupList = [];
       var unJoinedChannelList = [];
 
-      EntityMapManager.resetAll();
+      //EntityMapManager.resetAll();
 
       _createEntityData(joinedEntities, function(entity, type) {
         if (type === 'channel') {
-          EntityMapManager.add('joined', entity);
+          //EntityMapManager.add('joined', entity);
 
           joinedChannelList.push(entity);
         } else if (type === 'privategroup') {
-          EntityMapManager.add('private', entity);
+          //EntityMapManager.add('private', entity);
 
           privateGroupList.push(entity);
         }
 
-        EntityMapManager.add('total', entity);
+        //EntityMapManager.add('total', entity);
       });
 
       _createEntityData(totalEntities, function(entity, type) {
-        if (type === 'channel' && !EntityMapManager.contains('joined', entity.id)) {
-          EntityMapManager.add('unjoined', entity);
+        if (type === 'channel' && RoomTopicList.get(entity.id, false)) {
+          //EntityMapManager.add('unjoined', entity);
 
           unJoinedChannelList.push(entity);
         } else if (type === 'user') {
-          EntityMapManager.add('user', entity);
-          EntityMapManager.add('member', entity);
+          //EntityMapManager.add('user', entity);
+          //EntityMapManager.add('member', entity);
         }
 
-        EntityMapManager.add('total', entity);
+        //EntityMapManager.add('total', entity);
       });
 
-      _createEntityData(bots, function(bot) {
-        addBot(bot);
-      });
+      //_createEntityData(bots, function(bot) {
+      //  addBot(bot);
+      //});
 
       return {
         joinedChannelList: joinedChannelList,
@@ -582,10 +563,10 @@
         if (bot.botType === 'jandi_bot') {
           _setJandiBot(bot);
         }
-
-        EntityMapManager.add('bot', bot);
-        EntityMapManager.add('member', bot);
-        EntityMapManager.add('total', bot);
+        BotList.add(bot);
+        //EntityMapManager.add('bot', bot);
+        //EntityMapManager.add('member', bot);
+        //EntityMapManager.add('total', bot);
       }
     }
 

@@ -54,10 +54,7 @@
        */
       function _setList() {
         var jandiBot = entityAPIservice.getJandiBot();
-        var list = _.union(
-          EntityMapManager.toArray('joined'),
-          EntityMapManager.toArray('private')
-        );
+        var list = RoomTopicList.toJSON(true);
 
         list = _.filter(list, function(entity) {
           return _isTopic(entity);

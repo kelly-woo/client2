@@ -11,7 +11,7 @@
   /* @ngInject */
   function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityMapManager, centerService,
                              memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
-                             entityAPIservice) {
+                             entityAPIservice, RoomTopicList) {
     _init();
 
     /**
@@ -77,9 +77,8 @@
         modalHelper.closeModal();
       } else {
         if (room.type === 'channels') {
-          if (EntityMapManager.contains('joined', room.id)) {
+          if (RoomTopicList.get(room.id, true)) {
             // join한 topic
-
             _joinRoom(room);
           } else {
             if (!$scope.isLoading) {

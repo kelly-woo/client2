@@ -9,7 +9,7 @@
     .service('EntityMapManager', EntityMapManager);
 
   /* @ngInject */
-  function EntityMapManager() {
+  function EntityMapManager(EntityHandler) {
     // 엔티티(토픽/멤버)를 가지고 있는 맵. 단, memberEntityId는 제외함, (id-entity) pair
     var _totalEntityMap = {};
 
@@ -92,7 +92,8 @@
      */
     function get(mapType, key) {
       key = parseInt(key, 10);
-      return !!maps[mapType] && maps[mapType][key];
+      EntityHandler.get(key);
+      //return !!maps[mapType] && maps[mapType][key];
     }
 
     /**

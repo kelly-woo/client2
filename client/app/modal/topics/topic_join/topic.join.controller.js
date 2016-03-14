@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TopicJoinCtrl($scope, $timeout, $state, $filter, entityheaderAPIservice, analyticsService,
-                         jndPubSub, memberService, modalHelper, EntityMapManager) {
+                         jndPubSub, memberService, modalHelper, RoomTopicList) {
     _init();
 
     /**
@@ -71,9 +71,8 @@
 
       if (entity) {
         entityId = entity.id;
-        if (EntityMapManager.contains('joined', entityId)) {
+        if (RoomTopicList.get(entityId, true)) {
           // join한 topic
-
           _topicJoin(entityId);
         } else {
           // join하지 않은 topic이므로 join 가능한지 requst 후 topic에 join 함

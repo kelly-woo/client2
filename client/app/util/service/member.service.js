@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil) {
+                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil, UserList, BotList) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -624,7 +624,7 @@
      * @returns {*|boolean|*}
      */
     function isMember(memberId) {
-      return EntityMapManager.contains('member', memberId);
+      return !!(UserList.get(memberId) || BotList.get(memberId));
     }
 
     /**
@@ -633,7 +633,7 @@
      * @returns {*|boolean|*}
      */
     function isUser(memberId) {
-      return EntityMapManager.contains('user', memberId);
+      return !!UserList.get(memberId);
     }
 
     /**
@@ -642,7 +642,7 @@
      * @returns {*|boolean|*}
      */
     function isBot(memberId) {
-      return EntityMapManager.contains('bot', memberId);
+      return !!BotList.get(memberId);
     }
 
     /**
