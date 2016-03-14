@@ -273,7 +273,7 @@
 
       _updateOtherTeamUnreadAlert();
 
-      jndPubSub.pub('blinkDotIndicator');
+      jndPubSub.pub('jndWebSocketOtherTeam:notificationAfter');
 
       // 혹시 모르니 $timeout을 cancel 시킨다.
       var timeout = _getTimeoutCaller(teamId);

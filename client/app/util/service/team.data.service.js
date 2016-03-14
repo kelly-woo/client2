@@ -9,11 +9,12 @@
     .service('TeamData', TeamData);
 
   /* @ngInject */
-  function TeamData($rootScope, accountService, jndPubSub, JndUtil) {
+  function TeamData($rootScope, accountService, currentSessionHelper, jndPubSub, JndUtil) {
     var _teamList = [];
     var _scope = $rootScope.$new();
 
     this.getTeamList = getTeamList;
+    this.getOtherTeamBadgeCount = getOtherTeamBadgeCount;
 
     _init();
 
@@ -41,6 +42,7 @@
     function _resetTeamList() {
       var account = accountService.getAccount();
       _teamList = JndUtil.pick(account, 'memberships') || [];
+
       jndPubSub.pub('TeamData:updated', _teamList);
     }
 
@@ -50,6 +52,23 @@
      */
     function getTeamList() {
       return _teamList;
+    }
+
+    /**
+     * 다른 팀의 badge count를 전달함.
+     * @returns {number}
+     */
+    function getOtherTeamBadgeCount() {
+      var currentTeamId = currentSessionHelper.getCurrentTeam().id;
+      var badgeCount = 0;
+
+      _.forEach(_teamList, function(team) {
+        if (!_.isUndefined(team.unread) && team.teamId !== currentTeamId) {
+          badgeCount += team.unread;
+        }
+      });
+
+      return badgeCount;
     }
   }
 })();

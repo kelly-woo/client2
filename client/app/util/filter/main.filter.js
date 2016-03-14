@@ -296,3 +296,12 @@ app.filter('ctrlKey', ['Browser',
     };
   }
 ]);
+
+/**
+ * unread badge count filter
+ */
+app.filter('unreadBadgeCount', function() {
+  return function(count) {
+    return count > 999 ? '999+' : count;
+  }
+});

@@ -11,7 +11,7 @@
     .directive('badge', badge);
 
   /* @ngInject */
-  function badge(jndPubSub, UnreadBadge, NotificationManager) {
+  function badge($filter, jndPubSub, UnreadBadge, NotificationManager) {
     return {
       link: link,
       scope: {
@@ -35,6 +35,8 @@
        * @private
        */
       function _init() {
+        scope.content = +(scope.content || 0);
+
         scope.$watch('content', _onContentChange);
         scope.$on('$destroy', _onDestroy);
         scope.$on('updateBadgePosition', _onUpdateBadgePosition);
@@ -46,13 +48,7 @@
        * @private
        */
       function _setCount() {
-        if (scope.content > 999) {
-          scope.count = '999';
-          scope.suffix = '+';
-        } else {
-          scope.count = scope.content;
-          scope.suffix = '';
-        }
+        scope.count = $filter('unreadBadgeCount')(scope.content);
       }
 
       /**

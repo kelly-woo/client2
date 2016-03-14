@@ -7,9 +7,9 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, HybridAppHelper, memberService,
+  function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, memberService,
                       publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
-                      AnalyticsHelper, Router, OtherTeamBadgeManager, JndConnect, JndZoom, RightPanel, Tutorial,
+                      AnalyticsHelper, Router, JndConnect, JndZoom, RightPanel, Tutorial,
                       AccountHasSeen) {
     var modalMap = {
       'agreement': function() {
@@ -24,9 +24,7 @@
       'invite': function() {
         modalHelper.openInviteToTeamModal($scope);
       },
-      'team-change': function() {
-        modalHelper.openTeamChangeModal($scope);
-      },
+      'team-change': _openTeamSwitchMenu,
       'team-member': function() {
         modalHelper.openTeamMemberListModal();
       },
@@ -173,7 +171,6 @@
         _closeRightPanel();
       });
 
-      $scope.$on('updateTeamBadgeCount', updateTeamBadge);
       $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
       $scope.$on('Tutorial:complete', _onTutorialComplete);
 
@@ -249,26 +246,14 @@
       publicService.redirectToMain();
     }
 
-    $scope.updateTeamBadge = updateTeamBadge;
-
-    /**
-     * 메뉴 중 '팀' -> '팀 전환하기' 옆에 다른 팀의 badge count를 업데이트한다.
-     */
-    function updateTeamBadge() {
-      $scope.otherTeamBadgeCount = OtherTeamBadgeManager.getTotalBadgeCount();
-      $scope.hasBadgeOnOtherTeam = $scope.otherTeamBadgeCount > 0;
-
-      // other team badge 갱신시 hybrid app badge도 갱신함
-      HybridAppHelper.updateBadge();
-    }
-
     /**
      * open modal
      * @param {string} selector
+     * @param {object} $event
      */
-    function openModal(selector) {
+    function openModal(selector, $event) {
       var fn;
-      (fn = modalMap[selector]) && fn();
+      (fn = modalMap[selector]) && fn($event);
     }
 
     /**
@@ -426,5 +411,16 @@
       JndZoom.zoomReset();
     }
 
+    /**
+     * team switch menu
+     * @param {object} $event
+     * @private
+     */
+    function _openTeamSwitchMenu($event) {
+      // 팀 변경 메뉴 오픈시 body까지 이벤트가 전달되어 열린 후 바로 닫히지 않도록 처리한다.
+      $event.stopPropagation();
+
+      jndPubSub.pub('headerCtrl:teamSwitchOpen');
+    }
   }
 })();
