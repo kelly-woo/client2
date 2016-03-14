@@ -26,10 +26,6 @@
        * @private
        */
       function _init() {
-        setTimeout(function () {
-          jqFilter.focus();
-        }, 50);
-
         _on();
       }
 
