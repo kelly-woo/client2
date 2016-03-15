@@ -1,7 +1,7 @@
-<div class="team-switch-container jnd-cursor-pointer" dropdown is-open="isOpen">
+<div class="team-switch-container" ng-class="{'jnd-cursor-pointer': hasOtherTeam}" dropdown is-open="isOpen">
   <div class="dropdown dropdown-toggle lpanel-user__team overflow-ellipsis" dropdown-toggle>
     <span class="team-name private-effect white">{{team|getName}}</span>
-    <div class="team-switch-button" ng-show="teamList.length > 1">
+    <div class="team-switch-button" ng-show="hasOtherTeam">
       <!-- icon-->
       <i class="team-switch icon-switch"
          tooltip="{{::'@team-switch' | translate}}"
@@ -11,7 +11,7 @@
     </div>
   </div>
   <!-- team list -->
-  <ul class="dropdown-menu team-list _list" dropdown-menu>
+  <ul class="dropdown-menu team-list _list" dropdown-menu ng-show="hasOtherTeam">
     <li class="team-item"
         ng-click="go(team)"
         ng-if="currentTeamId !== team.teamId"
