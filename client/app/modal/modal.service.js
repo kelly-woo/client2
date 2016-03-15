@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil, Tutorial) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil, Tutorial, RoomTopicList) {
 
     var that = this;
 
@@ -84,7 +84,7 @@
       var selectOptions;
 
       selectOptions = fileAPIservice.getShareOptions(
-        $rootScope.joinedEntities,
+        RoomTopicList.toJSON(true),
         currentSessionHelper.getCurrentTeamUserList()
       );
 

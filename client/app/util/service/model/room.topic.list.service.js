@@ -133,7 +133,7 @@
       if (_.isBoolean(isJoin)) {
         list = _getCollection(isJoin).toJSON();
       } else {
-        list = _collectionMap.join.toJSON().concat(_collectionMap.unjoin.toJSON());
+        list = _collectionMap.join.toJSON(true).concat(_collectionMap.unjoin.toJSON(true));
       }
       return list;
     }

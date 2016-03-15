@@ -11,7 +11,7 @@
   function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
                              fileAPIservice, analyticsService, publicService, EntityMapManager,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel, jndPubSub) {
+                             TopicFolderModel, jndPubSub, RoomTopicList) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -141,18 +141,6 @@
       if ($scope.fileRequest.sharedEntityId != oldValue) {
         _refreshFileList();
       }
-    });
-
-    /**
-     * Joined new entity or Left current entity
-     *
-     *  1. Re-initialize shared in select options
-     *  2. re-initialize shared in filter.
-     */
-    $scope.$on('onJoinedTopicListChanged_leftInitDone', function(event, param) {
-      logger.log('onJoinedTopicListChanged_leftInitDone');
-      _generateShareOptions();
-
     });
 
     $scope.$on('topic-folder:update', _generateShareOptions);
@@ -354,7 +342,7 @@
      */
     function _generateShareOptions() {
       $scope.selectOptions = TopicFolderModel.getNgOptions(
-        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
       );
     }
 

@@ -12,7 +12,7 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog, JndUtil, JndConnect) {
+                            Dialog, JndUtil, JndConnect, EntityHandler) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
@@ -373,12 +373,7 @@
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
     // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
     $scope.onStarClick = function() {
-      var param = {
-        entityType: _entityType,
-        entityId: _entityId
-      };
-
-      jndPubSub.pub('onStarClick', param);
+      EntityHandler.toggleStarred(_entityId)
     };
 
     /**

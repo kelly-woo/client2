@@ -34,13 +34,13 @@
       generateMemberList();
     }
 
-    $scope.$on('onSetStarDone', _onSetStarDone);
+    $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
 
     /**
      * member starred event handler
      * @private
      */
-    function _onSetStarDone() {
+    function _onParseLeftSideMenuDone() {
       generateMemberList();
       _updateMemberList();
     }

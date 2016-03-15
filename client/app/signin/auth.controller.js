@@ -35,7 +35,7 @@
 
 
       if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
-        publicService.hideTransitionLoading();
+        publicService.hideDummyLayout();
         publicService.redirectToSignIn();
       } else {
         // Auto sign-in using cookie.
@@ -260,7 +260,7 @@
     }
 
     function _goToMessageHome() {
-      publicService.showTransitionLoading();
+      publicService.showDummyLayout();
       $state.go('messages.home');
     }
 

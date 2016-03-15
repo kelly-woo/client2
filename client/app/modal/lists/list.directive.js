@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('listOnModal', listOnModal);
 
-  function listOnModal($timeout, Viewport, ListRenderer, jndKeyCode, jndPubSub) {
+  function listOnModal($timeout, Viewport, ListRenderer, jndKeyCode, EntityHandler) {
     return {
       restrict: 'E',
       link: link
@@ -235,10 +235,7 @@
         if (itemType === 'member' && event.target.className.indexOf('star') > -1) {
           // item type이 'member'이고 star icon click 시 처리
           if (item = matches[activeIndex]) {
-            jndPubSub.pub('onStarClick', {
-              entityType: 'user',
-              entityId: item.id
-            });
+            EntityHandler.toggleStarred(item.id);
           }
         } else {
           _select();

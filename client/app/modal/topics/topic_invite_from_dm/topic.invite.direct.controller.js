@@ -11,7 +11,7 @@
     // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
 
-    $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id));
+    $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions(RoomTopicList.toJSON(true), [], $scope.currentEntity.id));
     $scope.inviteChannelId = $scope.inviteOptions[0].id;
     $scope.onInviteClick = function(entityId) {
       var invitedId = [];

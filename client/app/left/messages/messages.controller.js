@@ -30,6 +30,8 @@
     $scope.openModal= openTeamMemberListModal;
 
     $scope.isDisabledMember = isDisabledMember;
+    $scope.onStarClick = EntityHandler.toggleStarred;
+
     $scope.totalAlarmCnt = 0;
 
     _init();
@@ -203,17 +205,6 @@
     $scope.$on('leaveCurrentChat', function(event, entityId) {
       onMessageLeaveClick(entityId);
     });
-
-    // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
-    // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
-    $scope.onStarClick = function(entityType, entityId) {
-      var param = {
-        entityType: entityType,
-        entityId: entityId
-      };
-
-      jndPubSub.pub('onStarClick', param);
-    }
   }
 
 })();

@@ -20,12 +20,12 @@
       {
         name: MEMBER_STARRED,
         version: 1,
-        handler: _onMemberStarred
+        handler: _.bind(_onMemberStarChanged, null, true)
       },
       {
         name: MEMBER_UNSTARRED,
         version: 1,
-        handler: _onMemberUnStarred
+        handler: _.bind(_onMemberStarChanged, null, false)
       },
       {
         name: MEMBER_PROFILE_UPDATED,
@@ -45,14 +45,16 @@
       return events;
     }
 
-    function _onMemberStarred(socketEvent) {
-      jndWebSocketCommon.updateLeft();
-      jndPubSub.pub('member:starred', socketEvent);
-    }
-
-    function _onMemberUnStarred(socketEvent) {
-      jndWebSocketCommon.updateLeft();
-      jndPubSub.pub('member:unStarred', socketEvent);
+    /**
+     * 'member_starred', 'member_unstarred' EVENT HANDLER
+     * @param {boolean} isStarred
+     * @param {object} socketEvent - socket event parameter
+     * @private
+     */
+    function _onMemberStarChanged(isStarred, socketEvent) {
+      jndPubSub.pub('jndWebSocketMember:starChanged', _.extend(socketEvent.member, {
+        isStarred: isStarred
+      }));
     }
 
     function _onMemberProfileUpdated(socketEvent) {

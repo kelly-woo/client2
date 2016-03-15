@@ -1,3 +1,13 @@
+.client-spinner-container {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 999999;
+  background: #FFFFFF;
+}
+
 .client-spinner {
   width:120px;
   height:120px;
@@ -9,7 +19,6 @@
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  
   position: absolute;
 }
 .spinner-logo {

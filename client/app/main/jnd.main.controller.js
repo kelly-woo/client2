@@ -11,7 +11,7 @@
 
   function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
-
+    $scope.isShowDummyLayout = false;
     $scope.tutorial = {
       isShowWelcome: false,
       isShowPopover: false
@@ -38,10 +38,13 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('publicService:hideDummyLayout', _onHideDummyLayout);
+      $scope.$on('publicService:showDummyLayout', _onShowDummyLayout);
+
       $scope.$on('kickedOut', _onKickedOut);
       $scope.$on('topicInvite', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
-      $scope.$on('onInitLeftListDone', _updateInvitedMemberList);
+      $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _updateInvitedMemberList);
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
       $scope.$on('JndConnect:close', _onJndConnectClose);
@@ -51,6 +54,13 @@
 
       $scope.$on('Tutorial:showPopover', _onShowTutorialPopover);
       $scope.$on('Tutorial:hidePopover', _onHideTutorialPopover);
+    }
+
+    function _onShowDummyLayout() {
+      $scope.isShowDummyLayout = true;
+    }
+    function _onHideDummyLayout() {
+      $scope.isShowDummyLayout = false;
     }
 
     /**

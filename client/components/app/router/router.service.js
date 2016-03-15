@@ -127,7 +127,7 @@
             // Direct user to default channel.
             if (!lastState || angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))) {
               entityAPIservice.removeLastEntityState();
-              $rootScope.toDefault = true;
+              jndPubSub.pub('toDefaultTopic');
               return;
             }
 

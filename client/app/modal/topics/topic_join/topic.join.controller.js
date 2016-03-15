@@ -17,6 +17,8 @@
      * 처음 모달이 열렸을 때 실행되어야 할 부분.
      */
     function _init() {
+      $scope.unJoinedChannelList = RoomTopicList.toJSON(false);
+      $scope.joinedChannelList = RoomTopicList.toJSON(true);
       $scope.memberId = memberService.getMemberId();
       $scope.channelTitleQuery = '';
 

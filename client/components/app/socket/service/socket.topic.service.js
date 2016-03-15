@@ -56,12 +56,12 @@
       {
         name: 'topic_starred',
         version: 1,
-        handler: _onTopicStarChanged
+        handler: _.bind(_onTopicStarChanged, null, true)
       },
       {
         name: 'topic_unstarred',
         version: 1,
-        handler: _onTopicStarChanged
+        handler: _.bind(_onTopicStarChanged, null, false)
       },
       {
         name: 'room_subscription_updated',
@@ -179,11 +179,15 @@
 
     /**
      * 'topic_starred', 'topic_unstarred' EVENT HANDLER
-     * @param {object} data - socket event parameter
+     * @param {boolean} isStarred
+     * @param {object} socketEvent - socket event parameter
      * @private
      */
-    function _onTopicStarChanged(data) {
-      _updateLeftPanel();
+    function _onTopicStarChanged(isStarred, socketEvent) {
+      jndPubSub.pub('TopicSocket:starChanged', _.extend(socketEvent.topic, {
+        isStarred: isStarred
+      }));
+      //_updateLeftPanel();
     }
 
     function _updateLeftPanel(data) {

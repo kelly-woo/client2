@@ -10,13 +10,15 @@
     .service('EntityHandler', EntityHandler);
 
   /* @ngInject */
-  function EntityHandler(RoomTopicList, BotList, UserList, RoomChatDmList, JndUtil) {
+  function EntityHandler($rootScope, RoomTopicList, BotList, UserList, RoomChatDmList, JndUtil, entityheaderAPIservice,
+                         AnalyticsHelper, jndPubSub, currentSessionHelper, memberService) {
+    var _scope;
     var _starredEntitiesMap = {};
 
     this.parseLeftSideMenuData = parseLeftSideMenuData;
     this.parseChatRoomLists = parseChatRoomLists;
     this.get = get;
-
+    this.toggleStarred = toggleStarred;
     _init();
 
     /**
@@ -24,6 +26,64 @@
      * @private
      */
     function _init() {
+      _scope = $rootScope.$new(true);
+      _attachScopeEvents();
+    }
+
+    function _attachScopeEvents() {
+      _scope.$on('TopicSocket:starChanged', _onTopicStarChanged);
+      _scope.$on('jndWebSocketMember:starChanged', _onMemberStarChanged);
+    }
+
+    /**
+     *
+     */
+    function toggleStarred(entityId) {
+      var entity = get(entityId);
+      if (entity.isStarred) {
+        entityheaderAPIservice.removeStarEntity(entityId)
+          .then(_.bind(_onSuccessStarred, null, entityId, false),
+            _.bind(_onErrorStarred, null, entityId, false));
+      } else {
+        entityheaderAPIservice.setStarEntity(entityId)
+          .then(_.bind(_onSuccessStarred, null, entityId, true),
+            _.bind(_onErrorStarred, null, entityId, true));
+      }
+      entity.isStarred = !entity.isStarred;
+    }
+
+    function _onSuccessStarred(entityId, isStarred) {
+      var trackCode = isStarred ? AnalyticsHelper.EVENT.TOPIC_STAR : AnalyticsHelper.EVENT.TOPIC_UNSTAR;
+      AnalyticsHelper.track(trackCode, {
+        'RESPONSE_SUCCESS': true,
+        'TOPIC_ID': entityId
+      });
+    }
+
+    function _onErrorStarred(entityId, isStarred, error) {
+      var entity = get(entityId);
+      var trackCode = isStarred ? AnalyticsHelper.EVENT.TOPIC_STAR : AnalyticsHelper.EVENT.TOPIC_UNSTAR;
+      entity.isStarred = isStarred;
+
+      AnalyticsHelper.track(trackCode, {
+        'RESPONSE_SUCCESS': false,
+        'ERROR_CODE': error.code
+      });
+    }
+
+    function _onTopicStarChanged(angularEvent, data) {
+      /*
+      @fixme: 소켓 이벤트 버그로 인해 BOT 의 상태 변화도 topic_starred/unstarred 로 내려오고 있음.
+       http://its.tosslab.com/browse/JWC-412
+       소켓 이벤트 버그 수정 이후  BotList.get(data.id); 를 제거해야 함
+       */
+      var topic = RoomTopicList.get(data.id) || BotList.get(data.id);
+      topic.isStarred = data.isStarred;
+    }
+
+    function _onMemberStarChanged(angularEvent, data) {
+      var member = UserList.get(data.id) || BotList.get(data.id);
+      member.isStarred = data.isStarred;
     }
 
     /**
@@ -45,6 +105,7 @@
      */
     function parseChatRoomLists(response) {
       RoomChatDmList.setList(response);
+      jndPubSub.pub('EntityHandler:parseChatRoomListsDone');
     }
 
     /**
@@ -52,6 +113,9 @@
      * @param {object} response - leftSideMenu API 응답값
      */
     function parseLeftSideMenuData(response) {
+      _setCurrentTeamAdmin(response.entities);
+      currentSessionHelper.setCurrentTeam(response.team);
+      memberService.setMember(response.user);
       _refreshStarredEntitiesMap(JndUtil.pick(response, 'user', 'u_starredEntities'));
 
       RoomTopicList.reset();
@@ -69,12 +133,28 @@
       });
 
       _.forEach(response.entities, function(entity) {
-        if (_isTopic(entity) && RoomTopicList.get(entity.id)) {
+        if (_isTopic(entity) && !RoomTopicList.get(entity.id)) {
           RoomTopicList.add(entity, false);
         } else if (_isUser(entity)) {
           UserList.add(entity);
         } else if (_isBot(entity)) {
           BotList.add(entity);
+        }
+      });
+
+      jndPubSub.pub('EntityHandler:parseLeftSideMenuDataDone');
+    }
+
+    /**
+     *
+     * @param res
+     * @private
+     */
+    function _setCurrentTeamAdmin(entities) {
+      _.forEach(entities, function(entity) {
+        if (entity.u_authority === 'owner') {
+          currentSessionHelper.setCurrentTeamAdmin(entity);
+          return false;
         }
       });
     }

@@ -15,8 +15,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
   $rootScope.$state       = $state;
   $rootScope.$stateParams = $stateParams;
 
-  $rootScope.isReady = false;
-
   // Stores templates in angular variable.
   // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
   // TODO: STUDY AND USE 'ngTemplate'
@@ -69,12 +67,12 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         views: {
           '': {
             templateUrl: 'app/left/left.html',
-            controller: 'leftPanelController1',
+            controller: 'leftPanelController',
             resolve: {
-              leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
+              resLeftSideMenu: function (leftpanelAPIservice, publicService, storageAPIservice) {
                 return leftpanelAPIservice.getLists().error(publicService.signOut);
               },
-              topicFolder: function(publicService, TopicFolderModel) {
+              resTopicFolder: function(publicService, TopicFolderModel) {
                 return TopicFolderModel.load('initialize').then(null, publicService.signOut);
               }
             }

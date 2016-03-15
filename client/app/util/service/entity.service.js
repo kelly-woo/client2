@@ -19,7 +19,6 @@
       setStarred: setStarred,
 
       updateBadgeValue: updateBadgeValue,
-      setBadgeValue: setBadgeValue,
       setLastEntityState: setLastEntityState,
       getLastEntityState: getLastEntityState,
       removeLastEntityState: removeLastEntityState,
@@ -209,25 +208,15 @@
       updateBadgeValue(entity, alarmCnt);
     }
 
-    //  updating alarmCnt field of 'entity' to 'alarmCount'.
-    // 'alarmCount' is -1, it means to increment.
+
+    /**
+     * updating alarmCnt field of 'entity' to 'alarmCount'.
+     * 'alarmCount' is -1, it means to increment.
+     * @param {object} entity
+     * @param {number} alarmCount
+     */
     function updateBadgeValue (entity, alarmCount) {
-      //console.log('updating')
-      var list = $rootScope.privateGroupList;
-
-      if (entity.type == 'channels') {
-        //  I'm not involved with entity.  I don't care about this entity.
-        if (angular.isUndefined(EntityMapManager.get('total', entity.id))) {
-          return;
-        }
-
-        list = $rootScope.joinedChannelList;
-      } else if (entity.type == 'users') {
-        list = currentSessionHelper.getCurrentTeamUserList();
-      }
-
-      setBadgeValue(list, entity, alarmCount);
-
+      _setBadgeValue(entity, alarmCount);
       NotificationManager.set(entity, alarmCount);
       jndPubSub.pub('badgeCountChange', {
         entity: entity,
@@ -235,27 +224,32 @@
       });
     }
 
-    //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
-    function setBadgeValue (list, entity, alarmCount) {
+    /**
+     * badgeValue 를 업데이트 한다.
+     * @private
+     * @param entity
+     * @param alarmCount
+     * TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
+     */
+    function _setBadgeValue (entity, alarmCount) {
       var curEntity = EntityMapManager.get('total', entity.id);
-      if (angular.isUndefined(curEntity)) return;
-
-      //console.log(alarmCount)
-      if (alarmCount == -1) {
-        if (angular.isUndefined(curEntity.alarmCnt)) {
-          curEntity.alarmCnt = 1;
+      if (curEntity) {
+        if (alarmCount == -1) {
+          if (angular.isUndefined(curEntity.alarmCnt)) {
+            curEntity.alarmCnt = 1;
+          } else {
+            curEntity.alarmCnt++;
+          }
+          HybridAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
         } else {
-          curEntity.alarmCnt++;
+          curEntity.alarmCnt = alarmCount;
+          HybridAppHelper.onAlarmCntChanged(entity.id, alarmCount);
         }
-        HybridAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
-      } else {
-        curEntity.alarmCnt = alarmCount;
-        HybridAppHelper.onAlarmCntChanged(entity.id, alarmCount);
+        jndPubSub.pub('badgeCountChange', {
+          entity: entity,
+          count: alarmCount
+        });
       }
-      jndPubSub.pub('badgeCountChange', {
-        entity: entity,
-        count: alarmCount
-      });
     }
 
 

@@ -28,8 +28,9 @@
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
       adjustBodyWrapperHeight: adjustBodyWrapperHeight,
-      hideTransitionLoading: hideTransitionLoading,
-      showTransitionLoading: showTransitionLoading,
+      hideInitialLoading: hideInitialLoading,
+      showDummyLayout: showDummyLayout,
+      hideDummyLayout: hideDummyLayout,
       reloadCurrentPage: reloadCurrentPage,
       openNewTab: openNewTab,
       setInitDone: setInitDone,
@@ -182,13 +183,26 @@
       }
     }
 
-    function hideTransitionLoading() {
-      $rootScope.isReady = true;
-      jndPubSub.pub('hideDefaultBackground');
+    /**
+     * dummy layout 을 노출한다.
+     */
+    function showDummyLayout() {
+      jndPubSub.pub('publicService:showDummyLayout');
     }
 
-    function showTransitionLoading() {
-      $rootScope.isReady = false;
+    /**
+     * dummy layout 을 숨긴다
+     */
+    function hideDummyLayout() {
+      hideInitialLoading();
+      jndPubSub.pub('publicService:hideDummyLayout');
+    }
+
+    /**
+     * 첫 진입 시 노출되는 전체 화면을 덮는 로딩 뷰를 숨긴다.
+     */
+    function hideInitialLoading() {
+      jndPubSub.pub('publicService:hideInitialLoading');
     }
 
     /**

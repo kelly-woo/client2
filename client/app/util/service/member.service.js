@@ -10,8 +10,8 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil, UserList, BotList) {
+  function memberService($http, $rootScope, $q, storageAPIservice, $upload, jndPubSub, currentSessionHelper, JndUtil,
+                         UserList, BotList, EntityMemberFilter) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -315,7 +315,7 @@
      */
     function getSmallThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityMemberFilter.get(member);
       }
       return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
         getPhotoUrl(member) ||
@@ -329,7 +329,7 @@
      */
     function getMediumThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityMemberFilter.get(member);
       }
       return JndUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
@@ -341,7 +341,7 @@
      */
     function getLargeThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityMemberFilter.get(member);
       }
       return JndUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
@@ -361,7 +361,7 @@
      * @param {string} [size]
      */
     function getProfileImage(memberId, size) {
-      var member = EntityMapManager.get('member', memberId);
+      var member = EntityMemberFilter.get(memberId);
       var profileImage;
 
       if (member) {
@@ -382,7 +382,7 @@
      * @returns {string} name - 아이디를 가진 유져의 이름
      */
     function getNameById(entityId) {
-      return this.getName(EntityMapManager.get('total', entityId));
+      return this.getName(EntityMemberFilter.get(entityId));
     }
 
     /**
@@ -556,7 +556,7 @@
      * @returns {nubmer} - lastLinkId
      */
     function getLastReadMessageMarker(entityId) {
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       // initLastReadMessageMarker를 통해 전달되는 markers의 DM data중 user들은 memberId로 전달되고, jandi bot은 roomId로
       // 전달되기 때문에 getLastReadMessageMarker에 전달된 entityId(memberId)값이 jandi bot일 경우에는 roomId로 변환하여

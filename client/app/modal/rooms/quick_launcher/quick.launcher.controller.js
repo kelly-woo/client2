@@ -280,25 +280,13 @@
       var rooms = [];
 
       // 참여 channel list filtering
-      _.forEach($rootScope.joinedChannelList, function(channel) {
+      _.forEach(RoomTopicList.toJSON(true), function(channel) {
         if (channel.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           rooms.push({
             type: channel.type,
             id: channel.id,
             name: channel.name,
             count: channel.alarmCnt
-          });
-        }
-      });
-
-      // 참여 privategroup list filtering
-      _.forEach($rootScope.privateGroupList, function(privategroup) {
-        if (privategroup.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-          rooms.push({
-            type: privategroup.type,
-            id: privategroup.id,
-            name: privategroup.name,
-            count: privategroup.alarmCnt
           });
         }
       });
@@ -315,7 +303,7 @@
     function _getUnJoinedChannels(value) {
       var channels = [];
 
-      _.forEach($rootScope.unJoinedChannelList, function(channel) {
+      _.forEach(RoomTopicList.toJSON(false), function(channel) {
         if (channel.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           channels.push({
             type: channel.type,

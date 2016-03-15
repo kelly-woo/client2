@@ -232,7 +232,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('elasticResize:message', _onElasticResize);
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
-    $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
+    $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _checkEntityMessageStatus);
     $scope.$on('centerUpdateChatList', updateList);
     $scope.$on('centerOnMarkerUpdated', _onCenterMarkerUpdated);
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
@@ -1478,8 +1478,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _hideCenterLoading();
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
-    jndPubSub.pub('centerLoading:hide');
-    publicService.hideTransitionLoading();
+    publicService.hideDummyLayout();
   }
 
   /**
