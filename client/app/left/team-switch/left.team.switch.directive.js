@@ -114,8 +114,12 @@
        * @private
        */
       function _onIsOpenChange(newIsOpen, oldIsOpen) {
-        if (newIsOpen !== oldIsOpen) {
-          _jqList.slideToggle();
+        if (scope.hasOtherTeam) {
+          if (newIsOpen !== oldIsOpen) {
+            _jqList.slideToggle();
+          }
+        } else {
+          scope.isOpen = false;
         }
       }
 
