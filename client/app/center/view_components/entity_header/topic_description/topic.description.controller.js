@@ -26,7 +26,7 @@
      * @private
      */
     function _attachEvents() {
-      $scope.$on('topicUpdated', _onTopicUpdated);
+      $scope.$on('webSocketTopic:topicUpdated', _onTopicUpdated);
 
       $scope.$watch('currentEntity', _onCurrentEntityChanged);
     }
