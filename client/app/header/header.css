@@ -172,12 +172,6 @@
   font-size: 17px;
 }
 
-.header-navbar__dropdown > li > a > .badge {
-  position: absolute;
-  right: 10px;
-  top: 8px;
-}
-
 .header-navbar-quick-launcher .quick-launcher {
   padding: 7px 13px 7px 13px;
   margin-top:7px;

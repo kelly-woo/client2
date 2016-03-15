@@ -9,7 +9,7 @@
     .service('MacAppHelper', MacAppHelper);
   
   /* @ngInject */
-  function MacAppHelper(OtherTeamBadgeManager, NotificationManager) {
+  function MacAppHelper(TeamData, NotificationManager) {
     var that = this;
 
     that.trigger = trigger;
@@ -51,7 +51,7 @@
      * @private
      */
     function _getTotalBadgeCount() {
-      return OtherTeamBadgeManager.getTotalBadgeCount() + NotificationManager.getTotalNotificationCount();
+      return TeamData.getOtherTeamBadgeCount() + NotificationManager.getTotalNotificationCount();
     }
 
     /**

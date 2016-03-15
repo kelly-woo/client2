@@ -5,33 +5,6 @@
   cursor: default;
 }
 
-.lpanel-user .lpanel-user__team {
-  padding: 9px 15px;
-  background-color: #366480;
-  color: white;
-}
-
-.lpanel-user .lpanel-user__user {
-  padding: 8px 15px;
-  background-color: #f1f4f8;
-  border-right: 1px solid #e1e1e1;
-  border-bottom: 1px solid #e1e1e1;
-}
-
-.lpanel-user__team {
-  height: 35px;
-  color: #333;
-  line-height: 1;
-}
-.lpanel-user__team .icon {
-  font-size: 16px;
-  vertical-align: text-top;
-}
-
-.lpanel-user__team .team-name {
-  font-size: 14px;
-  font-weight: 500;
-}
 /*.lpanel-user__team .team-setting-icon {
   position: absolute;
   right: 15px;
