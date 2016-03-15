@@ -2678,11 +2678,7 @@ msgid "@topic-admin-transfer-confirm"
 msgstr "你确定将议题管理权限转移至此成员？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-1"
-msgstr "你确定将此成员剔除议题？"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-2"
+msgid "@topic-admin-transfer-kickout-confirm"
 msgstr "此成员为议题管理员，需先将权限转移至其他成员才可剔除此成员"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -3212,6 +3208,9 @@ msgstr "JANDI 新信息"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "星期三"
+
+#~ msgid "@topic-admin-transfer-kickout-confirm-2"
+#~ msgstr "此成员为议题管理员，需先将权限转移至其他成员才可剔除此成员"
 
 #~ msgid "@file-upload-fail"
 #~ msgstr "请重试一次"
