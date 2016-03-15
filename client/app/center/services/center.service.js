@@ -83,7 +83,9 @@
      *
      * @returns {boolean}
      */
-    function isChat() { return currentSessionHelper.getCurrentEntityType() === 'users'; }
+    function isChat() {
+      return currentSessionHelper.getCurrentEntityType().indexOf('user') !== -1;
+    }
 
     /**
      * Has scroll reached bottom?? or Do I have more room to go down???

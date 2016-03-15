@@ -43,11 +43,26 @@
     function add(chatRoom) {
       var member = UserList.get(chatRoom.companionId) || BotList.get(chatRoom.companionId);
       if (member) {
+        _extendMember(member, chatRoom);
         _collection.add(_.extend(chatRoom, {
           id: chatRoom.entityId,
           extMember: member
         }));
       }
+    }
+
+    /**
+     * center 진입 시 unread-bookmark 를 위한 lastMessageId 를 위해 chatRoom 의 attributes 를 member 에 extend 한다.
+     * @param {object} member
+     * @param {object} chatRoom
+     * @private
+     */
+    function _extendMember(member, chatRoom) {
+      _.each(chatRoom, function(value, name) {
+        if (name !== 'id') {
+          member = value;
+        }
+      })
     }
 
     /**

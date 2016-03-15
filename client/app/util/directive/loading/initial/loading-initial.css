@@ -22,7 +22,7 @@
   position: absolute;
 }
 .spinner-logo {
-  background-image: url('../../../assets/images/jnd-logo-only.png');
+  background-image: url('/assets/images/jnd-logo-only.png');
   width: inherit;
   height: inherit;
   background-repeat: no-repeat;
