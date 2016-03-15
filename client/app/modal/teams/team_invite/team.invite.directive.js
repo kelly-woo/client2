@@ -82,13 +82,9 @@
 
         if (length > 0) {
           jqInviteButton
-            //.removeAttr('disabled')
-            //.removeClass('disabled')
             .text($filter('translate')('@team-invite-send').replace('{{inviteeNumber}}', length));
         } else {
           jqInviteButton
-            //.attr('disabled', true)
-            //.addClass('disabled')
             .text($filter('translate')('@btn-invite'));
         }
       }
@@ -144,6 +140,9 @@
         });
       }
 
+      /**
+       * 초대 전송하기 버튼에 마우스 엔터 이벤트 처리함.
+       */
       function onMouseEnter() {
         jndPubSub.pub('invitationModal:emailsInsert');
       }

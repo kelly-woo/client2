@@ -41,19 +41,24 @@
         scope.invalidEmails = [];
         scope.removeEmail = removeEmail;
 
-        _on();
+        _attachScopeEvents();
+        _attachDomEvents();
       }
 
       /**
-       * on listeners
+       * attach scope events
        * @private
        */
-      function _on() {
+      function _attachScopeEvents() {
+        scope.$on('invitationModal:emailsInsert', _onEmailsInsert);
         scope.$watch(active, _onActive);
-        scope.$on('invitationModal:emailsInsert', function() {
-          _insertEmail(jqEmailInput.val());
-        });
+      }
 
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDomEvents() {
         jqEmailInput
           .on('paste', _onPaste)
           .on('keyup', _onKeyUp)
@@ -190,6 +195,14 @@
         var value = invalidEmails.join(' ');
         //value += (value !== '' && value.charAt(value.length - 1) !== ' ' ? ' ' : '');
         jqEmailInput.val(value);
+      }
+
+      /**
+       * 이메일 입력 이벤트 처리.
+       * @private
+       */
+      function _onEmailsInsert() {
+        _insertEmail(jqEmailInput.val());
       }
     }
   }
