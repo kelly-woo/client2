@@ -294,7 +294,8 @@
           if (activeIndex != index) {
             activeIndex = index;
 
-            // scrolling에 영향을 주므로 주석 처리
+            // viewport에 반쯤 걸친 상태로 출력된 아이템이 있을때 _focusItem을 수행함으로서 viewport 영역에 완전히 보여지도록 한다.
+            // 현재 jandi에서 출력되는 list들은 해당 기능을 사용하지 제공하지 않으므로 주석 처리함.
             // _focusItem(activeIndex);
 
             _setActiveClass();
