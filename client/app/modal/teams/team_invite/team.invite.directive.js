@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('invitationModal', invitationModal);
 
-  function invitationModal($filter, clipboard) {
+  function invitationModal($filter, clipboard, jndPubSub) {
     return {
       restrict: 'A',
       link: link
@@ -29,12 +29,15 @@
         // clipboard 제공하지 않음
         scope.isSupportClip = clipboard.support;
 
+
         _on();
 
         if (!scope.inviteDisabled) {
           // 팀초대가 활성화 되어 있음
 
           scope.setInviteBtnText = setInviteBtnText;
+          scope.onMouseEnter = onMouseEnter;
+
           setInviteBtnText([]);
 
           scope.isCopySuccess = false;
@@ -79,13 +82,13 @@
 
         if (length > 0) {
           jqInviteButton
-            .removeAttr('disabled')
-            .removeClass('disabled')
+            //.removeAttr('disabled')
+            //.removeClass('disabled')
             .text($filter('translate')('@team-invite-send').replace('{{inviteeNumber}}', length));
         } else {
           jqInviteButton
-            .attr('disabled', true)
-            .addClass('disabled')
+            //.attr('disabled', true)
+            //.addClass('disabled')
             .text($filter('translate')('@btn-invite'));
         }
       }
@@ -139,6 +142,10 @@
         scope.$apply(function() {
           scope.isLinkTextFocus = false;
         });
+      }
+
+      function onMouseEnter() {
+        jndPubSub.pub('invitationModal:emailsInsert');
       }
     }
   }

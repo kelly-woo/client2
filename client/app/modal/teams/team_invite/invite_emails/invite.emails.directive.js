@@ -50,6 +50,9 @@
        */
       function _on() {
         scope.$watch(active, _onActive);
+        scope.$on('invitationModal:emailsInsert', function() {
+          _insertEmail(jqEmailInput.val());
+        });
 
         jqEmailInput
           .on('paste', _onPaste)
