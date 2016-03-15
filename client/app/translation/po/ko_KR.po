@@ -2761,11 +2761,7 @@ msgid "@topic-admin-transfer-confirm"
 msgstr "이 멤버를 토픽 관리자로 지정하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-1"
-msgstr "정말 이 멤버를 내보내시겠습니까?"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-2"
+msgid "@topic-admin-transfer-kickout-confirm"
 msgstr ""
 "이 멤버는 이 토픽의 관리자입니다. <br>다음 관리자를 지정한 후 토픽에서 내보"
 "낼 수 있습니다."
@@ -3333,6 +3329,11 @@ msgstr "JANDI 메시지"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr "수요일"
+
+#~ msgid "@topic-admin-transfer-kickout-confirm-2"
+#~ msgstr ""
+#~ "이 멤버는 이 토픽의 관리자입니다. <br>다음 관리자를 지정한 후 토픽에서 내"
+#~ "보낼 수 있습니다."
 
 #, fuzzy
 #~ msgid "@jnd-connect-228"

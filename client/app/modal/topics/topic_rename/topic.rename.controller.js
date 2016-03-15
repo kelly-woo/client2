@@ -39,9 +39,15 @@
 
       $scope.allowAutoJoin = _allowAutoJoin();
 
+      // 팀관리자
+      $scope.isAdmin = memberService.isAdmin();
+
+      // 토픽 관리자
       $scope.isTopicOwner = entityAPIservice.isOwner(_currentEntity, _getMemberId());
+
+      // 토픽에서 선택가능한 유저들
       $scope.selectOptionsUsers = JndSelectBoxMember.getActiveUserListByRoomId(_entityId);
-      $scope.showAdminTrans = $scope.isTopicOwner && $scope.selectOptionsUsers.length > 0;
+      $scope.showAdminTrans = ($scope.isAdmin || $scope.isTopicOwner) && $scope.selectOptionsUsers.length > 0;
 
       $scope.form = {
         topicName: _currentEntity.name,
