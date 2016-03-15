@@ -260,19 +260,19 @@
         body: isTopicAdmin ? _translate('@topic-admin-transfer-kickout-confirm') : undefined,
         onClose: function(result) {
           if (result === 'okay') {
-            _setKickOutUser(isTopicAdmin, userId);
+            _doKickOutUser(isTopicAdmin, userId);
           }
         }
       });
     }
 
     /**
-     * 퇴장시킬 사용자를 설정함.
+     * 특정 사용자를 퇴장시킴
      * @param {boolean} isTopicAdmin
      * @param {number} userId
      * @private
      */
-    function _setKickOutUser(isTopicAdmin, userId) {
+    function _doKickOutUser(isTopicAdmin, userId) {
       if (isTopicAdmin) {
         modalHelper.openTopicRenameModal($scope, {
           topicAdminId: userId,
