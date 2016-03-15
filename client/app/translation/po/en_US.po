@@ -2767,11 +2767,7 @@ msgstr ""
 "member?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-1"
-msgstr "Are you sure you want to remove this member from the topic?"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@topic-admin-transfer-kickout-confirm-2"
+msgid "@topic-admin-transfer-kickout-confirm"
 msgstr ""
 "This member is the topic admin. You must transfer topic administrator "
 "permission before force quitting topic admin."
@@ -3347,6 +3343,11 @@ msgstr "JANDI Message Received"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
 msgstr ""
+
+#~ msgid "@topic-admin-transfer-kickout-confirm-2"
+#~ msgstr ""
+#~ "This member is the topic admin. You must transfer topic administrator "
+#~ "permission before force quitting topic admin."
 
 #, fuzzy
 #~ msgid "@jnd-connect-228"
