@@ -63,7 +63,7 @@
       function _attachEvent() {
         scope.$on('headerCtrl:teamSwitchOpen', _onTeamSwitchOpen);
         scope.$on('jndMainKeyHandler:teamSwitchToggle', _onTeamSwitchToggle);
-        scope.$on('jndWebSocketOtherTeam:notificationAfter', _onNotificationAfter);
+        scope.$on('jndWebSocketOtherTeam:afterNotificationSend', _onAfterNotificationSend);
         scope.$on('$destroy', _onDestroy);
 
         scope.$watch('isOpen', _onIsOpenChange);
@@ -131,7 +131,7 @@
        * 알림 전송 후 이벤트 처리함.
        * @private
        */
-      function _onNotificationAfter() {
+      function _onAfterNotificationSend() {
         // badge dot를 blink 한다.
         scope.hasBlink = false;
         $timeout(function() {
