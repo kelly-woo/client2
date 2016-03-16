@@ -73,7 +73,7 @@
     function _setCurrentUser(curUser) {
       $scope.curUser = curUser;
 
-      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'small');
+      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'medium');
       $scope.name = $filter('getName')($scope.curUser);
       $scope.department = $filter('getUserDepartment')($scope.curUser);
       $scope.position = $filter('getUserPosition')($scope.curUser);

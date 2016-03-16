@@ -161,7 +161,7 @@
       if (!!_topicEntity) {
         entityAPIservice.extend(_topicEntity, _topic);
       }
-      jndPubSub.pub('topicUpdated', data.topic);
+      jndPubSub.pub('webSocketTopic:topicUpdated', data.topic);
     }
 
     /**

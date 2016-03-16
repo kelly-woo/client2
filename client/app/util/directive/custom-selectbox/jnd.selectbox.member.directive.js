@@ -25,6 +25,10 @@
     function link(scope, el, attrs) {
       var _lastKeyword = '';
       var TOGGLE_DISABLE_SCROLL_DURATION = 500;
+
+      // profile image를 보여줄지 여부
+      var _isShowProfileImage = attrs.isShowProfileImage === 'true';
+
       scope.close = close;
       scope.onKeyUp = onKeyUp;
       scope.toggleShow = toggleShow;
@@ -38,8 +42,14 @@
        * @private
        */
       function _init() {
+        scope.isShowProfileImage = _isShowProfileImage;
+
         scope.isShown = false;
         scope.searchKeyword = '';
+
+        // 모든 멤버 허용 여부
+        scope.isAllowAllMember = scope.$eval(attrs.isAllowAllMember) !== false;
+
         _initializeData();
         _attachEvents();
         _attachDomEvents();
@@ -76,7 +86,10 @@
        */
       function _setSelectedName() {
         JndUtil.safeApply(scope, function() {
-          scope.selectedName = _getSelectedName();
+          var selectedItem = _getSelectedItem();
+
+          scope.selectedName = _getSelectedName(selectedItem);
+          scope.selectedImageUrl = _getSelectedImageUrl(selectedItem);
         });
       }
 
@@ -111,16 +124,50 @@
       }
 
       /**
-       * 현재 선택된 item 의 name 값을 반환한다
+       * 현재 선택된 item 을 반환한다
        * @returns {*}
        * @private
        */
-      function _getSelectedName() {
-        var selectedEntity;
-        selectedEntity = _.find(_getMembers(), function(member) {
+      function _getSelectedItem() {
+        return _.find(_getMembers(), function(member) {
           return member.id === scope.selectedValue;
         });
-        return selectedEntity ? selectedEntity.name : $filter('translate')('@option-all-members');
+      }
+
+      /**
+       * 현재 선택된 item 의 name 값을 반환한다
+       * @param {object} selectedItem
+       * @returns {*}
+       * @private
+       */
+      function _getSelectedName(selectedItem) {
+        return selectedItem ? selectedItem.name :  $filter('translate')('@option-all-members');
+      }
+
+      /**
+       * 현재 선택된 item 의 image url 값을 반환한다
+       * @param {object} selectedItem
+       * @returns {*}
+       * @private
+       */
+      function _getSelectedImageUrl(selectedItem) {
+        var imageUrl;
+
+        if (selectedItem) {
+          imageUrl = memberService.getProfileImage(selectedItem.id);
+        }
+
+        return imageUrl || '';
+      }
+
+      /**
+       * 현재 선택된 item 의 value 값을 반환한다
+       * @param {object} selectedItem
+       * @returns {*}
+       * @private
+       */
+      function _getSelectedValue(selectedItem) {
+        return selectedItem ? selectedItem.id : 'all';
       }
 
       /**
@@ -128,26 +175,25 @@
        * @private
        */
       function _initializeData() {
+        var selectedItem = _getSelectedItem();
+
         scope.memberData = _getMemberData();
         scope.searchList = [];
         scope.isShowDisabled = _isDisabledMemberSelected();
-        scope.selectedName = _getSelectedName();
+        scope.selectedName = _getSelectedName(selectedItem);
+        scope.selectedImageUrl = _getSelectedImageUrl(selectedItem);
       }
-
-
 
       /**
        * change 이벤트 핸들러
        * @param targetScope
        */
       function onChange(targetScope) {
-        if (targetScope.item) {
-          scope.selectedName = targetScope.item.name;
-          scope.selectedValue = targetScope.item.id;
-        } else {
-          scope.selectedName = $filter('translate')('@option-all-members');
-          scope.selectedValue = 'all';
-        }
+        var item = targetScope.item;
+
+        scope.selectedName = _getSelectedName(item);
+        scope.selectedImageUrl = _getSelectedImageUrl(item);
+        scope.selectedValue = _getSelectedValue(item);
 
         if (_.isFunction(scope.callback)) {
           scope.callback();

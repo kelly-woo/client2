@@ -32,7 +32,6 @@
     that.openTopicJoinModal = openTopicJoinModal;
     that.openTopicRenameModal = openTopicRenameModal;
 
-    that.openTeamChangeModal = openTeamChangeModal;
     that.openTeamMemberListModal = openTeamMemberListModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
@@ -232,29 +231,22 @@
      * topic 의 이름을 rename 할 수 있는 모달창을 연다.
      * @param $scope
      */
-    function openTopicRenameModal($scope) {
+    function openTopicRenameModal($scope, data) {
       var modalOption = {
         scope: $scope,
         templateUrl: 'app/modal/topics/topic_rename/topic.rename.html',
         controller: 'TopicRenameCtrl',
         size: 'lg',
-        autofocus: '#topic-rename-name'
+        autofocus: '#topic-rename-name',
+        resolve: {
+          options: function() {
+            // 토픽으로 초대 가능한 member의 수
+            // 현재 channel의 유저가 가진 team의 갯수
+            return data;
+          }
+        }
       };
-      _modalOpener(modalOption);
-    }
-
-    /**
-     * 팀 변환을 위한 현재 사용자가 가입되어있는 팀 리스트를 보여주는 모달창을 연다.
-     * @param $scope
-     */
-    function openTeamChangeModal($scope) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/teams/team_change/team.change.html',
-        controller: 'TeamChangeController',
-        size: 'lg'
-      };
-      _modalOpener(modalOption);
+      return _modalOpener(modalOption);
     }
 
     /**

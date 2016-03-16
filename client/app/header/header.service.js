@@ -1,81 +1,141 @@
-'use strict';
+/**
+ * @fileoverview entity header api service
+ */
+(function() {
+  'use strict';
 
-var app = angular.module('jandiApp');
+  var app = angular.module('jandiApp');
 
-app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIservice, memberService) {
-  var entityheaderAPI = {};
+  app.service('entityheaderAPIservice', function($http, $rootScope, storageAPIservice, memberService) {
+    var _that = this;
+    var _teamId = memberService.getTeamId();
 
-  entityheaderAPI.setStarEntity = function(entityId) {
-    return $http({
-      method  : 'POST',
-      url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
-      data    : {
-        teamId: memberService.getTeamId()
-      }
-    });
-  };
+    _that.setStarEntity = setStarEntity;
+    _that.removeStarEntity = removeStarEntity;
+    _that.renameEntity = renameEntity;
+    _that.inviteUsers = inviteUsers;
+    _that.joinChannel = joinChannel;
+    _that.createEntity = createEntity;
+    _that.transferTopicAdmin = transferTopicAdmin;
 
-  entityheaderAPI.removeStarEntity = function(entityId) {
-    return $http({
-      method  : 'DELETE',
-      url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
-      params  : {
-        teamId: memberService.getTeamId()
-      }
+    /**
+     * set star entity
+     * @param {number} entityId
+     * @returns {*}
+     */
+    function setStarEntity(entityId) {
+      return $http({
+        method  : 'POST',
+        url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
+        data    : {
+          teamId: memberService.getTeamId()
+        }
+      });
+    }
 
-    });
-  };
+    /**
+     * remove star entity
+     * @param {number} entityId
+     * @returns {*}
+     */
+    function removeStarEntity(entityId) {
+      return $http({
+        method  : 'DELETE',
+        url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
+        params  : {
+          teamId: memberService.getTeamId()
+        }
 
-  entityheaderAPI.renameEntity = function(entityType, entityId, _body) {
-    return $http({
-      method: 'PUT',
-      url: $rootScope.server_address + entityType + '/' + entityId,
-      data: _body,
-      params: {
-        teamId: memberService.getTeamId()
-      },
-      version: 3
-    });
-  };
+      });
+    }
 
-  /*
-   PARAMS
-   entityType  : integer
-   entityId    : integer
-   users       : array of integers
-   */
-  entityheaderAPI.inviteUsers = function(entityType, entityId, users) {
-    return $http({
-      method: 'PUT',
-      url: $rootScope.server_address + entityType + '/' + entityId + '/invite',
-      data: {
-        inviteUsers: users,
-        teamId: memberService.getTeamId()
-      }
-    });
-  };
+    /**
+     * rename entity
+     * @param {string} entityType
+     * @param {number} entityId
+     * @param {object} data
+     * @returns {*}
+     */
+    function renameEntity(entityType, entityId, data) {
+      return $http({
+        method: 'PUT',
+        url: $rootScope.server_address + entityType + '/' + entityId,
+        data: {
+          name: data.name,
+          autoJoin: data.autoJoin,
+          description: data.description
+        },
+        params: {
+          teamId: memberService.getTeamId()
+        },
+        version: 3
+      });
+    }
 
-  entityheaderAPI.joinChannel = function(entityId) {
-    return $http({
-      method: 'PUT',
-      url: $rootScope.server_address + 'channels/' + entityId + '/join',
-      data: {
-        teamId: memberService.getTeamId()
-      }
-    });
-  };
+    /**
+     * inite users
+     * @param {string} entityType
+     * @param {number} entityId
+     * @param {array} users
+     * @returns {*}
+     */
+    function inviteUsers(entityType, entityId, users) {
+      return $http({
+        method: 'PUT',
+        url: $rootScope.server_address + entityType + '/' + entityId + '/invite',
+        data: {
+          inviteUsers: users,
+          teamId: memberService.getTeamId()
+        }
+      });
+    }
 
-  entityheaderAPI.createEntity = function(entityType, _body) {
-    return $http({
-      method: 'POST',
-      url: $rootScope.server_address + entityType,
-      data : _body,
-      params: {
-        teamId: memberService.getTeamId()
-      },
-      version: 3
-    });
-  };
+    /**
+     * join channel
+     * @param {number} entityId
+     * @returns {*}
+     */
+    function joinChannel(entityId) {
+      return $http({
+        method: 'PUT',
+        url: $rootScope.server_address + 'channels/' + entityId + '/join',
+        data: {
+          teamId: memberService.getTeamId()
+        }
+      });
+    }
 
-  return entityheaderAPI;
-});
+    /**
+     * create entity
+     * @param {string} entityType
+     * @param {object} data
+     * @returns {*}
+     */
+    function createEntity(entityType, data) {
+      return $http({
+        method: 'POST',
+        url: $rootScope.server_address + entityType,
+        data : data,
+        params: {
+          teamId: memberService.getTeamId()
+        },
+        version: 3
+      });
+    }
+
+    /**
+     * transfer topic admin
+     * @param {number} topicId
+     * @returns {*}
+     */
+    function transferTopicAdmin(topicId, data) {
+      return $http({
+        method: 'PUT',
+        url: $rootScope.server_address + 'teams/' + _teamId + '/topics/' + topicId + '/admin',
+        data: {
+          adminId: data.adminId
+        }
+      });
+    }
+  });
+}());

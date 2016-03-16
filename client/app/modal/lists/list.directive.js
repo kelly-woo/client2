@@ -83,6 +83,9 @@
       // 이전 active 상태였던 dom element
       var prevActiveElement;
 
+      // 이전 mouse point;
+      var _prevMousePoint;
+
       _init();
 
       /**
@@ -102,31 +105,39 @@
           el.remove();
         });
 
-        _on();
+        _attachScopeEvents();
+        _attachDomEvents();
 
         originScope.getActiveIndex = getActiveIndex;
         originScope.setActiveIndex = setActiveIndex;
       }
 
       /**
-       * event on
+       * attach scope events
        * @private
        */
-      function _on() {
+      function _attachScopeEvents() {
         if (type != null) {
           scope.$on('setActiveIndex:' + type, _onSetActiveIndex);
           scope.$on('updateList:' + type, _onUpdateList);
         }
 
+        scope.$on('$destroy', _onDestroy);
         scope.$watch(model, _onFilterValueChanged);
+      }
 
+      /**
+       * attach dom events
+       * @private
+       */
+      function _attachDomEvents() {
         jqFilter.on('keydown', _onKeydown);
 
         jqViewport
           .on('scroll', _onScroll)
           .on('mousewheel', _onScroll)
           .on('click', '.' + itemClass, _onClick)
-          .on('mouseenter', '.' + itemClass, _onMouseEnter);
+          .on('mousemove', '.' + itemClass, _onMouseMove);
       }
   
       /**
@@ -161,13 +172,18 @@
        * @private
        */
       function _onSetActiveIndex(event, index) {
-        setActiveIndex(index);
-        ListRenderer.render({
-          type: itemType,
-          list: matches,
-          viewport: viewport,
-          filterText: jqFilter.val()
-        });
+        _setActiveItem(index);
+      }
+
+      /**
+       * scope desctroy event handler
+       * @private
+       */
+      function _onDestroy() {
+
+        //ToDo: listOnModal directive가 element가 아닌 container의 attribute로 제공 되어야 dom select 문제가 해결됨.
+        // scope destroy시 jqFilter를 제거하여 scope 생성시 이전 jqFilter가 선택되지 않도록 한다.
+        jqFilter.remove();
       }
 
       /**
@@ -177,6 +193,9 @@
        * @private
        */
       function _onFilterValueChanged(newValue, oldValue) {
+        newValue = newValue || '';
+        oldValue = oldValue || '';
+
         if (newValue !== oldValue) {
           // model value changed
 
@@ -192,30 +211,19 @@
        */
       function _onKeydown(event) {
         var which = event.which;
+        var index;
 
         if (scope.$eval(attrs.activeted)) {
           if (jndKeyCode.match('UP_ARROW', which)) {
             event.preventDefault();
 
-            activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
-            _focusItem(activeIndex);
-            ListRenderer.render({
-              type: itemType,
-              list: matches,
-              viewport: viewport,
-              filterText: jqFilter.val()
-            });
+            index = (activeIndex > 0 ? activeIndex : matches.length) - 1;
+            _setActiveItem(index);
           } else if (jndKeyCode.match('DOWN_ARROW', which)) {
             event.preventDefault();
 
-            activeIndex = ((activeIndex + 1) % matches.length);
-            _focusItem(activeIndex);
-            ListRenderer.render({
-              type: itemType,
-              list: matches,
-              viewport: viewport,
-              filterText: jqFilter.val()
-            });
+            index = ((activeIndex + 1) % matches.length);
+            _setActiveItem(index);
           } else if (!event.metaKey && !event.ctrlKey && jndKeyCode.match('ENTER', which)) {
             event.preventDefault();
 
@@ -273,19 +281,31 @@
       }
 
       /**
-       * mouseenter event handler
+       * mousemove event handler
        * @param {object} event
        * @private
        */
-      function _onMouseEnter(event) {
+      function _onMouseMove(event) {
         var target = event.currentTarget;
+        var index;
 
-        activeIndex = $(target).data('viewport-index');
+        if (_prevMousePoint && (_prevMousePoint.x != event.clientX || _prevMousePoint.y != event.clientY)) {
+          index = +$(target).data('viewport-index');
+          if (activeIndex != index) {
+            activeIndex = index;
 
-        // scrolling에 영향을 주므로 주석 처리
-        // _focusItem(activeIndex);
+            // viewport에 반쯤 걸친 상태로 출력된 아이템이 있을때 _focusItem을 수행함으로서 viewport 영역에 완전히 보여지도록 한다.
+            // 현재 jandi에서 출력되는 list들은 해당 기능을 사용하지 제공하지 않으므로 주석 처리함.
+            // _focusItem(activeIndex);
 
-        _setActiveClass()
+            _setActiveClass();
+          }
+        }
+
+        _prevMousePoint = {
+          x: event.clientX,
+          y: event.clientY
+        };
       }
 
       /**
@@ -327,6 +347,21 @@
           viewport: viewport,
           filterText: filterText
         }, true);
+      }
+
+      /**
+       * 활성 아이템을 설정함.
+       * @param {number} activeIndex
+       * @private
+       */
+      function _setActiveItem(index) {
+        setActiveIndex(index);
+        ListRenderer.render({
+          type: itemType,
+          list: matches,
+          viewport: viewport,
+          filterText: jqFilter.val()
+        });
       }
     }
   }
