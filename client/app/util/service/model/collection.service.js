@@ -10,13 +10,13 @@
     .factory('Collection', Collection);
 
   /* @ngInject */
-  function Collection(JndUtil, Base) {
+  function Collection(JndUtil, CoreUtil) {
 
     /**
      * Collection Class
      * @constructor
      */
-    var CollectionClass = Base.defineClass({
+    var CollectionClass = CoreUtil.defineClass({
       /**
        * 인자로 받은 option 값에 대해 초기 세팅을 한다.
        * @param {Object} options

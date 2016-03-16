@@ -6,14 +6,14 @@
   'use strict';
 
   angular
-    .module('jandi.base')
-    .service('Base', Base);
+    .module('jandi.core')
+    .service('CoreUtil', CoreUtil);
 
   /* @ngInject */
-  function Base() {
+  function CoreUtil() {
     var _that = this;
 
-    _that.createObject = _createObject();
+    _that.createObject = createObject();
     _that.inherit = inherit;
     _that.defineClass = defineClass;
 
@@ -22,7 +22,7 @@
      * @param {Object} obj This object will be a prototype of the newly-created object.
      * @return {Object}
      */
-    function _createObject() {
+    function createObject() {
       function F() {}
 
       return function(obj) {

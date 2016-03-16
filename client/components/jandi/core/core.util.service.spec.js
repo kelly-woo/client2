@@ -1,9 +1,9 @@
-describe('jandi.base', function() {
+describe('jandi.core.util', function() {
   var defineClass;
 
-  beforeEach(module('jandi.base'));
-  beforeEach(inject(function (_Base_) {
-    defineClass = _Base_.defineClass;
+  beforeEach(module('jandi.core'));
+  beforeEach(inject(function (_CoreUtil_) {
+    defineClass = _CoreUtil_.defineClass;
   }));
 
 

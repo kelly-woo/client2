@@ -10,9 +10,9 @@
     .factory('UserList', UserList);
 
   /* @ngInject */
-  function UserList(Base, Collection) {
+  function UserList(CoreUtil, Collection) {
 
-    var UserListClass = Base.defineClass(Collection, /**@lends Collection.prototype */{
+    var UserListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
       /**
        * 생성자
        */

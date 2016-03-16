@@ -7,7 +7,7 @@
   'use strict';
 
   angular
-    .module('jandi.base', [])
+    .module('jandi.core', [])
     .config(config)
     .run(run);
 

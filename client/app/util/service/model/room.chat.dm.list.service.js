@@ -10,13 +10,13 @@
     .factory('RoomChatDmList', RoomChatDmList);
 
   /* @ngInject */
-  function RoomChatDmList(Base, Collection, UserList, BotList) {
+  function RoomChatDmList(CoreUtil, Collection, UserList, BotList) {
 
     /**
      * RoomChatDmList 클래스
      * @constructor
      */
-    var RoomChatDmListClass = Base.defineClass(Collection, /**@lends Collection.prototype */{
+    var RoomChatDmListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
       /**
        * 생성자
        */

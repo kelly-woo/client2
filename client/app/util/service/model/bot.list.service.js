@@ -10,13 +10,13 @@
     .factory('BotList', BotList);
 
   /* @ngInject */
-  function BotList(Base, Collection, JndUtil) {
+  function BotList(CoreUtil, Collection, JndUtil) {
 
     /**
      * BotList 클래스
      * @constructor
      */
-    var BotListClass = Base.defineClass(Collection, /**@lends Collection.prototype */{
+    var BotListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
       /**
        * 생성자
        */
