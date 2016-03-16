@@ -41,7 +41,7 @@
         scope.isSelectedImage = false;
 
         if (dataURI) {
-          _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
+          _updateProfileImage(CoreUtil.dataURItoBlob(dataURI));
         }
       }
 

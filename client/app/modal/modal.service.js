@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil, Tutorial, RoomTopicList) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, CoreUtil, Tutorial, RoomTopicList) {
 
     var that = this;
 
@@ -165,10 +165,10 @@
         autofocus: '#topic-create-name',
         resolve: {
           topicName: function () {
-            return JndUtil.pick(options, 'topicName') || '';
+            return CoreUtil.pick(options, 'topicName') || '';
           },
           isEnterTopic: function() {
-            var isEnterTopic = JndUtil.pick(options, 'isEnterTopic');
+            var isEnterTopic = CoreUtil.pick(options, 'isEnterTopic');
             return _.isBoolean(isEnterTopic) ? isEnterTopic : true;
           }
         }

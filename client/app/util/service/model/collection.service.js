@@ -10,7 +10,7 @@
     .factory('Collection', Collection);
 
   /* @ngInject */
-  function Collection(JndUtil, CoreUtil) {
+  function Collection(CoreUtil) {
 
     /**
      * Collection Class
@@ -52,8 +52,8 @@
        * @private
        */
       _initOptions: function(options) {
-        var list = JndUtil.pick(options, 'list');
-        this._key = JndUtil.pick(options, 'key') || this._key;
+        var list = CoreUtil.pick(options, 'list');
+        this._key = CoreUtil.pick(options, 'key') || this._key;
 
         if (_.isArray(list)) {
           _.forEach(list, function(item) {
@@ -87,7 +87,7 @@
        */
       add: function (item) {
         var data = this._data;
-        var id = JndUtil.pick(item, this._key);
+        var id = CoreUtil.pick(item, this._key);
         if (!_.isUndefined(id)) {
           if (!_.isUndefined(this.get(id))) {
             this.update(item)

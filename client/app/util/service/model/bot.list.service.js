@@ -10,7 +10,7 @@
     .factory('BotList', BotList);
 
   /* @ngInject */
-  function BotList(CoreUtil, Collection, JndUtil) {
+  function BotList(CoreUtil, Collection) {
 
     /**
      * BotList 클래스
@@ -52,7 +52,7 @@
        */
       isJandiBot: function(id) {
         var bot = this.get(id);
-        return JndUtil.pick(bot, 'botType') === 'jandi_bot';
+        return CoreUtil.pick(bot, 'botType') === 'jandi_bot';
       },
 
       /**
@@ -62,7 +62,7 @@
        */
       isConnectBot: function(id) {
         var bot = this.get(id);
-        return JndUtil.pick(bot, 'botType') === 'connect_bot';
+        return CoreUtil.pick(bot, 'botType') === 'connect_bot';
       }
     });
 

@@ -78,7 +78,7 @@
      */
     function _onProfileSettingDone(angularEvent, url) {
       $scope.changedFileUri = url;
-      $scope.data.botThumbnailFile = JndUtil.dataURItoBlob(url);
+      $scope.data.botThumbnailFile = CoreUtil.dataURItoBlob(url);
     }
 
     /**

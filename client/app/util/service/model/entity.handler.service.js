@@ -10,7 +10,7 @@
     .service('EntityHandler', EntityHandler);
 
   /* @ngInject */
-  function EntityHandler($rootScope, RoomTopicList, BotList, UserList, RoomChatDmList, JndUtil, entityheaderAPIservice,
+  function EntityHandler($rootScope, RoomTopicList, BotList, UserList, RoomChatDmList, CoreUtil, entityheaderAPIservice,
                          AnalyticsHelper, jndPubSub, currentSessionHelper, memberService) {
     var _scope;
     var _starredEntitiesMap = {};
@@ -116,7 +116,7 @@
       _setCurrentTeamAdmin(response.entities);
       currentSessionHelper.setCurrentTeam(response.team);
       memberService.setMember(response.user);
-      _refreshStarredEntitiesMap(JndUtil.pick(response, 'user', 'u_starredEntities'));
+      _refreshStarredEntitiesMap(CoreUtil.pick(response, 'user', 'u_starredEntities'));
 
       RoomTopicList.reset();
       UserList.reset();

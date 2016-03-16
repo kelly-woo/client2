@@ -163,14 +163,14 @@ app.filter('getProfileImage', function(memberService) {
   };
 });
 
-app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config', 'JndUtil',
-  function($filter, memberService, config, JndUtil) {
+app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config', 'CoreUtil',
+  function($filter, memberService, config, CoreUtil) {
     return function(member) {
       var url;
       var memberId;
       if (_.isObject(member)) {
         memberId = member.id;
-        url = JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || '';
+        url = CoreUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') || '';
       } else {
         memberId = member;
         url = memberService.getSmallThumbnailUrl(member);

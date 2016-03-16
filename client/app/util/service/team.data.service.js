@@ -9,7 +9,7 @@
     .service('TeamData', TeamData);
 
   /* @ngInject */
-  function TeamData($rootScope, accountService, jndPubSub, JndUtil) {
+  function TeamData($rootScope, accountService, jndPubSub, CoreUtil) {
     var _teamList = [];
     var _scope = $rootScope.$new();
 
@@ -40,7 +40,7 @@
      */
     function _resetTeamList() {
       var account = accountService.getAccount();
-      _teamList = JndUtil.pick(account, 'memberships') || [];
+      _teamList = CoreUtil.pick(account, 'memberships') || [];
       jndPubSub.pub('TeamData:updated', _teamList);
     }
 
