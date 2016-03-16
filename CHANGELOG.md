@@ -1,3 +1,26 @@
+<a name="1.19.0"></a>
+# [1.19.0](https://github.com/tosslab/web_client/compare/v1.18.0...v1.19.0) (2016-03-16)
+
+
+### Bug Fixes
+
+* **center:** 메시지 전송 시 해당 메시지가 두 번 노출되는 현상 수정 ([eb9fa62](https://github.com/tosslab/web_client/commit/eb9fa62))
+* **fileUpload:** 새로 생성한 토픽에 3rd party의 파일 업로드시, 이전 토픽에 파일 업로드 되는 버그 수정 ([7c357b5](https://github.com/tosslab/web_client/commit/7c357b5))
+* **joined:** 토픽에 사용자가 참여하였을때 비동기 응답으로 인한 버그 수정 & 토픽 참여시 마다 레프트 사이드 API 호출하지 않도록 수정 ([fc7ab94](https://github.com/tosslab/web_client/commit/fc7ab94))
+* **left:** 토픽 참여시 left panel 갱신되지 않는 현상 해결 ([7553a08](https://github.com/tosslab/web_client/commit/7553a08))
+* **socket:** socket invite 이벤트 발생 시 private topic 에 대한 정보를 가져오지 못하는 현상 수정 ([e1d6713](https://github.com/tosslab/web_client/commit/e1d6713))
+* **socket:** 토픽 참여시 system message 가 즉시 표시되지 않는 현상 해결 ([84987ae](https://github.com/tosslab/web_client/commit/84987ae))
+* **unread-marker:** unread marker 동작 오류 수정 ([b739161](https://github.com/tosslab/web_client/commit/b739161))
+* **커스텀셀렉트박스:** 메시지 검색의 작성자 필터 검색어 입력 시 connect bot 이 노출되는 오류 수정 ([a63a90a](https://github.com/tosslab/web_client/commit/a63a90a))
+
+### Features
+
+* **filter:** 사용자가 입력한 문자열을 통해 필터링된 리스트가 출력되는 순서 개선 ([62e6a79](https://github.com/tosslab/web_client/commit/62e6a79))
+* **sticker:** 스티커 선택시 기본탭을 최근사용 탭으로 변경 ([879dfe6](https://github.com/tosslab/web_client/commit/879dfe6))
+* **커스텀셀렉트박스:** 검색에서 검색어와 가장 먼저 매치 된 목록 순서로 조정 ([6a44198](https://github.com/tosslab/web_client/commit/6a44198))
+
+
+
 <a name="1.18.0"></a>
 # [1.18.0](https://github.com/tosslab/web_client/compare/v1.17.4...v1.18.0) (2016-03-09)
 
