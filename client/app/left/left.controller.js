@@ -6,7 +6,7 @@ app.controller('leftPanelController', function(
   $scope, $state, $timeout, $q, resLeftSideMenu, resTopicFolder, leftpanelAPIservice, entityAPIservice, accountService,
   publicService, memberService, storageAPIservice, analyticsService, currentSessionHelper, jndWebSocket, jndPubSub,
   modalHelper, UnreadBadge, AnalyticsHelper, HybridAppHelper, NotificationManager, TopicFolderModel, TopicUpdateLock,
-  JndUtil, EntityMemberFilter, EntityHandler) {
+  JndUtil, EntityFilterMember, EntityHandler) {
 
   var _that = this;
   var _getLeftListDeferredObject;
@@ -309,9 +309,9 @@ app.controller('leftPanelController', function(
    */
   function onMemberClick(member) {
     if (angular.isNumber(member)) {
-      member = EntityMemberFilter.get(member);
+      member = EntityFilterMember.get(member);
     } else {
-      member = EntityMemberFilter.get(member.id);
+      member = EntityFilterMember.get(member.id);
     }
 
     if (memberService.isUser(member.id)) {

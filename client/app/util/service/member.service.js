@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function memberService($http, $rootScope, $q, storageAPIservice, $upload, jndPubSub, currentSessionHelper, CoreUtil,
-                         UserList, BotList, EntityMemberFilter) {
+                         UserList, BotList, EntityFilterMember) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -91,11 +91,21 @@
       isBot: isBot,
       isJandiBot: isJandiBot,
       isConnectBot: isConnectBot,
-
+      isUnreadMessage: isUnreadMessage,
       isDefaultProfileImage: isDefaultProfileImage
     };
 
     return service;
+
+    /**
+     * 현재 로그인 한 사용자가 읽지 않은 메시지 인지 여부를 반환한다.
+     * @param {number} roomId - 룸 아이디
+     * @param {number} linkId - 메시지 링크 아이디
+     * @returns {boolean}
+     */
+    function isUnreadMessage(roomId, linkId) {
+      return getLastReadMessageMarker(roomId) < linkId;
+    }
 
     /**
      * 현재 로그인되어 있는 멤버의 정보를 서버로부터 새로 받아서 넘겨준다.
@@ -315,7 +325,7 @@
      */
     function getSmallThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMemberFilter.get(member);
+        member = EntityFilterMember.get(member);
       }
       return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
         getPhotoUrl(member) ||
@@ -329,7 +339,7 @@
      */
     function getMediumThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMemberFilter.get(member);
+        member = EntityFilterMember.get(member);
       }
       return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
@@ -341,7 +351,7 @@
      */
     function getLargeThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMemberFilter.get(member);
+        member = EntityFilterMember.get(member);
       }
       return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
@@ -361,7 +371,7 @@
      * @param {string} [size]
      */
     function getProfileImage(memberId, size) {
-      var member = EntityMemberFilter.get(memberId);
+      var member = EntityFilterMember.get(memberId);
       var profileImage;
 
       if (member) {
@@ -382,7 +392,7 @@
      * @returns {string} name - 아이디를 가진 유져의 이름
      */
     function getNameById(entityId) {
-      return this.getName(EntityMemberFilter.get(entityId));
+      return this.getName(EntityFilterMember.get(entityId));
     }
 
     /**

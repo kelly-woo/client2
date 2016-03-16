@@ -166,25 +166,23 @@
     }
 
     /**
-     * entity
-     * @param {object} entity
+     * badge 정보를 가진 entity 를 반환한다.
+     * @param {object} entityId
      * @returns {*}
      * @private
      */
-    function _getEntity(entity) {
-      if (_.isNumber(entity)) {
-        entity = EntityMapManager.get('total', entity) || EntityMapManager.get('memberEntityId', entity);
-      }
-      return entity;
+    function _getBadgeEntity(entityId) {
+      var entity = EntityHandler.get(entityId);
+      return entity && (entity.extMember || entity);
     }
 
     /**
      * entity 의 badge count 를 증가한다.
-     * @param {object} entity
+     * @param {number} roomId
      * @param {number} [count=1]
      */
-    function increaseBadgeCount(entity, count) {
-      entity = _getEntity(entity);
+    function increaseBadgeCount(roomId, count) {
+      var entity = _getBadgeEntity(roomId);
       count = count || 1;
 
       var alarmCnt = entity.alarmCnt || 0;
@@ -194,11 +192,11 @@
 
     /**
      * entity 의 badge count 를 감소한다.
-     * @param {object} entity
+     * @param {number} roomId
      * @param {number} [count=1]
      */
-    function decreaseBadgeCount(entity, count) {
-      entity = _getEntity(entity);
+    function decreaseBadgeCount(roomId, count) {
+      var entity = _getBadgeEntity(roomId);
       count = count || 1;
 
       var alarmCnt = (entity.alarmCnt || 0) - count;
@@ -360,7 +358,8 @@
      * @returns {array} memberList
      */
     function getMemberList(entity) {
-      return entity.type === 'channels' ? entity.ch_members : entity.pg_members;
+      //@fixme: indexOf 대신 일치 연산자를 사용해야 함.
+      return entity.type.indexOf('channel') !== -1 ? entity.ch_members : entity.pg_members;
     }
 
     /**
@@ -376,7 +375,6 @@
           list.push(memberId);
         }
       });
-
       return list;
     }
 
@@ -387,7 +385,7 @@
      */
     function getUserLength(entity) {
       var length = -1;
-      if (entity != null && entity.type !== 'users') {
+      if (entity != null && entity.type.indexOf('user') === -1) {
         length = getUserList(entity).length;
       }
       return length;

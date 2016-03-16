@@ -6,7 +6,7 @@
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, memberService, currentSessionHelper,
+  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, memberService, currentSessionHelper, markerService,
                                MessageNotification, MentionNotification, FileShareNotification, TopicInviteNotification) {
 
     var MESSAGE = 'message';
@@ -256,48 +256,76 @@
 
     /**
      * 1:1 direct message가 왔을 경우
-     * @param data
+     * @param socketEvent
      * @private
      */
-    function _onDm(data) {
-      data.room.extWriterId = data.writer;
+    function _onDm(socketEvent) {
+      var room = socketEvent.room;
+      room.extWriterId = socketEvent.writer;
 
-      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
+      if (jndWebSocketCommon.isCurrentEntity(room)) {
         jndPubSub.updateCenterPanel();
       }
 
-      jndPubSub.pub('updateChatList');
+      //messageType 이 없을 경우 chat 을 호출하지 않는다.
+      //ex) 일반 메시지, 스티커, 파일 업로드
+      if (!_updateBadgeCount(socketEvent)) {
+        jndPubSub.pub('updateChatList');
+      }
 
-      if (data.messageType === 'file_share') {
-        _updateRight(data);
+      if (socketEvent.messageType === 'file_share') {
+        _updateRight(socketEvent);
 
         // file_share일 경우
-        if (!jndWebSocketCommon.isActionFromMe(data.room.extWriterId)) {
+        if (!jndWebSocketCommon.isActionFromMe(socketEvent.room.extWriterId)) {
           // 내가 보낸 file_share가 아닌 경우에만 노티를 보낸다.
-          FileShareNotification.show(data, jndWebSocketCommon.getRoom(data.room));
+          FileShareNotification.show(socketEvent, jndWebSocketCommon.getRoom(socketEvent.room));
         }
       } else {
-        _sendBrowserNotification(data);
+        _sendBrowserNotification(socketEvent);
       }
     }
 
     /**
      * 토픽으로 새로운 메세지가 왔을 경우
-     * @param data
+     * @param socketEvent
      * @private
      */
-    function _onTopic(data) {
-      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
+    function _onTopic(socketEvent) {
+      var room = socketEvent.room;
+      if (jndWebSocketCommon.isCurrentEntity(room)) {
         jndPubSub.updateCenterPanel();
-      } else {
+      } else if (!_updateBadgeCount(socketEvent)) {
         jndPubSub.updateLeftBadgeCount();
       }
 
-      if (_hasMention(data)) {
-        _sendMentionNotification(data);
-      } else if (memberService.isTopicNotificationOn(data.room.id)) {
-        _sendBrowserNotification(data);
+      if (_hasMention(socketEvent)) {
+        _sendMentionNotification(socketEvent);
+      } else if (memberService.isTopicNotificationOn(socketEvent.room.id)) {
+        _sendBrowserNotification(socketEvent);
       }
+    }
+
+    /**
+     * API 콜 없이 뱃지 카운트를 처리할 수 있는 message 이벤트의 경우 내부 로직을 활용하여 뱃지 카운트를 업데이트 한다.
+     * @param {object} socketEvent
+     * @returns {boolean} 뱃지 카운트를 업데이트 처리 했는지 여부
+     * @private
+     */
+    function _updateBadgeCount(socketEvent) {
+      var room = socketEvent.room;
+      var returnVal = false;
+      //내부적으로 뱃지 카운트를 처리할 수 있는 경우에는 API 콜을 하지 않는다.
+      //ex) 일반 메시지, 스티커, 파일 업로드
+      if (!socketEvent.messageType) {
+        jndWebSocketCommon.increaseBadgeCount(room.id);
+        returnVal = true;
+      } else if (socketEvent.messageType === 'message_delete' &&
+        memberService.isUnreadMessage(room.id, socketEvent.messageId)) {
+        jndWebSocketCommon.decreaseBadgeCount(room.id);
+        returnVal = true;
+      }
+      return returnVal;
     }
 
     /**

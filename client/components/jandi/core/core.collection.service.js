@@ -6,17 +6,17 @@
   'use strict';
 
   angular
-    .module('jandiApp')
-    .factory('Collection', Collection);
+    .module('jandi.core')
+    .factory('CoreCollection', CoreCollection);
 
   /* @ngInject */
-  function Collection(CoreUtil) {
+  function CoreCollection(CoreUtil) {
 
     /**
-     * Collection Class
+     * CoreCollection Class
      * @constructor
      */
-    var CollectionClass = CoreUtil.defineClass({
+    var CoreCollectionClass = CoreUtil.defineClass({
       /**
        * 인자로 받은 option 값에 대해 초기 세팅을 한다.
        * @param {Object} options
@@ -188,6 +188,6 @@
       }
     });
 
-    return CollectionClass;
+    return CoreCollectionClass;
   }
 })();

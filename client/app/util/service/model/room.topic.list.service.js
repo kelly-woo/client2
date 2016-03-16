@@ -10,7 +10,7 @@
     .service('RoomTopicList', RoomTopicList);
 
   /* @ngInject */
-  function RoomTopicList(Collection) {
+  function RoomTopicList(EntityCollection) {
 
     var _collectionMap = {};
 
@@ -52,10 +52,10 @@
      * @private
      */
     function _init() {
-      _collectionMap.join = new Collection({
+      _collectionMap.join = new EntityCollection({
         key: 'id'
       });
-      _collectionMap.unjoin = new Collection({
+      _collectionMap.unjoin = new EntityCollection({
         key: 'id'
       });
     }
@@ -66,7 +66,7 @@
      * @param {boolean} [isJoin=false] - 대상 콜렉션이 사용자가 join 한 방에 대한 콜렉션인지 여부
      */
     function setList(list, isJoin)  {
-      var collection = _getCollection(isJoin);
+      var collection = _getEntityCollection(isJoin);
       collection.setList(list);
     }
 
@@ -76,7 +76,7 @@
      * @returns {*}
      * @private
      */
-    function _getCollection(isJoin) {
+    function _getEntityCollection(isJoin) {
       return isJoin ? _collectionMap.join : _collectionMap.unjoin;
     }
 
@@ -86,7 +86,7 @@
      * @param {Boolean} [isJoin=false] - 대상 콜렉션이 사용자가 join 한 방에 대한 콜렉션인지 여부
      */
     function add(item, isJoin) {
-      var collection = _getCollection(isJoin);
+      var collection = _getEntityCollection(isJoin);
       collection.add(item);
     }
 
@@ -107,7 +107,7 @@
     function get(id, isJoin) {
       var list;
       if (_.isBoolean(isJoin)) {
-        list = _getCollection(isJoin).get(id);
+        list = _getEntityCollection(isJoin).get(id);
       } else {
         list = _collectionMap.join.get(id) || _collectionMap.unjoin.get(id);
       }
@@ -131,7 +131,7 @@
     function toJSON(isJoin) {
       var list;
       if (_.isBoolean(isJoin)) {
-        list = _getCollection(isJoin).toJSON();
+        list = _getEntityCollection(isJoin).toJSON();
       } else {
         list = _collectionMap.join.toJSON(true).concat(_collectionMap.unjoin.toJSON(true));
       }

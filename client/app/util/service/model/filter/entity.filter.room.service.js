@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .service('EntityMemberFilter', EntityMemberFilter);
+    .service('EntityFilterRoom', EntityFilterRoom);
 
   /* @ngInject */
-  function EntityMemberFilter(UserList, BotList) {
+  function EntityFilterRoom(RoomTopicList) {
 
     this.toJSON = toJSON;
     this.get = get;
@@ -29,7 +29,6 @@
      * @returns {Array}
      */
     function toJSON() {
-      return UserList.toJSON().concat(BotList.toJSON());
     }
 
     /**
@@ -38,7 +37,6 @@
      * @returns {object}
      */
     function get(entityId) {
-      return UserList.get(entityId) || BotList.get(entityId)
     }
   }
 })();

@@ -147,7 +147,7 @@
 
     /**
      *
-     * @param res
+     * @param {array} entities
      * @private
      */
     function _setCurrentTeamAdmin(entities) {

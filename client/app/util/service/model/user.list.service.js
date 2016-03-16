@@ -10,14 +10,14 @@
     .factory('UserList', UserList);
 
   /* @ngInject */
-  function UserList(CoreUtil, Collection) {
+  function UserList(CoreUtil, EntityCollection) {
 
-    var UserListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
+    var UserListClass = CoreUtil.defineClass(EntityCollection, /**@lends EntityCollection.prototype */{
       /**
        * 생성자
        */
       init: function() {
-        Collection.prototype.init.apply(this, arguments);
+        EntityCollection.prototype.init.apply(this, arguments);
       },
 
       /**

@@ -7,13 +7,13 @@
 
   angular
     .module('jandiApp')
-    .service('EntityRoomFilter', EntityRoomFilter);
+    .service('EntityFilterCommon', EntityFilterCommon);
 
   /* @ngInject */
-  function EntityRoomFilter(RoomTopicList) {
+  function EntityFilterCommon(RoomTopicList) {
 
     this.toJSON = toJSON;
-    this.get = get;
+    this.getAlarmEntity = get;
 
     _init();
 

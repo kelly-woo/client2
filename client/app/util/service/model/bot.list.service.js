@@ -10,18 +10,18 @@
     .factory('BotList', BotList);
 
   /* @ngInject */
-  function BotList(CoreUtil, Collection) {
+  function BotList(CoreUtil, EntityCollection) {
 
     /**
      * BotList 클래스
      * @constructor
      */
-    var BotListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
+    var BotListClass = CoreUtil.defineClass(EntityCollection, /**@lends EntityCollection.prototype */{
       /**
        * 생성자
        */
       init: function() {
-        Collection.prototype.init.apply(this, arguments);
+        EntityCollection.prototype.init.apply(this, arguments);
         this._jandiBot = null;
       },
 
@@ -34,7 +34,7 @@
         if (bot.botType === 'jandi_bot') {
           this._jandiBot = bot;
         }
-        Collection.prototype.add.call(this, bot);
+        EntityCollection.prototype.add.call(this, bot);
       },
 
       /**

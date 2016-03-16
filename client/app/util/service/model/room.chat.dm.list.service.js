@@ -10,18 +10,18 @@
     .factory('RoomChatDmList', RoomChatDmList);
 
   /* @ngInject */
-  function RoomChatDmList(CoreUtil, Collection, UserList, BotList) {
+  function RoomChatDmList(CoreUtil, EntityCollection, UserList, BotList) {
 
     /**
      * RoomChatDmList 클래스
      * @constructor
      */
-    var RoomChatDmListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
+    var RoomChatDmListClass = CoreUtil.defineClass(EntityCollection, /**@lends EntityCollection.prototype */{
       /**
        * 생성자
        */
       init: function() {
-        Collection.prototype.init.apply(this, arguments);
+        EntityCollection.prototype.init.apply(this, arguments);
       },
 
       /**
@@ -33,7 +33,7 @@
         var member = UserList.get(chatRoom.companionId) || BotList.get(chatRoom.companionId);
         if (member) {
           this._extendMember(member, chatRoom);
-          Collection.prototype.add.call(this, _.extend(chatRoom, {
+          EntityCollection.prototype.add.call(this, _.extend(chatRoom, {
             id: chatRoom.entityId,
             extMember: member
           }));
