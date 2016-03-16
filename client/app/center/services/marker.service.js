@@ -28,6 +28,7 @@
     this.getMarkerOffset = getMarkerOffset;
     this.resetMarkerOffset = resetMarkerOffset;
 
+    this.getLastLinkIdOfMemberId = getLastLinkIdOfMemberId;
     /**
      * Initialize local variables.
      *
@@ -47,15 +48,15 @@
      * @private
      */
     function putNewMarker(memberId, lastLinkId, localLastMessageId) {
-      if (lastLinkId < 0) return;
-      if (memberId === memberService.getMemberId()) return;
-      if (lastLinkId > localLastMessageId) {
-        //console.log('was going to put a marker but current market is way to ahead.')
-        markerOffset++;
-      } else {
-        //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
-        putLastLinkId(lastLinkId, memberId);
-        putMemberId(memberId, lastLinkId);
+      if (lastLinkId >= 0) {
+        if (lastLinkId > localLastMessageId) {
+          //console.log('was going to put a marker but current market is way to ahead.')
+          markerOffset++;
+        } else {
+          //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+          putLastLinkId(lastLinkId, memberId);
+          putMemberId(memberId, lastLinkId);
+        }
       }
     }
 
@@ -114,7 +115,13 @@
         lastLinkIdToCount[lastLinkId] = obj;
       }
     }
-    function _getLastLinkIdofMemberId(memberId) {
+
+    /**
+     * memberId 의 marker 정보를 반환한다.
+     * @param {number} memberId
+     * @returns {*}
+     */
+    function getLastLinkIdOfMemberId(memberId) {
       return memberIdToLastLinkId[memberId];
     }
 
@@ -125,7 +132,7 @@
      * @private
      */
     function removeMarker(memberId) {
-      var oldLastLinkId = _getLastLinkIdofMemberId(memberId);
+      var oldLastLinkId = getLastLinkIdOfMemberId(memberId);
 
       if (publicService.isNullOrUndefined(oldLastLinkId)) return;
 
