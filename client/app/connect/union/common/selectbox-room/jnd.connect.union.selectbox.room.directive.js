@@ -9,7 +9,7 @@
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
   function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper,
-                                        entityAPIservice, JndUtil) {
+                                        entityAPIservice, CoreUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -61,7 +61,7 @@
         });
 
         //entityId 가 존재할 경우에만 jandiBot 을 노출한다.
-        if (JndUtil.pick(jandiBot, 'entityId')) {
+        if (CoreUtil.pick(jandiBot, 'entityId')) {
           list.push(jandiBot);
         }
 

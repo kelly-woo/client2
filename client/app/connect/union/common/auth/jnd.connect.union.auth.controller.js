@@ -6,7 +6,7 @@
     .controller('JndConnectUnionAuthCtrl', JndConnectUnionAuthCtrl);
 
   /* @ngInject */
-  function JndConnectUnionAuthCtrl($scope, $filter, JndUtil, JndConnect) {
+  function JndConnectUnionAuthCtrl($scope, $filter, CoreUtil, JndConnect) {
     $scope.openAuthPopup = openAuthPopup;
     $scope.text = {};
     _init();
@@ -39,7 +39,7 @@
      * @private
      */
     function _onAuthenticationCreated(angularEvent, data) {
-      var connectType = JndUtil.pick(data, 'authentication', 'connectType');
+      var connectType = CoreUtil.pick(data, 'authentication', 'connectType');
       if (connectType  === $scope.current.union.name) {
         _onSuccessAuth();
       }

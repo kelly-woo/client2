@@ -1,5 +1,5 @@
 /**
- * @fileoverview Bot 리스트 모델
+ * @fileoverview Bot 리스트 Singleton 모델을 반환한다.
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,86 +7,65 @@
 
   angular
     .module('jandiApp')
-    .service('BotList', BotList);
+    .factory('BotList', BotList);
 
   /* @ngInject */
-  function BotList(Collection, JndUtil) {
-    var _jandiBot;
-    var _collection;
-    var that = this;
-
-    _init();
+  function BotList(CoreUtil, Collection) {
 
     /**
-     * 초기화 메서드
-     * @private
+     * BotList 클래스
+     * @constructor
      */
-    function _init() {
+    var BotListClass = CoreUtil.defineClass(Collection, /**@lends Collection.prototype */{
+      /**
+       * 생성자
+       */
+      init: function() {
+        Collection.prototype.init.apply(this, arguments);
+        this._jandiBot = null;
+      },
 
-      _collection =  new Collection({
-        key: 'id'
-      });
+      /**
+       * 콜렉션에 chatRoom 을 추가한다.
+       * @override
+       * @param {object} bot
+       */
+      add: function(bot) {
+        if (bot.botType === 'jandi_bot') {
+          this._jandiBot = bot;
+        }
+        Collection.prototype.add.call(this, bot);
+      },
 
-      that.remove = _collection.remove;
-      that.reset = _collection.reset;
-      that.get = _collection.get;
-      that.remove = _collection.remove;
-      that.toJSON= _collection.toJSON;
+      /**
+       * Jandi Bot 을 반환한다.
+       * @returns {object}
+       */
+      getJandiBot: function() {
+        return this._jandiBot;
+      },
 
-      that.setList = setList;
-      that.add = add;
-      that.getJandiBot = getJandiBot;
-      that.isJandiBot = isJandiBot;
-      that.isConnectBot = isConnectBot;
-    }
+      /**
+       * jandi bot 인지 여부를 반환한다.
+       * @param {number|string} id
+       * @returns {boolean}
+       */
+      isJandiBot: function(id) {
+        var bot = this.get(id);
+        return CoreUtil.pick(bot, 'botType') === 'jandi_bot';
+      },
 
-    /**
-     * 콜렉션에 chatRoom 을 추가한다.
-     * @param {object} bot
-     */
-    function add(bot) {
-      if (bot.botType === 'jandi_bot') {
-        _jandiBot = bot;
+      /**
+       * connect bot 인지 여부를 반환한다.
+       * @param {number|string} id
+       * @returns {boolean}
+       */
+      isConnectBot: function(id) {
+        var bot = this.get(id);
+        return CoreUtil.pick(bot, 'botType') === 'connect_bot';
       }
-      _collection.add(bot);
-    }
+    });
 
-    /**
-     * Jandi Bot 을 반환한다.
-     * @returns {object}
-     */
-    function getJandiBot() {
-      return _jandiBot;
-    }
-
-    /**
-     * jandi bot 인지 여부를 반환한다.
-     * @param {number|string} id
-     * @returns {boolean}
-     */
-    function isJandiBot(id) {
-      var bot = that.get(id);
-      return JndUtil.pick(bot, 'botType') === 'jandi_bot';
-    }
-
-    /**
-     * connect bot 인지 여부를 반환한다.
-     * @param {number|string} id
-     * @returns {boolean}
-     */
-    function isConnectBot(id) {
-      var bot = that.get(id);
-      return JndUtil.pick(bot, 'botType') === 'connect_bot';
-    }
-
-    /**
-     * collection 에 list 를 추가한다.
-     * @param {Array} list
-     */
-    function setList(list) {
-      _.forEach(list, function(chatRoom) {
-        add(chatRoom);
-      });
-    }
+    return new BotListClass();
   }
 })();

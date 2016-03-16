@@ -10,7 +10,7 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, $q, storageAPIservice, $upload, jndPubSub, currentSessionHelper, JndUtil,
+  function memberService($http, $rootScope, $q, storageAPIservice, $upload, jndPubSub, currentSessionHelper, CoreUtil,
                          UserList, BotList, EntityMemberFilter) {
     var noUExtraData = "i dont have u_extraData";
 
@@ -317,7 +317,7 @@
       if (_isNumber(member)) {
         member = EntityMemberFilter.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
         getPhotoUrl(member) ||
         getProfileImage(member.id);
     }
@@ -331,7 +331,7 @@
       if (_isNumber(member)) {
         member = EntityMemberFilter.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -343,7 +343,7 @@
       if (_isNumber(member)) {
         member = EntityMemberFilter.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -352,7 +352,7 @@
      * @returns {string} url - profile photo url
      */
     function getPhotoUrl(member) {
-      return JndUtil.pick(member, 'u_photoUrl');
+      return CoreUtil.pick(member, 'u_photoUrl');
     }
 
     /**
