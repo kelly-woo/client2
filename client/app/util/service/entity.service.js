@@ -299,7 +299,7 @@
      * @returns {boolean}
      */
     function isOwner(entity, memberId) {
-      return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
+      return (entity.creatorId || entity.ch_creatorId || entity.pg_creatorId) == memberId;
     }
 
     /**
@@ -308,7 +308,7 @@
      * @returns {*}
      */
     function getOwnerId(entity) {
-      return (entity.ch_creatorId || entity.pg_creatorId);
+      return (entity.creatorId || entity.ch_creatorId || entity.pg_creatorId);
     }
 
     /**

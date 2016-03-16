@@ -6,7 +6,7 @@
     <!-- TEAM -->
     <div class="header-navbar-menu" id="team-menu" dropdown>
 
-      <span class="header-navbar__topmenu" dropdown-toggle ng-click="updateTeamBadge();" other-team-badge-indicator>
+      <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="icon-reorder header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@common-team</span>
       </span>
@@ -39,10 +39,9 @@
 
         <!-- 팀 변경 -->
         <li role="presentation">
-          <a data-ng-click="openModal('team-change');" role="menuitem" tabindex="-1">
+          <a data-ng-click="openModal('team-change', $event);" role="menuitem" tabindex="-1">
             <i class="icon-switch"></i>
             <span translate>@team-switch</span>
-            <span class="badge red_badge pull-right" ng-if="hasBadgeOnOtherTeam">{{otherTeamBadgeCount}}</span>
           </a>
         </li>
 

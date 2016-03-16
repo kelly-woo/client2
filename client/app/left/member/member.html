@@ -1,8 +1,5 @@
 <div class="lpanel-user" dropdown>
-  <div class="lpanel-user__team overflow-ellipsis">
-    <span class="team-name private-effect white">{{team|getName}}</span>
-    <left-team-switch></left-team-switch>
-  </div>
+  <left-team-switch team="team"></left-team-switch>
 
   <div class="lpanel-user__user" dropdown-toggle>
     <i class="icon-cog user-setting-icon" ></i>
@@ -14,7 +11,6 @@
       <br>
       <span class="lpanel-user__position inline-overflow-ellipsis private-effect">{{ member | getUserPosition }}</span>
     </div>
-
   </div>
 
   <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu" id="current-user-dropdown">
@@ -32,7 +28,5 @@
         <span translate>@common-sign-out</span>
       </a>
     </li>
-
-
   </ul>
 </div>

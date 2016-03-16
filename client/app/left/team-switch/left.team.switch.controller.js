@@ -9,12 +9,10 @@
     .controller('LeftTeamSwitchCtrl', LeftTeamSwitchCtrl);
 
   /* @ngInject */
-  function LeftTeamSwitchCtrl($scope, TeamData, currentSessionHelper, configuration) {
+  function LeftTeamSwitchCtrl($scope, TeamData, currentSessionHelper, HybridAppHelper) {
     $scope.teamList = [];
     $scope.isShow = false;
     $scope.currentTeamId = currentSessionHelper.getCurrentTeam().id;
-
-    $scope.go = go;
 
     _init();
 
@@ -41,18 +39,19 @@
      */
     function _resetTeamList() {
       var teamList = TeamData.getTeamList();
+      var otherTeamBadgeCount = TeamData.getOtherTeamBadgeCount();
+
       $scope.teamList = _.map(teamList, function(team) {
         team.extHasUnread = (team.unread > 0);
         return team;
       });
-    }
+      $scope.hasOtherTeam = $scope.teamList.length > 1;
 
-    /**
-     * 해당 팀으로 이동한다.
-     * @param {object} team
-     */
-    function go(team) {
-      window.location.href = configuration.base_protocol + team.t_domain + configuration.base_url;
+      // badge 존재 여부
+      $scope.hasBadge = otherTeamBadgeCount > 0;
+
+      // teamList 정보가 갱신 되었으므로 Hybrid App의 badge도 갱신한다.
+      HybridAppHelper.updateBadge();
     }
   }
 
