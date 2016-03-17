@@ -6,6 +6,7 @@
   position: absolute;
   z-index: 999999;
   background: #FFFFFF;
+  opacity: 0;
 }
 
 .client-spinner {
