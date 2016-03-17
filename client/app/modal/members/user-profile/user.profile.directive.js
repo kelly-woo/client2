@@ -27,25 +27,11 @@
       function _init() {
         scope.isSelectedImage = false;
 
-        scope.onProfileImageClose = onProfileImageClose;
-
         scope.onCropClick = onCropClick;
         scope.onCharacterClick = onCharacterClick;
         scope.onSubmitDoneClick = onSubmitDoneClick;
 
         scope.setShowDmSubmit = setShowDmSubmit;
-      }
-
-      /**
-       * image crop close event handler
-       * @param {string} dataURI
-       */
-      function onProfileImageClose(dataURI) {
-        if (dataURI) {
-          _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
-
-          Dialog.success({title: _translate('@profile-success')});
-        }
       }
 
       /**
@@ -79,7 +65,7 @@
             modalHelper.openProfileImageModal(scope, {
               type: 'crop',
               imageData: scope.imageData,
-              onProfileImageClose: onProfileImageClose
+              onProfileImageChange: _onProfileImageChange
             });
           }
         }
@@ -91,8 +77,18 @@
       function onCharacterClick() {
         modalHelper.openProfileImageModal(scope, {
           type: 'character',
-          onProfileImageClose: onProfileImageClose
+          onProfileImageChange: _onProfileImageChange
         });
+      }
+
+      /**
+       * profile image change 이벤트 핸들러
+       * @param {string} dataURI
+       */
+      function _onProfileImageChange(dataURI) {
+        _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
+
+        Dialog.success({title: _translate('@profile-success')});
       }
 
       /**

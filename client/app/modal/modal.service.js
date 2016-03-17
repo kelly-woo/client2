@@ -310,7 +310,11 @@
 
     /**
      * profile image를 변경하는 모달창 열림.
-     * @param $scope
+     * @param {object} $scope
+     * @param {object} options
+     *  @param {string} options.type - 모달의 타입. 'crop'이면 image crop이고 'character'면 character 조합.
+     *  @param {function} options.onProfileImageChange - change callback 함수.
+     *  @param {string} [options.imageData] - 타입이 'crop'일때 crop할 imageData
      * @returns {Object}
      */
     function openProfileImageModal($scope, options) {
@@ -319,7 +323,6 @@
         templateUrl: 'app/modal/members/profile-image/profile.image.html',
         controller: 'ProfileImageCtrl',
         windowClass: 'full-screen-modal profile-image-modal',
-
         resolve: {
           options: function() {
             return options;

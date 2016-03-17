@@ -124,7 +124,7 @@
           modalHelper.openProfileImageModal($scope, {
             type: 'crop',
             imageData: img.toDataURL('image/jpeg'),
-            onProfileImageClose: _onProfileSettingDone
+            onProfileImageChange: _onProfileSettingDone
           });
         }
       }
