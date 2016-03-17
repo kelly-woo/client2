@@ -267,12 +267,7 @@
         jndPubSub.updateCenterPanel();
       }
 
-      //messageType 이 없을 경우 chat 을 호출하지 않는다.
-      //ex) 일반 메시지, 스티커, 파일 업로드
-      if (!_updateBadgeCount(socketEvent)) {
-        jndPubSub.pub('updateChatList');
-      }
-
+      jndPubSub.pub('updateChatList');
       if (socketEvent.messageType === 'file_share') {
         _updateRight(socketEvent);
 
