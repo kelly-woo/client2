@@ -808,7 +808,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalLastLinkId = response.lastLinkId;
         updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-        MessageSendingCollection.clearSentMessages();
+        JndUtil.safeApply($scope, function() {
+          MessageSendingCollection.clearSentMessages();
+        });
 
         if (updateInfo.messageCount) {
           if (_isBottomReached() && _isChatPanelActive()) {
@@ -973,9 +975,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function (response) {
             markerService.updateMarker(memberId, response.linkId);
-            JndUtil.safeApply($scope, function() {
-              MessageSendingCollection.sent(payload, true);
-            });
+            MessageSendingCollection.sent(payload, true);
             try {
               //analytics
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
