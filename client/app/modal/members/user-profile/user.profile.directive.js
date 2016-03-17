@@ -8,14 +8,15 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog) {
+  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog, modalHelper) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, el) {
-      var timerHideDmSubmit;
+      var _translate = $filter('translate');
+      var _timerHideDmSubmit;
 
       _init();
 
@@ -26,29 +27,31 @@
       function _init() {
         scope.isSelectedImage = false;
 
-        scope.onImageCropDone = onImageCropDone;
-        scope.onImageEditClick = onImageEditClick;
+        scope.onProfileImageClose = onProfileImageClose;
+
+        scope.onCropClick = onCropClick;
+        scope.onCharacterClick = onCharacterClick;
         scope.onSubmitDoneClick = onSubmitDoneClick;
 
         scope.setShowDmSubmit = setShowDmSubmit;
       }
 
       /**
-       * image crop done event handler
+       * image crop close event handler
        * @param {string} dataURI
        */
-      function onImageCropDone(dataURI) {
-        scope.isSelectedImage = false;
-
+      function onProfileImageClose(dataURI) {
         if (dataURI) {
           _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
+
+          Dialog.success({title: _translate('@profile-success')});
         }
       }
 
       /**
-       * image edit click event handler
+       * crop 선택 이벤트 핸들러
        */
-      function onImageEditClick() {
+      function onCropClick() {
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
             var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
@@ -67,13 +70,29 @@
         if (img) {
           if (img.type === 'error') {
             Dialog.warning({
-              'title': $filter('translate')('@common-unsupport-image')
+              'title': _translate('@common-unsupport-image')
             });
           } else {
             scope.isSelectedImage = true;
             scope.imageData = img.toDataURL('image/jpeg');
+
+            modalHelper.openProfileImageModal(scope, {
+              type: 'crop',
+              imageData: scope.imageData,
+              onProfileImageClose: onProfileImageClose
+            });
           }
         }
+      }
+
+      /**
+       * character 생성 선택 이벤트 핸들러
+       */
+      function onCharacterClick() {
+        modalHelper.openProfileImageModal(scope, {
+          type: 'character',
+          onProfileImageClose: onProfileImageClose
+        });
       }
 
       /**
@@ -92,13 +111,13 @@
         var jqMessageSubmit = el.find('.message-submit-bg');
         var jqMessageInput = el.find('.form-control');
 
-        clearTimeout(timerHideDmSubmit);
+        clearTimeout(_timerHideDmSubmit);
         scope.isShowDmSubmit = value;
         if (value) {
           jqMessageInput.blur();
           jqMessageSubmit.show();
         } else {
-          timerHideDmSubmit = setTimeout(function() {
+          _timerHideDmSubmit = setTimeout(function() {
             jqMessageInput.focus();
             jqMessageSubmit.hide();
           }, 200);

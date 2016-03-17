@@ -10,8 +10,8 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, MemberProfile, memberService, messageAPIservice,
-                           analyticsService, jndKeyCode, jndPubSub) {
+  function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
+                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -105,7 +105,7 @@
      * modal close
      */
     function close() {
-      modalHelper.closeModal();
+      $modalInstance.close();
     }
 
     /**
@@ -123,7 +123,7 @@
         _goToMention();
       }
 
-      modalHelper.closeModal();
+      $modalInstance.close();
     }
 
     /**

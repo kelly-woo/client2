@@ -36,6 +36,7 @@
     that.openInviteToTeamModal = openInviteToTeamModal;
 
     that.openUserProfileModal = openUserProfileModal;
+    that.openProfileImageModal = openProfileImageModal;
     that.openBotProfileModal = openBotProfileModal;
 
     that.openImageCarouselModal = openImageCarouselModal;
@@ -50,7 +51,6 @@
 
     that.openQuickLauncherModal = openQuickLauncherModal;
     that.openShortcutModal = openShortcutModal;
-    that.openBotProfileSettingModal = openBotProfileSettingModal;
     that.closeModal = closeModal;
     that.dismissModal = dismissModal
 
@@ -125,27 +125,6 @@
         resolve: {
           data: function() {
             return data;
-          }
-        }
-      };
-      _modalOpener(modalOption);
-    }
-
-    /**
-     *
-     * @param $scope
-     * @param files
-     */
-    function openBotProfileSettingModal($scope, imageData) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/connect/bot.profile.setting.html',
-        controller: 'BotProfileSettingCtrl',
-        size: 'lg',
-        windowClass: 'profile-view-modal',
-        resolve: {
-          imageData: function() {
-            return imageData;
           }
         }
       };
@@ -330,6 +309,29 @@
     }
 
     /**
+     * profile image를 변경하는 모달창 열림.
+     * @param $scope
+     * @returns {Object}
+     */
+    function openProfileImageModal($scope, options) {
+      var modalOption = {
+        scope: $scope.$new(),
+        templateUrl: 'app/modal/members/profile-image/profile.image.html',
+        controller: 'ProfileImageCtrl',
+        windowClass: 'full-screen-modal profile-image-modal',
+
+        resolve: {
+          options: function() {
+            return options;
+          }
+        },
+        multiple: true
+      };
+
+      return _modalOpener(modalOption);
+    }
+
+    /**
      * apply 를 안전하게 수행한다.
      * @param {object} scope
      * @private
@@ -467,7 +469,9 @@
      * @private
      */
     function _modalOpener(options) {
-      closeModal();
+      if (!options.multiple) {
+        closeModal();
+      }
 
       if (NetInterceptor.isConnected()) {
         modal = $modal.open(options);
