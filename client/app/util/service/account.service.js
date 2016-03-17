@@ -1,3 +1,7 @@
+/**
+ * @fileoverview account 서비스
+ * @author young.park <young.park@tosslab.com>
+ */
 (function(){
   'use strict';
 
@@ -6,9 +10,9 @@
     .factory('accountService', accountService);
 
   /* @ngInject */
-  function accountService($location, configuration, $http, $rootScope, jndPubSub) {
-    var accountLanguage;
+  function accountService($location, configuration, $http, $rootScope, jndPubSub, CoreUtil) {
     var _membershipMap = {};
+    var _account = null;
 
     var service = {
       getAccountInfo: getAccountInfo,
@@ -17,7 +21,7 @@
       setAccount: setAccount,
       removeAccount: removeAccount,
       hasAccount: hasAccount,
-      getCurrentMemberId: getCurrentMemberId,
+      getCurrentSignInInfo: getCurrentSignInInfo,
       getAccountLanguage: getAccountLanguage,
       validateCurrentPassword: validateCurrentPassword,
       setAccountLanguage: setAccountLanguage,
@@ -44,26 +48,39 @@
       });
     }
 
+    /**
+     * account 정보를 조회한다.
+     * @returns {*}
+     */
     function getAccount() {
-      return $rootScope.account;
+      return _account;
+      //return $rootScope.account;
     }
+
+    /**
+     * account 정보를 저장한다.
+     * @param {object} account
+     */
     function setAccount(account) {
-      $rootScope.account = account;
-      accountLanguage = account.lang;
+      _account = account;
       _setMembershipMap(account);
-      jndPubSub.pub('accountLoaded');
+      jndPubSub.pub('accountService:setAccount');
     }
+
+    /**
+     * account 정보를 제거한다.
+     */
     function removeAccount() {
-      $rootScope.account = null;
+      _account = null;
     }
 
     function hasAccount() {
-      return !!$rootScope.account;
+      return !!_account;
     }
 
     // TODO: CURRENTLY THIS IS O(N) ALGORITHM.  WHEN FOUND MATCH, BREAK OUT OF FOR LOOP AND RETURN RIGHT AWAY!
     // Returns memberId of current team from Account.
-    function getCurrentMemberId(memberships) {
+    function getCurrentSignInInfo(memberships) {
       var signInInfo = {
         memberId    : -1,
         teamId      : -1,
@@ -89,14 +106,22 @@
       return signInInfo;
     }
 
+    /**
+     * 언어 설정을 저장한다.
+     * @param {string} lang
+     */
     function setAccountLanguage(lang) {
-      $rootScope.account.lang = lang;
-      accountLanguage = lang;
+      _account.lang = lang;
     }
 
+    /**
+     * 언어 설정을 조회한다.
+     * @returns {string}
+     */
     function getAccountLanguage() {
-      return accountLanguage || $rootScope.preferences.serverLang;
+      return CoreUtil.pick(_account, 'lang') || $rootScope.preferences.serverLang;
     }
+
     function validateCurrentPassword(cur_password) {
       cur_password = cur_password || '';
       return $http({
@@ -124,6 +149,7 @@
 
       return false;
     }
+
     function hasSeenTutorial() {
       return !!getAccount().tutoredAt;
     }

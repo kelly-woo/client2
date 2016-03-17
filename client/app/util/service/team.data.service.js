@@ -32,7 +32,7 @@
      * @private
      */
     function _attachEvents() {
-      _scope.$on('accountLoaded', _resetTeamList);
+      _scope.$on('accountService:setAccount', _resetTeamList);
     }
 
     /**

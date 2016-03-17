@@ -103,21 +103,14 @@
 
       // Disconnect socket connection.
       jndWebSocket.disconnectTeam();
+      jndPubSub.hideLoading();
+      hideDummyLayout();
 
       // PC app function.
       HybridAppHelper.onSignedOut();
 
-      if ( $state.current.name == 'signin') {
-        // 현재 state 다시 로드
-        $state.transitionTo($state.current, {}, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
-      }
-      else {
-        $state.go('signin');
-      }
+
+      redirectToSignIn();
     }
 
     function getBrowserInfo() {

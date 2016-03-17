@@ -69,11 +69,11 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
             templateUrl: 'app/left/left.html',
             controller: 'leftPanelController',
             resolve: {
-              resLeftSideMenu: function (leftpanelAPIservice, publicService, storageAPIservice) {
-                return leftpanelAPIservice.getLists().error(publicService.signOut);
+              resLeftSideMenu: function (leftpanelAPIservice, AuthApi) {
+                return leftpanelAPIservice.getLists().error(AuthApi.requestAccessTokenWithRefreshToken);
               },
-              resTopicFolder: function(publicService, TopicFolderModel) {
-                return TopicFolderModel.load('initialize').then(null, publicService.signOut);
+              resTopicFolder: function(TopicFolderModel, AuthApi) {
+                return TopicFolderModel.load('initialize').then(null, AuthApi.requestAccessTokenWithRefreshToken);
               }
             }
           },

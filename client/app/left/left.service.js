@@ -27,20 +27,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     });
   };
 
-  leftpanelAPI.toSignin = function() {
-    currentSessionHelper.clear();
-    storageAPIservice.removeLocal();
-    storageAPIservice.removeSession();
-
-    if ($state.is('signin')) {
-      $state.transitionTo('signin', '', {'reload':true});
-    }
-    else {
-      $state.transitionTo('signin', '', {'reload':true});
-
-    }
-  };
-
   leftpanelAPI.getDefaultChannel = function(input) {
     var defaultChannelId = input.team.t_defaultChannelId;
     var joindEntityMap = EntityMapManager.getMap('joined');

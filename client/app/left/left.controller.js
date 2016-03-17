@@ -6,7 +6,7 @@ app.controller('leftPanelController', function(
   $scope, $state, $timeout, $q, resLeftSideMenu, resTopicFolder, leftpanelAPIservice, entityAPIservice, accountService,
   publicService, memberService, storageAPIservice, analyticsService, currentSessionHelper, jndWebSocket, jndPubSub,
   modalHelper, UnreadBadge, AnalyticsHelper, HybridAppHelper, NotificationManager, TopicFolderModel, TopicUpdateLock,
-  JndUtil, EntityFilterMember, EntityHandler) {
+  JndUtil, EntityFilterMember, EntityHandler, AuthApi) {
 
   var _that = this;
   var _getLeftListDeferredObject;
@@ -286,8 +286,7 @@ app.controller('leftPanelController', function(
         'ERROR_CODE': err.code
       });
     } catch (e) {}
-
-    leftpanelAPIservice.toSignin();
+    AuthApi.requestAccessTokenWithRefreshToken();
   }
 
 
