@@ -148,6 +148,7 @@
        * @param {object} team
        */
       function go(team) {
+        $('body').addClass('fade out');
         window.location.href = configuration.base_protocol + team.t_domain + configuration.base_url;
       }
     }
