@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, currentSessionHelper,
-                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, Dialog, JndUtil, centerService,
+                           publicService, $filter, modalHelper, jndPubSub, Dialog, JndUtil, centerService,
                            EntityHandler) {
     // okay - okay to go!
     // loading - currently loading.
@@ -128,12 +128,11 @@
 
       var messageList = [];
 
-      //EntityMapManager.reset('memberEntityId');
       messages = _.uniq(messages, 'entityId');
 
       _.each(messages, function(message) {
 
-        var entity = EntityMapManager.get('total', message.companionId);
+        var entity = EntityHandler.get(message.companionId);
 
         if (!angular.isUndefined(entity)) {
           if (message.unread > 0) {
@@ -142,11 +141,7 @@
               entityAPIservice.updateBadgeValue(entity, message.unread);
             }
           }
-
-          // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
-          //$.extend(entity, message);
           messageList.push(entity);
-          //EntityMapManager.add('memberEntityId', entity);
         }
       });
       _setTotalAlarmCnt();

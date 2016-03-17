@@ -44,9 +44,7 @@
       updateBot: updateBot,
 
       increaseBadgeCount: increaseBadgeCount,
-      decreaseBadgeCount: decreaseBadgeCount,
-
-      createTotalData: createTotalData
+      decreaseBadgeCount: decreaseBadgeCount
     };
 
     var _jandiBot;
@@ -446,84 +444,6 @@
       }
 
       return result;
-    }
-
-    /**
-     * client에서 사용할 모든 entity data를 생성한다.
-     * @param {object} response
-     * @returns {{joinedChannelList: Array, privateGroupList: Array, unJoinedChannelList: Array}}
-     */
-    function createTotalData(response) {
-      EntityHandler.parseLeftSideMenuData(response);
-
-      var totalEntities = response.entities;
-      var joinedEntities = response.joinEntities;
-      var bots = response.bots;
-
-      var joinedChannelList = [];
-      var privateGroupList = [];
-      var unJoinedChannelList = [];
-
-      //EntityMapManager.resetAll();
-
-      _createEntityData(joinedEntities, function(entity, type) {
-        if (type === 'channel') {
-          //EntityMapManager.add('joined', entity);
-
-          joinedChannelList.push(entity);
-        } else if (type === 'privategroup') {
-          //EntityMapManager.add('private', entity);
-
-          privateGroupList.push(entity);
-        }
-
-        //EntityMapManager.add('total', entity);
-      });
-
-      _createEntityData(totalEntities, function(entity, type) {
-        if (type === 'channel' && RoomTopicList.get(entity.id, false)) {
-          //EntityMapManager.add('unjoined', entity);
-
-          unJoinedChannelList.push(entity);
-        } else if (type === 'user') {
-          //EntityMapManager.add('user', entity);
-          //EntityMapManager.add('member', entity);
-        }
-
-        //EntityMapManager.add('total', entity);
-      });
-
-      //_createEntityData(bots, function(bot) {
-      //  addBot(bot);
-      //});
-
-      return {
-        joinedChannelList: joinedChannelList,
-        privateGroupList: privateGroupList,
-        unJoinedChannelList: unJoinedChannelList
-      };
-    }
-
-    /**
-     * entity data를 생성한다.
-     * @param {array} entities
-     * @param {function} callback
-     * @private
-     */
-    function _createEntityData(entities, callback) {
-      var regxEntityType = /channel|privategroup|user|bot/i;
-      var match;
-      var type;
-
-      _.each(entities, function(entity) {
-        match = regxEntityType.exec(entity.type);
-        if (match) {
-          type = match[0].toLowerCase();
-          _transDatas(entity, type);
-
-          callback(entity, type);
-        }
-      });
     }
 
     /**

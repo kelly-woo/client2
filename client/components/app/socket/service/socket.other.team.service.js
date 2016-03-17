@@ -102,7 +102,6 @@
       if (_hasTeamMessageMarkers(teamId)) {
         // 팀에 대한 정보가 있을때
         messageMarkersMap = _markerMap[teamId];
-        //messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
         var roomInfo = messageMarkersMap[roomId];
 
         if (_.isUndefined(roomInfo)) {
@@ -118,8 +117,6 @@
         messageMarkersMap[roomId] = roomInfo;
       } else {
         // 해당 팀의 정보가 전혀 없을 때
-        //EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
-
         tempMessageMarkerObj = {
           roomId: {
             subscribe: newValue
@@ -128,7 +125,6 @@
 
         // 새로 만든다
         _markerMap[teamId] = tempMessageMarkerObj;
-        //EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, tempMessageMarkerObj);
         // todo: 아니면 그냥 그 팀 정보를 다 가져올까요?
         //_getTeamMessageMarkers(teamId, socketEvent);
 
@@ -181,7 +177,6 @@
      */
     function _hasTeamMessageMarkers(teamId) {
       return !!_markerMap[teamId];
-      //return EntityMapManager.contains(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
     }
 
     /**
@@ -201,15 +196,11 @@
         var memberId;
 
         // 해당 팀의 정보가 전혀 없을 때
-        //EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
-
         memberId = _getMemberId((teamId));
 
         memberService.getMemberInfo(memberId, 'socket_team_marker')
           .success(function(response) {
             _markerMap[teamId] = _getMessageMarkersMap(response.u_messageMarkers);
-            //EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
-
             _setWaiting(teamId, false);
 
             //같은 소켓이벤트로 계속 불리는 것을 방지하기 위함이다.
@@ -227,7 +218,6 @@
      * @private
      */
     function _isSubscriptionOn(teamId, socketEvent) {
-      //var messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
       var messageMarkersMap = _markerMap[teamId];
       var roomId = socketEvent.room.id;
 
