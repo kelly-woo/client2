@@ -128,10 +128,12 @@
   height: auto;
 }
 
-.profile-view-modal .profile-image-change {
+.profile-view-modal .profile-image-change-content {
   position: absolute;
-  bottom: 0;
   top: 46px;
+  width: 100%;
+}
+.profile-view-modal .profile-image-change {
   width: 100%;
   height: 35px;
   background-color: rgba(0, 0,0, .5);
@@ -148,6 +150,10 @@
   font-size: 14px;
   text-align: center;
   padding-top: 5px;
+}
+
+.profile-image-menu {
+  z-index: 1051;
 }
 
 .profile-view-modal .bot-profile-image {
@@ -353,4 +359,3 @@
 .profile-view-modal .message-submit-bg i {
   vertical-align: middle;
 }
-

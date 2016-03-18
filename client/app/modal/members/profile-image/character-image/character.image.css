@@ -1,0 +1,126 @@
+.character-content {
+  text-align: center;
+}
+
+.character-content .character-title {
+  margin-top: 15px;
+  font-size: 15px;
+  color: #999;
+  font-weight: 600;
+}
+
+.character-content .character-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -340px;
+  margin-left: -324px;
+}
+
+/* 현재 캐릭터 이미지 데이터 뷰 */
+.character-view {
+  display: inline-block;
+  width: 160px;
+  height: 160px;
+  margin-top: 25px;
+  border-radius: 50%;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.character-view canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* 캐릭터를 생성하는 툴의 헤더 타이틀 */
+.character-content .character-tools {
+  display: inline-block;
+  width: 500px;
+  margin-top: 25px;
+  margin-left: 40px;
+}
+
+.character-content .tool-title {
+  text-align: left;
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.character-content .tool-title i {
+  margin-right: 3px;
+  vertical-align: text-bottom;
+  font-size: 20px;
+}
+
+.character-content .tool-title .icon-radius-rectangle {
+  border: 1px solid #666;
+  border-radius: 3px;
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+}
+
+/* 캐릭터, 색상 툴의 리스트 */
+.character-content .tool-list {
+  margin-top: 20px;
+  height: 170px;
+}
+.character-content .tool-list::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.character-content .tool-item {
+  position: relative;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.character-content .tool-item:hover {
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.character-content .character-images .tool-item {
+  background-color: #e1e1e1;
+}
+
+.character-content .character-images .tool-item:hover {
+  background-color: rgba(21, 74, 103, .55);
+}
+
+.character-content .tool-item i {
+  position: absolute;
+  top: 17px;
+  left: 21px;
+  font-size: 28px;
+  color: #fff;
+  display: none;
+}
+
+.character-content .tool-item.active {
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.character-content .character-images .tool-item.active {
+  background-color: rgba(21, 74, 103, .55);
+}
+
+.character-content .tool-item.active i {
+  display: block;
+}
+
+.character-content .tool-item img,
+.character-content .tool-item div {
+  width: 100%;
+  height: 100%;
+}

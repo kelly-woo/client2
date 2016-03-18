@@ -1,124 +1,117 @@
 <page-tracker page="topic/profile" title="Member Profile"></page-tracker>
 <!-- Modal: Mini Profile View -->
-<div class="modal-body profile-view-body" user-profile ng-switch="isSelectedImage">
-  <jnd-image-crop image-data="imageData"
-                  on-image-crop-done="onImageCropDone($dataURI)"
-                  ng-switch-when="true"></jnd-image-crop>
-  <div ng-switch-default>
-    <div class="profile-image-wrapper">
-      <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
-        <img ng-if="!isDefaultProfileImage" class="profile-default-image-bg" ng-src="{{curUser.extProfileImage}}" />
-        <div class="profile-image-bg"></div>
-        <div class="profile-condition" ng-switch="isMyself">
-          <div class="readonly break" ng-switch-when="false">{{statusMessage}}</div>
-          <div class="editing">
-            <expanding-input ng-switch-default
-                             ng-model="statusMessage"
-                             max-length="60"
-                             active-index="activeIndex"
-                             index="statusMessage"
-                             on-select="onProfileSelect($index)"
-                             on-change="onProfileChange($type, $value)"
-                             placeholder="{{::'@common-status-msg' | translate}}"></expanding-input>
-          </div>
-        </div>
-        <i class="icon-delete cursor_pointer" ng-click="close()"></i>
-      </div>
-      <div class="profile-image">
-        <img ng-src="{{curUser.extProfileImage}}" />
-        <div class="profile-image-change" ng-show="isMyself" ng-click="onImageEditClick()">
-          <span translate>@common-edit</span>
-        </div>
-      </div>
-    </div>
-    <i class="user-star cursor_pointer" ng-if="!isMyself" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"
-       star-view="isStarred" star-view-type="member" star-view-id="curUser.id"></i>
-
-    <div ng-switch="isMyself">
-      <div class="profile-text readonly" ng-switch-when="false">
-        <div class="profile-name inline-overflow-ellipsis">{{name}}</div>
-        <div class="profile-department inline-overflow-ellipsis">{{department}}</div>
-        <div class="profile-position inline-overflow-ellipsis">{{position}}</div>
-        <div class="profile-phone-number inline-overflow-ellipsis">{{phoneNumber}}</div>
-        <div class="profile-email inline-overflow-ellipsis">{{email}}</div>
-      </div>
-      <div class="profile-text editing" ng-switch-default>
-        <div class="profile-name">
-          <expanding-input ng-model="name"
-                           max-length="30"
-                           active-index="activeIndex"
-                           index="name"
-                           on-select="onProfileSelect($index)"
-                           on-change="onProfileChange($type, $value)"
-                           placeholder="{{::'@common-name' | translate}}"></expanding-input>
-        </div>
-        <div class="profile-department">
-          <expanding-input ng-model="department"
+<div class="modal-body profile-view-body" user-profile>
+  <div class="profile-image-wrapper">
+    <div class="profile-image-backdrop" ng-class="{'default-profile-image': isDefaultProfileImage}">
+      <img ng-if="!isDefaultProfileImage" class="profile-default-image-bg" ng-src="{{userProfileImage}}" />
+      <div class="profile-image-bg"></div>
+      <div class="profile-condition" ng-switch="isMyself">
+        <div class="readonly break" ng-switch-when="false">{{statusMessage}}</div>
+        <div class="editing">
+          <expanding-input ng-switch-default
+                           ng-model="statusMessage"
                            max-length="60"
                            active-index="activeIndex"
-                           index="department"
+                           index="statusMessage"
                            on-select="onProfileSelect($index)"
                            on-change="onProfileChange($type, $value)"
-                           placeholder="{{::'@common-department' | translate}}"></expanding-input>
+                           placeholder="{{::'@common-status-msg' | translate}}"></expanding-input>
         </div>
-        <div class="profile-position">
-          <expanding-input ng-model="position"
-                           max-length="60"
-                           active-index="activeIndex"
-                           index="position"
-                           on-select="onProfileSelect($index)"
-                           on-change="onProfileChange($type, $value)"
-                           placeholder="{{::'@common-position' | translate}}"></expanding-input>
-        </div>
-        <div class="profile-phone-number">
-          <expanding-input ng-model="phoneNumber"
-                           max-length="20"
-                           active-index="activeIndex"
-                           index="phoneNumber"
-                           on-select="onProfileSelect($index)"
-                           on-change="onProfileChange($type, $value)"
-                           placeholder="{{::'@common-phone' | translate}}"></expanding-input>
-        </div>
-        <div class="profile-email">
-          <expanding-input ng-model="email"
-                           list="emails"
-                           active-index="activeIndex"
-                           index="email"
-                           on-select="onProfileSelect($index)"
-                           on-change="onProfileChange($type, $value)"></expanding-input>
-        </div>
+      </div>
+      <i class="icon-delete cursor_pointer" ng-click="close()"></i>
+    </div>
+    <div class="profile-image">
+      <img ng-src="{{userProfileImage}}" />
+      <profile-image-menu ng-if="isMyself" on-profile-image-change="onProfileImageChange($dataURI)"></profile-image-menu>
+    </div>
+  </div>
+  <i class="user-star cursor_pointer" ng-if="!isMyself" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"
+     star-view="isStarred" star-view-type="member" star-view-id="curUser.id"></i>
+
+  <div ng-switch="isMyself">
+    <div class="profile-text readonly" ng-switch-when="false">
+      <div class="profile-name inline-overflow-ellipsis">{{name}}</div>
+      <div class="profile-department inline-overflow-ellipsis">{{department}}</div>
+      <div class="profile-position inline-overflow-ellipsis">{{position}}</div>
+      <div class="profile-phone-number inline-overflow-ellipsis">{{phoneNumber}}</div>
+      <div class="profile-email inline-overflow-ellipsis">{{email}}</div>
+    </div>
+    <div class="profile-text editing" ng-switch-default>
+      <div class="profile-name">
+        <expanding-input ng-model="name"
+                         max-length="30"
+                         active-index="activeIndex"
+                         index="name"
+                         on-select="onProfileSelect($index)"
+                         on-change="onProfileChange($type, $value)"
+                         placeholder="{{::'@common-name' | translate}}"></expanding-input>
+      </div>
+      <div class="profile-department">
+        <expanding-input ng-model="department"
+                         max-length="60"
+                         active-index="activeIndex"
+                         index="department"
+                         on-select="onProfileSelect($index)"
+                         on-change="onProfileChange($type, $value)"
+                         placeholder="{{::'@common-department' | translate}}"></expanding-input>
+      </div>
+      <div class="profile-position">
+        <expanding-input ng-model="position"
+                         max-length="60"
+                         active-index="activeIndex"
+                         index="position"
+                         on-select="onProfileSelect($index)"
+                         on-change="onProfileChange($type, $value)"
+                         placeholder="{{::'@common-position' | translate}}"></expanding-input>
+      </div>
+      <div class="profile-phone-number">
+        <expanding-input ng-model="phoneNumber"
+                         max-length="20"
+                         active-index="activeIndex"
+                         index="phoneNumber"
+                         on-select="onProfileSelect($index)"
+                         on-change="onProfileChange($type, $value)"
+                         placeholder="{{::'@common-phone' | translate}}"></expanding-input>
+      </div>
+      <div class="profile-email">
+        <expanding-input ng-model="email"
+                         list="emails"
+                         active-index="activeIndex"
+                         index="email"
+                         on-select="onProfileSelect($index)"
+                         on-change="onProfileChange($type, $value)"></expanding-input>
       </div>
     </div>
+  </div>
 
-    <div class="profile-actions">
-      <div class="action-buttons">
-        <span class="action-email" ng-click="onActionClick('email')">
-          <i class="icon-mail"></i><span translate>@common-send-mail</span>
+  <div class="profile-actions">
+    <div class="action-buttons">
+      <span class="action-email" ng-click="onActionClick('email')">
+        <i class="icon-mail"></i><span translate>@common-send-mail</span>
+      </span>
+      <span class="action-file" ng-click="onActionClick('file')">
+        <i class="icon-file"></i><span translate>@common-file-list</span>
+      </span>
+      <span class="action-go" ng-switch="isMyself">
+        <span class="action-dm" ng-switch-when="false" ng-click="onActionClick('directMessage')">
+          <i class="icon-chat"></i><span translate>@common-chat-dm</span>
         </span>
-        <span class="action-file" ng-click="onActionClick('file')">
-          <i class="icon-file"></i><span translate>@common-file-list</span>
+        <span class="action-mention" ng-switch-default ng-click="onActionClick('mention')">
+          <i class="icon-at"></i><span translate>@common-mention</span>
         </span>
-        <span class="action-go" ng-switch="isMyself">
-          <span class="action-dm" ng-switch-when="false" ng-click="onActionClick('directMessage')">
-            <i class="icon-chat"></i><span translate>@common-chat-dm</span>
-          </span>
-          <span class="action-mention" ng-switch-default ng-click="onActionClick('mention')">
-            <i class="icon-at"></i><span translate>@common-mention</span>
-          </span>
-        </span>
-      </div>
-      <div class="action-direct-message"
-           ng-class="{'show-submit-done': isShowDmSubmit}"
-           ng-if="!isDeactivatedUser && !isMyself">
-        <input class="form-control" type="text" placeholder="{{::'@common-send-dm' | translate}}" autofocus
-               ng-model="message.content"
-               message-submit="postMessage()"
-               ng-keydown="onDmKeydown($event)">
-        <div class="message-submit-bg" style="display: none;"
-              ng-click="onSubmitDoneClick()">
-          <i class="icon-check"></i>
-          <span translate>@common-send-dm-success</span>
-        </div>
+      </span>
+    </div>
+    <div class="action-direct-message"
+         ng-class="{'show-submit-done': isShowDmSubmit}"
+         ng-if="!isDeactivatedUser && !isMyself">
+      <input class="form-control" type="text" placeholder="{{::'@common-send-dm' | translate}}" autofocus
+             ng-model="message.content"
+             message-submit="postMessage()"
+             ng-keydown="onDmKeydown($event)">
+      <div class="message-submit-bg" style="display: none;"
+            ng-click="onSubmitDoneClick()">
+        <i class="icon-check"></i>
+        <span translate>@common-send-dm-success</span>
       </div>
     </div>
   </div>
