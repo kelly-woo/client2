@@ -46,12 +46,14 @@ module.exports = function(config) {
       'client/bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'client/bower_components/handlebars/handlebars.js',
 
+      'client/components/jandi/core/core.js',
       'client/components/jandi/**/*.js',
       'client/components/config/common/**/*.js',
 
       'client/components/config/config.framework.js',
       'client/components/base/**/*.js',
       'client/components/base/base.framework.js',
+
       'client/components/app/mention_ahead/mention.ahead.js',
       'client/components/app/router/router.js',
       'client/components/app/analytics/analytics.js',
