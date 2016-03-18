@@ -178,9 +178,9 @@
 
         linkPreview = _templateLinkPreview({
           html: {
-            title: _encodeHTML(msg.message.linkPreview.title),
-            description: _encodeHTML(msg.message.linkPreview.description),
-            domain: _encodeHTML(msg.message.linkPreview.domain),
+            title: msg.message.linkPreview.title,
+            description: msg.message.linkPreview.description,
+            domain: msg.message.linkPreview.domain,
             imageUrl: _getSafeUrl(msg.message.linkPreview.imageUrl),
             linkUrl: _getSafeUrl(msg.message.linkPreview.linkUrl)
           },
