@@ -4,7 +4,7 @@
   <div class="header-navbar cursor_pointer">
 
     <!-- TEAM -->
-    <div class="header-navbar-menu" id="team-menu" dropdown>
+    <div class="header-navbar-menu" id="team-menu" dropdown dropdown-append-to-body>
 
       <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="icon-reorder header-navbar__menu-icon"></i>
@@ -60,14 +60,14 @@
 
     <!-- INVITE -->
     <div class="header-navbar-invite" id="invite">
-      <span class="header-navbar__topmenu" data-ng-click="openModal('invite');">
+      <span class="header-navbar__topmenu" ng-click="openModal('invite');">
         <i class="icon-user-plus header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@btn-invite</span>
       </span>
     </div>  <!--  END OF MENU -->
 
     <!-- Help -->
-    <div class="header-navbar-settings" dropdown>
+    <div class="header-navbar-settings" dropdown dropdown-append-to-body>
       <div ng-if="!isCompleteTutorial" class="dot blink"></div>
       <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="icon-help"></i>
@@ -82,12 +82,12 @@
             <span translate>@header-nav-language</span>
             <i class="icon-angle-right sub-menu-arrow"></i>
 
-            <ul class="dropdown-menu grey_dropdown sub-menu language-sub-menu">
-              <li class=""  role="presentation" ng-repeat="language in languageList" ng-click="onLanguageClick(language.value);">
-                <a role="menuitem" tabindex="-1">
+            <ul class="grey_dropdown sub-menu language-sub-menu">
+              <li role="presentation" ng-repeat="language in languageList">
+                <div class="menu-item" role="menuitem" tabindex="-1" ng-click="onLanguageClick(language.value)">
                   <img class="flag flag-{{language.value}}" src="assets/images/blank.gif">
                   <span> {{ language.text }}</span>
-                </a>
+                </div>
               </li>
             </ul>
           </div>
@@ -119,23 +119,23 @@
             <span translate>@common-text-size</span>
             <i class="icon-angle-right sub-menu-arrow"></i>
 
-            <ul class="dropdown-menu grey_dropdown sub-menu font-size-sub-menu">
-              <li class="">
-                <a role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
+            <ul class="grey_dropdown sub-menu font-size-sub-menu">
+              <li role="presentation">
+                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
                   <span translate>@common-zoom-in</span>
                   <span class="shortcuts-label">Ctrl+(+)</span>
                 </a>
               </li>
 
-              <li class="">
-                <a role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
+              <li role="presentation">
+                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
                   <span translate>@common-zoom-out</span>
                   <span class="shortcuts-label">Ctrl+(-)</span>
                 </a>
               </li>
 
-              <li class="" ng-click="zoomReset($event)">
-                <a role="menuitem" tabindex="-1" ng-click="">
+              <li role="presentation">
+                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomReset($event)">
                   <span translate>@common-zoom-reset</span>
                   <span class="shortcuts-label">Ctrl+0</span>
                 </a>
@@ -168,15 +168,6 @@
             <span translate>@common-faq</span>
           </a>
         </li>
-
-        <!-- 문의하기 -->
-        <!--<li class="" role="presentation">-->
-          <!--<a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">-->
-            <!--<i class="icon-mail"></i>-->
-            <!--<span translate>@문의하기</span>-->
-          <!--</a>-->
-        <!--</li>-->
-
       </ul>
     </div>
 
