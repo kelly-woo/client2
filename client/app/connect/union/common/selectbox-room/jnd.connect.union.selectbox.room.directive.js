@@ -9,7 +9,7 @@
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
   function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityHandler, TopicFolderModel, currentSessionHelper,
-                                        entityAPIservice, CoreUtil, RoomTopicList) {
+                                        BotList, CoreUtil, RoomTopicList) {
     return {
       restrict: 'E',
       replace: true,
@@ -53,7 +53,7 @@
        * @private
        */
       function _setList() {
-        var jandiBot = entityAPIservice.getJandiBot();
+        var jandiBot = BotList.getJandiBot();
         var list = RoomTopicList.toJSON(true);
 
         list = _.filter(list, function(entity) {
@@ -85,7 +85,7 @@
        * @private
        */
       function _onSelectedValueChange(newValue) {
-        var entity = entityAPIservice.getJoinedEntity(newValue) || EntityHandler.get(newValue);
+        var entity = EntityHandler.get(newValue);
 
         if (entity) {
           if (_isTopic(entity)) {

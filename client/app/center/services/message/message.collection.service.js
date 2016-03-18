@@ -9,7 +9,7 @@
     .service('MessageCollection', MessageCollection);
 
   /* @ngInject */
-  function MessageCollection($filter, entityAPIservice, markerService, jndPubSub, memberService, currentSessionHelper,
+  function MessageCollection($filter, RoomTopicList, markerService, jndPubSub, memberService, currentSessionHelper,
                              centerService, MessageComment, MessageText, DateFormatter, EntityHandler) {
     var that = this;
     var _systemMessageCount = 0;
@@ -689,7 +689,7 @@
       if (centerService.isChat()) {
         globalUnreadCount = 2;
       } else {
-        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
+        globalUnreadCount = RoomTopicList.getUserLength(currentSessionHelper.getCurrentEntity().id);
       }
 
       globalUnreadCount = globalUnreadCount - markerOffset;

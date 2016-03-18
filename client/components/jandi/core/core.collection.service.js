@@ -117,6 +117,14 @@
       },
 
       /**
+       * id 에 해당하는 item 이 존재하는지 여부를 반환한다.
+       * @param {number|string} id
+       */
+      isExist: function(id) {
+        return !!this._data.map[id];
+      },
+
+      /**
        * targetObj 를 id 에 해당하는 item 에 extend 한다.
        * @param {number|string} id
        * @param {object} targetObj

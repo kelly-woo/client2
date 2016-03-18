@@ -11,7 +11,7 @@
   /* @ngInject */
   function TopicRenameCtrl($scope, $q, $filter, entityheaderAPIservice, analyticsService, AnalyticsHelper, modalHelper,
                            currentSessionHelper, jndPubSub, Dialog, entityAPIservice, JndSelectBoxMember,
-                           memberService, options) {
+                           memberService, options, UserList) {
     var duplicate_name_error = 40008;
 
     var _translate = $filter('translate');
@@ -115,7 +115,7 @@
      * @private
      */
     function _showAdminTransferConfirm(deferred, data) {
-      var user = entityAPIservice.getEntityById('users', data.adminId);
+      var user = UserList.get(data.adminId);
 
       Dialog.confirm({
         title: _translate('@topic-admin-transfer-confirm'),

@@ -11,7 +11,7 @@
   /* @ngInject */
   function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityHandler, centerService,
                              memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
-                             entityAPIservice, RoomTopicList) {
+                             BotList, RoomTopicList) {
     _init();
 
     /**
@@ -255,7 +255,7 @@
      */
     function _getEnabledMembers(filterText) {
       var members = currentSessionHelper.getCurrentTeamUserList();
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       if (jandiBot) {
         members = members.concat([jandiBot]);

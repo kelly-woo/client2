@@ -286,7 +286,7 @@
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = entityAPIservice.getJoinedEntity(data.room.id);
+        joinedEntity = RoomTopicList.get(data.room.id, true);
         if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
           result = true;
         }

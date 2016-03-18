@@ -73,7 +73,7 @@
         } else {
           var targetEntity = EntityHandler.get(entityId);
 
-          if (entityAPIservice.isJoinedTopic(targetEntity)) {
+          if (RoomTopicList.isJoined(entityId)) {
             _goTopic(targetEntity);
           } else {
             _goWithJoinTopic(entityId);

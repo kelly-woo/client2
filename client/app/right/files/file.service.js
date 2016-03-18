@@ -3,7 +3,8 @@
 var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, $q, configuration,
-                                       memberService, entityAPIservice, storageAPIservice, Preloader) {
+                                       memberService, entityAPIservice, storageAPIservice, Preloader, EntityHandler,
+                                       BotList) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
@@ -298,7 +299,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   // No exception.
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
-    var jandiBot = entityAPIservice.getJandiBot();
+    var jandiBot = BotList.getJandiBot();
     _.each(memberList, function(member, index) {
       if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
@@ -308,7 +309,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
     if (jandiBot) {
-      enabledMemberList.unshift(entityAPIservice.getJandiBot());
+      enabledMemberList.unshift(BotList.getJandiBot());
     }
     return joinedChannelList.concat(enabledMemberList);
   }
@@ -354,7 +355,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     //
     // TODO: shareEntities 값 항상 room id로 전달하도록 수정하기로 back-end와 합의봄
     getSharedEntity = getSharedEntity ? getSharedEntity : function(sharedEntityId) {
-      return entityAPIservice.getEntityById('all', sharedEntityId);
+      return EntityHandler.get(sharedEntityId);
     };
 
     _.each(unique, function(sharedEntityId) {
@@ -363,7 +364,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         // If I don't have it in my 'totalEntities', it means entity is 'archived'.
         // Just return from here;
       } else {
-        if( sharedEntity.type == 'privategroups' && entityAPIservice.isUser(sharedEntity, $rootScope.member) ||
+        if( sharedEntity.type == 'privategroups' && RoomTopicList.hasUser(sharedEntityId, $rootScope.member.id) ||
           sharedEntity.type == 'channels' ||
           memberService.isMember(sharedEntity.id))  {
 
@@ -376,8 +377,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   function updateShared(message) {
     return getSharedEntities(message, function(sharedEntityId) {
-      return entityAPIservice.getEntityById('all', sharedEntityId) ||
-        entityAPIservice.getEntityByEntityId(sharedEntityId);
+      return EntityHandler.get(sharedEntityId);
     });
   }
 

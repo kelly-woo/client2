@@ -145,9 +145,8 @@
               linkId: message.linkId
             });
           });
-        } else if (!entityAPIservice.isLeavedTopic(EntityHandler.get(message.roomId), memberService.getMemberId())) {
+        } else if (RoomTopicList.hasMember(message.roomId, memberService.getMemberId())) {
           // 해당 topic의 member 라면
-
           _goTo(function() {
             _goToTopic({
               type: message.roomType,

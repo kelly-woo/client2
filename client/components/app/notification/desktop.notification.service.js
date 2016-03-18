@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function DesktopNotification($state, $filter, RouterHelper, jndPubSub, HybridAppHelper, DesktopNotificationUtil,
-                               entityAPIservice) {
+                               BotList) {
     var that = this;
     var NOTIFICATION_EXPIRE_TIME = 7000;
     var isSupportNotification;
@@ -145,7 +145,7 @@
           RouterHelper.setCommentToScroll(targetEntity.commentId);
           $state.go('files', {itemId: entityId});
         } else {
-          if (jandiBot = entityAPIservice.getJandiBot()) {
+          if (jandiBot = BotList.getJandiBot()) {
             if (entityId === jandiBot.id) {
               entityType = 'users';
             }

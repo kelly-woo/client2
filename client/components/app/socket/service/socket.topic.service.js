@@ -10,7 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, currentSessionHelper) {
+  function TopicSocket(jndPubSub, EntityHandler, memberService, jndWebSocketCommon, currentSessionHelper) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -155,11 +155,7 @@
      */
     function _onTopicUpdated(data) {
       var _topic = data.topic;
-      var _topicEntity = entityAPIservice.getEntityById(_topic.type, _topic.id);
-
-      if (!!_topicEntity) {
-        entityAPIservice.extend(_topicEntity, _topic);
-      }
+      EntityHandler.extend(_topic.id, _topic);
       jndPubSub.pub('webSocketTopic:topicUpdated', data.topic);
     }
 

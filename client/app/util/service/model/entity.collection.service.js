@@ -55,8 +55,10 @@
        * @param {object} targetObj
        */
       extend: function(id, targetObj) {
-        this._toLowerPlural(targetObj);
-        CoreCollection.prototype.extend.call(this, id, targetObj);
+        if (this.get(id)) {
+          this._toLowerPlural(targetObj);
+          CoreCollection.prototype.extend.call(this, id, targetObj);
+        }
       },
 
       /**

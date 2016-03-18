@@ -9,7 +9,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
+                           RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
     var msg1;
     var msg2;
 
@@ -61,7 +61,7 @@
      */
     function generateMemberList() {
       var prevAvailableMemberMap = $scope.availableMemberMap;
-      var users = entityAPIservice.getUserList($scope.currentEntity);
+      var users = RoomTopicList.getUserIdList($scope.currentEntity.id);
 
       $scope.availableMemberMap = {};
 

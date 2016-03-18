@@ -18,6 +18,7 @@
     this.parseLeftSideMenuData = parseLeftSideMenuData;
     this.parseChatRoomLists = parseChatRoomLists;
     this.get = get;
+    this.extend = extend;
     this.toggleStarred = toggleStarred;
     _init();
 
@@ -93,9 +94,22 @@
      */
     function get(id) {
       return RoomTopicList.get(id) ||
-        BotList.get(id) ||
         UserList.get(id) ||
-        RoomChatDmList.get(id);
+        RoomChatDmList.get(id) ||
+        BotList.get(id);
+    }
+
+    /**
+     * item 을 확장한다.
+     * @override
+     * @param {number|string} id
+     * @param {object} targetObj
+     */
+    function extend(id, targetObj) {
+      return RoomTopicList.extend(id, targetObj) ||
+        UserList.get(id, targetObj)||
+        RoomChatDmList.get(id, targetObj) ||
+        BotList.get(id, targetObj);
     }
 
     /**

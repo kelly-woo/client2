@@ -10,13 +10,9 @@
                             HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList, RoomTopicList,
                             RoomChatDmList) {
     var service = {
-      getEntityFromListByEntityId: getEntityFromListByEntityId,
-      getEntityById: getEntityById,
-      getJoinedEntity: getJoinedEntity,
       setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
-      setStarred: setStarred,
 
       updateBadgeValue: updateBadgeValue,
       setLastEntityState: setLastEntityState,
@@ -24,100 +20,12 @@
       removeLastEntityState: removeLastEntityState,
       isDefaultTopic: isDefaultTopic,
       isOwner: isOwner,
-      getEntityByEntityId: getEntityByEntityId,
-      extend: extend,
-      isPublicTopic: RoomTopicList.isPublic,
-      isPrivateTopic: RoomTopicList.isPrivate,
-      isJoinedTopic: isJoinedTopic,
-      isDM: isDM,
-
-      getMemberList: getMemberList,
-      getUserList: getUserList,
-      getUserLength: getUserLength,
-      isUser: isUser,
-      getBotList: getBotList,
-      getJandiBot: getJandiBot,
-      isLeavedTopic: isLeavedTopic,
       getOwnerId: getOwnerId,
-
-      addBot: addBot,
-      updateBot: updateBot,
-
       increaseBadgeCount: increaseBadgeCount,
       decreaseBadgeCount: decreaseBadgeCount
     };
 
-    var _jandiBot;
-
     return service;
-
-    /**
-     * Takes 'entityId' from entity as an 'entityId'
-     * Used to compare with chat room.
-     *
-     * @param list
-     * @param entityId
-     * @returns {*}
-     */
-    function getEntityFromListByEntityId(list, entityId) {
-      entityId = parseInt(entityId, 10);
-      if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
-
-      return getEntityByEntityId(entityId);
-    }
-
-    /**
-     * If entityType is 'channel', look for entityId only in 'joinedChannelList'.
-     * So non-joined topic will be found.
-     *
-     * @param entityType
-     * @param entityId
-     * @returns {*}
-     */
-    function getEntityById(entityType, entityId) {
-      var entity;
-      entityType = entityType.toLowerCase();
-
-      switch (entityType) {
-        case 'privategroup':
-        case 'privategroups':
-        case 'channel':
-        case 'channels':
-          entity = RoomTopicList.get(entityId);
-          break;
-        case 'user':
-        case 'users':
-          entity = UserList.get(entityId);
-          break;
-        default:
-          entity = EntityHandler.get(entityId);
-
-          break;
-      }
-
-      return entity;
-    }
-
-    /**
-     * 참여중인 entity를 entityId로 전달한다.
-     * @param {number|string} entityId
-     * @returns {*|Object}
-     */
-    function getJoinedEntity(entityId) {
-      return EntityHandler.get(entityId);
-    }
-
-    /**
-     * 본인 entity 인지 여부를 반환한다.
-     * @param {String} entityType
-     * @param {number|string} entityId
-     * @returns {boolean} 본인 entity 인지 여부
-     * @private
-     */
-    function _isMe(entityType, entityId) {
-      entityId = parseInt(entityId, 10);
-      return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
-    }
 
     function setCurrentEntityWithTypeAndId(entityType, entityId) {
       var currentEntity;
@@ -128,6 +36,7 @@
         setCurrentEntity(currentEntity);
       }
     }
+
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {
       currentEntity.alarmCnt = '';
@@ -150,17 +59,6 @@
         return entity.pg_creatorId;
       }
       return entity.ch_creatorId;
-    }
-
-    /**
-     * 해당하는 아이디를 가진 토픽(혹은 dm)을 'starred' 처리한다.
-     * @param {number} entityId - star처리 할 토픽(혹은 dm)의 아이디
-     */
-    function setStarred (entityId) {
-      var entity = EntityHandler.get(entityId);
-      if (!_.isUndefined(entity)) {
-        entity.isStarred = true;
-      }
     }
 
     /**
@@ -248,8 +146,6 @@
       }
     }
 
-
-
     /**
      *
      *  Setting/Getting/Removing 'last-state' from/to localStorage.
@@ -275,6 +171,7 @@
 
       return last_state;
     }
+
     function removeLastEntityState () {
       storageAPIservice.removeLastStateLocal();
     }
@@ -305,191 +202,6 @@
      */
     function getOwnerId(entity) {
       return (entity.creatorId || entity.ch_creatorId || entity.pg_creatorId);
-    }
-
-    /**
-     * 'entityId'를 이용하여 member entity 를 찾아 리턴한다.
-     * 그러므로
-     *  1. 'entityId'를 사용할때만
-     *  2. member entity 를 찾으려 할때만
-     * 사용해야 한다.
-     * @param {*} entityId - entityId to be searched
-     * @returns {object} entity - member entity
-     */
-    function getEntityByEntityId(entityId) {
-      return EntityHandler.get(entityId);
-    }
-
-    /**
-     * _.extend 와 같은 일을 하지만 source 의 type을 소문자로 바꾼 후 복수형으로 바꾼 다음 extend를 한다.
-     * @param target
-     * @param source
-     */
-    function extend(target, source) {
-      if (!!source.type) {
-        source.type = source.type.toLowerCase() + 's';
-      }
-      _.extend(target, source);
-    }
-
-    /**
-     * 조인되어있는 토픽(공개/비공개)인지 알아본다.
-     * @param {object} entity - 알아보고 싶은 토픽
-     * @returns {boolean}
-     */
-    function isJoinedTopic(entity) {
-      return !!RoomTopicList.get(entity.id, true);
-    }
-
-    /**
-     * 조인되어있는 DM인지 알아본다.
-     * @param entity
-     * @returns {*|boolean|*}
-     */
-    function isDM(entity) {
-      return !!RoomChatDmList.get(entity.id);
-    }
-
-    /**
-     * entity의 type에따라 맞는 member array를 넘겨준다.
-     * @param entity
-     * @returns {array} memberList
-     */
-    function getMemberList(entity) {
-      //@fixme: indexOf 대신 일치 연산자를 사용해야 함.
-      return entity.type.indexOf('channel') !== -1 ? entity.ch_members : entity.pg_members;
-    }
-
-    /**
-     * entity의 user list를 전달한다.
-     * @param {object} entity
-     * @returns {Array}
-     */
-    function getUserList(entity) {
-      var list = [];
-      var memberList = getMemberList(entity);
-      _.forEach(memberList, function(memberId) {
-        if (UserList.get(memberId)) {
-          list.push(memberId);
-        }
-      });
-      return list;
-    }
-
-    /**
-     * Returns number of member in entity including myself.
-     * @param entity {entity}
-     * @returns {number} number of member in 'entity'
-     */
-    function getUserLength(entity) {
-      var length = -1;
-      if (entity != null && entity.type.indexOf('user') === -1) {
-        length = getUserList(entity).length;
-      }
-      return length;
-    }
-
-    /**
-     * Returns true is 'user' is a member of 'entity'
-     * @param {object} entity
-     * @param {object} user
-     * @returns {boolean}
-     */
-    function isUser(entity, user) {
-      var users = getUserList(entity);
-      return _.indexOf(users, user.id) > -1;
-    }
-
-    /**
-     * bot list를 전달한다.
-     * @returns {Array}
-     */
-    function getBotList() {
-      return BotList.toJSON();
-    }
-
-    /**
-     * jandi bot을 전달한다.
-     */
-    function getJandiBot() {
-      return BotList.getJandiBot();
-    }
-
-    /**
-     * set jandi bot
-     * @param {object} bot
-     * @private
-     */
-    function _setJandiBot(bot) {
-      _jandiBot = bot;
-    }
-
-    /**
-     * topic에 포함되지 않은 member인지 여부
-     * @param {object} topic
-     * @param {number} memberId
-     * @returns {boolean}
-     */
-    function isLeavedTopic(entity, memberId) {
-      var result = false;
-      var members;
-      
-      if (entity) {
-        members = getMemberList(entity);
-        if (members && members.indexOf(memberId) < 0) {
-          result = true;
-        }
-      } else {
-        result = true;
-      }
-
-      return result;
-    }
-
-    /**
-     * server에서 전달받은 data를 client에서 사용 목적으로 변환한다.
-     * @param {object} entity
-     * @param {string} type
-     * @private
-     */
-    function _transDatas(entity, type) {
-      entity.isStarred = !!entity.isStarred;
-      entity.type = type + 's';
-
-      // select dropdown 에서 분류의 목적으로 data를 설정함
-      entity.typeCategory = $filter('translate')((type === 'channel' || type === 'privategroup') ? '@common-topics' : '@user');
-
-      if (type === 'user') {
-        entity.selected = false;
-      }
-    }
-
-    /**
-     * add bot
-     * @param {object} bot
-     */
-    function addBot(bot) {
-      if (_.isObject(bot)) {
-        if (bot.botType === 'jandi_bot') {
-          _setJandiBot(bot);
-        }
-        BotList.add(bot);
-      }
-    }
-
-    /**
-     * update bot
-     * @param {object} bot
-     */
-    function updateBot(bot) {
-      var targetBot;
-      if (_.isObject(bot)) {
-        targetBot = getEntityById('total', bot.id);
-
-        targetBot.status = bot.status;
-        targetBot.name = bot.name;
-        targetBot.thumbnailUrl = bot.thumbnailUrl;
-      }
     }
   }
 })();

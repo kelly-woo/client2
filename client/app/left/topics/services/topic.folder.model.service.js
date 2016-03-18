@@ -247,10 +247,8 @@
         var folderId = entity.extFolderId;
         var folder = _raw.folderMap[folderId];
         if (folder) {
-          entity.extGroupName = '[' + folder.name + ']';
           entity.extSeq = folder.seq;
         } else {
-          entity.extGroupName = entity.typeCategory;
           entity.extSeq = _raw.folderList.length + 1;
         }
       });

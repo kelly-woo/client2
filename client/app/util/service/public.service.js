@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, UserList,
-                         currentSessionHelper, $state, analyticsService, language, entityAPIservice,
+                         currentSessionHelper, $state, analyticsService, language, RoomTopicList,
                          HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
     var service = {
@@ -60,13 +60,13 @@
       var list = [];
 
       angular.forEach(joinedChannelList, function(entity) {
-        var users = entityAPIservice.getUserList(entity);
+        var users = RoomTopicList.getUserIdList(entity.id);
         if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 
       angular.forEach(privateGroupList, function(entity) {
-        var users = entityAPIservice.getUserList(entity);
+        var users = RoomTopicList.getUserIdList(entity.id);
         if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);

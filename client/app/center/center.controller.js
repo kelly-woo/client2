@@ -10,7 +10,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect) {
+                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect,
+                                                 RoomTopicList) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -1207,7 +1208,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _amIAlone() {
-    var userCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
+    var userCount = RoomTopicList.getUserLength(currentSessionHelper.getCurrentEntity().id);
 
     //console.log()
     //console.log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
@@ -1247,7 +1248,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _isFullRoom() {
-    var currentEntityUserCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
+    var currentEntityUserCount = RoomTopicList.getUserLength(currentSessionHelper.getCurrentEntity().id);
     var totalTeamUserCount = currentSessionHelper.getCurrentTeamUserCount();
 
     return currentEntityUserCount == totalTeamUserCount;

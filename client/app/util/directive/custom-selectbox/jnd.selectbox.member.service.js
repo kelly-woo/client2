@@ -9,7 +9,7 @@
     .service('JndSelectBoxMember', JndSelectBoxMember);
 
   /* @ngInject */
-  function JndSelectBoxMember(UserList, entityAPIservice, memberService) {
+  function JndSelectBoxMember(UserList, RoomTopicList, memberService, BotList) {
     var _that = this;
 
     _that.getActiveUserList = getActiveUserList;
@@ -34,12 +34,11 @@
      * @returns {*}
      */
     function getActiveUserListByRoomId(roomId, withoutMe) {
-      var entity = entityAPIservice.getEntityById('total', roomId);
-      var userIds = entityAPIservice.getUserList(entity);
+      var userIds = RoomTopicList.getUserIdList(roomId);
       var list = [];
 
       _.each(userIds, function(userId) {
-        list.push(entityAPIservice.getEntityById('users', userId));
+        list.push(UserList.get(userId));
       });
 
       return _getActiveUserList({
@@ -57,10 +56,10 @@
       var activeUserList = _getActiveUserList({
         withoutMe: withoutMe
       });
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       if (jandiBot) {
-        activeUserList.unshift(entityAPIservice.getJandiBot());
+        activeUserList.unshift(jandiBot);
       }
 
       return activeUserList;

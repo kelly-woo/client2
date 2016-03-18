@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileShareNotification($filter, $state, DesktopNotificationUtil, DesktopNotification, memberService,
-                                 entityAPIservice) {
+                                 UserList, EntityHandler) {
     var that = this;
 
     that.show = show;
@@ -28,7 +28,7 @@
 
       if (!DesktopNotificationUtil.isAllowDMnMentionOnly() || isUser) {
         if (DesktopNotificationUtil.isAllowSendNotification()) {
-          user = entityAPIservice.getEntityById('users', socketEvent.writer);
+          user = UserList.get(socketEvent.writer);
           options = {
             tag: 'tag',
             body: _getBody(socketEvent, roomEntity),
@@ -57,7 +57,7 @@
      */
     function _getBody(socketEvent, roomEntity) {
       var fileTitle = DesktopNotificationUtil.getFileTitleFormat(socketEvent.message);
-      var writer = entityAPIservice.getEntityById('users', socketEvent.writer);
+      var writer = UserList.get(socketEvent.writer);
       var bodyMessage;
 
       if (DesktopNotificationUtil.isAllowShowContent(roomEntity.id)) {
@@ -67,7 +67,7 @@
 
         if (!DesktopNotificationUtil.isChatType(socketEvent)) {
           // 1:1 창이 아닐 경우 토픽이름을 추가한다.
-          bodyMessage = DesktopNotificationUtil.getRoomFormat(entityAPIservice.getEntityById('total', socketEvent.room.id).name) + bodyMessage;
+          bodyMessage = DesktopNotificationUtil.getRoomFormat(EntityHandler.get(socketEvent.room.id).name) + bodyMessage;
         }
       } else {
         // content를 숨긴다.

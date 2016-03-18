@@ -261,7 +261,7 @@
      * @private
      */
     function _setExtraData(target, writerId) {
-      var writer = entityAPIservice.getEntityById('user', writerId);
+      var writer = UserList.get(writerId);
       if (_.isObject(target)) {
         target.extWriter = writer;
         target.extWriterName = $filter('getName')(writer);
