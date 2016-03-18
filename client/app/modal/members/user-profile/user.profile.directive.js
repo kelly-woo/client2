@@ -27,66 +27,19 @@
       function _init() {
         scope.isSelectedImage = false;
 
-        scope.onCropClick = onCropClick;
-        scope.onCharacterClick = onCharacterClick;
+        scope.onProfileImageChange = onProfileImageChange;
         scope.onSubmitDoneClick = onSubmitDoneClick;
-
         scope.setShowDmSubmit = setShowDmSubmit;
-      }
-
-      /**
-       * crop 선택 이벤트 핸들러
-       */
-      function onCropClick() {
-        $('<input type="file" accept="image/*"/>')
-          .on('change', function(evt) {
-            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
-            promise.then(_resolveImageData);
-          })
-          .trigger('click');
-      }
-
-      /**
-       * resolve image data
-       * @param {object} img
-       * @private
-       */
-      function _resolveImageData(img) {
-        scope.croppedImage = null;
-        if (img) {
-          if (img.type === 'error') {
-            Dialog.warning({
-              'title': _translate('@common-unsupport-image')
-            });
-          } else {
-            scope.isSelectedImage = true;
-            scope.imageData = img.toDataURL('image/jpeg');
-
-            modalHelper.openProfileImageModal(scope, {
-              type: 'crop',
-              imageData: scope.imageData,
-              onProfileImageChange: _onProfileImageChange
-            });
-          }
-        }
-      }
-
-      /**
-       * character 생성 선택 이벤트 핸들러
-       */
-      function onCharacterClick() {
-        modalHelper.openProfileImageModal(scope, {
-          type: 'character',
-          onProfileImageChange: _onProfileImageChange
-        });
       }
 
       /**
        * profile image change 이벤트 핸들러
        * @param {string} dataURI
        */
-      function _onProfileImageChange(dataURI) {
+      function onProfileImageChange(dataURI) {
         _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
+
+        scope.userProfileImage = dataURI;
 
         Dialog.success({title: _translate('@profile-success')});
       }

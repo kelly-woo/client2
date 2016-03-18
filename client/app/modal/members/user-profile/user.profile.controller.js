@@ -60,8 +60,6 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
-
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -73,7 +71,7 @@
     function _setCurrentUser(curUser) {
       $scope.curUser = curUser;
 
-      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'medium');
+      $scope.userProfileImage = memberService.getProfileImage(curUser.id, 'medium');
       $scope.name = $filter('getName')($scope.curUser);
       $scope.department = $filter('getUserDepartment')($scope.curUser);
       $scope.position = $filter('getUserPosition')($scope.curUser);
@@ -181,19 +179,6 @@
             $scope.message.content = '';
             //$scope.isSending = false;
           });
-      }
-    }
-
-    /**
-     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
-     * @param {object} event
-     * @param {{event: object, member: object}} data
-     * @private
-     */
-    function _onUpdateMemberProfile(event, data) {
-      var member = data.member;
-      if ($scope.curUser.id === member.id) {
-        $scope.curUser.exProfileImg = memberService.getProfileImage(member.id, 'small');
       }
     }
 
