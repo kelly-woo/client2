@@ -117,6 +117,22 @@
       },
 
       /**
+       * targetObj 를 id 에 해당하는 item 에 extend 한다.
+       * @param {number|string} id
+       * @param {object} targetObj
+       * @returns {boolean}
+       */
+      extend: function(id, targetObj) {
+        var map = this._data.map;
+        if (map[id]) {
+          _.extend(map[id], targetObj);
+          return true;
+        } else {
+          return false;
+        }
+      },
+
+      /**
        * 콜렉션을 초기화 하고 인자로 받은 list 로 재 구성 한다.
        * @param {Array} list
        */

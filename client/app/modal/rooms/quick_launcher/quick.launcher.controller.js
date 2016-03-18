@@ -9,7 +9,7 @@
     .controller('QuickLauncherCtrl', QuickLauncherCtrl);
 
   /* @ngInject */
-  function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityMapManager, centerService,
+  function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityHandler, centerService,
                              memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
                              entityAPIservice, RoomTopicList) {
     _init();
@@ -214,7 +214,7 @@
       var room;
 
       for (i = centerHistory.length - 1; i > -1; i--) {
-        if (entity = EntityMapManager.get('total', centerHistory[i].entityId)) {
+        if (entity = EntityHandler.get(centerHistory[i].entityId)) {
           room = {
             type: entity.type,
             id: entity.id,

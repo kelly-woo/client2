@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog) {
+  function userProfile($filter, CoreUtil, memberService, fileAPIservice, Dialog) {
     return {
       restrict: 'A',
       link: link

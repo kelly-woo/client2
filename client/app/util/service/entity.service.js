@@ -6,9 +6,9 @@
     .factory('entityAPIservice', entityAPIservice);
 
   /* @ngInject */
-  function entityAPIservice($rootScope, $filter, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
-                            currentSessionHelper, HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList,
-                            RoomTopicList, RoomChatDmList) {
+  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub, currentSessionHelper,
+                            HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList, RoomTopicList,
+                            RoomChatDmList) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityById: getEntityById,
@@ -122,7 +122,7 @@
     function setCurrentEntityWithTypeAndId(entityType, entityId) {
       var currentEntity;
       if (!_.isUndefined(entityId)) {
-        currentEntity = EntityMapManager.get('total', entityId);
+        currentEntity = EntityHandler.get(entityId);
       }
       if (!_.isUndefined(currentEntity)) {
         setCurrentEntity(currentEntity);
@@ -157,7 +157,7 @@
      * @param {number} entityId - star처리 할 토픽(혹은 dm)의 아이디
      */
     function setStarred (entityId) {
-      var entity = EntityMapManager.get('total', entityId);
+      var entity = EntityHandler.get(entityId);
       if (!_.isUndefined(entity)) {
         entity.isStarred = true;
       }
@@ -228,7 +228,7 @@
      * TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
      */
     function _setBadgeValue (entity, alarmCount) {
-      var curEntity = EntityMapManager.get('total', entity.id);
+      var curEntity = EntityHandler.get(entity.id);
       if (curEntity) {
         if (alarmCount == -1) {
           if (angular.isUndefined(curEntity.alarmCnt)) {
@@ -317,7 +317,7 @@
      * @returns {object} entity - member entity
      */
     function getEntityByEntityId(entityId) {
-      return EntityMapManager.get('memberEntityId', entityId);
+      return EntityHandler.get(entityId);
     }
 
     /**

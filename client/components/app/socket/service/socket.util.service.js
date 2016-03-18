@@ -6,7 +6,7 @@
     .service('jndWebSocketCommon', jndWebSocketCommon);
 
   /* @ngInject */
-  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityMapManager,
+  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityHandler,
                               logger, memberService, accountService) {
 
     var _chatEntity = 'chat';
@@ -72,7 +72,7 @@
      * @param {number} [count=1]
      */
     function increaseBadgeCount(roomId, count) {
-      var entity = EntityMapManager.get('total', roomId) || EntityMapManager.get('memberEntityId', roomId);
+      var entity = EntityHandler.get(roomId);
 
       if (!isCurrentEntity(entity)) {
         entityAPIservice.increaseBadgeCount(entity.id, count);

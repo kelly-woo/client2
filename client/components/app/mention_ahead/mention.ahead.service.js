@@ -9,7 +9,7 @@
     .service('Mentionahead', Mentionahead);
 
   /* @ngInject */
-  function Mentionahead($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
+  function Mentionahead($filter, memberService, EntityHandler, configuration, jndKeyCode, entityAPIservice, UserList,
                         jndPubSub) {
     var that = this;
 
@@ -244,7 +244,7 @@
      * @private
      */
     function _getMentionList(entityId, mentionList) {
-      var entity = EntityMapManager.get('total', entityId);
+      var entity = EntityHandler.get(entityId);
       var currentMemberId = memberService.getMemberId();
       var users;
       var user;
@@ -253,7 +253,7 @@
       if (entity && /channels|privategroups/.test(entity.type)) {
         users = entityAPIservice.getUserList(entity);
         _.each(users, function (userId) {
-          user = EntityMapManager.get('member', userId);
+          user = UserList.get(userId);
           if (user && currentMemberId !== user.id && user.status === 'enabled') {
             user.extViewName = '[@' + user.name + ']';
             user.extSearchName = user.name;

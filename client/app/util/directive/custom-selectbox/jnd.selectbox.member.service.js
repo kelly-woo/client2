@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('JndSelectBoxMember', FileData);
+    .service('JndSelectBoxMember', JndSelectBoxMember);
 
   /* @ngInject */
-  function FileData(EntityMapManager, entityAPIservice, memberService) {
+  function JndSelectBoxMember(UserList, entityAPIservice, memberService) {
     var _that = this;
 
     _that.getActiveUserList = getActiveUserList;
@@ -78,7 +78,7 @@
       var myMemberId = memberService.getMemberId();
       var activeUserList;
 
-      var userList = options.userList || EntityMapManager.toArray('user');
+      var userList = options.userList || UserList.toJSON();
       var withoutMe = options.withoutMe;
 
       activeUserList = _.chain(userList)

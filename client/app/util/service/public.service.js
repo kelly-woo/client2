@@ -10,7 +10,7 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, EntityMapManager,
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, UserList,
                          currentSessionHelper, $state, analyticsService, language, entityAPIservice,
                          HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
@@ -138,9 +138,9 @@
       }
 
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = UserList.get(member);
       } else if (!member.status) {
-        member = EntityMapManager.get('total', member.id);
+        member = UserList.get(member.id);
       }
 
       return memberService.isDeactivatedMember(member);

@@ -10,8 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
-                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper,
-                                        DesktopNotificationUtil) {
+                                        memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotificationUtil) {
     var VERSION = 1;
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';

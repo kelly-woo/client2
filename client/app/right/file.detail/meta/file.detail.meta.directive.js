@@ -9,7 +9,7 @@
     .directive('fileDetailMeta', fileDetailMeta);
 
   /* @ngInject */
-  function fileDetailMeta($state, $filter, fileAPIservice, entityAPIservice, entityheaderAPIservice, EntityMapManager,
+  function fileDetailMeta($state, $filter, fileAPIservice, entityAPIservice, entityheaderAPIservice, EntityHandler,
                           AnalyticsHelper, analyticsService, Dialog, jndPubSub) {
     return {
       restrict: 'E',
@@ -71,7 +71,7 @@
         if (entityType === 'users') {
           _goDm(entityId);
         } else {
-          var targetEntity = EntityMapManager.get('total', entityId);
+          var targetEntity = EntityHandler.get(entityId);
 
           if (entityAPIservice.isJoinedTopic(targetEntity)) {
             _goTopic(targetEntity);

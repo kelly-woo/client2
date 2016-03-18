@@ -10,7 +10,7 @@
     .service('EntityFilterRoom', EntityFilterRoom);
 
   /* @ngInject */
-  function EntityFilterRoom(RoomTopicList) {
+  function EntityFilterRoom(RoomTopicList, RoomChatDmList) {
 
     this.toJSON = toJSON;
     this.get = get;
@@ -37,6 +37,7 @@
      * @returns {object}
      */
     function get(entityId) {
+      return RoomTopicList.get(entityId) || RoomChatDmList.get(entityId);
     }
   }
 })();

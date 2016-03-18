@@ -1,5 +1,5 @@
 /**
- * @fileoverview 콜렉션 클래스 생성자를 반환한다.
+ * @fileoverview Entity 콜랙션의 Base 생성자를 반환한다.
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -34,11 +34,41 @@
        * @param {object} item
        */
       add: function(item) {
+        this._toLowerPlural(item);
+        CoreCollection.prototype.add.call(this, item);
+      },
+
+      /**
+       * item 을 업데이트 한다.
+       * @override
+       * @param {object} item
+       */
+      update: function(item) {
+        this._toLowerPlural(item);
+        CoreCollection.prototype.update.call(this, item);
+      },
+
+      /**
+       * item 을 확장한다.
+       * @override
+       * @param {number|string} id
+       * @param {object} targetObj
+       */
+      extend: function(id, targetObj) {
+        this._toLowerPlural(targetObj);
+        CoreCollection.prototype.extend.call(this, id, targetObj);
+      },
+
+      /**
+       *
+       * @param item
+       * @private
+       */
+      _toLowerPlural: function(item) {
         //@fixme: 현재 entity.service.js 의 extend 에서 's' 를 붙여주는 로직에 대한 호환성을 위해 아래와 같은 로직을 수행한다.
         if (item.type) {
           item.type = item.type.toLowerCase() + 's';
         }
-        CoreCollection.prototype.add.call(this, item);
       }
     });
 

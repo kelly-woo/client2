@@ -10,8 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
-                       EntityMapManager, currentSessionHelper) {
+  function TopicSocket(jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, currentSessionHelper) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';

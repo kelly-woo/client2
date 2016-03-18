@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, RightPanel, RouterHelper, entityAPIservice,
-                          EntityMapManager, jndPubSub, memberService, publicService, JndMessageStorage, Sticker,
+                          UserList, jndPubSub, memberService, publicService, JndMessageStorage, Sticker,
                           Tutorial) {
     var fileId;
     var requestFileDetail;
@@ -316,7 +316,7 @@
      */
     function onMemberClick(member) {
       if (_.isNumber(member)) {
-        member = EntityMapManager.get('member', member);
+        member = UserList.get(member);
       }
       jndPubSub.pub('onMemberClick', member);
     }

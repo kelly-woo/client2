@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
-                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, EntityMapManager, JndConnect) {
+                                                 JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -1100,7 +1100,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var writer;
     if ($state.params.itemId != file.id) {
       $rootScope.setFileDetailCommentFocus = true;
-      writer = EntityMapManager.get('member', file.writerId);
+      writer = UserList.get(file.writerId);
       $state.go('files', {
         userName    : writer.name,
         itemId      : file.id

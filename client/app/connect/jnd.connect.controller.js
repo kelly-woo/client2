@@ -6,7 +6,7 @@
     .controller('JndConnectCtrl', JndConnectCtrl);
 
   /* @ngInject */
-  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityMapManager, JndConnectApi, JndUtil, language,
+  function JndConnectCtrl($scope, $timeout, $filter, $q, JndConnect, EntityHandler, JndConnectApi, JndUtil, language,
                           Dialog, JndConnectUnionFormData) {
 
     var UNION_DATA = {
@@ -427,8 +427,8 @@
     function _getPlug(data) {
       return {
         sourceName: JndConnect.getPlugSourceName(data),
-        user: EntityMapManager.get('member', data.memberId),
-        room: EntityMapManager.get('total', data.roomId) || EntityMapManager.get('memberEntityId', data.roomId),
+        user: EntityHandler.get(data.memberId),
+        room: EntityHandler.get(data.roomId),
         isOn: data.status === 'enabled',
         raw: data
       }

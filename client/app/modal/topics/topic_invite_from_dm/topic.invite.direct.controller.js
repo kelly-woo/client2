@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope, TopicFolderModel,
-                                 EntityMapManager) {
+                                 EntityHandler) {
     // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
 
@@ -15,7 +15,7 @@
     $scope.inviteChannelId = $scope.inviteOptions[0].id;
     $scope.onInviteClick = function(entityId) {
       var invitedId = [];
-      var entity = EntityMapManager.get('total', entityId);
+      var entity = EntityHandler.get(entityId);
       invitedId.push($scope.currentEntity.id);
 
       jndPubSub.showLoading();

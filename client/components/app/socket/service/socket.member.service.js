@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketMember(jndWebSocketCommon, memberService, jndPubSub,
-                              entityAPIservice, EntityMapManager) {
+                              UserList) {
     var MEMBER_STARRED = 'member_starred';
     var MEMBER_UNSTARRED = 'member_unstarred';
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
@@ -60,7 +60,7 @@
     function _onMemberProfileUpdated(socketEvent) {
       var member = socketEvent.member;
 
-      _replaceMemberEntityInMemberList(member);
+      UserList.extend(member.id, member);
 
       if (jndWebSocketCommon.isActionFromMe(member.id)) {
         memberService.onMemberProfileUpdated();
@@ -82,19 +82,7 @@
      * @private
      */
     function _replaceMemberEntityInMemberList(member) {
-      var entity = EntityMapManager.get('member', member.id);
-      if (!entity) {
-        entity = member;
-        EntityMapManager.set('member', member.id, member);
-      }
-      entityAPIservice.extend(entity, member);
-
-      if (EntityMapManager.contains('memberEntityId', member.entityId)) {
-        entityAPIservice.extend(EntityMapManager.get('memberEntityId', member.id), member);
-      }
-
-      // TODO: I think it is too much to update whole left panel when only memberlist needs to be updates.
-      jndWebSocketCommon.updateLeft();
+      UserList.extend(member.id, member);
 
     }
   }

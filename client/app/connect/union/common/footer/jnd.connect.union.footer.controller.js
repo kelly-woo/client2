@@ -9,7 +9,7 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
+  function JndConnectUnionFooterCtrl($scope, $filter, CoreUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
     var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;

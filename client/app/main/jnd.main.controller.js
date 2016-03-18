@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('JndMainCtrl', JndMainCtrl);
 
-  function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
+  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
     $scope.isShowDummyLayout = false;
     $scope.tutorial = {
@@ -127,7 +127,7 @@
      * @private
      */
     function _onKickedOut(angularEvent, socketEvent) {
-      var topicEntity = EntityMapManager.get('total', socketEvent.data.roomId);
+      var topicEntity = RoomTopicList.get(socketEvent.data.roomId);
       var topicName = topicEntity.name;
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);
@@ -146,7 +146,7 @@
      * @private
      */
     function _onTopicInvite(angularEvent, data) {
-      var entity = EntityMapManager.get('total', data.room.id);
+      var entity = RoomTopicList.get(data.room.id);
       var room = data.room;
 
       if (!entity || _hasInvitedFlag(entity, data.inviter)) {
@@ -165,7 +165,7 @@
 
       while (_inviteSocketQueue.length) {
         var data = _inviteSocketQueue.pop();
-        var entity = EntityMapManager.get('total', data.room.id);
+        var entity = RoomTopicList.get(data.room.id);
         var memberList = entityAPIservice.getMemberList(entity);
         var filter = $filter('translate');
         var msg;
@@ -232,7 +232,7 @@
      * @private
      */
     function _onTopicLeave(angularEvent, data) {
-      var room = EntityMapManager.get('total', data.room.id);
+      var room = RoomTopicList.get(data.room.id);
       var member = data.writer;
       var memberList;
       var index;

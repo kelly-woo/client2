@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
-  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper,
-                                        entityAPIservice, CoreUtil) {
+  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityHandler, TopicFolderModel, currentSessionHelper,
+                                        entityAPIservice, CoreUtil, RoomTopicList) {
     return {
       restrict: 'E',
       replace: true,
@@ -85,7 +85,7 @@
        * @private
        */
       function _onSelectedValueChange(newValue) {
-        var entity = entityAPIservice.getJoinedEntity(newValue) || EntityMapManager.get('member', newValue);
+        var entity = entityAPIservice.getJoinedEntity(newValue) || EntityHandler.get(newValue);
 
         if (entity) {
           if (_isTopic(entity)) {
@@ -103,7 +103,7 @@
        * @private
        */
       function _onModelChange(newValue) {
-        var entity = EntityMapManager.get('memberEntityId', newValue);
+        var entity = EntityHandler.get(newValue);
         if (entity) {
           scope.selectedValue = entity.id;
         }

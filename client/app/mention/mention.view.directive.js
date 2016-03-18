@@ -14,7 +14,7 @@
 
    <a mention-view="{{id}}" mention-type="member"
    */
-  function mentionView(EntityMapManager, memberService, jndPubSub) {
+  function mentionView(EntityHandler, memberService, jndPubSub) {
 
     return {
       restrict: 'A',
@@ -106,7 +106,7 @@
       function _onClick() {
         var entity;
         if (_type === 'member') {
-          entity = EntityMapManager.get('total', _id);
+          entity = EntityHandler.get(_id);
           jndPubSub.pub('onMemberClick', entity);
         } else if (_type === 'room') {
           //entity = entityAPIservice.getTopicEntity(_id);
