@@ -72,7 +72,7 @@
         var isActiveMember = memberService.isActiveMember(user);
 
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
-          user.selected = prevAvailableMemberMap[user.id].selected;
+          user.extSelected = prevAvailableMemberMap[user.id].extSelected;
         }
 
         if (isActiveMember) {
@@ -85,7 +85,7 @@
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
-        return user.selected === false;
+        return !!user.extSelected === false;
       });
 
       $scope.isInviteChannel = $scope.availableMemberList.length !== 0;
@@ -108,7 +108,9 @@
     function getMatches(list, filterText) {
       filterText = filterText.toLowerCase();
 
-      list = $filter('getMatchedList')(list, 'name', filterText);
+      list = $filter('getMatchedList')(list, 'name', filterText, function(item) {
+        return !!item.extSelected !== true;
+      });
       return $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
@@ -146,7 +148,7 @@
       var activeIndex = $scope.getActiveIndex();
       var list = $scope.selectingMembers;
 
-      member.selected = true;
+      member.extSelected = true;
       inviteUsers.indexOf(member) < 0 && inviteUsers.unshift(member);
 
       // activeIndex가 제일 마지막 item일때 선택되었다면
@@ -163,7 +165,7 @@
     function _removeMember(member) {
       var inviteUsers = $scope.inviteUsers;
 
-      member.selected = false;
+      member.extSelected = false;
       inviteUsers.splice(inviteUsers.indexOf(member), 1);
     }
 
