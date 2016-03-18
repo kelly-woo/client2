@@ -10,7 +10,7 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, MemberProfile, memberService,
+  function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
                            messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService) {
     var isChangedName = false;
     var isChangedEmail = false;
