@@ -2362,6 +2362,10 @@ msgid "@profile-success"
 msgstr "Profile photo has been updated successfully"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-upload-photo"
+msgstr "Upload a Photo"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
 msgstr "Browse other topics"
 

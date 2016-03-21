@@ -2229,6 +2229,10 @@ msgid "@profile-success"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-upload-photo"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
 msgstr ""
 
