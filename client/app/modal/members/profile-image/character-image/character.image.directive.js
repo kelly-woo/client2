@@ -89,9 +89,9 @@
         CharacterImage.getCROSImage(character)
           .then(function(image) {
             _context.fillStyle = background;
-            _context.fillRect(0, 0, 140, 140);
+            _context.fillRect(0, 0, 130, 130);
 
-            _context.drawImage(image, 0, 0, 140, 140);
+            _context.drawImage(image, 0, 0, 130, 130);
 
             scope.imageData.value = _jqCanvas[0].toDataURL();
           });
