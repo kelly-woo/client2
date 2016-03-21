@@ -2356,6 +2356,10 @@ msgid "@profile-success"
 msgstr "프로필 사진이 성공적으로 수정되었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-upload-photo"
+msgstr "사진 올리기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
 msgstr "참여하지 않은 토픽 보기"
 
