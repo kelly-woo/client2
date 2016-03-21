@@ -758,6 +758,34 @@ msgstr ""
 msgid "@dm-menu-profile"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-being-invited"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-description"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-toast"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resend"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-title"
+msgstr ""
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr ""
@@ -1979,6 +2007,10 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@managemembers-dropdown-pending"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
 msgstr ""
 
@@ -2174,6 +2206,26 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@privateGroup"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-bgcolor"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-character"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-select"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-image-editing"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-success"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
