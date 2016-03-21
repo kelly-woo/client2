@@ -1,9 +1,9 @@
 <div class="profile-image-change-content" dropdown dropdown-append-to-body>
   <div class="dropdown dropdown-toggle profile-image-change" dropdown-toggle>
-    <span translate>@common-edit</span>
+    <span>{{::'@common-edit'|translate}}</span>
   </div>
 
-  <ul class="dropdown-menu grey_dropdown profile-image-menu" role="menu">
+  <ul class="dropdown-menu grey_dropdown profile-image-menu {{::menuClass}}" role="menu">
     <li ng-click="onCropClick()">
       <a role="menuitem" tabindex="-1">
         <i class="icon-download"></i><span>{{::'@profile-upload-photo'|translate}}</span>

@@ -22,7 +22,9 @@
     </div>
     <div class="profile-image">
       <img ng-src="{{userProfileImage}}" />
-      <profile-image-menu ng-if="isMyself" on-profile-image-change="onProfileImageChange($dataURI)"></profile-image-menu>
+      <profile-image-menu ng-if="isMyself"
+                          on-profile-image-change="onProfileImageChange($dataURI)"
+                          menu-class="user-modal"></profile-image-menu>
     </div>
   </div>
   <i class="user-star cursor_pointer" ng-if="!isMyself" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"

@@ -19,8 +19,10 @@
       link: link
     };
 
-    function link(scope, el) {
+    function link(scope, el, attrs) {
       var _translate = $filter('translate');
+
+      var _menuClass = attrs.menuClass || '';
 
       _init();
 
@@ -29,6 +31,7 @@
        * @private
        */
       function _init() {
+        scope.menuClass = _menuClass;
         scope.onCropClick = onCropClick;
         scope.onCharacterClick = onCharacterClick;
       }

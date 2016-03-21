@@ -1,4 +1,6 @@
 .character-content {
+  width: 100%;
+  min-height: calc(100% - 150px);
   text-align: center;
 }
 
@@ -10,18 +12,15 @@
 }
 
 .character-content .character-body {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -340px;
-  margin-left: -324px;
+  margin-top: 150px;
+  margin-bottom: 150px;
 }
 
 /* 현재 캐릭터 이미지 데이터 뷰 */
 .character-view {
   display: inline-block;
-  width: 160px;
-  height: 160px;
+  width: 140px;
+  height: 140px;
   margin-top: 25px;
   border-radius: 50%;
   vertical-align: top;
@@ -36,12 +35,14 @@
 /* 캐릭터를 생성하는 툴의 헤더 타이틀 */
 .character-content .character-tools {
   display: inline-block;
-  width: 500px;
+  max-width: 500px;
+  min-width: 300px;
   margin-top: 25px;
   margin-left: 40px;
 }
 
 .character-content .tool-title {
+  clear: both;
   text-align: left;
   color: #666;
   font-size: 14px;
@@ -94,10 +95,6 @@
   background-color: #e1e1e1;
 }
 
-.character-content .character-images .tool-item:hover {
-  background-color: rgba(21, 74, 103, .55);
-}
-
 .character-content .tool-item i {
   position: absolute;
   top: 17px;
@@ -107,15 +104,23 @@
   display: none;
 }
 
+.character-content .tool-item .item-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  background-color: rgba(21, 74, 103, .55);
+}
+
 .character-content .tool-item.active {
   box-shadow: 0 0 0 3px #fff;
 }
 
-.character-content .character-images .tool-item.active {
-  background-color: rgba(21, 74, 103, .55);
-}
-
 .character-content .tool-item.active i {
+  display: block;
+}
+.character-content .character-images .tool-item:hover .item-bg,
+.character-content .character-images .tool-item.active .item-bg {
   display: block;
 }
 
