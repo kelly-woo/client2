@@ -780,6 +780,34 @@ msgstr "대화방으로 초대하기"
 msgid "@dm-menu-profile"
 msgstr "프로필 보기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-being-invited"
+msgstr "팀에 초대중인 멤버입니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel"
+msgstr "초대 취소"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-description"
+msgstr "초대를 취소할 경우 멤버 목록에서 삭제됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-title"
+msgstr "정말로 초대를 취소할까요?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-toast"
+msgstr "초대가 취소되었습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resend"
+msgstr "초대메일 재전송"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-title"
+msgstr "초대 메일을 다시 전송했습니다."
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr "정보 변경하기"
@@ -855,7 +883,9 @@ msgstr "외부 공유용 링크 삭제"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-desc"
-msgstr "이 파일 링크를 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
+msgstr ""
+"삭제 시 기존에 공유된 링크는 더 이상 사용할 수 없으며, 다시 링크를 생성할 경"
+"우에는 기존과는 다른 새로운 링크가 생성됩니다. 삭제하시겠습니까?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-msg"
@@ -1535,9 +1565,8 @@ msgid "@jnd-connect-19"
 msgstr "Trello"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@jnd-connect-190"
-msgstr "Trello"
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-191"
@@ -2098,6 +2127,10 @@ msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@managemembers-dropdown-pending"
+msgstr "초대중인 멤버"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
 msgstr "**진하게**"
 
@@ -2301,6 +2334,26 @@ msgstr "이메일이 성공적으로 발송되었습니다"
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "토픽 생성 "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-bgcolor"
+msgstr "색상"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-character"
+msgstr "캐릭터"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-select"
+msgstr "캐릭터 선택하기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-image-editing"
+msgstr "프로필 사진 편집"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-success"
+msgstr "프로필 사진이 성공적으로 수정되었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
@@ -3289,9 +3342,8 @@ msgid "@web-notification-body-other-team-post"
 msgstr "에 새 메시지가 도착했습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-other-team-pre"
-msgstr " "
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
@@ -3310,9 +3362,8 @@ msgid "@web-notification-body-topic-post"
 msgstr "님으로부터 새 메시지가 도착했습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-topic-pre"
-msgstr " "
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-file-share"
@@ -3548,9 +3599,6 @@ msgstr "수요일"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ 이메일 주소 추가"
-
-#~ msgid "@invitation-some-fail"
-#~ msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

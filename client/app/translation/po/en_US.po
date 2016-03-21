@@ -787,6 +787,34 @@ msgstr "Invite to a topic"
 msgid "@dm-menu-profile"
 msgstr "View Profile"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-being-invited"
+msgstr "This member is pending to join."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel"
+msgstr "Cancel invitation"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-description"
+msgstr "This member will be deleted from the member list."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-title"
+msgstr "Are you sure you want cancel invitation?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-toast"
+msgstr "Invatation has been canceled."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resend"
+msgstr "Resend invitation"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-title"
+msgstr "Another invitation has been sent."
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr "Edit Info"
@@ -967,7 +995,7 @@ msgstr "Organize your topics using folders!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@friday"
-msgstr ""
+msgstr "Friday"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -2104,6 +2132,10 @@ msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@managemembers-dropdown-pending"
+msgstr "Pending Member(s)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
 msgstr "**bold**"
 
@@ -2220,7 +2252,7 @@ msgstr "For searches by title"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@monday"
-msgstr ""
+msgstr "Monday"
 
 #: client/app/left/messages/messages.html
 msgid "@more-dm-list"
@@ -2310,6 +2342,26 @@ msgid "@privateGroup"
 msgstr "Private Topics"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-bgcolor"
+msgstr "Color"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-character"
+msgstr "Character"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-select"
+msgstr "Select a JANDI character"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-image-editing"
+msgstr "Profile Photo"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-success"
+msgstr "Profile photo has been updated successfully"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
 msgstr "Browse other topics"
 
@@ -2343,7 +2395,7 @@ msgstr "TOPIC NOT JOINED"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@saturday"
-msgstr ""
+msgstr "Saturday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@search-cond-reset"
@@ -2677,7 +2729,7 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sunday"
-msgstr ""
+msgstr "Sunday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-created"
@@ -2749,7 +2801,7 @@ msgstr "Switch Teams"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@thursday"
-msgstr ""
+msgstr "Thursday"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
@@ -2811,7 +2863,7 @@ msgstr "Edit Topic Info"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@tuesday"
-msgstr ""
+msgstr "Tuesday"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
@@ -3342,7 +3394,7 @@ msgstr "JANDI Message Received"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
-msgstr ""
+msgstr "Wednesday"
 
 #~ msgid "@topic-admin-transfer-kickout-confirm-2"
 #~ msgstr ""
@@ -3521,9 +3573,6 @@ msgstr ""
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ More"
-
-#~ msgid "@invitation-some-fail"
-#~ msgstr "Some invitations could not be sent."
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""
