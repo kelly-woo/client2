@@ -62,8 +62,8 @@
 }
 
 .full-screen-modal .full-screen-actions {
-  margin-top: 60px;
-  margin-bottom: 55px;
+  margin-top: 10px;
+  margin-bottom: 30px;
   width: 100%;
   text-align: center;
 }
@@ -74,5 +74,8 @@
   right: -10px;
   font-size: 16px;
   cursor: pointer;
-  color: #000;
+  color: #777;
+}
+.full-screen-modal .icon-delete:hover {
+  color: #333;
 }

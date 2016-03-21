@@ -8,19 +8,19 @@
   margin-top: 15px;
   font-size: 15px;
   color: #999;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .character-content .character-body {
-  margin-top: 150px;
-  margin-bottom: 150px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 /* 현재 캐릭터 이미지 데이터 뷰 */
 .character-view {
   display: inline-block;
-  width: 140px;
-  height: 140px;
+  width: 130px;
+  height: 130px;
   margin-top: 25px;
   border-radius: 50%;
   vertical-align: top;
@@ -52,21 +52,22 @@
 .character-content .tool-title i {
   margin-right: 3px;
   vertical-align: text-bottom;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .character-content .tool-title .icon-radius-rectangle {
   border: 1px solid #666;
-  border-radius: 3px;
-  width: 19px;
-  height: 19px;
+  border-radius: 8px;
+  width: 15px;
+  height: 15px;
   display: inline-block;
 }
 
 /* 캐릭터, 색상 툴의 리스트 */
 .character-content .tool-list {
-  margin-top: 20px;
-  height: 170px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  /*height: 170px;*/
 }
 .character-content .tool-list::after {
   content: "";
