@@ -60,6 +60,8 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
+      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -179,6 +181,19 @@
             $scope.message.content = '';
             //$scope.isSending = false;
           });
+      }
+    }
+
+    /**
+     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+     * @param {object} event
+     * @param {{event: object, member: object}} data
+     * @private
+     */
+    function _onUpdateMemberProfile(event, data) {
+      var member = data.member;
+      if ($scope.curUser.id === member.id) {
+        $scope.userProfileImage = memberService.getProfileImage(member.id, 'small');
       }
     }
 

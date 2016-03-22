@@ -8,11 +8,12 @@
     .module('jandiApp')
     .directive('profileImageMenu', profileImageMenu);
 
-  function profileImageMenu($filter, fileAPIservice, modalHelper, Dialog) {
+  function profileImageMenu($filter, JndUtil, Dialog, modalHelper) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
+        profileImageStatus: '=?',
         onProfileImageChange: '&'
       },
       templateUrl : 'app/util/directive/profile-image-menu/profile.image.menu.html',
@@ -42,7 +43,7 @@
       function onCropClick() {
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
-            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
+            var promise = JndUtil.getImageDataByFile(evt.target.files[0]);
             promise.then(_resolveImageData);
           })
           .trigger('click');

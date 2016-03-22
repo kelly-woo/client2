@@ -66,8 +66,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   this.getFilterTypePreviewMap = getFilterTypePreviewMap;
 
-  this.getImageDataByFile = getImageDataByFile;
-
   function _init() {
     Preloader.img(getFilterTypePreviewMap());
   }
@@ -508,32 +506,5 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
    */
   function getFilterTypePreviewMap() {
     return filterTypePreviewMap;
-  }
-
-  /**
-   * get image data
-   * @param {object} file
-   * @returns {deferred.promise|{then, always}}
-   */
-  function getImageDataByFile(file) {
-    var deferred = $q.defer();
-    var orientation;
-
-    if (file) {
-      loadImage.parseMetaData(file, function(data) {
-        if (data.exif) {
-          orientation = data.exif.get('Orientation');
-        }
-
-        loadImage(file, function(img) {
-          deferred.resolve(img);
-        }, {
-          canvas: true,
-          orientation: orientation
-        });
-      });
-    }
-
-    return deferred.promise;
   }
 });

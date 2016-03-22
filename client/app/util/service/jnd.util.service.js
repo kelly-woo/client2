@@ -8,13 +8,14 @@
     .module('jandiApp')
     .service('JndUtil', JndUtil);
 
-  function JndUtil(Dialog, $filter) {
+  function JndUtil($filter, $q, Dialog) {
     this.safeApply = safeApply;
     this.alertUnknownError = alertUnknownError;
     this.pick = pick;
     this.parseUrl = parseUrl;
     this.dataURItoBlob = dataURItoBlob;
     this.compareJSON = compareJSON;
+    this.getImageDataByFile = getImageDataByFile;
 
     /**
      * angular 의 $apply 를 안전하게 수행한다.
@@ -274,6 +275,33 @@
       }
 
       return true;
+    }
+  
+    /**
+     * get image data
+     * @param {object} file
+     * @returns {deferred.promise|{then, always}}
+     */
+    function getImageDataByFile(file) {
+      var deferred = $q.defer();
+      var orientation;
+    
+      if (file) {
+        loadImage.parseMetaData(file, function(data) {
+          if (data.exif) {
+            orientation = data.exif.get('Orientation');
+          }
+        
+          loadImage(file, function(img) {
+            deferred.resolve(img);
+          }, {
+            canvas: true,
+            orientation: orientation
+          });
+        });
+      }
+    
+      return deferred.promise;
     }
   }
 })();
