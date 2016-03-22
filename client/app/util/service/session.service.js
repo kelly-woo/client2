@@ -133,7 +133,13 @@
     }
 
     function getCurrentEntityId(isEntityId) {
-      return currentEntity && isEntityId ? currentEntity.entityId || currentEntity.id : currentEntity.id;
+      var entityId = currentEntity.id;
+      if (isEntityId) {
+        if (UserList.isExist(currentEntity.id)) {
+          entityId = UserList.get(currentEntity.id).entityId;
+        }
+      }
+      return entityId;
     }
 
     function setSocketConnection() {

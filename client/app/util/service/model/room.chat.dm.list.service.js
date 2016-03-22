@@ -49,7 +49,7 @@
       _extendMember: function (member, chatRoom) {
         _.each(chatRoom, function(value, name) {
           if (name !== 'id') {
-            member = value;
+            member[name] = value;
           }
         })
       }
