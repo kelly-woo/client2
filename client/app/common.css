@@ -855,7 +855,7 @@ input[type="button"] {
   line-height: 33px;
   height: 33px;
   cursor: pointer;
-  padding: 0 2rem 0 2.5rem;
+  padding: 0 15px 0 41px;
 }
 .dropdown-menu .font-size-sub-menu > li > .menu-item,
 .dropdown-menu .font-size-sub-menu > li > a {
@@ -895,9 +895,9 @@ input[type="button"] {
 }
 
 .grey_dropdown > li > a > i.icon-connect-circle {
-  font-size: 25px;
+  font-size: 23px;
   top: 7px;
-  left: .58rem;
+  left: 7px;
 }
 
 .grey_dropdown > li > .menu-item:hover,
