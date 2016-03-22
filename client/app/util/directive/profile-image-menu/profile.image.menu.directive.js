@@ -23,6 +23,7 @@
     function link(scope, el, attrs) {
       var _translate = $filter('translate');
 
+      var _buttonTextKey = attrs.buttonTextKey || '@btn-change';
       var _menuClass = attrs.menuClass || '';
 
       _init();
@@ -32,7 +33,9 @@
        * @private
        */
       function _init() {
+        scope.buttonText = _translate(_buttonTextKey);
         scope.menuClass = _menuClass;
+
         scope.onCropClick = onCropClick;
         scope.onCharacterClick = onCharacterClick;
       }

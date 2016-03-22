@@ -24,6 +24,7 @@
       <img ng-src="{{userProfileImage}}" />
       <profile-image-menu ng-if="isMyself"
                           on-profile-image-change="onProfileImageChange($dataURI)"
+                          button-text-key="@common-edit"
                           menu-class="user-modal"></profile-image-menu>
     </div>
   </div>
