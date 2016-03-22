@@ -1,0 +1,61 @@
+.jnd-dropdown-selectbox {
+  width: 100%;
+}
+
+.jnd-dropdown-selectbox .btn {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  color: #424C53;
+}
+
+.jnd-dropdown-selectbox .btn .icon {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+}
+.jnd-dropdown-selectbox .btn:hover {
+  color: #424C53;
+}
+
+.jnd-dropdown-selectbox.open .btn {
+  background-color: #E7E7E8;
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
+  border-color: #BDC0C2;
+}
+
+.jnd-dropdown-selectbox .dropdown-menu {
+  width: 100%;
+}
+
+.jnd-dropdown-selectbox .dropdown-menu-option {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.jnd-dropdown-selectbox .dropdown-menu-option:hover {
+  background-color: #f2fbff;
+}
+.jnd-dropdown-selectbox .option-sound {
+  float: right;
+  height: 32px;
+  margin-top: -.5em;
+}
+
+.jnd-dropdown-selectbox .option-sound i {
+  display: block;
+  padding: 5px 10px 5px 10px;
+  margin-top: 3px;
+  line-height: 13px;
+  border-radius: 15px;
+  background-color: rgba(21,74,103,.1);
+  color: #154a67;
+}
+
+.jnd-dropdown-selectbox .option-sound i:hover {
+  background-color: rgba(21,74,103,.24);
+}
+

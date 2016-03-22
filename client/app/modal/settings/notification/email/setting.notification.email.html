@@ -1,0 +1,22 @@
+<div class="notification-setting-email" >
+  <div class="notification-role">
+    <div class="notification-role-header">{{::'@이메일 알림'|translate}}</div>
+    <div class="notification-role-body">{{::'@이메일 알림 어쩌고'|translate}}</div>
+    <div class="notification-switch">
+      <switch-button is-active="isOn"
+                     toggle="onNotificationToggle($value)"></switch-button>
+    </div>
+    <div class="notification-image">
+      <img src="assets/images/email_notification_m.png">
+    </div>
+    <div>
+      이메일 알림을 어쩌구 어쩌구 에 받
+    </div>
+  </div>
+  <div class="setting">
+    이메일 알림을
+    <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationFrequencyList" value="data.notificationFrequency" on-select="onChange()"></jnd-dropdown-selectbox>
+    <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationHourList" value="data.notificationHour" on-select="onChange()"></jnd-dropdown-selectbox>
+    에 받기
+  </div>
+</div>

@@ -401,7 +401,7 @@
     function openNotificationSettingModal($scope) {
       var modalOption = {
         scope: $scope,
-        controller: 'NotificationCtrl',
+        controller: 'SettingNotificationCtrl',
         templateUrl: 'app/modal/settings/notification/setting.notification.html'
       };
 
