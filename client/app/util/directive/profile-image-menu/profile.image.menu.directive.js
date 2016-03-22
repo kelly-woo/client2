@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('profileImageMenu', profileImageMenu);
 
-  function profileImageMenu($filter, JndUtil, Dialog, modalHelper) {
+  function profileImageMenu($modal, $filter, JndUtil, Dialog) {
     return {
       restrict: 'E',
       replace: true,
@@ -64,7 +64,7 @@
             scope.isSelectedImage = true;
             scope.imageData = img.toDataURL('image/jpeg');
 
-            modalHelper.openProfileImageModal(scope, {
+            _openProfileImageModal({
               type: 'crop',
               imageData: scope.imageData,
               onProfileImageChange: _onProfileImageChange
@@ -77,7 +77,7 @@
        * character 생성 선택 이벤트 핸들러
        */
       function onCharacterClick() {
-        modalHelper.openProfileImageModal(scope, {
+        _openProfileImageModal({
           type: 'character',
           onProfileImageChange: _onProfileImageChange
         });
@@ -91,6 +91,28 @@
       function _onProfileImageChange(dataURI) {
         scope.onProfileImageChange({
           $dataURI: dataURI
+        });
+      }
+
+      /**
+       * profile image를 변경하는 모달창 열림.
+       * @param {object} options
+       *  @param {string} options.type - 모달의 타입. 'crop'이면 image crop이고 'character'면 character 조합.
+       *  @param {function} options.onProfileImageChange - change callback 함수.
+       *  @param {string} [options.imageData] - 타입이 'crop'일때 crop할 imageData
+       * @returns {Object}
+       */
+      function _openProfileImageModal(options) {
+        $modal.open({
+          scope: scope.$new(),
+          templateUrl: 'app/modal/members/profile-image/profile.image.html',
+          controller: 'ProfileImageCtrl',
+          windowClass: 'full-screen-modal profile-image-modal',
+          resolve: {
+            options: function() {
+              return options;
+            }
+          }
         });
       }
     }
