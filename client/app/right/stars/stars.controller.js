@@ -90,7 +90,7 @@
       $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
 
       // delete message/file
-      $scope.$on('topicMessageDelete', _topicMessageDelete);
+      $scope.$on('jndWebSocketMessage:topicMessageDelete', _topicMessageDelete);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
     }
 
