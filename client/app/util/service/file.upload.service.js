@@ -3,13 +3,15 @@
 
   angular
       .module('jandiApp')
-      .factory('FilesUploadCreator', FilesUploadCreator);
+      .service('FilesUploadFactory', FilesUploadFactory);
 
   /**
    * File upload service
    */
   /* @ngInject */
-  function FilesUploadCreator($rootScope, fileAPIservice, fileObjectService) {
+  function FilesUploadFactory($rootScope, fileAPIservice, fileObjectService) {
+    var that = this;
+
     /**
      * fileAPIservice를 사용하여 file을 upload 함.
      * confirm 그리고 sequence type upload를 제공하기 위해 service로 구현함.
@@ -378,10 +380,10 @@
       }
     };
 
-    return {
-      createInstance: function(fileObject, options) {
-        return Object.create(FilesUpload).init(fileObject, options);
-      }
-    };
+    that.createInstance = createInstance;
+
+    function createInstance(fileObject, options) {
+      return Object.create(FilesUpload).init(fileObject, options);
+    }
   }
 }());

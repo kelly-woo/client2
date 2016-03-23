@@ -1,36 +1,100 @@
 .team-switch-container {
+  color: white;
+  background-color: #366480;
+}
+.team-switch-container:hover,
+.team-switch-container.open {
+	
+  background-color: #2B5C79;
+}
+
+/* team switch dropdown toggle button */
+.lpanel-user .lpanel-user__team {
+  padding: 9px 35px 9px 15px;
+}
+
+.lpanel-user .lpanel-user__user {
+  padding: 8px 15px;
+  background-color: #f1f4f8;
+  border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.lpanel-user__team {
+  height: 35px;
+  line-height: 1;
+}
+.lpanel-user__team .icon {
+  font-size: 16px;
+  vertical-align: text-top;
+}
+
+.lpanel-user__team .team-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.team-switch-container.open .team-switch-button i {
+  opacity: 1;
+}
+
+.team-switch-button {
   position: absolute;
   right: 12px;
-  top: 10px;
+  top: 9px;
   z-index:600;
 }
-.team-switch-container i{
-  font-size: 16px;
+.team-switch-button i{
+  font-size: 17px;
   opacity: 0.7;
 }
-.team-switch-container i.open {
+.team-switch-button i:hover,
+.team-switch-container:hover .team-switch-button i {
   opacity: 1;
 }
 
-.team-switch-container i:hover{
-  opacity: 1;
+.team-switch-button .dot {
+  position: absolute;
+  left: 10px;
+  top: -1px;
+  width: 9px;
+  height: 9px;
+  background-color: #e63939;
+  border: 2px solid #366480;
+  border-radius: 100%;
+}
+.team-switch-container:hover .team-switch-button .dot,
+.team-switch-container.open .team-switch-button .dot {
+  border-color:#2B5C79;
 }
 
+.team-switch-button .ng-hide-animate.ng-hide {
+  opacity: 0;
+}
+
+/* team switch dropdown menu */
 .team-switch-container ul {
   background: #366480;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
   display: none;
-  top: 25px;
+  top: 35px;
   right: -12px;
   width: 240px;
   /*border: 1px solid black;*/
-  padding: 4px 0 5px 0;
+  padding: 0 !important;
   margin: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  
+  -webkit-transition: padding ease-out 0.45s;
+  transition: padding ease-out 0.45s;
+}
+.team-switch-container.open ul {
+  padding: 4px 0 5px 0 !important;
 }
 
 .team-switch-container li {
@@ -48,7 +112,11 @@
 .team-switch-container ul li .badge {
   float: right;
 }
-.team-switch-badge {
+.team-list .team-name {
+  display: inline-block;
+  max-width: 162px;
+}
+.team-list .team-badge {
   color: white;
   max-width: 100px;
   min-width: 26px;

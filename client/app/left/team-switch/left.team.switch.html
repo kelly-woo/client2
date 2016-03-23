@@ -1,15 +1,23 @@
-<div class="team-switch-container" ng-show="teamList.length > 1">
-  <!-- icon-->
-  <i class="team-switch icon-switch jnd-cursor-pointer _button"></i>
+<div class="team-switch-container" ng-class="{'jnd-cursor-pointer': hasOtherTeam}" dropdown is-open="isOpen">
+  <div class="dropdown dropdown-toggle lpanel-user__team overflow-ellipsis" dropdown-toggle>
+    <span class="team-name private-effect white">{{team|getName}}</span>
+    <div class="team-switch-button" ng-show="hasOtherTeam">
+      <!-- icon-->
+      <i class="team-switch icon-switch"
+         tooltip="{{::'@team-switch' | translate}}"
+         tooltip-placement="bottom" 
+         tooltip-append-to-body="true"></i>
+      <div class="dot" ng-class="{'blink': hasBlink}" ng-show="hasBadge"></div>
+    </div>
+  </div>
   <!-- team list -->
-  <ul class="team-list _list">
-    <li class="team jnd-cursor-pointer"
+  <ul class="dropdown-menu team-list _list" dropdown-menu ng-show="hasOtherTeam">
+    <li class="team-item"
         ng-click="go(team)"
         ng-if="currentTeamId !== team.teamId"
         ng-repeat="team in teamList | orderBy: ['-extHasUnread', 'name'] track by team.teamId">
-      <span class=""></span>
-      <span class="">{{team.name}}</span>
-      <span ng-if="team.unread" class="badge red_badge team-switch-badge">{{team.unread}}</span>
+      <span class="team-name overflow-ellipsis">{{team.name}}</span>
+      <span class="team-badge badge red_badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
     </li>
   </ul>
 </div>

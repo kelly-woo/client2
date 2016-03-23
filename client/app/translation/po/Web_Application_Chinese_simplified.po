@@ -10,6 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Bookmarks: -1,71,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -357,7 +358,7 @@ msgstr "这个议题名称已经被使用。请选择另外一个。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-edit"
-msgstr "提交"
+msgstr "编辑"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -2321,8 +2322,9 @@ msgstr "仅接收私信和@提及通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
 msgstr ""
-"你已关闭电脑版的推播通知。 欲重启推播，请点击此<a href=\"http://bit."
-"ly/1RZu5g4\" target=\"_blank\">文章</a>浏览开启步骤。"
+"你已关闭电脑版的推播通知。 欲重启推播，请点击此<a href=\"https://jandi."
+"zendesk.com/hc/zh-cn/articles/208379643\" target=\"_blank\">文章</a>浏览开启"
+"步骤。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-preview-all"
@@ -2666,6 +2668,28 @@ msgstr "星期四"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
 msgstr "回到账号首页"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-adminleave-confirm"
+msgstr "你可于离开议题前转移管理权限"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-confirm"
+msgstr "你确定将议题管理权限转移至此成员？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-kickout-confirm"
+msgstr "此成员为议题管理员，需先将权限转移至其他成员才可剔除此成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-toast"
+msgstr "议题管理权限已成功转移"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@topic-admin-transfer-tooltip"
+msgstr ""
+"议题管理员权限为下：- 更改议题名称和信息- 删除议题- 剔除议题成员- 暂停/删除"
+"JANDI Connect聚合项目"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
@@ -3185,6 +3209,9 @@ msgstr "JANDI 新信息"
 msgid "@wednesday"
 msgstr "星期三"
 
+#~ msgid "@topic-admin-transfer-kickout-confirm-2"
+#~ msgstr "此成员为议题管理员，需先将权限转移至其他成员才可剔除此成员"
+
 #~ msgid "@file-upload-fail"
 #~ msgstr "请重试一次"
 
@@ -3423,9 +3450,6 @@ msgstr "星期三"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改团队名称"
-
-#~ msgid "@setting-team-name-confirm"
-#~ msgstr "您确定您要更改您团队的名称？"
 
 #~ msgid "@setting-team-name-msg"
 #~ msgstr "您的团队名称会显示在不同的标题和浏览器标签上。"
