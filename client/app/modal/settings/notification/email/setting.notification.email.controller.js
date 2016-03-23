@@ -10,7 +10,7 @@
     .controller('SettingNotificationEmailCtrl', SettingNotificationEmailCtrl);
 
   /* @ngInject */
-  function SettingNotificationEmailCtrl($scope, $timeout, SettingNotificationEmailApi) {
+  function SettingNotificationEmailCtrl($scope, $timeout, $filter, SettingNotificationEmailApi) {
     /**
      * request 최소화를 위한 delay time
      * @type {number}
@@ -23,6 +23,8 @@
      */
     var _timer;
 
+    var _translate = $filter('translate');
+
     $scope.isOn = true;
     $scope.data = {
       status: 'enabled',
@@ -31,43 +33,69 @@
     };
     $scope.notificationFrequencyList = [
       {
-        text: '매 시 정각',
+        text: _translate('@common-hourly'),
         value: 'hourly'
       },
       {
-        text: '매일',
+        text: _translate('@common-daily'),
         value: 'daily'
       },
       {
-        text: '매주 월요일',
+        text: _getFullDayText('@jnd-connect-90'),
         value: 'everyMonday'
       },
       {
-        text: '매주 화요일',
+        text: _getFullDayText('@jnd-connect-91'),
         value: 'everyTuesday'
       },
       {
-        text: '매주 수요일',
+        text: _getFullDayText('@jnd-connect-92'),
         value: 'everyWednesday'
       },
       {
-        text: '매주 목요일',
+        text: _getFullDayText('@jnd-connect-93'),
         value: 'everyThursday'
       },
       {
-        text: '매주 금요일',
+        text: _getFullDayText('@jnd-connect-94'),
         value: 'everyFriday'
       },
       {
-        text: '매주 토요일',
+        text: _getFullDayText('@jnd-connect-95'),
         value: 'everySaturday'
       },
       {
-        text: '매주 일요일',
+        text: _getFullDayText('@jnd-connect-96'),
         value: 'everySunday'
       }
     ];
-    $scope.notificationHourList = [];
+    $scope.notificationHourList =  [
+      {text: _translate('@jnd-connect-58'), value: 24},
+      {text: _translate('@jnd-connect-59'), value: 1},
+      {text: _translate('@jnd-connect-60'), value: 2},
+      {text: _translate('@jnd-connect-61'), value: 3},
+      {text: _translate('@jnd-connect-62'), value: 4},
+      {text: _translate('@jnd-connect-63'), value: 5},
+      {text: _translate('@jnd-connect-64'), value: 6},
+      {text: _translate('@jnd-connect-65'), value: 7},
+      {text: _translate('@jnd-connect-66'), value: 8},
+      {text: _translate('@jnd-connect-67'), value: 9},
+      {text: _translate('@jnd-connect-68'), value: 10},
+      {text: _translate('@jnd-connect-69'), value: 11},
+      {text: _translate('@jnd-connect-70'), value: 12},
+      {text: _translate('@jnd-connect-71'), value: 13},
+      {text: _translate('@jnd-connect-72'), value: 14},
+      {text: _translate('@jnd-connect-73'), value: 15},
+      {text: _translate('@jnd-connect-74'), value: 16},
+      {text: _translate('@jnd-connect-75'), value: 17},
+      {text: _translate('@jnd-connect-76'), value: 18},
+      {text: _translate('@jnd-connect-77'), value: 19},
+      {text: _translate('@jnd-connect-78'), value: 20},
+      {text: _translate('@jnd-connect-79'), value: 21},
+      {text: _translate('@jnd-connect-80'), value: 22},
+      {text: _translate('@jnd-connect-81'), value: 23}
+    ];
+
     $scope.setting = {
       on: true
     };
@@ -82,7 +110,6 @@
      * @private
      */
     function _init() {
-      _initNotificationHourList();
       _attachScopeEvents();
       SettingNotificationEmailApi.get().then(_onSuccessGetSetting, _onErrorGetSetting);
     }
@@ -161,23 +188,6 @@
     }
 
     /**
-     * 알림 시간 목록을 초기화 한다
-     * @private
-     */
-    function _initNotificationHourList() {
-      var i = 0;
-      var text;
-      for(; i < 24; i++) {
-        text = i < 10 ? '0' + i : i;
-        text += ':00';
-        $scope.notificationHourList.push({
-          text: text,
-          value: i
-        });
-      }
-    }
-
-    /**
      * onOff 값을 설정한다.
      * @param {boolean} isOn
      * @private
@@ -185,6 +195,16 @@
     function _setOnOff(isOn) {
       $scope.isOn = isOn;
       $scope.data.status = isOn ? 'enabled' : 'disabled';
+    }
+
+    /**
+     * "매주 x요일" 이라는 text 를 반환한다.
+     * @param {string} dayKey - L10N 키 값
+    * @returns {string}
+     * @private
+     */
+    function _getFullDayText(dayKey) {
+      return _translate('@jnd-connect-88') + ' '+ _translate(dayKey);
     }
   }
 })();
