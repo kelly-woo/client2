@@ -28,6 +28,16 @@
         return _.filter(this.toJSON(true), function(user) {
           return user.status == 'enabled';
         });
+      },
+
+      /**
+       * userId 에 해당하는 chatRoom id 를 반환한다.
+       * @param {number|string} userId
+       * @returns {*}
+       */
+      getChatRoomId: function(userId) {
+        var user = this.get(userId);
+        return CoreUtil.pick(user, 'entityId');
       }
     });
 

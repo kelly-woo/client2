@@ -11,7 +11,7 @@
   function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
                              fileAPIservice, analyticsService, publicService, UserList,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel, jndPubSub, RoomTopicList) {
+                             TopicFolderModel, jndPubSub, RoomTopicList, RoomChatDmList) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -286,7 +286,7 @@
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = RoomTopicList.get(data.room.id, true);
+        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
         if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
           result = true;
         }

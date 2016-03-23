@@ -11,7 +11,7 @@
     .service('currentSessionHelper', currentSessionHelper);
 
   /* @ngInject */
-  function currentSessionHelper($state, UserList) {
+  function currentSessionHelper($state, UserList, BotList) {
     var currentTeam;
     var currentEntity;
     var currentTeamAdmin;
@@ -137,6 +137,10 @@
       if (isEntityId) {
         if (UserList.isExist(currentEntity.id)) {
           entityId = UserList.get(currentEntity.id).entityId;
+        }
+
+        if (BotList.isExist(currentEntity.id)) {
+          entityId = BotList.get(currentEntity.id).entityId;
         }
       }
       return entityId;

@@ -41,6 +41,16 @@
       },
 
       /**
+       * 해당 chat room 의 member 를 반환한다.
+       * @param {string|number} id
+       * @returns {*}
+       */
+      getMember: function(id) {
+        var room = this.get(id);
+        return CoreUtil.pick(room, 'extMember');
+      },
+
+      /**
        * center 진입 시 unread-bookmark 를 위한 lastMessageId 를 위해 chatRoom 의 attributes 를 member 에 extend 한다.
        * @param {object} member
        * @param {object} chatRoom
