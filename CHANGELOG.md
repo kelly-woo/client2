@@ -1,3 +1,27 @@
+<a name="1.20.0"></a>
+# [1.20.0](https://github.com/tosslab/web_client/compare/v1.19.0...v1.20.0) (2016-03-23)
+
+
+### Bug Fixes
+
+* **auth:** refresh token 으로 갱신 시도 시 오류 발생하여 진입이 멈추는 현상 수정 ([67821a0](https://github.com/tosslab/web_client/commit/67821a0))
+* **center:** 메시지 두번 나타나는 증상 다시 처리 ([980e389](https://github.com/tosslab/web_client/commit/980e389))
+* **center:** 메시지 두번 나타나는 증상 다시 처리 ([028bc04](https://github.com/tosslab/web_client/commit/028bc04))
+* **css:** 튜토리얼 v3의 팝오버, 툴팁이 커넥트 화면 위로 올라오는 이슈 수정. ([dd13160](https://github.com/tosslab/web_client/commit/dd13160))
+* **jump:** 점포 모달에서 키보드 액션 에러 수정 ([d38e304](https://github.com/tosslab/web_client/commit/d38e304))
+* **mention:** 업로드 모달에서 멘션 form에 연속 입력이 가능하도록 빈 칸이 생성되지 않는 버그 수정 ([ea4b3b9](https://github.com/tosslab/web_client/commit/ea4b3b9))
+* **socket:** 토픽 참여시 system message 가 즉시 표시되지 않는 현상 해결 ([3ac8732](https://github.com/tosslab/web_client/commit/3ac8732))
+* **stringEscape:** escape 문자열이 바로 보이는 버그 수정 ([d4a3639](https://github.com/tosslab/web_client/commit/d4a3639))
+* **튜토리얼:** 영문 congratulations 에 username 노출하도록 수정 ([efceac5](https://github.com/tosslab/web_client/commit/efceac5))
+
+### Features
+
+* **profileImage:** 프로필 모달에 사용되는 이미지 사이즈 80px -> 360px로 변경 ([5d6313f](https://github.com/tosslab/web_client/commit/5d6313f))
+* **teamSwitch:** 팀 전환 드롭다운 개선 & 기존 모달 대체 ([4a00932](https://github.com/tosslab/web_client/commit/4a00932))
+* **topicAdmin:** 토픽 관리자 지정하기 ([f34ca03](https://github.com/tosslab/web_client/commit/f34ca03))
+
+
+
 <a name="1.19.0"></a>
 # [1.19.0](https://github.com/tosslab/web_client/compare/v1.18.0...v1.19.0) (2016-03-16)
 
