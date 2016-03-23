@@ -78,7 +78,8 @@
         'reconnection': true,
         'reconnectionDelay': 3000,
         'reconnectionDelayMax': 3000,
-        'timeout': 1000
+        'timeout': 1000,
+        'transports' : ["websocket"]
       });
       socket = socketFactory({
         prefix: '_jnd_socket:',

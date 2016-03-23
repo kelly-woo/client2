@@ -1,6 +1,7 @@
 {
   "name"                   : "development",
   "path"                   : "app/",
+  "domain"                 : "jandi.xyz",
   "api_address"            : "http://i1.jandi.xyz/",
   "api_connect_address"    : "http://i1.jandi.xyz/connect-api/",
   "socket_address"         : "http://ws.jandi.xyz/",
