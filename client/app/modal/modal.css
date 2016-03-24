@@ -691,16 +691,15 @@
 .send-invite:active {
   color: #fff;
 }
-.send-invite.disabled {
+.send-invite.disabled,
+.send-invite.disabled:focus,
+.send-invite.disabled:hover,
+.send-invite.disabled:active  {
   color: white;
   background-color: #ccc;
   cursor: not-allowed;
 }
-.send-invite.disabled:focus,
-.send-invite.disabled:hover,
-.send-invite.disabled:active {
-  color: #999;
-}
+
 
 /*
     MODAL TAB HEADER
