@@ -1,25 +1,12 @@
-.rpanel-message-search .advanced-search-option__category {
+.rpanel-body.message-list .advanced-search-option__category {
   width: 188px;
 }
 
-.rpanel-message-search .search-status-container {
-  color: #999999;
-  font-size: 14px;
-}
-.rpanel-message-search .search-status-container .search-result-summary,
-.rpanel-message-search .search-status-container .search-result-summary-ing {
-  padding: 13px 17px 13px 40px;
-  border-bottom: 1px solid #e1e1e1;
-  display: block;
-}
-.rpanel-message-search .search-status-container .search-result-summary {
-  padding-left: 16px;
-}
 .searchQueryKeyword {
   color: #333333;
 }
 
-.rpanel-message-search  .no-search-input-container {
+.rpanel-body.message-list  .no-search-input-container {
   margin-top: 67px;
   text-align: center;
   cursor: pointer;
@@ -28,7 +15,7 @@
   text-decoration: underline;
 }
 
-.rpanel-message-search  .no-search-input-container .icon-search {
+.rpanel-body.message-list  .no-search-input-container .icon-search {
   width: 65px;
 }
 .rpanel-alert-msg-container {

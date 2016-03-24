@@ -1,6 +1,6 @@
 <div class="rpanel-body file-list">
   <!-- SEARCH QUERY -->
-  <right-search></right-search>
+  <!--<right-search></right-search>-->
 
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
@@ -39,13 +39,10 @@
 
   <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
     <div class="search-result-container">
-      <div class="search-result-summary-ing" ng-if="isLoading">
-        <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-        <span translate>@search-in-progress</span>
-      </div>
-      <div class="search-result-summary" ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty">
-        <span translate>@search-result-summary</span>
-      </div>
+      <loading-search-progress search-status="searchStatus"
+                               ng-if="isLoading"></loading-search-progress>
+      <loading-search-result search-status="searchStatus"
+                             ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty"></loading-search-result>
     </div>
 
     <div class="file-list infinite-scroll-bottom-list">
@@ -56,19 +53,15 @@
           <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
             <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
             <span>{{::'@alert-empty-file-search'|translate}}</span>
-          <span ng-if="!isSearchQueryEmpty">:
-            <span class="searchQuery">{{ fileRequest.keyword }}</span>
-          </span>
+            <span ng-if="!isSearchQueryEmpty">:
+              <span class="searchQuery">{{ fileRequest.keyword }}</span>
+            </span>
           </div>
         </div>
       </div>
       <right-file file-data="file" file-type="fileType" class="private-effect" ng-repeat="file in fileList track by file.id"></right-file>
-
       <right-loading-list ng-if="isScrollLoading && fileList.length > 0"></right-loading-list>
-
-      <div class="end-of-list" ng-if="isEndOfList">
-        <div class="end-of-list-dot"></div>
-      </div>
+      <right-end-of-list ng-if="isEndOfList"></right-end-of-list>
     </div>
   </div>
 </div>

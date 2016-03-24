@@ -14,14 +14,6 @@
                    message-type="messageType"
                    ng-repeat="record in records"></right-message>
   </div>
-  <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
-  <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">
-    <div class="loading_container_background scroll_loading_container_background"></div>
-    <div class="loading_bar scroll_loading_bar">
-      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-    </div>
-  </div>
-  <div class="end-of-list" ng-if="isEndOfList">
-    <div class="end-of-list-dot"></div>
-  </div>
+  <right-loading-list  ng-if="isScrollLoading && records.length > 0"></right-loading-list>
+  <right-end-of-list  ng-if="isEndOfList"></right-end-of-list>
 </div>

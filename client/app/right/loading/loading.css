@@ -1,14 +1,31 @@
-.rpanel-body .search-result-container .search-result-summary-ing > span {
+.search-result-container .search-result-summary-ing > span {
   display: inline-block;
 }
 
-.rpanel-body .search-result-container .search-result-summary-ing .loading_bar {
+.search-result-container .search-result-summary-ing .loading_bar {
   display: inline-block;
   top:14px;
   left:-12px;
 }
 
-.scroll_loading_bar {
+.search-result-container .search-result-summary-ing,
+.search-result-container .search-result-summary {
+  margin: 13px 0 13px 40px;
+  padding-top:0px;
+  padding-bottom:1px;
+}
+.search-result-container .search-result-summary {
+  margin-left: 16px;
+}
+.search-result-container .search-result-summary-ing .three-quarters-loader {
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 16px;
+  height: 16px;
+}
+
+.loading_bar.scroll {
   left: auto;
   margin: 15px auto !important;
 }

@@ -1363,7 +1363,6 @@ input[type="radio"] {
 .blurred .modal-dialog,
 .blurred .modal-dialog *:not([placeholder]),
 .blurred .advanced-search-option__title *,
-.blurred .search-status-container *,
 .blurred .search-result-container *,
 .blurred .infinite-scroll-bottom-list *,
 .blurred .rpanel-alert-msg-container *,
