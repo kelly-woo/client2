@@ -855,7 +855,7 @@ input[type="button"] {
   line-height: 33px;
   height: 33px;
   cursor: pointer;
-  padding: 0 1.5rem 0 3rem;
+  padding: 0 15px 0 41px;
 }
 .dropdown-menu .font-size-sub-menu > li > .menu-item,
 .dropdown-menu .font-size-sub-menu > li > a {
@@ -887,7 +887,7 @@ input[type="button"] {
 .green_dropdown > li > a > i {
   position: absolute;
   top: 6px;
-  left: 0.6rem;
+  left: 0.45rem;
   width: 2rem;
   text-align: center;
   font-size: 16px;
@@ -895,9 +895,9 @@ input[type="button"] {
 }
 
 .grey_dropdown > li > a > i.icon-connect-circle {
-  font-size: 25px;
+  font-size: 23px;
   top: 7px;
-  left: .58rem;
+  left: 7px;
 }
 
 .grey_dropdown > li > .menu-item:hover,

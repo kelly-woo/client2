@@ -783,6 +783,34 @@ msgstr "このメンバーを別のチャットに招待する"
 msgid "@dm-menu-profile"
 msgstr "プロファイルを表示する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-being-invited"
+msgstr "チームに招待中のユーザーです。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel"
+msgstr "招待をキャンセル"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-description"
+msgstr "招待をキャンセルするとメンバーリストから削除されます"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-title"
+msgstr "本当にい招待をキャンセルしますか?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-toast"
+msgstr "招待がキャンセルされました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resend"
+msgstr "招待メールを再発信"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-title"
+msgstr "メールでもう一度招待しました"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr "トピック情報を変更"
@@ -1090,13 +1118,13 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jandi-bot-role"
-msgstr "こんにちは、ミスターJと言います。"
-
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@jandi-bot-status"
 msgstr ""
 "僕はJANDIの利用中必ず必要なメッセージや、JANDIコネクトのメッセージをお送りし"
 "ます。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@jandi-bot-status"
+msgstr "こんにちは、ミスターJと言います。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@jnd-connect-1"
@@ -2102,6 +2130,10 @@ msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@managemembers-dropdown-pending"
+msgstr "招待中のメンバー"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
 msgstr "**ボールド体**"
 
@@ -2308,6 +2340,30 @@ msgstr "メールが送信されました"
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "プライベートグループ "
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-bgcolor"
+msgstr "色"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-character"
+msgstr "キャラクター"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-select"
+msgstr "キャラクターを選択"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-image-editing"
+msgstr "プロフィール写真を編集"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-success"
+msgstr "プロフィール画像は正常に更新されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-upload-photo"
+msgstr "写真を選択"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
@@ -3292,9 +3348,8 @@ msgid "@web-notification-body-other-team-post"
 msgstr "に新規メッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-other-team-pre"
-msgstr " "
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-private-topic-invited"
@@ -3354,9 +3409,6 @@ msgstr "水曜日"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ さらに追加"
-
-#~ msgid "@invitation-some-fail"
-#~ msgstr "いくつかの招待が送信されませんでした"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

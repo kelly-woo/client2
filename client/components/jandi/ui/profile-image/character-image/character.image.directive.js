@@ -15,7 +15,7 @@
       scope: {
         imageData: '='
       },
-      templateUrl : 'app/modal/members/profile-image/character-image/character.image.html',
+      templateUrl : 'components/jandi/ui/profile-image/character-image/character.image.html',
       link: link
     };
 
@@ -89,9 +89,9 @@
         CharacterImage.getCROSImage(character)
           .then(function(image) {
             _context.fillStyle = background;
-            _context.fillRect(0, 0, 160, 160);
+            _context.fillRect(0, 0, 130, 130);
 
-            _context.drawImage(image, 0, 0, 160, 160);
+            _context.drawImage(image, 0, 0, 130, 130);
 
             scope.imageData.value = _jqCanvas[0].toDataURL();
           });

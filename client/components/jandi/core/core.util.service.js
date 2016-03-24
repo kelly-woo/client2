@@ -20,6 +20,7 @@
     this.pick = pick;
     this.parseUrl = parseUrl;
     this.dataURItoBlob = dataURItoBlob;
+    this.blobToDataURI = blobToDataURI;
     this.compareJSON = compareJSON;
 
     /**
@@ -110,6 +111,18 @@
       return new Blob([ab],{type: 'image/png'});
     }
 
+    /**
+     * blob 에서 dataURI로 변경함.
+     * @param {object} blob
+     * @param {function} callback
+     */
+    function blobToDataURI(blob, callback) {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        callback(e.target.result);
+      };
+      fileReader.readAsDataURL(blob);
+    }
 
     /**
      * Return the equality for multiple objects(jsonObjects).<br>
