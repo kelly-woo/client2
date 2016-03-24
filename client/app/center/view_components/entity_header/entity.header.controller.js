@@ -59,7 +59,7 @@
         _initWithParam(_currentEntity);
         _attachEventListeners();
       } else {
-        $scope.$on('dataInitDone', _init);
+        $scope.$on('publicService:dataInitDone', _init);
       }
     }
 

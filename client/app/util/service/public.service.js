@@ -204,7 +204,7 @@
     function setInitDone() {
       if (!_isInit) {
         _isInit = true;
-        jndPubSub.pub('dataInitDone');
+        jndPubSub.pub('publicService:dataInitDone');
       }
     }
 
