@@ -28,8 +28,7 @@
         <div invite-emails invite-emails-model="emails" on-change-invite-list="setInviteBtnText($list)" active="isInviteDone" ></div>
         <button class="send-invite invite-btn cursor_pointer btn-ok btn _modalSubmit"
                 id="team-invite-btn"
-                ng-click="send();"
-                ng-mouseenter="onMouseEnter()"></button>
+                ng-click="send();"></button>
       </div>
       <div class="invite-done ng-hide" ng-show="isInviteDone">
         <img ng-src="{{::doneImage}}">
