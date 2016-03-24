@@ -47,7 +47,9 @@ module.exports = function(config) {
       'client/bower_components/handlebars/handlebars.js',
 
       'client/components/jandi/core/core.js',
-      'client/components/jandi/**/*.js',
+      'client/components/jandi/ui/profile-image/profile.image.js',
+      'client/components/jandi/jandi.framework.js',
+
       'client/components/config/common/**/*.js',
 
       'client/components/config/config.framework.js',

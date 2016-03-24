@@ -8,7 +8,10 @@
   angular
     .module('jandi.ui.profileImage', [
       'ui.bootstrap',
-      'jandi.core'
+      'jandiApp',
+      'jandi.core',
+      'jandi.config',
+      'jandi.ui.dialog'
     ])
     .run(run)
     .config(config);
