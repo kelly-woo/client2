@@ -3,7 +3,7 @@
     <i class="icon-search"></i>
   </span>
   <div class="rpanel-search-select-all-container" ng-click="resetQuery($event);"
-       tooltip="{{::'@search-cond-reset' | translate}}"
+       tooltip="{{::'@search-cond-reset'|translate}}"
        tooltip-placement="top"
        tooltip-class="rpanel-search-btn-tooltip">
 	<i class="icon-refresh"></i>
@@ -13,8 +13,4 @@
          class="form-control rpanel-body-search__input search-input"
          placeholder="{{::placeholder}}"
          ng-disabled="!isConnected"/>
-  <div ng-if="false">
-    <span translate>@search-minimum-query-length</span>
-  </div>
 </div>
-

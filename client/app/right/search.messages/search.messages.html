@@ -4,45 +4,36 @@
     <!--   장소  -->
     <div class="advanced-search-option__category">
       <div class="advanced-search-option__title">
-        <span translate>@common-entity-location</span>
+        <span>{{::'@common-entity-location'|translate}}</span>
       </div>
       <jnd-selectbox-room jnd-data-model="messageLocationId"
                           jnd-has-all="yes"
                           jnd-has-disabled="yes"></jnd-selectbox-room>
-      <!--<select class="_chatRoomOptions"-->
-              <!--ng-model="messageLocation"-->
-              <!--ng-options="channel as channel|getName group by channel.extGroupName for channel in chatRoomOptions"-->
-              <!--ng-change="updateMessageLocationFilter();">-->
-        <!--<option value="">{{ allRooms }}</option>-->
-      <!--</select>-->
-    </div>  <!--  END OF 장소 -->
+    </div>
+    <!--  END OF 장소 -->
 
     <!--   작성자  -->
     <div class="advanced-search-option__category">
       <div class="advanced-search-option__title">
-        <span translate>@common-message-writer</span>
+        <span>{{::'@common-message-writer'|translate}}</span>
       </div>
       <jnd-selectbox-member jnd-data-model="messageWriterId"
                             jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
-      <!--<select ng-model="messageWriter"-->
-              <!--ng-click="onClick();"-->
-              <!--ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"-->
-              <!--ng-change="updateMessageWriterFilter();">-->
-        <!--<option value="">{{ allMembers }}</option>-->
-      <!--</select>-->
-    </div>  <!-- END OF FILE 작성자 -->
-  </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
+    </div>
+    <!-- END OF FILE 작성자 -->
+  </div>
+  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
   <div class="rpanel-body-content" infinite-scroll-bottom="searchMessages();">
     <div ng-if="!isSearchQueryEmpty">
       <div class="search-status-container">
         <span class="search-result-summary-ing" ng-if="isSearching">
           <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-          <span translate>@search-in-progress</span>
+          <span>{{::'@search-in-progress'|translate}}</span>
         </span>
 
         <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
-          <span translate>@search-result-summary</span>
+          <span>{{::'@search-result-summary'|translate}}</span>
         </div>
       </div>
 
@@ -52,12 +43,12 @@
 
         <div class="rpanel-alert-msg-container__text">
           <div ng-if="!apiError">
-            <span translate>@alert-no-messages-found</span>:
+            <span>{{::'@alert-no-messages-found'|translate}}</span>:
             <span class="searchQuery">{{searchQuery.q}}</span>
           </div>
 
           <div ng-if="apiError">
-            <span translate>@common-api-error-msg</span>
+            <span>{{::'@common-api-error-msg'|translate}}</span>
           </div>
         </div>
       </div>
@@ -66,7 +57,7 @@
     <div class="rpanel-alert-msg-container no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
       <img class="icon-search" src="assets/images/icon-search.png"/>
       <div class="rpanel-alert-msg-container__text">
-        <span translate>@input-to-search</span>
+        <span>{{::'@input-to-search'|translate}}</span>
       </div>
     </div>
 

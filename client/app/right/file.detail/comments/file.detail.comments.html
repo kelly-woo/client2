@@ -20,13 +20,16 @@
                 ng-if="!comment.extIsSticker">
               <a ng-click="starComment($event)">
                 <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
-                <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
+                <span>
+                  <span ng-if="comment.isStarred">{{::'@star-un'|translate}}</span>
+                  <span ng-if="!comment.isStarred">{{::'@star'|translate}}</span>
+                </span>
               </a>
             </li>
             <li class="cursor_pointer">
               <a ng-click="deleteComment(comment)">
                 <i class="icon-trash"></i>
-                <span translate>@btn-delete</span>
+                <span>{{::'@btn-delete'|translate}}</span>
               </a>
             </li>
           </ul>
@@ -64,7 +67,7 @@
             <li class="cursor_pointer">
               <a ng-click="deleteSendingComment($index)">
                 <i class="icon-trash"></i>
-                <span translate>@btn-delete</span>
+                <span>{{::'@btn-delete'|translate}}</span>
               </a>
             </li>
           </ul>

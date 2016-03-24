@@ -9,7 +9,7 @@
             <div class="search-result-summary-ing rpanel-list-empty" ng-if="tabs.all.empty">
               <img class="rpanel-list-empty__img" src="assets/images/star-message-empty.png"/>
               <div class="help-messages__message">
-                <span translate>@star-all-empty</span>
+                <span>{{::'@star-all-empty'|translate}}</span>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
             <div class="search-result-summary-ing" ng-if="tabs.files.empty">
               <img class="star-empty__img" src="assets/images/star-file-empty.png"/>
               <div class="help-messages__message">
-                <span translate>@star-files-empty</span>
+                <span>{{::'@star-files-empty'|translate}}</span>
               </div>
             </div>
           </div>
@@ -58,8 +58,4 @@
       </div>
     </tab>
   </tabset>
-</div>
-<div ng-if="false">
-  <span translate>@star-all</span>
-  <span translate>@star-files</span>
 </div>

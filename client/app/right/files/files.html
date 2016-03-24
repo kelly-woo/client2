@@ -3,49 +3,44 @@
   <!--   CHAT ROOM  -->
   <div class="advanced-search-option__category advanced-shared-option">
     <div class="advanced-search-option__title">
-      <span translate>@common-shared-in</span>
+      <span>{{::'@common-shared-in'|translate}}</span>
     </div>
     <jnd-selectbox-room jnd-data-model="sharedEntitySearchQuery"
                         jnd-has-all="yes"
                         jnd-has-disabled="yes"></jnd-selectbox-room>
-    <!--<select class="_chatRoomOptions"-->
-            <!--ng-model="sharedEntitySearchQuery"-->
-            <!--ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">-->
-      <!--<option value="">{{ allRooms }}</option>-->
-    <!--</select>-->
-  </div>  <!--  END OF CHAT ROOM  -->
+  </div>
+  <!--  END OF CHAT ROOM  -->
+
   <!--   FILE WRITER  -->
   <div class="advanced-search-option__category advanced-member-option">
     <div class="advanced-search-option__title">
-      <span translate>@common-member</span>
+      <span>{{::'@common-member'|translate}}</span>
     </div>
     <jnd-selectbox-member jnd-data-model="fileRequest.writerId"
                           jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
-    <!--<select ng-model="fileRequest.writerId"-->
-            <!--ng-options="user.id as user | getName for user in selectOptionsUsers">-->
-      <!--<option value="">{{ allMembers }}</option>-->
-    <!--</select>-->
-  </div>  <!-- END OF FILE WRTIER -->
+  </div>
+  <!-- END OF FILE WRTIER -->
+
   <!--    FILE TYPE  -->
   <div class="advanced-search-option__category advanced-file-option">
     <div class="advanced-search-option__title">
-      <span translate>@common-file-type</span>
+      <span>{{::'@common-file-type'|translate}}</span>
     </div>
     <jnd-selectbox-file jnd-data-model="fileRequest.fileType"
                         jnd-data-list="fileTypeList"></jnd-selectbox-file>
-    <!--<select ng-model="fileTypeFilter"-->
-            <!--ng-options="type.viewValue| upperFirstCharacter for type in fileTypeList"></select>-->
-  </div>  <!-- END OF FILE TYPE -->
-</div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
+  </div>
+  <!-- END OF FILE TYPE -->
+</div>
+<!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
 <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
   <div class="search-result-container">
     <div class="search-result-summary-ing" ng-if="isLoading">
 	  <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-	  <span translate>@search-in-progress</span>
+	  <span>{{::'@search-in-progress'|translate}}</span>
 	</div>
     <div class="search-result-summary" ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty">
-      <span translate>@search-result-summary</span>
+      <span>{{::'@search-result-summary'|translate}}</span>
     </div>
   </div>
 
@@ -56,7 +51,7 @@
         <center-help-message-container ng-if="!isFiltered();" status="emptyMessageStateHelper"></center-help-message-container>
         <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
           <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
-          <span translate>@alert-empty-file-search</span>
+          <span>{{::'@alert-empty-file-search'|translate}}</span>
           <span ng-if="!isSearchQueryEmpty">:
             <span class="searchQuery">{{ fileRequest.keyword }}</span>
           </span>
@@ -76,20 +71,3 @@
     </div>
   </div>
 </div>
-
-<div ng-if="false">
-  <span translate>@common-file-type-all</span>
-  <span translate>@common-file-type-documents</span>
-  <span translate>@common-file-type-presentations</span>
-  <span translate>@common-file-type-spreadsheets</span>
-  <span translate>@common-file-type-pdf</span>
-  <span translate>@common-file-type-images</span>
-  <span translate>@common-file-type-video</span>
-  <span translate>@common-file-type-audio</span>
-  <span translate>@common-file-type-others</span>
-  <span translate>@common-file-type-google-docs</span>
-  <span translate>@common-file-type-google-documents</span>
-  <span translate>@common-file-type-google-presentations</span>
-  <span translate>@common-file-type-google-spreadsheets</span>
-</div>
-
