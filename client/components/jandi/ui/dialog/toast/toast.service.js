@@ -8,7 +8,7 @@
 
   // FILE UPLOAD controller
   angular
-    .module('jandi.dialog')
+    .module('jandi.ui.dialog')
     .service('Toast', Toast);
 
   /* @ngInject */

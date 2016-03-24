@@ -8,19 +8,23 @@
     .module('jandiApp')
     .directive('profileImageMenu', profileImageMenu);
 
-  function profileImageMenu($filter, fileAPIservice, modalHelper, Dialog) {
+  function profileImageMenu($modal, $filter, JndUtil, Dialog) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
+        profileImageStatus: '=?',
         onProfileImageChange: '&'
       },
-      templateUrl : 'app/util/directive/profile-image-menu/profile.image.menu.html',
+      templateUrl : 'components/jandi/ui/profile-image/menu/profile.image.menu.html',
       link: link
     };
 
-    function link(scope, el) {
+    function link(scope, el, attrs) {
       var _translate = $filter('translate');
+
+      var _buttonTextKey = attrs.buttonTextKey || '@btn-change';
+      var _menuClass = attrs.menuClass || '';
 
       _init();
 
@@ -29,6 +33,9 @@
        * @private
        */
       function _init() {
+        scope.buttonText = _translate(_buttonTextKey);
+        scope.menuClass = _menuClass;
+
         scope.onCropClick = onCropClick;
         scope.onCharacterClick = onCharacterClick;
       }
@@ -39,7 +46,7 @@
       function onCropClick() {
         $('<input type="file" accept="image/*"/>')
           .on('change', function(evt) {
-            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
+            var promise = JndUtil.getImageDataByFile(evt.target.files[0]);
             promise.then(_resolveImageData);
           })
           .trigger('click');
@@ -60,7 +67,7 @@
             scope.isSelectedImage = true;
             scope.imageData = img.toDataURL('image/jpeg');
 
-            modalHelper.openProfileImageModal(scope, {
+            _openProfileImageModal({
               type: 'crop',
               imageData: scope.imageData,
               onProfileImageChange: _onProfileImageChange
@@ -73,7 +80,7 @@
        * character 생성 선택 이벤트 핸들러
        */
       function onCharacterClick() {
-        modalHelper.openProfileImageModal(scope, {
+        _openProfileImageModal({
           type: 'character',
           onProfileImageChange: _onProfileImageChange
         });
@@ -87,6 +94,28 @@
       function _onProfileImageChange(dataURI) {
         scope.onProfileImageChange({
           $dataURI: dataURI
+        });
+      }
+
+      /**
+       * profile image를 변경하는 모달창 열림.
+       * @param {object} options
+       *  @param {string} options.type - 모달의 타입. 'crop'이면 image crop이고 'character'면 character 조합.
+       *  @param {function} options.onProfileImageChange - change callback 함수.
+       *  @param {string} [options.imageData] - 타입이 'crop'일때 crop할 imageData
+       * @returns {Object}
+       */
+      function _openProfileImageModal(options) {
+        $modal.open({
+          scope: scope.$new(),
+          templateUrl: 'components/jandi/ui/profile-image/profile.image.html',
+          controller: 'ProfileImageCtrl',
+          windowClass: 'full-screen-modal profile-image-modal',
+          resolve: {
+            options: function() {
+              return options;
+            }
+          }
         });
       }
     }

@@ -9,7 +9,7 @@
     .service('CharacterImage', CharacterImage);
 
   /* @ngInject */
-  function CharacterImage($rootScope, $http, $q) {
+  function CharacterImage($http, $q, config, CoreUtil) {
     var that = this;
 
     var _imageMap = {};
@@ -52,7 +52,7 @@
     function _requestAvatarInfo() {
       return $http({
         method: 'GET',
-        url: $rootScope.server_address + 'avatars'
+        url: config.server_address + 'avatars'
       });
     }
 
@@ -118,8 +118,8 @@
       var that = this;
 
       if (that.status === 200) {
-        _blobToDataURL(that.response, function(dataURL) {
-          _createImage(defer, dataURL);
+        CoreUtil.blobToDataURI(that.response, function(dataURI) {
+          _createImage(defer, dataURI);
         });
       }
     }

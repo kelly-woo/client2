@@ -229,16 +229,16 @@
      * @param data
      * @private
      */
-    function _onTopicMessageDelete(data) {
-      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
+    function _onTopicMessageDelete(socketEvent) {
+      var room = socketEvent.room;
+
+      if (jndWebSocketCommon.isCurrentEntity(room)) {
         jndPubSub.updateCenterPanel();
+      } else if (!_updateBadgeCount(socketEvent)) {
+        jndPubSub.updateLeftBadgeCount();
       }
 
-      // 뱃지를 업데이트하기 위함.
-      // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
-      jndPubSub.updateLeftPanel();
-
-      jndPubSub.pub('topicMessageDelete', data);
+      jndPubSub.pub('jndWebSocketMessage:topicMessageDelete', socketEvent);
     }
 
     /**
@@ -315,10 +315,12 @@
       if (!socketEvent.messageType) {
         jndWebSocketCommon.increaseBadgeCount(room.id);
         returnVal = true;
-      } else if (socketEvent.messageType === 'message_delete' &&
-        memberService.isUnreadMessage(room.id, socketEvent.messageId)) {
-        jndWebSocketCommon.decreaseBadgeCount(room.id);
-        returnVal = true;
+      } else if (socketEvent.messageType === 'message_delete') {
+        //TODO: http://its.tosslab.com/browse/BD-326 완료 이후 linkId 로 계산 할 수 있도록 수정 필요
+        //if (memberService.isUnreadMessage(room.id, socketEvent.linkId)) {
+        //  jndWebSocketCommon.decreaseBadgeCount(room.id);
+        //}
+        returnVal = false;
       }
       return returnVal;
     }

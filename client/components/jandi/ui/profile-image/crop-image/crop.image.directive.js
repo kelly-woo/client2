@@ -15,7 +15,7 @@
       scope: {
         imageData: '='
       },
-      templateUrl : 'app/modal/members/profile-image/crop-image/crop.image.html',
+      templateUrl : 'components/jandi/ui/profile-image/crop-image/crop.image.html',
       link: link
     };
     

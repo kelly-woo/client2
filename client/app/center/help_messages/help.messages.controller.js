@@ -81,9 +81,8 @@
             'help-upload-a-file',
             $filter('translate')('@emptyMsg-your-file-drawer-is-empty-heading'),
             $filter('translate')('@emptyMsg-click-to-share-file'),
-            true,
-            $filter('translate')('@common-upload-file'),
-            _openFileUploadModal
+            false,
+            $filter('translate')('@common-upload-file')
           );
           break;
         case NO_CONVERSATION_IN_TOPIC:
@@ -120,7 +119,7 @@
       $scope.isButtonRequired = isButtonRequired;
       $scope.helpButtonText = buttonText;
 
-      $scope.onButtonClicked = actionFunction;
+      $scope.onButtonClicked = _.isFunction(actionFunction) ? actionFunction : function() {};
     }
 
     function _openInviteToTeamModal() {
@@ -133,13 +132,6 @@
 
     function _setChatInputBoxFocus() {
       $rootScope.$broadcast('setChatInputFocus');
-    }
-
-    function _openFileUploadModal() {
-      // angular togglemenu의 event error를 처리하기 위해 timeout
-      $timeout(function() {
-        primaryFileButton.trigger('click');
-      });
     }
   }
 })();
