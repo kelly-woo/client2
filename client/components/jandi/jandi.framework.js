@@ -12,7 +12,7 @@
       'jandi.preloader',
       'jandi.popup',
       'jandi.browser',
-      'jandi.dialog'
+      'jandi.ui'
     ])
     .run(run)
     .config(config);
@@ -24,5 +24,4 @@
   /* @ngInject */
   function run() {
   }
-
 })();
