@@ -6,7 +6,7 @@
     .factory('entityAPIservice', entityAPIservice);
 
   /* @ngInject */
-  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub, currentSessionHelper,
+  function entityAPIservice(CoreUtil, $state, $window, storageAPIservice, jndPubSub, currentSessionHelper,
                             HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList, RoomTopicList,
                             RoomChatDmList) {
     var service = {
@@ -31,6 +31,9 @@
       var currentEntity;
       if (!_.isUndefined(entityId)) {
         currentEntity = EntityHandler.get(entityId);
+        //DM 일 경우 currentEntity 는 Member 여야 한다.
+        //TODO: setCurrentEntityWithTypeAndId, setCurrentEntity 제거 후 currentSessionHelper 로 통일해야 함
+        currentEntity = CoreUtil.pick(currentEntity, 'extMember') || currentEntity;
       }
       if (!_.isUndefined(currentEntity)) {
         setCurrentEntity(currentEntity);
