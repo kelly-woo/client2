@@ -10,14 +10,21 @@
     .service('Dialog', Dialog);
 
   /* @ngInject */
-  function Dialog($rootScope, $modal, $q, Toast) {
-    var that = this;
+  function Dialog($rootScope, $modal, $q, $filter, Toast) {
+    var _that = this;
     var _modals = ['alert', 'confirm'];
     var _toasts = ['success', 'info', 'warning', 'error'];
+
+    var _toastTimer = 2000;
 
     _init();
 
     function _init() {
+      _that.show = show;
+      _that.isOkay = isOkay;
+      _that.toastInvalidPassword = toastInvalidPassword;
+      _that.tryAgainToast = tryAgainToast;
+
       /**
        * alert modal
        * @function alert
@@ -39,7 +46,7 @@
        * @returns {*}
        */
       _.each(_modals, function(name) {
-        that[name] = (function(name) {
+        _that[name] = (function(name) {
           return function(options) {
             var deferred  = $q.defer();
 
@@ -99,7 +106,7 @@
        * @returns {*}
        */
       _.each(_toasts, function(name) {
-        that[name] = (function(name) {
+        _that[name] = (function(name) {
           return function(options) {
             var deferred = $q.defer();
 
@@ -133,6 +140,46 @@
           }
         }
       };
+    }
+
+    /**
+     * modal혹은  toast를 보여준다.
+     * 외부에서 success나 confirm을 직접 불러도되지만 이렇게 wrapper로 부르는 방법을 시도해보고 싶었음.
+     * code readability 가 어떤게 더 좋은지 알아보자.
+     * @param {string} type - modal/toast의 type
+     * @param {object} param - 같이 던져줄 param object
+     */
+    function show(type, param) {
+      _that[type](param);
+    }
+
+    /**
+     * 모달이 닫힌 이유가 긍정의 이유인지 아닌지 확인한다.
+     * @param {string} reason - modal이 닫힌 이유
+     * @returns {boolean}
+     */
+    function isOkay(reason) {
+      return reason === 'okay';
+    }
+
+    /**
+     * 잘못된 비밂번호를 입력했을 때 토스트를 출력한다.
+     */
+    function toastInvalidPassword() {
+      _that['error']({
+        title: $filter('translate')('@input-user-password-invalid'),
+        timeOut: _toastTimer
+      });
+    }
+
+    /**
+     * '잠시 후에 다시 시도하십시요' 라는 toast를 보여준다.
+     */
+    function tryAgainToast() {
+      _that['error']({
+        title: $filter('translate')('@common-api-error-msg'),
+        timeOut: _toastTimer
+      });
     }
   }
 })();
