@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MessageCtrl($scope, $state, $filter, EntityHandler, MessageQuery, jndPubSub, MessageData,
-                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog,
+                       currentSessionHelper, RoomTopicList, memberService, messageAPIservice, Dialog,
                        publicService) {
     var UNKNOWN_ROOM = 'unknown room';
 
