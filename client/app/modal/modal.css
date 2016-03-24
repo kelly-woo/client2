@@ -29,6 +29,8 @@
   margin-top: 0;
   border-top: 0;
   padding:0px 20px 20px 20px;
+  text-align: center;
+  font-size: 0;
 }
 
 .modal-content {

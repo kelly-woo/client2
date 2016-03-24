@@ -20,6 +20,7 @@
 .dialog-modal .btn-container {
   text-align: center;
   margin-top: 25px;
+  font-size: 0;
 }
 
 .dialog-modal .btn-container .btn {
