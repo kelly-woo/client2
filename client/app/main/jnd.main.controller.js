@@ -9,9 +9,9 @@
     .module('jandiApp')
     .controller('JndMainCtrl', JndMainCtrl);
 
-  function JndMainCtrl($scope, $filter, Dialog, EntityMapManager, entityAPIservice, jndPubSub, memberService,
+  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, entityAPIservice, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
-
+    $scope.isShowDummyLayout = false;
     $scope.tutorial = {
       isShowWelcome: false,
       isShowPopover: false
@@ -38,10 +38,13 @@
      * @private
      */
     function _attachEvents() {
+      $scope.$on('publicService:hideDummyLayout', _onHideDummyLayout);
+      $scope.$on('publicService:showDummyLayout', _onShowDummyLayout);
+
       $scope.$on('kickedOut', _onKickedOut);
       $scope.$on('topicInvite', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
-      $scope.$on('onInitLeftListDone', _updateInvitedMemberList);
+      $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _updateInvitedMemberList);
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
       $scope.$on('JndConnect:close', _onJndConnectClose);
@@ -51,6 +54,13 @@
 
       $scope.$on('Tutorial:showPopover', _onShowTutorialPopover);
       $scope.$on('Tutorial:hidePopover', _onHideTutorialPopover);
+    }
+
+    function _onShowDummyLayout() {
+      $scope.isShowDummyLayout = true;
+    }
+    function _onHideDummyLayout() {
+      $scope.isShowDummyLayout = false;
     }
 
     /**
@@ -117,7 +127,7 @@
      * @private
      */
     function _onKickedOut(angularEvent, socketEvent) {
-      var topicEntity = EntityMapManager.get('total', socketEvent.data.roomId);
+      var topicEntity = RoomTopicList.get(socketEvent.data.roomId);
       var topicName = topicEntity.name;
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);
@@ -136,7 +146,7 @@
      * @private
      */
     function _onTopicInvite(angularEvent, data) {
-      var entity = EntityMapManager.get('total', data.room.id);
+      var entity = RoomTopicList.get(data.room.id);
       var room = data.room;
 
       if (!entity || _hasInvitedFlag(entity, data.inviter)) {
@@ -155,8 +165,8 @@
 
       while (_inviteSocketQueue.length) {
         var data = _inviteSocketQueue.pop();
-        var entity = EntityMapManager.get('total', data.room.id);
-        var memberList = entityAPIservice.getMemberList(entity);
+        var entity = RoomTopicList.get(data.room.id);
+        var memberIdList = RoomTopicList.getMemberIdList(data.room.id);
         var filter = $filter('translate');
         var msg;
         var topicName = $filter('htmlEncode')(entity.name);
@@ -181,11 +191,11 @@
         });
 
         _.forEach(data.inviter, function(memberId) {
-          if (memberList.indexOf(memberId) === -1) {
-            memberList.push(memberId);
+          if (memberIdList.indexOf(memberId) === -1) {
+            memberIdList.push(memberId);
           }
         });
-        entity.members = memberList;
+        entity.members = memberIdList;
       }
       if (hasMemberToUpdate) {
         jndPubSub.pub('room:memberAdded');
@@ -222,17 +232,17 @@
      * @private
      */
     function _onTopicLeave(angularEvent, data) {
-      var room = EntityMapManager.get('total', data.room.id);
+      var room = RoomTopicList.get(data.room.id);
       var member = data.writer;
-      var memberList;
+      var memberIdList;
       var index;
 
-      if (room && (memberList = entityAPIservice.getMemberList(room))) {
-        if (index = memberList.indexOf(member)) {
-          index > -1 && memberList.splice(index, 1);
+      if (room && (memberIdList = RoomTopicList.getMemberIdList(room))) {
+        if (index = memberIdList.indexOf(member)) {
+          index > -1 && memberIdList.splice(index, 1);
         }
       }
-      room.members = memberList;
+      room.members = memberIdList;
 
       jndPubSub.pub('room:memberDeleted');
     }

@@ -10,7 +10,7 @@
     _init();
 
     function _init() {
-      publicService.hideTransitionLoading();
+      publicService.hideDummyLayout();
     }
   }
 })();

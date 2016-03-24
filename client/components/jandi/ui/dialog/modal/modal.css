@@ -1,0 +1,36 @@
+.dialog-modal {
+  text-align: center;
+  padding: 20px 30px 18px;
+  border-radius: 5px;
+}
+
+.dialog-modal .normal-title {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.dialog-modal .normal-body {
+  color: #333;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.dialog-modal .btn-container {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0;
+}
+
+.dialog-modal .btn-container .btn {
+  margin-top: 0;
+  padding: 4px 10px;
+  min-width: 60px;
+}
+
+.dialog-modal .btn-cancel,
+.modal-dialog .btn-cancel,
+.full-screen-actions .btn-cancel {
+  margin-right: 4px;
+}

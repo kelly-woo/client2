@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketMember(jndWebSocketCommon, memberService, jndPubSub,
-                              entityAPIservice, EntityMapManager) {
+                              UserList) {
     var MEMBER_STARRED = 'member_starred';
     var MEMBER_UNSTARRED = 'member_unstarred';
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
@@ -20,12 +20,12 @@
       {
         name: MEMBER_STARRED,
         version: 1,
-        handler: _onMemberStarred
+        handler: _.bind(_onMemberStarChanged, null, true)
       },
       {
         name: MEMBER_UNSTARRED,
         version: 1,
-        handler: _onMemberUnStarred
+        handler: _.bind(_onMemberStarChanged, null, false)
       },
       {
         name: MEMBER_PROFILE_UPDATED,
@@ -45,20 +45,22 @@
       return events;
     }
 
-    function _onMemberStarred(socketEvent) {
-      jndWebSocketCommon.updateLeft();
-      jndPubSub.pub('member:starred', socketEvent);
-    }
-
-    function _onMemberUnStarred(socketEvent) {
-      jndWebSocketCommon.updateLeft();
-      jndPubSub.pub('member:unStarred', socketEvent);
+    /**
+     * 'member_starred', 'member_unstarred' EVENT HANDLER
+     * @param {boolean} isStarred
+     * @param {object} socketEvent - socket event parameter
+     * @private
+     */
+    function _onMemberStarChanged(isStarred, socketEvent) {
+      jndPubSub.pub('jndWebSocketMember:starChanged', _.extend(socketEvent.member, {
+        isStarred: isStarred
+      }));
     }
 
     function _onMemberProfileUpdated(socketEvent) {
       var member = socketEvent.member;
 
-      _replaceMemberEntityInMemberList(member);
+      UserList.extend(member.id, member);
 
       if (jndWebSocketCommon.isActionFromMe(member.id)) {
         memberService.onMemberProfileUpdated();
@@ -80,19 +82,7 @@
      * @private
      */
     function _replaceMemberEntityInMemberList(member) {
-      var entity = EntityMapManager.get('member', member.id);
-      if (!entity) {
-        entity = member;
-        EntityMapManager.set('member', member.id, member);
-      }
-      entityAPIservice.extend(entity, member);
-
-      if (EntityMapManager.contains('memberEntityId', member.entityId)) {
-        entityAPIservice.extend(EntityMapManager.get('memberEntityId', member.id), member);
-      }
-
-      // TODO: I think it is too much to update whole left panel when only memberlist needs to be updates.
-      jndWebSocketCommon.updateLeft();
+      UserList.extend(member.id, member);
 
     }
   }

@@ -29,6 +29,8 @@
   margin-top: 0;
   border-top: 0;
   padding:0px 20px 20px 20px;
+  text-align: center;
+  font-size: 0;
 }
 
 .modal-content {
@@ -689,16 +691,15 @@
 .send-invite:active {
   color: #fff;
 }
-.send-invite.disabled {
+.send-invite.disabled,
+.send-invite.disabled:focus,
+.send-invite.disabled:hover,
+.send-invite.disabled:active  {
   color: white;
   background-color: #ccc;
   cursor: not-allowed;
 }
-.send-invite.disabled:focus,
-.send-invite.disabled:hover,
-.send-invite.disabled:active {
-  color: #999;
-}
+
 
 /*
     MODAL TAB HEADER

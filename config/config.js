@@ -6,7 +6,7 @@
    *  - Month/Dday/Year Hour:Minute:Second
    */
   angular
-    .module('config.common', [])
+    .module('jandi.config', [])
     .constant('configuration', {
       version             : '@@version',
       team_name           : '@@team_name',

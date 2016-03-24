@@ -68,4 +68,5 @@
 #current-user-dropdown {
   left: 230px;
   top: 65px;
+  min-width: 200px;
 }

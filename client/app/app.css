@@ -137,7 +137,7 @@ html {
 }
 
 body {
-  position:fixed;
+  position:fixed !important;
   height: 100%;
   width: 100%;
   -webkit-font-smoothing: antialiased;

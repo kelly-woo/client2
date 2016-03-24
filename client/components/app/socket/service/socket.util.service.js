@@ -6,8 +6,8 @@
     .service('jndWebSocketCommon', jndWebSocketCommon);
 
   /* @ngInject */
-  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityMapManager,
-                              logger, memberService, accountService) {
+  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityHandler, UserList, logger,
+                              memberService, accountService, RoomTopicList) {
 
     var _chatEntity = 'chat';
 
@@ -72,7 +72,7 @@
      * @param {number} [count=1]
      */
     function increaseBadgeCount(roomId, count) {
-      var entity = EntityMapManager.get('total', roomId) || EntityMapManager.get('memberEntityId', roomId);
+      var entity = EntityHandler.get(roomId);
 
       if (!isCurrentEntity(entity)) {
         entityAPIservice.increaseBadgeCount(entity.id, count);
@@ -121,7 +121,7 @@
      * @private
      */
     function getActionOwner(writerId) {
-      return entityAPIservice.getEntityById('users', writerId);
+      return UserList.get(writerId);
     }
 
     /**
@@ -133,10 +133,7 @@
      * @private
      */
     function getRoom(room) {
-      if (isChatType(room)) {
-        return entityAPIservice.getEntityByEntityId(room.id);
-      }
-      return entityAPIservice.getEntityById(room.type, room.id);
+      return EntityHandler.get(room.id);
     }
 
     /**
@@ -319,7 +316,7 @@
       var notificationRoom;
 
       _.forEach(rooms, function(room) {
-        if ((entityAPIservice.isJoinedTopic(room) && memberService.isTopicNotificationOn(room.id)) ||
+        if ((RoomTopicList.isJoined(room.id) && memberService.isTopicNotificationOn(room.id)) ||
           (room.type === 'chat' && _.indexOf(room.members, currentMemberId) > -1)) {
           // 생성된 room이 존재하고 알림이 활성화 되어있는 경우 또는 DM이고 DM의 member인 경우
 
@@ -352,8 +349,7 @@
       if (user && !memberService.isUser(user.id)) {
         // user의 값이 존재하지 않음을 확인하여 기존에 존재하던 user의 값이 안 덮어씌어 지도록 한다.
         // 기존에 존재하던 user의 값은 즐겨찾기, 마지막은 읽은 메세지등 여러 data를 가지고 있다.
-
-        entityAPIservice.addUser(user);
+        UserList.add(user);
       }
     }
   }

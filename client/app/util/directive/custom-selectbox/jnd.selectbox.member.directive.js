@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndSelectboxMember', jndSelectboxMember);
 
-  function jndSelectboxMember($filter, EntityMapManager, publicService, JndUtil, jndPubSub, memberService) {
+  function jndSelectboxMember($filter, EntityFilterMember, publicService, JndUtil, jndPubSub, memberService) {
     return {
       restrict: 'AE',
       link: link,
@@ -282,7 +282,7 @@
        * @private
        */
       function _getMembers() {
-        return scope.list  || EntityMapManager.getMap('member');
+        return scope.list  || EntityFilterMember.toJSON();
       }
 
       /**

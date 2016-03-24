@@ -1,0 +1,18 @@
+<div class="profile-image-change-content" dropdown dropdown-append-to-body is-open="profileImageStatus.isOpen">
+  <div class="dropdown dropdown-toggle profile-image-change" dropdown-toggle>
+    <span class="dropdown-button-text">{{::buttonText}}</span>
+  </div>
+
+  <ul class="dropdown-menu grey_dropdown profile-image-menu {{::menuClass}}" role="menu">
+    <li ng-click="onCropClick()">
+      <a role="menuitem" tabindex="-1">
+        <i class="icon-upload"></i><span translate>@profile-upload-photo</span>
+      </a>
+    </li>
+    <li ng-click="onCharacterClick()">
+      <a role="menuitem" tabindex="-1">
+        <i class="icon-user-circle"></i><span translate>@profile-character-select</span>
+      </a>
+    </li>
+  </ul>
+</div>

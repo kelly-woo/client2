@@ -14,21 +14,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
   $rootScope.browser = Browser;
   $rootScope.$state       = $state;
   $rootScope.$stateParams = $stateParams;
-
-  $rootScope.isReady = false;
-
-  // Stores templates in angular variable.
-  // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
-  // TODO: STUDY AND USE 'ngTemplate'
-  $rootScope.templates = {
-    'header'    : 'app/tpl/header.tpl.html',
-    'footer'    : 'app/tpl/footer.tpl.html',
-    'loading'   : 'app/tpl/loading.tpl.html',
-    'msgList'   : 'app/left/messages/messages.html'
-  };
-
   publicService.getBrowserInfo();
-
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $stateProvider) {
@@ -69,13 +55,13 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         views: {
           '': {
             templateUrl: 'app/left/left.html',
-            controller: 'leftPanelController1',
+            controller: 'leftPanelController',
             resolve: {
-              leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
-                return leftpanelAPIservice.getLists().error(publicService.signOut);
+              resLeftSideMenu: function (leftpanelAPIservice, AuthApi) {
+                return leftpanelAPIservice.getLists().error(AuthApi.requestAccessTokenWithRefreshToken);
               },
-              topicFolder: function(publicService, TopicFolderModel) {
-                return TopicFolderModel.load('initialize').then(null, publicService.signOut);
+              resTopicFolder: function(TopicFolderModel, AuthApi) {
+                return TopicFolderModel.load('initialize').then(null, AuthApi.requestAccessTokenWithRefreshToken);
               }
             }
           },
