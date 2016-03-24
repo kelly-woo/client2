@@ -6,7 +6,7 @@
     .controller('JndConnectTrelloCtrl', JndConnectTrelloCtrl);
 
   /* @ngInject */
-  function JndConnectTrelloCtrl($scope, $filter, JndConnectApi, JndConnectUnion, JndConnectTrelloApi, Dialog, JndUtil,
+  function JndConnectTrelloCtrl($scope, $filter, JndConnectApi, JndConnectUnion, JndConnectTrelloApi, Dialog, CoreUtil,
                                 JndConnectUnionFormData) {
     var _trelloBoardId = null;
     var EVENT_PAIR = {
@@ -299,7 +299,7 @@
       _.extend($scope.requestData, footer, hookEvent, {
         roomId: formData.roomId,
         trelloBoardId: trelloBoardId,
-        trelloBoardName: JndUtil.pick(_getBoardData(trelloBoardId), 'text')
+        trelloBoardName: CoreUtil.pick(_getBoardData(trelloBoardId), 'text')
       });
     }
 

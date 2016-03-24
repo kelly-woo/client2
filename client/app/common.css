@@ -814,6 +814,23 @@ input[type="button"] {
   right: 10px;
 }
 .dropdown-menu .menu-item .sub-menu {
+  position: absolute;
+  left: 0;
+  display: none;
+  float: left;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   display: none;
 }
 .dropdown-menu .menu-item:hover .sub-menu {
@@ -855,7 +872,7 @@ input[type="button"] {
   line-height: 33px;
   height: 33px;
   cursor: pointer;
-  padding: 0 1.5rem 0 3rem;
+  padding: 0 15px 0 41px;
 }
 .dropdown-menu .font-size-sub-menu > li > .menu-item,
 .dropdown-menu .font-size-sub-menu > li > a {
@@ -887,7 +904,7 @@ input[type="button"] {
 .green_dropdown > li > a > i {
   position: absolute;
   top: 6px;
-  left: 0.6rem;
+  left: 0.45rem;
   width: 2rem;
   text-align: center;
   font-size: 16px;
@@ -895,9 +912,9 @@ input[type="button"] {
 }
 
 .grey_dropdown > li > a > i.icon-connect-circle {
-  font-size: 25px;
+  font-size: 23px;
   top: 7px;
-  left: .58rem;
+  left: 7px;
 }
 
 .grey_dropdown > li > .menu-item:hover,

@@ -9,7 +9,7 @@
     .directive('roomConnector', roomConnector);
 
   /* @ngInject */
-  function roomConnector($filter, JndConnect, entityAPIservice, memberService) {
+  function roomConnector($filter, JndConnect, entityAPIservice, memberService, EntityHandler) {
     return {
       restrict: 'E',
       replace: true,
@@ -92,7 +92,7 @@
           _.each(scope.connectPlugs, function (connectPlug) {
             var bot;
             if (connectPlug.connectId === data.connect.id) {
-              bot = entityAPIservice.getEntityById('total', data.bot.id);
+              bot = EntityHandler.get(data.bot.id);
               connectPlug.botName = bot.name;
               connectPlug.botProfileImage = bot.thumbnailUrl;
 
@@ -124,7 +124,7 @@
         _.each(scope.connectPlugs, function(connectPlug) {
           var member;
           if (connectPlug.memberId === data.member.id) {
-            member = entityAPIservice.getEntityById('total', data.member.id);
+            member = EntityHandler.get(data.member.id);
             connectPlug.memberName = member.name;
           }
         });
@@ -249,8 +249,8 @@
         if (force || removedConnectPlugs.indexOf(connect.id) < 0) {
           // 삭제되었던 connect plug가 아님
           
-          member = entityAPIservice.getEntityById('total', connect.memberId);
-          bot = entityAPIservice.getEntityById('total', connect.botId);
+          member = EntityHandler.get(connect.memberId);
+          bot = EntityHandler.get(connect.botId);
           if (member && bot) {
             if (connectPlug = connectPlugMap[connect.id]) {
               // 이전에 설정된 connect plug가 존재한다면 connect plug를 갱신한다.

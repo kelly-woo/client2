@@ -11,7 +11,7 @@
 
 
   function JndConnectUnion($filter, memberService, JndConnectUnionApi, JndConnect, JndUtil, Dialog, language, jndPubSub,
-                           JndConnectApi) {
+                           JndConnectApi, CoreUtil) {
     var LANGUAGE_MAP = {
       ko: 'ko',
       ja: 'ja',
@@ -57,9 +57,9 @@
      * @param {object} current - current union 객체
      */
     function getDefaultFooter(current) {
-      var botName = JndUtil.pick(current, 'union', 'title');
+      var botName = CoreUtil.pick(current, 'union', 'title');
       return {
-        botThumbnailFile: JndUtil.pick(current, 'union', 'imageUrl'),
+        botThumbnailFile: CoreUtil.pick(current, 'union', 'imageUrl'),
         botName: botName,
         defaultBotName: botName,
         lang: LANGUAGE_MAP[language.preferences.language]
@@ -75,8 +75,8 @@
      * @returns {*}
      */
     function read(options) {
-      var name = JndUtil.pick(options, 'current', 'union', 'name');
-      var connectId = JndUtil.pick(options, 'current', 'connectId');
+      var name = CoreUtil.pick(options, 'current', 'union', 'name');
+      var connectId = CoreUtil.pick(options, 'current', 'connectId');
       return JndConnectUnionApi.read(name, connectId)
         .success(_.bind(_onSuccessRead, this, options))
         .error(_.bind(_onErrorRead, this, options));
@@ -106,7 +106,7 @@
      */
     function handleCommonLoadError(current, err, status) {
       var body;
-      var serviceName = JndUtil.pick(current, 'union', 'title');
+      var serviceName = CoreUtil.pick(current, 'union', 'title');
 
       JndConnect.backToMain(true);
       if (err.code === 50001) {
@@ -130,8 +130,8 @@
      */
     function save(options) {
       var promise;
-      var name = JndUtil.pick(options, 'current', 'union', 'name');
-      var connectId = JndUtil.pick(options, 'current', 'connectId');
+      var name = CoreUtil.pick(options, 'current', 'union', 'name');
+      var connectId = CoreUtil.pick(options, 'current', 'connectId');
       var isUpdate = !!connectId;
       var data = _.extend(options.data, {
         connectId: connectId
@@ -216,7 +216,7 @@
 
         _.extend(header, {
           isAccountLoaded: isAccountLoaded,
-          accountId: JndUtil.pick(accountList, index, 'authenticationId'),
+          accountId: CoreUtil.pick(accountList, index, 'authenticationId'),
           accounts: accounts
         });
       }

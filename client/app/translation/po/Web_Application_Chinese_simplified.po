@@ -770,6 +770,34 @@ msgstr "邀请此成员加入其它议题"
 msgid "@dm-menu-profile"
 msgstr "检视简介"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-being-invited"
+msgstr "等候此成员加入"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel"
+msgstr "取消邀请"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-description"
+msgstr "此成员将会从成员名单中删除"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-title"
+msgstr "你确定取消邀请？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-cancel-toast"
+msgstr "邀请已取消"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resend"
+msgstr "重新寄发邀请"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-title"
+msgstr "新的邀请信已寄出"
+
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr "编辑议题信息"
@@ -844,7 +872,7 @@ msgstr "移除共享链接"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-desc"
-msgstr "您确定要删除此文件链接？ 请注意，与此链接相关的留言不会被删除。"
+msgstr "若移除共享链接，访问至该文件的权限将被撤销。 你确定要移除共享链接？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-remove-msg"
@@ -2030,6 +2058,10 @@ msgid "@login-reset-password"
 msgstr "忘了密码？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@managemembers-dropdown-pending"
+msgstr "未加入成员"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-bold"
 msgstr "**粗体**"
 
@@ -2228,6 +2260,30 @@ msgstr "电子邮件已经成功寄出"
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人议题"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-bgcolor"
+msgstr "颜色"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-character"
+msgstr "人物"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-character-select"
+msgstr "选择人物"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-image-editing"
+msgstr "简介照片"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-success"
+msgstr "简介照片已经成功更新"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@profile-upload-photo"
+msgstr "选择照片"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@quick-launcher-browse-topics"
@@ -3229,9 +3285,6 @@ msgstr "星期三"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "＋更多"
-
-#~ msgid "@invitation-some-fail"
-#~ msgstr "部分邀请信无法寄出"
 
 #~ msgid "@ie9-file-preview"
 #~ msgstr ""

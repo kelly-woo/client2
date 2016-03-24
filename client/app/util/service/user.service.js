@@ -8,7 +8,6 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memb
     function getEntityFromListById(list, value) {
         value = parseInt(value);
 
-        console.log(list, value)
         if (value === $rootScope.member.id) return $rootScope.member;
 
 

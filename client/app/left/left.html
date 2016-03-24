@@ -1,8 +1,8 @@
 <div>
   <!-- DUMMY LAYOUT -->
   <div ng-class="{
-            'z-index-top': !isReady,
-            'z-index-bottom': isReady
+            'z-index-top': isShowDummyLayout,
+            'z-index-bottom': !isShowDummyLayout
            }">
     <aside class="full-screen lpanel">
       <div class="lpanel-user lpanel-user__team">
@@ -10,13 +10,13 @@
         </div>
       </div>
     </aside>
-    <div ng-if="!isReady" class="cpanel"
+    <div ng-if="isShowDummyLayout" class="cpanel"
          ng-class="{'rpanel-show': isOpenRightPanel}">
       <div class="msgs__loading initial">
         <div class="dummy_initial_wrap">
           <span ng-if='!browser.msie' class="three-quarters-loader jnd-three-quarters-loader"></span>
           <div class="dummy_initial_text">
-            <h3 animate-text="loadingTextList">Loading</h3>
+            <h3 animate-text="initialLoadingTexts">Loading</h3>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
   </div>
 
   <aside class="lpanel non-selectable opac-zero"
-         ng-class="{'opac-in': isReady,
+         ng-class="{'opac-in': !isShowDummyLayout,
                     'scroll_blue': !browser.platform.isMac}">
     <current-user></current-user>
 
@@ -49,9 +49,8 @@
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{'scroll_gray': !browser.platform.isMac,
                   'rpanel-show': isOpenRightPanel,
-                  'opac-in': isReady}">
+                  'opac-in': !isShowDummyLayout}">
     <entity-header></entity-header>
-    <div loading-center="isCenterLoading"></div>
     <div ui-view="centerpanel"></div>
   </div>
 </div>

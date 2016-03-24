@@ -9,8 +9,8 @@
     .service('TopicInviteNotification', TopicInviteNotification);
 
   /* @ngInject */
-  function TopicInviteNotification($state, $filter, entityAPIservice, DesktopNotificationUtil, DesktopNotification,
-                                   memberService) {
+  function TopicInviteNotification($state, $filter, DesktopNotificationUtil, DesktopNotification, memberService,
+                                   UserList, EntityHandler) {
     var that = this;
 
     that.show = show;
@@ -25,7 +25,7 @@
 
       if (!DesktopNotificationUtil.isAllowDMnMentionOnly()) {
         if (DesktopNotificationUtil.isAllowSendNotification()) {
-          user = entityAPIservice.getEntityById('users', socketEvent.writer);
+          user = UserList.get(socketEvent.writer);
           options = {
             tag: 'tag',
             body: _getBody(socketEvent),
@@ -49,7 +49,7 @@
     function _getBody(socketEvent) {
       var body = '';
       var writerName = $filter('getName')(socketEvent.writer);
-      var room = entityAPIservice.getEntityById('total', socketEvent.room.id);
+      var room = EntityHandler.get(socketEvent.room.id);
 
       if (socketEvent.room.type === 'channel') {
         if (!_.isUndefined(room)) {

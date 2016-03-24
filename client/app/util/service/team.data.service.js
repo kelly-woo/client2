@@ -9,7 +9,7 @@
     .service('TeamData', TeamData);
 
   /* @ngInject */
-  function TeamData($rootScope, accountService, currentSessionHelper, jndPubSub, JndUtil) {
+  function TeamData($rootScope, accountService, currentSessionHelper, jndPubSub, CoreUtil) {
     var _teamList = [];
     var _scope = $rootScope.$new();
 
@@ -32,7 +32,7 @@
      * @private
      */
     function _attachEvents() {
-      _scope.$on('accountLoaded', _resetTeamList);
+      _scope.$on('accountService:setAccount', _resetTeamList);
     }
 
     /**
@@ -41,7 +41,7 @@
      */
     function _resetTeamList() {
       var account = accountService.getAccount();
-      _teamList = JndUtil.pick(account, 'memberships') || [];
+      _teamList = CoreUtil.pick(account, 'memberships') || [];
 
       jndPubSub.pub('TeamData:updated', _teamList);
     }

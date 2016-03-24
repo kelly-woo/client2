@@ -10,7 +10,7 @@
     .controller('JndConnectWebhookCtrl', JndConnectWebhookCtrl);
 
   /* @ngInject */
-  function JndConnectWebhookCtrl($scope, $filter, JndUtil, JndConnectUnionApi, JndConnectUnion, JndConnectApi,
+  function JndConnectWebhookCtrl($scope, $filter, CoreUtil, JndConnectUnionApi, JndConnectUnion, JndConnectApi,
                                  JndConnectUnionFormData) {
     var TEMPLATE_BASE_PATH = 'app/connect/union/webhook/template/';
     $scope.isInitialized = false;
@@ -101,7 +101,7 @@
     function _initialRequest() {
       var formData = $scope.formData;
       var current = $scope.current;
-      var name = JndUtil.pick(current, 'union', 'name');
+      var name = CoreUtil.pick(current, 'union', 'name');
       //update 모드일 경우 조회 API 를 콜한다.
       if ($scope.isUpdate) {
         JndConnectUnion.read({

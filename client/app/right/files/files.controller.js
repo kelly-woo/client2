@@ -9,9 +9,9 @@
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
   function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
-                             fileAPIservice, analyticsService, publicService, EntityMapManager,
+                             fileAPIservice, analyticsService, publicService, UserList,
                              currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel, jndPubSub) {
+                             TopicFolderModel, jndPubSub, RoomTopicList, RoomChatDmList) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -92,7 +92,7 @@
 
     //  From profileViewerCtrl
     $scope.$on('updateFileWriterId', function(event, userId) {
-      var entity = EntityMapManager.get('total', userId);
+      var entity = UserList.get(userId);
 
       _initSharedByFilter(entity);
 
@@ -141,18 +141,6 @@
       if ($scope.fileRequest.sharedEntityId != oldValue) {
         _refreshFileList();
       }
-    });
-
-    /**
-     * Joined new entity or Left current entity
-     *
-     *  1. Re-initialize shared in select options
-     *  2. re-initialize shared in filter.
-     */
-    $scope.$on('onJoinedTopicListChanged_leftInitDone', function(event, param) {
-      logger.log('onJoinedTopicListChanged_leftInitDone');
-      _generateShareOptions();
-
     });
 
     $scope.$on('topic-folder:update', _generateShareOptions);
@@ -298,7 +286,7 @@
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = entityAPIservice.getJoinedEntity(data.room.id);
+        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
         if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
           result = true;
         }
@@ -354,7 +342,7 @@
      */
     function _generateShareOptions() {
       $scope.selectOptions = TopicFolderModel.getNgOptions(
-        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
       );
     }
 

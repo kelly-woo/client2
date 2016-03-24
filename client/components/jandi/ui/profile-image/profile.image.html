@@ -1,0 +1,16 @@
+<div class="full-screen-content">
+  <i class="icon-delete" ng-click="onCancel()"></i>
+  <div class="full-screen-title">{{::'@profile-image-editing'|translate}}</div>
+  <div class="full-screen-body" ng-switch="isCharacter">
+    <character-image ng-switch-when="true" image-data="imageData"></character-image>
+    <crop-image ng-switch-default image-data="imageData"></crop-image>
+    <div class="full-screen-actions">
+      <button type="button" class="btn btn-cancel" ng-click="onCancel()">
+        <span>{{::'@btn-close'|translate}}</span>
+      </button>
+      <button type="button" class="btn btn-ok" ng-click="onDone()">
+        <span>{{::'@btn-edit'|translate}}</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
     .service('JndConnectUnionFormData', JndConnectUnionFormData);
 
 
-  function JndConnectUnionFormData(JndUtil, jndPubSub) {
+  function JndConnectUnionFormData(CoreUtil, jndPubSub) {
     var _originalFormData = null;
     var _currentFormData = null;
 
@@ -66,7 +66,7 @@
         //header 값은 변경점에 포함되지 않으므로 제외하고 비교한다.
         delete _originalFormData.header;
         delete _currentFormData.header;
-        return !JndUtil.compareJSON(_originalFormData, _currentFormData);
+        return !CoreUtil.compareJSON(_originalFormData, _currentFormData);
       }  else {
         return false;
       }

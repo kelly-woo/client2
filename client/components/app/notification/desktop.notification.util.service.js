@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function DesktopNotificationUtil($filter, logger, jndPubSub, localStorageHelper, accountService, HybridAppHelper,
-                                   configuration, NotificationAudio, entityAPIservice) {
+                                   configuration, NotificationAudio, RoomTopicList) {
     var that = this;
 
     that.NAVER_ASK = {
@@ -230,7 +230,7 @@
       var result;
 
       if (data.showContent === that.SHOW_CONTENT.ALL ||
-        (data.showContent === that.SHOW_CONTENT.PUBLIC_ONLY && entityAPIservice.isPublicTopic(entityId))) {
+        (data.showContent === that.SHOW_CONTENT.PUBLIC_ONLY && RoomTopicList.isPublicTopic(entityId))) {
         result = true;
       } else {
         result = false;

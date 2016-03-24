@@ -12,7 +12,7 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser, currentSessionHelper, JndUtil, Tutorial) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, CoreUtil, Tutorial, RoomTopicList) {
 
     var that = this;
 
@@ -36,6 +36,7 @@
     that.openInviteToTeamModal = openInviteToTeamModal;
 
     that.openUserProfileModal = openUserProfileModal;
+    that.openProfileImageModal = openProfileImageModal;
     that.openBotProfileModal = openBotProfileModal;
 
     that.openImageCarouselModal = openImageCarouselModal;
@@ -50,7 +51,6 @@
 
     that.openQuickLauncherModal = openQuickLauncherModal;
     that.openShortcutModal = openShortcutModal;
-    that.openBotProfileSettingModal = openBotProfileSettingModal;
     that.closeModal = closeModal;
     that.dismissModal = dismissModal
 
@@ -83,7 +83,7 @@
       var selectOptions;
 
       selectOptions = fileAPIservice.getShareOptions(
-        $rootScope.joinedEntities,
+        RoomTopicList.toJSON(true),
         currentSessionHelper.getCurrentTeamUserList()
       );
 
@@ -132,27 +132,6 @@
     }
 
     /**
-     *
-     * @param $scope
-     * @param files
-     */
-    function openBotProfileSettingModal($scope, imageData) {
-      var modalOption = {
-        scope: $scope,
-        templateUrl: 'app/modal/connect/bot.profile.setting.html',
-        controller: 'BotProfileSettingCtrl',
-        size: 'lg',
-        windowClass: 'profile-view-modal',
-        resolve: {
-          imageData: function() {
-            return imageData;
-          }
-        }
-      };
-      _modalOpener(modalOption);
-    }
-
-    /**
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
      */
@@ -164,10 +143,10 @@
         autofocus: '#topic-create-name',
         resolve: {
           topicName: function () {
-            return JndUtil.pick(options, 'topicName') || '';
+            return CoreUtil.pick(options, 'topicName') || '';
           },
           isEnterTopic: function() {
-            var isEnterTopic = JndUtil.pick(options, 'isEnterTopic');
+            var isEnterTopic = CoreUtil.pick(options, 'isEnterTopic');
             return _.isBoolean(isEnterTopic) ? isEnterTopic : true;
           }
         }
@@ -330,6 +309,32 @@
     }
 
     /**
+     * profile image를 변경하는 모달창 열림.
+     * @param {object} $scope
+     * @param {object} options
+     *  @param {string} options.type - 모달의 타입. 'crop'이면 image crop이고 'character'면 character 조합.
+     *  @param {function} options.onProfileImageChange - change callback 함수.
+     *  @param {string} [options.imageData] - 타입이 'crop'일때 crop할 imageData
+     * @returns {Object}
+     */
+    function openProfileImageModal($scope, options) {
+      var modalOption = {
+        scope: $scope.$new(),
+        templateUrl: 'components/jandi/ui/profile-image/profile.image.html',
+        controller: 'ProfileImageCtrl',
+        windowClass: 'full-screen-modal profile-image-modal',
+        resolve: {
+          options: function() {
+            return options;
+          }
+        },
+        multiple: true
+      };
+
+      return _modalOpener(modalOption);
+    }
+
+    /**
      * apply 를 안전하게 수행한다.
      * @param {object} scope
      * @private
@@ -467,7 +472,9 @@
      * @private
      */
     function _modalOpener(options) {
-      closeModal();
+      if (!options.multiple) {
+        closeModal();
+      }
 
       if (NetInterceptor.isConnected()) {
         modal = $modal.open(options);

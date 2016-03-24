@@ -548,13 +548,12 @@ module.exports = function (grunt) {
               '{.tmp,<%= yeoman.client %>}/app/util/*.js',
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
               '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
-
-              '!{.tmp,<%= yeoman.client %>}/components/jandi/jandi.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
-
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
-
-              '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/browser/browser.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/dialog/dialog.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/core/core.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/jandi.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/router/router.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
@@ -566,8 +565,8 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
               '!{.tmp,<%= yeoman.client %>}/app/app.js',
-
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
           ]
