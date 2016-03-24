@@ -75,7 +75,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
           },
           'detailpanel': {
             templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -110,7 +110,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         views: {
           'detailpanel@': {
             templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -131,7 +131,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         views: {
           'detailpanel@': {
             templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -148,7 +148,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         views: {
           'detailpanel@': {
             templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            controller: 'FileDetailCtrl'
           }
         }
       })

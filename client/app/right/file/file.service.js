@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('FileData', FileData);
+    .service('RightFile', RightFile);
 
   /* @ngInject */
-  function FileData($filter, fileAPIservice, configuration) {
+  function RightFile($filter, fileAPIservice) {
     var that = this;
 
     that.convert = convert;

@@ -6,13 +6,13 @@
 
   angular
     .module('jandiApp')
-    .directive('rightPanelLoading', rightPanelLoading);
+    .directive('rightLoading', rightLoading);
 
-  function rightPanelLoading() {
+  function rightLoading() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'app/right/loading/right.panel.loading.html',
+      templateUrl: 'app/right/loading/loading.html',
       link: angular.noop
     };
   }

@@ -6,7 +6,7 @@
 
   angular
     .module('jandiApp')
-    .directive('file', file);
+    .directive('rightFile', file);
 
   function file() {
     return {
@@ -19,7 +19,7 @@
       },
       link: link,
       templateUrl : 'app/right/file/file.html',
-      controller: 'FileCtrl'
+      controller: 'RightFileCtrl'
     };
 
     function link(scope, el) {

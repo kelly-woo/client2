@@ -1,4 +1,7 @@
-<div class="rpanel-message-search">
+<div class="rpanel-body message-list">
+  <!-- SEARCH QUERY -->
+  <right-search></right-search>
+
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
     <!--   장소  -->
@@ -29,11 +32,10 @@
       <div class="search-status-container">
         <span class="search-result-summary-ing" ng-if="isSearching">
           <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-          <span>{{::'@search-in-progress'|translate}}</span>
+          <span translate>@search-in-progress</span>
         </span>
-
         <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
-          <span>{{::'@search-result-summary'|translate}}</span>
+          <span translate>@search-result-summary</span>
         </div>
       </div>
 
@@ -62,7 +64,7 @@
     </div>
 
     <div class="rpanel-message-list infinite-scroll-bottom-list">
-      <message-search-card class="private-effect" ng-repeat="message in messageList"></message-search-card>
+      <right-message-group class="private-effect" ng-repeat="message in messageList"></right-message-group>
 
       <div class="file-list__item loading" ng-if="isSearching && messageList.length > 0">
         <div class="loading_container_background scroll_loading_container_background"></div>

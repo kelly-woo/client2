@@ -89,17 +89,8 @@
   color: #00709E;
 }
 
-.scroll_loading_container_background {
-  background-color: transparent;
-  opacity: 1;
-}
 .scroll_loading_bg {
   display: none;
-}
-
-.scroll_loading_bar {
-  left: auto;
-  margin: 15px auto !important;
 }
 
 .loading_container.file {

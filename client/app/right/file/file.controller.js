@@ -6,11 +6,11 @@
 
   angular
     .module('jandiApp')
-    .controller('FileCtrl', FileCtrl);
+    .controller('RightFileCtrl', RightFileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, UserList, publicService,
-                     fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading, Tutorial) {
+  function RightFileCtrl($scope, $rootScope, $state, $filter, UserList, publicService,
+                     fileAPIservice, modalHelper, RightFile, memberService, Dialog, Loading, Tutorial) {
 
     _init();
 
@@ -18,7 +18,7 @@
     function _init() {
       // file controller에 전달되는 data가 tab(file, star, mention)마다 각각 다르므로 message data를
       // file controller에서 사용가능한 data format으로 convert함
-      var file = $scope.file = FileData.convert($scope.fileType, $scope.fileData);
+      var file = $scope.file = RightFile.convert($scope.fileType, $scope.fileData);
 
       $scope.file.extWriter = $scope.writer = UserList.get(file.writerId);
 

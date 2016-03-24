@@ -7,9 +7,9 @@
 
   angular
     .module('jandiApp')
-    .directive('message', message);
+    .directive('rightMessage', rightMessage);
 
-  function message($timeout) {
+  function rightMessage($timeout) {
     return {
       restrict: 'EA',
       replace: true,
@@ -21,7 +21,7 @@
       },
       link: link,
       templateUrl : 'app/right/message/message.html',
-      controller: 'MessageCtrl'
+      controller: 'RightMessageCtrl'
     };
 
     function link(scope, el, attrs) {

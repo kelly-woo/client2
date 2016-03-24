@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .controller('rPanelMessageSearchCardCtrl', rPanelMessageSearchCardCtrl);
+    .controller('RightMessageGroupCtrl', RightMessageGroupCtrl);
 
   /* @ngInject  */
-  function rPanelMessageSearchCardCtrl($scope, $state, MessageQuery, currentSessionHelper, jndPubSub) {
+  function RightMessageGroupCtrl($scope, $state, MessageQuery, currentSessionHelper, jndPubSub) {
     _init();
 
     function _init() {

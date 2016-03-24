@@ -1,6 +1,6 @@
 <div class="rpanel-body mention-list" infinite-scroll-bottom="loadMore();">
   <div class="search-result-container" ng-if="isLoading || isMentionEmpty">
-    <right-panel-loading ng-if="isLoading"></right-panel-loading>
+    <right-loading ng-if="isLoading"></right-loading>
     <div class="search-result-summary-ing rpanel-list" ng-if="isMentionEmpty">
       <img class="rpanel-list-empty__img" src="assets/images/mention-empty.png"/>
       <div class="help-messages__message">
@@ -9,7 +9,10 @@
     </div>
   </div>
   <div class="infinite-scroll-bottom-list">
-    <message message-data="record" message-type="messageType" class="private-effect" ng-repeat="record in records"></message>
+    <right-message class="private-effect"
+                   message-data="record"
+                   message-type="messageType"
+                   ng-repeat="record in records"></right-message>
   </div>
   <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
   <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">

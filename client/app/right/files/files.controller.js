@@ -6,12 +6,11 @@
 
   angular
     .module('jandiApp')
-    .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
+    .controller('RightFilesCtrl', RightFilesCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
-                             fileAPIservice, analyticsService, publicService, UserList,
-                             currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel, jndPubSub, RoomTopicList, RoomChatDmList) {
+  function RightFilesCtrl($scope, $timeout, $state, $filter, RightPanel, fileAPIservice, analyticsService,
+                          publicService, UserList, currentSessionHelper, AnalyticsHelper, modalHelper, Dialog,
+                          TopicFolderModel, jndPubSub, RoomTopicList, RoomChatDmList) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;

@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .controller('rPanelSearchCtrl', rPanelSearchCtrl);
+    .controller('RightSearchCtrl', RightSearchCtrl);
 
   /* @ngInject */
-  function rPanelSearchCtrl($scope, $filter, jndPubSub) {
+  function RightSearchCtrl($scope, $filter, jndPubSub) {
     $scope.resetQuery = resetQuery;
 
     _init();

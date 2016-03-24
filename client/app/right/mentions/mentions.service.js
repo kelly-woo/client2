@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('MentionsAPI', MentionsAPI);
+    .service('Mentions', Mentions);
 
   /* @ngInject */
-  function MentionsAPI($rootScope, $http, memberService) {
+  function Mentions($rootScope, $http, memberService) {
     var that = this;
 
     that.getMentionList = getMentionList;

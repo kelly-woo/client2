@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
+    .controller('RightMessagesCtrl', RightMessagesCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, $timeout, $filter, $state, RightPanel, fileAPIservice,
+  function RightMessagesCtrl($scope, $rootScope, $timeout, $filter, $state, RightPanel, fileAPIservice,
                                 messageAPIservice, AnalyticsHelper, TopicFolderModel, jndPubSub,
                                 currentSessionHelper, RoomTopicList) {
     var DEFAULT_PAGE = 1;

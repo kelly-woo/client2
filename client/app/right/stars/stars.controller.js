@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
+    .controller('RightStarsCtrl', RightStarsCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService, fileAPIservice) {
+  function RightStarsCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService, fileAPIservice) {
     var starListData = {
       messageId: null
     };

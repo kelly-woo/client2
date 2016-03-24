@@ -6,15 +6,16 @@
 
   angular
     .module('jandiApp')
-    .directive('rPanelMessagesTab', rPanelMessagesTab);
+    .directive('rightMessages', rightMessages);
 
-  function rPanelMessagesTab() {
+  function rightMessages() {
     return {
       restrict: 'EA',
+      replace: true,
       scope: true,
       link: link,
-      templateUrl : 'app/right/search.messages/search.messages.html',
-      controller: 'rPanelMessageTabCtrl'
+      templateUrl : 'app/right/messages/messages.html',
+      controller: 'RightMessagesCtrl'
     };
 
     function link(scope, element, attrs) {

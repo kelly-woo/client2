@@ -5,7 +5,7 @@
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
           <div class="search-result-container" ng-if="tabs.all.isLoading || tabs.all.empty">
-            <right-panel-loading ng-if="tabs.all.isLoading"></right-panel-loading>
+            <right-loading ng-if="tabs.all.isLoading"></right-loading>
             <div class="search-result-summary-ing rpanel-list-empty" ng-if="tabs.all.empty">
               <img class="rpanel-list-empty__img" src="assets/images/star-message-empty.png"/>
               <div class="help-messages__message">
@@ -14,8 +14,8 @@
             </div>
           </div>
           <div class="private-effect" ng-repeat="item in tabs.all.list track by item.message.id">
-            <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
-            <file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></file>
+            <right-message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></right-message>
+            <right-file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></right-file>
           </div>
           <div class="file-list__item loading" ng-if="tabs.all.isScrollLoading && tabs.all.list.length > 0">
             <div class="loading_container_background scroll_loading_container_background"></div>
@@ -34,7 +34,7 @@
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
           <div class="search-result-container" ng-if="tabs.files.isLoading || tabs.files.empty">
-            <right-panel-loading ng-if="tabs.files.isLoading"></right-panel-loading>
+            <right-loading ng-if="tabs.files.isLoading"></right-loading>
             <div class="search-result-summary-ing" ng-if="tabs.files.empty">
               <img class="star-empty__img" src="assets/images/star-file-empty.png"/>
               <div class="help-messages__message">
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="private-effect" ng-repeat="file in tabs.files.list track by file.message.id">
-            <file file-data="file" file-type="fileType"></file>
+            <right-file file-data="file" file-type="fileType"></right-file>
           </div>
           <div class="file-list__item loading" ng-if="tabs.files.isScrollLoading && tabs.files.list.length > 0">
             <div class="loading_container_background scroll_loading_container_background"></div>

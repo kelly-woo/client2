@@ -3,16 +3,16 @@
 
   angular
     .module('jandiApp')
-    .directive('rPanelSearch', rPanelSearch);
+    .directive('rightSearch', rightSearch);
 
-  function rPanelSearch($timeout, $filter, jndKeyCode, Dialog) {
+  function rightSearch($timeout, $filter, jndKeyCode, Dialog) {
     return {
       restrict: 'EA',
       scope: true,
       link: link,
       replace: true,
-      templateUrl : 'app/right/rpanel_search/rpanel.search.html',
-      controller: 'rPanelSearchCtrl'
+      templateUrl : 'app/right/search/search.html',
+      controller: 'RightSearchCtrl'
     };
 
     function link(scope, element) {

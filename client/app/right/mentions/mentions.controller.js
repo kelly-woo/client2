@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .controller('RightPanelMentionsTabCtrl', RightPanelMentionsTabCtrl);
+    .controller('RightMentionsCtrl', RightMentionsCtrl);
 
   /* @ngInject */
-  function RightPanelMentionsTabCtrl($scope, $state, RightPanel, MentionsAPI) {
+  function RightMentionsCtrl($scope, $state, RightPanel, Mentions) {
     var mentionListData = {
       messageId: null
     };
@@ -84,7 +84,7 @@
      * @private
      */
     function _getMentionList() {
-      MentionsAPI.getMentionList(mentionListData)
+      Mentions.getMentionList(mentionListData)
         .success(function(data) {
           if (data) {
             if (data.records && data.records.length) {

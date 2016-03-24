@@ -6,12 +6,11 @@
 
   angular
     .module('jandiApp')
-    .controller('fileDetailCtrl', FileDetailCtrl);
+    .controller('FileDetailCtrl', FileDetailCtrl);
 
   /* @ngInject */
-  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, RightPanel, RouterHelper, entityAPIservice,
-                          UserList, jndPubSub, memberService, publicService, JndMessageStorage, Sticker,
-                          Tutorial) {
+  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, RightPanel, UserList, jndPubSub, memberService,
+                          publicService, JndMessageStorage, Sticker, Tutorial) {
     var fileId;
     var requestFileDetail;
 

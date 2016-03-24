@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('MessageData', MessageData);
+    .service('RightMessage', RightMessage);
 
   /* @ngInject */
-  function MessageData() {
+  function RightMessage() {
     var that = this;
 
     that.convert = convert;

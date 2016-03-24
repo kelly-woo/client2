@@ -6,17 +6,17 @@
 
   angular
     .module('jandiApp')
-    .directive('messageSearchCard', messageSearchCard);
+    .directive('rightMessageGroup', messageGroup);
 
   /* @ngInject  */
-  function messageSearchCard() {
+  function messageGroup() {
     return {
       restrict: 'EA',
       replace: true,
       scope: true,
       link: link,
-      templateUrl : 'app/right/search.messages/search.message/search.message.html',
-      controller: 'rPanelMessageSearchCardCtrl'
+      templateUrl : 'app/right/messages/message-group/message.group.html',
+      controller: 'RightMessageGroupCtrl'
     };
 
     function link(scope, element, attrs) {

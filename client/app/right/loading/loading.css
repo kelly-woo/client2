@@ -7,3 +7,8 @@
   top:14px;
   left:-12px;
 }
+
+.scroll_loading_bar {
+  left: auto;
+  margin: 15px auto !important;
+}
