@@ -29,6 +29,8 @@
   min-width: 60px;
 }
 
-.dialog-modal .btn-cancel {
-  margin-right: 3px;
+.dialog-modal .btn-cancel,
+.modal-dialog .btn-cancel,
+.full-screen-actions .btn-cancel {
+  margin-right: 4px;
 }
