@@ -27,7 +27,7 @@
   padding-top: 5px;
   font-size: 16px;
   color: #333;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .notification-role .notification-role-body {
@@ -46,7 +46,7 @@
 .notification-role .notification-image {
   position: absolute;
   top: 0;
-  left: 295px;
+  left: 302px;
   width: 236px;
 }
 .notification-role .notification-image img {
@@ -78,6 +78,7 @@
 }
 .notification-modal-body .notification-modal-tab.active tab-heading {
   color: #154968;
+  font-weight: 700;
 }
 
 .notification-modal-body .notification-modal-tab a:hover {
