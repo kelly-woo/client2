@@ -6,7 +6,7 @@
     .controller('PasswordRequestCtrl', PasswordRequestCtrl);
 
   /* @ngInject */
-  function PasswordRequestCtrl($scope, modalHelper, authAPIservice, $filter) {
+  function PasswordRequestCtrl($scope, modalHelper, AuthApi, $filter) {
     $scope.onLoadDone = true;
     $scope.email = '';
     $('#passwordResetEmailInput').focus();
@@ -17,7 +17,7 @@
       if ($scope.isLoading) return;
       $scope.isLoading = !$scope.isLoading;
 
-      authAPIservice.requestPasswordEmail(email)
+      AuthApi.requestPasswordEmail(email)
         .success(function(response) {
           $scope.emailSent = true;
         })

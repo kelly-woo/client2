@@ -46,12 +46,14 @@ module.exports = function(config) {
       'client/bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'client/bower_components/handlebars/handlebars.js',
 
+      'client/components/jandi/core/core.js',
       'client/components/jandi/**/*.js',
       'client/components/config/common/**/*.js',
 
       'client/components/config/config.framework.js',
       'client/components/base/**/*.js',
       'client/components/base/base.framework.js',
+
       'client/components/app/mention_ahead/mention.ahead.js',
       'client/components/app/router/router.js',
       'client/components/app/analytics/analytics.js',
@@ -78,22 +80,28 @@ module.exports = function(config) {
       'client/test/**/*.spec.js',
 
       // fixtures
-      {pattern: 'client/test/**/*.json', watched: true, served: true, included: false}
+      {pattern: 'client/test/**/*.json', watched: true, served: true, included: false},
+      {pattern: 'client/assets/**/*', watched: false, served: true, included: false},
+
+      //html templates
+      'client/**/*.html'
     ],
 
-    preprocessors: {
-      //'**/*.html': 'html2js',
-      'client/**/*.js': ['coverage', 'ngannotate']
+    proxies: {
+      '/assets/': '/base/client/assets/'
     },
 
-    // ngHtml2JsPreprocessor: {
-    //   stripPrefix: 'client/'
-    // },
+    preprocessors: {
+      'client/**/*.js': ['coverage', 'ngannotate'],
+      'client/**/*.html': ['ng-html2js']
+    },
 
-    // ngJade2JsPreprocessor: {
-    //   stripPrefix: 'client/'
-    // },
-
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'client/',
+      // setting this option will create only a single module that contains templates
+      // from all the files, so you can load them all with module('templates')
+      moduleName: 'templates'
+    },
     // list of files / patterns to exclude
     exclude: [],
 

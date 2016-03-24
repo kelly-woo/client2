@@ -97,9 +97,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" ng-click="cancel()"><span>{{ ::'@btn-cancel' | translate }}</span></button>
-    <input class="btn btn-ok _modalSubmit" type="submit" id="rename_channel" value="{{ ::'@common-done' | translate }}"
+    <input class="btn btn-ok pull-right _modalSubmit" type="submit" id="rename_channel" value="{{ ::'@common-done' | translate }}"
            ng-disabled="isInvalid()"/>
+    <button type="button" class="btn btn-cancel pull-right" ng-click="cancel()"><span>{{ ::'@btn-cancel' | translate }}</span></button>
+    
   </div>
 </form>
 <jnd-loading></jnd-loading>

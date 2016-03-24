@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog, modalHelper) {
+  function userProfile($filter, CoreUtil, memberService, fileAPIservice, Dialog, modalHelper) {
     return {
       restrict: 'A',
       link: link
@@ -37,7 +37,7 @@
        * @param {string} dataURI
        */
       function onProfileImageChange(dataURI) {
-        _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
+        _updateProfileImage(CoreUtil.dataURItoBlob(dataURI));
 
         scope.userProfileImage = dataURI;
 

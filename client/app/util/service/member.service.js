@@ -10,8 +10,8 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, $q, storageAPIservice, entityAPIservice, $upload,
-                         jndPubSub, currentSessionHelper, EntityMapManager, JndUtil) {
+  function memberService($http, $rootScope, $q, storageAPIservice, $upload, jndPubSub, currentSessionHelper, CoreUtil,
+                         UserList, BotList, EntityFilterMember) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -91,11 +91,21 @@
       isBot: isBot,
       isJandiBot: isJandiBot,
       isConnectBot: isConnectBot,
-
+      isUnreadMessage: isUnreadMessage,
       isDefaultProfileImage: isDefaultProfileImage
     };
 
     return service;
+
+    /**
+     * 현재 로그인 한 사용자가 읽지 않은 메시지 인지 여부를 반환한다.
+     * @param {number} roomId - 룸 아이디
+     * @param {number} linkId - 메시지 링크 아이디
+     * @returns {boolean}
+     */
+    function isUnreadMessage(roomId, linkId) {
+      return getLastReadMessageMarker(roomId) < linkId;
+    }
 
     /**
      * 현재 로그인되어 있는 멤버의 정보를 서버로부터 새로 받아서 넘겨준다.
@@ -315,9 +325,9 @@
      */
     function getSmallThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityFilterMember.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'smallThumbnailUrl') ||
         getPhotoUrl(member) ||
         getProfileImage(member.id);
     }
@@ -329,9 +339,9 @@
      */
     function getMediumThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityFilterMember.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'mediumThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -341,9 +351,9 @@
      */
     function getLargeThumbnailUrl(member) {
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = EntityFilterMember.get(member);
       }
-      return JndUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
+      return CoreUtil.pick(member, 'u_photoThumbnailUrl', 'largeThumbnailUrl') || getPhotoUrl(member);
     }
 
     /**
@@ -352,7 +362,7 @@
      * @returns {string} url - profile photo url
      */
     function getPhotoUrl(member) {
-      return JndUtil.pick(member, 'u_photoUrl');
+      return CoreUtil.pick(member, 'u_photoUrl');
     }
 
     /**
@@ -361,7 +371,7 @@
      * @param {string} [size]
      */
     function getProfileImage(memberId, size) {
-      var member = EntityMapManager.get('member', memberId);
+      var member = EntityFilterMember.get(memberId);
       var profileImage;
 
       if (member) {
@@ -382,7 +392,7 @@
      * @returns {string} name - 아이디를 가진 유져의 이름
      */
     function getNameById(entityId) {
-      return this.getName(EntityMapManager.get('total', entityId));
+      return this.getName(EntityFilterMember.get(entityId));
     }
 
     /**
@@ -556,7 +566,7 @@
      * @returns {nubmer} - lastLinkId
      */
     function getLastReadMessageMarker(entityId) {
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       // initLastReadMessageMarker를 통해 전달되는 markers의 DM data중 user들은 memberId로 전달되고, jandi bot은 roomId로
       // 전달되기 때문에 getLastReadMessageMarker에 전달된 entityId(memberId)값이 jandi bot일 경우에는 roomId로 변환하여
@@ -624,7 +634,7 @@
      * @returns {*|boolean|*}
      */
     function isMember(memberId) {
-      return EntityMapManager.contains('member', memberId);
+      return !!(UserList.get(memberId) || BotList.get(memberId));
     }
 
     /**
@@ -633,7 +643,7 @@
      * @returns {*|boolean|*}
      */
     function isUser(memberId) {
-      return EntityMapManager.contains('user', memberId);
+      return !!UserList.get(memberId);
     }
 
     /**
@@ -642,7 +652,7 @@
      * @returns {*|boolean|*}
      */
     function isBot(memberId) {
-      return EntityMapManager.contains('bot', memberId);
+      return !!BotList.get(memberId);
     }
 
     /**
@@ -651,8 +661,7 @@
      * @returns {*|boolean|*}
      */
     function isJandiBot(memberId) {
-      var bot = EntityMapManager.get('bot', memberId);
-      return isBot(memberId) && bot && bot.botType === 'jandi_bot';
+      return BotList.isJandiBot(memberId);
     }
 
     /**
@@ -661,8 +670,7 @@
      * @returns {*|boolean|*}
      */
     function isConnectBot(memberId) {
-      var bot = EntityMapManager.get('bot', memberId);
-      return isBot(memberId) && bot && bot.botType === 'connect_bot';
+      return BotList.isConnectBot(memberId);
     }
 
     /**

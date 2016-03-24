@@ -29,7 +29,6 @@
   <link rel="stylesheet" href="app/app.css">
   <!-- injector:css -->
   <link rel="stylesheet" href="app/app.css">
-  <link rel="stylesheet" href="app/background/background.css">
   <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
   <link rel="stylesheet" href="app/center/announcement/announcement.css">
   <link rel="stylesheet" href="app/center/center.css">
@@ -83,7 +82,6 @@
   <link rel="stylesheet" href="app/left/topics/folder/topic.folder.css">
   <link rel="stylesheet" href="app/left/topics/topic/topic.css">
   <link rel="stylesheet" href="app/left/topics/topics.css">
-  <link rel="stylesheet" href="app/loading/loading.center.css">
   <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
   <link rel="stylesheet" href="app/modal/files/integration/integration.css">
@@ -91,7 +89,6 @@
   <link rel="stylesheet" href="app/modal/files/upload/upload.css">
   <link rel="stylesheet" href="app/modal/fullscreen.modal.css">
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
-  <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
   <link rel="stylesheet" href="app/modal/lists/services/renderers/templates/modal.room.list.item.css">
   <link rel="stylesheet" href="app/modal/members/bot-profile/bot.profile.css">
   <link rel="stylesheet" href="app/modal/members/expanding-input/expanding.input.css">
@@ -148,6 +145,7 @@
   <link rel="stylesheet" href="app/util/directive/file-drop/jnd.file.drop.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
+  <link rel="stylesheet" href="app/util/directive/loading/initial/loading-initial.css">
   <link rel="stylesheet" href="app/util/directive/switch-button/switch.button.css">
   <link rel="stylesheet" href="assets/components/google-code-prettify/prettify.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
@@ -168,7 +166,7 @@
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
 <div class="content-wrapper opac-in-fast">
-  <background></background>
+  <loading-initial></loading-initial>
   <div class="body-wrapper full-screen" jnd-file-drop ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
@@ -200,7 +198,7 @@
     <tutorial-popover ng-if="tutorial.isShowPopover"></tutorial-popover>
     <jnd-tooltip></jnd-tooltip>
     <jnd-connect ng-if="connectSetting.isOpen" jnd-data-params="connectSetting.params"></jnd-connect>
-  <div ng-if="!isReady" class="full-screen z-index-top">
+  <div ng-if="isShowDummyLayout" class="full-screen z-index-top">
   </div>
   <guide-privacy></guide-privacy>
   <guide-zoom></guide-zoom>
@@ -272,10 +270,10 @@
 <script src="components/base/base.framework.js"></script>
 
 <script src="components/jandi/browser/browser.js"></script>
-<script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/preloader/preloader.js"></script>
-<script src="components/jandi/ui/jandi.ui.js"></script>
-
+<script src="components/jandi/core/core.js"></script>
+<script src="components/jandi/jandi.framework.js"></script>
+  
 <script src="components/app/analytics/analytics.js"></script>
 <script src="components/app/router/router.js"></script>
 <script src="components/app/language/language.js"></script>
@@ -312,6 +310,7 @@
 <script src="app/util/directive/jnd.tooltip.trigger.directive.js"></script>
 <script src="app/util/directive/jnd.translate.html.js"></script>
 <script src="app/util/directive/jnd.version.directive.js"></script>
+<script src="app/util/directive/loading/initial/loading-initial.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/switch-button/switch.button.directive.js"></script>
@@ -340,7 +339,6 @@
 <script src="app/util/service/clipboard.service.js"></script>
 <script src="app/util/service/date.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
-<script src="app/util/service/entityMap.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/file.upload.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
@@ -351,6 +349,15 @@
 <script src="app/util/service/link.txt.service.js"></script>
 <script src="app/util/service/markdown.regx.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
+<script src="app/util/service/model/bot.list.service.js"></script>
+<script src="app/util/service/model/entity.collection.service.js"></script>
+<script src="app/util/service/model/entity.handler.service.js"></script>
+<script src="app/util/service/model/filter/entity.filter.common.service.js"></script>
+<script src="app/util/service/model/filter/entity.filter.member.service.js"></script>
+<script src="app/util/service/model/filter/entity.filter.room.service.js"></script>
+<script src="app/util/service/model/room.chat.dm.list.service.js"></script>
+<script src="app/util/service/model/room.topic.list.service.js"></script>
+<script src="app/util/service/model/user.list.service.js"></script>
 <script src="app/util/service/notification.service.helper.js"></script>
 <script src="app/util/service/notification.service.js"></script>
 <script src="app/util/service/privacy.service.js"></script>
@@ -365,7 +372,6 @@
 <script src="app/util/storage/jnd.folder.storage.js"></script>
 <script src="app/util/storage/jnd.local.storage.js"></script>
 <script src="app/util/storage/jnd.message.storage.js"></script>
-<script src="app/background/background.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.controller.js"></script>
 <script src="app/banner/desktop.notification.banner.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.service.js"></script>
@@ -491,7 +497,6 @@
 <script src="app/left/topics/topic/topic.draggable.directive.js"></script>
 <script src="app/left/topics/topics.controller.js"></script>
 <script src="app/left/topics/topics.directive.js"></script>
-<script src="app/loading/loading.center.directive.js"></script>
 <script src="app/main/jnd.main.controller.js"></script>
 <script src="app/main/jnd.main.directive.js"></script>
 <script src="app/mention/mention.view.directive.js"></script>
@@ -504,7 +509,6 @@
 <script src="app/modal/images/carousel/image.carousel.directive.js"></script>
 <script src="app/modal/images/carousel/image.carousel.item.directive.js"></script>
 <script src="app/modal/images/carousel/image.carousel.service.js"></script>
-<script src="app/modal/images/full_image/full.screen.image.controller.js"></script>
 <script src="app/modal/lists/list.directive.js"></script>
 <script src="app/modal/lists/list.viewport.service.js"></script>
 <script src="app/modal/lists/services/item.renderer.factory.service.js"></script>
@@ -567,6 +571,7 @@
 <script src="app/right/search.messages/search.messages.service.js"></script>
 <script src="app/right/stars/stars.controller.js"></script>
 <script src="app/right/stars/stars.directive.js"></script>
+<script src="app/signin/auth.api.service.js"></script>
 <script src="app/signin/auth.controller.js"></script>
 <script src="app/signin/auth.service.js"></script>
 <script src="app/star/star.api.service.js"></script>
@@ -652,8 +657,9 @@
 <script src="components/config/common/config.js"></script>
 <script src="components/config/common/config.preload.js"></script>
 <script src="components/config/common/config.service.js"></script>
-<script src="components/jandi/browser/browser.js"></script>
 <script src="components/jandi/browser/browser.service.js"></script>
+<script src="components/jandi/core/core.collection.service.js"></script>
+<script src="components/jandi/core/core.util.service.js"></script>
 <script src="components/jandi/hybrid_app_communicator/hybrid.app.js"></script>
 <script src="components/jandi/hybrid_app_communicator/hybrid.app.service.js"></script>
 <script src="components/jandi/hybrid_app_communicator/mac/mac.app.service.js"></script>

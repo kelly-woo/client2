@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
-                  NetInterceptor, storageAPIservice, jndPubSub, RightPanel) {
+                  NetInterceptor, storageAPIservice, jndPubSub, RightPanel, EntityHandler) {
     this.onStateChangeStart = onStateChangeStart;
     this.onStateChangeSuccess = onStateChangeSuccess;
     this.onStateNotFound = onStateNotFound;
@@ -125,9 +125,9 @@
 
             // If lastState doesn't exist.
             // Direct user to default channel.
-            if (!lastState || angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))) {
+            if (!lastState || angular.isUndefined(EntityHandler.get(lastState.entityId))) {
               entityAPIservice.removeLastEntityState();
-              $rootScope.toDefault = true;
+              jndPubSub.pub('toDefaultTopic');
               return;
             }
 

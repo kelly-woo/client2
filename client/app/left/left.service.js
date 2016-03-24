@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice,
-                                            memberService, EntityMapManager, configuration, currentSessionHelper) {
+                                            memberService, RoomTopicList, configuration, currentSessionHelper) {
   var leftpanelAPI = {};
 
   leftpanelAPI.getLists = function(deferredObject) {
@@ -27,25 +27,11 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     });
   };
 
-  leftpanelAPI.toSignin = function() {
-    currentSessionHelper.clear();
-    storageAPIservice.removeLocal();
-    storageAPIservice.removeSession();
-
-    if ($state.is('signin')) {
-      $state.transitionTo('signin', '', {'reload':true});
-    }
-    else {
-      $state.transitionTo('signin', '', {'reload':true});
-
-    }
-  };
-
   leftpanelAPI.getDefaultChannel = function(input) {
     var defaultChannelId = input.team.t_defaultChannelId;
-    var joindEntityMap = EntityMapManager.getMap('joined');
-    if (!EntityMapManager.get('joined', defaultChannelId)) {
-      _.each(joindEntityMap, function(entity) {
+    var joindEntityList = RoomTopicList.toJSON(true);
+    if (!RoomTopicList.get(defaultChannelId, true)) {
+      _.forEach(joindEntityList, function(entity) {
         defaultChannelId = entity.id;
         return false;
       });

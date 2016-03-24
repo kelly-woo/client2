@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndConnectSelectboxAccountMenu($filter, Dialog, jndPubSub, JndConnect, JndConnectUnionApi, JndUtil,
-                                          JndConnectUnion, JndConnectApi) {
+                                          JndConnectUnion, JndConnectApi, CoreUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -68,7 +68,7 @@
        * @private
        */
       function _onAuthenticationCreated(angularEvent, data) {
-        var connectType = JndUtil.pick(data, 'authentication', 'connectType');
+        var connectType = CoreUtil.pick(data, 'authentication', 'connectType');
         if (connectType === scope.unionName) {
           _onPopupDone();
         }

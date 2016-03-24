@@ -9,7 +9,7 @@
     .service('TopicItemRenderer', TopicItemRenderer);
 
   /* @ngInject */
-  function TopicItemRenderer($filter, entityAPIservice) {
+  function TopicItemRenderer($filter, RoomTopicList) {
     var _template;
 
     this.render = render;
@@ -54,7 +54,7 @@
         createTime: $filter('getyyyyMMddformat')(data.ch_createTime),
         topicDescription: data.description,
         creatorName: $filter('getName')(data.ch_creatorId),
-        userCount: entityAPIservice.getUserList(data).length
+        userCount: RoomTopicList.getUserLength(data.id)
       };
     }
   }

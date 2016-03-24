@@ -9,7 +9,7 @@
     .service('CharacterImage', CharacterImage);
 
   /* @ngInject */
-  function CharacterImage($http, $q, config) {
+  function CharacterImage($http, $q, config, CoreUtil) {
     var that = this;
 
     var _imageMap = {};
@@ -118,8 +118,8 @@
       var that = this;
 
       if (that.status === 200) {
-        _blobToDataURL(that.response, function(dataURL) {
-          _createImage(defer, dataURL);
+        CoreUtil.blobToDataURI(that.response, function(dataURI) {
+          _createImage(defer, dataURI);
         });
       }
     }

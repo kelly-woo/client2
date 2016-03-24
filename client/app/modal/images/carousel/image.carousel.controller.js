@@ -9,7 +9,7 @@
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, modalHelper, EntityMapManager, ImageCarousel, data) {
+  function imageCarouselCtrl($scope, modalHelper, UserList, ImageCarousel, data) {
 
     _init();
 
@@ -113,7 +113,7 @@
         }
 
         for (; record = records[i]; i += cal) {
-          if (writer = EntityMapManager.get('member', record.writerId)) {
+          if (writer = UserList.get(record.writerId)) {
             if (type === 'init' && record.id === messageId) {
               $scope.imageList.splice($scope.imageList.indexOf(messageId), 1);
               imageItem = $scope.imageMap[messageId];

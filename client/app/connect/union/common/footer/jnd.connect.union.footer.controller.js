@@ -9,7 +9,7 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
+  function JndConnectUnionFooterCtrl($scope, $filter, CoreUtil, jndPubSub, modalHelper, JndUtil, Dialog) {
     var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
@@ -77,7 +77,7 @@
     function _onProfileSettingDone(url) {
       if (url) {
         $scope.changedFileUri = url;
-        $scope.data.botThumbnailFile = JndUtil.dataURItoBlob(url);
+        $scope.data.botThumbnailFile = CoreUtil.dataURItoBlob(url);
       }
     }
 
@@ -106,7 +106,7 @@
      */
     function _getImageData(files) {
       var file = files[0];
-      return fileAPIservice.getImageDataByFile(file);
+      return JndUtil.getImageDataByFile(file);
     }
 
     /**

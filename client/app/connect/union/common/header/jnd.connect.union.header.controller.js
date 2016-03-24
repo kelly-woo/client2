@@ -6,7 +6,7 @@
     .controller('JndConnectUnionHeaderCtrl', JndConnectUnionHeaderCtrl);
 
   /* @ngInject */
-  function JndConnectUnionHeaderCtrl($scope, $filter, JndConnect, EntityMapManager, memberService) {
+  function JndConnectUnionHeaderCtrl($scope, $filter, JndConnect, EntityHandler, memberService) {
     var regxCreatedAt = /(?:(.+)T)/;
     var dateFilter = $filter('date');
 
@@ -36,7 +36,7 @@
      * @private
      */
     function getMemberName(memberId) {
-      var member = EntityMapManager.get('member', memberId || memberService.getMemberId());
+      var member = EntityHandler.get(memberId || memberService.getMemberId());
       return _.isObject(member) && member.name;
     }
 

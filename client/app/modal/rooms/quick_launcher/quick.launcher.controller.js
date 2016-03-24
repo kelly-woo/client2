@@ -9,9 +9,9 @@
     .controller('QuickLauncherCtrl', QuickLauncherCtrl);
 
   /* @ngInject */
-  function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityMapManager, centerService,
+  function QuickLauncherCtrl($rootScope, $scope, $state, $filter, UnreadBadge, EntityHandler, centerService,
                              memberService, currentSessionHelper, entityheaderAPIservice, jndPubSub, modalHelper,
-                             entityAPIservice) {
+                             BotList, RoomTopicList) {
     _init();
 
     /**
@@ -77,9 +77,8 @@
         modalHelper.closeModal();
       } else {
         if (room.type === 'channels') {
-          if (EntityMapManager.contains('joined', room.id)) {
+          if (RoomTopicList.get(room.id, true)) {
             // join한 topic
-
             _joinRoom(room);
           } else {
             if (!$scope.isLoading) {
@@ -215,7 +214,7 @@
       var room;
 
       for (i = centerHistory.length - 1; i > -1; i--) {
-        if (entity = EntityMapManager.get('total', centerHistory[i].entityId)) {
+        if (entity = EntityHandler.get(centerHistory[i].entityId)) {
           room = {
             type: entity.type,
             id: entity.id,
@@ -256,7 +255,7 @@
      */
     function _getEnabledMembers(filterText) {
       var members = currentSessionHelper.getCurrentTeamUserList();
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       if (jandiBot) {
         members = members.concat([jandiBot]);
@@ -281,25 +280,13 @@
       var rooms = [];
 
       // 참여 channel list filtering
-      _.forEach($rootScope.joinedChannelList, function(channel) {
+      _.forEach(RoomTopicList.toJSON(true), function(channel) {
         if (channel.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           rooms.push({
             type: channel.type,
             id: channel.id,
             name: channel.name,
             count: channel.alarmCnt
-          });
-        }
-      });
-
-      // 참여 privategroup list filtering
-      _.forEach($rootScope.privateGroupList, function(privategroup) {
-        if (privategroup.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-          rooms.push({
-            type: privategroup.type,
-            id: privategroup.id,
-            name: privategroup.name,
-            count: privategroup.alarmCnt
           });
         }
       });
@@ -316,7 +303,7 @@
     function _getUnJoinedChannels(value) {
       var channels = [];
 
-      _.forEach($rootScope.unJoinedChannelList, function(channel) {
+      _.forEach(RoomTopicList.toJSON(false), function(channel) {
         if (channel.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           channels.push({
             type: channel.type,

@@ -6,7 +6,7 @@
     .controller('JndConnectGoogleDriveCtrl', JndConnectGoogleDriveCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleDriveCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectGoogleDriveCtrl($scope, JndConnect) {
 
     _init();
 

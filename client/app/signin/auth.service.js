@@ -1,138 +1,124 @@
-'use strict';
+/**
+ * @fileoverview 인증 서비스
+ * @author young.park <young.park@tosslab.com>
+ */
+(function() {
+  'use strict';
 
-var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .service('Auth', Auth);
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $stateParams, $location, storageAPIservice,
-                                       accountService, $filter, configuration, publicService, Dialog) {
-  var authAPI = {};
-  var _isRefreshTokenLock = false;
+  function Auth($state, accountService, memberService, storageAPIservice, publicService, analyticsService,
+                HybridAppHelper, AuthApi) {
 
-  authAPI.signIn = function(userdata) {
-    return $http({
-      method: "POST",
-      url: $rootScope.server_address + 'token',
-      data: userdata
-    });
-  };
+    this.signIn = signIn;
 
-  authAPI.requestPasswordEmail = function(email) {
-    return $http({
-      method: 'POST',
-      url: $rootScope.server_address + 'accounts/password/resetToken',
-      data: {
-        email: email,
-        lang: accountService.getAccountLanguage()
-      }
-    });
-  };
+    _init();
 
-  authAPI.validatePasswordToken = function(teamId, token) {
-    return $http({
-      method  : 'POST',
-      url     : $rootScope.server_address + 'validation/passwordResetToken',
-      data    : {
-        'teamId'    : parseInt(teamId),
-        'token'     : token
-      }
-    });
-  };
+    /**
+     * 초기화 함수
+     * @private
+     */
+    function _init() {
+    }
 
-  authAPI.resetPassword = function(token, password) {
-    return $http({
-      method  : 'PUT',
-      url     : $rootScope.server_address + 'accounts/password',
-      data    : {
-        token: token,
-        password: password,
-        lang: accountService.getAccountLanguage()
-      }
-    });
-  };
-
-  /**
-   * When signed out, account variable under $rootScope gets deleted.
-   * Thus, when there is account under $rootScope, it means user stays signed in.
-   *
-   * @returns {boolean}
-   */
-  authAPI.isSignedIn = function() {
-    return accountService.hasAccount();
-  };
-
-
-  /**
-   * refresh token 으로 access token 을 조회한다.
-   */
-  authAPI.requestAccessTokenWithRefreshToken = function() {
-    var refreshToken = storageAPIservice.getRefreshToken();
-
-    if (!_isRefreshTokenLock) {
-      _isRefreshTokenLock = true;
-      if (!refreshToken) {
-        publicService.signOut();
+    /**
+     * 로그인 시도한다.
+     */
+    function signIn() {
+      _loadLocalToken();
+      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
+        AuthApi.requestAccessTokenWithRefreshToken();
       } else {
-        $http({
-          method  : "POST",
-          url     : $rootScope.server_address + 'token',
-          data    : {
-            'grant_type'    : 'refresh_token',
-            'refresh_token' : refreshToken
-          }
-        }).success(_.bind(_onSuccessAccessTokenWithRefreshToken, this, refreshToken))
-          .error(publicService.signOut)
-          .finally(function() {
-          _isRefreshTokenLock = false;
-        });
+        accountService.getAccountInfo().then(_onSuccessGetAccount, AuthApi.requestAccessTokenWithRefreshToken);
       }
     }
-  };
 
-  /**
-   * refresh token 성공 콜백
-   * @param {string} refreshToken
-   * @param {object} response
-   * @private
-   */
-  function _onSuccessAccessTokenWithRefreshToken(refreshToken, response) {
-    var hash = window.location.hash;
+    /**
+     * local storage 에 저장된 token 정보를 로드한다.
+     * @private
+     */
+    function _loadLocalToken() {
+      // Handling users with token info in localstorage.
+      // Move token info from 'local Storage' -> to 'Cookie'
+      if (storageAPIservice.hasAccessTokenLocal()) {
+        // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
+        // So that new version of auto sign-in could work with current user.
+        storageAPIservice.setTokenCookie({
+          access_token: storageAPIservice.getAccessTokenLocal(),
+          refresh_token: storageAPIservice.getRefreshTokenLocal(),
+          token_type: storageAPIservice.getTokenTypeLocal()
+        });
+        storageAPIservice.setShouldAutoSignIn(true);
+        storageAPIservice.removeLocal();
+      }
+    }
 
-    response.refresh_token = refreshToken;
-    storageAPIservice.setTokenCookie(response);
+    /**
+     * accout 정보 획득 성공 콜백
+     * @param {object} result
+     * @private
+     */
+    function _onSuccessGetAccount(result) {
+      var response = result.data;
+      var account;
+      var signInInfo;
 
-    //현 시점에 $state 에 저장된 정보가 없기 때문에 hash 정보 변경 이벤트를 강제로 발생하여 routing 로직이 재실행 되도록 한다.
-    if (!hash || hash !== '#/') {
-      window.location.hash = '#/';
-      //angular ui router 에서 hash change 이벤트 핸들러 수행 후 hash 값을 원본으로 변경하기 위해 setTimeout 을 사용한다.
-      setTimeout(function() {
-        window.location.hash = hash;
-      });
-    } else {
-      //hash 값이 없다면 default topic 으로 이동해야 하는 경우 이므로 messages.home 으로 routing 한다.
+      accountService.setAccount(response);
+      publicService.setLanguageConfig();
+
+      analyticsService.accountIdentifyMixpanel(response);
+      analyticsService.accountMixpanelTrack("Sign In");
+
+      account = accountService.getAccount();
+      signInInfo = accountService.getCurrentSignInInfo(account.memberships);
+
+      if (_isInActiveMember(signInInfo)) {
+        publicService.redirectToMain();
+      } else {
+        storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
+        storageAPIservice.setShouldAutoSignIn(true);
+        memberService.getMemberInfo(signInInfo.memberId).then(_onSuccessGetMemberInfo, AuthApi.requestAccessTokenWithRefreshToken);
+      }
+    }
+
+    /**
+     * member 정보 조회 API 성공 콜백
+     * @param {object} result
+     * @private
+     */
+    function _onSuccessGetMemberInfo(result) {
+      var response = result.data;
+      memberService.setMember(response);
+      _setSignInStatics();
+      publicService.showDummyLayout();
       $state.go('messages.home');
+      HybridAppHelper.onSignedIn();
+    }
+
+    /**
+     * inactive member 인지 여부를 반환한다.
+     * @param {object} signInInfo
+     * @returns {boolean} inactive member 인지 여부
+     * @private
+     */
+    function _isInActiveMember(signInInfo) {
+      return !!(signInInfo.memberId === -1 || (signInInfo.status && signInInfo.status === 'disabled'));
+    }
+
+    /**
+     * sign-in 통계 로그를 쌓는다.
+     * @private
+     */
+    function _setSignInStatics() {
+      var userIdentify = analyticsService.getUserIdentify();
+
+      analyticsService.mixpanelIdentify(userIdentify);
+      analyticsService.mixpanelTrack("Sign In");
+
+      ga('set', 'userId', userIdentify);
+      ga('global_tracker.set', 'userId', userIdentify);
     }
   }
-
-
-  function DeleteToken() {
-    return $http({
-      method: 'DELETE',
-      url: $rootScope.server_address + 'token',
-      data: {
-        refresh_token: storageAPIservice.getRefreshTokenLocal() || storageAPIservice.getRefreshTokenSession()
-      },
-      headers : { "Content-Type": "application/json;charset=utf-8" }
-
-    });
-  }
-
-
-  authAPI.handleConstructionErr = function() {
-    $state.go('503');
-  };
-
-  authAPI.on40300Err = function() {
-    $state.go('messages.home');
-  };
-
-  return authAPI;
-});
+})();

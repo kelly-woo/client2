@@ -10,13 +10,15 @@
 
   /* @ngInject */
   function TopicJoinCtrl($scope, $timeout, $state, $filter, entityheaderAPIservice, analyticsService,
-                         jndPubSub, memberService, modalHelper, EntityMapManager) {
+                         jndPubSub, memberService, modalHelper, RoomTopicList) {
     _init();
 
     /**
      * 처음 모달이 열렸을 때 실행되어야 할 부분.
      */
     function _init() {
+      $scope.unJoinedChannelList = RoomTopicList.toJSON(false);
+      $scope.joinedChannelList = RoomTopicList.toJSON(true);
       $scope.memberId = memberService.getMemberId();
       $scope.channelTitleQuery = '';
 
@@ -71,9 +73,8 @@
 
       if (entity) {
         entityId = entity.id;
-        if (EntityMapManager.contains('joined', entityId)) {
+        if (RoomTopicList.get(entityId, true)) {
           // join한 topic
-
           _topicJoin(entityId);
         } else {
           // join하지 않은 topic이므로 join 가능한지 requst 후 topic에 join 함

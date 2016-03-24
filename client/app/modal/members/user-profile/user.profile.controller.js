@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
-                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub) {
+                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -26,7 +26,7 @@
      */
     function _init() {
       _setCurrentUser(curUser);
-
+      $scope.account = accountService.getAccount();
       $scope.isDefaultProfileImage = memberService.isDefaultProfileImage($scope.curUser.u_photoUrl);
       $scope.isStarred = $scope.curUser.isStarred;
       $scope.isDeactivatedUser = _isDeactivatedUser();
