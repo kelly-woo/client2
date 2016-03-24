@@ -131,10 +131,8 @@
   margin-left:3px;
 }
 .header-navbar__dropdown {
-  position: absolute;
-  top: 37px;
-  left: 12px;
   min-width: 200px;
+  transform: translate(12px, -5px);
 }
 
 .header-navbar__dropdown .dot {
