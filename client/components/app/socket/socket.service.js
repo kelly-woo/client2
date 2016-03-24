@@ -300,11 +300,11 @@
      * @private
      */
     function _onInvalidSocketToken() {
-      var authAPIservice = $injector.get('authAPIservice');
+      var AuthApi = $injector.get('AuthApi');
 
-      if (angular.isUndefined(authAPIservice)) return;
+      if (angular.isUndefined(AuthApi)) return;
 
-      authAPIservice.requestAccessTokenWithRefreshToken();
+      AuthApi.requestAccessTokenWithRefreshToken();
     }
   }
 })();

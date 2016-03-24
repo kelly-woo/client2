@@ -286,6 +286,7 @@
 
         if (hasEntity) {
           TopicUpdateLock.lock();
+          el.addClass('animate-background');
           if (!scope.isOpening) {
             el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {

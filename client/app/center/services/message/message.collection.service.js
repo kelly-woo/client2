@@ -9,8 +9,8 @@
     .service('MessageCollection', MessageCollection);
 
   /* @ngInject */
-  function MessageCollection($filter, entityAPIservice, markerService, jndPubSub, memberService, currentSessionHelper,
-                             centerService, MessageComment, MessageText, DateFormatter, EntityMapManager) {
+  function MessageCollection($filter, RoomTopicList, markerService, jndPubSub, memberService, currentSessionHelper,
+                             centerService, MessageComment, MessageText, DateFormatter, EntityHandler) {
     var that = this;
     var _systemMessageCount = 0;
     var _hasBookmark = false;
@@ -384,7 +384,7 @@
      */
     function manipulateMessage(msg) {
       var fromEntityId = msg.fromEntity;
-      var writer = EntityMapManager.get('member', fromEntityId);
+      var writer = EntityHandler.get(fromEntityId);
 
       if (writer) {
         msg.extFromEntityId = fromEntityId;
@@ -585,7 +585,7 @@
       newMsg.message = {};
       newMsg.message.contentType = 'systemEvent';
       newMsg.message.content = {};
-      newMsg.message.writer = EntityMapManager.get('total', msg.fromEntity);
+      newMsg.message.writer = EntityHandler.get(msg.fromEntity);
 
       switch(msg.info.eventType) {
         case 'announcement_created':
@@ -598,7 +598,7 @@
           action = $filter('translate')('@msg-invited');
           newMsg.message.invites = [];
           _.each(msg.info.inviteUsers, function(element, index, list) {
-            entity = EntityMapManager.get('total', element);
+            entity = EntityHandler.get(element);
             if (!_.isUndefined(entity)) {
               newMsg.message.invites.push(entity);
             }
@@ -689,7 +689,7 @@
       if (centerService.isChat()) {
         globalUnreadCount = 2;
       } else {
-        globalUnreadCount = entityAPIservice.getUserLength(currentSessionHelper.getCurrentEntity());
+        globalUnreadCount = RoomTopicList.getUserLength(currentSessionHelper.getCurrentEntity().id);
       }
 
       globalUnreadCount = globalUnreadCount - markerOffset;

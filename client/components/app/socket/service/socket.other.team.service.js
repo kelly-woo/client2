@@ -10,8 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
-                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper,
-                                        DesktopNotificationUtil) {
+                                        memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotificationUtil) {
     var VERSION = 1;
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
@@ -31,6 +30,8 @@
     // 연속된 api call를 방지하기위해 기다리는 시간
     //var paddingTime = 5000;
     var paddingTime = 3000;
+
+    var _markerMap = {};
 
     this.onSocketEvent = onSocketEvent;
 
@@ -99,7 +100,7 @@
 
       if (_hasTeamMessageMarkers(teamId)) {
         // 팀에 대한 정보가 있을때
-        messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
+        messageMarkersMap = _markerMap[teamId];
         var roomInfo = messageMarkersMap[roomId];
 
         if (_.isUndefined(roomInfo)) {
@@ -115,8 +116,6 @@
         messageMarkersMap[roomId] = roomInfo;
       } else {
         // 해당 팀의 정보가 전혀 없을 때
-        EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
-
         tempMessageMarkerObj = {
           roomId: {
             subscribe: newValue
@@ -124,7 +123,7 @@
         };
 
         // 새로 만든다
-        EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, tempMessageMarkerObj);
+        _markerMap[teamId] = tempMessageMarkerObj;
         // todo: 아니면 그냥 그 팀 정보를 다 가져올까요?
         //_getTeamMessageMarkers(teamId, socketEvent);
 
@@ -176,7 +175,7 @@
      * @private
      */
     function _hasTeamMessageMarkers(teamId) {
-      return EntityMapManager.contains(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
+      return !!_markerMap[teamId];
     }
 
     /**
@@ -196,14 +195,11 @@
         var memberId;
 
         // 해당 팀의 정보가 전혀 없을 때
-        EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
-
         memberId = _getMemberId((teamId));
 
         memberService.getMemberInfo(memberId, 'socket_team_marker')
           .success(function(response) {
-            EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
-
+            _markerMap[teamId] = _getMessageMarkersMap(response.u_messageMarkers);
             _setWaiting(teamId, false);
 
             //같은 소켓이벤트로 계속 불리는 것을 방지하기 위함이다.
@@ -221,7 +217,7 @@
      * @private
      */
     function _isSubscriptionOn(teamId, socketEvent) {
-      var messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
+      var messageMarkersMap = _markerMap[teamId];
       var roomId = socketEvent.room.id;
 
       if (_.isUndefined(messageMarkersMap[roomId])) {

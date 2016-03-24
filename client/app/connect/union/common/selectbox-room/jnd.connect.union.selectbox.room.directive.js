@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
-  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityMapManager, TopicFolderModel, currentSessionHelper,
-                                        entityAPIservice, JndUtil) {
+  function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityHandler, TopicFolderModel, currentSessionHelper,
+                                        BotList, CoreUtil, RoomTopicList) {
     return {
       restrict: 'E',
       replace: true,
@@ -53,18 +53,15 @@
        * @private
        */
       function _setList() {
-        var jandiBot = entityAPIservice.getJandiBot();
-        var list = _.union(
-          EntityMapManager.toArray('joined'),
-          EntityMapManager.toArray('private')
-        );
+        var jandiBot = BotList.getJandiBot();
+        var list = RoomTopicList.toJSON(true);
 
         list = _.filter(list, function(entity) {
           return _isTopic(entity);
         });
 
         //entityId 가 존재할 경우에만 jandiBot 을 노출한다.
-        if (JndUtil.pick(jandiBot, 'entityId')) {
+        if (CoreUtil.pick(jandiBot, 'entityId')) {
           list.push(jandiBot);
         }
 
@@ -88,7 +85,7 @@
        * @private
        */
       function _onSelectedValueChange(newValue) {
-        var entity = entityAPIservice.getJoinedEntity(newValue) || EntityMapManager.get('member', newValue);
+        var entity = EntityHandler.get(newValue);
 
         if (entity) {
           if (_isTopic(entity)) {
@@ -106,7 +103,7 @@
        * @private
        */
       function _onModelChange(newValue) {
-        var entity = EntityMapManager.get('memberEntityId', newValue);
+        var entity = EntityHandler.get(newValue);
         if (entity) {
           scope.selectedValue = entity.id;
         }

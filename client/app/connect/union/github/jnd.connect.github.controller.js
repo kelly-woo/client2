@@ -9,7 +9,7 @@
     .controller('JndConnectGithubCtrl', JndConnectGithubCtrl);
 
   /* @ngInject */
-  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectApi, JndConnectGithubApi, JndUtil,
+  function JndConnectGithubCtrl($scope, $filter, Dialog, JndConnectApi, JndConnectGithubApi, CoreUtil,
                                 JndConnectUnion, JndConnectUnionFormData) {
     var _originalRepos;
     var _createdRoomId = null;
@@ -159,7 +159,7 @@
       _.forEach(repos, function(group) {
         list = [];
         _.forEach(group.lists, function(repo) {
-          isDisabled = JndUtil.pick(repo, 'permissions', 'admin') === false;
+          isDisabled = CoreUtil.pick(repo, 'permissions', 'admin') === false;
           list.push({
             text: repo.name,
             value: repo.id,
@@ -287,7 +287,7 @@
       _.extend(requestData, footer, {
         roomId: formData.roomId,
         hookRepoId: formData.hookRepoId,
-        hookRepoName: JndUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
+        hookRepoName: CoreUtil.pick(_getRepoData(formData.hookRepoId), 'full_name'),
         hookEvent: hookEvent.join(','),
         hookBranch: _getBranches()
       });

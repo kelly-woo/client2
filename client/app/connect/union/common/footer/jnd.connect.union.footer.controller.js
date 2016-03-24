@@ -9,7 +9,7 @@
     .controller('JndConnectUnionFooterCtrl', JndConnectUnionFooterCtrl);
 
   /* @ngInject */
-  function JndConnectUnionFooterCtrl($scope, $filter, JndUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
+  function JndConnectUnionFooterCtrl($scope, $filter, CoreUtil, jndPubSub, modalHelper, fileAPIservice, Dialog) {
     var _translate = $filter('translate');
     $scope.save = save;
     $scope.onFileSelect = onFileSelect;
@@ -49,7 +49,6 @@
       $scope.inputBotName = $scope.data.botName;
       $scope.$watch('inputBotName', _onChangeInputBotName);
       $scope.$watch('data.botName', _setInputBotName);
-      $scope.$on('BlobProfileSettingCtrl:done', _onProfileSettingDone);
     }
 
     /**
@@ -72,13 +71,14 @@
 
     /**
      * 모달의 profile 이미지 변경 완료 이벤트 발생시 핸들러
-     * @param {object} angularEvent
      * @param {string} url
      * @private
      */
-    function _onProfileSettingDone(angularEvent, url) {
-      $scope.changedFileUri = url;
-      $scope.data.botThumbnailFile = JndUtil.dataURItoBlob(url);
+    function _onProfileSettingDone(url) {
+      if (url) {
+        $scope.changedFileUri = url;
+        $scope.data.botThumbnailFile = CoreUtil.dataURItoBlob(url);
+      }
     }
 
     /**
@@ -121,7 +121,11 @@
             'title': _translate('@common-unsupport-image')
           });
         } else {
-          modalHelper.openBotProfileSettingModal($scope, img.toDataURL('image/jpeg'));
+          modalHelper.openProfileImageModal($scope, {
+            type: 'crop',
+            imageData: img.toDataURL('image/jpeg'),
+            onProfileImageChange: _onProfileSettingDone
+          });
         }
       }
     }

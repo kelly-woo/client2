@@ -9,7 +9,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
+                           RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
     var msg1;
     var msg2;
 
@@ -45,13 +45,13 @@
       $scope.cancel = cancel;
     }
 
-    $scope.$on('onSetStarDone', _onSetStarDone);
+    $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
 
     /**
      * member starred event handler
      * @private
      */
-    function _onSetStarDone() {
+    function _onParseLeftSideMenuDone() {
       generateMemberList();
       _updateMemberList();
     }
@@ -61,7 +61,7 @@
      */
     function generateMemberList() {
       var prevAvailableMemberMap = $scope.availableMemberMap;
-      var users = entityAPIservice.getUserList($scope.currentEntity);
+      var users = RoomTopicList.getUserIdList($scope.currentEntity.id);
 
       $scope.availableMemberMap = {};
 

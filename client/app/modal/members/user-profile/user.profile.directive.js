@@ -8,14 +8,15 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile($filter, JndUtil, memberService, fileAPIservice, Dialog) {
+  function userProfile($filter, CoreUtil, memberService, fileAPIservice, Dialog, modalHelper) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, el) {
-      var timerHideDmSubmit;
+      var _translate = $filter('translate');
+      var _timerHideDmSubmit;
 
       _init();
 
@@ -26,54 +27,21 @@
       function _init() {
         scope.isSelectedImage = false;
 
-        scope.onImageCropDone = onImageCropDone;
-        scope.onImageEditClick = onImageEditClick;
+        scope.onProfileImageChange = onProfileImageChange;
         scope.onSubmitDoneClick = onSubmitDoneClick;
-
         scope.setShowDmSubmit = setShowDmSubmit;
       }
 
       /**
-       * image crop done event handler
+       * profile image change 이벤트 핸들러
        * @param {string} dataURI
        */
-      function onImageCropDone(dataURI) {
-        scope.isSelectedImage = false;
+      function onProfileImageChange(dataURI) {
+        _updateProfileImage(CoreUtil.dataURItoBlob(dataURI));
 
-        if (dataURI) {
-          _updateProfileImage(JndUtil.dataURItoBlob(dataURI));
-        }
-      }
+        scope.userProfileImage = dataURI;
 
-      /**
-       * image edit click event handler
-       */
-      function onImageEditClick() {
-        $('<input type="file" accept="image/*"/>')
-          .on('change', function(evt) {
-            var promise = fileAPIservice.getImageDataByFile(evt.target.files[0]);
-            promise.then(_resolveImageData);
-          })
-          .trigger('click');
-      }
-
-      /**
-       * resolve image data
-       * @param {object} img
-       * @private
-       */
-      function _resolveImageData(img) {
-        scope.croppedImage = null;
-        if (img) {
-          if (img.type === 'error') {
-            Dialog.warning({
-              'title': $filter('translate')('@common-unsupport-image')
-            });
-          } else {
-            scope.isSelectedImage = true;
-            scope.imageData = img.toDataURL('image/jpeg');
-          }
-        }
+        Dialog.success({title: _translate('@profile-success')});
       }
 
       /**
@@ -92,13 +60,13 @@
         var jqMessageSubmit = el.find('.message-submit-bg');
         var jqMessageInput = el.find('.form-control');
 
-        clearTimeout(timerHideDmSubmit);
+        clearTimeout(_timerHideDmSubmit);
         scope.isShowDmSubmit = value;
         if (value) {
           jqMessageInput.blur();
           jqMessageSubmit.show();
         } else {
-          timerHideDmSubmit = setTimeout(function() {
+          _timerHideDmSubmit = setTimeout(function() {
             jqMessageInput.focus();
             jqMessageSubmit.hide();
           }, 200);

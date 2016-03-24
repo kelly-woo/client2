@@ -8,6 +8,7 @@
 
   angular
     .module('jandi.framework', [
+      'jandi.core',
       'jandi.hybridApp',
       'jandi.preloader',
       'jandi.popup',

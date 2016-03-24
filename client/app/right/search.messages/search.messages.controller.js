@@ -11,7 +11,7 @@
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $timeout, $filter, $state, RightPanel, fileAPIservice,
                                 messageAPIservice, AnalyticsHelper, TopicFolderModel, jndPubSub,
-                                currentSessionHelper) {
+                                currentSessionHelper, RoomTopicList) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
@@ -56,7 +56,7 @@
     }
 
     function _on() {
-      $scope.$on('onInitLeftListDone', _onInitLeftListDone);
+      $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _initChatRoomOption);
       $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
       $scope.$on('changedLanguage', _changedLanguage);
@@ -78,13 +78,6 @@
         $scope.searchQuery.writerId = $scope.messageWriterId = '';
         searchMessages();
       }
-    }
-
-    /**
-     * 레프트 채널이 업데이트 된 후, 'shared in' list 가 바뀌어야 할때
-     */
-    function _onInitLeftListDone() {
-      _initChatRoomOption();
     }
 
     /**
@@ -333,7 +326,7 @@
      */
     function _initChatRoomOption() {
       var newOptions = fileAPIservice.getShareOptionsWithoutMe(
-        $scope.joinedEntities,
+        RoomTopicList.toJSON(true),
         currentSessionHelper.getCurrentTeamUserList()
       );
       var newMessageLocation = _getMessageLocation(newOptions);

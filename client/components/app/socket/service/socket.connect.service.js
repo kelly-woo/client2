@@ -9,7 +9,7 @@
     .service('jndWebSocketConnect', jndWebSocketConnect);
 
   /* @ngInject */
-  function jndWebSocketConnect(jndPubSub, entityAPIservice) {
+  function jndWebSocketConnect(jndPubSub, BotList) {
     var CONNECT_CREATED = 'connect_created';
     var CONNECT_DELETED = 'connect_deleted';
     var CONNECT_UPDATED = 'connect_updated';
@@ -54,8 +54,7 @@
      */
     function onConnectCreated(socketEvent) {
       var data = socketEvent.data;
-
-      entityAPIservice.addBot(data.bot);
+      BotList.add(data.bot);
       jndPubSub.pub('webSocketConnect:connectCreated', data);
     }
 
@@ -65,8 +64,7 @@
      */
     function onConnectUpdated(socketEvent) {
       var data = socketEvent.data;
-
-      entityAPIservice.updateBot(data.bot);
+      _.extend(BotList.get(data.bot.id), data.bot);
       jndPubSub.pub('webSocketConnect:connectUpdated', data);
     }
 

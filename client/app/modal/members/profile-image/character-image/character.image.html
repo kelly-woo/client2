@@ -1,0 +1,34 @@
+<div class="character-content">
+  <div class="character-title">{{::'@profile-character-select'|translate}}</div>
+  <div class="character-body">
+    <canvas class="character-view" width="160" height="160"></canvas>
+    <div class="character-tools">
+      <div class="character-images tool-content">
+        <div class="images-title tool-title">
+          <i class="icon-user-circle"></i>
+          {{::'@profile-character-character'|translate}}
+        </div>
+        <ul class="tool-list fade" ng-class="{'in': isReady}">
+          <li class="tool-item" ng-class="{'active': isActive('character', $index)}"
+              ng-repeat="character in characters">
+            <img ng-src="{{character}}" ng-click="onClick('character', $index)">
+            <i class="icon-check"></i>
+          </li>
+        </ul>
+      </div>
+      <div class="character-backgrounds tool-content">
+        <div class="backgrounds-title tool-title">
+          <i class="icon-radius-rectangle"></i>
+          {{::'@profile-character-bgcolor'|translate}}
+        </div>
+        <ul class="tool-list fade" ng-class="{'in': isReady}">
+          <li class="tool-item" ng-class="{'active': isActive('background', $index)}"
+              ng-repeat="background in backgrounds">
+            <div ng-style="{'background-color': background}" ng-click="onClick('background', $index)"></div>
+            <i class="icon-check"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,8 +10,8 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, EntityMapManager,
-                         currentSessionHelper, $state, analyticsService, language, entityAPIservice,
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket, jndPubSub, UserList,
+                         currentSessionHelper, $state, analyticsService, language, RoomTopicList,
                          HybridAppHelper, $filter, memberService, configuration) {
     var _isInit = false;
     var service = {
@@ -28,8 +28,9 @@
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
       adjustBodyWrapperHeight: adjustBodyWrapperHeight,
-      hideTransitionLoading: hideTransitionLoading,
-      showTransitionLoading: showTransitionLoading,
+      hideInitialLoading: hideInitialLoading,
+      showDummyLayout: showDummyLayout,
+      hideDummyLayout: hideDummyLayout,
       reloadCurrentPage: reloadCurrentPage,
       openNewTab: openNewTab,
       setInitDone: setInitDone,
@@ -59,13 +60,13 @@
       var list = [];
 
       angular.forEach(joinedChannelList, function(entity) {
-        var users = entityAPIservice.getUserList(entity);
+        var users = RoomTopicList.getUserIdList(entity.id);
         if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
 
       angular.forEach(privateGroupList, function(entity) {
-        var users = entityAPIservice.getUserList(entity);
+        var users = RoomTopicList.getUserIdList(entity.id);
         if (!_.contains(users, inviteeId))
           this.push(entity);
       }, list);
@@ -102,21 +103,14 @@
 
       // Disconnect socket connection.
       jndWebSocket.disconnectTeam();
+      jndPubSub.hideLoading();
+      hideDummyLayout();
 
       // PC app function.
       HybridAppHelper.onSignedOut();
 
-      if ( $state.current.name == 'signin') {
-        // 현재 state 다시 로드
-        $state.transitionTo($state.current, {}, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
-      }
-      else {
-        $state.go('signin');
-      }
+
+      redirectToSignIn();
     }
 
     function getBrowserInfo() {
@@ -144,9 +138,9 @@
       }
 
       if (_isNumber(member)) {
-        member = EntityMapManager.get('total', member);
+        member = UserList.get(member);
       } else if (!member.status) {
-        member = EntityMapManager.get('total', member.id);
+        member = UserList.get(member.id);
       }
 
       return memberService.isDeactivatedMember(member);
@@ -182,13 +176,26 @@
       }
     }
 
-    function hideTransitionLoading() {
-      $rootScope.isReady = true;
-      jndPubSub.pub('hideDefaultBackground');
+    /**
+     * dummy layout 을 노출한다.
+     */
+    function showDummyLayout() {
+      jndPubSub.pub('publicService:showDummyLayout');
     }
 
-    function showTransitionLoading() {
-      $rootScope.isReady = false;
+    /**
+     * dummy layout 을 숨긴다
+     */
+    function hideDummyLayout() {
+      hideInitialLoading();
+      jndPubSub.pub('publicService:hideDummyLayout');
+    }
+
+    /**
+     * 첫 진입 시 노출되는 전체 화면을 덮는 로딩 뷰를 숨긴다.
+     */
+    function hideInitialLoading() {
+      jndPubSub.pub('publicService:hideInitialLoading');
     }
 
     /**

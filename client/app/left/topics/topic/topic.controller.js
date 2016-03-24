@@ -9,13 +9,13 @@
     .controller('TopicCtrl', TopicCtrl);
 
   /* @ngInject */
-  function TopicCtrl($scope, memberService, $timeout, jndPubSub) {
+  function TopicCtrl($scope, memberService, EntityHandler, jndPubSub) {
     var _currentRoom;
     var _roomId;
 
     $scope.isNotificationOff = false;
 
-    $scope.onStarClick = onStarClick;
+    $scope.onStarClick = EntityHandler.toggleStarred;
     $scope.onTooltipShow = onTooltipShow;
     $scope.onTooltipHide = onTooltipHide;
 

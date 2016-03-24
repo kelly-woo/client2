@@ -10,8 +10,8 @@
     .controller('UserProfileCtrl', UserProfileCtrl);
 
   /* @ngInject */
-  function UserProfileCtrl($scope, $filter, $timeout, curUser, $state, modalHelper, MemberProfile, memberService, messageAPIservice,
-                           analyticsService, jndKeyCode, jndPubSub) {
+  function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
+                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -26,7 +26,7 @@
      */
     function _init() {
       _setCurrentUser(curUser);
-
+      $scope.account = accountService.getAccount();
       $scope.isDefaultProfileImage = memberService.isDefaultProfileImage($scope.curUser.u_photoUrl);
       $scope.isStarred = $scope.curUser.isStarred;
       $scope.isDeactivatedUser = _isDeactivatedUser();
@@ -60,8 +60,6 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
-
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -73,7 +71,7 @@
     function _setCurrentUser(curUser) {
       $scope.curUser = curUser;
 
-      curUser.extProfileImage = memberService.getProfileImage(curUser.id, 'medium');
+      $scope.userProfileImage = memberService.getProfileImage(curUser.id, 'medium');
       $scope.name = $filter('getName')($scope.curUser);
       $scope.department = $filter('getUserDepartment')($scope.curUser);
       $scope.position = $filter('getUserPosition')($scope.curUser);
@@ -105,7 +103,7 @@
      * modal close
      */
     function close() {
-      modalHelper.closeModal();
+      $modalInstance.close();
     }
 
     /**
@@ -123,7 +121,7 @@
         _goToMention();
       }
 
-      modalHelper.closeModal();
+      $modalInstance.close();
     }
 
     /**
@@ -181,19 +179,6 @@
             $scope.message.content = '';
             //$scope.isSending = false;
           });
-      }
-    }
-
-    /**
-     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
-     * @param {object} event
-     * @param {{event: object, member: object}} data
-     * @private
-     */
-    function _onUpdateMemberProfile(event, data) {
-      var member = data.member;
-      if ($scope.curUser.id === member.id) {
-        $scope.curUser.exProfileImg = memberService.getProfileImage(member.id, 'small');
       }
     }
 

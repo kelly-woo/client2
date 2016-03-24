@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
-                               fileUploadOptions, ImagesHelper, Mentionahead, jndPubSub) {
+                               fileUploadOptions, ImagesHelper, Mentionahead, jndPubSub, RoomTopicList) {
     _init();
 
     /**
@@ -21,7 +21,7 @@
       $scope.isLoading = false;
 
       $scope.selectOptions = TopicFolderModel.getNgOptions(
-        fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, currentSessionHelper.getCurrentTeamUserList())
+        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
       );
 
       $scope.fileUploadOptions = fileUploadOptions;

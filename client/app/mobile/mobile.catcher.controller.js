@@ -18,7 +18,7 @@
         $('.mobile-catcher').css('opacity', 1);
       });
 
-      publicService.hideTransitionLoading();
+      publicService.hideDummyLayout();
     }
 
     $scope.toMobileApplication = function() {
