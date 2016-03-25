@@ -19,7 +19,7 @@
      * @returns {HttpPromise}
      */
     function get() {
-      return _dummyGet();
+      //return _dummyGet();
       var memberId = memberService.getMemberId();
       return $http({
         method: 'GET',
@@ -38,30 +38,6 @@
         url: server_address + 'members/' + memberId + '/emailNotification',
         data: data
       });
-    }
-
-    /**
-     * dummy get API
-     * @todo: remove this
-     * @returns {deferred.promise|{then, always}}
-     * @private
-     */
-    function _dummyGet() {
-      var deferred = $q.defer();
-      setTimeout(function() {
-        deferred.resolve({
-          data: {
-            "memberId":11244970,
-            "teamId":279,
-            "updatedAt":"2016-03-14T07:15:12.289Z",
-            "createdAt":"2016-03-14T07:15:12.287Z",
-            "notificationHour":5,
-            "notificationFrequency":"everyMonday",
-            "status":"disabled"
-          }
-        });
-      }, 1000);
-      return deferred.promise;
     }
   }
 })();
