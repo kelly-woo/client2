@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview Entity Handler
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -31,13 +31,18 @@
       _attachScopeEvents();
     }
 
+    /**
+     * scope 이벤트 핸들러를 바인딩 한다
+     * @private
+     */
     function _attachScopeEvents() {
       _scope.$on('TopicSocket:starChanged', _onTopicStarChanged);
       _scope.$on('jndWebSocketMember:starChanged', _onMemberStarChanged);
     }
 
     /**
-     *
+     * star 정보를 toggle 한다.
+     * @param {number|string} entityId - toggle 할 entity 의 id
      */
     function toggleStarred(entityId) {
       var entity = get(entityId);
@@ -53,6 +58,12 @@
       entity.isStarred = !entity.isStarred;
     }
 
+    /**
+     * 즐겨찾기 성공 시 콜백
+     * @param {number|string} entityId
+     * @param {boolean} isStarred
+     * @private
+     */
     function _onSuccessStarred(entityId, isStarred) {
       var trackCode = isStarred ? AnalyticsHelper.EVENT.TOPIC_STAR : AnalyticsHelper.EVENT.TOPIC_UNSTAR;
       AnalyticsHelper.track(trackCode, {
@@ -61,6 +72,13 @@
       });
     }
 
+    /**
+     * 즐겨찾기 실패 시 콜백
+     * @param {number|string} entityId
+     * @param {boolean} isStarred
+     * @param {object} error
+     * @private
+     */
     function _onErrorStarred(entityId, isStarred, error) {
       var entity = get(entityId);
       var trackCode = isStarred ? AnalyticsHelper.EVENT.TOPIC_STAR : AnalyticsHelper.EVENT.TOPIC_UNSTAR;
@@ -72,6 +90,12 @@
       });
     }
 
+    /**
+     * 소켓 이벤트에서 topic star 값이 변경되었을 때 핸들러
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
     function _onTopicStarChanged(angularEvent, data) {
       /*
       @fixme: 소켓 이벤트 버그로 인해 BOT 의 상태 변화도 topic_starred/unstarred 로 내려오고 있음.
@@ -82,6 +106,12 @@
       topic.isStarred = data.isStarred;
     }
 
+    /**
+     * 소켓 이벤트에서 member star 값이 변경되었을 때 핸들러
+     * @param {object} angularEvent
+     * @param {object} data
+     * @private
+     */
     function _onMemberStarChanged(angularEvent, data) {
       var member = UserList.get(data.id) || BotList.get(data.id);
       member.isStarred = data.isStarred;
@@ -161,7 +191,7 @@
     }
 
     /**
-     *
+     * 현재 team 의 admin 정보를 설정한다.
      * @param {array} entities
      * @private
      */
