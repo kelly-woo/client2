@@ -14,6 +14,7 @@
 
     this.toJSON = toJSON;
     this.get = get;
+    this.isExist = isExist;
 
     _init();
 
@@ -39,6 +40,15 @@
      */
     function get(entityId) {
       return UserList.get(entityId) || BotList.get(entityId)
+    }
+
+    /**
+     *
+     * @param entityId
+     * @returns {boolean}
+     */
+    function isExist(entityId) {
+      return !!get(entityId);
     }
   }
 })();

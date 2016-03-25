@@ -8,10 +8,10 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $timeout, $state, $filter, RightPanel, entityAPIservice,
+  function rPanelFileTabCtrl($scope, $timeout, $state, $filter, RightPanel, EntityHandler, CoreUtil,
                              fileAPIservice, analyticsService, publicService, UserList,
-                             currentSessionHelper, logger, AnalyticsHelper, modalHelper, Dialog,
-                             TopicFolderModel, jndPubSub, RoomTopicList, RoomChatDmList) {
+                             currentSessionHelper, AnalyticsHelper, modalHelper, Dialog,
+                             TopicFolderModel, jndPubSub, RoomTopicList) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -286,8 +286,8 @@
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
-        if (joinedEntity.id === $scope.fileRequest.sharedEntityId) {
+        joinedEntity = EntityHandler.get(data.room.id);
+        if (CoreUtil.pick(joinedEntity, 'id') === $scope.fileRequest.sharedEntityId) {
           result = true;
         }
       }
