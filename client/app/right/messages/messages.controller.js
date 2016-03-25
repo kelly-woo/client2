@@ -28,11 +28,12 @@
       $scope.apiError = false;
       $scope.messageLocationId = '';
       $scope.messageWriterId = '';
-      $scope.messageList;
+      $scope.messageList = [];
 
       $scope.searchStatus = {
         keyword: '',
-        length: ''
+        length: '',
+        type: _getSearchStatusType()
       };
 
       // Methods
@@ -174,7 +175,6 @@
       messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {
           if (_isActivated) {
-            //console.log(response)
             _updateMessageList(response);
             _updateSearchStatusTotalCount(response.cursor.totalCount);
             _updateSearchQueryCursor(response.cursor);
@@ -412,6 +412,7 @@
      */
     function _showLoading() {
       $scope.isSearching = true;
+      $scope.searchStatus.type = _getSearchStatusType();
     }
 
     /**
@@ -420,6 +421,7 @@
      */
     function _hideLoading() {
       $scope.isSearching = false;
+      $scope.searchStatus.type = _getSearchStatusType();
     }
 
     /**
@@ -456,6 +458,18 @@
     function _resetSearchStatusKeyword() {
       $scope.searchQuery.q = $scope.searchStatus.keyword = '';
       jndPubSub.pub('resetRPanelSearchStatusKeyword');
+    }
+
+    function _getSearchStatusType() {
+      var type;
+
+      if ($scope.isSearching) {
+        type = 'progress';
+      } else if (!$scope.isSearching && $scope.messageList.length > 0) {
+        type = 'result';
+      }
+
+      return type || '';
     }
   }
 })();

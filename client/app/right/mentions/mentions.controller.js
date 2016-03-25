@@ -66,6 +66,8 @@
 
       $scope.records = [];
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
+
+      $scope.status = _getStatus();
     }
 
     /**
@@ -73,8 +75,10 @@
      * @private
      */
     function _initGetMentionList() {
+      $scope.isEmpty = false;
       $scope.isLoading = true;
-      $scope.isMentionEmpty = false;
+
+      $scope.status = _getStatus();
 
       _getMentionList();
     }
@@ -96,8 +100,10 @@
           }
         })
         .finally(function() {
-          $scope.isMentionEmpty = $scope.records.length === 0;
+          $scope.isEmpty = $scope.records.length === 0;
           $scope.isLoading = $scope.isScrollLoading = false;
+
+          $scope.status = _getStatus();
         });
     }
 
@@ -129,6 +135,18 @@
         // 더 이상 mention list가 존재하지 않으므로 endOfList로 처리함
         $scope.isEndOfList = !data.hasMore;
       }
+    }
+
+    function _getStatus() {
+      var status;
+
+      if ($scope.isLoading) {
+        status = 'loading';
+      } else if ($scope.isEmpty) {
+        status = 'empty';
+      }
+
+      return status;
     }
   }
 })();

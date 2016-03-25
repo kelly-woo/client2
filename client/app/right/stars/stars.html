@@ -4,21 +4,13 @@
     <tab active="tabs.all.active" heading="{{tabs.all.name}}" select="onTabSelect('all');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="tabs.all.isLoading || tabs.all.empty">
-            <right-loading ng-if="tabs.all.isLoading"></right-loading>
-            <div class="search-result-summary-ing rpanel-list-empty" ng-if="tabs.all.empty">
-              <img class="rpanel-list-empty__img" src="assets/images/star-message-empty.png"/>
-              <div class="help-messages__message">
-                <span>{{::'@star-all-empty'|translate}}</span>
-              </div>
-            </div>
-          </div>
+          <right-loading-search status="tabs.all.status" type="starAll"></right-loading-search>
           <div class="private-effect" ng-repeat="item in tabs.all.list track by item.message.id">
             <right-message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></right-message>
             <right-file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></right-file>
           </div>
           <right-loading-list ng-if="tabs.all.isScrollLoading && tabs.all.list.length > 0"></right-loading-list>
-          <right-end-of-list ng-if="tabs.all.endOfList"></right-end-of-list>
+          <right-end-of-list ng-if="tabs.all.isEndOfList"></right-end-of-list>
         </div>
       </div>
     </tab>
@@ -26,20 +18,12 @@
     <tab active="tabs.files.active" heading="{{tabs.files.name}}" select="onTabSelect('files');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="tabs.files.isLoading || tabs.files.empty">
-            <right-loading ng-if="tabs.files.isLoading"></right-loading>
-            <div class="search-result-summary-ing" ng-if="tabs.files.empty">
-              <img class="star-empty__img" src="assets/images/star-file-empty.png"/>
-              <div class="help-messages__message">
-                <span>{{::'@star-files-empty'|translate}}</span>
-              </div>
-            </div>
-          </div>
+          <right-loading-search status="tabs.files.status" type="starFiles"></right-loading-search>
           <div class="private-effect" ng-repeat="file in tabs.files.list track by file.message.id">
             <right-file file-data="file" file-type="fileType"></right-file>
           </div>
           <right-loading-list ng-if="tabs.files.isScrollLoading && tabs.files.list.length > 0"></right-loading-list>
-          <right-end-of-list ng-if="tabs.files.endOfList"></right-end-of-list>
+          <right-end-of-list ng-if="tabs.files.isEndOfList"></right-end-of-list>
         </div>
       </div>
     </tab>

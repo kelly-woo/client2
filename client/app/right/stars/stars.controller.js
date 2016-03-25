@@ -22,6 +22,8 @@
 
     // First function to be called.
     function _init() {
+      $scope.activeTabName = 'all';
+
       // 각 tab을 각각의 controller로 쪼개야됨
       $scope.tabs = {
         all: {
@@ -36,7 +38,7 @@
           // tab 활성화 여부
           active: true,
           // tab list 전체가 load 되었는지 여부
-          endOfList: false,
+          isEndOfList: false,
           // tab 비어있는지 여부
           empty: false,
           // tab 첫 load가 되었는지 여부
@@ -49,12 +51,11 @@
           isScrollLoading: false,
           name: $filter('translate')('@star-files'),
           active: false,
-          endOfList: false,
+          isEndOfList: false,
           empty: false,
           hasFirstLoad: false
         }
       };
-      $scope.activeTabName = 'all';
 
       $scope.loadMore = loadMore;
       $scope.messageType = $scope.fileType = 'star';
@@ -251,9 +252,10 @@
      */
     function loadMore() {
       var activeTabName = $scope.activeTabName;
+      var activeTab = $scope.tabs[activeTabName];
 
-      if (!($scope.tabs[activeTabName].isScrollLoading || $scope.tabs[$scope.activeTabName].endOfList)) {
-        $scope.tabs[activeTabName].isScrollLoading = true;
+      if (!(activeTab.isScrollLoading || activeTab.isEndOfList)) {
+        activeTab.isScrollLoading = true;
 
         _getStarList(activeTabName);
       }
@@ -281,12 +283,14 @@
      * @private
      */
     function _initStarListData(activeTabName) {
+      var activeTab = $scope.tabs[activeTabName];
+
       starListData.messageId = null;
 
-      $scope.tabs[activeTabName].list = [];
-      $scope.tabs[activeTabName].map = {};
-
-      $scope.tabs[activeTabName].endOfList = $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
+      activeTab.list = [];
+      activeTab.map = {};
+      activeTab.isEndOfList = activeTab.isLoading = activeTab.isScrollLoading = false;
+      activeTab.status = _getStatus(activeTab);
     }
 
     /**
@@ -295,8 +299,11 @@
      * @private
      */
     function _initGetStarList(activeTabName) {
-      $scope.tabs[activeTabName].isLoading = true;
-      $scope.tabs[activeTabName].empty = false;
+      var activeTab = $scope.tabs[activeTabName];
+
+      activeTab.isLoading = true;
+      activeTab.isEmpty = false;
+      activeTab.status = _getStatus(activeTab);
 
       _getStarList(activeTabName);
     }
@@ -307,7 +314,9 @@
      * @private
      */
     function _getStarList(activeTabName) {
-      if (!$scope.tabs[activeTabName].isLoading || !$scope.tabs[activeTabName].isScrollLoading) {
+      var activeTab = $scope.tabs[activeTabName];
+
+      if (!activeTab.isLoading || !activeTab.isScrollLoading) {
         StarAPIService.get(starListData.messageId, 40, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
@@ -320,10 +329,10 @@
             }
           })
           .finally(function() {
-            $scope.tabs[activeTabName].hasFirstLoad = true;
-            $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
-
-            $scope.tabs[activeTabName].list.length === 0 && _setEmptyTab(activeTabName, true);
+            activeTab.hasFirstLoad = true;
+            activeTab.isLoading = activeTab.isScrollLoading = false;
+            activeTab.list.length === 0 && _setEmptyTab(activeTabName, true);
+            activeTab.status = _getStatus(activeTab);
           });
       }
     }
@@ -376,9 +385,11 @@
      * @private
      */
     function _addStarItem(activeTabName, data, isUnShift) {
-      if ($scope.tabs[activeTabName].map[data.message.id] == null) {
-        $scope.tabs[activeTabName].list[isUnShift ? 'unshift' : 'push'](data);
-        $scope.tabs[activeTabName].map[data.message.id] = data;
+      var activeTab = $scope.tabs[activeTabName];
+
+      if (activeTab.map[data.message.id] == null) {
+        activeTab.list[isUnShift ? 'unshift' : 'push'](data);
+        activeTab.map[data.message.id] = data;
       }
     }
 
@@ -411,8 +422,11 @@
      * @private
      */
     function _setEmptyTab(activeTabName, value) {
-      $scope.tabs[activeTabName].empty = value;
-      $scope.tabs[activeTabName].endOfList = !value;
+      var activeTab = $scope.tabs[activeTabName];
+
+      activeTab.isEmpty = value;
+      activeTab.isEndOfList = !value;
+      activeTab.status = _getStatus(activeTab);
     }
 
     /**
@@ -422,14 +436,28 @@
      * @private
      */
     function _updateCursor(activeTabName, data) {
+      var activeTab = $scope.tabs[activeTabName];
+
       if (data.records && data.records.length > 0) {
         starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
-      if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
+      if (activeTab.list && activeTab.list.length > 0) {
         // 더이상 star list가 존재하지 않으므로 endOfList로 처리함
-        $scope.tabs[activeTabName].endOfList = !data.hasMore;
+        activeTab.isEndOfList = !data.hasMore;
       }
+    }
+
+    function _getStatus(activeTab) {
+      var status;
+
+      if (activeTab.isLoading) {
+        status = 'loading';
+      } else if (activeTab.isEmpty) {
+        status = 'empty';
+      }
+
+      return status;
     }
   }
 })();

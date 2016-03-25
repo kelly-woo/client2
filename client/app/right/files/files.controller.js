@@ -24,18 +24,20 @@
     _init();
 
     function _init() {
-      $scope.searchStatus = {
-        keyword: '',
-        length: ''
-      };
-
-      $scope.isLoading = false;
+      $scope.isSearchQueryEmpty = true;
+      $scope.isSearching = false;
       $scope.isScrollLoading = false;
       $scope.isEndOfList = false;
 
       $scope.fileType = 'file';
       $scope.fileList = [];
       $scope.fileTitleQuery   = '';
+
+      $scope.searchStatus = {
+        keyword: '',
+        length: '',
+        type: _getSearchStatusType(),
+      };
 
       $scope.fileRequest      = {
         searchType: 'file',
@@ -115,6 +117,11 @@
       if (newValue != oldValue) {
         _refreshFileList();
       }
+    });
+
+    $scope.$watch('searchStatus.keyword', function(newValue, oldValue) {
+      $scope.isSearchQueryEmpty = !newValue;
+      console.log('keyword change ::: ', newValue, oldValue);
     });
 
     //  fileRequest.fileType - 파일 타입
@@ -446,10 +453,12 @@
      * file list 전달 받기전 설정
      */
     function preLoadingSetup() {
-        $scope.fileRequest.startMessageId   = -1;
-        $scope.isEndOfList = false;
-        $scope.isLoading = true;
-        $scope.fileList = [];
+      $scope.fileRequest.startMessageId   = -1;
+      $scope.isEndOfList = false;
+      $scope.isSearching = true;
+      $scope.fileList = [];
+
+      $scope.searchStatus.type = _getSearchStatusType();
     }
 
     /**
@@ -549,8 +558,10 @@
           $scope.fileList.push(item);
         });
       }
+
       $scope.isScrollLoading = false;
-      $scope.isLoading = false;
+      $scope.isSearching = false;
+      $scope.searchStatus.type = _getSearchStatusType();
 
       if ($scope.fileList.length > 0 && fileCount < $scope.fileRequest.listCount) {
         $('.file-list__item.loading').addClass('opac_out');
@@ -734,6 +745,18 @@
      */
     function _onDisconnected() {
       $scope.isConnected = false;
+    }
+
+    function _getSearchStatusType() {
+      var type;
+
+      if ($scope.isSearching) {
+        type = 'progress';
+      } else if (!$scope.isSearching && $scope.fileList.length > 0 && !$scope.isSearchQueryEmpty) {
+        type = 'result';
+      }
+
+      return type || '';
     }
   }
 })();

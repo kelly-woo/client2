@@ -61,6 +61,7 @@
      * @private
      */
     function _resetKeyword() {
+      $scope.keyword = '';
       $('#right-panel-search-box').val('');
     }
 

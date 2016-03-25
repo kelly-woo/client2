@@ -1,6 +1,6 @@
 <div class="rpanel-body message-list">
   <!-- SEARCH QUERY -->
-  <!--<right-search></right-search>-->
+  <right-search></right-search>
 
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
@@ -29,12 +29,7 @@
 
   <div class="rpanel-body-content" infinite-scroll-bottom="searchMessages();">
     <div ng-if="!isSearchQueryEmpty">
-      <div class="search-result-container">
-        <loading-search-progress search-status="searchStatus"
-                                 ng-if="isSearching"></loading-search-progress>
-        <loading-search-result search-status="searchStatus"
-                               ng-if="!isSearching && messageList.length > 0"></loading-search-result>
-      </div>
+      <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
 
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
       <div class="break-word rpanel-alert-msg-container" ng-if="messageList.length==0 && !isSearching">

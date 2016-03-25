@@ -18,15 +18,10 @@
      * @private
      */
     function _init() {
-      $scope.isSearchQueryEmpty = true;
-
-      $scope.showLoading = showLoading;
-      $scope.hideLoading = hideLoading;
       $scope.closeRightPanel = closeRightPanel;
 
       $scope.tabs = RightPanel.getTabStatus();
       $scope.activeTabName = _getActiveTabName();
-      $scope.isLoading = false;
     }
 
     $scope.$on('connected', _init);
@@ -65,29 +60,6 @@
         }
       }
     });
-
-    /**
-     * keyword 가 비어있는 상태인지 아닌지 알아본다.
-     * @param keyword {string} search input box 의 값
-     * @private
-     */
-    function _updateSearchQueryEmptyStatus(keyword) {
-      $scope.isSearchQueryEmpty =  !keyword;
-    }
-
-    /**
-     * show loading screen
-     */
-    function showLoading() {
-      $scope.isLoading = true;
-    }
-
-    /**
-     * hide loading screen
-     */
-    function hideLoading() {
-      $scope.isLoading = false;
-    }
 
     /**
      * close right panel publish

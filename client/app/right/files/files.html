@@ -1,6 +1,6 @@
 <div class="rpanel-body file-list">
   <!-- SEARCH QUERY -->
-  <!--<right-search></right-search>-->
+  <right-search keyword="searchStatus.keyword"></right-search>
 
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
@@ -38,17 +38,12 @@
   <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
   <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
-    <div class="search-result-container">
-      <loading-search-progress search-status="searchStatus"
-                               ng-if="isLoading"></loading-search-progress>
-      <loading-search-result search-status="searchStatus"
-                             ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty"></loading-search-result>
-    </div>
+    <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
 
     <div class="file-list infinite-scroll-bottom-list">
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
       <div class="break-word" ng-if="fileList.length==0">
-        <div ng-if="!isLoading" class="rpanel-alert-msg-container">
+        <div ng-if="!isSearching" class="rpanel-alert-msg-container">
           <center-help-message-container ng-if="!isFiltered();" status="emptyMessageStateHelper"></center-help-message-container>
           <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
             <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">

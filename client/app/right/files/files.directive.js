@@ -12,7 +12,7 @@
     return {
       restrict: 'EA',
       replace: true,
-      scope: true,
+      scope: false,
       link: angular.noop,
       templateUrl : 'app/right/files/files.html',
       controller: 'RightFilesCtrl'

@@ -1,3 +1,9 @@
+.search-result-container {
+  color: #999999;
+  border-bottom:1px solid #E1E1E1;
+  margin-top:-1px;
+}
+
 .search-result-container .search-result-summary-ing > span {
   display: inline-block;
 }

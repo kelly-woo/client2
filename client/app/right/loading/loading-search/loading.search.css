@@ -1,0 +1,17 @@
+.search-result-container .rpanel-list-empty {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 80px;
+}
+
+.rpanel-body.star-list .search-result-container,
+.rpanel-body.mention-list .search-result-container {
+  border-bottom-width: 0px;
+}
+
+.rpanel-body.star-list .search-result-container .search-result-summary-ing,
+.rpanel-body.mention-list .search-result-container .search-result-summary-ing {
+  margin-top: 70px;
+  margin-left: 0px;
+  text-align: center;
+}

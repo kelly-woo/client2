@@ -5,26 +5,31 @@
     .module('jandiApp')
     .directive('rightSearch', rightSearch);
 
-  function rightSearch($timeout, $filter, jndKeyCode, Dialog) {
+  function rightSearch($filter, jndKeyCode, Dialog) {
     return {
-      restrict: 'EA',
-      scope: true,
+      restrict: 'E',
+      scope: {
+        keyword: '='
+      },
       link: link,
       replace: true,
       templateUrl : 'app/right/search/search.html',
       controller: 'RightSearchCtrl'
     };
 
-    function link(scope, element) {
-      var timerSearch;
+    function link(scope, el) {
+      var _translate = $filter('translate');
+      var _jqSearchBox = el.find('#right-panel-search-box');
 
-      $('#right-panel-search-box')
-        .on('keyup', _onKeyDown)
-        .on('$destroy', _onDestroy);
+      _init();
 
+      function _init() {
+        _attachDomEvents();
+      }
 
-      $('#right-panel-search-select-all')
-        .on('change',_doSearch);
+      function _attachDomEvents() {
+        _jqSearchBox.on('keyup', _onKeyDown);
+      }
 
       /**
        * key down event handler
@@ -32,17 +37,14 @@
        * @private
        */
       function _onKeyDown(event) {
-        var target = this;
+        var target = event.target;
         var which = event.which;
 
         if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
           Dialog.warning({
-            title: $filter('translate')('@search-minimum-query-length')
+            title: _translate('@search-minimum-query-length')
           });
         }
-
-        $timeout.cancel(timerSearch);
-        timerSearch = $timeout(_doSearch, 500);
       }
 
       /**
@@ -54,14 +56,6 @@
         if (value === '' || value.length > 1) {
           scope.onFileTitleQueryEnter(value);
         }
-      }
-
-      /**
-       * element destroy event handler
-       * @private
-       */
-      function _onDestroy() {
-        $timeout.cancel(timerSearch);
       }
     }
   }
