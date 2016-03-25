@@ -1,3 +1,14 @@
+<a name="1.20.1"></a>
+## [1.20.1](https://github.com/tosslab/web_client/compare/v1.20.0...v1.20.1) (2016-03-25)
+
+
+### Bug Fixes
+
+* **socket:** reconnection 최대 5분으로 변경 ([260dfc2](https://github.com/tosslab/web_client/commit/260dfc2))
+* **socket:** 웹소켓만 동작하도록 수정 ([8410eed](https://github.com/tosslab/web_client/commit/8410eed))
+
+
+
 <a name="1.20.0"></a>
 # [1.20.0](https://github.com/tosslab/web_client/compare/v1.19.0...v1.20.0) (2016-03-23)
 
