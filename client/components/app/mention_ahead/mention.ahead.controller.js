@@ -9,7 +9,7 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($scope, $state, $filter, entityAPIservice, currentSessionHelper,
+  function MentionaheadCtrl($scope, $state, $filter, RoomTopicList, currentSessionHelper,
                             Mentionahead, Dialog, jndPubSub, JndUtil) {
     var that = this;
 
@@ -235,7 +235,7 @@
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
-        count = +entityAPIservice.getUserLength(currentEntity) - 1;
+        count = RoomTopicList.getUserLength(currentEntity.id) - 1;
 
         if (count > 0) {
           msg = $filter('translate')('@mention-all-toast');

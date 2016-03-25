@@ -17,7 +17,7 @@
     </div>
 
     <div class="modal-footer">
-      <input class="btn btn-ok"
+      <input class="btn btn-ok pull-right"
              type="button"
              id="private_invite"
              value="{{ '@btn-invite' | translate }}"
@@ -72,8 +72,8 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
-      <input class="btn btn-ok send-invite _modalSubmit" ng-class="{'disabled': inviteUsers.length === 0}" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
+      <input class="btn btn-ok send-invite pull-right _modalSubmit" ng-class="{'disabled': inviteUsers.length === 0}" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
+      <button type="button" class="btn btn-cancel pull-right" ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@
     .controller('JndConnectGoogleCalendarCtrl', JndConnectGoogleCalendarCtrl);
 
   /* @ngInject */
-  function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, EntityMapManager, JndUtil,
+  function JndConnectGoogleCalendarCtrl($scope, $filter, JndConnectGoogleCalendar, UserList, JndUtil,
                                         JndConnectUnion, accountService, Dialog, JndConnectUnionFormData) {
     $scope.selectedRoom = '';
 
@@ -315,7 +315,7 @@
         var data = $scope.data;
 
         _.extend(data, connectInfo);
-        $scope.member = EntityMapManager.get('user', data.memberId);
+        $scope.member = UserList.get(data.memberId);
         _setOriginalFormData();
       })
       .finally(function() {

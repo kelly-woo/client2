@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('TopicInvitedFlagMap', TopicInvitedFlagMap);
 
-  function TopicInvitedFlagMap(EntityMapManager) {
+  function TopicInvitedFlagMap(EntityHandler) {
     var _map = {};
     this.reset = reset;
     this.add = add;
@@ -52,7 +52,7 @@
         _map[roomId] = null;
         delete _map[roomId];
 
-        entity = EntityMapManager.get('total', roomId);
+        entity = EntityHandler.get(roomId);
         if (entity) {
           entity.extHasInvitedFlag = false;
         }

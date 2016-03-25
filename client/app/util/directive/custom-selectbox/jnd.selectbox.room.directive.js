@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('jndSelectboxRoom', jndSelectboxRoom);
 
-  function jndSelectboxRoom($filter, EntityMapManager, TopicFolderModel, publicService, JndUtil, jndPubSub,
-                            memberService) {
+  function jndSelectboxRoom($filter, TopicFolderModel, publicService, JndUtil, jndPubSub, memberService, RoomTopicList,
+                            UserList, BotList) {
     return {
       restrict: 'AE',
       link: link,
@@ -293,10 +293,16 @@
        */
       function _getMemberData() {
         var currentMemberId = memberService.getMemberId();
-        var memberMap = EntityMapManager.getMap('member');
+        var memberList = UserList.toJSON();
+        var jandiBot = BotList.getJandiBot();
         var enabledList = [];
         var disabledList = [];
-        _.each(memberMap, function(member) {
+
+        if (jandiBot) {
+          memberList.push(jandiBot);
+        }
+
+        _.forEach(memberList, function(member) {
           if (!_filterMap || (_filterMap && _filterMap[member.id])) {
             if(currentMemberId !== member.id && !memberService.isConnectBot(member.id)) {
               if (publicService.isDisabledMember(member)) {
@@ -373,11 +379,13 @@
        */
       function _getAllEntities() {
         var id;
-        var allEntities = _.extend({},
-          EntityMapManager.getMap('joined'),
-          EntityMapManager.getMap('private'),
-          EntityMapManager.getMap('member')
-        );
+        var allEntities = _.union(RoomTopicList.toJSON(true), UserList.toJSON());
+        var jandiBot = BotList.getJandiBot();
+
+        if (jandiBot) {
+          allEntities.push(jandiBot);
+        }
+
         if (_filterMap) {
           allEntities = _.filter(allEntities, function(entity) {
             return _filterMap[entity.id];

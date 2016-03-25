@@ -94,7 +94,7 @@
       if (accountService.getAccount()) {
         _setTutorialBlink();
       } else {
-        $scope.$on('accountLoaded', _setTutorialBlink);
+        $scope.$on('accountService:setAccount', _setTutorialBlink);
       }
     }
 

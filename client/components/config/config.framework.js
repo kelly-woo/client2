@@ -3,7 +3,7 @@
 
   angular
     .module('config.framework', [
-      'config.common'
+      'jandi.config'
     ])
     .run(run)
     .config(config);

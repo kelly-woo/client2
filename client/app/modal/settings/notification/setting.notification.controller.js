@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function NotificationCtrl($scope, $modalInstance, $filter, modalHelper, NotificationAudio,
-                            SampleNotification, DesktopNotificationUtil, Browser, JndUtil) {
+                            SampleNotification, DesktopNotificationUtil, Browser, JndUtil, CoreUtil) {
     var notificationAudio;
     var recentSound;
 
@@ -191,7 +191,7 @@
     }
 
     function _setNotificationImage() {
-      var isWin = JndUtil.pick(Browser, 'platform', 'isWin');
+      var isWin = CoreUtil.pick(Browser, 'platform', 'isWin');
       $scope.notificationImage = isWin ?
         'assets/images/app_notification_w.png' :
         'assets/images/app_notification_m.png';

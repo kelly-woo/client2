@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('config.common')
+    .module('jandi.config')
     .service('config', config);
 
   /* @ngInject */

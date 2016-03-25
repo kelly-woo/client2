@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('invitationModal', invitationModal);
 
-  function invitationModal($filter, clipboard) {
+  function invitationModal($filter, clipboard, jndPubSub) {
     return {
       restrict: 'A',
       link: link
@@ -17,7 +17,8 @@
     function link(scope, el) {
       var done = $filter('translate')('@common-done');
 
-      var jqInviteLink = el.find('#invite-link');
+      var _jqInviteButton = el.find('#team-invite-btn');
+      var _jqInviteLink = el.find('#invite-link');
 
       _init();
 
@@ -29,12 +30,13 @@
         // clipboard 제공하지 않음
         scope.isSupportClip = clipboard.support;
 
-        _on();
+        _attachDomEvents();
 
         if (!scope.inviteDisabled) {
           // 팀초대가 활성화 되어 있음
 
           scope.setInviteBtnText = setInviteBtnText;
+
           setInviteBtnText([]);
 
           scope.isCopySuccess = false;
@@ -43,20 +45,24 @@
       }
 
       /**
-       * on listeners
+       * attach dom events
        * @private
        */
-      function _on() {
+      function _attachDomEvents() {
         el.on('click', '.modal-body', _onModalBodyClick);
 
+        if (!scope.inviteDisabled) {
+          _jqInviteButton.on('mouseenter', _onMouseEnter);
+        }
+
         if (!scope.isSupportClip) {
-          jqInviteLink
+          _jqInviteLink
             .on('click', _onInviteLinkClick)
             .on('blur', _onInviteLinkBlur);
 
           setTimeout(function() {
             // clipboard 제공하지 않는다면 invite link에 focus 줌
-            jqInviteLink.trigger('click');
+            _jqInviteLink.trigger('click');
           });
         }
       }
@@ -74,18 +80,14 @@
        * @param {array} $list
        */
       function setInviteBtnText($list) {
-        var jqInviteButton = el.find('#team-invite-btn');
+
         var length =  $list.length;
 
         if (length > 0) {
-          jqInviteButton
-            .removeAttr('disabled')
-            .removeClass('disabled')
+          _jqInviteButton
             .text($filter('translate')('@team-invite-send').replace('{{inviteeNumber}}', length));
         } else {
-          jqInviteButton
-            .attr('disabled', true)
-            .addClass('disabled')
+          _jqInviteButton
             .text($filter('translate')('@btn-invite'));
         }
       }
@@ -112,7 +114,7 @@
           clipboard.createInstance(jqClipButton, {
             getText: function() {
               scope.isCopySuccess = true;
-              return jqInviteLink.val();
+              return _jqInviteLink.val();
             }
           });
         }
@@ -139,6 +141,13 @@
         scope.$apply(function() {
           scope.isLinkTextFocus = false;
         });
+      }
+
+      /**
+       * 초대 전송하기 버튼에 마우스 엔터 이벤트 처리함.
+       */
+      function _onMouseEnter() {
+        jndPubSub.pub('invitationModal:emailsInsert');
       }
     }
   }

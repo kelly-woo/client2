@@ -9,9 +9,9 @@
     .module('jandiApp')
     .directive('centerMessagesDirective', centerMessagesDirective);
 
-  function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
+  function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
-                                   EntityMapManager, JndUtil, RendererUtil) {
+                                   EntityHandler, JndUtil, RendererUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -172,7 +172,7 @@
         var entityIdList = [];
         var entity;
         _.forEach(memberIdList, function(memberId) {
-          entity = EntityMapManager.get('total', memberId);
+          entity = EntityHandler.get(memberId);
           entityIdList.push(entity.entityId || entity.id);
         });
         return entityIdList;
