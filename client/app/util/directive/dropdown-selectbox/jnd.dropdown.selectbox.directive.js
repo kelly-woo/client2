@@ -95,6 +95,7 @@
         var item;
         if (item = scope.list[index]) {
           scope.selectedItemText = item.text;
+          scope.value = item.value;
         }
       }
     }
