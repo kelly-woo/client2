@@ -6,7 +6,7 @@
     .service('jndWebSocketCommon', jndWebSocketCommon);
 
   /* @ngInject */
-  function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice, EntityHandler, UserList, logger,
+  function jndWebSocketCommon(CoreUtil, jndPubSub, currentSessionHelper, entityAPIservice, EntityHandler, UserList, logger,
                               memberService, accountService, RoomTopicList) {
 
     var _chatEntity = 'chat';
@@ -133,7 +133,9 @@
      * @private
      */
     function getRoom(room) {
-      return EntityHandler.get(room.id);
+      var entity = EntityHandler.get(room.id);
+      //DM 일 경우 해당 chat room 의 member 정보를 반환해야 한다.
+      return CoreUtil.pick(entity, 'extMember') || entity;
     }
 
     /**
