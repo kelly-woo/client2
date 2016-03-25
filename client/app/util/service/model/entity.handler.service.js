@@ -137,7 +137,6 @@
       BotList.reset();
 
       _.forEach(response.joinEntities, function(room) {
-        _setStarred(room);
         RoomTopicList.add(room, true);
       });
 
@@ -147,6 +146,7 @@
       });
 
       _.forEach(response.entities, function(entity) {
+        _setStarred(entity);
         if (_isTopic(entity) && !RoomTopicList.get(entity.id)) {
           RoomTopicList.add(entity, false);
         } else if (_isUser(entity)) {
