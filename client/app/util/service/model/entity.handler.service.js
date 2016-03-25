@@ -137,6 +137,7 @@
       BotList.reset();
 
       _.forEach(response.joinEntities, function(room) {
+        _setStarred(room);
         RoomTopicList.add(room, true);
       });
 
