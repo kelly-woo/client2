@@ -224,7 +224,10 @@
   border-radius: 5px;
   margin: 5px 0;
   height: 25px;
-  line-height: 0;
+  line-height: 1.9;
+}
+.panel-title-right-menu__item {
+  color: #154a67
 }
 .panel-title-right-menu__item:hover,
 .panel-title-right-menu:hover .panel-title-right-item {
@@ -320,6 +323,17 @@
   border-bottom-right-radius: 5px;
 }
 
+.panel-title-right-menu__button {
+  padding: 0 5px;
+  height: 25px;
+  line-height: 25px;
+  position: relative;
+  color: #154a67;
+  margin-left: 5px;
+}
+.panel-title-right-menu__button:hover {
+  background-color: #d7e0e8;
+}
 
 .panel-title-right-menu__more {
   margin-left: 5px;

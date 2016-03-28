@@ -10,7 +10,7 @@
     .controller('entityHeaderCtrl', entityHeaderCtrl);
 
   /* @ngInject */
-  function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+  function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
                             Dialog, JndUtil, JndConnect, EntityHandler, RoomTopicList) {
 
@@ -27,7 +27,14 @@
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;
-    $scope.isMember;
+
+    $scope.isMember = false;
+
+    /**
+     * inactive(dummy) 유저 인지 여부
+     * @type {boolean}
+     */
+    $scope.isInactiveUser = false;
 
     $scope.onEntityTitleClicked = onEntityTitleClicked;
 
@@ -175,6 +182,7 @@
         $scope.isDisabledEntity = false;
       }
 
+      $scope.isInactiveUser = memberService.isInactiveUser(_currentEntity);
       $scope.isAllowUserable = !$scope.isDisabledEntity && !$scope.isJandiBot;
     }
 

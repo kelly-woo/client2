@@ -1,0 +1,127 @@
+/********************************************
+
+  DISABLED MEMBER CSS
+
+********************************************/
+.center-panel-disabled-member.panel-title-container {
+  background-color: #ef6700;
+  color: white !important;
+}
+
+.center-panel-disabled-member.panel-title-container {
+  background-color: #ef6700;
+  color: white !important;
+}
+
+.center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
+  margin-right: 10px;
+  text-align: right;
+}
+
+.center-panel-disabled-member.panel-title-container .prefix,
+.center-panel-disabled-member.panel-title-container .panel-title-info-name-container,
+.center-panel-disabled-member.panel-title-container .header-title-info__more {
+  color: white !important;
+}
+
+.center-panel-disabled-member .panel-title-info:hover .panel-title-info__name,
+.center-panel-disabled-member .panel-title-info:hover .header-title-info__more {
+  color: #e1e1e1 !important;
+}
+
+.center-panel-disabled-member .user-profile,
+.center-panel-disabled-member .msg-item-header__nameSpace,
+.center-panel-disabled-member.msg-item-header__name {
+  text-decoration: line-through;
+  opacity: 0.4 !important;
+}
+
+@media (max-width: 960px) {
+  .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
+    margin-right: 4px;
+    width: 50%;
+  }
+}
+@media (max-width: 650px) {
+  .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
+    width: 40%;
+  }
+
+  .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg:lang(ja) {
+    width: auto;
+  }
+}
+
+/********************************************
+
+  INACTIVE MEMBER CSS
+
+********************************************/
+.center-panel-inactive-member.panel-title-container {
+  background-color: #fbbc00;
+  color: white !important;
+}
+
+.center-panel-inactive-member.panel-title-container {
+  background-color: #fbbc00;
+  color: white !important;
+}
+
+.center-panel-inactive-member.panel-title-container .prefix,
+.center-panel-inactive-member.panel-title-container .panel-title-info-name-container,
+.center-panel-inactive-member.panel-title-container .header-title-info__more {
+  color: white !important;
+}
+
+.center-panel-inactive-member .panel-title-info:hover .panel-title-info__name,
+.center-panel-inactive-member .panel-title-info:hover .header-title-info__more {
+  color: #e1e1e1 !important;
+}
+
+.center-panel-inactive-member .user-profile,
+.center-panel-inactive-member .msg-item-header__nameSpace,
+.center-panel-inactive-member.msg-item-header__name {
+  text-decoration: line-through;
+  opacity: 0.4 !important;
+}
+
+@media (max-width: 960px) {
+  .center-panel-inactive-member.panel-title-container .disabled-member-notice-msg {
+    margin-right: 4px;
+    width: 50%;
+  }
+}
+@media (max-width: 650px) {
+  .center-panel-inactive-member.panel-title-container .disabled-member-notice-msg {
+    width: 40%;
+  }
+
+  .center-panel-inactive-member.panel-title-container .disabled-member-notice-msg:lang(ja) {
+    width: auto;
+  }
+}
+
+.center-panel-inactive-member .inactive-member-guide-container {
+  display: inline-block;
+  padding: 2px 5px 0 5px;
+  height: 25px;
+  line-height: 25px;
+  background:#F2A105;
+  margin: 0 0 2px 5px;
+  border-radius: 3px;
+}
+/**********************
+  popover guide
+**********************/
+.center-panel-inactive-member .inactive-guide {
+  position: absolute;
+  display: none;
+  top: 25px;
+  left: auto;
+  margin-left: -15px;
+  color: #000000;
+  max-width: 350px;
+}
+.center-panel-inactive-member .inactive-guide .arrow {
+  left: 21px;
+}
