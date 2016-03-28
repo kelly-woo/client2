@@ -24,14 +24,17 @@ msgstr ""
 msgid "@alert-empty-ch-belong"
 msgstr "まだどのトピックにも参加していません"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "一致するファイルがありません"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr "共有されたファイルがありません"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "一致するメッセージがありません"
@@ -104,6 +107,7 @@ msgstr "変更"
 msgid "@btn-close"
 msgstr "閉じる"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -121,6 +125,7 @@ msgid "@btn-create"
 msgstr "作成"
 
 #: client/app/center/announcement/announcement.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "削除"
@@ -252,7 +257,9 @@ msgstr "有効なメンバー"
 msgid "@common-all-shared"
 msgstr "このファイルは既に参加されているすべてのトピックに共有されています"
 
-#: client/app/center/center.html client/app/left/left.html
+#: client/app/center/center.html
+#: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "アップロードがキャンセルされました。後でもう一度お試しください"
@@ -311,6 +318,10 @@ msgstr "チームを作成"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-daily"
+msgstr "毎日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
@@ -379,6 +390,7 @@ msgstr "修正"
 msgid "@common-email"
 msgstr "メールアドレス"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr "送信先"
@@ -392,6 +404,7 @@ msgstr "公開/非公開"
 msgid "@common-faq"
 msgstr "FAQ / お問い合わせ"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "ファイル"
@@ -404,10 +417,12 @@ msgstr "共有された<br>ファイル"
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr "ファイルが共有されました。ファイルについてコメントしますか？"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "ファイルの種類"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全ての種類"
@@ -416,50 +431,62 @@ msgstr "全ての種類"
 msgid "@common-file-type-archive"
 msgstr "圧縮ファイル"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音声"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文書"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr "Google Docs"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr "Googleドキュメント"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr "Googleスライド"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr "Googleスプレッドシート"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "画像"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr "その他"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "プレゼンテーション"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "スプレッドシート"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "動画"
@@ -483,6 +510,11 @@ msgstr "ログイン画面に進む"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "既にJANDIのアプリをお持ちですか？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@common-hourly"
+msgstr "コピー"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
@@ -514,18 +546,22 @@ msgstr "メンバー"
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}の管理者からトピックから退出させられました。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "すでに参加していないトピックなので原本が表示できません"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "共有したメンバー"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-mention"
 msgstr "メンション"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-message"
 msgstr "メッセージ "
@@ -534,6 +570,7 @@ msgstr "メッセージ "
 msgid "@common-message-search"
 msgstr "メッセージ検索"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr "送信者"
@@ -603,6 +640,7 @@ msgstr "プロファイル設定"
 msgid "@common-register"
 msgstr "新規登録"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr "原本が削除されました"
@@ -636,6 +674,7 @@ msgstr "ファイルを共有"
 msgid "@common-share-in"
 msgstr "共有範囲"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/files.html
 msgid "@common-shared-in"
@@ -654,6 +693,7 @@ msgstr "ログインする"
 msgid "@common-sign-out"
 msgstr "ログアウトする"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-star"
 msgstr "スター付き"
@@ -911,14 +951,17 @@ msgstr "もっと見る"
 msgid "@file-action-unshare"
 msgstr "非共有"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr "に削除されました"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr " "
@@ -927,6 +970,7 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "現在のところ、300MBを超えるファイルはアップロードできません。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr "このファイルは非共有化されました"
@@ -1039,6 +1083,7 @@ msgstr "トピック名で検索"
 msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "キーワードを入力して検索してください"
@@ -2153,22 +2198,26 @@ msgstr "*イタリック体*"
 msgid "@markdown-strikethrough"
 msgstr "~~ストライクスルー~~"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all（トピック内）"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
 "「@all」機能で現在{{topicName}}に参加している{{topicParticipantsCount}}名のメ"
 "ンバーにスマートフォンやウェブ通知が届きます。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
 msgstr ""
 "チームメンバーからメンションされたけんがありません。メンションするには、メッ"
 "セージやコメントを入力する時「@」を入力してください"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
@@ -2266,6 +2315,7 @@ msgstr "さんが公開トピックを作成しました"
 msgid "@msg-create-pg"
 msgstr "さんが非公開トピックを作成しました"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -2287,6 +2337,7 @@ msgstr "さんが参加しました"
 msgid "@msg-left"
 msgstr "が退出しました"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -2405,6 +2456,7 @@ msgstr "土曜日"
 msgid "@search-cond-reset"
 msgstr "検索条件を更新"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -2413,10 +2465,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索して"
 "います"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
 msgstr "1文字以上を入力してください。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -2455,6 +2509,49 @@ msgstr "デスクトップ通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-dm-n-mention"
 msgstr "1:1メッセージと@メンションのみ受ける"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@setting-notification-email"
+msgstr "デスクトップ通知がオフに設定されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@setting-notification-email-desc"
+msgstr "デスクトップ通知がオフに設定されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-fri"
+msgstr "毎週 金曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-mon"
+msgstr "毎週 月曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sat"
+msgstr "毎週 土曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sun"
+msgstr "毎週 日曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-thu"
+msgstr "毎週 木曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-tue"
+msgstr "毎週 火曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-wed"
+msgstr "毎週 水曜日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@setting-notification-email-text"
+msgstr "デスクトップ通知がオフに設定されました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
@@ -2669,6 +2766,7 @@ msgstr "バブル"
 msgid "@sounds-super"
 msgstr "スーバー"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -2678,18 +2776,22 @@ msgstr "スター付き"
 msgid "@star-add"
 msgstr "お気に入りに追加する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr "全て"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr "スター付きのメッセージやファイルがありません"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr "ファイル"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr "スター付きのファイルなし"
@@ -2702,6 +2804,7 @@ msgstr "このファイルは非共有化されました"
 msgid "@star-remove"
 msgstr "お気に入りを解除する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"

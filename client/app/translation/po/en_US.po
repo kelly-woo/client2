@@ -23,14 +23,17 @@ msgstr "We expect to be back in a couple of hours. Thanks for your patience."
 msgid "@alert-empty-ch-belong"
 msgstr "You have not joined any topics yet"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "No files found matching"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr "File has not been shared"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "No messages found matching"
@@ -105,6 +108,7 @@ msgstr "Change"
 msgid "@btn-close"
 msgstr "Close"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -122,6 +126,7 @@ msgid "@btn-create"
 msgstr "Create"
 
 #: client/app/center/announcement/announcement.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "Delete"
@@ -255,7 +260,9 @@ msgstr "Current Members"
 msgid "@common-all-shared"
 msgstr "File is already shared in all your topics"
 
-#: client/app/center/center.html client/app/left/left.html
+#: client/app/center/center.html
+#: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "We encountered an issue. Please try again."
@@ -315,6 +322,10 @@ msgstr "Create a Team"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-daily"
+msgstr "day"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
@@ -383,6 +394,7 @@ msgstr "Edit"
 msgid "@common-email"
 msgstr "Email"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr "Sent in"
@@ -396,6 +408,7 @@ msgstr "Type"
 msgid "@common-faq"
 msgstr "FAQ / Ask a question"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "File"
@@ -410,10 +423,12 @@ msgstr ""
 "File has been shared successfully. Do you want to jump to that conversation "
 "now?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "File type"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "All"
@@ -422,50 +437,62 @@ msgstr "All"
 msgid "@common-file-type-archive"
 msgstr "Compressed Files"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "Audio"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "Documents"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr "Google Docs"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr "Google document"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr "Google presentation"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr "Google spreadsheet"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "Images"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr "Other"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "Presentations"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "Spreadsheets"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "Video"
@@ -489,6 +516,10 @@ msgstr "Get Started"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "Already have the JANDI app for mobile?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-hourly"
+msgstr "hour"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
@@ -520,18 +551,22 @@ msgstr " members"
 msgid "@common-kicked-out"
 msgstr "You have been removed from {{TopicName}}."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "You are no longer in the topic where this item was shared."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "Shared by"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-mention"
 msgstr "Mentions"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-message"
 msgstr "Messages"
@@ -540,6 +575,7 @@ msgstr "Messages"
 msgid "@common-message-search"
 msgstr "Message search"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr "Sent by"
@@ -607,6 +643,7 @@ msgstr "Profile"
 msgid "@common-register"
 msgstr "Sign Up"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr "The starred item was deleted."
@@ -640,6 +677,7 @@ msgstr "Share File"
 msgid "@common-share-in"
 msgstr "Share in"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/files.html
 msgid "@common-shared-in"
@@ -658,6 +696,7 @@ msgstr "Sign In"
 msgid "@common-sign-out"
 msgstr "Sign Out"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-star"
 msgstr "Stars"
@@ -912,16 +951,19 @@ msgstr "More"
 msgid "@file-action-unshare"
 msgstr "Unshare"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
 "Are you sure you want to delete this file? <br>Please note this will not "
 "delete the associated comments."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr ", file was deleted."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr "As of "
@@ -930,6 +972,7 @@ msgstr "As of "
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 300MB."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr "This file has been unshared from this conversation."
@@ -1043,6 +1086,7 @@ msgstr "Search topics by name"
 msgid "@input-search-user-name"
 msgstr "Search users by name"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "Please type in a keyword to search"
@@ -2155,22 +2199,26 @@ msgstr "*italics*"
 msgid "@markdown-strikethrough"
 msgstr "~~strikethrough~~"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (topic members)"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
 "You are going to mention all {{topicParticipantsCount}} members in "
 "{{topicName}}."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
 msgstr ""
 "You haven't been mentioned by other team members yet. To send a mention, "
 "type \"@\" while inputting a message or comment."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
@@ -2266,6 +2314,7 @@ msgstr "created this public topic."
 msgid "@msg-create-pg"
 msgstr "created this private topic."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -2287,6 +2336,7 @@ msgstr "has joined"
 msgid "@msg-left"
 msgstr "has left"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -2405,6 +2455,7 @@ msgstr "Saturday"
 msgid "@search-cond-reset"
 msgstr "Clear search filters"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -2413,10 +2464,12 @@ msgstr ""
 "Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
 "span>..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
 msgstr "Please enter more than one character to search."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -2455,6 +2508,48 @@ msgstr "Desktop Notifications"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-dm-n-mention"
 msgstr "Receive direct messages and @mentions only"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email"
+msgstr "Email Notifications"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-desc"
+msgstr ""
+"Get regular email summaries of direct messages, mentions, announcements, and "
+"topic invitations you may have missed"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-fri"
+msgstr "Friday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-mon"
+msgstr "Monday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sat"
+msgstr "Saturday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sun"
+msgstr "Sunday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-thu"
+msgstr "Thursday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-tue"
+msgstr "Tuesday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-wed"
+msgstr "Wednesday"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text"
+msgstr "Send notification emails every"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
@@ -2669,6 +2764,7 @@ msgstr "Pop"
 msgid "@sounds-super"
 msgstr "Super"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -2678,18 +2774,22 @@ msgstr "Star"
 msgid "@star-add"
 msgstr "Star"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr "All"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr "No starred messages or files"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr "Files"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr "No starred files"
@@ -2702,6 +2802,7 @@ msgstr "This file has been unshared from this conversation."
 msgid "@star-remove"
 msgstr "Unstar"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"
