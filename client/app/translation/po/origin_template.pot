@@ -2409,7 +2409,11 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@setting-notification-email-text"
+msgid "@setting-notification-email-text1"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html

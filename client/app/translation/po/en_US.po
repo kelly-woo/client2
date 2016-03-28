@@ -2548,8 +2548,13 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr "Wednesday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@setting-notification-email-text"
+#, fuzzy
+msgid "@setting-notification-email-text1"
 msgstr "Send notification emails every"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
+msgstr "Send ils everynotification ema"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"

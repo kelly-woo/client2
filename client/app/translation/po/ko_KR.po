@@ -2542,8 +2542,12 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr "매주 수요일"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@setting-notification-email-text"
-msgstr "수신 가능 내용이 있을 경우 이메일을 {{intervalSetting}}에 받기"
+msgid "@setting-notification-email-text1"
+msgstr "수신 가능 내용이 있을 경우 이메일을"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
+msgstr "에 받기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
