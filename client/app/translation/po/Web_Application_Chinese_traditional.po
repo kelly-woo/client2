@@ -2114,7 +2114,7 @@ msgstr "***斜體&粗體***"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-code"
-msgstr "```(隔行輸入)"
+msgstr "```(隔行輸入) 語法"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-italics"

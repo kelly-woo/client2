@@ -175,7 +175,7 @@ msgstr "アップロード"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
-msgstr "このトピックを削除"
+msgstr "トピックを削除"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete-confirm"
@@ -197,7 +197,7 @@ msgstr "このトピックに招待(Ctrl+I)"
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
-msgstr "このトピックから退出"
+msgstr "トピックから退出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@ch-menu-leave-private-confirm"
@@ -208,11 +208,11 @@ msgstr ""
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
-msgstr "このトピックをお気に入りに追加する"
+msgstr "お気に入りに追加"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
-msgstr "このトピックをお気に入りから削除する"
+msgstr "お気に入りから削除"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
@@ -817,11 +817,11 @@ msgstr "ファイルを表示"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-invite"
-msgstr "このメンバーを別のチャットに招待する"
+msgstr "別のトピックに招待"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
-msgstr "プロファイルを表示する"
+msgstr "プロファイルを表示"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
@@ -2774,7 +2774,7 @@ msgstr "スター付き"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@star-add"
-msgstr "お気に入りに追加する"
+msgstr "お気に入りに追加"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
@@ -3406,11 +3406,11 @@ msgstr "ダイレクトメッセージ"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
-msgstr "お気に入りに追加する"
+msgstr "お気に入りに追加"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-un-star"
-msgstr "お気に入りから削除する"
+msgstr "お気に入りから削除"
 
 #: client/app/header/header.html
 #: client/app/modal/settings/notification/setting.notification.html

@@ -438,7 +438,7 @@ msgstr "오디오"
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
-msgstr "워드/한글"
+msgstr "문서"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -861,7 +861,9 @@ msgstr "여기를 클릭하시고 토픽에 멤버를 초대해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
-msgstr "토픽 또는 1:1메시지에서 파일을 업로드하실 수 있습니다."
+msgstr ""
+"파일을 끌어다 놓으면 (드래그&드롭) 바로 업로드할 수 있습니다. 업로드 후 댓글"
+"을 작성해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-everyone-in-current-topic"
@@ -877,7 +879,7 @@ msgstr "아직 팀에 가입한 멤버가 없습니다. "
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
-msgstr "아직 메시지가 없습니다. 메시지를 입력하셔서 대화를 시작해보세요."
+msgstr "아직 메시지가 없습니다. 메시지를 입력하여 대화를 시작해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
@@ -885,7 +887,7 @@ msgstr "아직 토픽에 초대된 멤버가 없습니다. "
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
-msgstr "파일 서랍에 아직 파일이 없습니다. "
+msgstr "아직 파일이 없습니다."
 
 #: client/app/error/404.html
 msgid "@error-404-message"
@@ -2281,7 +2283,7 @@ msgstr "참여 가능한 토픽 목록"
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
-msgstr "멤버 선택하기"
+msgstr "전체 멤버 보기"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
