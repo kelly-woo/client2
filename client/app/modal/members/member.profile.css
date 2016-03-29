@@ -281,10 +281,7 @@
   vertical-align: text-top;
   margin-bottom: 5px;
 }
-.profile-view-modal .action-buttons .action-email,
-.profile-view-modal .action-buttons .action-file,
-.profile-view-modal .action-buttons .action-dm,
-.profile-view-modal .action-buttons .action-mention {
+.profile-view-modal .action-buttons > span {
   display: inline-block;
   width: 96px;
   line-height: 20px;
@@ -298,13 +295,12 @@
   margin-bottom: 8px;
   padding-top: 8px;
 }
-.profile-view-modal .action-buttons .action-email:hover,
-.profile-view-modal .action-buttons .action-file:hover,
-.profile-view-modal .action-buttons .action-dm:hover,
-.profile-view-modal .action-buttons .action-mention:hover {
+.profile-view-modal .action-buttons > span:hover {
   background-color: #f1f4f8;
 }
-
+.profile-view-modal .action-buttons.inactive-user > span {
+  width: 148px;
+}
 .profile-view-modal .action-buttons .disabled {
   color: #d1d1d1;
   cursor: default;

@@ -30,6 +30,7 @@
       $scope.isDefaultProfileImage = memberService.isDefaultProfileImage($scope.curUser.u_photoUrl);
       $scope.isStarred = $scope.curUser.isStarred;
       $scope.isDeactivatedUser = _isDeactivatedUser();
+      $scope.isInactiveUser = memberService.isInactiveUser(curUser);
       $scope.isMyself = _isMyself();
 
       $scope.message = {content:''};
@@ -121,9 +122,31 @@
         _goToDM(curUser.id);
       } else if (type === 'mention') {
         _goToMention();
+      } else if (type === 'resendInvitation') {
+        _sendInvitationMail();
+      } else if (type === 'cancelInvitation') {
+        _cancelInvitation();
       }
 
       $modalInstance.close();
+    }
+
+    /**
+     * 초대 메일을 전송한다.
+     * @private
+     */
+    function _sendInvitationMail() {
+      //TODO: 초대 - 성공 이후 로직 추가
+      teamAPIservice.inviteToTeam([$scope.email]);
+    }
+
+    /**
+     * 초대장을 취소한다.
+     * @private
+     */
+    function _cancelInvitation() {
+      //TODO: 초대 취소 - 성공 이후 로직 추가
+      teamAPIservice.cancelInvitation(curUser.id);
     }
 
     /**
