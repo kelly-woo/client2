@@ -230,7 +230,7 @@
       var result;
 
       if (data.showContent === that.SHOW_CONTENT.ALL ||
-        (data.showContent === that.SHOW_CONTENT.PUBLIC_ONLY && RoomTopicList.isPublicTopic(entityId))) {
+        (data.showContent === that.SHOW_CONTENT.PUBLIC_ONLY && RoomTopicList.isPublic(entityId))) {
         result = true;
       } else {
         result = false;
