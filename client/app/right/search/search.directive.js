@@ -10,6 +10,7 @@
       restrict: 'E',
       scope: {
         keyword: '=',
+        isFocus: '=?',
         onChange: '&',
         onResetQuery: '&'
       },
@@ -39,8 +40,8 @@
       }
 
       function _attachScopeEvents() {
-        scope.$on('rPanelSearchFocus', _onSearchFocus);
         scope.$watch('keyword', _onKeywordChange);
+        scope.$watch('isFocus', _onFocus);
       }
 
       /**
@@ -66,12 +67,12 @@
         }
       }
 
-      function _onClick() {
-        scope.onResetQuery();
+      function _validSearchKeyword(keyword) {
+        return keyword.length !== 1;
       }
 
-      function _onSearchFocus() {
-        _jqSearchBox.focus();
+      function _onClick() {
+        scope.onResetQuery();
       }
 
       function _onKeywordChange(value) {
@@ -83,8 +84,12 @@
         }, 500);
       }
 
-      function _validSearchKeyword(keyword) {
-        return keyword.length !== 1;
+      function _onFocus(isFocus) {
+        if (isFocus === true) {
+          _jqSearchBox.focus();
+        }
+
+        scope.isFocus = false;
       }
     }
   }

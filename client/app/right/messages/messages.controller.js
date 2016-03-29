@@ -15,6 +15,8 @@
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
+    var _localCurrentEntity;
+
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
     var _isActivated = false;
     var _timerSearch;
@@ -26,48 +28,192 @@
       $scope.isSearching = false;
       $scope.isEndOfList = false;
       $scope.apiError = false;
-      $scope.messageLocationId = '';
-      $scope.messageWriterId = '';
+
       $scope.messageList = [];
 
       $scope.searchStatus = {
-        keyword: '',
+        q: '',
+        entityId: '',     // messageLocationId
+        writerId: '',
+        page: DEFAULT_PAGE,
+        perPage: DEFAULT_PER_PAGE,
+
+        isApiError: false,
+        isSearching: false,
+        isScrollLoading: false,
+        isEndOfList: false,
+        isInitDone: false,
+        isKeywordFocus: false,
+
         length: '',
         type: _getSearchStatusType()
       };
 
       // Methods
-      $scope.searchMessages = searchMessages;
-      $scope.updateMessageLocationFilter = updateMessageLocationFilter;
-      $scope.updateMessageWriterFilter = updateMessageWriterFilter;
+      $scope.loadMore = loadMore;
+
+      $scope.onKeywordChange = onKeywordChange;
+      $scope.onResetQuery = onResetQuery;
+
+      $scope.isEmpty = isEmpty;
+      $scope.isKeywordEmpty = isKeywordEmpty;
+      $scope.setKeywordFocus = setKeywordFocus;
 
       if (RightPanel.getStateName($state.current) === 'messages') {
         _isActivated = true;
       }
 
-      _initMessageSearchQuery();
+      _localCurrentEntity = currentSessionHelper.getCurrentEntity()
+
       _initChatRoomOption();
+      _setChatRoom(_localCurrentEntity);
+
       _initChatWriterOption();
-      _setLanguageVariable();
-      _setMessageLocation(currentSessionHelper.getCurrentEntity());
+      _setDefaultWriter();
 
-      updateMessageLocationFilter();
-
-      _on();
+      _attachScopeEvents();
     }
 
-    function _on() {
+    function _attachScopeEvents() {
       $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _initChatRoomOption);
 
-      $scope.$on('doSearch', _onrPanelFileTitleQueryChanged);
-
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
-      $scope.$on('changedLanguage', _changedLanguage);
       $scope.$on('topic-folder:update', _initChatRoomOption);
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-      $scope.$watch('messageLocationId', updateMessageLocationFilter);
-      $scope.$watch('messageWriterId', updateMessageWriterFilter);
       $scope.$on('rPanelResetQuery', _onResetQuery);
+
+
+      // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+      $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
+
+      $scope.$watch('searchStatus.entityId', _onSearchEntityChange);
+      $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
+    }
+
+    /**
+     * '작성된 곳' 옵션 초기화
+     * @private
+     */
+    function _initChatRoomOption() {
+      var newOptions = fileAPIservice.getShareOptionsWithoutMe(
+        RoomTopicList.toJSON(true),
+        currentSessionHelper.getCurrentTeamUserList()
+      );
+      var newMessageLocation = _getMessageLocation(newOptions);
+      $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
+
+      if (newMessageLocation) {
+        _setChatRoom(newMessageLocation);
+      } else {
+        _resetChatRoom();
+      }
+    }
+
+    /**
+     * '작성자' 옵션 초기화
+     * @private
+     */
+    function _initChatWriterOption() {
+      $scope.chatWriterOptions = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
+    }
+
+    function _onSearchEntityChange(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        _refreshMessageList();
+      }
+    }
+
+    function _onSearchWriterChange(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        _refreshMessageList();
+      }
+    }
+
+    /**
+     * open right panel event handler
+     */
+    function _onRightPanelStatusChange($event, data) {
+      _isActivated = data.type === 'messages';
+
+      if (_isActivated && !$scope.searchStatus.isInitDone) {
+        // 아직 초기화가 진행되어 있지 않다면 전체 갱신한다.
+
+        _refreshMessageList();
+      }
+    }
+
+    /**
+     * Watching joinEntities in parent scope so that currentEntity can be automatically updated.
+     * advanced search option 중 'Shared in'/ 을 변경하는 부분.
+     */
+    function _onCurrentEntityChanged(event, currentEntity) {
+      if (_isActivated && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
+        _localCurrentEntity = currentEntity;
+
+        // search keyword reset
+        _setChatRoom(_localCurrentEntity);
+
+        _resetSearchStatusKeyword();
+      }
+    }
+
+    /**
+     * room이 변경되었는지 여부
+     * @param {object} newCurrentEntity
+     * @returns {boolean}
+     * @private
+     */
+    function _hasLocalCurrentEntityChanged(newCurrentEntity) {
+      return !_localCurrentEntity || _localCurrentEntity.id !== newCurrentEntity.id;
+    }
+
+    /**
+     * 검색에 대한 결과를 가지고 있는지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _hasSearchResult() {
+      return !!$scope.searchStatus.q &&
+        $scope.messageList.length > 0;
+    }
+
+    /**
+     * 검색 키워드 변경 이벤트 핸들러
+     * @param {string} keyword
+     */
+    function onKeywordChange(keyword) {
+      if (_isValidSearchKeyword()) {
+        $scope.searchStatus.keyword = keyword;
+        _refreshMessageList();
+      }
+    }
+
+    /**
+     * 타당한 검색 키워드 인지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidSearchKeyword() {
+      var keyword = $scope.searchStatus.q;
+      return keyword !== '' && keyword.length > 1;
+    }
+
+    /**
+     * 검색 조건(공유된 곳, 업로드 멤버, 파일 타입) 초기화
+     * @private
+     */
+    function onResetQuery() {
+      _setChatRoom();
+      _setDefaultWriter();
+    }
+
+    /**
+     * '업로드 멤버' 기본값 설정
+     * @private
+     */
+    function _setDefaultWriter() {
+      $scope.searchStatus.writerId = 'all';
     }
 
     /**
@@ -76,228 +222,103 @@
      */
     function _onResetQuery() {
       if (_isActivated) {
-        _refreshSearchQuery();
-        $scope.searchQuery.entityId = $scope.messageLocationId  = '';
-        $scope.searchQuery.writerId = $scope.messageWriterId = '';
-        searchMessages();
+        _refreshMessageList();
       }
     }
 
-    /**
-     * When value of search input box(at the top of right panel) changed.
-     */
-    function _onrPanelFileTitleQueryChanged(event, keyword) {
-      if (_isActivated) {
-        _setSearchQueryQ(keyword);
+    function _refreshMessageList() {
+      if (_isValidRefresh()) {
+        _showLoading();
 
-        if (!keyword) {
-          _resetMessageSearchResult();
-        } else {
-          _refreshSearchQuery();
-          searchMessages();
-        }
-      }
-    }
+        $scope.messageList = [];
 
-    /**
-     * open right panel event handler
-     */
-    function _onRightPanelStatusChange($event, data) {
-      if (data.type === 'messages') {
-        _isActivated = true;
+        $scope.searchStatus.page = DEFAULT_PAGE;
+        $scope.searchStatus.perPage = DEFAULT_PER_PAGE;
+        $scope.searchStatus.isApiError = false;
+        $scope.searchStatus.isEndOfList = false;
 
-        if (data.toUrl !== data.fromUrl) {
-          _refreshSearchQuery();
-          _resetSearchStatusKeyword();
-        }
-      } else {
-        _isActivated = false;
-      }
-    }
-
-    /**
-     * language 변경 event handling
-     */
-    function _changedLanguage() {
-      _setLanguageVariable();
-    }
-
-    /**
-     * Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-     * advanced search option 중 'Shared in'/ 을 변경하는 부분.
-     */
-    function _onCurrentEntityChanged(event, currentEntity) {
-      if (_isActivated) {
-        // search keyword reset
-        _setMessageLocation(currentEntity);
-        _resetSearchStatusKeyword();
-        updateMessageLocationFilter();
-      }
-    }
-
-    /**
-     * When entity location filter is changed.
-     */
-    function updateMessageLocationFilter() {
-      _refreshSearchQuery();
-      $scope.searchQuery.entityId = $scope.messageLocationId || '';
-      searchMessages();
-    }
-
-    /**
-     * When writer filter is changed.
-     */
-    function updateMessageWriterFilter() {
-      _refreshSearchQuery();
-      $scope.searchQuery.writerId = $scope.messageWriterId || '';
-      searchMessages();
-    }
-
-    /**
-     * message 를 검색한다
-     */
-    function searchMessages() {
-      if (_isActivated) {
         $timeout.cancel(_timerSearch);
-        _timerSearch = $timeout(_searchMessages, 100);
+        _timerSearch = $timeout(function() {
+
+          // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+          _getMessageList(_timerSearch);
+        }, 100);
       }
     }
 
-    /**
-     * 메세지를 찾는다.
-     */
-    function _searchMessages() {
+    function _isValidRefresh() {
+      return _isActivated && $scope.isConnected && _isValidSearchKeyword();
+    }
 
-      if (_isLoading() || !$scope.searchQuery.q || $scope.isEndOfList ) return;
+    function loadMore() {
+      if (_isValidLoadMore()) {
+        $scope.searchStatus.isScrollLoading = true;
 
-      $scope.apiError = false;
+        _getMessageList();
+      }
+    }
 
-      _updateSearchStatusKeyword();
-      _showLoading();
-      messageAPIservice.searchMessages($scope.searchQuery)
+    function _isValidLoadMore() {
+      return !$scope.searchStatus.isEndOfList &&
+          !$scope.searchStatus.isScrollLoading &&
+          !($scope.messageList.length === 0 && $scope.searchStatus.q !== '') &&
+          $scope.isConnected;
+    }
+
+    function _getMessageList(timerSearch) {
+      $scope.searchStatus.keyword = $scope.searchStatus.q;
+
+      messageAPIservice.searchMessages($scope.searchStatus)
         .success(function(response) {
-          if (_isActivated) {
-            _updateMessageList(response);
-            _updateSearchStatusTotalCount(response.cursor.totalCount);
-            _updateSearchQueryCursor(response.cursor);
-
-            //analytics
-            try {
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
-                'RESPONSE_SUCCESS': true,
-                'SEARCH_KEYWORD': encodeURIComponent($scope.searchQuery.q)
-              });
-            } catch (e) {
-            }
+          if (_isValidResponse(timerSearch)) {
+            _analyticsSearchSuccess();
+            _onSuccessMessageList(response);
           }
         })
         .error(function(err) {
-          if (_isActivated) {
-            console.log(err);
-
-            try {
-              //analytics
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
-                'RESPONSE_SUCCESS': true,
-                'ERROR_CODE': err.code
-              });
-            } catch (e) {
-            }
-
-            _onMessageSearchErr(err);
+          if (_isValidResponse(timerSearch)) {
+            _analyticsSearchError(err);
+            _onErrorMessageList();
           }
         })
-        .finally(function(){
-          _hideLoading();
+        .finally(function() {
+          if (_isValidResponse(timerSearch)) {
+            _hideLoading();
+          }
         });
     }
 
     /**
-     * api에 들어강 정보를 현재 화면에 있는 정보로 업데이트한다.
-     * 검색어.
+     * response가 타당한지 여부
+     * @param {number} timerSearch
+     * @returns {boolean}
      * @private
      */
-    function _updateSearchStatusKeyword() {
-      $scope.searchStatus.keyword = $scope.searchQuery.q;
+    function _isValidResponse(timerSearch) {
+      return timerSearch == null || _timerSearch === timerSearch;
     }
 
-    /**
-     * 검색된 결과물의 숫자를 업데이트한다.
-     * @param {number} count - 현재 리스폰스로 들어온 리스트의 길이
-     * @private
-     */
-    function _updateSearchStatusTotalCount(count) {
-      $scope.searchStatus.length = count;
-    }
+    function _onSuccessMessageList(response) {
+      var cursor = response.cursor;
 
-    /**
-     * 오른쪽 상단에 있는 search input box 에 focus 를 맞춘다.
-     * @type {setSearchInputFocus}
-     */
-    $scope.setSearchInputFocus = setSearchInputFocus;
-    function setSearchInputFocus() {
-      $rootScope.$broadcast('rPanelSearchFocus');
-    }
-
-    /**
-     * api에 태울 정보들을 reset 혹은 새로 생성한다.
-     * @private
-     */
-    function _initMessageSearchQuery() {
-      $scope.searchQuery = {
-        q: '',
-        page: DEFAULT_PAGE,
-        perPage: DEFAULT_PER_PAGE,
-        writerId: '',
-        entityId: ''
-      };
-    }
-
-    /**
-     * Reset only 'page' and 'perPage' value.
-     * @private
-     */
-    function _refreshSearchQuery() {
-      $scope.messageList = [];
-
-      $scope.searchQuery.page = DEFAULT_PAGE;
-      $scope.searchQuery.perPage = DEFAULT_PER_PAGE;
-
-      $scope.isEndOfList = false;
-    }
-
-    /**
-     * Update 'page' in searchQuery.
-     * @param cursor
-     * @private
-     */
-    function _updateSearchQueryCursor(cursor) {
-      $scope.searchQuery.page = cursor.page + 1;
-
-      if(_isLastPage(cursor) && $scope.messageList.length > 0) {
-        $scope.isEndOfList = true;
+      if (_isFirstPage(cursor)) {
+        $scope.messageList = response.records;
       } else {
-        $scope.isEndOfList = false;
+        $scope.messageList = $scope.messageList.concat(response.records);
       }
+
+      _setSearchStatus(cursor);
     }
 
-    /**
-     * 현재 검색하고 있는 페이지가 결과물의 마지막인지 확인한다.
-     * @param {object} cursor - 서버로부터 내려온 결과물
-     * @returns {boolean} isLastPage - true, if it is a last page
-     * @private
-     */
-    function _isLastPage(cursor) {
-      return cursor.page >= cursor.pageCount;
-    }
+    function _setSearchStatus(cursor) {
+      $scope.searchStatus.isSearching = false;
+      $scope.searchStatus.isScrollLoading = false;
+      $scope.searchStatus.isEndOfList = _isLastPage(cursor) && $scope.messageList.length > 0;
+      $scope.searchStatus.isInitDone = true;
 
-    /**
-     * Set 'q' in searchQuery.
-     * @param keyword
-     * @private
-     */
-    function _setSearchQueryQ(keyword) {
-      $scope.searchQuery.q = keyword;
+      $scope.searchStatus.type = _getSearchStatusType();
+      $scope.searchStatus.length = cursor.totalCount;
+      $scope.searchStatus.page = cursor.page + 1;
     }
 
     /**
@@ -311,34 +332,25 @@
     }
 
     /**
-     * Update or initialize message list.
-     * @param response
+     * 현재 검색하고 있는 페이지가 결과물의 마지막인지 확인한다.
+     * @param {object} cursor - 서버로부터 내려온 결과물
+     * @returns {boolean} isLastPage - true, if it is a last page
      * @private
      */
-    function _updateMessageList(response) {
-      if (_isFirstPage(response.cursor))
-        $scope.messageList = response.records;
-      else
-        $scope.messageList = $scope.messageList.concat(response.records);
+    function _isLastPage(cursor) {
+      return cursor.page >= cursor.pageCount;
+    }
+
+    function _onErrorMessageList() {
+      $scope.searchStatus.isApiError = true;
     }
 
     /**
-     * 'sent in' 리스트를 새로 만든다.
-     * @private
+     * 오른쪽 상단에 있는 search input box 에 focus 를 맞춘다.
+     * @type {setSearchInputFocus}
      */
-    function _initChatRoomOption() {
-      var newOptions = fileAPIservice.getShareOptionsWithoutMe(
-        RoomTopicList.toJSON(true),
-        currentSessionHelper.getCurrentTeamUserList()
-      );
-      var newMessageLocation = _getMessageLocation(newOptions);
-      $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
-
-      if (newMessageLocation) {
-        _setMessageLocation(newMessageLocation);
-      } else {
-        _resetChatRoom();
-      }
+    function setKeywordFocus() {
+      $scope.searchStatus.isKeywordFocus = true;
     }
 
     /**
@@ -351,14 +363,14 @@
      * @private
      */
     function _getMessageLocation(newOptions) {
-      var messageLocationId = $scope.messageLocationId;
+      var entityId = $scope.searchStatus.entityId;
 
       var length = newOptions.length;
       var i;
 
-      if (messageLocationId) {
+      if (entityId) {
         for (i = 0; i < length; i++) {
-          if (messageLocationId === newOptions[i].id) {
+          if (entityId === newOptions[i].id) {
             return newOptions[i];
           }
         }
@@ -370,42 +382,7 @@
      * @private
      */
     function _resetChatRoom() {
-      _setMessageLocation(null);
-      updateMessageLocationFilter();
-    }
-
-    /**
-     * 'Sent by' list 를 생성한다.
-     * @private
-     */
-    function _initChatWriterOption() {
-      $scope.chatWriterOptions = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
-    }
-
-    /**
-     * 'Sent by' value 를 'all'로 바꾼다.
-     * @private
-     */
-    function _resetChatWriter() {
-      $scope.messageWriterId = '';
-    }
-
-    /**
-     * 메세지 검색 결과물을 reset 한다.
-     * @private
-     */
-    function _resetMessageSearchResult() {
-      $scope.messageList = [];
-      $scope.isEndOfList = false;
-    }
-
-    /**
-     * 검색이 진행중인지 리턴한다.
-     * @returns {boolean|*}
-     * @private
-     */
-    function _isLoading() {
-      return $scope.isSearching;
+      _setChatRoom();
     }
 
     /**
@@ -413,7 +390,7 @@
       * @private
      */
     function _showLoading() {
-      $scope.isSearching = true;
+      $scope.searchStatus.isSearching = true;
       $scope.searchStatus.type = _getSearchStatusType();
     }
 
@@ -422,35 +399,17 @@
      * @private
      */
     function _hideLoading() {
-      $scope.isSearching = false;
+      $scope.searchStatus.sSearching = false;
       $scope.searchStatus.type = _getSearchStatusType();
     }
 
     /**
-     * 메세지 검색이 오류가 났을 때.
-     * @param err
-     * @private
-     */
-    function _onMessageSearchErr(err) {
-      $scope.apiError = true;
-    }
-
-    /**
-     * controller내 사용되는 translate variable 설정
-     */
-    function _setLanguageVariable() {
-      $scope.allRooms = $filter('translate')('@option-all-rooms');
-      $scope.allMembers = $filter('translate')('@option-all-members');
-    }
-
-    /**
      * message 작성된 entity 설정
-     * @param {object} entity
+     * @param {object} [entity]
      * @private
      */
-    function _setMessageLocation(entity) {
-      $scope.messageLocationId = entity ? entity.id : '';
-      $scope.searchQuery.entityId = entity ? entity.id : '';
+    function _setChatRoom(entity) {
+      $scope.searchStatus.entityId = entity ? entity.id : '';
     }
 
     /**
@@ -458,19 +417,86 @@
      * @private
      */
     function _resetSearchStatusKeyword() {
-      $scope.searchQuery.q = $scope.searchStatus.keyword = '';
+      $scope.searchStatus.q = '';
     }
 
     function _getSearchStatusType() {
       var type;
 
-      if ($scope.isSearching) {
+      if ($scope.searchStatus.isSearching) {
         type = 'progress';
-      } else if (!$scope.isSearching && $scope.messageList.length > 0) {
+      } else if (!$scope.searchStatus.isSearching &&
+                !isKeywordEmpty() &&
+                $scope.messageList.length > 0) {
         type = 'result';
       }
 
       return type || '';
+    }
+
+    /**
+     * 파일 리스트가 비어있는지 여부
+     * @returns {boolean}
+     */
+    function isEmpty() {
+      return $scope.messageList.length == 0 &&
+        $scope.searchStatus.isInitDone &&
+        !$scope.searchStatus.isSearching;
+    }
+
+    /**
+     * 키워드가 비어있는지 여부
+     * @returns {boolean}
+     */
+    function isKeywordEmpty() {
+      return !$scope.searchStatus.q && $scope.messageList.length === 0;
+    }
+
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+
+      if(_isActivated) {
+        _refreshMessageList();
+      } else {
+        $scope.searchStatus.isInitDone = false;
+      }
+    }
+
+    /**
+     * 네크워크 비활성 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
+    }
+
+    /////////////////////////////////////////// analytics ////////////////////////////////////////////////
+
+    function _analyticsSearchSuccess() {
+      //analytics
+      try {
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
+          'RESPONSE_SUCCESS': true,
+          'SEARCH_KEYWORD': encodeURIComponent($scope.searchQuery.q)
+        });
+      } catch (e) {
+      }
+    }
+
+    function _analyticsSearchError(err) {
+      try {
+        //analytics
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
+          'RESPONSE_SUCCESS': true,
+          'ERROR_CODE': err.code
+        });
+      } catch (e) {
+      }
     }
   }
 })();

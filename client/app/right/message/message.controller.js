@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function RightMessageCtrl($scope, $filter, $state, currentSessionHelper, Dialog, EntityHandler, messageAPIservice,
-                            jndPubSub, MessageQuery, memberService, publicService, RightMessage) {
+                            jndPubSub, MessageQuery, memberService, publicService, RightMessage, RoomTopicList) {
     var UNKNOWN_ROOM = 'unknown room';
 
     _init();
