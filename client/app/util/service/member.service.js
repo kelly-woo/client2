@@ -606,7 +606,6 @@
      * @param {object} member
      */
     function isInactiveUser(member) {
-      return true;
       return CoreUtil.pick(member, 'status') === 'inactive';
     }
 
