@@ -12,15 +12,12 @@
     return {
       restrict: 'EA',
       replace: true,
-      scope: false,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/files/files.html',
       controller: 'RightFilesCtrl',
-      link: link
+      link: angular.noop
     };
-
-    function link(scope, el) {
-
-
-    }
   }
 })();

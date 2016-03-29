@@ -8,11 +8,11 @@
     <!--  FILE TAB  -->
     <tab active="tabs.files.isActive">
       <page-tracker ng-if="tabs.files.isActive" page="files/files" title="File Tab"></page-tracker>
-      <right-files></right-files>
+      <right-files status="tabs.files"></right-files>
     </tab>
     <!--  MESSAGE TAB -->
     <tab active="tabs.messages.isActive">
-      <right-messages></right-messages>
+      <right-messages status="tabs.messages"></right-messages>
     </tab>
     <!--  STAR TAB -->
     <tab active="tabs.stars.isActive">

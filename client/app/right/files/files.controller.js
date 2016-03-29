@@ -10,14 +10,12 @@
 
   function RightFilesCtrl($scope, $filter, $q, $state, $timeout, AnalyticsHelper, analyticsService,
                           currentSessionHelper, Dialog, fileAPIservice, FileDetail, modalHelper, publicService,
-                          RightPanel, RoomChatDmList, RoomTopicList, TopicFolderModel, UserList) {
+                          RoomChatDmList, RoomTopicList, TopicFolderModel, UserList) {
     var _disabledMemberAddedOnSharedIn = false;
     var _disabledMemberAddedOnSharedBy = false;
 
     var _localCurrentEntity;
     var _fileIdMap = {};
-    //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
-    var _isActivated;
     var _timerSearch;
 
     _init();
@@ -30,7 +28,7 @@
       $scope.fileList = [];
 
       $scope.searchStatus = {
-        keyword: '',
+        q: '',
         sharedEntityId: parseInt($state.params.entityId),
         writerId: 'all',
         fileType: 'all',
@@ -60,10 +58,6 @@
       $scope.loadMore = loadMore;
       $scope.onClickShare = onClickShare;
       $scope.onClickUnshare = onClickUnshare;
-
-      if (RightPanel.getStateName($state.current) === 'files') {
-        _isActivated = true;
-      }
   
       _localCurrentEntity = currentSessionHelper.getCurrentEntity();
 
@@ -98,7 +92,6 @@
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
 
-      //$scope.$watch('searchStatus.keyword', _onSearchKeywordChange);
       $scope.$watch('searchStatus.sharedEntityId', _onSearchEntityChange);
       $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
       $scope.$watch('searchStatus.fileType', _onSearchFileTypeChange);
@@ -215,14 +208,10 @@
 
     /**
      * 오른쪽 패널의 텝 열림 이벤트 핸들러
-     * @param {object} $event
-     * @param {object} data
      * @private
      */
-    function _onRightPanelStatusChange($event, data) {
-      _isActivated = data.type === 'files';
-
-      if (_isActivated && !$scope.searchStatus.isInitDone) {
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.searchStatus.isInitDone) {
         // 아직 초기화가 진행되어 있지 않다면 전체 갱신한다.
 
         _refreshFileList();
@@ -236,7 +225,7 @@
      * @private
      */
     function _onCurrentEntityChanged($event, currentEntity) {
-      if (_isActivated && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
+      if ($scope.status.isActive && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
         // 텝이 활성화 상태이고 room이 변경 되었으며 결과 값이 존재하지 않을때 변경된 room 값으로 '공유된 곳'의 값을 변견한다.
   
         _localCurrentEntity = currentEntity;
@@ -264,7 +253,7 @@
      * @private
      */
     function _hasSearchResult() {
-      return !!$scope.searchStatus.keyword &&
+      return $scope.searchStatus.q.length > 1 &&
         $scope.fileList.length > 0;
     }
 
@@ -274,7 +263,7 @@
      */
     function onKeywordChange(keyword) {
       if (_isValidSearchKeyword()) {
-        $scope.searchKeyword = keyword;
+        $scope.searchStatus.keyword = keyword;
         _refreshFileList();
       }
     }
@@ -285,7 +274,7 @@
      * @private
      */
     function _isValidSearchKeyword() {
-      var keyword = $scope.searchStatus.keyword;
+      var keyword = $scope.searchStatus.q;
       return keyword === '' || keyword.length > 1;
     }
 
@@ -391,7 +380,7 @@
     function _isValidFile(file) {
       return ($scope.searchStatus.writerId === 'all' || $scope.searchStatus.writerId === file.writerId) &&
         ($scope.searchStatus.fileType === 'all' || $scope.searchStatus.fileType === file.content.filterType) &&
-        ($scope.searchStatus.keyword === '' || file.content.title.indexOf($scope.searchStatus.keyword) > -1);
+        ($scope.searchStatus.q === '' || file.content.title.indexOf($scope.searchStatus.q) > -1);
     }
 
     /**
@@ -462,78 +451,27 @@
      * @private
      */
     function _refreshFileList() {
-      if (_isValidRefresh()) {
-        _showLoading();
-
+      if ($scope.status.isActive && $scope.isConnected) {
         $scope.searchStatus.startMessageId = -1;
         $scope.searchStatus.isEndOfList = false;
 
-        /*
-          rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
-         중복 호출을 방지하기 위하여 timeout 을 사용한다
-         */
-        $timeout.cancel(_timerSearch);
-        _timerSearch = $timeout(function() {
-          // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
-          _getFileList(_timerSearch);
-        }, 100);
+        if (_isValidSearchKeyword()) {
+          _showLoading();
+          /*
+           rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+           중복 호출을 방지하기 위하여 timeout 을 사용한다
+           */
+          $timeout.cancel(_timerSearch);
+          _timerSearch = $timeout(function() {
+            // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+            _getFileList(_timerSearch);
+          }, 100);
+        }
       }
     }
 
     /**
-     * refresh 가능 여부
-     * @returns {*|boolean}
-     * @private
-     */
-    function _isValidRefresh() {
-      return _isActivated && $scope.isConnected && _isValidSearchKeyword();
-    }
-
-    /**
-     * '공유된 곳' options 생성
-     * @private
-     */
-    function _generateShareOptions() {
-      $scope.selectOptions = TopicFolderModel.getNgOptions(
-        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
-      );
-    }
-
-    /**
-     * '공유된 곳' 값 설정
-     * @param {object} [entity]
-     * @private
-     */
-    function _setSharedInEntity(entity) {
-      $scope.searchStatus.sharedEntityId = entity ? entity.id : -1;
-    }
-
-    /**
-     * '업로드 멤버' 기본값 설정
-     * @private
-     */
-    function _setDefaultSharedBy() {
-      $scope.searchStatus.writerId = 'all';
-    }
-
-    /**
-     * '파일 타입' 기본값 설정
-     * @private
-     */
-    function _setDefaultFileType() {
-      $scope.searchStatus.fileType = $scope.fileTypeList[0].value;
-    }
-
-    /**
-     * Helper function of 'initSharedByFilter'.
-     * @private
-     */
-    function _addToSharedByOption() {
-      $scope.selectOptionsUsers = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
-    }
-
-    /**
-     * scrolling시 file list 불러오기
+     * scrolling시 파일 목록 불러오기
      */
     function loadMore() {
       if (_isValidLoadMore()) {
@@ -551,12 +489,12 @@
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
-          !($scope.fileList.length === 0 && $scope.searchStatus.keyword !== '') &&
+          !($scope.fileList.length === 0 && $scope.searchStatus.q !== '') &&
           $scope.isConnected;
     }
 
     /**
-     * file list 전달
+     * 파일 목록 전달
      * @param {number} timerSearch
      */
     function _getFileList(timerSearch) {
@@ -590,7 +528,7 @@
     }
 
     /**
-     * 파일 리스트 불러오기 성공 이벤트 핸들러
+     * 파일 리스트 불러오기 성공
      * @param {object} response
      * @private
      */
@@ -646,6 +584,49 @@
     }
 
     /**
+     * '공유된 곳' options 생성
+     * @private
+     */
+    function _generateShareOptions() {
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
+      );
+    }
+
+    /**
+     * '공유된 곳' 값 설정
+     * @param {object} [entity]
+     * @private
+     */
+    function _setSharedInEntity(entity) {
+      $scope.searchStatus.sharedEntityId = entity ? entity.id : -1;
+    }
+
+    /**
+     * '업로드 멤버' 기본값 설정
+     * @private
+     */
+    function _setDefaultSharedBy() {
+      $scope.searchStatus.writerId = 'all';
+    }
+
+    /**
+     * '파일 타입' 기본값 설정
+     * @private
+     */
+    function _setDefaultFileType() {
+      $scope.searchStatus.fileType = $scope.fileTypeList[0].value;
+    }
+
+    /**
+     * Helper function of 'initSharedByFilter'.
+     * @private
+     */
+    function _addToSharedByOption() {
+      $scope.selectOptionsUsers = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
+    }
+
+    /**
      * show loading
      * @private
      */
@@ -668,7 +649,7 @@
      * @private
      */
     function _resetSearchStatusKeyword() {
-      $scope.searchStatus.keyword = '';
+      $scope.searchStatus.q = $scope.searchStatus.keyword = '';
     }
 
     /**
@@ -740,7 +721,7 @@
     function _onConnected() {
       $scope.isConnected = true;
 
-      if(_isActivated) {
+      if($scope.status.isActive) {
         _refreshFileList();
       } else {
         $scope.searchStatus.isInitDone = false;
@@ -781,11 +762,11 @@
      * @private
      */
     function _analyticsFileListSuccess() {
-      if ($scope.searchStatus.keyword !== "") {
+      if ($scope.searchStatus.q !== "") {
         try {
           AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, {
             'RESPONSE_SUCCESS': true,
-            'SEARCH_KEYWORD': encodeURIComponent($scope.searchStatus.keyword)
+            'SEARCH_KEYWORD': encodeURIComponent($scope.searchStatus.q)
           });
         } catch (e) {
         }
@@ -798,7 +779,7 @@
      * @private
      */
     function _analyticsFileListError(error) {
-      if ($scope.searchStatus.keyword !== "") {
+      if ($scope.searchStatus.q !== "") {
         try {
           AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, {
             'RESPONSE_SUCCESS': false,

@@ -12,13 +12,12 @@
     return {
       restrict: 'EA',
       replace: true,
-      scope: true,
-      link: link,
+      scope: {
+        status: '='
+      },
+      link: angular.noop,
       templateUrl : 'app/right/messages/messages.html',
       controller: 'RightMessagesCtrl'
     };
-
-    function link(scope, element, attrs) {
-    }
   }
 })();

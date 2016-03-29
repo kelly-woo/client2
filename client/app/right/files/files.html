@@ -1,6 +1,6 @@
 <div class="rpanel-body file-list">
   <!-- SEARCH QUERY -->
-  <right-search keyword="searchStatus.keyword"
+  <right-search keyword="searchStatus.q"
                 on-change="onKeywordChange($keyword)"
                 on-reset-query="onResetQuery()"></right-search>
 
@@ -51,7 +51,7 @@
             <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
             <span>{{::'@alert-empty-file-search'|translate}}</span>
             <span ng-if="!isKeywordEmpty()">:
-              <span class="search-keyword">{{ searchKeyword }}</span>
+              <span class="search-keyword">{{searchStatus.keyword}}</span>
             </span>
           </div>
         </div>

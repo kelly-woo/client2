@@ -9,21 +9,20 @@
     .controller('RightMessagesCtrl', RightMessagesCtrl);
 
   /* @ngInject */
-  function RightMessagesCtrl($scope, $rootScope, $filter, $state, $timeout, AnalyticsHelper, currentSessionHelper,
-                             fileAPIservice, jndPubSub, messageAPIservice, RightPanel, RoomTopicList,
-                             TopicFolderModel) {
+  function RightMessagesCtrl($scope, $timeout, AnalyticsHelper, currentSessionHelper, fileAPIservice, messageAPIservice,
+                             RoomTopicList, TopicFolderModel) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
     var _localCurrentEntity;
-
-    //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
-    var _isActivated = false;
     var _timerSearch;
 
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.isSearching = false;
       $scope.isEndOfList = false;
@@ -33,7 +32,7 @@
 
       $scope.searchStatus = {
         q: '',
-        entityId: '',     // messageLocationId
+        entityId: '',
         writerId: '',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
@@ -46,8 +45,9 @@
         isKeywordFocus: false,
 
         length: '',
-        type: _getSearchStatusType()
+        type: ''
       };
+      $scope.searchStatus.type = _getSearchStatusType();
 
       // Methods
       $scope.loadMore = loadMore;
@@ -58,10 +58,6 @@
       $scope.isEmpty = isEmpty;
       $scope.isKeywordEmpty = isKeywordEmpty;
       $scope.setKeywordFocus = setKeywordFocus;
-
-      if (RightPanel.getStateName($state.current) === 'messages') {
-        _isActivated = true;
-      }
 
       _localCurrentEntity = currentSessionHelper.getCurrentEntity()
 
@@ -74,14 +70,16 @@
       _attachScopeEvents();
     }
 
+    /**
+     * attach scope events
+     * @private
+     */
     function _attachScopeEvents() {
       $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _initChatRoomOption);
 
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
       $scope.$on('topic-folder:update', _initChatRoomOption);
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-      $scope.$on('rPanelResetQuery', _onResetQuery);
-
 
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
@@ -106,7 +104,7 @@
       if (newMessageLocation) {
         _setChatRoom(newMessageLocation);
       } else {
-        _resetChatRoom();
+        _setChatRoom();
       }
     }
 
@@ -118,12 +116,24 @@
       $scope.chatWriterOptions = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
     }
 
+    /**
+     * '작성된 곳' 값 변경 이벤트 핸들러
+     * @param {number} newValue
+     * @param {number} oldValue
+     * @private
+     */
     function _onSearchEntityChange(newValue, oldValue) {
       if (newValue !== oldValue) {
         _refreshMessageList();
       }
     }
 
+    /**
+     * '작성자' 값 변경 이벤트 핸들러
+     * @param {number} newValue
+     * @param {number} oldValue
+     * @private
+     */
     function _onSearchWriterChange(newValue, oldValue) {
       if (newValue !== oldValue) {
         _refreshMessageList();
@@ -131,12 +141,11 @@
     }
 
     /**
-     * open right panel event handler
+     * 오른쪽 패널의 텝 열림 이벤트 핸들러
+     * @private
      */
-    function _onRightPanelStatusChange($event, data) {
-      _isActivated = data.type === 'messages';
-
-      if (_isActivated && !$scope.searchStatus.isInitDone) {
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.searchStatus.isInitDone) {
         // 아직 초기화가 진행되어 있지 않다면 전체 갱신한다.
 
         _refreshMessageList();
@@ -144,11 +153,13 @@
     }
 
     /**
-     * Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-     * advanced search option 중 'Shared in'/ 을 변경하는 부분.
+     * 사용자가 센터에 보고 있는 room에 변경사항에 대한 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} currentEntity
+     * @private
      */
     function _onCurrentEntityChanged(event, currentEntity) {
-      if (_isActivated && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
+      if ($scope.status.isActive && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
         _localCurrentEntity = currentEntity;
 
         // search keyword reset
@@ -174,7 +185,7 @@
      * @private
      */
     function _hasSearchResult() {
-      return !!$scope.searchStatus.q &&
+      return _isValidSearchKeyword() &&
         $scope.messageList.length > 0;
     }
 
@@ -200,7 +211,7 @@
     }
 
     /**
-     * 검색 조건(공유된 곳, 업로드 멤버, 파일 타입) 초기화
+     * 검색 조건(작성된 곳, 작성자) 초기화
      * @private
      */
     function onResetQuery() {
@@ -209,27 +220,11 @@
     }
 
     /**
-     * '업로드 멤버' 기본값 설정
+     * 메시지 리스트 전체를 갱신
      * @private
      */
-    function _setDefaultWriter() {
-      $scope.searchStatus.writerId = 'all';
-    }
-
-    /**
-     * query 리셋
-     * @private
-     */
-    function _onResetQuery() {
-      if (_isActivated) {
-        _refreshMessageList();
-      }
-    }
-
     function _refreshMessageList() {
-      if (_isValidRefresh()) {
-        _showLoading();
-
+      if ($scope.status.isActive && $scope.isConnected) {
         $scope.messageList = [];
 
         $scope.searchStatus.page = DEFAULT_PAGE;
@@ -237,19 +232,22 @@
         $scope.searchStatus.isApiError = false;
         $scope.searchStatus.isEndOfList = false;
 
-        $timeout.cancel(_timerSearch);
-        _timerSearch = $timeout(function() {
+        if (_isValidSearchKeyword()) {
+          _showLoading();
 
-          // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
-          _getMessageList(_timerSearch);
-        }, 100);
+          $timeout.cancel(_timerSearch);
+          _timerSearch = $timeout(function() {
+
+            // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+            _getMessageList(_timerSearch);
+          }, 100);
+        }
       }
     }
 
-    function _isValidRefresh() {
-      return _isActivated && $scope.isConnected && _isValidSearchKeyword();
-    }
-
+    /**
+     * scrolling시 메시지 목록 불러오기
+     */
     function loadMore() {
       if (_isValidLoadMore()) {
         $scope.searchStatus.isScrollLoading = true;
@@ -258,6 +256,11 @@
       }
     }
 
+    /**
+     * load more 가능한지 여부
+     * @returns {boolean}
+     * @private
+     */
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
@@ -265,6 +268,10 @@
           $scope.isConnected;
     }
 
+    /**
+     * 메시지 목록 전달
+     * @param {number} timerSearch
+     */
     function _getMessageList(timerSearch) {
       $scope.searchStatus.keyword = $scope.searchStatus.q;
 
@@ -298,6 +305,11 @@
       return timerSearch == null || _timerSearch === timerSearch;
     }
 
+    /**
+     * 메시지 리스트 불러오기 성공
+     * @param {object} response
+     * @private
+     */
     function _onSuccessMessageList(response) {
       var cursor = response.cursor;
 
@@ -310,6 +322,10 @@
       _setSearchStatus(cursor);
     }
 
+    /**
+     * 파일 리스트 갱신이 발생한 직후 상태 설정
+     * @param {object} cursor
+     */
     function _setSearchStatus(cursor) {
       $scope.searchStatus.isSearching = false;
       $scope.searchStatus.isScrollLoading = false;
@@ -341,6 +357,10 @@
       return cursor.page >= cursor.pageCount;
     }
 
+    /**
+     * 메시지 리스트 불러오기 실패
+     * @private
+     */
     function _onErrorMessageList() {
       $scope.searchStatus.isApiError = true;
     }
@@ -378,11 +398,11 @@
     }
 
     /**
-     * 'sent in'  value 를 'all'로 바꾼다.
+     * '작성자' 기본값 설정
      * @private
      */
-    function _resetChatRoom() {
-      _setChatRoom();
+    function _setDefaultWriter() {
+      $scope.searchStatus.writerId = 'all';
     }
 
     /**
@@ -417,9 +437,14 @@
      * @private
      */
     function _resetSearchStatusKeyword() {
-      $scope.searchStatus.q = '';
+      $scope.searchStatus.q = $scope.searchStatus.keyword = '';
     }
 
+    /**
+     * 검색 상태 타입 전달
+     * @returns {*|string}
+     * @private
+     */
     function _getSearchStatusType() {
       var type;
 
@@ -449,9 +474,8 @@
      * @returns {boolean}
      */
     function isKeywordEmpty() {
-      return !$scope.searchStatus.q && $scope.messageList.length === 0;
+      return !$scope.searchStatus.keyword && $scope.messageList.length === 0;
     }
-
 
     /**
      * 네트워크 활성 이벤트 핸들러
@@ -460,7 +484,7 @@
     function _onConnected() {
       $scope.isConnected = true;
 
-      if(_isActivated) {
+      if($scope.status.isActive) {
         _refreshMessageList();
       } else {
         $scope.searchStatus.isInitDone = false;
