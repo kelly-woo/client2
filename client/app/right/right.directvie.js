@@ -10,24 +10,25 @@
       var list = element.children('.infinite-scroll-bottom-list');
 
       element.bind('mousewheel', function() {
-        if (scope.isScrollLoading) return;
-
-        if (list.height() <= element.height()) {
-          scope.$apply(attrs.infiniteScrollBottom);
+        if (!scope.isScrollLoading) {
+          if (list.height() <= element.height()) {
+            scope.$apply(attrs.infiniteScrollBottom);
+          }
         }
       });
 
       element.bind('scroll', function() {
+        var currentScrollPosition;
+        var elementHeight;
 
-        if (scope.isScrollLoading) return;
+        if (!scope.isScrollLoading) {
+          elementHeight = list.height();
+          currentScrollPosition = element.scrollTop() + element.height();
 
-        var currentScrollPosition = element.scrollTop() + element.height();
-        var elementHeight = list.height();
-
-        if (elementHeight - currentScrollPosition < 20) {
-          scope.$apply(attrs.infiniteScrollBottom);
+          if (elementHeight - currentScrollPosition < 20) {
+            scope.$apply(attrs.infiniteScrollBottom);
+          }
         }
-
       });
     };
   }

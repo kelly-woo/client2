@@ -1,7 +1,7 @@
 <div class="rpanel-body file-list">
   <!-- SEARCH QUERY -->
   <right-search keyword="searchStatus.keyword"
-                on-enter="onEnter($keyword)"
+                on-change="onKeywordChange($keyword)"
                 on-reset-query="onResetQuery()"></right-search>
 
   <!--    ADVANCED SEARCH OPTION  -->
@@ -44,7 +44,7 @@
 
     <div class="file-list infinite-scroll-bottom-list">
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-      <div class="break-word" ng-if="isNoItem()">
+      <div class="break-word" ng-if="isEmpty()">
         <div class="rpanel-alert-msg-container">
           <center-help-message-container ng-if="!isFiltered()" status="'NO_FILES_UPLOADED'"></center-help-message-container>
           <div ng-if="isFiltered()" class="rpanel-alert-msg-container__text">

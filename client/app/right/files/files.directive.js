@@ -13,9 +13,14 @@
       restrict: 'EA',
       replace: true,
       scope: false,
-      link: angular.noop,
       templateUrl : 'app/right/files/files.html',
-      controller: 'RightFilesCtrl'
+      controller: 'RightFilesCtrl',
+      link: link
     };
+
+    function link(scope, el) {
+
+
+    }
   }
 })();

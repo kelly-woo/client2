@@ -10,7 +10,7 @@
       restrict: 'E',
       scope: {
         keyword: '=',
-        onEnter: '&',
+        onChange: '&',
         onResetQuery: '&'
       },
       link: link,
@@ -23,6 +23,8 @@
       var _translate = $filter('translate');
       var _jqSearchBox = el.find('.rpanel-body-search__input');
       var _jqInitButton = el.find('.rpanel-search-init');
+
+      var _timerKeywordChange;
 
       _init();
 
@@ -38,6 +40,7 @@
 
       function _attachScopeEvents() {
         scope.$on('rPanelSearchFocus', _onSearchFocus);
+        scope.$watch('keyword', _onKeywordChange);
       }
 
       /**
@@ -52,7 +55,7 @@
 
         if (jndKeyCode.match('ENTER', which)) {
           if (_validSearchKeyword(value)) {
-            scope.onEnter({
+            scope.onChange({
               $keyword: value
             });
           } else {
@@ -69,6 +72,15 @@
 
       function _onSearchFocus() {
         _jqSearchBox.focus();
+      }
+
+      function _onKeywordChange(value) {
+        clearTimeout(_timerKeywordChange);
+        _timerKeywordChange = setTimeout(function() {
+          scope.onChange({
+            $keyword: value
+          });
+        }, 500);
       }
 
       function _validSearchKeyword(keyword) {

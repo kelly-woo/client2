@@ -22,6 +22,10 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.fileList = [];
 
@@ -46,15 +50,14 @@
       $scope.searchStatus.type = _getSearchStatusType();
       $scope.isConnected = true;
 
-      $scope.isNoItem = isNoItem;
+      $scope.isEmpty = isEmpty;
       $scope.isFiltered = isFiltered;
       $scope.isKeywordEmpty = isKeywordEmpty;
 
-      $scope.onEnter = onEnter;
+      $scope.onKeywordChange = onKeywordChange;
       $scope.onResetQuery = onResetQuery;
 
       $scope.loadMore = loadMore;
-
       $scope.onClickShare = onClickShare;
       $scope.onClickUnshare = onClickUnshare;
 
@@ -65,272 +68,40 @@
       localCurrentEntity = currentSessionHelper.getCurrentEntity();
 
       _initSharedInFilter();
-      _initSharedByFilter(localCurrentEntity);
-      _setDefaultSharedByFilter();
-      _initFileTypeFilter();
       _setSharedInEntity(localCurrentEntity);
 
-      //if (publicService.isNullOrUndefined(localCurrentEntity)) {
-      //  // This may happen because file controller may be called before current entity is defined.
-      //  // In this case, initialize options first then return from here
-      //  return;
-      //}
+      _initSharedByFilter(localCurrentEntity);
+      _setDefaultSharedBy();
+
+      _initFileTypeFilter();
+      _setDefaultFileType();
 
       _attachScopeEvents();
     }
 
+    /**
+     * attach scope events
+     * @private
+     */
     function _attachScopeEvents() {
       $scope.$on('topic-folder:update', _generateShareOptions);
+      $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
+      $scope.$on('updateFileWriterId', _onFileWriterIdChange);
 
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
-      $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
       $scope.$on('rightFileOnFileDeleted', _onFileDelete);
       $scope.$on('onFileDeleted', _onFileDelete);
 
-      // 파일 공유, 파일 공유해제, 토픽이동에 대한 처리
       $scope.$on('onChangeShared', _onChangeShared);
-
-      //  From profileViewerCtrl
-      $scope.$on('updateFileWriterId', _onFileWriterIdChange);
 
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
 
-      $scope.$watch('searchStatus.keyword', _onSearchKeywordChange);
+      //$scope.$watch('searchStatus.keyword', _onSearchKeywordChange);
       $scope.$watch('searchStatus.sharedEntityId', _onSearchEntityChange);
       $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
       $scope.$watch('searchStatus.fileType', _onSearchFileTypeChange, true);
-    }
-
-    function _onSearchKeywordChange(keyword) {
-      if (_isValidSearchKeyword()) {
-        $scope.searchKeyword = keyword;
-        _refreshFileList();
-      }
-    }
-
-    function _onSearchEntityChange(newValue, oldValue) {
-      if (newValue === null) {
-        // newValue가 null 이면 모든 대화방인 '-1' 값을 뜻한다.
-        newValue = -1;
-      }
-
-      if (newValue != oldValue) {
-        _refreshFileList();
-      }
-    }
-
-    function _onSearchWriterChange(newValue, oldValue) {
-      if (newValue != oldValue) {
-        _refreshFileList();
-      }
-    }
-
-    function _onSearchFileTypeChange(newValue, oldValue) {
-      if (newValue != oldValue) {
-        _refreshFileList();
-      }
-    }
-
-    function _onFileWriterIdChange(event, userId) {
-      var entity = UserList.get(userId);
-
-      $scope.searchStatus.writerId = userId;
-
-      _initSharedByFilter(entity);
-      _resetSearchStatusKeyword();
-    }
-
-    /**
-     * open right panel event handler
-     */
-    function _onRightPanelStatusChange($event, data) {
-      _isActivated = data.type === 'files';
-
-      if (_isActivated) {
-        if (!$scope.searchStatus.isInitDone) {
-          _refreshFileList();
-        }
-      }
-    }
-
-    // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-    // advanced search option 중 'Shared in'/ 을 변경하는 부분.
-    function _onCurrentEntityChanged(event, currentEntity) {
-      if (_isActivated && _hasLocalCurrentEntityChanged(currentEntity)) {
-        //// 변경된 entity가 selectionOptions filter에 포함되지 않았다면 추가함.
-        //$scope.selectOptions.indexOf(currentEntity) < 0 && $scope.selectOptions.push(currentEntity);
-
-        localCurrentEntity = currentEntity;
-        _setSharedInEntity(localCurrentEntity);
-        _initSharedByFilter(localCurrentEntity);
-
-        // search keyword reset
-        _resetSearchStatusKeyword();
-      }
-    }
-
-    function onEnter() {
-      _refreshFileList();
-    }
-
-    function _isValidSearchKeyword() {
-      var keyword = $scope.searchStatus.keyword;
-      return keyword === '' || keyword.length > 1;
-    }
-
-    /**
-     * query 를 reset 한다
-     * @private
-     */
-    function onResetQuery() {
-      $scope.searchStatus.sharedEntityId = -1;
-      _setDefaultSharedByFilter();
-      _initFileTypeFilter();
-    }
-
-    /**
-     * 공유가능한 topic 변경 event handler
-     * search filter도 변경되어야 하기 때문
-     */
-    function _onChangeShared(event, data) {
-      if (data) {
-        if (_isFileStatusChangedOnCurrentFilter(data)) {
-
-          // file_share와 file_unshare에 대한 처리를 file socket 이벤트로 처리해야 하지만 전달되는 data가 부족하므로
-          // message 이벤트로 처리함.
-          if (data.messageType === 'file_share') {
-            _onFileShared(data);
-          } else if (data.messageType === 'file_unshare') {
-            _onFileUnshared(data);
-          } else {
-            _refreshFileList();
-          }
-        }
-      }
-    }
-
-    /**
-     * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
-     * @param data
-     * @returns {boolean}
-     * @private
-     */
-    function _isFileStatusChangedOnCurrentFilter(data) {
-      var result = false;
-      var joinedEntity;
-
-      if ($scope.searchStatus.sharedEntityId === -1) {
-        // 참여중인 모든 대화방
-        result = true;
-      } else if (data.room) {
-        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
-        if (joinedEntity.id === $scope.searchStatus.sharedEntityId) {
-          result = true;
-        }
-      }
-
-      return result;
-    }
-
-    function _onFileShared(data) {
-      var fileId = data.file.id;
-
-      _getFilteredFile(fileId)
-        .then(function(file) {
-          $scope.fileList.unshift(file);
-          fileIdMap[file.id] = file;
-        });
-    }
-
-    function _getFilteredFile(fileId) {
-      var defer = $q.defer();
-
-      FileDetail.get(fileId)
-        .success(function(response) {
-          var file = _getFile(response.messageDetails);
-
-          if (file && _isFilteredFile(file)) {
-            defer.resolve(file);
-          }
-        });
-
-      return defer.promise;
-    }
-
-    function _isFilteredFile(file) {
-      return ($scope.searchStatus.writerId === 'all' || $scope.searchStatus.writerId === file.writerId) &&
-        ($scope.searchStatus.fileType === 'all' || $scope.searchStatus.fileType === file.content.filterType) &&
-        ($scope.searchStatus.keyword === '' || file.content.title.indexOf($scope.searchStatus.keyword) > -1);
-    }
-
-    function _getFile(messageDetails) {
-      var file;
-
-      _.each(messageDetails, function(item) {
-        if (item.contentType === 'file') {
-          file = item;
-          return false;
-        }
-      });
-
-      return file;
-    }
-
-    /**
-     * socket 단위의 file delete 이벤트 핸들러
-     * @param $event
-     * @param param
-     * @private
-     */
-    function _onFileDelete($event, data) {
-      var fileId = _.isNumber(data) ? data : data.file.id;
-
-      _updateUnsharedFile(fileId);
-    }
-
-    function _onFileUnshared(data) {
-      var fileId = data.file.id;
-
-      _updateUnsharedFile(fileId);
-    }
-
-    function _updateUnsharedFile(fileId) {
-      var file = fileIdMap[fileId];
-      var fileList;
-
-      if (file) {
-        fileList = $scope.fileList;
-
-        fileList.splice(fileList.indexOf(file), 1);
-        delete fileIdMap[fileId];
-
-        if (fileList.length === 0) {
-          _refreshFileList();
-        }
-      }
-    }
-
-    function _refreshFileList(isSmooth) {
-      if (_isActivated && $scope.isConnected) {
-        $scope.searchStatus.isEndOfList = false;
-        $scope.searchStatus.startMessageId = -1;
-
-        if (!isSmooth) {
-          $scope.searchStatus.isSearching = true;
-          $scope.searchStatus.type = _getSearchStatusType();
-        }
-
-        /*
-          rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
-         중복 호출을 방지하기 위하여 timeout 을 사용한다
-         */
-        $timeout.cancel(_timerSearch);
-        _timerSearch = $timeout(function() {
-          getFileList();
-        }, 100);
-      }
     }
 
     /**
@@ -360,25 +131,6 @@
     }
 
     /**
-     * 공유 topic select options 생성
-     * @private
-     */
-    function _generateShareOptions() {
-      $scope.selectOptions = TopicFolderModel.getNgOptions(
-        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
-      );
-    }
-
-    /**
-     * 공유 topic 설정
-     * @param {object} entity
-     * @private
-     */
-    function _setSharedInEntity(entity) {
-      $scope.searchStatus.sharedEntityId = entity.id;
-    }
-
-    /**
      * Initializing and setting 'Shared by' Options.
      * @private
      */
@@ -398,11 +150,371 @@
     }
 
     /**
-     * search의 topic type 기본값 설정
+     * Initializing and setting 'File Type' Options.
      * @private
      */
-    function _setDefaultSharedByFilter() {
+    function _initFileTypeFilter() {
+      $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
+    }
+
+    /**
+     * '공유된 곳' 값 변경 이벤트 핸들러
+     * @param {number|object} newValue
+     * @param {number|object} oldValue
+     * @private
+     */
+    function _onSearchEntityChange(newValue, oldValue) {
+      if (newValue === null) {
+        // newValue가 null 이면 모든 대화방인 '-1' 값을 뜻한다.
+        newValue = -1;
+      }
+
+      if (newValue !== oldValue) {
+        _refreshFileList();
+      }
+    }
+
+    /**
+     * '업로드한 멤버' 값 변경 이벤트 핸들러
+     * @param {number} newValue
+     * @param {number} oldValue
+     * @private
+     */
+    function _onSearchWriterChange(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        _refreshFileList();
+      }
+    }
+
+    /**
+     * '파일 타입' 값 변경 이벤트 핸들러
+     * @param {string} newValue
+     * @param {string} oldValue
+     * @private
+     */
+    function _onSearchFileTypeChange(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        _refreshFileList();
+      }
+    }
+
+    /**
+     * 해당 유저의 파일 정보 열람 이벤트 핸들러
+     * @param {object} $event
+     * @param {number} userId
+     * @private
+     */
+    function _onFileWriterIdChange($event, userId) {
+      var entity = UserList.get(userId);
+
+      $scope.searchStatus.writerId = userId;
+
+      _initSharedByFilter(entity);
+      _resetSearchStatusKeyword();
+    }
+
+    /**
+     * 오른쪽 패널의 텝 열림 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onRightPanelStatusChange($event, data) {
+      _isActivated = data.type === 'files';
+
+      if (_isActivated) {
+        if (!$scope.searchStatus.isInitDone) {
+          // 아직 초기화가 진행되어 있지 않다면 전체 갱신한다.
+
+          _refreshFileList();
+        }
+      }
+    }
+
+    /**
+     * 사용자가 센터에 보고 있는 room에 변경사항에 대한 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} currentEntity
+     * @private
+     */
+    function _onCurrentEntityChanged($event, currentEntity) {
+      if (_isActivated && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
+        // 텝이 활성화 상태이고 room이 변경 되었으며 결과 값이 존재하지 않을때 변경된 room 값으로 '공유된 곳'의 값을 변견한다.
+
+        localCurrentEntity = currentEntity;
+        _setSharedInEntity(localCurrentEntity);
+        _initSharedByFilter(localCurrentEntity);
+
+        // search keyword reset
+        _resetSearchStatusKeyword();
+      }
+    }
+
+    /**
+     * room이 변경되었는지 여부
+     * @param {object} newCurrentEntity
+     * @returns {boolean}
+     * @private
+     */
+    function _hasLocalCurrentEntityChanged(newCurrentEntity) {
+      return !localCurrentEntity || localCurrentEntity.id !== newCurrentEntity.id;
+    }
+
+    /**
+     * 검색에 대한 결과를 가지고 있는지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _hasSearchResult() {
+      return !!$scope.searchStatus.keyword &&
+        $scope.fileList.length > 0;
+    }
+
+    /**
+     * 검색 키워드 변경 이벤트 핸들러
+     * @param {string} keyword
+     */
+    function onKeywordChange(keyword) {
+      if (_isValidSearchKeyword()) {
+        $scope.searchKeyword = keyword;
+        _refreshFileList();
+      }
+    }
+
+    /**
+     * 타당한 검색 키워드 인지 여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidSearchKeyword() {
+      var keyword = $scope.searchStatus.keyword;
+      return keyword === '' || keyword.length > 1;
+    }
+
+    /**
+     * 검색 조건(공유된 곳, 업로드 멤버, 파일 타입) 초기화
+     * @private
+     */
+    function onResetQuery() {
+      $scope.searchStatus.sharedEntityId = -1;
+      _setDefaultSharedBy();
+      _setDefaultFileType();
+    }
+
+    /**
+     * 공유 정보 변경 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onChangeShared($event, data) {
+      if (data) {
+        if (_isFileStatusChangedOnCurrentFilter(data)) {
+          // 전달된 data가 '공유된 곳'을 가리킨다.
+
+          // file_share와 file_unshare에 대한 처리를 file socket 이벤트로 처리해야 하지만 전달되는 data가 부족하므로
+          // message 이벤트로 처리한다.
+          if (data.messageType === 'file_share') {
+            _onFileShared(data);
+          } else if (data.messageType === 'file_unshare') {
+            _onFileUnshared(data);
+          } else {
+            _refreshFileList();
+          }
+        }
+      }
+    }
+
+    /**
+     * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
+     * @param {object} data
+     * @returns {boolean}
+     * @private
+     */
+    function _isFileStatusChangedOnCurrentFilter(data) {
+      var result = false;
+      var joinedEntity;
+
+      if ($scope.searchStatus.sharedEntityId === -1) {
+        // 참여중인 모든 대화방
+        result = true;
+      } else if (data.room) {
+        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
+        if (joinedEntity.id === $scope.searchStatus.sharedEntityId) {
+          result = true;
+        }
+      }
+
+      return result;
+    }
+
+    /**
+     * 파일 공유 이벤트 핸들러
+     * @param {object} data
+     * @private
+     */
+    function _onFileShared(data) {
+      var fileId = data.file.id;
+
+      _getValidFile(fileId)
+        .then(function(file) {
+          _addFile(file, true);
+          _setSearchStatus(file.id, 1);
+        });
+    }
+
+    /**
+     * 검색조건에 타당한 파일 전달
+     * @param {number} fileId
+     * @returns {*}
+     * @private
+     */
+    function _getValidFile(fileId) {
+      var defer = $q.defer();
+
+      FileDetail.get(fileId)
+        .success(function(response) {
+          var file = _getFile(response.messageDetails);
+
+          if (file && _isValidFile(file)) {
+            defer.resolve(file);
+          }
+        });
+
+      return defer.promise;
+    }
+
+    /**
+     * 검색조건(키워드, 업로드 멤버, 파일 타입)에 맞는 파일인지 여부
+     * @param {object} file
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidFile(file) {
+      return ($scope.searchStatus.writerId === 'all' || $scope.searchStatus.writerId === file.writerId) &&
+        ($scope.searchStatus.fileType === 'all' || $scope.searchStatus.fileType === file.content.filterType) &&
+        ($scope.searchStatus.keyword === '' || file.content.title.indexOf($scope.searchStatus.keyword) > -1);
+    }
+
+    /**
+     * 파일상세 정보 전달
+     * @param messageDetails
+     * @returns {*}
+     * @private
+     */
+    function _getFile(messageDetails) {
+      var file;
+
+      _.each(messageDetails, function(item) {
+        if (item.contentType === 'file') {
+          file = item;
+          return false;
+        }
+      });
+
+      return file;
+    }
+
+    /**
+     * 파일 삭제 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onFileDelete($event, data) {
+      var fileId = _.isNumber(data) ? data : data.file.id;
+
+      _updateUnsharedFile(fileId);
+    }
+
+    /**
+     * 파일 공유 해제 이벤트 핸들러
+     * @param {object} data
+     * @private
+     */
+    function _onFileUnshared(data) {
+      var fileId = data.file.id;
+
+      _updateUnsharedFile(fileId);
+    }
+
+    /**
+     * 공유 해제된 파일을 갱신
+     * @param {number} fileId
+     * @private
+     */
+    function _updateUnsharedFile(fileId) {
+      var file = fileIdMap[fileId];
+      var fileList;
+
+      if (file) {
+        fileList = $scope.fileList;
+
+        fileList.splice(fileList.indexOf(file), 1);
+        delete fileIdMap[fileId];
+
+        if (fileList.length === 0) {
+          _refreshFileList();
+        }
+      }
+    }
+
+    /**
+     * 파일 리스트 전체를 갱신
+     * @private
+     */
+    function _refreshFileList() {
+      if (_isActivated && $scope.isConnected) {
+        $scope.searchStatus.isEndOfList = false;
+        $scope.searchStatus.startMessageId = -1;
+        $scope.searchStatus.isSearching = true;
+        $scope.searchStatus.type = _getSearchStatusType();
+
+        /*
+          rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+         중복 호출을 방지하기 위하여 timeout 을 사용한다
+         */
+        $timeout.cancel(_timerSearch);
+        _timerSearch = $timeout(function() {
+          // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+          getFileList(_timerSearch);
+        }, 100);
+      }
+    }
+
+    /**
+     * '공유된 곳' options 생성
+     * @private
+     */
+    function _generateShareOptions() {
+      $scope.selectOptions = TopicFolderModel.getNgOptions(
+        fileAPIservice.getShareOptionsWithoutMe(RoomTopicList.toJSON(true), currentSessionHelper.getCurrentTeamUserList())
+      );
+    }
+
+    /**
+     * '공유된 곳' 값 설정
+     * @param {object} entity
+     * @private
+     */
+    function _setSharedInEntity(entity) {
+      $scope.searchStatus.sharedEntityId = entity.id;
+    }
+
+    /**
+     * '업로드 멤버' 기본값 설정
+     * @private
+     */
+    function _setDefaultSharedBy() {
       $scope.searchStatus.writerId = 'all';
+    }
+
+    /**
+     * '파일 타입' 기본값 설정
+     * @private
+     */
+    function _setDefaultFileType() {
+      $scope.searchStatus.fileType = $scope.fileTypeList[0].value;
     }
 
     /**
@@ -411,15 +523,6 @@
      */
     function _addToSharedByOption() {
       $scope.selectOptionsUsers = fileAPIservice.getShareOptions(currentSessionHelper.getCurrentTeamUserList());
-    }
-
-    /**
-     * Initializing and setting 'File Type' Options.
-     * @private
-     */
-    function _initFileTypeFilter() {
-      $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
-      $scope.searchStatus.fileType = $scope.fileTypeList[0].value;
     }
 
     /**
@@ -433,6 +536,11 @@
       }
     }
 
+    /**
+     * load more 가능한지 여부
+     * @returns {boolean}
+     * @private
+     */
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
@@ -442,23 +550,39 @@
 
     /**
      * file list 전달
+     * @param {number} timerSearch
      */
-    function getFileList() {
+    function getFileList(timerSearch) {
       fileAPIservice.getFileList($scope.searchStatus)
         .success(function(response) {
-          _analyticsFileListSuccess();
-          _successFileList(response);
+          if (_isValidResponse(timerSearch)) {
+            _analyticsFileListSuccess();
+            _onSuccessFileList(response);
+          }
         })
         .error(function(error) {
-          _analyticsFileListError(error);
-        })
-        .finally(function() {
-          // search status에 file list의 length 설정
-          $scope.searchStatus.length = $scope.fileList.length;
+          if (_isValidResponse(timerSearch)) {
+            _analyticsFileListError(error);
+          }
         });
     }
 
-    function _successFileList(response) {
+    /**
+     * response가 타당한지 여부
+     * @param {number} timerSearch
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidResponse(timerSearch) {
+      return timerSearch == null || _timerSearch === timerSearch;
+    }
+
+    /**
+     * 파일 리스트 불러오기 성공 이벤트 핸들러
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessFileList(response) {
       if ($scope.searchStatus.startMessageId === -1) {
         //  Not loading more.
         //  Replace current fileList with new fileList.
@@ -466,24 +590,37 @@
       }
 
       _.each(response.files, function(file) {
-        file.shared = fileAPIservice.getSharedEntities(file);
-
-        if (file.status !== 'archived') {
-          $scope.fileList.push(file);
-          fileIdMap[file.id] = file;
-        }
+        _addFile(file);
       });
 
-      _setSearchStatus(response.fileCount, response.firstIdOfReceivedList);
+      _setSearchStatus(response.firstIdOfReceivedList, response.fileCount);
     }
 
     /**
-     * file list 생성
-     * @param {object} fileList
-     * @param {number} fileCount
-     * @param {} firstIdOfReceivedList
+     * 파일 리스트에 파일 추가
+     * @param {object} file
+     * @param {boolean} [isUnshift] - true이면 앞에 넣음
+     * @private
      */
-    function _setSearchStatus(fileCount, firstIdOfReceivedList) {
+    function _addFile(file, isUnshift) {
+      file.shared = fileAPIservice.getSharedEntities(file);
+
+      if (file.status !== 'archived') {
+        if (!isUnshift) {
+          $scope.fileList.push(file);
+        } else {
+          $scope.fileList.unshift(file);
+        }
+        fileIdMap[file.id] = file;
+      }
+    }
+
+    /**
+     * 파일 리스트 갱신이 발생한 직후 상태 설정
+     * @param {number} firstIdOfReceivedList
+     * @param {number} fileCount
+     */
+    function _setSearchStatus(firstIdOfReceivedList, fileCount) {
       // 마지막 list id를 local varidable에 설정
       $scope.searchStatus.startMessageId = firstIdOfReceivedList;
 
@@ -493,6 +630,7 @@
       $scope.searchStatus.isInitDone = true;
 
       $scope.searchStatus.type = _getSearchStatusType();
+      $scope.searchStatus.length = $scope.fileList.length;
     }
 
     /**
@@ -504,17 +642,17 @@
     }
 
     /**
-     * open share modal event handler
-     * @param file
+     * '공유하기' 이벤트 핸들러
+     * @param {object} file
      */
     function onClickShare(file) {
       modalHelper.openFileShareModal($scope, file);
     }
 
     /**
-     * unshared event handler
-     * @param message
-     * @param entity
+     * '공유해제하기' 이벤트 핸들러
+     * @param {object} message
+     * @param {object} entity
      */
     function onClickUnshare(message, entity) {
       fileAPIservice.unShareEntity(message.id, entity.id)
@@ -538,25 +676,17 @@
     }
 
     /**
-     * _hasLocalCurrentEntityChanged 수행시 localCurrentEntity가 존재하지 않아 error 발생하므로
-     * localCurrentEntity null check code 추가
-     * @param {object} newCurrentEntity
+     * 파일 리스트가 비어있는지 여부
      * @returns {boolean}
-     * @private
      */
-    function _hasLocalCurrentEntityChanged(newCurrentEntity) {
-      return !localCurrentEntity || localCurrentEntity.id !== newCurrentEntity.id;
-    }
-
-    function isNoItem() {
+    function isEmpty() {
       return $scope.fileList.length == 0 &&
-             $scope.searchStatus.isInitDone &&
-             !$scope.searchStatus.isSearching;
+          $scope.searchStatus.isInitDone &&
+          !$scope.searchStatus.isSearching;
     }
 
     /**
      * True if use never changed any value in file search filter.
-     *
      * @returns {boolean}
      */
     function isFiltered() {
@@ -565,12 +695,16 @@
               !($scope.searchStatus.writerId === 'all');
     }
 
+    /**
+     * 키워드가 비어있는지 여부
+     * @returns {boolean}
+     */
     function isKeywordEmpty() {
       return !$scope.searchStatus.keyword;
     }
 
     /**
-     * 네트워크가 활성화되었을 때
+     * 네트워크 활성 이벤트 핸들러
      * @private
      */
     function _onConnected() {
@@ -584,13 +718,18 @@
     }
 
     /**
-     * 네크워크가 비황성화되었을 때
+     * 네크워크 비활성 이벤트 핸들러
      * @private
      */
     function _onDisconnected() {
       $scope.isConnected = false;
     }
 
+    /**
+     * 검색 상태 타입 전달
+     * @returns {*|string}
+     * @private
+     */
     function _getSearchStatusType() {
       var type;
 
