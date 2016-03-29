@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview Member 필터
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -26,7 +26,7 @@
     }
 
     /**
-     *
+     * member list 를 반환한다.
      * @returns {Array}
      */
     function toJSON() {
@@ -34,7 +34,7 @@
     }
 
     /**
-     *
+     * member 정보를 조회한다.
      * @param {number|string} entityId
      * @returns {object}
      */
@@ -43,8 +43,8 @@
     }
 
     /**
-     *
-     * @param entityId
+     * 해당 member 가 존재하는지 반환한다.
+     * @param {number|string} entityId
      * @returns {boolean}
      */
     function isExist(entityId) {
