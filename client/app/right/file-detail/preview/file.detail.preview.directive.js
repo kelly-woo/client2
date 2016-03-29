@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('fileDetailPreview', fileDetailPreview);
 
-  function fileDetailPreview($filter, modalHelper, ExternalShareService) {
+  function fileDetailPreview($filter, ExternalShareService, modalHelper) {
     return {
       restrict: 'E',
       replace: true,
@@ -19,7 +19,7 @@
         isExternalShared: '='
       },
       link: link,
-      templateUrl : 'app/right/file.detail/preview/file.detail.preview.html'
+      templateUrl : 'app/right/file-detail/preview/file.detail.preview.html'
     };
 
     function link(scope, el) {

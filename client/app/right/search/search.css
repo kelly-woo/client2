@@ -4,6 +4,7 @@
   height: 44px;
   background-color: #F9F9F9;
 }
+
 .modal-dialog .add-on-left,
 .rpanel-search .add-on-left,
 .tab-content .add-on-left {
@@ -13,6 +14,7 @@
   font-size: 13px;
   z-index: 7;
 }
+
 .modal-dialog input.search-input,
 .rpanel-search input.search-input,
 .tab-content input.search-input {
@@ -27,6 +29,7 @@
   border-bottom-right-radius: 0px;
   background-color: #fff;
 }
+
 .modal-dialog .custom-select-box input:focus,
 .rpanel-search input:focus,
 .tab-content input:focus {
@@ -34,7 +37,7 @@
   z-index: 5;
 }
 
-.rpanel-search-select-all-container {
+.rpanel-search-init {
   position:absolute;
   right:9px;
   height: 26px;
@@ -49,41 +52,33 @@
   background-color:#F5F6F7;
 
   -webkit-transition: all 200ms;
-  -o-transition: all 200ms;
-  -moz-transition: all 200ms;
   transition: all 200ms;
-  
-  -webkit-transform:translateZ(0);
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
 }
-.rpanel-search-select-all-container:hover {
+
+.rpanel-search-init:hover {
   background-color:#EFEFEF;
   border-color:#D0D5D9;
   cursor: pointer;
   z-index: 5;
 }
-.rpanel-search-select-all-container:hover i {
+
+.rpanel-search-init:hover i {
   -webkit-transform:scaleX(-1) rotate(360deg);
-  -o-transform:scaleX(-1) rotate(360deg);
-  -ms-transform:scaleX(-1) rotate(360deg);
   transform:scaleX(-1) rotate(360deg);
 
-  
+
   -webkit-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
   -webkit-transition:-webkit-transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
-  -o-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
-  -ms-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
-  -moz-transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
   transition:transform cubic-bezier(0.250, 1.075, 0.480, 1.215) 480ms;
 }
 
-.rpanel-search-select-all-container:active {
+.rpanel-search-init:active {
   background-color:#DBDEDF;
   border-color:#BDC0C2;
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
 }
-.rpanel-search-select-all-container i {
+
+.rpanel-search-init i {
   font-size: 16px;
   font-weight: 500;
   position: absolute;
@@ -91,38 +86,24 @@
   top:3px;
 
   -webkit-transform-origin: 8px 9.5px;
-  -ms-transform-origin: 8px 9.5px;
-  -o-transform-origin: 8px 9.5px;
-  -moz-transform-origin: 8px 9.5px;
   transform-origin: 8px 9.5px;
-  
+
   -webkit-transform:scaleX(-1) rotate(0deg);
-  -o-transform:scaleX(-1) rotate(0deg);
-  -ms-transform:scaleX(-1) rotate(0deg);
   transform:scaleX(-1) rotate(0deg);
-  -moz-transform:scaleX(-1) rotate(0deg);
 }
-.rpanel-search-select-all-container span {
-  line-height: 14px;
-  font-weight: 700;
-  font-size: 13px;
-  margin-right: 6px;
-}
-.rpanel-search-select-all-container i,
-.rpanel-search-select-all-container span {
+
+.rpanel-search-init i {
   color:#00abe6;
 }
-.rpanel-search-select-all-container:hover i,
-.rpanel-search-select-all-container:hover span {
+
+.rpanel-search-init:hover i {
   color:#0F8FBC;
 }
+
 .rpanel-header-toolbar {
   position: relative;
   border-bottom: 1px solid #ebebeb;
   background-color: white;
-}
-
-.rpanel-search-btn-tooltip {
 }
 
 .rpanel-search-btn-tooltip .tooltip-inner {

@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $state, $filter, $timeout, jndPubSub, RightPanel) {
+  function rPanelCtrl($scope, $filter, $timeout, jndPubSub, RightPanel) {
     _init();
 
     /**
@@ -27,20 +27,6 @@
     $scope.$on('connected', _init);
 
     /**
-     * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.
-     */
-    $scope.$on('resetRPanelSearchStatusKeyword', function() {
-      _updateSearchQueryEmptyStatus();
-    });
-
-    /**
-     * right panel 상단에 있는 search input box 의 값이 변했다는 이벤트.
-     */
-    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      _updateSearchQueryEmptyStatus(keyword);
-    });
-
-    /**
      * right panel이 on 되었다는 event handling
      */
     $scope.$on('rightPanelStatusChange', function($event, data) {
@@ -53,7 +39,6 @@
 
           if (data.fromTitle !== 'FILE DETAIL') {
             $timeout(function() {
-              jndPubSub.pub('resetRPanelSearchStatusKeyword');
               jndPubSub.pub('rPanelSearchFocus');
             }, 100);
           }

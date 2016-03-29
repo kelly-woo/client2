@@ -2,16 +2,15 @@
   <span class="add-on-left">
     <i class="icon-search"></i>
   </span>
-  <div class="rpanel-search-select-all-container" ng-click="resetQuery($event);"
+  <div class="rpanel-search-init"
        tooltip="{{::'@search-cond-reset'|translate}}"
        tooltip-placement="top"
        tooltip-class="rpanel-search-btn-tooltip">
-	<i class="icon-refresh"></i>
+	  <i class="icon-refresh"></i>
   </div>
   <input type="text"
-         id="right-panel-search-box"
-         class="form-control rpanel-body-search__input search-input"
-         placeholder="{{::placeholder}}"
+         class="form-control search-input rpanel-body-search__input"
+         placeholder="{{::'@input-search-file-title'|translate}}"
          jnd-input-model="keyword"
          ng-disabled="!isConnected"/>
 </div>

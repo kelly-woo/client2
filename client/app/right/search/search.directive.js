@@ -5,11 +5,13 @@
     .module('jandiApp')
     .directive('rightSearch', rightSearch);
 
-  function rightSearch($filter, jndKeyCode, Dialog) {
+  function rightSearch($filter, Dialog, jndKeyCode) {
     return {
       restrict: 'E',
       scope: {
-        keyword: '='
+        keyword: '=',
+        onEnter: '&',
+        onResetQuery: '&'
       },
       link: link,
       replace: true,
@@ -19,16 +21,23 @@
 
     function link(scope, el) {
       var _translate = $filter('translate');
-      var _jqSearchBox = el.find('#right-panel-search-box');
+      var _jqSearchBox = el.find('.rpanel-body-search__input');
+      var _jqInitButton = el.find('.rpanel-search-init');
 
       _init();
 
       function _init() {
         _attachDomEvents();
+        _attachScopeEvents();
       }
 
       function _attachDomEvents() {
         _jqSearchBox.on('keyup', _onKeyDown);
+        _jqInitButton.on('click', _onClick);
+      }
+
+      function _attachScopeEvents() {
+        scope.$on('rPanelSearchFocus', _onSearchFocus);
       }
 
       /**
@@ -39,23 +48,31 @@
       function _onKeyDown(event) {
         var target = event.target;
         var which = event.which;
+        var value = target.value;
 
-        if (jndKeyCode.match('ENTER', which) && target.value.length === 1) {
-          Dialog.warning({
-            title: _translate('@search-minimum-query-length')
-          });
+        if (jndKeyCode.match('ENTER', which)) {
+          if (_validSearchKeyword(value)) {
+            scope.onEnter({
+              $keyword: value
+            });
+          } else {
+            Dialog.warning({
+              title: _translate('@search-minimum-query-length')
+            });
+          }
         }
       }
 
-      /**
-       * 검색 이벤트를 trigger 한다
-       * @private
-       */
-      function _doSearch() {
-        var value = $('#right-panel-search-box').val();
-        if (value === '' || value.length > 1) {
-          scope.onFileTitleQueryEnter(value);
-        }
+      function _onClick() {
+        scope.onResetQuery();
+      }
+
+      function _onSearchFocus() {
+        _jqSearchBox.focus();
+      }
+
+      function _validSearchKeyword(keyword) {
+        return keyword.length !== 1;
       }
     }
   }

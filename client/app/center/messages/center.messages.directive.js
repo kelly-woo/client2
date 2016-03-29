@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
-                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
+                                   StarAPIService, jndPubSub, FileDetail, memberService, Dialog, currentSessionHelper,
                                    EntityHandler, JndUtil, RendererUtil) {
     return {
       restrict: 'E',
@@ -142,7 +142,7 @@
        */
       function _onFileUpdated(angularEvent, file) {
         var fileId = file.id;
-        return fileAPIservice.getFileDetail(fileId)
+        return FileDetail.get(fileId)
           .success(function(response) {
             var shareEntities;
             var message;

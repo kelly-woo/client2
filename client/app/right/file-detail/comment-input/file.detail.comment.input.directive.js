@@ -9,8 +9,7 @@
     .directive('fileDetailCommentInput', fileDetailCommentInput);
 
   /* @ngInject */
-  function fileDetailCommentInput($rootScope, JndUtil, Mentionahead, memberService, jndKeyCode,
-                                  jndPubSub, JndMessageStorage) {
+  function fileDetailCommentInput($rootScope, jndKeyCode, JndMessageStorage, jndPubSub, Mentionahead, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -21,7 +20,7 @@
         setMentionsGetter: '&',
         onMemberClick: '='
       },
-      templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
+      templateUrl : 'app/right/file-detail/comment-input/file.detail.comment.input.html',
       link: link
     };
 

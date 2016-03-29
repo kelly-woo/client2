@@ -9,7 +9,7 @@
     .service('RendererUtil', RendererUtil);
 
   /* @ngInject */
-  function RendererUtil($filter, publicService, currentSessionHelper, memberService, fileAPIservice, centerService) {
+  function RendererUtil($filter, publicService, currentSessionHelper, memberService, FileDetail, centerService) {
     var _regxPreviewThumbnail = /linkpreview-thumb/;
     var _thumbnailTracker = [];
 
@@ -130,7 +130,7 @@
       var content = getFeedbackContent(msg);
       var fileUrl = content.fileUrl;
       var attrList = [];
-      var urlObj = $filter('downloadFile')(fileAPIservice.isIntegrateFile(content.serverUrl), content.title, fileUrl);
+      var urlObj = $filter('downloadFile')(FileDetail.isIntegrateFile(content.serverUrl), content.title, fileUrl);
 
       attrList.push('download="' + content.title + '"');
       attrList.push('href="' + urlObj.downloadUrl + '"');
@@ -146,7 +146,7 @@
      */
     function isIntegrateFile(msg) {
       var content = getFeedbackContent(msg);
-      return fileAPIservice.isIntegrateFile(content.serverUrl);
+      return FileDetail.isIntegrateFile(content.serverUrl);
     }
 
     /**

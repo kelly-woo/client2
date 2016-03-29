@@ -2,15 +2,10 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, $timeout, $q, configuration,
-                                       memberService, entityAPIservice, storageAPIservice, Preloader, EntityHandler,
-                                       BotList, RoomTopicList) {
+app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout, $upload, $window, BotList,
+                                       configuration, entityAPIservice, EntityHandler, memberService, Preloader,
+                                       RoomTopicList, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
-  var integrateMap = {
-    'google': true,
-    'dropbox': true
-  };
-
   var filterTypePreviewMap = {
     audio: '../assets/images/preview_audio.png',
     video:'../assets/images/preview_video.png',
@@ -26,45 +21,33 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     etc: '../assets/images/preview_other.png'
   };
-
-  var fileDetail;
   var _timerClearCurUpload;
 
   _init();
 
   this.upload = upload;
-  this.abort = abort;
+  this.deleteFile = deleteFile;
+
   this.getFileList = getFileList;
-  this.getFileDetail = getFileDetail;
   this.getImageListOnRoom = getImageListOnRoom;
 
-  this.postComment = postComment;
-  this.deleteComment = deleteComment;
-  this.deleteSticker = deleteSticker;
   this.addShareEntity = addShareEntity;
   this.unShareEntity = unShareEntity;
 
   this.getShareOptions = getShareOptions;
   this.getShareOptionsWithoutMe = getShareOptionsWithoutMe;
 
-  this.removeSharedEntities = removeSharedEntities;
   this.getSharedEntities = getSharedEntities;
   this.updateShared = updateShared;
 
-  this.broadcastFileShare = broadcastFileShare;
   this.isFileTooLarge = isFileTooLarge;
 
   this.clearCurUpload = clearCurUpload;
   this.cancelClearCurUpload = cancelClearCurUpload;
   this.clearUploader = clearUploader;
 
-  this.deleteFile = deleteFile;
   this.generateFileTypeFilter = generateFileTypeFilter;
-  this.isIntegrateFile = isIntegrateFile;
-  this.dataURItoBlob = dataURItoBlob;
-
   this.broadcastCommentFocus = broadcastCommentFocus;
-
   this.getFilterTypePreviewMap = getFilterTypePreviewMap;
 
   function _init() {
@@ -116,44 +99,24 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     });
   }
 
+  /**
+   * get file list
+   * @param {object} searchStatus
+   * @returns {*}
+   */
+  function getFileList(searchStatus) {
+    var data = _.extend({}, searchStatus);
 
-  function abort(file) {
-    file.abort();
-  }
+    data.teamId = memberService.getTeamId();
+    if (data.sharedEntityId == null) {
+      data.sharedEntityId = -1;
+    }
 
-  function getFileList(fileRequest) {
-    fileRequest.teamId = memberService.getTeamId();
     return $http({
       method: 'POST',
       url: $rootScope.server_address + 'search',
-      data: fileRequest
+      data: data
     });
-  }
-
-  /**
-   * requset file detail
-   * @param {number|string} fileId
-   * @returns {*}
-   */
-  function getFileDetail(fileId) {
-    var abortDeferred = $q.defer();
-    var request = $http({
-      method  : 'GET',
-      url     : $rootScope.server_address + 'messages/' + fileId,
-      params  : {
-        teamId: memberService.getTeamId()
-      },
-      timeout: abortDeferred.promise
-    });
-
-    request.abort = function() {
-      abortDeferred.resolve();
-    };
-    request.finally(function() {
-      request.abort = angular.noop;
-    });
-
-    return request;
   }
 
   /**
@@ -173,100 +136,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/rooms/' + entityId + '/images',
       params: params
     })
-  }
-
-  /**
-   * comment 를 post 한다.
-   * @param {string} fileId 파일 id
-   * @param {string} content post 할 문자열
-   * @param {object} sticker 스티커 객체
-   * @param {array} mentions
-   * @returns {*}
-   */
-  function postComment(fileId, content, sticker, mentions) {
-    if (sticker) {
-      return _postSticker(fileId, content, sticker, mentions);
-    } else {
-      return _postComment(fileId, content, mentions);
-    }
-  }
-
-  /**
-   * comment 를 post 한다.
-   * @param {string} fileId 파일 id
-   * @param {string} content post 할 문자열
-   * @param {array} mentions
-   * @returns {*}
-   * @private
-   */
-  function _postComment(fileId, content, mentions) {
-    return $http({
-      method  : 'POST',
-      url     : $rootScope.server_address + 'messages/' + fileId + '/comment',
-      data    : {
-        comment : content,
-        teamId  : memberService.getTeamId(),
-        mentions: mentions
-      },
-      version: 3
-    });
-  }
-
-  /**
-   * sticker 를 post 한다.
-   * @param {string} fileId 파일 id
-   * @param {string} content post 할 문자열
-   * @param {object} sticker 스티커 객체
-   * @param {array} mentions
-   * @returns {*}
-   * @private
-   */
-  function _postSticker(fileId, content, sticker, mentions) {
-    var data = {
-      stickerId: sticker.id,
-      groupId: sticker.groupId,
-      teamId: memberService.getTeamId(),
-      share: fileId,
-      content: content,
-      mentions: mentions
-    };
-
-    return $http({
-      method  : 'POST',
-      url     : $rootScope.server_address + 'stickers/comment',
-      data    : data
-    });
-  }
-
-  /**
-   * 스티커를 제거한다.
-   * @param {string} commentId
-   * @returns {*}
-   */
-  function deleteSticker(commentId) {
-    return $http({
-      method  : 'DELETE',
-      url     : $rootScope.server_address + 'stickers/comments/' + commentId,
-      params  : {
-        teamId  : memberService.getTeamId()
-      }
-    });
-  }
-
-  /**
-   * comment 를 제거한다.
-   * @param {string} fileId
-   * @param {string} commentId
-   * @returns {*}
-   */
-  function deleteComment(fileId, commentId) {
-    return $http({
-      method  : 'DELETE',
-      url     : $rootScope.server_address + 'messages/' + fileId + '/comments/' + commentId,
-      params  : {
-        teamId  : memberService.getTeamId()
-      }
-    });
   }
 
 
@@ -326,23 +195,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return getShareOptions(joinedChannelList, memberList);
   }
 
-  //  Removes entity that exists in 'file.shareEntities' from 'list'.
-  //  Returns new array.
-
-  function removeSharedEntities(file, list) {
-    var returnValue = [];
-    var entityId;
-    angular.forEach(list, function(option, index) {
-      entityId = option.type === 'users' ? option.entityId : option.id;
-      if(file.shareEntities.indexOf(entityId) == -1 && option.id !== memberService.getMemberId())
-        this.push(option);
-    }, returnValue);
-
-    return returnValue;
-  }
-
   // Populating a list of entities to be displayed as 'shared channel/privateGroup'.
-
   function getSharedEntities(file, getSharedEntity) {
 
     var sharedEntityArray = [];
@@ -377,10 +230,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return getSharedEntities(message, function(sharedEntityId) {
       return EntityHandler.get(sharedEntityId);
     });
-  }
-
-  function broadcastFileShare(file) {
-    $rootScope.$broadcast('openFileShare', file);
   }
 
   // Return true if file size is over 100MB.
@@ -443,33 +292,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return array;
   }
 
-  function isIntegrateFile(serverUrl) {
-    return !!integrateMap[serverUrl];
-  }
-
-  function dataURItoBlob(dataURI) {
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs
-    var byteString;
-    if (dataURI.split(',')[0].indexOf('base64') >= 0)
-      byteString = atob(dataURI.split(',')[1]);
-    else
-      byteString = unescape(dataURI.split(',')[1]);
-
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to an ArrayBuffer
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    // write the ArrayBuffer to a blob, and you're done
-    return new Blob([ab],{type: 'image/jpeg'});
-  }
-
   // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast
   function broadcastCommentFocus() {
     $rootScope.$broadcast('setCommentFocus');
@@ -484,21 +306,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function _orderByName(list) {
     return $filter('orderBy')(list, 'name');
   }
-
-  /**
-   * file detail 임시 저장용 property
-   * file detail 접근 확인하기 위해 files에서 조회한 file object를 file.detail로 전달
-   */
-  Object.defineProperty(this, 'dualFileDetail', {
-    get: function() {
-      var temp = fileDetail;
-      fileDetail = null;
-      return temp;
-    },
-    set: function(value) {
-      fileDetail = value;
-    }
-  });
 
   /**
    * filter type preview map을 전달한다.

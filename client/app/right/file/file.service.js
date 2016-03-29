@@ -9,7 +9,7 @@
     .service('RightFile', RightFile);
 
   /* @ngInject */
-  function RightFile($filter, fileAPIservice) {
+  function RightFile($filter, FileDetail) {
     var that = this;
 
     that.convert = convert;
@@ -21,7 +21,7 @@
         data.type = 'file';
         data.id = fileData.id;
 
-        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
+        data.isIntegrateFile = FileDetail.isIntegrateFile(fileData.content.serverUrl);
 
         data.mustPreview = $filter('mustPreview')(fileData.content);
         if (!data.mustPreview) {
@@ -53,7 +53,7 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
-        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
+        data.isIntegrateFile = FileDetail.isIntegrateFile(fileData.message.content.serverUrl);
 
         data.mustPreview = $filter('mustPreview')(fileData.message.content);
         if (!data.mustPreview) {

@@ -9,7 +9,7 @@
     .controller('RightStarsCtrl', RightStarsCtrl);
 
   /* @ngInject */
-  function RightStarsCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService, fileAPIservice) {
+  function RightStarsCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService) {
     var starListData = {
       messageId: null
     };

@@ -19,7 +19,7 @@
         isArchivedFile: '=',
         backToPrevState: '='
       },
-      templateUrl : 'app/right/file.detail/title/file.detail.title.html',
+      templateUrl : 'app/right/file-detail/title/file.detail.title.html',
       link: link
     };
 

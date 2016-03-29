@@ -9,7 +9,7 @@
     .controller('RightMessageGroupCtrl', RightMessageGroupCtrl);
 
   /* @ngInject  */
-  function RightMessageGroupCtrl($scope, $state, MessageQuery, currentSessionHelper, jndPubSub) {
+  function RightMessageGroupCtrl($scope, $state, currentSessionHelper, jndPubSub, MessageQuery) {
     _init();
 
     function _init() {

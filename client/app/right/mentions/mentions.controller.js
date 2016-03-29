@@ -9,7 +9,7 @@
     .controller('RightMentionsCtrl', RightMentionsCtrl);
 
   /* @ngInject */
-  function RightMentionsCtrl($scope, $state, RightPanel, Mentions) {
+  function RightMentionsCtrl($scope, $state, Mentions, RightPanel) {
     var mentionListData = {
       messageId: null
     };

@@ -1,6 +1,8 @@
 <div class="rpanel-body file-list">
   <!-- SEARCH QUERY -->
-  <right-search keyword="searchStatus.keyword"></right-search>
+  <right-search keyword="searchStatus.keyword"
+                on-enter="onEnter($keyword)"
+                on-reset-query="onResetQuery()"></right-search>
 
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
@@ -9,7 +11,7 @@
       <div class="advanced-search-option__title">
         <span>{{::'@common-shared-in'|translate}}</span>
       </div>
-      <jnd-selectbox-room jnd-data-model="sharedEntitySearchQuery"
+      <jnd-selectbox-room jnd-data-model="searchStatus.sharedEntityId"
                           jnd-has-all="yes"
                           jnd-has-disabled="yes"></jnd-selectbox-room>
     </div>
@@ -20,7 +22,7 @@
       <div class="advanced-search-option__title">
         <span>{{::'@common-member'|translate}}</span>
       </div>
-      <jnd-selectbox-member jnd-data-model="fileRequest.writerId"
+      <jnd-selectbox-member jnd-data-model="searchStatus.writerId"
                             jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
     </div>
     <!-- END OF FILE WRTIER -->
@@ -30,7 +32,7 @@
       <div class="advanced-search-option__title">
         <span>{{::'@common-file-type'|translate}}</span>
       </div>
-      <jnd-selectbox-file jnd-data-model="fileRequest.fileType"
+      <jnd-selectbox-file jnd-data-model="searchStatus.fileType"
                           jnd-data-list="fileTypeList"></jnd-selectbox-file>
     </div>
     <!-- END OF FILE TYPE -->
@@ -42,21 +44,21 @@
 
     <div class="file-list infinite-scroll-bottom-list">
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-      <div class="break-word" ng-if="fileList.length==0">
-        <div ng-if="!isSearching" class="rpanel-alert-msg-container">
-          <center-help-message-container ng-if="!isFiltered();" status="emptyMessageStateHelper"></center-help-message-container>
-          <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
+      <div class="break-word" ng-if="isNoItem()">
+        <div class="rpanel-alert-msg-container">
+          <center-help-message-container ng-if="!isFiltered()" status="'NO_FILES_UPLOADED'"></center-help-message-container>
+          <div ng-if="isFiltered()" class="rpanel-alert-msg-container__text">
             <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
             <span>{{::'@alert-empty-file-search'|translate}}</span>
-            <span ng-if="!isSearchQueryEmpty">:
-              <span class="searchQuery">{{ fileRequest.keyword }}</span>
+            <span ng-if="!isKeywordEmpty()">:
+              <span class="search-keyword">{{ searchKeyword }}</span>
             </span>
           </div>
         </div>
       </div>
-      <right-file file-data="file" file-type="fileType" class="private-effect" ng-repeat="file in fileList track by file.id"></right-file>
-      <right-loading-list ng-if="isScrollLoading && fileList.length > 0"></right-loading-list>
-      <right-end-of-list ng-if="isEndOfList"></right-end-of-list>
+      <right-file file-data="file" file-type="'file'" class="private-effect" ng-repeat="file in fileList track by file.id"></right-file>
+      <right-loading-list ng-if="searchStatus.isScrollLoading && fileList.length > 0"></right-loading-list>
+      <right-end-of-list ng-if="searchStatus.isEndOfList"></right-end-of-list>
     </div>
   </div>
 </div>

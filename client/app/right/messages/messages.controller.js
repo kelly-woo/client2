@@ -9,9 +9,9 @@
     .controller('RightMessagesCtrl', RightMessagesCtrl);
 
   /* @ngInject */
-  function RightMessagesCtrl($scope, $rootScope, $timeout, $filter, $state, RightPanel, fileAPIservice,
-                                messageAPIservice, AnalyticsHelper, TopicFolderModel, jndPubSub,
-                                currentSessionHelper, RoomTopicList) {
+  function RightMessagesCtrl($scope, $rootScope, $filter, $state, $timeout, AnalyticsHelper, currentSessionHelper,
+                             fileAPIservice, jndPubSub, messageAPIservice, RightPanel, RoomTopicList,
+                             TopicFolderModel) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
@@ -58,7 +58,9 @@
 
     function _on() {
       $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _initChatRoomOption);
-      $scope.$on('onrPanelFileTitleQueryChanged', _onrPanelFileTitleQueryChanged);
+
+      $scope.$on('doSearch', _onrPanelFileTitleQueryChanged);
+
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
       $scope.$on('changedLanguage', _changedLanguage);
       $scope.$on('topic-folder:update', _initChatRoomOption);
@@ -457,7 +459,6 @@
      */
     function _resetSearchStatusKeyword() {
       $scope.searchQuery.q = $scope.searchStatus.keyword = '';
-      jndPubSub.pub('resetRPanelSearchStatusKeyword');
     }
 
     function _getSearchStatusType() {

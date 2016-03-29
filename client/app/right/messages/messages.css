@@ -2,10 +2,6 @@
   width: 188px;
 }
 
-.searchQueryKeyword {
-  color: #333333;
-}
-
 .rpanel-body.message-list  .no-search-input-container {
   margin-top: 67px;
   text-align: center;
@@ -37,7 +33,7 @@
   line-height: 22px;
   color: #575757;
 }
-.rpanel-alert-msg-container .searchQuery {
+.rpanel-alert-msg-container .search-keyword {
   color: #333;
 }
 .highlight {

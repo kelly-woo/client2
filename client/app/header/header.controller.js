@@ -152,10 +152,6 @@
 
       // header icon의 active event handler
       $scope.$on('onActiveHeaderTab', function($event, type) {
-        if (currentRightPanel !== type) {
-          jndPubSub.pub('resetRPanelSearchStatusKeyword');
-        }
-
         _setTabStatus(currentRightPanel, false);
         _setTabStatus(type, true);
       });

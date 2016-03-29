@@ -9,8 +9,8 @@
     .directive('fileDetailHeader', fileDetailHeader);
 
   /* @ngInject */
-  function fileDetailHeader($state, $filter, modalHelper, fileAPIservice, analyticsService, jndPubSub, Dialog,
-                            AnalyticsHelper, RightPanel) {
+  function fileDetailHeader($state, $filter, AnalyticsHelper, analyticsService, Dialog, fileAPIservice, jndPubSub,
+                            modalHelper, RightPanel) {
     return {
       restrict: 'E',
       replace: true,
@@ -26,7 +26,7 @@
         onMemberClick: '=',
         backToPrevState: '='
       },
-      templateUrl : 'app/right/file.detail/header/file.detail.header.html',
+      templateUrl : 'app/right/file-detail/header/file.detail.header.html',
       link: link
     };
 

@@ -9,7 +9,7 @@
     .directive('fileDetailComments', fileDetailComments);
 
   /* @ngInject */
-  function fileDetailComments($filter, fileAPIservice, Dialog, jndPubSub, memberService) {
+  function fileDetailComments($filter, Dialog, FileDetail, jndPubSub, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -21,7 +21,7 @@
         postComment: '&',
         onMemberClick: '='
       },
-      templateUrl : 'app/right/file.detail/comments/file.detail.comments.html',
+      templateUrl : 'app/right/file-detail/comments/file.detail.comments.html',
       link: link
     };
 
@@ -104,10 +104,10 @@
         var isSticker = comment.extIsSticker;
 
         if (isSticker) {
-          fileAPIservice.deleteSticker(commentId)
+          FileDetail.deleteSticker(commentId)
             .success(_onSuccessDelete);
         } else {
-          fileAPIservice.deleteComment(scope.file.id, commentId)
+          FileDetail.deleteComment(scope.file.id, commentId)
             .success(_onSuccessDelete);
         }
       }

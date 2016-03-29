@@ -9,8 +9,8 @@
     .directive('fileDetailMeta', fileDetailMeta);
 
   /* @ngInject */
-  function fileDetailMeta($state, $filter, fileAPIservice, entityAPIservice, entityheaderAPIservice, EntityHandler,
-                          AnalyticsHelper, analyticsService, Dialog, jndPubSub) {
+  function fileDetailMeta($state, $filter, AnalyticsHelper, analyticsService, Dialog, EntityHandler,
+                          entityheaderAPIservice, fileAPIservice, jndPubSub) {
     return {
       restrict: 'E',
       replace: true,
@@ -19,7 +19,7 @@
         isArchivedFile: '=',
         isInvalidRequest: '='
       },
-      templateUrl : 'app/right/file.detail/meta/file.detail.meta.html',
+      templateUrl : 'app/right/file-detail/meta/file.detail.meta.html',
       link: link
     };
 

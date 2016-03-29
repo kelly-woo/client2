@@ -9,8 +9,8 @@
     .controller('FileDetailCtrl', FileDetailCtrl);
 
   /* @ngInject */
-  function FileDetailCtrl($scope, $state, $q, $filter, fileAPIservice, RightPanel, UserList, jndPubSub, memberService,
-                          publicService, JndMessageStorage, Sticker, Tutorial) {
+  function FileDetailCtrl($scope, $filter, $q, $state, FileDetail, jndPubSub, JndMessageStorage,
+                          memberService, publicService,RightPanel, Sticker, Tutorial, UserList) {
     var fileId;
     var requestFileDetail;
 
@@ -80,7 +80,7 @@
      * @private
      */
     function _setFileDetail() {
-      var fileDetail = fileAPIservice.dualFileDetail;
+      var fileDetail = FileDetail.dualFileDetail;
 
       if (fileDetail) {
         // request하지 않아도 출력할 file object가 이미 존재함
@@ -98,7 +98,7 @@
     function _requestFileDetail(updateType) {
       if (_isFileDetailActive()) {
         requestFileDetail && requestFileDetail.abort();
-        requestFileDetail = fileAPIservice.getFileDetail(fileId)
+        requestFileDetail = FileDetail.get(fileId)
           .success(function(response) {
             _onSuccessFileDetail(response, updateType);
           })
@@ -187,7 +187,7 @@
       $scope.file = file;
 
       // integrate file 여부
-      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl);
+      $scope.isIntegrateFile = FileDetail.isIntegrateFile(file.content.serverUrl);
 
       // 외부 파일공유 되었는지 여부
       $scope.isExternalShared = file.content.externalShared;
@@ -481,7 +481,7 @@
         requestFileDetail && requestFileDetail.abort();
 
         result = _addSendingComment({comment: comment, sticker: sticker});
-        fileAPIservice.postComment(fileId, comment, sticker, mentions)
+        FileDetail.postComment(fileId, comment, sticker, mentions)
           .error(function() {
             result.comment && _setErrorComments(result.comment);
             result.sticker && _setErrorComments(result.sticker);

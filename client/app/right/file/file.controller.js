@@ -9,8 +9,8 @@
     .controller('RightFileCtrl', RightFileCtrl);
 
   /* @ngInject */
-  function RightFileCtrl($scope, $rootScope, $state, $filter, UserList, publicService,
-                     fileAPIservice, modalHelper, RightFile, memberService, Dialog, Loading, Tutorial) {
+  function RightFileCtrl($scope, $rootScope, $filter, $state, Dialog, fileAPIservice, FileDetail, Loading,
+                         memberService, modalHelper, publicService, RightFile, Tutorial, UserList) {
 
     _init();
 
@@ -75,10 +75,10 @@
 
         $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
       } else {
-        fileAPIservice.getFileDetail($scope.file.id)
+        FileDetail.get($scope.file.id)
           .success(function(response) {
             // 해당 file에 접근권한이 존재
-            fileAPIservice.dualFileDetail = response;
+            FileDetail.dualFileDetail = response;
 
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
