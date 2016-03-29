@@ -238,16 +238,28 @@
        * @private
        */
       function _onClick(event) {
+        var jqTarget = $(event.target);
         var item;
 
-        if (itemType === 'member' && event.target.className.indexOf('star') > -1) {
+        if (itemType === 'member' && jqTarget.hasClass('star')) {
           // item type이 'member'이고 star icon click 시 처리
           if (item = matches[activeIndex]) {
             EntityHandler.toggleStarred(item.id);
           }
+        } else if (jqTarget.closest('._sendInvitation').length) {
+          _sendInvitationMail();
         } else {
           _select();
         }
+      }
+
+      /**
+       * invitation 을 재전송한다
+       * @private
+       */
+      function _sendInvitationMail() {
+        //TODO: 초대 - 성공 이후 로직 추가
+        teamAPIservice.inviteToTeam([$scope.email]);
       }
 
       /**

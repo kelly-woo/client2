@@ -21,7 +21,7 @@
     }
 
     /**
-     * topic item을 랜더링한다.
+     * member item을 랜더링한다.
      * @param {object} data
      * @param {string} filterText
      * @returns {*}
@@ -29,6 +29,7 @@
     function render(data, filterText) {
       data = _convertData(data);
       var isAdmin = _isAdmin(data.id);
+      var isInactive = data.isInactive;
 
       return _template({
         text: {
@@ -39,13 +40,15 @@
         },
         css: {
           admin: isAdmin ? 'admin' : '',
-          memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : ''
+          memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : '',
+          memberName: isInactive || isAdmin ? 'short' : ''
         },
         profileImage: memberService.getProfileImage(data.id, 'small'),
         starClass: data.isStarred ? 'icon-star-on' : '',
         isShowStar: !data.isDeactive && data.id !== memberService.getMemberId(),
         itemHeight: 44,
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
+        isInactive: isInactive
       });
     }
 
@@ -60,7 +63,8 @@
         id: data.id,
         name: data.name,
         isStarred: data.isStarred,
-        isDeactive: memberService.isDeactivatedMember(data)
+        isDeactive: memberService.isDeactivatedMember(data),
+        isInactive: memberService.isInactiveUser(data)
       };
     }
 

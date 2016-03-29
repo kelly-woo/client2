@@ -1,0 +1,15 @@
+.member-item .resend-invitation {
+  top: 10px;
+  right: 30px;
+  position: absolute;
+  color: #154D6B;
+  font-size: 13px;
+  line-height: 15px;
+  background: gray;
+  border-radius: 3px;
+  border: 0;
+  padding: 2px 5px;
+}
+.member-item .resend-invitation:hover {
+  background: black;
+}
