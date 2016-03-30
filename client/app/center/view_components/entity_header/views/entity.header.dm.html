@@ -101,11 +101,13 @@
                   on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
 
 
-  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button">
+  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button"
+        ng-click="cancelInvitation()">
     <i class="icon-delete"></i> <span translate>@dummy-invitation-cancel</span>
   </span>
 
-  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button">
+  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button"
+        ng-click="sendInvitation()">
     <i class="icon-mail"></i> <span translate>@dummy-invitation-resend</span>
   </span>
 </div>

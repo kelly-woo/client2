@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
-                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService) {
+                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService, teamAPIservice) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -136,8 +136,8 @@
      * @private
      */
     function _sendInvitationMail() {
-      //TODO: 초대 - 성공 이후 로직 추가
-      teamAPIservice.inviteToTeam([$scope.email]);
+      teamAPIservice.inviteToTeam([$scope.email])
+        .then(teamAPIservice.alertInvitationSuccess);
     }
 
     /**
@@ -145,8 +145,7 @@
      * @private
      */
     function _cancelInvitation() {
-      //TODO: 초대 취소 - 성공 이후 로직 추가
-      teamAPIservice.cancelInvitation(curUser.id);
+      teamAPIservice.confirmCancelInvitation(curUser.id);
     }
 
     /**

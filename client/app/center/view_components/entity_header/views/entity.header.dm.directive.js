@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('entityHeaderDm', entityHeaderDm);
 
-  function entityHeaderDm() {
+  function entityHeaderDm(teamAPIservice, publicService) {
     return {
       restrict: 'EA',
       templateUrl: 'app/center/view_components/entity_header/views/entity.header.dm.html',
@@ -26,6 +26,9 @@
        * @type {number}
        */
       var DELAY = 200;
+
+      scope.sendInvitation = sendInvitation;
+      scope.cancelInvitation = cancelInvitation;
 
       _init();
 
@@ -66,6 +69,23 @@
         _timer = setTimeout(function() {
           el.find('._guidePopover').fadeOut(200);
         }, DELAY);
+      }
+
+      /**
+       * 초대 메일을 발송한다.
+       */
+      function sendInvitation() {
+        teamAPIservice.inviteToTeam([scope.currentEntity.u_email])
+          .then(teamAPIservice.alertInvitationSuccess, null);
+      }
+
+      /**
+       * 초대를 취소한다.
+       */
+      function cancelInvitation() {
+        teamAPIservice.confirmCancelInvitation(scope.currentEntity.id, {
+          onSuccess: publicService.goToDefaultTopic
+        })
       }
     }
   }
