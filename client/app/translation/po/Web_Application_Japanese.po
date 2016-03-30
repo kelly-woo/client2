@@ -2522,35 +2522,40 @@ msgstr "デスクトップ通知がオフに設定されました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-fri"
-msgstr "毎週 金曜日"
+msgstr "毎金曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-mon"
-msgstr "毎週 月曜日"
+msgstr "毎月曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-sat"
-msgstr "毎週 土曜日"
+msgstr "毎土曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-sun"
-msgstr "毎週 日曜日"
+msgstr "毎日曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-thu"
-msgstr "毎週 木曜日"
+msgstr "毎木曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-tue"
-msgstr "毎週 火曜日"
+msgstr "毎火曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-wed"
-msgstr "毎週 水曜日"
+msgstr "毎水曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #, fuzzy
-msgid "@setting-notification-email-text"
+msgid "@setting-notification-email-text1"
+msgstr "デスクトップ通知がオフに設定されました"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+#, fuzzy
+msgid "@setting-notification-email-text2"
 msgstr "デスクトップ通知がオフに設定されました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html

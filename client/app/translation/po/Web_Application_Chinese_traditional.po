@@ -502,9 +502,8 @@ msgid "@common-has-jandi-app"
 msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@common-hourly"
-msgstr "複製"
+msgstr "小時"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
@@ -2428,14 +2427,12 @@ msgid "@setting-notification-dm-n-mention"
 msgstr "僅接收私訊和@提及通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email"
-msgstr "電腦版推播通知已關閉"
+msgstr "通知電郵"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email-desc"
-msgstr "電腦版推播通知已關閉"
+msgstr "透過電郵接收定期私訊、提及、公告和受邀議題的總結"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-fri"
@@ -2466,9 +2463,12 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr "每周 週三"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
-msgid "@setting-notification-email-text"
-msgstr "電腦版推播通知已關閉"
+msgid "@setting-notification-email-text1"
+msgstr "寄送通知電郵的頻率"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
