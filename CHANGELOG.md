@@ -1,3 +1,13 @@
+<a name="1.21.1"></a>
+## [1.21.1](https://github.com/tosslab/web_client/compare/v1.21.0...v1.21.1) (2016-03-30)
+
+
+### Bug Fixes
+
+* **connect:** connect 가 연결될 방을 변경하더라도 변경되지 않는 현상 수정 ([f2bfa9d](https://github.com/tosslab/web_client/commit/f2bfa9d))
+
+
+
 <a name="1.21.0"></a>
 # [1.21.0](https://github.com/tosslab/web_client/compare/v1.20.1...v1.21.0) (2016-03-30)
 
