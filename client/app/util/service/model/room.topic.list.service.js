@@ -76,6 +76,11 @@
      */
     function add(item, isJoin) {
       var collection = _getEntityCollection(isJoin);
+
+      if (isExist(item.id, !isJoin)) {
+        remove(item.id, !isJoin);
+      }
+
       collection.add(item);
     }
 
@@ -116,10 +121,19 @@
     /**
      * id 에 해당하는 데이터를 제거한다.
      * @param {number|string} id
+     * @param {boolean} isJoin
      * @returns {*}
      */
-    function remove(id) {
-      return _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
+    function remove(id, isJoin) {
+      if (_.isUndefined(isJoin)) {
+        return _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
+      } else {
+        if (isJoin) {
+          return _collectionMap.join.remove(id);
+        } else {
+          return _collectionMap.unjoin.remove(id);
+        }
+      }
     }
 
     /**
@@ -148,7 +162,7 @@
       if (room) {
         memberIdList = (room.type === 'channels') ? room.ch_members : room.pg_members;
       }
-      return memberIdList;
+      return memberIdList || [];
     }
 
     /**
