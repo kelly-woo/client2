@@ -10,7 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, EntityHandler, memberService, jndWebSocketCommon, currentSessionHelper) {
+  function TopicSocket(jndPubSub, EntityHandler, memberService, jndWebSocketCommon, currentSessionHelper, RoomTopicList) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -22,6 +22,11 @@
     var ROOM_SUBSCRIBE = 'room_subscription_updated';
 
     var events = [
+      {
+        name: 'topic_invited',
+        version: 1,
+        handler: _onTopicInvited
+      },
       {
         name: 'topic_kicked_out',
         version: 1,
@@ -96,6 +101,17 @@
     }
 
     /**
+     * topic invited 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onTopicInvited(socketEvent) {
+      var topic = socketEvent.data.topic;
+      RoomTopicList.add(topic, true);
+      jndPubSub.pub('jndWebSocketTopic:topicInvited', socketEvent);
+    }
+
+    /**
      * 'topic_left' EVENT HANDLER
      * @param {object} data - socket event parameter
      * @private
@@ -104,7 +120,6 @@
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       }
-
       _updateLeftPanel(data);
     }
 
