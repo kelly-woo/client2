@@ -238,7 +238,7 @@
         jndPubSub.updateLeftBadgeCount();
       }
 
-      jndPubSub.pub('jndWebSocketMessage:topicMessageDelete', socketEvent);
+      jndPubSub.pub('jndWebSocketMessage:topicMessageDeleted', socketEvent);
     }
 
     /**

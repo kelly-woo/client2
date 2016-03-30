@@ -159,6 +159,10 @@
       if ($scope.status.isActive && _hasLocalCurrentEntityChanged(currentEntity) && !_hasSearchResult()) {
         _localCurrentEntity = currentEntity;
 
+        // 검색 결과를 유지할 이유가 없으므로 초기화 한다.
+        $scope.messageList = [];
+        $scope.searchStatus.page = DEFAULT_PAGE;
+
         // search keyword reset
         _setChatRoom(_localCurrentEntity);
 

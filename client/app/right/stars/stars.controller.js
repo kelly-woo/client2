@@ -79,11 +79,11 @@
       $scope.$on('message:unStarred', _unStarred);
 
       // create/delete comment
-      $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);
-      $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
+      $scope.$on('jndWebSocketFile:commentCreated', _rightFileDetailOnFileCommentCreated);
+      $scope.$on('jndWebSocketFile:commentDeleted', _rightFileDetailOnFileCommentDeleted);
 
       // delete message/file
-      $scope.$on('jndWebSocketMessage:topicMessageDelete', _topicMessageDelete);
+      $scope.$on('jndWebSocketMessage:topicMessageDeleted', _topicMessageDeleted);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
     }
 
@@ -160,7 +160,7 @@
      * @param {object} data
      * @private
      */
-    function _topicMessageDelete($event, data) {
+    function _topicMessageDeleted($event, data) {
       _removeStarItem('all', data.messageId);
       _removeStarItem('files', data.messageId);
     }

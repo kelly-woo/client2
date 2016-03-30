@@ -70,8 +70,8 @@
         scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
         scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
 
-        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentCreated);
-        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentDeleted);
+        scope.$on('jndWebSocketFile:commentCreated', _onFileCommentCreated);
+        scope.$on('jndWebSocketFile:commentDeleted', _onFileCommentDeleted);
       }
 
       /**

@@ -48,8 +48,8 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('rightFileDetailOnFileCommentCreated', _onCreateComment);
-        scope.$on('rightFileDetailOnFileCommentDeleted', _onDeleteComment);
+        scope.$on('jndWebSocketFile:commentCreated', _onCreateComment);
+        scope.$on('jndWebSocketFile:commentDeleted', _onDeleteComment);
       }
 
       /**
