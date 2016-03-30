@@ -66,18 +66,25 @@
      * @private
      */
     function _onMentionNotificationSend() {
-      _mentionSendCount++;
+      if ($scope.isInitDone) {
+        _mentionSendCount++;
 
-      clearTimeout(_timerMentionList);
-      _timerMentionList = setTimeout(function() {
-        Mentions.getMentionList(null, _mentionSendCount)
-          .success(function(data) {
-            if (data.records) {
-              _addMentions(data.records.reverse());
-            }
-          });
-        _mentionSendCount = 0;
-      }, 1000);
+        clearTimeout(_timerMentionList);
+        _timerMentionList = setTimeout(function() {
+          Mentions.getMentionList(null, _mentionSendCount)
+            .success(function(data) {
+              if (data.records) {
+                if ($scope.records.length === 0) {
+                  $scope.isEndOfList = true;
+                }
+
+                _addMentions(data.records.reverse());
+                _setStatus();
+              }
+            });
+          _mentionSendCount = 0;
+        }, 1000);
+      }
     }
 
     /**
@@ -112,6 +119,11 @@
       if (index > -1) {
         $scope.records.splice(index, 1);
         delete _mentionMap[mentionId];
+
+        if ($scope.records.length === 0) {
+          $scope.isEndOfList = false;
+        }
+
         _setStatus();
       }
     }

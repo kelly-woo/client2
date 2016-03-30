@@ -302,7 +302,7 @@
       var activeTab = $scope.tabs[activeTabName];
 
       if (!activeTab.isLoading || !activeTab.isScrollLoading) {
-        StarAPIService.get(starListData.messageId, 40, (activeTabName === 'files' ? 'file' : undefined))
+        StarAPIService.get(starListData.messageId, 1, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {
@@ -331,13 +331,13 @@
       StarAPIService.getItem(messageId)
         .success(function(data) {
           if (data) {
+            $scope.tabs.all.list.length === 0 && _setEmptyTab('all', false);
             _addStarItem('all', data, true);
-            _setEmptyTab('all', false);
 
             if (data.message.contentType === 'file') {
               // star item이 file type이라면 files list에도 추가함
+              $scope.tabs.files.list.length === 0 && _setEmptyTab('files', false);
               _addStarItem('files', data, true);
-              _setEmptyTab('files', false);
             }
           }
         });

@@ -171,10 +171,6 @@
   bottom: -5px;
   padding: 2.5px;
   font-size: 16px;
-  border-radius: 20%;
-  background-color: rgba(255,255,255,0.8);
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
-  color: #1C6C88;
 }
 .file-card .external-share-btn:hover {
   opacity: 1;
