@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
+  function FileCtrl($scope, $rootScope, $state, $filter, UserList, publicService,
                      fileAPIservice, modalHelper, FileData, memberService, Dialog, Loading, Tutorial) {
 
     _init();
@@ -20,7 +20,7 @@
       // file controller에서 사용가능한 data format으로 convert함
       var file = $scope.file = FileData.convert($scope.fileType, $scope.fileData);
 
-      $scope.file.extWriter = $scope.writer = EntityMapManager.get('total', file.writerId);
+      $scope.file.extWriter = $scope.writer = UserList.get(file.writerId);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');

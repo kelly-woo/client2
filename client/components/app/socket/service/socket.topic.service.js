@@ -10,8 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket($filter, jndPubSub, entityAPIservice, memberService, jndWebSocketCommon, Dialog,
-                       EntityMapManager, currentSessionHelper) {
+  function TopicSocket(jndPubSub, EntityHandler, memberService, jndWebSocketCommon, currentSessionHelper) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -56,12 +55,12 @@
       {
         name: 'topic_starred',
         version: 1,
-        handler: _onTopicStarChanged
+        handler: _.bind(_onTopicStarChanged, null, true)
       },
       {
         name: 'topic_unstarred',
         version: 1,
-        handler: _onTopicStarChanged
+        handler: _.bind(_onTopicStarChanged, null, false)
       },
       {
         name: 'room_subscription_updated',
@@ -156,11 +155,7 @@
      */
     function _onTopicUpdated(data) {
       var _topic = data.topic;
-      var _topicEntity = entityAPIservice.getEntityById(_topic.type, _topic.id);
-
-      if (!!_topicEntity) {
-        entityAPIservice.extend(_topicEntity, _topic);
-      }
+      EntityHandler.extend(_topic.id, _topic);
       jndPubSub.pub('webSocketTopic:topicUpdated', data.topic);
     }
 
@@ -179,11 +174,15 @@
 
     /**
      * 'topic_starred', 'topic_unstarred' EVENT HANDLER
-     * @param {object} data - socket event parameter
+     * @param {boolean} isStarred
+     * @param {object} socketEvent - socket event parameter
      * @private
      */
-    function _onTopicStarChanged(data) {
-      _updateLeftPanel();
+    function _onTopicStarChanged(isStarred, socketEvent) {
+      jndPubSub.pub('TopicSocket:starChanged', _.extend(socketEvent.topic, {
+        isStarred: isStarred
+      }));
+      //_updateLeftPanel();
     }
 
     function _updateLeftPanel(data) {

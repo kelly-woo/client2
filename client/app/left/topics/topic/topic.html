@@ -1,7 +1,6 @@
 <a data-channel-id="{{currentRoom.id}}" id="topic{{currentRoom.id}}" topic-draggable>
   <i class="icon-star-off left-star" ng-class="{'icon-star-on': currentRoom.isStarred}"
-     data-ng-click="onStarClick(currentRoom.type, currentRoom.id);
-                          $event.preventDefault(); $event.stopPropagation();"></i>
+     data-ng-click="onStarClick(currentRoom.id);$event.preventDefault(); $event.stopPropagation();"></i>
 
     <span class="inline-overflow-ellipsis left-panel__name private-effect"
           ng-class="{'has-unread-msg': currentRoom.alarmCnt > 0, 'with-bell': isNotificationOff}"

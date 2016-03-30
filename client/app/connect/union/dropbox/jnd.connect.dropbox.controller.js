@@ -6,7 +6,7 @@
     .controller('JndConnectDropboxCtrl', JndConnectDropboxCtrl);
 
   /* @ngInject */
-  function JndConnectDropboxCtrl($scope, JndConnect, EntityMapManager) {
+  function JndConnectDropboxCtrl($scope, JndConnect) {
 
     _init();
 

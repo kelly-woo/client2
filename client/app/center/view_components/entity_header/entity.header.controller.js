@@ -12,7 +12,7 @@
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
-                            Dialog, JndUtil, JndConnect) {
+                            Dialog, JndUtil, JndConnect, EntityHandler, RoomTopicList) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _translate = $filter('translate');
@@ -126,7 +126,7 @@
      */
     function _setCurrentEntity(entity) {
       if (!!entity) {
-        entity.members = entityAPIservice.getMemberList(entity);
+        entity.members = RoomTopicList.getMemberIdList(entity.id);
 
         _currentEntity = entity;
         _entityId = entity.id;
@@ -470,12 +470,7 @@
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
     // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
     $scope.onStarClick = function() {
-      var param = {
-        entityType: _entityType,
-        entityId: _entityId
-      };
-
-      jndPubSub.pub('onStarClick', param);
+      EntityHandler.toggleStarred(_entityId)
     };
 
     /**
@@ -563,7 +558,7 @@
         if (entityId) {
           // currentEntity에서 entityId 또는 id를 전달 받을 수 있는경우
 
-          if (room = entityAPIservice.getJoinedEntity(entityId)) {
+          if (room = EntityHandler.get(entityId)) {
             roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
 
             requestConnectInfo && requestConnectInfo.abort();
@@ -609,10 +604,10 @@
      */
     function _getUsers(entity) {
       var users = [];
-      var usersId = entityAPIservice.getUserList(entity);
+      var userIdList = RoomTopicList.getUserIdList(entity.id);
 
-      if (_.isArray(usersId)) {
-        _.each(usersId, function(userId) {
+      if (userIdList.length) {
+        _.each(userIdList, function(userId) {
           users.push({
             id: userId,
             thumbnail: memberService.getProfileImage(userId),

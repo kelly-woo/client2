@@ -9,8 +9,8 @@
     .controller('MessageCtrl', MessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
-                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog,
+  function MessageCtrl($scope, $state, $filter, EntityHandler, MessageQuery, jndPubSub, MessageData,
+                       currentSessionHelper, RoomTopicList, memberService, messageAPIservice, Dialog,
                        publicService) {
     var UNKNOWN_ROOM = 'unknown room';
 
@@ -22,7 +22,7 @@
       // message controller에서 사용가능한 data format으로 convert함
       var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
-      $scope.writer = EntityMapManager.get('total', message.writerId);
+      $scope.writer = EntityHandler.get(message.writerId);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
@@ -86,7 +86,7 @@
         if (message.roomType === 'chat') {
 
           // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
-          entity = EntityMapManager.get('total', _getOtherMemberId(message.roomName));
+          entity = EntityHandler.get(_getOtherMemberId(message.roomName));
           startPoint = entity ? entity.name : UNKNOWN_ROOM;
         } else {
           startPoint = message.roomName || UNKNOWN_ROOM;
@@ -145,9 +145,8 @@
               linkId: message.linkId
             });
           });
-        } else if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+        } else if (RoomTopicList.hasMember(message.roomId, memberService.getMemberId())) {
           // 해당 topic의 member 라면
-
           _goTo(function() {
             _goToTopic({
               type: message.roomType,

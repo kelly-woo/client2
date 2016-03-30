@@ -6,7 +6,7 @@
     .service('Announcement', Announcement);
 
   /* @ngInject */
-  function Announcement($document, $filter, $sce, jndPubSub, EntityMapManager, memberService) {
+  function Announcement($document, $filter, $sce, jndPubSub, EntityHandler, memberService) {
     var _isOpened = false;
 
     this.getFilteredContentBody = getFilteredContentBody;
@@ -85,7 +85,7 @@
     function getActionOwner(announcement, entityId, actionType) {
       var memberEntity;
 
-      if (memberEntity = EntityMapManager.get('total', entityId)) {
+      if (memberEntity = EntityHandler.get(entityId)) {
         return {
           'profilePic': memberService.getProfileImage(memberEntity.id, 'small'),
           'name': memberEntity.name,

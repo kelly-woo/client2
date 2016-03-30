@@ -13,7 +13,7 @@
     .service('centerService', centerService);
 
   /* @ngInject */
-  function centerService(memberService, publicService, currentSessionHelper, EntityMapManager, jndPubSub) {
+  function centerService(memberService, publicService, currentSessionHelper, EntityHandler, jndPubSub) {
     var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
@@ -83,7 +83,9 @@
      *
      * @returns {boolean}
      */
-    function isChat() { return currentSessionHelper.getCurrentEntityType() === 'users'; }
+    function isChat() {
+      return currentSessionHelper.getCurrentEntityType().indexOf('user') !== -1;
+    }
 
     /**
      * Has scroll reached bottom?? or Do I have more room to go down???
@@ -223,7 +225,7 @@
      */
     function setHistory(entityType, entityId) {
       if (entityType === 'channels' || entityType === 'privategroups' ||
-        (entityType === 'users' && !memberService.isDeactivatedMember(EntityMapManager.get('total', entityId)))) {
+        (entityType === 'users' && !memberService.isDeactivatedMember(EntityHandler.get(entityId)))) {
         historyQueue.length >= HISTORY_LENGTH && historyQueue.shift();
         historyQueue.push({
           entityType: entityType,

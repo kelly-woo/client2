@@ -65,7 +65,7 @@
      * @returns {Promise}
      */
     function responseError(rejection) {
-      var authAPIservice = $injector.get('authAPIservice');
+      var AuthApi = $injector.get('AuthApi');
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED
         // what should i do?
@@ -88,17 +88,17 @@
       } else if (rejection.status == 502) {
         console.log('I am sorry, it is a 502 error. Keep calm and close your console.');
       } else if (rejection.status == 503) {
-        authAPIservice.handleConstructionErr();
+        AuthApi.handleConstructionErr();
         return $q.reject(rejection);
       } else if (rejection.status === 401) {
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
         console.log('I am so sorry. It is 401 error.');
         //sholdn't be here
-        if (angular.isUndefined(authAPIservice)) {
+        if (angular.isUndefined(AuthApi)) {
           _redirectToAdmin();
         } else {
-          authAPIservice.requestAccessTokenWithRefreshToken();
+          AuthApi.requestAccessTokenWithRefreshToken();
         }
       } else {
         return $q.reject(rejection);

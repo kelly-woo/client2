@@ -7,9 +7,9 @@
     .controller('FileShareModalCtrl', FileShareModalCtrl);
 
   /* @ngInject */
-  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
+  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, EntityFilterMember,
                               jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
-                              currentSessionHelper, Dialog, TopicFolderModel, EntityMapManager) {
+                              currentSessionHelper, Dialog, TopicFolderModel, EntityHandler) {
     var _entityId;
     var _entityType;
     var _targetId;
@@ -73,9 +73,9 @@
      * @param {object} shareChannel - share 할 entity
      */
     function onFileShareClick() {
-      var shareChannel = EntityMapManager.get('total', $scope.selected.id);
+      var shareChannel = EntityHandler.get($scope.selected.id);
       _targetId = shareChannel.id;
-      _entityType = shareChannel.type;
+      _entityType = EntityFilterMember.isExist(_targetId) ? 'users' : shareChannel.type;
       _entityId = (_entityType.indexOf('user') !== -1) ? shareChannel.entityId : _targetId;
       jndPubSub.showLoading();
 

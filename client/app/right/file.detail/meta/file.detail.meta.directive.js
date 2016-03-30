@@ -9,7 +9,7 @@
     .directive('fileDetailMeta', fileDetailMeta);
 
   /* @ngInject */
-  function fileDetailMeta($state, $filter, fileAPIservice, entityAPIservice, entityheaderAPIservice, EntityMapManager,
+  function fileDetailMeta($state, $filter, fileAPIservice, RoomTopicList, entityheaderAPIservice, EntityHandler,
                           AnalyticsHelper, analyticsService, Dialog, jndPubSub) {
     return {
       restrict: 'E',
@@ -68,12 +68,12 @@
         var entityId = entity.id;
         var entityType = entity.type;
 
-        if (entityType === 'users') {
+        if (entityType === 'users' || entityType === 'bots') {
           _goDm(entityId);
         } else {
-          var targetEntity = EntityMapManager.get('total', entityId);
+          var targetEntity = EntityHandler.get(entityId);
 
-          if (entityAPIservice.isJoinedTopic(targetEntity)) {
+          if (RoomTopicList.isJoined(entityId)) {
             _goTopic(targetEntity);
           } else {
             _goWithJoinTopic(entityId);

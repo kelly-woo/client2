@@ -9,7 +9,7 @@
    * preload constant
    */
   angular
-    .module('config.common')
+    .module('jandi.config')
     .constant('PRELOAD_LIST', '@@config.preload');
 
 })();

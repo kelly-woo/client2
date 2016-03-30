@@ -9,8 +9,8 @@
     .service('Mentionahead', Mentionahead);
 
   /* @ngInject */
-  function Mentionahead($filter, memberService, EntityMapManager, configuration, jndKeyCode, entityAPIservice,
-                        jndPubSub) {
+  function Mentionahead($filter, memberService, EntityHandler, configuration, jndKeyCode, RoomTopicList, UserList,
+                        jndPubSub, BotList) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
@@ -244,16 +244,16 @@
      * @private
      */
     function _getMentionList(entityId, mentionList) {
-      var entity = EntityMapManager.get('total', entityId);
+      var entity = EntityHandler.get(entityId);
       var currentMemberId = memberService.getMemberId();
       var users;
       var user;
 
       mentionList = mentionList || [];
       if (entity && /channels|privategroups/.test(entity.type)) {
-        users = entityAPIservice.getUserList(entity);
+        users = RoomTopicList.getUserIdList(entity.id);
         _.each(users, function (userId) {
-          user = EntityMapManager.get('member', userId);
+          user = UserList.get(userId);
           if (user && currentMemberId !== user.id && user.status === 'enabled') {
             user.extViewName = '[@' + user.name + ']';
             user.extSearchName = user.name;
@@ -283,7 +283,7 @@
      * @private
      */
     function _addJandiBot(mentionList) {
-      var jandiBot = entityAPIservice.getJandiBot();
+      var jandiBot = BotList.getJandiBot();
 
       if (jandiBot) {
         mentionList.unshift({

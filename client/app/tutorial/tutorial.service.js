@@ -33,7 +33,7 @@
       if (accountService.getAccount()) {
         _initWelcome();
       } else {
-        _scope.$on('accountLoaded', _initWelcome);
+        _scope.$on('accountService:setAccount', _initWelcome);
       }
     }
 
