@@ -99,6 +99,7 @@
           confirmButtonText: translate('@common-open-new-window'),
           cancelButtonText: translate('@btn-close'),
           absoluteFocus: '.external-share-uri',
+          backdrop: true,
           onClose: function(type) {
             type === 'okay' && window.open(externalShareUri, '_blank');
           }

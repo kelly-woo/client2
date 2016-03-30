@@ -13,6 +13,7 @@
 }
 
 .file-card .file-image {
+  position: relative;
   float: left;
 }
 
@@ -158,4 +159,16 @@
 .file-card .no-image-preview-square {
   width: 65px;
   height: 65px;
+}
+
+.file-card .image_wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.file-card .external-share-btn {
+  right: -6px;
+  bottom: -6px;
+  font-size: 22px;
+  border: 1px solid #c1c1c1;
 }

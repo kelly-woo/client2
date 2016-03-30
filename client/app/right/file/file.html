@@ -1,14 +1,18 @@
 <div class="file-card">
   <div class="file-card-header">
-    <div class="file-image cursor-pointer msg-file-body__img msg-file-body__img__background pull-left">
-      <div ng-if="file.mustPreview" class="image_wrapper">
-        <div ng-if="file.hasPreview" class="opac-zero" image-loader="{{::file.imageUrl}}" image-max-height="63" image-max-width="63" image-is-square="true"
-             ui-sref="files({userName: writerName, itemId: file.id})">
-        </div>
-        <div ng-if="!file.hasPreview" class="loading-bar-container" ng-bind-html="loadingBar"></div>
+    <div class="file-image msg-file-body__img msg-file-body__img__background"
+         ng-switch on="file.mustPreview">
+      <div class="image_wrapper" ng-switch-when="true"
+           image-view="{{::file.imageUrl}}"
+           ui-sref="files({userName: writerName, itemId: file.id})">
       </div>
-      <div ng-if="!file.mustPreview" class="icon-wrapper">
+      <div class="icon-wrapper" ng-switch-when="false">
         <div class="fileicon fileicon-{{::file.icon}}"></div>
+      </div>
+      <div class="external-share-btn opac-in"
+           ng-show="isExternalShared"
+           ng-click="onExternalShareClick($event)">
+        <i class="icon-link"></i>
       </div>
     </div>
   </div>
@@ -75,7 +79,10 @@
             <a class="external-share-file" file-id="{{::file.id}}"
                external-share-view
                external-share-get="getExternalShare()"
-               external-share-set="setExternalShare($value)">
+               external-share-set="setExternalShare($value)"
+               external-code="file.content.externalCode"
+               external-url="file.content.externalUrl"
+               external-shared="file.content.externalShared">
               <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
               <span>
                 <span ng-if="isExternalShared">{{::'@external-share-remove'|translate}}</span>

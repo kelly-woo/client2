@@ -42,3 +42,17 @@
   display: inline-block;
   margin-top: 12px;
 }
+
+.external-share-btn {
+  position: absolute;
+  border-radius: 7px;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  color: #1C6C88;
+}
+
+.external-share-btn:hover {
+  background-color: white;
+  color: #1C6C88;
+  opacity: 1;
+}

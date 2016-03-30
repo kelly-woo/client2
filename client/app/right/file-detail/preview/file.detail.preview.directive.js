@@ -35,11 +35,15 @@
        * @private
        */
       function _init() {
-        scope.onImageClick = onImageClick;
-        scope.onFileDetailImageLoad = onFileDetailImageLoad;
-        scope.onExternalShareClick = onExternalShareClick;
+        if (content.extraInfo) {
+          scope.width = content.extraInfo.width;
+          scope.height = content.extraInfo.height;
+          scope.orientation = content.extraInfo.orientation;
+        }
 
-        scope.isLoadingImage = true;
+        scope.onImageClick = onImageClick;
+        scope.onImageLoad = onImageLoad;
+        scope.onExternalShareClick = onExternalShareClick;
 
         if (content) {
           _setImage(content);
@@ -53,47 +57,18 @@
        */
       function _setImage(content) {
         if (fileIcon === 'img' && content.icon !== 'etc') {
-          scope.isImagePreview = true;
-          scope.imageUrl = $filter('getFileUrl')(content.fileUrl);
-          scope.previewCursor = 'zoom-in';
+          scope.isImageLoading = true;
 
-          // 이미지 회전에 대한 data를 전달 받지 않는 이상 자연스러운  dimention 처리는 불가능 함.
-          //if (content.extraInfo) {
-          //  _setImageDimension(content.extraInfo);
-          //}
+          scope.isImagePreview = true;
+          scope.imageUrl = $filter('getPreview')(content, 'large');
+          scope.previewCursor = 'zoom-in';
         } else {
           scope.isImagePreview = false;
           scope.imageUrl = $filter('getFilterTypePreview')(content);
           scope.previewCursor = 'pointer'
         }
 
-        el.find('.image_wrapper').css('cursor', scope.previewCursor);
-      }
-
-      /**
-       * image dimension을 설정한다.
-       * @param extraInfo
-       * @private
-       */
-      function _setImageDimension(extraInfo) {
-        var maxWidth = 360;
-        var maxHeight = 740;
-        var width = extraInfo.width;
-        var height = extraInfo.height;
-        var ratio;
-
-        if (maxWidth < width || maxHeight < height) {
-          // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
-          ratio = [maxWidth / width, maxHeight / height];
-          ratio = Math.min(ratio[0], ratio[1]);
-        } else {
-          ratio = 1;
-        }
-
-        el.css({
-          width: width * ratio,
-          height: height * ratio
-        });
+        el.find('.preview-body').css('cursor', scope.previewCursor);
       }
 
       /**
@@ -119,10 +94,8 @@
       /**
        * image loaded event handler
        */
-      function onFileDetailImageLoad() {
-        scope.$apply(function() {
-          scope.isLoadingImage = false;
-        });
+      function onImageLoad() {
+        scope.isImageLoading = false;
       }
 
       /**

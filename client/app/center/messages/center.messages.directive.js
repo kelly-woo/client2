@@ -62,7 +62,6 @@
 
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
-        scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
         scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
@@ -721,18 +720,6 @@
           if (messageId === (msg.message && msg.message.id)) {
             _refresh(msg.id, index);
           }
-        });
-      }
-
-      /**
-       * thumbnail created event handler
-       * @param {object} $event
-       * @param {object} socketEvent
-       * @private
-       */
-      function _onCreatedThumbnailImage($event, socketEvent) {
-        _refreshFileMessage(socketEvent, function(msg) {
-          msg.message.content.extraInfo = socketEvent.data.message.content.extraInfo;
         });
       }
 

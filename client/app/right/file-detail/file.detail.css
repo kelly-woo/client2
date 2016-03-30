@@ -83,16 +83,6 @@
   border-bottom: 1px solid #f2f2f2;
   background-color: white;
 }
-
-.file-detail-body .image_wrapper.zoom-in {
-  cursor: zoom-in;
-}
-.file-detail-body .image_wrapper img {
-}
-.file-detail-body .loading_bar {
-  margin-top: 0;
-  margin-bottom: 15px;
-}
 .file-item-body-title-author {
   max-width: 76px;
 }
