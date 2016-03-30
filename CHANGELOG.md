@@ -1,3 +1,128 @@
+<a name="1.21.0"></a>
+# [1.21.0](https://github.com/tosslab/web_client/compare/v1.20.1...v1.21.0) (2016-03-30)
+
+
+### Bug Fixes
+
+* **DM:** 파일 업로드 후 토픽 재진입 새로고침 시 파일 공유 해제된 것으로 표시되는 현상 수정 ([04b2164](https://github.com/tosslab/web_client/commit/04b2164))
+* **bot:** Mr.J 에서 파일이 공유 해제된 것으로 표시되는 현상 수정 ([9e059ea](https://github.com/tosslab/web_client/commit/9e059ea))
+* **center:** Center 패널에서 메시지 삭제가 즉시 반영되지 않는 현상 수정 ([ed1dc37](https://github.com/tosslab/web_client/commit/ed1dc37))
+* **connect:** Mr. J 에 커넥트 설정할 수 없는 현상 수정 ([f0ec1af](https://github.com/tosslab/web_client/commit/f0ec1af))
+* **css:** modal footer & dialog modal button container 의 스타일 추가 (inline-block요소의 불필요한 공간 제 ([decc382](https://github.com/tosslab/web_client/commit/decc382))
+* **css:** 모달 내 cancel 버튼에 공통 마진값 추가. ([9b3fae5](https://github.com/tosslab/web_client/commit/9b3fae5))
+* **css:** 팀 초대 모달의 초대하기 버튼이 비활성화 상태일때 hover 효과가 적용되지 않도록 수정. ([53a9c85](https://github.com/tosslab/web_client/commit/53a9c85))
+* **dialog:** admin 코드와 동기화 ([0749967](https://github.com/tosslab/web_client/commit/0749967))
+* **header:** 헤더의 dropdown menu가 body의 자식으로 출력되도록 수정 ([19d55c5](https://github.com/tosslab/web_client/commit/19d55c5))
+* **html:** 멤버 초대하기 모달의 초대버튼에 pull-right 클래스 추가 ([b2c2e80](https://github.com/tosslab/web_client/commit/b2c2e80))
+* **html:** 파일 업로드 버튼에 pull-right 클래스 추가 & 순서 변경 ([cdbe049](https://github.com/tosslab/web_client/commit/cdbe049))
+* **right:** shared in All 로 설정될 경우, 오류 발생하는 현상 수정 ([17d62b4](https://github.com/tosslab/web_client/commit/17d62b4))
+* **socket:** reconnection 최대 5분으로 변경 ([43c4d7e](https://github.com/tosslab/web_client/commit/43c4d7e))
+* **socket:** 웹소켓만 동작하도록 수정 ([3527440](https://github.com/tosslab/web_client/commit/3527440))
+* **topicInvite:** 초대하려고 추가된 멤버가 모달 리스트에 잔존함 ([9df614a](https://github.com/tosslab/web_client/commit/9df614a))
+* **파일공유:** Mr.J 에 파일 공유한 후, '파일이 공유된 토픽으로 이동하기' 시, 기본 토픽으로 Redirection 됨 해결 ([ea6bbda](https://github.com/tosslab/web_client/commit/ea6bbda))
+
+### Features
+
+* **avatar:** 프로필 이미지 변경 방식 개선 ([ef8b110](https://github.com/tosslab/web_client/commit/ef8b110))
+* **right:** 파일 업로드 ESM 버튼 제거 및 클릭시 동작 제거 ([06386f4](https://github.com/tosslab/web_client/commit/06386f4))
+* **teamInvite:** 초대 버튼 활성화되는 시점 변경 ([34e1a96](https://github.com/tosslab/web_client/commit/34e1a96))
+
+
+
+<a name="1.20.1"></a>
+## [1.20.1](https://github.com/tosslab/web_client/compare/v1.20.0...v1.20.1) (2016-03-25)
+
+
+### Bug Fixes
+
+* **socket:** reconnection 최대 5분으로 변경 ([260dfc2](https://github.com/tosslab/web_client/commit/260dfc2))
+* **socket:** 웹소켓만 동작하도록 수정 ([8410eed](https://github.com/tosslab/web_client/commit/8410eed))
+
+
+
+<a name="1.20.0"></a>
+# [1.20.0](https://github.com/tosslab/web_client/compare/v1.19.0...v1.20.0) (2016-03-23)
+
+
+### Bug Fixes
+
+* **auth:** refresh token 으로 갱신 시도 시 오류 발생하여 진입이 멈추는 현상 수정 ([67821a0](https://github.com/tosslab/web_client/commit/67821a0))
+* **center:** 메시지 두번 나타나는 증상 다시 처리 ([980e389](https://github.com/tosslab/web_client/commit/980e389))
+* **center:** 메시지 두번 나타나는 증상 다시 처리 ([028bc04](https://github.com/tosslab/web_client/commit/028bc04))
+* **css:** 튜토리얼 v3의 팝오버, 툴팁이 커넥트 화면 위로 올라오는 이슈 수정. ([dd13160](https://github.com/tosslab/web_client/commit/dd13160))
+* **jump:** 점포 모달에서 키보드 액션 에러 수정 ([d38e304](https://github.com/tosslab/web_client/commit/d38e304))
+* **mention:** 업로드 모달에서 멘션 form에 연속 입력이 가능하도록 빈 칸이 생성되지 않는 버그 수정 ([ea4b3b9](https://github.com/tosslab/web_client/commit/ea4b3b9))
+* **socket:** 토픽 참여시 system message 가 즉시 표시되지 않는 현상 해결 ([3ac8732](https://github.com/tosslab/web_client/commit/3ac8732))
+* **stringEscape:** escape 문자열이 바로 보이는 버그 수정 ([d4a3639](https://github.com/tosslab/web_client/commit/d4a3639))
+* **튜토리얼:** 영문 congratulations 에 username 노출하도록 수정 ([efceac5](https://github.com/tosslab/web_client/commit/efceac5))
+
+### Features
+
+* **profileImage:** 프로필 모달에 사용되는 이미지 사이즈 80px -> 360px로 변경 ([5d6313f](https://github.com/tosslab/web_client/commit/5d6313f))
+* **teamSwitch:** 팀 전환 드롭다운 개선 & 기존 모달 대체 ([4a00932](https://github.com/tosslab/web_client/commit/4a00932))
+* **topicAdmin:** 토픽 관리자 지정하기 ([f34ca03](https://github.com/tosslab/web_client/commit/f34ca03))
+
+
+
+<a name="1.19.0"></a>
+# [1.19.0](https://github.com/tosslab/web_client/compare/v1.18.0...v1.19.0) (2016-03-16)
+
+
+### Bug Fixes
+
+* **center:** 메시지 전송 시 해당 메시지가 두 번 노출되는 현상 수정 ([eb9fa62](https://github.com/tosslab/web_client/commit/eb9fa62))
+* **fileUpload:** 새로 생성한 토픽에 3rd party의 파일 업로드시, 이전 토픽에 파일 업로드 되는 버그 수정 ([7c357b5](https://github.com/tosslab/web_client/commit/7c357b5))
+* **joined:** 토픽에 사용자가 참여하였을때 비동기 응답으로 인한 버그 수정 & 토픽 참여시 마다 레프트 사이드 API 호출하지 않도록 수정 ([fc7ab94](https://github.com/tosslab/web_client/commit/fc7ab94))
+* **left:** 토픽 참여시 left panel 갱신되지 않는 현상 해결 ([7553a08](https://github.com/tosslab/web_client/commit/7553a08))
+* **socket:** socket invite 이벤트 발생 시 private topic 에 대한 정보를 가져오지 못하는 현상 수정 ([e1d6713](https://github.com/tosslab/web_client/commit/e1d6713))
+* **socket:** 토픽 참여시 system message 가 즉시 표시되지 않는 현상 해결 ([84987ae](https://github.com/tosslab/web_client/commit/84987ae))
+* **unread-marker:** unread marker 동작 오류 수정 ([b739161](https://github.com/tosslab/web_client/commit/b739161))
+* **커스텀셀렉트박스:** 메시지 검색의 작성자 필터 검색어 입력 시 connect bot 이 노출되는 오류 수정 ([a63a90a](https://github.com/tosslab/web_client/commit/a63a90a))
+
+### Features
+
+* **filter:** 사용자가 입력한 문자열을 통해 필터링된 리스트가 출력되는 순서 개선 ([62e6a79](https://github.com/tosslab/web_client/commit/62e6a79))
+* **sticker:** 스티커 선택시 기본탭을 최근사용 탭으로 변경 ([879dfe6](https://github.com/tosslab/web_client/commit/879dfe6))
+* **커스텀셀렉트박스:** 검색에서 검색어와 가장 먼저 매치 된 목록 순서로 조정 ([6a44198](https://github.com/tosslab/web_client/commit/6a44198))
+
+
+
+<a name="1.18.0"></a>
+# [1.18.0](https://github.com/tosslab/web_client/compare/v1.17.4...v1.18.0) (2016-03-09)
+
+
+
+
+<a name="1.17.4"></a>
+## [1.17.4](https://github.com/tosslab/web_client/compare/v1.17.3...v1.17.4) (2016-03-09)
+
+
+### Bug Fixes
+
+* **css:** center 영역 최소너비 & 파일 star 버튼 위치 & 파일카드 너비 수정. ([e2f0e9a](https://github.com/tosslab/web_client/commit/e2f0e9a))
+* **css:** 공지사항 최소화 상태일 때 더보기 버튼과 본문이 겹치는 이슈 수정. ([ed9f05f](https://github.com/tosslab/web_client/commit/ed9f05f))
+* **css:** 시스템 메시지 스타일 수정. ([8f58e50](https://github.com/tosslab/web_client/commit/8f58e50))
+* **css:** 파일카드 바깥으로 file name 빠져나오는 이슈 수정 (IE 대응) ([394fd1f](https://github.com/tosslab/web_client/commit/394fd1f))
+* **topicMember:** 토픽에 참여한 멤버명을 내림차순으로 정렬하여 출력하도록 수정 ([46ccc54](https://github.com/tosslab/web_client/commit/46ccc54))
+
+### Features
+
+* **GC:** GC 설정 추가시 기본값 변경 ([10fe685](https://github.com/tosslab/web_client/commit/10fe685))
+* **uploadComment:** 업로드 시 코멘트 입력 제한 풀기 & 텍스트 컨테이너 개선 ([43e21e6](https://github.com/tosslab/web_client/commit/43e21e6))
+* **공지사항:** 디자인 개선 사항 l10n 적용 ([0aaac9c](https://github.com/tosslab/web_client/commit/0aaac9c))
+
+
+
+<a name="1.17.3"></a>
+## [1.17.3](https://github.com/tosslab/web_client/compare/v1.17.2...v1.17.3) (2016-03-03)
+
+
+### Bug Fixes
+
+* **connect:** connect-preview 에 마크다운 깨지는 현상 해결 ([ab5d634](https://github.com/tosslab/web_client/commit/ab5d634))
+
+
+
 <a name="1.17.2"></a>
 ## [1.17.2](https://github.com/tosslab/web_client/compare/v1.17.1...v1.17.2) (2016-03-03)
 
