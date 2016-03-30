@@ -24,10 +24,6 @@
      * @private
      */
     function _init() {
-      $scope.isSearching = false;
-      $scope.isEndOfList = false;
-      $scope.apiError = false;
-
       $scope.messageList = [];
 
       $scope.searchStatus = {
@@ -48,6 +44,7 @@
         type: ''
       };
       $scope.searchStatus.type = _getSearchStatusType();
+      $scope.isConnected = true;
 
       // Methods
       $scope.loadMore = loadMore;
@@ -225,12 +222,7 @@
      */
     function _refreshMessageList() {
       if ($scope.status.isActive && $scope.isConnected) {
-        $scope.messageList = [];
-
-        $scope.searchStatus.page = DEFAULT_PAGE;
-        $scope.searchStatus.perPage = DEFAULT_PER_PAGE;
-        $scope.searchStatus.isApiError = false;
-        $scope.searchStatus.isEndOfList = false;
+        _setRefreshStatus();
 
         if (_isValidSearchKeyword()) {
           _showLoading();
@@ -243,6 +235,16 @@
           }, 100);
         }
       }
+    }
+
+    /**
+     * refresh 상태 설정
+     * @private
+     */
+    function _setRefreshStatus() {
+      $scope.searchStatus.page = DEFAULT_PAGE;
+      $scope.searchStatus.isApiError = false;
+      $scope.searchStatus.isEndOfList = false;
     }
 
     /**
@@ -312,6 +314,10 @@
      */
     function _onSuccessMessageList(response) {
       var cursor = response.cursor;
+
+      if ($scope.searchStatus.page === DEFAULT_PAGE) {
+        $scope.messageList = [];
+      }
 
       if (_isFirstPage(cursor)) {
         $scope.messageList = response.records;
@@ -464,7 +470,7 @@
      * @returns {boolean}
      */
     function isEmpty() {
-      return $scope.messageList.length == 0 &&
+      return $scope.messageList.length === 0 &&
         $scope.searchStatus.isInitDone &&
         !$scope.searchStatus.isSearching;
     }

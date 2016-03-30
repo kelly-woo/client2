@@ -9,11 +9,10 @@
     .controller('RightStarsCtrl', RightStarsCtrl);
 
   /* @ngInject */
-  function RightStarsCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService) {
+  function RightStarsCtrl($scope, $filter, $timeout, StarAPIService) {
     var starListData = {
       messageId: null
     };
-    var isActivated;
 
     var removeItems = [];
     var timerRemoveItems;
@@ -64,21 +63,14 @@
 
       _initStarListData($scope.activeTabName);
 
-      if (RightPanel.getStateName($state.current) === 'stars') {
-        isActivated = true;
-
-        // onTabSelect가 바로 수행되기 때문에 여기서 수행하지 않음
-        //_initGetStarList();
-      }
-
-      _attachEvents();
+      _attachScopeEvents();
     }
 
     /**
-     * attach events
+     * attach scope events
      * @private
      */
-    function _attachEvents() {
+    function _attachScopeEvents() {
       // open right panel
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
@@ -97,21 +89,14 @@
 
     /**
      * open right panel event handler
-     * @param {object} $event
-     * @param {object} data
      * @private
      */
-    function _onRightPanelStatusChange($event, data) {
-      if (data.type === 'stars') {
-        isActivated = true;
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.tabs[$scope.activeTabName].hasFirstLoad) {
+        // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
 
-        if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
-          // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
-          _initStarListData($scope.activeTabName);
-          _initGetStarList($scope.activeTabName);
-        }
-      } else {
-        isActivated = false;
+        _initStarListData($scope.activeTabName);
+        _initGetStarList($scope.activeTabName);
       }
     }
 
@@ -266,7 +251,7 @@
      * @param {string} type
      */
     function onTabSelect(type) {
-      if (isActivated) {
+      if ($scope.status.isActive) {
         $scope.tabs[type].active = true;
         $scope.activeTabName = type;
 
@@ -290,7 +275,7 @@
       activeTab.list = [];
       activeTab.map = {};
       activeTab.isEndOfList = activeTab.isLoading = activeTab.isScrollLoading = false;
-      activeTab.status = _getStatus(activeTab);
+      activeTab.searchStatus = _getSearchStatus(activeTab);
     }
 
     /**
@@ -303,7 +288,7 @@
 
       activeTab.isLoading = true;
       activeTab.isEmpty = false;
-      activeTab.status = _getStatus(activeTab);
+      activeTab.searchStatus = _getSearchStatus(activeTab);
 
       _getStarList(activeTabName);
     }
@@ -332,7 +317,7 @@
             activeTab.hasFirstLoad = true;
             activeTab.isLoading = activeTab.isScrollLoading = false;
             activeTab.list.length === 0 && _setEmptyTab(activeTabName, true);
-            activeTab.status = _getStatus(activeTab);
+            activeTab.searchStatus = _getSearchStatus(activeTab);
           });
       }
     }
@@ -426,7 +411,7 @@
 
       activeTab.isEmpty = value;
       activeTab.isEndOfList = !value;
-      activeTab.status = _getStatus(activeTab);
+      activeTab.searchStatus = _getSearchStatus(activeTab);
     }
 
     /**
@@ -448,16 +433,22 @@
       }
     }
 
-    function _getStatus(activeTab) {
-      var status;
+    /**
+     * 검색 상태 전달
+     * @param {string} activeTab
+     * @returns {*}
+     * @private
+     */
+    function _getSearchStatus(activeTab) {
+      var searchStatus;
 
       if (activeTab.isLoading) {
-        status = 'loading';
+        searchStatus = 'loading';
       } else if (activeTab.isEmpty) {
-        status = 'empty';
+        searchStatus = 'empty';
       }
 
-      return status;
+      return searchStatus;
     }
   }
 })();

@@ -15,11 +15,14 @@
 
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
       // message controller에 전달되는 data가 tab(message search, star, mention)마다 각각 다르므로 message data를
       // message controller에서 사용가능한 data format으로 convert함
-      var message = $scope.message = RightMessage.convert($scope.messageType, $scope.messageData);
+      var message = $scope.message = RightMessage.convert($scope.messageType(), $scope.messageData);
 
       $scope.writer = EntityHandler.get(message.writerId);
 

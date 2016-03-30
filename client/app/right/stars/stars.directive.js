@@ -10,15 +10,14 @@
 
   function rightStars() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       replace: true,
-      scope: true,
-      link: link,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/stars/stars.html',
-      controller: 'RightStarsCtrl'
+      controller: 'RightStarsCtrl',
+      link: angular.noop
     };
-
-    function link(scope, el, attrs) {
-    }
   }
 })();

@@ -10,7 +10,7 @@
 
   function rightMessages() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       replace: true,
       scope: {
         status: '='

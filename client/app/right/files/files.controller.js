@@ -452,8 +452,7 @@
      */
     function _refreshFileList() {
       if ($scope.status.isActive && $scope.isConnected) {
-        $scope.searchStatus.startMessageId = -1;
-        $scope.searchStatus.isEndOfList = false;
+        _setRefreshStatus();
 
         if (_isValidSearchKeyword()) {
           _showLoading();
@@ -468,6 +467,15 @@
           }, 100);
         }
       }
+    }
+
+    /**
+     * refresh 상태 설정
+     * @private
+     */
+    function _setRefreshStatus() {
+      $scope.searchStatus.startMessageId = -1;
+      $scope.searchStatus.isEndOfList = false;
     }
 
     /**

@@ -14,7 +14,7 @@
       restrict: 'EA',
       replace: true,
       scope: {
-        messageType: '=',
+        messageType: '&',
         messageData: '=',
         messageQuery: '=',
         messageHasStar: '='

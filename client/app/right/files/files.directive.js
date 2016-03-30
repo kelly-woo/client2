@@ -10,7 +10,7 @@
 
   function rightFiles() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       replace: true,
       scope: {
         status: '='

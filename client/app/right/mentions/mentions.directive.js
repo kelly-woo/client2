@@ -10,15 +10,14 @@
 
   function rightMentions() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       replace: true,
-      scope: true,
-      link: link,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/mentions/mentions.html',
-      controller: 'RightMentionsCtrl'
+      controller: 'RightMentionsCtrl',
+      link: angular.noop
     };
-
-    function link(scope, element, attrs) {
-    }
   }
 })();

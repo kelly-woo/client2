@@ -16,18 +16,17 @@
 
     /**
      * get mention list
-     * @param {object} data
-     * @param {number} data.messageId
-     * @param {number} [data.count=40]
+     * @param {number} messageId
+     * @param {number} count
      * @returns {*}
      */
-    function getMentionList(data) {
+    function getMentionList(messageId, count) {
       return $http({
         method: 'GET',
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
         params: {
-          messageId: data.messageId,
-          count: 40
+          messageId: messageId,
+          count: count
         }
       });
     }

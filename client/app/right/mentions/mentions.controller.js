@@ -9,42 +9,73 @@
     .controller('RightMentionsCtrl', RightMentionsCtrl);
 
   /* @ngInject */
-  function RightMentionsCtrl($scope, $state, Mentions, RightPanel) {
-    var mentionListData = {
-      messageId: null
-    };
-    var isActivated;
+  function RightMentionsCtrl($scope, Mentions) {
+    var MENTIONS_COUNT = 40;
+
+    var _mentionMap = {};
+
+    var _lastMessageId;
+    var _mentionSendCount;
+
+    var _timerMentionList;
 
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
 
       _initMentionListData();
-      if (RightPanel.getStateName($state.current) === 'mentions') {
-        isActivated = true;
 
+      if ($scope.status.isActive) {
+        _initGetMentionList();
+      }
+
+      _attachScopeEvents();
+    }
+
+    /**
+     * attach scope events
+     * @private
+     */
+    function _attachScopeEvents() {
+      $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
+      $scope.$on('jndWebSocketMessage:mentionNotificationSend', _onMentionNotificationSend);
+    }
+
+    /**
+     * 오른쪽 패널의 텝 열림 이벤트 핸들러
+     * @private
+     */
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.isInitDone) {
+        _initMentionListData();
         _initGetMentionList();
       }
     }
 
     /**
-     * open right panel event handler
+     * 멘션 알림 이벤트 핸들러
+     * @private
      */
-    $scope.$on('rightPanelStatusChange', function($event, data) {
-      if (data.type === 'mentions') {
-        isActivated = true;
+    function _onMentionNotificationSend() {
+      _mentionSendCount++;
 
-        if (data.toUrl !== data.fromUrl) {
-          _initMentionListData();
-          _initGetMentionList();
-        }
-      } else {
-        isActivated = false;
-      }
-    });
+      clearTimeout(_timerMentionList);
+      _timerMentionList = setTimeout(function() {
+        Mentions.getMentionList(null, _mentionSendCount)
+          .success(function(data) {
+            if (data.records) {
+              _addMentionList(data.records.reverse());
+            }
+          });
+        _mentionSendCount = 0;
+      }, 1000);
+    }
 
     /**
      * scrolling시 mention list 불러오기
@@ -62,12 +93,12 @@
      * @private
      */
     function _initMentionListData() {
-      mentionListData.messageId = null;
+      _lastMessageId = null;
+      _mentionSendCount = 0;
 
       $scope.records = [];
-      $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
-
-      $scope.status = _getStatus();
+      $scope.isInitDone = $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
+      $scope.searchStatus = _getSearchStatus();
     }
 
     /**
@@ -78,7 +109,7 @@
       $scope.isEmpty = false;
       $scope.isLoading = true;
 
-      $scope.status = _getStatus();
+      $scope.searchStatus = _getSearchStatus();
 
       _getMentionList();
     }
@@ -88,37 +119,42 @@
      * @private
      */
     function _getMentionList() {
-      Mentions.getMentionList(mentionListData)
+      Mentions.getMentionList(_lastMessageId, MENTIONS_COUNT)
         .success(function(data) {
-          if (data) {
-            if (data.records && data.records.length) {
-              _pushMentionList(data.records);
+            if (data.records) {
+              _addMentionList(data.records, true);
             }
 
             // 다음 getMentionList에 전달할 param 갱신
             _updateCursor(data);
-          }
         })
         .finally(function() {
+          $scope.isInitDone = true;
           $scope.isEmpty = $scope.records.length === 0;
           $scope.isLoading = $scope.isScrollLoading = false;
 
-          $scope.status = _getStatus();
+          $scope.searchStatus = _getSearchStatus();
         });
     }
 
     /**
      * mention의 list를 설정
      * @param {object} records
+     * @param {boolean} [isPush] - true가 아니면 unshift 함
      * @private
      */
-    function _pushMentionList(records) {
-      var i;
-      var len;
+    function _addMentionList(records, isPush) {
+      var fn = isPush ? 'push' : 'unshift';
+      var messageId;
 
-      for (i = 0, len = records.length; i < len; i++) {
-        $scope.records.push(records[i]);
-      }
+      _.each(records, function(record) {
+        messageId = record.message.id;
+
+        if (!_mentionMap[messageId]) {
+          $scope.records[fn](record);
+          _mentionMap[messageId] = true;
+        }
+      });
     }
 
     /**
@@ -128,7 +164,7 @@
      */
     function _updateCursor(data) {
       if (data.records && data.records.length > 0) {
-        mentionListData.messageId = data.records[data.records.length - 1].message.id;
+        _lastMessageId = data.records[data.records.length - 1].message.id;
       }
 
       if ($scope.records && $scope.records.length > 0 ) {
@@ -137,16 +173,21 @@
       }
     }
 
-    function _getStatus() {
-      var status;
+    /**
+     * 검색 상태 전달
+     * @returns {*}
+     * @private
+     */
+    function _getSearchStatus() {
+      var searchStatus;
 
       if ($scope.isLoading) {
-        status = 'loading';
+        searchStatus = 'loading';
       } else if ($scope.isEmpty) {
-        status = 'empty';
+        searchStatus = 'empty';
       }
 
-      return status;
+      return searchStatus;
     }
   }
 })();
