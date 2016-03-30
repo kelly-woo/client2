@@ -88,7 +88,7 @@
         var entity = EntityHandler.get(newValue);
 
         if (entity) {
-          if (RoomTopicList.isExist(entity)) {
+          if (RoomTopicList.isExist(entity.id)) {
             scope.model = newValue;
           } else if (entity.entityId) {
             scope.model = entity.entityId;
