@@ -1,3 +1,34 @@
+<a name="1.21.0"></a>
+# [1.21.0](https://github.com/tosslab/web_client/compare/v1.20.1...v1.21.0) (2016-03-30)
+
+
+### Bug Fixes
+
+* **DM:** 파일 업로드 후 토픽 재진입 새로고침 시 파일 공유 해제된 것으로 표시되는 현상 수정 ([04b2164](https://github.com/tosslab/web_client/commit/04b2164))
+* **bot:** Mr.J 에서 파일이 공유 해제된 것으로 표시되는 현상 수정 ([9e059ea](https://github.com/tosslab/web_client/commit/9e059ea))
+* **center:** Center 패널에서 메시지 삭제가 즉시 반영되지 않는 현상 수정 ([ed1dc37](https://github.com/tosslab/web_client/commit/ed1dc37))
+* **connect:** Mr. J 에 커넥트 설정할 수 없는 현상 수정 ([f0ec1af](https://github.com/tosslab/web_client/commit/f0ec1af))
+* **css:** modal footer & dialog modal button container 의 스타일 추가 (inline-block요소의 불필요한 공간 제 ([decc382](https://github.com/tosslab/web_client/commit/decc382))
+* **css:** 모달 내 cancel 버튼에 공통 마진값 추가. ([9b3fae5](https://github.com/tosslab/web_client/commit/9b3fae5))
+* **css:** 팀 초대 모달의 초대하기 버튼이 비활성화 상태일때 hover 효과가 적용되지 않도록 수정. ([53a9c85](https://github.com/tosslab/web_client/commit/53a9c85))
+* **dialog:** admin 코드와 동기화 ([0749967](https://github.com/tosslab/web_client/commit/0749967))
+* **header:** 헤더의 dropdown menu가 body의 자식으로 출력되도록 수정 ([19d55c5](https://github.com/tosslab/web_client/commit/19d55c5))
+* **html:** 멤버 초대하기 모달의 초대버튼에 pull-right 클래스 추가 ([b2c2e80](https://github.com/tosslab/web_client/commit/b2c2e80))
+* **html:** 파일 업로드 버튼에 pull-right 클래스 추가 & 순서 변경 ([cdbe049](https://github.com/tosslab/web_client/commit/cdbe049))
+* **right:** shared in All 로 설정될 경우, 오류 발생하는 현상 수정 ([17d62b4](https://github.com/tosslab/web_client/commit/17d62b4))
+* **socket:** reconnection 최대 5분으로 변경 ([43c4d7e](https://github.com/tosslab/web_client/commit/43c4d7e))
+* **socket:** 웹소켓만 동작하도록 수정 ([3527440](https://github.com/tosslab/web_client/commit/3527440))
+* **topicInvite:** 초대하려고 추가된 멤버가 모달 리스트에 잔존함 ([9df614a](https://github.com/tosslab/web_client/commit/9df614a))
+* **파일공유:** Mr.J 에 파일 공유한 후, '파일이 공유된 토픽으로 이동하기' 시, 기본 토픽으로 Redirection 됨 해결 ([ea6bbda](https://github.com/tosslab/web_client/commit/ea6bbda))
+
+### Features
+
+* **avatar:** 프로필 이미지 변경 방식 개선 ([ef8b110](https://github.com/tosslab/web_client/commit/ef8b110))
+* **right:** 파일 업로드 ESM 버튼 제거 및 클릭시 동작 제거 ([06386f4](https://github.com/tosslab/web_client/commit/06386f4))
+* **teamInvite:** 초대 버튼 활성화되는 시점 변경 ([34e1a96](https://github.com/tosslab/web_client/commit/34e1a96))
+
+
+
 <a name="1.20.1"></a>
 ## [1.20.1](https://github.com/tosslab/web_client/compare/v1.20.0...v1.20.1) (2016-03-25)
 
