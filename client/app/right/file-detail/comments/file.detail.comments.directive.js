@@ -9,7 +9,7 @@
     .directive('fileDetailComments', fileDetailComments);
 
   /* @ngInject */
-  function fileDetailComments($filter, Dialog, FileDetail, jndPubSub, memberService) {
+  function fileDetailComments($filter, Dialog, FileDetail, jndPubSub, JndUtil, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -26,6 +26,8 @@
     };
 
     function link(scope, el) {
+      var _commentMap = {};
+
       _init();
 
       /**
@@ -33,6 +35,13 @@
        * @private
        */
       function _init() {
+        _.each(scope.comments, function(comment) {
+          // dropdown menu on/off 여부
+          comment.extIsOpen = false;
+
+          _commentMap[comment.id] = comment;
+        });
+
         scope.hasOwnComment = hasOwnComment;
         scope.starComment = starComment;
         scope.deleteComment = deleteComment;
@@ -40,16 +49,36 @@
         scope.retry = retry;
         scope.deleteSendingComment = deleteSendingComment;
 
-        _attachEvents();
+        _attachScopeEvents();
+        _attachDomEvents();
       }
 
       /**
-       * attach events
+       * attach scope events
        * @private
        */
-      function _attachEvents() {
+      function _attachScopeEvents() {
         scope.$on('jndWebSocketFile:commentCreated', _onCreateComment);
         scope.$on('jndWebSocketFile:commentDeleted', _onDeleteComment);
+      }
+
+      function _attachDomEvents() {
+        el.on('mouseleave', '.comment-item', _onMouseLeave);
+      }
+
+      /**
+       * mouse leave 이벤트 핸들러
+       * @param {object} $event
+       * @private
+       */
+      function _onMouseLeave($event) {
+        var comment = _commentMap[$event.currentTarget.getAttribute('id')];
+
+        if (comment && comment.extIsOpen === true) {
+          JndUtil.safeApply(scope, function() {
+            comment.extIsOpen = false;
+          });
+        }
       }
 
       /**

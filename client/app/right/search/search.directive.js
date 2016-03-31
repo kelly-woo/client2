@@ -29,16 +29,28 @@
 
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         _attachDomEvents();
         _attachScopeEvents();
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
       function _attachDomEvents() {
         _jqSearchBox.on('keyup', _onKeyDown);
         _jqInitButton.on('click', _onClick);
       }
 
+      /**
+       * attach scope events
+       * @private
+       */
       function _attachScopeEvents() {
         scope.$watch('keyword', _onKeywordChange);
         scope.$watch('isFocus', _onFocus);
@@ -67,14 +79,29 @@
         }
       }
 
+      /**
+       * keyword 검색 가능여부
+       * @param {string} keyword
+       * @returns {boolean}
+       * @private
+       */
       function _validSearchKeyword(keyword) {
         return keyword.length !== 1;
       }
 
+      /**
+       * 검색조건 초기화 클릭 이벤트 핸들러
+       * @private
+       */
       function _onClick() {
         scope.onResetQuery();
       }
 
+      /**
+       * keyword 변경 이벤트 핸들러
+       * @param {string} value
+       * @private
+       */
       function _onKeywordChange(value) {
         clearTimeout(_timerKeywordChange);
         _timerKeywordChange = setTimeout(function() {
@@ -84,6 +111,11 @@
         }, 500);
       }
 
+      /**
+       * keyword 입력란에 포커스 가라는 이벤트 핸들러
+       * @param {boolean} isFocus
+       * @private
+       */
       function _onFocus(isFocus) {
         if (isFocus === true) {
           _jqSearchBox.focus();

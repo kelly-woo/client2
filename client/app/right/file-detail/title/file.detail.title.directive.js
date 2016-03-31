@@ -20,10 +20,7 @@
         backToPrevState: '='
       },
       templateUrl : 'app/right/file-detail/title/file.detail.title.html',
-      link: link
+      link: angular.noop
     };
-
-    function link(scope) {
-    }
   }
 })();

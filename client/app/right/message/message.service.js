@@ -10,10 +10,25 @@
 
   /* @ngInject */
   function RightMessage() {
-    var that = this;
+    var _that = this;
 
-    that.convert = convert;
+    _init();
 
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.convert = convert;
+    }
+
+    /**
+     * message controller가 message, star, mention tab에서 사용될때 전달되는 data의 format이 각기 다르므로
+     * message controller에서 사용가능하도록 맞춤
+     * @param {string} type
+     * @param {object} messageData
+     * @returns {{}}
+     */
     function convert(type, messageData) {
       var data = {};
 

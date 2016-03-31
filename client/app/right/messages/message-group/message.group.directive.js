@@ -14,12 +14,9 @@
       restrict: 'EA',
       replace: true,
       scope: true,
-      link: link,
       templateUrl : 'app/right/messages/message-group/message.group.html',
-      controller: 'RightMessageGroupCtrl'
+      controller: 'RightMessageGroupCtrl',
+      link: angular.noop
     };
-
-    function link(scope, element, attrs) {
-    }
   }
 })();

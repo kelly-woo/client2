@@ -10,12 +10,12 @@
 
   /* @ngInject */
   function RightStarsCtrl($scope, $filter, $timeout, StarAPIService) {
-    var starListData = {
+    var _starListData = {
       messageId: null
     };
 
-    var removeItems = [];
-    var timerRemoveItems;
+    var _removeItems = [];
+    var _timerRemoveItems;
 
     _init();
 
@@ -109,11 +109,11 @@
     function _starred($event, data) {
       var index;
 
-      index = removeItems.indexOf(data.messageId);
+      index = _removeItems.indexOf(data.messageId);
       if (index > -1) {
         // starred된 item이 삭제목록에 존재한다면 삭제 목록에서 제거
 
-        removeItems.splice(index, 1);
+        _removeItems.splice(index, 1);
       } else {
         // star된 item을 star list에 추가
 
@@ -133,14 +133,14 @@
       if ($scope.tabs.all.map[messageId]) {
         // unstar된 item이 star list에 존재한다면 삭제 목록에 추가함
 
-        removeItems.push(messageId);
+        _removeItems.push(messageId);
 
         // 일정 시간이 흐른 후 unstarred된 star list를 한번에 제거함
-        $timeout.cancel(timerRemoveItems);
-        timerRemoveItems = $timeout(function() {
+        $timeout.cancel(_timerRemoveItems);
+        _timerRemoveItems = $timeout(function() {
           var messageId;
 
-          for (;messageId = removeItems.pop();) {
+          for (;messageId = _removeItems.pop();) {
             if ($scope.tabs.files.map[messageId]) {
               _removeStarItem('files', messageId);
             }
@@ -270,7 +270,7 @@
     function _initStarListData(activeTabName) {
       var activeTab = $scope.tabs[activeTabName];
 
-      starListData.messageId = null;
+      _starListData.messageId = null;
 
       activeTab.list = [];
       activeTab.map = {};
@@ -302,7 +302,7 @@
       var activeTab = $scope.tabs[activeTabName];
 
       if (!activeTab.isLoading || !activeTab.isScrollLoading) {
-        StarAPIService.get(starListData.messageId, 1, (activeTabName === 'files' ? 'file' : undefined))
+        StarAPIService.get(_starListData.messageId, 1, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {
@@ -424,7 +424,7 @@
       var activeTab = $scope.tabs[activeTabName];
 
       if (data.records && data.records.length > 0) {
-        starListData.messageId = data.records[data.records.length - 1].starredId;
+        _starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
       if (activeTab.list && activeTab.list.length > 0) {

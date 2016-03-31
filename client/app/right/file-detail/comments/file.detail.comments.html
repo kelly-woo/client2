@@ -11,27 +11,16 @@
       <span class="comment-item-header__name" ng-click="onMemberClick(comment.extWriter)">{{comment.extWriterName}}</span>
       <span class="comment-item-header__created">{{comment.extCreateTimeView}}</span>
       <div class="comment-item-header__action pull-right" ng-if="!comment.isSendingComment">
-        <div class="comment-item-action comment-item-action-more" dropdown ng-if="hasOwnComment(comment)">
+        <div class="comment-item-action comment-item-action-more"
+             ng-if="hasOwnComment(comment)"
+             dropdown
+             is-open="comment.extIsOpen">
           <a href="#" class="link-dark" dropdown-toggle>
             <i class="icon-cog"></i>
           </a>
-          <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-            <li class="cursor_pointer"
-                ng-if="!comment.extIsSticker">
-              <a ng-click="starComment($event)">
-                <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
-                <span>
-                  <span ng-if="comment.isStarred">{{::'@star-un'|translate}}</span>
-                  <span ng-if="!comment.isStarred">{{::'@star'|translate}}</span>
-                </span>
-              </a>
-            </li>
-            <li class="cursor_pointer">
-              <a ng-click="deleteComment(comment)">
-                <i class="icon-trash"></i>
-                <span>{{::'@btn-delete'|translate}}</span>
-              </a>
-            </li>
+          <ul class="dropdown-menu grey-dropdown"
+              dropdown-menu
+              template-url="app/util/directive/dropdown-position/templates/right.file.detail.comment.html">
           </ul>
         </div>
         <div class="comment-item-action comment-star"

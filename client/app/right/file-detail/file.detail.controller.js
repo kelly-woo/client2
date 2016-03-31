@@ -11,8 +11,8 @@
   /* @ngInject */
   function FileDetailCtrl($scope, $filter, $q, $state, FileDetail, jndPubSub, JndMessageStorage,
                           memberService, publicService,RightPanel, Sticker, Tutorial, UserList) {
-    var fileId;
-    var requestFileDetail;
+    var _fileId;
+    var _requestFile;
 
     _init();
 
@@ -28,7 +28,7 @@
       } else {
         _setRightPanelTail(false);
 
-        if (fileId = $state.params.itemId) {
+        if (_fileId = $state.params.itemId) {
           $scope.hasInitialLoaded = false;
 
           // comment 작성 되지 않은 모음
@@ -97,8 +97,8 @@
      */
     function _requestFileDetail(updateType) {
       if (_isFileDetailActive()) {
-        requestFileDetail && requestFileDetail.abort();
-        requestFileDetail = FileDetail.get(fileId)
+        _requestFile && _requestFile.abort();
+        _requestFile = FileDetail.get(_fileId)
           .success(function(response) {
             _onSuccessFileDetail(response, updateType);
           })
@@ -379,7 +379,7 @@
     function _onRightFileDetailOnFileDeleted(angularEvent, param) {
       var deletedFileId = param.file.id;
 
-      if (fileId == deletedFileId) {
+      if (_fileId == deletedFileId) {
         _setFileDetail();
       }
 
@@ -393,7 +393,7 @@
      * @private
      */
     function _isFileDetailActive() {
-      return fileId && $state.params.itemId != null && $state.params.itemId !== '';
+      return _fileId && $state.params.itemId != null && $state.params.itemId !== '';
     }
 
     /**
@@ -478,7 +478,7 @@
           }
         }
 
-        requestFileDetail && requestFileDetail.abort();
+        _requestFile && _requestFile.abort();
 
         result = _addSendingComment({comment: comment, sticker: sticker});
         FileDetail.postComment(fileId, comment, sticker, mentions)

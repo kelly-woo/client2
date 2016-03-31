@@ -77,7 +77,7 @@
       function _createImage() {
         jqImage = $('<img class="opac-zero _fileExpand" src="' + imageView + '">')
           .css({width: dimention.width, height: dimention.height})
-          .on('load', _onImageLoad)
+          .one('load', _onImageLoad)
           .appendTo(jqEle);
       }
 

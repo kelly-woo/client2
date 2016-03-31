@@ -2,8 +2,8 @@
   <tabset>
     <!--  ALL TAB  -->
     <tab active="tabs.all.active" heading="{{tabs.all.name}}" select="onTabSelect('all');">
-      <div class="tab-contents" infinite-scroll-bottom="loadMore();">
-        <div class="infinite-scroll-bottom-list">
+      <div class="tab-contents" lazy-loading="loadMore();">
+        <div class="lazy-loading-list">
           <right-loading-search status="tabs.all.searchStatus" type="starAll"></right-loading-search>
           <div class="private-effect" ng-repeat="item in tabs.all.list track by item.message.id">
             <right-message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></right-message>
@@ -16,8 +16,8 @@
     </tab>
     <!--  FILES TAB -->
     <tab active="tabs.files.active" heading="{{tabs.files.name}}" select="onTabSelect('files');">
-      <div class="tab-contents" infinite-scroll-bottom="loadMore();">
-        <div class="infinite-scroll-bottom-list">
+      <div class="tab-contents" lazy-loading="loadMore();">
+        <div class="lazy-loading-list">
           <right-loading-search status="tabs.files.searchStatus" type="starFiles"></right-loading-search>
           <div class="private-effect" ng-repeat="file in tabs.files.list track by file.message.id">
             <right-file file-data="file" file-type="fileType"></right-file>

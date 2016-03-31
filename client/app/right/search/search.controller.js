@@ -13,13 +13,20 @@
   function RightSearchCtrl($scope) {
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
       $scope.isConnected = true;
 
       _attachScopeEvents();
     }
 
+    /**
+     * attach scope events
+     * @private
+     */
     function _attachScopeEvents() {
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('connected', _onConnected);

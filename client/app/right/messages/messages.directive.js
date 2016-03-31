@@ -15,9 +15,9 @@
       scope: {
         status: '='
       },
-      link: angular.noop,
       templateUrl : 'app/right/messages/messages.html',
-      controller: 'RightMessagesCtrl'
+      controller: 'RightMessagesCtrl',
+      link: angular.noop
     };
   }
 })();

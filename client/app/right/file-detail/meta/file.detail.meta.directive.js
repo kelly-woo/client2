@@ -24,7 +24,7 @@
     };
 
     function link(scope) {
-      var unsharedForMe;
+      var _unsharedForMe;
 
       _init();
 
@@ -120,7 +120,7 @@
 
         fileAPIservice.unShareEntity(file.id, entity.id)
           .success(function() {
-            unsharedForMe = true;
+            _unsharedForMe = true;
 
             // 곧 지워짐
             var share_target = "";
@@ -209,14 +209,14 @@
           // 공유된 room 갱신
           _setShared();
 
-          if (unsharedForMe) {
+          if (_unsharedForMe) {
             // unshared된 다음 바로 list가 갱신되지 않기때문에 unshared되고 file detail이 새로 생성된 다음 dialog.success를 호출함
             Dialog.success({
               title: $filter('translate')('@success-file-unshare').replace('{{filename}}', newFile.content.title)
             });
           }
 
-          unsharedForMe = false;
+          _unsharedForMe = false;
         }
       }
 

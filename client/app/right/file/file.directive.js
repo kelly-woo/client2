@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('rightFile', file);
 
-  function file($rootScope, $state, AnalyticsHelper, Dialog, ExternalShareService, fileAPIservice, FileDetail,
-                memberService, modalHelper) {
+  function file($rootScope, $state, $timeout, AnalyticsHelper, Dialog, ExternalShareService, fileAPIservice, FileDetail,
+                JndUtil, memberService, modalHelper) {
     return {
       restrict: 'E',
       replace: true,
@@ -24,8 +24,6 @@
     };
 
     function link(scope, el) {
-      var _jqFileMenu = el.find('.file-menu');
-
       _init();
 
       /**
@@ -43,17 +41,22 @@
        * @private
        */
       function _attachDomEvents() {
-        el.on('click', _onFileCardClick);
+        el.on('click', _onFileCardClick)
+          .on('mouseleave', _onFileCardMouseLeave);
 
-        if (scope.file.type === 'file') {
-          _jqFileMenu
-            .on('click', _onFileMenuClick)
-            .on('click', 'a.external-share-file', _onExternalShareClick)
-            .on('click', 'a.star-file', _onStarClick)
-            .on('click', 'a.download-file,a.original-file', _onDownloadClick)
-            .on('click', 'a.share-file', _onShareClick)
-            .on('click', 'a.focus-comment-file', _onCommentFocusClick)
-            .on('click', 'a.delete-file', _onDeleteClick);
+        if (scope.isFileTab) {
+
+          // file menu가 ng-if로 rendering 된 직후 이벤트 연결하기 위함
+          $timeout(function() {
+            el.find('.file-menu')
+              .on('click', _onFileMenuClick)
+              .on('click', 'a.external-share-file', _onExternalShareClick)
+              .on('click', 'a.star-file', _onStarClick)
+              .on('click', 'a.download-file,a.original-file', _onDownloadClick)
+              .on('click', 'a.share-file', _onShareClick)
+              .on('click', 'a.focus-comment-file', _onCommentFocusClick)
+              .on('click', 'a.delete-file', _onDeleteClick);
+          }, 0);
         }
       }
 
@@ -95,6 +98,18 @@
       }
 
       /**
+       * 파일 아이템에서 마우스 leave 이벤트 핸들러
+       * @private
+       */
+      function _onFileCardMouseLeave() {
+        if (scope.status.isOpen) {
+          JndUtil.safeApply(scope, function() {
+            scope.status.isOpen = false;
+          });
+        }
+      }
+
+      /**
        * 파일 메뉴 클릭 이벤트 핸들러
        * @param $event
        * @private
@@ -108,7 +123,7 @@
        * @private
        */
       function _onExternalShareClick() {
-        scope.status.isopen = false;
+        scope.status.isOpen = false;
       }
 
       /**
@@ -116,7 +131,7 @@
        * @private
        */
       function _onStarClick() {
-        scope.status.isopen = false;
+        scope.status.isOpen = false;
         el.find('.file-star i').trigger('click');
       }
 
@@ -125,8 +140,8 @@
        * @private
        */
       function _onDownloadClick() {
-        scope.$apply(function() {
-          scope.status.isopen = false;
+        JndUtil.safeApply(scope, function() {
+          scope.status.isOpen = false;
         });
       }
 
@@ -135,7 +150,7 @@
        * @private
        */
       function _onShareClick() {
-        scope.status.isopen = false;
+        scope.status.isOpen = false;
         modalHelper.openFileShareModal(scope, scope.file);
       }
 
@@ -144,7 +159,7 @@
        * @private
        */
       function _onCommentFocusClick() {
-        scope.status.isopen = false;
+        scope.status.isOpen = false;
 
         if ($state.params.itemId != scope.file.id) {
           $rootScope.setFileDetailCommentFocus = true;
@@ -163,7 +178,7 @@
        * @private
        */
       function _onDeleteClick() {
-        scope.status.isopen = false;
+        scope.status.isOpen = false;
 
         Dialog.confirm({
           body: $filter('translate')('@file-delete-confirm-msg'),

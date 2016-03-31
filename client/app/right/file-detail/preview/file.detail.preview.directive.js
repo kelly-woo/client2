@@ -23,10 +23,10 @@
     };
 
     function link(scope, el) {
-      var fileDetail = scope.file;
-      var content = fileDetail.content;
+      var _fileDetail = scope.file;
+      var _content = _fileDetail.content;
 
-      var fileIcon = $filter('fileIcon')(fileDetail.content);
+      var _fileIcon = $filter('fileIcon')(_content);
 
       _init();
 
@@ -35,19 +35,17 @@
        * @private
        */
       function _init() {
-        if (content.extraInfo) {
-          scope.width = content.extraInfo.width;
-          scope.height = content.extraInfo.height;
-          scope.orientation = content.extraInfo.orientation;
-        }
-
         scope.onImageClick = onImageClick;
         scope.onImageLoad = onImageLoad;
         scope.onExternalShareClick = onExternalShareClick;
 
-        if (content) {
-          _setImage(content);
+        if (_content.extraInfo) {
+          scope.width = _content.extraInfo.width;
+          scope.height = _content.extraInfo.height;
+          scope.orientation = _content.extraInfo.orientation;
         }
+
+        _setImage(_content);
       }
 
       /**
@@ -56,7 +54,7 @@
        * @private
        */
       function _setImage(content) {
-        if (fileIcon === 'img' && content.icon !== 'etc') {
+        if (_fileIcon === 'img' && content.icon !== 'etc') {
           scope.isImageLoading = true;
 
           scope.isImagePreview = true;
@@ -78,13 +76,13 @@
         if (scope.isImagePreview) {
           modalHelper.openImageCarouselModal({
             // image file api data
-            messageId: fileDetail.id,
+            messageId: _fileDetail.id,
             // image carousel view data
-            userName: fileDetail.extWriter.name,
-            uploadDate: fileDetail.createTime,
-            fileTitle: fileDetail.content.title,
-            fileUrl: fileDetail.content.fileUrl,
-            extraInfo: fileDetail.content.extraInfo,
+            userName: _fileDetail.extWriter.name,
+            uploadDate: _fileDetail.createTime,
+            fileTitle: _content.title,
+            fileUrl: _content.fileUrl,
+            extraInfo: _content.extraInfo,
             // single
             isSingle: true
           });
@@ -102,7 +100,7 @@
        * external share click event handler
        */
       function onExternalShareClick() {
-        ExternalShareService.openShareDialog(content);
+        ExternalShareService.openShareDialog(_content);
       }
     }
   }

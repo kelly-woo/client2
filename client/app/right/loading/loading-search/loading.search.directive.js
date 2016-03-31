@@ -25,10 +25,18 @@
 
       _init();
 
+      /**
+       * init
+       * @private
+       */
       function _init() {
         _setContents();
       }
 
+      /**
+       * 로딩 컨텐츠 설정
+       * @private
+       */
       function _setContents() {
         var imageURL;
         var helpMessageKey;

@@ -21,6 +21,9 @@
 
       $scope.file.extWriter = $scope.writer = UserList.get(file.writerId);
 
+      // file tab에서 사용되는 file controller
+      $scope.isFileTab = file.type === 'file';
+
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = memberService.getProfileImage($scope.writer.id, 'small');
       $scope.createDate = $filter('getyyyyMMddformat')(file.createdAt);
@@ -42,6 +45,11 @@
       if (file.contentFileUrl) {
         _setFileDownLoad(file.isIntegrateFile, file.contentTitle, file.contentFileUrl);
       }
+
+      // dropdown menu on/off status
+      $scope.status = {
+        isOpen: false
+      };
 
       Tutorial.hideTooltip('filetab');
     }

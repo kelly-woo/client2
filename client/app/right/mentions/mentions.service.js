@@ -10,9 +10,17 @@
 
   /* @ngInject */
   function Mentions($rootScope, $http, memberService) {
-    var that = this;
+    var _that = this;
 
-    that.getMentionList = getMentionList;
+    _init();
+
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.getMentionList = getMentionList;
+    }
 
     /**
      * get mention list

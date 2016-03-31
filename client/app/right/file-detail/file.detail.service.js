@@ -10,18 +10,27 @@
 
   /* @ngInject */
   function FileDetail($rootScope, $http, $q, memberService) {
-    var integrateMap = {
+    var _that = this;
+    var _integrateMap = {
       'google': true,
       'dropbox': true
     };
 
-    var fileDetail;
+    var _fileDetail;
 
-    this.get = get;
-    this.postComment = postComment;
-    this.deleteComment = deleteComment;
-    this.deleteSticker = deleteSticker;
-    this.isIntegrateFile = isIntegrateFile;
+    _init();
+
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.get = get;
+      _that.postComment = postComment;
+      _that.deleteComment = deleteComment;
+      _that.deleteSticker = deleteSticker;
+      _that.isIntegrateFile = isIntegrateFile;
+    }
 
     /**
      * requset file detail
@@ -149,7 +158,7 @@
      * @returns {boolean}
      */
     function isIntegrateFile(serverUrl) {
-      return !!integrateMap[serverUrl];
+      return !!_integrateMap[serverUrl];
     }
 
     /**
@@ -158,12 +167,12 @@
      */
     Object.defineProperty(this, 'dualFileDetail', {
       get: function() {
-        var temp = fileDetail;
-        fileDetail = null;
+        var temp = _fileDetail;
+        _fileDetail = null;
         return temp;
       },
       set: function(value) {
-        fileDetail = value;
+        _fileDetail = value;
       }
     });
   }

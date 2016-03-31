@@ -10,10 +10,25 @@
 
   /* @ngInject */
   function RightFile($filter, FileDetail) {
-    var that = this;
+    var _that = this;
 
-    that.convert = convert;
+    _init();
 
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.convert = convert;
+    }
+
+    /**
+     * file controller가 file tab과 message tab에서 사용될때 전달되는 data의 format이 각기 다르므로
+     * file controller에서 사용가능하도록 맞춤
+     * @param {string} type
+     * @param {object} fileData
+     * @returns {{}}
+     */
     function convert(type, fileData) {
       var data = {};
 
@@ -70,6 +85,7 @@
         data.contentTitle = fileData.message.content.title;
         data.contentFileUrl = '';
 
+        data.content = fileData.message.content;
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 

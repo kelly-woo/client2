@@ -1,0 +1,18 @@
+<ul class="dropdown-menu grey_dropdown" dropdown-position>
+  <li class="cursor_pointer"
+      ng-if="!comment.extIsSticker">
+    <a ng-click="starComment($event)">
+      <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
+                <span>
+                  <span ng-if="comment.isStarred">{{::'@star-un'|translate}}</span>
+                  <span ng-if="!comment.isStarred">{{::'@star'|translate}}</span>
+                </span>
+    </a>
+  </li>
+  <li class="cursor_pointer">
+    <a ng-click="deleteComment(comment)">
+      <i class="icon-trash"></i>
+      <span>{{::'@btn-delete'|translate}}</span>
+    </a>
+  </li>
+</ul>

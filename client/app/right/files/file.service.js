@@ -5,8 +5,9 @@ var app = angular.module('jandiApp');
 app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout, $upload, $window, BotList,
                                        configuration, entityAPIservice, EntityHandler, memberService, Preloader,
                                        RoomTopicList, storageAPIservice) {
-  var fileSizeLimit = 300; // 300MB
-  var filterTypePreviewMap = {
+  var _that = this;
+  var _fileSizeLimit = 300; // 300MB
+  var _filterTypePreviewMap = {
     audio: '../assets/images/preview_audio.png',
     video:'../assets/images/preview_video.png',
     pdf: '../assets/images/preview_pdf.png',
@@ -25,32 +26,36 @@ app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout,
 
   _init();
 
-  this.upload = upload;
-  this.deleteFile = deleteFile;
-
-  this.getFileList = getFileList;
-  this.getImageListOnRoom = getImageListOnRoom;
-
-  this.addShareEntity = addShareEntity;
-  this.unShareEntity = unShareEntity;
-
-  this.getShareOptions = getShareOptions;
-  this.getShareOptionsWithoutMe = getShareOptionsWithoutMe;
-
-  this.getSharedEntities = getSharedEntities;
-  this.updateShared = updateShared;
-
-  this.isFileTooLarge = isFileTooLarge;
-
-  this.clearCurUpload = clearCurUpload;
-  this.cancelClearCurUpload = cancelClearCurUpload;
-  this.clearUploader = clearUploader;
-
-  this.generateFileTypeFilter = generateFileTypeFilter;
-  this.broadcastCommentFocus = broadcastCommentFocus;
-  this.getFilterTypePreviewMap = getFilterTypePreviewMap;
-
+  /**
+   * init
+   * @private
+   */
   function _init() {
+    _that.upload = upload;
+    _that.deleteFile = deleteFile;
+
+    _that.getFileList = getFileList;
+    _that.getImageListOnRoom = getImageListOnRoom;
+
+    _that.addShareEntity = addShareEntity;
+    _that.unShareEntity = unShareEntity;
+
+    _that.getShareOptions = getShareOptions;
+    _that.getShareOptionsWithoutMe = getShareOptionsWithoutMe;
+
+    _that.getSharedEntities = getSharedEntities;
+    _that.updateShared = updateShared;
+
+    _that.isFileTooLarge = isFileTooLarge;
+
+    _that.clearCurUpload = clearCurUpload;
+    _that.cancelClearCurUpload = cancelClearCurUpload;
+    _that.clearUploader = clearUploader;
+
+    _that.generateFileTypeFilter = generateFileTypeFilter;
+    _that.broadcastCommentFocus = broadcastCommentFocus;
+    _that.getFilterTypePreviewMap = getFilterTypePreviewMap;
+
     Preloader.img(getFilterTypePreviewMap());
   }
 
@@ -235,7 +240,7 @@ app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout,
   // Return true if file size is over 100MB.
   function isFileTooLarge(file) {
     var sizeInMb = file.size/(Math.pow(1024,2));
-    if (sizeInMb > fileSizeLimit) {
+    if (sizeInMb > _fileSizeLimit) {
       return true;
     } else {
       return false;
@@ -312,6 +317,6 @@ app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout,
    * @returns {*}
    */
   function getFilterTypePreviewMap() {
-    return filterTypePreviewMap;
+    return _filterTypePreviewMap;
   }
 });
