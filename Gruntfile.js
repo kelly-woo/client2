@@ -681,6 +681,12 @@ module.exports = function (grunt) {
               replacement: function() {
                 return '../assets/';
               }
+            },
+            {
+              match: /\.\.\/fonts\//g,
+              replacement: function() {
+                return '../bower_components/font-awesome/fonts/';
+              }
             }
           ]
         },
