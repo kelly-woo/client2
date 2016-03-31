@@ -1,8 +1,6 @@
 .notification-modal-body {
   margin: 18px 20px 15px;
-  padding: 15px 0 15px;
-  border-top: 1px solid #e1e1e1;
-  border-bottom: 1px solid #e1e1e1;
+  padding: 15px 0;
 }
 
 .notification-modal-body i {
@@ -10,9 +8,18 @@
   vertical-align: text-bottom;
 }
 
+.notification-modal-body .nav-tabs,
+.notification-modal-body .nav-tabs a {
+  border: 0 !important;
+}
+
+.notification-modal-body .tab-content {
+  padding: 15px;
+  background: #FFFFFF;
+}
 .notification-modal-body .notification-role {
   position: relative;
-  width: 300px;
+  width: 280px;
   margin-bottom: 20px;
 }
 
@@ -20,7 +27,7 @@
   padding-top: 5px;
   font-size: 16px;
   color: #333;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .notification-role .notification-role-body {
@@ -39,7 +46,7 @@
 .notification-role .notification-image {
   position: absolute;
   top: 0;
-  left: 324px;
+  left: 302px;
   width: 236px;
 }
 .notification-role .notification-image img {
@@ -51,7 +58,7 @@
 
 .notification-modal-body .notification-setting {
   position: relative;
-  height: 310px;
+  height: 340px;
   margin-top: 8px;
   overflow: visible;
   -webkit-transition: height .3s;
@@ -59,6 +66,27 @@
   -ms-transition: height .3s;
   -o-transition: height .3s;
   transition: height .3s;
+}
+
+.notification-modal-body .nav-tabs .active,
+.notification-modal-body .tab-pane.active {
+  background: transparent !important;
+}
+
+.notification-modal-body .notification-modal-tab tab-heading {
+  color: #366480;
+}
+.notification-modal-body .notification-modal-tab.active tab-heading {
+  color: #154968;
+  font-weight: 700;
+}
+
+.notification-modal-body .notification-modal-tab a:hover {
+
+  background: #E6ECF2 !important;
+}
+.notification-modal-body .notification-modal-tab.active a:hover {
+  background: #FFFFFF !important;
 }
 
 .notification-modal-body .notification-setting.is-setting-switch {
@@ -85,10 +113,10 @@
 
 .notification-setting .notification-options {
   width: 100%;
-  height: calc(100% - 41px);
+  height: calc(100% - 78px);
   padding: 12px;
-  background-color: #e9e9e9;
-  border: 1px solid #e1e1e1;
+  background-color: #f6f6f6;
+  border: 0;
   border-radius: 5px;
   margin-top: 7px;
 }
@@ -163,7 +191,7 @@
   line-height: 20px;
 }
 
-.notification-modal-body.notification-switch-disable .notification-alert {
+.notification-modal-body .notification-switch-disable .notification-alert {
   display: block;
 }
 

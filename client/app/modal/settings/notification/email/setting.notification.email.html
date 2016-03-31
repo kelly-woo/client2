@@ -1,0 +1,19 @@
+<div class="notification-setting-email" >
+  <div class="notification-role">
+    <div class="notification-role-header">{{::'@setting-notification-email'|translate}}</div>
+    <div class="notification-role-body">{{::'@setting-notification-email-desc'|translate}}</div>
+    <div class="notification-switch">
+      <switch-button is-active="isOn"
+                     toggle="onNotificationToggle($value)"></switch-button>
+    </div>
+    <div class="notification-image">
+      <img src="assets/images/email_notification_m.png">
+    </div>
+  </div>
+  <div class="setting">
+    <span translate>@setting-notification-email-text1</span>
+    <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationFrequencyList" value="data.notificationFrequency" on-select="onChange()"></jnd-dropdown-selectbox>
+    <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationHourList" value="data.notificationHour" on-select="onChange()"></jnd-dropdown-selectbox>
+    <span translate>@setting-notification-email-text2</span>
+  </div>
+</div>
