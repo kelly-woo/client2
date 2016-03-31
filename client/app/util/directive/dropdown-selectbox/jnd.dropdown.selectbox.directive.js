@@ -13,7 +13,7 @@
                 value="data.notificationFrequency"
                 template="'noti-template'"
                 is-disabled="isDisabled"
-                on-select="onChange();"
+                on-select="onChange($index);"
                 on-init="onInit();">
  </jnd-dropdown-selectbox>
  */
@@ -42,6 +42,8 @@
 
     function link(scope) {
 
+      scope.onSelectItem = onSelectItem;
+
       _init();
 
       /**
@@ -50,9 +52,9 @@
        */
       function _init() {
         $templateCache.put('jnd-dropdown-selectbox-template', '<span class="option-text">{{::item.text}}</span>');
-        _setSelectItem(_.findIndex(scope.list, {'value': scope.value}));
-        scope.onSelectItem = onSelectItem;
         scope.template = scope.template || 'jnd-dropdown-selectbox-template';
+
+        _setCurrentSelected();
         _attachScopeEvents();
         _.isFunction(scope.onInit) && scope.onInit();
       }
@@ -62,15 +64,15 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$watch('value', _onValueChange);
+        scope.$watch('value', _setCurrentSelected);
+        scope.$watch('list', _setCurrentSelected);
       }
 
       /**
-       *
-       * @param {*} newValue
+       * 현재 value 값을 실제 selectbox 에 반영한다.
        * @private
        */
-      function _onValueChange(newValue) {
+      function _setCurrentSelected() {
         _setSelectItem(_.findIndex(scope.list, {'value': scope.value}));
       }
 
