@@ -13,7 +13,7 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, $filter, $timeout, memberService, jndPubSub, TopicFolderAPI, RoomTopicList,
+  function TopicFolderModel($rootScope, $q, $filter, $timeout, memberService, jndPubSub, TopicFolderAPI, RoomTopicList,
                             JndTopicFolderStorage, currentSessionHelper, Dialog, JndUtil, TopicInvitedFlagMap) {
     var _raw = {
       folderList: [],
@@ -25,6 +25,8 @@
     var _folderData = {};
     var _folderList = [];
     var _deferred;
+    var _scope = $rootScope.$new(true);
+
     this.create = create;
     this.push = push;
     this.remove = remove;
@@ -38,6 +40,16 @@
     this.getEntityMap = getEntityMap;
     this.getFolderMap = getFolderMap;
     this.getNgOptions = getNgOptions;
+
+    _init();
+
+    /**
+     * 초기화
+     * @private
+     */
+    function _init() {
+      _scope.$on('RoomTopicList:changed', update);
+    }
 
     /**
      * 익명 폴더 이름을 생성한다.
@@ -379,6 +391,7 @@
      * raw 데이터를 기반으로 view 에 반영하기 위한 데이터를 가공한다.
      */
     function update() {
+      console.log('###update');
       var currentEntity = currentSessionHelper.getCurrentEntity();
       _folderList = _.sortBy(_raw.folderList, 'seq');
 
