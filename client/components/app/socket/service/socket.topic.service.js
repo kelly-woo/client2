@@ -87,16 +87,19 @@
      */
     function _onTopicKickedOut(socketEvent) {
       var currentTeam = currentSessionHelper.getCurrentTeam();
+      var roomId = socketEvent.data.roomId;
+      var room = RoomTopicList.get(socketEvent.data.roomId);
       if (currentTeam.id ===  socketEvent.data.teamId) {
         jndPubSub.pub('kickedOut', socketEvent);
         if (jndWebSocketCommon.isCurrentEntity({id: socketEvent.data.roomId})) {
           jndPubSub.toDefaultTopic();
         }
-        _updateLeftPanel({
-          topic: {
-            id: socketEvent.data.roomId
-          }
-        });
+        if (RoomTopicList.isPublic(roomId)) {
+          RoomTopicList.add(room, false);
+        } else {
+          RoomTopicList.remove(roomId);
+        }
+        jndPubSub.onChangeShared(socketEvent);
       }
     }
 

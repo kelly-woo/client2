@@ -10,8 +10,8 @@
     .service('RoomTopicList', RoomTopicList);
 
   /* @ngInject */
-  function RoomTopicList(EntityCollection, UserList) {
-
+  function RoomTopicList($timeout, EntityCollection, UserList, jndPubSub) {
+    var _timerNotifyChange;
     var _collectionMap = {};
 
     this.setList = setList;
@@ -57,6 +57,7 @@
     function setList(list, isJoin)  {
       var collection = _getEntityCollection(isJoin);
       collection.setList(list);
+      _notifyChange();
     }
 
     /**
@@ -77,11 +78,12 @@
     function add(item, isJoin) {
       var collection = _getEntityCollection(isJoin);
 
+      collection.add(item);
+
       if (isExist(item.id, !isJoin)) {
         remove(item.id, !isJoin);
       }
-
-      collection.add(item);
+      _notifyChange();
     }
 
     /**
@@ -91,7 +93,9 @@
      * @returns {boolean}
      */
     function extend(id, targetObj) {
-      return _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
+      var result = _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
+      _notifyChange();
+      return result;
     }
 
     /**
@@ -100,6 +104,7 @@
     function reset() {
       _collectionMap.join.reset();
       _collectionMap.unjoin.reset();
+      _notifyChange();
     }
 
     /**
@@ -125,15 +130,18 @@
      * @returns {*}
      */
     function remove(id, isJoin) {
+      var result = false;
       if (_.isUndefined(isJoin)) {
-        return _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
+        result = _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
       } else {
         if (isJoin) {
-          return _collectionMap.join.remove(id);
+          result = _collectionMap.join.remove(id);
         } else {
-          return _collectionMap.unjoin.remove(id);
+          result = _collectionMap.unjoin.remove(id);
         }
       }
+      _notifyChange();
+      return result;
     }
 
     /**
@@ -252,6 +260,17 @@
      */
     function isJoined(roomId) {
       return !!get(roomId, true)
+    }
+
+    /**
+     * 화면에 render 한다.
+     * @private
+     */
+    function _notifyChange() {
+      $timeout.cancel(_timerNotifyChange);
+      _timerNotifyChange = $timeout(function() {
+        jndPubSub.pub('RoomTopicList:changed');
+      }, 500);
     }
   }
 })();
