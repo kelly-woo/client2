@@ -115,15 +115,16 @@
        */
       function _show() {
         var jqParent = scope.isAppendToBody ? $('body') : el.parent();
-        _jqTooltip = _getTooltipElement();
+        if (!_jqTooltip) {
+          _jqTooltip = _getTooltipElement();
+          jqParent.append(_jqTooltip);
+          _setPosition();
 
-        jqParent.append(_jqTooltip);
-        _setPosition();
-
-        //fade in 효과를 주기 위해 timeout 을 사용한다.
-        setTimeout(function() {
-          _jqTooltip.addClass('fade in');
-        });
+          //fade in 효과를 주기 위해 timeout 을 사용한다.
+          setTimeout(function() {
+            _jqTooltip.addClass('fade in');
+          });
+        }
       }
 
       /**
