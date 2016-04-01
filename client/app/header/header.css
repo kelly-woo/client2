@@ -72,11 +72,13 @@
 .header-navbar-menu.open .dot {
   border: 2px solid #173e54;
 }
-.header-navbar__topmenu:hover {
+.header-navbar__topmenu:hover,
+.header-navbar__topmenu.active {
   background-color: #0E3E58;
   cursor: pointer;
   height: 42px !important;
 }
+
 #team-menu .header-navbar__topmenu {
   padding: 0 12px 0 12px;
 }
