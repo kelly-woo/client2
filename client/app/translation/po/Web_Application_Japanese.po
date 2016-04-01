@@ -2511,14 +2511,14 @@ msgid "@setting-notification-dm-n-mention"
 msgstr "1:1メッセージと@メンションのみ受ける"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email"
-msgstr "デスクトップ通知がオフに設定されました"
+msgstr "メール通知"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email-desc"
-msgstr "デスクトップ通知がオフに設定されました"
+msgstr ""
+"ダイレクトメッセージ、メンション、招待されたトピック、新たな告知のお知らせ"
+"メールを受けてみてください。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-fri"
@@ -2549,14 +2549,12 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr "毎水曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email-text1"
-msgstr "デスクトップ通知がオフに設定されました"
+msgstr "通知内容がある場合メールを"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email-text2"
-msgstr "デスクトップ通知がオフに設定されました"
+msgstr "受信する"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
