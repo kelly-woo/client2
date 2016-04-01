@@ -127,15 +127,6 @@
      * shared entities를 보여주는 부분들이 업데이트 되어야하기때문에 호출한다.
      */
     function onChangeShared(data) {
-      if (data.topic) {
-        data.room = data.topic;
-        delete data.topic;
-      }
-
-      console.log('on change shared ::: ', data.event);
-      console.log(data);
-      console.log('==================================');
-
       //TODO:
       //FIXME: 현재 받고있는 data format 이 모두 상이하므로 adaptor 패턴 적용이 시급합! CC: Mark
       $rootScope.$broadcast('onChangeShared', data);
