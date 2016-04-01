@@ -89,10 +89,6 @@
   background: #FFFFFF !important;
 }
 
-.notification-modal-body .notification-setting.is-setting-switch {
-  overflow: hidden;
-}
-
 .notification-setting .notification-target {
   font-size: 14px;
   color: #333;
