@@ -1,11 +1,16 @@
-<div class="rpanel-body mention-list" lazy-loading="loadMore();">
-  <right-loading-search status="searchStatus" type="mention"></right-loading-search>
-  <div class="lazy-loading-list">
-    <right-message class="private-effect"
-                   message-data="record"
-                   message-type="messageType"
-                   ng-repeat="record in records"></right-message>
+<div class="rpanel-body mention-tab">
+  <div class="mention-list"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-load-more="isScrollLoading">
+    <right-loading-search status="searchStatus" type="mention"></right-loading-search>
+    <div class="scroll-loading-list">
+      <right-message class="private-effect"
+                     message-data="record"
+                     message-type="messageType"
+                     ng-repeat="record in records"></right-message>
+    </div>
+    <right-loading-list  ng-if="isScrollLoading && records.length > 0"></right-loading-list>
+    <right-end-of-list  ng-if="isEndOfList"></right-end-of-list>
   </div>
-  <right-loading-list  ng-if="isScrollLoading && records.length > 0"></right-loading-list>
-  <right-end-of-list  ng-if="isEndOfList"></right-end-of-list>
 </div>

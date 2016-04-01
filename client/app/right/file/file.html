@@ -7,7 +7,7 @@
         <div class="fileicon fileicon-{{::file.icon}}"></div>
       </div>
       <div class="external-share-btn opac-in"
-           ng-show="isExternalShared"
+           ng-show="file.content.externalShared"
            ng-click="onExternalShareClick($event)">
         <i class="icon-link"></i>
       </div>
@@ -38,7 +38,7 @@
            ng-if="isFileTab"
            dropdown
            is-open="status.isOpen">
-        <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more'|translate }}" tooltip-placement="left"></i>
+        <i class="icon-more" dropdown-toggle tooltip="{{::'@file-action-more'|translate}}" tooltip-placement="left"></i>
 
         <ul class="dropdown-menu grey_dropdown"
             dropdown-menu

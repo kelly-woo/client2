@@ -1,8 +1,8 @@
-.rpanel-body.message-list .advanced-search-option__category {
+.rpanel-body.message-tab .advanced-search-option__category {
   width: 188px;
 }
 
-.rpanel-body.message-list  .no-search-input-container {
+.rpanel-body.message-tab .no-search-input-container {
   margin-top: 67px;
   text-align: center;
   cursor: pointer;
@@ -11,7 +11,7 @@
   text-decoration: underline;
 }
 
-.rpanel-body.message-list  .no-search-input-container .icon-search {
+.rpanel-body.message-tab .no-search-input-container .icon-search {
   width: 65px;
 }
 .rpanel-alert-msg-container {

@@ -30,12 +30,6 @@
       $scope.contentTitle = file.contentTitle;
 
       $scope.isStarred = file.isStarred || false;
-      if (file.content) {
-        $scope.isExternalShared = file.content.externalShared;
-      }
-
-      $scope.getExternalShare = getExternalShare;
-      $scope.setExternalShare = setExternalShare;
 
       $scope.isDisabledMember = isDisabledMember;
       $scope.isFileOwner = $filter('isFileWriter')(file);
@@ -77,22 +71,6 @@
 
       $scope.downloadUrl = value.downloadUrl;
       $scope.originalUrl = value.originalUrl;
-    }
-
-    /**
-     * external share 전달한다.
-     * @returns {string}
-     */
-    function getExternalShare() {
-      return $scope.isExternalShared;
-    }
-
-    /**
-     * external share 설정한다.
-     * @param {boolean} isExternalShared
-     */
-    function setExternalShare(isExternalShared) {
-      $scope.isExternalShared = isExternalShared;
     }
   }
 })();

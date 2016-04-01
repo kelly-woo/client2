@@ -15,7 +15,7 @@
     var _disabledMemberAddedOnSharedBy = false;
 
     var _localCurrentEntity;
-    var _fileIdMap = {};
+    var _fileMap = {};
     var _timerSearch;
 
     _init();
@@ -33,7 +33,7 @@
         writerId: 'all',
         fileType: 'all',
         startMessageId: -1,
-        listCount: 10,
+        listCount: 20,
 
         isSearching: false,
         isScrollLoading: false,
@@ -44,7 +44,7 @@
         type: ''
       };
 
-      _fileIdMap = {};
+      _fileMap = {};
       $scope.searchStatus.type = _getSearchStatusType();
       $scope.isConnected = true;
 
@@ -78,6 +78,8 @@
      * @private
      */
     function _attachScopeEvents() {
+      $scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
+
       $scope.$on('topic-folder:update', _generateShareOptions);
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
       $scope.$on('updateFileWriterId', _onFileWriterIdChange);
@@ -431,14 +433,14 @@
      * @private
      */
     function _updateUnsharedFile(fileId) {
-      var file = _fileIdMap[fileId];
+      var file = _fileMap[fileId];
       var fileList;
 
       if (file) {
         fileList = $scope.fileList;
 
         fileList.splice(fileList.indexOf(file), 1);
-        delete _fileIdMap[fileId];
+        delete _fileMap[fileId];
 
         if (fileList.length === 0) {
           _refreshFileList();
@@ -569,7 +571,7 @@
         } else {
           $scope.fileList.unshift(file);
         }
-        _fileIdMap[file.id] = file;
+        _fileMap[file.id] = file;
       }
     }
 
@@ -589,6 +591,23 @@
 
       $scope.searchStatus.type = _getSearchStatusType();
       $scope.searchStatus.length = $scope.fileList.length;
+    }
+
+    /**
+     * 외부 파일공유 상태 변경 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onFileShareChanged($event, data) {
+      var fileId = data.id;
+      var file = _fileMap[fileId];
+
+      if (file) {
+        file.content.externalUrl = data.content.externalUrl;
+        file.content.externalCode = data.content.externalCode;
+        file.content.externalShared = data.content.externalShared;
+      }
     }
 
     /**

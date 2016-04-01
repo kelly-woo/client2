@@ -15,7 +15,7 @@
       link: link
     };
 
-    function link(scope, el, attrs, dropdownCtrl) {
+    function link(scope, el, attrs, ctrl) {
       _init();
 
       /**
@@ -31,7 +31,7 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$watch(dropdownCtrl.isOpen, _onToggle);
+        scope.$watch(ctrl.isOpen, _onToggle);
       }
 
       /**
@@ -40,7 +40,7 @@
        * @private
        */
       function _onToggle(isOpen) {
-        var jqDropdown = dropdownCtrl.$element;
+        var jqDropdown = ctrl.$element;
         var jqDropdownMenu = jqDropdown.find('.dropdown-menu');
         var appendToBody = jqDropdown.attr('dropdown-append-to-body');
 
@@ -83,7 +83,7 @@
        * @private
        */
       function _getContainerEdge() {
-        var query = dropdownCtrl.$element.attr('dropdown-menu-container');
+        var query = ctrl.$element.attr('dropdown-menu-container');
         var containerEdge = {};
         var containerOffset;
 
@@ -104,7 +104,7 @@
        * @private
        */
       function _getDropdownMenuEdge() {
-        var jqDropdown = dropdownCtrl.$element;
+        var jqDropdown = ctrl.$element;
         var dropdownOffset = $position.offset(jqDropdown);
         var dropdownMenuSize = $position.position(jqDropdown.find('.dropdown-menu'));
 

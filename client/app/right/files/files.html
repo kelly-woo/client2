@@ -1,4 +1,4 @@
-<div class="rpanel-body file-list">
+<div class="rpanel-body file-tab">
   <!-- SEARCH QUERY -->
   <right-search keyword="searchStatus.q"
                 on-change="onKeywordChange($keyword)"
@@ -39,10 +39,13 @@
   </div>
   <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
-  <div id="files-viewport" class="rpanel-body-content" lazy-loading="loadMore();">
+  <div class="rpanel-body-content"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-loading="searchStatus.isScrollLoading">
     <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
 
-    <div class="file-list lazy-loading-list">
+    <div class="file-list scroll-loading-list">
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
       <div class="break-word" ng-if="isEmpty()">
         <div class="rpanel-alert-msg-container">
@@ -59,8 +62,7 @@
       <right-file class="private-effect"
                   file-data="file"
                   file-type="'file'"
-                  ng-repeat="file in fileList track by file.id"
-                  lazy-repeat-done></right-file>
+                  ng-repeat="file in fileList track by file.id"></right-file>
       <right-loading-list ng-if="searchStatus.isScrollLoading && fileList.length > 0"></right-loading-list>
       <right-end-of-list ng-if="searchStatus.isEndOfList"></right-end-of-list>
     </div>

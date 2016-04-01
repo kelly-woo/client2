@@ -21,7 +21,7 @@
         <a ng-if="::isIntegrateFile" class="file_action opac-in-fast" href="{{::originalUrl}}" target="_blank" ng-click="onClickDownload();" download-tracker="{{track(file)}}">
           <i class="icon-download"></i>
         </a>
-        <a ng-if="!isIntegrateFile" class="file_action opac-in-fast" href="{{::downloadUrl}}" ng-click="onClickDownload();" download-tracker="{{track(file)}}">
+        <a ng-if="::!isIntegrateFile" class="file_action opac-in-fast" href="{{::downloadUrl}}" ng-click="onClickDownload();" download-tracker="{{track(file)}}">
           <i class="icon-download"></i>
         </a>
       </div>
@@ -45,7 +45,7 @@
               <span>{{::'@btn-comment'|translate}}</span>
             </a>
           </li>
-          <li ng-if="!isIntegrateFile">
+          <li ng-if="::!isIntegrateFile">
             <a class="cursor_pointer" href="{{::downloadUrl}}"
                ng-click="onClickDownload();"
                download-tracker="{{track(file)}}">
@@ -68,18 +68,14 @@
               </span>
             </a>
           </li>
-          <li class="cursor_pointer" ng-if="!isIntegrateFile">
+          <li class="cursor_pointer" ng-if="::!isIntegrateFile">
             <a class="external-share-file" file-id="{{::file.id}}"
-               external-share-view
-               external-share-get="getExternalShare()"
-               external-share-set="setExternalShare($value)"
-               external-code="file.content.externalCode"
-               external-url="file.content.externalUrl"
-               external-shared="file.content.externalShared">
-              <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
+               external-file
+               file-data="file.content">
+              <i ng-class="file.content.externalShared ? 'icon-link-broken' : 'icon-link'"></i>
               <span>
-                <span ng-if="isExternalShared">{{::'@external-share-remove'|translate}}</span>
-                <span ng-if="!isExternalShared">{{::'@external-share-create'|translate}}</span>
+                <span ng-if="file.content.externalShared">{{::'@external-share-remove'|translate}}</span>
+                <span ng-if="!file.content.externalShared">{{::'@external-share-create'|translate}}</span>
               </span>
             </a>
           </li>

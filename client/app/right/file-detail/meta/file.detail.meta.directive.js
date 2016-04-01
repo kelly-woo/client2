@@ -230,7 +230,7 @@
         var shareEntities = scope.file.shareEntities;
 
         if (data && shareEntities.length === 1 &&
-          ((data.event === "topic_deleted" && shareEntities[0] === data.topic.id) || (data.type === 'delete' && shareEntities[0] === data.id))) {
+          ((data.event === "topic_deleted" && shareEntities[0] === data.room.id) || (data.type === 'delete' && shareEntities[0] === data.id))) {
           // archived file 이고 event type이 'topic_deleted' 또는 shared 'delete' 일때
           // 마지막으로 공유된 토픽이 삭제되는 것이라면 공유 토픽을 가지지 않은 것으로 표기함
           scope.hasTopic = false;

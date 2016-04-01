@@ -4,7 +4,7 @@
 
     <div class="file-detail-body__meta-info">
       <div class="file-detail-body__meta-info-up">
-        <span class="file-item-meta__createtime">{{file.createTime | getyyyyMMddformat}}</span>
+        <span class="file-item-meta__createtime">{{::file.createTime|getyyyyMMddformat}}</span>
         <span class="bullet">•</span>
         <span class="file-item-meta__size" ng-if="::file.content.size > 0">{{::file.content.size | bytes}}</span>
         <span class="file-item-meta__type" ng-if="::file.content.type">{{::file.content | fileType}}</span>
@@ -16,7 +16,7 @@
           <span ng-repeat="sharedEntity in file.extShared">
             <span ng-hide="($index === 0)">, </span>
             <span class="file-item-meta__shared cursor_pointer" ng-click="onClickSharedEntity(sharedEntity)">
-              {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+              {{::sharedEntity.prefix}}{{::sharedEntity.name}}
             </span>
             <a class="link-remove link-unshare cursor_pointer" ng-click="onClickUnshare(sharedEntity)">
               <i class="icon-remove-circle"

@@ -49,7 +49,7 @@
      * @private
      */
     function _onTopicSubscriptionChanged(event, data) {
-      if (data.data.roomId === _roomId) {
+      if (data.room.id === _roomId) {
         _checkTopicNotificationSetting();
       }
     }

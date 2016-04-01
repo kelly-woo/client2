@@ -15,8 +15,7 @@
       scope: {
         file: '=',
         originalUrl: '=',
-        isIntegrateFile: '=',
-        isExternalShared: '='
+        isIntegrateFile: '='
       },
       link: link,
       templateUrl : 'app/right/file-detail/preview/file.detail.preview.html'

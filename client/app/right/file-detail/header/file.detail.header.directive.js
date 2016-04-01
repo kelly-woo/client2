@@ -20,7 +20,6 @@
         originalUrl: '=',
         isArchivedFile: '=',
         isInvalidRequest: '=',
-        isExternalShared: '=',
         isAdmin: '=',
         isIntegrateFile: '=',
         onMemberClick: '=',
@@ -51,8 +50,31 @@
           scope.onStarClick = onStarClick;
           scope.onFileDeleteClick = onFileDeleteClick;
 
-          scope.getExternalShare = getExternalShare;
-          scope.setExternalShare = setExternalShare;
+          _attachScopeEvents();
+        }
+      }
+
+      /**
+       * attach scope events
+       * @private
+       */
+      function _attachScopeEvents() {
+        scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
+      }
+
+      /**
+       * 외부 파일공유 상태 변경 이벤트 핸들러
+       * @param {object} $event
+       * @param {object} data
+       * @private
+       */
+      function _onFileShareChanged($event, data) {
+        var file = scope.file;
+
+        if (file.id === data.id) {
+          file.content.externalUrl = data.content.externalUrl;
+          file.content.externalCode = data.content.externalCode;
+          file.content.externalShared = data.content.externalShared;
         }
       }
 
@@ -164,22 +186,6 @@
        */
       function backToFileList() {
         $state.go('messages.detail.' + (RightPanel.getTail() || 'files'));
-      }
-
-      /**
-       * external share 전달한다.
-       * @returns {string}
-       */
-      function getExternalShare() {
-        return scope.isExternalShared;
-      }
-
-      /**
-       * external share 설정한다.
-       * @param {boolean} isExternalShared
-       */
-      function setExternalShare(isExternalShared) {
-        scope.isExternalShared = isExternalShared;
       }
     }
   }

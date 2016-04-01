@@ -65,13 +65,13 @@
     </div>
     <div class="comment-item-body">
       <span ng-if="::comment.extIsSticker">
-        <img class="sticker size_5" ng-src="{{ comment.content.url }}"/>
+        <img class="sticker size_5" ng-src="{{comment.content.url}}"/>
         <span class="msg-item-header__retry cursor_pointer" ng-click="retry($index, comment)">
           <i class="icon-refresh"></i> Retry
         </span>
       </span>
       <span ng-if="::!comment.extIsSticker">
-        <span class="comment selectable keep" ng-bind-html="comment.content.body"></span>
+        <span class="comment selectable keep" ng-bind-html="::comment.content.body"></span>
         <span class="msg-item-header__retry cursor_pointer" ng-click="retry($index, comment)">
           <i class="icon-refresh"></i> Retry
         </span>

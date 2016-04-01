@@ -127,7 +127,7 @@
      * @private
      */
     function _onKickedOut(angularEvent, socketEvent) {
-      var topicEntity = RoomTopicList.get(socketEvent.data.roomId);
+      var topicEntity = RoomTopicList.get(socketEvent.room.id);
       var topicName = topicEntity.name;
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);

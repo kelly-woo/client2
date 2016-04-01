@@ -1,4 +1,4 @@
-<div class="rpanel-body message-list">
+<div class="rpanel-body message-tab">
   <!-- SEARCH QUERY -->
   <right-search keyword="searchStatus.q"
                 is-focus="searchStatus.isKeywordFocus"
@@ -30,7 +30,10 @@
   </div>
   <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
-  <div class="rpanel-body-content" lazy-loading="loadMore();">
+  <div class="rpanel-body-content"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-load-more="searchStatus.isScrollLoading">
     <div ng-if="!isKeywordEmpty()">
       <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
 
@@ -58,7 +61,7 @@
       </div>
     </div>
 
-    <div class="rpanel-message-list lazy-loading-list">
+    <div class="rpanel-message-list scroll-loading-list">
       <right-message-group class="private-effect" ng-repeat="message in messageList"></right-message-group>
       <right-loading-list ng-if="searchStatus.isScrollLoading && messageList.length > 0"></right-loading-list>
       <right-end-of-list ng-if="searchStatus.isEndOfList"></right-end-of-list>

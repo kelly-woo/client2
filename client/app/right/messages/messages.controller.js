@@ -12,7 +12,7 @@
   function RightMessagesCtrl($scope, $timeout, AnalyticsHelper, currentSessionHelper, fileAPIservice, messageAPIservice,
                              RoomTopicList, TopicFolderModel) {
     var DEFAULT_PAGE = 1;
-    var DEFAULT_PER_PAGE = 20;
+    var DEFAULT_PER_PAGE = 10;
 
     var _localCurrentEntity;
     var _timerSearch;

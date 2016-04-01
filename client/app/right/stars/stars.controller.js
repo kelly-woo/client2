@@ -13,8 +13,9 @@
     var _starListData = {
       messageId: null
     };
-
+    var MENTIONS_COUNT = 20;
     var _removeItems = [];
+
     var _timerRemoveItems;
 
     _init();
@@ -71,6 +72,8 @@
      * @private
      */
     function _attachScopeEvents() {
+      $scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
+
       // open right panel
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
@@ -85,6 +88,22 @@
       // delete message/file
       $scope.$on('jndWebSocketMessage:topicMessageDeleted', _topicMessageDeleted);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+    }
+
+    /**
+     * 외부 파일공유 상태 변경 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onFileShareChanged($event, data) {
+      var msg = $scope.tabs.all.map[data.id];
+
+      if (msg) {
+        msg.message.content.externalUrl = data.content.externalUrl;
+        msg.message.content.externalCode = data.content.externalCode;
+        msg.message.content.externalShared = data.content.externalShared;
+      }
     }
 
     /**
@@ -302,7 +321,7 @@
       var activeTab = $scope.tabs[activeTabName];
 
       if (!activeTab.isLoading || !activeTab.isScrollLoading) {
-        StarAPIService.get(_starListData.messageId, 1, (activeTabName === 'files' ? 'file' : undefined))
+        StarAPIService.get(_starListData.messageId, MENTIONS_COUNT, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {

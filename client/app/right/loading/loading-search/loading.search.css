@@ -4,13 +4,13 @@
   height: 80px;
 }
 
-.rpanel-body.star-list .search-result-container,
-.rpanel-body.mention-list .search-result-container {
+.rpanel-body.star-tab .search-result-container,
+.rpanel-body.mention-tab .search-result-container {
   border-bottom-width: 0px;
 }
 
-.rpanel-body.star-list .search-result-container .search-result-summary-ing,
-.rpanel-body.mention-list .search-result-container .search-result-summary-ing {
+.rpanel-body.star-tab .search-result-container .search-result-summary-ing,
+.rpanel-body.mention-tab .search-result-container .search-result-summary-ing {
   margin-top: 70px;
   margin-left: 0px;
   text-align: center;

@@ -141,8 +141,6 @@
      * @private
      */
     function _onFileExternalShared(socketEvent) {
-      var data = socketEvent.data;
-      jndPubSub.pub('externalShared', data);
     }
 
     /**
@@ -151,8 +149,6 @@
      * @private
      */
     function _onFileExternalUnshared(socketEvent) {
-      var data = socketEvent.data;
-      jndPubSub.pub('unExternalShared', data);
     }
   }
 })();

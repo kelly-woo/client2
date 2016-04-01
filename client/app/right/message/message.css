@@ -114,9 +114,9 @@
 .sub-message-card .prettyprint {
   opacity: 0.6;
 }
-.star-list .message-card-body {
+.star-tab .message-card-body {
   padding-top: 8px;
 }
-.mention-list .message-card-body {
+.mention-tab .message-card-body {
   padding-top: 10px;
 }

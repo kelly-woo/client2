@@ -5,16 +5,23 @@
     </div>
     <div class="message-meta">
       <div class="message-title">
-        <span class="message-writer" ng-class="::{'message-writer-highlight': (message.isSimple && message.contentType === 'text'), 'right-panel-disabled-member': isDisabledMember()}">{{::writerName}}</span>
-        <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
+        <span class="message-writer"
+              ng-class="::{'message-writer-highlight': (message.isSimple && message.contentType === 'text'),
+                           'right-panel-disabled-member': isDisabledMember()}">
+          {{::writerName}}
+        </span>
+        <span class="message-date" ng-if="::!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
-        <div class="fileicon fileicon-etc" ng-if="message.contentType !== 'text'"></div>
-        <span class="{{message.contentType !== 'text' ? 'comment-start' : 'topic-start'}}" ng-if="!message.isSimple || message.contentType !== 'text'">{{::startPoint}}</span>
+        <div class="fileicon fileicon-etc" ng-if="::message.contentType !== 'text'"></div>
+        <span ng-class="::message.contentType !== 'text' ? 'comment-start' : 'topic-start'"
+              ng-if="::!message.isSimple || message.contentType !== 'text'">
+          {{::startPoint}}
+        </span>
       </div>
     </div>
   </div>
-  <div class="message-card-body keep" ng-bind-html="content || ''"></div>
+  <div class="message-card-body keep" ng-bind-html="::(content || '')"></div>
   <div class="message-star" ng-class="{'show': isStarred}" ng-show="hasStar"
        tooltip="{{::'@common-star'|translate}}" tooltip-placement="left">
     <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="message.id"></i>

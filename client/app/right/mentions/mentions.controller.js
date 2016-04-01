@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function RightMentionsCtrl($scope, Mentions) {
-    var MENTIONS_COUNT = 40;
+    var MENTIONS_COUNT = 20;
 
     var _mentionMap = {};
 

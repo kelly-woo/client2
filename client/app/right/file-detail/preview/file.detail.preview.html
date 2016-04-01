@@ -19,8 +19,8 @@
   </div>
   <div class="external-share-btn cursor_pointer opac-zero"
        ng-class="{'opac-in': !isImageLoading}"
-       ng-if="!isIntegrateFile"
-       ng-show="isExternalShared"
+       ng-if="::!isIntegrateFile"
+       ng-show="file.content.externalShared"
        ng-click="onExternalShareClick();">
     <i class="icon-link"></i>
   </div>

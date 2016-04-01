@@ -1360,7 +1360,7 @@ input[type="radio"] {
 .blurred .modal-dialog *:not([placeholder]),
 .blurred .advanced-search-option__title *,
 .blurred .search-result-container *,
-.blurred .lazy-loading-list *,
+.blurred .scroll-loading-list *,
 .blurred .rpanel-alert-msg-container *,
 .blurred .lpanel-list__header * {
   color: transparent !important;

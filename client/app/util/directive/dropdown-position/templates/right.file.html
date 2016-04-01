@@ -36,16 +36,12 @@
   </li>
   <li class="cursor_pointer" ng-if="!isIntegrateFile">
     <a class="external-share-file" file-id="{{::file.id}}"
-       external-share-view
-       external-share-get="getExternalShare()"
-       external-share-set="setExternalShare($value)"
-       external-code="file.content.externalCode"
-       external-url="file.content.externalUrl"
-       external-shared="file.content.externalShared">
-      <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
+       external-file
+       file-data="file.content">
+      <i ng-class="file.content.externalShared ? 'icon-link-broken' : 'icon-link'"></i>
               <span>
-                <span ng-if="isExternalShared">{{::'@external-share-remove'|translate}}</span>
-                <span ng-if="!isExternalShared">{{::'@external-share-create'|translate}}</span>
+                <span ng-if="file.content.externalShared">{{::'@external-share-remove'|translate}}</span>
+                <span ng-if="!file.content.externalShared">{{::'@external-share-create'|translate}}</span>
               </span>
     </a>
   </li>
