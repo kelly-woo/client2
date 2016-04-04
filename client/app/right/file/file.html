@@ -1,8 +1,8 @@
 <div class="file-card">
   <div class="file-card-header">
-    <div class="file-image msg-file-body__img msg-file-body__img__background image_wrapper"
+    <div class="file-image msg-file-body__img msg-file-body__img__background"
          ng-switch on="file.mustPreview">
-      <img class="lazy-image" ng-switch-when="true" ng-src="{{::file.imageUrl}}" height="63" width="63"/>
+      <div class=" image_wrapper" ng-switch-when="true" image-view="{{::file.imageUrl}}"></div>
       <div class="icon-wrapper" ng-switch-when="false">
         <div class="fileicon fileicon-{{::file.icon}}"></div>
       </div>
