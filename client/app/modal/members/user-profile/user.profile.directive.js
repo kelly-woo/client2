@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('userProfile', userProfile);
 
-  function userProfile($filter, CoreUtil, memberService, fileAPIservice, Dialog, modalHelper) {
+  function userProfile($filter, CoreUtil, memberService, JndUtil, Dialog) {
     return {
       restrict: 'A',
       link: link
@@ -82,13 +82,10 @@
         // there might be an image file missing file extension.
         memberService.updateProfilePic(blob, true)
           .success(function() {
-            // TODO: Currently, there is no return value.  How about member object for return???
-            //memberService.getMemberInfo(memberService.getMemberId())
-            //  .success(function(response) {
-            //    //memberService.replaceProfilePicture(response);
-            //    //memberService.setMember(response);
-            //  });
             scope.hasUpdatedProfilePic = true;
+          })
+          .error(function(response, status) {
+            JndUtil.alertUnknownError(response, status);
           })
       }
 
