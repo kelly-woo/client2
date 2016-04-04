@@ -141,10 +141,17 @@
   display: none;
   top: 25px;
   left: auto;
-  margin-left: -15px;
+  margin-left: -34px;
+  margin-top: 3px;
   color: #000000;
   max-width: 350px;
 }
 .center-panel-inactive-member .inactive-guide .arrow {
-  left: 21px;
+  left: 24px;
+}
+.center-panel-inactive-member .inactive-guide.popover.bottom > .arrow {
+  top: -16px;
+  border-width: 8px;
+  margin-left: -11px;
+}
 }
