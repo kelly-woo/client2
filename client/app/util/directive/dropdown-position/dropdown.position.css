@@ -1,4 +1,4 @@
 /* dropdown menu가 열릴때 순간 깜빡임 제거 */
-.dropdown.dropdown-auto-position.open .dropdown-menu {
+.dropdown.dropdown-position.open .dropdown-menu {
   display: none;
 }

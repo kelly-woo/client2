@@ -8,9 +8,9 @@
     .module('jandiApp')
     .directive('dropdownPosition', dropdownPosition);
   
-  function dropdownPosition($window, $position) {
+  function dropdownPosition($timeout, $position, $window) {
     return {
-      restrict: 'AC',
+      restrict: 'A',
       require: '?^dropdown',
       link: link
     };
@@ -23,6 +23,9 @@
        * @private
        */
       function _init() {
+        // 열릴때 깜빡임 방지 class
+        el.parent().addClass('dropdown-position');
+
         _attachScopeEvents();
       }
 
@@ -31,7 +34,12 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$watch(ctrl.isOpen, _onToggle);
+        scope.$watch(ctrl.isOpen, function(isOpen) {
+          // ctrl.isOpen이 포함된 digest cycle이 완료된 후 custom position을 수행하기 위해 timeout 사용한다.
+          $timeout(function() {
+            _onToggle(isOpen);
+          }, 0, false);
+        });
       }
 
       /**

@@ -34,14 +34,14 @@
         <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="file.id"></i>
       </div>
       <!--    DROPDOWN MENU   -->
-      <div class="file-menu dropdown-auto-position"
+      <div class="file-menu"
            ng-if="isFileTab"
            dropdown
            is-open="status.isOpen">
         <i class="icon-more" dropdown-toggle tooltip="{{::'@file-action-more'|translate}}" tooltip-placement="left"></i>
-
         <ul class="dropdown-menu grey_dropdown"
             dropdown-menu
+            dropdown-position
             template-url="app/util/directive/dropdown-position/templates/right.file.html"></ul>
       </div>
     </div>

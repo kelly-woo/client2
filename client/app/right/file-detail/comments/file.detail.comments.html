@@ -11,7 +11,7 @@
       <span class="comment-item-header__name" ng-click="onMemberClick(comment.extWriter)">{{comment.extWriterName}}</span>
       <span class="comment-item-header__created">{{comment.extCreateTimeView}}</span>
       <div class="comment-item-header__action pull-right" ng-if="!comment.isSendingComment">
-        <div class="comment-item-action comment-item-action-more dropdown-auto-position"
+        <div class="comment-item-action comment-item-action-more"
              ng-if="hasOwnComment(comment)"
              dropdown
              is-open="comment.extIsOpen">
@@ -20,6 +20,7 @@
           </a>
           <ul class="dropdown-menu grey-dropdown"
               dropdown-menu
+              dropdown-position
               template-url="app/util/directive/dropdown-position/templates/right.file.detail.comment.html">
           </ul>
         </div>
