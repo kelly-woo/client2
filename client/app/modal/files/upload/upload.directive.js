@@ -16,8 +16,6 @@
     };
 
     function link(scope, el) {
-      var _jqFileUploadTitle = $('#file_upload_title');
-
       var PUBLIC_FILE = 744;    // PUBLIC_FILE code
 
       var fileUploadOptions = scope.fileUploadOptions;
@@ -50,10 +48,13 @@
         if (fileUploadOptions.fileUploader.isUploadingStatus()) {
           // 현재 upload 중이고 이어서 upload함
           fileUploader = fileUploadOptions.fileUploader;
-          fileUploader.updateUploadStatus();
+          fileUploader.updateUploadStatus({
+            jqContainer: el
+          });
         } else {
           // 최초 upload함
           fileUploader = fileUploadOptions.fileUploader.setOptions({
+            jqContainer: el,
             // file api 제공 여부
             supportFileAPI: true,
             // file object convert
@@ -66,6 +67,7 @@
             },
             // fileInfo object convert
             convertFileInfo: function(file) {
+              var jqContainer = this.jqContainer;
               var fileInfo;
 
               if (file.isImage) {
@@ -87,13 +89,13 @@
 
               // upload modal title 갱신, fileInfo에 title 설정
               fileInfo.title = file.name;
-              _jqFileUploadTitle.val(file.name);
+              jqContainer.find('#file_upload_title').val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
               scope.selectedEntityId = scope.selectedEntity.id;
 
-              $('#file_upload_comment').focus();
+              jqContainer.find('#file_upload_comment').focus();
 
               return scope.fileInfo = fileInfo;
             },
@@ -103,11 +105,13 @@
             },
             // 하나의 file upload 시작
             onUpload: function(file, fileInfo) {
+              var jqContainer = this.jqContainer;
+
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
               //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
               fileInfo.share = scope.selectedEntityId;
 
-              fileInfo.comment = el.find('#file_upload_comment').val().trim();
+              fileInfo.comment = jqContainer.find('#file_upload_comment').val().trim();
 
               _setMentions(fileInfo);
 
