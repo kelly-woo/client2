@@ -154,4 +154,60 @@
   border-width: 8px;
   margin-left: -11px;
 }
+
+
+
+
+@media (max-width: 1140px) {
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ko) {
+	max-width: calc(100% - 340px) !important;
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(en) {
+	max-width: calc(100% - 425px) !important;
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ja) {
+	max-width: calc(100% - 442px) !important;
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-cn),
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-tw) {
+    max-width: calc(100% - 340px);
+  }
+  .center-panel-inactive-member .inactive-member-guide-container > span {
+	display: none;
+  }
+  .center-panel-inactive-member .inactive-member-guide-container {
+	background-color: transparent;
+	padding: 0;
+	margin-left: -5px;
+  }
+  .center-panel-inactive-member .inactive-guide {
+	margin-left: -9px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ko) {
+	max-width: calc(100% - 340px) !important;
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(en) {
+	max-width: calc(100% - 425px) !important;
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ja) {
+	max-width: calc(100% - 442px) !important;
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-cn),
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-tw) {
+    max-width: calc(100% - 340px);
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-member-guide-container > span {
+	display: none;
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-member-guide-container {
+	background-color: transparent;
+	padding: 0;
+	margin-left: -5px;
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-guide {
+	margin-left: -9px;
+  }
 }
