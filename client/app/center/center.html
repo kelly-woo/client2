@@ -29,22 +29,10 @@
         <div ng-show="hasOldMessageToLoad" class="msgs__loading load-more-top">
           <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
         </div>
-  
+        <!-- Sent Message -->
         <center-messages-directive center-event-delegater></center-messages-directive>
         <!-- unsent Message -->
-        <div ng-if="sendingMessages.length"
-             class="msgs-group"
-             ng-repeat="msg in sendingMessages"
-             repeat-done="onSendingRepeatDone()"
-             ng-switch="msg.message.contentType">
-          <text-sending ng-switch-when="text" class="msg-item text"
-                        index="$index"
-                        msg="msg" entity-id="entityId" entityType="entityType"></text-sending>
-  
-          <text-sending ng-switch-when="sticker" class="msg-item text"
-                        index="$index"
-                        msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>
-        </div>
+        <center-messages-sending-directive></center-messages-sending-directive>
       </div>
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
       <center-item-dropdown-layer></center-item-dropdown-layer>

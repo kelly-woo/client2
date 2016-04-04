@@ -1,0 +1,48 @@
+<div id="{{id}}" class="msgs-group">
+  <div class="msg-item text {{ css.child }}">
+    <div class="text-msg-item-container">
+      <!--  User Thumbnail -->
+      {{#if hasProfile}}
+      <div class="msg-item-float cursor_pointer _user">
+        <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
+      </div>
+
+      <div class="msg-item-header _user">
+        <!--    WRITER-->
+          <span class="msg-item-header__name cursor_pointer">
+            <span class="msg-item-header__nameSpace">
+              <span>{{ msg.extWriterName }}</span>
+            </span>
+          </span>
+      </div>
+      {{/if}}
+      <div class="msg-item-body">
+        <!-- TEXT -->
+        <div class="msg-text">
+          {{#if isSticker}}
+          <img class="sticker size_5" src="{{msg.message.content.url}}"/>
+          {{else}}
+          <span class="keep msg-text-body msg-text-sending">{{{ msg.message.content.body }}}</span>
+          {{/if}}
+          <!--  TIME  -->
+          <span class="msg-item-header__created">{{ msg.extTime }}</span>
+
+          <!--  SENDING STATUS SPINNING WHEEL -->
+          {{#if isFailed}}
+          <span>
+            <a class="cursor_pointer">
+              <span class="msg-item-header__retry cursor_pointer _retry"><i class="icon-refresh"></i> Retry</span>
+            </a>
+          </span>
+          {{/if}}
+        </div>
+        <div class="msg-extra">
+          <!-- More -->
+          <span class="msg-item-icon _textMore">
+            <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
