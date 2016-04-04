@@ -57,15 +57,26 @@
   INACTIVE MEMBER CSS
 
 ********************************************/
-.center-panel-inactive-member.panel-title-container {
-  background-color: #fbbc00;
-  color: white !important;
-}
 
 .center-panel-inactive-member.panel-title-container {
   background-color: #fbbc00;
   color: white !important;
+  border-color: #F2B305;
 }
+.center-panel-inactive-member.panel-title-container .panel-title-info:lang(ko) {
+  max-width: calc(100% - 540px);
+}
+.center-panel-inactive-member.panel-title-container .panel-title-info:lang(en) {
+  max-width: calc(100% - 640px);
+}
+.center-panel-inactive-member.panel-title-container .panel-title-info:lang(ja) {
+  max-width: calc(100% - 670px);
+}
+.center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-cn),
+.center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-tw) {
+  max-width: calc(100% - 460px);
+}
+
 
 .center-panel-inactive-member.panel-title-container .prefix,
 .center-panel-inactive-member.panel-title-container .panel-title-info-name-container,
@@ -73,10 +84,10 @@
   color: white !important;
 }
 
-.center-panel-inactive-member .panel-title-info:hover .panel-title-info__name,
+/*.center-panel-inactive-member .panel-title-info:hover .panel-title-info__name,
 .center-panel-inactive-member .panel-title-info:hover .header-title-info__more {
   color: #e1e1e1 !important;
-}
+}*/
 
 .center-panel-inactive-member .user-profile,
 .center-panel-inactive-member .msg-item-header__nameSpace,
@@ -103,13 +114,25 @@
 
 .center-panel-inactive-member .inactive-member-guide-container {
   display: inline-block;
-  padding: 2px 5px 0 5px;
+  padding: 0 5px 0 25px;
   height: 25px;
   line-height: 25px;
   background:#F2A105;
-  margin: 0 0 2px 5px;
+  margin: 5px 0 2px 5px;
   border-radius: 3px;
+  vertical-align: top;
+  position: relative;
+  
 }
+.center-panel-inactive-member .inactive-member-guide-container > i {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+}
+.center-panel-inactive-member .inactive-member-guide-container > span {
+  line-height: 1em;
+}
+
 /**********************
   popover guide
 **********************/
@@ -118,10 +141,73 @@
   display: none;
   top: 25px;
   left: auto;
-  margin-left: -15px;
+  margin-left: -34px;
+  margin-top: 3px;
   color: #000000;
   max-width: 350px;
 }
 .center-panel-inactive-member .inactive-guide .arrow {
-  left: 21px;
+  left: 24px;
+}
+.center-panel-inactive-member .inactive-guide.popover.bottom > .arrow {
+  top: -16px;
+  border-width: 8px;
+  margin-left: -11px;
+}
+
+
+
+
+@media (max-width: 1140px) {
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ko) {
+	max-width: calc(100% - 360px);
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(en) {
+	max-width: calc(100% - 425px);
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ja) {
+	max-width: calc(100% - 442px);
+  }
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-cn),
+  .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-tw) {
+    max-width: calc(100% - 340px);
+  }
+  .center-panel-inactive-member .inactive-member-guide-container > span {
+	display: none;
+  }
+  .center-panel-inactive-member .inactive-member-guide-container {
+	background-color: transparent;
+	padding: 0;
+	margin-left: -5px;
+  }
+  .center-panel-inactive-member .inactive-guide {
+	margin-left: -9px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ko) {
+	max-width: calc(100% - 360px);
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(en) {
+	max-width: calc(100% - 425px);
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(ja) {
+	max-width: calc(100% - 442px);
+  }
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-cn),
+  .rpanel-show .center-panel-inactive-member.panel-title-container .panel-title-info:lang(zh-tw) {
+    max-width: calc(100% - 340px);
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-member-guide-container > span {
+	display: none;
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-member-guide-container {
+	background-color: transparent;
+	padding: 0;
+	margin-left: -5px;
+  }
+  .rpanel-show .center-panel-inactive-member .inactive-guide {
+	margin-left: -9px;
+  }
 }

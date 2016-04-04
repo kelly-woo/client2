@@ -281,6 +281,12 @@
   vertical-align: text-top;
   margin-bottom: 5px;
 }
+.profile-view-modal .action-buttons i.icon-mail {
+  font-size: 16px;
+}
+.profile-view-modal .action-buttons i.icon-delete {
+  font-size: 12px;
+}
 .profile-view-modal .action-buttons > span {
   display: inline-block;
   width: 96px;

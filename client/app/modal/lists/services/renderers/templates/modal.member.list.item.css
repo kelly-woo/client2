@@ -1,15 +1,31 @@
 .member-item .resend-invitation {
-  top: 10px;
+  top: 8px;
   right: 30px;
   position: absolute;
   color: #154D6B;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 15px;
-  background: gray;
+  background: #FFF;
   border-radius: 3px;
-  border: 0;
-  padding: 2px 5px;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 4px 6px 4px 24px;
+  box-shadow: -7px 0 7px 3px rgba(255,255,255,1);
+}
+.member-item.active .resend-invitation {
+  box-shadow: -7px 0 7px 3px rgba(242,251,255,1);
 }
 .member-item .resend-invitation:hover {
-  background: black;
+  background: #F7FBFE;
+  border: 1px solid rgba(21, 77, 107, 0.25);
+}
+.member-item .resend-invitation:active {
+  background: #d7e0e8;
+  border: 1px solid rgba(21, 77, 107, 0.2);
+}
+
+.member-item .resend-invitation > i {
+  position: absolute;
+  left: 5px;
+  top:5px;
 }
