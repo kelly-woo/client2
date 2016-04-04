@@ -345,11 +345,13 @@
     function _onFileShared(data) {
       var fileId = data.file.id;
 
-      _getValidFile(fileId)
-        .then(function(file) {
-          _addFile(file, true);
-          _setSearchStatus(file.id, 1);
-        });
+      if ($scope.searchStatus.isInitDone) {
+        _getValidFile(fileId)
+          .then(function(file) {
+            _addFile(file, true);
+            _setSearchStatus(file.id, 1);
+          });
+      }
     }
 
     /**
@@ -579,6 +581,7 @@
      * 파일 리스트 갱신이 발생한 직후 상태 설정
      * @param {number} firstIdOfReceivedList
      * @param {number} fileCount
+     * @param {number} isInitDone
      */
     function _setSearchStatus(firstIdOfReceivedList, fileCount) {
       // 마지막 list id를 local varidable에 설정
