@@ -805,8 +805,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalLastLinkId = response.lastLinkId;
         updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-        MessageSendingCollection.clearSentMessages();
-
         if (updateInfo.messageCount) {
           if (_isBottomReached() && _isChatPanelActive()) {
             _scrollToBottom();
@@ -836,6 +834,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var length = messages.length;
     var msg;
     var firstLinkId = MessageCollection.getFirstLinkId();
+
+    MessageSendingCollection.clearSentMessages();
+
     // Prevent duplicate messages in center panel.
     if (length) {
       if (firstMessageId === firstLinkId) {
