@@ -9,7 +9,7 @@
     .directive('jndConnectUnionSelectboxRoom', jndConnectUnionSelectboxRoom);
 
   function jndConnectUnionSelectboxRoom($timeout, JndConnect, EntityHandler, TopicFolderModel, currentSessionHelper,
-                                        BotList, CoreUtil, RoomTopicList) {
+                                        BotList, CoreUtil, RoomTopicList, RoomChatDmList) {
     return {
       restrict: 'E',
       replace: true,
@@ -88,7 +88,7 @@
         var entity = EntityHandler.get(newValue);
 
         if (entity) {
-          if (_isTopic(entity)) {
+          if (RoomTopicList.isExist(entity.id)) {
             scope.model = newValue;
           } else if (entity.entityId) {
             scope.model = entity.entityId;
@@ -105,7 +105,11 @@
       function _onModelChange(newValue) {
         var entity = EntityHandler.get(newValue);
         if (entity) {
-          scope.selectedValue = entity.id;
+          if (RoomChatDmList.isExist(entity.id)) {
+            scope.selectedValue = entity.extMember.id;
+          } else {
+            scope.selectedValue = entity.id;
+          }
         }
       }
     }

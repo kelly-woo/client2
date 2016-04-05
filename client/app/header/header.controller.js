@@ -81,7 +81,10 @@
       $scope.toolbar = RightPanel.getTabStatus();
       currentRightPanel = RightPanel.getStateName($state.current);
       $scope.isCompleteTutorial = true;
-
+      $scope.dropdownIsOpen = {
+        team: false,
+        help: false
+      };
       _initTutorialBlink();
       _attachEvents();
     }

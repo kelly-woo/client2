@@ -835,6 +835,7 @@ input[type="button"] {
 }
 .dropdown-menu .menu-item:hover .sub-menu {
   display: block;
+  min-width: 180px;
 }
 .dropdown-menu .language-sub-menu {
   position: absolute;

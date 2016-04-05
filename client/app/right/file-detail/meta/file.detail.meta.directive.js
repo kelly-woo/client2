@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function fileDetailMeta($state, $filter, AnalyticsHelper, analyticsService, Dialog, EntityHandler,
-                          entityheaderAPIservice, fileAPIservice, jndPubSub) {
+                          entityheaderAPIservice, fileAPIservice, jndPubSub, RoomTopicList) {
     return {
       restrict: 'E',
       replace: true,
@@ -68,7 +68,7 @@
         var entityId = entity.id;
         var entityType = entity.type;
 
-        if (entityType === 'users') {
+        if (entityType === 'users' || entityType === 'bots') {
           _goDm(entityId);
         } else {
           var targetEntity = EntityHandler.get(entityId);

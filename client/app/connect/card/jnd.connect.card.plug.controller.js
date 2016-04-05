@@ -30,6 +30,7 @@
      */
     function _init() {
       $scope.isAccessible = ($scope.plug.raw.memberId === memberService.getMemberId());
+      console.log($scope.plug);
     }
 
     /**

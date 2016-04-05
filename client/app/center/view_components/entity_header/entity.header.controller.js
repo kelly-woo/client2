@@ -59,7 +59,7 @@
         _initWithParam(_currentEntity);
         _attachEventListeners();
       } else {
-        $scope.$on('dataInitDone', _init);
+        $scope.$on('publicService:dataInitDone', _init);
       }
     }
 
@@ -558,7 +558,7 @@
         if (entityId) {
           // currentEntity에서 entityId 또는 id를 전달 받을 수 있는경우
 
-          if (room = RoomTopicList.get(entityId, true)) {
+          if (room = EntityHandler.get(entityId)) {
             roomId = memberService.isJandiBot(room.id) ? room.entityId : room.id;
 
             requestConnectInfo && requestConnectInfo.abort();

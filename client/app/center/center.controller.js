@@ -155,7 +155,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
-      $scope.$on('dataInitDone', _init);
+      $scope.$on('publicService:dataInitDone', _init);
     }
   }
 

@@ -8,9 +8,9 @@
     .module('jandiApp')
     .controller('RightFilesCtrl', RightFilesCtrl);
 
-  function RightFilesCtrl($scope, $filter, $q, $state, $timeout, AnalyticsHelper, analyticsService,
-                          currentSessionHelper, Dialog, fileAPIservice, FileDetail, modalHelper, publicService,
-                          RoomChatDmList, RoomTopicList, TopicFolderModel, UserList) {
+  function RightFilesCtrl($scope, $filter, $q, $state, $timeout, AnalyticsHelper, analyticsService, CoreUtil,
+                          currentSessionHelper, Dialog, EntityHandler, fileAPIservice, FileDetail, modalHelper,
+                          publicService, RoomTopicList, TopicFolderModel, UserList) {
     var _disabledMemberAddedOnSharedIn = false;
     var _disabledMemberAddedOnSharedBy = false;
 
@@ -328,8 +328,8 @@
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = RoomTopicList.get(data.room.id, true) || RoomChatDmList.getMember(data.room.id);
-        if (joinedEntity.id === $scope.searchStatus.sharedEntityId) {
+        joinedEntity = EntityHandler.get(data.room.id);
+        if (CoreUtil.pick(joinedEntity, 'id') === $scope.searchStatus.sharedEntityId) {
           result = true;
         }
       }

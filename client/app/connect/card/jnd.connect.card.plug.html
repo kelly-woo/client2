@@ -12,8 +12,8 @@
             'icon-topic': plug.room.type === 'channels',
             'icon-lock': plug.room.type === 'privategroups',
             'icon-user': plug.room.type === 'users',
-            'icon-jandi-bot': plug.room.type === 'bots' && plug.room.botType === 'jandi_bot'
-           }"></i> <span>{{ ::plug.room.name }}</span>
+            'icon-jandi-bot': plug.room.extMember.type === 'bots' && plug.room.extMember.botType === 'jandi_bot'
+           }"></i> <span>{{ ::plug.room.name || plug.room.extMember.name }}</span>
       </span>
     </div>
     <div class="connect-union-plug-desc">
@@ -28,7 +28,7 @@
          ng-switch="plug.room.type"
          class="connect-union-plug-desc">
       <span ng-switch-when="channels">
-        <i class="icon-topic"></i> <span>{{ ::plug.room.name }}</span>
+        <i class="icon-topic"></i> <span>{{ ::plug.room.name || plug.room.extMember.name }}</span>
       </span>
       <span ng-switch-default>
         <i class="icon-lock"></i> <span translate>@jnd-connect-13</span>
