@@ -17,8 +17,7 @@
       scope: {
           content: '@content',
           group: '@group',
-          key: '@key',
-          entity: '@entity'
+          key: '@key'
       },
       restrict: 'E',
       templateUrl: 'app/left/badge/badge.html'
@@ -71,7 +70,7 @@
 
       /**
        * badge 위치 데이터를 가공하여 반환한다.
-       * @returns {{top: number, bottom: *, entity: string, el: *}}
+       * @returns {{top: number, bottom: *, el: *}}
        * @private
        */
       function _getBadgeData() {
@@ -80,7 +79,6 @@
         return {
           top: top,
           bottom: bottom,
-          entity: scope.entity,
           el: el
         };
       }
