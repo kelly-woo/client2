@@ -53,6 +53,7 @@
       function _onMouseEnter(mouseEvent) {
         var jqTarget = $(mouseEvent.target);
         clearTimeout(_timer);
+        //mouse enter 에 대한 연산을 최소화 하기 위해 timeout 을 사용한다.
         _timer = setTimeout(_.bind(_showTooltip, this, jqTarget), 100);
       }
 
