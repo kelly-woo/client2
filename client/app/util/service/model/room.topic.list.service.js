@@ -10,8 +10,8 @@
     .service('RoomTopicList', RoomTopicList);
 
   /* @ngInject */
-  function RoomTopicList(EntityCollection, UserList) {
-
+  function RoomTopicList($timeout, EntityCollection, UserList, jndPubSub) {
+    var _timerNotifyChange;
     var _collectionMap = {};
 
     this.setList = setList;
@@ -57,6 +57,7 @@
     function setList(list, isJoin)  {
       var collection = _getEntityCollection(isJoin);
       collection.setList(list);
+      _notifyChange();
     }
 
     /**
@@ -76,7 +77,13 @@
      */
     function add(item, isJoin) {
       var collection = _getEntityCollection(isJoin);
+
       collection.add(item);
+
+      if (isExist(item.id, !isJoin)) {
+        remove(item.id, !isJoin);
+      }
+      _notifyChange();
     }
 
     /**
@@ -86,7 +93,9 @@
      * @returns {boolean}
      */
     function extend(id, targetObj) {
-      return _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
+      var result = _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
+      _notifyChange();
+      return result;
     }
 
     /**
@@ -95,6 +104,7 @@
     function reset() {
       _collectionMap.join.reset();
       _collectionMap.unjoin.reset();
+      _notifyChange();
     }
 
     /**
@@ -116,10 +126,22 @@
     /**
      * id 에 해당하는 데이터를 제거한다.
      * @param {number|string} id
+     * @param {boolean} isJoin
      * @returns {*}
      */
-    function remove(id) {
-      return _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
+    function remove(id, isJoin) {
+      var result = false;
+      if (_.isUndefined(isJoin)) {
+        result = _collectionMap.join.remove(id) || _collectionMap.unjoin.remove(id);
+      } else {
+        if (isJoin) {
+          result = _collectionMap.join.remove(id);
+        } else {
+          result = _collectionMap.unjoin.remove(id);
+        }
+      }
+      _notifyChange();
+      return result;
     }
 
     /**
@@ -148,7 +170,7 @@
       if (room) {
         memberIdList = (room.type === 'channels') ? room.ch_members : room.pg_members;
       }
-      return memberIdList;
+      return memberIdList || [];
     }
 
     /**
@@ -238,6 +260,18 @@
      */
     function isJoined(roomId) {
       return !!get(roomId, true)
+    }
+
+    /**
+     * 화면에 render 한다.
+     * @private
+     */
+    function _notifyChange() {
+      $timeout.cancel(_timerNotifyChange);
+      //성능 향상 목적으로 랜더링 수행을 최소화 하기 위해 timeout 을 이용한다.
+      _timerNotifyChange = $timeout(function() {
+        jndPubSub.pub('RoomTopicList:changed');
+      }, 500);
     }
   }
 })();
