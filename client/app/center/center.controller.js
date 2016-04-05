@@ -753,7 +753,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').unbind('mousewheel');
   }
 
-  function updateList() {
+  /**
+   * update 된 메시지 정보를 조회한다.
+   * @param {boolean} isUpdateMessageMarker - updateMessageMarker 를 호출할지 여부를 결정한다.
+   */
+  function updateList(isUpdateMessageMarker) {
     if (!_isDestroyed) {
       //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
       //  In such case, don't update list and just return it.
@@ -766,7 +770,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
       messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
-        .success(_onUpdateListSuccess)
+        .success(_.bind(_onUpdateListSuccess, this, isUpdateMessageMarker))
         .error(_onUpdateListError);
 
 
@@ -792,10 +796,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * 메세지 success 핸들러
+   * @param {boolean} isUpdateMessageMarker - updateMessageMarker 를 호출할 지 여부를 결정한다.
    * @param {object} response 서버 응답
    * @private
    */
-  function _onUpdateListSuccess(response) {
+  function _onUpdateListSuccess(isUpdateMessageMarker, response) {
     if (!_isDestroyed) {
       _isUpdateListLock = false;
 
@@ -813,6 +818,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
           MessageCollection.updateUnreadCount();
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+          if (isUpdateMessageMarker) {
+            updateMessageMarker();
+          }
           //console.log('::_onUpdateListSuccess', lastMessageId);
           _checkEntityMessageStatus();
         } else {
@@ -975,6 +983,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           .success(function (response) {
             //markerService.updateMarker(memberId, response.linkId);
             MessageSendingCollection.sent(payload, true);
+
             try {
               //analytics
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
@@ -1007,7 +1016,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!_hasLastMessage()) {
       _refreshCurrentTopic(true);
     }
-    updateList();
+    updateList(true);
     //_scrollToBottom(true);
   }
 
