@@ -88,7 +88,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
 
   $scope.messages = MessageCollection.list;
-  $scope.sendingMessages = MessageSendingCollection.list;
   $scope.message = {};          // Message to post.
   $scope.isInitialLoadingCompleted = false;
   $scope.hasLastMessageRendered = false;
@@ -199,7 +198,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     MessageSendingCollection.reset();
 
     $scope.messages = MessageCollection.list;
-    $scope.sendingMessages = MessageSendingCollection.list;
 
     $scope.isPolling = false;
     // configuration for message loading
@@ -478,11 +476,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideCenterLoading() {
-    JndUtil.safeApply($scope, function() {
-      $scope.msgLoadStatus.loading = false;
-      $scope.isShowLoadingWheel = false;
-      $timeout.cancel($scope.msgLoadStatus.timer);
-    });
+    $scope.msgLoadStatus.loading = false;
+    $scope.isShowLoadingWheel = false;
+    $timeout.cancel($scope.msgLoadStatus.timer);
   }
 
   function loadMore(isSkipBookmark) {
@@ -788,9 +784,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         updateList();
       } else {
         _updateRetryCnt = 0;
-        JndUtil.safeApply($scope, function() {
-          MessageSendingCollection.clearSentMessages();
-        });
+        MessageSendingCollection.clearSentMessages();
         onHttpResponseError(response);
       }
     }
@@ -811,9 +805,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalLastLinkId = response.lastLinkId;
         updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-        JndUtil.safeApply($scope, function() {
-          MessageSendingCollection.clearSentMessages();
-        });
+        MessageSendingCollection.clearSentMessages();
 
         if (updateInfo.messageCount) {
           if (_isBottomReached() && _isChatPanelActive()) {
