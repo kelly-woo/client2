@@ -14,6 +14,7 @@
       scope: false,
       link: link,
       replace: true,
+      controller: 'CenterChatInputBoxCtrl',
       templateUrl: 'app/center/view_components/center_chat_input_box/center.chat.input.box.html'
     };
 
@@ -69,8 +70,6 @@
       function _attachScopeEvents() {
         scope.$on('jndMainKeyHandler:upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
-        scope.$on('MentionaheadCtrl:showed:message', _onMentionaheadShowed);
-        scope.$on('MentionaheadCtrl:hid:message', _onMentionaheadHid);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
@@ -102,29 +101,11 @@
       }
 
       /**
-       * mentionahead showed
-       * @private
-       */
-      function _onMentionaheadShowed() {
-        scope.isMentionaheadShow = true;
-      }
-
-      /**
-       * mentionahead hid
-       * @private
-       */
-      function _onMentionaheadHid() {
-        scope.isMentionaheadShow = false;
-      }
-
-      /**
        * mention 가능한 member 설정한다.
        * @private
        */
       function _setMentionList() {
-        var mentionMembers = Mentionahead.getMentionListForTopic(_entityId);
-
-        jndPubSub.pub('MentionaheadCtrl:message', mentionMembers);
+        scope.mentionahead.list = Mentionahead.getMentionListForTopic(_entityId);
       }
 
       /**
@@ -182,7 +163,7 @@
        * mention icon click event handler
        */
       function onMentionIconClick() {
-        Mentionahead.show('message');
+        scope.mentionahead.isOpen = Mentionahead.MENTION_WITH_CHAR;
       }
 
       /**

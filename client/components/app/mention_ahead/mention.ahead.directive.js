@@ -9,11 +9,14 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService, JndUtil) {
+  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService) {
 
     return {
       restrict: 'A',
-      scope: true,
+      scope: {
+        isOpen: '=mentionaheadIsOpen',
+        list: '=mentionaheadList'
+      },
       require: ['mentionahead'],
       controller: 'MentionaheadCtrl',
       compile: function() {
@@ -43,7 +46,6 @@
 
             mentionCtrl = ctrls[0];
             scope.eventCatcher = el;
-            scope.type = mentionaheadType;
 
             scope.mentionOrderBy = mentionOrderBy;
 
@@ -64,10 +66,6 @@
                   // text change event handling
                   function changeHandler(event) {
                     var value = event.target.value;
-
-                    if (!_isOpenMentionaheadMenu()) {
-                      mentionCtrl.clearMention();
-                    }
 
                     if (value !== mentionCtrl.getValue()) {
                       mentionCtrl.setValue(value);
@@ -96,7 +94,7 @@
                     .on('input', changeHandler)
                     .on('click', liveSearchHandler)
                     .on('blur', function() {
-                      JndUtil.safeApply(scope, function() {
+                      scope.$apply(function() {
                         mentionCtrl.clearMention();
                       });
                     })
@@ -122,7 +120,7 @@
            * @private
            */
           function _isOpenMentionaheadMenu() {
-            return jqMentionahead.attr('aria-expanded') === 'true'
+            return jqMentionahead.attr('aria-expanded') === 'true';
           }
 
           /**

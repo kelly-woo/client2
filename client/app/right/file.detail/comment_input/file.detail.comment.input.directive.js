@@ -21,6 +21,7 @@
         setMentionsGetter: '&',
         onMemberClick: '='
       },
+      controller: 'FileDetailCommentInputCtrl',
       templateUrl : 'app/right/file.detail/comment_input/file.detail.comment.input.html',
       link: link
     };
@@ -76,11 +77,9 @@
         scope.$on('room:memberAdded', _onMemberUpdate);
         scope.$on('room:memberDeleted', _onMemberUpdate);
 
-        scope.$on('MentionaheadCtrl:showed:comment', _onMentionaheadShowed);
-        scope.$on('MentionaheadCtrl:hid:comment', _onMentionaheadHid);
-
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
+        scope.$watch('mentionahead.isOpen', _onIsOpenChanged);
       }
 
       /**
@@ -100,6 +99,17 @@
         scope.setMentionsGetter({
           $getter: value
         });
+      }
+
+      /**
+       * is open 변경 이벤트 핸들러
+       * @param {boolean} isOpen
+       * @private
+       */
+      function _onIsOpenChanged(isOpen) {
+        if (isOpen) {
+          _hideSticker();
+        }
       }
 
       /**
@@ -127,7 +137,7 @@
        * mention icon click
        */
       function onMentionIconClick() {
-        Mentionahead.show('comment');
+        scope.mentionahead.isOpen = Mentionahead.MENTION_WITH_CHAR;
       }
 
       /**
@@ -226,23 +236,6 @@
        */
       function _onMemberUpdate() {
         jndPubSub.pub('fileDetail:updateFile');
-      }
-
-      /**
-       * mentionahead showed event handler
-       * @private
-       */
-      function _onMentionaheadShowed() {
-        _hideSticker();
-        scope.isMentionaheadShow = true;
-      }
-
-      /**
-       * mentionahead hid event handler
-       * @private
-       */
-      function _onMentionaheadHid() {
-        scope.isMentionaheadShow = false;
       }
 
       /**
@@ -364,8 +357,7 @@
        * @private
        */
       function _setMentionMembers(file) {
-        var mentionList = Mentionahead.getMentionListForFile(file);
-        jndPubSub.pub('MentionaheadCtrl:comment', mentionList);
+        scope.mentionahead.list = Mentionahead.getMentionListForFile(file);
       }
     }
   }

@@ -16,6 +16,11 @@
      * @private
      */
     function _init() {
+      $scope.mentionahead = {
+        isOpen: false,
+        list: []
+      };
+
       $scope.selectedEntity = currentSessionHelper.getCurrentEntity();
       $scope.selectedEntityId = $scope.selectedEntity.id;
       $scope.isLoading = false;
@@ -55,9 +60,7 @@
      * @private
      */
     function _onSelectedEntityIdChange(entityId) {
-      var mentionList = Mentionahead.getMentionListForUploading(entityId);
-
-      jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
+      $scope.mentionahead.list = Mentionahead.getMentionListForUploading(entityId);
     }
 
     /**
