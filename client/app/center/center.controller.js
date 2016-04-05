@@ -849,6 +849,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageCollection.update(messages, isSkipAppend);
       }
     }
+    MessageSendingCollection.refreshAt(0);
   }
 
   function onHttpResponseError(response) {
@@ -972,7 +973,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         messageAPIservice.postMessage(entityType, entityId,
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function (response) {
-            markerService.updateMarker(memberId, response.linkId);
+            //markerService.updateMarker(memberId, response.linkId);
             MessageSendingCollection.sent(payload, true);
             try {
               //analytics

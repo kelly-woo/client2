@@ -41,6 +41,7 @@
         scope.$on('MessageSendingCollection:afterRemove', _onAfterRemove);
         scope.$on('MessageSendingCollection:append', _onAppend);
         scope.$on('MessageSendingCollection:clearSentMessages', _reset);
+        scope.$on('MessageSendingCollection:refresh', _onRefresh);
       }
 
       /**
@@ -157,6 +158,16 @@
        */
       function _onAppend(angularEvent, msg) {
         el.append(_render(MessageSendingCollection.indexOf(msg.id)));
+      }
+
+      /**
+       * refresh 콜백
+       * @param {object} angularEvent
+       * @param {string|number} id
+       * @private
+       */
+      function _onRefresh(angularEvent, id) {
+        _refresh(id);
       }
 
       /**

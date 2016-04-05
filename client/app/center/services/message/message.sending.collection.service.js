@@ -10,7 +10,7 @@
     .service('MessageSendingCollection', MessageSendingCollection);
 
   /* @ngInject */
-  function MessageSendingCollection($rootScope, MessageCollection, Sticker, jndPubSub) {
+  function MessageSendingCollection($rootScope, CoreUtil, MessageCollection, Sticker, jndPubSub) {
     var that = this;
     var _sendingKey = 0;
     var _payloads = {};
@@ -27,6 +27,7 @@
     this.isSending = isSending;
     this.remove = remove;
     this.indexOf = indexOf;
+    this.refreshAt = refreshAt;
 
     _init();
 
@@ -50,6 +51,14 @@
       that.queue = [];
       that.list = [];
       jndPubSub.pub('MessageSendingCollection:reset');
+    }
+
+    /**
+     * index 에 해당하는 item 의 뷰를 갱신 한다.
+     * @param index
+     */
+    function refreshAt(index) {
+      jndPubSub.pub('MessageSendingCollection:refresh', CoreUtil.pick(that.list, index, 'id'));
     }
 
     /**
@@ -222,6 +231,14 @@
       }
     }
 
+    /**
+     * payload 를 반환한다.
+     * @param {string} content
+     * @param {object} sticker
+     * @param {Array} mentions
+     * @returns {{content: *, sticker: *, mentions: *}}
+     * @private
+     */
     function _getPayload(content, sticker, mentions) {
       sticker = _.clone(sticker);
 
