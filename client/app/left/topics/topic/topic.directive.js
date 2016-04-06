@@ -37,7 +37,7 @@
       }
 
       /**
-       * 
+       * Dom 이벤트를 바인딩한다.
        * @private
        */
       function _attachDomEvents() {
