@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($compile, $timeout, $position, currentSessionHelper, memberService) {
+  function mentionahead($compile, $timeout, $position, currentSessionHelper, JndUtil, memberService) {
 
     return {
       restrict: 'A',
@@ -94,7 +94,7 @@
                     .on('input', changeHandler)
                     .on('click', liveSearchHandler)
                     .on('blur', function() {
-                      scope.$apply(function() {
+                      JndUtil.safeApply(scope, function() {
                         mentionCtrl.clearMention();
                       });
                     })

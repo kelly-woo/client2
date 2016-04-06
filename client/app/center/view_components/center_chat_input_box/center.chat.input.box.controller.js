@@ -9,7 +9,7 @@
     .controller('CenterChatInputBoxCtrl', CenterChatInputBoxCtrl);
 
   /* @ngInject */
-  function CenterChatInputBoxCtrl($scope) {
+  function CenterChatInputBoxCtrl($scope, Mentionahead) {
     _init();
 
     /**
@@ -18,7 +18,7 @@
      */
     function _init() {
       $scope.mentionahead = {
-        isOpen: false,
+        isOpen: Mentionahead.CLOSE,
         list: []
       };
     }

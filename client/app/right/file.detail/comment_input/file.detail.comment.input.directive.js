@@ -47,6 +47,7 @@
         scope.onMentionIconClick = onMentionIconClick;
         scope.onMessageInputFocus = onMessageInputFocus;
         scope.onMessageInputBlur = onMessageInputBlur;
+        scope.isMentionaheadOpen = isMentionaheadOpen;
 
         scope.member = memberService.getMember();
 
@@ -107,7 +108,7 @@
        * @private
        */
       function _onIsOpenChanged(isOpen) {
-        if (isOpen) {
+        if (isOpen === Mentionahead.OPEN) {
           _hideSticker();
         }
       }
@@ -358,6 +359,14 @@
        */
       function _setMentionMembers(file) {
         scope.mentionahead.list = Mentionahead.getMentionListForFile(file);
+      }
+
+      /**
+       * Mentionahead가 열렸는지 여부
+       * @returns {boolean}
+       */
+      function isMentionaheadOpen() {
+        return scope.mentionahead.isOpen === Mentionahead.OPEN;
       }
     }
   }

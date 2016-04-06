@@ -52,6 +52,7 @@
         scope.onMentionIconClick = onMentionIconClick;
         scope.onMessageInputFocus = onMessageInputFocus;
         scope.onMessageInputBlur = onMessageInputBlur;
+        scope.isMentionaheadOpen = isMentionaheadOpen;
 
         _attachScopeEvents();
         _attachDomEvents();
@@ -164,6 +165,14 @@
        */
       function onMentionIconClick() {
         scope.mentionahead.isOpen = Mentionahead.MENTION_WITH_CHAR;
+      }
+
+      /**
+       * Mentionahead가 열렸는지 여부
+       * @returns {boolean}
+       */
+      function isMentionaheadOpen() {
+        return scope.mentionahead.isOpen === Mentionahead.OPEN;
       }
 
       /**

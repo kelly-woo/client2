@@ -18,6 +18,9 @@
     var regxKr = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
     that.MENTION_WITH_CHAR = 'mentionWithChar';
+    that.OPEN = 'open';
+    that.CLOSE = 'close';
+
     that.MENTION_ALL = 'all';
     that.MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
 

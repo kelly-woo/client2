@@ -31,7 +31,7 @@
   <div class="message-input-footer">
     <div class="message-input-buttons">
       <sticker-panel name="file" max-columns="3" dropdown-parent=".file-detail .input-container-over"></sticker-panel>
-      <i class="icon-at cursor_pointer" ng-class="{'open': mentionahead.isOpen}" ng-click="onMentionIconClick()"></i>
+      <i class="icon-at cursor_pointer" ng-class="{'open': isMentionaheadOpen()}" ng-click="onMentionIconClick()"></i>
     </div>
     <button class="message-input-submit btn btn-ok" ng-class="{'active': hasMessage}" ng-click="createComment()">
       {{::'@common-send'|translate}}

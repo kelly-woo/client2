@@ -174,14 +174,14 @@
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      $scope.isOpen = true;
+      $scope.isOpen = Mentionahead.OPEN;
     }
 
     /**
      * mentionahead를 숨김
      */
     function _hideMentionahead() {
-      $scope.isOpen = false;
+      $scope.isOpen = Mentionahead.CLOSE;
     }
 
     /**
@@ -311,7 +311,7 @@
      */
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if ($scope.isOpen === false || !$scope.hasOn) {
+        if ($scope.isOpen === Mentionahead.CLOSE || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
 
           // submit 후 value 초기화

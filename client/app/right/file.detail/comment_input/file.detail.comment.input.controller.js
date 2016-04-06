@@ -9,7 +9,7 @@
     .controller('FileDetailCommentInputCtrl', FileDetailCommentInputCtrl);
 
   /* @ngInject */
-  function FileDetailCommentInputCtrl($scope) {
+  function FileDetailCommentInputCtrl($scope, Mentionahead) {
     _init();
 
     /**
@@ -18,7 +18,7 @@
      */
     function _init() {
       $scope.mentionahead = {
-        isOpen: false,
+        isOpen: Mentionahead.CLOSE,
         list: []
       };
     }
