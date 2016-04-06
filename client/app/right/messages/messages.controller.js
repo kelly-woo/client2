@@ -9,8 +9,8 @@
     .controller('RightMessagesCtrl', RightMessagesCtrl);
 
   /* @ngInject */
-  function RightMessagesCtrl($scope, $timeout, AnalyticsHelper, currentSessionHelper, fileAPIservice, messageAPIservice,
-                             RoomTopicList, TopicFolderModel) {
+  function RightMessagesCtrl($scope, $timeout, AnalyticsHelper, currentSessionHelper, fileAPIservice, JndUtil,
+                             messageAPIservice, RoomTopicList, TopicFolderModel) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 10;
 
@@ -289,10 +289,10 @@
             _onSuccessMessageList(response);
           }
         })
-        .error(function(err) {
+        .error(function(response, status) {
           if (_isValidResponse(timerSearch)) {
-            _analyticsSearchError(err);
-            _onErrorMessageList();
+            _analyticsSearchError(response);
+            _onErrorMessageList(response, status);
           }
         })
         .finally(function() {
@@ -370,10 +370,13 @@
 
     /**
      * 메시지 리스트 불러오기 실패
+     * @param {object} response
+     * @param {number} status - http 상태 코드
      * @private
      */
-    function _onErrorMessageList() {
+    function _onErrorMessageList(response, status) {
       $scope.searchStatus.isApiError = true;
+      JndUtil.alertUnknownError(response, status);
     }
 
     /**

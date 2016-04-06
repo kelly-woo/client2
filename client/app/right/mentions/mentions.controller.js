@@ -9,7 +9,7 @@
     .controller('RightMentionsCtrl', RightMentionsCtrl);
 
   /* @ngInject */
-  function RightMentionsCtrl($scope, Mentions) {
+  function RightMentionsCtrl($scope, JndUtil, Mentions) {
     var MENTIONS_COUNT = 20;
 
     var _mentionMap = {};
@@ -121,7 +121,7 @@
       var mention = _mentionMap[mentionId];
       var index = $scope.records.indexOf(mention);
 
-      if (index > -1) {
+      if ($scope.isInitDone && index > -1) {
         $scope.records.splice(index, 1);
         delete _mentionMap[mentionId];
 
@@ -205,11 +205,15 @@
 
           // 다음 getMentionList에 전달할 param 갱신
           _updateCursor(data);
-        })
-        .finally(function() {
-          $scope.isInitDone = true;
 
           _setStatus();
+        })
+        .error(function(response, status) {
+          JndUtil.alertUnknownError(response, status);
+        })
+        .finally(function() {
+          $scope.isLoading = $scope.isScrollLoading = false;
+          $scope.searchStatus = _getSearchStatus();
         });
     }
 
@@ -218,9 +222,9 @@
      * @private
      */
     function _setStatus() {
+      $scope.isInitDone = true;
       $scope.isEmpty = !$scope.records.length;
-      $scope.isLoading = $scope.isScrollLoading = false;
-      $scope.searchStatus = _getSearchStatus();
+
     }
 
     /**

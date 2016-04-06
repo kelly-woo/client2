@@ -52,9 +52,6 @@
 
       _that.getTail = getTail;
       _that.setTail = setTail;
-
-      _that.LOADING_LIST_TEMPLATE_URL = 'app/right/loading/loading-list/loading.list.html';
-      _that.END_OF_LIST_TEMPLATE_URL = 'app/right/end-of-list/end.of.list.html';
     }
 
     /**

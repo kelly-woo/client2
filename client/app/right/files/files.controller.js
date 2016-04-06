@@ -9,7 +9,7 @@
     .controller('RightFilesCtrl', RightFilesCtrl);
 
   function RightFilesCtrl($scope, $filter, $q, $state, $timeout, AnalyticsHelper, analyticsService, CoreUtil,
-                          currentSessionHelper, Dialog, EntityHandler, fileAPIservice, FileDetail, modalHelper,
+                          currentSessionHelper, Dialog, EntityHandler, fileAPIservice, FileDetail, JndUtil, modalHelper,
                           publicService, RoomTopicList, TopicFolderModel, UserList) {
     var _disabledMemberAddedOnSharedIn = false;
     var _disabledMemberAddedOnSharedBy = false;
@@ -519,14 +519,15 @@
             _onSuccessFileList(response);
           }
         })
-        .error(function(error) {
+        .error(function(response, status) {
           if (_isValidResponse(timerSearch)) {
-            _analyticsFileListError(error);
+            _analyticsFileListError(response);
+            _onErrorFileList(response, status);
           }
         })
         .finally(function() {
           if (_isValidResponse(timerSearch)) {
-            _hideLoading()
+            _hideLoading();
           }
         });
     }
@@ -561,6 +562,16 @@
     }
 
     /**
+     * 파일 리스트 불러오기 실패
+     * @param {object} response
+     * @param {number} status - http 상태 코드
+     * @private
+     */
+    function _onErrorFileList(response, status) {
+      JndUtil.alertUnknownError(response, status);
+    }
+
+    /**
      * 파일 리스트에 파일 추가
      * @param {object} file
      * @param {boolean} [isUnshift] - true이면 앞에 넣음
@@ -588,10 +599,10 @@
     function _setSearchStatus(firstIdOfReceivedList, fileCount) {
       // 마지막 list id를 local varidable에 설정
       $scope.searchStatus.startMessageId = firstIdOfReceivedList;
+      $scope.searchStatus.isEndOfList = $scope.fileList.length > 0 && $scope.searchStatus.listCount > fileCount;
 
       $scope.searchStatus.isSearching = false;
       $scope.searchStatus.isScrollLoading = false;
-      $scope.searchStatus.isEndOfList = $scope.fileList.length > 0 && $scope.searchStatus.listCount > fileCount;
       $scope.searchStatus.isInitDone = true;
 
       $scope.searchStatus.type = _getSearchStatusType();

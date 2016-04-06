@@ -9,7 +9,7 @@
     .controller('RightStarsCtrl', RightStarsCtrl);
 
   /* @ngInject */
-  function RightStarsCtrl($scope, $filter, $timeout, StarAPIService) {
+  function RightStarsCtrl($scope, $filter, $timeout, StarAPIService, JndUtil) {
     var _starListData = {
       messageId: null
     };
@@ -352,17 +352,21 @@
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {
-                _pushStarList(data.records, activeTabName);
+                _addStars(data.records, activeTabName);
               }
 
               // 다음 getStarList에 전달할 param 갱신
               _updateCursor(activeTabName, data);
+
+              activeTab.hasFirstLoad = true;
+              !activeTab.list.length && _setEmptyTab(activeTabName, true);
             }
           })
+          .error(function(response, status) {
+            JndUtil.alertUnknownError(response, status);
+          })
           .finally(function() {
-            activeTab.hasFirstLoad = true;
             activeTab.isLoading = activeTab.isScrollLoading = false;
-            !activeTab.list.length && _setEmptyTab(activeTabName, true);
             activeTab.searchStatus = _getSearchStatus(activeTab);
           });
       }
@@ -378,12 +382,12 @@
         .success(function(data) {
           if (data) {
             !$scope.tabs.all.list.length && _setEmptyTab('all', false);
-            _addStarItem('all', data, true);
+            _addStar('all', data, true);
 
             if (data.message.contentType === 'file') {
               // star item이 file type이라면 files list에도 추가함
               !$scope.tabs.files.list.length && _setEmptyTab('files', false);
-              _addStarItem('files', data, true);
+              _addStar('files', data, true);
             }
           }
         });
@@ -395,7 +399,7 @@
      * @param {string} activeTabName
      * @private
      */
-    function _pushStarList(records, activeTabName) {
+    function _addStars(records, activeTabName) {
       var record;
       var i;
       var len;
@@ -404,7 +408,7 @@
         record = records[i];
 
         record.activeTabName = activeTabName;
-        _addStarItem(activeTabName, record);
+        _addStar(activeTabName, record);
       }
     }
 
@@ -415,7 +419,7 @@
      * @param {boolean} isUnShift - unshift 또는 push 처리 여부
      * @private
      */
-    function _addStarItem(activeTabName, data, isUnShift) {
+    function _addStar(activeTabName, data, isUnShift) {
       var activeTab = $scope.tabs[activeTabName];
 
       if (activeTab.map[data.message.id] == null) {
