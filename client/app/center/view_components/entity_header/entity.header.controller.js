@@ -478,7 +478,9 @@
      * @private
      */
     function _onConnected() {
-      $scope.isConnected = true;
+      JndUtil.safeApply($scope, function() {
+        $scope.isConnected = true;
+      });
     }
 
     /**
@@ -486,7 +488,9 @@
      * @private
      */
     function _onDisconnected() {
-      $scope.isConnected = false;
+      JndUtil.safeApply($scope, function() {
+        $scope.isConnected = false;
+      });
     }
 
     /**
