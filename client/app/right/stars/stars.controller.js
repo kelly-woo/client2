@@ -362,9 +362,7 @@
               !activeTab.list.length && _setEmptyTab(activeTabName, true);
             }
           })
-          .error(function(response, status) {
-            JndUtil.alertUnknownError(response, status);
-          })
+          .error(JndUtil.alertUnknownError)
           .finally(function() {
             activeTab.isLoading = activeTab.isScrollLoading = false;
             activeTab.searchStatus = _getSearchStatus(activeTab);

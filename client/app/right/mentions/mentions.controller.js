@@ -208,9 +208,7 @@
 
           _setStatus();
         })
-        .error(function(response, status) {
-          JndUtil.alertUnknownError(response, status);
-        })
+        .error(JndUtil.alertUnknownError)
         .finally(function() {
           $scope.isLoading = $scope.isScrollLoading = false;
           $scope.searchStatus = _getSearchStatus();
