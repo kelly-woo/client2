@@ -44,8 +44,6 @@
        * @private
        */
       function _onClick() {
-        //event.stopPropagation();
-
         if (scope.fileData.externalShared) {
           JndUtil.safeApply(scope, function() {
             ExternalFile.openUnshareDialog(function(type) {
