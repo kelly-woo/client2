@@ -232,7 +232,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _checkEntityMessageStatus);
-    $scope.$on('centerUpdateChatList', updateList);
+    $scope.$on('centerUpdateChatList', _onChatUpdated);
     $scope.$on('centerOnMarkerUpdated', _onCenterMarkerUpdated);
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
@@ -258,6 +258,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('body:dragStart', _onDragStart);
     $scope.$on('topicDeleted', _onTopicDeleted);
+  }
+
+  /**
+   * chat 이 update 된 경우 콜백
+   * @private
+   */
+  function _onChatUpdated() {
+    updateList();
   }
 
   /**
@@ -755,7 +763,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * update 된 메시지 정보를 조회한다.
-   * @param {boolean} isUpdateMessageMarker - updateMessageMarker 를 호출할지 여부를 결정한다.
+   * @param {boolean} [isUpdateMessageMarker=false] - updateMessageMarker 를 호출할지 여부를 결정한다.
    */
   function updateList(isUpdateMessageMarker) {
     if (!_isDestroyed) {
@@ -801,6 +809,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onUpdateListSuccess(isUpdateMessageMarker, response) {
+    isUpdateMessageMarker = _.isBoolean(isUpdateMessageMarker) ? isUpdateMessageMarker : false;
     if (!_isDestroyed) {
       _isUpdateListLock = false;
 
