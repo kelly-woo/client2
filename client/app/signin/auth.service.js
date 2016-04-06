@@ -9,10 +9,12 @@
     .module('jandiApp')
     .service('Auth', Auth);
 
-  function Auth($state, accountService, memberService, storageAPIservice, publicService, analyticsService,
+  function Auth($state, $q, $urlRouter, accountService, memberService, storageAPIservice, publicService, analyticsService,
                 HybridAppHelper, AuthApi) {
+    var _isRefreshTokenLock = false;
 
     this.signIn = signIn;
+    this.requestAccessTokenWithRefreshToken = requestAccessTokenWithRefreshToken;
 
     _init();
 
@@ -28,11 +30,32 @@
      */
     function signIn() {
       _loadLocalToken();
+
       if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
-        AuthApi.requestAccessTokenWithRefreshToken();
+        requestAccessTokenWithRefreshToken();
       } else {
-        accountService.getAccountInfo().then(_onSuccessGetAccount, AuthApi.requestAccessTokenWithRefreshToken);
+        accountService.getAccountInfo().then(_onSuccessGetAccount, requestAccessTokenWithRefreshToken);
       }
+    }
+
+    /**
+     * refresh token 으로 access token 을 조회한다.
+     */
+    function requestAccessTokenWithRefreshToken() {
+      if (!_isRefreshTokenLock) {
+        _isRefreshTokenLock = true;
+        AuthApi.requestAccessTokenWithRefreshToken()
+          .success(_onSuccessRefreshToken)
+          .error(publicService.signOut);
+      }
+    }
+
+    /**
+     * refresh token 성공 콜백
+     * @private
+     */
+    function _onSuccessRefreshToken() {
+      accountService.getAccountInfo().then(_onSuccessGetAccount, publicService.signOut);
     }
 
     /**
@@ -61,6 +84,7 @@
      * @private
      */
     function _onSuccessGetAccount(result) {
+      console.log('@@@ _onSuccessGetAccount');
       var response = result.data;
       var account;
       var signInInfo;
@@ -89,11 +113,19 @@
      * @private
      */
     function _onSuccessGetMemberInfo(result) {
+      _isRefreshTokenLock = false;
       var response = result.data;
       memberService.setMember(response);
       _setSignInStatics();
-      publicService.showDummyLayout();
-      $state.go('messages.home');
+
+      //state 가 signin 으로 부터 들어왔다면 message.home 으로 라우팅 한다.
+      if ($state.current.name === 'signin') {
+        publicService.showDummyLayout();
+        $state.go('messages.home');
+      } else {
+        $urlRouter.sync();
+      }
+
       HybridAppHelper.onSignedIn();
     }
 

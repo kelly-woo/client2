@@ -57,11 +57,17 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
             templateUrl: 'app/left/left.html',
             controller: 'leftPanelController',
             resolve: {
-              resLeftSideMenu: function (leftpanelAPIservice, AuthApi) {
-                return leftpanelAPIservice.getLists().error(AuthApi.requestAccessTokenWithRefreshToken);
-              },
-              resTopicFolder: function(TopicFolderModel, AuthApi) {
-                return TopicFolderModel.load('initialize').then(null, AuthApi.requestAccessTokenWithRefreshToken);
+              initialPromise: function($q, $state, memberService, Auth, TopicFolderModel, leftpanelAPIservice) {
+                var promises = [];
+
+                if (memberService.getMember()) {
+                  promises.push(leftpanelAPIservice.getLists());
+                  promises.push(TopicFolderModel.load('initialize'));
+                  return $q.all(promises);
+                } else {
+                  Auth.signIn();
+                  return $q.reject();
+                }
               }
             }
           },
