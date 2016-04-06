@@ -40,7 +40,7 @@
         var that = this;
 
         that.options = {
-          jqContainer: '',
+          jqContainer: null,
           multiple: true,
           uploadType: 'file',
           supportFileAPI: true,

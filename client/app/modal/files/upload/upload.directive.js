@@ -89,12 +89,12 @@
 
               // upload modal title 갱신, fileInfo에 title 설정
               fileInfo.title = file.name;
-              jqContainer.find('#file_upload_title').val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
               scope.selectedEntityId = scope.selectedEntity.id;
 
+              jqContainer.find('#file_upload_title').val(file.name);
               jqContainer.find('#file_upload_comment').focus();
 
               return scope.fileInfo = fileInfo;
