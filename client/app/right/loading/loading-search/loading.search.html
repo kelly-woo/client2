@@ -1,5 +1,10 @@
 <div class="search-result-container" ng-switch on="status">
-  <right-loading ng-switch-when="loading"></right-loading>
+  <div class="search-result-summary-ing" ng-switch-when="loading">
+    <div class="loading_bar scroll">
+      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+    </div>
+    <span translate>@search-in-progress</span>
+  </div>
   <div class="search-result-summary-ing rpanel-list" ng-switch-when="empty">
     <img class="rpanel-list-empty" ng-src="{{::imageURL}}"/>
     <div class="help-messages__message">

@@ -53,14 +53,11 @@
        * @private
        */
       function _setImage(content) {
-        if (_fileIcon === 'img' && content.icon !== 'etc') {
+        if (hasImagePreview(content)) {
           scope.isImageLoading = true;
-
-          scope.isImagePreview = true;
           scope.imageUrl = $filter('getPreview')(content, 'large');
           scope.previewCursor = 'zoom-in';
         } else {
-          scope.isImagePreview = false;
           scope.imageUrl = $filter('getFilterTypePreview')(content);
           scope.previewCursor = 'pointer'
         }
@@ -69,10 +66,23 @@
       }
 
       /**
+       * image preview 가졌는지 여부
+       * @param {object} content
+       * @returns {boolean}
+       */
+      function hasImagePreview(content) {
+        var hasImagePreview = _fileIcon === 'img' &&
+              content.icon !== 'etc' &&
+              !!(content.extraInfo && content.extraInfo.largeThumbnailUrl);
+
+        return scope.hasImagePreview = hasImagePreview;
+      }
+
+      /**
        * image click event handler
        */
       function onImageClick() {
-        if (scope.isImagePreview) {
+        if (scope.hasImagePreview) {
           modalHelper.openImageCarouselModal({
             // image file api data
             messageId: _fileDetail.id,

@@ -78,12 +78,12 @@
       $scope.$on('topic-folder:update', _initChatRoomOption);
       $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
 
+      $scope.$watch('searchStatus.entityId', _onSearchEntityChange);
+      $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
+
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-
-      $scope.$watch('searchStatus.entityId', _onSearchEntityChange);
-      $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
     }
 
     /**
@@ -270,8 +270,9 @@
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
-          !($scope.messageList.length === 0 && $scope.searchStatus.q !== '') &&
-          $scope.isConnected;
+          !(!$scope.messageList.length && $scope.searchStatus.q !== '') &&
+          $scope.isConnected &&
+          !isEmpty();
     }
 
     /**
@@ -474,7 +475,7 @@
      * @returns {boolean}
      */
     function isEmpty() {
-      return $scope.messageList.length === 0 &&
+      return !$scope.messageList.length &&
         $scope.searchStatus.isInitDone &&
         !$scope.searchStatus.isSearching;
     }
@@ -484,7 +485,7 @@
      * @returns {boolean}
      */
     function isKeywordEmpty() {
-      return !$scope.searchStatus.keyword && $scope.messageList.length === 0;
+      return !$scope.searchStatus.keyword && !$scope.messageList.length;
     }
 
     /**

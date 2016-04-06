@@ -8,8 +8,8 @@
     .module('jandiApp')
     .directive('rightFile', file);
 
-  function file($rootScope, $state, $timeout, AnalyticsHelper, Dialog, ExternalFile, fileAPIservice, FileDetail,
-                JndUtil, memberService, modalHelper) {
+  function file($filter, $rootScope, $state, $timeout, AnalyticsHelper, Dialog, ExternalFile, fileAPIservice,
+                FileDetail, JndUtil, memberService, modalHelper) {
     return {
       restrict: 'E',
       replace: true,

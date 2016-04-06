@@ -444,7 +444,7 @@
         fileList.splice(fileList.indexOf(file), 1);
         delete _fileMap[fileId];
 
-        if (fileList.length === 0) {
+        if (!fileList.length) {
           _refreshFileList();
         }
       }
@@ -487,6 +487,7 @@
      */
     function loadMore() {
       if (_isValidLoadMore()) {
+
         $scope.searchStatus.isScrollLoading = true;
 
         _getFileList();
@@ -501,8 +502,9 @@
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
-          !($scope.fileList.length === 0 && $scope.searchStatus.q !== '') &&
-          $scope.isConnected;
+          !(!$scope.fileList.length && $scope.searchStatus.q !== '') &&
+          $scope.isConnected &&
+          !isEmpty();
     }
 
     /**

@@ -40,7 +40,7 @@
           // tab list 전체가 load 되었는지 여부
           isEndOfList: false,
           // tab 비어있는지 여부
-          empty: false,
+          isEmpty: false,
           // tab 첫 load가 되었는지 여부
           hasFirstLoad: false
         },
@@ -52,13 +52,14 @@
           name: $filter('translate')('@star-files'),
           active: false,
           isEndOfList: false,
-          empty: false,
+          isEmpty: false,
           hasFirstLoad: false
         }
       };
 
       $scope.loadMore = loadMore;
       $scope.messageType = $scope.fileType = 'star';
+      $scope.isConnected = true;
 
       $scope.onTabSelect = onTabSelect;
 
@@ -88,6 +89,10 @@
       // delete message/file
       $scope.$on('jndWebSocketMessage:topicMessageDeleted', _topicMessageDeleted);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+
+      // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+      $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
     }
 
     /**
@@ -114,8 +119,7 @@
       if ($scope.status.isActive && !$scope.tabs[$scope.activeTabName].hasFirstLoad) {
         // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
 
-        _initStarListData($scope.activeTabName);
-        _initGetStarList($scope.activeTabName);
+        _refreshActiveTab($scope.activeTabName);
       }
     }
 
@@ -167,8 +171,8 @@
             _removeStarItem('all', messageId);
           }
 
-          $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
-          $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
+          !$scope.tabs.all.list.length && _setEmptyTab('all', true);
+          !$scope.tabs.files.list.length && _setEmptyTab('files', true);
         }, 0);
       }
     }
@@ -258,10 +262,34 @@
       var activeTabName = $scope.activeTabName;
       var activeTab = $scope.tabs[activeTabName];
 
-      if (!(activeTab.isScrollLoading || activeTab.isEndOfList)) {
+      if (_isValidLoadMore(activeTab)) {
         activeTab.isScrollLoading = true;
 
         _getStarList(activeTabName);
+      }
+    }
+
+    /**
+     * load more 가능여부
+     * @param {object} activeTab
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidLoadMore(activeTab) {
+      return !(activeTab.isScrollLoading || activeTab.isEndOfList) &&
+        $scope.isConnected &&
+        !activeTab.isEmpty;
+    }
+
+    /**
+     * 활성화된 텝의 list를 갱신함
+     * @param {string} activeTabName
+     * @private
+     */
+    function _refreshActiveTab(activeTabName) {
+      if ($scope.isConnected) {
+        _initStarListData(activeTabName);
+        _initGetStarList(activeTabName);
       }
     }
 
@@ -275,8 +303,7 @@
         $scope.activeTabName = type;
 
         if (!$scope.tabs[type].hasFirstLoad) {
-          _initStarListData($scope.activeTabName);
-          _initGetStarList($scope.activeTabName);
+          _refreshActiveTab($scope.activeTabName);
         }
       }
     }
@@ -335,7 +362,7 @@
           .finally(function() {
             activeTab.hasFirstLoad = true;
             activeTab.isLoading = activeTab.isScrollLoading = false;
-            activeTab.list.length === 0 && _setEmptyTab(activeTabName, true);
+            !activeTab.list.length && _setEmptyTab(activeTabName, true);
             activeTab.searchStatus = _getSearchStatus(activeTab);
           });
       }
@@ -350,12 +377,12 @@
       StarAPIService.getItem(messageId)
         .success(function(data) {
           if (data) {
-            $scope.tabs.all.list.length === 0 && _setEmptyTab('all', false);
+            !$scope.tabs.all.list.length && _setEmptyTab('all', false);
             _addStarItem('all', data, true);
 
             if (data.message.contentType === 'file') {
               // star item이 file type이라면 files list에도 추가함
-              $scope.tabs.files.list.length === 0 && _setEmptyTab('files', false);
+              !$scope.tabs.files.list.length && _setEmptyTab('files', false);
               _addStarItem('files', data, true);
             }
           }
@@ -468,6 +495,29 @@
       }
 
       return searchStatus;
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+
+      if($scope.status.isActive) {
+        _refreshActiveTab($scope.activeTabName);
+      } else {
+        $scope.tabs.all.hasFirstLoad = false;
+        $scope.tabs.files.hasFirstLoad = false;
+      }
+    }
+
+    /**
+     * 네크워크 비활성 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

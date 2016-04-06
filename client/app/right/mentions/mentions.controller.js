@@ -28,11 +28,11 @@
     function _init() {
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
-
-      _initMentionListData();
+      $scope.isInitDone = false;
+      $scope.isConnected = true;
 
       if ($scope.status.isActive) {
-        _initGetMentionList();
+        _refreshMentionList();
       }
 
       _attachScopeEvents();
@@ -48,6 +48,10 @@
       $scope.$on('jndWebSocketMessage:mentionNotificationSend', _onMentionNotificationSend);
       $scope.$on('jndWebSocketMessage:topicMessageDeleted', _onMessageDeleted);
       $scope.$on('jndWebSocketFile:commentDeleted', _onCommentDeleted);
+
+      // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+      $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
     }
 
     /**
@@ -56,8 +60,7 @@
      */
     function _onRightPanelStatusChange() {
       if ($scope.status.isActive && !$scope.isInitDone) {
-        _initMentionListData();
-        _initGetMentionList();
+        _refreshMentionList();
       }
     }
 
@@ -69,12 +72,14 @@
       if ($scope.isInitDone) {
         _mentionSendCount++;
 
+        // mention notification 발생시 mention tab 해당 아이템을 추가하기 위해 서버에 리퀘스트하게 되는데
+        // 리퀘스트할 아이템 목록을 한번에 모아서 요청하기 위해 setTimeout을 사용한다.
         clearTimeout(_timerMentionList);
         _timerMentionList = setTimeout(function() {
           Mentions.getMentionList(null, _mentionSendCount)
             .success(function(data) {
               if (data.records) {
-                if ($scope.records.length === 0) {
+                if (!$scope.records.length) {
                   $scope.isEndOfList = true;
                 }
 
@@ -120,7 +125,7 @@
         $scope.records.splice(index, 1);
         delete _mentionMap[mentionId];
 
-        if ($scope.records.length === 0) {
+        if (!$scope.records.length) {
           $scope.isEndOfList = false;
         }
 
@@ -132,10 +137,32 @@
      * scrolling시 mention list 불러오기
      */
     function loadMore() {
-      if (!($scope.isScrollLoading || $scope.isEndOfList)) {
+      if (_isValidLoadMore()) {
         $scope.isScrollLoading = true;
 
         _getMentionList();
+      }
+    }
+
+    /**
+     * load more 가능여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidLoadMore() {
+      return !($scope.isScrollLoading || $scope.isEndOfList) &&
+        $scope.isConnected &&
+        !$scope.isEmpty;
+    }
+
+    /**
+     * mention list를 갱신함
+     * @private
+     */
+    function _refreshMentionList() {
+      if ($scope.isConnected) {
+        _initMentionListData();
+        _initGetMentionList();
       }
     }
 
@@ -148,7 +175,7 @@
       _mentionSendCount = 0;
 
       $scope.records = [];
-      $scope.isInitDone = $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
+      $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
       $scope.searchStatus = _getSearchStatus();
     }
 
@@ -172,12 +199,12 @@
     function _getMentionList() {
       Mentions.getMentionList(_lastMessageId, MENTIONS_COUNT)
         .success(function(data) {
-            if (data.records) {
-              _addMentions(data.records, true);
-            }
+          if (data.records) {
+            _addMentions(data.records, true);
+          }
 
-            // 다음 getMentionList에 전달할 param 갱신
-            _updateCursor(data);
+          // 다음 getMentionList에 전달할 param 갱신
+          _updateCursor(data);
         })
         .finally(function() {
           $scope.isInitDone = true;
@@ -191,7 +218,7 @@
      * @private
      */
     function _setStatus() {
-      $scope.isEmpty = $scope.records.length === 0;
+      $scope.isEmpty = !$scope.records.length;
       $scope.isLoading = $scope.isScrollLoading = false;
       $scope.searchStatus = _getSearchStatus();
     }
@@ -247,6 +274,28 @@
       }
 
       return searchStatus;
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+
+      if($scope.status.isActive) {
+        _refreshMentionList();
+      } else {
+        $scope.isInitDone = false;
+      }
+    }
+
+    /**
+     * 네크워크 비활성 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

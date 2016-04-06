@@ -1,6 +1,11 @@
-<div class="file-list__item loading">
-  <div class="list-loading-background"></div>
-  <div class="loading_bar scroll">
-    <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+<div class="loading-status">
+  <div class="file-list__item loading" ng-if="isScrollLoading">
+    <div class="list-loading-background"></div>
+    <div class="loading_bar scroll">
+      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+    </div>
+  </div>
+  <div class="end-of-list" ng-if="isEndOfList">
+    <div class="end-of-list-dot"></div>
   </div>
 </div>

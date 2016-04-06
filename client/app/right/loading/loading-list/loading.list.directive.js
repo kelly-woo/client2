@@ -12,6 +12,10 @@
     return {
       restrict: 'E',
       replace: true,
+      scope: {
+        isScrollLoading: '=',
+        isEndOfList: '='
+      },
       templateUrl : 'app/right/loading/loading-list/loading.list.html',
       link: angular.noop
     };

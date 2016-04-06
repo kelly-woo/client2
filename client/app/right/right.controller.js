@@ -22,6 +22,11 @@
 
       $scope.tabs = RightPanel.getTabStatus();
       $scope.activeTabName = _getActiveTabName();
+
+      $scope.templateMap = {
+        loadingList: RightPanel.LOADING_LIST_TEMPLATE_URL,
+        endOfList: RightPanel.END_OF_LIST_TEMPLATE_URL
+      };
     }
 
     $scope.$on('connected', _init);

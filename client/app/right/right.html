@@ -8,19 +8,19 @@
     <!--  FILE TAB  -->
     <tab active="tabs.files.isActive">
       <page-tracker ng-if="tabs.files.isActive" page="files/files" title="File Tab"></page-tracker>
-      <right-files status="tabs.files"></right-files>
+      <right-files status="tabs.files" template-map=""></right-files>
     </tab>
     <!--  MESSAGE TAB -->
     <tab active="tabs.messages.isActive">
-      <right-messages status="tabs.messages"></right-messages>
+      <right-messages status="tabs.messages" template-map=""></right-messages>
     </tab>
     <!--  STAR TAB -->
     <tab active="tabs.stars.isActive">
-      <right-stars status="tabs.stars"></right-stars>
+      <right-stars status="tabs.stars" template-map=""></right-stars>
     </tab>
     <!--  MENTION TAB -->
     <tab active="tabs.mentions.isActive">
-      <right-mentions status="tabs.mentions"></right-mentions>
+      <right-mentions status="tabs.mentions" template-map=""></right-mentions>
     </tab>
   </tabset>
 </div>

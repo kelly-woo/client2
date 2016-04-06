@@ -1,5 +1,19 @@
 /**
  * @fileoverview dropdown position dicrective
+ * @uses dropdown
+ * @example
+ *
+ * // angular ui-bootstrap(0.13.4)의 'dropdown' directive 사용시에만 사용가능하다.
+ * <div dropdown>
+ *   <div dropdown-toggle>dropdown button</div>
+ *
+ *   // 'dropdownMenu' directive가 들어간 곳 다음에 'dropdownPosition' directive를 아래와 같이 넣어주면
+ *   // dropdown menu가 열릴때 container에 dropdown menu가 최대한 출력되도록 자동으로 position을 설정해준다.
+ *   <div dropdown-menu dropdown-position>
+ *     ...
+ *   </div>
+ * </div>
+ *
  */
 (function() {
   'use strict';
