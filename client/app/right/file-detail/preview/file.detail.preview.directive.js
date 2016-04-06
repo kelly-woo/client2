@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('fileDetailPreview', fileDetailPreview);
 
-  function fileDetailPreview($filter, ExternalShareService, modalHelper) {
+  function fileDetailPreview($filter, ExternalFile, modalHelper) {
     return {
       restrict: 'E',
       replace: true,
@@ -99,7 +99,7 @@
        * external share click event handler
        */
       function onExternalShareClick() {
-        ExternalShareService.openShareDialog(_content);
+        ExternalFile.openShareDialog(_content);
       }
     }
   }

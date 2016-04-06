@@ -62,6 +62,10 @@
         scope.$on('jndWebSocketFile:commentDeleted', _onDeleteComment);
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
       function _attachDomEvents() {
         el.on('mouseleave', '.comment-item', _onMouseLeave);
       }
@@ -126,7 +130,6 @@
       /**
        * comment 를 삭제한다.
        * @param {number} commentId 코멘트 ID
-       * @param {boolean} [isSticker=false] sticker 삭제인지 여부
        */
       function deleteComment(comment) {
         var commentId = comment.id;

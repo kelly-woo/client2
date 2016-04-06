@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('rightFile', file);
 
-  function file($rootScope, $state, $timeout, AnalyticsHelper, Dialog, ExternalShareService, fileAPIservice, FileDetail,
+  function file($rootScope, $state, $timeout, AnalyticsHelper, Dialog, ExternalFile, fileAPIservice, FileDetail,
                 JndUtil, memberService, modalHelper) {
     return {
       restrict: 'E',
@@ -65,9 +65,10 @@
        * @param {object} $event
        */
       function onExternalShareClick($event) {
+        // 외부공유가 click 되었을때 event가 file card에 전달되어 file detail로 이동하지 않도록 한다.
         $event.stopPropagation();
 
-        ExternalShareService.openShareDialog(scope.file.content);
+        ExternalFile.openShareDialog(scope.file.content);
       }
 
       /**
@@ -85,7 +86,7 @@
           FileDetail.get(scope.file.id)
             .success(function(response) {
               // 해당 file에 접근권한이 존재
-              FileDetail.dualFileDetail = response;
+              FileDetail.setFileDetail(response);
 
               $state.go(scope.file.type + 's', {userName: scope.writerName, itemId: scope.file.id});
             })
@@ -115,6 +116,7 @@
        * @private
        */
       function _onFileMenuClick($event) {
+        // file menu click event가 file card에 전달되어 file detail로 이동하지 않도록 한다.
         $event.stopPropagation();
       }
 
@@ -165,8 +167,8 @@
           $rootScope.setFileDetailCommentFocus = true;
 
           $state.go('files', {
-            userName    : scope.writerName,
-            itemId      : scope.file.id
+            userName: scope.writerName,
+            itemId: scope.file.id
           });
         } else {
           fileAPIservice.broadcastCommentFocus();

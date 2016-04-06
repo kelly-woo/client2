@@ -6,7 +6,7 @@ app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout,
                                        configuration, entityAPIservice, EntityHandler, memberService, Preloader,
                                        RoomTopicList, storageAPIservice) {
   var _that = this;
-  var _fileSizeLimit = 300; // 300MB
+  var FILE_SIZE_LIMIT = 300; // 300MB
   var _filterTypePreviewMap = {
     audio: '../assets/images/preview_audio.png',
     video:'../assets/images/preview_video.png',
@@ -240,7 +240,7 @@ app.service('fileAPIservice', function($rootScope, $filter, $http, $q, $timeout,
   // Return true if file size is over 100MB.
   function isFileTooLarge(file) {
     var sizeInMb = file.size/(Math.pow(1024,2));
-    if (sizeInMb > _fileSizeLimit) {
+    if (sizeInMb > FILE_SIZE_LIMIT) {
       return true;
     } else {
       return false;

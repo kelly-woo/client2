@@ -30,6 +30,9 @@
       _that.deleteComment = deleteComment;
       _that.deleteSticker = deleteSticker;
       _that.isIntegrateFile = isIntegrateFile;
+
+      _that.getFileDetail = getFileDetail;
+      _that.setFileDetail = setFileDetail;
     }
 
     /**
@@ -162,18 +165,25 @@
     }
 
     /**
-     * file detail 임시 저장용 property
-     * file detail 접근 확인하기 위해 files에서 조회한 file object를 file.detail로 전달
+     * file detail 전달함
+     * @returns {*}
      */
-    Object.defineProperty(this, 'dualFileDetail', {
-      get: function() {
-        var temp = _fileDetail;
-        _fileDetail = null;
-        return temp;
-      },
-      set: function(value) {
-        _fileDetail = value;
-      }
-    });
+    function getFileDetail() {
+      var fileDetail = _fileDetail;
+
+      // 한번 file detail을 전달한 후에는 저장하고 있던 file detail에 null을 할당하여
+      // 다음번 set이 이루어 지지 않았을때 이전 file detail 이 전달되는걸 방지한다.
+      _fileDetail = null;
+
+      return fileDetail;
+    }
+
+    /**
+     * file detail 설정함
+     * @param {object} fileDetail
+     */
+    function setFileDetail(fileDetail) {
+      _fileDetail = fileDetail;
+    }
   }
 })();

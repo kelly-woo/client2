@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('ExternalShareService', ExternalShareService);
+    .service('ExternalFile', ExternalFile);
 
   /* @ngInject */
-  function ExternalShareService($http, $sce, $filter, memberService, configuration, Dialog, Browser) {
+  function ExternalFile($http, $sce, $filter, memberService, configuration, Dialog, Browser) {
     var that = this;
     var _server_address = configuration.server_address;
     var _externalShareDomain = configuration.external_share_address;

@@ -186,6 +186,10 @@
         });
     }
 
+    /**
+     * mention tab의 상태를 설정함
+     * @private
+     */
     function _setStatus() {
       $scope.isEmpty = $scope.records.length === 0;
       $scope.isLoading = $scope.isScrollLoading = false;

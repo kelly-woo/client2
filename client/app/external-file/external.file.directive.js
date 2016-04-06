@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('externalFile', externalFile);
 
-  function externalFile($filter, memberService, ExternalShareService, Dialog, jndPubSub, JndUtil) {
+  function externalFile($filter, memberService, ExternalFile, Dialog, jndPubSub, JndUtil) {
     return {
       restrict: 'A',
       scope: {
@@ -31,6 +31,10 @@
         _attachDomEvents();
       }
 
+      /**
+       * attach dom events
+       * @private
+       */
       function _attachDomEvents() {
         el.on('click', _onClick);
       }
@@ -44,7 +48,7 @@
 
         if (scope.fileData.externalShared) {
           JndUtil.safeApply(scope, function() {
-            ExternalShareService.openUnshareDialog(function(type) {
+            ExternalFile.openUnshareDialog(function(type) {
               type === 'okay' && _setExternalUnshare();
             });
           });
@@ -60,7 +64,7 @@
       function _setExternalShare() {
         var fileId = scope.$eval(attrs.fileId);
 
-        ExternalShareService.share(fileId, _teamId)
+        ExternalFile.share(fileId, _teamId)
           .success(_onExternalShareSuccess);
       }
 
@@ -72,7 +76,7 @@
       function _onExternalShareSuccess(data) {
         _setExternalContent(data);
 
-        ExternalShareService.openShareDialog(data.content, true);
+        ExternalFile.openShareDialog(data.content, true);
       }
 
       /**
@@ -82,7 +86,7 @@
       function _setExternalUnshare() {
         var fileId = scope.$eval(attrs.fileId);
 
-        ExternalShareService.unshare(fileId, _teamId)
+        ExternalFile.unshare(fileId, _teamId)
           .success(_onExternalUnshareSuccess);
       }
 

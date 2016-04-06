@@ -80,7 +80,7 @@
      * @private
      */
     function _setFileDetail() {
-      var fileDetail = FileDetail.dualFileDetail;
+      var fileDetail = FileDetail.getFileDetail();
 
       if (fileDetail) {
         // request하지 않아도 출력할 file object가 이미 존재함
