@@ -6,18 +6,18 @@
 
   angular
     .module('jandiApp')
-    .directive('rPanelStarTab', rPanelStarTab);
+    .directive('rightStars', rightStars);
 
-  function rPanelStarTab() {
+  function rightStars() {
     return {
-      restrict: 'EA',
-      scope: true,
-      link: link,
+      restrict: 'E',
+      replace: true,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/stars/stars.html',
-      controller: 'RightPanelStarsTabCtrl'
+      controller: 'RightStarsCtrl',
+      link: angular.noop
     };
-
-    function link(scope, el, attrs) {
-    }
   }
 })();

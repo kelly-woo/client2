@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerFileDropdownLayer', centerFileDropdownLayer);
 
-  function centerFileDropdownLayer($timeout, $filter, memberService) {
+  function centerFileDropdownLayer($timeout, $filter, JndUtil, memberService) {
     return {
       restrict: 'E',
       controller: 'CenterFileDropdownLayerCtrl',
@@ -75,16 +75,11 @@
 
         scope.isAdmin = memberService.isAdmin();
 
-        scope.getExternalShare = getExternalShare;
-        scope.setExternalShare = setExternalShare;
-
         scope.message = msg.feedback ? msg.feedback : msg.message;
         scope.fileId = scope.message.id;
 
         content = scope.message.content;
         fileUrl = content.fileUrl;
-
-        scope.isExternalShared = content.externalShared;
 
         urlObj = $filter('downloadFile')(data.isIntegrateFile, content.title, fileUrl);
         scope.downloadUrl = urlObj.downloadUrl;
@@ -173,22 +168,6 @@
       function _detachDomEvents() {
         $(window).off('click', _onHide);
         $(window).off('resize', _onHide);
-      }
-
-      /**
-       * external share 전달한다.
-       * @returns {string}
-       */
-      function getExternalShare() {
-        return scope.isExternalShared;
-      }
-
-      /**
-       * external share 설정한다.
-       * @param {boolean} isExternalShared
-       */
-      function setExternalShare(isExternalShared) {
-        scope.isExternalShared = isExternalShared;
       }
     }
   }

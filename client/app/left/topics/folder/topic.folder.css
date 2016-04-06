@@ -178,12 +178,9 @@
   color: #737373;
   background-color:rgba(0,0,0,0.09);
 }
-.topic-folder-more-hide {
-  /*display: none;*/
-}
-
 .topic-folder-badge {
   position: absolute;
+  top:5px;
   right: 9px;
   z-index: 503;
 }

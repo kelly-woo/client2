@@ -25,6 +25,25 @@
 
     this.responseError = responseError;
 
+    _init();
+
+    /**
+     *
+     * @private
+     */
+    function _init() {
+      _attachDomEvent();
+    }
+
+    /**
+     * dom 이벤트를 바인딩 한다.
+     * @private
+     */
+    function _attachDomEvent() {
+      $(window).on("offline", _.bind(setStatus, this, false));
+      $(window).on("online", _.bind(setStatus, this, true));
+    }
+
     /**
      * 현재 네트워크 커넥션 상태를 반환한다.
      * @returns {boolean}
@@ -40,7 +59,6 @@
     function setStatus(isConnected) {
       var currentStatus = _isConnected;
       _isConnected = isConnected;
-
       if (currentStatus !== isConnected) {
         _broadcast(isConnected);
       }

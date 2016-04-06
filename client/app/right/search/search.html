@@ -1,0 +1,16 @@
+<div class="rpanel-search add-on-group">
+  <span class="add-on-left">
+    <i class="icon-search"></i>
+  </span>
+  <div class="rpanel-search-init"
+       tooltip="{{::'@search-cond-reset'|translate}}"
+       tooltip-placement="top"
+       tooltip-class="rpanel-search-btn-tooltip">
+	  <i class="icon-refresh"></i>
+  </div>
+  <input type="text"
+         class="form-control search-input rpanel-body-search__input"
+         placeholder="{{::'@input-search-file-title'|translate}}"
+         jnd-input-model="keyword"
+         ng-disabled="!isConnected"/>
+</div>

@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
-                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog, currentSessionHelper,
+                                   StarAPIService, jndPubSub, FileDetail, memberService, Dialog, currentSessionHelper,
                                    EntityHandler, JndUtil, RendererUtil) {
     return {
       restrict: 'E',
@@ -62,7 +62,6 @@
 
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
         scope.$on('updateMemberProfile', _onUpdateMemberProfile);
-        scope.$on('createdThumbnailImage', _onCreatedThumbnailImage);
         scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
@@ -70,8 +69,8 @@
         scope.$on('hotkey-scroll-page-up', _onHotkeyScrollUp);
         scope.$on('hotkey-scroll-page-down', _onHotkeyScrollDown);
 
-        scope.$on('rightFileDetailOnFileCommentCreated', _onFileCommentCreated);
-        scope.$on('rightFileDetailOnFileCommentDeleted', _onFileCommentDeleted);
+        scope.$on('jndWebSocketFile:commentCreated', _onFileCommentCreated);
+        scope.$on('jndWebSocketFile:commentDeleted', _onFileCommentDeleted);
       }
 
       /**
@@ -142,7 +141,7 @@
        */
       function _onFileUpdated(angularEvent, file) {
         var fileId = file.id;
-        return fileAPIservice.getFileDetail(fileId)
+        return FileDetail.get(fileId)
           .success(function(response) {
             var shareEntities;
             var message;
@@ -721,18 +720,6 @@
           if (messageId === (msg.message && msg.message.id)) {
             _refresh(msg.id, index);
           }
-        });
-      }
-
-      /**
-       * thumbnail created event handler
-       * @param {object} $event
-       * @param {object} socketEvent
-       * @private
-       */
-      function _onCreatedThumbnailImage($event, socketEvent) {
-        _refreshFileMessage(socketEvent, function(msg) {
-          msg.message.content.extraInfo = socketEvent.data.message.content.extraInfo;
         });
       }
 

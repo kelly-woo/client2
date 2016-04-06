@@ -182,7 +182,7 @@
         if (!_.isUndefined(id)) {
           item = data.map[id];
           if (item) {
-            index = indexOf(item);
+            index = this.indexOf(item);
             data.list.splice(index, 1);
             delete data.map[id];
             this.length = data.list.length;

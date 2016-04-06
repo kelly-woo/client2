@@ -212,16 +212,6 @@
           TopicInviteNotification.show(socketEvent);
         }
       }
-
-      /*
-        초대된 topic 이 private 일 경우, 해당 entity 정보가 존재하지 않으므로 leftSideMenu 를 호출한다.
-       TODO: 초대 소켓 이벤트에 해당 토픽의 entity 정보가 모두 들어오도록 수정된 이후,
-       1. 아래 leftSideMenu 를 호출하는 부분 제거
-       2. jnd.main.controller 의 _updateInvitedMemberList 로직 수정
-       3. 왼쪽 패널 토픽 리스트에 추가된 entity 정보가 노출되도록 수정 필요
-       */
-      jndPubSub.updateLeftPanel();
-      jndPubSub.pub('topicInvite', socketEvent);
     }
 
     /**
@@ -238,7 +228,7 @@
         jndPubSub.updateLeftBadgeCount();
       }
 
-      jndPubSub.pub('jndWebSocketMessage:topicMessageDelete', socketEvent);
+      jndPubSub.pub('jndWebSocketMessage:topicMessageDeleted', socketEvent);
     }
 
     /**
@@ -423,6 +413,8 @@
      * @private
      */
     function _sendMentionNotification(data) {
+      jndPubSub.pub('jndWebSocketMessage:mentionNotificationSend', data);
+
       if (_shouldSendNotification(data)) {
         MentionNotification.show(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
       }

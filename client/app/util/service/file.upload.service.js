@@ -20,6 +20,7 @@
       /**
        * @constructor
        * @param {object} options
+       * @param {object} options.jqContainer            - root dom element
        * @param {boolean} [options.multiple=true]       - multiple upload 여부
        * @param {string} [options.uploadtype=file]      - fileAPIservice에 전달할 upload type[file, integraiton]
        * @param {boolean} [options.supportFileAPI=true] - browser에서 file API 제공 여부
@@ -39,6 +40,7 @@
         var that = this;
 
         that.options = {
+          jqContainer: null,
           multiple: true,
           uploadType: 'file',
           supportFileAPI: true,
@@ -88,7 +90,9 @@
       /**
        * upload status를 갱신하여 file upload를 연속해서 가능하도록 한다.
        */
-      updateUploadStatus: function() {
+      updateUploadStatus: function(options) {
+        _.extend(this.options, options);
+
         this._fileUploadLock = true;
         this._convertFileObjects(this._it.next());
       },

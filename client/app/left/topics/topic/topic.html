@@ -2,11 +2,11 @@
   <i class="icon-star-off left-star" ng-class="{'icon-star-on': currentRoom.isStarred}"
      data-ng-click="onStarClick(currentRoom.id);$event.preventDefault(); $event.stopPropagation();"></i>
 
-    <span class="inline-overflow-ellipsis left-panel__name private-effect"
+    <span class="inline-overflow-ellipsis left-panel__name private-effect _topicName"
           ng-class="{'has-unread-msg': currentRoom.alarmCnt > 0, 'with-bell': isNotificationOff}"
-          ng-mouseenter="onTooltipShow($event, currentRoom.name)"
-          ng-mouseleave="onTooltipHide($event)"
-          tooltip="{{tooltip}}"
+          tooltip="{{currentRoom.name}}"
+          tooltip-is-open="isTooltipShown"
+          tooltip-trigger="none"
           tooltip-placement="right-center-topic-title"
           tooltip-append-to-body="true">
 
@@ -17,5 +17,5 @@
   <i class="icon-lock topic-setting-icon" ng-if="currentRoom.type=='privategroups'"></i>
   <i class="off-topic-notification-indicator icon-bell-slash topic-setting-icon" ng-if="isNotificationOff"></i>
 
-  <badge content="{{currentRoom.alarmCnt}}" group="topic" key="{{currentRoom.id}}" entity="{{currentRoom}}"></badge>
+  <badge content="{{currentRoom.alarmCnt}}" group="topic" key="{{currentRoom.id}}""></badge>
 </a>

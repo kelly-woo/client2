@@ -1,0 +1,29 @@
+.list-loading-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  background-color: transparent;
+}
+
+.end-of-list {
+  position: relative;
+  width: 100%;
+  height: 54px;
+}
+
+.end-of-list > div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 11px;
+  height: 11px;
+  border-radius: 11px;
+  background-color: #e0e0e0;
+}

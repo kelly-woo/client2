@@ -1,4 +1,4 @@
-.rpanel-body.mention-list {
+.rpanel-body.mention-tab .mention-list {
   overflow-y: auto;
   position: absolute;
   left: 0;
@@ -6,6 +6,6 @@
   bottom: 0;
   top: 35px;
 }
-.rpanel .rpanel-body.mention-list .mention {
+.rpanel .rpanel-body.mention-tab .mention {
   line-height: 24px;
 }
