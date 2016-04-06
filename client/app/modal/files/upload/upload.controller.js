@@ -7,7 +7,7 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
+  function FileUploadModalCtrl($scope, $modalInstance, CoreUtil, currentSessionHelper, fileAPIservice, TopicFolderModel,
                                fileUploadOptions, ImagesHelper, Mentionahead, jndPubSub, RoomTopicList) {
     _init();
 
@@ -73,7 +73,7 @@
       var jqImageLoader;
       var jqImageLoaderContainer;
 
-      blobFile = fileAPIservice.dataURItoBlob(newDataUrl);
+      blobFile = CoreUtil.dataURItoBlob(newDataUrl);
       $scope.blobFile = blobFile;
 
       jqImageLoader = ImagesHelper.getImageLoaderElement();

@@ -1,24 +1,16 @@
-<div class="rpanel-body mention-list" infinite-scroll-bottom="loadMore();">
-  <div class="search-result-container" ng-if="isLoading || isMentionEmpty">
-    <right-panel-loading ng-if="isLoading"></right-panel-loading>
-    <div class="search-result-summary-ing rpanel-list" ng-if="isMentionEmpty">
-      <img class="rpanel-list-empty__img" src="assets/images/mention-empty.png"/>
-      <div class="help-messages__message">
-        <span translate>@mention-empty</span>
-      </div>
+<div class="rpanel-body mention-tab">
+  <div class="mention-list"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-load-more="isScrollLoading">
+    <right-loading-search status="searchStatus" type="mention"></right-loading-search>
+    <div class="scroll-loading-list">
+      <right-message class="private-effect"
+                     message-data="record"
+                     message-type="messageType"
+                     ng-repeat="record in records"></right-message>
     </div>
-  </div>
-  <div class="infinite-scroll-bottom-list">
-    <message message-data="record" message-type="messageType" class="private-effect" ng-repeat="record in records"></message>
-  </div>
-  <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
-  <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">
-    <div class="loading_container_background scroll_loading_container_background"></div>
-    <div class="loading_bar scroll_loading_bar">
-      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-    </div>
-  </div>
-  <div class="end-of-list" ng-if="isEndOfList">
-    <div class="end-of-list-dot"></div>
+    <right-loading-list is-scroll-loading="isScrollLoading"
+                        is-end-of-list="isEndOfList"></right-loading-list>
   </div>
 </div>

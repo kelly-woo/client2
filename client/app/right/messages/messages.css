@@ -1,0 +1,41 @@
+.rpanel-body.message-tab .advanced-search-option__category {
+  width: 188px;
+}
+
+.rpanel-body.message-tab .no-search-input-container {
+  margin-top: 67px;
+  text-align: center;
+  cursor: pointer;
+}
+.no-search-input-container:hover .rpanel-alert-msg-container__text {
+  text-decoration: underline;
+}
+
+.rpanel-body.message-tab .no-search-input-container .icon-search {
+  width: 65px;
+}
+.rpanel-alert-msg-container {
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 15px;
+  padding: 0 30px 0 30px;
+}
+.rpanel-alert-msg-container__img {
+  display: block;
+  margin: auto;
+  margin-bottom: 15px;
+  width: 100px;
+  height: 80px;
+}
+.rpanel-alert-msg-container__text {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #575757;
+}
+.rpanel-alert-msg-container .search-keyword {
+  color: #333;
+}
+.highlight {
+  background-color: #ffff00;
+}

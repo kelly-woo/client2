@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($state, $filter, integrationService, fileAPIservice, ImagePaste, Browser, memberService,
+  function centerChatInputBox($state, $filter, integrationService, CoreUtil, ImagePaste, Browser, memberService,
                               jndPubSub, currentSessionHelper, entityAPIservice, Mentionahead, Tutorial) {
     var multiple = true;    // multiple upload 여부
 
@@ -209,7 +209,7 @@
             } else if (type === 'image') {
               scope.onFileSelect([data], {
                 createFileObject: function(data) {
-                  var blob = fileAPIservice.dataURItoBlob(data);
+                  var blob = CoreUtil.dataURItoBlob(data);
                   // message-input에 입력된 text를 file comment로 설정함
 
                   return {

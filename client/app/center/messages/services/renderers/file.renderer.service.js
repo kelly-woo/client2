@@ -68,7 +68,7 @@
     function _onClickFileDetail(msg, isFocusCommentInput) {
       var contentType = msg.message.contentType;
       var userName = $filter('getName')(msg.message.writerId);
-      var itemId = msg.message.id;
+      var itemId = contentType === 'comment' ? msg.feedbackId : msg.message.id;
 
       if ($state.params.itemId != itemId) {
         if (msg.feedback && contentType !== 'file') {

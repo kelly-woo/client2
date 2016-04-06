@@ -6,18 +6,18 @@
 
   angular
     .module('jandiApp')
-    .directive('rPanelFileTab', rPanelFileTab);
+    .directive('rightFiles', rightFiles);
 
-  function rPanelFileTab() {
+  function rightFiles() {
     return {
-      restrict: 'EA',
-      scope: true,
-      link: link,
+      restrict: 'E',
+      replace: true,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/files/files.html',
-      controller: 'rPanelFileTabCtrl'
+      controller: 'RightFilesCtrl',
+      link: angular.noop
     };
-
-    function link(scope, element, attrs) {
-    }
   }
 })();

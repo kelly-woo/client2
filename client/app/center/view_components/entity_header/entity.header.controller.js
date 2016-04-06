@@ -83,7 +83,7 @@
       });
 
       $scope.$on('onTopicSubscriptionChanged', function(event, data) {
-        if (data.data.roomId === parseInt(_entityId, 10)) {
+        if (data.room.id === parseInt(_entityId, 10)) {
           _checkNotificationStatus();
         }
       });

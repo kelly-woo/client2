@@ -237,6 +237,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
+    $scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
 
     $scope.$on('center:scrollToBottom', _centerScrollToBottom);
     $scope.$on('Router:openRightPanel', _onRightPanelOpen);
@@ -1736,8 +1737,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onTopicDeleted(event, data) {
-    if (data && data.topic) {
-      TextBuffer.remove(data.topic.id);
+    if (data && data.room) {
+      TextBuffer.remove(data.room.id);
     }
   }
 
@@ -1754,5 +1755,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.hasMessage = message > 0 || !!_sticker;
       $scope.showMarkdownGuide = message > 1;
     }
+  }
+
+  /**
+   * 외부 파일공유 상태 변경 이벤트 핸들러
+   * @param {object} $event
+   * @param {object} data
+   * @private
+   */
+  function _onFileShareChanged($event, data) {
+      var msg = MessageCollection.getByMessageId(data.id);
+
+      if (msg && msg.message.contentType === 'file') {
+        msg.message.content.externalShared = data.content.externalShared;
+      }
   }
 });

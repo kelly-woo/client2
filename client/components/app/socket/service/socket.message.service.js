@@ -228,7 +228,7 @@
         jndPubSub.updateLeftBadgeCount();
       }
 
-      jndPubSub.pub('jndWebSocketMessage:topicMessageDelete', socketEvent);
+      jndPubSub.pub('jndWebSocketMessage:topicMessageDeleted', socketEvent);
     }
 
     /**
@@ -413,6 +413,8 @@
      * @private
      */
     function _sendMentionNotification(data) {
+      jndPubSub.pub('jndWebSocketMessage:mentionNotificationSend', data);
+
       if (_shouldSendNotification(data)) {
         MentionNotification.show(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
       }
