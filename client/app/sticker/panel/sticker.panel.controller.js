@@ -143,7 +143,7 @@
       } else {
         Sticker.getStickers(group.id)
           .then(function(stickers) {
-            if (options.isOpen && group.id === 'recent' && stickers.length === 0) {
+            if (options.isOpen && group.id === 'recent' && !stickers.length) {
               select({
                 group: _groups[1]
               });
@@ -168,7 +168,7 @@
 
       if (_isResentStickers(group)) {
         _recentStickers = stickers;
-        $scope.isRecentEmpty = !stickers || stickers.length === 0
+        $scope.isRecentEmpty = !stickers || !stickers.length
       } else {
         $scope.isRecentEmpty = false;
       }
