@@ -31,6 +31,8 @@
     that.getMentionListForFile = getMentionListForFile;
     that.getMentionListForUploading = getMentionListForUploading;
 
+    that.isOpen = isOpen;
+
     /**
      * cursor 기준으로 mention data를 찾아 전달함.
      * @param {object} event
@@ -289,6 +291,15 @@
           type: 'member'
         });
       }
+    }
+
+    /**
+     * mentionahead 열림 여부
+     * @param {string} status
+     * @returns {boolean}
+     */
+    function isOpen(status) {
+      return status === that.MENTION_WITH_CHAR || status === that.OPEN;
     }
   }
 }());

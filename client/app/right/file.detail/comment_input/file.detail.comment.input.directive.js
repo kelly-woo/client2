@@ -80,7 +80,7 @@
 
         scope.$watch('file', _onFileChange);
         scope.$watch('getMentions', _onGetMentionChange);
-        scope.$watch('mentionahead.isOpen', _onIsOpenChanged);
+        scope.$watch('mentionahead.status', _onMentionaheadStatusChanged);
       }
 
       /**
@@ -103,12 +103,12 @@
       }
 
       /**
-       * is open 변경 이벤트 핸들러
-       * @param {boolean} isOpen
+       * mentionahead status 변경 이벤트 핸들러
+       * @param {string} status
        * @private
        */
-      function _onIsOpenChanged(isOpen) {
-        if (isOpen === Mentionahead.OPEN) {
+      function _onMentionaheadStatusChanged(status) {
+        if (status === Mentionahead.OPEN) {
           _hideSticker();
         }
       }
@@ -138,7 +138,7 @@
        * mention icon click
        */
       function onMentionIconClick() {
-        scope.mentionahead.isOpen = Mentionahead.MENTION_WITH_CHAR;
+        scope.mentionahead.status = Mentionahead.MENTION_WITH_CHAR;
       }
 
       /**
@@ -366,7 +366,7 @@
        * @returns {boolean}
        */
       function isMentionaheadOpen() {
-        return scope.mentionahead.isOpen === Mentionahead.OPEN;
+        return Mentionahead.isOpen(scope.mentionahead.status);
       }
     }
   }

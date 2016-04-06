@@ -53,17 +53,17 @@
      * @private
      */
     function _attachScopeEvents() {
-      $scope.$watch('isOpen', _onIsOpenChanged);
+      $scope.$watch('status', _onStatusChanged);
       $scope.$watch('list', _onListChanged);
     }
 
     /**
-     * is open change 이벤트 핸들러
-     * @param {boolean|string} isOpen
+     * status change 이벤트 핸들러
+     * @param {string} status
      * @private
      */
-    function _onIsOpenChanged(isOpen) {
-      if (isOpen === Mentionahead.MENTION_WITH_CHAR) {
+    function _onStatusChanged(status) {
+      if (status === Mentionahead.MENTION_WITH_CHAR) {
         _showMentionahead();
       }
     }
@@ -174,14 +174,14 @@
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      $scope.isOpen = Mentionahead.OPEN;
+      $scope.status = Mentionahead.OPEN;
     }
 
     /**
      * mentionahead를 숨김
      */
     function _hideMentionahead() {
-      $scope.isOpen = Mentionahead.CLOSE;
+      $scope.status = Mentionahead.CLOSE;
     }
 
     /**
@@ -311,7 +311,7 @@
      */
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if ($scope.isOpen === Mentionahead.CLOSE || !$scope.hasOn) {
+        if ($scope.status === Mentionahead.CLOSE || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
 
           // submit 후 value 초기화

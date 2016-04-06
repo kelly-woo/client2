@@ -164,7 +164,7 @@
        * mention icon click event handler
        */
       function onMentionIconClick() {
-        scope.mentionahead.isOpen = Mentionahead.MENTION_WITH_CHAR;
+        scope.mentionahead.status = Mentionahead.MENTION_WITH_CHAR;
       }
 
       /**
@@ -172,7 +172,7 @@
        * @returns {boolean}
        */
       function isMentionaheadOpen() {
-        return scope.mentionahead.isOpen === Mentionahead.OPEN;
+        return Mentionahead.isOpen(scope.mentionahead.status);
       }
 
       /**

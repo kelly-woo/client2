@@ -18,7 +18,7 @@
      */
     function _init() {
       $scope.mentionahead = {
-        isOpen: Mentionahead.CLOSE,
+        status: Mentionahead.CLOSE,
         list: []
       };
     }

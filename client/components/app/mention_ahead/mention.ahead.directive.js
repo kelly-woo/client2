@@ -14,7 +14,7 @@
     return {
       restrict: 'A',
       scope: {
-        isOpen: '=mentionaheadIsOpen',
+        status: '=mentionaheadStatus',
         list: '=mentionaheadList'
       },
       require: ['mentionahead'],
