@@ -10,17 +10,19 @@
 
   /* @ngInject */
   function Mentionahead($filter, memberService, EntityHandler, configuration, jndKeyCode, RoomTopicList, UserList,
-                        jndPubSub, BotList) {
+                        BotList) {
     var that = this;
 
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
     var regxKr = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
+    that.MENTION_WITH_CHAR = 'mentionWithChar';
+    that.OPEN = 'open';
+    that.CLOSE = 'close';
+
     that.MENTION_ALL = 'all';
     that.MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
-
-    that.show = show;
 
     that.getMentionOnCursor = getMentionOnCursor;
     that.getMentionAllForText = getMentionAllForText;
@@ -29,14 +31,7 @@
     that.getMentionListForFile = getMentionListForFile;
     that.getMentionListForUploading = getMentionListForUploading;
 
-    /**
-     * show mentionahead
-     * @param {string} type
-     */
-    function show(type) {
-      type = type || 'message';
-      jndPubSub.pub('Mentionahead:show:' + type);
-    }
+    that.isOpen = isOpen;
 
     /**
      * cursor 기준으로 mention data를 찾아 전달함.
@@ -296,6 +291,15 @@
           type: 'member'
         });
       }
+    }
+
+    /**
+     * mentionahead 열림 여부
+     * @param {string} status
+     * @returns {boolean}
+     */
+    function isOpen(status) {
+      return status === that.MENTION_WITH_CHAR || status === that.OPEN;
     }
   }
 }());

@@ -24,11 +24,7 @@
     that.setValue = setValue;
 
     that.clearMention = clearMention;
-
     that.setMentionOnLive = setMentionOnLive;
-
-    that.isInputMention = isInputMention;
-    that.isShowMentionahead = isShowMentionahead;
     that.showMentionahead = showMentionahead;
 
     function init(options) {
@@ -44,7 +40,7 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
-      _attachEvents();
+      _attachScopeEvents();
 
       // message를 submit하는 method
       if (options.attrs.messageSubmit) {
@@ -56,26 +52,36 @@
      * attach events
      * @private
      */
-    function _attachEvents() {
-      $scope.$on('MentionaheadCtrl:' + $scope.type, _onMentionMembersUpdate);
-      $scope.$on('Mentionahead:show:' + $scope.type, _onShowMentionahead);
+    function _attachScopeEvents() {
+      $scope.$watch('status', _onStatusChanged);
+      $scope.$watch('list', _onListChanged);
     }
 
     /**
-     * mention update event handler
-     * @param {object} angularEvent
-     * @param {object} mentionMembers
+     * status change 이벤트 핸들러
+     * @param {string} status
      * @private
      */
-    function _onMentionMembersUpdate(angularEvent, mentionMembers) {
-      _setMentions(mentionMembers);
+    function _onStatusChanged(status) {
+      if (status === Mentionahead.MENTION_WITH_CHAR) {
+        _showMentionahead();
+      }
+    }
+
+    /**
+     * list change 이벤트 핸들러
+     * @param {array} list
+     * @private
+     */
+    function _onListChanged(list) {
+      _setMentions(list);
     }
 
     /**
      * show mention ahead
      * @private
      */
-    function _onShowMentionahead() {
+    function _showMentionahead() {
       var selection = _getSelection();
       var value = $scope.jqEle.val();
       var prefixValue = value.substring(0, selection.begin);
@@ -139,14 +145,6 @@
     }
 
     /**
-     * mention ahead가 출력중인지 여부.
-     * @returns {boolean}
-     */
-    function isShowMentionahead() {
-      return $model.$viewValue !== null;
-    }
-
-    /**
      * element의 cursor 기준으로 mention을 설정함.
      * @param {object} event
      */
@@ -173,26 +171,28 @@
     }
 
     /**
-     * mention 입력인지 여부
-     * @returns {boolean}
-     */
-    function isInputMention() {
-      return $model.$viewValue !== null;
-    }
-
-    /**
      * mentionahead를 출력함
      */
     function showMentionahead() {
-      jndPubSub.pub('MentionaheadCtrl:showed:' + $scope.type);
+      $scope.status = Mentionahead.OPEN;
+    }
+
+    /**
+     * mentionahead를 숨김
+     */
+    function _hideMentionahead() {
+      $scope.status = Mentionahead.CLOSE;
     }
 
     /**
      * mention 입력을 clear함.
      */
     function clearMention() {
-      $model.$setViewValue(null);
-      jndPubSub.pub('MentionaheadCtrl:hid:' + $scope.type);
+      if ($model.$viewValue != null) {
+        $model.$setViewValue(null);
+      }
+
+      _hideMentionahead();
     }
 
     /**
@@ -311,7 +311,7 @@
      */
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if (!that.isInputMention() || !$scope.hasOn) {
+        if ($scope.status === Mentionahead.CLOSE || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
 
           // submit 후 value 초기화

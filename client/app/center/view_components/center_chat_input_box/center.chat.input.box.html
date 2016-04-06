@@ -111,7 +111,9 @@
                   jnd-elastic="message"
                   jnd-elastic-on-change="onMessageInputChange($event)"
                   mentionahead
-                  mentionahead-type="message"></textarea>
+                  mentionahead-type="message"
+                  mentionahead-status="mentionahead.status"
+                  mentionahead-list="mentionahead.list"></textarea>
       </form>
     </div>
 
@@ -124,7 +126,7 @@
                        tutorial-tooltip-name="sticker"
                        tutorial-tooltip-class="tutorial-tooltip-sticker"></sticker-panel>
         <i class="icon-at cursor_pointer"
-           ng-class="{'open': isMentionaheadShow}"
+           ng-class="{'open': isMentionaheadOpen()}"
            ng-click="onMentionIconClick()"
            ng-disabled="isDM"></i>
       </div>
