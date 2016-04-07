@@ -84,7 +84,6 @@
      * @private
      */
     function _onSuccessGetAccount(result) {
-      console.log('@@@ _onSuccessGetAccount');
       var response = result.data;
       var account;
       var signInInfo;

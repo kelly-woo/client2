@@ -15,9 +15,9 @@
     return {
       link: link,
       scope: {
-          content: '@content',
+          content: '=content',
           group: '@group',
-          key: '@key'
+          key: '=key'
       },
       restrict: 'E',
       templateUrl: 'app/left/badge/badge.html'
