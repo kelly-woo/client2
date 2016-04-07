@@ -67,6 +67,7 @@
       $scope.toTeam = toTeam;
 
       $scope.openModal = openModal;
+      $scope.openIntercom = openIntercom;
       $scope.toggleLoading = toggleLoading;
       $scope.isUserAuthorized = isUserAuthorized;
       $scope.onShowTutorialClick = onShowTutorialClick;
@@ -253,6 +254,13 @@
     function openModal(selector, $event) {
       var fn;
       (fn = modalMap[selector]) && fn($event);
+    }
+
+    /**
+     * open intercom
+     */
+    function openIntercom() {
+      jndPubSub.pub('headerCtrl:intercomOpen');
     }
 
     /**

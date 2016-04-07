@@ -1,15 +1,13 @@
 /**
- * @fileoverview jandi app에 종속적인 ui component 모음
+ * @fileoverview profile image
  *
  */
 (function() {
   'use strict';
 
   angular
-    .module('jandi.ui', [
-      'jandi.ui.intercom',
-      'jandi.ui.dialog',
-      'jandi.ui.profileImage'
+    .module('jandi.ui.intercom', [
+      'jandiApp'
     ])
     .run(run)
     .config(config);
