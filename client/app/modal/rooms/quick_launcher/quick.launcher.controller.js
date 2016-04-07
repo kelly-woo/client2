@@ -135,17 +135,16 @@
      * @private
      */
     function _getHadBadgeRooms() {
+      var unreadBadgeMap = UnreadBadge.get();
       var rooms = [];
       var room;
-      var unreadBadgeMap = UnreadBadge.get();
       var entity;
       var e;
 
       for (e in unreadBadgeMap) {
         if (unreadBadgeMap.hasOwnProperty(e)) {
-          if (unreadBadgeMap[e].entity) {
-            entity = JSON.parse(unreadBadgeMap[e].entity);
-
+          entity = EntityHandler.get(unreadBadgeMap[e].id);
+          if (entity) {
             room = {
               type: entity.type,
               id: entity.id,
