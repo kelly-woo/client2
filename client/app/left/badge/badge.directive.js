@@ -77,6 +77,7 @@
         var top = _getTop();
         var bottom = top + jqParent.height();
         return {
+          id: scope.key,
           top: top,
           bottom: bottom,
           el: el
