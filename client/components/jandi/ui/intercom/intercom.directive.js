@@ -39,14 +39,20 @@
       function _boot() {
         var member = memberService.getMember();
 
-        //Intercom.shutdown();
+        //Intercom.show();
+
+        Intercom.shutdown();
         Intercom.boot({
           name: member.name,
-          email: member.u_email,
-          widget: {
-            activator: '#intercom'
-          }
+          email: member.u_email
+          //widget: {
+          //  activator: '#intercom'
+          //}
         });
+
+        window.Intercom('update');
+
+        //window.Intercom('show');
       }
     }
   }
