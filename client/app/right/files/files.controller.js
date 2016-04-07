@@ -552,6 +552,7 @@
         //  Not loading more.
         //  Replace current fileList with new fileList.
         $scope.fileList = [];
+        _fileMap = {};
       }
 
       _.each(response.files, function(file) {
@@ -578,15 +579,17 @@
      * @private
      */
     function _addFile(file, isUnshift) {
-      file.shared = fileAPIservice.getSharedEntities(file);
+      if (!_fileMap[file.id]) {
+        file.shared = fileAPIservice.getSharedEntities(file);
 
-      if (file.status !== 'archived') {
-        if (!isUnshift) {
-          $scope.fileList.push(file);
-        } else {
-          $scope.fileList.unshift(file);
+        if (file.status !== 'archived') {
+          if (!isUnshift) {
+            $scope.fileList.push(file);
+          } else {
+            $scope.fileList.unshift(file);
+          }
+          _fileMap[file.id] = file;
         }
-        _fileMap[file.id] = file;
       }
     }
 

@@ -174,6 +174,7 @@
     function _initMentionListData() {
       _lastMessageId = null;
       _mentionSendCount = 0;
+      _mentionMap = {};
 
       $scope.records = [];
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
