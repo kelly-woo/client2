@@ -270,7 +270,7 @@
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
-          !(!$scope.messageList.length && $scope.searchStatus.q !== '') &&
+          (!!$scope.messageList.length && $scope.searchStatus.keyword !== '') &&
           $scope.isConnected &&
           !isEmpty();
     }

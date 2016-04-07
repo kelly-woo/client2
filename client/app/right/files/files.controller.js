@@ -502,7 +502,7 @@
     function _isValidLoadMore() {
       return !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
-          !(!$scope.fileList.length && $scope.searchStatus.q !== '') &&
+          !!$scope.fileList.length &&
           $scope.isConnected &&
           !isEmpty();
     }
@@ -734,7 +734,7 @@
      * @returns {boolean}
      */
     function isEmpty() {
-      return $scope.fileList.length == 0 &&
+      return !$scope.fileList.length &&
           $scope.searchStatus.isInitDone &&
           !$scope.searchStatus.isSearching;
     }
