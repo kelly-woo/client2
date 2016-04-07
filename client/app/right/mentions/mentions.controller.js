@@ -26,6 +26,7 @@
      * @private
      */
     function _init() {
+      $scope.records = [];
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
       $scope.isInitDone = false;
