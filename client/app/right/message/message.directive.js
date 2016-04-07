@@ -16,7 +16,7 @@
       scope: {
         messageType: '&',
         messageData: '=',
-        messageQuery: '=',
+        messageQuery: '=?',
         messageHasStar: '='
       },
       link: link,

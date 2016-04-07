@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('UnreadBadge', UnreadBadge);
 
-  function UnreadBadge() {
+  function UnreadBadge(EntityHandler) {
     var map = {};
 
     this.add = add;
@@ -18,6 +18,7 @@
     this.get = get;
     this.getUnreadPos = getUnreadPos;
     this.update = update;
+    this.getTotalCount = getTotalCount;
 
     /**
      * badge 정보를 추가한다.
@@ -62,6 +63,22 @@
      */
     function get() {
       return map;
+    }
+
+    /**
+     * unreadBadge 의 totalCount 를 반환한다.
+     * @returns {number}
+     */
+    function getTotalCount() {
+      var entity;
+      var totalCount = 0;
+      _.each(map, function(unreadBadge) {
+        entity = EntityHandler.get(unreadBadge.id);
+        if (entity) {
+          totalCount += entity.alarmCnt || 0;
+        }
+      });
+      return totalCount;
     }
 
     /**

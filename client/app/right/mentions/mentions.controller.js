@@ -26,6 +26,7 @@
      * @private
      */
     function _init() {
+      $scope.records = [];
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
       $scope.isInitDone = false;
@@ -173,6 +174,7 @@
     function _initMentionListData() {
       _lastMessageId = null;
       _mentionSendCount = 0;
+      _mentionMap = {};
 
       $scope.records = [];
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
