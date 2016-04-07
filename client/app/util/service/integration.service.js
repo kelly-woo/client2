@@ -329,7 +329,6 @@
        */
       _openIntegrationModal: function() {
         var that = this;
-        var originalDomain = window.document.domain;
 
         Integration._openIntegrationModal.call(that,
           {
@@ -357,16 +356,6 @@
               that._closeIntegrationModal();
             },
             cInterface: that.cInterface             // modal의 확인 interface 명
-          }
-        );
-
-        // google drive popup 연동을 위해 domain 일시적 수정함
-        // modal close될때 original domain으로 변경함
-        window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
-        that.modal.result.then(
-          function() {},
-          function() {
-            window.document.domain = originalDomain;
           }
         );
       }
@@ -526,7 +515,7 @@
           window._createGDPicker = function() {
             googleDriveIntegrationLock = false;
 
-            (googleDriveIntegration = window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
+            (googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
               apiKey: apiKey,                         // 필수, google dirve api key
               clientId: clientId,                     // 필수, goggle dirve client id
               multiple: options.multiple || true      // multiple file upload
@@ -576,6 +565,14 @@
     }
 
     /**
+     * google drive 전달함.
+     * @returns {*}
+     */
+    function getGoogleDrive() {
+      return googleDriveIntegration;
+    }
+
+    /**
      * file upload success analytics
      * @param {object} response
      * @private
@@ -615,7 +612,8 @@
 
     return {
       createGoogleDrive: createGoogleDrive,
-      createDropBox: createDropBox
+      createDropBox: createDropBox,
+      getGoogleDrive: getGoogleDrive
     };
   }
 }());

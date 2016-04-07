@@ -44,12 +44,37 @@
        */
       function _onMessageReceive(messageEvent) {
         var origin = messageEvent.originalEvent.origin;
-        var data = messageEvent.originalEvent.data;
-        if (_isWhiteUrl(origin) && data) {
+        var event = _eventParse(messageEvent.originalEvent);
+
+        if (_isWhiteUrl(origin) && event) {
           JndUtil.safeApply(scope, function() {
-            jndPubSub.pub(data);
+            jndPubSub.pub(event.name, event.args);
           });
         }
+      }
+
+      /**
+       * event parse
+       * @param {object} event
+       * @returns {{name: *, args: Array}}
+       * @private
+       */
+      function _eventParse(event) {
+        var args = [];
+        var data = event.data.split('#');
+
+        if (data[1]) {
+          _.each(data, function(value, index) {
+            if (index > 0) {
+              args.push(value);
+            }
+          });
+        }
+
+        return {
+          name: data[0],
+          args: args
+        };
       }
 
       /**
