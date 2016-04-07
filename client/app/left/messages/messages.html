@@ -11,7 +11,7 @@
       <i class="icon-plus"></i>
     </div>
     <span class="left-header-badge">
-      <badge content="{{totalAlarmCnt}}" group="header" key="1"></badge>
+      <badge content="totalAlarmCnt" group="header" key="'1'"></badge>
     </span>
   </div>
 
@@ -40,7 +40,7 @@
              data-ng-click="onStarClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
           <span class="inline-overflow-ellipsis left-panel__name private-effect" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
-          <badge content="{{userEntity.alarmCnt}}" group="user" key="{{userEntity.id}}"></badge>
+          <badge content="userEntity.alarmCnt" group="user" key="userEntity.id"></badge>
           <!--<span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>-->
           <span class="left-panel_leave pull-right"
                 ng-click="onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
