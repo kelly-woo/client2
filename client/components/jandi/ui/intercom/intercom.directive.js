@@ -50,7 +50,7 @@
           //}
         });
 
-        window.Intercom('update');
+        //window.Intercom('update');
 
         //window.Intercom('show');
       }
