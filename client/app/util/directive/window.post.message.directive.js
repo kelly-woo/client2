@@ -44,12 +44,15 @@
        */
       function _onMessageReceive(messageEvent) {
         var origin = messageEvent.originalEvent.origin;
-        var event = _eventParse(messageEvent.originalEvent);
+        var event;
 
-        if (_isWhiteUrl(origin) && event) {
-          JndUtil.safeApply(scope, function() {
-            jndPubSub.pub(event.name, event.args);
-          });
+        if (_isWhiteUrl(origin)) {
+          event = _eventParse(messageEvent.originalEvent);
+          if (event.name) {
+            JndUtil.safeApply(scope, function() {
+              jndPubSub.pub(event.name, event.args);
+            });
+          }
         }
       }
 

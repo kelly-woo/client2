@@ -8,7 +8,7 @@
   /* @ngInject */
   function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService,
                               accountService, storageAPIservice, analyticsService, FilesUploadFactory,
-                              currentSessionHelper) {
+                              currentSessionHelper, ThirdPartyCookie) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -197,6 +197,10 @@
         angular.extend(that.options, options);
         that.options.buttonEle = $(that.options.buttonEle);
 
+        gapi.auth.init(function() {
+          console.log('gapi auth init ::: ', arguments);
+        });
+
         // Load the drive API
         gapi.client.setApiKey(that.options.apiKey);
         gapi.client.load('drive', 'v2', that._driveApiLoaded.bind(that) );
@@ -215,6 +219,8 @@
         var token;
 
         Integration.open.call(that, scope);
+
+        ThirdPartyCookie.support();
 
         if (token = gapi.auth.getToken()) {
           that._showPicker();

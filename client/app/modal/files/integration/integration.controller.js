@@ -51,7 +51,7 @@
       var token;
 
       try {
-        token = JSON.parse(/^[\"]([\w\W]+)[\"]$/.exec(data[0])[1]);
+        token = JSON.parse(data[0]);
       } catch(e) {}
 
       if (token) {
