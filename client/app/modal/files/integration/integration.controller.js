@@ -55,7 +55,8 @@
       } catch(e) {}
 
       if (token) {
-        googleDrive.doAuth(token);
+        googleDrive.setToken(token);
+        googleDrive.showPicker();
       }
     }
 

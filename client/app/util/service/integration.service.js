@@ -6,9 +6,9 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService,
-                              accountService, storageAPIservice, analyticsService, FilesUploadFactory,
-                              currentSessionHelper) {
+  function integrationService($filter, $modal, $rootScope, $timeout, accountService, analyticsService, configuration,
+                              currentSessionHelper, Dialog, fileAPIservice, fileObjectService, FilesUploadFactory,
+                              storageAPIservice) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -197,10 +197,6 @@
         angular.extend(that.options, options);
         that.options.buttonEle = $(that.options.buttonEle);
 
-        gapi.auth.init(function() {
-          console.log('gapi auth init ::: ', arguments);
-        });
-
         // Load the drive API
         gapi.client.setApiKey(that.options.apiKey);
         gapi.client.load('drive', 'v2', that._driveApiLoaded.bind(that) );
@@ -216,12 +212,16 @@
        */
       open: function(scope) {
         var that = this;
-        var token;
+        var token = gapi.auth.getToken();
 
         Integration.open.call(that, scope);
 
-        if (token = gapi.auth.getToken()) {
-          that._showPicker();
+        if (that._hasAccessDenied) {
+          that._driveApiLoaded();
+        }
+
+        if (token) {
+          that.showPicker();
         } else {
           if (that.cInterface === 'alert') {
             that._openIntegrationModal();
@@ -237,39 +237,44 @@
       _open: function() {
         var that = this;
 
-        that._doAuth(false, function(token) {
-          that._showPicker();
+        that._doAuth(false, function() {
+          that.showPicker();
         }.bind(that));
       },
       /**
        * picker object 생성 & 출력
        * picker object 생성시 options 수정 가능함.
        */
-      _showPicker: function() {
+      showPicker: function() {
         var that = this;
         var accessToken = gapi.auth.getToken().access_token;
         var view = new google.picker.DocsView();
-        var picker = that.picker = new google.picker.PickerBuilder();
+        var pickerBuilder = new google.picker.PickerBuilder();
         var lang = accountService.getAccountLanguage();
 
         that._closeIntegrationModal();
 
-        view.setIncludeFolders(true);
+        if (that._picker && !that._hasAccessDenied) {
+          that._picker.setVisible(true);
+        } else {
+          view.setIncludeFolders(true);
 
-        // multiple file upload
-        that.options.multiple && picker.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
+          // multiple file upload
+          that.options.multiple && pickerBuilder.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
 
-        picker
-          .enableFeature(google.picker.Feature.NAV_HIDDEN)
-          .setAppId(that.options.clientId)
-          .setDeveloperKey(that.options.apiKey)
-          .setOAuthToken(accessToken)
-          .addView(view)
-          .setOrigin(window.location.protocol + '//' + window.location.host)
-          .setLocale(that.localeMap[lang])
-          .setCallback(that._pickerCallback.bind(that))
-          .build()
-          .setVisible(true);
+          that._picker = pickerBuilder
+            .enableFeature(google.picker.Feature.NAV_HIDDEN)
+            .setAppId(that.options.clientId)
+            .setDeveloperKey(that.options.apiKey)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            .setOrigin(window.location.protocol + '//' + window.location.host)
+            .setLocale(that.localeMap[lang])
+            .setCallback(that._pickerCallback.bind(that))
+            .build();
+
+          that._picker.setVisible(true);
+        }
       },
       /**
        * picker의 상태 변경 callback
@@ -289,21 +294,63 @@
           that._fileGetCallback(data.docs);
         }
       },
+      /**
+       * picker api 불러오기 완료 이벤트 핸들러
+       * @private
+       */
       _pickerApiLoaded: function() {
         var that = this,
             buttonEle = that.options.buttonEle;
 
         buttonEle && buttonEle.length > 0 && this.options.buttonEle.attr('disabled', false);
       },
+      /**
+       * google drive api 불러오기 완료 이벤트 핸들러
+       * @private
+       */
       _driveApiLoaded: function() {
-        this._doAuth(true);
+        var that = this;
+
+        that._doAuth(true, function(event) {
+          if (event.error) {
+            that._hasAccessDenied = true;
+            that._onAccessDenied();
+          } else {
+            that._hasAccessDenied = false;
+          }
+        });
       },
-      doAuth: function(token) {
+      /**
+       * google drive 접근 실패 이벤트 핸들러
+       * @private
+       */
+      _onAccessDenied: function() {
+        var that = this;
+
+        Dialog.alert({
+          body: $filter('translate')('@integration-access-denied'),
+          onClose: function() {
+            console.log('access denied ::: ');
+            that._picker.setVisible(false);
+            delete that._picker;
+          }
+        });
+      },
+      /**
+       * google 인증 토큰 설정함
+       * @param {object} token
+       */
+      setToken: function(token) {
         var that = this;
 
         gapi.auth.setToken(token);
-        that._showPicker();
       },
+      /**
+       * client id에 대한 인증 요청함
+       * @param {boolean} immediate
+       * @param {function} callback
+       * @private
+       */
       _doAuth: function(immediate, callback) {
         var params = {
           client_id: this.options.clientId,
