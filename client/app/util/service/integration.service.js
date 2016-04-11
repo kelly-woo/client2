@@ -8,7 +8,7 @@
   /* @ngInject */
   function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService,
                               accountService, storageAPIservice, analyticsService, FilesUploadFactory,
-                              currentSessionHelper, ThirdPartyCookie) {
+                              currentSessionHelper) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -219,8 +219,6 @@
         var token;
 
         Integration.open.call(that, scope);
-
-        ThirdPartyCookie.support();
 
         if (token = gapi.auth.getToken()) {
           that._showPicker();
