@@ -55,8 +55,16 @@
       } catch(e) {}
 
       if (token) {
-        googleDrive.setToken(token);
-        googleDrive.showPicker();
+        googleDrive.setToken(token)
+          .then(function(hasAccessDenied) {
+            // init auth가 끝난다음 show picker를 수행해야한다.
+
+            if (!hasAccessDenied) {
+              googleDrive.showPicker(token);
+            }
+
+            googleDrive.closeIntegrationModal();
+          });
       }
     }
 
