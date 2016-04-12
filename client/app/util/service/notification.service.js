@@ -10,7 +10,7 @@
     .service('NotificationManager', NotificationManager);
 
   /* @ngInject */
-  function NotificationManager(currentSessionHelper, jndPubSub, NotificationHelper) {
+  function NotificationManager(currentSessionHelper, jndPubSub, NotificationHelper, UnreadBadge) {
     var _notificationMap;
     var _notificationAfterFocusMap;
 
@@ -84,7 +84,7 @@
      * @returns {boolean}
      */
     function hasNotification() {
-      return NotificationHelper.getCount('total') > 0;
+      return UnreadBadge.getTotalCount() > 0;
     }
 
     /**
@@ -100,7 +100,7 @@
      * @returns {*}
      */
     function getTotalNotificationCount() {
-      return NotificationHelper.getCount('total');
+      return UnreadBadge.getTotalCount();
     }
 
     /**

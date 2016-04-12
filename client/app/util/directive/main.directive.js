@@ -182,7 +182,7 @@ app.directive('messageSubmit', function() {
         if (code === 13) {
           if (!event.shiftKey) {
             event.preventDefault();
-            scope.$apply(attrs.messageSubmit);
+            scope.$eval(attrs.messageSubmit);
           }
         }
       });

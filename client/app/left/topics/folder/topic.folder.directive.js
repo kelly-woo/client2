@@ -22,7 +22,7 @@
       var _draggingTopicScope;
       var _teamId;
       var _more = $filter('translate')('@file-action-more');
-
+      var _isShowBadge = false;
       _init();
 
       /**
@@ -37,11 +37,12 @@
         
         scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
         scope.alarmCnt = _getTotalAlarmCnt();
-        scope.isOpening = scope.isOpened = JndTopicFolderStorage.getOpenStatus(scope.folder.id);
-        scope.isShowBadge = !scope.isOpening;
+        scope.isOpen = scope.isExpand = JndTopicFolderStorage.getOpenStatus(scope.folder.id);
+        _isShowBadge = !scope.isOpen;
 
         _attachEvents();
         _attachDomEvents();
+        _setFolderBadgeVisibility();
       }
 
       /**
@@ -107,10 +108,9 @@
        * @private
        */
       function _onBadgeCountChange(angularEvent, data) {
-        JndUtil.safeApply(scope, function() {
-          scope.alarmCnt = _getTotalAlarmCnt();
-          scope.isShowBadge = !scope.isOpened;
-        });
+        scope.alarmCnt = _getTotalAlarmCnt();
+        _isShowBadge = !scope.isExpand;
+        _setFolderBadgeVisibility();
       }
 
       /**
@@ -153,9 +153,22 @@
         if (_draggingTopicScope && _isFolderInsertable()) {
           el.addClass('hover');
         }
-        JndUtil.safeApply(scope, function() {
-          scope.isShowBadge = false;
-        });
+        _isShowBadge = false;
+        _setFolderBadgeVisibility();
+      }
+
+      /**
+       * folder badge 의 노출 여부를 결정한다.
+       * @private
+       */
+      function _setFolderBadgeVisibility() {
+        var jqBadge = el.find('._badge');
+
+        if (!scope.isOpen && _isShowBadge && scope.alarmCnt) {
+          jqBadge.show();
+        } else {
+          jqBadge.hide();
+        }
       }
 
       /**
@@ -178,9 +191,8 @@
         if (_draggingTopicScope) {
           el.removeClass('hover');
         }
-        JndUtil.safeApply(scope, function() {
-          scope.isShowBadge = true;
-        });
+        _isShowBadge = true;
+        _setFolderBadgeVisibility();
       }
 
       /**
@@ -263,31 +275,30 @@
       function collapse() {
         var hasEntity = !!scope.folder.entityList.length;
         var callback = function() {
-          JndUtil.safeApply(scope, function() {
-            scope.alarmCnt = _getTotalAlarmCnt();
-            scope.isOpened = scope.isOpening;
-            scope.isShowBadge = !scope.isOpened;
-            JndTopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
-          });
+          scope.alarmCnt = _getTotalAlarmCnt();
+          scope.isExpand = scope.isOpen;
+          _isShowBadge = !scope.isExpand;
+          JndTopicFolderStorage.setOpenStatus(scope.folder.id, scope.isExpand);
+          _setFolderBadgeVisibility();
         };
         var animationCallback = function() {
           callback();
           el.find('ul').css('height', '');
           jndPubSub.updateBadgePosition();
           TopicUpdateLock.unlock();
+          _setFolderBadgeVisibility();
         };
 
-        JndUtil.safeApply(scope, function() {
-          if (scope.isOpening) {
-            scope.isShowBadge = false;
-          }
-          scope.isOpening = !scope.isOpening;
-        });
+        if (scope.isOpen) {
+          _isShowBadge = false;
+        }
+        scope.isOpen = !scope.isOpen;
+        _setFolderBadgeVisibility();
 
         if (hasEntity) {
           TopicUpdateLock.lock();
           el.addClass('animate-background');
-          if (!scope.isOpening) {
+          if (!scope.isOpen) {
             el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {
             el.find('ul').stop().slideDown(SLIDE_DURATION, animationCallback);

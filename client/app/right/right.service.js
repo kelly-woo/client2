@@ -9,7 +9,7 @@
     .service('RightPanel', RightPanel);
 
   /* @ngInject */
-  function RightPanel($state, $filter) {
+  function RightPanel($state) {
     var _that = this;
     var _tabs = {
       files: {

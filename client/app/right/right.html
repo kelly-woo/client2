@@ -3,35 +3,24 @@
     <i class="icon-delete" ng-click="closeRightPanel()"></i>
     <span>{{activeTabName}}</span>
   </div>
-  <r-panel-search ng-if="tabs.files.isActive || tabs.messages.isActive"></r-panel-search>
+  <!--<right-search ng-if="tabs.files.isActive || tabs.messages.isActive"></right-search>-->
   <tabset class="rpanel-body-tab-container">
     <!--  FILE TAB  -->
     <tab active="tabs.files.isActive">
       <page-tracker ng-if="tabs.files.isActive" page="files/files" title="File Tab"></page-tracker>
-      <r-panel-file-tab></r-panel-file-tab>
+      <right-files status="tabs.files" template-map=""></right-files>
     </tab>
     <!--  MESSAGE TAB -->
     <tab active="tabs.messages.isActive">
-      <r-panel-messages-tab></r-panel-messages-tab>
+      <right-messages status="tabs.messages" template-map=""></right-messages>
     </tab>
     <!--  STAR TAB -->
     <tab active="tabs.stars.isActive">
-      <r-panel-star-tab></r-panel-star-tab>
+      <right-stars status="tabs.stars" template-map=""></right-stars>
     </tab>
     <!--  MENTION TAB -->
     <tab active="tabs.mentions.isActive">
-      <r-panel-mention-tab></r-panel-mention-tab>
+      <right-mentions status="tabs.mentions" template-map=""></right-mentions>
     </tab>
   </tabset>
-</div>
-<div ng-if="false">
-  <span translate>@file-delete-confirm-msg</span>
-  <span translate>@common-file</span>
-  <span translate>@common-message</span>
-  <span translate>@common-star</span>
-  <span translate>@common-mention</span>
-  <span translate>@mention-all</span>
-  <span translate>@mention-all-toast</span>
-  <span translate>@common-leaved-topic</span>
-  <span translate>@common-removed-origin</span>
 </div>

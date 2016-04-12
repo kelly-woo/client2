@@ -107,9 +107,9 @@
     function handleCommonLoadError(current, err, status) {
       var body;
       var serviceName = CoreUtil.pick(current, 'union', 'title');
-
+      var code = CoreUtil.pick(err, 'code');
       JndConnect.backToMain(true);
-      if (err.code === 50001) {
+      if (code === 50001) {
         body = $filter('translate')('@jnd-connect-215')
           .replace('{{serviceName}}', serviceName);
         Dialog.alert({

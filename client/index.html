@@ -41,12 +41,12 @@
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.connect.preview.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.link.preview.css">
+  <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.text.sending.css">
   <link rel="stylesheet" href="app/center/messages/services/renderers/templates/center.unread.bookmark.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_input_box/center.chat.file.progress.bar.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.css">
-  <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text-sending/text.sending.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/room-connector/connect-plug/connect.plug.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/room-connector/room.connector.css">
@@ -72,7 +72,7 @@
   <link rel="stylesheet" href="app/connect/union/trello/jnd.connect.trello.css">
   <link rel="stylesheet" href="app/connect/union/webhook/jnd.connect.webhook.css">
   <link rel="stylesheet" href="app/disconnect/disconnect.css">
-  <link rel="stylesheet" href="app/external_share/external.share.css">
+  <link rel="stylesheet" href="app/external-file/external.file.css">
   <link rel="stylesheet" href="app/header/header.css">
   <link rel="stylesheet" href="app/left/left.css">
   <link rel="stylesheet" href="app/left/member/member.css">
@@ -109,22 +109,24 @@
   <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
   <link rel="stylesheet" href="app/modal/topics/topic_join/topic.join.css">
   <link rel="stylesheet" href="app/modal/topics/topic_rename/topic.rename.css">
-  <link rel="stylesheet" href="app/right/file.detail/comment_input/file.detail.comment.input.css">
-  <link rel="stylesheet" href="app/right/file.detail/comments/file.detail.comments.css">
-  <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
-  <link rel="stylesheet" href="app/right/file.detail/header/file.detail.header.css">
-  <link rel="stylesheet" href="app/right/file.detail/meta/file.detail.meta.css">
-  <link rel="stylesheet" href="app/right/file.detail/preview/file.detail.preview.css">
-  <link rel="stylesheet" href="app/right/file.detail/title/file.detail.title.css">
+  <link rel="stylesheet" href="app/right/file-detail/comment-input/file.detail.comment.input.css">
+  <link rel="stylesheet" href="app/right/file-detail/comments/file.detail.comments.css">
+  <link rel="stylesheet" href="app/right/file-detail/file.detail.css">
+  <link rel="stylesheet" href="app/right/file-detail/header/file.detail.header.css">
+  <link rel="stylesheet" href="app/right/file-detail/meta/file.detail.meta.css">
+  <link rel="stylesheet" href="app/right/file-detail/preview/file.detail.preview.css">
+  <link rel="stylesheet" href="app/right/file-detail/title/file.detail.title.css">
   <link rel="stylesheet" href="app/right/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
-  <link rel="stylesheet" href="app/right/loading/right.panel.loading.css">
+  <link rel="stylesheet" href="app/right/loading/loading-list/loading.list.css">
+  <link rel="stylesheet" href="app/right/loading/loading-search/loading.search.css">
+  <link rel="stylesheet" href="app/right/loading/loading.css">
   <link rel="stylesheet" href="app/right/mentions/mentions.css">
   <link rel="stylesheet" href="app/right/message/message.css">
+  <link rel="stylesheet" href="app/right/messages/message-group/message.group.css">
+  <link rel="stylesheet" href="app/right/messages/messages.css">
   <link rel="stylesheet" href="app/right/right.css">
-  <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
-  <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
-  <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="app/right/search/search.css">
   <link rel="stylesheet" href="app/right/stars/stars.css">
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
@@ -144,6 +146,7 @@
   <link rel="stylesheet" href="app/util/css/jandi-icon.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
   <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
+  <link rel="stylesheet" href="app/util/directive/dropdown-position/dropdown.position.css">
   <link rel="stylesheet" href="app/util/directive/dropdown-selectbox/jnd.dropdown.selectbox.css">
   <link rel="stylesheet" href="app/util/directive/file-drop/jnd.file.drop.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
@@ -303,6 +306,7 @@
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.member.directive.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.member.service.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.room.directive.js"></script>
+<script src="app/util/directive/dropdown-position/dropdown.position.directive.js"></script>
 <script src="app/util/directive/dropdown-selectbox/jnd.dropdown.selectbox.directive.js"></script>
 <script src="app/util/directive/file-drop/jnd.file.drop.controller.js"></script>
 <script src="app/util/directive/file-drop/jnd.file.drop.directive.js"></script>
@@ -389,6 +393,7 @@
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
 <script src="app/center/messages/center.messages.directive.js"></script>
+<script src="app/center/messages/center.messages.sending.directive.js"></script>
 <script src="app/center/messages/services/center.renderer.factory.service.js"></script>
 <script src="app/center/messages/services/center.renderer.service.js"></script>
 <script src="app/center/messages/services/renderers/date.divider.renderer.service.js"></script>
@@ -407,6 +412,7 @@
 <script src="app/center/services/message/message.file.service.js"></script>
 <script src="app/center/services/message/message.sending.collection.service.js"></script>
 <script src="app/center/services/message/message.text.service.js"></script>
+<script src="app/center/view_components/center_chat_input_box/center.chat.input.box.controller.js"></script>
 <script src="app/center/view_components/center_chat_input_box/center.chat.input.box.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.controller.js"></script>
@@ -414,8 +420,6 @@
 <script src="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.controller.js"></script>
 <script src="app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.directive.js"></script>
-<script src="app/center/view_components/center_chat_templates/text-sending/text.sending.controller.js"></script>
-<script src="app/center/view_components/center_chat_templates/text-sending/text.sending.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.service.js"></script>
@@ -471,8 +475,8 @@
 <script src="app/connect/union/webhook/jnd.connect.webhook.directive.js"></script>
 <script src="app/disconnect/disconnect.controller.js"></script>
 <script src="app/error/error.controller.js"></script>
-<script src="app/external_share/external.share.service.js"></script>
-<script src="app/external_share/external.share.view.directive.js"></script>
+<script src="app/external-file/external.file.directive.js"></script>
+<script src="app/external-file/external.file.service.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
 <script src="app/layer/guide/guide.privacy.directive.js"></script>
@@ -547,13 +551,15 @@
 <script src="app/modal/topics/topic_invite_from_dm/topic.invite.direct.controller.js"></script>
 <script src="app/modal/topics/topic_join/topic.join.controller.js"></script>
 <script src="app/modal/topics/topic_rename/topic.rename.controller.js"></script>
-<script src="app/right/file.detail/comment_input/file.detail.comment.input.directive.js"></script>
-<script src="app/right/file.detail/comments/file.detail.comments.directive.js"></script>
-<script src="app/right/file.detail/file.detail.controller.js"></script>
-<script src="app/right/file.detail/header/file.detail.header.directive.js"></script>
-<script src="app/right/file.detail/meta/file.detail.meta.directive.js"></script>
-<script src="app/right/file.detail/preview/file.detail.preview.directive.js"></script>
-<script src="app/right/file.detail/title/file.detail.title.directive.js"></script>
+<script src="app/right/file-detail/comment-input/file.detail.comment.input.controller.js"></script>
+<script src="app/right/file-detail/comment-input/file.detail.comment.input.directive.js"></script>
+<script src="app/right/file-detail/comments/file.detail.comments.directive.js"></script>
+<script src="app/right/file-detail/file.detail.controller.js"></script>
+<script src="app/right/file-detail/file.detail.service.js"></script>
+<script src="app/right/file-detail/header/file.detail.header.directive.js"></script>
+<script src="app/right/file-detail/meta/file.detail.meta.directive.js"></script>
+<script src="app/right/file-detail/preview/file.detail.preview.directive.js"></script>
+<script src="app/right/file-detail/title/file.detail.title.directive.js"></script>
 <script src="app/right/file/file.controller.js"></script>
 <script src="app/right/file/file.directive.js"></script>
 <script src="app/right/file/file.service.js"></script>
@@ -561,23 +567,24 @@
 <script src="app/right/files/file.service.js"></script>
 <script src="app/right/files/files.controller.js"></script>
 <script src="app/right/files/files.directive.js"></script>
-<script src="app/right/loading/right.panel.loading.directive.js"></script>
+<script src="app/right/loading/loading-keyword-search/loading.keyword.search.directive.js"></script>
+<script src="app/right/loading/loading-list/loading.list.directive.js"></script>
+<script src="app/right/loading/loading-search/loading.search.directive.js"></script>
 <script src="app/right/mentions/mentions.controller.js"></script>
 <script src="app/right/mentions/mentions.directive.js"></script>
 <script src="app/right/mentions/mentions.service.js"></script>
 <script src="app/right/message/message.controller.js"></script>
 <script src="app/right/message/message.directive.js"></script>
 <script src="app/right/message/message.service.js"></script>
+<script src="app/right/messages/message-group/message.group.controller.js"></script>
+<script src="app/right/messages/message-group/message.group.directive.js"></script>
+<script src="app/right/messages/messages.controller.js"></script>
+<script src="app/right/messages/messages.directive.js"></script>
 <script src="app/right/right.controller.js"></script>
-<script src="app/right/right.directvie.js"></script>
 <script src="app/right/right.service.js"></script>
-<script src="app/right/rpanel_search/rpanel.search.controller.js"></script>
-<script src="app/right/rpanel_search/rpanel.search.directive.js"></script>
-<script src="app/right/search.messages/search.message/search.message.controller.js"></script>
-<script src="app/right/search.messages/search.message/search.message.directive.js"></script>
-<script src="app/right/search.messages/search.messages.controller.js"></script>
-<script src="app/right/search.messages/search.messages.directive.js"></script>
-<script src="app/right/search.messages/search.messages.service.js"></script>
+<script src="app/right/scroll-loading/scroll.loading.directive.js"></script>
+<script src="app/right/search/search.controller.js"></script>
+<script src="app/right/search/search.directive.js"></script>
 <script src="app/right/stars/stars.controller.js"></script>
 <script src="app/right/stars/stars.directive.js"></script>
 <script src="app/signin/auth.api.service.js"></script>

@@ -6,18 +6,18 @@
 
   angular
     .module('jandiApp')
-    .directive('rPanelMentionTab', rPanelMentionTab);
+    .directive('rightMentions', rightMentions);
 
-  function rPanelMentionTab() {
+  function rightMentions() {
     return {
-      restrict: 'EA',
-      scope: true,
-      link: link,
+      restrict: 'E',
+      replace: true,
+      scope: {
+        status: '='
+      },
       templateUrl : 'app/right/mentions/mentions.html',
-      controller: 'RightPanelMentionsTabCtrl'
+      controller: 'RightMentionsCtrl',
+      link: angular.noop
     };
-
-    function link(scope, element, attrs) {
-    }
   }
 })();

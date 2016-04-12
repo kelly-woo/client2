@@ -101,7 +101,9 @@
      */
     function onClickGroup(clickEvent, group) {
       clickEvent.stopPropagation();
-      select(group);
+      select({
+        group: group
+      });
     }
 
     /**
@@ -124,20 +126,30 @@
 
     /**
      * 해당 스티커 그룹을 선택한다.
-     * @param {object} group 선택할 그룹
+     * @param {object} options
+     * @param {object} [options.group]
+     * @param {boolean} [options.isForward] - 현재 텝에서 앞(왼쪽)의 텝으로 이동하는지 여부
+     * @param {boolean} [options.isOpen] - sticker menu가 열림 여부
      * @private
      */
-    function select(group, active) {
-      group = group || _groups[_activeGroupIndex];
+    function select(options) {
+      var group = options.group || _groups[_activeGroupIndex];
+      var isForward = options.isForward;
 
       _activeGroupIndex = _groups.indexOf(group);
 
       if (_isResentStickers(group) && _recentStickers != null) {
-        _setStickers(group, _recentStickers, active);
+        _setStickers(group, _recentStickers, isForward);
       } else {
         Sticker.getStickers(group.id)
           .then(function(stickers) {
-            _setStickers(group, stickers, active);
+            if (options.isOpen && group.id === 'recent' && !stickers.length) {
+              select({
+                group: _groups[1]
+              });
+            } else {
+              _setStickers(group, stickers, isForward);
+            }
           });
       }
     }
@@ -146,23 +158,23 @@
      * sticker dropdown menu에 출력할 sticker item을 설정한다.
      * @param {object} group
      * @param {array} stickers
-     * @param {boolean} active
+     * @param {boolean} isForward - 현재 텝에서 앞(왼쪽)의 텝으로 이동하는지 여부
      * @private
      */
-    function _setStickers(group, stickers, active) {
+    function _setStickers(group, stickers, isForward) {
       JndUtil.safeApply($scope, function() {
         $scope.list = stickers;
       });
 
       if (_isResentStickers(group)) {
         _recentStickers = stickers;
-        $scope.isRecentEmpty = !stickers || stickers.length === 0
+        $scope.isRecentEmpty = !stickers || !stickers.length
       } else {
         $scope.isRecentEmpty = false;
       }
 
       if (stickers.length > 0) {
-        active ?  _setNextItem(stickers.length - 1) : _setNextItem(0);
+        isForward ? _setNextItem(stickers.length - 1) : _setNextItem(0);
       }
 
       $scope.onCreateSticker();
@@ -268,7 +280,10 @@
      */
     function _setNextGroup(next) {
       JndUtil.safeApply($scope, function() {
-        select(_getNextGroup(next), next < 0);
+        select({
+          group: _getNextGroup(next),
+          isForward: next < 0
+        });
       });
     }
 

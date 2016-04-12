@@ -333,7 +333,7 @@
        * @private
        */
       function _attachEvents() {
-        scope.$on('dataInitDone', JndZoom.loadZoom);
+        scope.$on('publicService:dataInitDone', JndZoom.loadZoom);
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);

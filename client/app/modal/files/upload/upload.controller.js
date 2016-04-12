@@ -7,7 +7,7 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($scope, $modalInstance, currentSessionHelper, fileAPIservice, TopicFolderModel,
+  function FileUploadModalCtrl($scope, $modalInstance, CoreUtil, currentSessionHelper, fileAPIservice, TopicFolderModel,
                                fileUploadOptions, ImagesHelper, Mentionahead, jndPubSub, RoomTopicList) {
     _init();
 
@@ -16,6 +16,11 @@
      * @private
      */
     function _init() {
+      $scope.mentionahead = {
+        status: Mentionahead.CLOSE,
+        list: []
+      };
+
       $scope.selectedEntity = currentSessionHelper.getCurrentEntity();
       $scope.selectedEntityId = $scope.selectedEntity.id;
       $scope.isLoading = false;
@@ -55,9 +60,7 @@
      * @private
      */
     function _onSelectedEntityIdChange(entityId) {
-      var mentionList = Mentionahead.getMentionListForUploading(entityId);
-
-      jndPubSub.pub('MentionaheadCtrl:upload', mentionList);
+      $scope.mentionahead.list = Mentionahead.getMentionListForUploading(entityId);
     }
 
     /**
@@ -70,7 +73,7 @@
       var jqImageLoader;
       var jqImageLoaderContainer;
 
-      blobFile = fileAPIservice.dataURItoBlob(newDataUrl);
+      blobFile = CoreUtil.dataURItoBlob(newDataUrl);
       $scope.blobFile = blobFile;
 
       jqImageLoader = ImagesHelper.getImageLoaderElement();

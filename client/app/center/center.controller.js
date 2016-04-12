@@ -88,7 +88,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
 
   $scope.messages = MessageCollection.list;
-  $scope.sendingMessages = MessageSendingCollection.list;
   $scope.message = {};          // Message to post.
   $scope.isInitialLoadingCompleted = false;
   $scope.hasLastMessageRendered = false;
@@ -155,7 +154,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _initializeFocusStatus();
       centerService.setHistory(entityType, entityId);
     } else {
-      $scope.$on('dataInitDone', _init);
+      $scope.$on('publicService:dataInitDone', _init);
     }
   }
 
@@ -199,7 +198,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     MessageSendingCollection.reset();
 
     $scope.messages = MessageCollection.list;
-    $scope.sendingMessages = MessageSendingCollection.list;
 
     $scope.isPolling = false;
     // configuration for message loading
@@ -234,11 +232,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _checkEntityMessageStatus);
-    $scope.$on('centerUpdateChatList', updateList);
+    $scope.$on('centerUpdateChatList', _onChatUpdated);
     $scope.$on('centerOnMarkerUpdated', _onCenterMarkerUpdated);
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
+    $scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
 
     $scope.$on('center:scrollToBottom', _centerScrollToBottom);
     $scope.$on('Router:openRightPanel', _onRightPanelOpen);
@@ -260,6 +259,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('body:dragStart', _onDragStart);
     $scope.$on('topicDeleted', _onTopicDeleted);
+  }
+
+  /**
+   * chat 이 update 된 경우 콜백
+   * @private
+   */
+  function _onChatUpdated() {
+    updateList();
   }
 
   /**
@@ -478,11 +485,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideCenterLoading() {
-    JndUtil.safeApply($scope, function() {
-      $scope.msgLoadStatus.loading = false;
-      $scope.isShowLoadingWheel = false;
-      $timeout.cancel($scope.msgLoadStatus.timer);
-    });
+    $scope.msgLoadStatus.loading = false;
+    $scope.isShowLoadingWheel = false;
+    $timeout.cancel($scope.msgLoadStatus.timer);
   }
 
   function loadMore(isSkipBookmark) {
@@ -757,7 +762,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').unbind('mousewheel');
   }
 
-  function updateList() {
+  /**
+   * update 된 메시지 정보를 조회한다.
+   * @param {boolean} [isUpdateMessageMarker=false] - updateMessageMarker 를 호출할지 여부를 결정한다.
+   */
+  function updateList(isUpdateMessageMarker) {
     if (!_isDestroyed) {
       //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
       //  In such case, don't update list and just return it.
@@ -770,7 +779,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //todo: deprecated 되었으므로 해당 API 제거해야함
       deferredObject.updateMessages = $q.defer();
       messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
-        .success(_onUpdateListSuccess)
+        .success(_.bind(_onUpdateListSuccess, this, isUpdateMessageMarker))
         .error(_onUpdateListError);
 
 
@@ -788,9 +797,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         updateList();
       } else {
         _updateRetryCnt = 0;
-        JndUtil.safeApply($scope, function() {
-          MessageSendingCollection.clearSentMessages();
-        });
+        MessageSendingCollection.clearSentMessages();
         onHttpResponseError(response);
       }
     }
@@ -798,10 +805,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * 메세지 success 핸들러
+   * @param {boolean} isUpdateMessageMarker - updateMessageMarker 를 호출할 지 여부를 결정한다.
    * @param {object} response 서버 응답
    * @private
    */
-  function _onUpdateListSuccess(response) {
+  function _onUpdateListSuccess(isUpdateMessageMarker, response) {
+    isUpdateMessageMarker = _.isBoolean(isUpdateMessageMarker) ? isUpdateMessageMarker : false;
     if (!_isDestroyed) {
       _isUpdateListLock = false;
 
@@ -811,10 +820,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalLastLinkId = response.lastLinkId;
         updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-        JndUtil.safeApply($scope, function() {
-          MessageSendingCollection.clearSentMessages();
-        });
-
         if (updateInfo.messageCount) {
           if (_isBottomReached() && _isChatPanelActive()) {
             _scrollToBottom();
@@ -823,8 +828,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
           MessageCollection.updateUnreadCount();
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+          if (isUpdateMessageMarker) {
+            updateMessageMarker();
+          }
           //console.log('::_onUpdateListSuccess', lastMessageId);
           _checkEntityMessageStatus();
+        } else {
+          MessageSendingCollection.clearSentMessages();
         }
       }
 
@@ -844,6 +854,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var length = messages.length;
     var msg;
     var firstLinkId = MessageCollection.getFirstLinkId();
+
+    MessageSendingCollection.clearSentMessages();
+
     // Prevent duplicate messages in center panel.
     if (length) {
       if (firstMessageId === firstLinkId) {
@@ -854,6 +867,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageCollection.update(messages, isSkipAppend);
       }
     }
+    MessageSendingCollection.refreshAt(0);
   }
 
   function onHttpResponseError(response) {
@@ -977,8 +991,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         messageAPIservice.postMessage(entityType, entityId,
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function (response) {
-            markerService.updateMarker(memberId, response.linkId);
+            //markerService.updateMarker(memberId, response.linkId);
             MessageSendingCollection.sent(payload, true);
+
             try {
               //analytics
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
@@ -1011,7 +1026,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!_hasLastMessage()) {
       _refreshCurrentTopic(true);
     }
-    updateList();
+    updateList(true);
     //_scrollToBottom(true);
   }
 
@@ -1722,8 +1737,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onTopicDeleted(event, data) {
-    if (data && data.topic) {
-      TextBuffer.remove(data.topic.id);
+    if (data && data.room) {
+      TextBuffer.remove(data.room.id);
     }
   }
 
@@ -1740,5 +1755,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.hasMessage = message > 0 || !!_sticker;
       $scope.showMarkdownGuide = message > 1;
     }
+  }
+
+  /**
+   * 외부 파일공유 상태 변경 이벤트 핸들러
+   * @param {object} $event
+   * @param {object} data
+   * @private
+   */
+  function _onFileShareChanged($event, data) {
+      var msg = MessageCollection.getByMessageId(data.id);
+
+      if (msg && msg.message.contentType === 'file') {
+        msg.message.content.externalShared = data.content.externalShared;
+      }
   }
 });

@@ -22,15 +22,13 @@
      * @returns {*}
      */
     function request(config) {
-      if (storageAPIservice.isAccessTokenDirty()) {
-        _redirectToAdmin();
-      } else {
-        config.headers = config.headers || {};
-        // API version
-        config.headers.Accept = "application/vnd.tosslab.jandi-v" + _getApiVersion(config) + "+json";
-        config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
-        return config;
-      }
+      var Auth = $injector.get('Auth');
+
+      config.headers = config.headers || {};
+      // API version
+      config.headers.Accept = "application/vnd.tosslab.jandi-v" + _getApiVersion(config) + "+json";
+      config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
+      return config;
     }
 
     /**
@@ -65,6 +63,7 @@
      * @returns {Promise}
      */
     function responseError(rejection) {
+      var Auth = $injector.get('Auth');
       var AuthApi = $injector.get('AuthApi');
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED
@@ -95,11 +94,12 @@
         // What to do? - get new access_token using refresh_token
         console.log('I am so sorry. It is 401 error.');
         //sholdn't be here
-        if (angular.isUndefined(AuthApi)) {
+        if (angular.isUndefined(Auth)) {
           _redirectToAdmin();
         } else {
-          AuthApi.requestAccessTokenWithRefreshToken();
+          Auth.requestAccessTokenWithRefreshToken();
         }
+        return $q.reject(rejection);
       } else {
         return $q.reject(rejection);
       }

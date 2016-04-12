@@ -1,0 +1,70 @@
+<div class="rpanel-body message-tab">
+  <!-- SEARCH QUERY -->
+  <right-search keyword="searchStatus.q"
+                is-focus="searchStatus.isKeywordFocus"
+                on-change="onKeywordChange($keyword)"
+                on-reset-query="onResetQuery()"></right-search>
+
+  <!--    ADVANCED SEARCH OPTION  -->
+  <div class="advanced-search-option-container">
+    <!--   장소  -->
+    <div class="advanced-search-option__category">
+      <div class="advanced-search-option__title">
+        <span>{{::'@common-entity-location'|translate}}</span>
+      </div>
+      <jnd-selectbox-room jnd-data-model="searchStatus.entityId"
+                          jnd-has-all="yes"
+                          jnd-has-disabled="yes"></jnd-selectbox-room>
+    </div>
+    <!--  END OF 장소 -->
+
+    <!--   작성자  -->
+    <div class="advanced-search-option__category">
+      <div class="advanced-search-option__title">
+        <span>{{::'@common-message-writer'|translate}}</span>
+      </div>
+      <jnd-selectbox-member jnd-data-model="searchStatus.writerId"
+                            jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
+    </div>
+    <!-- END OF FILE 작성자 -->
+  </div>
+  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
+
+  <div class="rpanel-body-content"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-load-more="searchStatus.isScrollLoading">
+    <div ng-if="!isKeywordEmpty()">
+      <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
+
+      <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+      <div class="break-word rpanel-alert-msg-container" ng-if="isEmpty()">
+        <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">
+
+        <div class="rpanel-alert-msg-container__text">
+          <div ng-if="!searchStatus.isApiError">
+            <span>{{::'@alert-no-messages-found'|translate}}</span>:
+            <span class="search-keyword">{{searchStatus.keyword}}</span>
+          </div>
+
+          <div ng-if="searchStatus.isApiError">
+            <span>{{::'@common-api-error-msg'|translate}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rpanel-alert-msg-container no-search-input-container" ng-if="isKeywordEmpty()" ng-click="setKeywordFocus();">
+      <img class="icon-search" src="assets/images/icon-search.png"/>
+      <div class="rpanel-alert-msg-container__text">
+        <span>{{::'@input-to-search'|translate}}</span>
+      </div>
+    </div>
+
+    <div class="rpanel-message-list scroll-loading-list">
+      <right-message-group class="private-effect" ng-repeat="message in messageList"></right-message-group>
+      <right-loading-list is-scroll-loading="searchStatus.isScrollLoading"
+                          is-end-of-list="searchStatus.isEndOfList"></right-loading-list>
+    </div>
+  </div>
+</div>
