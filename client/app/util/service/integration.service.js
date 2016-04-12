@@ -322,6 +322,7 @@
 
         that._doAuth(true, function(event) {
           if (event.error) {
+            // access 거부 되었을 경우 error property를 가진다.
             that._hasAccessDenied = true;
             that._onAccessDenied();
           } else {
@@ -414,7 +415,7 @@
               that._open();
             },
             closeIntegration: function() {
-              that._closeIntegrationModal();
+              that.closeIntegrationModal();
             },
             cInterface: that.cInterface             // modal의 확인 interface 명
           }
@@ -482,14 +483,14 @@
 
         if (!that._successLock) {
           that._successLock = true;
-          that._closeIntegrationModal();
+          that.closeIntegrationModal();
           that._fileGetCallback(files);
         }
       },
       _cancel: function() {
         var that = this;
 
-        that._closeIntegrationModal();
+        that.closeIntegrationModal();
       },
       /**
        * Dropbox.choose를 수행한 만큼 _success callback 이 수행되므로 _success callback을 한번만
