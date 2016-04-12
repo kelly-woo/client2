@@ -1066,6 +1066,10 @@ msgstr "按名字搜尋使用者"
 msgid "@input-to-search"
 msgstr "輸入關鍵字"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr "為確保成功驗證您的帳戶，請確保您的 cookies 是開啟的狀態"
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr "為完成帳戶連接，<b>請啟用瀏覽器的彈跳視窗功能</b>"

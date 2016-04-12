@@ -1067,6 +1067,10 @@ msgstr "按名字搜索使用者"
 msgid "@input-to-search"
 msgstr "输入关键词"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr "为确保成功验证您的帐户，请确保您的 cookies 是开启的状态"
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr "为完成帐户连接，<b>请启用浏览器的弹跳窗口功能</b>"

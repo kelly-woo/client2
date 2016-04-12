@@ -1091,6 +1091,12 @@ msgstr "Search users by name"
 msgid "@input-to-search"
 msgstr "Please type in a keyword to search"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr ""
+"We couldn't authenticate your account. Check to make sure your cookies are "
+"on. If you want to authenticate, please allow cookies in your browser."
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr "<b>Pop-ups must be enabled</b> in order to connect your account"
@@ -3459,9 +3465,8 @@ msgid "@web-notification-body-messages-pre"
 msgstr "from "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@web-notification-body-other-team-post"
-msgstr " "
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-pre"

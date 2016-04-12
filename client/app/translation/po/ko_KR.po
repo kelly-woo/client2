@@ -1084,6 +1084,12 @@ msgstr "멤버 이름을 검색하세요"
 msgid "@input-to-search"
 msgstr "검색어를 입력하세요."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr ""
+"인증 과정에 문제가 발생했습니다. 브라우저에서 쿠키 사용이 꺼져있을 경우 다시 "
+"켜주시기 바랍니다."
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
