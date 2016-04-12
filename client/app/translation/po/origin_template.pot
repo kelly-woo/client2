@@ -16,14 +16,17 @@ msgstr ""
 msgid "@alert-empty-ch-belong"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr ""
@@ -96,6 +99,7 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -113,6 +117,7 @@ msgid "@btn-create"
 msgstr ""
 
 #: client/app/center/announcement/announcement.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr ""
@@ -232,6 +237,7 @@ msgid "@common-all-shared"
 msgstr ""
 
 #: client/app/center/center.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
@@ -288,6 +294,10 @@ msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-daily"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -355,6 +365,7 @@ msgstr ""
 msgid "@common-email"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr ""
@@ -368,6 +379,7 @@ msgstr ""
 msgid "@common-faq"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/right.html
 msgid "@common-file"
@@ -381,10 +393,12 @@ msgstr ""
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr ""
@@ -393,50 +407,62 @@ msgstr ""
 msgid "@common-file-type-archive"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr ""
@@ -459,6 +485,10 @@ msgstr ""
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-hourly"
 msgstr ""
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
@@ -491,18 +521,22 @@ msgstr ""
 msgid "@common-kicked-out"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-mention"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-message"
 msgstr ""
@@ -511,6 +545,7 @@ msgstr ""
 msgid "@common-message-search"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr ""
@@ -579,6 +614,7 @@ msgstr ""
 msgid "@common-register"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr ""
@@ -612,6 +648,7 @@ msgstr ""
 msgid "@common-share-in"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/files.html
 msgid "@common-shared-in"
@@ -630,6 +667,7 @@ msgstr ""
 msgid "@common-sign-out"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-star"
 msgstr ""
@@ -881,14 +919,17 @@ msgstr ""
 msgid "@file-action-unshare"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr ""
@@ -897,6 +938,7 @@ msgstr ""
 msgid "@file-size-too-large-error"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr ""
@@ -1004,6 +1046,7 @@ msgstr ""
 msgid "@input-search-user-name"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr ""
@@ -2030,18 +2073,22 @@ msgstr ""
 msgid "@markdown-strikethrough"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
@@ -2133,6 +2180,7 @@ msgstr ""
 msgid "@msg-create-pg"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -2154,6 +2202,7 @@ msgstr ""
 msgid "@msg-left"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -2272,6 +2321,7 @@ msgstr ""
 msgid "@search-cond-reset"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
@@ -2279,10 +2329,12 @@ msgstr ""
 msgid "@search-in-progress"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -2318,6 +2370,50 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-dm-n-mention"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-desc"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-fri"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-mon"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sat"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sun"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-thu"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-tue"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-wed"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text1"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2528,6 +2624,7 @@ msgstr ""
 msgid "@sounds-super"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -2537,18 +2634,22 @@ msgstr ""
 msgid "@star-add"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr ""
@@ -2561,6 +2662,7 @@ msgstr ""
 msgid "@star-remove"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"

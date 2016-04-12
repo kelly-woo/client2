@@ -23,14 +23,17 @@ msgstr "我們預計幾個小時内就可以恢復運作。感謝您的耐心等
 msgid "@alert-empty-ch-belong"
 msgstr "您尚未加入任何議題"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "找不到符合條件的內容"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr "檔案尚未分享到其它群組"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "找不到符合條件的內容"
@@ -103,6 +106,7 @@ msgstr "更改"
 msgid "@btn-close"
 msgstr "關閉"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -120,6 +124,7 @@ msgid "@btn-create"
 msgstr "建立"
 
 #: client/app/center/announcement/announcement.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "刪除"
@@ -245,7 +250,9 @@ msgstr "現行成員"
 msgid "@common-all-shared"
 msgstr "檔案已分享於所有你加入的議題中"
 
-#: client/app/center/center.html client/app/left/left.html
+#: client/app/center/center.html
+#: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "檔案上傳已取消，請再試一次"
@@ -303,6 +310,10 @@ msgstr "建立新的團隊"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "客服"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-daily"
+msgstr "每日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
@@ -369,6 +380,7 @@ msgstr "編輯"
 msgid "@common-email"
 msgstr "電子郵件"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr "發送在"
@@ -382,6 +394,7 @@ msgstr " 公開/私人"
 msgid "@common-faq"
 msgstr "FAQ/常見問題"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "檔案"
@@ -394,10 +407,12 @@ msgstr "已分享檔案"
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr "檔案已成功被分享。您想要現在跳轉到那對話中嗎？"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "檔案類別"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全部類別"
@@ -406,50 +421,62 @@ msgstr "全部類別"
 msgid "@common-file-type-archive"
 msgstr "壓縮檔"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr "Google Docs"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr "Google文件"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr "Google簡報"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr "Google試算表"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr "其它"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "試算表"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "視頻"
@@ -473,6 +500,10 @@ msgstr "如何開始"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-hourly"
+msgstr "小時"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
@@ -504,18 +535,22 @@ msgstr "成員"
 msgid "@common-kicked-out"
 msgstr "你已被移除出{{TopicName}}"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "此信息/文件已被标示"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "曾經被誰分享"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-mention"
 msgstr "提及"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-message"
 msgstr "訊息"
@@ -524,6 +559,7 @@ msgstr "訊息"
 msgid "@common-message-search"
 msgstr "訊息搜尋"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr "發送者是"
@@ -591,6 +627,7 @@ msgstr "簡介設定"
 msgid "@common-register"
 msgstr "註冊"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr "物件已被刪除"
@@ -624,6 +661,7 @@ msgstr "分享檔案"
 msgid "@common-share-in"
 msgstr "分享在"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/files.html
 msgid "@common-shared-in"
@@ -642,6 +680,7 @@ msgstr "登入"
 msgid "@common-sign-out"
 msgstr "登出"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-star"
 msgstr "已標示"
@@ -892,14 +931,17 @@ msgstr "更多"
 msgid "@file-action-unshare"
 msgstr "取消分享"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除此檔案？ 請注意留言的部分不會被刪除。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr " "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr "刪除時間："
@@ -908,6 +950,7 @@ msgstr "刪除時間："
 msgid "@file-size-too-large-error"
 msgstr "無法上傳大於300MB的檔案"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr "此檔案已經從這個對話中取消分享 "
@@ -1018,6 +1061,7 @@ msgstr "按名字搜尋議題"
 msgid "@input-search-user-name"
 msgstr "按名字搜尋使用者"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "輸入關鍵字"
@@ -2069,7 +2113,7 @@ msgstr "***斜體&粗體***"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-code"
-msgstr "```(隔行輸入)"
+msgstr "```(隔行輸入) 語法"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@markdown-italics"
@@ -2079,20 +2123,24 @@ msgstr "*斜體*"
 msgid "@markdown-strikethrough"
 msgstr "~~刪除線~~"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (議題成員)"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr "你即將完成提及{{topicParticipantsCount}}位屬於{{topicName}}裡的成員"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
 msgstr ""
 "你尚未被其他成員提及。欲提及其他成員？輸入\"@\"後成員名單跳出，選取成員完成提"
 "及。"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
@@ -2184,6 +2232,7 @@ msgstr "建立公開議題 "
 msgid "@msg-create-pg"
 msgstr "建立私人議題"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -2205,6 +2254,7 @@ msgstr "已經加入"
 msgid "@msg-left"
 msgstr "已經離開"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -2323,6 +2373,7 @@ msgstr "周六"
 msgid "@search-cond-reset"
 msgstr "重新整理搜尋條件"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -2330,10 +2381,12 @@ msgid "@search-in-progress"
 msgstr ""
 "搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
 msgstr "使用關鍵字搜尋請輸入1個以上的字元"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -2372,6 +2425,50 @@ msgstr "電腦版推播通知"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-dm-n-mention"
 msgstr "僅接收私訊和@提及通知"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email"
+msgstr "通知電郵"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-desc"
+msgstr "透過電郵接收定期私訊、提及、公告和受邀議題的總結"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-fri"
+msgstr "每周 週五"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-mon"
+msgstr "每周 週一"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sat"
+msgstr "每周 週六"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sun"
+msgstr "每周 週日"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-thu"
+msgstr "每周 週四"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-tue"
+msgstr "每周 週二"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-wed"
+msgstr "每周 週三"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text1"
+msgstr "寄送通知電郵的頻率"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
+msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
@@ -2584,6 +2681,7 @@ msgstr "爆米花"
 msgid "@sounds-super"
 msgstr "木琴"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -2593,18 +2691,22 @@ msgstr "標示"
 msgid "@star-add"
 msgstr "標示"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr "全部類別"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr "沒有標示訊息或檔案"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr "檔案類別"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr "沒有標示檔案"
@@ -2617,6 +2719,7 @@ msgstr "此檔案已經從這個對話中取消分享"
 msgid "@star-remove"
 msgstr "取消標示"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"

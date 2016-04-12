@@ -23,14 +23,17 @@ msgstr "1~2시간 내에 점검이 완료될 예정이니 조금만 기다려주
 msgid "@alert-empty-ch-belong"
 msgstr "참여중인 토픽이 없습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "검색 결과가 없습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr "공유된 대화방이 없습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "검색 결과가 없습니다"
@@ -105,6 +108,7 @@ msgstr "변경하기"
 msgid "@btn-close"
 msgstr "닫기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -122,6 +126,7 @@ msgid "@btn-create"
 msgstr "생성하기"
 
 #: client/app/center/announcement/announcement.html
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "삭제하기"
@@ -250,7 +255,9 @@ msgstr "멤버"
 msgid "@common-all-shared"
 msgstr "이미 참여중인 모든 토픽에 공유된 파일입니다."
 
-#: client/app/center/center.html client/app/left/left.html
+#: client/app/center/center.html
+#: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "잠시 후에 다시 시도하여 주십시요."
@@ -309,6 +316,10 @@ msgstr "팀 생성하기"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "고객 센터"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-daily"
+msgstr "매일"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
@@ -377,6 +388,7 @@ msgstr "수정"
 msgid "@common-email"
 msgstr "이메일"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr "작성된 곳"
@@ -390,6 +402,7 @@ msgstr "공개 여부"
 msgid "@common-faq"
 msgstr " FAQ / 문의하기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "파일"
@@ -403,10 +416,12 @@ msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 "파일이 성공적으로 공유되었습니다.<br/> 파일이 공유된 대화로 이동하시겠습니까?"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "파일 타입"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "모든 타입"
@@ -415,50 +430,62 @@ msgstr "모든 타입"
 msgid "@common-file-type-archive"
 msgstr "압축 파일"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "오디오"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
-msgstr "워드/한글"
+msgstr "문서"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr "Google Docs"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr "Google 문서"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr "Google 프레젠테이션"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr "Google 스프레드시트"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "이미지"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr "기타"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "파워포인트"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "엑셀"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "비디오"
@@ -482,6 +509,10 @@ msgstr "시작하기"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "이미 JANDI 모바일 앱이 있으십니까?"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-hourly"
+msgstr "매 시 정각"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
@@ -513,18 +544,22 @@ msgstr "명 참여중"
 msgid "@common-kicked-out"
 msgstr "{{TopicName}}에서 관리자에 의해 퇴장되었습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "이미 나갔거나 삭제된 토픽이므로 원본을 확인할 수 없습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "업로드한 멤버"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-mention"
 msgstr "멘션"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-message"
 msgstr "메시지"
@@ -533,6 +568,7 @@ msgstr "메시지"
 msgid "@common-message-search"
 msgstr "메시지 검색"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr "작성자"
@@ -601,6 +637,7 @@ msgstr "프로필 수정"
 msgid "@common-register"
 msgstr "가입하기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr "원본이 삭제되었습니다."
@@ -634,6 +671,7 @@ msgstr "파일 공유"
 msgid "@common-share-in"
 msgstr "공유 대화방"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/files.html
 msgid "@common-shared-in"
@@ -652,6 +690,7 @@ msgstr "로그인"
 msgid "@common-sign-out"
 msgstr "로그아웃"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@common-star"
 msgstr "즐겨찾기"
@@ -822,7 +861,9 @@ msgstr "여기를 클릭하시고 토픽에 멤버를 초대해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
-msgstr "토픽 또는 1:1메시지에서 파일을 업로드하실 수 있습니다."
+msgstr ""
+"파일을 끌어다 놓으면 (드래그&드롭) 바로 업로드할 수 있습니다. 업로드 후 댓글"
+"을 작성해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-everyone-in-current-topic"
@@ -838,7 +879,7 @@ msgstr "아직 팀에 가입한 멤버가 없습니다. "
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
-msgstr "아직 메시지가 없습니다. 메시지를 입력하셔서 대화를 시작해보세요."
+msgstr "아직 메시지가 없습니다. 메시지를 입력하여 대화를 시작해보세요."
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
@@ -846,7 +887,7 @@ msgstr "아직 토픽에 초대된 멤버가 없습니다. "
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
-msgstr "파일 서랍에 아직 파일이 없습니다. "
+msgstr "아직 파일이 없습니다."
 
 #: client/app/error/404.html
 msgid "@error-404-message"
@@ -906,14 +947,17 @@ msgstr "더보기 "
 msgid "@file-action-unshare"
 msgstr "공유해제"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr "에 삭제되었습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr " "
@@ -922,6 +966,7 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "현재 300MB 이상의 파일은 업로드 할 수 없습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr "이 파일은 이 대화에서 공유 해제되어 더 이상 열람하실 수 없습니다."
@@ -1034,6 +1079,7 @@ msgstr "토픽 이름을 검색하세요"
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "검색어를 입력하세요."
@@ -2150,10 +2196,12 @@ msgstr "*기울임*"
 msgid "@markdown-strikethrough"
 msgstr "~~취소선~~"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all"
 msgstr "@all (모든 토픽 멤버)"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
@@ -2161,12 +2209,14 @@ msgstr ""
 "{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림을 "
 "하게 됩니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
 msgstr ""
 "다른 팀 멤버에게 받은 멘션이 없습니다. 메시지 입력창에서 \"@\"을 입력하여 멘"
 "션을 주고받을 수 있습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
@@ -2233,7 +2283,7 @@ msgstr "참여 가능한 토픽 목록"
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
-msgstr "멤버 선택하기"
+msgstr "전체 멤버 보기"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
@@ -2260,6 +2310,7 @@ msgstr "님이 공개 토픽을 생성했습니다."
 msgid "@msg-create-pg"
 msgstr "님이 비공개 토픽을 생성했습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -2281,6 +2332,7 @@ msgstr "님이 참여했습니다"
 msgid "@msg-left"
 msgstr "님이 나갔습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -2399,6 +2451,7 @@ msgstr "토요일"
 msgid "@search-cond-reset"
 msgstr "검색조건 초기화"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -2406,10 +2459,12 @@ msgid "@search-in-progress"
 msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 중..."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@search-minimum-query-length"
 msgstr "검색어는 2글자 이상 입력해주세요."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
@@ -2449,6 +2504,52 @@ msgstr "바탕화면 알림"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-dm-n-mention"
 msgstr "1:1메시지와 @멘션만 받기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email"
+msgstr "이메일 알림"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-desc"
+msgstr ""
+"읽지 못한 중요한 메시지 뿐 아니라, 초대된 토픽과 새로운 공지사항에 대한 요약 "
+"메일을 받아보실 수 있습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-fri"
+msgstr "매주 금요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-mon"
+msgstr "매주 월요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sat"
+msgstr "매주 토요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-sun"
+msgstr "매주 일요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-thu"
+msgstr "매주 목요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-tue"
+msgstr "매주 화요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-dropdown-wed"
+msgstr "매주 수요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text1"
+msgstr "수신 가능 내용이 있을 경우 이메일을"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@setting-notification-email-text2"
+msgstr "에 받기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-permission-denied"
@@ -2663,6 +2764,7 @@ msgstr "버블팝"
 msgid "@sounds-super"
 msgstr "실로폰 이중음"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star"
@@ -2672,18 +2774,22 @@ msgstr "즐겨찾기"
 msgid "@star-add"
 msgstr "즐겨찾기 "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr "모든 타입"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr "즐겨찾기 한 메시지나 파일이 없습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr "파일 타입"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr "즐겨찾기 한 파일이 없습니다."
@@ -2697,6 +2803,7 @@ msgstr ""
 msgid "@star-remove"
 msgstr "즐겨찾기 해제"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"
