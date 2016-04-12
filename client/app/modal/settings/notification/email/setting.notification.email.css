@@ -1,5 +1,6 @@
 .notification-setting-email .dropdown-selectbox {
   width: auto;
+  padding: 3px;
 }
 .notification-setting-email .notification-role {
   min-height: 124px;
