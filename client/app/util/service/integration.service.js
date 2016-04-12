@@ -321,7 +321,7 @@
         var that = this;
 
         that._doAuth(true, function(event) {
-          if (event.error) {
+          if (event.error_subtype === 'access_denied') {
             // access 거부 되었을 경우 error property를 가진다.
             that._hasAccessDenied = true;
             that._onAccessDenied();
