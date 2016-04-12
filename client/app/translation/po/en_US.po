@@ -2515,9 +2515,7 @@ msgstr "Email Notifications"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-desc"
-msgstr ""
-"Get regular email summaries of direct messages, mentions, announcements, and "
-"topic invitations you may have missed"
+msgstr "Get regular email summaries of messages and events you may have missed"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@setting-notification-email-dropdown-fri"
@@ -2548,7 +2546,6 @@ msgid "@setting-notification-email-dropdown-wed"
 msgstr "Wednesday"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@setting-notification-email-text1"
 msgstr "Send notification emails every"
 
