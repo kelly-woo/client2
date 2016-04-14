@@ -20,6 +20,7 @@
 .notification-modal-body .notification-role {
   position: relative;
   width: 280px;
+  height: 85px;
   margin-bottom: 20px;
 }
 
@@ -58,8 +59,8 @@
 
 .notification-modal-body .notification-setting {
   position: relative;
-  height: 340px;
-  margin-top: 8px;
+  height: 350px;
+  margin-top: 50px;
   overflow: visible;
   -webkit-transition: height .3s;
   -moz-transition: height .3s;
@@ -67,7 +68,9 @@
   -o-transition: height .3s;
   transition: height .3s;
 }
-
+.notification-modal-body .notification-setting.is-setting-switch {
+  overflow: hidden;
+}
 .notification-modal-body .nav-tabs .active,
 .notification-modal-body .tab-pane.active {
   background: transparent !important;
@@ -109,7 +112,7 @@
 
 .notification-setting .notification-options {
   width: 100%;
-  height: calc(100% - 78px);
+  height: calc(100% - 88px);
   padding: 12px;
   background-color: #f6f6f6;
   border: 0;
