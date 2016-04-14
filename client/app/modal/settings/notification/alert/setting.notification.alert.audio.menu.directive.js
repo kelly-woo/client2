@@ -6,9 +6,9 @@
 
   angular
     .module('jandiApp')
-    .directive('notificationAudioMenu', notificationAudioMenu);
+    .directive('settingNotificationAlertAudioMenu', settingNotificationAlertAudioMenu);
 
-  function notificationAudioMenu(DesktopNotificationUtil) {
+  function settingNotificationAlertAudioMenu(DesktopNotificationUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -19,7 +19,7 @@
         onSelectCallback: '&onSelect'
       },
       link: link,
-      templateUrl: 'app/modal/settings/notification/setting.notification.audio.html'
+      templateUrl: 'app/modal/settings/notification/alert/setting.notification.alert.audio.menu.html'
     };
 
     function link(scope) {

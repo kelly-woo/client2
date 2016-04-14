@@ -9,8 +9,8 @@
     .module('jandiApp')
     .service('Auth', Auth);
 
-  function Auth($state, $q, $urlRouter, accountService, memberService, storageAPIservice, publicService, analyticsService,
-                HybridAppHelper, AuthApi) {
+  function Auth($state, $urlRouter, accountService, memberService, storageAPIservice, publicService, analyticsService,
+                HybridAppHelper, AuthApi, jndPubSub) {
     var _isRefreshTokenLock = false;
 
     this.signIn = signIn;
@@ -56,6 +56,7 @@
      */
     function _onSuccessRefreshToken() {
       accountService.getAccountInfo().then(_onSuccessGetAccount, publicService.signOut);
+      jndPubSub.pub('Auth:refreshTokenSuccess');
     }
 
     /**

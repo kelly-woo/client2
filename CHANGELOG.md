@@ -1,3 +1,36 @@
+<a name="1.22.0"></a>
+# [1.22.0](https://github.com/tosslab/web_client/compare/v1.21.2...v1.22.0) (2016-04-06)
+
+
+### Bug Fixes
+
+* **build:** font-awesome v4.2.0 으로 변경 ([c6cde66](https://github.com/tosslab/web_client/commit/c6cde66))
+* **build:** jandi-icon.svg path error fixed ([46a0685](https://github.com/tosslab/web_client/commit/46a0685))
+* **grunt:** fontawesome 404 error fix ([3eecec6](https://github.com/tosslab/web_client/commit/3eecec6))
+* **tutorial:** 툴팁 사라지지 않는 현상 해결 ([5e6c5a7](https://github.com/tosslab/web_client/commit/5e6c5a7))
+
+### Features
+
+* **active:** Web Client 업데이트 방식 / Active 발송 방식 개선 ([a7ae05f](https://github.com/tosslab/web_client/commit/a7ae05f))
+
+
+
+<a name="1.21.2"></a>
+## [1.21.2](https://github.com/tosslab/web_client/compare/v1.21.1...v1.21.2) (2016-03-30)
+
+
+
+
+<a name="1.21.1"></a>
+## [1.21.1](https://github.com/tosslab/web_client/compare/v1.21.0...v1.21.1) (2016-03-30)
+
+
+### Bug Fixes
+
+* **connect:** connect 가 연결될 방을 변경하더라도 변경되지 않는 현상 수정 ([f2bfa9d](https://github.com/tosslab/web_client/commit/f2bfa9d))
+
+
+
 <a name="1.21.0"></a>
 # [1.21.0](https://github.com/tosslab/web_client/compare/v1.20.1...v1.21.0) (2016-03-30)
 

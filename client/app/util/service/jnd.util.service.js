@@ -40,21 +40,25 @@
     function alertUnknownError(response, status) {
       var msg = $filter('translate')('@common-unknown-error');
       var body;
-      response = _.extend({
-        code: status || -1,
-        msg: 'Unknown error'
-      }, response);
+      //401 오류는 net.auth.service 에서 refresh token 을 가져오는 로직을 수행하기 때문에 alert 을 노출하지 않는다.
+      //504 gateway timeout 일 경우에는 status code 가 존재하지 않는 경우인데 이 때에는 alert 을 노출하지 않는다.
+      if (status !== 401 && !_.isUndefined(status)) {
+        response = _.extend({
+          code: status || -1,
+          msg: 'Unknown error'
+        }, response);
 
-      body = [
-        msg + '<br />',
-        'code: ' + response.code,
-        response.msg
-      ];
+        body = [
+          msg + '<br />',
+          'code: ' + response.code,
+          response.msg
+        ];
 
-      Dialog.alert({
-        allowHtml: true,
-        body: body.join('<br />')
-      });
+        Dialog.alert({
+          allowHtml: true,
+          body: body.join('<br />')
+        });
+      }
     }
     
     /**
