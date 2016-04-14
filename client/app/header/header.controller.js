@@ -85,6 +85,9 @@
         team: false,
         help: false
       };
+
+      _setIntercomLanguage();
+
       _initTutorialBlink();
       _attachEvents();
     }
@@ -429,7 +432,19 @@
      * @private
      */
     function _onCurrentMemberChanged() {
-      $scope.member = memberService.getMember();
+      $scope.intercomMember = memberService.getMember();
+    }
+
+    function _setIntercomLanguage() {
+      var language = accountService.getAccountLanguage();
+
+      if (language === 'zh-cn') {
+        language = 'zh-CN'
+      } else if (language === 'zh-tw') {
+        language = 'zh-TW';
+      }
+
+      $scope.intercomLanguage = language;
     }
   }
 })();
