@@ -180,7 +180,6 @@
 
       sounds.unshift({text: translate('@common-off'), value: DesktopNotificationUtil.SOUNDS.OFF, nonSound: true});
       $scope.alertSelectList = sounds;
-      console.log('#$scope.alertSelectList', $scope.alertSelectList);
     }
 
     /**
