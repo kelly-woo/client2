@@ -1,3 +1,14 @@
+<a name="1.23.1"></a>
+## [1.23.1](https://github.com/tosslab/web_client/compare/v1.23.0...v1.23.1) (2016-04-14)
+
+
+### Bug Fixes
+
+* **marker:** 타 플랫폼에서 자기 자신이 보낸 메시지에 대해서는 unread 카운트 증가시키지 않도록 수정 ([9636b4c](https://github.com/tosslab/web_client/commit/9636b4c))
+* **marker:** 타 플랫폼에서 자기 자신이 보낸 메시지에 대해서는 unread 카운트 증가시키지 않도록 수정 ([d9d232d](https://github.com/tosslab/web_client/commit/d9d232d))
+
+
+
 <a name="1.23.0"></a>
 # [1.23.0](https://github.com/tosslab/web_client/compare/v1.22.0...v1.23.0) (2016-04-14)
 
