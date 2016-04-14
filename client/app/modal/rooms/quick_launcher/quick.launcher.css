@@ -1,3 +1,7 @@
+.quick-launcher-backdrop {
+  background-color: transparent;
+}
+
 .quick-launcher-modal.modal {
   overflow: inherit;
 }

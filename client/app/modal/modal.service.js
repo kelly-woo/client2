@@ -458,9 +458,11 @@
      */
     function openQuickLauncherModal() {
       var modalOption = {
+        animation: false,
         templateUrl: 'app/modal/rooms/quick_launcher/quick.launcher.html',
         controller: 'QuickLauncherCtrl',
-        windowClass: 'quick-launcher-modal'
+        windowClass: 'quick-launcher-modal',
+        backdropClass: 'quick-launcher-backdrop'
       };
       return _modalOpener(modalOption);
     }
