@@ -304,7 +304,9 @@
       //ex) 일반 메시지, 스티커, 파일 업로드
 
         if (!socketEvent.messageType) {
-          if (!jndWebSocketCommon.isActionFromMe(socketEvent.writer)) {
+          if (jndWebSocketCommon.isActionFromMe(socketEvent.writer)) {
+            memberService.setLastReadMessageMarker(room.id, socketEvent.linkId);
+          } else {
             jndWebSocketCommon.increaseBadgeCount(room.id);
           }
           returnVal = true;
