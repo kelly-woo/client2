@@ -1051,6 +1051,10 @@ msgstr ""
 msgid "@input-to-search"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr ""
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""

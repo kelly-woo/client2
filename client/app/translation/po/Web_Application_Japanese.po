@@ -1088,6 +1088,11 @@ msgstr "メンバー名で検索"
 msgid "@input-to-search"
 msgstr "キーワードを入力して検索してください"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@integration-access-denied"
+msgstr ""
+"認証プロセスで問題が発生しました。ブラウザでCookieを有効にしてしてください。"
+
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
