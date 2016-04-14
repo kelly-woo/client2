@@ -1,0 +1,18 @@
+.notification-setting-email .dropdown-selectbox {
+  width: auto;
+  padding: 3px;
+}
+.notification-setting-email .notification-role {
+  min-height: 124px;
+}
+.notification-setting-email .dropdown-selectbox button {
+  padding-right:30px;
+}
+
+.notification-setting-email .setting {
+  background: #f6f6f6;
+  border:none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 8px 0 8px 14px;
+}
