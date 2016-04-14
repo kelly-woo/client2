@@ -67,7 +67,6 @@
       $scope.toTeam = toTeam;
 
       $scope.openModal = openModal;
-      $scope.openIntercom = openIntercom;
       $scope.toggleLoading = toggleLoading;
       $scope.isUserAuthorized = isUserAuthorized;
       $scope.onShowTutorialClick = onShowTutorialClick;
@@ -175,6 +174,8 @@
       $scope.$on('Tutorial:complete', _onTutorialComplete);
 
       $scope.$on('Router:openRightPanel', _onRightPanelOpen);
+
+      $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -254,13 +255,6 @@
     function openModal(selector, $event) {
       var fn;
       (fn = modalMap[selector]) && fn($event);
-    }
-
-    /**
-     * open intercom
-     */
-    function openIntercom() {
-      jndPubSub.pub('headerCtrl:intercomOpen');
     }
 
     /**
@@ -428,6 +422,14 @@
       $event.stopPropagation();
 
       jndPubSub.pub('headerCtrl:teamSwitchOpen');
+    }
+
+    /**
+     * 현재 사용중인 멤버정보 변경 이벤트 핸들러
+     * @private
+     */
+    function _onCurrentMemberChanged() {
+      $scope.member = memberService.getMember();
     }
   }
 })();

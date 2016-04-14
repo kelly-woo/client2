@@ -8,19 +8,18 @@
     .module('jandi.ui.intercom')
     .directive('intercom', intercom);
 
-  function intercom($injector, Intercom) {
+  function intercom($window, configuration) {
     return {
-      restrict: 'E',
-      replace: true,
+      restrict: 'A',
       scope: {
-        isOpen: '='
+        member: '='
       },
-      templateUrl : 'components/jandi/ui/intercom/intercom.html',
       link: link
     };
 
-    function link(scope, el, attr) {
-      var memberService = $injector.get(attr.memberService);
+    function link(scope, el) {
+      // boot 수행 여부
+      var _hasBoot = false;
 
       _init();
 
@@ -30,6 +29,7 @@
        */
       function _init() {
         _attachScopeEvents();
+        _attachDomEvents()
       }
 
       /**
@@ -37,21 +37,31 @@
        * @private
        */
       function _attachScopeEvents() {
-        scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
-        scope.$on('headerCtrl:intercomOpen', _onIntercomOpen);
+        scope.$watch('member', _onMemberChanged);
+      }
+
+      function _attachDomEvents() {
+        el.on('click', _onIntercomOpen);
       }
 
       /**
        * 현재 멤버 정보가 바뀜 이벤트 핸들러
        */
-      function _onCurrentMemberChanged() {
-        var member = memberService.getMember();
-
-        // intercom에 설정된 멤버정보를 갱신한다.
-        Intercom.update({
-          name: member.name,
-          email: member.u_email
-        });
+      function _onMemberChanged(member) {
+        if (!_hasBoot) {
+          _hasBoot = true;
+          $window.Intercom('boot', {
+            app_id: configuration.intercom_app_id,
+            name: member.name,
+            email: member.u_email
+          });
+        } else {
+          // intercom에 설정된 멤버정보를 갱신한다.
+          $window.Intercom('update', {
+            name: member.name,
+            email: member.u_email
+          });
+        }
       }
 
       /**
@@ -59,7 +69,7 @@
        * @private
        */
       function _onIntercomOpen() {
-        Intercom.show();
+        $window.Intercom('show');
       }
     }
   }
