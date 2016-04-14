@@ -225,6 +225,7 @@ app.controller('leftPanelController', function(
       if (alarm.alarmCount != 0 && (entity = EntityHandler.get(entityId))) {
         entityAPIservice.updateBadgeValue(entity, alarm.alarmCount);
       }
+      memberService.setLastReadMessageMarker(entityId, alarm.lastLinkId);
     });
   }
 
