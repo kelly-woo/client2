@@ -1,12 +1,18 @@
 .notification-setting-email .dropdown-selectbox {
   width: auto;
-  padding: 3px;
+  padding: 2px;
 }
 .notification-setting-email .notification-role {
   min-height: 124px;
 }
 .notification-setting-email .dropdown-selectbox button {
   padding-right:30px;
+  padding: 2px 24px 2px 10px;
+  height: 32px;
+}
+.notification-setting-email .dropdown-selectbox button:lang(en) {
+    padding: 2px 23px 2px 9px;
+    font-size: 13px;
 }
 
 .notification-setting-email .setting {
@@ -15,4 +21,15 @@
   border-radius: 5px;
   width: 100%;
   padding: 8px 0 8px 14px;
+}
+
+.notification-setting-email .dropdown-selectbox .btn .icon {
+	font-size: 10px;
+}
+.notification-setting-email .dropdown-selectbox .btn .icon:lang(en) {
+	right: 6px;
+}
+.notification-setting-email .dropdown-selectbox .dropdown-menu:lang(en) {
+    min-width: 210px;
+    font-size: 13px;
 }
