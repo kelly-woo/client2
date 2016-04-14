@@ -9,7 +9,7 @@
     .directive('imageView', imageView);
 
   /* @ngInject */
-  function imageView(Loading) {
+  function imageView($parse, Loading) {
     return {
       restrict: 'A',
       link: link
@@ -35,6 +35,8 @@
       var hasLoadingBar = attrs.hasLoadingBar === 'true';
 
       var imageOrientation = parseInt(attrs.imageOrientation, 10);
+
+      var onImageLoadCallback = $parse(attrs.onImageLoad);
 
       var jqLoadingBar;
       var jqImage;
@@ -63,10 +65,8 @@
        * @private
        */
       function _createLoadingBar() {
-        jqLoadingBar = $('<div class="loading-bar-wrapper" ' +
-                              'style="width:' + dimention.width + 'px;height:' + dimention.height + 'px;">' +
-                            Loading.getTemplate() +
-                         '</div>')
+        jqLoadingBar = $('<div class="loading-bar-wrapper">' + Loading.getTemplate() + '</div>')
+          .css({width: dimention.width, height: dimention.height})
           .appendTo(jqEle);
       }
 
@@ -75,10 +75,9 @@
        * @private
        */
       function _createImage() {
-        jqImage = $('<img class="opac-zero _fileExpand" ' +
-                         'style="display:none;width:' + dimention.width + 'px;height:' + dimention.height + 'px;" ' +
-                         'src="' + imageView + '">')
-          .on('load', _onImageLoad)
+        jqImage = $('<img class="opac-zero _fileExpand" src="' + imageView + '">')
+          .css({width: dimention.width, height: dimention.height})
+          .one('load', _onImageLoad)
           .appendTo(jqEle);
       }
 
@@ -90,9 +89,9 @@
         // image 불러온 직후 loading bar 바로 삭제
         jqLoadingBar && jqLoadingBar.remove();
 
-        jqImage
-          .show()
-          .addClass('opac-in');
+        jqImage.addClass('opac-in');
+
+        onImageLoadCallback(scope);
       }
 
       /**

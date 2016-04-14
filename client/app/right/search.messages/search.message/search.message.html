@@ -1,9 +1,0 @@
-<div class="rpanel-search-message-card" ng-click="onMessageCardClick($event)">
-  <message class="sub-message-card" ng-if="prev" message-data="prev" message-type="messageType"></message>
-  <message class="main-message-card" ng-if="current" message-data="current" message-type="messageType" message-query="searchQuery.q"></message>
-  <message class="sub-message-card" ng-if="next" message-data="next" message-type="messageType"></message>
-  <div class="search-message-footer">
-    <span class="search-message-title">{{ message.entity.name }}</span>
-    <span class="search-message-time pull-right">{{::message.current.time | getyyyyMMddformat}}</span>
-  </div>
-</div>

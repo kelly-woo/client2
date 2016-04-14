@@ -11,8 +11,9 @@
     .service('AnalyticsData', AnalyticsData);
 
   /* @ngInject */
-  function AnalyticsData(AnalyticsTranslate, config, AnalyticsConstant, HybridAppHelper) {
-    
+  function AnalyticsData($injector, AnalyticsTranslate, config, AnalyticsConstant) {
+    var HybridAppHelper;
+
     this.track = track;
     /**
      * 로그의 형태를 정형화 시킨 뒤 로그서버로 전송한다. 
@@ -29,6 +30,7 @@
       var data = {};
       var js;
       var isAsync = (!_.isUndefined(async)) ? async : true;
+      HybridAppHelper = HybridAppHelper || $injector.get('HybridAppHelper');
 
       data[AnalyticsConstant.LOG.EVENT] = event;
       data[AnalyticsConstant.LOG.IDENTIFY] = identify;

@@ -1,95 +1,71 @@
-<!--    ADVANCED SEARCH OPTION  -->
-<div class="advanced-search-option-container">
-  <!--   CHAT ROOM  -->
-  <div class="advanced-search-option__category advanced-shared-option">
-    <div class="advanced-search-option__title">
-      <span translate>@common-shared-in</span>
-    </div>
-    <jnd-selectbox-room jnd-data-model="sharedEntitySearchQuery"
-                        jnd-has-all="yes"
-                        jnd-has-disabled="yes"></jnd-selectbox-room>
-    <!--<select class="_chatRoomOptions"-->
-            <!--ng-model="sharedEntitySearchQuery"-->
-            <!--ng-options="channel.id as channel.name group by channel.extGroupName for channel in selectOptions">-->
-      <!--<option value="">{{ allRooms }}</option>-->
-    <!--</select>-->
-  </div>  <!--  END OF CHAT ROOM  -->
-  <!--   FILE WRITER  -->
-  <div class="advanced-search-option__category advanced-member-option">
-    <div class="advanced-search-option__title">
-      <span translate>@common-member</span>
-    </div>
-    <jnd-selectbox-member jnd-data-model="fileRequest.writerId"
-                          jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
-    <!--<select ng-model="fileRequest.writerId"-->
-            <!--ng-options="user.id as user | getName for user in selectOptionsUsers">-->
-      <!--<option value="">{{ allMembers }}</option>-->
-    <!--</select>-->
-  </div>  <!-- END OF FILE WRTIER -->
-  <!--    FILE TYPE  -->
-  <div class="advanced-search-option__category advanced-file-option">
-    <div class="advanced-search-option__title">
-      <span translate>@common-file-type</span>
-    </div>
-    <jnd-selectbox-file jnd-data-model="fileRequest.fileType"
-                        jnd-data-list="fileTypeList"></jnd-selectbox-file>
-    <!--<select ng-model="fileTypeFilter"-->
-            <!--ng-options="type.viewValue| upperFirstCharacter for type in fileTypeList"></select>-->
-  </div>  <!-- END OF FILE TYPE -->
-</div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
+<div class="rpanel-body file-tab">
+  <!-- SEARCH QUERY -->
+  <right-search keyword="searchStatus.q"
+                on-change="onKeywordChange($keyword)"
+                on-reset-query="onResetQuery()"></right-search>
 
-<div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
-  <div class="search-result-container">
-    <div class="search-result-summary-ing" ng-if="isLoading">
-	  <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-	  <span translate>@search-in-progress</span>
-	</div>
-    <div class="search-result-summary" ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty">
-      <span translate>@search-result-summary</span>
+  <!--    ADVANCED SEARCH OPTION  -->
+  <div class="advanced-search-option-container">
+    <!--   CHAT ROOM  -->
+    <div class="advanced-search-option__category advanced-shared-option">
+      <div class="advanced-search-option__title">
+        <span>{{::'@common-shared-in'|translate}}</span>
+      </div>
+      <jnd-selectbox-room jnd-data-model="searchStatus.sharedEntityId"
+                          jnd-has-all="yes"
+                          jnd-has-disabled="yes"></jnd-selectbox-room>
     </div>
+    <!--  END OF CHAT ROOM  -->
+
+    <!--   FILE WRITER  -->
+    <div class="advanced-search-option__category advanced-member-option">
+      <div class="advanced-search-option__title">
+        <span>{{::'@common-member'|translate}}</span>
+      </div>
+      <jnd-selectbox-member jnd-data-model="searchStatus.writerId"
+                            jnd-data-list="selectOptionsUsers"></jnd-selectbox-member>
+    </div>
+    <!-- END OF FILE WRTIER -->
+
+    <!--    FILE TYPE  -->
+    <div class="advanced-search-option__category advanced-file-option">
+      <div class="advanced-search-option__title">
+        <span>{{::'@common-file-type'|translate}}</span>
+      </div>
+      <jnd-selectbox-file jnd-data-model="searchStatus.fileType"
+                          jnd-data-list="fileTypeList"></jnd-selectbox-file>
+    </div>
+    <!-- END OF FILE TYPE -->
   </div>
+  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
-  <div class="file-list infinite-scroll-bottom-list">
-    <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-    <div class="break-word" ng-if="fileList.length==0">
-      <div ng-if="!isLoading" class="rpanel-alert-msg-container">
-        <center-help-message-container ng-if="!isFiltered();" status="emptyMessageStateHelper"></center-help-message-container>
-        <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
-          <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
-          <span translate>@alert-empty-file-search</span>
-          <span ng-if="!isSearchQueryEmpty">:
-            <span class="searchQuery">{{ fileRequest.keyword }}</span>
-          </span>
+  <div class="rpanel-body-content"
+       right-scroll-loading
+       load-more="loadMore()"
+       is-loading="searchStatus.isScrollLoading">
+    <!--<div ng-include="app/right/loading/loading-keyword-search/loading.keyword.search.html"></div>-->
+    <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
+
+    <div class="file-list scroll-loading-list">
+      <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+      <div class="break-word" ng-if="isEmpty()">
+        <div class="rpanel-alert-msg-container">
+          <center-help-message-container ng-if="!isFiltered()" status="'NO_FILES_UPLOADED'"></center-help-message-container>
+          <div class="rpanel-alert-msg-container__text" ng-if="isFiltered()">
+            <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
+            <span>{{::'@alert-empty-file-search'|translate}}</span>
+            <span ng-if="!isKeywordEmpty()">:
+              <span class="search-keyword">{{searchStatus.keyword}}</span>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-    <file file-data="file" file-type="fileType" class="private-effect" ng-repeat="file in fileList track by file.id"></file>
-
-    <div class="file-list__item loading" ng-if="isScrollLoading && fileList.length > 0">
-      <div class="loading_container_background scroll_loading_container_background"></div>
-      <div class="loading_bar scroll_loading_bar">
-        <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-      </div>
-    </div>
-    <div class="end-of-list" ng-if="isEndOfList">
-      <div class="end-of-list-dot"></div>
+      <right-file class="private-effect"
+                  file-data="file"
+                  file-type="'file'"
+                  ng-repeat="file in fileList track by file.id"></right-file>
+      <right-loading-list is-scroll-loading="searchStatus.isScrollLoading"
+                          is-end-of-list="searchStatus.isEndOfList"></right-loading-list>
     </div>
   </div>
 </div>
-
-<div ng-if="false">
-  <span translate>@common-file-type-all</span>
-  <span translate>@common-file-type-documents</span>
-  <span translate>@common-file-type-presentations</span>
-  <span translate>@common-file-type-spreadsheets</span>
-  <span translate>@common-file-type-pdf</span>
-  <span translate>@common-file-type-images</span>
-  <span translate>@common-file-type-video</span>
-  <span translate>@common-file-type-audio</span>
-  <span translate>@common-file-type-others</span>
-  <span translate>@common-file-type-google-docs</span>
-  <span translate>@common-file-type-google-documents</span>
-  <span translate>@common-file-type-google-presentations</span>
-  <span translate>@common-file-type-google-spreadsheets</span>
-</div>
-

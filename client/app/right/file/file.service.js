@@ -6,14 +6,29 @@
 
   angular
     .module('jandiApp')
-    .service('FileData', FileData);
+    .service('RightFile', RightFile);
 
   /* @ngInject */
-  function FileData($filter, fileAPIservice, configuration) {
-    var that = this;
+  function RightFile($filter, FileDetail) {
+    var _that = this;
 
-    that.convert = convert;
+    _init();
 
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.convert = convert;
+    }
+
+    /**
+     * file controller가 file tab과 message tab에서 사용될때 전달되는 data의 format이 각기 다르므로
+     * file controller에서 사용가능하도록 맞춤
+     * @param {string} type
+     * @param {object} fileData
+     * @returns {{}}
+     */
     function convert(type, fileData) {
       var data = {};
 
@@ -21,7 +36,7 @@
         data.type = 'file';
         data.id = fileData.id;
 
-        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
+        data.isIntegrateFile = FileDetail.isIntegrateFile(fileData.content.serverUrl);
 
         data.mustPreview = $filter('mustPreview')(fileData.content);
         if (!data.mustPreview) {
@@ -53,7 +68,7 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
-        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
+        data.isIntegrateFile = FileDetail.isIntegrateFile(fileData.message.content.serverUrl);
 
         data.mustPreview = $filter('mustPreview')(fileData.message.content);
         if (!data.mustPreview) {
@@ -70,6 +85,7 @@
         data.contentTitle = fileData.message.content.title;
         data.contentFileUrl = '';
 
+        data.content = fileData.message.content;
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 

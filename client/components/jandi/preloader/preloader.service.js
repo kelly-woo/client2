@@ -70,8 +70,8 @@
           width: '1px',
           height: '1px',
           visibility: 'hidden'
-        }).on('load', _onComplete)
-          .on('error', _onComplete);
+        }).one('load', _onComplete)
+          .one('error', _onComplete);
 
         _imgMap[url] = true;
         _jqImgContainer.append(img);

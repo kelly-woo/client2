@@ -6,28 +6,35 @@
 
   angular
     .module('jandiApp')
-    .service('MentionsAPI', MentionsAPI);
+    .service('Mentions', Mentions);
 
   /* @ngInject */
-  function MentionsAPI($rootScope, $http, memberService) {
-    var that = this;
+  function Mentions($rootScope, $http, memberService) {
+    var _that = this;
 
-    that.getMentionList = getMentionList;
+    _init();
+
+    /**
+     * init
+     * @private
+     */
+    function _init() {
+      _that.getMentionList = getMentionList;
+    }
 
     /**
      * get mention list
-     * @param {object} data
-     * @param {number} data.messageId
-     * @param {number} [data.count=40]
+     * @param {number} messageId
+     * @param {number} count
      * @returns {*}
      */
-    function getMentionList(data) {
+    function getMentionList(messageId, count) {
       return $http({
         method: 'GET',
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
         params: {
-          messageId: data.messageId,
-          count: 40
+          messageId: messageId,
+          count: count
         }
       });
     }

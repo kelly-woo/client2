@@ -281,7 +281,7 @@
   text-decoration: line-through;
 }
 
-._fileExpand {
+.msg-item ._fileExpand {
   cursor: zoom-in;
   cursor: -webkit-zoom-in;
   cursor: -moz-zoom-in;

@@ -10,7 +10,7 @@
     .service('MessageSendingCollection', MessageSendingCollection);
 
   /* @ngInject */
-  function MessageSendingCollection($rootScope, MessageCollection, Sticker) {
+  function MessageSendingCollection($rootScope, CoreUtil, MessageCollection, Sticker, jndPubSub) {
     var that = this;
     var _sendingKey = 0;
     var _payloads = {};
@@ -26,6 +26,8 @@
     this.reset = reset;
     this.isSending = isSending;
     this.remove = remove;
+    this.indexOf = indexOf;
+    this.refreshAt = refreshAt;
 
     _init();
 
@@ -48,6 +50,15 @@
       };
       that.queue = [];
       that.list = [];
+      jndPubSub.pub('MessageSendingCollection:reset');
+    }
+
+    /**
+     * index 에 해당하는 item 의 뷰를 갱신 한다.
+     * @param index
+     */
+    function refreshAt(index) {
+      jndPubSub.pub('MessageSendingCollection:refresh', CoreUtil.pick(that.list, index, 'id'));
     }
 
     /**
@@ -55,8 +66,11 @@
      * @param {object} msg
      */
     function remove(msg) {
+      var index = indexOf(msg.id);
+      jndPubSub.pub('MessageSendingCollection:beforeRemove', index);
       _removeFromPayloads(msg);
       _removeFromList(msg);
+      jndPubSub.pub('MessageSendingCollection:afterRemove', msg);
     }
 
     /**
@@ -147,6 +161,7 @@
       _.forEachRight(messageList, function(msg) {
         msg = MessageCollection.getFormattedMessage(msg);
         that.list.unshift(msg);
+        jndPubSub.pub('MessageSendingCollection:prepend', msg);
       });
     }
 
@@ -161,6 +176,7 @@
       _.forEach(messageList, function(msg) {
         msg = MessageCollection.getFormattedMessage(msg);
         that.list.push(msg);
+        jndPubSub.pub('MessageSendingCollection:append', msg);
       });
     }
 
@@ -187,8 +203,19 @@
           }
         });
       });
+      jndPubSub.pub('MessageSendingCollection:clearSentMessages');
     }
 
+    /**
+     * id 에 해당하는 message 의 index 를 반환한다.
+     * @param {number} id
+     * @returns {number}
+     */
+    function indexOf(id) {
+      return _.findIndex(that.list, {
+        id: id
+      });
+    }
 
     /**
      * queue 에 메세지를 추가 후 sending 아이템을 추가한다.
@@ -204,13 +231,21 @@
       }
     }
 
+    /**
+     * payload 를 반환한다.
+     * @param {string} content
+     * @param {object} sticker
+     * @param {Array} mentions
+     * @returns {{content: *, sticker: *, mentions: *}}
+     * @private
+     */
     function _getPayload(content, sticker, mentions) {
       sticker = _.clone(sticker);
 
       if (sticker) {
         sticker.url = Sticker.getRetinaStickerUrl(sticker.url);
       }
-      
+
       return {
         content: content,
         sticker: sticker,

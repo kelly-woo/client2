@@ -42,9 +42,8 @@
       $scope.$on('publicService:showDummyLayout', _onShowDummyLayout);
 
       $scope.$on('kickedOut', _onKickedOut);
-      $scope.$on('topicInvite', _onTopicInvite);
+      $scope.$on('jndWebSocketTopic:topicInvited', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
-      $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _updateInvitedMemberList);
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
       $scope.$on('JndConnect:close', _onJndConnectClose);
@@ -127,7 +126,7 @@
      * @private
      */
     function _onKickedOut(angularEvent, socketEvent) {
-      var topicEntity = RoomTopicList.get(socketEvent.data.roomId);
+      var topicEntity = RoomTopicList.get(socketEvent.room.id);
       var topicName = topicEntity.name;
       var msgTmpl = $filter('translate')('@common-kicked-out');
       var msg = msgTmpl.replace('{{TopicName}}', topicName);
@@ -142,64 +141,55 @@
      * topic invite 이벤트 핸들러
      * 해당 entity 에 member 를 추가한다
      * @param {object} angularEvent
-     * @param {object} data
+     * @param {object} socketEvent
      * @private
      */
-    function _onTopicInvite(angularEvent, data) {
-      var entity = RoomTopicList.get(data.room.id);
-      var room = data.room;
-
-      if (!entity || _hasInvitedFlag(entity, data.inviter)) {
-        TopicInvitedFlagMap.add(room.id);
-        //entity 정보가 업데이트 되기 이전이므로 queue 에 저장만 한다
-        _inviteSocketQueue.push(data);
+    function _onTopicInvite(angularEvent, socketEvent) {
+      var data = socketEvent.data;
+      if (data.memberId === memberService.getMemberId()) {
+        TopicInvitedFlagMap.add(data.topic.id);
+        _showTopicInvitedToast(data);
       }
     }
 
     /**
-     * invited member list 를 업데이트 한다
+     * 토픽 초대를 받았을 때 toast 를 노출한다.
+     * @param {object} data
      * @private
      */
-    function _updateInvitedMemberList() {
-      var hasMemberToUpdate = !!_inviteSocketQueue.length;
+    function _showTopicInvitedToast(data) {
+      var entity = RoomTopicList.get(data.topic.id);
+      var memberIdList = RoomTopicList.getMemberIdList(data.topic.id);
+      var inviter = data.inviter;
+      var filter = $filter('translate');
+      var msg;
+      var topicName = $filter('htmlEncode')(entity.name);
+      var inviterName = $filter('htmlEncode')($filter('getName')(inviter));
 
-      while (_inviteSocketQueue.length) {
-        var data = _inviteSocketQueue.pop();
-        var entity = RoomTopicList.get(data.room.id);
-        var memberIdList = RoomTopicList.getMemberIdList(data.room.id);
-        var filter = $filter('translate');
-        var msg;
-        var topicName = $filter('htmlEncode')(entity.name);
-        var invitorName = $filter('htmlEncode')($filter('getName')(data.writer));
-
-        if (entity.type.indexOf('private') !== -1) {
-          msg = filter('@topic-invite-private');
-        } else {
-          msg = filter('@topic-invite-public');
-        }
-        msg = msg.replace('{{invitorName}}', invitorName);
-        msg = msg.replace('{{topicName}}', topicName);
-
-        Dialog.success({
-          body:  msg,
-          allowHtml: true,
-          onTap: function() {
-            console.log('### onTap', arguments);
-          },
-          extendedTimeOut: 0,
-          timeOut: 0
-        });
-
-        _.forEach(data.inviter, function(memberId) {
-          if (memberIdList.indexOf(memberId) === -1) {
-            memberIdList.push(memberId);
-          }
-        });
-        entity.members = memberIdList;
+      if (entity.type.indexOf('private') !== -1) {
+        msg = filter('@topic-invite-private');
+      } else {
+        msg = filter('@topic-invite-public');
       }
-      if (hasMemberToUpdate) {
-        jndPubSub.pub('room:memberAdded');
+      msg = msg.replace('{{invitorName}}', inviterName);
+      msg = msg.replace('{{topicName}}', topicName);
+
+      Dialog.success({
+        body:  msg,
+        allowHtml: true,
+        onTap: function() {
+          console.log('### onTap', arguments);
+        },
+        extendedTimeOut: 0,
+        timeOut: 0
+      });
+
+      if (memberIdList.indexOf(inviter.id) === -1) {
+        memberIdList.push(inviter.id);
       }
+
+      entity.members = memberIdList;
+      jndPubSub.pub('room:memberAdded');
     }
 
     /**

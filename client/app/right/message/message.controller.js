@@ -6,21 +6,23 @@
 
   angular
     .module('jandiApp')
-    .controller('MessageCtrl', MessageCtrl);
+    .controller('RightMessageCtrl', RightMessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityHandler, MessageQuery, jndPubSub, MessageData,
-                       currentSessionHelper, RoomTopicList, memberService, messageAPIservice, Dialog,
-                       publicService) {
+  function RightMessageCtrl($scope, $filter, $state, currentSessionHelper, Dialog, EntityHandler, messageAPIservice,
+                            jndPubSub, MessageQuery, memberService, publicService, RightMessage, RoomTopicList) {
     var UNKNOWN_ROOM = 'unknown room';
 
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
       // message controller에 전달되는 data가 tab(message search, star, mention)마다 각각 다르므로 message data를
       // message controller에서 사용가능한 data format으로 convert함
-      var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
+      var message = $scope.message = RightMessage.convert($scope.messageType(), $scope.messageData);
 
       $scope.writer = EntityHandler.get(message.writerId);
 

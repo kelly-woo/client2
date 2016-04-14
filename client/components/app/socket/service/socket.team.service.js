@@ -9,7 +9,7 @@
     .service('jndWebSocketTeam', jndWebSocketTeam);
 
   /* @ngInject */
-  function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice,
+  function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice, UserList, BotList,
                             configuration, jndWebSocketEmitter, publicService, jndWebSocketCommon) {
     var _isConnected;
 
@@ -17,6 +17,7 @@
     var CONNECT_TEAM = 'connect_team';
     var DISCONNECT_TEAM = 'disconnect_team';
 
+    var TEAM_JOINED = 'team_joined';
     var TEAM_NAME_UPDATED = 'team_name_updated';
     var TEAM_DOMAIN_UPDATED = 'team_domain_updated';
 
@@ -33,6 +34,11 @@
       //  name: CHECK_CONNECT_TEAM,
       //  handler: _onCheckConnectTeam
       //},
+      {
+        name: TEAM_JOINED,
+        version: 1,
+        handler: _onTeamJoined
+      },
       {
         name: TEAM_NAME_UPDATED,
         version: 1,
@@ -102,6 +108,20 @@
      */
     function _onConnectTeam(data) {
       _isConnected = true;
+    }
+
+    /**
+     * 새로운 member 가 team 에 join 했을 때 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onTeamJoined(socketEvent) {
+      var member = socketEvent.member;
+      if (member.type === 'bot') {
+        BotList.add(member);
+      } else {
+        UserList.add(member);
+      }
     }
 
     /**

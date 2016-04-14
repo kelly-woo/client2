@@ -1,4 +1,4 @@
-.rpanel-body.star-list .tab-contents{
+.rpanel-body.star-tab .tab-contents{
   overflow-y: auto;
   position: absolute;
   left: 0;
@@ -7,12 +7,12 @@
   top: 78px;
 }
 
-.star-list .nav-tabs > li {
+.star-tab .nav-tabs > li {
   width: 50%;
   text-align: center;
 }
 
-.star-list .nav-tabs > li > a {
+.star-tab .nav-tabs > li > a {
   font-size: 15px;
   color: #999;
   border: 0;
@@ -21,32 +21,32 @@
   background-color: #fff;
 }
 
-.star-list .nav-tabs > li > a:hover {
+.star-tab .nav-tabs > li > a:hover {
   color: #333;
   border: 0;
 }
 
-.star-list .nav-tabs > li.active > a {
+.star-tab .nav-tabs > li.active > a {
   font-weight: 600;
   color: #333;
   border: 0;
   border-bottom: 2px solid #154a67;
 }
 
-.star-list .nav-tabs > li:last-child > a,
-.star-list .nav-tabs > li.active:last-child > a,
-.star-list .nav-tabs > li:last-child > a:hover {
+.star-tab .nav-tabs > li:last-child > a,
+.star-tab .nav-tabs > li.active:last-child > a,
+.star-tab .nav-tabs > li:last-child > a:hover {
   border-right: 0;
 }
 
-.star-list .file-card,
-.star-list .message-card {
+.star-tab .file-card,
+.star-tab .message-card {
   background-color: #fff;
   opacity: 1;
   transition: opacity 0.7s;
 }
 
-.star-list .file-card:hover,
-.star-list .message-card:hover {
+.star-tab .file-card:hover,
+.star-tab .message-card:hover {
   background-color: #f2fbff;
 }

@@ -1,0 +1,27 @@
+<div class="file-detail-preview">
+  <div class="preview-body" ng-click="onImageClick($event);" ng-switch on="hasImagePreview">
+    <div class="image_wrapper" ng-switch-when="true"
+         image-view="{{::imageUrl}}"
+         image-width="{{::width}}"
+         image-height="{{::height}}"
+         image-max-width="370"
+         image-max-height="500"
+         image-orientation="{{::orientation}}"
+         on-image-load="onImageLoad()">
+    </div>
+    <a class="filter-type-preview-wrapper" href="{{::originalUrl}}" target="_blank" ng-switch-when="false">
+      <div class="filter-type-preview-bg"></div>
+      <div class="filter-type-preview-text">
+        <span>{{::'@msg-open-original'|translate}}</span>
+      </div>
+      <img ng-src="{{::imageUrl}}">
+    </a>
+  </div>
+  <div class="external-share-btn cursor_pointer opac-zero"
+       ng-class="{'opac-in': !isImageLoading}"
+       ng-if="::!isIntegrateFile"
+       ng-show="file.content.externalShared"
+       ng-click="onExternalShareClick();">
+    <i class="icon-link"></i>
+  </div>
+</div>

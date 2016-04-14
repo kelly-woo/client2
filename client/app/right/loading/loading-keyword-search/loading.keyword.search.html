@@ -1,0 +1,9 @@
+<div class="search-result-container" ng-switch on="searchStatus.type">
+  <div class="search-result-summary-ing" ng-switch-when="progress">
+    <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+    <span translate>@search-in-progress</span>
+  </div>
+  <div class="search-result-summary" ng-switch-when="result">
+    <span translate>@search-result-summary</span>
+  </div>
+</div>

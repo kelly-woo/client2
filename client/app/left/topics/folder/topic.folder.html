@@ -1,7 +1,7 @@
 <div class="topic-folder"
      ng-class="{
      'has-folder': folder.id !== -1,
-     'open': isOpened
+     'open': isExpand
      }">
   <div class="topic-folder-border _border">
     <!--upper line-->
@@ -23,8 +23,8 @@
       <span class="topic-folder-area-icon">
         <i class="fa "
            ng-class="{
-                'fa-folder-open-o': isOpening,
-                'fa-folder-o': !isOpening
+                'fa-folder-open-o': isOpen,
+                'fa-folder-o': !isOpen
               }"></i>
       </span>
       <span class="topic-folder-title-text">
@@ -39,13 +39,10 @@
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
       </span>
       <span class="topic-folder-title-count private-effect">({{folder.entityList.length}})</span>
-      <span ng-show="!isOpening && isShowBadge && alarmCnt" class="topic-folder-badge">
-        <badge group="folder" key="{{folder.id}}" content="{{alarmCnt}}"></badge>
+      <span class="topic-folder-badge _badge">
+        <badge group="folder" key="folder.id" content="alarmCnt"></badge>
       </span>
       <span class="topic-folder-more"
-          ng-class="{
-            'topic-folder-more-hide': !isOpened && alarmCnt
-          }"
           left-folder-dropdown
           ng-mouseenter="showTooltip($event);"
           ng-mouseleave="hideTooltip($event);">
@@ -56,7 +53,7 @@
     <!-- 토픽 리스트 -->
     <ul ng-if="folder.entityList.length"
         ng-style="{
-      'display': isOpened ? 'block' : 'none'
+      'display': isExpand ? 'block' : 'none'
     }">
       <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by joinedEntity.id"
           ng-class="{

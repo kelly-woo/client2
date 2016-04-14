@@ -6,54 +6,164 @@
 
   angular
     .module('jandiApp')
-    .controller('RightPanelMentionsTabCtrl', RightPanelMentionsTabCtrl);
+    .controller('RightMentionsCtrl', RightMentionsCtrl);
 
   /* @ngInject */
-  function RightPanelMentionsTabCtrl($scope, $state, RightPanel, MentionsAPI) {
-    var mentionListData = {
-      messageId: null
-    };
-    var isActivated;
+  function RightMentionsCtrl($scope, JndUtil, Mentions) {
+    var MENTIONS_COUNT = 20;
+
+    var _mentionMap = {};
+
+    var _lastMessageId;
+    var _mentionSendCount;
+
+    var _timerMentionList;
 
     _init();
 
-    // First function to be called.
+    /**
+     * init
+     * @private
+     */
     function _init() {
+      $scope.records = [];
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
+      $scope.isInitDone = false;
+      $scope.isConnected = true;
 
-      _initMentionListData();
-      if (RightPanel.getStateName($state.current) === 'mentions') {
-        isActivated = true;
+      if ($scope.status.isActive) {
+        _refreshMentionList();
+      }
 
-        _initGetMentionList();
+      _attachScopeEvents();
+    }
+
+    /**
+     * attach scope events
+     * @private
+     */
+    function _attachScopeEvents() {
+      $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
+
+      $scope.$on('jndWebSocketMessage:mentionNotificationSend', _onMentionNotificationSend);
+      $scope.$on('jndWebSocketMessage:topicMessageDeleted', _onMessageDeleted);
+      $scope.$on('jndWebSocketFile:commentDeleted', _onCommentDeleted);
+
+      // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+      $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
+    }
+
+    /**
+     * 오른쪽 패널의 텝 열림 이벤트 핸들러
+     * @private
+     */
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.isInitDone) {
+        _refreshMentionList();
       }
     }
 
     /**
-     * open right panel event handler
+     * 멘션 알림 이벤트 핸들러
+     * @private
      */
-    $scope.$on('rightPanelStatusChange', function($event, data) {
-      if (data.type === 'mentions') {
-        isActivated = true;
+    function _onMentionNotificationSend() {
+      if ($scope.isInitDone) {
+        _mentionSendCount++;
 
-        if (data.toUrl !== data.fromUrl) {
-          _initMentionListData();
-          _initGetMentionList();
-        }
-      } else {
-        isActivated = false;
+        // mention notification 발생시 mention tab 해당 아이템을 추가하기 위해 서버에 리퀘스트하게 되는데
+        // 리퀘스트할 아이템 목록을 한번에 모아서 요청하기 위해 setTimeout을 사용한다.
+        clearTimeout(_timerMentionList);
+        _timerMentionList = setTimeout(function() {
+          Mentions.getMentionList(null, _mentionSendCount)
+            .success(function(data) {
+              if (data.records) {
+                if (!$scope.records.length) {
+                  $scope.isEndOfList = true;
+                }
+
+                _addMentions(data.records.reverse());
+                _setStatus();
+              }
+            });
+          _mentionSendCount = 0;
+        }, 1000);
       }
-    });
+    }
+
+    /**
+     * 메시지 삭제 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onMessageDeleted($event, data) {
+      _removeMention(data.messageId);
+    }
+
+    /**
+     * 코멘트 삭제 이벤트 핸들러
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _onCommentDeleted($event, data) {
+      _removeMention(data.comment.id);
+    }
+
+    /**
+     * mention 삭제함
+     * @param {object} mention
+     * @private
+     */
+    function _removeMention(mentionId) {
+      var mention = _mentionMap[mentionId];
+      var index = $scope.records.indexOf(mention);
+
+      if ($scope.isInitDone && index > -1) {
+        $scope.records.splice(index, 1);
+        delete _mentionMap[mentionId];
+
+        if (!$scope.records.length) {
+          $scope.isEndOfList = false;
+        }
+
+        _setStatus();
+      }
+    }
 
     /**
      * scrolling시 mention list 불러오기
      */
     function loadMore() {
-      if (!($scope.isScrollLoading || $scope.isEndOfList)) {
+      if (_isValidLoadMore()) {
         $scope.isScrollLoading = true;
 
         _getMentionList();
+      }
+    }
+
+    /**
+     * load more 가능여부
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidLoadMore() {
+      return !($scope.isScrollLoading || $scope.isEndOfList) &&
+        $scope.isConnected &&
+        !$scope.isEmpty;
+    }
+
+    /**
+     * mention list를 갱신함
+     * @private
+     */
+    function _refreshMentionList() {
+      if ($scope.isConnected) {
+        _initMentionListData();
+        _initGetMentionList();
       }
     }
 
@@ -62,10 +172,13 @@
      * @private
      */
     function _initMentionListData() {
-      mentionListData.messageId = null;
+      _lastMessageId = null;
+      _mentionSendCount = 0;
+      _mentionMap = {};
 
       $scope.records = [];
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
+      $scope.searchStatus = _getSearchStatus();
     }
 
     /**
@@ -73,8 +186,10 @@
      * @private
      */
     function _initGetMentionList() {
+      $scope.isEmpty = false;
       $scope.isLoading = true;
-      $scope.isMentionEmpty = false;
+
+      $scope.searchStatus = _getSearchStatus();
 
       _getMentionList();
     }
@@ -84,35 +199,52 @@
      * @private
      */
     function _getMentionList() {
-      MentionsAPI.getMentionList(mentionListData)
+      Mentions.getMentionList(_lastMessageId, MENTIONS_COUNT)
         .success(function(data) {
-          if (data) {
-            if (data.records && data.records.length) {
-              _pushMentionList(data.records);
-            }
-
-            // 다음 getMentionList에 전달할 param 갱신
-            _updateCursor(data);
+          if (data.records) {
+            _addMentions(data.records, true);
           }
+
+          // 다음 getMentionList에 전달할 param 갱신
+          _updateCursor(data);
+
+          _setStatus();
         })
+        .error(JndUtil.salertUnknownError)
         .finally(function() {
-          $scope.isMentionEmpty = $scope.records.length === 0;
           $scope.isLoading = $scope.isScrollLoading = false;
+          $scope.searchStatus = _getSearchStatus();
         });
+    }
+
+    /**
+     * mention tab의 상태를 설정함
+     * @private
+     */
+    function _setStatus() {
+      $scope.isInitDone = true;
+      $scope.isEmpty = !$scope.records.length;
+
     }
 
     /**
      * mention의 list를 설정
      * @param {object} records
+     * @param {boolean} [isPush] - true가 아니면 unshift 함
      * @private
      */
-    function _pushMentionList(records) {
-      var i;
-      var len;
+    function _addMentions(mentions, isPush) {
+      var fn = isPush ? 'push' : 'unshift';
+      var messageId;
 
-      for (i = 0, len = records.length; i < len; i++) {
-        $scope.records.push(records[i]);
-      }
+      _.each(mentions, function(mention) {
+        messageId = mention.message.id;
+
+        if (!_mentionMap[messageId]) {
+          _mentionMap[messageId] = mention;
+          $scope.records[fn](mention);
+        }
+      });
     }
 
     /**
@@ -122,13 +254,52 @@
      */
     function _updateCursor(data) {
       if (data.records && data.records.length > 0) {
-        mentionListData.messageId = data.records[data.records.length - 1].message.id;
+        _lastMessageId = data.records[data.records.length - 1].message.id;
       }
 
       if ($scope.records && $scope.records.length > 0 ) {
         // 더 이상 mention list가 존재하지 않으므로 endOfList로 처리함
         $scope.isEndOfList = !data.hasMore;
       }
+    }
+
+    /**
+     * 검색 상태 전달
+     * @returns {*}
+     * @private
+     */
+    function _getSearchStatus() {
+      var searchStatus;
+
+      if ($scope.isLoading) {
+        searchStatus = 'loading';
+      } else if ($scope.isEmpty) {
+        searchStatus = 'empty';
+      }
+
+      return searchStatus;
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+
+      if($scope.status.isActive) {
+        _refreshMentionList();
+      } else {
+        $scope.isInitDone = false;
+      }
+    }
+
+    /**
+     * 네크워크 비활성 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

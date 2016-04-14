@@ -6,22 +6,24 @@
 
   angular
     .module('jandiApp')
-    .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
+    .controller('RightStarsCtrl', RightStarsCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, RightPanel, StarAPIService, fileAPIservice) {
-    var starListData = {
+  function RightStarsCtrl($scope, $filter, $timeout, StarAPIService, JndUtil) {
+    var _starListData = {
       messageId: null
     };
-    var isActivated;
+    var MENTIONS_COUNT = 20;
+    var _removeItems = [];
 
-    var removeItems = [];
-    var timerRemoveItems;
+    var _timerRemoveItems;
 
     _init();
 
     // First function to be called.
     function _init() {
+      $scope.activeTabName = 'all';
+
       // 각 tab을 각각의 controller로 쪼개야됨
       $scope.tabs = {
         all: {
@@ -36,9 +38,9 @@
           // tab 활성화 여부
           active: true,
           // tab list 전체가 load 되었는지 여부
-          endOfList: false,
+          isEndOfList: false,
           // tab 비어있는지 여부
-          empty: false,
+          isEmpty: false,
           // tab 첫 load가 되었는지 여부
           hasFirstLoad: false
         },
@@ -49,35 +51,30 @@
           isScrollLoading: false,
           name: $filter('translate')('@star-files'),
           active: false,
-          endOfList: false,
-          empty: false,
+          isEndOfList: false,
+          isEmpty: false,
           hasFirstLoad: false
         }
       };
-      $scope.activeTabName = 'all';
 
       $scope.loadMore = loadMore;
       $scope.messageType = $scope.fileType = 'star';
+      $scope.isConnected = true;
 
       $scope.onTabSelect = onTabSelect;
 
       _initStarListData($scope.activeTabName);
 
-      if (RightPanel.getStateName($state.current) === 'stars') {
-        isActivated = true;
-
-        // onTabSelect가 바로 수행되기 때문에 여기서 수행하지 않음
-        //_initGetStarList();
-      }
-
-      _attachEvents();
+      _attachScopeEvents();
     }
 
     /**
-     * attach events
+     * attach scope events
      * @private
      */
-    function _attachEvents() {
+    function _attachScopeEvents() {
+      $scope.$on('externalFile:fileShareChanged', _onFileShareChanged);
+
       // open right panel
       $scope.$on('rightPanelStatusChange', _onRightPanelStatusChange);
 
@@ -86,31 +83,43 @@
       $scope.$on('message:unStarred', _unStarred);
 
       // create/delete comment
-      $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);
-      $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
+      $scope.$on('jndWebSocketFile:commentCreated', _rightFileDetailOnFileCommentCreated);
+      $scope.$on('jndWebSocketFile:commentDeleted', _rightFileDetailOnFileCommentDeleted);
 
       // delete message/file
-      $scope.$on('jndWebSocketMessage:topicMessageDelete', _topicMessageDelete);
+      $scope.$on('jndWebSocketMessage:topicMessageDeleted', _topicMessageDeleted);
       $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+
+      // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+      $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
     }
 
     /**
-     * open right panel event handler
+     * 외부 파일공유 상태 변경 이벤트 핸들러
      * @param {object} $event
      * @param {object} data
      * @private
      */
-    function _onRightPanelStatusChange($event, data) {
-      if (data.type === 'stars') {
-        isActivated = true;
+    function _onFileShareChanged($event, data) {
+      var msg = $scope.tabs.all.map[data.id];
 
-        if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
-          // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
-          _initStarListData($scope.activeTabName);
-          _initGetStarList($scope.activeTabName);
-        }
-      } else {
-        isActivated = false;
+      if (msg) {
+        msg.message.content.externalUrl = data.content.externalUrl;
+        msg.message.content.externalCode = data.content.externalCode;
+        msg.message.content.externalShared = data.content.externalShared;
+      }
+    }
+
+    /**
+     * open right panel event handler
+     * @private
+     */
+    function _onRightPanelStatusChange() {
+      if ($scope.status.isActive && !$scope.tabs[$scope.activeTabName].hasFirstLoad) {
+        // 'rightPanelStatusChange' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
+
+        _refreshActiveTab($scope.activeTabName);
       }
     }
 
@@ -123,11 +132,11 @@
     function _starred($event, data) {
       var index;
 
-      index = removeItems.indexOf(data.messageId);
+      index = _removeItems.indexOf(data.messageId);
       if (index > -1) {
         // starred된 item이 삭제목록에 존재한다면 삭제 목록에서 제거
 
-        removeItems.splice(index, 1);
+        _removeItems.splice(index, 1);
       } else {
         // star된 item을 star list에 추가
 
@@ -147,14 +156,14 @@
       if ($scope.tabs.all.map[messageId]) {
         // unstar된 item이 star list에 존재한다면 삭제 목록에 추가함
 
-        removeItems.push(messageId);
+        _removeItems.push(messageId);
 
         // 일정 시간이 흐른 후 unstarred된 star list를 한번에 제거함
-        $timeout.cancel(timerRemoveItems);
-        timerRemoveItems = $timeout(function() {
+        $timeout.cancel(_timerRemoveItems);
+        _timerRemoveItems = $timeout(function() {
           var messageId;
 
-          for (;messageId = removeItems.pop();) {
+          for (;messageId = _removeItems.pop();) {
             if ($scope.tabs.files.map[messageId]) {
               _removeStarItem('files', messageId);
             }
@@ -162,8 +171,8 @@
             _removeStarItem('all', messageId);
           }
 
-          $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
-          $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
+          !$scope.tabs.all.list.length && _setEmptyTab('all', true);
+          !$scope.tabs.files.list.length && _setEmptyTab('files', true);
         }, 0);
       }
     }
@@ -174,7 +183,7 @@
      * @param {object} data
      * @private
      */
-    function _topicMessageDelete($event, data) {
+    function _topicMessageDeleted($event, data) {
       _removeStarItem('all', data.messageId);
       _removeStarItem('files', data.messageId);
     }
@@ -251,11 +260,36 @@
      */
     function loadMore() {
       var activeTabName = $scope.activeTabName;
+      var activeTab = $scope.tabs[activeTabName];
 
-      if (!($scope.tabs[activeTabName].isScrollLoading || $scope.tabs[$scope.activeTabName].endOfList)) {
-        $scope.tabs[activeTabName].isScrollLoading = true;
+      if (_isValidLoadMore(activeTab)) {
+        activeTab.isScrollLoading = true;
 
         _getStarList(activeTabName);
+      }
+    }
+
+    /**
+     * load more 가능여부
+     * @param {object} activeTab
+     * @returns {boolean}
+     * @private
+     */
+    function _isValidLoadMore(activeTab) {
+      return !(activeTab.isScrollLoading || activeTab.isEndOfList) &&
+        $scope.isConnected &&
+        !activeTab.isEmpty;
+    }
+
+    /**
+     * 활성화된 텝의 list를 갱신함
+     * @param {string} activeTabName
+     * @private
+     */
+    function _refreshActiveTab(activeTabName) {
+      if ($scope.isConnected) {
+        _initStarListData(activeTabName);
+        _initGetStarList(activeTabName);
       }
     }
 
@@ -264,13 +298,12 @@
      * @param {string} type
      */
     function onTabSelect(type) {
-      if (isActivated) {
+      if ($scope.status.isActive) {
         $scope.tabs[type].active = true;
         $scope.activeTabName = type;
 
         if (!$scope.tabs[type].hasFirstLoad) {
-          _initStarListData($scope.activeTabName);
-          _initGetStarList($scope.activeTabName);
+          _refreshActiveTab($scope.activeTabName);
         }
       }
     }
@@ -281,12 +314,14 @@
      * @private
      */
     function _initStarListData(activeTabName) {
-      starListData.messageId = null;
+      var activeTab = $scope.tabs[activeTabName];
 
-      $scope.tabs[activeTabName].list = [];
-      $scope.tabs[activeTabName].map = {};
+      _starListData.messageId = null;
 
-      $scope.tabs[activeTabName].endOfList = $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
+      activeTab.list = [];
+      activeTab.map = {};
+      activeTab.isEndOfList = activeTab.isLoading = activeTab.isScrollLoading = false;
+      activeTab.searchStatus = _getSearchStatus(activeTab);
     }
 
     /**
@@ -295,8 +330,11 @@
      * @private
      */
     function _initGetStarList(activeTabName) {
-      $scope.tabs[activeTabName].isLoading = true;
-      $scope.tabs[activeTabName].empty = false;
+      var activeTab = $scope.tabs[activeTabName];
+
+      activeTab.isLoading = true;
+      activeTab.isEmpty = false;
+      activeTab.searchStatus = _getSearchStatus(activeTab);
 
       _getStarList(activeTabName);
     }
@@ -307,23 +345,27 @@
      * @private
      */
     function _getStarList(activeTabName) {
-      if (!$scope.tabs[activeTabName].isLoading || !$scope.tabs[activeTabName].isScrollLoading) {
-        StarAPIService.get(starListData.messageId, 40, (activeTabName === 'files' ? 'file' : undefined))
+      var activeTab = $scope.tabs[activeTabName];
+
+      if (!activeTab.isLoading || !activeTab.isScrollLoading) {
+        StarAPIService.get(_starListData.messageId, MENTIONS_COUNT, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {
-                _pushStarList(data.records, activeTabName);
+                _addStars(data.records, activeTabName);
               }
 
               // 다음 getStarList에 전달할 param 갱신
               _updateCursor(activeTabName, data);
+
+              activeTab.hasFirstLoad = true;
+              !activeTab.list.length && _setEmptyTab(activeTabName, true);
             }
           })
+          .error(JndUtil.alertUnknownError)
           .finally(function() {
-            $scope.tabs[activeTabName].hasFirstLoad = true;
-            $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
-
-            $scope.tabs[activeTabName].list.length === 0 && _setEmptyTab(activeTabName, true);
+            activeTab.isLoading = activeTab.isScrollLoading = false;
+            activeTab.searchStatus = _getSearchStatus(activeTab);
           });
       }
     }
@@ -337,13 +379,13 @@
       StarAPIService.getItem(messageId)
         .success(function(data) {
           if (data) {
-            _addStarItem('all', data, true);
-            _setEmptyTab('all', false);
+            !$scope.tabs.all.list.length && _setEmptyTab('all', false);
+            _addStar('all', data, true);
 
             if (data.message.contentType === 'file') {
               // star item이 file type이라면 files list에도 추가함
-              _addStarItem('files', data, true);
-              _setEmptyTab('files', false);
+              !$scope.tabs.files.list.length && _setEmptyTab('files', false);
+              _addStar('files', data, true);
             }
           }
         });
@@ -355,7 +397,7 @@
      * @param {string} activeTabName
      * @private
      */
-    function _pushStarList(records, activeTabName) {
+    function _addStars(records, activeTabName) {
       var record;
       var i;
       var len;
@@ -364,7 +406,7 @@
         record = records[i];
 
         record.activeTabName = activeTabName;
-        _addStarItem(activeTabName, record);
+        _addStar(activeTabName, record);
       }
     }
 
@@ -375,10 +417,12 @@
      * @param {boolean} isUnShift - unshift 또는 push 처리 여부
      * @private
      */
-    function _addStarItem(activeTabName, data, isUnShift) {
-      if ($scope.tabs[activeTabName].map[data.message.id] == null) {
-        $scope.tabs[activeTabName].list[isUnShift ? 'unshift' : 'push'](data);
-        $scope.tabs[activeTabName].map[data.message.id] = data;
+    function _addStar(activeTabName, data, isUnShift) {
+      var activeTab = $scope.tabs[activeTabName];
+
+      if (activeTab.map[data.message.id] == null) {
+        activeTab.list[isUnShift ? 'unshift' : 'push'](data);
+        activeTab.map[data.message.id] = data;
       }
     }
 
@@ -411,8 +455,11 @@
      * @private
      */
     function _setEmptyTab(activeTabName, value) {
-      $scope.tabs[activeTabName].empty = value;
-      $scope.tabs[activeTabName].endOfList = !value;
+      var activeTab = $scope.tabs[activeTabName];
+
+      activeTab.isEmpty = value;
+      activeTab.isEndOfList = !value;
+      activeTab.searchStatus = _getSearchStatus(activeTab);
     }
 
     /**
@@ -422,14 +469,57 @@
      * @private
      */
     function _updateCursor(activeTabName, data) {
+      var activeTab = $scope.tabs[activeTabName];
+
       if (data.records && data.records.length > 0) {
-        starListData.messageId = data.records[data.records.length - 1].starredId;
+        _starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
-      if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
+      if (activeTab.list && activeTab.list.length > 0) {
         // 더이상 star list가 존재하지 않으므로 endOfList로 처리함
-        $scope.tabs[activeTabName].endOfList = !data.hasMore;
+        activeTab.isEndOfList = !data.hasMore;
       }
+    }
+
+    /**
+     * 검색 상태 전달
+     * @param {string} activeTab
+     * @returns {*}
+     * @private
+     */
+    function _getSearchStatus(activeTab) {
+      var searchStatus;
+
+      if (activeTab.isLoading) {
+        searchStatus = 'loading';
+      } else if (activeTab.isEmpty) {
+        searchStatus = 'empty';
+      }
+
+      return searchStatus;
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+
+      if($scope.status.isActive) {
+        _refreshActiveTab($scope.activeTabName);
+      } else {
+        $scope.tabs.all.hasFirstLoad = false;
+        $scope.tabs.files.hasFirstLoad = false;
+      }
+    }
+
+    /**
+     * 네크워크 비활성 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

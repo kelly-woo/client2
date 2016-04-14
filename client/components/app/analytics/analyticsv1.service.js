@@ -5,7 +5,8 @@
     .module('app.analytics')
     .factory('analyticsService', analyticsService);
 
-  function analyticsService(storageAPIservice) {
+  function analyticsService($injector) {
+    var storageAPIservice;
     var analyticsAPI = {};
 
     analyticsAPI.mixpanelTrack = function(title, data_json) {
@@ -82,6 +83,7 @@
 
     // Generate 'memberId-teamId' format string for google analytics.
     analyticsAPI.getUserIdentify = function() {
+      storageAPIservice = storageAPIservice || $injector.get('storageAPIservice');
       return (storageAPIservice.getMemberIdLocal() || storageAPIservice.getMemberIdSession()) + '-' + (storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession());
     };
 

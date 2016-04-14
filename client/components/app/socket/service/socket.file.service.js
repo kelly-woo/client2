@@ -119,7 +119,7 @@
      * @private
      */
     function _onFileCommentCreated(data) {
-      jndPubSub.pub('rightFileDetailOnFileCommentCreated', data);
+      jndPubSub.pub('jndWebSocketFile:commentCreated', data);
     }
 
     /**
@@ -131,7 +131,7 @@
       // badge count update 하기 위함.
       // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
       jndPubSub.updateLeftPanel();
-      jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
+      jndPubSub.pub('jndWebSocketFile:commentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
 
@@ -141,8 +141,6 @@
      * @private
      */
     function _onFileExternalShared(socketEvent) {
-      var data = socketEvent.data;
-      jndPubSub.pub('externalShared', data);
     }
 
     /**
@@ -151,8 +149,6 @@
      * @private
      */
     function _onFileExternalUnshared(socketEvent) {
-      var data = socketEvent.data;
-      jndPubSub.pub('unExternalShared', data);
     }
   }
 })();

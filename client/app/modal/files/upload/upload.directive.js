@@ -16,8 +16,6 @@
     };
 
     function link(scope, el) {
-      var _jqFileUploadTitle = $('#file_upload_title');
-
       var PUBLIC_FILE = 744;    // PUBLIC_FILE code
 
       var fileUploadOptions = scope.fileUploadOptions;
@@ -50,10 +48,13 @@
         if (fileUploadOptions.fileUploader.isUploadingStatus()) {
           // 현재 upload 중이고 이어서 upload함
           fileUploader = fileUploadOptions.fileUploader;
-          fileUploader.updateUploadStatus();
+          fileUploader.updateUploadStatus({
+            jqContainer: el
+          });
         } else {
           // 최초 upload함
           fileUploader = fileUploadOptions.fileUploader.setOptions({
+            jqContainer: el,
             // file api 제공 여부
             supportFileAPI: true,
             // file object convert
@@ -66,6 +67,7 @@
             },
             // fileInfo object convert
             convertFileInfo: function(file) {
+              var jqContainer = this.jqContainer;
               var fileInfo;
 
               if (file.isImage) {
@@ -87,13 +89,13 @@
 
               // upload modal title 갱신, fileInfo에 title 설정
               fileInfo.title = file.name;
-              _jqFileUploadTitle.val(file.name);
 
               // upload modal currentEntity 갱신
               scope.selectedEntity = scope.selectedEntity;
               scope.selectedEntityId = scope.selectedEntity.id;
 
-              $('#file_upload_comment').focus();
+              jqContainer.find('#file_upload_title').val(file.name);
+              jqContainer.find('#file_upload_comment').focus();
 
               return scope.fileInfo = fileInfo;
             },
@@ -103,11 +105,13 @@
             },
             // 하나의 file upload 시작
             onUpload: function(file, fileInfo) {
+              var jqContainer = this.jqContainer;
+
               // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
               //fileInfo.roomId = scope.selectedEntity.entityId || scope.selectedEntity.id;
               fileInfo.share = scope.selectedEntityId;
 
-              fileInfo.comment = el.find('#file_upload_comment').val().trim();
+              fileInfo.comment = jqContainer.find('#file_upload_comment').val().trim();
 
               _setMentions(fileInfo);
 
@@ -134,7 +138,6 @@
             onSuccess: function(response, index, length) {
               _trackFileUploadInfo(response);
               _setProgressBarStyle('success', index, length);
-              //_setThumbnailImage(response);
 
               $rootScope.curUpload.status = 'done';
             },
@@ -283,42 +286,6 @@
        */
       function cancel() {
         fileUploader.upload(false);
-      }
-
-      /**
-       * thumbnail image 설정
-       * @param response
-       * @private
-       */
-      function _setThumbnailImage(response) {
-        var data = response.data;
-        var fileInfo = data.fileInfo;
-        var thumbnailUrl;
-
-        if (thumbnailUrl = fileInfo.thumbnailUrl) {
-          // Todo
-          // fileAPIservice.upload후 thumbnail image 생성이 비동기 방식에서 동기 방식으로 전환됨에 따라.
-          // 기존에 thumbnail image를 출력하기 위해 사용하던 'file_image' socket event가 deprecation 되고
-          // fileAPIservice.upload의 response에서 'file_image' socket event이 전달하던 data를 사용하도록 변경되었다.
-          // 아래의 코드는 기존에 'file_image' socket event가 들어오던 코드에 대응하기 위해 작성 되었으며,
-          // web_client가 배포되고 그다음 backend에서 수정된 내용을 배포한 후에는 'createThumbnailImage'로
-          // 전달하는 data format 변경과 'file_image' 관련된 코드 삭제가 이루어져야 한다.
-          jndPubSub.pub('createdThumbnailImage', {
-            data: {
-              message: {
-                id: data.messageId,
-                content: {
-                  extraInfo: {
-                    width: fileInfo.width,
-                    height: fileInfo.height,
-                    orientation: fileInfo.orientation,
-                    thumbnailUrl: thumbnailUrl
-                  }
-                }
-              }
-            }
-          });
-        }
       }
 
       /**
