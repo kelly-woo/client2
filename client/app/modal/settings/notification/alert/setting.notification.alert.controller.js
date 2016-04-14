@@ -35,7 +35,6 @@
 
       $scope.setting.on = $scope.isAllowSetting;
 
-      console.log('###setting', $scope.setting);
       $scope.onNotificationToggle = onNotificationToggle;
       $scope.onSoundSelect = onSoundSelect;
       $scope.onSampleClick = onSampleClick;
