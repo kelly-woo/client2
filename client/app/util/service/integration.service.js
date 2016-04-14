@@ -357,7 +357,7 @@
       },
       /**
        * client id에 대한 인증 요청함
-       * https://developers.google.com/api-client-library/javascript/reference/referencedocs#methods
+       * @see https://developers.google.com/api-client-library/javascript/reference/referencedocs#methods
        * @param {boolean} immediate
        * @param {function} callback
        * @private

@@ -44,13 +44,13 @@
        */
       function _onMessageReceive(messageEvent) {
         var origin = messageEvent.originalEvent.origin;
-        var event;
+        var data;
 
         if (_isWhiteUrl(origin)) {
-          event = _eventParse(messageEvent.originalEvent);
-          if (event.name) {
+          data = _parsePostMessageData(messageEvent.originalEvent.data);
+          if (data.eventName) {
             JndUtil.safeApply(scope, function() {
-              jndPubSub.pub(event.name, event.args);
+              jndPubSub.pub(data.eventName, data.eventArgs);
             });
           }
         }
@@ -58,13 +58,14 @@
 
       /**
        * event parse
-       * @param {object} event
-       * @returns {{name: *, args: Array}}
+       * @param {string} data - postMessage로 전달된 문자열 data(ex: eventNAme#args1#args2#..)
+       * @returns {{name: String, args: Array}}
        * @private
        */
-      function _eventParse(event) {
+      function _parsePostMessageData(data) {
         var args = [];
-        var data = event.data.split('#');
+
+        data = data.split('#');
 
         if (data[1]) {
           _.each(data, function(value, index) {
@@ -75,8 +76,8 @@
         }
 
         return {
-          name: data[0],
-          args: args
+          eventName: data[0],
+          eventArgs: args
         };
       }
 
