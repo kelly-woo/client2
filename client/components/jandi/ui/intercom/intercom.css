@@ -1,0 +1,10 @@
+#Intercom {
+  font-weight: bold;
+  position: fixed;
+  top: 80%;
+  left: 80%;
+  z-index: 9999;
+  background: red;
+  width: 200px;
+  height: 200px;
+}

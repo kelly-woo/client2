@@ -26,6 +26,7 @@
   "google_drive_api_key"   : "AIzaSyAarJcX7VfgOiuYzl0ShapunGh5B7amAxA",
   "google_drive_redirect"  : "https://i1.jandi.com/",
   "dropbox_api_key"        : "sce84hy9tjy3o6v",
+  "intercom_app_id"        : "yt1d5jat",
   "analytics_server"       : "https://track.jandi.com/",
   "cors_api_address"       : "../",
   "cors_file_address"      : "../"
