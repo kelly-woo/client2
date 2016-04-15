@@ -1,3 +1,39 @@
+<a name="1.23.1"></a>
+## [1.23.1](https://github.com/tosslab/web_client/compare/v1.23.0...v1.23.1) (2016-04-14)
+
+
+### Bug Fixes
+
+* **marker:** 타 플랫폼에서 자기 자신이 보낸 메시지에 대해서는 unread 카운트 증가시키지 않도록 수정 ([9636b4c](https://github.com/tosslab/web_client/commit/9636b4c))
+* **marker:** 타 플랫폼에서 자기 자신이 보낸 메시지에 대해서는 unread 카운트 증가시키지 않도록 수정 ([d9d232d](https://github.com/tosslab/web_client/commit/d9d232d))
+
+
+
+<a name="1.23.0"></a>
+# [1.23.0](https://github.com/tosslab/web_client/compare/v1.22.0...v1.23.0) (2016-04-14)
+
+
+### Bug Fixes
+
+* **Mac-App:** 일렉트론 App 으로 unread count 간혹 정상적으로 전달하지 못하는 현상 수정 ([ba0e180](https://github.com/tosslab/web_client/commit/ba0e180))
+* **alertUnknownError:** 401 오류 시 alert 노출하지 않도록 수정 ([5a3c99b](https://github.com/tosslab/web_client/commit/5a3c99b))
+* **alertUnknownError:** 504 Gateway Timeout 일 경우에 alert 띄우지 않도록 수정 ([2807c27](https://github.com/tosslab/web_client/commit/2807c27))
+* **center:** inactive 상태일 때도 unreadMarker 가 업데이트 되는 현상 수정 ([9f99a63](https://github.com/tosslab/web_client/commit/9f99a63))
+* **center:** 메시지 전송시 두 번 노출되는 현상 수정 ([f442413](https://github.com/tosslab/web_client/commit/f442413))
+* **center:** 전송중을 표시하는 dummy text 에서 실제 text 로 변경될 때 자연스러운 전환을 위해 dummy text 를 제거하는 시점 변경 ([ebeebaa](https://github.com/tosslab/web_client/commit/ebeebaa))
+* **center:** 전송중을 표시하는 dummy text 에서 실제 text 로 변경될 때 자연스러운 전환을 위해 dummy text 를 제거하는 시점 변경 ([19fe613](https://github.com/tosslab/web_client/commit/19fe613))
+* **favicon:** 모든 메시지를 읽었는데도 안읽은 상태를 표시하는 favicon 이 나타나는 현상 수정 ([53f9abc](https://github.com/tosslab/web_client/commit/53f9abc))
+* **file:** 댓글 잇는 파일을 연속으로 업로드시, 두 번재 파일의 댓글이 입력되지 않음 ([8791c44](https://github.com/tosslab/web_client/commit/8791c44))
+* **profile:** 프로필 이미지 변경 실패시 alert dialog 출력하도록 수정 ([518946f](https://github.com/tosslab/web_client/commit/518946f))
+* **초기진입:** 앱 진입시 로직 개선 (API 이상 패턴 호출건) ([b5fa056](https://github.com/tosslab/web_client/commit/b5fa056))
+
+### Features
+
+* **stickers:** 스티커 사용기록이 없으면 최신탭 대신, Day&Emily 스티커 탭을 표시함 ([4dd5664](https://github.com/tosslab/web_client/commit/4dd5664))
+* **top-header:** top 메뉴 영역의 메뉴 드롭다운 선택 시 메뉴버튼 포커스 유지 하도록 수정 ([aa91aa8](https://github.com/tosslab/web_client/commit/aa91aa8))
+
+
+
 <a name="1.22.0"></a>
 # [1.22.0](https://github.com/tosslab/web_client/compare/v1.21.2...v1.22.0) (2016-04-06)
 
