@@ -833,6 +833,10 @@ msgid "@dummy-invitation-resend"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
 msgstr ""
 

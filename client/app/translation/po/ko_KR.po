@@ -858,6 +858,12 @@ msgid "@dummy-invitation-resend"
 msgstr "초대메일 재전송"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr ""
+"초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
+"발송됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
 msgstr "초대 메일을 다시 전송했습니다."
 

@@ -846,6 +846,10 @@ msgid "@dummy-invitation-resend"
 msgstr "重新寄发邀请"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr "你的私信将每小时汇整后，传送至该用户的电子邮箱"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
 msgstr "新的邀请信已寄出"
 

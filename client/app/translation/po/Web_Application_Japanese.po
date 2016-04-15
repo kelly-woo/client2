@@ -861,6 +861,12 @@ msgid "@dummy-invitation-resend"
 msgstr "招待メールを再発信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr ""
+"招待中のメンバーにダイレクトメッセージを送信する場合、メッセージの内容が毎時"
+"間メールで発送されます。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
 msgstr "メールでもう一度招待しました"
 

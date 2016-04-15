@@ -863,6 +863,10 @@ msgid "@dummy-invitation-resend"
 msgstr "Resend invitation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr "Your direct messages will be delivered by email on an hourly basis."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
 msgstr "Another invitation has been sent."
 
