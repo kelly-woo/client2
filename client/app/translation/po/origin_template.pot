@@ -38,6 +38,10 @@ msgid "@alert-no-result"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@already-invited-member"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@announce-fold"
 msgstr ""
 
@@ -527,6 +531,10 @@ msgid "@common-leaved-topic"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-livesupport"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr ""
@@ -798,6 +806,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tooltip"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
@@ -2717,6 +2729,7 @@ msgstr ""
 msgid "@team-invite"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
