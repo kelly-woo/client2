@@ -131,8 +131,97 @@
                       <i class="icon-star-on"></i>
                     </span>
                   </div>
-                {{else}}
+                {{/unless}}
+              </div>
+            {{else}}
+              <!--  FILE CARD -->
+              <div class="preview-container">
+                <div class="preview-card cursor_pointer _compile _fileDetail">
+                  <div class="msg-file-actions-content actions-dimmed"></div>
+                  <div class="msg-file-actions-content non-selectable">
+                    <div class="msg-file-actions">
+                      {{#unless file.isUnshared}}
+                        <div class="action-group">
+                          {{#if file.hasOriginalImageView}}
+                            <div class="action-item"
+                                 jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
+                                 data-direction="top">
+                              <!--  file expand  -->
+                          <span class="action-comment _fileExpand">
+                            <i class="fa-search-plus"></i>
+                          </span>
+                            </div>
+                          {{/if}}
+                          <div class="action-item"
+                               jnd-tooltip-trigger="{{translate '@btn-comment'}}"
+                               data-direction="top">
+                            <!--  MORE  -->
+                            <span class="action-comment _fileDetailComment">
+                              <i class="icon-comment"></i>
+                              <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
+                            </span>
+                          </div>
+                          {{#unless file.isIntegrateFile}}
+                            <div class="action-item"
+                                 jnd-tooltip-trigger="{{translate '@common-download'}}"
+                                 data-direction="top">
+                              <!--  DOWNLOAD  -->
+                              <a class="action-file-download file_action _fileDownload" {{{ attrs.download }}}>
+                                <i class="icon-download"></i>
+                              </a>
+                            </div>
+                          {{/unless}}
+                          <div class="action-item"
+                               jnd-tooltip-trigger="{{translate '@file-action-more'}}"
+                               data-direction="top">
+                            <!--  MORE  -->
+                            <i class="action-file-more icon-cog _fileMore"></i>
+                          </div>
+                        </div>
+                      {{/unless}}
+                      <div class="action-group">
+                        <div class="action-item"
+                             jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
+                             data-direction="top">
+                          <!--  FILE DETAIL -->
+                          <i class="action-file-detail icon-angle-double-right _fileDetail"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--    FILE TYPE THUMBNAIL -->
+                  <div class="card-type">
+                    <div class="fileicon fileicon-{{ file.icon }}" ></div>
+                  </div>
+                  <div class="card-info">
+                    <div class="info-group">
+                      <span class="info-writer inline-overflow-ellipsis">{{ file.writerName }}</span>
+                      <span class="info-created-time">{{ file.time }}</span>
+                    <span class="info-comment-count">
+                      <i class="icon-comment"></i>
+                      <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
+                    </span>
+                    </div>
+                    <div class="info-group-bottom">
+                      <span class="info-title break-word">{{ file.title }}</span>
+                      {{#unless file.isIntegrateFile}}
+                        {{#if file.size}}
+                          <!--    SIZE AND FILE TYPE  -->
+                          <span class="info-size">{{ file.size }}</span>
+                        {{/if}}
+                      {{/unless}}
+                      <span class="info-type">{{ file.type }}</span>
+                    </div>
+                  </div>
+                </div>
 
+                {{#unless file.isUnshared}}
+                  <!-- Star -->
+                  <div class="msg-extra file-uploaded-extra non-selectable">
+                  <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-{{file.id}} {{css.fileStar}}">
+                    <i class="icon-star-on"></i>
+                  </span>
+                  </div>
                 {{/unless}}
               </div>
             {{/if}}
@@ -164,100 +253,6 @@
               </div>
             </div>
           {{/if}}
-
-          {{#unless file.mustPreview}}
-            <!--  FILE PREVIEW IMAGE  -->
-            <div class="preview-container">
-              <div class="preview-card cursor_pointer _compile _fileDetail">
-                <div class="msg-file-actions-content actions-dimmed"></div>
-                <div class="msg-file-actions-content non-selectable">
-                  <div class="msg-file-actions">
-                    {{#unless file.isUnshared}}
-                    <div class="action-group">
-                      {{#if file.hasOriginalImageView}}
-                        <div class="action-item"
-                             jnd-tooltip-trigger="{{translate '@btn-image-expand'}}"
-                             data-direction="top">
-                          <!--  file expand  -->
-                          <span class="action-comment _fileExpand">
-                            <i class="fa-search-plus"></i>
-                          </span>
-                        </div>
-                      {{/if}}
-                      <div class="action-item"
-                           jnd-tooltip-trigger="{{translate '@btn-comment'}}"
-                           data-direction="top">
-                        <!--  MORE  -->
-                      <span class="action-comment _fileDetailComment">
-                        <i class="icon-comment"></i>
-                        <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
-                      </span>
-                      </div>
-                      {{#unless file.isIntegrateFile}}
-                        <div class="action-item"
-                             jnd-tooltip-trigger="{{translate '@common-download'}}"
-                             data-direction="top">
-                          <!--  DOWNLOAD  -->
-                          <a class="action-file-download file_action _fileDownload" {{{ attrs.download }}}>
-                            <i class="icon-download"></i>
-                          </a>
-                        </div>
-                      {{/unless}}
-                      <div class="action-item"
-                           jnd-tooltip-trigger="{{translate '@file-action-more'}}"
-                           data-direction="top">
-                        <!--  MORE  -->
-                        <i class="action-file-more icon-cog _fileMore"></i>
-                      </div>
-                    </div>
-                    {{/unless}}
-                    <div class="action-group">
-                      <div class="action-item"
-                           jnd-tooltip-trigger="{{translate '@btn-file-detail'}}"
-                           data-direction="top">
-                        <!--  FILE DETAIL -->
-                        <i class="action-file-detail icon-angle-double-right _fileDetail"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!--    FILE TYPE THUMBNAIL -->
-                <div class="card-type">
-                  <div class="fileicon fileicon-{{ file.icon }}" ></div>
-                </div>
-                <div class="card-info">
-                  <div class="info-group">
-                    <span class="info-writer inline-overflow-ellipsis">{{ file.writerName }}</span>
-                    <span class="info-created-time">{{ file.time }}</span>
-                    <span class="info-comment-count">
-                      <i class="icon-comment"></i>
-                      <span class="comment-count-{{file.id}}">{{file.commentCount}}</span>
-                    </span>
-                  </div>
-                  <div class="info-group-bottom">
-                    <span class="info-title break-word">{{ file.title }}</span>
-                    {{#unless file.isIntegrateFile}}
-                      {{#if file.size}}
-                        <!--    SIZE AND FILE TYPE  -->
-                        <span class="info-size">{{ file.size }}</span>
-                      {{/if}}
-                    {{/unless}}
-                    <span class="info-type">{{ file.type }}</span>
-                  </div>
-                </div>
-              </div>
-
-              {{#unless file.isUnshared}}
-                <!-- Star -->
-                <div class="msg-extra file-uploaded-extra non-selectable">
-                  <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _fileStar _feedbackStar _star-{{file.id}} {{css.fileStar}}">
-                    <i class="icon-star-on"></i>
-                  </span>
-                </div>
-              {{/unless}}
-            </div>
-          {{/unless}}
         {{/if}}
       </div>
     </div>

@@ -391,7 +391,6 @@
      * raw 데이터를 기반으로 view 에 반영하기 위한 데이터를 가공한다.
      */
     function update() {
-      console.log('###update');
       var currentEntity = currentSessionHelper.getCurrentEntity();
       _folderList = _.sortBy(_raw.folderList, 'seq');
 

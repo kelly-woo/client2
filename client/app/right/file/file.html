@@ -1,14 +1,15 @@
 <div class="file-card">
   <div class="file-card-header">
-    <div class="file-image cursor-pointer msg-file-body__img msg-file-body__img__background pull-left">
-      <div ng-if="file.mustPreview" class="image_wrapper">
-        <div ng-if="file.hasPreview" class="opac-zero" image-loader="{{::file.imageUrl}}" image-max-height="63" image-max-width="63" image-is-square="true"
-             ui-sref="files({userName: writerName, itemId: file.id})">
-        </div>
-        <div ng-if="!file.hasPreview" class="loading-bar-container" ng-bind-html="loadingBar"></div>
-      </div>
-      <div ng-if="!file.mustPreview" class="icon-wrapper">
+    <div class="file-image msg-file-body__img msg-file-body__img__background"
+         ng-switch on="file.mustPreview">
+      <div class=" image_wrapper" ng-switch-when="true" image-view="{{::file.imageUrl}}"></div>
+      <div class="icon-wrapper" ng-switch-when="false">
         <div class="fileicon fileicon-{{::file.icon}}"></div>
+      </div>
+      <div class="external-share-btn opac-in"
+           ng-show="file.content.externalShared"
+           ng-click="onExternalShareClick($event)">
+        <i class="icon-link"></i>
       </div>
     </div>
   </div>
@@ -29,61 +30,19 @@
     </div>
     <div class="file-extend">
       <div class="file-star" ng-class="{'show': isStarred}"
-            tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
+            tooltip="{{::'@common-star'|translate}}" tooltip-placement="left">
         <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" star-view-id="file.id"></i>
       </div>
       <!--    DROPDOWN MENU   -->
-      <div class="file-menu" dropdown is-open="status.isopen" ng-show="file.type === 'file'">
-        <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
-        <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
-          <li class="cursor_pointer">
-            <a class="share-file">
-              <i class="icon-share-right"></i>
-              <span translate>@btn-share</span>
-            </a>
-          </li>
-          <li class="cursor_pointer">
-            <a class="focus-comment-file">
-              <i class="icon-comment"></i>
-              <span translate>@btn-comment</span>
-            </a>
-          </li>
-          <li ng-if="!isIntegrateFile">
-            <a class="download-file" href="{{::downloadUrl}}"
-               ng-click="onClickDownload(file_detail);"
-               download-tracker="{{track(file)}}">
-              <i class="icon-download"></i>
-              <span translate>@common-download</span>
-            </a>
-          </li>
-          <li class="cursor_pointer">
-            <a class="original-file" href="{{::originalUrl}}" target="_blank">
-              <i class="icon-minimize"></i>
-              <span translate>@msg-open-original</span>
-            </a>
-          </li>
-          <li class="cursor_pointer">
-            <a class="star-file">
-              <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
-              <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
-            </a>
-          </li>
-          <li class="cursor_pointer" ng-if="!isIntegrateFile">
-            <a class="external-share-file" file-id="{{::file.id}}"
-               external-share-view
-               external-share-get="getExternalShare()"
-               external-share-set="setExternalShare($value)">
-              <i ng-class="isExternalShared ? 'icon-link-broken' : 'icon-link'"></i>
-              <span><span ng-if="isExternalShared" translate>@external-share-remove</span><span ng-if="!isExternalShared" translate>@external-share-create</span></span>
-            </a>
-          </li>
-          <li class="cursor_pointer" ng-if="::(isFileOwner || isAdmin)">
-            <a class="delete-file">
-              <i class="icon-trash"></i>
-              <span translate>@message-delete</span>
-            </a>
-          </li>
-        </ul>
+      <div class="file-menu"
+           ng-if="isFileTab"
+           dropdown
+           is-open="status.isOpen">
+        <i class="icon-more" dropdown-toggle tooltip="{{::'@file-action-more'|translate}}" tooltip-placement="left"></i>
+        <ul class="dropdown-menu grey_dropdown"
+            dropdown-menu
+            dropdown-position
+            template-url="app/util/directive/dropdown-position/templates/right.file.html"></ul>
       </div>
     </div>
   </div>

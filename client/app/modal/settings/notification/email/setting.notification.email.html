@@ -13,7 +13,7 @@
   <div class="setting">
     <span translate>@setting-notification-email-text1</span>
     <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationFrequencyList" value="data.notificationFrequency" on-select="onChange()"></jnd-dropdown-selectbox>
-    <jnd-dropdown-selectbox class="dropdown-selectbox" list="notificationHourList" value="data.notificationHour" on-select="onChange()"></jnd-dropdown-selectbox>
+    <jnd-dropdown-selectbox ng-show="data.notificationFrequency !== 'hourly'" class="dropdown-selectbox" list="notificationHourList" value="data.notificationHour" on-select="onChange()"></jnd-dropdown-selectbox>
     <span translate>@setting-notification-email-text2</span>
   </div>
 </div>

@@ -57,11 +57,17 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
             templateUrl: 'app/left/left.html',
             controller: 'leftPanelController',
             resolve: {
-              resLeftSideMenu: function (leftpanelAPIservice, AuthApi) {
-                return leftpanelAPIservice.getLists().error(AuthApi.requestAccessTokenWithRefreshToken);
-              },
-              resTopicFolder: function(TopicFolderModel, AuthApi) {
-                return TopicFolderModel.load('initialize').then(null, AuthApi.requestAccessTokenWithRefreshToken);
+              initialPromise: function($q, $state, memberService, Auth, TopicFolderModel, leftpanelAPIservice) {
+                var promises = [];
+
+                if (memberService.getMember()) {
+                  promises.push(leftpanelAPIservice.getLists());
+                  promises.push(TopicFolderModel.load('initialize'));
+                  return $q.all(promises);
+                } else {
+                  Auth.signIn();
+                  return $q.reject();
+                }
               }
             }
           },
@@ -74,8 +80,8 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
             controller: 'rPanelCtrl'
           },
           'detailpanel': {
-            templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            templateUrl: 'app/right/file-detail/file.detail.html',
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -109,8 +115,8 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
         views: {
           'detailpanel@': {
-            templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            templateUrl: 'app/right/file-detail/file.detail.html',
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -130,8 +136,8 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
         views: {
           'detailpanel@': {
-            templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            templateUrl: 'app/right/file-detail/file.detail.html',
+            controller: 'FileDetailCtrl'
           }
         }
       })
@@ -147,8 +153,8 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider, $state
         params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
         views: {
           'detailpanel@': {
-            templateUrl: 'app/right/file.detail/file.detail.html',
-            controller: 'fileDetailCtrl'
+            templateUrl: 'app/right/file-detail/file.detail.html',
+            controller: 'FileDetailCtrl'
           }
         }
       })

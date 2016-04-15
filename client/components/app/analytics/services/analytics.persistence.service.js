@@ -13,10 +13,13 @@
     .service('AnalyticsPersistence', AnalyticsPersistence);
 
   /* @ngInject */
-  function AnalyticsPersistence($rootScope, AnalyticsTranslate, AnalyticsStorage, AnalyticsConstant, accountService, memberService) {
+  function AnalyticsPersistence($rootScope, $injector, AnalyticsTranslate, AnalyticsStorage, AnalyticsConstant) {
 
     this.init = init;
     this.getIdentify = getIdentify;
+
+    var accountService;
+    var memberService;
 
     var storageService;
     var sessionStorageService;
@@ -69,6 +72,9 @@
      *    accountId {String} - [account구분] 
      */
     function getIdentify() {
+      accountService = accountService || $injector.get('accountService');
+      memberService = memberService || $injector.get('memberService');
+
       var storedProperties = sessionStorageService.get(SESSION_STORAGE_KEY);
       var identify = {};
       var account = accountService.getAccount();

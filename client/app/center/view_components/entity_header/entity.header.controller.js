@@ -90,7 +90,7 @@
       });
 
       $scope.$on('onTopicSubscriptionChanged', function(event, data) {
-        if (data.data.roomId === parseInt(_entityId, 10)) {
+        if (data.room.id === parseInt(_entityId, 10)) {
           _checkNotificationStatus();
         }
       });
@@ -486,7 +486,9 @@
      * @private
      */
     function _onConnected() {
-      $scope.isConnected = true;
+      JndUtil.safeApply($scope, function() {
+        $scope.isConnected = true;
+      });
     }
 
     /**
@@ -494,7 +496,9 @@
      * @private
      */
     function _onDisconnected() {
-      $scope.isConnected = false;
+      JndUtil.safeApply($scope, function() {
+        $scope.isConnected = false;
+      });
     }
 
     /**

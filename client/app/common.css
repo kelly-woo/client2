@@ -856,10 +856,6 @@ input[type="button"] {
   top: -5px;
   margin-left: calc(100% - 5px) !important;
 }
-.right-align {
-  left: auto;
-  right: 10px;
-}
 .grey_dropdown > li > .menu-item {
   display: block;
   clear: both;
@@ -1364,9 +1360,8 @@ input[type="radio"] {
 .blurred .modal-dialog,
 .blurred .modal-dialog *:not([placeholder]),
 .blurred .advanced-search-option__title *,
-.blurred .search-status-container *,
 .blurred .search-result-container *,
-.blurred .infinite-scroll-bottom-list *,
+.blurred .scroll-loading-list *,
 .blurred .rpanel-alert-msg-container *,
 .blurred .lpanel-list__header * {
   color: transparent !important;

@@ -39,33 +39,7 @@
 .rpanel.extend {
   background-color: #fff;
 }
-.rpanel__background {
-}
 
-.rpanel__background .panel-title-container {
-  border: none;
-}
-.rpanel__background.extend {
-  background-color: #f2f2f2;
-}
-.rpanel__background-body {
-  position: absolute;
-  top: 40px;
-  left: 0px;
-  right: 0px;
-  bottom: 10px;
-  overflow: hidden;
-  background: #fff;
-}
-.rpanel__loading {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -16px 0 0 -16px;
-}
-.rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
   background-color: #366480;
   height: 41px;
@@ -89,17 +63,8 @@
   color: #00709E;
 }
 
-.scroll_loading_container_background {
-  background-color: transparent;
-  opacity: 1;
-}
 .scroll_loading_bg {
   display: none;
-}
-
-.scroll_loading_bar {
-  left: auto;
-  margin: 15px auto !important;
 }
 
 .loading_container.file {
@@ -216,69 +181,9 @@
   margin-top: -2px;
 }
 
-/* search result */
-.search-result-container {
-  color: #999999;
-  border-bottom:1px solid #E1E1E1;
-  margin-top:-1px;
-}
-.search-result-container .search-result-summary-ing,
-.search-result-container .search-result-summary {
-  margin: 13px 0 13px 40px;
-  padding-top:0px;
-  padding-bottom:1px;
-}
-.search-result-container .search-result-summary {
-  margin-left: 16px;
-}
-.search-result-container .search-result-summary-ing .three-quarters-loader,
-.rpanel-message-search .search-status-container .search-result-summary-ing .three-quarters-loader {
-  position: absolute;
-  left: 14px;
-  top: 13px;
-  width: 16px;
-  height: 16px;
-}
-.search-result-container .rpanel-list-empty__img,
-.search-result-container .star-empty__img {
-  margin-bottom: 20px;
-  width: 100px;
-  height: 80px;
-}
-
-.rpanel-body.star-list .search-result-container,
-.rpanel-body.mention-list .search-result-container {
-  border-bottom-width: 0px;
-}
-
-.rpanel-body.star-list .search-result-container .search-result-summary-ing,
-.rpanel-body.mention-list .search-result-container .search-result-summary-ing {
-  margin-top: 70px;
-  margin-left: 0px;
-  text-align: center;
-}
-
 .show {
   display: block !important;
 }
 .show-inline-block {
   display: inline-block !important;
-}
-
-.end-of-list {
-  position: relative;
-  width: 100%;
-  height: 54px;
-}
-.end-of-list > div {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  width: 11px;
-  height: 11px;
-  border-radius: 11px;
-  background-color: #e0e0e0;
 }

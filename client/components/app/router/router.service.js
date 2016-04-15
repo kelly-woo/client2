@@ -6,7 +6,7 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration,
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, FileDetail, configuration,
                   NetInterceptor, storageAPIservice, jndPubSub, RightPanel, EntityHandler) {
     this.onStateChangeStart = onStateChangeStart;
     this.onStateChangeSuccess = onStateChangeSuccess;
@@ -79,7 +79,7 @@
             if (fromState.name === '') {
               // fromState name이 없고 toState name이 files 일때(/files/ uri에 direct로 접근하는 경우) $state 로직상 계속 해서 request를 전달하여
               // browser가 멈추는 현상이 발생 하므로 이경우 toParam에 포함된 message id로 특정 file의 fileUrl로 redirect 하도록 처리함.
-              fileAPIservice.getFileDetail(toParams.itemId)
+              FileDetail.get(toParams.itemId)
                 .success(function (response) {
                   var msgs;
                   var msg;

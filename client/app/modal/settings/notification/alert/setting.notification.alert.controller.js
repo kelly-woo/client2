@@ -35,7 +35,6 @@
 
       $scope.setting.on = $scope.isAllowSetting;
 
-      console.log('###setting', $scope.setting);
       $scope.onNotificationToggle = onNotificationToggle;
       $scope.onSoundSelect = onSoundSelect;
       $scope.onSampleClick = onSampleClick;
@@ -180,7 +179,6 @@
 
       sounds.unshift({text: translate('@common-off'), value: DesktopNotificationUtil.SOUNDS.OFF, nonSound: true});
       $scope.alertSelectList = sounds;
-      console.log('#$scope.alertSelectList', $scope.alertSelectList);
     }
 
     /**

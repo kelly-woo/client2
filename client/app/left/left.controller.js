@@ -3,10 +3,10 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController', function(
-  $scope, $state, $timeout, $q, resLeftSideMenu, resTopicFolder, leftpanelAPIservice, entityAPIservice, accountService,
+  $scope, $state, $timeout, $q, leftpanelAPIservice, entityAPIservice, accountService,
   publicService, memberService, storageAPIservice, analyticsService, currentSessionHelper, jndWebSocket, jndPubSub,
   modalHelper, UnreadBadge, AnalyticsHelper, HybridAppHelper, NotificationManager, TopicFolderModel, TopicUpdateLock,
-  JndUtil, EntityFilterMember, EntityHandler, AuthApi) {
+  JndUtil, EntityFilterMember, EntityHandler, Auth, initialPromise) {
 
   var _that = this;
   var _getLeftListDeferredObject;
@@ -56,19 +56,16 @@ app.controller('leftPanelController', function(
    * @private
    */
   function _init() {
-    var err;
-    
-    if (resLeftSideMenu && resTopicFolder) {
-      if (resLeftSideMenu.status !== 200) {
-        err = resLeftSideMenu.data;
-        $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
-      } else {
-        _attachScopeEvents();
-        _attachDomEvents();
-        _initLeftSideMenuData(resLeftSideMenu.data);
-        publicService.showDummyLayout();
-        publicService.hideInitialLoading();
-      }
+    var responseLeftSideMenu = initialPromise[0].data;
+    if (initialPromise[0].data) {
+      publicService.showDummyLayout();
+      publicService.hideInitialLoading();
+
+      _attachScopeEvents();
+      _attachDomEvents();
+      _initLeftSideMenuData(responseLeftSideMenu);
+    } else {
+      Auth.requestAccessTokenWithRefreshToken();
     }
   }
 
@@ -79,7 +76,6 @@ app.controller('leftPanelController', function(
    */
   function _initLeftSideMenuData(response) {
     _onSuccessGetLeftSideMenu(false, response);
-    _getAccount();
     if (!$state.params.entityId) {
       _goToDefaultTopic();
     }
@@ -229,6 +225,7 @@ app.controller('leftPanelController', function(
       if (alarm.alarmCount != 0 && (entity = EntityHandler.get(entityId))) {
         entityAPIservice.updateBadgeValue(entity, alarm.alarmCount);
       }
+      memberService.setLastReadMessageMarker(entityId, alarm.lastLinkId);
     });
   }
 
@@ -238,57 +235,6 @@ app.controller('leftPanelController', function(
   function _onUpdateLeftBadgeCount() {
     _requestLeftSideMenu(true);
   }
-
-  /**
-   * 계정 정보를 조회한다.
-   * @private
-   */
-  function _getAccount() {
-    accountService.getAccountInfo()
-      .success(_onSuccessGetAccount)
-      .error(_onErrorGetAccount);
-  }
-
-  /**
-   * 계정정보 조회 성공 이벤트 핸들러
-   * @param {object} response
-   * @private
-   */
-  function _onSuccessGetAccount(response) {
-    accountService.setAccount(response);
-    publicService.setLanguageConfig(response.lang);
-    analyticsService.accountIdentifyMixpanel(response);
-    analyticsService.accountMixpanelTrack("Sign In");
-    analyticsService.memberIdentifyMixpanel();
-    analyticsService.mixpanelTrack("Sign In");
-    //analytics
-    try {
-      AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
-        'RESPONSE_SUCCESS': true,
-        'AUTO_SIGN_IN': true
-      });
-    } catch (e) {}
-    // load된 controller, directive, service내 사용중인 translate
-    // variable을 변경하기 위해 changedLanguage event를 broadcast 함
-    jndPubSub.pub('changedLanguage');
-  }
-
-  /**
-   * 계정정보 조회 실패 이벤트 핸들러
-   * @param {object} err
-   * @private
-   */
-  function _onErrorGetAccount(err) {
-    try {
-      AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
-        'RESPONSE_SUCCESS': false,
-        'AUTO_SIGN_IN': true,
-        'ERROR_CODE': err.code
-      });
-    } catch (e) {}
-    AuthApi.requestAccessTokenWithRefreshToken();
-  }
-
 
   /**
    * topic update lock 변경시 이벤트 핸들러

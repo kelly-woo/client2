@@ -104,7 +104,7 @@
             _jqStickerPanel.addClass('vivid');
           }, 30);
 
-          scope.select();
+          scope.select({isOpen: true});
           _jqStickerPanelBtn.attr('tabIndex', -1);
 
           if (isOpen && scope.name === 'chat') {

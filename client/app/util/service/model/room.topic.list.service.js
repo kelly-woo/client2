@@ -268,6 +268,7 @@
      */
     function _notifyChange() {
       $timeout.cancel(_timerNotifyChange);
+      //성능 향상 목적으로 랜더링 수행을 최소화 하기 위해 timeout 을 이용한다.
       _timerNotifyChange = $timeout(function() {
         jndPubSub.pub('RoomTopicList:changed');
       }, 500);
