@@ -1,3 +1,13 @@
+<a name="1.23.2"></a>
+## [1.23.2](https://github.com/tosslab/web_client/compare/v1.23.1...v1.23.2) (2016-04-15)
+
+
+### Bug Fixes
+
+* **alertUnknownError:** 504 gateway 오류일 경우 -1 alert 노출되는 현상 보강 ([ac6b1f5](https://github.com/tosslab/web_client/commit/ac6b1f5))
+
+
+
 <a name="1.23.1"></a>
 ## [1.23.1](https://github.com/tosslab/web_client/compare/v1.23.0...v1.23.1) (2016-04-14)
 
