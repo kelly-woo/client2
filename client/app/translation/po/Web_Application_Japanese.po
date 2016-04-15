@@ -512,9 +512,8 @@ msgid "@common-has-jandi-app"
 msgstr "既にJANDIのアプリをお持ちですか？"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#, fuzzy
 msgid "@common-hourly"
-msgstr "コピー"
+msgstr "毎時間"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
