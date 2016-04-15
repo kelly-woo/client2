@@ -3,7 +3,10 @@
     <span class="three-quarters-loader jnd-three-quarters-loader"></span>
     <span translate>@search-in-progress</span>
   </div>
-  <div class="search-result-summary" ng-switch-when="result">
+  <div class="search-result-summary" ng-switch-when="keywordSearch">
     <span translate>@search-result-summary</span>
+  </div>
+  <div class="search-result-summary" ng-switch-when="search">
+    <span translate>@search-result-summary-without-keyword</span>
   </div>
 </div>
