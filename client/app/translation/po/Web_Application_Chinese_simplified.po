@@ -2416,6 +2416,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 与 <span "
 "class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "选择所有成员"
@@ -3685,9 +3689,6 @@ msgstr "星期三"
 
 #~ msgid "@header-menu"
 #~ msgstr "选单"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr " 符合"
 
 #~ msgid "@file-audio"
 #~ msgstr "音频档案"
