@@ -45,6 +45,10 @@ msgid "@alert-no-result"
 msgstr "검색 결과가 없습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@already-invited-member"
+msgstr "참여중인 멤버"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@announce-fold"
 msgstr "접어두기"
 
@@ -400,7 +404,7 @@ msgstr "공개 여부"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr " FAQ / 문의하기"
+msgstr "FAQ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
@@ -548,6 +552,10 @@ msgstr "{{TopicName}}에서 관리자에 의해 퇴장되었습니다."
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "이미 나갔거나 삭제된 토픽이므로 원본을 확인할 수 없습니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-livesupport"
+msgstr "1:1 문의하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -824,6 +832,12 @@ msgid "@dummy-being-invited"
 msgstr "팀에 초대중인 멤버입니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tooltip"
+msgstr ""
+"초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
+"발송됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel"
 msgstr "초대 취소"
 
@@ -842,6 +856,12 @@ msgstr "초대가 취소되었습니다."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resend"
 msgstr "초대메일 재전송"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr ""
+"초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
+"발송됩니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
@@ -2864,6 +2884,7 @@ msgstr ""
 msgid "@team-invite"
 msgstr "멤버 초대"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
