@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('jndPdfViewer', jndPdfViewer);
 
-  function jndPdfViewer($rootScope, $state, UserList, fileAPIservice, PdfViewer, jndKeyCode, JndUtil) {
+  function jndPdfViewer($rootScope, $state, $filter, UserList, fileAPIservice, PdfViewer, jndKeyCode, JndUtil) {
     return {
       restrict: 'E',
       scope: {},
@@ -174,12 +174,17 @@
        * @private
        */
       function _onLoad(angularEvent, url, file) {
+        var urlObj = $filter('downloadFile')(false, file.content.title, file.content.fileUrl);
+
         _isLoaded = false;
         _showLoading();
         _hideError();
+        
         JndUtil.safeApply(scope, function() {
           scope.file = file;
         });
+
+        scope.downloadUrl = urlObj.downloadUrl;
         _show();
       }
       

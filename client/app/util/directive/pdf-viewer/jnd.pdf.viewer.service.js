@@ -9,7 +9,7 @@
     .service('JndPdfViewer', JndPdfViewer);
 
   /* @ngInject */
-  function JndPdfViewer($rootScope, jndPubSub, PdfViewer) {
+  function JndPdfViewer(jndPubSub, PdfViewer) {
 
     this.load = load;
 
