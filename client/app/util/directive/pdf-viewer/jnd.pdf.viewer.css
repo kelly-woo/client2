@@ -56,17 +56,24 @@
   padding-top: 14px;
   font-size: 20px;
 }
-.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span {
+
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span,
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons a {
   padding: 13px 9px 13px 15px;
   margin-left: -3px;
   margin-right: -3px;
 }
-.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span a,
-.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span a:hover {
+
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons a,
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons a:hover {
+  width: 100%;
+  height: 100%;
   color: #FFFFFF;
   text-decoration: none;
 }
-.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span:hover {
+
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span:hover,
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons a:hover {
   background-color: rgba(255,255,255,0.2);
 }
 .jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .buttons span .icon-comment {

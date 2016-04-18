@@ -32,14 +32,12 @@
     <div class="divider pull-right">
     </div>
     <div class="buttons pull-right">
-      <span class="cursor_pointer">
-        <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="file.isStarred" star-view-id="file.id"></i>
+      <span class="cursor_pointer" star-view="file.isStarred" star-view-id="file.id">
+        <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
       </span>
-      <span class="cursor_pointer">
-        <a href="{{ downloadUrl }}">
-          <i class="icon-download"></i>
-        </a>
-      </span>
+      <a href="{{ downloadUrl }}">
+        <i class="icon-download"></i>
+      </a>
       <span class="cursor_pointer" ng-click="openFileDetail(true);">
         <i class="icon-comment"></i>
       </span>
