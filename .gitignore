@@ -16,3 +16,4 @@ client/assets/javascripts/handlebars.templates.js
 config/environments/local.team.json
 markup/index.html
 *.mo
+out
