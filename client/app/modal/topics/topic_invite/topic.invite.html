@@ -38,14 +38,16 @@
         </span>
       </div>
 
-      <div class="input-group invite-member-filter-container">
+      <div class="input-group">
         <span class="input-group-addon"><i class="icon-search"></i></span>
-        <input class="form-control green-input-box"
+        <input class="form-control"
                id="invite-member-filter"
                type="text"
                jnd-input-model="selectedUser"
+               autofocus
                placeholder="{{'@input-search-user-name' | translate}}" />
       </div>
+
       <div class="member-list-container">
         <list-on-modal type="avaliableMember"
                        list="availableMemberList"
