@@ -46,6 +46,10 @@ msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@already-invited-member"
+msgstr "参加中のメンバー"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@announce-fold"
 msgstr "最小化"
 
@@ -402,7 +406,7 @@ msgstr "公開/非公開"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "FAQ / お問い合わせ"
+msgstr "FAQ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
@@ -549,6 +553,10 @@ msgstr "{{TopicName}}の管理者からトピックから退出させられま�
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "すでに参加していないトピックなので原本が表示できません"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-livesupport"
+msgstr "お問い合わせ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -827,6 +835,12 @@ msgid "@dummy-being-invited"
 msgstr "チームに招待中のユーザーです。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tooltip"
+msgstr ""
+"招待中のメンバーにダイレクトメッセージを送信する場合、メッセージの内容が毎時"
+"間メールで発送されます。"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel"
 msgstr "招待をキャンセル"
 
@@ -845,6 +859,12 @@ msgstr "招待がキャンセルされました"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resend"
 msgstr "招待メールを再発信"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr ""
+"招待中のメンバーにダイレクトメッセージを送信する場合、メッセージの内容が毎時"
+"間メールで発送されます。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
@@ -2482,6 +2502,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結果"
 "が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あります"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件の検索結果"
+"があります"
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "全員選択"
@@ -2866,12 +2892,13 @@ msgstr ""
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
 msgstr ""
 "空白またはカンマで区切られた複数のメールアドレスを一度に追加することができま"
-"す。"
+"す。エクセルで連絡先のある列を一度にコピー＆貼り付けしてください。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
@@ -3820,9 +3847,6 @@ msgstr "水曜日"
 
 #~ msgid "@header-menu"
 #~ msgstr "メニュー"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr "件あります"
 
 #~ msgid "@file-audio"
 #~ msgstr "音声"

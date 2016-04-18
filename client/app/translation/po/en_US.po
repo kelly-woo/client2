@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -43,6 +43,10 @@ msgstr "No messages found matching"
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "No matches"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@already-invited-member"
+msgstr "Already Invited"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@announce-fold"
@@ -406,7 +410,7 @@ msgstr "Type"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "FAQ / Ask a question"
+msgstr "FAQ"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
@@ -555,6 +559,10 @@ msgstr "You have been removed from {{TopicName}}."
 #: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr "You are no longer in the topic where this item was shared."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-livesupport"
+msgstr "Live Support"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -831,6 +839,10 @@ msgid "@dummy-being-invited"
 msgstr "This member hasn't accepted the invitation yet"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tooltip"
+msgstr "Your direct messages will be delivered by email on an hourly basis."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel"
 msgstr "Cancel invitation"
 
@@ -849,6 +861,10 @@ msgstr "Invitation has been canceled."
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resend"
 msgstr "Resend invitation"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-invitation-resent-description"
+msgstr "Your direct messages will be delivered by email on an hourly basis."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
@@ -2483,6 +2499,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
 "for <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
+"found"
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "Select all members"
@@ -2866,10 +2888,13 @@ msgstr ""
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/teams/team_invite/invite_emails/invite.emails.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
-msgstr "You can add multiple email addresses separated by commas or spaces."
+msgstr ""
+"You can add multiple email addresses separated by commas or spaces, or even "
+"copy and paste an entire column from your company's list of contacts"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
@@ -3989,9 +4014,6 @@ msgstr "Wednesday"
 
 #~ msgid "@header-menu"
 #~ msgstr "Menu"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr " "
 
 #~ msgid "@file-audio"
 #~ msgstr "Audio"
