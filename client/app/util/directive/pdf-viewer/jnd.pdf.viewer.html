@@ -1,0 +1,80 @@
+<div class="jnd-pdf-viewer-wrap">
+  <div class="jnd-pdf-viewer-loading _loading">
+    <div class="spinner-container">
+      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+    </div>
+  </div>
+  <div class="jnd-pdf-viewer-title-container">
+    <div class="pull-left pdf-file-info">
+      <div class="pull-left">
+        <i class="icon-file"></i>
+      </div>
+      <div class="pull-left">
+        <div class="pdf-title cursor_pointer" ng-click="openFileDetail()">
+          {{ file.content.title }}
+        </div>
+        <div class="pdf-detail">
+          <span>{{ file.createdAt | getyyyyMMddformat }}</span>
+          <span>&middot; </span>
+          <span>{{ file.content.size | bytes}}</span>
+          <span>&middot; </span>
+          <span>
+            <i class="icon-comment-fill"></i>
+            <span>{{ file.commentCount }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-right pdf-close cursor_pointer" ng-click="close()">
+      <i class="icon-delete"></i>
+    </div>
+    <div class="divider pull-right">
+    </div>
+    <div class="buttons pull-right">
+      <span class="cursor_pointer">
+        <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="file.isStarred" star-view-id="file.id"></i>
+      </span>
+      <span class="cursor_pointer">
+        <a href="{{ file.content.fileUrl}}" target="_blank">
+          <i class="icon-download"></i>
+        </a>
+      </span>
+      <span class="cursor_pointer" ng-click="openFileDetail(true);">
+        <i class="icon-comment"></i>
+      </span>
+    </div>
+  </div>
+  <div class="jnd-pdf-viewer-container">
+    <div class="jnd-pdf-viewer-error _error">
+      <div>
+        <i class="icon-help"></i>
+      </div>
+      <div class="" ng-bind-html="'@pdfviewer-loadingfail-msg'|translate">
+      </div>
+    </div>
+    <pdf-viewer></pdf-viewer>
+  </div>
+
+  <div class="toolbar _toolbar">
+    <span class="button jnd-icon cursor_pointer" ng-click="zoomOut()">
+      <i class="icon-minus-circle"></i>
+    </span>
+    <span class="button jnd-icon cursor_pointer" ng-click="zoomIn()">
+      <i class="icon-plus-circle"></i>
+    </span>
+    <span class="button jnd-icon cursor_pointer" ng-click="prevPage()">
+      <i class="icon-angle-up"></i>
+    </span>
+    <span class="page-current">
+      {{ currentPage }} / {{totalPage}}
+    </span>
+    <span class="button jnd-icon cursor_pointer" ng-click="nextPage()">
+      <i class="icon-angle-down"></i>
+    </span>
+    <span class="button fontawesome-icon cursor_pointer" ng-click="zoomDefault()">
+      <i class="fa-arrows-alt"></i>
+    </span>
+  </div>
+  <input type="text" class="_input"/>
+</div>
