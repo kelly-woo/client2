@@ -22,7 +22,7 @@
        * toolbar 를 노출하는 시간 값
        * @type {number}
        */
-      var TOOLBAR_ACTIVE_DURATION = 500;
+      var TOOLBAR_ACTIVE_DURATION = 1500;
       var _timer;
       var _isLoaded = false;
 
