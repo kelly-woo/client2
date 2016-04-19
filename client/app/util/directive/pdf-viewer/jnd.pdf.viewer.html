@@ -40,7 +40,12 @@
     </div>
   </div>
   <div class="jnd-pdf-viewer-container">
-    <progressbar ng-show="progress !== 100" class="pdf-progress-bar" max="100" value="progress"></progressbar>
+    <progressbar class="pdf-progress-bar"
+                 max="100"
+                 value="progress"
+                 ng-class="{
+                     'opac-out-slow': progress === 100
+                     }"></progressbar>
     <div class="jnd-pdf-viewer-error _error">
       <div>
         <i class="icon-help"></i>

@@ -97,6 +97,7 @@
   left: 0;
   width: 100%;
   height: 2px;
+  opacity: 1;
 }
 .jnd-pdf-viewer-wrap .jnd-pdf-viewer-container .progress-bar {
   background: #00abe6;

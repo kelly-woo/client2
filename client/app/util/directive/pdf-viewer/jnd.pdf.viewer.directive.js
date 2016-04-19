@@ -31,8 +31,9 @@
        */
       var MIN_PROGRESS = 1;
 
-      var _progressbarTimer;
+      var _minProgressbarTimer;
       var _toolbarTimer;
+
       var _isLoaded = false;
 
       scope.currentPage = 1;
@@ -109,9 +110,7 @@
        * @private
        */
       function _hideToolbar() {
-        if (_isLoaded) {
-          el.find('._toolbar').removeClass('in').addClass('out');
-        }
+        el.find('._toolbar').removeClass('in').addClass('out');
       }
 
       /**
@@ -188,22 +187,20 @@
        */
       function _onLoad(angularEvent, url, file) {
         var urlObj = $filter('downloadFile')(false, file.content.title, file.content.fileUrl);
-
         _isLoaded = false;
-        _hideToolbar();
-        _hideError();
-        
+
         JndUtil.safeApply(scope, function() {
+          scope.downloadUrl = urlObj.downloadUrl;
           scope.file = file;
           scope.progress = 0;
         });
 
         //Network 상황이 좋지 않은 경우 1초 이상 progress 가 수행되지 않는다면 minimum progress 를 노출한다.
-        $timeout.cancel(_progressbarTimer);
-        _progressbarTimer = $timeout(_setProgress, 1000);
+        $timeout.cancel(_minProgressbarTimer);
+        _minProgressbarTimer = $timeout(_setProgress, 1000);
 
-        scope.downloadUrl = urlObj.downloadUrl;
-
+        _hideError();
+        el.find('._toolbar').hide();
         _show();
       }
 
@@ -226,6 +223,7 @@
        * @private
        */
       function _setProgress(percent) {
+        $timeout.cancel(_minProgressbarTimer);
         percent = Math.max(MIN_PROGRESS, percent || 0);
         JndUtil.safeApply(scope, function() {
           scope.progress = percent;
@@ -237,8 +235,10 @@
        * @private
        */
       function _onSuccessLoad() {
-        $timeout.cancel(_progressbarTimer);
+        $timeout.cancel(_minProgressbarTimer);
+        _setProgress(100);
         _isLoaded = true;
+        el.find('._toolbar').show();
         _showToolbar();
       }
 
@@ -247,9 +247,8 @@
        * @private
        */
       function _onErrorLoad() {
-        $timeout.cancel(_progressbarTimer);
+        $timeout.cancel(_minProgressbarTimer);
         _isLoaded = false;
-        _showToolbar();
         _showError();
       }
 
@@ -270,26 +269,13 @@
       }
 
       /**
-       * toolbar view 를 감춘다.
-       * @private
-       */
-      function _hideToolbar() {
-        el.find('._toolbar').hide();
-      }
-
-      /**
-       * toolbar view 를 노출한다.
-       * @private
-       */
-      function _showToolbar() {
-        el.find('._toolbar').show();
-      }
-
-      /**
        * viewer 를 감춘다.
        * @private
        */
       function _hide() {
+        JndUtil.safeApply(scope, function() {
+          scope.progress = 0;
+        });
         _detachDomEvents();
         el.hide();
       }
@@ -308,7 +294,7 @@
        * @private
        */
       function _onUnload() {
-        $timeout.cancel(_progressbarTimer);
+        $timeout.cancel(_minProgressbarTimer);
         _hide();
       }
     }
