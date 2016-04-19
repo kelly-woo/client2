@@ -13,6 +13,14 @@
   overflow: auto;
 }
 
+.pdf-viewer-wrap .pdf-viewer-container .dummy-focus {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  width: 1px;
+  height: 1px;
+}
+
 .pdf-viewer-wrap .dim {
   position: absolute;
   top: 0;

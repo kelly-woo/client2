@@ -207,6 +207,7 @@
           _zoomDefault();
           _setCurrentPageNum();
         });
+        el.find('._container > input').focus();
       }
 
       /**
