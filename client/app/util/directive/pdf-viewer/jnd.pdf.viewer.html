@@ -32,16 +32,7 @@
     <div class="divider pull-right">
     </div>
     <div class="buttons pull-right">
-      <span class="cursor_pointer" star-view="file.isStarred" star-view-id="file.id">
-        <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
-      </span>
-      <a href="{{ downloadUrl }}">
-        <i class="icon-download"></i>
-      </a>
-      <span class="cursor_pointer" ng-click="openFileDetail(true);">
-        <i class="icon-comment"></i>
-        <span>{{ file.commentCount }}</span>
-      </span>
+      <span class="cursor_pointer pdf-btn" star-view="file.isStarred" star-view-id="file.id"><i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'"></i></span><a class="cursor_pointer pdf-btn" href="{{ downloadUrl }}"><i class="icon-download"></i></a><span class="cursor_pointer pdf-btn" ng-click="openFileDetail(true);"><i class="icon-comment"></i><span class="pdf-comment-count">{{ file.commentCount }}</span></span>
     </div>
   </div>
   <div class="jnd-pdf-viewer-container">
