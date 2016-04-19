@@ -190,7 +190,7 @@
         var urlObj = $filter('downloadFile')(false, file.content.title, file.content.fileUrl);
 
         _isLoaded = false;
-        _showLoading();
+        _hideToolbar();
         _hideError();
         
         JndUtil.safeApply(scope, function() {
@@ -239,7 +239,7 @@
       function _onSuccessLoad() {
         $timeout.cancel(_progressbarTimer);
         _isLoaded = true;
-        _hideLoading();
+        _showToolbar();
       }
 
       /**
@@ -249,7 +249,7 @@
       function _onErrorLoad() {
         $timeout.cancel(_progressbarTimer);
         _isLoaded = false;
-        _hideLoading();
+        _showToolbar();
         _showError();
       }
 
@@ -270,20 +270,18 @@
       }
 
       /**
-       * loading view 를 노출한다.
+       * toolbar view 를 감춘다.
        * @private
        */
-      function _showLoading() {
-        el.find('._loading').show();
+      function _hideToolbar() {
         el.find('._toolbar').hide();
       }
 
       /**
-       * loading view 를 감춘다.
+       * toolbar view 를 노출한다.
        * @private
        */
-      function _hideLoading() {
-        el.find('._loading').hide();
+      function _showToolbar() {
         el.find('._toolbar').show();
       }
 
