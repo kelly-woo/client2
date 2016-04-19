@@ -17,8 +17,9 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($q, configuration, jndPubSub) {
+  function NetInterceptor($q, configuration, jndPubSub, WakeUp) {
     var _isConnected = true;
+    var _responseErrorStatus = {};
 
     this.setStatus = setStatus;
     this.isConnected = isConnected;
@@ -32,6 +33,18 @@
      * @private
      */
     function _init() {
+      WakeUp.push(function() {
+        $(window).trigger('online');
+        var responseStatus = _getResponseErrorStatus();
+        if (responseStatus['504'] || responseStatus['0']) {
+          // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
+          setTimeout(function() {
+            jndPubSub.pub('connected');
+          }, 1000);
+        }
+        _clearResponseErrorStatus();
+      });
+
       _attachDomEvent();
     }
 
@@ -86,7 +99,36 @@
      */
     function responseError(rejection) {
       setStatus(window.navigator.onLine);
+
+      _setResponseErrorStatus(rejection.status);
+
       return $q.reject(rejection);
+    }
+
+    /**
+     * response error status 전달
+     * @returns {object}
+     * @private
+     */
+    function _getResponseErrorStatus() {
+      return _responseErrorStatus;
+    }
+
+    /**
+     * response error status 설정
+     * @param {number} responseStatus
+     * @private
+     */
+    function _setResponseErrorStatus(responseStatus) {
+      _responseErrorStatus[responseStatus] = (_responseErrorStatus[responseStatus] || 0) + 1;
+    }
+
+    /**
+     * response error status 초기화
+     * @private
+     */
+    function _clearResponseErrorStatus() {
+      _responseErrorStatus = {};
     }
   }
 })();

@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('JndMainCtrl', JndMainCtrl);
 
-  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, entityAPIservice, jndPubSub, memberService,
+  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, jndPubSub, memberService,
                           currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
     $scope.isShowDummyLayout = false;
     $scope.tutorial = {
