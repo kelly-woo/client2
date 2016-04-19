@@ -28,9 +28,10 @@
 
       /**
        * 기본 배율 값
+       * 문자일 경우 page-actual|page-width|page-height|page-fit 중 하나의 값.
        * @type {string|number}
        */
-      var DEFAULT_SCALE = 'page-width';
+      var DEFAULT_SCALE = 'page-fit';
       
       /**
        * scale 기본 연산 배율
@@ -116,6 +117,7 @@
         scope.$on('PdfViewer:zoomIn', _zoomIn);
         scope.$on('PdfViewer:zoomOut', _zoomOut);
         scope.$on('PdfViewer:zoomDefault', _zoomDefault);
+        scope.$on('PdfViewer:zoomToggle', _zoomToggle);
         
         scope.$on('PdfViewer:goToPage', _onGoToPage);
         scope.$on('PdfViewer:nextPage', _nextPage);
@@ -252,6 +254,20 @@
         }
       }
 
+      /**
+       * zoom 을 토글한다.
+       * @private
+       */
+      function _zoomToggle() {
+        if (_pdfViewer) {
+          if (_pdfViewer.currentScaleValue === 'page-width') {
+            _pdfViewer.currentScaleValue = 'page-fit';
+          } else {
+            _pdfViewer.currentScaleValue = 'page-width';
+          }
+        }
+      }
+      
       /**
        * 기본 배율로 설정한다.
        * @private

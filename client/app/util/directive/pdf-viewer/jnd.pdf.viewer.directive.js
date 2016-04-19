@@ -32,8 +32,8 @@
       scope.close = PdfViewer.unload;
       scope.zoomOut = PdfViewer.zoomOut;
       scope.zoomIn = PdfViewer.zoomIn;
-      scope.zoomDefault = PdfViewer.zoomDefault;
-      
+      scope.zoomToggle = PdfViewer.zoomToggle;
+
       scope.prevPage = PdfViewer.prevPage;
       scope.nextPage = PdfViewer.nextPage;
       scope.openFileDetail = openFileDetail;
@@ -143,6 +143,8 @@
           PdfViewer.prevPage();
         } else if (jndKeyCode.match('PAGE_DOWN', keyEvent.keyCode)) {
           PdfViewer.nextPage();
+        } else if (jndKeyCode.match('CHAR_F', keyEvent.keyCode)) {
+          PdfViewer.zoomToggle();
         } else {
           isActionExists = false;
         }

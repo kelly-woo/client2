@@ -17,6 +17,7 @@
     this.zoomIn = zoomIn;
     this.zoomOut = zoomOut;
     this.zoomDefault = zoomDefault;
+    this.zoomToggle = zoomToggle;
     
     this.goToPage = goToPage;
     this.nextPage = nextPage;
@@ -68,6 +69,13 @@
       pub('PdfViewer:zoomOut');
     }
 
+    /**
+     * page-fit, page-width 를 토글한다.
+     */
+    function zoomToggle() {
+      pub('PdfViewer:zoomToggle');
+    }
+    
     /**
      * pageNum 에 해당하는 페이지로 이동한다.
      * @param {number} pageNum
