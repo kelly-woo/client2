@@ -248,6 +248,7 @@
        */
       function _onErrorLoad() {
         $timeout.cancel(_minProgressbarTimer);
+        _setProgress(100);
         _isLoaded = false;
         _showError();
       }

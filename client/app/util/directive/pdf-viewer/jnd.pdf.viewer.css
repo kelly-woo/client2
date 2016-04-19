@@ -23,6 +23,10 @@
   font-size: 14px;
   font-weight: bold;
 }
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .pdf-title:hover {
+  text-decoration: underline;
+}
+
 .jnd-pdf-viewer-wrap .jnd-pdf-viewer-title-container .pdf-detail {
   font-size: 13px;
   color: #aaaaaa;
