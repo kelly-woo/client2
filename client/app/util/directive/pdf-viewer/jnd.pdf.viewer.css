@@ -89,6 +89,23 @@
   height: calc(100% - 50px);
 }
 
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-container .pdf-progress-bar {
+  position: absolute;
+  background: transparent;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-container .progress-bar {
+  background: #00abe6;
+}
+
+.jnd-pdf-viewer-wrap .jnd-pdf-viewer-container .progress {
+  border-radius: 0;
+}
+
 .jnd-pdf-viewer-wrap .jnd-pdf-viewer-container .jnd-pdf-viewer-error {
   display: none;
   z-index: 10000;

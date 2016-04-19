@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('jndPdfViewer', jndPdfViewer);
 
-  function jndPdfViewer($rootScope, $state, $filter, UserList, fileAPIservice, PdfViewer, jndKeyCode, JndUtil) {
+  function jndPdfViewer($rootScope, $state, $filter, $timeout, UserList, fileAPIservice, PdfViewer, jndKeyCode,
+                        JndUtil) {
     return {
       restrict: 'E',
       scope: {},
@@ -23,7 +24,15 @@
        * @type {number}
        */
       var TOOLBAR_ACTIVE_DURATION = 1500;
-      var _timer;
+
+      /**
+       * progress bar 의 최소값
+       * @type {number}
+       */
+      var MIN_PROGRESS = 1;
+
+      var _progressbarTimer;
+      var _toolbarTimer;
       var _isLoaded = false;
 
       scope.currentPage = 1;
@@ -58,6 +67,8 @@
         scope.$on('PdfViewer:unload:success', _onUnload);
         scope.$on('PdfViewer:load:success', _onSuccessLoad);
         scope.$on('PdfViewer:load:error', _onErrorLoad);
+        scope.$on('PdfViewer:load:progress', _onProgressLoad);
+        
         scope.$on('PdfViewer:pageChange', _onPageChange);
       }
 
@@ -88,8 +99,8 @@
       function _showToolbar() {
         if (_isLoaded) {
           el.find('._toolbar').addClass('fade in');
-          clearTimeout(_timer);
-          _timer = setTimeout(_hideToolbar, TOOLBAR_ACTIVE_DURATION);
+          clearTimeout(_toolbarTimer);
+          _toolbarTimer = setTimeout(_hideToolbar, TOOLBAR_ACTIVE_DURATION);
         }
       }
 
@@ -184,10 +195,41 @@
         
         JndUtil.safeApply(scope, function() {
           scope.file = file;
+          scope.progress = 0;
         });
 
+        //Network 상황이 좋지 않은 경우 1초 이상 progress 가 수행되지 않는다면 minimum progress 를 노출한다.
+        $timeout.cancel(_progressbarTimer);
+        _progressbarTimer = $timeout(_setProgress, 1000);
+
         scope.downloadUrl = urlObj.downloadUrl;
+
         _show();
+      }
+
+      /**
+       * 
+       * @param {object} angularEvent
+       * @param {object} progressStatus
+       *    @param {number}  progressStatus.loaded - load 된 bytes
+       *    @param {number}  progressStatus.total - 전체 bytes
+       * @private
+       */
+      function _onProgressLoad(angularEvent, progressStatus) {
+        var percent = Math.ceil(progressStatus.loaded / progressStatus.total * 100);
+        _setProgress(percent);
+      }
+
+      /**
+       * progress bar 진행률을 세팅한다.
+       * @param {number} [percent=MIN_PROGRESS]
+       * @private
+       */
+      function _setProgress(percent) {
+        percent = Math.max(MIN_PROGRESS, percent || 0);
+        JndUtil.safeApply(scope, function() {
+          scope.progress = percent;
+        });
       }
       
       /**
@@ -195,6 +237,7 @@
        * @private
        */
       function _onSuccessLoad() {
+        $timeout.cancel(_progressbarTimer);
         _isLoaded = true;
         _hideLoading();
       }
@@ -204,6 +247,7 @@
        * @private
        */
       function _onErrorLoad() {
+        $timeout.cancel(_progressbarTimer);
         _isLoaded = false;
         _hideLoading();
         _showError();
@@ -266,6 +310,7 @@
        * @private
        */
       function _onUnload() {
+        $timeout.cancel(_progressbarTimer);
         _hide();
       }
     }

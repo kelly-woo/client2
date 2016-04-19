@@ -189,17 +189,28 @@
         el.show();
 
         _request = PDFJS.getDocument(url);
+        _request.onProgress = _onProgress;
         _request.then(function(pdfDoc) {
           scope.totalPage = pdfDoc.numPages;
           _pdfViewer.setDocument(pdfDoc).then(_onLoadSuccess);
           PdfViewer.pub('PdfViewer:load:success');
         }, function() {
           PdfViewer.pub('PdfViewer:load:error');
-          //TODO: 오류 처리
-          console.log('오류!!!', arguments)
         });
       }
 
+      /**
+       * load 진행 중일 경우 이벤트를 트리거 한다. 
+       * 
+       * @param {object} progressStatus
+       *    @param {number}  progressStatus.loaded - load 된 bytes 
+       *    @param {number}  progressStatus.total - 전체 bytes
+       * @private
+       */
+      function _onProgress(progressStatus) {
+        PdfViewer.pub('PdfViewer:load:progress', progressStatus);
+      }
+      
       /**
        * load 성공 이벤트 핸들러
        * @private
