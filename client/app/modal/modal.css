@@ -835,13 +835,19 @@
   color: #424C53;
 }
 
-.btn-group.dropdown-btn-group.open .btn {
+.dropdown-btn-group.open .btn {
   background-color: #e7e7e8;
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
   border-color: #bdc0c2;
 }
 
-.btn-group.dropdown-btn-group .dropdown-menu {
-  width: 100%;
+
+.dropdown-btn-group .dropdown-menu-option {
+  padding: 8px 10px;
+  cursor: pointer;
 }
 
+.dropdown-btn-group .dropdown-menu {
+  width: 100%;
+  min-width: inherit;
+}

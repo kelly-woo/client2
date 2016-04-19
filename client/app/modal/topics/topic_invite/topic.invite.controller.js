@@ -8,8 +8,9 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice,
+                           $state, $filter, RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub,
+                           memberService, SearchUser) {
     var msg1;
     var msg2;
 
@@ -22,7 +23,11 @@
       $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
       generateMemberList();
-      $scope.selectedUser = '';
+
+      $scope.keyword = '';
+      $scope.keywordTypes = SearchUser.getFilterTypes();
+      $scope.keywordType = $scope.keywordTypes[0].value;
+
       $scope.hasAllMembers = false;
 
       if ($scope.activeMembers.length === 1) {
@@ -37,12 +42,14 @@
       $scope.inviteTeamMsg2 = $filter('translate')(msg2);
 
       $scope.getMatches = getMatches;
+      $scope.jqFilter = {};
 
       $scope.onMemberClick = onMemberClick;
       $scope.onInviteTeamClick = onInviteTeamClick;
       $scope.onSelectAll = onSelectAll;
       $scope.onInviteClick = onInviteClick;
       $scope.cancel = cancel;
+      $scope.onKeywordTypeChange = onKeywordTypeChange;
     }
 
     $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
@@ -300,6 +307,17 @@
       }
 
       $('#select-all-members').prop('checked', value);
+    }
+
+    /**
+     * keyword type change event handler
+     */
+    function onKeywordTypeChange() {
+      _updateMemberList();
+    }
+
+    function setJqFilter(jqFilter) {
+      $scope.jqFilter = jqFilter;
     }
   }
 })();

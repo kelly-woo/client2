@@ -14,7 +14,7 @@
       link: link
     };
 
-    function link(scope, el, attrs) {
+    function link(scope, el, attrs, ctrl) {
       var originScope = scope.$parent;
 
       // model
@@ -273,7 +273,8 @@
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: jqFilter.val()
+          filterText: jqFilter.val(),
+          filterType: scope.$eval(attrs.modelType)
         });
       }
 
@@ -342,7 +343,8 @@
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: filterText
+          filterText: filterText,
+          filterType: scope.$eval(attrs.modelType)
         }, true);
       }
 
@@ -357,7 +359,8 @@
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: jqFilter.val()
+          filterText: jqFilter.val(),
+          filterType: scope.$eval(attrs.modelType)
         });
       }
     }

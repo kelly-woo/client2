@@ -6,11 +6,6 @@
   font-size: 14px;
 }
 
-.notification-audio-btn-group .dropdown-menu-option {
-  padding: 8px 10px;
-  cursor: pointer;
-}
-
 .notification-audio-btn-group .option-sound {
   float: right;
   height: 32px;
@@ -30,4 +25,3 @@
 .notification-audio-btn-group .option-sound i:hover {
   background-color: rgba(21,74,103,.24);
 }
-

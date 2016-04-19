@@ -33,6 +33,8 @@
         data.viewport.updateList(data.list);
       }
 
+      console.log('list renderer ::: ', data.filterType);
+
       position = data.viewport.getPosition();
 
       for (i = position.beginIndex, len = position.endIndex; i <= len; ++i) {

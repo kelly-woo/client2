@@ -10,14 +10,16 @@
 
   /* @ngInject */
   function MemberItemRenderer($filter, memberService, currentSessionHelper) {
-    var _template;
+    var _nameOnlyTemplate;
+    var _nameWithExtTemplate;
 
     this.render = render;
 
     _init();
 
     function _init() {
-      _template = Handlebars.templates['modal.member.list.item'];
+      _nameOnlyTemplate = Handlebars.templates['modal.member.list.item'];
+      _nameWithExtTemplate = Handlebars.templates['modal.member.list.ext.item'];
     }
 
     /**
@@ -30,7 +32,7 @@
       data = _convertData(data);
       var isAdmin = _isAdmin(data.id);
 
-      return _template({
+      return _nameOnlyTemplate({
         text: {
           admin: $filter('translate')('@common-team-admin')
         },
