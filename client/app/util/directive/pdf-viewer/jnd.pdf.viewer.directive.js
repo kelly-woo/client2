@@ -35,7 +35,8 @@
       var _toolbarTimer;
 
       var _isLoaded = false;
-
+      var _isMouseOverToolbar = false;
+      
       scope.currentPage = 1;
       scope.totalPage = 1;
 
@@ -81,6 +82,8 @@
         $('body').on('keydown', _onKeyDown)
           .on('mousewheel mousemove click', _showToolbar);
         el.find('._error').on('click', PdfViewer.unload);
+        el.find('._toolbar').on('mouseenter', _onMouseEnterToolbar)
+          .on('mouseleave', _onMouseLeaveToolbar);
       }
 
       /**
@@ -91,8 +94,27 @@
         $('body').off('keydown', _onKeyDown)
           .off('mousewheel mousemove click', _showToolbar);
         el.find('._error').off('click', PdfViewer.unload);
+        el.find('._toolbar').off('mouseenter', _onMouseEnterToolbar)
+          .off('mouseleave', _onMouseLeaveToolbar);
       }
 
+      /**
+       * toolbar 에 mouse enter 시 toolbar 가 사라지지 않도록 flag 를 설정하고 toolbar hide timer 를 해제한다.
+       * @private
+       */
+      function _onMouseEnterToolbar() {
+        _isMouseOverToolbar = true;
+        clearTimeout(_toolbarTimer);
+      }
+
+      /**
+       * toolbar 에 mouse leave 시 flag 를 해제한다.
+       * @private
+       */
+      function _onMouseLeaveToolbar() {
+        _isMouseOverToolbar = false;
+      }
+      
       /**
        * toolbar 를 노출한다.
        * @private
@@ -110,7 +132,9 @@
        * @private
        */
       function _hideToolbar() {
-        el.find('._toolbar').removeClass('in').addClass('out');
+        if (!_isMouseOverToolbar) {
+          el.find('._toolbar').removeClass('in').addClass('out');
+        }
       }
 
       /**
@@ -187,8 +211,10 @@
        */
       function _onLoad(angularEvent, url, file) {
         var urlObj = $filter('downloadFile')(false, file.content.title, file.content.fileUrl);
+        
         _isLoaded = false;
-
+        _isMouseOverToolbar = false;
+        
         JndUtil.safeApply(scope, function() {
           scope.downloadUrl = urlObj.downloadUrl;
           scope.file = file;
