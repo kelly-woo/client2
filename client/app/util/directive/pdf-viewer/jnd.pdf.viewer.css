@@ -213,3 +213,7 @@
   left: -9999px;
   top: -9999px;
 }
+
+.jnd-pdf-tooltip {
+  z-index: 10000;
+}

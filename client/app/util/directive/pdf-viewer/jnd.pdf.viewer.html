@@ -27,13 +27,32 @@
     <div class="divider pull-right">
     </div>
     <div class="buttons pull-right">
-      <span class="cursor_pointer pdf-btn" star-view="file.isStarred" star-view-id="file.id">
+      <span class="cursor_pointer pdf-btn"
+            star-view="file.isStarred"
+            star-view-id="file.id"
+            tooltip="{{::'@star'|translate}}"
+            tooltip-class="jnd-pdf-tooltip"
+            tooltip-placement="bottom"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="100">
         <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
       </span>
-      <a class="cursor_pointer pdf-btn" href="{{ downloadUrl }}">
+      <a class="cursor_pointer pdf-btn"
+         href="{{ downloadUrl }}"
+         tooltip="{{::'@common-download'|translate}}"
+         tooltip-class="jnd-pdf-tooltip"
+         tooltip-placement="bottom"
+         tooltip-append-to-body="true"
+         tooltip-popup-delay="100">
         <i class="icon-download"></i>
       </a>
-      <span class="cursor_pointer pdf-btn" ng-click="openFileDetail(true);">
+      <span class="cursor_pointer pdf-btn"
+            ng-click="openFileDetail(true);"
+            tooltip="{{::'@common-comment-create'|translate}}"
+            tooltip-class="jnd-pdf-tooltip"
+            tooltip-placement="bottom"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="100">
         <i class="icon-comment"></i>
         <span class="pdf-comment-count">{{ file.commentCount }}</span>
       </span>
@@ -57,10 +76,22 @@
   </div>
 
   <div class="toolbar _toolbar">
-    <span class="button jnd-icon cursor_pointer" ng-click="zoomOut()">
+    <span class="button jnd-icon cursor_pointer"
+          ng-click="zoomOut()"
+          tooltip="{{::'@pdfviewer-tooltip-zoomout'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
       <i class="icon-minus-circle"></i>
     </span>
-    <span class="button jnd-icon cursor_pointer" ng-click="zoomIn()">
+    <span class="button jnd-icon cursor_pointer"
+          ng-click="zoomIn()"
+          tooltip="{{::'@pdfviewer-tooltip-zoomin'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
       <i class="icon-plus-circle"></i>
     </span>
     <span class="button jnd-icon cursor_pointer" ng-click="prevPage()">
@@ -72,7 +103,13 @@
     <span class="button jnd-icon cursor_pointer" ng-click="nextPage()">
       <i class="icon-angle-down"></i>
     </span>
-    <span class="button fontawesome-icon cursor_pointer" ng-click="zoomToggle()">
+    <span class="button fontawesome-icon cursor_pointer"
+          ng-click="zoomToggle()"
+          tooltip="{{::'@pdfviewer-tooltip-fittoscreen'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
       <i class="fa-arrows-alt"></i>
     </span>
   </div>
