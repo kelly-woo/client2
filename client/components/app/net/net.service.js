@@ -17,7 +17,7 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($q, configuration, jndPubSub, WakeUp) {
+  function NetInterceptor($q, configuration, jndPubSub, WatchDog) {
     var _isConnected = true;
     var _responseErrorStatus = {};
 
@@ -33,8 +33,7 @@
      * @private
      */
     function _init() {
-      WakeUp.push(function() {
-        $(window).trigger('online');
+      WatchDog.onWakeUp(function() {
         var responseStatus = _getResponseErrorStatus();
         if (responseStatus['504'] || responseStatus['0']) {
           // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
