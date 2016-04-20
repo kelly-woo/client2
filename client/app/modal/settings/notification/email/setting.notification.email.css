@@ -23,6 +23,11 @@
   padding: 8px 0 8px 14px;
 }
 
+.notification-setting-email .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+
 .notification-setting-email .dropdown-selectbox .btn .icon {
 	font-size: 10px;
 }
