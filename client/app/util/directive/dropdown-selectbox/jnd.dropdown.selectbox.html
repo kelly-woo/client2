@@ -1,0 +1,12 @@
+<div class="btn-group jnd-dropdown-selectbox" dropdown ng-disabled="isDisabled">
+  <button type="button" class="btn" ng-disabled="isDisabled" dropdown-toggle>
+    <span class="btn-text" ng-bind="selectedItemText"></span><i class="icon icon-arrow-down"></i>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-menu-option"
+        ng-repeat="item in list track by $index"
+        ng-mousedown="onSelectItem($index)"
+        ng-include="template">
+    </li>
+  </ul>
+</div>

@@ -96,7 +96,9 @@
   <link rel="stylesheet" href="app/modal/members/user-profile/user.profile.css">
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
-  <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.audio.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/alert/setting.notification.alert.audio.menu.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/alert/setting.notification.alert.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/email/setting.notification.email.css">
   <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
   <link rel="stylesheet" href="app/modal/shortcut/modal.shortcut.css">
   <link rel="stylesheet" href="app/modal/teams/team_invite/invite_emails/invite.emails.css">
@@ -145,6 +147,7 @@
   <link rel="stylesheet" href="app/util/css/spinners.css">
   <link rel="stylesheet" href="app/util/directive/custom-selectbox/jnd.selectbox.css">
   <link rel="stylesheet" href="app/util/directive/dropdown-position/dropdown.position.css">
+  <link rel="stylesheet" href="app/util/directive/dropdown-selectbox/jnd.dropdown.selectbox.css">
   <link rel="stylesheet" href="app/util/directive/file-drop/jnd.file.drop.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
@@ -188,14 +191,6 @@
            ng-class="{'opac_in extend': isOpenFileDetail,
                       'hidden': !isOpenFileDetail,
                       'scroll_gray': !browser.platform.isMac}">
-      </div>
-      <div class="rpanel__background">
-        <div class="rpanel__background-header"></div>
-        <div class="rpanel__background-body">
-          <div class="rpanel__loading">
-            <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-          </div>
-        </div>
       </div>
     </div>
     <tutorial-welcome ng-if="tutorial.isShowWelcome"></tutorial-welcome>
@@ -305,6 +300,7 @@
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.member.service.js"></script>
 <script src="app/util/directive/custom-selectbox/jnd.selectbox.room.directive.js"></script>
 <script src="app/util/directive/dropdown-position/dropdown.position.directive.js"></script>
+<script src="app/util/directive/dropdown-selectbox/jnd.dropdown.selectbox.directive.js"></script>
 <script src="app/util/directive/file-drop/jnd.file.drop.controller.js"></script>
 <script src="app/util/directive/file-drop/jnd.file.drop.directive.js"></script>
 <script src="app/util/directive/jnd.code.prettify.directive.js"></script>
@@ -531,7 +527,12 @@
 <script src="app/modal/password/password.reset.request.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
-<script src="app/modal/settings/notification/setting.notification.audio.directive.js"></script>
+<script src="app/modal/settings/notification/alert/setting.notification.alert.audio.menu.directive.js"></script>
+<script src="app/modal/settings/notification/alert/setting.notification.alert.controller.js"></script>
+<script src="app/modal/settings/notification/alert/setting.notification.alert.directive.js"></script>
+<script src="app/modal/settings/notification/email/setting.notification.email.api.service.js"></script>
+<script src="app/modal/settings/notification/email/setting.notification.email.controller.js"></script>
+<script src="app/modal/settings/notification/email/setting.notification.email.directive.js"></script>
 <script src="app/modal/settings/notification/setting.notification.controller.js"></script>
 <script src="app/modal/shortcut/modal.shortcut.controller.js"></script>
 <script src="app/modal/teams/team_invite/invite_emails/invite.emails.directive.js"></script>
