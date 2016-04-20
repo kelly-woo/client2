@@ -204,7 +204,7 @@
      * @private
      */
     function _getFullDayText(dayKey) {
-      return _translate('@jnd-connect-88') + ' '+ _translate(dayKey);
+      return _translate(dayKey);
     }
   }
 })();
