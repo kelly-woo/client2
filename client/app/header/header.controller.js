@@ -85,6 +85,9 @@
         team: false,
         help: false
       };
+
+      _setIntercomLanguage();
+
       _initTutorialBlink();
       _attachEvents();
     }
@@ -174,6 +177,8 @@
       $scope.$on('Tutorial:complete', _onTutorialComplete);
 
       $scope.$on('Router:openRightPanel', _onRightPanelOpen);
+
+      $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -420,6 +425,26 @@
       $event.stopPropagation();
 
       jndPubSub.pub('headerCtrl:teamSwitchOpen');
+    }
+
+    /**
+     * 현재 사용중인 멤버정보 변경 이벤트 핸들러
+     * @private
+     */
+    function _onCurrentMemberChanged() {
+      $scope.intercomMember = memberService.getMember();
+    }
+
+    function _setIntercomLanguage() {
+      var language = accountService.getAccountLanguage();
+
+      if (language === 'zh-cn') {
+        language = 'zh-CN'
+      } else if (language === 'zh-tw') {
+        language = 'zh-TW';
+      }
+
+      $scope.intercomLanguage = language;
     }
   }
 })();

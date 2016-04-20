@@ -41,6 +41,7 @@
         },
         dropbox: '@@dropbox_api_key'
       },
+      intercom_app_id: '@@intercom_app_id',
       cors: {
         api_address: '@@cors_api_address',
         file_address: '@@cors_file_address'

@@ -7,6 +7,7 @@
 
   angular
     .module('jandi.ui', [
+      'jandi.ui.intercom',
       'jandi.ui.dialog',
       'jandi.ui.profileImage'
     ])
