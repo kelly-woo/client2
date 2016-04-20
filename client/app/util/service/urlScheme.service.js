@@ -31,7 +31,9 @@
                       access_token +
                       '&' +
                       refresh_token +
-                      '/#Intent;scheme=tosslabjandi;package=com.tosslab.jandi.app;end;';
+                      '/#Intent;scheme=tosslabjandi;package=' +
+                      configuration.android_package +
+                      ';end;';
 
         redirectTo(url_to_app);
       } else {

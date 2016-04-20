@@ -31,6 +31,7 @@
       external_share_address: '@@external_share_address',
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',
+      android_package     : '@@android_package',
       last_update_message : '@@last_update_message',
       analytics_server    : '@@analytics_server',
       integration: {
