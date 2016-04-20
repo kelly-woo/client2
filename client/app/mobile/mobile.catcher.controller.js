@@ -44,10 +44,10 @@
       } 
         
       $('.body').removeClass('full-screen');
-      $('.mobile-catcher').height($(window).height())
+      $('.mobile-view').height($(window).height())
 
       $('.signin-mobile-background-img').bind('load', function() {
-        $('.mobile-catcher').css('opacity', 1);
+        $('.mobile-view').css('opacity', 1);
       });
 
       publicService.hideDummyLayout();
@@ -68,7 +68,7 @@
      * @private
      */
     function _attachDomEvents() {
-      $('.mobile-catcher').on('click', _onClick);
+      $('.mobile-view').on('click', _onClick);
     }
 
     /**
@@ -130,7 +130,7 @@
      * @private
      */
     function _detachDomEvents() {
-      $('.mobile-catcher').off('click', _onClick);
+      $('.mobile-view').off('click', _onClick);
     }
 
     /**
