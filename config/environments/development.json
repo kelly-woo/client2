@@ -1,6 +1,7 @@
 {
   "name"                   : "development",
   "path"                   : "app/",
+  "protocol"               : "https://",
   "domain"                 : "jandi.io",
   "api_address"            : "https://i1.jandi.io/",
   "api_connect_address"    : "https://i1.jandi.io/connect-api/",
