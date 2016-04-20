@@ -2502,6 +2502,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結果"
 "が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あります"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件の検索結果"
+"があります"
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "全員選択"
@@ -3841,9 +3847,6 @@ msgstr "水曜日"
 
 #~ msgid "@header-menu"
 #~ msgstr "メニュー"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr "件あります"
 
 #~ msgid "@file-audio"
 #~ msgstr "音声"

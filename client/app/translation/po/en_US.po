@@ -2499,6 +2499,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
 "for <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
+"found"
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "Select all members"
@@ -4008,9 +4014,6 @@ msgstr "Wednesday"
 
 #~ msgid "@header-menu"
 #~ msgstr "Menu"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr " "
 
 #~ msgid "@file-audio"
 #~ msgstr "Audio"

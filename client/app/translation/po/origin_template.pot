@@ -2360,6 +2360,10 @@ msgstr ""
 msgid "@search-result-summary"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr ""

@@ -2499,6 +2499,12 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 결"
 "과가 있습니다."
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@search-result-summary-without-keyword"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 결"
+"과가 있습니다."
+
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@select-all-members"
 msgstr "모든 멤버 선택하기"
@@ -4040,9 +4046,6 @@ msgstr "수요일"
 
 #~ msgid "@header-menu"
 #~ msgstr "메뉴"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr "개의 검색 결과가 있습니다."
 
 #~ msgid "@file-audio"
 #~ msgstr "오디오"

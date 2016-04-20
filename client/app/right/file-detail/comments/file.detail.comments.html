@@ -1,7 +1,8 @@
 <div class="rpanel-detail-body-comment">
   <div class="comment-item"
-       ng-class="{'sending-comment-item': comment.isSendingComment}" ng-repeat="comment in comments" id="{{comment.id}}"
-       ng-class="{'file-detail-disabled-member': comment.extIsDisabledMember}">
+       ng-class="{'sending-comment-item': comment.isSendingComment,
+                  'file-detail-disabled-member': comment.extIsDisabledMember}"
+       ng-repeat="comment in comments" id="{{comment.id}}">
     <div class="comment-item__thumbnail">
       <img class="user-profile user-thumb-sm cursor_pointer"
            ng-src="{{ comment.extProfileImg }}"
