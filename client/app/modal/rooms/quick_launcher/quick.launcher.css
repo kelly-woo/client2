@@ -1,3 +1,7 @@
+.quick-launcher-backdrop {
+  background-color: transparent;
+}
+
 .quick-launcher-modal.modal {
   overflow: inherit;
 }
@@ -14,6 +18,7 @@
   background-color: transparent;
   border-radius: 5px;
   overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .28);
 }
 
 .quick-launcher-modal .modal-dialog {
