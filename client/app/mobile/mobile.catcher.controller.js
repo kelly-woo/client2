@@ -30,7 +30,8 @@
     $scope.isLang = function(lang) {
       return $rootScope.language == lang;
     };
-
+    $scope.hideDebug = hideDebug;
+    
     _init();
 
     /**
@@ -75,14 +76,31 @@
      * @private
      */
     function _onClick() {
-      var urlData;
       _enqueueTouch();
       if (_isDebugAlertActivate()) {
-        urlData = urlScheme.getUrlScheme();
-        alert(urlData.app);
+        _showDebug();
+        _touchQueue = [];
       }
     }
 
+    /**
+     * debug 를 노출한다.
+     * @private
+     */
+    function _showDebug() {
+      var urlData = urlScheme.getUrlScheme();
+      var jqDebug = $('._debug');
+      jqDebug.find('.context').text(urlData.app);
+      jqDebug.show();      
+    }
+
+    /**
+     * debug 를 숨긴다.
+     */
+    function hideDebug() {
+      $('._debug').hide();
+    }
+    
     /**
      * touch 정보를 enqueue 한다.
      * @private

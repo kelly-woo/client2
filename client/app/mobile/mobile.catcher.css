@@ -74,3 +74,14 @@
     width: 146px;
     padding: 5px 0;
 }
+
+.mobile-view .debug {
+  display:none;
+  position:absolute;
+  background: #FFFFFF;
+  opacity: 0.8;
+}
+
+.mobile-view .debug .footer {
+  text-align: center;
+}
