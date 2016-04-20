@@ -8,7 +8,8 @@
   /* @ngInject */
   function urlScheme(storageAPIservice, $rootScope, configuration) {
     this.urlScheme = urlScheme;
-
+    this.getUrlScheme = getUrlScheme;
+    
     function redirectTo(url) {
       // Direct to 'url'.
       window.location.href = url;
@@ -18,32 +19,46 @@
      * Send url scheme.
      */
     function urlScheme() {
-      var url_to_app, url_to_store;
+      var urlData = getUrlScheme(); 
+      
+      if (_isAndroid()) {
+        redirectTo(urlData.app);
+      } else {
+        // iOS.
+        _startApp(urlData.app, urlData.store);
+      }
+    }
 
+    /**
+     * url scheme 정보를 반환한다.
+     * @returns {{app: string, store: string}}
+     */
+    function getUrlScheme() {
+      var urlToApp, urlToStore;
       var access_token = _getAccessToken();
       var refresh_token = _getRefreshToken();
 
-      url_to_app = 'tosslabjandi://open?' + access_token + '&' + refresh_token;
-
       if (_isAndroid()) {
         // Android.
-        url_to_app = 'intent://open?' +
-                      access_token +
-                      '&' +
-                      refresh_token +
-                      '/#Intent;scheme=tosslabjandi;package=' +
-                      configuration.android_package +
-                      ';end;';
-
-        redirectTo(url_to_app);
+        urlToApp = 'intent://open?' +
+          access_token +
+          '&' +
+          refresh_token +
+          '/#Intent;scheme=tosslabjandi;package=' +
+          configuration.android_package +
+          ';end;';
+        urlToStore = configuration.play_store_address
       } else {
         // iOS.
-        url_to_store = configuration.app_store_address;
-        _startApp(url_to_app, url_to_store);
+        urlToApp = 'tosslabjandi://open?' + access_token + '&' + refresh_token;
+        urlToStore = configuration.app_store_address;
       }
-
+      return {
+        app: urlToApp,
+        store: urlToStore
+      };
     }
-
+    
     /**
      *
      * @returns {boolean}
