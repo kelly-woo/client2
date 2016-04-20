@@ -21,6 +21,7 @@
   "external_share_address" : "https://www.jandi.io/file/",
   "app_store_address"      : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
   "play_store_address"     : "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app",
+  "android_package"        : "com.tosslab.jandi.app.dev",
   "last_update_message"    : "04/06/2014 22:40:00",
   "google_drive_client_id" : "524738787050-kbtakm80taogkq92uipgh52uknntb88r.apps.googleusercontent.com",
   "google_drive_api_key"   : "AIzaSyBXY2VwgYwzkudO7ylofzkT0WmZ1JpzP2k",
