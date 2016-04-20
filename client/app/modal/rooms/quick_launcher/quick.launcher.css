@@ -14,11 +14,11 @@
 }
 
 .quick-launcher-modal .modal-content {
-  opacity: .93;
+  opacity: 0.98;
   background-color: transparent;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .28);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, .35);
 }
 
 .quick-launcher-modal .modal-dialog {
