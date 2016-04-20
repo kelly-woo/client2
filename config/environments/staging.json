@@ -1,6 +1,7 @@
 {
   "name"                   : "staging",
   "path"                   : "app/",
+  "protocol"               : "https://",
   "domain"                 : "jandi.com",
   "api_address"            : "https://i1.jandi.com/",
   "api_connect_address"    : "https://i1.jandi.com/connect-api/",

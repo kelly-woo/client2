@@ -1,6 +1,7 @@
 {
   "name"                   : "local",
   "path"                   : "app/",
+  "protocol"               : "http://",
   "domain"                 : "jandi.xyz",
   "api_address"            : "http://i1.jandi.xyz/",
   "api_connect_address"    : "http://i1.jandi.xyz/connect-api/",
