@@ -33,7 +33,8 @@
 
       return _template({
         text: {
-          admin: $filter('translate')('@common-team-admin')
+          admin: $filter('translate')('@common-team-admin'),
+          invitationResend: $filter('translate')('@dummy-invitation-resend')
         },
         html: {
           userName: $filter('typeaheadHighlight')(data.name, filterText)
