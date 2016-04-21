@@ -279,6 +279,10 @@ msgid "@common-comment"
 msgstr "留言"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-comment-create"
+msgstr "留言"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-connect-setting"
 msgstr "JANDI Connect 設定"
 
@@ -2325,6 +2329,26 @@ msgstr "密碼重設的電子郵件無法寄出，請重試一次。"
 msgid "@password-reset-email-sent"
 msgstr "電子郵件已經成功寄出"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-loadingfail-msg"
+msgstr "無法預覽此檔案，請下載瀏覽"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-fittoscreen"
+msgstr "顯示全螢幕(F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-print"
+msgstr "列印"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomin"
+msgstr "放大 (+)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomout"
+msgstr "縮小 (-)"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人議題"
@@ -2668,6 +2692,10 @@ msgstr "縮小頁面"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
 msgstr "重置頁面大小"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@socket-connection-lost"
+msgstr "您的電腦與 JANDI 伺服器中斷連線，我們正嘗試重新連線，請您稍後..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sounds-arise"
@@ -3468,9 +3496,6 @@ msgstr "三"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr "恭喜 {{username}}！"
-
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "拖拽您的檔案到這裏上傳"
 
 #~ msgid "@placeholder-input-message"
 #~ msgstr "輸入訊息（Shift+Enter 進行換行）"

@@ -284,6 +284,10 @@ msgid "@common-comment"
 msgstr "댓글"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-comment-create"
+msgstr "댓글 작성"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-connect-setting"
 msgstr "잔디 커넥트 설정하기"
 
@@ -2409,6 +2413,26 @@ msgstr "패스워드 초기화 이메일 발송에 실패했습니다"
 msgid "@password-reset-email-sent"
 msgstr "이메일이 성공적으로 발송되었습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-loadingfail-msg"
+msgstr "파일을 불러오는 데에 실패했습니다. 다운로드 후 확인해주세요."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-fittoscreen"
+msgstr "최대화 (F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-print"
+msgstr "프린트"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomin"
+msgstr "크게 (+)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomout"
+msgstr "작게 (-)"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "토픽 생성 "
@@ -2759,6 +2783,10 @@ msgstr "글자 크기 축소"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
 msgstr "글자 크기 기본값으로 복원"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@socket-connection-lost"
+msgstr "잔디 서버와의 접속이 끊어졌습니다. 잠시만 기다려주세요..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sounds-arise"
@@ -3467,7 +3495,7 @@ msgstr "에 댓글을 남겼습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-message-file-comment-pre"
-msgstr "{{"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
@@ -3801,9 +3829,6 @@ msgstr "수요일"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr "축하합니다!"
-
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "파일을 이곳에 드래그 & 드롭하여 업로드하세요"
 
 #~ msgid "@placeholder-input-message"
 #~ msgstr "메시지를 입력하세요 (Shift + Enter로 줄바꿈이 가능합니다)"

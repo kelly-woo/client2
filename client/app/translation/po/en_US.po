@@ -289,6 +289,10 @@ msgid "@common-comment"
 msgstr "Comment"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-comment-create"
+msgstr "Comment"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-connect-setting"
 msgstr "JANDI Connect Settings"
 
@@ -2409,6 +2413,26 @@ msgstr "Your password reset email could not be sent. Please try again."
 msgid "@password-reset-email-sent"
 msgstr "Email was sent successfully"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-loadingfail-msg"
+msgstr "Unable to load the file. Please download to open the file."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-fittoscreen"
+msgstr "Fit to screen (F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-print"
+msgstr "Print"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomin"
+msgstr "Zoom In (+)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomout"
+msgstr "Zoom Out (-)"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "Private Topics"
@@ -2757,6 +2781,11 @@ msgstr "Zoom out (text)"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
 msgstr "Reset zoom (text)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@socket-connection-lost"
+msgstr ""
+"You are disconnected from the JANDI server. Please wait as we try again..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sounds-arise"
@@ -3775,9 +3804,6 @@ msgstr "Wednesday"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr "CONGRATULATIONS {{username}}!"
-
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "Drag and drop your file here to upload"
 
 #~ msgid "@placeholder-input-message"
 #~ msgstr "Enter your message (press Shift+Enter for multiple lines)"

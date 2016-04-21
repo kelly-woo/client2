@@ -265,6 +265,10 @@ msgid "@common-comment"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-comment-create"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-connect-setting"
 msgstr ""
 
@@ -2273,6 +2277,26 @@ msgstr ""
 msgid "@password-reset-email-sent"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-loadingfail-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-fittoscreen"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-print"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomin"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomout"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr ""
@@ -2610,6 +2634,10 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@shortcut-zoom-reset"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@socket-connection-lost"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
