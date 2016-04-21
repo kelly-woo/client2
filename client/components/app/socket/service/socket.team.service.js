@@ -9,7 +9,7 @@
     .service('jndWebSocketTeam', jndWebSocketTeam);
 
   /* @ngInject */
-  function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice, UserList, BotList,
+  function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice, UserList, BotList, jndPubSub,
                             configuration, jndWebSocketEmitter, publicService, jndWebSocketCommon) {
     var _isConnected;
 
@@ -184,9 +184,20 @@
      * @private
      */
     function _onTeamLeft(socketEvent) {
+      var member = socketEvent.member;
+
+      // 내가 현재 팀을 나갔을 경우
       if (jndWebSocketCommon.isActionFromMe(socketEvent.member.id)) {
-        // 내가 현재 팀을 나갔을 경우
         publicService.redirectToMain();
+      } else {
+        UserList.extend(member.id, {
+          status: 'removed'
+        });
+        jndPubSub.pub('updateChatList');
+
+        if (currentSessionHelper.getCurrentEntityId() === member.id) {
+          publicService.goToDefaultTopic();
+        }
       }
     }
 
