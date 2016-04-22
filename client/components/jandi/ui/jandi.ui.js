@@ -9,7 +9,8 @@
     .module('jandi.ui', [
       'jandi.ui.intercom',
       'jandi.ui.dialog',
-      'jandi.ui.profileImage'
+      'jandi.ui.profileImage',
+      'jandi.ui.pdfViewer'
     ])
     .run(run)
     .config(config);
