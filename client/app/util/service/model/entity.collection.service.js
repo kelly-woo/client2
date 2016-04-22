@@ -68,7 +68,7 @@
        */
       _toLowerPlural: function(item) {
         //@fixme: 현재 entity.service.js 의 extend 에서 's' 를 붙여주는 로직에 대한 호환성을 위해 아래와 같은 로직을 수행한다.
-        if (item.type) {
+        if (item.type && !item.type.endsWith('s')) {
           item.type = item.type.toLowerCase() + 's';
         }
       }
