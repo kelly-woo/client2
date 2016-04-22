@@ -839,6 +839,10 @@ msgid "@dm-menu-profile"
 msgstr "View Profile"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dnd-file-upload-msg"
+msgstr "Drag and drop your file here to upload"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
 msgstr "This member has an open invitation."
 

@@ -835,6 +835,10 @@ msgid "@dm-menu-profile"
 msgstr "プロファイルを表示"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dnd-file-upload-msg"
+msgstr "ファイルをドラッグ＆ドロップして共有"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
 msgstr "チームに招待中のユーザーです。"
 
