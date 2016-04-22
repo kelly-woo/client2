@@ -109,19 +109,53 @@
         //<a href="<a href="http://naver.com">http://naver.com</a>">네이버</a>
 
         if (stra[1] && stra[5]) {
-          parsedText = parsedText.replace(stra[0], stra[1] + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
+          parsedText = _replace(parsedText, stra[0], stra[1] + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
         } else if(stra[1]) {
-          parsedText = parsedText.replace(stra[0], stra[1] + anchorList[stra[4]] + (stra[5]||''));
+          parsedText = _replace(parsedText, stra[0], stra[1] + anchorList[stra[4]] + (stra[5]||''));
         } else {
-          parsedText = parsedText.replace(stra[0], anchorList[stra[4]] + (stra[5]||''));
+          parsedText = _replace(parsedText, stra[0], anchorList[stra[4]] + (stra[5]||''));
         }
       }
       return parsedText;
     }
 
+    /**
+     * Javascript 문자열 replace 와 같은 역할을 수행하는 함수.
+     * replace 는 newValue 값에 아래와 같은 문자가 포함되어있을 경우 특수한 동작을 수행하기 때문이다.
+     *
+     * $& - Refers to the entire text of the current pattern match.
+     * $` - Refers to the text to the left of the current pattern match.
+     * $' - Refers to the text to the right of the current pattern match.
+     *
+     * @see http://www.bennadel.com/blog/2198-special-references-in-javascript-s-string-replace-method.htm
+     * @param {string} str
+     * @param {string} searchValue
+     * @param {string} newValue
+     * @returns {string}
+     * @private
+     */
+    function _replace(str, searchValue, newValue) {
+      var index;
+      var arr = [];
+      if (str) {
+        index = str.indexOf(searchValue);
+        arr.push(str.substr(0, index));
+        arr.push(newValue);
+        arr.push(str.substr(index + searchValue.length));
+      }
+      return arr.join('');
+    }
+
+    /**
+     * anchor marker 문자열을 반환한다.
+     * @param index
+     * @returns {string}
+     * @private
+     */
     function _getAnchorMarker(index) {
       return '§§§anchorMarker' + index + '§§§';
     }
+    
     /**
      * bold, italic 파서
      * micromarkdown 에서 필요한 로직만 추출하여 활용 함.
@@ -138,15 +172,15 @@
     function _parseBoldItalic(str) {
       var stra;
       while ((stra = (new RegExp(_regx.bolditalic)).exec(str)) !== null) {
-        str = str.replace(stra[0], '<i><b>' + stra[2] + '</b></i>');
+        str = _replace(str, stra[0], '<i><b>' + stra[2] + '</b></i>');
       }
 
       while ((stra = (new RegExp(_regx.bold)).exec(str)) !== null) {
-        str = str.replace(stra[0], '<b>' + stra[2] + '</b>');
+        str = _replace(str, stra[0], '<b>' + stra[2] + '</b>');
       }
 
       while ((stra = (new RegExp(_regx.italic)).exec(str)) !== null) {
-        str = str.replace(stra[0], '<i>' + stra[2] + '</i>');
+        str = _replace(str, stra[0], '<i>' + stra[2] + '</i>');
       }
 
       return str;
@@ -161,7 +195,7 @@
     function _parseStrikeThrough(str) {
       var stra;
       while ((stra = (new RegExp(_regx.strikethrough)).exec(str)) !== null) {
-        str = str.replace(stra[0], '<del>' + stra[2] + '</del>');
+        str = _replace(str, stra[0], '<del>' + stra[2] + '</del>');
       }
       return str;
     }
@@ -179,20 +213,20 @@
 
       while ((stra = _regx.marker.exec(str)) !== null) {
         _regx.marker.lastIndex = 0;
-        str = str.replace(stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
+        str = _replace(str, stra[0], (stra[1]||'') + _getTextFromAnchor(anchorList[stra[4]]) + (stra[5]||''));
       }
 
       /* links */
       while ((stra = (new RegExp(_regx.links)).exec(str)) !== null) {
         if (stra[0].substr(0, 1) === '!') {
-          str = str.replace(stra[0], '<img src="' + stra[4] + '" style="max-width:100%" alt="' + stra[2] + '" title="' + stra[1] + '" />\n');
+          str = _replace(str, stra[0], '<img src="' + stra[4] + '" style="max-width:100%" alt="' + stra[2] + '" title="' + stra[1] + '" />\n');
         } else {
-          str = str.replace(stra[0], '<a href="' + stra[4] + '" target="_blank" rel="nofollow">' + stra[2] + '</a>');
+          str = _replace(str, stra[0], '<a href="' + stra[4] + '" target="_blank" rel="nofollow">' + stra[2] + '</a>');
         }
       }
       _.forEach(anchorList, function(anchor, index) {
         anchorText = _getTextFromAnchor(anchor);
-        str = str.replace(anchorText, _getAnchorMarker(index));
+        str = _replace(str, anchorText, _getAnchorMarker(index));
       });
       return str;
     }
