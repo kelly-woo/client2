@@ -140,7 +140,7 @@ input[type="email"] {
 }
 
 .opac-zero {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .opac-in {
