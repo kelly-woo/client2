@@ -51,7 +51,7 @@
        * @private
        */
       function _init() {
-        $templateCache.put('jnd-dropdown-selectbox-template', '<span class="option-text">{{::item.text}}</span>');
+        $templateCache.put('jnd-dropdown-selectbox-template', '<span class="option-text">{{item.text}}</span>');
         scope.template = scope.template || 'jnd-dropdown-selectbox-template';
 
         _setCurrentSelected();
