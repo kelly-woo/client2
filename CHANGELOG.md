@@ -1,3 +1,29 @@
+<a name="1.24.0"></a>
+# [1.24.0](https://github.com/tosslab/web_client/compare/v1.23.2...v1.24.0) (2016-04-20)
+
+
+### Bug Fixes
+
+* **dropdown-selectbox:** value 값 실시간으로 변경되지 않는 현상 수정 ([c92d4a2](https://github.com/tosslab/web_client/commit/c92d4a2))
+
+### Features
+
+* **setting:** E-mail notification 설정 옵션 추가 ([4c2c470](https://github.com/tosslab/web_client/commit/4c2c470))
+* **setting:** email notification 매 시간으로 설정 시 시간 선택 옵션 표시하지 않음 ([a207d5e](https://github.com/tosslab/web_client/commit/a207d5e))
+* **setting:** 알림 설정을 껐다 켰을 때 테스트 메시지 버튼이 잘림 현상 수정 ([f1f7964](https://github.com/tosslab/web_client/commit/f1f7964))
+
+
+
+<a name="1.23.2"></a>
+## [1.23.2](https://github.com/tosslab/web_client/compare/v1.23.1...v1.23.2) (2016-04-15)
+
+
+### Bug Fixes
+
+* **alertUnknownError:** 504 gateway 오류일 경우 -1 alert 노출되는 현상 보강 ([ac6b1f5](https://github.com/tosslab/web_client/commit/ac6b1f5))
+
+
+
 <a name="1.23.1"></a>
 ## [1.23.1](https://github.com/tosslab/web_client/compare/v1.23.0...v1.23.1) (2016-04-14)
 

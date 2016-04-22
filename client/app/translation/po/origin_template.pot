@@ -809,6 +809,10 @@ msgid "@dm-menu-profile"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dnd-file-upload-msg"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
 msgstr ""
 
