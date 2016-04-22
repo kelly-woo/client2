@@ -62,15 +62,26 @@
       },
 
       /**
-       *
-       * @param item
+       * item 의 type 을 lower case 이면서 복수 형태로 변환한다.
+       * @param {object} item
        * @private
        */
       _toLowerPlural: function(item) {
         //@fixme: 현재 entity.service.js 의 extend 에서 's' 를 붙여주는 로직에 대한 호환성을 위해 아래와 같은 로직을 수행한다.
-        if (item.type && !item.type.endsWith('s')) {
+        if (item.type && !this._isPlural(item.type)) {
           item.type = item.type.toLowerCase() + 's';
         }
+      },
+
+      /**
+       * 단어가 복수 인지 확인한다.
+       * @param str
+       * @returns {Object|*|boolean}
+       * @private
+       */
+      _isPlural: function(str) {
+        var length = CoreUtil.pick(str, length);
+        return !!(length && str[length - 1] === 's');
       }
     });
 
