@@ -206,7 +206,7 @@ app.controller('leftPanelController', function(
     var entityType = $state.params.entityType || 'total';
     EntityHandler.parseLeftSideMenuData(response);
     _parseAlarmInfoCount(response.alarmInfoCount, response.alarmInfos);
-    entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
+    entityAPIservice.setCurrentEntityWithId(entityId);
     TopicFolderModel.update();
   }
 

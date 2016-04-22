@@ -289,6 +289,10 @@ msgid "@common-comment"
 msgstr "Comment"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@common-comment-create"
+msgstr "Comment"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-connect-setting"
 msgstr "JANDI Connect Settings"
 
@@ -836,7 +840,7 @@ msgstr "View Profile"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
-msgstr "This member hasn't accepted the invitation yet"
+msgstr "This member has an open invitation."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
@@ -2409,6 +2413,26 @@ msgstr "Your password reset email could not be sent. Please try again."
 msgid "@password-reset-email-sent"
 msgstr "Email was sent successfully"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-loadingfail-msg"
+msgstr "Unable to load the file. Please download to open the file."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-fittoscreen"
+msgstr "Fit to screen (F)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-print"
+msgstr "Print"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomin"
+msgstr "Zoom In (+)"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@pdfviewer-tooltip-zoomout"
+msgstr "Zoom Out (-)"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "Private Topics"
@@ -2759,6 +2783,11 @@ msgid "@shortcut-zoom-reset"
 msgstr "Reset zoom (text)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@socket-connection-lost"
+msgstr ""
+"You are disconnected from the JANDI server. Please wait as we try again..."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sounds-arise"
 msgstr "Arise"
 
@@ -2969,9 +2998,9 @@ msgstr "Topic administrator permissions has been transferred successfully"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@topic-admin-transfer-tooltip"
 msgstr ""
-"Topic admin holds permissions as below:- Changing the topic name/"
-"descripiton- Deleting the topic- Forcing quit topic participants- Pausing/"
-"Deleting JANDI Connect integrations"
+"Topic admins have the permission to: - Change the topic name and description "
+"- Delete the topic - Kick a topic participant - Block third party "
+"integrations"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/topics/topic_create/topic.create.html
@@ -3775,9 +3804,6 @@ msgstr "Wednesday"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr "CONGRATULATIONS {{username}}!"
-
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "Drag and drop your file here to upload"
 
 #~ msgid "@placeholder-input-message"
 #~ msgstr "Enter your message (press Shift+Enter for multiple lines)"

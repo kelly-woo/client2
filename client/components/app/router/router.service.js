@@ -170,7 +170,7 @@
         }
 
         if (!event.defaultPrevented) {
-          _setCurrentEntityWithTypeAndId(toParams.entityType, toParams.entityId);
+          entityAPIservice.setCurrentEntityWithId(toParams.entityId);
         }
       }
     }
@@ -218,16 +218,6 @@
       });
 
       return !(fromState.name === toState.name && _.isEqual(fromParams, toParams));
-    }
-
-    /**
-     * $rootScope에 있는 currentEntity를 업데이트해준다.
-     * @param entityType {string} 엔티티의 타입
-     * @param entityId {string 혹은 number} 엔티티의 아이디
-     * @private
-     */
-    function _setCurrentEntityWithTypeAndId(entityType, entityId) {
-      entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
     }
   }
 })();
