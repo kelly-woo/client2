@@ -1,3 +1,13 @@
+<a name="1.24.1"></a>
+## [1.24.1](https://github.com/tosslab/web_client/compare/v1.24.0...v1.24.1) (2016-04-22)
+
+
+### Bug Fixes
+
+* **markdown:** $&, $`, $' 문자열이 들어갔을 경우, 무한 루프에 빠지는 현상 수정 ([bb2f908](https://github.com/tosslab/web_client/commit/bb2f908))
+
+
+
 <a name="1.24.0"></a>
 # [1.24.0](https://github.com/tosslab/web_client/compare/v1.23.2...v1.24.0) (2016-04-20)
 
