@@ -284,6 +284,14 @@
           expect(markdownString1).toEqual(expectString1);
         });
       });
+
+      describe('특수 장애 건에 대한 테스트', function() {
+        it('$&, $`, $\' 문자열이 들어갔을 경우', function() {
+          var markdownString1 = $filter('새 카드 &quot;[create symmetric key ChangeData with algorithm = AES_256 encryption by password = N&#39;dkaghghk12#$&#39;](<a href="https://www.trello.com/c/rCAfAHwp" target="_blank" rel="nofollow">https://www.trello.com/c/rCAfAHwp</a>)&quot; (이)가 &quot;[Certification](<a href="https://www.trello.com/b/2c2fxTtz" target="_blank" rel="nofollow">https://www.trello.com/b/2c2fxTtz</a>)&quot; 리스트에 추가되었습니다.');
+          var expectString1 = '새 카드 &quot;<a href="https://www.trello.com/c/rCAfAHwp" target="_blank" rel="nofollow">create symmetric key ChangeData with algorithm = AES_256 encryption by password = N&#39;dkaghghk12#$&#39;</a>&quot; (이)가 &quot;<a href="https://www.trello.com/b/2c2fxTtz" target="_blank" rel="nofollow">Certification</a>&quot; 리스트에 추가되었습니다.';
+          expect(markdownString1).toEqual(expectString1);
+        })
+      });
     });
   });
 })();
