@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('fileDetailPreview', fileDetailPreview);
 
-  function fileDetailPreview($filter, ExternalFile, modalHelper) {
+  function fileDetailPreview($filter, ExternalFile, modalHelper, JndPdfViewer, FileDetail) {
     return {
       restrict: 'E',
       replace: true,
@@ -37,7 +37,8 @@
         scope.onImageClick = onImageClick;
         scope.onImageLoad = onImageLoad;
         scope.onExternalShareClick = onExternalShareClick;
-
+        scope.loadPdf = loadPdf;
+        
         if (_content.extraInfo) {
           scope.width = _content.extraInfo.width;
           scope.height = _content.extraInfo.height;
@@ -45,8 +46,30 @@
         }
 
         _setImage(_content);
+        _setFileType();
       }
 
+      /**
+       * pdf 를 load 한다.
+       */
+      function loadPdf() {
+        JndPdfViewer.load(scope.originalUrl, scope.file);
+      }
+
+      /**
+       * 클릭시 동작 구별을 위해 file type 을 분류한다. 
+       * @private
+       */
+      function _setFileType() {
+        if (scope.hasImagePreview) {
+          scope.type = 'image-preview';
+        } else if (_content.ext === 'pdf' && !FileDetail.isIntegrateFile(_content.serverUrl)) {
+          scope.type = 'pdf';
+        } else {
+          scope.type = 'etc';
+        }
+      }
+      
       /**
        * file detail에서 preview 공간에 들어갈 image의 url을 설정한다.
        * @param {object} content

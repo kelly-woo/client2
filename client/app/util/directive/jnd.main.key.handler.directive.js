@@ -337,7 +337,7 @@
         scope.$on('$destroy', _onDestroy);
         scope.$on('document:visibilityChange', onVisibilityChange);
         scope.$on('$stateChangeSuccess', _onStateChageSuccess);
-        _jqBody.on('keydown', _onKeyInput);
+        $(window).on('keydown', _onKeyInput);
       }
 
       function _onStateChageSuccess(angularEvent, toState, toParams, fromState, fromParams) {
@@ -358,7 +358,7 @@
        * @private
        */
       function _off() {
-        _jqBody
+        $(window)
           .off('keydown', _onKeyInput);
       }
 
