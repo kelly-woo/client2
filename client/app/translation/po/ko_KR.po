@@ -832,6 +832,10 @@ msgid "@dm-menu-profile"
 msgstr "프로필 보기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dnd-file-upload-msg"
+msgstr "파일을 이곳에 드래그 & 드롭하여 업로드하세요"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
 msgstr "팀에 초대중인 멤버입니다."
 
