@@ -72,6 +72,7 @@
       function _updateIntercom() {
         if (!_hasBoot) {
           _hasBoot = true;
+          $window.Intercom('shutdown');
           $window.Intercom('boot',
             _.extend({app_id: configuration.intercom_app_id}, _getIntercomSetting())
           );
