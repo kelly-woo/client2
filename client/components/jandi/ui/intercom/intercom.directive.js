@@ -70,9 +70,12 @@
        * @private
        */
       function _updateIntercom() {
+        // 'web_landing'에서 동작하는 intercom의 쿠키가 'web_client'에 그대로 전달되어 잘못된 사용자 식별을 통해 유도하지 않은
+        // 메세지가 'web_client' intercom에 출력될 수 있으므로 쿠키를 삭제하는 shutdown을 호출한다.
+        $window.Intercom("shutdown");
+
         if (!_hasBoot) {
           _hasBoot = true;
-          $window.Intercom('shutdown');
           $window.Intercom('boot',
             _.extend({app_id: configuration.intercom_app_id}, _getIntercomSetting())
           );
