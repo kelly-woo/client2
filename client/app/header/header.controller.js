@@ -86,7 +86,7 @@
         help: false
       };
 
-      _setIntercomLanguage();
+      _initializeIntercomLanguage();
 
       _initTutorialBlink();
       _attachEvents();
@@ -435,7 +435,12 @@
       $scope.intercomMember = memberService.getMember();
     }
 
-    function _setIntercomLanguage() {
+    /**
+     * intercom 언어를 설정함.
+     * intercom 언어는 실시간으로 수정가능 하지만 'web_client'에서는 페이지 로드시 언어를 설정하므로 초기화 성격으로 수행되어야함.
+     * @private
+     */
+    function _initializeIntercomLanguage() {
       var language = accountService.getAccountLanguage();
 
       if (language === 'zh-cn') {
