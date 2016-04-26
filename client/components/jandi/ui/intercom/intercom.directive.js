@@ -48,6 +48,7 @@
        */
       function _attachDomEvents() {
         el.on('click', _onIntercomOpen);
+        $($window).unload(_onWindowUnload);
       }
 
       /**
@@ -66,14 +67,20 @@
       }
 
       /**
+       * window unload 이벤트 핸들러
+       * @private
+       */
+      function _onWindowUnload() {
+        // 'web_client'에서 동작하는 intercom의 쿠키가 'web_landing'에 그대로 전달되어 잘못된 사용자 식별을 통해 유도하지 않은
+        // 메세지가 'web_landing' intercom에 출력될 수 있으므로 쿠키를 삭제하는 shutdown을 호출한다.
+        $window.Intercom("shutdown");
+      }
+
+      /**
        * intercom에 표현되는 사용자 정보 갱신
        * @private
        */
       function _updateIntercom() {
-        // 'web_landing'에서 동작하는 intercom의 쿠키가 'web_client'에 그대로 전달되어 잘못된 사용자 식별을 통해 유도하지 않은
-        // 메세지가 'web_client' intercom에 출력될 수 있으므로 쿠키를 삭제하는 shutdown을 호출한다.
-        //$window.Intercom("shutdown");
-
         if (!_hasBoot) {
           _hasBoot = true;
           $window.Intercom('boot',
