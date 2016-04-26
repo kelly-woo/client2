@@ -30,13 +30,13 @@
   </div>
   <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
+  <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
+
   <div class="rpanel-body-content"
        right-scroll-loading
        load-more="loadMore()"
        is-load-more="searchStatus.isScrollLoading">
     <div ng-if="!isKeywordEmpty()">
-      <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
-
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
       <div class="break-word rpanel-alert-msg-container" ng-if="isEmpty()">
         <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">

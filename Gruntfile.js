@@ -752,26 +752,6 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.client %>/components/config/common/'
         }]
       },
-      local_ie9: {
-        options: {
-          patterns: [
-            {
-              json: grunt.file.readJSON('./config/environments/local_ie9.json')
-            },
-            {
-              json: {
-                version: '<%=pkg.version%>'
-              }
-            }
-          ]
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['./config/config.js'],
-          dest: '<%= yeoman.client %>/components/config/common/'
-        }]
-      },
       development: {
         options: {
           patterns: [

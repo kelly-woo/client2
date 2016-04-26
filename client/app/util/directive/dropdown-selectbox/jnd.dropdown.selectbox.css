@@ -12,6 +12,9 @@
   text-align: left;
   color: #424C53;
 }
+.jnd-dropdown-selectbox.btn-group .btn:first-child:not(.dropdown-toggle) {
+  border-radius: 4px;
+}
 
 .jnd-dropdown-selectbox .btn .icon {
   position: absolute;
@@ -30,11 +33,13 @@
 
 .jnd-dropdown-selectbox .dropdown-menu {
   width: 100%;
+  margin-top: 1px !important;
 }
 
 .jnd-dropdown-selectbox .dropdown-menu-option {
   padding: 8px 10px;
   cursor: pointer;
+  color: #333;
 }
 .jnd-dropdown-selectbox .dropdown-menu-option:hover {
   background-color: #f2fbff;

@@ -10,7 +10,7 @@
                             HybridAppHelper, NotificationManager, EntityHandler, BotList, UserList, RoomTopicList,
                             RoomChatDmList) {
     var service = {
-      setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
+      setCurrentEntityWithId: setCurrentEntityWithId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
 
@@ -27,7 +27,7 @@
 
     return service;
 
-    function setCurrentEntityWithTypeAndId(entityType, entityId) {
+    function setCurrentEntityWithId(entityId) {
       var currentEntity;
       if (!_.isUndefined(entityId)) {
         currentEntity = EntityHandler.get(entityId);
