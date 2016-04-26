@@ -144,7 +144,9 @@
   margin-left: -34px;
   margin-top: 3px;
   color: #000000;
-  max-width: 350px;
+  min-width: 280px;
+  word-wrap: break-word;
+  word-break: keep-all;
 }
 .center-panel-inactive-member .inactive-guide .arrow {
   left: 24px;
