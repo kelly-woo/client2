@@ -16,7 +16,7 @@
       onWakeUp: []
     };
 
-    var DELAY = 2000;
+    var DELAY = 60000;
     var _currentTime;
     var _lastTime;
 
