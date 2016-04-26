@@ -1,15 +1,15 @@
 /**
- * @fileoverview search user service
+ * @fileoverview search type user service
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .service('SearchUser', SearchUser);
+    .service('SearchTypeUser', SearchTypeUser);
 
   /* @ngInject */
-  function SearchUser($filter) {
+  function SearchTypeUser($filter) {
     var _that = this;
     var _translate = $filter('translate');
 

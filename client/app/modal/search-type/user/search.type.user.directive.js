@@ -1,30 +1,27 @@
 /**
- * @fileoverview search user directive
+ * @fileoverview search type user directive
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .directive('searchUser', searchUser);
+    .directive('searchTypeUser', searchTypeUser);
 
-  function searchUser($filter) {
+  function searchTypeUser() {
     return {
       restrict: 'E',
-      replace: true,
+      replace: false,
       scope: {
         keywordTypes: '&',
         keywordType: '=',
-        onKeywordTypeChangeCallback: '&onKeywordTypeChange',
-        jqFilter: '='
+        onKeywordTypeChangeCallback: '&onKeywordTypeChange'
       },
-      templateUrl: 'app/modal/search/user/search.user.html',
+      templateUrl: 'app/modal/search-type/user/search.type.user.html',
       link: link
     };
 
     function link(scope, el, attr, ctrl) {
-      var _translate = $filter('translate');
-
       _init();
 
       /**
@@ -32,12 +29,6 @@
        * @private
        */
       function _init() {
-        //scope.setJqFilter({
-        //  $jqFilter: el
-        //});
-        scope.jqFilter = el;
-        //searchUserCtrl.setFilterElement(el);
-
         scope.list = scope.keywordTypes();
 
         scope.selectedIndex = scope.activeIndex = _.findIndex(scope.list, 'value', scope.keywordType);
@@ -67,6 +58,7 @@
         if (scope.selectedIndex !== index) {
           selectItem = scope.list[index];
 
+          //console.log('select item ::: ', selectItem);
           scope.selectedIndex = index;
           scope.selectItemText = selectItem.text;
           scope.keywordType = selectItem.value;

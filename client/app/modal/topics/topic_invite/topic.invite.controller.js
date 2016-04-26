@@ -10,7 +10,7 @@
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice,
                            $state, $filter, RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub,
-                           memberService, SearchUser) {
+                           memberService, SearchTypeUser) {
     var msg1;
     var msg2;
 
@@ -25,7 +25,7 @@
       generateMemberList();
 
       $scope.keyword = '';
-      $scope.keywordTypes = SearchUser.getFilterTypes();
+      $scope.keywordTypes = SearchTypeUser.getFilterTypes();
       $scope.keywordType = $scope.keywordTypes[0].value;
 
       $scope.hasAllMembers = false;
@@ -42,7 +42,6 @@
       $scope.inviteTeamMsg2 = $filter('translate')(msg2);
 
       $scope.getMatches = getMatches;
-      $scope.jqFilter = {};
 
       $scope.onMemberClick = onMemberClick;
       $scope.onInviteTeamClick = onInviteTeamClick;
@@ -312,12 +311,9 @@
     /**
      * keyword type change event handler
      */
-    function onKeywordTypeChange() {
+    function onKeywordTypeChange($value) {
+      $scope.keywordType = $value;
       _updateMemberList();
-    }
-
-    function setJqFilter(jqFilter) {
-      $scope.jqFilter = jqFilter;
     }
   }
 })();

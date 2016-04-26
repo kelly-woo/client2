@@ -38,20 +38,18 @@
         </span>
       </div>
 
-      <!--<div class="input-group">-->
-        <!--<span class="input-group-addon"><i class="icon-search"></i></span>-->
-        <!--<input class="form-control"-->
-               <!--id="invite-member-filter"-->
-               <!--type="text"-->
-               <!--jnd-input-model="selectedUser"-->
-               <!--autofocus-->
-               <!--placeholder="{{'@input-search-user-name' | translate}}" />-->
-      <!--</div>-->
-
-      <search-user keyword-types="keywordTypes"
-                   keyword-type="keywordType"
-                   on-keyword-type-change="onKeywordTypeChange()"
-                   jq-filter="jqFilter"></search-user>
+      <div class="input-group search-user">
+        <span class="input-group-addon"><i class="icon-search"></i></span>
+        <input class="form-control"
+               id="invite-member-filter"
+               type="text"
+               jnd-input-model="keyword"
+               autofocus
+               placeholder="{{'@input-search-user-name' | translate}}" />
+        <search-type-user keyword-types="keywordTypes"
+                          keyword-type="keywordType"
+                          on-keyword-type-change="onKeywordTypeChange($value)"></search-type-user>
+      </div>
 
       <div class="member-list-container">
         <list-on-modal type="avaliableMember"
@@ -68,6 +66,7 @@
                        viewport-max-height="500"
                        buffer-length="10"></list-on-modal>
       </div>
+
       <div class="no-result-container" ng-show="!hasAllMembers && selectingMembers.length === 0">
         <span translate>@no-match-members</span>
       </div>
