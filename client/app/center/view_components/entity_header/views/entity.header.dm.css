@@ -146,8 +146,13 @@
   color: #000000;
   min-width: 280px;
   word-wrap: break-word;
-  word-break: keep-all;
 }
+.center-panel-inactive-member .inactive-guide:lang(ko),
+.center-panel-inactive-member .inactive-guide:lang(ja) {
+  word-break: keep-all;
+  max-width: 412px;
+}
+
 .center-panel-inactive-member .inactive-guide .arrow {
   left: 24px;
 }
