@@ -2419,7 +2419,7 @@ msgstr "Email was sent successfully"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@pdfviewer-loadingfail-msg"
-msgstr "Unable to load the file. Please download to open the file."
+msgstr "This file cannot be previewed. To view, please download it first."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@pdfviewer-tooltip-fittoscreen"
@@ -2788,8 +2788,7 @@ msgstr "Reset zoom (text)"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@socket-connection-lost"
-msgstr ""
-"You are disconnected from the JANDI server. Please wait as we try again..."
+msgstr "Searching for JANDI server..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@sounds-arise"
