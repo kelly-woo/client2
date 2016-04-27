@@ -10,6 +10,8 @@
 
   /* @ngInject */
   function MemberItemRenderer($filter, memberService, currentSessionHelper, SearchTypeUser) {
+    var _translate = $filter('translate');
+
     var _nameOnlyTemplate;
     var _nameWithExtTemplate;
 
@@ -35,7 +37,7 @@
 
       return _nameOnlyTemplate({
         text: {
-          admin: $filter('translate')('@common-team-admin')
+          admin: _translate('@common-team-admin')
         },
         html: _getHtml(data, filterText, filterType),
         css: {
@@ -64,10 +66,11 @@
       
       if (SearchTypeUser.isName(filterType)) {
         userName = $filter('typeaheadHighlight')(data.name, filterText);
-        extraText = data.status || '( 에엠프으티 )';
+        extraText = data.status || _translate('@common-status-msg');
       } else {
         userName = data.name;
-        extraText = $filter('typeaheadHighlight')(data[filterType], filterText) || '( 에엠프으티 )';
+        extraText = $filter('typeaheadHighlight')(data[filterType], filterText) ||
+          SearchTypeUser.getSearchPropertyL10N(filterType);
       }
 
       return {

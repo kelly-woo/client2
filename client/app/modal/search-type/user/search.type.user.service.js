@@ -31,12 +31,20 @@
       status: 'u_statusMessage'
     };
 
+    var serarhPropertyL10NMap = {
+      department: _translate('@common-department'),
+      position: _translate('@common-position'),
+      phone: _translate('@common-phone'),
+      status: _translate('@common-status-msg')
+    };
+
     _init();
 
     function _init() {
       _that.getFilterTypes = getFilterTypes;
       _that.isName = isName;
       _that.getSearchPropertyName = getSearchPropertyName;
+      _that.getSearchPropertyL10N = getSearchPropertyL10N;
     }
 
     /**
@@ -62,6 +70,15 @@
      */
     function getSearchPropertyName(type) {
       return searchPropertyNameMap[type];
+    }
+
+    /**
+     * 검색에 사용할 property의 l10n 전달
+     * @param {string} type
+     * @returns {*}
+     */
+    function getSearchPropertyL10N(type) {
+      return serarhPropertyL10NMap[type];
     }
   }
 })();
