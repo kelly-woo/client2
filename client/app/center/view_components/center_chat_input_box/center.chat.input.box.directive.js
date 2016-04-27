@@ -111,7 +111,7 @@
        * @private
        */
       function _onRoomTopicListChanged(angularEvent, changedIdMap) {
-        var currentId = scope.currentEntity.id;
+        var currentId = CoreUtil.pick(scope, 'currentEntity', 'id');
         if (changedIdMap[currentId]) {
           _setMentionList();
         }
