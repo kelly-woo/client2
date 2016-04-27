@@ -9,7 +9,7 @@
     .service('jndWebSocketMember', jndWebSocketMember);
 
   /* @ngInject */
-  function jndWebSocketMember(jndWebSocketCommon, memberService, jndPubSub,
+  function jndWebSocketMember(jndWebSocketCommon, memberService, jndPubSub, CoreUtil,
                               UserList) {
     var MEMBER_STARRED = 'member_starred';
     var MEMBER_UNSTARRED = 'member_unstarred';
@@ -72,8 +72,8 @@
       if (jndWebSocketCommon.isActionFromMe(member.id)) {
         memberService.onMemberProfileUpdated();
       }
-
-      jndPubSub.pub('updateMemberProfile', socketEvent);
+      
+      _notifyMemberUpdated(member);
     }
 
     function _onMemberPresenceUpdated(socketEvent) {
@@ -89,11 +89,21 @@
       var member = CoreUtil.pick(socketEvent, 'data', 'member');
       if (member) {
         UserList.extend(member.id, member);
-        jndPubSub.pub('jndWebSocketMember:memberUpdated', socketEvent);
+        _notifyMemberUpdated(member);
       }
     }
 
-
+    /**
+     * member 정보가 update 되었다는 이벤트를 notify 한다.
+     * @param {object} member
+     * @private
+     */
+    function _notifyMemberUpdated(member) {
+      jndPubSub.pub('jndWebSocketMember:memberUpdated', {
+        member: member
+      });
+    }
+    
     /**
      * When member profile information has been updated, local memberList must be updated too.
      *   1. update left panel in order to get new member list

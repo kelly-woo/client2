@@ -61,7 +61,7 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+      $scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
 
       $scope.$on('$destroy', _onDestroy);
     }

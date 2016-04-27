@@ -133,8 +133,6 @@
      */
     function _setCurrentEntity(entity) {
       if (!!entity) {
-        entity.members = RoomTopicList.getMemberIdList(entity.id);
-
         _currentEntity = entity;
         _entityId = entity.id;
         _entityType = entity.type;
