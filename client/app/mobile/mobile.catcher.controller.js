@@ -14,7 +14,7 @@
      * debug alert 을 노출하기 위해 필요한 duration 정보
      * @type {number}
      */
-    var DEBUG_TOUCH_DURATION = 5000;
+    var DEBUG_TOUCH_DURATION = 2500;
 
     /**
      * touch queue
