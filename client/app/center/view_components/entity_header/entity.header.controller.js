@@ -88,6 +88,8 @@
           _initWithParam(param);
         }
       });
+      $scope.$on('jndWebSocketMember:memberUpdated', _onMemberUpdated);
+      $scope.$on('RoomTopicList:changed', _onRoomTopicListChanged);
 
       $scope.$on('onTopicSubscriptionChanged', function(event, data) {
         if (data.room.id === parseInt(_entityId, 10)) {
@@ -145,6 +147,35 @@
 
         $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
         $scope.users = _getUsers(entity);
+      }
+    }
+
+    /**
+     * roomTopicList 정보가 변경되었을 때 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {object} changedIdMap - 변경된 topic 의 id map
+     *    @param {boolean} changedIdMap.id
+     * @private
+     */
+    function _onRoomTopicListChanged(angularEvent, changedIdMap) {
+      var currentId = $scope.currentEntity.id;
+      if (changedIdMap[currentId]) {
+        _setCurrentEntity(RoomTopicList.get(currentId));
+      }
+    }
+
+    /**
+     * member 정보 update 시 entity header 정보 업데이트
+     * ex) member 가 dummy 에서 실제 사용자로 변경 시, 혹은 이름 변경 시
+     * @param {object} angularEvent
+     * @param {object} data
+     *    @param {object} member  - 멤버 정보
+     * @private
+     */
+    function _onMemberUpdated(angularEvent, data) {
+      var currentId = $scope.currentEntity.id;
+      if (data.member.id === currentId) {
+        _initWithParam(EntityHandler.get(currentId));
       }
     }
 
