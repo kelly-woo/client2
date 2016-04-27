@@ -10,9 +10,11 @@
     .service('RoomTopicList', RoomTopicList);
 
   /* @ngInject */
-  function RoomTopicList($timeout, EntityCollection, UserList, jndPubSub) {
+  function RoomTopicList($timeout, $rootScope, EntityCollection, UserList, jndPubSub) {
     var _timerNotifyChange;
     var _collectionMap = {};
+    var _changedIdMap = {};
+    var _scope = $rootScope.$new();
 
     this.setList = setList;
     this.add = add;
@@ -47,6 +49,38 @@
       _collectionMap.unjoin = new EntityCollection({
         key: 'id'
       });
+      _attachScopeEvents();
+    }
+
+    /**
+     * scope 이벤트를 바인딩한다.
+     * @private
+     */
+    function _attachScopeEvents() {
+      _scope.$on('jndWebSocketTeam:memberLeft', _onMemberLeft);
+    }
+
+    /**
+     * member 가 team 에서 나간 경우, 모든 방에서 해당 member 에 대해 제거하는 처리를 한다.
+     * @param angularEvent
+     * @param member
+     * @private
+     */
+    function _onMemberLeft(angularEvent, member) {
+      var rooms = toJSON();
+      var memberId = member.id;
+      var index;
+      var memberIdList;
+
+      _.forEach(rooms, function(room) {
+        memberIdList = (room.type === 'channels') ? room.ch_members : room.pg_members;
+        index = memberIdList.indexOf(memberId);
+        if (index !== -1) {
+          //room.members 는 memberIdList 의 참조이므로 따로 splice 처리하지 않는다.
+          memberIdList.splice(index, 1);
+          _notifyChange(room.id);
+        }
+      });
     }
 
     /**
@@ -77,14 +111,15 @@
      */
     function add(item, isJoin) {
       var collection = _getEntityCollection(isJoin);
-
+      var id = item.id;
+      
       collection.add(item);
 
-      if (isExist(item.id, !isJoin)) {
-        remove(item.id, !isJoin);
+      if (isExist(id, !isJoin)) {
+        remove(id, !isJoin);
       }
-      _manipulateRoomData(item.id);
-      _notifyChange();
+      _manipulateRoomData(id);
+      _notifyChange(id);
     }
 
     /**
@@ -96,7 +131,7 @@
     function extend(id, targetObj) {
       var result = _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
       _manipulateRoomData(id);
-      _notifyChange();
+      _notifyChange(id);
       return result;
     }
 
@@ -142,13 +177,13 @@
           result = _collectionMap.unjoin.remove(id);
         }
       }
-      _notifyChange();
+      _notifyChange(id);
       return result;
     }
 
     /**
      * 콜렉션을 데이터를 배열 형태로 반환한다.
-     * @param {Boolean} isJoin - 대상 콜렉션이 사용자가 join 한 방에 대한 콜렉션인지 여부. 설정하지 않을 시 전체 리스트를 반환한다.
+     * @param {Boolean} [isJoin] - 대상 콜렉션이 사용자가 join 한 방에 대한 콜렉션인지 여부. 설정하지 않을 시 전체 리스트를 반환한다.
      * @returns {Array}
      */
     function toJSON(isJoin) {
@@ -266,13 +301,16 @@
 
     /**
      * 화면에 render 한다.
+     * @param {number|string} [roomId]
      * @private
      */
-    function _notifyChange() {
+    function _notifyChange(roomId) {
+      _changedIdMap[roomId] = true;
       $timeout.cancel(_timerNotifyChange);
       //성능 향상 목적으로 랜더링 수행을 최소화 하기 위해 timeout 을 이용한다.
       _timerNotifyChange = $timeout(function() {
-        jndPubSub.pub('RoomTopicList:changed');
+        jndPubSub.pub('RoomTopicList:changed', _changedIdMap);
+        _changedIdMap = {};
       }, 500);
     }
 

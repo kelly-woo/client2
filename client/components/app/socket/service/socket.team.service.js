@@ -194,7 +194,8 @@
           status: 'removed'
         });
         jndPubSub.pub('updateChatList');
-
+        jndPubSub.pub('jndWebSocketTeam:memberLeft', member);
+        
         if (currentSessionHelper.getCurrentEntityId() === member.id) {
           publicService.goToDefaultTopic();
         }
