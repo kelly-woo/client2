@@ -340,7 +340,7 @@ msgstr "削除されたファイル"
 msgid "@common-deleted-member-profile-msg"
 msgstr ""
 "このメンバーはチームから脱退しました。詳細はチーム管理者にお問い合わせくださ"
-"い"
+"い。"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
@@ -551,7 +551,7 @@ msgstr "メンバー"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-kicked-out"
-msgstr "{{TopicName}}の管理者からトピックから退出させられました。"
+msgstr "{{TopicName}}の管理者によってトピックから退出させられました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/right.html
@@ -807,7 +807,7 @@ msgstr "チュートリアルをスキップ"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@confirm-kickout"
-msgstr "本当にこのメンバーをトピックから退室させますか？"
+msgstr "本当にこのメンバーをトピックから退出させますか？"
 
 #: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
@@ -840,7 +840,7 @@ msgstr "ファイルをドラッグ＆ドロップして共有"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-being-invited"
-msgstr "チームに招待中のユーザーです。"
+msgstr "チームに招待中のメンバーです。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
@@ -858,7 +858,7 @@ msgstr "招待をキャンセルするとメンバーリストから削除され
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel-title"
-msgstr "本当にい招待をキャンセルしますか?"
+msgstr "本当に招待をキャンセルしますか?"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel-toast"
@@ -943,7 +943,7 @@ msgstr "リンクを共有された相手誰でもこのファイルのアクセ
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-create-msg"
-msgstr "共有用リンク正常に作成されました"
+msgstr "共有用リンクが正常に作成されました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@external-share-create-title"
@@ -2462,7 +2462,7 @@ msgstr "プロフィール写真を編集"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@profile-success"
-msgstr "プロフィール画像は正常に更新されました"
+msgstr "プロフィール画像が正常に更新されました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@profile-upload-photo"
@@ -2506,7 +2506,7 @@ msgstr "土曜日"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@search-cond-reset"
-msgstr "検索条件を更新"
+msgstr "検索条件をクリア"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
@@ -2863,7 +2863,7 @@ msgstr "スター付きのファイルなし"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@star-forbidden"
-msgstr "このファイルは非共有化されました"
+msgstr "このファイルは共有解除されました"
 
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@star-remove"
@@ -2951,8 +2951,8 @@ msgstr "正しいメールアドレスの形式を入力してください"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
 msgstr ""
-"Ctrl-C (Macの場合Cmd-C)を押したら、招待リンクがコピーされます。招待したいメン"
-"バにこのリンクを送ってみてください"
+"Ctrl+Cを押したら、招待リンクがコピーされます。招待したいメンバにこのリンクを"
+"送ってみてください。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
