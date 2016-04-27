@@ -78,11 +78,13 @@
         file = CoreUtil.pick(msg, 'message');
       }
       if (content) {
-        if (content.ext === 'pdf' && !FileDetail.isIntegrateFile(content.serverUrl)) {
-          JndPdfViewer.load(content.fileUrl, file);
-        } else {
-          _onClickFileDetail(msg);
-        }
+        //TODO: PDF Viewer 배포 시점에 아래 주석으로 대체해야 함
+        _onClickFileDetail(msg);
+        // if (content.ext === 'pdf' && !FileDetail.isIntegrateFile(content.serverUrl)) {
+        //   JndPdfViewer.load(content.fileUrl, file);
+        // } else {
+        //   _onClickFileDetail(msg);
+        // }
       }
     }
 
