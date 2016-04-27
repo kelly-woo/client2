@@ -1,0 +1,136 @@
+<div class="panel-title-container non-selectable"
+     ng-class="{'center-panel-disabled-member': isDisabledEntity}">
+  <!--    STAR ICON -->
+  <span class="prefix star" ng-click="onStarClick();">
+    <i class="icon-star-off" ng-class="{'icon-star-on starred-on' : currentEntity.isStarred}"></i>
+  </span>
+
+  <!--    PREFIX ICON -->
+  <span class="prefix" ng-click="onPrefixIconClicked();">
+    <i ng-class="{
+            'icon-topic': currentEntity.type === 'channels',
+            'icon-lock': currentEntity.type === 'privategroups'
+           }"></i>
+  </span>
+
+  <!--    TITLE   -->
+  <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
+        ng-click="onEntityTitleClicked();">
+    <span class="inline-overflow-ellipsis panel-title-info__name private-effect">
+      {{currentEntity | getName}}
+    </span>
+  </span>
+
+  <!--  DESCRIPTION -->
+  <span class="panel-title-topic-description cursor_pointer">
+     <i class="icon-info-fill" topic-description></i>
+  </span>
+
+  <!-- MORE OPTIONS -->
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__more panel-title-right-menu__item" dropdown>
+    <div class="panel-title-right-menu__more_icon" dropdown-toggle
+      tooltip="{{::'@file-action-more' | translate}}" tooltip-placement="bottom"
+      tooltip-class="panel-title-more-tooltip absolute-right-tooltip">
+      <i class="icon-more"></i>
+    </div>
+
+    <!--  TOPICS  -->
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu">
+      <!--    INVITE  -->
+      <li role="presentation" ng-if="!isDefaultTopic">
+        <a role="menuitem" tabindex="-1" ng-click="openInviteModal();">
+          <i class="icon-user-plus"></i><span translate>@ch-menu-invite</span>
+        </a>
+      </li>
+
+      <!--    STAR    -->
+      <li role="presentation" ng-click="onStarClick();">
+        <a role="menuitem" tabindex="-1">
+          <i ng-if="currentEntity.isStarred" class="icon-star-on"></i><span ng-if="currentEntity.isStarred" translate>@ch-menu-un-star</span>
+          <i ng-if="!currentEntity.isStarred" class="icon-star-off"></i><span ng-if="!currentEntity.isStarred" translate>@ch-menu-star</span>
+        </a>
+      </li>
+
+      <!--    RENAME  -->
+      <li role="presentation" ng-if="isOwner || isAdmin" ng-click="onUpdateTopicInfoClick()">
+        <a role="menuitem" tabindex="-1">
+          <i class="icon-pencil"></i><span translate>@edit-topic-information</span>
+        </a>
+      </li>
+
+      <!--    LEAVE   -->
+      <li role="presentation" ng-click="onLeaveClicked();" ng-if="!isDefaultTopic;">
+        <a role="menuitem" tabindex="-1">
+          <i class="icon-sign-out"></i><span translate>@ch-menu-leave</span>
+        </a>
+      </li>
+
+      <!--    DELETE  -->
+      <li role="presentation" ng-if="(isOwner || isAdmin) && !isDefaultTopic" ng-click="onDeleteClicked();">
+        <a role="menuitem" tabindex="-1">
+          <i class="icon-trash"></i><span translate>@ch-menu-delete</span>
+        </a>
+        <span ng-if="false" translate>@ch-menu-delete-confirm</span>
+      </li>
+    </ul>
+  </span>
+
+  <!-- RIGHT MENU -->
+  <span class="panel-title-right-menu pull-right cursor_pointer">
+
+    <!--  JOINED MEMBER LIST  -->
+    <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
+      <div class="dropdown-toggle panel-title-member__more" dropdown-toggle
+           tooltip="{{::'@topic-joined-member' | translate}}" tooltip-placement="bottom">
+        <i class="icon-user"></i>
+        <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
+        <i class="icon-angle-down"></i>
+      </div>
+
+      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown private-effect" role="menu">
+        <li role="presentation" tabindex="-1"
+            ng-class="{
+              'admin': ownerId === user.id,
+              'has-kickout-icon': hasAuth && user.id !== myId
+            }"
+            ng-repeat="user in users track by $index">
+          <a ng-click="openMemberModal(user.id);">
+            <img class="header-title-member__dropdown__thumb" ng-src="{{user.thumbnail}}"/>
+              <span class="overflow-ellipsis">{{user.name}}</span>
+          </a>
+          <span ng-if="hasKickoutAuth && user.id !== myId" class="kick-item-icon pull-right"
+              ng-click="kickOut(user.id);">
+          	<i class="icon-sign-out"></i>
+          </span>
+          <span ng-if="ownerId === user.id" class="member-auth-label" translate>@common-topic-admin</span>
+        </li>
+      </ul>
+    </span>
+
+    <span class="panel-title-right-menu__separator"></span>
+
+    <!--  INVITE OPTION -->
+    <span class="panel-title-invite panel-title-right-menu__item icon-user-plus pull-right cursor_pointer"
+          tooltip="{{::'@ch-menu-invite' | translate}}"
+          tooltip-placement="bottom"
+          tooltip-class="panel-title-invite-tooltip"
+          ng-click="openInviteModal();">
+    </span>
+  </span>
+
+  <!-- TOPIC NOTIFICATION INDICATOR -->
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell">
+    <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
+      tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
+      tooltip-class="panel-title-bell-tooltip">
+      <i class="" ng-class="{'icon-bell': isTopicNotificationOn, 'icon-bell-slash': !isTopicNotificationOn}"></i>
+    </div>
+  </span>
+
+  <room-connector ng-if="isConnectActive"
+                  ng-class="{'bot-room': isJandiBot}"
+                  ng-show="isAllowConnect"
+                  current-entity="currentEntity"
+                  connect-info="connectInfo"
+                  on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
+</div>

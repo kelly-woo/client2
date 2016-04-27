@@ -83,6 +83,7 @@
       isAdmin: isAdmin,
       isActiveMember: isActiveMember,
       isDeactivatedMember: isDeactivatedMember,
+      isInactiveUser: isInactiveUser,
       isDisabled: isDisabled,
       isDeleted: isDeleted,
 
@@ -598,6 +599,14 @@
      */
     function isActiveMember(member) {
       return !isDeactivatedMember(member);
+    }
+
+    /**
+     * inactive user (dummy account) 인지 확인한다.
+     * @param {object} member
+     */
+    function isInactiveUser(member) {
+      return CoreUtil.pick(member, 'status') === 'inactive';
     }
 
     /**

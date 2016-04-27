@@ -42,7 +42,7 @@
       $scope.$on('publicService:showDummyLayout', _onShowDummyLayout);
 
       $scope.$on('kickedOut', _onKickedOut);
-      $scope.$on('jndWebSocketTopic:topicInvited', _onTopicInvite);
+      $scope.$on('jndWebSocketTopic:topicInvited:currentMember', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
@@ -145,11 +145,8 @@
      * @private
      */
     function _onTopicInvite(angularEvent, socketEvent) {
-      var data = socketEvent.data;
-      if (data.memberId === memberService.getMemberId()) {
-        TopicInvitedFlagMap.add(data.topic.id);
-        _showTopicInvitedToast(data);
-      }
+      TopicInvitedFlagMap.add(data.topic.id);
+      _showTopicInvitedToast(data);
     }
 
     /**

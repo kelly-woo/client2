@@ -10,7 +10,7 @@
     .controller('entityHeaderCtrl', entityHeaderCtrl);
 
   /* @ngInject */
-  function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+  function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
                             Dialog, JndUtil, JndConnect, EntityHandler, RoomTopicList) {
 
@@ -27,7 +27,14 @@
     $scope._currentEntity = _currentEntity;
     
     $scope.isConnected = true;
-    $scope.isMember;
+
+    $scope.isMember = false;
+
+    /**
+     * inactive(dummy) 유저 인지 여부
+     * @type {boolean}
+     */
+    $scope.isInactiveUser = false;
 
     $scope.onEntityTitleClicked = onEntityTitleClicked;
 
@@ -81,6 +88,8 @@
           _initWithParam(param);
         }
       });
+      $scope.$on('jndWebSocketMember:memberUpdated', _onMemberUpdated);
+      $scope.$on('RoomTopicList:changed', _onRoomTopicListChanged);
 
       $scope.$on('onTopicSubscriptionChanged', function(event, data) {
         if (data.room.id === parseInt(_entityId, 10)) {
@@ -126,8 +135,6 @@
      */
     function _setCurrentEntity(entity) {
       if (!!entity) {
-        entity.members = RoomTopicList.getMemberIdList(entity.id);
-
         _currentEntity = entity;
         _entityId = entity.id;
         _entityType = entity.type;
@@ -140,6 +147,35 @@
 
         $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
         $scope.users = _getUsers(entity);
+      }
+    }
+
+    /**
+     * roomTopicList 정보가 변경되었을 때 이벤트 핸들러
+     * @param {object} angularEvent
+     * @param {object} changedIdMap - 변경된 topic 의 id map
+     *    @param {boolean} changedIdMap.id
+     * @private
+     */
+    function _onRoomTopicListChanged(angularEvent, changedIdMap) {
+      var currentId = $scope.currentEntity.id;
+      if (changedIdMap[currentId]) {
+        _setCurrentEntity(RoomTopicList.get(currentId));
+      }
+    }
+
+    /**
+     * member 정보 update 시 entity header 정보 업데이트
+     * ex) member 가 dummy 에서 실제 사용자로 변경 시, 혹은 이름 변경 시
+     * @param {object} angularEvent
+     * @param {object} data
+     *    @param {object} member  - 멤버 정보
+     * @private
+     */
+    function _onMemberUpdated(angularEvent, data) {
+      var currentId = $scope.currentEntity.id;
+      if (data.member.id === currentId) {
+        _initWithParam(EntityHandler.get(currentId));
       }
     }
 
@@ -175,6 +211,7 @@
         $scope.isDisabledEntity = false;
       }
 
+      $scope.isInactiveUser = memberService.isInactiveUser(_currentEntity);
       $scope.isAllowUserable = !$scope.isDisabledEntity && !$scope.isJandiBot;
     }
 
