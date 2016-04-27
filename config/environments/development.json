@@ -28,6 +28,7 @@
   "google_drive_api_key"   : "AIzaSyBXY2VwgYwzkudO7ylofzkT0WmZ1JpzP2k",
   "google_drive_redirect"  : "http://i1.jandi.xyz/",
   "dropbox_api_key"        : "4hbb9l5wu46okhp",
+  "intercom_app_id"        : "xjjmliv4",
   "analytics_server"       : "https://dev-tracker.sprinklr.io:50079/",
   "cors_api_address"       : "../",
   "cors_file_address"      : "../"
