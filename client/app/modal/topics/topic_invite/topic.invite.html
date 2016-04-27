@@ -43,12 +43,12 @@
         <input class="form-control"
                id="invite-member-filter"
                type="text"
-               jnd-input-model="keyword"
+               jnd-input-model="keyword.value"
                autofocus
                placeholder="{{'@input-search-user-name' | translate}}" />
         <search-type-user keyword-types="keywordTypes"
-                          keyword-type="keywordType"
-                          on-keyword-type-change="onKeywordTypeChange($value)"></search-type-user>
+                          keyword-type="keyword.type"
+                          on-keyword-type-select="onKeywordTypeSelect($newValue, $oldValue)"></search-type-user>
       </div>
 
       <div class="member-list-container">
@@ -56,13 +56,13 @@
                        list="availableMemberList"
                        item-type="member"
                        item-class="member-item"
-                       model="keyword"
-                       model-type="keywordType"
+                       model="keyword.value"
+                       model-type="keyword.type"
                        filter="#invite-member-filter"
                        on-select="onMemberClick"
                        get-matches="getMatches"
                        activeted="true"
-                       item-height="44"
+                       item-height="68"
                        viewport-max-height="500"
                        buffer-length="10"></list-on-modal>
       </div>

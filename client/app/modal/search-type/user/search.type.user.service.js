@@ -22,10 +22,21 @@
       {value: 'status', text: _translate('@common-status-msg')}
     ];
 
+    var searchPropertyNameMap = {
+      name: 'name',
+      department: ['u_extraData', 'department'],
+      position: ['u_extraData', 'position'],
+      phone: ['u_extraData', 'phoneNumber'],
+      email: 'u_email',
+      status: 'u_statusMessage'
+    };
+
     _init();
 
     function _init() {
       _that.getFilterTypes = getFilterTypes;
+      _that.isName = isName;
+      _that.getSearchPropertyName = getSearchPropertyName;
     }
 
     /**
@@ -34,6 +45,23 @@
      */
     function getFilterTypes() {
       return _filterTypes;
+    }
+
+    /**
+     * type이 name인지 여부
+     * @param {string} type
+     * @returns {boolean}
+     */
+    function isName(type) {
+      return 'name' === type;
+    }
+
+    /**
+     * 검색에 사용할 property name 전달
+     * @param {string} type
+     */
+    function getSearchPropertyName(type) {
+      return searchPropertyNameMap[type];
     }
   }
 })();

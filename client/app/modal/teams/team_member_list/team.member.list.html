@@ -15,20 +15,24 @@
   <center-help-message-container class="team-member-empty-list" ng-if="!hasUser" status="emptyMessageStateHelper"></center-help-message-container>
   <div class="tab-container" ng-if="hasUser">
 
-    <div class="input-group">
+    <div class="input-group search-user">
       <span class="input-group-addon"><i class="icon-search"></i></span>
       <input class="form-control"
              id="team-member-filter"
              type="text"
-             jnd-input-model="memberNameQuery"
+             jnd-input-model="keyword.value"
              autofocus
              placeholder="{{ '@input-search-user-name' | translate }}">
+      <search-type-user keyword-types="keywordTypes"
+                        keyword-type="keyword.type"
+                        on-keyword-type-select="onKeywordTypeSelect($newValue, $oldValue)"></search-type-user>
     </div>
 
     <div class="modal_team_member_list" ng-click="onMemberListClick();">
       <tabset class="list-tabs">
         <tab class="enabled-member-list-container tab-title overflow-ellipsis"
              active="memberListSetting.enabledMemberList.active"
+             select="onTabSelect()"
              deselect="onTabDeselect('enabledMember')">
           <page-tracker ng-if="memberListSetting.enabledMemberList.active" page="currentmembers" title="Member List (Current Members)"></page-tracker>
           <tab-heading>
@@ -38,12 +42,13 @@
                          list="enabledMemberList"
                          item-type="member"
                          item-class="member-item"
-                         model="memberNameQuery"
+                         model="keyword.value"
+                         model-type="keyword.type"
                          filter="#team-member-filter"
                          on-select="onMemberClick"
                          get-matches="getMatches"
                          activeted="memberListSetting.enabledMemberList.active"
-                         item-height="44"
+                         item-height="68"
                          buffer-length="10"></list-on-modal>
           <div class="no-result-container" ng-show="enableMembersLength === 0">
             <span translate>@no-match-members</span>
@@ -52,6 +57,7 @@
 
         <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis"
              active="memberListSetting.disabledMemberList.active"
+             select="onTabSelect()"
              deselect="onTabDeselect('disabledMember')"
              ng-if="hasDisabledMember">
           <page-tracker ng-if="memberListSetting.disabledMemberList.active" page="disabledmembers" title="Member List (Disabled Members)"></page-tracker>
@@ -62,12 +68,13 @@
                          list="disabledMemberList"
                          item-type="member"
                          item-class="member-item"
-                         model="memberNameQuery"
+                         model="keyword.value"
+                         model-type="keyword.type"
                          filter="#team-member-filter"
                          on-select="onMemberClick"
                          get-matches="getMatches"
                          activeted="memberListSetting.disabledMemberList.active"
-                         item-height="44"
+                         item-height="68"
                          buffer-length="10"></list-on-modal>
           <div class="no-result-container" ng-show="disableMembersLength === 0">
             <span translate>@no-match-members</span>

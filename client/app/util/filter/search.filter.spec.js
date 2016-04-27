@@ -20,7 +20,8 @@
         {name: 'name2', value: 2},
         {name: 'name3', value: 3},
         {name: 'name4', value: 4},
-        {name: 'name5', value: 5}
+        {name: 'name5', value: 5},
+        {name: 'name5', value: {value: 6}}
       ];
 
       it('복사된 리스트를 전달하는지 확인한다.', function() {
@@ -41,6 +42,12 @@
         expect(result[0].value).toEqual(4);
       });
 
+      it('match 값이 object의 property로 존재할때 동작하는지 확인한다.', function(item) {
+        var result = getMatchedList(list, ['value', 'value'], 6);
+
+        expect(result[0].name).toEqual('name5');
+      });
+
       it('사용자 임의 조건을 수행하는지 확인한다.', function() {
         var result = getMatchedList(list, 'name', 'name', function(item) {
           return item.name.indexOf('4') > -1;
@@ -57,6 +64,14 @@
         {name: 'cdefg3', value: 3},
         {name: 'defgh4', value: 4},
         {name: 'efghi5', value: 5}
+      ];
+
+      var list2 = [
+        {name: 'abcde1', value: {value: 1}},
+        {name: 'bcdef2', value: {value: 2}},
+        {name: 'cdefg3', value: {value: 3}},
+        {name: 'defgh4', value: {value: 4}},
+        {name: 'efghi5', value: {value: 5}}
       ];
 
       it('복사된 리스트를 전달하는지 확인한다.', function() {
@@ -83,6 +98,12 @@
         });
 
         expect(result[0].value).toEqual(1);
+      });
+
+      it('order 값이 object의 property로 존재할때 동작하는지 확인한다.', function() {
+        var result = orderByQueryIndex(list2, ['value', 'value'], 4);
+
+        expect(result[0].name).toEqual('abcde4');
       });
     });
   });

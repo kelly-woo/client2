@@ -15,7 +15,7 @@
       scope: {
         keywordTypes: '&',
         keywordType: '=',
-        onKeywordTypeChangeCallback: '&onKeywordTypeChange'
+        onKeywordTypeSelectCallback: '&onKeywordTypeSelect'
       },
       templateUrl: 'app/modal/search-type/user/search.type.user.html',
       link: link
@@ -54,20 +54,21 @@
        */
       function onSelectItem(index) {
         var selectItem;
+        var oldValue;
 
-        if (scope.selectedIndex !== index) {
-          selectItem = scope.list[index];
+        selectItem = scope.list[index];
 
-          //console.log('select item ::: ', selectItem);
-          scope.selectedIndex = index;
-          scope.selectItemText = selectItem.text;
-          scope.keywordType = selectItem.value;
+        scope.selectedIndex = index;
+        scope.selectItemText = selectItem.text;
 
-          scope.onKeywordTypeChangeCallback({
-            $index: index,
-            $value: selectItem.value
-          });
-        }
+        oldValue = scope.keywordType;
+        scope.keywordType = selectItem.value;
+
+        scope.onKeywordTypeSelectCallback({
+          $index: index,
+          $newValue: selectItem.value,
+          $oldValue: oldValue
+        });
       }
 
       /**

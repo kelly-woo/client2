@@ -8,7 +8,7 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice,
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice,
                            $state, $filter, RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub,
                            memberService, SearchTypeUser) {
     var msg1;
@@ -24,9 +24,11 @@
 
       generateMemberList();
 
-      $scope.keyword = '';
       $scope.keywordTypes = SearchTypeUser.getFilterTypes();
-      $scope.keywordType = $scope.keywordTypes[0].value;
+      $scope.keyword = {
+        value: '',
+        type: $scope.keywordTypes[0].value
+      };
 
       $scope.hasAllMembers = false;
 
@@ -48,7 +50,7 @@
       $scope.onSelectAll = onSelectAll;
       $scope.onInviteClick = onInviteClick;
       $scope.cancel = cancel;
-      $scope.onKeywordTypeChange = onKeywordTypeChange;
+      $scope.onKeywordTypeSelect = onKeywordTypeSelect;
     }
 
     $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
@@ -109,15 +111,19 @@
      * list에서 filter된 list를 전달한다.
      * @param {array} list
      * @param {string} filterText
+     * @param {string} filterType
      * @returns {*}
      */
-    function getMatches(list, filterText) {
+    function getMatches(list, filterText, filterType) {
+      var propertyName = SearchTypeUser.getSearchPropertyName(filterType);
+
       filterText = filterText.toLowerCase();
 
-      list = $filter('getMatchedList')(list, 'name', filterText, function(item) {
+      list = $filter('getMatchedList')(list, propertyName, filterText, function(item) {
         return !!item.extSelected !== true;
       });
-      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
+
+      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, propertyName, filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
     }
@@ -277,17 +283,32 @@
      * filter의 상태를 설정함.
      */
     function _setFilterStatus() {
-      var jqMemberFilter = $('#invite-member-filter');
-
       if ($scope.selectingMembers.length === 1) {
         // 걸러진 모든 member가 선택됨
 
         // filter의 값을 공백으로 초기화 하여 걸러지지 않은 모든 member를 출력하도록 한다.
-        jqMemberFilter.val('');
+        _clearFilter();
       }
 
-      $timeout(function() {
-        jqMemberFilter.focus();
+      _focusFilter();
+    }
+
+    /**
+     * clear filter
+     * @private
+     */
+    function _clearFilter() {
+      $scope.keyword.value = '';
+      $('#invite-member-filter').val('');
+    }
+
+    /**
+     * focus filter
+     * @private
+     */
+    function _focusFilter() {
+      setTimeout(function() {
+        $('#invite-member-filter').focus();
       });
     }
 
@@ -309,11 +330,17 @@
     }
 
     /**
-     * keyword type change event handler
+     * keyword type select event handler
+     * @param {string} $newValue
+     * @param {string} $oldValue
      */
-    function onKeywordTypeChange($value) {
-      $scope.keywordType = $value;
-      _updateMemberList();
+    function onKeywordTypeSelect($newValue, $oldValue) {
+      if ($newValue !== $oldValue) {
+        _clearFilter();
+        $scope.keyword.type = $newValue;
+      }
+
+      _focusFilter();
     }
   }
 })();
