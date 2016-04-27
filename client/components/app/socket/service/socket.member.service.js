@@ -15,6 +15,8 @@
     var MEMBER_UNSTARRED = 'member_unstarred';
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
+    var MEMBER_UPDATED = 'member_updated';
+
 
     var events = [
       {
@@ -36,6 +38,11 @@
         name: MEMBER_PRESENCE_UPDATED,
         version: 1,
         handler: _onMemberPresenceUpdated
+      },
+      {
+        name: MEMBER_UPDATED,
+        version: 1,
+        handler: _onMemberUpdated
       }
     ];
 
@@ -73,6 +80,18 @@
 
     }
 
+    /**
+     * member update 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onMemberUpdated(socketEvent) {
+      var member = CoreUtil.pick(socketEvent, 'data', 'member');
+      if (member) {
+        UserList.extend(member.id, member);
+        jndPubSub.pub('jndWebSocketMember:memberUpdated', socketEvent);
+      }
+    }
 
 
     /**
