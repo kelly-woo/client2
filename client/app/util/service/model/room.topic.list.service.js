@@ -83,6 +83,7 @@
       if (isExist(item.id, !isJoin)) {
         remove(item.id, !isJoin);
       }
+      _manipulateRoomData(item.id);
       _notifyChange();
     }
 
@@ -94,6 +95,7 @@
      */
     function extend(id, targetObj) {
       var result = _collectionMap.join.extend(id, targetObj) || _collectionMap.unjoin.extend(id, targetObj);
+      _manipulateRoomData(id);
       _notifyChange();
       return result;
     }
@@ -272,6 +274,18 @@
       _timerNotifyChange = $timeout(function() {
         jndPubSub.pub('RoomTopicList:changed');
       }, 500);
+    }
+
+    /**
+     * roomData 에 필요한 정보를 추가한다
+     * @param {number|string} id
+     * @private
+     */
+    function _manipulateRoomData(id) {
+      var room = get(id);
+      if (room) {
+        room.members = getMemberIdList(room.id);
+      }
     }
   }
 })();
