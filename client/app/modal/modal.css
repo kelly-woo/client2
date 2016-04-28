@@ -808,7 +808,10 @@
 .modal-body .member-item .member-name {
   line-height: 25px;
   margin-left: 7px;
-  width: 280px;
+  width: 290px;
+}
+.modal-body .member-item .member-name.short {
+  width: 260px;
 }
 
 .modal-body .member-item.active {

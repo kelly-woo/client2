@@ -84,6 +84,7 @@
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     }
 
     /**
@@ -231,12 +232,7 @@
         if (_isValidSearchKeyword()) {
           _showLoading();
 
-          $timeout.cancel(_timerSearch);
-          _timerSearch = $timeout(function() {
-
-            // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
-            _getMessageList(_timerSearch);
-          }, 100);
+          _doGetMessageList();
         }
       }
     }
@@ -258,7 +254,7 @@
       if (_isValidLoadMore()) {
         $scope.searchStatus.isScrollLoading = true;
 
-        _getMessageList();
+        _doGetMessageList();
       }
     }
 
@@ -268,11 +264,31 @@
      * @private
      */
     function _isValidLoadMore() {
-      return !$scope.searchStatus.isEndOfList &&
+      return !$scope.searchStatus.isSearching &&
+          !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
           (!!$scope.messageList.length && $scope.searchStatus.keyword !== '') &&
           $scope.isConnected &&
           !isEmpty();
+    }
+
+    /**
+     * _getMessageList를 수행함
+     * 메세지 리스트 갱신 또는 더 불러오기시 마지막에 수행된 _getMessageList를 수행하기 위함
+     * 더 불러오기 수행중 메세지 리스트 갱신 또는 이반대 경우에 잘못된 메시지 리스트 갱신이 발생할 수 있음.
+     * @private
+     */
+    function _doGetMessageList() {
+      /*
+       rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+       중복 호출을 방지하기 위하여 timeout 을 사용한다
+       */
+      $timeout.cancel(_timerSearch);
+      _timerSearch = $timeout(function() {
+
+        // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+        _getMessageList(_timerSearch);
+      }, 100);
     }
 
     /**
@@ -426,6 +442,7 @@
     function _showLoading() {
       $scope.searchStatus.isSearching = true;
       $scope.searchStatus.type = _getSearchStatusType();
+      $scope.searchStatus.isScrollLoading = false;
     }
 
     /**
@@ -433,7 +450,7 @@
      * @private
      */
     function _hideLoading() {
-      $scope.searchStatus.sSearching = false;
+      $scope.searchStatus.isSearching = false;
       $scope.searchStatus.type = _getSearchStatusType();
     }
 
@@ -464,10 +481,14 @@
 
       if ($scope.searchStatus.isSearching) {
         type = 'progress';
-      } else if (!$scope.searchStatus.isSearching &&
-                !isKeywordEmpty() &&
-                $scope.messageList.length > 0) {
-        type = 'result';
+      } else {
+        if ($scope.messageList.length > 0) {
+          if (!isKeywordEmpty()) {
+            type = 'keywordSearch'
+          } else {
+            type = 'search';
+          }
+        }
       }
 
       return type || '';
@@ -492,10 +513,26 @@
     }
 
     /**
+     * gateway timeout error event handler
+     * @private
+     */
+    function _onGatewayTimeoutError() {
+      _refreshView();
+    }
+
+    /**
      * 네트워크 활성 이벤트 핸들러
      * @private
      */
     function _onConnected() {
+      _refreshView();
+    }
+
+    /**
+     * view 갱신
+     * @private
+     */
+    function _refreshView() {
       $scope.isConnected = true;
 
       if($scope.status.isActive) {

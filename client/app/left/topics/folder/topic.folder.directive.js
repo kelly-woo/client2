@@ -22,7 +22,7 @@
       var _draggingTopicScope;
       var _teamId;
       var _more = $filter('translate')('@file-action-more');
-      var _isShowBadge = false;
+      
       _init();
 
       /**
@@ -38,7 +38,7 @@
         scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
         scope.alarmCnt = _getTotalAlarmCnt();
         scope.isOpen = scope.isExpand = JndTopicFolderStorage.getOpenStatus(scope.folder.id);
-        _isShowBadge = !scope.isOpen;
+        scope.isShowBadge = !scope.isOpen;
 
         _attachEvents();
         _attachDomEvents();
@@ -109,7 +109,7 @@
        */
       function _onBadgeCountChange(angularEvent, data) {
         scope.alarmCnt = _getTotalAlarmCnt();
-        _isShowBadge = !scope.isExpand;
+        scope.isShowBadge = !scope.isExpand;
         _setFolderBadgeVisibility();
       }
 
@@ -153,7 +153,7 @@
         if (_draggingTopicScope && _isFolderInsertable()) {
           el.addClass('hover');
         }
-        _isShowBadge = false;
+        scope.isShowBadge = false;
         _setFolderBadgeVisibility();
       }
 
@@ -164,7 +164,7 @@
       function _setFolderBadgeVisibility() {
         var jqBadge = el.find('._badge');
 
-        if (!scope.isOpen && _isShowBadge && scope.alarmCnt) {
+        if (!scope.isOpen && scope.isShowBadge && scope.alarmCnt) {
           jqBadge.show();
         } else {
           jqBadge.hide();
@@ -191,7 +191,7 @@
         if (_draggingTopicScope) {
           el.removeClass('hover');
         }
-        _isShowBadge = true;
+        scope.isShowBadge = true;
         _setFolderBadgeVisibility();
       }
 
@@ -277,7 +277,7 @@
         var callback = function() {
           scope.alarmCnt = _getTotalAlarmCnt();
           scope.isExpand = scope.isOpen;
-          _isShowBadge = !scope.isExpand;
+          scope.isShowBadge = !scope.isExpand;
           JndTopicFolderStorage.setOpenStatus(scope.folder.id, scope.isExpand);
           _setFolderBadgeVisibility();
         };
@@ -290,7 +290,7 @@
         };
 
         if (scope.isOpen) {
-          _isShowBadge = false;
+          scope.isShowBadge = false;
         }
         scope.isOpen = !scope.isOpen;
         _setFolderBadgeVisibility();

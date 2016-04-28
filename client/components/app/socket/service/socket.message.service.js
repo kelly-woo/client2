@@ -84,7 +84,7 @@
           _onTopicFileShareStatusChange(data);
           break;
         case 'message_delete':
-          _onTopicMessageDelete(data);
+          _onMessageDelete(data);
           break;
         case 'topic_invite':
           _onTopicInvited(data);
@@ -219,13 +219,17 @@
      * @param data
      * @private
      */
-    function _onTopicMessageDelete(socketEvent) {
+    function _onMessageDelete(socketEvent) {
       var room = socketEvent.room;
 
       if (jndWebSocketCommon.isCurrentEntity(room)) {
         jndPubSub.updateCenterPanel();
       } else if (!_updateBadgeCount(socketEvent)) {
-        jndPubSub.updateLeftBadgeCount();
+        if (_isDmToMe(socketEvent)) {
+          jndPubSub.pub('updateChatList');
+        } else {
+          jndPubSub.updateLeftBadgeCount();
+        }
       }
 
       jndPubSub.pub('jndWebSocketMessage:topicMessageDeleted', socketEvent);

@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function UserProfileCtrl($scope, $modalInstance, $filter, $timeout, curUser, $state, MemberProfile, memberService,
-                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService) {
+                           messageAPIservice, analyticsService, jndKeyCode, jndPubSub, accountService, teamAPIservice) {
     var isChangedName = false;
     var isChangedEmail = false;
     var isChangedProfile = false;
@@ -30,6 +30,7 @@
       $scope.isDefaultProfileImage = memberService.isDefaultProfileImage($scope.curUser.u_photoUrl);
       $scope.isStarred = $scope.curUser.isStarred;
       $scope.isDeactivatedUser = _isDeactivatedUser();
+      $scope.isInactiveUser = memberService.isInactiveUser(curUser);
       $scope.isMyself = _isMyself();
 
       $scope.message = {content:''};
@@ -60,7 +61,7 @@
     function _attachEvents() {
       $scope.$watch('message.content', _onMessageContentChange);
       $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+      $scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
 
       $scope.$on('$destroy', _onDestroy);
     }
@@ -121,9 +122,30 @@
         _goToDM(curUser.id);
       } else if (type === 'mention') {
         _goToMention();
+      } else if (type === 'resendInvitation') {
+        _sendInvitationMail();
+      } else if (type === 'cancelInvitation') {
+        _cancelInvitation();
       }
 
       $modalInstance.close();
+    }
+
+    /**
+     * 초대 메일을 전송한다.
+     * @private
+     */
+    function _sendInvitationMail() {
+      teamAPIservice.inviteToTeam([$scope.email])
+        .then(teamAPIservice.alertInvitationSuccess);
+    }
+
+    /**
+     * 초대장을 취소한다.
+     * @private
+     */
+    function _cancelInvitation() {
+      teamAPIservice.confirmCancelInvitation(curUser.id);
     }
 
     /**

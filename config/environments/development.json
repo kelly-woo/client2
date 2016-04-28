@@ -1,6 +1,7 @@
 {
   "name"                   : "development",
   "path"                   : "app/",
+  "protocol"               : "https://",
   "domain"                 : "jandi.io",
   "api_address"            : "https://i1.jandi.io/",
   "api_connect_address"    : "https://i1.jandi.io/connect-api/",
@@ -21,11 +22,13 @@
   "external_share_address" : "https://www.jandi.io/file/",
   "app_store_address"      : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
   "play_store_address"     : "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app",
+  "android_package"        : "com.tosslab.jandi.app.dev",
   "last_update_message"    : "04/06/2015 22:40:00",
   "google_drive_client_id" : "524738787050-kbtakm80taogkq92uipgh52uknntb88r.apps.googleusercontent.com",
   "google_drive_api_key"   : "AIzaSyBXY2VwgYwzkudO7ylofzkT0WmZ1JpzP2k",
   "google_drive_redirect"  : "https://i1.jandi.io/",
   "dropbox_api_key"        : "4hbb9l5wu46okhp",
+  "intercom_app_id"        : "xjjmliv4",
   "analytics_server"       : "https://dev-tracker.sprinklr.io:50079/",
   "cors_api_address"       : "../",
   "cors_file_address"      : "../"

@@ -39,13 +39,13 @@
   </div>
   <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
+  <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
+
   <div class="rpanel-body-content"
        right-scroll-loading
        load-more="loadMore()"
        is-loading="searchStatus.isScrollLoading">
     <!--<div ng-include="app/right/loading/loading-keyword-search/loading.keyword.search.html"></div>-->
-    <right-loading-keyword-search search-status="searchStatus"></right-loading-keyword-search>
-
     <div class="file-list scroll-loading-list">
       <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
       <div class="break-word" ng-if="isEmpty()">

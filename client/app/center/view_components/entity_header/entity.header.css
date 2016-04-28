@@ -107,6 +107,7 @@
 }
 .prefix.star { margin-right: 0; padding-right: 5px; cursor:pointer;}
 .prefix .icon-star-on { color: #f9bb00; }
+.center-panel-inactive-member .prefix .icon-star-on { color: #FFF; }
 .panel-title-info__name {
   padding-left:3px;
   width: 100%;
@@ -224,7 +225,10 @@
   border-radius: 5px;
   margin: 5px 0;
   height: 25px;
-  line-height: 0;
+  line-height: 1.9;
+}
+.panel-title-right-menu__item {
+  color: #154a67
 }
 .panel-title-right-menu__item:hover,
 .panel-title-right-menu:hover .panel-title-right-item {
@@ -320,6 +324,52 @@
   border-bottom-right-radius: 5px;
 }
 
+.panel-title-right-menu__button {
+  padding: 0 5px;
+  height: 25px;
+  line-height: 25px;
+  position: relative;
+  color: #154a67;
+  margin-left: 5px;
+}
+.panel-title-right-menu__button:hover {
+  background-color: #d7e0e8;
+}
+.panel-title-right-menu__button > * {
+  margin-left: 3px;
+}
+
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  margin-right: 2px;
+}
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button:last-child {
+  margin-right: 0;
+  margin-left: 0;
+}
+/*
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button:hover {
+  background-color:#F7FBFE;
+}
+ */
+
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button > span {
+  
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 0.9em;
+}
+
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button > i.icon-mail {
+  font-size: 16px;
+  vertical-align: sub;
+}    
+.center-panel-inactive-member.panel-title-container .panel-title-right-menu__button > i.icon-delete {
+  font-size: 12px;
+/*   vertical-align: sub; */
+} 
 
 .panel-title-right-menu__more {
   margin-left: 5px;

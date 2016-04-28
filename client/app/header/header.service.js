@@ -8,7 +8,6 @@
 
   app.service('entityheaderAPIservice', function($http, $rootScope, storageAPIservice, memberService) {
     var _that = this;
-    var _teamId = memberService.getTeamId();
 
     _that.setStarEntity = setStarEntity;
     _that.removeStarEntity = removeStarEntity;
@@ -131,7 +130,7 @@
     function transferTopicAdmin(topicId, data) {
       return $http({
         method: 'PUT',
-        url: $rootScope.server_address + 'teams/' + _teamId + '/topics/' + topicId + '/admin',
+        url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/topics/' + topicId + '/admin',
         data: {
           adminId: data.adminId
         }

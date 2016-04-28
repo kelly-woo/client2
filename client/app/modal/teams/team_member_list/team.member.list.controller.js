@@ -32,15 +32,23 @@
       $scope.cancel = cancel;
 
       generateMemberList();
+      _attachScopeEvents();
     }
 
-    $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
-
     /**
-     * member starred event handler
+     * scope event 를 바인딩한다.
      * @private
      */
-    function _onParseLeftSideMenuDone() {
+    function _attachScopeEvents() {
+      $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _refresh);
+      $scope.$on('jndWebSocketTeam:memberLeft', _refresh);
+    }
+
+    /**
+     * 멤버 리스트를 갱신한다.
+     * @private
+     */
+    function _refresh() {
       generateMemberList();
       _updateMemberList();
     }
@@ -120,7 +128,7 @@
         _.forEach(memberList, function(member) {
           if (memberService.isDeactivatedMember(member)) {
             disabledMemberList.push(member);
-          } else {
+          } else if (memberService.isActiveMember(member)){
             if (memberService.getMemberId() !== member.id) {
               enabledMemberList.push(member);
             }
@@ -140,6 +148,7 @@
      */
     function _updateMemberList() {
       jndPubSub.pub('updateList:enabledMember');
+      jndPubSub.pub('updateList:disabledMember');
     }
 
     /**

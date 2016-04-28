@@ -93,7 +93,8 @@ app.controller('leftPanelController', function(
     $scope.$on('TopicUpdateLock:change', _onTopicUpdateLockChange);
     $scope.$on('updateLeftBadgeCount', _onUpdateLeftBadgeCount);
     $scope.$on('updateLeftPanelCaller', _requestLeftSideMenu);
-    $scope.$on('connected', _requestLeftSideMenu);
+    $scope.$on('connected', _onConnected);
+    $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     $scope.$on('onMemberClick', function(event, user) {
       $scope.onMemberClick(user);
     });
@@ -148,6 +149,22 @@ app.controller('leftPanelController', function(
   function _onStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     $scope.entityId = toParams.entityId;
     TopicFolderModel.setCurrentEntity($scope.entityId);
+  }
+
+  /**
+   * gateway timeout error event handler
+   * @private
+   */
+  function _onGatewayTimeoutError() {
+    _requestLeftSideMenu();
+  }
+
+  /**
+   * 네트워크 활성 이벤트 핸들러
+   * @private
+   */
+  function _onConnected() {
+    _requestLeftSideMenu();
   }
 
   /**
@@ -206,7 +223,7 @@ app.controller('leftPanelController', function(
     var entityType = $state.params.entityType || 'total';
     EntityHandler.parseLeftSideMenuData(response);
     _parseAlarmInfoCount(response.alarmInfoCount, response.alarmInfos);
-    entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
+    entityAPIservice.setCurrentEntityWithId(entityId);
     TopicFolderModel.update();
   }
 

@@ -9,8 +9,8 @@
     .module('jandiApp')
     .controller('JndMainCtrl', JndMainCtrl);
 
-  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, entityAPIservice, jndPubSub, memberService,
-                          currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
+  function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, jndPubSub, memberService,
+                          currentSessionHelper, TopicInvitedFlagMap, JndUtil, WatchDog) {
     $scope.isShowDummyLayout = false;
     $scope.tutorial = {
       isShowWelcome: false,
@@ -30,6 +30,8 @@
      * @private
      */
     function _init() {
+      WatchDog.run();
+
       _attachEvents();
     }
 
@@ -42,7 +44,7 @@
       $scope.$on('publicService:showDummyLayout', _onShowDummyLayout);
 
       $scope.$on('kickedOut', _onKickedOut);
-      $scope.$on('jndWebSocketTopic:topicInvited', _onTopicInvite);
+      $scope.$on('jndWebSocketTopic:topicInvited:currentMember', _onTopicInvite);
       $scope.$on('topicLeave', _onTopicLeave);
 
       $scope.$on('JndConnect:open', _onJndConnectOpen);
@@ -145,11 +147,8 @@
      * @private
      */
     function _onTopicInvite(angularEvent, socketEvent) {
-      var data = socketEvent.data;
-      if (data.memberId === memberService.getMemberId()) {
-        TopicInvitedFlagMap.add(data.topic.id);
-        _showTopicInvitedToast(data);
-      }
+      TopicInvitedFlagMap.add(data.topic.id);
+      _showTopicInvitedToast(data);
     }
 
     /**

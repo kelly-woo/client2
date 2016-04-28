@@ -111,14 +111,22 @@
     }
 
     /**
-     * topic invited 이벤트 핸들러
+     * topic invited 이벤트 핸들러. 어느 사용자이건 topic 에 초대된 경우 발생한다.
      * @param {object} socketEvent
      * @private
      */
     function _onTopicInvited(socketEvent) {
       var topic = socketEvent.data.topic;
-      RoomTopicList.add(topic, true);
-      jndPubSub.pub('jndWebSocketTopic:topicInvited', socketEvent);
+      //자기 자신에 대한 초대일 경우 add 를 수행한다.
+      if (socketEvent.data.memberId === memberService.getMemberId()) {
+        RoomTopicList.add(topic, true);
+        jndPubSub.pub('jndWebSocketTopic:topicInvited:currentMember', socketEvent);
+      } else {
+        if (RoomTopicList.isExist(topic.id)) {
+          RoomTopicList.extend(topic.id, topic);
+        }
+        jndPubSub.pub('jndWebSocketTopic:topicInvited:otherMember', socketEvent);
+      }
     }
 
     /**

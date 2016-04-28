@@ -1,6 +1,7 @@
 {
   "name"                   : "staging",
   "path"                   : "app/",
+  "protocol"               : "https://",
   "domain"                 : "jandi.com",
   "api_address"            : "https://i1.jandi.com/",
   "api_connect_address"    : "https://i1.jandi.com/connect-api/",
@@ -21,11 +22,13 @@
   "external_share_address" : "https://www.jandi.com/file/",
   "app_store_address"      : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
   "play_store_address"     : "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app",
+  "android_package"        : "com.tosslab.jandi.app",
   "last_update_message"    : "04/06/2015 23:00:00",
   "google_drive_client_id" : "524738787050-7dvpmffvpmk3ooaifcl2a9kpqsm17l12.apps.googleusercontent.com",
   "google_drive_api_key"   : "AIzaSyAarJcX7VfgOiuYzl0ShapunGh5B7amAxA",
   "google_drive_redirect"  : "https://i1.jandi.com/",
   "dropbox_api_key"        : "sce84hy9tjy3o6v",
+  "intercom_app_id"        : "yt1d5jat",
   "analytics_server"       : "https://track.jandi.com/",
   "cors_api_address"       : "../",
   "cors_file_address"      : "../"

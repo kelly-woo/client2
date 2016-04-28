@@ -17,8 +17,17 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($q, configuration, jndPubSub) {
+  function NetInterceptor($rootScope, $q, configuration, jndPubSub) {
     var _isConnected = true;
+
+    /**
+     * 응답에러가 발생한 상태 맵
+     * @type {{responseErrorStatusCode: count}}
+     * @private
+     */
+    var _responseErrorStatusMap = {};
+
+    var _$scope = $rootScope.$new();
 
     this.setStatus = setStatus;
     this.isConnected = isConnected;
@@ -32,7 +41,16 @@
      * @private
      */
     function _init() {
+      _attachScopeEvent();
       _attachDomEvent();
+    }
+
+    /**
+     * attach scope events
+     * @private
+     */
+    function _attachScopeEvent() {
+      _$scope.$on('WatchDog:onWakeUp', _onWakeUp);
     }
 
     /**
@@ -42,6 +60,22 @@
     function _attachDomEvent() {
       $(window).on("offline", _.bind(setStatus, this, false));
       $(window).on("online", _.bind(setStatus, this, true));
+    }
+
+    /**
+     * wake up event handler
+     * @private
+     */
+    function _onWakeUp() {
+      var responseStatus = _getResponseErrorStatus();
+      if (responseStatus['504']) {
+        // wake up 후 바로 'onGatewayTimeoutError'를 pub하였을때 듣고있던 scope에서 xhr 수행하게 되는데 이때
+        // 크롬 브라우저에서 'ERR_NETWORK_IO_SUSPENDED'가 발생하여 정상적인 xhr이 수행되지 않으므로 timeout을 사용한다.
+        setTimeout(function() {
+          jndPubSub.pub('NetInterceptor:onGatewayTimeoutError');
+        }, 1000);
+      }
+      _clearResponseErrorStatus();
     }
 
     /**
@@ -86,7 +120,36 @@
      */
     function responseError(rejection) {
       setStatus(window.navigator.onLine);
+
+      _setResponseErrorStatus(rejection.status);
+
       return $q.reject(rejection);
+    }
+
+    /**
+     * response error status 전달
+     * @returns {object}
+     * @private
+     */
+    function _getResponseErrorStatus() {
+      return _responseErrorStatusMap;
+    }
+
+    /**
+     * response error status 설정
+     * @param {number} responseStatus
+     * @private
+     */
+    function _setResponseErrorStatus(responseStatus) {
+      _responseErrorStatusMap[responseStatus] = (_responseErrorStatusMap[responseStatus] || 0) + 1;
+    }
+
+    /**
+     * response error status 초기화
+     * @private
+     */
+    function _clearResponseErrorStatus() {
+      _responseErrorStatusMap = {};
     }
   }
 })();

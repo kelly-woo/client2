@@ -93,6 +93,7 @@
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
 
       $scope.$watch('searchStatus.sharedEntityId', _onSearchEntityChange);
       $scope.$watch('searchStatus.writerId', _onSearchWriterChange);
@@ -460,15 +461,7 @@
 
         if (_isValidSearchKeyword()) {
           _showLoading();
-          /*
-           rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
-           중복 호출을 방지하기 위하여 timeout 을 사용한다
-           */
-          $timeout.cancel(_timerSearch);
-          _timerSearch = $timeout(function() {
-            // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
-            _getFileList(_timerSearch);
-          }, 100);
+          _doGetFileList();
         }
       }
     }
@@ -490,7 +483,7 @@
 
         $scope.searchStatus.isScrollLoading = true;
 
-        _getFileList();
+        _doGetFileList();
       }
     }
 
@@ -500,11 +493,30 @@
      * @private
      */
     function _isValidLoadMore() {
-      return !$scope.searchStatus.isEndOfList &&
+      return !$scope.searchStatus.isSearching &&
+          !$scope.searchStatus.isEndOfList &&
           !$scope.searchStatus.isScrollLoading &&
           !!$scope.fileList.length &&
           $scope.isConnected &&
           !isEmpty();
+    }
+
+    /**
+     * getFileList를 수행함
+     * 파일 리스트 갱신 또는 더 불러오기시 마지막에 수행된 getFileList를 수행하기 위함
+     * 더 불러오기 수행중 파일 리스트 갱신 또는 이반대 경우에 잘못된 파일 리스트 갱신이 발생할 수 있음.
+     * @private
+     */
+    function _doGetFileList() {
+      /*
+       rightPanelStatusChange 이벤트 및 모든 request payload의 파라미터의 watcher 에서 호출하기 때문에
+       중복 호출을 방지하기 위하여 timeout 을 사용한다
+       */
+      $timeout.cancel(_timerSearch);
+      _timerSearch = $timeout(function() {
+        // 100ms 만큼 지난후 response가 도착하여 잘못된 list를 출력할 수 있으므로 식별자로 _timerSearch를 전달한다.
+        _getFileList(_timerSearch);
+      }, 100);
     }
 
     /**
@@ -679,6 +691,7 @@
     function _showLoading() {
       $scope.searchStatus.isSearching = true;
       $scope.searchStatus.type = _getSearchStatusType();
+      $scope.searchStatus.isScrollLoading = false;
     }
 
     /**
@@ -761,10 +774,26 @@
     }
 
     /**
+     * gateway timeout error event handler
+     * @private
+     */
+    function _onGatewayTimeoutError() {
+      _refreshView();
+    }
+
+    /**
      * 네트워크 활성 이벤트 핸들러
      * @private
      */
     function _onConnected() {
+      _refreshView();
+    }
+
+    /**
+     * view 갱신
+     * @private
+     */
+    function _refreshView() {
       $scope.isConnected = true;
 
       if($scope.status.isActive) {
@@ -792,10 +821,14 @@
 
       if ($scope.searchStatus.isSearching) {
         type = 'progress';
-      } else if (!$scope.searchStatus.isSearching &&
-                !isKeywordEmpty() &&
-                $scope.fileList.length > 0) {
-        type = 'result';
+      } else {
+        if ($scope.fileList.length > 0) {
+          if (!isKeywordEmpty()) {
+            type = 'keywordSearch'
+          } else {
+            type = 'search';
+          }
+        }
       }
 
       return type || '';

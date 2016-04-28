@@ -86,9 +86,10 @@
       </div>
     </div>
   </div>
-
   <div class="profile-actions">
-    <div class="action-buttons">
+    <!-- Action buttons -->
+    <div ng-if="!isInactiveUser" class="action-buttons">
+      <!-- user action menus-->
       <span class="action-email" ng-click="onActionClick('email')">
         <i class="icon-mail"></i><span translate>@common-send-mail</span>
       </span>
@@ -104,6 +105,18 @@
         </span>
       </span>
     </div>
+    <div ng-if="isInactiveUser" class="action-buttons inactive-user">
+      <!-- Inactive(dummy) user action menus-->
+      <span class="action-invitation-email" ng-click="onActionClick('resendInvitation')">
+        <i class="icon-mail"></i><span translate>@dummy-invitation-resend</span>
+      </span>
+      <span class="action-invitation-cancel" ng-click="onActionClick('cancelInvitation')">
+        <i class="icon-delete"></i><span translate>@dummy-invitation-cancel</span>
+      </span>
+    </div>
+
+
+    <!-- 1:1 Message -->
     <div class="action-direct-message"
          ng-class="{'show-submit-done': isShowDmSubmit}"
          ng-if="!isDeactivatedUser && !isMyself">

@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('listOnModal', listOnModal);
 
-  function listOnModal($timeout, Viewport, ListRenderer, jndKeyCode, EntityHandler) {
+  function listOnModal($timeout, CoreUtil, Viewport, ListRenderer, jndKeyCode, EntityHandler, teamAPIservice, UserList) {
     return {
       restrict: 'E',
       link: link
@@ -238,15 +238,34 @@
        * @private
        */
       function _onClick(event) {
-        var item;
+        var jqTarget = $(event.target);
+        var item = matches[activeIndex];
 
-        if (itemType === 'member' && event.target.className.indexOf('star') > -1) {
+        if (itemType === 'member' && jqTarget.hasClass('star')) {
           // item type이 'member'이고 star icon click 시 처리
-          if (item = matches[activeIndex]) {
+          if (item) {
             EntityHandler.toggleStarred(item.id);
           }
+        } else if (jqTarget.closest('._sendInvitation').length) {
+          if (item) {
+            _sendInvitationMail(item.id);
+          }
+
         } else {
           _select();
+        }
+      }
+
+      /**
+       * invitation 을 재전송한다
+       * @private
+       */
+      function _sendInvitationMail(userId) {
+        var user = UserList.get(userId);
+        var email = CoreUtil.pick(user, 'u_email');
+        if (email) {
+          teamAPIservice.inviteToTeam([email])
+            .then(teamAPIservice.alertInvitationSuccess, null);
         }
       }
 

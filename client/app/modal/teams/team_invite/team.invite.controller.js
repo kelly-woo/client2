@@ -65,7 +65,8 @@
         emails = $scope.emails;
 
         teamAPIservice.inviteToTeam(emails)
-          .success(function (response) {
+          .then(function (result) {
+            var response = result.data;
             var successCount = 0;
             var failCount = 0;
 
@@ -94,7 +95,6 @@
           .finally(function () {
             $scope.isLoading = false;
           });
-
       }
     }
 

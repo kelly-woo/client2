@@ -70,7 +70,7 @@
         scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
 
         scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
-        scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+        scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
 
         scope.$on('elasticResize:comment', _onElasticResize);
 

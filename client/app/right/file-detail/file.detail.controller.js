@@ -56,7 +56,7 @@
       $scope.$on('fileDetail:updateComments', _onUpdateComments);
 
       $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+      $scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
     }
 
     /**
@@ -262,7 +262,7 @@
       if (_.isObject(target)) {
         target.extWriter = writer;
         target.extWriterName = $filter('getName')(writer);
-        target.extProfileImg = memberService.getProfileImage(writerId),
+        target.extProfileImg = memberService.getProfileImage(writerId);
         target.extIsDisabledMember = publicService.isDisabledMember(writer);
       }
     }

@@ -71,6 +71,8 @@
       function _attachScopeEvents() {
         scope.$on('jndMainKeyHandler:upload', _onHotkeyUpload);
         scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
+        scope.$on('RoomTopicList:changed', _onRoomTopicListChanged);
+        scope.$on('jndWebSocketMember:memberUpdated', _setMentionList);
 
         scope.$watch('msgLoadStatus.loading', _onChangeLoading);
       }
@@ -99,6 +101,20 @@
        */
       function _onCurrentEntityChanged() {
         _setMentionList();
+      }
+
+      /**
+       * roomTopicList 정보가 변경되었을 때 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} changedIdMap - 변경된 topic 의 id map
+       *    @param {boolean} changedIdMap.id
+       * @private
+       */
+      function _onRoomTopicListChanged(angularEvent, changedIdMap) {
+        var currentId = CoreUtil.pick(scope, 'currentEntity', 'id');
+        if (changedIdMap[currentId]) {
+          _setMentionList();
+        }
       }
 
       /**

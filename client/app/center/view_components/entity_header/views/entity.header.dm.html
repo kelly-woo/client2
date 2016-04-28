@@ -1,0 +1,113 @@
+<div class="panel-title-container non-selectable"
+     ng-class="{
+     'center-panel-disabled-member': isDisabledEntity,
+     'center-panel-inactive-member': isInactiveUser
+     }">
+  <!--    STAR ICON -->
+  <span class="prefix star" ng-click="onStarClick();">
+    <i class="icon-star-off" ng-class="{'icon-star-on starred-on' : currentEntity.isStarred}"></i>
+  </span>
+
+  <!--    PREFIX ICON -->
+  <span class="prefix" ng-click="onPrefixIconClicked();">
+    <i ng-class="{
+            'icon-user': currentEntity.type === 'users',
+            'icon-jandi-bot': currentEntity.type == 'bots' && currentEntity.botType == 'jandi_bot'
+           }"></i>
+  </span>
+
+  <!--    TITLE   -->
+  <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
+        ng-click="onEntityTitleClicked();">
+    <span class="inline-overflow-ellipsis panel-title-info__name private-effect">
+      {{currentEntity | getName}}
+    </span>
+  </span>
+
+  <!-- INACTIVE(DUMMY) USER INFORMATION-->
+  <span ng-show="isInactiveUser" class="inactive-member-guide-container cursor_pointer _guideContainer">
+    <i class="icon-info-fill"></i> <span translate>@dummy-being-invited</span>
+
+
+    <div class="inactive-guide popover bottom _guidePopover">
+      <div class="arrow"></div>
+      <div class="popover-inner">
+        <div class="popover-content">
+          <span translate>@dummy-dm-tooltip</span>
+        </div>
+      </div>
+    </div>
+  </span>
+
+
+  <!-- MORE OPTIONS -->
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__more panel-title-right-menu__item" dropdown>
+    <div class="panel-title-right-menu__more_icon" dropdown-toggle
+      tooltip="{{::'@file-action-more' | translate}}" tooltip-placement="bottom"
+      tooltip-class="panel-title-more-tooltip absolute-right-tooltip">
+      <i class="icon-more"></i>
+    </div>
+
+    <!--User-->
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown">
+      <!--    INVITE  -->
+      <li role="presentation" ng-if="isAllowUserable">
+        <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
+          <i class="icon-user-plus"></i><span translate>@dm-menu-invite</span>
+        </a>
+      </li>
+
+      <!--    STAR    -->
+      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledEntity">
+        <a role="menuitem" tabindex="-1">
+          <i ng-if="currentEntity.isStarred" class="icon-star-on"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
+          <i ng-if="!currentEntity.isStarred" class="icon-star-off"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
+        </a>
+      </li>
+
+      <!--    VIEW USER PROFILE   -->
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" ng-click="openMemberModal();">
+          <i class="icon-user"></i><span translate>@dm-menu-profile</span>
+        </a>
+      </li>
+
+      <!--    VIEW USER FILE LIST -->
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" ng-click="onFileListClick(currentEntity.id);">
+          <i class="icon-file"></i><span translate>@dm-menu-file</span>
+        </a>
+      </li>
+
+      <!--    LEAVE CHAT -->
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" ng-click="onCurrentChatLeave();">
+          <i class="icon-sign-out"></i><span translate>@common-conversation-leave</span>
+        </a>
+      </li>
+    </ul>
+  </span>
+
+  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledEntity">
+    <img src="assets/images/icon-disabled-members-alert.png"/>
+    <span translate>@common-disabled-member-notice-msg-short</span>
+  </span>
+
+  <room-connector ng-if="isConnectActive"
+                  ng-class="{'bot-room': isJandiBot}"
+                  ng-show="isAllowConnect"
+                  current-entity="currentEntity"
+                  connect-info="connectInfo"
+                  on-dropdown-toggle="onConnectorToggle($isOpen)"></room-connector>
+
+
+  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button"
+        ng-click="cancelInvitation()">
+    <i class="icon-delete"></i> <span translate>@dummy-invitation-cancel</span>
+  </span>
+
+  <span ng-if="isInactiveUser" class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__button"
+        ng-click="sendInvitation()">
+    <i class="icon-mail"></i> <span translate>@dummy-invitation-resend</span>
+  </span>
+</div>
