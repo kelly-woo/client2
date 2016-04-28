@@ -23,10 +23,9 @@
      * @returns {*}
      */
     function get(starredId, count, type, teamId) {
-      teamId = teamId || memberService.getTeamId();
       return $http({
         method: 'GET',
-        url: _server_address + 'teams/' + teamId + '/messages/starred',
+        url: _server_address + 'teams/' + _getTeamId(teamId) + '/messages/starred',
         params: {
           starredId: starredId,
           count: count,
@@ -42,10 +41,9 @@
      * @returns {*}
      */
     function getItem(messageId, teamId) {
-      teamId = teamId || memberService.getTeamId();
       return $http({
         method: 'GET',
-        url: _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
+        url: _server_address + 'teams/' + _getTeamId(teamId) + '/messages/' + messageId + '/starred'
       });
     }
 
@@ -56,10 +54,9 @@
      * @returns {*}
      */
     function star(messageId, teamId) {
-      teamId = teamId || memberService.getTeamId();
       return $http({
         method  : 'POST',
-        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
+        url     : _server_address + 'teams/' + _getTeamId(teamId) + '/messages/' + messageId + '/starred'
       });
     }
 
@@ -70,11 +67,20 @@
      * @returns {*}
      */
     function unStar(messageId, teamId) {
-      teamId = teamId || memberService.getTeamId();
       return $http({
         method  : 'DELETE',
-        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
+        url     : _server_address + 'teams/' + _getTeamId(teamId) + '/messages/' + messageId + '/starred'
       });
+    }
+
+    /**
+     * team id 전달
+     * @param {number} teamId
+     * @returns {*|number}
+     * @private
+     */
+    function _getTeamId(teamId) {
+      return teamId || memberService.getTeamId();
     }
   }
 })();
