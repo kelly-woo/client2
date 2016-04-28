@@ -630,11 +630,12 @@
 
     /**
      * member의 status가 deleted인지 아닌지 확인한다.
+     * Dummy account 인 경우에는 removed.
      * @param {object} member - member object
      * @returns {*|boolean}
      */
     function isDeleted(member) {
-      return member && member.status === 'deleted';
+      return member && (member.status === 'deleted' || member.status === 'removed');
     }
 
     /**

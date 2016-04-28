@@ -185,13 +185,14 @@
      */
     function _onTeamLeft(socketEvent) {
       var member = socketEvent.member;
-
+      var leftStatus = memberService.isInactiveUser(member) ? 'removed' : 'deleted';
+      
       // 내가 현재 팀을 나갔을 경우
       if (jndWebSocketCommon.isActionFromMe(socketEvent.member.id)) {
         publicService.redirectToMain();
       } else {
         UserList.extend(member.id, {
-          status: 'removed'
+          status: leftStatus
         });
         jndPubSub.pub('updateChatList');
         jndPubSub.pub('jndWebSocketTeam:memberLeft', member);
