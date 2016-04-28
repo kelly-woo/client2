@@ -76,6 +76,9 @@
       // 활성 member list
       $scope.activeMembers = [];
 
+      // 선택 가능한 member list
+      $scope.selectingMembers = [];
+
       $scope.availableMemberList = _.reject(currentSessionHelper.getCurrentTeamUserList(), function(user) {
         var isActiveMember = memberService.isActiveMember(user);
 
@@ -103,8 +106,6 @@
         // has all members
         $scope.hasAllMembers = $scope.inviteUsers.length === $scope.availableMemberList.length;
       }
-
-      _setAllMembersStatus();
     }
 
     /**
@@ -123,9 +124,13 @@
         return !!item.extSelected !== true;
       });
 
-      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, propertyName, filterText, function(item, desc) {
+      $scope.selectingMembers = $filter('orderByQueryIndex')(list, propertyName, filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
+
+      _setAllMembersStatus();
+
+      return $scope.selectingMembers;
     }
 
     /**
@@ -197,30 +202,7 @@
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
           .success(function() {
-            // analytics
-            var entity_type = "";
-            switch (entityType) {
-              case 'channels':
-                entity_type = "topic";
-                break;
-              case 'privategroups':
-                entity_type = "private group";
-                break;
-              default:
-                entity_type = "invalid";
-                break;
-            }
-            try {
-              //Analtics Tracker. Not Block the Process
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
-                'RESPONSE_SUCCESS': true,
-                'TOPIC_ID': parseInt($state.params.entityId, 10),
-                'MEMBER_COUNT': guestList.length
-              });
-            } catch (e) {
-            }
-
-            analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
+            _analyticsInviteSuccess(guestList);
 
             // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
             $rootScope.$broadcast('updateLeftPanelCaller');
@@ -228,14 +210,8 @@
             $modalInstance.dismiss('success');
           })
           .error(function(error) {
-            try {
-              //Analtics Tracker. Not Block the Process
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
-                'RESPONSE_SUCCESS': false,
-                'ERROR_CODE': error.code
-              });
-            } catch (e) {
-            }
+            _analyticsInviteError(error);
+
             // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
             console.error('inviteUsers', error.msg );
           })
@@ -254,21 +230,27 @@
 
     /**
      * select all members event handler
-     * @param {boolean} value
      */
     function onSelectAll() {
+      var list;
       var fn;
 
-      $scope.hasAllMembers = !$scope.hasAllMembers;
-      fn = $scope.hasAllMembers ? _addMember : _removeMember;
+      if (!$scope.hasAllMembers) {
+        list = $scope.selectingMembers;
+        fn = _addMember;
+      } else {
+        list = $scope.inviteUsers.splice(0);
+        fn = _removeMember;
+      }
 
-      _.each($scope.availableMemberList, function(member) {
+      _.each(list, function(member) {
         fn(member);
       });
 
-      _setAllMembersStatus($scope.hasAllMembers);
-      _setFilterStatus();
+      _clearFilter();
+      _focusFilter();
       _updateMemberList();
+      _setAllMembersStatus();
     }
   
     /**
@@ -319,7 +301,7 @@
     function _setAllMembersStatus(value) {
       if (value == null) {
         // select all checkbox 갱신
-        if ($scope.availableMemberList.length === $scope.inviteUsers.length) {
+        if ($scope.selectingMembers.length === 0 && $scope.inviteUsers.length > 0) {
           $scope.hasAllMembers = value = true;
         } else {
           $scope.hasAllMembers = value = false;
@@ -341,6 +323,54 @@
       }
 
       _focusFilter();
+    }
+
+    /**
+     * 초대성공 analytics
+     * @private
+     * @param {array} guestList
+     */
+    function _analyticsInviteSuccess(guestList) {
+      // analytics
+      var entity_type = "";
+      switch (entityType) {
+        case 'channels':
+          entity_type = "topic";
+          break;
+        case 'privategroups':
+          entity_type = "private group";
+          break;
+        default:
+          entity_type = "invalid";
+          break;
+      }
+      try {
+        //Analtics Tracker. Not Block the Process
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+          'RESPONSE_SUCCESS': true,
+          'TOPIC_ID': parseInt($state.params.entityId, 10),
+          'MEMBER_COUNT': guestList.length
+        });
+      } catch (e) {
+      }
+
+      analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
+    }
+
+    /**
+     * 초대실패 analytics
+     * @param {object} error
+     * @private
+     */
+    function _analyticsInviteError(error) {
+      try {
+        //Analtics Tracker. Not Block the Process
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+          'RESPONSE_SUCCESS': false,
+          'ERROR_CODE': error.code
+        });
+      } catch (e) {
+      }
     }
   }
 })();

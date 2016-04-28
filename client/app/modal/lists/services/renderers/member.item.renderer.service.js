@@ -100,9 +100,10 @@
         value.position = data.u_extraData.position;
         value.phone = data.u_extraData.phoneNumber;
       } else if (memberService.isJandiBot(data.id)) {
-        value.department = '봇모임';
-        value.position = '소통';
-        value.phone = '02-6959-9599';
+        value.department = 'User Support';
+        value.position = 'humble servant';
+        value.phone = '+82 02-6959-9599';
+
         value.status = 'idle';
         value.email = 'support@tosslab.com';
       }
