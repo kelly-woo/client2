@@ -30,14 +30,14 @@
      */
     function _attachScopeEvents() {
       $scope.$on('connected', _onConnected);
-      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
+      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     }
 
     /**
-     * 응답 에러의 예외처리
+     * gateway timeout error event handler
      * @private
      */
-    function _onResponseErrorException() {
+    function _onGatewayTimeoutError() {
       _initTab();
     }
 

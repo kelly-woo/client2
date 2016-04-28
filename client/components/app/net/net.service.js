@@ -62,10 +62,10 @@
      */
     function _onWakeUp() {
       var responseStatus = _getResponseErrorStatus();
-      if (responseStatus['504'] || responseStatus['0']) {
+      if (responseStatus['504']) {
         // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
         setTimeout(function() {
-          jndPubSub.pub('NetInterceptor:onResponseErrorException');
+          jndPubSub.pub('NetInterceptor:onGatewayTimeoutError');
         }, 1000);
       }
       _clearResponseErrorStatus();

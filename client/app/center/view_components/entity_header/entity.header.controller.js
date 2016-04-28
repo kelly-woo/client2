@@ -70,7 +70,7 @@
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
+      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
       $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
@@ -475,10 +475,10 @@
     };
 
     /**
-     * 응답 에러의 예외처리
+     * gateway timeout error event handler
      * @private
      */
-    function _onResponseErrorException() {
+    function _onGatewayTimeoutError() {
       JndUtil.safeApply($scope, function() {
         $scope.isConnected = true;
       });

@@ -225,7 +225,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('connected', _onConnected);
-    $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
+    $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
@@ -927,10 +927,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * 응답 에러의 예외처리
+   * gateway timeout error event handler
    * @private
    */
-  function _onResponseErrorException() {
+  function _onGatewayTimeoutError() {
     _refreshView();
   }
 

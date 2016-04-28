@@ -94,7 +94,7 @@ app.controller('leftPanelController', function(
     $scope.$on('updateLeftBadgeCount', _onUpdateLeftBadgeCount);
     $scope.$on('updateLeftPanelCaller', _requestLeftSideMenu);
     $scope.$on('connected', _onConnected);
-    $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
+    $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     $scope.$on('onMemberClick', function(event, user) {
       $scope.onMemberClick(user);
     });
@@ -152,10 +152,10 @@ app.controller('leftPanelController', function(
   }
 
   /**
-   * 응답 에러의 예외처리
+   * gateway timeout error event handler
    * @private
    */
-  function _onResponseErrorException() {
+  function _onGatewayTimeoutError() {
     _requestLeftSideMenu();
   }
 
