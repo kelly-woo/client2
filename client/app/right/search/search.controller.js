@@ -28,16 +28,8 @@
      * @private
      */
     function _attachScopeEvents() {
-      $scope.$on('disconnected', _onDisconnected);
       $scope.$on('connected', _onConnected);
-    }
-
-    /**
-     * socket disconnection handler
-     * @private
-     */
-    function _onDisconnected() {
-      $scope.isConnected = false;
+      $scope.$on('disconnected', _onDisconnected);
     }
 
     /**
@@ -46,6 +38,14 @@
      */
     function _onConnected() {
       $scope.isConnected = true;
+    }
+
+    /**
+     * socket disconnection handler
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();
