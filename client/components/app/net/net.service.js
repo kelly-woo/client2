@@ -19,7 +19,13 @@
   /* @ngInject */
   function NetInterceptor($rootScope, $q, configuration, jndPubSub) {
     var _isConnected = true;
-    var _responseErrorStatus = {};
+
+    /**
+     * 응답에러가 발생한 상태 맵
+     * @type {{responseErrorStatusCode: count}}
+     * @private
+     */
+    var _responseErrorStatusMap = {};
 
     var _$scope = $rootScope.$new();
 
@@ -126,7 +132,7 @@
      * @private
      */
     function _getResponseErrorStatus() {
-      return _responseErrorStatus;
+      return _responseErrorStatusMap;
     }
 
     /**
@@ -135,7 +141,7 @@
      * @private
      */
     function _setResponseErrorStatus(responseStatus) {
-      _responseErrorStatus[responseStatus] = (_responseErrorStatus[responseStatus] || 0) + 1;
+      _responseErrorStatusMap[responseStatus] = (_responseErrorStatusMap[responseStatus] || 0) + 1;
     }
 
     /**
@@ -143,7 +149,7 @@
      * @private
      */
     function _clearResponseErrorStatus() {
-      _responseErrorStatus = {};
+      _responseErrorStatusMap = {};
     }
   }
 })();
