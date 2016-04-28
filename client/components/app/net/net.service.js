@@ -39,6 +39,10 @@
       _attachDomEvent();
     }
 
+    /**
+     * attach scope events
+     * @private
+     */
     function _attachScopeEvent() {
       _$scope.$on('WatchDog:onWakeUp', _onWakeUp);
     }
@@ -52,6 +56,10 @@
       $(window).on("online", _.bind(setStatus, this, true));
     }
 
+    /**
+     * wake up event handler
+     * @private
+     */
     function _onWakeUp() {
       var responseStatus = _getResponseErrorStatus();
       if (responseStatus['504'] || responseStatus['0']) {
