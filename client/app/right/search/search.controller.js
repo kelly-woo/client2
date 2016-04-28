@@ -30,15 +30,6 @@
     function _attachScopeEvents() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
-    }
-
-    /**
-     * gateway timeout error event handler
-     * @private
-     */
-    function _onGatewayTimeoutError() {
-      $scope.isConnected = true;
     }
 
     /**

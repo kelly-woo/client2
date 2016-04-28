@@ -63,7 +63,8 @@
     function _onWakeUp() {
       var responseStatus = _getResponseErrorStatus();
       if (responseStatus['504']) {
-        // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
+        // wake up 후 바로 'onGatewayTimeoutError'를 pub하였을때 듣고있던 scope에서 xhr 수행하게 되는데 이때
+        // 크롬 브라우저에서 'ERR_NETWORK_IO_SUSPENDED'가 발생하여 정상적인 xhr이 수행되지 않으므로 timeout을 사용한다.
         setTimeout(function() {
           jndPubSub.pub('NetInterceptor:onGatewayTimeoutError');
         }, 1000);

@@ -70,7 +70,6 @@
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
       $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
@@ -473,16 +472,6 @@
     $scope.onStarClick = function() {
       EntityHandler.toggleStarred(_entityId)
     };
-
-    /**
-     * gateway timeout error event handler
-     * @private
-     */
-    function _onGatewayTimeoutError() {
-      JndUtil.safeApply($scope, function() {
-        $scope.isConnected = true;
-      });
-    }
 
     /**
      * network connect 가 publish 되었을 때
