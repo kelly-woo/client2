@@ -240,7 +240,6 @@
      */
     function _getMentionList(entityId, mentionList) {
       var entity = EntityHandler.get(entityId);
-      var currentMemberId = memberService.getMemberId();
       var users;
       var user;
 
@@ -249,17 +248,28 @@
         users = RoomTopicList.getUserIdList(entity.id);
         _.each(users, function (userId) {
           user = UserList.get(userId);
-          if (user && currentMemberId !== user.id && user.status === 'enabled') {
+          if (_isMentionableUser(user)) {
             user.extViewName = '[@' + user.name + ']';
             user.extSearchName = user.name;
             user.extProfileImage = memberService.getProfileImage(user.id);
-
             mentionList.push(user);
           }
         });
       }
 
       return mentionList;
+    }
+
+    /**
+     * mention 가능한 user 인지 여부를 반환한다.
+     * @param user
+     * @returns {*|boolean}
+     * @private
+     */
+    function _isMentionableUser(user) {
+      var currentMemberId = memberService.getMemberId();
+      return !!(user && currentMemberId !== user.id &&
+      (user.status === 'enabled' || user.status === 'inactive'));
     }
 
     /**

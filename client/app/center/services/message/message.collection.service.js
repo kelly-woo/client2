@@ -685,8 +685,9 @@
       var lastLinkIdToCount = markerService.getLastLinkIdToCountMap();
       var markerOffset = markerService.getMarkerOffset();
       var currentUnread;
+      var isChat = centerService.isChat();
 
-      if (centerService.isChat()) {
+      if (isChat) {
         globalUnreadCount = 2;
       } else {
         globalUnreadCount = RoomTopicList.getUserLength(currentSessionHelper.getCurrentEntity().id);
@@ -713,11 +714,15 @@
         }
 
         if (globalUnreadCount < 0) globalUnreadCount = 0;
+        if (isChat) {
+          globalUnreadCount = Math.min(globalUnreadCount, 1);
+        }
         if (globalUnreadCount === 0) {
           message.unreadCount = '';
         } else {
           message.unreadCount = globalUnreadCount;
         }
+
         if (currentUnread !== message.unreadCount) {
           jndPubSub.pub('messages:updateUnread', {
             msg: message,

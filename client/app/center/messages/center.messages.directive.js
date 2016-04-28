@@ -61,7 +61,7 @@
         scope.$on('centerOnFileDeleted', _onFileDeleted);
 
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
-        scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+        scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
         scope.$on('errorThumbnailImage', _onErrorThumbnailImage);
         scope.$on('fileShared', _onFileShareStatusChange);
         scope.$on('fileUnshared', _onFileShareStatusChange);
