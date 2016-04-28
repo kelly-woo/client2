@@ -64,7 +64,9 @@
         if (scope.hasImagePreview) {
           scope.type = 'image-preview';
         } else if (_content.ext === 'pdf' && !FileDetail.isIntegrateFile(_content.serverUrl)) {
-          scope.type = 'pdf';
+          //TODO: PDF Viewer 배포 시점에 아래 주석으로 대체해야 함
+          scope.type = 'etc';
+          // scope.type = 'pdf';
         } else {
           scope.type = 'etc';
         }
