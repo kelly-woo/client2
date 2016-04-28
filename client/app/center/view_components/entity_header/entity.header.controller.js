@@ -146,8 +146,16 @@
         $scope.isMember = $scope.isUser || $scope.isJandiBot;
 
         $scope.isAllowConnect = !$scope.isMember || $scope.isJandiBot;
-        $scope.users = _getUsers(entity);
+        _setUserList();
       }
+    }
+
+    /**
+     * 토픽 참여자 리스트를 생성한다.
+     * @private
+     */
+    function _setUserList() {
+      $scope.users = _getUsers(_currentEntity);
     }
 
     /**
@@ -174,7 +182,11 @@
      */
     function _onMemberUpdated(angularEvent, data) {
       var currentId = $scope.currentEntity.id;
-      if (data.member.id === currentId) {
+      //현재 방이 TOPIC 의 경우 현재 방의 member list 를 갱신한다.
+      if (RoomTopicList.isExist(currentId)) {
+        _setUserList();
+      //현재 방이 DM 의 경우
+      } else if (data.member.id === currentId) {
         _initWithParam(EntityHandler.get(currentId));
       }
     }
