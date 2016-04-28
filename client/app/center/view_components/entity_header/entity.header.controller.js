@@ -70,6 +70,7 @@
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
       $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
@@ -472,6 +473,16 @@
     $scope.onStarClick = function() {
       EntityHandler.toggleStarred(_entityId)
     };
+
+    /**
+     * 응답 에러의 예외처리
+     * @private
+     */
+    function _onResponseErrorException() {
+      JndUtil.safeApply($scope, function() {
+        $scope.isConnected = true;
+      });
+    }
 
     /**
      * network connect 가 publish 되었을 때

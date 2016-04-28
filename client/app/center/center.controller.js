@@ -225,6 +225,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('connected', _onConnected);
+    $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
@@ -926,10 +927,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * 응답 에러의 예외처리
+   * @private
+   */
+  function _onResponseErrorException() {
+    _refreshView();
+  }
+
+  /**
    * 네트워크 연결 되었을때 콜백
    * @private
    */
   function _onConnected() {
+    _refreshView();
+  }
+
+  /**
+   * view 갱신
+   * @private
+   */
+  function _refreshView() {
     _initMarkers();
     if (MessageSendingCollection.queue.length) {
       _requestPostMessages(true);

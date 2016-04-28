@@ -19,12 +19,44 @@
      */
     function _init() {
       $scope.closeRightPanel = closeRightPanel;
+      _initTab();
 
+      _attachScopeEvents();
+    }
+
+    /**
+     * attach scope events
+     * @private
+     */
+    function _attachScopeEvents() {
+      $scope.$on('connected', _onConnected);
+      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
+    }
+
+    /**
+     * 응답 에러의 예외처리
+     * @private
+     */
+    function _onResponseErrorException() {
+      _initTab();
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      _initTab();
+    }
+
+    /**
+     * init tab
+     * @private
+     */
+    function _initTab() {
       $scope.tabs = RightPanel.getTabStatus();
       $scope.activeTabName = _getActiveTabName();
     }
-
-    $scope.$on('connected', _init);
 
     /**
      * right panel이 on 되었다는 event handling

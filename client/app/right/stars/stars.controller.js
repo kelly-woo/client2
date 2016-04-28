@@ -93,6 +93,7 @@
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
     }
 
     /**
@@ -500,10 +501,26 @@
     }
 
     /**
+     * 응답 에러의 예외처리
+     * @private
+     */
+    function _onResponseErrorException() {
+      _refreshView();
+    }
+
+    /**
      * 네트워크 활성 이벤트 핸들러
      * @private
      */
     function _onConnected() {
+      _refreshView();
+    }
+
+    /**
+     * view 갱신
+     * @private
+     */
+    function _refreshView() {
       $scope.isConnected = true;
 
       if($scope.status.isActive) {

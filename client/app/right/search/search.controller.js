@@ -28,16 +28,17 @@
      * @private
      */
     function _attachScopeEvents() {
-      $scope.$on('disconnected', _onDisconnected);
       $scope.$on('connected', _onConnected);
+      $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onResponseErrorException', _onResponseErrorException);
     }
 
     /**
-     * socket disconnection handler
+     * 응답 에러의 예외처리
      * @private
      */
-    function _onDisconnected() {
-      $scope.isConnected = false;
+    function _onResponseErrorException() {
+      $scope.isConnected = true;
     }
 
     /**
@@ -46,6 +47,14 @@
      */
     function _onConnected() {
       $scope.isConnected = true;
+    }
+
+    /**
+     * socket disconnection handler
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();
