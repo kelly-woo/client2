@@ -55,7 +55,8 @@
       } catch(e) {}
 
       if (token) {
-        googleDrive.setToken(token)
+        googleDrive.setToken(token);
+        googleDrive.isValidAccess()
           .then(function(hasAccessDenied) {
             // init auth가 끝난다음 show picker를 수행해야한다.
 

@@ -200,7 +200,7 @@
 
         // Load the drive API
         gapi.client.setApiKey(that.options.apiKey);
-        gapi.client.load('drive', 'v2', that._initAuth.bind(that));
+        gapi.client.load('drive', 'v2');
         google.load('picker', '1', { callback: that._pickerApiLoaded.bind(that) });
 
         return that;
@@ -217,9 +217,9 @@
 
         Integration.open.call(that, scope);
 
-        if (that._hasAccessDenied) {
+        if (that._hasAccessDenied && that._token) {
           // 이전에 access denied 상태를 가졌다면 auth 초기화 하여 access 가능한 상태인지 확인한다.
-          that._initAuth().then(function(hasAccessDenied) {
+          that.isValidAccess().then(function(hasAccessDenied) {
             if (!hasAccessDenied) {
               // access denined가 아니라면 picker를 출력한다.
               that.showPicker(that._token);
@@ -243,7 +243,7 @@
        */
       _open: function() {
         var that = this;
-
+        
         that._doAuth(false);
       },
       /**
@@ -302,23 +302,12 @@
         buttonEle && buttonEle.length > 0 && this.options.buttonEle.attr('disabled', false);
       },
       /**
-       * auth 초기화
-       * @private
-       */
-      _initAuth: function() {
-        var that = this;
-
-        that._deferIsValidAccess = $q.defer();
-
-        return that._isValidAccess();
-      },
-      /**
        * 타당한 access 인지 여부
        * @returns {*}
-       * @private
        */
-      _isValidAccess: function() {
+      isValidAccess: function() {
         var that = this;
+        var deferIsValidAccess = $q.defer();
 
         that._doAuth(true, function(event) {
           if (event.error_subtype === 'access_denied') {
@@ -329,10 +318,10 @@
             that._hasAccessDenied = false;
           }
 
-          that._deferIsValidAccess.resolve(that._hasAccessDenied);
+          deferIsValidAccess.resolve(that._hasAccessDenied);
         });
 
-        return that._deferIsValidAccess.promise;
+        return deferIsValidAccess.promise;
       },
       /**
        * google drive 접근 실패 이벤트 핸들러
@@ -352,8 +341,6 @@
 
         gapi.auth.setToken(token);
         that._token = token;
-
-        return that._deferIsValidAccess.promise;
       },
       /**
        * client id에 대한 인증 요청함
