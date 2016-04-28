@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="invite-link-message ng-hide" ng-show="(isSupportClip && isCopySuccess)"><span translate>@invitation_success_copy_link</span></div>
-        <div class="invite-link-message ng-hide" ng-show="(!isSupportClip && isLinkTextFocus)"><span translate>@team-invite-link-copy-desc</span></div>
+        <div class="invite-link-message ng-hide" ng-show="(!isSupportClip && isLinkTextFocus)">{{::teamInviteLinkCopyDescription}}</div>
         <!--<div class="invite-contact-desc"><span translate>@invitation-contact-desc</span></div>-->
       </div>
     </div>
