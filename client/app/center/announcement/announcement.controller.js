@@ -78,7 +78,7 @@
 
       $scope.$on('minimizeAnnouncement', minimizeAnnouncement);
 
-      $scope.$on('updateMemberProfile', _updateMemberProfile);
+      $scope.$on('jndWebSocketMember:memberUpdated', _updateMemberProfile);
 
       $scope.$watch('displayStatus.hide', function(isHided) {
         Announcement.setIsOpened(!isHided);

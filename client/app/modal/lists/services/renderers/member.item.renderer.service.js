@@ -25,7 +25,7 @@
     }
 
     /**
-     * topic item을 랜더링한다.
+     * member item을 랜더링한다.
      * @param {object} data
      * @param {string} filterText
      * @param {string} filterType
@@ -34,21 +34,25 @@
     function render(data, filterText, filterType) {
       data = _convertData(data);
       var isAdmin = _isAdmin(data.id);
+      var isInactive = data.isInactive;
 
       return _nameOnlyTemplate({
         text: {
-          admin: _translate('@common-team-admin')
+          admin: _translate('@common-team-admin'),
+          invitationResend: _translate('@dummy-invitation-resend')
         },
         html: _getHtml(data, filterText, filterType),
         css: {
           admin: isAdmin ? 'admin' : '',
-          memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : ''
+          memberItem: memberService.isJandiBot(data.id) ? 'jandi-bot' : '',
+          memberName: isInactive || isAdmin ? 'short' : ''
         },
         profileImage: memberService.getProfileImage(data.id, 'small'),
         starClass: data.isStarred ? 'icon-star-on' : '',
         isShowStar: !data.isDeactive && data.id !== memberService.getMemberId(),
         itemHeight: 68,
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
+        isInactive: isInactive
       });
     }
 
@@ -92,7 +96,8 @@
         email: data.u_email,
         status: data.u_statusMessage,
         isStarred: data.isStarred,
-        isDeactive: memberService.isDeactivatedMember(data)
+        isDeactive: memberService.isDeactivatedMember(data),
+        isInactive: memberService.isInactiveUser(data)
       };
 
       if (data.u_extraData) {

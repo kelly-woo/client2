@@ -58,7 +58,7 @@
         scope.$on('webSocketConnect:connectCreated', _onConnectCreated);
         scope.$on('webSocketConnect:connectUpdated', _onConnectUpdated);
         scope.$on('webSocketConnect:connectDeleted', _onConnectDeleted);
-        scope.$on('updateMemberProfile', _onMemberProfileUpdated);
+        scope.$on('jndWebSocketMember:memberUpdated', _onMemberProfileUpdated);
       }
 
       /**

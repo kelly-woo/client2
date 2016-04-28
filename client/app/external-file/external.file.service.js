@@ -14,8 +14,6 @@
     var _server_address = configuration.server_address;
     var _externalShareDomain = configuration.external_share_address;
 
-    var _teamId = memberService.getTeamId();
-
     _init();
 
     /**
@@ -37,7 +35,7 @@
      * @returns {*}
      */
     function share(fileId, teamId) {
-      teamId = teamId || _teamId;
+      teamId = teamId || memberService.getTeamId();
       return $http({
         method: 'PUT',
         url: _server_address + 'teams/' + teamId + '/files/' + fileId + '/externalShared'
@@ -51,7 +49,7 @@
      * @returns {*}
      */
     function unshare(fileId, teamId) {
-      teamId = teamId || _teamId;
+      teamId = teamId || memberService.getTeamId();
       return $http({
         method: 'DELETE',
         url: _server_address + 'teams/' + teamId + '/files/' + fileId + '/externalShared'

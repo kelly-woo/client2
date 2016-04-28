@@ -1,6 +1,6 @@
 <div class="file-detail-preview">
-  <div class="preview-body" ng-click="onImageClick($event);" ng-switch on="hasImagePreview">
-    <div class="image_wrapper" ng-switch-when="true"
+  <div class="preview-body" ng-click="onImageClick($event);" ng-switch on="type">
+    <div class="image_wrapper" ng-switch-when="image-preview"
          image-view="{{::imageUrl}}"
          image-width="{{::width}}"
          image-height="{{::height}}"
@@ -9,7 +9,14 @@
          image-orientation="{{::orientation}}"
          on-image-load="onImageLoad()">
     </div>
-    <a class="filter-type-preview-wrapper" href="{{::originalUrl}}" target="_blank" ng-switch-when="false">
+    <a class="filter-type-preview-wrapper" ng-click="loadPdf()" ng-switch-when="pdf">
+      <div class="filter-type-preview-bg"></div>
+      <div class="filter-type-preview-text">
+        <span>{{::'@msg-open-original'|translate}}</span>
+      </div>
+      <img ng-src="{{::imageUrl}}">
+    </a>
+    <a class="filter-type-preview-wrapper" href="{{::originalUrl}}" target="_blank" ng-switch-when="etc">
       <div class="filter-type-preview-bg"></div>
       <div class="filter-type-preview-text">
         <span>{{::'@msg-open-original'|translate}}</span>

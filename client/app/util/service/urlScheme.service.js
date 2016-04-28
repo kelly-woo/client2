@@ -44,7 +44,7 @@
           access_token +
           '&' +
           refresh_token +
-          '/#Intent;scheme=tosslabjandi;package=' +
+          '#Intent;scheme=tosslabjandi;package=' +
           configuration.android_package +
           ';end;';
         urlToStore = configuration.play_store_address

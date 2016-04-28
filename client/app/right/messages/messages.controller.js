@@ -84,6 +84,7 @@
       // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     }
 
     /**
@@ -512,10 +513,26 @@
     }
 
     /**
+     * gateway timeout error event handler
+     * @private
+     */
+    function _onGatewayTimeoutError() {
+      _refreshView();
+    }
+
+    /**
      * 네트워크 활성 이벤트 핸들러
      * @private
      */
     function _onConnected() {
+      _refreshView();
+    }
+
+    /**
+     * view 갱신
+     * @private
+     */
+    function _refreshView() {
       $scope.isConnected = true;
 
       if($scope.status.isActive) {

@@ -51,6 +51,7 @@
   <link rel="stylesheet" href="app/center/view_components/entity_header/room-connector/connect-plug/connect.plug.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/room-connector/room.connector.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/views/entity.header.dm.css">
   <link rel="stylesheet" href="app/common.css">
   <link rel="stylesheet" href="app/connect/card/jnd.connect.card.css">
   <link rel="stylesheet" href="app/connect/card/jnd.connect.card.plug.css">
@@ -154,13 +155,16 @@
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="app/util/directive/jnd.version.css">
   <link rel="stylesheet" href="app/util/directive/loading/initial/loading-initial.css">
+  <link rel="stylesheet" href="app/util/directive/pdf-viewer/jnd.pdf.viewer.css">
   <link rel="stylesheet" href="app/util/directive/switch-button/switch.button.css">
   <link rel="stylesheet" href="assets/components/google-code-prettify/prettify.css">
+  <link rel="stylesheet" href="assets/components/pdfjs/pdf_viewer.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
   <link rel="stylesheet" href="components/jandi/ui/dialog/dialog.css">
   <link rel="stylesheet" href="components/jandi/ui/dialog/modal/modal.css">
   <link rel="stylesheet" href="components/jandi/ui/dialog/toast/toast.css">
   <link rel="stylesheet" href="components/jandi/ui/intercom/intercom.css">
+  <link rel="stylesheet" href="components/jandi/ui/pdf-viewer/pdf.viewer.css">
   <link rel="stylesheet" href="components/jandi/ui/profile-image/character-image/character.image.css">
   <link rel="stylesheet" href="components/jandi/ui/profile-image/crop-image/crop.image.css">
   <!-- endinjector -->
@@ -203,6 +207,8 @@
   </div>
   <guide-privacy></guide-privacy>
   <guide-zoom></guide-zoom>
+  <jnd-pdf-viewer></jnd-pdf-viewer>
+  <jnd-loading></jnd-loading>
 </div>
 
 <!--<div class="is-ready-loading" ng-show="!isReady">-->
@@ -263,6 +269,8 @@
 <script src="bower_components/blueimp-load-image/js/load-image-exif-map.js"></script>
 <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
 <script src="bower_components/handlebars/handlebars.js"></script>
+<script src="bower_components/pdfjs-dist/build/pdf.js"></script>
+<script src="bower_components/pdfjs-dist/build/pdf.worker.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -273,8 +281,9 @@
 <script src="components/jandi/browser/browser.js"></script>
 <script src="components/jandi/preloader/preloader.js"></script>
 <script src="components/jandi/core/core.js"></script>
+<script src="components/jandi/ui/jandi.ui.js"></script>
 <script src="components/jandi/jandi.framework.js"></script>
-  
+
 <script src="components/app/analytics/analytics.js"></script>
 <script src="components/app/router/router.js"></script>
 <script src="components/app/language/language.js"></script>
@@ -290,6 +299,8 @@
 <script src="app/app.js"></script>
 <!-- injector:js -->
 <script src="assets/components/google-code-prettify/prettify.js"></script>
+<script src="assets/components/pdfjs/compatibility.js"></script>
+<script src="assets/components/pdfjs/pdf_viewer.js"></script>
 <script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
 <script src="assets/javascripts/handlebars.templates.js"></script>
@@ -315,6 +326,8 @@
 <script src="app/util/directive/jnd.version.directive.js"></script>
 <script src="app/util/directive/loading/initial/loading-initial.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
+<script src="app/util/directive/pdf-viewer/jnd.pdf.viewer.directive.js"></script>
+<script src="app/util/directive/pdf-viewer/jnd.pdf.viewer.service.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/switch-button/switch.button.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
@@ -372,6 +385,7 @@
 <script src="app/util/service/unread.badge.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
+<script src="app/util/service/watch.dog.service.js"></script>
 <script src="app/util/storage/jnd.folder.storage.js"></script>
 <script src="app/util/storage/jnd.local.storage.js"></script>
 <script src="app/util/storage/jnd.message.storage.js"></script>
@@ -422,6 +436,9 @@
 <script src="app/center/view_components/entity_header/room-connector/room.connector.directive.js"></script>
 <script src="app/center/view_components/entity_header/topic_description/topic.description.controller.js"></script>
 <script src="app/center/view_components/entity_header/topic_description/topic.description.directive.js"></script>
+<script src="app/center/view_components/entity_header/views/entity.header.disconnect.directive.js"></script>
+<script src="app/center/view_components/entity_header/views/entity.header.dm.directive.js"></script>
+<script src="app/center/view_components/entity_header/views/entity.header.topic.directive.js"></script>
 <script src="app/connect/card/jnd.connect.card.controller.js"></script>
 <script src="app/connect/card/jnd.connect.card.directive.js"></script>
 <script src="app/connect/card/jnd.connect.card.plug.controller.js"></script>
@@ -688,6 +705,9 @@
 <script src="components/jandi/ui/intercom/intercom.abstract.js"></script>
 <script src="components/jandi/ui/intercom/intercom.directive.js"></script>
 <script src="components/jandi/ui/jandi.ui.js"></script>
+<script src="components/jandi/ui/pdf-viewer/pdf.viewer.abstract.js"></script>
+<script src="components/jandi/ui/pdf-viewer/pdf.viewer.directive.js"></script>
+<script src="components/jandi/ui/pdf-viewer/pdf.viewer.service.js"></script>
 <script src="components/jandi/ui/profile-image/character-image/character.image.directive.js"></script>
 <script src="components/jandi/ui/profile-image/character-image/character.image.service.js"></script>
 <script src="components/jandi/ui/profile-image/crop-image/crop.image.directive.js"></script>

@@ -56,7 +56,7 @@
       $scope.$on('fileDetail:updateComments', _onUpdateComments);
 
       $scope.$on('rightFileDetailOnFileDeleted', _onRightFileDetailOnFileDeleted);
-      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+      $scope.$on('jndWebSocketMember:memberUpdated', _onUpdateMemberProfile);
     }
 
     /**

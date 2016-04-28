@@ -19,12 +19,35 @@
      */
     function _init() {
       $scope.closeRightPanel = closeRightPanel;
+      _initTab();
 
+      _attachScopeEvents();
+    }
+
+    /**
+     * attach scope events
+     * @private
+     */
+    function _attachScopeEvents() {
+      $scope.$on('connected', _onConnected);
+    }
+
+    /**
+     * 네트워크 활성 이벤트 핸들러
+     * @private
+     */
+    function _onConnected() {
+      _initTab();
+    }
+
+    /**
+     * init tab
+     * @private
+     */
+    function _initTab() {
       $scope.tabs = RightPanel.getTabStatus();
       $scope.activeTabName = _getActiveTabName();
     }
-
-    $scope.$on('connected', _init);
 
     /**
      * right panel이 on 되었다는 event handling

@@ -8,7 +8,6 @@
   /* @ngInject */
   function entityHeader($http, $q, memberService, config, configuration) {
     var that = this;
-    var teamId = memberService.getTeamId();
 
     _init();
 
@@ -29,7 +28,7 @@
     function kickOut(topicId, memberId) {
       return $http({
         method: 'PUT',
-        url: config.server_address + 'teams/' + teamId + '/topics/' + topicId + '/kickout',
+        url: config.server_address + 'teams/' + memberService.getTeamId() + '/topics/' + topicId + '/kickout',
         data: {
           memberId: memberId
         }
@@ -41,7 +40,7 @@
         method: 'PUT',
         url: config.server_address + entityType + '/' + entityId + '/leave',
         data: {
-          teamId: teamId
+          teamId: memberService.getTeamId()
         }
       });
     }
@@ -51,7 +50,7 @@
         method: 'DELETE',
         url: config.server_address + entityType + '/' + entityId,
         params: {
-          teamId: teamId
+          teamId: memberService.getTeamId()
         }
       });
     }
@@ -59,7 +58,7 @@
     function toggleTopicNotification(entityId, toBeValue) {
       return $http({
         method: 'PUT',
-        url: config.server_address + 'teams/' + teamId + '/rooms/' + entityId + '/subscribe',
+        url: config.server_address + 'teams/' + memberService.getTeamId() + '/rooms/' + entityId + '/subscribe',
         data: {
           subscribe: toBeValue
         }
@@ -75,7 +74,7 @@
       var abortDeferred = $q.defer();
       var request = $http({
         method: 'GET',
-        url: configuration.api_connect_address + 'teams/' + teamId + '/rooms/' + roomId + '/connect',
+        url: configuration.api_connect_address + 'teams/' + memberService.getTeamId() + '/rooms/' + roomId + '/connect',
         timeout: abortDeferred.promise
       });
 

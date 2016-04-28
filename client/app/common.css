@@ -144,7 +144,7 @@ input[type="email"] {
 }
 
 .opac-in {
-  opacity: 1;
+  opacity: 1 !important;
   -webkit-transition: opacity 0.7s;
   -moz-transition: opacity 0.7s;
   -ms-transition: opacity 0.7s;
@@ -153,7 +153,7 @@ input[type="email"] {
 }
 
 .opac-out {
-  opacity: 0;
+  opacity: 0 !important;
   -webkit-transition: opacity 0.7s;
   -moz-transition: opacity 0.7s;
   -ms-transition: opacity 0.7s;
@@ -161,17 +161,17 @@ input[type="email"] {
   transition: opacity 0.7s;
 }
 
-.opac-out {
-  opacity: 0;
-  -webkit-transition: opacity 0.7s;
-  -moz-transition: opacity 0.7s;
-  -ms-transition: opacity 0.7s;
-  -o-transition: opacity 0.7s;
-  transition: opacity 0.7s;
+.opac-out-slow {
+  opacity: 0 !important;
+  -webkit-transition: opacity 1.5s;
+  -moz-transition: opacity 1.5s;
+  -ms-transition: opacity 1.5s;
+  -o-transition: opacity 1.5s;
+  transition: opacity 1.5s;
 }
 
 .opac-in-fast {
-  opacity: 1;
+  opacity: 1 !important;
   -webkit-transition: opacity 0.3s;
   -moz-transition: opacity 0.3s;
   -ms-transition: opacity 0.3s;

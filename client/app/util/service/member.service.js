@@ -83,6 +83,7 @@
       isAdmin: isAdmin,
       isActiveMember: isActiveMember,
       isDeactivatedMember: isDeactivatedMember,
+      isInactiveUser: isInactiveUser,
       isDisabled: isDisabled,
       isDeleted: isDeleted,
 
@@ -601,6 +602,14 @@
     }
 
     /**
+     * inactive user (dummy account) 인지 확인한다.
+     * @param {object} member
+     */
+    function isInactiveUser(member) {
+      return CoreUtil.pick(member, 'status') === 'inactive';
+    }
+
+    /**
      * member가 disabled이거나 deleted인지 확인한다.
      * 외부 서비스에서 사용하기 편하려고 만들었다.
      * @param {object} member - member object
@@ -621,11 +630,12 @@
 
     /**
      * member의 status가 deleted인지 아닌지 확인한다.
+     * Dummy account 인 경우에는 removed.
      * @param {object} member - member object
      * @returns {*|boolean}
      */
     function isDeleted(member) {
-      return member && member.status === 'deleted';
+      return member && (member.status === 'deleted' || member.status === 'removed');
     }
 
     /**
