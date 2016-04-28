@@ -37,11 +37,15 @@
 
     /**
      * $rootScope.$broadcast를 대신한다.
-     * @param event {string} name of event to be broadcast
-     * @param param {object} param of event to be passed along with broadcast event
+     * @param {string} eventName - name of event to be broadcast
+     * @param {...*} [params] -  name of event to be broadcast
+     * @example
+        publish('SampleComponent:init', val1, val2, val3);
      */
-    function publish(event, param) {
-      $rootScope.$broadcast(event, param);
+    function publish(eventName, params) {
+      if (_.isString(eventName)) {
+        $rootScope.$broadcast.apply($rootScope, arguments);
+      }
     }
 
     /**

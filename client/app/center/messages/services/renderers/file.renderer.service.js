@@ -9,8 +9,8 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil,
-                        centerService, memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper,
+  function FileRenderer($rootScope, $filter, $state, modalHelper, MessageCollection, RendererUtil, CoreUtil, JndPdfViewer,
+                        FileDetail, memberService, fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper,
                         publicService) {
     var _template = '';
 
@@ -56,6 +56,35 @@
         _onClickFileDetail(msg, true);
       } else if (jqTarget.closest('._fileDetail').length) {
         _onClickFileDetail(msg);
+      } else if (jqTarget.closest('._fileDetailContainer').length) {
+        _onClickContainer(msg);
+      }
+    }
+
+    /**
+     * file card 자체를 클릭했을 때 이벤트 핸들러
+     * @param {object} msg
+     * @private
+     */
+    function _onClickContainer(msg) {
+      var contentType = CoreUtil.pick(msg, 'message', 'contentType');
+      var content;
+      var file;
+      if (contentType === 'comment') {
+        content = CoreUtil.pick(msg, 'feedback', 'content');
+        file = CoreUtil.pick(msg, 'feedback');
+      } else {
+        content = CoreUtil.pick(msg, 'message', 'content');
+        file = CoreUtil.pick(msg, 'message');
+      }
+      if (content) {
+        //TODO: PDF Viewer 배포 시점에 아래 주석으로 대체해야 함
+        _onClickFileDetail(msg);
+        // if (content.ext === 'pdf' && !FileDetail.isIntegrateFile(content.serverUrl)) {
+        //   JndPdfViewer.load(content.fileUrl, file);
+        // } else {
+        //   _onClickFileDetail(msg);
+        // }
       }
     }
 

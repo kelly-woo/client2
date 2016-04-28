@@ -1,0 +1,117 @@
+<div class="jnd-pdf-viewer-wrap">
+  <div class="jnd-pdf-viewer-title-container">
+    <div class="pull-left pdf-file-info">
+      <div class="pull-left">
+        <i class="icon-file"></i>
+      </div>
+      <div class="pull-left">
+        <div class="pdf-title cursor_pointer" ng-click="openFileDetail()">
+          {{ file.content.title }}
+        </div>
+        <div class="pdf-detail">
+          <span>{{ file.createdAt | getyyyyMMddformat }}</span>
+          <span>&middot; </span>
+          <span>{{ file.content.size | bytes}}</span>
+          <span>&middot; </span>
+          <span>
+            <i class="icon-comment-fill"></i>
+            <span>{{ file.commentCount }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-right pdf-close cursor_pointer" ng-click="close()">
+      <i class="icon-delete"></i>
+    </div>
+    <div class="divider pull-right">
+    </div>
+    <div class="buttons pull-right">
+      <span class="cursor_pointer pdf-btn"
+            star-view="file.isStarred"
+            star-view-id="file.id"
+            tooltip="{{::'@star'|translate}}"
+            tooltip-class="jnd-pdf-tooltip"
+            tooltip-placement="bottom"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="100">
+        <i ng-class="file.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
+      </span>
+      <a class="cursor_pointer pdf-btn"
+         href="{{ downloadUrl }}"
+         tooltip="{{::'@common-download'|translate}}"
+         tooltip-class="jnd-pdf-tooltip"
+         tooltip-placement="bottom"
+         tooltip-append-to-body="true"
+         tooltip-popup-delay="100">
+        <i class="icon-download"></i>
+      </a>
+      <span class="cursor_pointer pdf-btn"
+            ng-click="openFileDetail(true);"
+            tooltip="{{::'@common-comment-create'|translate}}"
+            tooltip-class="jnd-pdf-tooltip"
+            tooltip-placement="bottom"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="100">
+        <i class="icon-comment"></i>
+        <span class="pdf-comment-count">{{ file.commentCount }}</span>
+      </span>
+    </div>
+  </div>
+  <div class="jnd-pdf-viewer-container">
+    <progressbar class="pdf-progress-bar"
+                 max="100"
+                 value="progress"
+                 ng-class="{
+                     'opac-out-slow': progress === 100
+                     }"></progressbar>
+    <div class="jnd-pdf-viewer-error _error">
+      <div>
+        <i class="icon-help"></i>
+      </div>
+      <div class="" ng-bind-html="'@pdfviewer-loadingfail-msg'|translate">
+      </div>
+    </div>
+    <pdf-viewer></pdf-viewer>
+  </div>
+
+  <div class="toolbar _toolbar">
+    <span class="button jnd-icon cursor_pointer"
+          ng-click="zoomOut()"
+          tooltip="{{::'@pdfviewer-tooltip-zoomout'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
+      <i class="icon-minus-circle"></i>
+    </span>
+    <span class="button jnd-icon cursor_pointer"
+          ng-click="zoomIn()"
+          tooltip="{{::'@pdfviewer-tooltip-zoomin'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
+      <i class="icon-plus-circle"></i>
+    </span>
+    <span class="button jnd-icon cursor_pointer" ng-click="prevPage()">
+      <i class="icon-angle-up"></i>
+    </span>
+    <span class="page-current">
+      {{ currentPage }} / {{totalPage}}
+    </span>
+    <span class="button jnd-icon cursor_pointer" ng-click="nextPage()">
+      <i class="icon-angle-down"></i>
+    </span>
+    <span class="button fontawesome-icon cursor_pointer"
+          ng-click="zoomToggle()"
+          tooltip="{{::'@pdfviewer-tooltip-fittoscreen'|translate}}"
+          tooltip-class="jnd-pdf-tooltip"
+          tooltip-placement="top"
+          tooltip-append-to-body="true"
+          tooltip-popup-delay="100">
+      <i class="fa-arrows-alt"></i>
+    </span>
+  </div>
+  <input type="text" class="_input"/>
+</div>
