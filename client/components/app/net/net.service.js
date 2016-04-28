@@ -17,9 +17,11 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($q, configuration, jndPubSub, WatchDog) {
+  function NetInterceptor($rootScope, $q, configuration, jndPubSub) {
     var _isConnected = true;
     var _responseErrorStatus = {};
+
+    var _$scope = $rootScope.$new();
 
     this.setStatus = setStatus;
     this.isConnected = isConnected;
@@ -33,18 +35,12 @@
      * @private
      */
     function _init() {
-      WatchDog.onWakeUp(function() {
-        var responseStatus = _getResponseErrorStatus();
-        if (responseStatus['504'] || responseStatus['0']) {
-          // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
-          setTimeout(function() {
-            jndPubSub.pub('connected');
-          }, 1000);
-        }
-        _clearResponseErrorStatus();
-      });
-
+      _attachScopeEvent();
       _attachDomEvent();
+    }
+
+    function _attachScopeEvent() {
+      _$scope.$on('WatchDog:onWakeUp', _onWakeUp);
     }
 
     /**
@@ -54,6 +50,17 @@
     function _attachDomEvent() {
       $(window).on("offline", _.bind(setStatus, this, false));
       $(window).on("online", _.bind(setStatus, this, true));
+    }
+
+    function _onWakeUp() {
+      var responseStatus = _getResponseErrorStatus();
+      if (responseStatus['504'] || responseStatus['0']) {
+        // wake up 후 바로 connected를 pub하면 xhr 오류가 발생하므로 setTimeout 사용한다.
+        setTimeout(function() {
+          jndPubSub.pub('connected');
+        }, 1000);
+      }
+      _clearResponseErrorStatus();
     }
 
     /**

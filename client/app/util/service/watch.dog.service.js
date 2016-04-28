@@ -10,11 +10,8 @@
     .service('WatchDog', WatchDog);
 
   /* @ngInject */
-  function WatchDog() {
+  function WatchDog($rootScope) {
     var _that = this;
-    var _handlerMap = {
-      onWakeUp: []
-    };
 
     var DELAY = 60000;
     var _currentTime;
@@ -29,16 +26,14 @@
      * @private
      */
     function _init() {
-      _run();
-
-      _that.onWakeUp = onWakeUp;
+      _that.run = run;
     }
 
     /**
      * run watch dog
      * @private
      */
-    function _run() {
+    function run() {
       _lastTime = (new Date()).getTime();
 
       _loop();
@@ -53,26 +48,19 @@
     }
 
     /**
-     * pc가 sleep 상태 였다가 일어날때 수행할 핸들러 추가
-     */
-    function onWakeUp(handler) {
-      _handlerMap.onWakeUp.push(handler);
-    }
-
-    /**
      * weak up 상태 동안 주기적으로 수행
      * @private
      */
     function _loop() {
       _currentTime = (new Date()).getTime();
 
-      if (_currentTime > (_lastTime + DELAY + 100)) {
+      if (_currentTime > (_lastTime + DELAY + 5000)) {
         // 100은 setTimeout delay의 오차 허용범위이다.
 
-        _.each(_handlerMap.onWakeUp, function(handler) {
-          handler();
-        });
+        $rootScope.$broadcast('WatchDog:onWakeUp');
       }
+
+      $rootScope.$broadcast('WatchDog:onCycle');
 
       _lastTime = _currentTime;
       _timerLastLoop = setTimeout(_loop, DELAY);

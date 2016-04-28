@@ -10,7 +10,7 @@
     .controller('JndMainCtrl', JndMainCtrl);
 
   function JndMainCtrl($scope, $filter, Dialog, RoomTopicList, jndPubSub, memberService,
-                          currentSessionHelper, TopicInvitedFlagMap, JndUtil) {
+                          currentSessionHelper, TopicInvitedFlagMap, JndUtil, WatchDog) {
     $scope.isShowDummyLayout = false;
     $scope.tutorial = {
       isShowWelcome: false,
@@ -30,6 +30,8 @@
      * @private
      */
     function _init() {
+      WatchDog.run();
+
       _attachEvents();
     }
 
