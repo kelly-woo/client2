@@ -85,6 +85,9 @@
         team: false,
         help: false
       };
+
+      _initializeIntercomLanguage();
+
       _initTutorialBlink();
       _attachEvents();
     }
@@ -174,6 +177,8 @@
       $scope.$on('Tutorial:complete', _onTutorialComplete);
 
       $scope.$on('Router:openRightPanel', _onRightPanelOpen);
+
+      $scope.$on('onCurrentMemberChanged', _onCurrentMemberChanged);
     }
 
     $scope.onLanguageClick = onLanguageClick;
@@ -420,6 +425,31 @@
       $event.stopPropagation();
 
       jndPubSub.pub('headerCtrl:teamSwitchOpen');
+    }
+
+    /**
+     * 현재 사용중인 멤버정보 변경 이벤트 핸들러
+     * @private
+     */
+    function _onCurrentMemberChanged() {
+      $scope.intercomMember = memberService.getMember();
+    }
+
+    /**
+     * intercom 언어를 설정함.
+     * intercom 언어는 실시간으로 수정가능 하지만 'web_client'에서는 페이지 로드시 언어를 설정하므로 초기화 성격으로 수행되어야함.
+     * @private
+     */
+    function _initializeIntercomLanguage() {
+      var language = accountService.getAccountLanguage();
+
+      if (language === 'zh-cn') {
+        language = 'zh-CN'
+      } else if (language === 'zh-tw') {
+        language = 'zh-TW';
+      }
+
+      $scope.intercomLanguage = language;
     }
   }
 })();
