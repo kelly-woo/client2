@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -2947,8 +2947,8 @@ msgstr "Proper email address formats required"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
 msgstr ""
-"Press Ctrl-C (Cmd-C for Mac) to copy the invitation link and share the link "
-"with your team members!"
+"Press {{ctrlKey}}-C to copy the invitation link and share the link with your "
+"team members!"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
