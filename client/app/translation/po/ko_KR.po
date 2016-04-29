@@ -2927,7 +2927,8 @@ msgstr "멤버 초대"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
 msgstr ""
-"공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다."
+"공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다. 엑셀"
+"에서 연락처가 있는 열을 한꺼번에 복사해서 붙여넣기 하세요."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"

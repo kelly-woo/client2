@@ -852,7 +852,7 @@ msgstr "Your direct messages will be delivered by email on an hourly basis."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel"
-msgstr "Cancel invitation"
+msgstr "Cancel Invitation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-cancel-description"
@@ -868,7 +868,7 @@ msgstr "Invitation has been canceled."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resend"
-msgstr "Resend invitation"
+msgstr "Resend Invitation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-description"
