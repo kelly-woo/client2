@@ -37,7 +37,6 @@
       _that.getFilterTypes = getFilterTypes;
       _that.isName = isName;
       _that.getSearchPropertyName = getSearchPropertyName;
-      _that.getSearchPropertyL10N = getSearchPropertyL10N;
     }
 
     /**
