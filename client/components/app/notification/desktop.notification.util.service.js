@@ -478,7 +478,7 @@
      * @private
      */
     function _getBodyForChat(fromEntity) {
-      return $filter('translate')('@web-notification-body-messages-pre')
+      return _.trimLeft($filter('translate')('@web-notification-body-messages-pre'))
         + fromEntity.name
         + $filter('translate')('@web-notification-body-messages-post');
     }
