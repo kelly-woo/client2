@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -847,6 +847,10 @@ msgid "@dummy-being-invited"
 msgstr "This member has an open invitation."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tool-tip"
+msgstr "Your direct messages will be delivered by email on an hourly basis."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
 msgstr "Your direct messages will be delivered by email on an hourly basis."
 
@@ -872,7 +876,9 @@ msgstr "Resend Invitation"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-description"
-msgstr "Your direct messages will be delivered by email on an hourly basis."
+msgstr ""
+"Feel free to send messages in the meantime. We'll deliver any unchecked "
+"messages by email on an hourly basis."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"

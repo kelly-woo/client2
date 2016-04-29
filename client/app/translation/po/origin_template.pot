@@ -817,6 +817,10 @@ msgid "@dummy-being-invited"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tool-tip"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
 msgstr ""
 
