@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('leftTeamSwitch', leftTeamSwitch);
 
-  function leftTeamSwitch($timeout, configuration, JndUtil) {
+  function leftTeamSwitch($timeout, configuration, jndKeyCode, JndUtil) {
     return {
       restrict: 'E',
       scope: {
@@ -22,6 +22,7 @@
 
     function link(scope, el, attrs) {
       var _jqList = el.find('._list');
+      var _jqSwitchButton = el.find('.team-switch-button');
       var _timer;
 
       _init();
@@ -31,8 +32,11 @@
        * @private
        */
       function _init() {
+        scope.activeIndex = -1;
         scope.isOpen = false;
 
+        scope.isActive = isActive;
+        scope.setActive = setActive;
         scope.go = go;
 
         _attachEvent();
@@ -46,6 +50,7 @@
        */
       function _attachDomEvent() {
         $(window).on('resize', _onWindowResize);
+        _jqSwitchButton.on('keydown', _onKeyDown);
       }
 
       /**
@@ -88,6 +93,25 @@
       }
 
       /**
+       * keydown 이벤트 핸들러
+       * @param {object} $event
+       * @private
+       */
+      function _onKeyDown($event) {
+        var keyCode = $event.keyCode;
+
+        if (jndKeyCode.match('UP_ARROW', keyCode)) {
+          scope.setActive((scope.activeIndex > 0 ? scope.activeIndex : scope.teamList.length) - 1);
+          scope.$digest();
+        } else if (jndKeyCode.match('DOWN_ARROW', keyCode)) {
+          scope.setActive((scope.activeIndex + 1) % scope.teamList.length);
+          scope.$digest();
+        } else if (jndKeyCode.match('ENTER', keyCode)) {
+          scope.go(scope.teamList[scope.activeIndex]);
+        }
+      }
+
+      /**
        * 팀 변경 토글 이벤트 처리함
        * @private
        */
@@ -116,7 +140,12 @@
       function _onIsOpenChange(newIsOpen, oldIsOpen) {
         if (scope.hasOtherTeam) {
           if (newIsOpen !== oldIsOpen) {
-            _jqList.slideToggle();
+            _jqList.slideToggle(200);
+
+            if (newIsOpen) {
+              scope.activeIndex = -1;
+              _jqSwitchButton.focus();
+            }
           }
         } else {
           scope.isOpen = false;
@@ -150,6 +179,24 @@
       function go(team) {
         $('body').addClass('fade out');
         window.location.href = configuration.base_protocol + team.t_domain + configuration.base_url;
+      }
+
+      /**
+       * active 여부
+       * @param {number} $index
+       * @returns {boolean}
+       */
+      function isActive($index) {
+        return scope.activeIndex === $index;
+      }
+
+      /**
+       * active 설정
+       * @param {number} $index
+       * @returns {*}
+       */
+      function setActive($index) {
+        return scope.activeIndex = $index;
       }
     }
   }

@@ -10,9 +10,9 @@
 
   /* @ngInject */
   function LeftTeamSwitchCtrl($scope, TeamData, currentSessionHelper, HybridAppHelper) {
+    var _currentTeamId = currentSessionHelper.getCurrentTeam().id;
+
     $scope.teamList = [];
-    $scope.isShow = false;
-    $scope.currentTeamId = currentSessionHelper.getCurrentTeam().id;
 
     _init();
 
@@ -41,10 +41,15 @@
       var teamList = TeamData.getTeamList();
       var otherTeamBadgeCount = TeamData.getOtherTeamBadgeCount();
 
-      $scope.teamList = _.map(teamList, function(team) {
-        team.extHasUnread = (team.unread > 0);
-        return team;
-      });
+      $scope.teamList = _.chain(teamList)
+        .filter(function(team) {
+          return _currentTeamId !== team.teamId;
+        })
+        .sortBy(function(team) {
+          return [!(team.unread > 0), team.name.toLowerCase()];
+        })
+        .value();
+
       $scope.hasOtherTeam = $scope.teamList.length > 1;
 
       // badge 존재 여부
