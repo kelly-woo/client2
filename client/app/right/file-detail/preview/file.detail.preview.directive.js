@@ -63,10 +63,8 @@
       function _setFileType() {
         if (scope.hasImagePreview) {
           scope.type = 'image-preview';
-        } else if (_content.ext === 'pdf' && !FileDetail.isIntegrateFile(_content.serverUrl)) {
-          //TODO: PDF Viewer 배포 시점에 아래 주석으로 대체해야 함
-          scope.type = 'etc';
-          // scope.type = 'pdf';
+        } else if (FileDetail.hasPdfPreview(_fileDetail)) {
+          scope.type = 'pdf';
         } else {
           scope.type = 'etc';
         }
