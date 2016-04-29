@@ -75,7 +75,7 @@
       filterText = filterText.toLowerCase();
 
       matches = $filter('getMatchedList')(list, propertyName, filterText);
-      matches = $filter('orderByQueryIndex')(matches, propertyName, filterText, function (item, orderBy) {
+      matches = $filter('orderByQueryIndex')(matches, 'name', filterText, function (item, orderBy) {
         return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(orderBy);
       });
 

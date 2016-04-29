@@ -70,11 +70,10 @@
       
       if (SearchTypeUser.isName(filterType)) {
         userName = $filter('typeaheadHighlight')(data.name, filterText);
-        extraText = data.status || _translate('@common-status-msg');
+        extraText = data.position || '';
       } else {
         userName = data.name;
-        extraText = $filter('typeaheadHighlight')(data[filterType], filterText) ||
-          SearchTypeUser.getSearchPropertyL10N(filterType);
+        extraText = $filter('typeaheadHighlight')(data[filterType], filterText) || '';
       }
 
       return {
@@ -105,12 +104,7 @@
         value.position = data.u_extraData.position;
         value.phone = data.u_extraData.phoneNumber;
       } else if (memberService.isJandiBot(data.id)) {
-        value.department = 'User Support';
-        value.position = 'humble servant';
-        value.phone = '+82 02-6959-9599';
-
-        value.status = 'idle';
-        value.email = 'support@tosslab.com';
+        value.status = _translate('@jandi-bot-status');
       }
 
       return value;

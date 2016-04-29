@@ -124,7 +124,7 @@
         return !!item.extSelected !== true;
       });
 
-      $scope.selectingMembers = $filter('orderByQueryIndex')(list, propertyName, filterText, function(item, desc) {
+      $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
 
@@ -202,7 +202,7 @@
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
           .success(function() {
-            _analyticsInviteSuccess(guestList);
+            _analyticsInviteSuccess(entityType, guestList);
 
             // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
             $rootScope.$broadcast('updateLeftPanelCaller');
@@ -328,9 +328,10 @@
     /**
      * 초대성공 analytics
      * @private
+     * @param {string} entityType
      * @param {array} guestList
      */
-    function _analyticsInviteSuccess(guestList) {
+    function _analyticsInviteSuccess(entityType, guestList) {
       // analytics
       var entity_type = "";
       switch (entityType) {
