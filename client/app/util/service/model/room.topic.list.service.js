@@ -205,7 +205,7 @@
       var memberIdList = [];
       var room = get(roomId);
       if (room) {
-        memberIdList = (room.type === 'channels') ? room.ch_members : room.pg_members;
+        memberIdList = ((room.type === 'channels') ? room.ch_members : room.pg_members) || room.members;
       }
       return memberIdList || [];
     }
@@ -322,8 +322,48 @@
     function _manipulateRoomData(id) {
       var room = get(id);
       if (room) {
-        room.members = getMemberIdList(room.id);
+        if (_isLegacyRoomFormat(room)) {
+          room.members = getMemberIdList(room.id);
+        } else {
+          _convertToLegacyRoomFormat(room);
+        }
       }
+    }
+
+    /**
+     * 현재 legacy 호환성 유지를 위해 최신 포멧을 legacy room format 으로 변경한다.
+     * TODO: pg_ 혹은 ch_ 형태의 데이터 모델을 최신 데이터 모델로 모두 변경 필요
+     * @param {object} room
+     * @private
+     */
+    function _convertToLegacyRoomFormat(room) {
+      if (room) {
+        //공개 토픽
+        if (room.type.indexOf('channel') !== -1) {
+          _.extend(room, {
+            ch_members: room.members,
+            ch_creatorId: room.creatorId,
+            ch_createTime: 0
+          });
+        //비공개 토픽
+        } else {
+          _.extend(room, {
+            pg_members: room.members,
+            pg_creatorId: room.creatorId,
+            pg_createTime: 0
+          });
+        }
+      }
+    }
+
+    /**
+     * room 이 legacy 포멧 형태인지 여부를 반환한다
+     * @param {object} room
+     * @returns {boolean}
+     * @private
+     */
+    function _isLegacyRoomFormat(room) {
+      return !!(room.ch_members || room.pg_members);
     }
   }
 })();
