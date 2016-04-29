@@ -84,7 +84,8 @@
      * @returns {boolean}
      */
     function isChat() {
-      return currentSessionHelper.getCurrentEntityType().indexOf('user') !== -1;
+      var currentEntityType = currentSessionHelper.getCurrentEntityType();
+      return !!(currentEntityType && currentEntityType.indexOf('user') !== -1);
     }
 
     /**
