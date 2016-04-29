@@ -3526,7 +3526,7 @@ msgstr "さんからダイレクトメッセージが届きました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-messages-pre"
-msgstr ""
+msgstr " "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
