@@ -331,9 +331,20 @@
     }
 
     /**
-     * 현재 legacy 호환성 유지를 위해 최신 포멧을 legacy room format 으로 변경한다.
+     * 현재 legacy 호환성 유지를 위해 최신 포멧을 legacy room format 으로 확장한다.
      * TODO: pg_ 혹은 ch_ 형태의 데이터 모델을 최신 데이터 모델로 모두 변경 필요
-     * @param {object} room
+     * @param {object} room - 최신 room 데이터 모델
+     *    @param {number} room.id
+     *    @param {number} room.teamId
+     *    @param {string} room.type
+     *    @param {string} room.name
+     *    @param {string} room.description
+     *    @param {boolean} room.autoJoin
+     *    @param {array} room.members
+     *    @param {number} room.deleterId
+     *    @param {number} room.creatorId
+     *    @param {string} room.status
+     *    @param {number} room.lastLinkId
      * @private
      */
     function _convertToLegacyRoomFormat(room) {
