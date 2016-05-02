@@ -31,6 +31,9 @@
 
     this.hasMember = hasMember;
     this.hasUser = hasUser;
+    
+    this.addMember = addMember;
+    this.removeMember = removeMember; 
 
     this.getMemberIdList = getMemberIdList;
     this.getUserIdList = getUserIdList;
@@ -123,6 +126,51 @@
     }
 
     /**
+     * roomId 에 해당하는 방에 member 를 추가한다.
+     * @param {number} roomId
+     * @param {number|array} newMemberIds - 방에 추가할 멤버 id. 배열일 경우 복수의 멤버를 추가한다.
+     */
+    function addMember(roomId, newMemberIds) {
+      var memberIds;
+      var tempArr;
+      if (newMemberIds) {
+        memberIds = getMemberIdList(roomId);
+        newMemberIds = _.isArray(newMemberIds) ? newMemberIds : [newMemberIds];
+
+        tempArr = memberIds.concat(newMemberIds);
+
+        //참조를 끊지 않기 위해 splice 로 member array 를 비우고, push 하여 채운다
+        memberIds.splice(0);
+        _.forEach(_.uniq(tempArr), function(member) {
+          memberIds.push(member);
+        });
+        _notifyChange(roomId);
+      }
+    }
+
+    /**
+     * roomId 에 해당하는 방에서 member 를 제거한다.
+     * @param {number} roomId
+     * @param {number|array} removeMemberIds - 방에서 삭제할 멤버 id. 배열일 경우 복수의 멤버를 삭제한다.
+     */
+    function removeMember(roomId, removeMemberIds) {
+      var memberIds;
+      var index;
+      if (removeMemberIds) {
+        memberIds = getMemberIdList(roomId);
+        removeMemberIds = _.isArray(removeMemberIds) ? removeMemberIds : [removeMemberIds];
+
+        _.forEach(removeMemberIds, function(removeMemberId) {
+          index = memberIds.indexOf(removeMemberId);
+          if (index !== -1) {
+            memberIds.splice(index, 1);
+          }
+        });
+        _notifyChange(roomId);
+      }
+    }
+    
+    /**
      * targetObj 를 id 에 해당하는 room 에 extend 한다.
      * @param {number|string} id
      * @param {object} targetObj
@@ -205,7 +253,7 @@
       var memberIdList = [];
       var room = get(roomId);
       if (room) {
-        memberIdList = (room.type === 'channels') ? room.ch_members : room.pg_members;
+        memberIdList = ((room.type === 'channels') ? room.ch_members : room.pg_members) || room.members;
       }
       return memberIdList || [];
     }
@@ -305,7 +353,10 @@
      * @private
      */
     function _notifyChange(roomId) {
-      _changedIdMap[roomId] = true;
+      if (roomId) {
+        _changedIdMap[roomId] = true;
+      }
+      
       $timeout.cancel(_timerNotifyChange);
       //성능 향상 목적으로 랜더링 수행을 최소화 하기 위해 timeout 을 이용한다.
       _timerNotifyChange = $timeout(function() {
@@ -322,8 +373,59 @@
     function _manipulateRoomData(id) {
       var room = get(id);
       if (room) {
-        room.members = getMemberIdList(room.id);
+        if (_isLegacyRoomFormat(room)) {
+          room.members = getMemberIdList(room.id);
+        } else {
+          _convertToLegacyRoomFormat(room);
+        }
       }
+    }
+
+    /**
+     * 현재 legacy 호환성 유지를 위해 최신 포멧을 legacy room format 으로 확장한다.
+     * TODO: pg_ 혹은 ch_ 형태의 데이터 모델을 최신 데이터 모델로 모두 변경 필요
+     * @param {object} room - 최신 room 데이터 모델
+     *    @param {number} room.id
+     *    @param {number} room.teamId
+     *    @param {string} room.type
+     *    @param {string} room.name
+     *    @param {string} room.description
+     *    @param {boolean} room.autoJoin
+     *    @param {array} room.members
+     *    @param {number} room.deleterId
+     *    @param {number} room.creatorId
+     *    @param {string} room.status
+     *    @param {number} room.lastLinkId
+     * @private
+     */
+    function _convertToLegacyRoomFormat(room) {
+      if (room) {
+        //공개 토픽
+        if (room.type.indexOf('channel') !== -1) {
+          _.extend(room, {
+            ch_members: room.members,
+            ch_creatorId: room.creatorId,
+            ch_createTime: 0
+          });
+        //비공개 토픽
+        } else {
+          _.extend(room, {
+            pg_members: room.members,
+            pg_creatorId: room.creatorId,
+            pg_createTime: 0
+          });
+        }
+      }
+    }
+
+    /**
+     * room 이 legacy 포멧 형태인지 여부를 반환한다
+     * @param {object} room
+     * @returns {boolean}
+     * @private
+     */
+    function _isLegacyRoomFormat(room) {
+      return !!(room.ch_members || room.pg_members);
     }
   }
 })();
