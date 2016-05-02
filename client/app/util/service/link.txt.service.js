@@ -227,14 +227,14 @@
           '(?::(#{validPortNumber}))?'                               + // $6 Port number (optional)
           '(#{validUrlPath})'                                        + // $7 URL Path & Query String
         ')|'                                                         +
-        '('                                                          + // $8 Email
-          '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'                     +
+        '((?:@)'                                                     + // $8 Email Full Text
+          '([a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'                    + // $9 Email
           '\\@'                                                      +
           '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}'                          +
           '(?:'                                                      +
           '\\.'                                                      +
           '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}'                          +
-          ')+'                                                       +
+          '))+'                                                      +
         ')'                                                          +
       ')'
     , 'gi');
@@ -255,6 +255,7 @@
       var domain;
       var port;
       var pathQuery;
+      var emailFullText;
       var email;
       var endPosition;
       var startPosition;
@@ -273,10 +274,11 @@
         domain = RegExp.$5;
         port = RegExp.$6;
         pathQuery = RegExp.$7;
-        email = RegExp.$8;
+        emailFullText = RegExp.$8;
+        email = RegExp.$9;
 
         endPosition = txt.regexen.extractUrl.lastIndex;
-        if (email) {
+        if (email && emailFullText === email) {
           startPosition = endPosition - email.length;
 
           urls.push({
