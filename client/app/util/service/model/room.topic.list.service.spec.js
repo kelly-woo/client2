@@ -1,5 +1,5 @@
 /**
- * @fileoverview extract mention spec
+ * @fileoverview room topic list 테스트 코드
  */
 (function() {
   'use strict';
