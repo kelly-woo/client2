@@ -840,6 +840,12 @@ msgid "@dummy-being-invited"
 msgstr "팀에 초대중인 멤버입니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tool-tip"
+msgstr ""
+"초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
+"발송됩니다."
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
 msgstr ""
 "초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
@@ -868,8 +874,8 @@ msgstr "초대메일 재전송"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-description"
 msgstr ""
-"초대중인 멤버에게 1:1 메시지를 보낼 경우, 메시지 내용이 매 시간마다 이메일로 "
-"발송됩니다."
+"초대중인 멤버에게 1:1 메시지를 보내보세요. 메시지 내용이 매 시간마다 이메일"
+"로 발송됩니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
@@ -1013,6 +1019,14 @@ msgstr "드롭박스"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "구글 드라이브"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "파일 미리보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "전체화면으로 파일 미리보기"
 
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
@@ -2927,7 +2941,8 @@ msgstr "멤버 초대"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite-description"
 msgstr ""
-"공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다."
+"공백 또는 쉼표로 구분된 여러 개의 이메일을 한꺼번에 추가할 수 있습니다. 엑셀"
+"에서 연락처가 있는 열을 한꺼번에 복사해서 붙여넣기 하세요."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-done"
@@ -2948,8 +2963,8 @@ msgstr "올바른 이메일 주소를 사용해주세요."
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
 msgstr ""
-"Ctrl-C (맥의 경우 Cmd-C) 를 누르시면 초대 링크가 복사됩니다. 초대를 원하시는 "
-"멤버에게 이 링크를 보내세요!"
+"{{ctrlKey}}+C 를 누르시면 초대 링크가 복사됩니다. 초대를 원하시는 멤버에게 "
+"이 링크를 보내세요!"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
@@ -3775,11 +3790,6 @@ msgstr "수요일"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ 이메일 주소 추가"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으"
-#~ "나, 파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr ""

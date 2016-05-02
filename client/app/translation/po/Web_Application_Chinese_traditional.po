@@ -829,6 +829,10 @@ msgid "@dummy-being-invited"
 msgstr "等候此成員加入"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@dummy-dm-tool-tip"
+msgstr "你的私訊將每小時彙整後，傳送至該用戶的電子郵箱"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-dm-tooltip"
 msgstr "你的私訊將每小時彙整後，傳送至該用戶的電子郵箱"
 
@@ -854,7 +858,9 @@ msgstr "重新寄發邀請"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-description"
-msgstr "你的私訊將每小時彙整後，傳送至該用戶的電子郵箱"
+msgstr ""
+"您可直接私訊該用戶，我們會將您的訊息彙整，並每個小時寄送至該用戶的電子郵箱"
+"中。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@dummy-invitation-resent-title"
@@ -993,6 +999,14 @@ msgstr "Dropbox"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr " Google雲端硬碟"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "預覽檔案"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "全螢幕預覽"
 
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
@@ -2855,7 +2869,7 @@ msgstr "電子郵箱格式不正確"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
-msgstr "點擊 Ctrl-C (Mac 請點擊 Cmd-C) 複製邀請連結並分享給工作夥伴"
+msgstr "點擊 {{ctrlKey}}-C 複製邀請連結並分享給工作夥伴"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
@@ -3444,11 +3458,6 @@ msgstr "周三"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "＋更多"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您上"
-#~ "傳檔案。"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽器。"

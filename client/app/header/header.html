@@ -121,7 +121,7 @@
           <a data-ng-click="openModal('shortcut');" role="menuitem" tabindex="-1">
             <i class="fa fa-keyboard-o"></i>
             <span class="shortcut-menu" translate>@shortcut-open-shortcut</span>
-            <span class="shortcuts-label">Ctrl+/</span>
+            <span class="shortcuts-label">{{::''|ctrlKey}}+/</span>
           </a>
         </li>
 
@@ -137,21 +137,21 @@
               <li role="presentation">
                 <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
                   <span translate>@common-zoom-in</span>
-                  <span class="shortcuts-label">Ctrl+(+)</span>
+                  <span class="shortcuts-label">{{::''|ctrlKey}}+(+)</span>
                 </a>
               </li>
 
               <li role="presentation">
                 <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
                   <span translate>@common-zoom-out</span>
-                  <span class="shortcuts-label">Ctrl+(-)</span>
+                  <span class="shortcuts-label">{{::''|ctrlKey}}+(-)</span>
                 </a>
               </li>
 
               <li role="presentation">
                 <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomReset($event)">
                   <span translate>@common-zoom-reset</span>
-                  <span class="shortcuts-label">Ctrl+0</span>
+                  <span class="shortcuts-label">{{::''|ctrlKey}}+0</span>
                 </a>
               </li>
             </ul>
