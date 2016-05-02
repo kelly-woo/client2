@@ -1,3 +1,13 @@
+<a name="1.25.1"></a>
+## [1.25.1](https://github.com/tosslab/web_client/compare/v1.25.0...v1.25.1) (2016-05-02)
+
+
+### Bug Fixes
+
+* **ctrlKey:** ctrl -> cmd ([2ed6664](https://github.com/tosslab/web_client/commit/2ed6664))
+
+
+
 <a name="1.25.0"></a>
 # [1.25.0](https://github.com/tosslab/web_client/compare/v1.24.1...v1.25.0) (2016-04-28)
 
