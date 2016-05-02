@@ -1000,6 +1000,14 @@ msgstr "Dropbox"
 msgid "@file-upload-google-drive"
 msgstr " Google雲端硬碟"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "預覽檔案"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "全螢幕預覽"
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr "鍵入資料夾名稱"
@@ -3450,11 +3458,6 @@ msgstr "三"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "＋更多"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您上"
-#~ "傳檔案。"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽器。"

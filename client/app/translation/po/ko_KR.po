@@ -1020,6 +1020,14 @@ msgstr "드롭박스"
 msgid "@file-upload-google-drive"
 msgstr "구글 드라이브"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "파일 미리보기"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "전체화면으로 파일 미리보기"
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr "폴더명을 입력해주세요."
@@ -3782,11 +3790,6 @@ msgstr "수요일"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ 이메일 주소 추가"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으"
-#~ "나, 파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr ""

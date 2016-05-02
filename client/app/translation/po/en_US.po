@@ -1022,6 +1022,14 @@ msgstr "Dropbox"
 msgid "@file-upload-google-drive"
 msgstr "Google Drive"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "Preview File"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "Preview file in full screen"
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr "Insert the folder name"
@@ -3748,12 +3756,6 @@ msgstr "Wednesday"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ More"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "Internet Explorer 9 does not properly support file previewing. Don't "
-#~ "worry if the image is not displayed correctly - this does not impact the "
-#~ "file you upload."
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr ""

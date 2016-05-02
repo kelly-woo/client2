@@ -986,6 +986,14 @@ msgstr ""
 msgid "@file-upload-google-drive"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr ""
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr ""

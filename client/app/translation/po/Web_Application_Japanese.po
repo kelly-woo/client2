@@ -1023,6 +1023,14 @@ msgstr "Dropboxからインポート"
 msgid "@file-upload-google-drive"
 msgstr "Googleドライブ"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "ファイルプレビュー"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "フルスクリーンでファイルプレビュー"
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr "フォルダ名を入力ください"
@@ -3584,11 +3592,6 @@ msgstr "水曜日"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "+ さらに追加"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイ"
-#~ "ルのアップロードは利用可能です"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr ""

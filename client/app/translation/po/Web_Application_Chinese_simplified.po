@@ -1001,6 +1001,14 @@ msgstr "Dropbox"
 msgid "@file-upload-google-drive"
 msgstr "Google云端硬盘"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview"
+msgstr "预览文件"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@filecard-button-preview-tooltip"
+msgstr "全屏幕预览"
+
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr "键入文件夹名称"
@@ -3452,11 +3460,6 @@ msgstr "星期三"
 
 #~ msgid "@invitation-more-email"
 #~ msgstr "＋更多"
-
-#~ msgid "@ie9-file-preview"
-#~ msgstr ""
-#~ "IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上"
-#~ "传文件。"
 
 #~ msgid "@ie9-please-do-not-use"
 #~ msgstr "为了达到对JANDI的最佳体验，请使用最新版本的IE浏览器。"
