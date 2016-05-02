@@ -3537,7 +3537,7 @@ msgstr "from "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
-msgstr ""
+msgstr "You received a new message in {{teamName}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-pre"
