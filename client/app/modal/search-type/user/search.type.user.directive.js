@@ -31,7 +31,7 @@
       function _init() {
         scope.list = scope.keywordTypes();
 
-        scope.selectedIndex = scope.activeIndex = _.findIndex(scope.list, 'value', scope.keywordType);
+        scope.activeIndex = _.findIndex(scope.list, 'value', scope.keywordType);
         scope.selectItemText = scope.list[scope.activeIndex].text;
 
         scope.isActive = isActive;
@@ -49,19 +49,22 @@
       }
 
       /**
+       * 특정 item active 상태 설정 이벤트 핸들러
+       * @param {number} index
+       */
+      function onSelectActive(index) {
+        scope.activeIndex = index;
+      }
+
+      /**
        * 특정 item 선택 이벤트 핸들러
        * @param {number} index
        */
       function onSelectItem(index) {
-        var selectItem;
-        var oldValue;
+        var selectItem = scope.list[index];
+        var oldValue = scope.keywordType;
 
-        selectItem = scope.list[index];
-
-        scope.selectedIndex = index;
         scope.selectItemText = selectItem.text;
-
-        oldValue = scope.keywordType;
         scope.keywordType = selectItem.value;
 
         scope.onKeywordTypeSelectCallback({
@@ -69,14 +72,6 @@
           $newValue: selectItem.value,
           $oldValue: oldValue
         });
-      }
-
-      /**
-       * 특정 item active 상태 설정 이벤트 핸들러
-       * @param {number} index
-       */
-      function onSelectActive(index) {
-        scope.activeIndex = index;
       }
     }
   }

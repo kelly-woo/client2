@@ -9,7 +9,7 @@
   var app = angular.module('jandiApp');
 
   /**
-   * item의 특정 value 전달
+   * object의 특정 property에 value 전달
    * @param {object} CoreUtil
    * @param {object} item
    * @param {string|array} property

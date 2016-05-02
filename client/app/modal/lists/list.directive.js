@@ -14,7 +14,7 @@
       link: link
     };
 
-    function link(scope, el, attrs, ctrl) {
+    function link(scope, el, attrs) {
       var originScope = scope.$parent;
 
       // model

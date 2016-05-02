@@ -69,7 +69,7 @@
      * @returns {*}
      */
     function getMatches(list, filterText, filterType) {
-      var propertyName = SearchTypeUser.getSearchPropertyName(filterType);
+      var propertyName = SearchTypeUser.getSearchPropertyPath(filterType);
       var matches;
 
       filterText = filterText.toLowerCase();

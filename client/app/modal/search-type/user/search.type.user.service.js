@@ -22,7 +22,7 @@
       {value: 'status', text: _translate('@common-status-msg')}
     ];
 
-    var searchPropertyNameMap = {
+    var searchPropertyPathMap = {
       name: 'name',
       department: ['u_extraData', 'department'],
       position: ['u_extraData', 'position'],
@@ -33,10 +33,14 @@
 
     _init();
 
+    /**
+     * init
+     * @private
+     */
     function _init() {
       _that.getFilterTypes = getFilterTypes;
       _that.isName = isName;
-      _that.getSearchPropertyName = getSearchPropertyName;
+      _that.getSearchPropertyPath = getSearchPropertyPath;
     }
 
     /**
@@ -57,11 +61,11 @@
     }
 
     /**
-     * 검색에 사용할 property name 전달
+     * 검색에 사용할 property Path 전달
      * @param {string} type
      */
-    function getSearchPropertyName(type) {
-      return searchPropertyNameMap[type];
+    function getSearchPropertyPath(type) {
+      return searchPropertyPathMap[type];
     }
   }
 })();

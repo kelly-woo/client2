@@ -116,7 +116,7 @@
      * @returns {*}
      */
     function getMatches(list, filterText, filterType) {
-      var propertyName = SearchTypeUser.getSearchPropertyName(filterType);
+      var propertyName = SearchTypeUser.getSearchPropertyPath(filterType);
 
       filterText = filterText.toLowerCase();
 

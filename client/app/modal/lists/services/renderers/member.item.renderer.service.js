@@ -12,16 +12,14 @@
   function MemberItemRenderer($filter, memberService, currentSessionHelper, SearchTypeUser) {
     var _translate = $filter('translate');
 
-    var _nameOnlyTemplate;
-    var _nameWithExtTemplate;
+    var _template;
 
     this.render = render;
 
     _init();
 
     function _init() {
-      _nameOnlyTemplate = Handlebars.templates['modal.member.list.item'];
-      _nameWithExtTemplate = Handlebars.templates['modal.member.list.ext.item'];
+      _template = Handlebars.templates['modal.member.list.item'];
     }
 
     /**
@@ -36,7 +34,7 @@
       var isAdmin = _isAdmin(data.id);
       var isInactive = data.isInactive;
 
-      return _nameOnlyTemplate({
+      return _template({
         text: {
           admin: _translate('@common-team-admin'),
           invitationResend: _translate('@dummy-invitation-resend')
