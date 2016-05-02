@@ -70,6 +70,14 @@
           expect(RoomTopicList.getMemberIdList(1)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
           expect(RoomTopicList.getMemberIdList(2)).toEqual([1, 2, 3, 4, 5, 10, 11, 12, 13]);
         });
+
+        it('복수 item 중 기존에 이미 있는 id 가 있을 경우에도 정상 동작하는지 확인한다.', function () {
+          RoomTopicList.addMember(1, [1, 2, 3, 4, 6, 7, 8, 9]);
+          RoomTopicList.addMember(2, [1, 2, 3, 4, 10, 11, 12, 13]);
+
+          expect(RoomTopicList.getMemberIdList(1)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+          expect(RoomTopicList.getMemberIdList(2)).toEqual([1, 2, 3, 4, 5, 10, 11, 12, 13]);
+        });
       });
       describe('멤버 삭제 - removeMember', function () {
         it('단일 item 일 경우 정상 동작하는지 확인한다.', function () {
