@@ -451,8 +451,6 @@
                   });
                 } catch (e) {
                 }
-
-                alert(error.msg);
               });
           }
         }
