@@ -31,6 +31,9 @@
 
     this.hasMember = hasMember;
     this.hasUser = hasUser;
+    
+    this.addMember = addMember;
+    this.removeMember = removeMember; 
 
     this.getMemberIdList = getMemberIdList;
     this.getUserIdList = getUserIdList;
@@ -122,6 +125,51 @@
       _notifyChange(id);
     }
 
+    /**
+     * roomId 에 해당하는 방에 member 를 추가한다.
+     * @param {number} roomId
+     * @param {number|array} newMemberIds - 방에 추가할 멤버 id. 배열일 경우 복수의 멤버를 추가한다.
+     */
+    function addMember(roomId, newMemberIds) {
+      var memberIds;
+      var tempArr;
+      if (newMemberIds) {
+        memberIds = getMemberIdList(roomId);
+        newMemberIds = _.isArray(newMemberIds) ? newMemberIds : [newMemberIds];
+
+        tempArr = memberIds.concat(newMemberIds);
+
+        //참조를 끊지 않기 위해 splice 로 member array 를 비우고, push 하여 채운다
+        memberIds.splice(0);
+        _.forEach(_.uniq(tempArr), function(member) {
+          memberIds.push(member);
+        });
+        _notifyChange(roomId);
+      }
+    }
+
+    /**
+     * roomId 에 해당하는 방에서 member 를 제거한다.
+     * @param {number} roomId
+     * @param {number|array} removeMemberIds - 방에서 삭제할 멤버 id. 배열일 경우 복수의 멤버를 삭제한다.
+     */
+    function removeMember(roomId, removeMemberIds) {
+      var memberIds;
+      var index;
+      if (removeMemberIds) {
+        memberIds = getMemberIdList(roomId);
+        removeMemberIds = _.isArray(removeMemberIds) ? removeMemberIds : [removeMemberIds];
+
+        _.forEach(removeMemberIds, function(removeMemberId) {
+          index = memberIds.indexOf(removeMemberId);
+          if (index !== -1) {
+            memberIds.splice(index, 1);
+          }
+        });
+        _notifyChange(roomId);
+      }
+    }
+    
     /**
      * targetObj 를 id 에 해당하는 room 에 extend 한다.
      * @param {number|string} id
@@ -305,7 +353,10 @@
      * @private
      */
     function _notifyChange(roomId) {
-      _changedIdMap[roomId] = true;
+      if (roomId) {
+        _changedIdMap[roomId] = true;
+      }
+      
       $timeout.cancel(_timerNotifyChange);
       //성능 향상 목적으로 랜더링 수행을 최소화 하기 위해 timeout 을 이용한다.
       _timerNotifyChange = $timeout(function() {
