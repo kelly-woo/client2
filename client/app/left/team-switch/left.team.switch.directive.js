@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('leftTeamSwitch', leftTeamSwitch);
 
-  function leftTeamSwitch($timeout, configuration, jndKeyCode, JndUtil) {
+  function leftTeamSwitch($position, $timeout, configuration, jndKeyCode, JndUtil) {
     return {
       restrict: 'E',
       scope: {
@@ -23,6 +23,8 @@
     function link(scope, el, attrs) {
       var _jqList = el.find('._list');
       var _jqSwitchButton = el.find('.team-switch-button');
+      var _jqSwitchContents = el.find('.team-list');
+
       var _timer;
 
       _init();
@@ -66,6 +68,7 @@
        * @private
        */
       function _attachEvent() {
+        scope.$on('modalHelper:opened', _onModalOpened);
         scope.$on('headerCtrl:teamSwitchOpen', _onTeamSwitchOpen);
         scope.$on('jndMainKeyHandler:teamSwitchToggle', _onTeamSwitchToggle);
         scope.$on('jndWebSocketOtherTeam:afterNotificationSend', _onAfterNotificationSend);
@@ -89,7 +92,10 @@
        */
       function _onWindowResize() {
         clearTimeout(_timer);
-        _timer = setTimeout(_setMaxHeight, 100);
+        _timer = setTimeout(function() {
+          _setMaxHeight();
+          _autoScroll(scope.activeIndex);
+        }, 100);
       }
 
       /**
@@ -173,6 +179,16 @@
       }
 
       /**
+       * modal opened 이벤트 처리
+       * @private
+       */
+      function _onModalOpened() {
+        JndUtil.safeApply(scope, function() {
+          scope.isOpen = false;
+        });
+      }
+
+      /**
        * 해당 팀으로 이동한다.
        * @param {object} team
        */
@@ -196,7 +212,37 @@
        * @returns {*}
        */
       function setActive($index) {
+        _autoScroll($index);
+
         return scope.activeIndex = $index;
+      }
+
+
+
+      /**
+       * 특정 item이 list에서 보이도록 scroll 설정
+       * @param {number} index
+       */
+      function _autoScroll(index) {
+        var jqItem = _jqSwitchContents.children().eq(index);
+        var itemPosition;
+        var contPosition;
+        var scrollTop;
+        var compare;
+
+        if (jqItem[0]) {
+          scrollTop = _jqSwitchContents.scrollTop();
+
+          itemPosition = $position.offset(jqItem);
+          contPosition = $position.offset(_jqSwitchContents);
+
+          compare = itemPosition.top - contPosition.top;
+          if (compare < 0) {
+            _jqSwitchContents.scrollTop(scrollTop + compare);
+          } else if (compare + itemPosition.height > contPosition.height) {
+            _jqSwitchContents.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+          }
+        }
       }
     }
   }

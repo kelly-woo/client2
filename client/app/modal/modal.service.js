@@ -12,7 +12,8 @@
 
   /* @ngInject */
   function modalWindowHelper($rootScope, $modal, $filter, $timeout, teamAPIservice, fileAPIservice, accountService,
-                             NetInterceptor, Dialog, Browser, currentSessionHelper, CoreUtil, Tutorial, RoomTopicList) {
+                             NetInterceptor, Dialog, Browser, currentSessionHelper, CoreUtil, Tutorial, RoomTopicList,
+                             jndPubSub) {
 
     var that = this;
 
@@ -480,6 +481,10 @@
 
       if (NetInterceptor.isConnected()) {
         modal = $modal.open(options);
+
+        modal.opened.then(function() {
+          jndPubSub.pub('modalHelper:opened');
+        });
 
         _modalRendered(modal, options);
 
