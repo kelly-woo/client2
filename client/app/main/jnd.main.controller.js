@@ -147,8 +147,8 @@
      * @private
      */
     function _onTopicInvite(angularEvent, socketEvent) {
-      TopicInvitedFlagMap.add(data.topic.id);
-      _showTopicInvitedToast(data);
+      TopicInvitedFlagMap.add(socketEvent.data.topic.id);
+      _showTopicInvitedToast(socketEvent.data);
     }
 
     /**
