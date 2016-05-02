@@ -117,8 +117,9 @@
 }
 
 .msg-file-actions .action-comment span {
-  font-size: 12px;
+  font-size: 13px;
   color: #333;
+  font-weight: 500;
 }
 .msg-file-actions i {
   font-size: 16px;
