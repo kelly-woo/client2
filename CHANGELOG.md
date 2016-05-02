@@ -1,3 +1,14 @@
+<a name="1.25.2"></a>
+## [1.25.2](https://github.com/tosslab/web_client/compare/v1.25.1...v1.25.2) (2016-05-02)
+
+
+### Bug Fixes
+
+* **ESM:** 방금 생성한 1인 토픽에서 멤버 초대 유도 ESM 표시되지 않는 현상 수정 ([900f2e1](https://github.com/tosslab/web_client/commit/900f2e1))
+* **invite:** 토픽 초대 시 참조 오류로 인해 toast alarm 노출되지 않는 현상 수정 ([94fb501](https://github.com/tosslab/web_client/commit/94fb501))
+
+
+
 <a name="1.25.1"></a>
 ## [1.25.1](https://github.com/tosslab/web_client/compare/v1.25.0...v1.25.1) (2016-05-02)
 
