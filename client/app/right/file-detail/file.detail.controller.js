@@ -277,9 +277,9 @@
 
         $scope.hasInitialLoaded = $scope.isInvalidRequest = true;
         $state.go('messages.detail.files.item', $state.params);
-      } else  if (status === 500) {
-        // 존재하지 않는 file detail 요청 오류
-        $state.go('messages.detail');
+      } else  if (status === 500 || status === 400) {
+        // 존재하지 않는 file detail 요청 또는 잘못된 요청 오류
+        backToPrevState();
       }
     }
 
