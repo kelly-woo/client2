@@ -132,7 +132,6 @@
       // delete 는 marker 의 lastLinkId 기준으로 계산하므로 badge count 를 서버로직을 통해 업데이트 받는다.
       jndPubSub.updateLeftPanel();
       jndPubSub.pub('jndWebSocketFile:commentDeleted', data);
-      jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
 
     /**

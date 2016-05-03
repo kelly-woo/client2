@@ -189,12 +189,23 @@
      * @private
      */
     function _onTopicLCreated(socketEvent) {
+      var room;
       _convertSocketEvent(socketEvent);
-
-      jndPubSub.updateLeftPanel();
+      room = socketEvent.room;
+      RoomTopicList.add(room, _isJoinedTopic(room));
       jndPubSub.onChangeShared(socketEvent);
     }
 
+    /**
+     * room 의 member field 를 참조하여, 현재 사용자가 가입한 room 인지 여부를 반환한다.
+     * @param {object} room
+     * @returns {boolean}
+     * @private
+     */
+    function _isJoinedTopic(room) {
+      var memberId = memberService.getMemberId();
+      return room.members.indexOf(memberId) !== -1;
+    }
     /**
      * 'topic_updated' EVENT HANDLER
      * @param {object} socketEvent - socket event parameter

@@ -6,7 +6,7 @@
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, memberService, currentSessionHelper, markerService,
+  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, memberService, currentSessionHelper, markerService, RoomTopicList,
                                MessageNotification, MentionNotification, FileShareNotification, TopicInviteNotification) {
 
     var MESSAGE = 'message';
@@ -144,22 +144,30 @@
      * message -> topic_leave event handler.
      * 누군가가 현재 topic을 나갔다면 센터를 업데이트한다.
      * 누군가가 어떤 topic을 나갔든지 left를 업데이트해서 해당하는 토픽의 정보를 갱신한다.
-     * @param data
+     * @param {object} socketEvent
      * @private
      */
-    function _onTopicLeave(data) {
-      _updateCenterPanelFromOthers(data);
-
-      jndPubSub.pub('topicLeave', data);
+    function _onTopicLeave(socketEvent) {
+      var room = socketEvent.room;
+      if (jndWebSocketCommon.isCurrentEntity(room)) {
+        jndPubSub.updateCenterPanel();
+      }
+      RoomTopicList.removeMember(socketEvent.room.id, socketEvent.writer);
+      jndPubSub.pub('jndWebSocketMessage:topicLeave', socketEvent);
     }
 
     /**
-     * message -> topic_join event handler
-     * @param data
+     * Topic join 이벤트 핸들러
+     * @param {object} socketEvent
      * @private
      */
-    function _onTopicJoin(data) {
-      _updateCenterPanelFromOthers(data);
+    function _onTopicJoin(socketEvent) {
+      var room = socketEvent.room;
+      if (jndWebSocketCommon.isCurrentEntity(room)) {
+        jndPubSub.updateCenterPanel();
+      }
+      RoomTopicList.addMember(socketEvent.room.id, socketEvent.writer);
+      jndPubSub.pub('jndWebSocketMessage:topicJoin', socketEvent);
     }
 
     /**
@@ -216,23 +224,19 @@
 
     /**
      * message가 삭제되었을 때 현재 토픽이면 업데이트한다.
-     * @param data
+     * @param {object} socketEvent
      * @private
      */
     function _onMessageDelete(socketEvent) {
       var room = socketEvent.room;
-
-      if (jndWebSocketCommon.isCurrentEntity(room)) {
-        jndPubSub.updateCenterPanel();
-      } else if (!_updateBadgeCount(socketEvent)) {
+      if (!jndWebSocketCommon.isCurrentEntity(room) && !_updateBadgeCount(socketEvent)) {
         if (_isDmToMe(socketEvent)) {
           jndPubSub.pub('updateChatList');
         } else {
           jndPubSub.updateLeftBadgeCount();
         }
       }
-
-      jndPubSub.pub('jndWebSocketMessage:topicMessageDeleted', socketEvent);
+      jndPubSub.pub('jndWebSocketMessage:messageDeleted', socketEvent);
     }
 
     /**
@@ -316,10 +320,10 @@
         returnVal = true;
       } else if (socketEvent.messageType === 'message_delete') {
         //TODO: http://its.tosslab.com/browse/BD-326 완료 이후 linkId 로 계산 할 수 있도록 수정 필요
-        //if (memberService.isUnreadMessage(room.id, socketEvent.linkId)) {
-        //  jndWebSocketCommon.decreaseBadgeCount(room.id);
-        //}
-        returnVal = false;
+        if (memberService.isUnreadMessage(room.id, socketEvent.linkId)) {
+         jndWebSocketCommon.decreaseBadgeCount(room.id);
+        }
+        returnVal = true;
       }
 
 
@@ -343,35 +347,6 @@
       });
       return foundMentionToMe;
     }
-
-    /**
-     * 나에게서로부터 온 이벤트가 아니라면 우선 왼쪽을 업데이트한다.
-     * 현재 보고 있는 토픽에 관련된 이벤트라면 센터도 업데이트한다.
-     * @param data
-     * @private
-     */
-    function _updateCenterPanelFromOthers(data) {
-      if (!jndWebSocketCommon.isActionFromMe(data.writer)) {
-        _updateCenterForCurrentEntity(data);
-
-        // TODO: left를 업데이트하는 이유는 해당토픽의 가장 최신 정보를 얻기귀함이다.
-        // TODO: 만약 해당 토픽하나에 해당하는 정보를 얻을 수 있는 API가 있다면 그걸로 대체하는 것이 좋을 것같다.
-        // - JIHOON
-        jndPubSub.updateLeftPanel();
-      }
-    }
-
-    /**
-     * data.room이 현재 보고 있는 토픽일때만 센터를 업데이트한다.
-     * @param data
-     * @private
-     */
-    function _updateCenterForCurrentEntity(data) {
-      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
-        jndPubSub.updateCenterPanel();
-      }
-    }
-
     /**
      * right panel에 update 정보를 전달한다.
      * @param data
