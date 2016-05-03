@@ -373,6 +373,10 @@
     function _manipulateRoomData(id) {
       var room = get(id);
       if (room) {
+        _.extend(room, {
+          subscribe: _.isUndefined(room.subscribe) ? true : room.subscribe,
+          isStarred: _.isUndefined(room.isStarred) ? false : room.isStarred
+        });
         if (_isLegacyRoomFormat(room)) {
           room.members = getMemberIdList(room.id);
         } else {
