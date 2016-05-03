@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $filter, $timeout, accountService, memberService,
+  function headerCtrl($scope, $state, $filter, $timeout, accountService, memberService, Environment,
                       publicService, language, modalHelper, jndPubSub, DeskTopNotificationBanner, Browser,
                       AnalyticsHelper, Router, JndConnect, JndZoom, RightPanel, Tutorial,
                       AccountHasSeen) {
@@ -78,6 +78,8 @@
       $scope.quickLauncherButtonTooltip = getQuickLauncherButtonTooltip();
 
       RightPanel.initTabs();
+
+      $scope.ctrlKey = Environment.KEY_NAMES.CTRL;
       $scope.toolbar = RightPanel.getTabStatus();
       currentRightPanel = RightPanel.getStateName($state.current);
       $scope.isCompleteTutorial = true;

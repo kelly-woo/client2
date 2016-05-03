@@ -9,7 +9,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration,
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, Environment,
                           memberService, publicService, currentSessionHelper, jndPubSub,
                           teamAPIservice, Dialog, analyticsService) {
     var _translate = $filter('translate');
@@ -42,7 +42,7 @@
       $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
 
       $scope.teamInviteLinkCopyDescription =
-        _translate('@team-invite-link-copy-desc').replace('{{ctrlKey}}', $filter('ctrlKey')());
+        _translate('@team-invite-link-copy-desc').replace('{{ctrlKey}}', Environment.KEY_NAMES.CTRL);
 
       $scope.send = send;
       $scope.inviteMore = inviteMore;
