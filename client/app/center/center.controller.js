@@ -844,47 +844,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-  /**
-   * 메세지 success 핸들러
-   * @param {boolean} isUpdateMessageMarker - updateMessageMarker 를 호출할 지 여부를 결정한다.
-   * @param {object} response 서버 응답
-   * @private
-   */
-  function _onUpdateListSuccess(isUpdateMessageMarker, response) {
-    isUpdateMessageMarker = _.isBoolean(isUpdateMessageMarker) ? isUpdateMessageMarker : false;
-    if (!_isDestroyed) {
-      _isUpdateListLock = false;
-
-      var updateInfo = response.updateInfo;
-      if (!_.isUndefined(updateInfo)) {
-
-        globalLastLinkId = response.lastLinkId;
-        updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
-
-        if (updateInfo.messageCount) {
-          if (_isBottomReached() && _isChatPanelActive()) {
-            _scrollToBottom();
-          }
-          // 업데이트 된 메세지 처리
-          _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
-          MessageCollection.updateUnreadCount();
-          lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-          if (isUpdateMessageMarker) {
-            updateMessageMarker();
-          }
-          //console.log('::_onUpdateListSuccess', lastMessageId);
-          _checkEntityMessageStatus();
-        } else {
-          MessageSendingCollection.clearSentMessages();
-        }
-      }
-
-      if (_hasUpdate) {
-        updateList();
-        _hasUpdate = false;
-      }
-    }
-  }
 
   /**
    * messages 를 loop 돌며 업데이트 한다.
@@ -1601,7 +1560,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onCenterMarkerUpdated(event, param) {
     log('centerOnMarkerUpdated');
-    markerService.updateMarker(param.marker.memberId, param.marker.lastLinkId);
     MessageCollection.updateUnreadCount();
   }
 
