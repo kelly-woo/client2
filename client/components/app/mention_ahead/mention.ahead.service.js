@@ -199,17 +199,27 @@
       var mentionList = [];
       var sharedEntities;
 
+      var hasTopic;
+
       if (file) {
         sharedEntities = file.shareEntities;
 
         // 공유된 room 마다 mention 가능한 member를 설정함
         _.each(sharedEntities, function (sharedEntity) {
-          mentionList = _getMentionList(sharedEntity, mentionList);
+          if (RoomTopicList.isPublic(sharedEntity) || RoomTopicList.isPrivate(sharedEntity)) {
+            hasTopic = true;
+
+            mentionList = _getMentionList(sharedEntity, mentionList);
+          }
         });
 
         mentionList = _getUniqList(mentionList);
 
-        _addJandiBot(mentionList);
+        if (hasTopic) {
+          // file이 공유된 곳 중 topic이 존재하지 않는다면 jandi bot을 추가하지 않는다.
+
+          _addJandiBot(mentionList);
+        }
       }
 
       return mentionList;
