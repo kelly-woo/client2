@@ -8,6 +8,9 @@
     .module('jandiApp')
     .directive('leftTeamSwitch', leftTeamSwitch);
 
+  /**
+   * @use angular-bootstrap v0.13.4 $position
+   */
   function leftTeamSwitch($position, $timeout, configuration, jndKeyCode, JndUtil) {
     return {
       restrict: 'E',
@@ -105,6 +108,8 @@
        */
       function _onKeyDown($event) {
         var keyCode = $event.keyCode;
+
+        $event.stopPropagation();
 
         if (jndKeyCode.match('UP_ARROW', keyCode)) {
           scope.setActive((scope.activeIndex > 0 ? scope.activeIndex : scope.teamList.length) - 1);
@@ -216,8 +221,6 @@
 
         return scope.activeIndex = $index;
       }
-
-
 
       /**
        * 특정 item이 list에서 보이도록 scroll 설정
