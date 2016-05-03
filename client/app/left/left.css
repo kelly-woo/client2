@@ -31,7 +31,7 @@
 .lpanel-list__header .tooltip {
 }
 .lpanel-list {
-  width: 239px;
+  width: 100%;
   overflow-y: auto;
   overflow-x:hidden;
   position: absolute;

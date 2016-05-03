@@ -1,4 +1,4 @@
-<div>
+<div splitter splitter-orientation="horizontal">
   <!-- DUMMY LAYOUT -->
   <div ng-class="{
             'z-index-top': isShowDummyLayout,
@@ -25,7 +25,10 @@
 
   <aside class="lpanel non-selectable opac-zero"
          ng-class="{'opac-in': !isShowDummyLayout,
-                    'scroll_blue': !browser.platform.isMac}">
+                    'scroll_blue': !browser.platform.isMac}"
+         splitter-panel
+         min-size="240"
+         max-size="340">
     <current-user></current-user>
 
     <!-- LIST CONTAINER -->
@@ -49,7 +52,8 @@
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{'scroll_gray': !browser.platform.isMac,
                   'rpanel-show': isOpenRightPanel,
-                  'opac-in': !isShowDummyLayout}">
+                  'opac-in': !isShowDummyLayout}"
+       splitter-panel min-size="520">
     <entity-header></entity-header>
     <div ui-view="centerpanel"></div>
   </div>
