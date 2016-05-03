@@ -11,7 +11,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
                                                  JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect,
-                                                 RoomTopicList, EventsApi) {
+                                                 RoomTopicList, SocketEventApi) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
