@@ -10,10 +10,16 @@
 
   /* @ngInject */
   function TeamMemberListCtrl($scope, $modalInstance, $state, $filter, $timeout, currentSessionHelper,
-                              memberService, modalHelper, jndPubSub, UserList, BotList) {
+                              memberService, modalHelper, jndPubSub, UserList, BotList, SearchTypeUser) {
     _init();
 
     function _init() {
+      $scope.keywordTypes = SearchTypeUser.getFilterTypes();
+      $scope.keyword = {
+        value: '',
+        type: $scope.keywordTypes[0].value
+      };
+
       $scope.emptyMessageStateHelper = 'NO_MEMBER_IN_TEAM';
       $scope.memberListSetting = {
         enabledMemberList: {
@@ -26,10 +32,12 @@
 
       $scope.getMatches = getMatches;
 
+      $scope.onTabSelect = onTabSelect;
       $scope.onTabDeselect = onTabDeselect;
       $scope.onMemberClick = onMemberClick;
       $scope.onMemberListClick = onMemberListClick;
       $scope.cancel = cancel;
+      $scope.onKeywordTypeSelect = onKeywordTypeSelect;
 
       generateMemberList();
       _attachScopeEvents();
@@ -57,14 +65,16 @@
      * list에서 filter된 list를 전달한다.
      * @param {array} list
      * @param {string} filterText
+     * @param {string} filterType
      * @returns {*}
      */
-    function getMatches(list, filterText) {
+    function getMatches(list, filterText, filterType) {
+      var propertyName = SearchTypeUser.getSearchPropertyPath(filterType);
       var matches;
 
       filterText = filterText.toLowerCase();
 
-      matches = $filter('getMatchedList')(list, 'name', filterText);
+      matches = $filter('getMatchedList')(list, propertyName, filterText);
       matches = $filter('orderByQueryIndex')(matches, 'name', filterText, function (item, orderBy) {
         return [!item.isStarred, !memberService.isJandiBot(item.id)].concat(orderBy);
       });
@@ -78,6 +88,18 @@
       return matches;
     }
 
+    /**
+     * tab select event handler
+     */
+    function onTabSelect() {
+      _clearFilter();
+      _focusFilter();
+    }
+
+    /**
+     * tab deselect event handler
+     * @param {string} type
+     */
     function onTabDeselect(type) {
       jndPubSub.pub('setActiveIndex:' + type, 0);
       jndPubSub.pub('updateList:' + type);
@@ -87,9 +109,7 @@
      * member list click event handler
      */
     function onMemberListClick() {
-      $timeout(function() {
-        $('#team-member-filter').focus();
-      });
+      _clearFilter();
     }
 
     /**
@@ -158,5 +178,37 @@
       $modalInstance.dismiss('close');
     }
 
+    /**
+     * clear filter
+     * @private
+     */
+    function _clearFilter() {
+      $scope.keyword.value = '';
+      $('#team-member-filter').val('');
+    }
+
+    /**
+     * focus filter
+     * @private
+     */
+    function _focusFilter() {
+      setTimeout(function() {
+        $('#team-member-filter').focus();
+      });
+    }
+
+    /**
+     * keyword type select event handler
+     * @param {string} $newValue
+     * @param {string} $oldValue
+     */
+    function onKeywordTypeSelect($newValue, $oldValue) {
+      if ($newValue !== $oldValue) {
+        _clearFilter();
+        $scope.keyword.type = $newValue;
+      }
+
+      _focusFilter();
+    }
   }
 })();
