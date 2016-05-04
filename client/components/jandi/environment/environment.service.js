@@ -11,8 +11,6 @@
   function Environment(Browser) {
     var _that = this;
 
-    _that.KEY_NAMES = {
-      CTRL: Browser.platform.isMac ? 'Cmd' : 'Ctrl'
-    };
+    _that.CTRL = Browser.platform.isMac ? 'Cmd' : 'Ctrl';
   }
 })();

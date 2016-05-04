@@ -79,7 +79,7 @@
 
       RightPanel.initTabs();
 
-      $scope.ctrlKey = Environment.KEY_NAMES.CTRL;
+      $scope.ctrlKey = Environment.CTRL;
       $scope.toolbar = RightPanel.getTabStatus();
       currentRightPanel = RightPanel.getStateName($state.current);
       $scope.isCompleteTutorial = true;

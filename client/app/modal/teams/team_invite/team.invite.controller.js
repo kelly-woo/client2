@@ -42,7 +42,7 @@
       $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
 
       $scope.teamInviteLinkCopyDescription =
-        _translate('@team-invite-link-copy-desc').replace('{{ctrlKey}}', Environment.KEY_NAMES.CTRL);
+        _translate('@team-invite-link-copy-desc').replace('{{ctrlKey}}', Environment.CTRL);
 
       $scope.send = send;
       $scope.inviteMore = inviteMore;
