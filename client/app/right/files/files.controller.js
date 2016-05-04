@@ -324,14 +324,19 @@
     function _isFileStatusChangedOnCurrentFilter(data) {
       var result = false;
       var joinedEntity;
+      var sharePropertyName;
 
       if ($scope.searchStatus.sharedEntityId === -1) {
         // 참여중인 모든 대화방
         result = true;
       } else if (data.room) {
-        joinedEntity = EntityHandler.get(data.room.id);
-        if (CoreUtil.pick(joinedEntity, 'id') === $scope.searchStatus.sharedEntityId) {
-          result = true;
+        if (joinedEntity = EntityHandler.get(data.room.id)) {
+
+          // room이 DM일 경우 'companionId'와 custom selector의 'sharedEntityId'를 비교하여야 한다.
+          sharePropertyName = RoomTopicList.isExist(joinedEntity.id) ? 'id' : 'companionId';
+          if (joinedEntity[sharePropertyName] === $scope.searchStatus.sharedEntityId) {
+            result = true;
+          }
         }
       }
 

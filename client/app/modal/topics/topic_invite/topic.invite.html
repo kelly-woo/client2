@@ -38,28 +38,35 @@
         </span>
       </div>
 
-      <div class="input-group invite-member-filter-container">
+      <div class="input-group search-user">
         <span class="input-group-addon"><i class="icon-search"></i></span>
-        <input class="form-control green-input-box"
+        <input class="form-control"
                id="invite-member-filter"
                type="text"
-               jnd-input-model="selectedUser"
+               jnd-input-model="keyword.value"
+               autofocus
                placeholder="{{'@input-search-user-name' | translate}}" />
+        <search-type-user keyword-types="keywordTypes"
+                          keyword-type="keyword.type"
+                          on-keyword-type-select="onKeywordTypeSelect($newValue, $oldValue)"></search-type-user>
       </div>
+
       <div class="member-list-container">
         <list-on-modal type="avaliableMember"
                        list="availableMemberList"
                        item-type="member"
                        item-class="member-item"
-                       model="selectedUser"
+                       model="keyword.value"
+                       model-type="keyword.type"
                        filter="#invite-member-filter"
                        on-select="onMemberClick"
                        get-matches="getMatches"
                        activeted="true"
-                       item-height="44"
+                       item-height="68"
                        viewport-max-height="500"
                        buffer-length="10"></list-on-modal>
       </div>
+
       <div class="no-result-container" ng-show="!hasAllMembers && selectingMembers.length === 0">
         <span translate>@no-match-members</span>
       </div>

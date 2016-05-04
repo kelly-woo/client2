@@ -186,10 +186,6 @@
   padding-left: 8px;
   padding-right: 0px;
 }
-.green-input-box {
-  /*border: 1px solid #31c08a;*/
-}
-
 
 .form-control {
   border-radius: 0;
@@ -754,70 +750,39 @@
   color:#999;
 }
 
-/*
-  MEMBER LIST
-*/
-.modal-body .member-list {
-  position: relative;
-}
-
-.modal-body .member-item {
-  position: absolute;
-  padding: 9px 9px 0 9px;
-  background-color: white;
+/* custom dropdown menu button */
+.dropdown-btn-group .btn {
   width: 100%;
-  height: 44px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  font-weight: 500;
+  text-align: left;
+  color: #424C53;
 }
 
-.modal-body .member-item:hover .icon-star {
-  opacity: 1;
-}
-
-.modal-body .member-item.active {
-  background-color: #f2fbff;
-}
-
-.modal-body .member-auth-label {
-  top: 10px;
-  right: 30px;
-}
-
-.modal-body .member-item.active i {
-  opacity: 1;
-}
-
-.modal-body .member-item .member-profile-image {
-  display: block;
-  width: 25px;
-  border-radius: 25px;
-  float: left;
-}
-.modal-body .member-item.jandi-bot .member-profile-image {
-  border-radius: 0;
-  margin-top: -4px;
-}
-.modal-body .member-item .right-star {
-  float: right;
-  line-height: 25px;
-}
-
-.modal-body .member-item .icon-star-on {
-  color: #f9bb00;
-  opacity: 1;
-}
-.modal-body .member-item .member-name {
-  line-height: 25px;
-  margin-left: 7px;
-  width: 290px;
-}
-.modal-body .member-item .member-name.short {
-  width: 260px;
-}
-
-.modal-body .member-item.active {
-  background-color: #f2fbff;
-}
-
-.modal-body .room-item {
+.dropdown-btn-group .btn .icon {
   position: absolute;
+  top: 10px;
+  right: 7px;
+}
+.dropdown-btn-group .btn:focus:active {
+  color: #424C53;
+}
+
+.dropdown-btn-group.open .btn {
+  background-color: #e7e7e8;
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.07);
+  border-color: #bdc0c2;
+}
+
+
+.dropdown-btn-group .dropdown-menu-option {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.dropdown-btn-group .dropdown-menu {
+  width: 100%;
+  min-width: inherit;
 }
