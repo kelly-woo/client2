@@ -2,7 +2,7 @@
  * @fileoverview splitter dicrective
  * @example
  *
- * // !important splitter-panel의 element style중 position은 항상 absolute여야 한다.
+ * // !important splitter-panel의 element style 중 position은 항상 absolute여야 한다.
  * <div splitter splitter-orientation="[horizontal|vertical]">
  *   <div splitter-panel min-size="100" max-size="200"></div>
  *   <div splitter-panel min-size="100"></div>
@@ -21,22 +21,24 @@
     return {
       restrict: 'A',
       scope: {
-        orientation: '@splitterOrientation'
+        orientation: '@splitterOrientation',
+        onPanelSizeChanged: '&?'
       },
       controller: 'SplitterCtrl',
       link: link
     };
     
     function link(scope, el) {
-      var _jqBody = $('body');
+      var _cursorLayerTemplate = '<div class="splitter-cursor-layer"></div>';
       var _splitBarTemplate = '<div class="split-bar"></div>';
 
       var _isHorizontal = scope.orientation === 'horizontal';
 
       var _isDrag;
+      var _jqCursorLayer;
       var _jqSplitBar;
-      var _negativeAside;
-      var _positiveAside;
+      var _negativePanel;
+      var _positivePanel;
 
       _init();
 
@@ -49,6 +51,7 @@
           _appendSplitBar();
 
           _attachDomEvents();
+          _attachScopeEvents();
         }
       }
 
@@ -57,33 +60,45 @@
        * @private
        */
       function _appendSplitBar() {
-        _.each(scope.panels, function(panel, index) {
-          var nextPanel = scope.panels[index + 1];
-          var jqSplitBar;
+        var nextPanel;
+        var jqSplitBar;
+
+        angular.forEach(scope.panels, function(panel, index) {
+          nextPanel = scope.panels[index + 1];
 
           if (nextPanel) {
             jqSplitBar = $(_splitBarTemplate);
 
-            panel.jqPanel.after(jqSplitBar);
-
-            jqSplitBar.data('leftAside', panel)
-              .data('rightAside', nextPanel)
-              .on('mousedown');
-
             if (_isHorizontal) {
               // 수평 bar 생성
-              jqSplitBar.addClass('horizontal-bar')
+              jqSplitBar
+                .addClass('horizontal-bar')
                 .css({
                   top: 0,
                   left: panel.jqPanel.css('width')
                 });
             } else {
               // 수직 bar 생성
-              jqSplitBar.addClass('vertical-bar')
+              jqSplitBar
+                .addClass('vertical-bar')
                 .css({
                   top: panel.jqPanel.css('height'),
                   left: 0
                 });
+            }
+
+            panel.jqPanel.after(jqSplitBar);
+
+            jqSplitBar
+              .data('negativePanel', panel)
+              .data('positivePanel', nextPanel);
+
+            if (panel.size > 0) {
+              _setPanelSizeByValue({
+                negative: panel,
+                positive: nextPanel,
+                jqSplitBar: jqSplitBar
+              }, panel.size);
             }
           }
         });
@@ -94,9 +109,16 @@
        * @private
        */
       function _attachDomEvents() {
-        el.on('mousemove', _onMouseMove)
-          .on('mousedown', '.split-bar', _onMouseDown);
+        el.on('mousedown', '.split-bar', _onMouseDown);
         $(window).on('mouseup', _onMouseUp);
+      }
+
+      /**
+       * attach scope events
+       * @private
+       */
+      function _attachScopeEvents() {
+        scope.$on('$destroy', _onDestroy);
       }
 
       /**
@@ -105,63 +127,101 @@
        * @private
        */
       function _onMouseMove($event) {
-        var propertyNames;
-
         if (_isDrag) {
           // split bar에서 drag 시작하여 mouse move 중이다.
 
-          propertyNames = {};
-
-          if (_isHorizontal) {
-            propertyNames.mouse = 'clientX';
-            propertyNames.size = 'width';
-            propertyNames.positive = 'right';
-            propertyNames.negative = 'left';
-          } else {
-            propertyNames.mouse = 'clientY';
-            propertyNames.size = 'height';
-            propertyNames.positive = 'bottom';
-            propertyNames.negative = 'top';
-          }
-
-          _setPanelsSize(el, $event, propertyNames);
+          _setPanelsSizeByMouse($event);
         }
       }
 
       /**
-       * panel size 설정함
-       * @param {object} el
+       * mouse로 panel size 설정함
        * @param {object} $event
-       * @param {object} propertyNames
        * @private
        */
-      function _setPanelsSize(el, $event, propertyNames) {
+      function _setPanelsSizeByMouse($event) {
         var bounds = el[0].getBoundingClientRect();
-
-        var size = bounds[propertyNames.positive] - bounds[propertyNames.negative];
+        var propertyNames = _getPropertyNamesForCalc();
         var value = $event[propertyNames.mouse] - bounds[propertyNames.negative];
 
-        if (value < _negativeAside.minSize) {
-          // splitter bar의 왼쪽 또는 상단의 값이 min size보다 작을 경우 최소값을 유지한다.
+        _setPanelSize(propertyNames, {
+          negative: _negativePanel,
+          positive: _positivePanel,
+          jqSplitBar: _jqSplitBar
+        }, bounds, value);
+      }
 
-          value = _negativeAside.minSize;
-        } else if (value > _negativeAside.maxSize) {
-          // splitter bar의 왼쪽 또는 상단의 값이 max size보다 클 경우 최대값을 유지한다.
+      /**
+       * 특정 값으로 panel size 설정함
+       * @param {object} panels
+       * @param {number} value
+       * @private
+       */
+      function _setPanelSizeByValue(panels, value) {
+        var bounds = el[0].getBoundingClientRect();
 
-          value = _negativeAside.maxSize;
-        } else if (size - value < _positiveAside.minSize) {
-          // splitter bar의 오른쪽 또는 하단의 값이 min size보다 작을 경우 최소값을 유지한다.
+        _setPanelSize(_getPropertyNamesForCalc(), panels, bounds, value);
+      }
 
-          value = size - _positiveAside.minSize;
-        } else if (size - value > _positiveAside.maxSize) {
-          // splitter bar의 오른쪽 또는 하단의 값이 max size보다 클 경우 최대값을 유지한다.
+      /**
+       * panel size를 계산하기 위해 필요한 property name들을 전달함
+       * @private
+       */
+      function _getPropertyNamesForCalc() {
+        var propertyNames = {};
 
-          value = _positiveAside.maxSize;
+        if (_isHorizontal) {
+          propertyNames.mouse = 'clientX';
+          propertyNames.size = 'width';
+          propertyNames.positive = 'right';
+          propertyNames.negative = 'left';
+        } else {
+          propertyNames.mouse = 'clientY';
+          propertyNames.size = 'height';
+          propertyNames.positive = 'bottom';
+          propertyNames.negative = 'top';
         }
 
-        _negativeAside.jqPanel.css(propertyNames.size, value);
-        _jqSplitBar.css(propertyNames.negative, value);
-        _positiveAside.jqPanel.css(propertyNames.negative, value);
+        return propertyNames;
+      }
+
+      /**
+       * panel size 설정함
+       * @param {object} propertyNames
+       * @param {object} panels
+       * @param {object} bounds
+       * @param {number} panelSize
+       * @private
+       */
+      function _setPanelSize(propertyNames, panels, bounds, panelSize) {
+        var containerSize = bounds[propertyNames.positive] - bounds[propertyNames.negative];
+
+        if (panelSize < panels.negative.minSize) {
+          // splitter bar의 왼쪽 또는 상단의 값이 min size보다 작을 경우 최소값을 유지한다.
+
+          panelSize = panels.negative.minSize;
+        } else if (panelSize > panels.negative.maxSize) {
+          // splitter bar의 왼쪽 또는 상단의 값이 max size보다 클 경우 최대값을 유지한다.
+
+          panelSize = panels.negative.maxSize;
+        } else if (containerSize - panelSize < panels.positive.minSize) {
+          // splitter bar의 오른쪽 또는 하단의 값이 min size보다 작을 경우 최소값을 유지한다.
+
+          panelSize = containerSize - panels.positive.minSize;
+        } else if (containerSize - panelSize > panels.positive.maxSize) {
+          // splitter bar의 오른쪽 또는 하단의 값이 max size보다 클 경우 최대값을 유지한다.
+
+          panelSize = panels.positive.maxSize;
+        }
+
+        panels.negative.jqPanel.css(propertyNames.size, panelSize);
+        panels.jqSplitBar.css(propertyNames.negative, panelSize);
+        panels.positive.jqPanel.css(propertyNames.negative, panelSize);
+
+        scope.onPanelSizeChanged({
+          $panels: panels,
+          $panelSize: panelSize
+        });
       }
 
       /**
@@ -171,11 +231,7 @@
       function _onMouseUp() {
         if (_isDrag) {
           _jqSplitBar.removeClass('active');
-
-          _negativeAside.jqPanel.removeClass('non-selectable');
-          _positiveAside.jqPanel.removeClass('non-selectable');
-
-          _jqBody.removeClass(_isHorizontal ? 'col-resize' : 'row-resize');
+          _jqCursorLayer.remove();
         }
 
         _isDrag = false;
@@ -183,24 +239,32 @@
 
       /**
        * mouse down event handler
-       * @param $event
+       * @param {object} $event
        * @private
        */
       function _onMouseDown($event) {
-        $event.stopPropagation();
-
         _isDrag = true;
+
         _jqSplitBar = $($event.currentTarget);
-        _negativeAside = _jqSplitBar.data('leftAside');
-        _positiveAside = _jqSplitBar.data('rightAside');
+        _negativePanel = _jqSplitBar.data('negativePanel');
+        _positivePanel = _jqSplitBar.data('positivePanel');
 
         _jqSplitBar.addClass('active');
 
-        // drag시 text select 방지한다.
-        _negativeAside.jqPanel.addClass('non-selectable');
-        _positiveAside.jqPanel.addClass('non-selectable');
+        _jqCursorLayer = $(_cursorLayerTemplate);
+        _jqCursorLayer.on('mousemove', _onMouseMove)
+          .addClass(_isHorizontal ? 'col-resize' : 'row-resize')
+          .appendTo('body');
+      }
 
-        _jqBody.addClass(_isHorizontal ? 'col-resize' : 'row-resize');
+      /**
+       * scope destroy event handler
+       * @private
+       */
+      function _onDestroy() {
+        el.find('.split-bar').remove();
+        _jqCursorLayer && _jqCursorLayer.remove();
+        $(window).off('mouseup', _onMouseUp);
       }
     }
   }

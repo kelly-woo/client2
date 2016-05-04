@@ -25,6 +25,16 @@
   cursor: row-resize;
 }
 
+.splitter-cursor-layer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 1040;
+}
+
 .col-resize {
   cursor: col-resize;
 }

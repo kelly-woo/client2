@@ -1,10 +1,10 @@
-<div splitter splitter-orientation="horizontal">
+<div splitter splitter-orientation="horizontal" on-panel-size-changed="onPanelSizeChanged($panels, $panelSize)">
   <!-- DUMMY LAYOUT -->
   <div ng-class="{
             'z-index-top': isShowDummyLayout,
             'z-index-bottom': !isShowDummyLayout
            }">
-    <aside class="full-screen lpanel">
+    <aside class="full-screen lpanel" ng-style="::{'width': leftPanelSize}">
       <div class="lpanel-user lpanel-user__team">
         <div class="lpanel-user__team overflow-ellipsis">
         </div>
@@ -28,7 +28,8 @@
                     'scroll_blue': !browser.platform.isMac}"
          splitter-panel
          min-size="240"
-         max-size="340">
+         max-size="340"
+         size="{{::leftPanelSize}}">
     <current-user></current-user>
 
     <!-- LIST CONTAINER -->

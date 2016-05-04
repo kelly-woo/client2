@@ -27,6 +27,7 @@
         scope.jqPanel = el;
         scope.minSize = +(attrs.minSize || 0);
         scope.maxSize = +(attrs.maxSize || Infinity);
+        scope.size = +attrs.size;
 
         splitterCtrl.addPanel(scope);
       }
