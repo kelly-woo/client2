@@ -1,3 +1,13 @@
+<a name="1.26.0"></a>
+# [1.26.0](https://github.com/tosslab/web_client/compare/v1.25.2...v1.26.0) (2016-05-04)
+
+
+### Features
+
+* **pdf-viewer:** pdf-viewer 추가 ([a7e0535](https://github.com/tosslab/web_client/commit/a7e0535))
+
+
+
 <a name="1.25.2"></a>
 ## [1.25.2](https://github.com/tosslab/web_client/compare/v1.25.1...v1.25.2) (2016-05-02)
 
