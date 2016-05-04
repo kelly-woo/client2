@@ -9,7 +9,8 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($filter, MessageCollection, RendererUtil, publicService, memberService) {
+  function FileCommentRenderer($filter, MessageCollection, RendererUtil, publicService, memberService, CoreUtil,
+                               FileDetail) {
     var _templateTitle = '';
     var _template = '';
 
@@ -26,6 +27,34 @@
       _template = Handlebars.templates['center.file.comment'];
     }
 
+    /**
+     * msg 로 부터 file data 를 조회한다.
+     * @param {object} msg
+     * @returns {object}
+     * @private
+     */
+    function _getFileData(msg) {
+      var contentType = CoreUtil.pick(msg, 'message', 'contentType');
+      var file;
+      if (contentType === 'comment') {
+        file = CoreUtil.pick(msg, 'feedback');
+      } else {
+        file = CoreUtil.pick(msg, 'message');
+      }
+      return file;
+    }
+
+    /**
+     * pdf preview 가 있는 메시지인지 확인한다.
+     * @param {object} msg
+     * @returns {boolean}
+     * @private
+     */
+    function _hasPdfPreview(msg) {
+      var file = _getFileData(msg);
+      return FileDetail.hasPdfPreview(file);
+    }
+    
     /**
      * index 에 해당하는 메세지를 랜더링한다.
      * @param {number} index
@@ -72,6 +101,7 @@
           hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: hasPreview,
+          hasPdfPreview: _hasPdfPreview(msg),
           imageUrl: $filter('getPreview')(content, 'large'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),

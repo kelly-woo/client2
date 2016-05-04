@@ -136,11 +136,24 @@
             {{else}}
               <!--  FILE CARD -->
               <div class="preview-container">
-                <div class="preview-card cursor_pointer _compile _fileDetailContainer">
+                <div class="preview-card cursor_pointer _compile _fileDetail">
                   <div class="msg-file-actions-content actions-dimmed"></div>
                   <div class="msg-file-actions-content non-selectable">
                     <div class="msg-file-actions">
                       {{#unless file.isUnshared}}
+                        {{#if file.hasPdfPreview}}
+                          <div class="action-group">
+                            <div class="action-item"
+                                 jnd-tooltip-trigger="{{translate '@filecard-button-preview-tooltip'}}"
+                                 data-direction="top">
+                              <!--  file expand  -->
+                              <span class="action-comment _pdfPreview">
+                                <i class="fa-search-plus"></i>
+                                <span translate>@filecard-button-preview</span>
+                              </span>
+                            </div>
+                          </div>
+                        {{/if}}
                         <div class="action-group">
                           {{#if file.hasOriginalImageView}}
                             <div class="action-item"
