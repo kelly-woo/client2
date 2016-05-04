@@ -33,6 +33,7 @@
 
       _that.getFileDetail = getFileDetail;
       _that.setFileDetail = setFileDetail;
+      _that.hasPdfPreview = hasPdfPreview;
     }
 
     /**
@@ -184,6 +185,16 @@
      */
     function setFileDetail(fileDetail) {
       _fileDetail = fileDetail;
+    }
+
+    /**
+     * pdf preview 가 가능한 file 인지 여부를 반환한다.
+     * @param {object} file
+     * @returns {boolean}
+     */
+    function hasPdfPreview(file) {
+      var content = file.content;
+      return !!(file.content.ext === 'pdf' && !isIntegrateFile(content.serverUrl));
     }
   }
 })();
