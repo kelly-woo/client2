@@ -25,6 +25,14 @@
   cursor: row-resize;
 }
 
+.col-resize {
+  cursor: col-resize;
+}
+
+.row-resize {
+  cursor: row-resize;
+}
+
 .non-selectable {
   -webkit-user-select: none;
   -moz-user-select: none;

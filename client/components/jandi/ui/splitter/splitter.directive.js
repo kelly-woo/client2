@@ -28,7 +28,10 @@
     };
     
     function link(scope, el) {
+      var _jqBody = $('body');
       var _splitBarTemplate = '<div class="split-bar"></div>';
+
+      var _isHorizontal = scope.orientation === 'horizontal';
 
       var _isDrag;
       var _jqSplitBar;
@@ -67,7 +70,7 @@
               .data('rightAside', nextPanel)
               .on('mousedown');
 
-            if (scope.orientation === 'horizontal') {
+            if (_isHorizontal) {
               // 수평 bar 생성
               jqSplitBar.addClass('horizontal-bar')
                 .css({
@@ -109,7 +112,7 @@
 
           propertyNames = {};
 
-          if (scope.orientation === 'horizontal') {
+          if (_isHorizontal) {
             propertyNames.mouse = 'clientX';
             propertyNames.size = 'width';
             propertyNames.positive = 'right';
@@ -171,6 +174,8 @@
 
           _negativeAside.jqPanel.removeClass('non-selectable');
           _positiveAside.jqPanel.removeClass('non-selectable');
+
+          _jqBody.removeClass(_isHorizontal ? 'col-resize' : 'row-resize');
         }
 
         _isDrag = false;
@@ -194,6 +199,8 @@
         // drag시 text select 방지한다.
         _negativeAside.jqPanel.addClass('non-selectable');
         _positiveAside.jqPanel.addClass('non-selectable');
+
+        _jqBody.addClass(_isHorizontal ? 'col-resize' : 'row-resize');
       }
     }
   }
