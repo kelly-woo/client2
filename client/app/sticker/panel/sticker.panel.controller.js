@@ -71,7 +71,7 @@
      */
     function _attachEvents() {
       $scope.$on($scope.name + ':toggleSticker', _onToggleSticker);
-      $scope.$on('toggleQuickLauncher', _onToggleQuickLauncher);
+      $scope.$on('modalHelper:opened', _onModalOpened);
     }
 
     /**
@@ -85,10 +85,10 @@
     }
 
     /**
-     * toggle quick launcher
+     * modal opened event handler
      * @private
      */
-    function _onToggleQuickLauncher() {
+    function _onModalOpened() {
       JndUtil.safeApply($scope, function() {
         $scope.status.isOpen = false;
       });

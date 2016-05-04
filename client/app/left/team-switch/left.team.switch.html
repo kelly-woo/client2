@@ -1,7 +1,7 @@
 <div class="team-switch-container" ng-class="{'jnd-cursor-pointer': hasOtherTeam}" dropdown is-open="isOpen">
   <div class="dropdown dropdown-toggle lpanel-user__team overflow-ellipsis" dropdown-toggle>
     <span class="team-name private-effect white">{{team|getName}}</span>
-    <div class="team-switch-button" ng-show="hasOtherTeam">
+    <div class="team-switch-button" ng-show="hasOtherTeam" tabindex="0">
       <!-- icon-->
       <i class="team-switch icon-switch"
          tooltip="{{::'@team-switch' | translate}}"
@@ -13,9 +13,10 @@
   <!-- team list -->
   <ul class="dropdown-menu team-list _list" dropdown-menu ng-show="hasOtherTeam">
     <li class="team-item"
+        ng-class="{active: isActive($index)}"
+        ng-mouseenter="setActive($index)"
         ng-click="go(team)"
-        ng-if="currentTeamId !== team.teamId"
-        ng-repeat="team in teamList | orderBy: ['-extHasUnread', 'name'] track by team.teamId">
+        ng-repeat="team in teamList track by team.teamId">
       <span class="team-name overflow-ellipsis">{{team.name}}</span>
       <span class="team-badge badge red_badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
     </li>
