@@ -401,7 +401,7 @@ msgstr " 公开/私人"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "FAQ"
+msgstr "常见问题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
@@ -551,7 +551,7 @@ msgstr "你已不在此标记的议题内"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-livesupport"
-msgstr "常见问题"
+msgstr "在线客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -2871,7 +2871,7 @@ msgstr "电子邮箱格式不正确"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
-msgstr "点击 {{ctrlKey}}-C 复制邀请链接并分享给工作伙伴"
+msgstr "点击 Ctrl+C 复制邀请链接并分享给工作伙伴"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"

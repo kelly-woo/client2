@@ -400,7 +400,7 @@ msgstr " 公開/私人"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr "FAQ"
+msgstr "常見問題"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/modal/files/share/share.html client/app/right/right.html
@@ -550,7 +550,7 @@ msgstr "此信息/文件已被标示"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-livesupport"
-msgstr "常見問題"
+msgstr "線上客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/right/files/files.html
@@ -2869,7 +2869,7 @@ msgstr "電子郵箱格式不正確"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-link-copy-desc"
-msgstr "點擊 {{ctrlKey}}-C 複製邀請連結並分享給工作夥伴"
+msgstr "點擊 Ctrl+C 複製邀請連結並分享給工作夥伴"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite-more"
