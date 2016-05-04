@@ -54,40 +54,52 @@
         _onClickFileToggle(msg, jqTarget);
       } else if (jqTarget.closest('._fileDetailComment').length) {
         _onClickFileDetail(msg, true);
+      } else if (jqTarget.closest('._pdfPreview').length) {
+        _onClickPdfPreview(msg);
       } else if (jqTarget.closest('._fileDetail').length) {
         _onClickFileDetail(msg);
-      } else if (jqTarget.closest('._fileDetailContainer').length) {
-        _onClickContainer(msg);
       }
     }
 
     /**
-     * file card 자체를 클릭했을 때 이벤트 핸들러
+     * PDF preview 버튼 클릭 이벤트 핸들러
      * @param {object} msg
      * @private
      */
-    function _onClickContainer(msg) {
-      var contentType = CoreUtil.pick(msg, 'message', 'contentType');
-      var content;
-      var file;
-      if (contentType === 'comment') {
-        content = CoreUtil.pick(msg, 'feedback', 'content');
-        file = CoreUtil.pick(msg, 'feedback');
-      } else {
-        content = CoreUtil.pick(msg, 'message', 'content');
-        file = CoreUtil.pick(msg, 'message');
-      }
-      if (content) {
-        //TODO: PDF Viewer 배포 시점에 아래 주석으로 대체해야 함
-        _onClickFileDetail(msg);
-        // if (content.ext === 'pdf' && !FileDetail.isIntegrateFile(content.serverUrl)) {
-        //   JndPdfViewer.load(content.fileUrl, file);
-        // } else {
-        //   _onClickFileDetail(msg);
-        // }
-      }
+    function _onClickPdfPreview(msg) {
+      var file = _getFileData(msg);
+      var content = file.content;
+      JndPdfViewer.load(content.fileUrl, file);
     }
 
+    /**
+     * msg 로 부터 file data 를 조회한다.
+     * @param {object} msg
+     * @returns {object}
+     * @private
+     */
+    function _getFileData(msg) {
+      var contentType = CoreUtil.pick(msg, 'message', 'contentType');
+      var file;
+      if (contentType === 'comment') {
+        file = CoreUtil.pick(msg, 'feedback');
+      } else {
+        file = CoreUtil.pick(msg, 'message');
+      }
+      return file;
+    }
+
+    /**
+     * pdf preview 가 있는 메시지인지 확인한다.
+     * @param {object} msg
+     * @returns {boolean}
+     * @private
+     */
+    function _hasPdfPreview(msg) {
+      var file = _getFileData(msg);
+      return FileDetail.hasPdfPreview(file);
+    }
+    
     /**
      * file detail
      * @param {object} msg
@@ -237,6 +249,7 @@
           hasOriginalImageView: !!(feedback.content && feedback.content.extraInfo),
           mustPreview: isMustPreview,
           hasPreview: $filter('hasPreview')(content),
+          hasPdfPreview: _hasPdfPreview(msg), 
           imageUrl: $filter('getPreview')(content, 'large'),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
