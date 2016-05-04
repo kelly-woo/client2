@@ -4,18 +4,18 @@
   <div class="lpanel-user__user" dropdown-toggle>
     <i class="icon-cog user-setting-icon" ></i>
 
-    <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
+    <img class="lpanel-user__avatar opac-zero" on-image-load ng-src="{{image}}">
 
     <div class="lpanel-user__container">
-      <span class="lpanel-user__name inline-overflow-ellipsis private-effect">{{ member | getName}}</span>
+      <span class="lpanel-user__name inline-overflow-ellipsis private-effect" ng-bind="name"></span>
       <br>
-      <span class="lpanel-user__position inline-overflow-ellipsis private-effect">{{ member | getUserPosition }}</span>
+      <span class="lpanel-user__position inline-overflow-ellipsis private-effect" ng-bind="position"></span>
     </div>
   </div>
 
   <ul class="dropdown-menu grey_dropdown" role="menu" id="current-user-dropdown">
     <li class="" role="presentation">
-      <a data-ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
+      <a ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
         <i class="icon-pencil-fill"></i>
         <span translate>@common-profile-settings</span>
       </a>
