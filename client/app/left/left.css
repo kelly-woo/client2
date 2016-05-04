@@ -267,11 +267,11 @@ last element of list
 }
 
 .left-panel__name {
-  max-width: 70%;
+  max-width: calc(100% - 69px);
   float: left;
 }
 .left-panel__name.with-bell {
-  max-width: 60%;
+  max-width: calc(100% - 78px);
 }
 .private-topic-icon {
   width: 9px;

@@ -81,8 +81,7 @@
   display: none;
   top: 35px;
   right: -12px;
-  width: 240px;
-  /*border: 1px solid black;*/
+  width: 100%;
   padding: 0 !important;
   margin: 0;
   border-top-right-radius: 0;

@@ -1,7 +1,5 @@
 .split-bar {
   position: absolute;
-  top: 0;
-  left: 240px;
   z-index: 30;
   opacity: 0;
   border: 1px solid #e1e1e1;
@@ -16,14 +14,14 @@
 }
 
 .split-bar.horizontal-bar {
-  width: 6px;
+  width: 7px;
   height: 100%;
   cursor: col-resize;
 }
 
 .split-bar.vertical-bar {
   widht: 100%;
-  height: 6px;
+  height: 7px;
   cursor: row-resize;
 }
 
