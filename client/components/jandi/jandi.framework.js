@@ -13,6 +13,7 @@
       'jandi.preloader',
       'jandi.popup',
       'jandi.browser',
+      'jandi.environment',
       'jandi.ui'
     ])
     .run(run)

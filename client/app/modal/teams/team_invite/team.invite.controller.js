@@ -9,9 +9,11 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration,
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, Environment,
                           memberService, publicService, currentSessionHelper, jndPubSub,
                           teamAPIservice, Dialog, analyticsService) {
+    var _translate = $filter('translate');
+
     var currentTeamAdmin;
 
     _init();
@@ -29,15 +31,18 @@
       $scope.inviteDisabled = teamInfo.invitationStatus === 'disabled';   // invite status
       $scope.disableSeedUri = $scope.seedUri === '';
 
-    // team의 admin
-    currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
-    $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
-    $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
+      // team의 admin
+      currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
+      $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
+      $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
 
       // team의 admin
       currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
       $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
       $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
+
+      $scope.teamInviteLinkCopyDescription =
+        _translate('@team-invite-link-copy-desc').replace('{{ctrlKey}}', Environment.CTRL);
 
       $scope.send = send;
       $scope.inviteMore = inviteMore;
@@ -143,9 +148,9 @@
       // email 전송한 총 수를 표현한다.
       if (failCount === 0) {
         // 모두 email 전송 성공함
-        $scope.inviteResultDesc = $filter('translate')('@team-invite-done').replace('{{inviteeNumber}}', successCount);
+        $scope.inviteResultDesc = _translate('@team-invite-done').replace('{{inviteeNumber}}', successCount);
       } else {
-        $scope.inviteResultDesc = $filter('translate')('@team-invite-done-with-fail')
+        $scope.inviteResultDesc = _translate('@team-invite-done-with-fail')
           .replace('{{inviteeNumber}}', successCount)
           .replace('{{failedInviteeNumber}}', failCount);
       }
@@ -160,7 +165,7 @@
       var currentTeam = currentSessionHelper.getCurrentTeam();
 
       Dialog.error({
-        title: $filter('translate')('@invitation-already-member').replace('{{invitedTeamName}}', currentTeam.name)
+        title: _translate('@invitation-already-member').replace('{{invitedTeamName}}', currentTeam.name)
       });
       $scope.removeEmail();
     }
