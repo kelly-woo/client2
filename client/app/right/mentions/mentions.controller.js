@@ -187,12 +187,15 @@
      * @private
      */
     function _initGetMentionList() {
-      $scope.isEmpty = false;
-      $scope.isLoading = true;
+      if (!$scope.isLoading) {
+        // loading시 연속해서 mention list를 갱신하지 않도록 한다.
 
-      $scope.searchStatus = _getSearchStatus();
+        $scope.isEmpty = false;
+        $scope.isLoading = true;
+        $scope.searchStatus = _getSearchStatus();
 
-      _getMentionList();
+        _getMentionList();
+      }
     }
 
     /**

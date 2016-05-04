@@ -333,11 +333,15 @@
     function _initGetStarList(activeTabName) {
       var activeTab = $scope.tabs[activeTabName];
 
-      activeTab.isLoading = true;
-      activeTab.isEmpty = false;
-      activeTab.searchStatus = _getSearchStatus(activeTab);
+      if (!activeTab.isLoading) {
+        // loading시 연속해서 star list를 갱신하지 않도록 한다.
 
-      _getStarList(activeTabName);
+        activeTab.isLoading = true;
+        activeTab.isEmpty = false;
+        activeTab.searchStatus = _getSearchStatus(activeTab);
+
+        _getStarList(activeTabName);
+      }
     }
 
     /**
@@ -348,27 +352,25 @@
     function _getStarList(activeTabName) {
       var activeTab = $scope.tabs[activeTabName];
 
-      if (!activeTab.isLoading || !activeTab.isScrollLoading) {
-        StarAPIService.get(_starListData.messageId, MENTIONS_COUNT, (activeTabName === 'files' ? 'file' : undefined))
-          .success(function(data) {
-            if (data) {
-              if (data.records && data.records.length) {
-                _addStars(data.records, activeTabName);
-              }
-
-              // 다음 getStarList에 전달할 param 갱신
-              _updateCursor(activeTabName, data);
-
-              activeTab.hasFirstLoad = true;
-              !activeTab.list.length && _setEmptyTab(activeTabName, true);
+      StarAPIService.get(_starListData.messageId, MENTIONS_COUNT, (activeTabName === 'files' ? 'file' : undefined))
+        .success(function(data) {
+          if (data) {
+            if (data.records && data.records.length) {
+              _addStars(data.records, activeTabName);
             }
-          })
-          .error(JndUtil.alertUnknownError)
-          .finally(function() {
-            activeTab.isLoading = activeTab.isScrollLoading = false;
-            activeTab.searchStatus = _getSearchStatus(activeTab);
-          });
-      }
+
+            // 다음 getStarList에 전달할 param 갱신
+            _updateCursor(activeTabName, data);
+
+            activeTab.hasFirstLoad = true;
+            !activeTab.list.length && _setEmptyTab(activeTabName, true);
+          }
+        })
+        .error(JndUtil.alertUnknownError)
+        .finally(function() {
+          activeTab.isLoading = activeTab.isScrollLoading = false;
+          activeTab.searchStatus = _getSearchStatus(activeTab);
+        });
     }
 
     /**
