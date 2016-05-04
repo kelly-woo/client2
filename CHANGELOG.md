@@ -1,3 +1,9 @@
+<a name="1.26.1"></a>
+## [1.26.1](https://github.com/tosslab/web_client/compare/v1.26.0...v1.26.1) (2016-05-04)
+
+
+
+
 <a name="1.26.0"></a>
 # [1.26.0](https://github.com/tosslab/web_client/compare/v1.25.2...v1.26.0) (2016-05-04)
 
