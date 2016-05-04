@@ -513,7 +513,7 @@ msgstr "アップロード中..."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@common-get-started"
-msgstr "ログイン画面に進む"
+msgstr "始める"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
@@ -3528,7 +3528,7 @@ msgstr " "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-post"
-msgstr "に新規メッセージが届きました"
+msgstr "{{teamName}}に新規メッセージが届きました。"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@web-notification-body-other-team-pre"

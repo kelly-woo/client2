@@ -1,3 +1,83 @@
+<a name="1.26.0"></a>
+# [1.26.0](https://github.com/tosslab/web_client/compare/v1.25.2...v1.26.0) (2016-05-04)
+
+
+### Features
+
+* **pdf-viewer:** pdf-viewer 추가 ([a7e0535](https://github.com/tosslab/web_client/commit/a7e0535))
+
+
+
+<a name="1.25.2"></a>
+## [1.25.2](https://github.com/tosslab/web_client/compare/v1.25.1...v1.25.2) (2016-05-02)
+
+
+### Bug Fixes
+
+* **ESM:** 방금 생성한 1인 토픽에서 멤버 초대 유도 ESM 표시되지 않는 현상 수정 ([900f2e1](https://github.com/tosslab/web_client/commit/900f2e1))
+* **invite:** 토픽 초대 시 참조 오류로 인해 toast alarm 노출되지 않는 현상 수정 ([94fb501](https://github.com/tosslab/web_client/commit/94fb501))
+
+
+
+<a name="1.25.1"></a>
+## [1.25.1](https://github.com/tosslab/web_client/compare/v1.25.0...v1.25.1) (2016-05-02)
+
+
+### Bug Fixes
+
+* **ctrlKey:** ctrl -> cmd ([2ed6664](https://github.com/tosslab/web_client/commit/2ed6664))
+
+
+
+<a name="1.25.0"></a>
+# [1.25.0](https://github.com/tosslab/web_client/compare/v1.24.1...v1.25.0) (2016-04-28)
+
+
+### Bug Fixes
+
+* **DM:** DM 에서 삭제된 메시지의 뱃지 카운트 감소되지 않음 현상 수정 ([924de85](https://github.com/tosslab/web_client/commit/924de85))
+* **badge:** DM 일 경우 unread count 가 0 일 때 update badge value 를 수행하지 않는 현상 수정 ([dc43f20](https://github.com/tosslab/web_client/commit/dc43f20))
+* **badge:** new message 버튼 인식 오류 수정 ([3d6cf40](https://github.com/tosslab/web_client/commit/3d6cf40))
+* **css:** opac-zero 에 important 제거 ([6d4a83a](https://github.com/tosslab/web_client/commit/6d4a83a))
+* **css:** opac-zero 에 important 제거 ([150d1fe](https://github.com/tosslab/web_client/commit/150d1fe))
+* **css:** 더미 어카운트 inactive 멤버 대화창 상단 툴팁 스타일 수정. ([c8bc889](https://github.com/tosslab/web_client/commit/c8bc889))
+* **css:** 윈도우 클라이언트에서 하얀화면에서 멈추는 현상 수정 ([59db4c3](https://github.com/tosslab/web_client/commit/59db4c3))
+* **css): client.app.center.view_components.entity_header.view:** inactive멤버 대화창 팝오버의 스타일 일부 수정. ([47f91b0](https://github.com/tosslab/web_client/commit/47f91b0))
+* **entity:** entity 의 type 정보가 복수인지 여부를 검출하는 로직의 버그 수정 ([738aa11](https://github.com/tosslab/web_client/commit/738aa11))
+* **entity:** 윈도우 클라이언트에서 하얀화면에서 멈추는 현상 수정 ([9da27ad](https://github.com/tosslab/web_client/commit/9da27ad))
+* **entity:** 호환성을 위해 entity 의 type 을 소문자 복수로 변경하는 부분 버그 수정 ([af981d1](https://github.com/tosslab/web_client/commit/af981d1))
+* **error:** app이 sleep 상태중 gateway-timeout 에러 발생시 app이 하얗게 표현되는 버그 수정 ([78b962b](https://github.com/tosslab/web_client/commit/78b962b))
+* **folder:** 멤버 초대, 토픽 생성 시 > 폴더의 뱃지카운트 깜박이는 현상 수정 ([6e0b86e](https://github.com/tosslab/web_client/commit/6e0b86e))
+* **integration:** 구글 드라이브 파일 업로드시 구글 계정 연동후 바로 파일 picker 출력하도록 수정 ([a302f46](https://github.com/tosslab/web_client/commit/a302f46))
+* **intercom:** 'web_landing'과 'web_client'에 있는 intercom이 개별 intercom으로 동작하도록 수정 ([fb5b1b5](https://github.com/tosslab/web_client/commit/fb5b1b5))
+* **marker:** Dummy member 에게 보낸 메시지의 unread count 가 2로 표시되는 현상 수정 ([42d2c76](https://github.com/tosslab/web_client/commit/42d2c76))
+* **mobile:** android 앱 실행 url 변경 ([9435a35](https://github.com/tosslab/web_client/commit/9435a35))
+* **right tab:** star 패널 접근시 403 에러 발생하는 버그 수정 ([66c63ad](https://github.com/tosslab/web_client/commit/66c63ad))
+* **socket:** member update 에 대한 이벤트 핸들러 수정 ([9c6e805](https://github.com/tosslab/web_client/commit/9c6e805))
+* **socket:** topic_invited 이벤트 핸들러 오류 수정 ([709e725](https://github.com/tosslab/web_client/commit/709e725))
+* **socket:** 초대 거절 취소로 삭제된 Dummy Member 가 리스트에 표시 됨 현상 수정 ([96a658f](https://github.com/tosslab/web_client/commit/96a658f))
+
+### Features
+
+* **dummy-account:** DM 에서 inactive user 의 entity header 변경 적용 ([6b9e464](https://github.com/tosslab/web_client/commit/6b9e464))
+* **dummy-account:** inactive member 프로필 추가 ([989ad50](https://github.com/tosslab/web_client/commit/989ad50)), closes [#4](https://github.com/tosslab/web_client/issues/4)
+* **dummy-account:** member list 영역에 초대 매일 재전송 추가 ([4326261](https://github.com/tosslab/web_client/commit/4326261)), closes [#3](https://github.com/tosslab/web_client/issues/3)
+* **intercom:** intercom 추가 ([e204445](https://github.com/tosslab/web_client/commit/e204445))
+* **jump:** jump modal에 animation 및 dim 제거 ([9807101](https://github.com/tosslab/web_client/commit/9807101))
+* **pdf-viewer:** pdf-viewer 추가 ([83d9184](https://github.com/tosslab/web_client/commit/83d9184))
+
+
+
+<a name="1.24.1"></a>
+## [1.24.1](https://github.com/tosslab/web_client/compare/v1.24.0...v1.24.1) (2016-04-22)
+
+
+### Bug Fixes
+
+* **markdown:** $&, $`, $' 문자열이 들어갔을 경우, 무한 루프에 빠지는 현상 수정 ([bb2f908](https://github.com/tosslab/web_client/commit/bb2f908))
+
+
+
 <a name="1.24.0"></a>
 # [1.24.0](https://github.com/tosslab/web_client/compare/v1.23.2...v1.24.0) (2016-04-20)
 
