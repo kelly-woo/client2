@@ -1,3 +1,7 @@
 .profile-view-modal .action-buttons.bot-action-buttons > span {
   width: 148px;
 }
+.profile-view-modal .bot-profile-image-backdrop .profile-condition .readonly {
+  width: 270px;
+  margin: -10px auto auto -10px;
+}
