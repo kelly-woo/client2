@@ -11,7 +11,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
                                                  JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect,
-                                                 RoomTopicList, SocketEventApi) {
+                                                 RoomTopicList, SocketEventApi, jndWebSocket) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -950,10 +950,34 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (MessageSendingCollection.queue.length) {
       _requestPostMessages(true);
     } else {
-      updateList();
+      _requestEventsHistory();
     }
   }
 
+  /**
+   * disconnect 동안 누락된 이벤트를 조회하기 위해 
+   * event history API 를 호출한다.
+   * @private
+   */
+  function _requestEventsHistory() {
+    var lastTimeStamp = jndWebSocket.getLastTimestamp();
+    
+    SocketEventApi.get({
+      ts: lastTimeStamp
+    }).success(_onSuccessGetEventsHistory)
+      .error(publicService.reloadCurrentPage);
+  }
+
+  /**
+   * event history 조회 성공 이벤트 핸들러
+   * @param {object} response
+   * @private
+   */
+  function _onSuccessGetEventsHistory(response) {
+    var socketEvents = response.records; 
+    jndWebSocket.processSocketEvents(socketEvents);
+  }
+  
   /**
    * input 박스에서 메세지를 포스팅 한다.
    */

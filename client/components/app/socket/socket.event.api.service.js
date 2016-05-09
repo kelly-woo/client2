@@ -1,6 +1,6 @@
 /**
- * @fileoverview 소켓 이벤트에 따라 다른 로직으로 처리하는 곳.
- * @author JiHoon Kim <jihoonk@tosslab.com>
+ * @fileoverview 소켓 이벤트 히스토리 API
+ * @author Soonyoung Park <young.park@tosslab.com>
  */
 (function() {
   'use strict';
@@ -14,8 +14,10 @@
     var API_URL = configuration.api_address + 'inner-api/';
 
     this.get = get;
+    
     /**
-     *
+     * 이벤트 히스토리 조회 
+     * 
      * @param {object} params
      *    @param {number} params.ts
      *    @param {number} [params.size]
