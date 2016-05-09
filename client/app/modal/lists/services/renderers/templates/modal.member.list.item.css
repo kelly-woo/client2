@@ -6,7 +6,7 @@
 }
 
 .modal-body .member-auth-label {
-  top: 10px;
+  top: 12px;
   right: 30px;
 }
 
@@ -16,7 +16,7 @@
 
 .modal-body .member-item {
   position: absolute;
-  padding: 9px 9px 0 9px;
+  padding: 11px 10px 0;
   background-color: white;
   width: 100%;
   height: 44px;
@@ -36,13 +36,13 @@
 
 .modal-body .member-item .member-profile-image {
   display: block;
-  width: 25px;
-  border-radius: 25px;
+  width: 26px;
+  border-radius: 26px;
   float: left;
 }
 .modal-body .member-item.jandi-bot .member-profile-image {
   border-radius: 0;
-  margin-top: -4px;
+  margin-top: -6px;
 }
 .modal-body .member-item .right-star {
   float: right;
@@ -55,7 +55,7 @@
 }
 
 .modal-body .member-profile-description {
-  margin-left: 32px;
+  margin-left: 34px;
 }
 
 .modal-body .member-item .member-name {
@@ -71,6 +71,7 @@
   width: 370px;
   color: #969696;
   font-size: 13px;
+  margin-top: -2px;
 }
 
 .modal-body .member-item .member-extra-text strong {
