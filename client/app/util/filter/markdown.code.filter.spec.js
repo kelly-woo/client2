@@ -15,19 +15,19 @@
         var expectString1 = '<i>텍스트</i> 입니다.';
 
         var markdownString2 = $filter('* 텍스트 * 입니다.');
-        var expectString2 = '<i> 텍스트 </i> 입니다.';
+        var expectString2 = '* 텍스트 * 입니다.';
 
         var markdownString3 = $filter('중간 *텍스트* 입니다.');
         var expectString3 = '중간 <i>텍스트</i> 입니다.';
 
         var markdownString4 = $filter('중간 * 텍스트 * 입니다.');
-        var expectString4 = '중간 <i> 텍스트 </i> 입니다.';
+        var expectString4 = '중간 * 텍스트 * 입니다.';
 
         var markdownString5 = $filter('중간 *텍스트*');
         var expectString5 = '중간 <i>텍스트</i>';
 
         var markdownString6 = $filter('중간 * 텍스트 *');
-        var expectString6 = '중간 <i> 텍스트 </i>';
+        var expectString6 = '중간 * 텍스트 *';
 
         expect(markdownString1).toEqual(expectString1);
         expect(markdownString2).toEqual(expectString2);
@@ -44,22 +44,22 @@
         var expectString1 = '<b>텍스트</b> 입니다.';
 
         var markdownString2 = $filter('** 텍스트 ** 입니다.');
-        var expectString2 = '<b> 텍스트 </b> 입니다.';
+        var expectString2 = '** 텍스트 ** 입니다.';
 
         var markdownString3 = $filter('중간 **텍스트** 입니다.');
         var expectString3 = '중간 <b>텍스트</b> 입니다.';
 
         var markdownString4 = $filter('중간 ** 텍스트 ** 입니다.');
-        var expectString4 = '중간 <b> 텍스트 </b> 입니다.';
+        var expectString4 = '중간 ** 텍스트 ** 입니다.';
 
         var markdownString5 = $filter('중간 **텍스트**');
         var expectString5 = '중간 <b>텍스트</b>';
 
         var markdownString6 = $filter('중간 ** 텍스트 **');
-        var expectString6 = '중간 <b> 텍스트 </b>';
+        var expectString6 = '중간 ** 텍스트 **';
 
         var markdownString7 = $filter('중간 ~* 텍스트 *~');
-        var expectString7 = '중간 ~<i> 텍스트 </i>~';
+        var expectString7 = '중간 ~* 텍스트 *~';
 
         var markdownString8 = $filter('오늘 **3**개의 일정이 있습니다.');
         var expectString8 = '오늘 <b>3</b>개의 일정이 있습니다.';
@@ -82,19 +82,19 @@
         var expectString1 = '<i><b>텍스트</b></i> 입니다.';
 
         var markdownString2 = $filter('*** 텍스트 *** 입니다.');
-        var expectString2 = '<i><b> 텍스트 </b></i> 입니다.';
+        var expectString2 = '*** 텍스트 *** 입니다.';
 
         var markdownString3 = $filter('중간 ***텍스트*** 입니다.');
         var expectString3 = '중간 <i><b>텍스트</b></i> 입니다.';
 
         var markdownString4 = $filter('중간 *** 텍스트 *** 입니다.');
-        var expectString4 = '중간 <i><b> 텍스트 </b></i> 입니다.';
+        var expectString4 = '중간 *** 텍스트 *** 입니다.';
 
         var markdownString5 = $filter('중간 ***텍스트***');
         var expectString5 = '중간 <i><b>텍스트</b></i>';
 
         var markdownString6 = $filter('중간 *** 텍스트 ***');
-        var expectString6 = '중간 <i><b> 텍스트 </b></i>';
+        var expectString6 = '중간 *** 텍스트 ***';
 
         var markdownString7 = $filter('중간 *~* 텍스트 *~*');
         var expectString7 = '중간 <i>~</i> 텍스트 <i>~</i>';
