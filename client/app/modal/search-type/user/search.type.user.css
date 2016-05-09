@@ -13,13 +13,20 @@
 .search-type-user .btn {
   font-size: 13px;
   height: 24px;
-  padding: 3px 24px 3px 10px;
+  padding: 2px 24px 2px 8px;
+  border-radius: 4px;
 }
 
 .search-type-user .btn .icon {
   top: 5px;
+  font-size: 12px;
 }
 
 .search-type-user .dropdown-menu {
   font-size: 13px;
+  margin-top: 1px !important;
+}
+
+.search-type-user .dropdown-menu .dropdown-menu-option {
+  padding: 6px 10px;
 }
