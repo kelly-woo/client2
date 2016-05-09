@@ -3,6 +3,7 @@
   z-index: 30;
   opacity: 0;
   border: 1px solid #e1e1e1;
+  border-left-width: 0px;
   background-color: #fff;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;

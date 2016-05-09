@@ -9,6 +9,7 @@
   background: #f1f4f8;
   z-index: 500;
   overflow: visible;
+  border-right: 1px solid #e1e1e1;
 }
 
 
@@ -40,7 +41,6 @@
   left: 0;
   top: 88px;
   background: #F9F9F9;
-  border-right: 1px solid #e1e1e1;
   box-sizing: content-box;
 }
 .lpanel-list__topics {
