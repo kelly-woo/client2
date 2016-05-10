@@ -9,7 +9,7 @@
     .controller('FileDetailCtrl', FileDetailCtrl);
 
   /* @ngInject */
-  function FileDetailCtrl($scope, $filter, $q, $state, FileDetail, jndPubSub, JndMessageStorage,
+  function FileDetailCtrl($scope, $compile, $filter, $q, $state, FileDetail, jndPubSub, JndMessageStorage,
                           memberService, publicService,RightPanel, Sticker, Tutorial, UserList) {
     var _fileId;
     var _requestFile;
@@ -217,7 +217,7 @@
 
       if (type === 'comment' || type === 'comment_sticker') {
         if (item.content && item.content.body) {
-          item.content.body = _getSafeBody(item);
+          item.content.body = $compile('<div>' + _getSafeBody(item) + '</div>')($scope.$new()).html();
         }
 
         item.extIsSticker = type === 'comment_sticker';

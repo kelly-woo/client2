@@ -9,7 +9,7 @@
     .directive('fileDetailComments', fileDetailComments);
 
   /* @ngInject */
-  function fileDetailComments($filter, Dialog, FileDetail, jndPubSub, JndUtil, memberService) {
+  function fileDetailComments($filter, $state, Dialog, FileDetail, jndPubSub, JndUtil, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -67,7 +67,31 @@
        * @private
        */
       function _attachDomEvents() {
+        el.on('click', '.mention', _onMentionClick);
         el.on('mouseleave', '.comment-item', _onMouseLeave);
+      }
+
+      /**
+       * mention click 이벤트 핸들러
+       * @param {object} $event
+       * @private
+       */
+      function _onMentionClick($event) {
+        var jqTarget = $($event.currentTarget);
+        var memberId;
+
+        // 이벤트가 상위까지 전달되어 center의 template이 순간적으로 출력되는 현상 방지한다.
+        $event.stopPropagation();
+
+        if (!jqTarget.hasClass('me')) {
+          memberId = jqTarget.attr('mention-view');
+          if (memberService.isMember(memberId)) {
+            $state.go('archives', {
+              entityType: 'users',
+              entityId: memberId
+            });
+          }
+        }
       }
 
       /**
