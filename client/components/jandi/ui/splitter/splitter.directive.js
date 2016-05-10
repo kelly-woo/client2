@@ -196,6 +196,16 @@
       function _setPanelSize(propertyNames, panels, bounds, panelSize) {
         var containerSize = bounds[propertyNames.positive] - bounds[propertyNames.negative];
 
+        if (containerSize - panelSize < panels.positive.minSize) {
+          // splitter bar의 오른쪽 또는 하단의 값이 min size보다 작을 경우 최소값을 유지한다.
+
+          panelSize = containerSize - panels.positive.minSize;
+        } else if (containerSize - panelSize > panels.positive.maxSize) {
+          // splitter bar의 오른쪽 또는 하단의 값이 max size보다 클 경우 최대값을 유지한다.
+
+          panelSize = panels.positive.maxSize;
+        }
+
         if (panelSize < panels.negative.minSize) {
           // splitter bar의 왼쪽 또는 상단의 값이 min size보다 작을 경우 최소값을 유지한다.
 
@@ -204,14 +214,6 @@
           // splitter bar의 왼쪽 또는 상단의 값이 max size보다 클 경우 최대값을 유지한다.
 
           panelSize = panels.negative.maxSize;
-        } else if (containerSize - panelSize < panels.positive.minSize) {
-          // splitter bar의 오른쪽 또는 하단의 값이 min size보다 작을 경우 최소값을 유지한다.
-
-          panelSize = containerSize - panels.positive.minSize;
-        } else if (containerSize - panelSize > panels.positive.maxSize) {
-          // splitter bar의 오른쪽 또는 하단의 값이 max size보다 클 경우 최대값을 유지한다.
-
-          panelSize = panels.positive.maxSize;
         }
 
         panels.negative.jqPanel.css(propertyNames.size, panelSize);
