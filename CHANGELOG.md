@@ -1,3 +1,24 @@
+<a name="1.27.0"></a>
+# [1.27.0](https://github.com/tosslab/web_client/compare/v1.26.1...v1.27.0) (2016-05-11)
+
+
+### Bug Fixes
+
+* **ctrlKey:** ctrl -> cmd ([d9f01ec](https://github.com/tosslab/web_client/commit/d9f01ec))
+* **files:** DM에 파일 공유시 파일 리스트가 갱신되지 않는 버그 수정 ([4ad8cec](https://github.com/tosslab/web_client/commit/4ad8cec))
+* **memberProfile:** member profile 변경된 정보고 왼쪽 상단에 바로 반영되지 않는 버그 수정 ([623d43f](https://github.com/tosslab/web_client/commit/623d43f))
+* **mentionbutton:** 1:1메시지 일경우 멘션 버튼 활성화 되지 않도록 수정 ([9e06a17](https://github.com/tosslab/web_client/commit/9e06a17))
+* **right:** 로딩 request 수행 조건 수정 ([df17d6a](https://github.com/tosslab/web_client/commit/df17d6a))
+* **wrongurl:** channel과 file detail의 id 값으로 잘못된 값 전달시 오동작 하지 않도록 수정 ([5f71787](https://github.com/tosslab/web_client/commit/5f71787))
+
+### Features
+
+* **memberfilter:** 프로필 필드별 멤버 검색 ([d81fba0](https://github.com/tosslab/web_client/commit/d81fba0))
+* **teamSwitch:** 키보드 네비게이션 ([3a8c75c](https://github.com/tosslab/web_client/commit/3a8c75c))
+* **topicInvite:** 토픽 초대 모달에서 모든 멤버 선택하기가 검색결과 리스트를 기준으로 동작하도록 수정 ([80adfa0](https://github.com/tosslab/web_client/commit/80adfa0))
+
+
+
 <a name="1.26.1"></a>
 ## [1.26.1](https://github.com/tosslab/web_client/compare/v1.26.0...v1.26.1) (2016-05-04)
 
