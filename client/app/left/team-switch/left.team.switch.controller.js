@@ -50,7 +50,7 @@
         })
         .value();
 
-      $scope.hasOtherTeam = $scope.teamList.length > 1;
+      $scope.hasOtherTeam = $scope.teamList.length > 0;
 
       // badge 존재 여부
       $scope.hasBadge = otherTeamBadgeCount > 0;
