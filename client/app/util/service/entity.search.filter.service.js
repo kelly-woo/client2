@@ -1,5 +1,5 @@
 /**
- * @fileoverview search filter service
+ * @fileoverview entity search filter service
  */
 (function() {
 
@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .service('SearchFilter', SearchFilter);
+    .service('EntitySearchFilter', EntitySearchFilter);
 
   /* @ngInject */
-  function SearchFilter(CoreUtil) {
+  function EntitySearchFilter(CoreUtil) {
     var _that = this;
 
     _init();

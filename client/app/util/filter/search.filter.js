@@ -8,7 +8,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.filter('getMatchedList', function(SearchFilter) {
+  app.filter('getMatchedList', function(EntitySearchFilter) {
     /**
      * 필터된 목록을 전달함.
      * @param {array} list
@@ -18,7 +18,7 @@
      */
     return function(list, property, query, callback) {
       return _.filter(list, function(item) {
-        var value = SearchFilter.getPropertyValue(item, property);
+        var value = EntitySearchFilter.getPropertyValue(item, property);
 
         value = (value || '').toLowerCase();
         query = (query || '').toLowerCase();
@@ -28,7 +28,7 @@
     };
   });
 
-  app.filter('orderByQueryIndex', function(SearchFilter) {
+  app.filter('orderByQueryIndex', function(EntitySearchFilter) {
     /**
      * 접두사가 일치하는 아이템을 우선으로 목록을 정렬함.
      * @param {array} list
@@ -38,7 +38,7 @@
      */
     return function(list, property, query, callback) {
       return _.sortBy(list, function(item) {
-        var value = SearchFilter.getPropertyValue(item, property);
+        var value = EntitySearchFilter.getPropertyValue(item, property);
         var isBeginStringMatch;
 
         query = (query || '').toLowerCase();
