@@ -109,19 +109,14 @@
       function _onKeyDown($event) {
         var keyCode = $event.keyCode;
 
-        if (!jndKeyCode.match('ESC', keyCode)) {
-          // ESC 키 입력인 경우 event bubble하여 dropdown-menu가 닫히도록 한다.
-          $event.stopPropagation();
-
-          if (jndKeyCode.match('UP_ARROW', keyCode)) {
-            scope.setActive((scope.activeIndex > 0 ? scope.activeIndex : scope.teamList.length) - 1);
-            scope.$digest();
-          } else if (jndKeyCode.match('DOWN_ARROW', keyCode)) {
-            scope.setActive((scope.activeIndex + 1) % scope.teamList.length);
-            scope.$digest();
-          } else if (jndKeyCode.match('ENTER', keyCode)) {
-            scope.go(scope.teamList[scope.activeIndex]);
-          }
+        if (jndKeyCode.match('UP_ARROW', keyCode)) {
+          scope.setActive((scope.activeIndex > 0 ? scope.activeIndex : scope.teamList.length) - 1);
+          scope.$digest();
+        } else if (jndKeyCode.match('DOWN_ARROW', keyCode)) {
+          scope.setActive((scope.activeIndex + 1) % scope.teamList.length);
+          scope.$digest();
+        } else if (jndKeyCode.match('ENTER', keyCode)) {
+          scope.go(scope.teamList[scope.activeIndex]);
         }
       }
 
