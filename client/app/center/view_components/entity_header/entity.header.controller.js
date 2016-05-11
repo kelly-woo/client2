@@ -657,28 +657,42 @@
      * @private
      */
     function _getUsers(entity) {
+      var currentUser;
+      var user;
       var users = [];
       var userIdList = RoomTopicList.getUserIdList(entity.id);
-      var memberId = memberService.getMemberId();
+      var currentUserId = memberService.getMemberId();
       var isKickedOutEnable;
       var isTopicAdmin;
       
       if (userIdList.length) {
         _.each(userIdList, function(userId) {
-          isKickedOutEnable = !!($scope.hasKickoutAuth && userId !== memberId);
+          isKickedOutEnable = !!($scope.hasKickoutAuth && userId !== currentUserId);
           isTopicAdmin = userId === entityAPIservice.getOwnerId(_currentEntity);
-          console.log($scope.hasKickoutAuth, memberId);
-          users.push({
+          user = {
             id: userId,
             name: memberService.getNameById(userId),
             isKickedOutEnable: isKickedOutEnable,
             isTopicAdmin: isTopicAdmin
-          });
+          };
+
+          //현재 로그인 한 user 는 목록의 최상단에 위치시키기 위함
+          if (userId === currentUserId) {
+            currentUser = user;
+          } else {
+            users.push({
+              id: userId,
+              name: memberService.getNameById(userId),
+              isKickedOutEnable: isKickedOutEnable,
+              isTopicAdmin: isTopicAdmin
+            });
+          }
         });
 
         users = _.sortBy(users, function (user) {
           return user.name.toLowerCase();
         });
+        users.unshift(currentUser);
       }
 
       return users;
