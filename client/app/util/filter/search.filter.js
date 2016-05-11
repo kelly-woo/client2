@@ -8,27 +8,7 @@
 
   var app = angular.module('jandiApp');
 
-  /**
-   * object의 특정 property에 value 전달
-   * @param {object} CoreUtil
-   * @param {object} item
-   * @param {string|array} property
-   * @returns {*|string}
-   * @private
-   */
-  function _getValue(CoreUtil, item, property) {
-    var value;
-
-    if (_.isArray(property)) {
-      value = CoreUtil.pick.apply(this, [item].concat(property));
-    } else {
-      value = item[property];
-    }
-
-    return (value || '').toLowerCase();
-  }
-
-  app.filter('getMatchedList', function(CoreUtil) {
+  app.filter('getMatchedList', function(SearchFilter) {
     /**
      * 필터된 목록을 전달함.
      * @param {array} list
@@ -38,7 +18,7 @@
      */
     return function(list, property, query, callback) {
       return _.filter(list, function(item) {
-        var value = _getValue(CoreUtil, item, property);
+        var value = SearchFilter.getPropertyValue(item, property);
 
         value = (value || '').toLowerCase();
         query = (query || '').toLowerCase();
@@ -48,7 +28,7 @@
     };
   });
 
-  app.filter('orderByQueryIndex', function(CoreUtil) {
+  app.filter('orderByQueryIndex', function(SearchFilter) {
     /**
      * 접두사가 일치하는 아이템을 우선으로 목록을 정렬함.
      * @param {array} list
@@ -58,7 +38,7 @@
      */
     return function(list, property, query, callback) {
       return _.sortBy(list, function(item) {
-        var value = _getValue(CoreUtil, item, property);
+        var value = SearchFilter.getPropertyValue(item, property);
         var isBeginStringMatch;
 
         query = (query || '').toLowerCase();

@@ -68,9 +68,9 @@
         scope.keywordType = selectItem.value;
 
         scope.onKeywordTypeSelectCallback({
-          $index: index,
-          $newValue: selectItem.value,
-          $oldValue: oldValue
+          index: index,
+          newValue: selectItem.value,
+          oldValue: oldValue
         });
       }
     }

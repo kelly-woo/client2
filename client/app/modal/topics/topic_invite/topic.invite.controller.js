@@ -292,6 +292,7 @@
      * @private
      */
     function _focusFilter() {
+      // element 선택 후 바로 focus 수행시 element에 focus가 갔다가 다음 수행에 의하여 focus가 빠질수 있으므로 setTimeout 사용한다.
       setTimeout(function() {
         $('#invite-member-filter').focus();
       });
@@ -316,13 +317,13 @@
 
     /**
      * keyword type select event handler
-     * @param {string} $newValue
-     * @param {string} $oldValue
+     * @param {string} newValue
+     * @param {string} oldValue
      */
-    function onKeywordTypeSelect($newValue, $oldValue) {
-      if ($newValue !== $oldValue) {
+    function onKeywordTypeSelect(newValue, oldValue) {
+      if (newValue !== oldValue) {
         _clearFilter();
-        $scope.keyword.type = $newValue;
+        $scope.keyword.type = newValue;
       }
 
       _focusFilter();
