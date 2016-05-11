@@ -1,5 +1,5 @@
 /**
- * @fileoverview splitter dicrective
+ * @fileoverview panel과 panel간의 사이즈(너비 또는 높이)를 조정하는 UI를 제공하는 splitter dicrective
  * @example
  *
  * // !important splitter-panel의 element style 중 position은 항상 absolute여야 한다.
@@ -111,6 +111,14 @@
       function _attachDomEvents() {
         el.on('mousedown', '.split-bar', _onMouseDown);
         $(window).on('mouseup', _onMouseUp);
+      }
+
+      /**
+       * detach dom events
+       * @private
+       */
+      function _detachDomEvents() {
+        $(window).off('mouseup', _onMouseUp);
       }
 
       /**
@@ -266,7 +274,7 @@
       function _onDestroy() {
         el.find('.split-bar').remove();
         _jqCursorLayer && _jqCursorLayer.remove();
-        $(window).off('mouseup', _onMouseUp);
+        _detachDomEvents();
       }
     }
   }

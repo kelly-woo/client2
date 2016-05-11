@@ -1,5 +1,5 @@
 /**
- * @fileoverview splitter panel directive
+ * @fileoverview splitter에 구성되는 panel directive
  */
 (function() {
   'use strict';
