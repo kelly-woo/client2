@@ -84,7 +84,8 @@
   top: 35px;
   right: -12px;
   width: 100%;
-  /*border: 1px solid black;*/
+  border: 0;
+  border-right: 1px solid #e1e1e1;
   margin: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
