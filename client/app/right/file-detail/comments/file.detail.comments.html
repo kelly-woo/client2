@@ -36,8 +36,7 @@
     </div>
     <div class="comment-item-body">
       <img class="sticker size_5" ng-if="::comment.extIsSticker" ng-src="{{ comment.content.url }}"/>
-      <file-detail-comment class="comment selectable keep"
-                           ng-if="::!comment.extIsSticker"
+      <file-detail-comment ng-if="::!comment.extIsSticker"
                            content="comment.content.body"></file-detail-comment>
     </div>
   </div>
