@@ -358,6 +358,7 @@
        */
       function _setMentionMembers(file) {
         scope.mentionahead.list = Mentionahead.getMentionListForFile(file);
+        scope.isDmOnly = scope.mentionahead.list.length === 0;
       }
 
       /**
@@ -365,7 +366,7 @@
        * @returns {boolean}
        */
       function isMentionaheadOpen() {
-        return Mentionahead.isOpen(scope.mentionahead.status);
+        return !scope.isDmOnly && Mentionahead.isOpen(scope.mentionahead.status);
       }
     }
   }

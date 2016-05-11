@@ -188,7 +188,7 @@
        * @returns {boolean}
        */
       function isMentionaheadOpen() {
-        return Mentionahead.isOpen(scope.mentionahead.status);
+        return !scope.isDM && Mentionahead.isOpen(scope.mentionahead.status);
       }
 
       /**
