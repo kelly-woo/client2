@@ -8,8 +8,9 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice,
+                           $state, $filter, RoomTopicList, analyticsService, modalHelper, AnalyticsHelper, jndPubSub,
+                           memberService, SearchTypeUser) {
     var msg1;
     var msg2;
 
@@ -22,7 +23,13 @@
       $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
       generateMemberList();
-      $scope.selectedUser = '';
+
+      $scope.keywordTypes = SearchTypeUser.getFilterTypes();
+      $scope.keyword = {
+        value: '',
+        type: $scope.keywordTypes[0].value
+      };
+
       $scope.hasAllMembers = false;
 
       if ($scope.activeMembers.length === 1) {
@@ -43,6 +50,7 @@
       $scope.onSelectAll = onSelectAll;
       $scope.onInviteClick = onInviteClick;
       $scope.cancel = cancel;
+      $scope.onKeywordTypeSelect = onKeywordTypeSelect;
     }
 
     $scope.$on('EntityHandler:parseLeftSideMenuDataDone', _onParseLeftSideMenuDone);
@@ -67,6 +75,9 @@
 
       // 활성 member list
       $scope.activeMembers = [];
+
+      // 선택 가능한 member list
+      $scope.selectingMembers = [];
 
       $scope.availableMemberList = _.reject(currentSessionHelper.getCurrentTeamUserList(), function(user) {
         var isActiveMember = memberService.isActiveMember(user);
@@ -95,25 +106,31 @@
         // has all members
         $scope.hasAllMembers = $scope.inviteUsers.length === $scope.availableMemberList.length;
       }
-
-      _setAllMembersStatus();
     }
 
     /**
      * list에서 filter된 list를 전달한다.
      * @param {array} list
      * @param {string} filterText
+     * @param {string} filterType
      * @returns {*}
      */
-    function getMatches(list, filterText) {
+    function getMatches(list, filterText, filterType) {
+      var propertyName = SearchTypeUser.getSearchPropertyPath(filterType);
+
       filterText = filterText.toLowerCase();
 
-      list = $filter('getMatchedList')(list, 'name', filterText, function(item) {
+      list = $filter('getMatchedList')(list, propertyName, filterText, function(item) {
         return !!item.extSelected !== true;
       });
-      return $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
+
+      $scope.selectingMembers = $filter('orderByQueryIndex')(list, 'name', filterText, function(item, desc) {
         return [!item.isStarred].concat(desc);
       });
+
+      _setAllMembersStatus();
+
+      return $scope.selectingMembers;
     }
 
     /**
@@ -185,45 +202,19 @@
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
           .success(function() {
-            // analytics
-            var entity_type = "";
-            switch (entityType) {
-              case 'channels':
-                entity_type = "topic";
-                break;
-              case 'privategroups':
-                entity_type = "private group";
-                break;
-              default:
-                entity_type = "invalid";
-                break;
-            }
-            try {
-              //Analtics Tracker. Not Block the Process
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
-                'RESPONSE_SUCCESS': true,
-                'TOPIC_ID': parseInt($state.params.entityId, 10),
-                'MEMBER_COUNT': guestList.length
-              });
-            } catch (e) {
-            }
+            _analyticsInviteSuccess(entityType, guestList);
 
-            analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
-
-            // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
-            $rootScope.$broadcast('updateLeftPanelCaller');
+            // 토픽에 유저 초대 요청이 성공한 다음 'EntityHandler:parseLeftSideMenuDataDone'이 발생하여 토픽에 멤버 정보가
+            // 갱신되기까지 오랜 시간이 소요되므로 초대 성공 후 바로 토픽의 멤버 정보를 갱신하여 사용자가 view에서 느끼는 혼란을 방지한다.
+            RoomTopicList.addMember($scope.currentEntity.id, guestList);
+            generateMemberList();
+            _updateMemberList();
 
             $modalInstance.dismiss('success');
           })
           .error(function(error) {
-            try {
-              //Analtics Tracker. Not Block the Process
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
-                'RESPONSE_SUCCESS': false,
-                'ERROR_CODE': error.code
-              });
-            } catch (e) {
-            }
+            _analyticsInviteError(error);
+
             // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
             console.error('inviteUsers', error.msg );
           })
@@ -242,21 +233,27 @@
 
     /**
      * select all members event handler
-     * @param {boolean} value
      */
     function onSelectAll() {
+      var list;
       var fn;
 
-      $scope.hasAllMembers = !$scope.hasAllMembers;
-      fn = $scope.hasAllMembers ? _addMember : _removeMember;
+      if (!$scope.hasAllMembers) {
+        list = $scope.selectingMembers;
+        fn = _addMember;
+      } else {
+        list = $scope.inviteUsers.splice(0);
+        fn = _removeMember;
+      }
 
-      _.each($scope.availableMemberList, function(member) {
+      _.each(list, function(member) {
         fn(member);
       });
 
-      _setAllMembersStatus($scope.hasAllMembers);
-      _setFilterStatus();
+      _clearFilter();
+      _focusFilter();
       _updateMemberList();
+      _setAllMembersStatus();
     }
   
     /**
@@ -271,17 +268,33 @@
      * filter의 상태를 설정함.
      */
     function _setFilterStatus() {
-      var jqMemberFilter = $('#invite-member-filter');
-
       if ($scope.selectingMembers.length === 1) {
         // 걸러진 모든 member가 선택됨
 
         // filter의 값을 공백으로 초기화 하여 걸러지지 않은 모든 member를 출력하도록 한다.
-        jqMemberFilter.val('');
+        _clearFilter();
       }
 
-      $timeout(function() {
-        jqMemberFilter.focus();
+      _focusFilter();
+    }
+
+    /**
+     * clear filter
+     * @private
+     */
+    function _clearFilter() {
+      $scope.keyword.value = '';
+      $('#invite-member-filter').val('');
+    }
+
+    /**
+     * focus filter
+     * @private
+     */
+    function _focusFilter() {
+      // element 선택 후 바로 focus 수행시 element에 focus가 갔다가 다음 수행에 의하여 focus가 빠질수 있으므로 setTimeout 사용한다.
+      setTimeout(function() {
+        $('#invite-member-filter').focus();
       });
     }
 
@@ -292,7 +305,7 @@
     function _setAllMembersStatus(value) {
       if (value == null) {
         // select all checkbox 갱신
-        if ($scope.availableMemberList.length === $scope.inviteUsers.length) {
+        if ($scope.selectingMembers.length === 0 && $scope.inviteUsers.length > 0) {
           $scope.hasAllMembers = value = true;
         } else {
           $scope.hasAllMembers = value = false;
@@ -300,6 +313,69 @@
       }
 
       $('#select-all-members').prop('checked', value);
+    }
+
+    /**
+     * keyword type select event handler
+     * @param {string} newValue
+     * @param {string} oldValue
+     */
+    function onKeywordTypeSelect(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        _clearFilter();
+        $scope.keyword.type = newValue;
+      }
+
+      _focusFilter();
+    }
+
+    /**
+     * 초대성공 analytics
+     * @private
+     * @param {string} entityType
+     * @param {array} guestList
+     */
+    function _analyticsInviteSuccess(entityType, guestList) {
+      // analytics
+      var entity_type = "";
+      switch (entityType) {
+        case 'channels':
+          entity_type = "topic";
+          break;
+        case 'privategroups':
+          entity_type = "private group";
+          break;
+        default:
+          entity_type = "invalid";
+          break;
+      }
+      try {
+        //Analtics Tracker. Not Block the Process
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+          'RESPONSE_SUCCESS': true,
+          'TOPIC_ID': parseInt($state.params.entityId, 10),
+          'MEMBER_COUNT': guestList.length
+        });
+      } catch (e) {
+      }
+
+      analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
+    }
+
+    /**
+     * 초대실패 analytics
+     * @param {object} error
+     * @private
+     */
+    function _analyticsInviteError(error) {
+      try {
+        //Analtics Tracker. Not Block the Process
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+          'RESPONSE_SUCCESS': false,
+          'ERROR_CODE': error.code
+        });
+      } catch (e) {
+      }
     }
   }
 })();

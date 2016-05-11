@@ -20,6 +20,9 @@
       // model
       var model = attrs.model;
 
+      // model type
+      var modelType = attrs.modelType;
+
       // multitab일 경우 구분 type
       var type = attrs.type;
 
@@ -86,6 +89,8 @@
       // 이전 mouse point;
       var _prevMousePoint;
 
+      var _modelType = scope.$eval(attrs.modelType);
+
       _init();
 
       /**
@@ -124,6 +129,10 @@
 
         scope.$on('$destroy', _onDestroy);
         scope.$watch(model, _onFilterValueChanged);
+
+        if (modelType) {
+          scope.$watch(modelType, _onFilterTypeChanged);
+        }
       }
 
       /**
@@ -202,6 +211,16 @@
           setActiveIndex(0);
           _updateList(newValue);
         }
+      }
+
+      /**
+       * filter type changed event handler
+       * @param {string} newValue
+       * @private
+       */
+      function _onFilterTypeChanged(newValue) {
+        _modelType = newValue;
+        _updateList(jqFilter.val());
       }
 
       /**
@@ -292,7 +311,8 @@
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: jqFilter.val()
+          filterText: jqFilter.val(),
+          filterType: _modelType
         });
       }
 
@@ -356,12 +376,13 @@
        * @private
        */
       function _updateList(filterText) {
-        matches = getMatches(scope.$eval(list), filterText);
+        matches = getMatches(scope.$eval(list), filterText, _modelType);
         ListRenderer.render({
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: filterText
+          filterText: filterText,
+          filterType: _modelType
         }, true);
       }
 
@@ -376,7 +397,8 @@
           type: itemType,
           list: matches,
           viewport: viewport,
-          filterText: jqFilter.val()
+          filterText: jqFilter.val(),
+          filterType: _modelType
         });
       }
     }

@@ -98,6 +98,7 @@
   <link rel="stylesheet" href="app/modal/members/user-profile/user.profile.css">
   <link rel="stylesheet" href="app/modal/modal.css">
   <link rel="stylesheet" href="app/modal/rooms/quick_launcher/quick.launcher.css">
+  <link rel="stylesheet" href="app/modal/search-type/user/search.type.user.css">
   <link rel="stylesheet" href="app/modal/settings/notification/alert/setting.notification.alert.audio.menu.css">
   <link rel="stylesheet" href="app/modal/settings/notification/alert/setting.notification.alert.css">
   <link rel="stylesheet" href="app/modal/settings/notification/email/setting.notification.email.css">
@@ -334,6 +335,7 @@
 <script src="app/util/directive/window.title.directive.js"></script>
 <script src="app/util/filter/camel.to.dot.js"></script>
 <script src="app/util/filter/date.filter.js"></script>
+<script src="app/util/filter/entity.search.filter.js"></script>
 <script src="app/util/filter/html.decode.filter.js"></script>
 <script src="app/util/filter/html.encode.filter.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
@@ -341,7 +343,6 @@
 <script src="app/util/filter/markdown.strip.filter.js"></script>
 <script src="app/util/filter/mention.filter.js"></script>
 <script src="app/util/filter/mention.html.decode.filter.js"></script>
-<script src="app/util/filter/search.filter.js"></script>
 <script src="app/util/filter/template.filter.js"></script>
 <script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/image.loader.directive.js"></script>
@@ -353,10 +354,10 @@
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/clipboard.service.js"></script>
 <script src="app/util/service/date.service.js"></script>
+<script src="app/util/service/entity.search.filter.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/file.upload.service.js"></script>
-<script src="app/util/service/general.service.js"></script>
 <script src="app/util/service/image.paste.service.js"></script>
 <script src="app/util/service/integration.service.js"></script>
 <script src="app/util/service/jnd.util.service.js"></script>
@@ -545,6 +546,8 @@
 <script src="app/modal/password/password.reset.request.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.controller.js"></script>
 <script src="app/modal/rooms/quick_launcher/quick.launcher.directive.js"></script>
+<script src="app/modal/search-type/user/search.type.user.directive.js"></script>
+<script src="app/modal/search-type/user/search.type.user.service.js"></script>
 <script src="app/modal/settings/notification/alert/setting.notification.alert.audio.menu.directive.js"></script>
 <script src="app/modal/settings/notification/alert/setting.notification.alert.controller.js"></script>
 <script src="app/modal/settings/notification/alert/setting.notification.alert.directive.js"></script>
@@ -672,6 +675,7 @@
 <script src="components/app/socket/service/socket.team.service.js"></script>
 <script src="components/app/socket/service/socket.topic.service.js"></script>
 <script src="components/app/socket/service/socket.util.service.js"></script>
+<script src="components/app/socket/socket.event.api.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.helper.js"></script>
 <script src="components/app/socket/socket.service.js"></script>

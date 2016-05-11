@@ -1,3 +1,88 @@
+/*
+  MEMBER LIST
+*/
+.modal-body .member-list {
+  position: relative;
+}
+
+.modal-body .member-auth-label {
+  top: 12px;
+  right: 30px;
+}
+
+.modal-body .room-item {
+  position: absolute;
+}
+
+.modal-body .member-item {
+  position: absolute;
+  padding: 11px 10px 0;
+  background-color: white;
+  width: 100%;
+  height: 44px;
+}
+
+.modal-body .member-item:hover .icon-star {
+  opacity: 1;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
+}
+
+.modal-body .member-item.active i {
+  opacity: 1;
+}
+
+.modal-body .member-item .member-profile-image {
+  display: block;
+  width: 26px;
+  border-radius: 26px;
+  float: left;
+}
+.modal-body .member-item.jandi-bot .member-profile-image {
+  border-radius: 0;
+  margin-top: -6px;
+}
+.modal-body .member-item .right-star {
+  float: right;
+  line-height: 25px;
+}
+
+.modal-body .member-item .icon-star-on {
+  color: #f9bb00;
+  opacity: 1;
+}
+
+.modal-body .member-profile-description {
+  margin-left: 34px;
+}
+
+.modal-body .member-item .member-name {
+  line-height: 25px;
+  width: 290px;
+}
+
+.modal-body .member-item .member-name.short {
+  width: 260px;
+}
+
+.modal-body .member-item .member-extra-text {
+  width: 370px;
+  color: #969696;
+  font-size: 13px;
+  margin-top: -2px;
+}
+
+.modal-body .member-item .member-extra-text strong {
+  background-color: #ffe900;
+  color: #333;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
+}
+
 .member-item .resend-invitation {
   top: 8px;
   right: 30px;
