@@ -1,7 +1,7 @@
 /**
  * @fileoverview 목록에 대한 검색용 필터
  * !!!important
- * 해당 소스의 수정시 반드시 search.filter.spec.js 의 karma 테스트 결과를 확인한다.
+ * 해당 소스의 수정시 반드시 entity.search.filter.spec.js 의 karma 테스트 결과를 확인한다.
  */
 (function() {
   'use strict';
