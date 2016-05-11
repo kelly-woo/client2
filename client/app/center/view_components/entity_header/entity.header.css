@@ -191,11 +191,14 @@
   color: #154a67
 }
 .panel-title-right-menu__item:hover,
-.panel-title-right-menu:hover .panel-title-right-item {
+.panel-title-right-menu:hover .panel-title-right-item,
+.panel-title-right-menu .panel-title-member__more:hover,
+.panel-title-right-menu .panel-title-member__more.active {
   background-color: #d7e0e8;
 }
 .panel-title-right-menu__item:active,
-.panel-title-right-menu:active .panel-title-right-item {
+.panel-title-right-menu:active .panel-title-right-item,
+.panel-title-right-menu .panel-title-member__more:active {
   background-color: #d7e0e8;
 }
 .absolute-right-tooltip {
@@ -233,6 +236,7 @@
   height: 25px;
   line-height: 25px;
   padding-top: 1px;
+  border-radius: 5px 0 0 5px;
 }
 
 .panel-title-member__more .icon-user,
