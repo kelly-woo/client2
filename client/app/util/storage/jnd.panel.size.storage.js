@@ -21,8 +21,8 @@
     function _init() {
       _.extend(JndPanelSizeStorage.prototype, JndLocalStorage);
 
-      that.getLeftPanelSize = getLeftPanelSize;
-      that.setLeftPanelSize = setLeftPanelSize;
+      that.getLeftPanelWidth = getLeftPanelWidth;
+      that.setLeftPanelWidth = setLeftPanelWidth;
 
       that.setMiddleKey('panel.size');
     }
@@ -31,7 +31,7 @@
      * get left panel size
      * @returns {number}
      */
-    function getLeftPanelSize() {
+    function getLeftPanelWidth() {
       return +that.get('left', 'width');
     }
 
@@ -39,7 +39,7 @@
      * set left panel size
      * @param {number} panelSize
      */
-    function setLeftPanelSize(panelSize) {
+    function setLeftPanelWidth(panelSize) {
       that.set('left', 'width', panelSize);
     }
   }

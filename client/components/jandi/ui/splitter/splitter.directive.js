@@ -30,7 +30,7 @@
     
     function link(scope, el) {
       var _cursorLayerTemplate = '<div class="splitter-cursor-layer"></div>';
-      var _splitBarTemplate = '<div class="split-bar"></div>';
+      var _splitBarTemplate = '<div class="split-bar"><i class="icon-more-fill"></div>';
 
       var _isHorizontal = scope.orientation === 'horizontal';
 
