@@ -155,6 +155,7 @@
      * @private
      */
     function _setUserList() {
+      _checkOwnership();
       $scope.users = _getUsers(_currentEntity);
     }
 
@@ -658,13 +659,20 @@
     function _getUsers(entity) {
       var users = [];
       var userIdList = RoomTopicList.getUserIdList(entity.id);
-
+      var memberId = memberService.getMemberId();
+      var isKickedOutEnable;
+      var isTopicAdmin;
+      
       if (userIdList.length) {
         _.each(userIdList, function(userId) {
+          isKickedOutEnable = !!($scope.hasKickoutAuth && userId !== memberId);
+          isTopicAdmin = userId === entityAPIservice.getOwnerId(_currentEntity);
+          console.log($scope.hasKickoutAuth, memberId);
           users.push({
             id: userId,
-            thumbnail: memberService.getProfileImage(userId),
-            name: memberService.getNameById(userId)
+            name: memberService.getNameById(userId),
+            isKickedOutEnable: isKickedOutEnable,
+            isTopicAdmin: isTopicAdmin
           });
         });
 

@@ -1,0 +1,67 @@
+.custom-selectbox-topic-member .custom-select-box {
+  max-width: 300px;
+}
+
+.custom-selectbox-topic-member .menu-item.selected {
+  background-color: #FFFFFF;
+}
+
+.custom-selectbox-topic-member .menu-item.active {
+  background-color: #e8f3f9 !important;
+}
+
+.custom-selectbox-topic-member .custom-select-box.member-menu.active {
+  left: auto;
+  top: 32px;
+  right: 80px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.admin > a {
+  max-width:170px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.admin > a:lang(en) {
+  max-width:155px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.admin > a:lang(ja) {
+  max-width:148px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.has-kickout-icon:hover .member-auth-label {
+  display:none;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.has-kickout-icon .kick-item-icon {
+  display:none;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li.has-kickout-icon:hover .kick-item-icon {
+  display:block;
+}
+
+.custom-selectbox-topic-member .member-auth-label {
+  top: 4px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members .kick-item-icon {
+  position:absolute;
+  right:0.3rem;
+  top:0;
+  width:28px;
+  height: 28px;
+  background-color: transparent;
+  color:#BECAD6;
+  font-size:16px;
+  padding:0 0 0 6px;
+  border-radius: 14px;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li:hover .kick-item-icon {
+  color: #366480;
+}
+
+.custom-selectbox-topic-member .menulist-item-members > li:hover .kick-item-icon:hover {
+  background-color: #366480;
+  color:#FFF;
+}
