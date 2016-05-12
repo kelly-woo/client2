@@ -97,7 +97,7 @@ app.controller('leftPanelController', function(
     $scope.$on('TopicUpdateLock:change', _onTopicUpdateLockChange);
     $scope.$on('updateLeftBadgeCount', _onUpdateLeftBadgeCount);
     $scope.$on('updateLeftPanelCaller', _requestLeftSideMenu);
-    $scope.$on('connected', _onConnected);
+    $scope.$on('NetInterceptor:connect', _onConnected);
     $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     $scope.$on('onMemberClick', function(event, user) {
       $scope.onMemberClick(user);

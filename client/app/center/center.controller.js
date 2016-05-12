@@ -224,7 +224,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
-    $scope.$on('connected', _onConnected);
+    $scope.$on('NetInterceptor:connect', _onConnected);
+    $scope.$on('jndWebSocket:connect', _onConnected);
+
     $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
@@ -949,9 +951,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initMarkers();
     if (MessageSendingCollection.queue.length) {
       _requestPostMessages(true);
-    } else {
-      _requestEventsHistory();
     }
+    _requestEventsHistory();
   }
 
   /**
