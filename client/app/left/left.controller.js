@@ -59,7 +59,7 @@ app.controller('leftPanelController', function(
   function _init() {
     var responseLeftSideMenu = initialPromise[0].data;
 
-    $scope.leftPanelSize = JndPanelSizeStorage.getLeftPanelWidth();
+    $scope.leftPanelWidth = JndPanelSizeStorage.getLeftPanelWidth();
 
     if (initialPromise[0].data) {
       publicService.showDummyLayout();
