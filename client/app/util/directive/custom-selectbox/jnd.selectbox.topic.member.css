@@ -34,7 +34,7 @@
 .custom-selectbox-topic-member .menulist-item-members > li a {
   height: 34px;
   padding:0 4px 0 1px;
-  margin-right: 2px;
+  margin-right: 24px;
 }
 .custom-selectbox-topic-member .menulist-item-members > li.admin a {
   margin-right: 80px;
@@ -69,10 +69,11 @@
 
 .custom-selectbox-topic-member .menulist-item-members .kick-item-icon {
   position:absolute;
-  right:0.3rem;
-  top:0;
+  right:7px;
+  top:5px;
   width:28px;
   height: 28px;
+  line-height: 28px;
   background-color: transparent;
   color:#BECAD6;
   font-size:16px;
