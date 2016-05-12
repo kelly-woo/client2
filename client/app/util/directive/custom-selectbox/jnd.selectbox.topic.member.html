@@ -49,7 +49,7 @@
             </a>
             <span class="kick-item-icon pull-right"
                   ng-if="item.isKickedOutEnable"
-                  ng-click="onKickOut(item.id)">
+                  ng-click="onClickKickout($event, item.id)">
               <i class="icon-sign-out"></i>
               </span>
             <span ng-if="item.isTopicAdmin" class="member-auth-label" translate>@common-topic-admin</span>
