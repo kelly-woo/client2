@@ -46,12 +46,12 @@
             <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
             <a>
               <span ng-bind-html="item.extSearchName"></span>
-              <span class="kick-item-icon pull-right"
-                    ng-if="item.isKickedOutEnable"
-                    ng-click="onKickOut(item.id)">
-                    <i class="icon-sign-out"></i>
-                  </span>
             </a>
+            <span class="kick-item-icon pull-right"
+                  ng-if="item.isKickedOutEnable"
+                  ng-click="onKickOut(item.id)">
+              <i class="icon-sign-out"></i>
+              </span>
             <span ng-if="item.isTopicAdmin" class="member-auth-label" translate>@common-topic-admin</span>
           </li>
         </ul>
@@ -82,12 +82,12 @@
                 <img class="header-title-member__dropdown__thumb" ng-src="{{item | getSmallThumbnail}}">
                 <a>
                   <span>{{item.name}}</span>
-                  <span class="kick-item-icon pull-right"
-                        ng-if="item.isKickedOutEnable"
-                        ng-click="onClickKickout($event, item.id)">
-                    <i class="icon-sign-out"></i>
-                  </span>
                 </a>
+                <span class="kick-item-icon pull-right"
+                      ng-if="item.isKickedOutEnable"
+                      ng-click="onClickKickout($event, item.id)">
+                  <i class="icon-sign-out"></i>
+                </span>
                 <span ng-if="item.isTopicAdmin" class="member-auth-label" translate>@common-topic-admin</span>
               </div>
             </li>
