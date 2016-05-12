@@ -30,6 +30,7 @@
 .search-result-container .search-result-summary .searchQueryKeyword {
   font-weight: bold;
   margin-right: 0.075em;
+  color:#6D6D6D;
 }
 .search-result-container .search-result-summary .searchQueryKeyword:lang(en),
 .search-result-container .search-result-summary .searchQueryKeyword:lang(zh-tw),
@@ -48,4 +49,3 @@
   left: auto;
   margin: 15px auto !important;
 }
-
