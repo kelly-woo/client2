@@ -10,7 +10,9 @@
 
   /* @ngInject */
   function JndPanelSizeStorage(JndLocalStorage) {
-    var that = this;
+    var _that = this;
+
+    var DEFAULT_LEFT_PANEL_WIDTH = 240 ;
 
     _init();
 
@@ -21,10 +23,10 @@
     function _init() {
       _.extend(JndPanelSizeStorage.prototype, JndLocalStorage);
 
-      that.getLeftPanelWidth = getLeftPanelWidth;
-      that.setLeftPanelWidth = setLeftPanelWidth;
+      _that.getLeftPanelWidth = getLeftPanelWidth;
+      _that.setLeftPanelWidth = setLeftPanelWidth;
 
-      that.setMiddleKey('panel.size');
+      _that.setMiddleKey('panel.size');
     }
 
     /**
@@ -32,7 +34,7 @@
      * @returns {number}
      */
     function getLeftPanelWidth() {
-      return +that.get('left', 'width');
+      return +_that.get('left', 'width') || DEFAULT_LEFT_PANEL_WIDTH;
     }
 
     /**
@@ -40,7 +42,7 @@
      * @param {number} panelSize
      */
     function setLeftPanelWidth(panelSize) {
-      that.set('left', 'width', panelSize);
+      _that.set('left', 'width', panelSize);
     }
   }
 })();

@@ -4,7 +4,7 @@
             'z-index-top': isShowDummyLayout,
             'z-index-bottom': !isShowDummyLayout
            }">
-    <aside class="full-screen lpanel" ng-style="::{'width': leftPanelSize}">
+    <aside class="full-screen lpanel" ng-style="::{'width': leftPanelWidth}">
       <div class="lpanel-user lpanel-user__team">
         <div class="lpanel-user__team overflow-ellipsis">
         </div>
@@ -29,7 +29,7 @@
          splitter-panel
          min-size="240"
          max-size="380"
-         size="{{::leftPanelSize}}">
+         size="{{::leftPanelWidth}}">
     <current-user></current-user>
 
     <!-- LIST CONTAINER -->
