@@ -966,7 +966,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     SocketEventApi.get({
       ts: lastTimeStamp
     }).success(_onSuccessGetEventsHistory)
-      .error(_refreshCurrentTopic);
+      .error(_.bind(_refreshCurrentTopic, this, true));
   }
 
   /**
