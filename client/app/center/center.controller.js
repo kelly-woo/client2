@@ -949,9 +949,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initMarkers();
     if (MessageSendingCollection.queue.length) {
       _requestPostMessages(true);
-    } else {
-      _requestEventsHistory();
     }
+    _requestEventsHistory();
   }
 
   /**
