@@ -18,7 +18,7 @@
     var VERSION = 1;
     var socket;
     var ioSocket;
-    var isConnectedFlag = false;
+    var isConnectedFlag = true;
 
     var CHECK_CONNECT_TEAM = 'check_connect_team';
     var CONNECT_TEAM = 'connect_team';
@@ -67,7 +67,6 @@
         ioSocket.io.disconnect();
         socket.removeAllListeners();
       }
-      isConnectedFlag = false;
     }
 
     /**
@@ -109,8 +108,10 @@
      * @private
      */
     function _onSocketConnect() {
-      isConnectedFlag = true;
-      jndPubSub.pub('jndWebSocket:connect');
+      if (!isConnectedFlag) {
+        isConnectedFlag = true;
+        jndPubSub.pub('jndWebSocket:connect');
+      }
     }
 
     /**
@@ -118,8 +119,10 @@
      * @private
      */
     function _onSocketDisconnect() {
-      isConnectedFlag = false;
-      jndPubSub.pub('jndWebSocket:disconnect');
+      if (isConnectedFlag) {
+        isConnectedFlag = false;
+        jndPubSub.pub('jndWebSocket:disconnect');
+      }
     }
 
     /**
