@@ -15,7 +15,7 @@
       scope: {
         imageData: '='
       },
-      templateUrl : 'components/jandi/ui/profile-image/character-image/character.image.html',
+      templateUrl : 'components/jandi/ui/component/profile-image/character-image/character.image.html',
       link: link
     };
 

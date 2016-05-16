@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.dialog')
+    .module('jandi.ui.component.dialog')
     .directive('dialogModal', dialogModal);
 
   /* @ngInject */

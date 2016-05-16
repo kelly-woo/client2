@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.splitter', [
+    .module('jandi.ui.component.splitter', [
     ])
     .run(run)
     .config(config);

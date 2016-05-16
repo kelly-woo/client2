@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.pdfViewer')
+    .module('jandi.ui.component.pdfViewer')
     .service('PdfViewer', PdfViewer);
 
   /* @ngInject */

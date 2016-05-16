@@ -16,7 +16,7 @@
         profileImageStatus: '=?',
         onProfileImageChange: '&'
       },
-      templateUrl : 'components/jandi/ui/profile-image/menu/profile.image.menu.html',
+      templateUrl : 'components/jandi/ui/component/profile-image/menu ㅡ/profile.image.menu.html',
       link: link
     };
 
@@ -108,7 +108,7 @@
       function _openProfileImageModal(options) {
         $modal.open({
           scope: scope.$new(),
-          templateUrl: 'components/jandi/ui/profile-image/profile.image.html',
+          templateUrl: 'components/jandi/ui/component/profile-image/profile.image.html',
           controller: 'ProfileImageCtrl',
           windowClass: 'full-screen-modal profile-image-modal',
           resolve: {
