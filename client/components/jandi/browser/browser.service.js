@@ -48,7 +48,6 @@
       var regxMac = /Mac/;
       var regxWin = /Win/;
       var regxLinux = /Linux/;
-      var regxIOs = /iPad|iPhone|iPod/;
       var regxMobile = /Mobi/;
       
       var key;
@@ -79,7 +78,7 @@
         browser.platform.isWin = true;
       } else if (regxLinux.test(platformName)) {
         browser.platform.isLinux = true;
-      } else if (regxIOs.test(userAgent)) {
+      } else if (regxMobile.test(userAgent)) {
         browser.platform.isMobile = true;
       } else {
         browser.platform.isOthers = true;
