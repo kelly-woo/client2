@@ -16,7 +16,7 @@
         profileImageStatus: '=?',
         onProfileImageChange: '&'
       },
-      templateUrl : 'components/jandi/ui/component/profile-image/menu ㅡ/profile.image.menu.html',
+      templateUrl : 'components/jandi/ui/component/profile-image/menu/profile.image.menu.html',
       link: link
     };
 
