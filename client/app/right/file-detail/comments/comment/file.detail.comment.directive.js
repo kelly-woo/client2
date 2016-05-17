@@ -9,7 +9,7 @@
     .directive('fileDetailComment', fileDetailComment);
 
   /* @ngInject */
-  function fileDetailComment($compile) {
+  function fileDetailComment(JndUtil) {
     return {
       restrict: 'E',
       replace: true,
@@ -30,9 +30,7 @@
       function _init() {
         var jqContent = $('<div>' + scope.content + '<div>');
 
-        try {
-          $compile(jqContent)(scope);
-        } catch(e) {}
+        JndUtil.safeCompile(scope, jqContent);
 
         // html을 el.append를 사용하지 않고 ng-bind-html을 사용하여 자식 element로 넣게 되면 mention-view의 data가 날아가
         // 어느 member에 대한 mention인지 구분할 수 없다.

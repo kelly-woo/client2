@@ -80,18 +80,19 @@
         var jqTarget = $($event.currentTarget);
         var memberId;
 
-        // 이벤트가 상위까지 전달되어 center의 template이 순간적으로 출력되는 현상 방지한다.
-        $event.stopPropagation();
+        // $apply를 호출하여 즉각 뷰에 반영하도록 한다.
+        JndUtil.safeApply(scope, function() {
+          if (!jqTarget.hasClass('me')) {
+            memberId = jqTarget.attr('mention-view');
+            if (memberService.isMember(memberId)) {
 
-        if (!jqTarget.hasClass('me')) {
-          memberId = jqTarget.attr('mention-view');
-          if (memberService.isMember(memberId)) {
-            $state.go('archives', {
-              entityType: 'users',
-              entityId: memberId
-            });
+              $state.go('archives', {
+                entityType: 'users',
+                entityId: memberId
+              });
+            }
           }
-        }
+        });
       }
 
       /**
