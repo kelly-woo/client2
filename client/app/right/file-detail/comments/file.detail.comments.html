@@ -36,7 +36,8 @@
     </div>
     <div class="comment-item-body">
       <div class="sticker size_5" ng-if="::comment.extIsSticker" ng-style="::{'background-image': 'url({{::comment.content.url}})'}"></div>
-      <span class="comment selectable keep" ng-if="::!comment.extIsSticker" ng-bind-html="comment.content.body"></span>
+      <file-detail-comment ng-if="::!comment.extIsSticker"
+                           content="comment.content.body"></file-detail-comment>
     </div>
   </div>
 
