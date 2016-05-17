@@ -225,7 +225,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('connected', _onConnected);
-    $scope.$on('NetInterceptor:onGatewayTimeoutError', _onGatewayTimeoutError);
+    $scope.$on('NetInterceptor:onGatewayTimeoutError', _refreshView);
+    $scope.$on('Auth:refreshTokenSuccess', _refreshView);
+    
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
@@ -923,14 +925,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _hideSticker() {
     jndPubSub.pub('deselectSticker:' +_stickerType);
-  }
-
-  /**
-   * gateway timeout error event handler
-   * @private
-   */
-  function _onGatewayTimeoutError() {
-    _refreshView();
   }
 
   /**
