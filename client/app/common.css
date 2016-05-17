@@ -1497,6 +1497,10 @@ input[type="radio"] {
   font-weight: 600;
 }
 
+.member-auth-label span {
+  color: rgba(14,60,85,0.3) !important;
+}
+
 /********************************************
                  jandi bot icon
 ********************************************/
