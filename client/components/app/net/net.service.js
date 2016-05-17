@@ -17,9 +17,9 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($rootScope, $q, configuration, jndPubSub) {
+  function NetInterceptor($rootScope, $q, $timeout, jndPubSub) {
     var _isConnected = true;
-
+    var _timer;
     /**
      * 응답에러가 발생한 상태 맵
      * @type {{responseErrorStatusCode: count}}
@@ -91,6 +91,18 @@
      * @private
      */
     function _setStatus(isConnected) {
+      //Linux 의 경우 연결이 정상적으로 이루어졌을 경우, 즉시 request 를 수행하면 ERR_NAME_RESOLUTION_FAILED 오류가 발생하므로,
+      //500ms 의 timeout 을 설정한다.
+      $timeout.cancel(_timer);
+      _timer = $timeout(_.bind(_applyStatus, this, isConnected), 500);
+    }
+
+    /**
+     * network status 상태를 설정한다.
+     * @param {boolean} isConnected 네트워크 연결상태
+     * @private
+     */
+    function _applyStatus(isConnected) {
       var currentStatus = _isConnected;
       _isConnected = isConnected;
       if (currentStatus !== isConnected) {
