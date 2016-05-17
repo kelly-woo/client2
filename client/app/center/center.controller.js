@@ -11,7 +11,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
                                                  Announcement, TopicMessageCache, NotificationManager, Dialog, RendererUtil,
                                                  JndUtil, HybridAppHelper, TopicInvitedFlagMap, UserList, JndConnect,
-                                                 RoomTopicList, SocketEventApi, jndWebSocket) {
+                                                 RoomTopicList, SocketEventApi, jndWebSocket, ActiveNotifier) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _scrollHeightBefore;
@@ -1186,7 +1186,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isChatPanelActive() {
-    return !centerService.isBrowserHidden() && !JndConnect.isOpen();
+    return !centerService.isBrowserHidden() && !JndConnect.isOpen() && ActiveNotifier.getStatus();
   }
 
   /**
