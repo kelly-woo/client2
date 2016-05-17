@@ -28,10 +28,8 @@
     var _responseErrorStatusMap = {};
 
     var _$scope = $rootScope.$new();
-
-    this.setStatus = setStatus;
+    
     this.isConnected = isConnected;
-
     this.responseError = responseError;
 
     _init();
@@ -41,6 +39,7 @@
      * @private
      */
     function _init() {
+      _setStatus(window.navigator.onLine);
       _attachScopeEvent();
       _attachDomEvent();
     }
@@ -58,8 +57,8 @@
      * @private
      */
     function _attachDomEvent() {
-      $(window).on("offline", _.bind(setStatus, this, false));
-      $(window).on("online", _.bind(setStatus, this, true));
+      $(window).on("offline", _.bind(_setStatus, this, false));
+      $(window).on("online", _.bind(_setStatus, this, true));
     }
 
     /**
@@ -89,8 +88,9 @@
     /**
      * 커넥션 상태를 설정한다.
      * @param {boolean} isConnected 네트워크 연결상태
+     * @private
      */
-    function setStatus(isConnected) {
+    function _setStatus(isConnected) {
       var currentStatus = _isConnected;
       _isConnected = isConnected;
       if (currentStatus !== isConnected) {
@@ -105,10 +105,10 @@
      */
     function _broadcast(isConnected) {
       if (isConnected) {
-        jndPubSub.pub('connected');
+        jndPubSub.pub('NetInterceptor:connect');
         $('.content-wrapper').removeClass('offline')
       } else {
-        jndPubSub.pub('disconnected');
+        jndPubSub.pub('NetInterceptor:disconnect');
         $('.content-wrapper').addClass('offline');
       }
     }
@@ -119,10 +119,8 @@
      * @returns {Promise}
      */
     function responseError(rejection) {
-      setStatus(window.navigator.onLine);
-
+      _setStatus(window.navigator.onLine);
       _setResponseErrorStatus(rejection.status);
-
       return $q.reject(rejection);
     }
 

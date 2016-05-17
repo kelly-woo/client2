@@ -224,7 +224,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeListeners() {
     //viewContent load 시 이벤트 핸들러 바인딩
-    $scope.$on('connected', _onConnected);
+    $scope.$on('NetInterceptor:connect', _onConnected);
     $scope.$on('NetInterceptor:onGatewayTimeoutError', _refreshView);
     $scope.$on('Auth:refreshTokenSuccess', _refreshView);
     
