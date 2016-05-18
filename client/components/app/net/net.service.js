@@ -18,6 +18,12 @@
    */
   /* @ngInject */
   function NetInterceptor($rootScope, $q, $timeout, jndPubSub) {
+    /**
+     * Network 연결 상태 변경사항 감지 시 설정할 delay time
+     * @type {number}
+     */
+    var TIMEOUT_THRESHOLD = 2000;
+    
     var _isConnected = true;
     var _timer;
     /**
@@ -72,7 +78,7 @@
         // 크롬 브라우저에서 'ERR_NETWORK_IO_SUSPENDED'가 발생하여 정상적인 xhr이 수행되지 않으므로 timeout을 사용한다.
         setTimeout(function() {
           jndPubSub.pub('NetInterceptor:onGatewayTimeoutError');
-        }, 1000);
+        }, TIMEOUT_THRESHOLD);
       }
       _clearResponseErrorStatus();
     }
@@ -91,10 +97,10 @@
      * @private
      */
     function _setStatus(isConnected) {
-      //Linux 의 경우 연결이 정상적으로 이루어졌을 경우, 즉시 request 를 수행하면 ERR_NAME_RESOLUTION_FAILED 오류가 발생하므로,
-      //500ms 의 timeout 을 설정한다.
+      //Linux 의 경우 연결이 정상적으로 이루어졌을 경우, 즉시 request 를 수행하면 ERR_NAME_RESOLUTION_FAILED 등의 오류가 발생하므로
+      //timeout 을 사용한다.
       $timeout.cancel(_timer);
-      _timer = $timeout(_.bind(_applyStatus, this, isConnected), 500);
+      _timer = $timeout(_.bind(_applyStatus, this, isConnected), TIMEOUT_THRESHOLD);
     }
 
     /**
