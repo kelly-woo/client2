@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.dialog')
+    .module('jandi.ui.component.dialog')
     .service('Dialog', Dialog);
 
   /* @ngInject */
@@ -131,7 +131,7 @@
       return {
         scope: $rootScope.$new(true),
         controller: 'ModalCtrl',
-        templateUrl: 'components/jandi/ui/dialog/modal/modal.html',
+        templateUrl: 'components/jandi/ui/component/dialog/modal/modal.html',
         windowClass: options.windowClass || 'center-dialog-modal',
         backdrop: options.backdrop || 'static',
         resolve: {

@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.intercom', [
+    .module('jandi.ui.component.intercom', [
       'jandi.config'
     ])
     .config(config)

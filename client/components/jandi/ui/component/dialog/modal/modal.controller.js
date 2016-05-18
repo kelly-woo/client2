@@ -6,7 +6,7 @@
 
   // FILE UPLOAD controller
   angular
-    .module('jandi.ui.dialog')
+    .module('jandi.ui.component.dialog')
     .controller('ModalCtrl', ModalCtrl);
 
   /* @ngInject */

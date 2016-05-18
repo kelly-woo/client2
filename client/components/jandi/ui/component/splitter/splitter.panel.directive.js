@@ -5,7 +5,7 @@
   'use strict';
   
   angular
-    .module('jandi.ui.splitter')
+    .module('jandi.ui.component.splitter')
     .directive('splitterPanel', splitterPanel);
   
   function splitterPanel() {

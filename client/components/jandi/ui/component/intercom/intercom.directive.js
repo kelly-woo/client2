@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.intercom')
+    .module('jandi.ui.component.intercom')
     .directive('intercom', intercom);
 
   function intercom($window, configuration) {

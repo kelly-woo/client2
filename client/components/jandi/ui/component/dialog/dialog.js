@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.dialog', [
+    .module('jandi.ui.component.dialog', [
       'ui.bootstrap',
       'toastr'
     ])
@@ -25,7 +25,7 @@
         error: 'c-toast-error'
       },
       templates: {
-        toast: 'components/jandi/ui/dialog/toast/toast.html'
+        toast: 'components/jandi/ui/component/dialog/toast/toast.html'
       },
       closeHtml: '<i class="icon-delete"></i>',
       timeOut: '5000'

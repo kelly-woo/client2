@@ -8,7 +8,7 @@
   'use strict';
 
   angular
-    .module('jandi.ui.pdfViewer', [])
+    .module('jandi.ui.component.pdfViewer', [])
     .config(config)
     .run(run);
 

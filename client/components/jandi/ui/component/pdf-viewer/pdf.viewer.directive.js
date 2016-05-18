@@ -8,14 +8,14 @@
   'use strict';
 
   angular
-    .module('jandi.ui.pdfViewer')
+    .module('jandi.ui.component.pdfViewer')
     .directive('pdfViewer', pdfViewer);
 
   function pdfViewer($timeout, JndUtil, PdfViewer) {
     return {
       restrict: 'AE',
       replace: true,
-      templateUrl : 'components/jandi/ui/pdf-viewer/pdf.viewer.html',
+      templateUrl : 'components/jandi/ui/component/pdf-viewer/pdf.viewer.html',
       link: link
     };
 

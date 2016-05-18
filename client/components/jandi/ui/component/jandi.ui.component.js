@@ -6,9 +6,12 @@
   'use strict';
 
   angular
-    .module('jandi.ui', [
-      'jandi.ui.component',
-      'jandi.ui.util'
+    .module('jandi.ui.component', [
+      'jandi.ui.component.intercom',
+      'jandi.ui.component.dialog',
+      'jandi.ui.component.profileImage',
+      'jandi.ui.component.pdfViewer',
+      'jandi.ui.component.splitter'
     ])
     .run(run)
     .config(config);
