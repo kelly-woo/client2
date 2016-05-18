@@ -117,7 +117,7 @@
 
     /**
      * mention 삭제함
-     * @param {object} mention
+     * @param {object} mentionId
      * @private
      */
     function _removeMention(mentionId) {
@@ -180,7 +180,7 @@
 
       $scope.records = [];
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
-      $scope.searchStatus = _getSearchStatus();
+      _setStatus();
     }
 
     /**
@@ -193,8 +193,7 @@
 
         $scope.isEmpty = false;
         $scope.isLoading = true;
-        $scope.searchStatus = _getSearchStatus();
-
+        _setStatus();
         _getMentionList();
       }
     }
@@ -215,10 +214,10 @@
 
           _setStatus();
         })
-        .error(JndUtil.salertUnknownError)
+        .error(JndUtil.alertUnknownError)
         .finally(function() {
           $scope.isLoading = $scope.isScrollLoading = false;
-          $scope.searchStatus = _getSearchStatus();
+          _setStatus();
         });
     }
 
@@ -229,12 +228,12 @@
     function _setStatus() {
       $scope.isInitDone = true;
       $scope.isEmpty = !$scope.records.length;
-
+      $scope.searchStatus = _getSearchStatus();
     }
 
     /**
      * mention의 list를 설정
-     * @param {object} records
+     * @param {object} mentions
      * @param {boolean} [isPush] - true가 아니면 unshift 함
      * @private
      */
@@ -250,6 +249,7 @@
           $scope.records[fn](mention);
         }
       });
+      _setStatus();
     }
 
     /**
