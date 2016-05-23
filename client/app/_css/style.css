@@ -1,0 +1,40 @@
+/* CSS Document */
+@charset "utf-8";
+
+.float-l { float:left !important; }
+.float-r { float:right !important; }
+
+.align-l { text-align:left !important; }
+.align-r { text-align:right !important; }
+.align-c { text-align:center !important; }
+
+.valign-t { vertical-align:top !important;}
+.valign-m { vertical-align:middle !important;}
+.valign-b { vertical-align:bottom !important;}
+
+.display-b{ display:block; }
+.display-i{ display:inline-block; }
+.display-i-b{ display:inline-block}
+
+.f-w-b{ font-weight:bold !important; }
+.f-w-n{ font-weight:normal !important; }
+
+.f-c-f{ color:#fff !important; }
+.f-c-0{ color:#000 !important; }
+.f-c-3{ color:#333 !important; }
+.f-c-6{ color:#666 !important; }
+.f-c-main{ color:#333 !important; }
+.f-c-sub{ color:#337ab7 !important; }
+
+.f-s-14{ font-size:14px !important; }
+.f-s-15{ font-size:15px !important; }
+.f-s-16{ font-size:16px !important; }
+.f-s-17{ font-size:17px !important; }
+.f-s-18{ font-size:18px !important; }
+.f-s-19{ font-size:19px !important; }
+
+
+/**** 차후 수정해야할 곳 app/right/loading/loading.css ***/
+.search-result-container .search-result-summary{height:44px;}
+.search-result-container .search-result-summary-ing{height:44px;}
+.rpanel-body{line-height:14px;}

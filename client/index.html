@@ -38,6 +38,10 @@
   <!-- build:css({.tmp,client}) app/app.css -->
   <link rel="stylesheet" href="app/app.css">
   <!-- injector:css -->
+  <link rel="stylesheet" href="app/_css/common.css">
+  <link rel="stylesheet" href="app/_css/old.css">
+  <link rel="stylesheet" href="app/_css/reset.css">
+  <link rel="stylesheet" href="app/_css/style.css">
   <link rel="stylesheet" href="app/app.css">
   <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
   <link rel="stylesheet" href="app/center/announcement/announcement.css">
@@ -190,13 +194,13 @@
 <!--[if lte IE 9]>
   <script src="/landing/static/outdated/outdated.js"></script>
 <![endif]-->
-<div class="content-wrapper opac-in-fast">
+<div class="jnd-wrapper content-wrapper opac-in-fast">
   <loading-initial></loading-initial>
-  <div class="body-wrapper full-screen" jnd-file-drop ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
+  <div class="jnd-web-container body-wrapper full-screen" jnd-file-drop ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
     <!-- Add your site or application content here -->
-    <div class="hpanel non-selectable" ui-view="headerpanel"></div>
-    <div class="body full-screen" id="client-ui" ui-view=""></div>
-    <div class="rpanel non-selectable"
+    <div class="jnd-header hpanel non-selectable" ui-view="headerpanel"></div>
+    <div class="jnd-container body full-screen" id="client-ui" ui-view=""></div>
+    <div class="jnd-tools rpanel non-selectable"
          ng-class="{'shadow':isOpenRightPanel}"
          ng-show="isOpenRightPanel">
       <div class="files"

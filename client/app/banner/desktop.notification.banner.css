@@ -1,13 +1,11 @@
 .desktop-notification-setting-banner {
   height: 40px;
   line-height: 40px;
-
   position: relative;
-
-  color: white;
-
+  color: #fff;
   background-color: #F0A80B;
   z-index: 724;
+  overflow:hidden;
 }
 
 .exclamation-in-triangle {

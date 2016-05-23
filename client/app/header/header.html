@@ -1,210 +1,207 @@
-<div class="header">
+<div class="jnd-gnb">
+  <!-- gnb-->
+  <div class="gnb-menu-set">
+		<ul class="list">
+			<!-- TEAM -->
+			<li class="team" id="team-menu"
+					 dropdown
+					 dropdown-append-to-body
+					 is-open="dropdownIsOpen.team">
 
-  <!-- Navbar -->
-  <div class="header-navbar cursor_pointer">
+				<button type="button" class="tgg-menus"
+							ng-class="{
+								'active': dropdownIsOpen.team
+							}"
+							dropdown-toggle>
+					<i class="icon-reorder"></i>
+					<span class="menu-title" translate>@common-team</span>
+				</button>
 
-    <!-- TEAM -->
-    <div class="header-navbar-menu" id="team-menu"
-         dropdown
-         dropdown-append-to-body
-         is-open="dropdownIsOpen.team">
+				<ul class="dropdown-menu grey_dropdown gnb-menu-dropdown">
+					<!-- 팀원 보기 -->
+					<li class="" role="presentation">
+						<a data-ng-click="openModal('team-member');" role="menuitem" tabindex="-1">
+							<i class="icon-users"></i>
+							<span translate>@team-members</span>
+						</a>
+					</li>
 
-      <span class="header-navbar__topmenu"
-            ng-class="{
-              'active': dropdownIsOpen.team
-            }"
-            dropdown-toggle>
-        <i class="icon-reorder header-navbar__menu-icon"></i>
-        <span class="header-navbar__title" translate>@common-team</span>
-      </span>
+					<!-- 노티피케이션 -->
+					<li class="" role="presentation" ng-if="!isIe">
+						<a data-ng-click="openModal('setting-notifications');" role="menuitem" tabindex="-1">
+							<i class="icon-bell-fill"></i>
+							<span translate>@web-notification</span>
+						</a>
+					</li>
 
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
-        <!-- 팀원 보기 -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('team-member');" role="menuitem" tabindex="-1">
-            <i class="icon-users"></i>
-            <span translate>@team-members</span>
-          </a>
-        </li>
+					<li ng-if="isConnectActive"
+							class="" role="presentation">
+						<a data-ng-click="showConnect();" role="menuitem" tabindex="-1">
+							<i class="icon-connect-circle"></i>
+							<span translate>@jnd-connect-3</span>
+						</a>
+					</li>
+					<li class="divider"></li>
 
-        <!-- 노티피케이션 -->
-        <li class="" role="presentation" ng-if="!isIe">
-          <a data-ng-click="openModal('setting-notifications');" role="menuitem" tabindex="-1">
-            <i class="icon-bell-fill"></i>
-            <span translate>@web-notification</span>
-          </a>
-        </li>
+					<!-- 팀 변경 -->
+					<li role="presentation">
+						<a data-ng-click="openModal('team-change', $event);" role="menuitem" tabindex="-1">
+							<i class="icon-switch"></i>
+							<span translate>@team-switch</span>
+						</a>
+					</li>
 
-        <li ng-if="isConnectActive"
-            class="" role="presentation">
-          <a data-ng-click="showConnect();" role="menuitem" tabindex="-1">
-            <i class="icon-connect-circle"></i>
-            <span translate>@jnd-connect-3</span>
-          </a>
-        </li>
-        <li class="divider"></li>
+					<!-- 홈으로 -->
+					<li role="presentation">
+						<a data-ng-click="toTeam();" role="menuitem" tabindex="-1">
+							<i class="icon-accounthome"></i>
+							<span translate>@to-account-home</span>
+						</a>
+					</li>
 
-        <!-- 팀 변경 -->
-        <li role="presentation">
-          <a data-ng-click="openModal('team-change', $event);" role="menuitem" tabindex="-1">
-            <i class="icon-switch"></i>
-            <span translate>@team-switch</span>
-          </a>
-        </li>
+				</ul>
+			</li>  <!--  END OF MENU -->
 
-        <!-- 홈으로 -->
-        <li role="presentation">
-          <a data-ng-click="toTeam();" role="menuitem" tabindex="-1">
-            <i class="icon-accounthome"></i>
-            <span translate>@to-account-home</span>
-          </a>
-        </li>
+			<!-- INVITE -->
+			<li class="invite" id="invite">
+				<button type="button" class="tgg-menus" ng-click="openModal('invite');">
+					<i class="icon-user-plus"></i>
+					<span class="menu-title" translate>@btn-invite</span>
+				</button>
+			</li>  <!--  END OF MENU -->
 
-      </ul>
-    </div>  <!--  END OF MENU -->
+			<!-- Help -->
+			<li class="settings"
+					 dropdown
+					 dropdown-append-to-body
+					 is-open="dropdownIsOpen.help">
+				<div ng-if="!isCompleteTutorial" class="mark-dot blink"></div>
+				<button type="button" class="tgg-menus"
+							ng-class="{
+								'active': dropdownIsOpen.help
+							}"
+							dropdown-toggle>
+					<i class="icon-help"></i>
+					<i class="icon-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu grey_dropdown gnb-menu-dropdown" role="menu">
 
-    <div class="divider"></div>
+					<!-- 언어 설정 -->
+					<li role="presentation">
+						<div class="menu-item" role="menuitem" tabindex="-1">
+							<i class="icon-global"></i>
+							<span translate>@header-nav-language</span>
+							<i class="icon-angle-right sub-menu-arrow"></i>
 
-    <!-- INVITE -->
-    <div class="header-navbar-invite" id="invite">
-      <span class="header-navbar__topmenu" ng-click="openModal('invite');">
-        <i class="icon-user-plus header-navbar__menu-icon"></i>
-        <span class="header-navbar__title" translate>@btn-invite</span>
-      </span>
-    </div>  <!--  END OF MENU -->
+							<ul class="grey_dropdown sub-menu language-sub-menu">
+								<li role="presentation" ng-repeat="language in languageList">
+									<div class="menu-item" role="menuitem" tabindex="-1" ng-click="onLanguageClick(language.value)">
+										<img class="flag flag-{{language.value}}" src="assets/images/blank.gif">
+										<span> {{ language.text }}</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
 
-    <!-- Help -->
-    <div class="header-navbar-settings"
-         dropdown
-         dropdown-append-to-body
-         is-open="dropdownIsOpen.help">
-      <div ng-if="!isCompleteTutorial" class="dot blink"></div>
-      <span class="header-navbar__topmenu"
-            ng-class="{
-              'active': dropdownIsOpen.help
-            }"
-            dropdown-toggle>
-        <i class="icon-help"></i>
-        <i class="icon-angle-down"></i>
-      </span>
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+					<!-- 튜토리얼 보기 -->
+					<li role="presentation">
+						<a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
+							<i class="icon-help-fill"></i>
+							<span translate>@common-show-tutorial</span>
+							<div ng-if="!isCompleteTutorial" class="mark-dot blink"></div>
+						</a>
+					</li>
 
-        <!-- 언어 설정 -->
-        <li role="presentation">
-          <div class="menu-item" role="menuitem" tabindex="-1">
-            <i class="icon-global"></i>
-            <span translate>@header-nav-language</span>
-            <i class="icon-angle-right sub-menu-arrow"></i>
+					<!-- 단축키 보기 -->
+					<li class="shortcut-keys" role="presentation">
+						<a data-ng-click="openModal('shortcut');" role="menuitem" tabindex="-1">
+							<i class="fa fa-keyboard-o"></i>
+							<span class="shortcut-menu" translate>@shortcut-open-shortcut</span>
+							<span class="label-info">{{::ctrlKey}}+/</span>
+						</a>
+					</li>
 
-            <ul class="grey_dropdown sub-menu language-sub-menu">
-              <li role="presentation" ng-repeat="language in languageList">
-                <div class="menu-item" role="menuitem" tabindex="-1" ng-click="onLanguageClick(language.value)">
-                  <img class="flag flag-{{language.value}}" src="assets/images/blank.gif">
-                  <span> {{ language.text }}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </li>
+					<li class="divider"></li>
+					<!-- Zoom In/Out -->
+					<li ng-if="isZoomEnable" role="presentation">
+						<div class="menu-item" role="menuitem" tabindex="-1">
+							<i class="fa fa-font"></i>
+							<span translate>@common-text-size</span>
+							<i class="icon-angle-right sub-menu-arrow"></i>
 
-        <!-- 튜토리얼 보기 -->
-        <li role="presentation">
-          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
-            <i class="icon-help-fill"></i>
-            <span translate>@common-show-tutorial</span>
-            <div ng-if="!isCompleteTutorial" class="dot blink"></div>
-          </a>
-        </li>
+							<ul class="grey_dropdown sub-menu font-size-sub-menu">
+								<li role="presentation">
+									<a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
+										<span translate>@common-zoom-in</span>
+										<span class="shortcuts-label">{{::ctrlKey}}+(+)</span>
+									</a>
+								</li>
 
-        <!-- 단축키 보기 -->
-        <li class="open-shortcut" role="presentation">
-          <a data-ng-click="openModal('shortcut');" role="menuitem" tabindex="-1">
-            <i class="fa fa-keyboard-o"></i>
-            <span class="shortcut-menu" translate>@shortcut-open-shortcut</span>
-            <span class="shortcuts-label">{{::ctrlKey}}+/</span>
-          </a>
-        </li>
+								<li role="presentation">
+									<a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
+										<span translate>@common-zoom-out</span>
+										<span class="shortcuts-label">{{::ctrlKey}}+(-)</span>
+									</a>
+								</li>
 
-        <li class="divider"></li>
-        <!-- Zoom In/Out -->
-        <li ng-if="isZoomEnable" role="presentation">
-          <div class="menu-item" role="menuitem" tabindex="-1">
-            <i class="fa fa-font"></i>
-            <span translate>@common-text-size</span>
-            <i class="icon-angle-right sub-menu-arrow"></i>
+								<li role="presentation">
+									<a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomReset($event)">
+										<span translate>@common-zoom-reset</span>
+										<span class="shortcuts-label">{{::ctrlKey}}+0</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<!-- 이용 약관 -->
+					<li class="" role="presentation">
+						<a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+							<i class="icon-folder-fill"></i>
+							<span translate>@common-terms-of-service</span>
+						</a>
+					</li>
 
-            <ul class="grey_dropdown sub-menu font-size-sub-menu">
-              <li role="presentation">
-                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomIn($event)">
-                  <span translate>@common-zoom-in</span>
-                  <span class="shortcuts-label">{{::ctrlKey}}+(+)</span>
-                </a>
-              </li>
+					<!-- 개인정보취급방침 -->
+					<li class="" role="presentation">
+						<a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+							<i class="icon-lock"></i>
+							<span translate>@common-privacy-policy</span>
+						</a>
+					</li>
 
-              <li role="presentation">
-                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomOut($event)">
-                  <span translate>@common-zoom-out</span>
-                  <span class="shortcuts-label">{{::ctrlKey}}+(-)</span>
-                </a>
-              </li>
+					<li class="divider"></li>
 
-              <li role="presentation">
-                <a class="menu-item" role="menuitem" tabindex="-1" ng-click="zoomReset($event)">
-                  <span translate>@common-zoom-reset</span>
-                  <span class="shortcuts-label">{{::ctrlKey}}+0</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <!-- 이용 약관 -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-            <i class="icon-folder-fill"></i>
-            <span translate>@common-terms-of-service</span>
-          </a>
-        </li>
+					<!-- FAQ -->
+					<li role="presentation">
+						<a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
+							<i class="icon-info-fill"></i>
+							<span translate>@common-faq</span>
+						</a>
+					</li>
 
-        <!-- 개인정보취급방침 -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-            <i class="icon-lock"></i>
-            <span translate>@common-privacy-policy</span>
-          </a>
-        </li>
+					<!-- intercom -->
+					<li role="presentation">
+						<a role="menuitem" tabindex="-1" intercom intercom-member="intercomMember" intercom-language="intercomLanguage">
+							<i class="fa fa-comments-o"></i>
+							<span translate>@common-livesupport</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 
-        <li class="divider"></li>
-
-        <!-- FAQ -->
-        <li role="presentation">
-          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-            <i class="icon-info-fill"></i>
-            <span translate>@common-faq</span>
-          </a>
-        </li>
-
-        <!-- intercom -->
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" intercom intercom-member="intercomMember" intercom-language="intercomLanguage">
-            <i class="fa fa-comments-o"></i>
-            <span translate>@common-livesupport</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="header-navbar-quick-launcher">
-      <span class="quick-launcher" ng-click="openQuickLauncher()"
-            tooltip="{{::quickLauncherButtonTooltip}}" tooltip-placement="bottom"
-            translate>@header-nav-jump</span>
-    </div>
+			<li class="jump">
+				<button type="button" class="btn-jump" ng-click="openQuickLauncher()"
+							tooltip="{{::quickLauncherButtonTooltip}}" tooltip-placement="bottom"
+							translate>@header-nav-jump</button>
+			</li>
+		</ul>
     <jnd-version></jnd-version>
   </div>
-
-  <div class="info-tools header-toolbar pull-right">
-    <ul>
+  <div class="gnb-tool-set">
+    <ul class="list">
       <li>
-        <a class="info-tool file-tool" ng-class="{active: toolbar.files.isActive}" ng-click="openRightPanel('files')"
+        <button type="button" class="tgg-tools file" ng-class="{active: toolbar.files.isActive}" ng-click="openRightPanel('files')"
            tooltip="{{::'@shortcut-files' | translate}}" tooltip-placement="bottom"
            tutorial-tooltip="{{::'@tutorial-tooltip-4'|translate}}"
            tutorial-tooltip-placement="bottom"
@@ -212,28 +209,29 @@
            tutorial-tooltip-name="filetab"
            tutorial-tooltip-class="tutorial-tooltip-filetab">
           <i class="icon-file"></i>
-        </a>
+        </button>
       </li>
       <li>
-        <a class="info-tool message-tool" ng-class="{active: toolbar.messages.isActive}" ng-click="openRightPanel('messages')"
+        <button type="button" class="tgg-tools message" ng-class="{active: toolbar.messages.isActive}" ng-click="openRightPanel('messages')"
           tooltip="{{::'@shortcut-messages' | translate}}" tooltip-placement="bottom">
           <i class="icon-chat"></i>
-        </a>
+        </button>
       </li>
       <li>
-        <a class="info-tool star-tool" ng-class="{active: toolbar.stars.isActive}" ng-click="openRightPanel('stars')"
+        <button type="button" class="tgg-tools star" ng-class="{active: toolbar.stars.isActive}" ng-click="openRightPanel('stars')"
           tooltip="{{::'@shortcut-stars' | translate}}" tooltip-placement="bottom">
           <i class="icon-star-off"></i>
-        </a>
+        </button>
       </li>
       <li>
-        <a class="info-tool mention-tool" ng-class="{active: toolbar.mentions.isActive}" ng-click="openRightPanel('mentions');"
+        <button type="button" class="tgg-tools mention" ng-class="{active: toolbar.mentions.isActive}" ng-click="openRightPanel('mentions');"
            tooltip="{{::'@shortcut-mentions' | translate}}" tooltip-placement="bottom"
-           tooltip-class="tooltip-right-menu-mention">
+           tooltip-class="tooltip-tgg-tools-mention">
           <i class="icon-at"></i>
-        </a>
+        </button>
       </li>
     </ul>
-  </div>  <!-- END OF HEADER-TOOLBAR  -->
+  </div>
 </div>
+<!--gnb-->
 <span ng-if="false" translate>@common-message-search</span>

@@ -1,7 +1,7 @@
 .jnd-version {
   font-size:14px;
   vertical-align: bottom;
-  position: absolute;
+  padding-left:20px;
   left: 320px;
   font-style: italic;
   text-decoration: underline;
