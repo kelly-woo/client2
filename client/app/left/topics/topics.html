@@ -1,26 +1,27 @@
-<div>
+<div class="lnb-topic-wrap">
   <!--    HEADER  -->
-  <div class="lpanel-list__header topic-header cursor_pointer" ng-click="onTopicHeaderClick($event);"
+  <div class="lnb-list-head lpanel-list__header topic-header cursor_pointer" ng-click="onTopicHeaderClick($event);"
        ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}"
        tutorial-tooltip="{{::'@tutorial-tooltip-1'|translate}}"
        tutorial-tooltip-placement="bottom"
        tutorial-tooltip-name="topic"
        tutorial-tooltip-class="tutorial-tooltip-topic">
 
-    <i class="fa lpanel-collapse-arrow" ng-class="{'icon-arrow-up-fill': !leftListCollapseStatus.isTopicsCollapsed,
+    <i class="ico-arr" ng-class="{'icon-arrow-up-fill': !leftListCollapseStatus.isTopicsCollapsed,
                                                   'icon-arrow-down-fill': leftListCollapseStatus.isTopicsCollapsed}"></i>
 
-    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
+    <span class="lnb-list-title inline-overflow-ellipsis" translate>@common-topics</span>
 
+    <div class="lnb-list-opt">
+      <button class="btn-create" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
+           tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
+        <i class="icon-plus"></i>
+      </button>
 
-    <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
-         tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
-      <i class="icon-plus"></i>
-    </div>
-
-    <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
-         tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
-      <i class="icon-reorder"></i>
+      <button class="btn-list" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
+           tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
+        <i class="icon-reorder"></i>
+      </button>
     </div>
     <span class="left-header-badge">
       <badge content="totalAlarmCnt" group="header" key="'0'"></badge>
@@ -28,10 +29,9 @@
     <!--<div class="lpanel-list-option-cog pull-right" ng-click="createTopicFolder($event);">-->
       <!--<i class="fa fa-cog"></i>-->
     <!--</div>-->
-
   </div>
   <!-- TOPICS -->
-  <div class="lpanel-list__topics">
+  <div class="lnb-list-body lpanel-list__topics">
     <div id="topics-list">
       <div ng-repeat="folder in folderData.folderList">
         <topic-folder></topic-folder>

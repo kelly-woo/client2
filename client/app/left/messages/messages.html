@@ -1,14 +1,16 @@
-<div>
+<div class="lnb-msg-wrap">
   <!--    HEADER  -->
-  <div class="lpanel-list__header cursor_pointer" ng-click="onMessageHeaderClick($event);"
+  <div class="lnb-list-head lpanel-list__header cursor_pointer" ng-click="onMessageHeaderClick($event);"
      ng-class="{'collapsed': isMessageListCollapsed}">
-    <i class="lpanel-collapse-arrow" ng-class="{'icon-arrow-up-fill': !isMessageListCollapsed,
+    <i class="ico-arr" ng-class="{'icon-arrow-up-fill': !isMessageListCollapsed,
                                                 'icon-arrow-down-fill': isMessageListCollapsed}"></i>
-    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
+    <span class="lnb-list-title inline-overflow-ellipsis" translate>@common-direct-messages</span>
 
-    <div class="lpanel-list-option pull-right" ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();"
-         tooltip="{{'@more-dm-list' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
-      <i class="icon-plus"></i>
+    <div class="lnb-list-opt">
+      <button ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();"
+           tooltip="{{'@more-dm-list' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+        <i class="icon-plus"></i>
+      </button>
     </div>
     <span class="left-header-badge">
       <badge content="totalAlarmCnt" group="header" key="'1'"></badge>

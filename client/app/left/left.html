@@ -4,7 +4,7 @@
             'z-index-top': isShowDummyLayout,
             'z-index-bottom': !isShowDummyLayout
            }">
-    <aside class="full-screen lpanel" ng-style="::{'width': leftPanelWidth}">
+    <aside class="jnd-lnb full-screen lpanel" ng-style="::{'width': leftPanelWidth}">
       <div class="lpanel-user lpanel-user__team">
         <div class="lpanel-user__team overflow-ellipsis">
         </div>
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <aside class="lpanel non-selectable opac-zero"
+  <aside class="lnb lpanel non-selectable opac-zero"
          ng-class="{'opac-in': !isShowDummyLayout,
                     'scroll_blue': !browser.platform.isMac}"
          splitter-panel
@@ -33,14 +33,13 @@
     <current-user></current-user>
 
     <!-- LIST CONTAINER -->
-    <div class="lpanel-list" id="lpanel-list-container">
+    <div class="lnb-list-set lpanel-list" id="lpanel-list-container">
 
       <!-- TOPICS -->
       <topics></topics>
       <!-- DIRECT MESSAGES    -->
-      <div class="lpanel-list__users">
-        <messages></messages>
-      </div>
+      <messages></messages>
+
     </div>
     <!--<div ng-if="unread.above.length" class="lpanel-list-help-unread above">-->
       <!--<button type="button" class="btn btn-danger" ng-click="goUnreadAbove($event);"><span translate>@common-new-message</span> <i class="fa fa-angle-double-down"></i></button>-->

@@ -1,32 +1,28 @@
-<div class="lpanel-user" dropdown>
+<div class="lnb-user-set">
   <left-team-switch team="team"></left-team-switch>
+  <div class="lnb-user"  dropdown dropdown-toggle>
+       <i class="icon-cog ico-setting" ></i>
 
-  <div class="lpanel-user__user" dropdown-toggle>
-    <i class="icon-cog user-setting-icon" ></i>
+      <img class="lnb-user-pic opac-zero" on-image-load ng-src="{{image}}">
 
-    <img class="lpanel-user__avatar opac-zero" on-image-load ng-src="{{image}}">
-
-    <div class="lpanel-user__container">
-      <span class="lpanel-user__name inline-overflow-ellipsis private-effect" ng-bind="name"></span>
-      <br>
-      <span class="lpanel-user__position inline-overflow-ellipsis private-effect" ng-bind="position"></span>
+      <div class="lnb-user-info">
+        <span class="user-name overflow-ellipsis private-effect" ng-bind="name"></span>
+        <span class="user-desc overflow-ellipsis private-effect" ng-bind="position"></span>
+      </div>
+      <ul class="dropdown-menu grey_dropdown user-setting" role="menu">
+        <li class="" role="presentation">
+          <a ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
+            <i class="icon-pencil-fill"></i>
+            <span translate>@common-profile-settings</span>
+          </a>
+        </li>
+        <!-- 로그아웃 -->
+        <li class="" role="presentation">
+          <a ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
+            <i class="icon-sign-out-fill"></i>
+            <span translate>@common-sign-out</span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
-
-  <ul class="dropdown-menu grey_dropdown" role="menu" id="current-user-dropdown">
-    <li class="" role="presentation">
-      <a ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
-        <i class="icon-pencil-fill"></i>
-        <span translate>@common-profile-settings</span>
-      </a>
-    </li>
-
-    <!-- 로그아웃 -->
-    <li class="" role="presentation">
-      <a ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
-        <i class="icon-sign-out-fill"></i>
-        <span translate>@common-sign-out</span>
-      </a>
-    </li>
-  </ul>
 </div>

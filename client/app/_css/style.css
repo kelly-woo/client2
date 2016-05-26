@@ -33,6 +33,31 @@
 .f-s-18{ font-size:18px !important; }
 .f-s-19{ font-size:19px !important; }
 
+/*opaccity*/
+.opac-10{ opacity:1  }
+.opac-9{ opacity:0.9 }
+.opac-8{ opacity:0.8 }
+.opac-7{ opacity:0.7 }
+.opac-6{ opacity:0.6 }
+.opac-5{ opacity:0.5 }
+.opac-4{ opacity:0.4 }
+.opac-3{ opacity:0.3 }
+.opac-2{ opacity:0.2 }
+.opac-1{ opacity:0.1 }
+.opac-0{ opacity:0 }
+.opac-h-10:hover{ opacity:1 }
+.opac-h-9:hover{ opacity:0.9 }
+.opac-h-8:hover{ opacity:0.8 }
+.opac-h-7:hover{ opacity:0.7 }
+.opac-h-6:hover{ opacity:0.6 }
+.opac-h-5:hover{ opacity:0.5 }
+.opac-h-4:hover{ opacity:0.4 }
+.opac-h-3:hover{ opacity:0.3 }
+.opac-h-2:hover{ opacity:0.2 }
+.opac-h-1:hover{ opacity:0.1 }
+.opac-h-0:hover{ opacity:0 }
+
+.ellipsis{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
 
 /**** 차후 수정해야할 곳 app/right/loading/loading.css ***/
 .search-result-container .search-result-summary{height:44px;}

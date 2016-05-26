@@ -16,12 +16,12 @@
 
 /* common elements */
 .hidden{ padding:0 !important; position:absolute !important; width:1px !important; height:1px !important; display:block !important; overflow:hidden !important; }
-.txt-hidden{ color:tansparent !important; overflow:hidden !important; text-indent:-999px !important; }
+.txt-hidden{ color:transparent !important; overflow:hidden !important; text-indent:-999px !important; }
 
 /* label-design -type */
 .label-info { padding:2px 5px; background-color:rgba(15,60,85,0.085); color:rgba(14,60,85,0.3); border-radius:3px; margin-left:10px; font-size:13px; font-weight:600; }
 /* mark -icon */
-.mark-dot{position: absolute; width:10px; height:10px; background-color:#e63939; border-radius:100%; }
+.mark-dot{position: absolute; width:10px; height:10px; background-color:#e63939; border-radius:100%; display:inline-block; }
 
 /*html { min-width: 960px; }*/
 

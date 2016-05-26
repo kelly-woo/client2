@@ -1,24 +1,23 @@
-<div class="team-switch-container" ng-class="{'jnd-cursor-pointer': hasOtherTeam}" dropdown is-open="isOpen">
-  <div class="dropdown dropdown-toggle lpanel-user__team overflow-ellipsis" dropdown-toggle>
-    <span class="team-name private-effect white">{{team|getName}}</span>
-    <div class="team-switch-button" ng-show="hasOtherTeam" tabindex="0">
+<div class="lnb-team" ng-class="{'jnd-cursor-pointer': hasOtherTeam}" dropdown is-open="isOpen">
+  <div class="dropdown dropdown-toggle lnb-team-active ellipsis" dropdown-toggle>
+    <span class="team-name">{{team|getName}}</span>
       <!-- icon-->
-      <i class="team-switch icon-switch"
-         tooltip="{{::'@team-switch' | translate}}"
-         tooltip-placement="bottom" 
-         tooltip-append-to-body="true"></i>
-      <div class="dot" ng-class="{'blink': hasBlink}" ng-show="hasBadge"></div>
-    </div>
+    <i class="icon-switch" ng-show="hasOtherTeam" tabindex="0"
+       tooltip="{{::'@team-switch' | translate}}"
+       tooltip-placement="bottom"
+       tooltip-append-to-body="true">
+      <span class="mark-dot" ng-class="{'blink': hasBlink}" ng-show="hasBadge"></span>
+    </i>
   </div>
   <!-- team list -->
-  <ul class="dropdown-menu team-list _list" dropdown-menu ng-show="hasOtherTeam">
+  <ul class="dropdown-menu lnb-team-list" dropdown-menu ng-show="hasOtherTeam">
     <li class="team-item"
         ng-class="{active: isActive($index)}"
         ng-mouseenter="setActive($index)"
         ng-click="go(team)"
         ng-repeat="team in teamList track by team.teamId">
-      <span class="team-name overflow-ellipsis">{{team.name}}</span>
-      <span class="team-badge badge red_badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
+      <span class="name ellipsis">{{team.name}}</span>
+      <span class="badge red_badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
     </li>
   </ul>
 </div>
