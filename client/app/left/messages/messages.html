@@ -1,24 +1,25 @@
-<div class="lnb-msg-wrap">
+<div class="lnb-dm-wrap">
   <!--    HEADER  -->
   <div class="lnb-list-head lpanel-list__header cursor_pointer" ng-click="onMessageHeaderClick($event);"
      ng-class="{'collapsed': isMessageListCollapsed}">
-    <i class="ico-arr" ng-class="{'icon-arrow-up-fill': !isMessageListCollapsed,
-                                                'icon-arrow-down-fill': isMessageListCollapsed}"></i>
-    <span class="lnb-list-title inline-overflow-ellipsis" translate>@common-direct-messages</span>
-
+    <h3 class="lnb-list-title ellipsis">
+      <i class="ico-arr fn-10" ng-class="{'icon-arrow-up-fill': !isMessageListCollapsed,
+                                                  'icon-arrow-down-fill': isMessageListCollapsed}"></i>
+      <span translate>@common-direct-messages</span>
+    </h3>
     <div class="lnb-list-opt">
       <button ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();"
            tooltip="{{'@more-dm-list' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
         <i class="icon-plus"></i>
       </button>
     </div>
-    <span class="left-header-badge">
-      <badge content="totalAlarmCnt" group="header" key="'1'"></badge>
+    <span class="lnb-unread-count">
+        <badge content="totalAlarmCnt" group="header" key="'1'"></badge>
     </span>
   </div>
 
   <!--    LIST    -->
-  <ul id="dm-list">
+  <div id="dm-list" class="lnb-list-body dm-list-box">
     <!--    WHEN THERE IS NO ONE IN MESSAGE LIST    -->
     <div class="empty-message-list-container cursor_pointer" ng-if="messageList.length == 0"
          ng-click="openModal('memberList');">
@@ -29,7 +30,7 @@
     </div>
 
     <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
-    <div ng-if="messageList.length > 0">
+    <ul class="list" ng-if="messageList.length > 0">
       <li class="member cursor_pointer"
           ng-repeat="userEntity in messageList track by userEntity.id"
           ng-class="{'active': entityId == userEntity.id,
@@ -51,8 +52,8 @@
           </span>
         </a>
       </li>
-    </div>
-  </ul>
+    </ul>
+  </div>
 
   <div class="clear-both"></div>
   <div ng-if="false" translate>@common-conversation-leave-confirm</div>

@@ -2,6 +2,7 @@
 @charset "utf-8";
 
 /* not sure if it is used or not */
+/**gnb**/
 .header-navbar__signup.btn {
     float:right;
     min-height:40px;
@@ -17,4 +18,69 @@
 .unjoined-status-label{ padding:2px 5px; background-color:rgba(15,60,85,0.085); color:rgba(14,60,85,0.3); border-radius:3px; margin-left:10px; font-size:13px; font-weight:600; }
 .header-navbar__signup.btn:hover {
     background-color: #173e54;
+}
+/**lnb**/
+.lpanel-team {
+  font-size:18px;
+  font-weight:900;
+  padding-left:30px;
+  color:white;
+  width:220px;
+  height:40px;
+  line-height:40px;
+  cursor:pointer;
+  position:relative;
+}
+.lpanel-team__name {
+  max-width:170px;
+}
+.lpanel-team__more {
+  position:absolute;
+  top:23px;
+  right:20px;
+  font-size:1rem;
+}
+.lpanel-team__more:hover {
+  color:white;
+}
+.dummy_initial_wrap {
+    position:absolute;
+    text-align:center;
+    width:100%;
+    top:50%;
+    margin-top:-30px;
+}
+
+.dummy_initial_text {
+    position:absolute;
+    left:50%;
+    margin-left:-38px;
+    margin-top:-12px;
+    width:200px;
+    text-align:left;
+}
+
+.dummy_initial_text h3 {
+    color:#d1d1d1;
+    font-size:20px;
+    /*color:#000000;*/
+    /*font-size:30px;*/
+}
+
+.custom-select-box__menulist a,
+.custom-select-box__search-result a {
+  border:1px solid transparent;
+  color:#666;
+  line-height:inherit;
+  height:inherit;
+  display:block;
+  -webkit-border-radius:0;
+  -moz-border-radius: 0;
+  border-radius:0;
+  -moz-background-clip:padding-box;
+  -webkit-background-clip:padding-box;
+  background-clip:padding-box;
+  text-decoration:none !important;
+  position:relative;
+  padding-right:8px;
 }

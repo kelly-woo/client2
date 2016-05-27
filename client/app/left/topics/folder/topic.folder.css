@@ -45,7 +45,7 @@
   -moz-transition: background 0.2s, border 0.2s;
   -ms-transition: background 0.2s, border 0.2s;
   -o-transition: background 0.2s, border 0.2s;
-  transition: background 0.2s, border 0.2s;	
+  transition: background 0.2s, border 0.2s;
 }
 
 .topic-folder.has-folder .topic-folder-area ul li {
@@ -60,16 +60,7 @@
 	color:#737373;
 }
 
-.topic-folder.hover {
-  /*background-color:#f2fbff;*/
-  background-color:#ECF3F7 !important;
-  border-top: 1px solid #C4DAEF !important;
-  border-bottom:1px solid #C4DAEF !important;
-}
-.lpanel-list .topic-folder.hover ul li:hover {
-	background-color:transparent;
-	
-}
+
 .topic-folder-border {
   top: -3px;
   z-index: 501;

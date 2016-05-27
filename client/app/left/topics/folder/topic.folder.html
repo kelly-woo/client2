@@ -1,26 +1,19 @@
-<div class="topic-folder"
-     ng-class="{
-     'has-folder': folder.id !== -1,
+<div class="folder-box" ng-class="{'wrapped': folder.id !== -1, 'unwrapped': folder.id === -1,
      'open': isExpand
      }">
-  <div class="topic-folder-border _border">
-    <!--upper line-->
-  </div>
-  <!--folder 에 포함되지 않은 영역일 때, 순서 변경 시 border 로 사용될 영역-->
-  <div ng-if="::folder.id === -1" class="topic-folder-border" topic-folder-draggable="folder">
-  </div>
+<!--border-delete-->
 
-  <!-- 모든 토픽이 foldering 되어 있을 경우, folder 에서 제거하기 위한 여백 공간 -->
   <div ng-if="hasEmptyArea" style="height: 12px;">
+    <!--모든 토픽이 폴더에 들어갔을 때 폴더 외부 영역을 남겨두기 위해-->
   </div>
 
   <div ng-if="!hasEmptyArea"
-       ng-class="{'topic-folder-area': folder.id !== -1}">
+       ng-class="{'folder-list-box': folder.id !== -1}">
     <!--folder title-->
-    <div ng-if="::folder.id !== -1" class="topic-folder-title cursor_pointer"
+    <div ng-if="::folder.id !== -1" class="folder-list-title topic-folder-title cursor_pointer"
          topic-folder-draggable="folder"
          ng-click="collapse()">
-      <span class="topic-folder-area-icon">
+      <span class="ico-folder fn-12">
         <i class="fa "
            ng-class="{
                 'fa-folder-open-o': isOpen,
@@ -53,7 +46,7 @@
     </div>
 
     <!-- 토픽 리스트 -->
-    <ul ng-if="folder.entityList.length"
+    <ul class="folder-box-list" ng-if="folder.entityList.length"
         ng-style="{
       'display': isExpand ? 'block' : 'none'
     }">

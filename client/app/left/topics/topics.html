@@ -7,36 +7,36 @@
        tutorial-tooltip-name="topic"
        tutorial-tooltip-class="tutorial-tooltip-topic">
 
-    <i class="ico-arr" ng-class="{'icon-arrow-up-fill': !leftListCollapseStatus.isTopicsCollapsed,
-                                                  'icon-arrow-down-fill': leftListCollapseStatus.isTopicsCollapsed}"></i>
-
-    <span class="lnb-list-title inline-overflow-ellipsis" translate>@common-topics</span>
-
+    <h3 class="lnb-list-title ellipsis">
+     <i class="ico-arr fn-10" ng-class="{'icon-arrow-up-fill': !leftListCollapseStatus.isTopicsCollapsed,
+                                                 'icon-arrow-down-fill': leftListCollapseStatus.isTopicsCollapsed}"></i>
+      <span translate>@common-topics</span>
+    </h3>
     <div class="lnb-list-opt">
-      <button class="btn-create" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
+      <button type="button" class="btn-create" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
            tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
-        <i class="icon-plus"></i>
+        <i class="icon-plus fn-13"></i>
       </button>
 
-      <button class="btn-list" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
+      <button type="button" class="btn-list" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
            tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="top" tooltip-append-to-body="true">
-        <i class="icon-reorder"></i>
+        <i class="icon-reorder fn-13"></i>
       </button>
+      <!--<button type="button" ng-click="createTopicFolder($event);">
+      <i class="fa fa-cog fn-13"></i>
+      </button>-->
     </div>
-    <span class="left-header-badge">
-      <badge content="totalAlarmCnt" group="header" key="'0'"></badge>
-    </span>
-    <!--<div class="lpanel-list-option-cog pull-right" ng-click="createTopicFolder($event);">-->
-      <!--<i class="fa fa-cog"></i>-->
-    <!--</div>-->
+    <span class="lnb-badge-box lnb-unread-count">
+        <badge content="totalAlarmCnt" group="header" key="'0'"></badge>
+      </span>
   </div>
   <!-- TOPICS -->
-  <div class="lnb-list-body lpanel-list__topics">
-    <div id="topics-list">
-      <div ng-repeat="folder in folderData.folderList">
-        <topic-folder></topic-folder>
-      </div>
-    </div>
+  <div class="lnb-list-body">
+    <ul class="topic-folder-list lpanel-list__topics" id="topic_list">
+       <li ng-repeat="folder in folderData.folderList">
+          <topic-folder></topic-folder>
+        </li>
+     </ul>
   </div>
   <div ng-if="false">
     <span translate>@folder-item-already-exists</span>

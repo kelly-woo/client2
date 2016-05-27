@@ -82,7 +82,7 @@
      * message header 클릭 이벤트
      */
     function onMessageHeaderClick(clickEvent) {
-      var jqBadge = $(clickEvent.target).find('.left-header-badge');
+      var jqBadge = $(clickEvent.target).find('.lnb-unread-count');
       if ($('#dm-list').css('display') === 'none') {
         jqBadge.hide();
       }

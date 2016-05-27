@@ -17,7 +17,7 @@
         ng-click="go(team)"
         ng-repeat="team in teamList track by team.teamId">
       <span class="name ellipsis">{{team.name}}</span>
-      <span class="badge red_badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
+      <span class="unread-count-badge" ng-if="team.unread">{{team.unread|unreadBadgeCount}}</span>
     </li>
   </ul>
 </div>

@@ -55,7 +55,7 @@
        * @private
        */
       function _onMouseOverHeader() {
-        var jqBadge = el.find('.left-header-badge');
+        var jqBadge = el.find('.lnb-unread-count');
         jqBadge.addClass('hide');
         _setButtonDisplayStatus();
       }
@@ -65,7 +65,7 @@
        * @private
        */
       function _onMouseOutHeader() {
-        var jqBadge = el.find('.left-header-badge');
+        var jqBadge = el.find('.lnb-unread-count');
         jqBadge.removeClass('hide');
         _setButtonDisplayStatus();
       }
@@ -75,8 +75,8 @@
        * @private
        */
       function _setButtonDisplayStatus() {
-        var jqBadge = el.find('.left-header-badge');
-        var jqOptionBtn = el.find('.lpanel-list-option');
+        var jqBadge = el.find('.lnb-unread-count');
+        var jqOptionBtn = el.find('.lnb-list-opt');
         if (jqBadge.css('display') === 'none' || !jqBadge.find('span').length) {
           jqOptionBtn.css('display', 'block');
         } else {

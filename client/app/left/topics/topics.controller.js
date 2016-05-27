@@ -17,7 +17,7 @@
 
     function _init() {
       if ($scope.leftListCollapseStatus.isTopicsCollapsed) {
-        $('#topics-list').css('display', 'none');
+        $('#topics_list').css('display', 'none');
       }
       $scope.$on('topic-folder:update', _setTotalAlarmCnt);
       $scope.$on('updateBadgePosition', _setTotalAlarmCnt);
@@ -37,17 +37,18 @@
      * topic header 클릭시 이벤트 핸들러
      */
     function onTopicHeaderClick(clickEvent) {
-      var jqBadge = $(clickEvent.target).find('.left-header-badge');
-      if ($('#topics-list').css('display') === 'none') {
+      var jqBadge = $(clickEvent.target).find('.lnb-unread-count');
+      var $topic_list=$('#topic_list');
+      if ($topic_list.css('display') === 'none') {
         jqBadge.hide();
       }
 
-      $('#topics-list').stop().slideToggle({
+      $topic_list.stop().slideToggle({
         always: function() {
           JndUtil.safeApply($scope, function() {
-            $('#topics-list').css('height', '');
+            $topic_list.css('height', '');
             jqBadge.show();
-            $scope.leftListCollapseStatus.isTopicsCollapsed = ($('#topics-list').css('display') === 'none');
+            $scope.leftListCollapseStatus.isTopicsCollapsed = ($topic_list.css('display') === 'none');
             _setTotalAlarmCnt();
             jndPubSub.updateBadgePosition();
           });

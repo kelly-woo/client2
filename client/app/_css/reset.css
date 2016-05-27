@@ -22,7 +22,7 @@ table{width:100%;table-layout:fixed}
 table a:hover{text-decoration:underline;color:#0186d5}
 a, label {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 
-button{border:none;padding:0px 0px 0.15em;cursor:pointer;background-color:transparent;}
+button{border:none;padding:0px 0px;cursor:pointer;background-color:transparent;}
 button:focus{border:none;outline:0}
 fieldset{border:none; }
 /******* form *********/

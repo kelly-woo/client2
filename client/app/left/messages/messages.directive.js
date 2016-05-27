@@ -32,11 +32,11 @@
       }
 
       function _onMouseOverHeader() {
-        el.find('.left-header-badge').addClass('hide');
+        el.find('.lnb-unread-count').addClass('hide');
       }
 
       function _onMouseOutHeader() {
-        el.find('.left-header-badge').removeClass('hide');
+        el.find('.lnb-unread-count').removeClass('hide');
       }
 
     }
